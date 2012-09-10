@@ -1,0 +1,68 @@
+<?php
+// (c)2012 Rackspace Hosting
+// See COPYING for licensing information
+
+require_once('stub_conn.inc');
+require_once('servermetadata.inc');
+require_once('compute.inc');
+
+class ServerMetadataTest extends PHPUnit_Framework_TestCase
+{
+	private
+		$server,
+		$metadata;
+	public function __construct() {
+		$conn = new StubConnection('http://example.com', 'SECRET');
+		$compute = new OpenCloud\Compute(
+			$conn,
+			'cloudServersOpenStack',
+			'DFW',
+			'publicURL'
+		);
+		$this->server = new OpenCloud\Compute\Server($compute, 'Identifier');
+		$this->metadata = new OpenCloud\Compute\ServerMetadata($this->server);
+	}
+	/**
+	 * Tests
+	 */
+	public function test___construct() {
+		$this->assertEquals('OpenCloud\Compute\ServerMetadata',
+			get_class($this->metadata));
+		// now test individual property
+		$met = $this->server->metadata('foobar');
+		$met->foobar = 'BAZ';
+		$this->assertEquals('BAZ', $met->foobar);
+	}
+	public function testUrl() {
+		$this->assertEquals(
+			'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata',
+			$this->metadata->Url());
+		$m2 = new OpenCloud\Compute\ServerMetadata($this->server, 'property');
+		$this->assertEquals(
+			'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property',
+			$m2->Url());
+	}
+	/**
+	 * @expectedException OpenCloud\Compute\MetadataKeyError
+	 */
+	public function test___set() {
+		$this->metadata->property = 'value';
+		$this->assertEquals('value', $this->metadata->property);
+		$m2 = new OpenCloud\Compute\ServerMetadata($this->server, 'property');
+		$m2->foo = 'bar'; // should cause exception
+		$this->assertEquals(NULL, $m2->foo);
+	}
+	public function testCreate() {
+		$this->metadata->foo = 'bar';
+		$this->metadata->Create();
+		$this->assertEquals('bar', $this->metadata->foo);
+	}
+	public function testUpdate() {
+		$this->metadata->foo = 'baz';
+		$this->metadata->Update();
+		$this->assertEquals('baz', $this->metadata->foo);
+	}
+	public function testDelete() {
+		$this->metadata->Delete();
+	}
+}

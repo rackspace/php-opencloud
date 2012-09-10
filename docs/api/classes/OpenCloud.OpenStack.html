@@ -1,0 +1,888 @@
+<!DOCTYPE html><html xmlns:date="http://exslt.org/dates-and-times" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \OpenCloud\OpenStack</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Namespaces</a></li>
+<li><a href="../namespaces/OpenCloud.html"><i class="icon-th"></i> OpenCloud</a></li>
+<li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">315</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">0</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods</li>
+<li class="method public "><a href="#AppendUserAgent" title="AppendUserAgent :: Allows the user to append a user agent string"><span class="description">Allows the user to append a user agent string</span><pre>AppendUserAgent()</pre></a></li>
+<li class="method public "><a href="#Authenticate" title="Authenticate :: Authenticates using the supplied credentials"><span class="description">Authenticates using the supplied credentials</span><pre>Authenticate()</pre></a></li>
+<li class="method public inherited"><a href="#CheckJsonError" title="CheckJsonError :: check the most recent JSON operation for errors"><span class="description">check the most recent JSON operation for errors</span><pre>CheckJsonError()</pre></a></li>
+<li class="method public "><a href="#Compute" title="Compute :: Creates a new Compute object (Nova/Cloud Servers)"><span class="description">Creates a new Compute object (Nova/Cloud Servers)</span><pre>Compute()</pre></a></li>
+<li class="method public "><a href="#Credentials" title="Credentials :: Creates and returns the formatted credentials to POST to the auth
+service."><span class="description">Creates and returns the formatted credentials to POST to the auth
+service.</span><pre>Credentials()</pre></a></li>
+<li class="method public inherited"><a href="#MakeQueryString" title="MakeQueryString :: converts an array of key/value pairs into a single query string"><span class="description">converts an array of key/value pairs into a single query string</span><pre>MakeQueryString()</pre></a></li>
+<li class="method public "><a href="#ObjectStore" title="ObjectStore :: Creates a new ObjectStore object (Swift/Cloud Files)"><span class="description">Creates a new ObjectStore object (Swift/Cloud Files)</span><pre>ObjectStore()</pre></a></li>
+<li class="method public "><a href="#Request" title="Request :: Performs a single HTTP request"><span class="description">Performs a single HTTP request</span><pre>Request()</pre></a></li>
+<li class="method public "><a href="#Secret" title="Secret :: Returns the stored secret"><span class="description">Returns the stored secret</span><pre>Secret()</pre></a></li>
+<li class="method public "><a href="#ServiceCatalog" title="ServiceCatalog :: returns the service catalog object from the auth service"><span class="description">returns the service catalog object from the auth service</span><pre>ServiceCatalog()</pre></a></li>
+<li class="method public "><a href="#SetDefaults" title="SetDefaults :: Sets default values for name, region, URL type for a service"><span class="description">Sets default values for name, region, URL type for a service</span><pre>SetDefaults()</pre></a></li>
+<li class="method public "><a href="#SetDownloadProgressCallback" title="SetDownloadProgressCallback :: Allows the user to define a function for for tracking downloads"><span class="description">Allows the user to define a function for for tracking downloads</span><pre>SetDownloadProgressCallback()</pre></a></li>
+<li class="method public inherited"><a href="#SetProperty" title="SetProperty :: Sets an extended (unrecognized) property on the current object"><span class="description">Sets an extended (unrecognized) property on the current object</span><pre>SetProperty()</pre></a></li>
+<li class="method public "><a href="#SetTimeouts" title="SetTimeouts :: Sets the timeouts for the current connection"><span class="description">Sets the timeouts for the current connection</span><pre>SetTimeouts()</pre></a></li>
+<li class="method public "><a href="#SetUploadProgressCallback" title="SetUploadProgressCallback :: Allows the user to define a function for for tracking uploads"><span class="description">Allows the user to define a function for for tracking uploads</span><pre>SetUploadProgressCallback()</pre></a></li>
+<li class="method public "><a href="#Tenant" title="Tenant :: returns the tenant ID, re-authenticating if necessary"><span class="description">returns the tenant ID, re-authenticating if necessary</span><pre>Tenant()</pre></a></li>
+<li class="method public "><a href="#Token" title="Token :: Returns the cached token; if it has expired, then it re-auths"><span class="description">Returns the cached token; if it has expired, then it re-auths</span><pre>Token()</pre></a></li>
+<li class="method public "><a href="#Url" title="Url :: returns the URL of this object"><span class="description">returns the URL of this object</span><pre>Url()</pre></a></li>
+<li class="method public "><a href="#__construct" title="__construct :: Creates a new OpenStack object"><span class="description">Creates a new OpenStack object</span><pre>__construct()</pre></a></li>
+<li class="method public inherited"><a href="#__set" title="__set :: Sets extended attributes on an object and validates them"><span class="description">Sets extended attributes on an object and validates them</span><pre>__set()</pre></a></li>
+<li class="method public "><a href="#_read_cb" title="_read_cb :: Callback function to handle reads for file uploads"><span class="description">Callback function to handle reads for file uploads</span><pre>_read_cb()</pre></a></li>
+<li class="method public "><a href="#_write_cb" title="_write_cb :: Callback function to handle writes for file downloads"><span class="description">Callback function to handle writes for file downloads</span><pre>_write_cb()</pre></a></li>
+<li class="method public inherited"><a href="#debug" title="debug :: Displays a debug message if RAXSDK_DEBUG is TRUE."><span class="description">Displays a debug message if RAXSDK_DEBUG is TRUE.</span><pre>debug()</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="method protected inherited"><a href="#GetHttpRequestObject" title="GetHttpRequestObject :: returns a class that implements the HttpRequest interface."><span class="description">returns a class that implements the HttpRequest interface.</span><pre>GetHttpRequestObject()</pre></a></li>
+<li class="method protected "><a href="#Service" title="Service :: Generic Service factory method"><span class="description">Generic Service factory method</span><pre>Service()</pre></a></li>
+<li class="nav-header private">» Private</li>
+<li class="method private inherited"><a href="#CheckAttributePrefix" title="CheckAttributePrefix :: Checks the attribute $name and only permits it if the prefix is
+in the specified $prefix array"><span class="description">Checks the attribute $name and only permits it if the prefix is
+in the specified $prefix array</span><pre>CheckAttributePrefix()</pre></a></li>
+<li class="method private inherited"><a href="#to_string" title="to_string :: converts a value to a HTTP-displayable string form"><span class="description">converts a value to a HTTP-displayable string form</span><pre>to_string()</pre></a></li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties</li>
+<li class="property public "><a href="#%24useragent" title="$useragent :: "><span class="description">$useragent</span><pre>$useragent</pre></a></li>
+<li class="nav-header protected">» Protected</li>
+<li class="property protected "><a href="#%24ServiceCatalog" title="$ServiceCatalog :: "><span class="description">$ServiceCatalog</span><pre>$ServiceCatalog</pre></a></li>
+<li class="property protected "><a href="#%24connect_timeout" title="$connect_timeout :: "><span class="description">$connect_timeout</span><pre>$connect_timeout</pre></a></li>
+<li class="property protected "><a href="#%24defaults" title="$defaults :: "><span class="description">$defaults</span><pre>$defaults</pre></a></li>
+<li class="property protected "><a href="#%24expiration" title="$expiration :: "><span class="description">$expiration</span><pre>$expiration</pre></a></li>
+<li class="property protected "><a href="#%24http_timeout" title="$http_timeout :: "><span class="description">$http_timeout</span><pre>$http_timeout</pre></a></li>
+<li class="property protected "><a href="#%24overlimit_timeout" title="$overlimit_timeout :: "><span class="description">$overlimit_timeout</span><pre>$overlimit_timeout</pre></a></li>
+<li class="property protected "><a href="#%24secret" title="$secret :: "><span class="description">$secret</span><pre>$secret</pre></a></li>
+<li class="property protected "><a href="#%24tenant" title="$tenant :: "><span class="description">$tenant</span><pre>$tenant</pre></a></li>
+<li class="property protected "><a href="#%24token" title="$token :: "><span class="description">$token</span><pre>$token</pre></a></li>
+<li class="property protected "><a href="#%24url" title="$url :: "><span class="description">$url</span><pre>$url</pre></a></li>
+<li class="nav-header private">» Private</li>
+<li class="property private inherited"><a href="#%24_errors" title="$_errors :: "><span class="description">$_errors</span><pre>$_errors</pre></a></li>
+<li class="property private "><a href="#%24_file_descriptors" title="$_file_descriptors :: "><span class="description">$_file_descriptors</span><pre>$_file_descriptors</pre></a></li>
+<li class="property private "><a href="#%24_user_read_progress_callback_func" title="$_user_read_progress_callback_func :: "><span class="description">$_user_read_progress_callback_func</span><pre>$_user_read_progress_callback_func</pre></a></li>
+<li class="property private "><a href="#%24_user_write_progress_callback_func" title="$_user_write_progress_callback_func :: "><span class="description">$_user_write_progress_callback_func</span><pre>$_user_write_progress_callback_func</pre></a></li>
+<li class="property private inherited"><a href="#%24http_headers" title="$http_headers :: "><span class="description">$http_headers</span><pre>$http_headers</pre></a></li>
+<li class="property private "><a href="#%24template" title="$template :: "><span class="description">$template</span><pre>$template</pre></a></li>
+</ul>
+</div>
+<div class="span8">
+<a name="%5COpenCloud%5COpenStack" id="\OpenCloud\OpenStack"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/OpenCloud.html">OpenCloud</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/OpenCloud.OpenStack.html">OpenStack</a>
+</li>
+</ul>
+<div href="../classes/OpenCloud.OpenStack.html" class="element class">
+<p class="short_description">The OpenStack class represents a relationship between a user and a service</p>
+<div class="details">
+<p class="long_description"><p>This is the primary entry point into an OpenStack system, and the only one
+where the developer is required to know and provide the endpoint URL (in
+all other cases, the endpoint is derived from the Service Catalog provided
+by the authentication system.</p>
+
+<p>Since various providers have different mechanisms for authentication, users
+will often use a subclass of OpenStack. For example, the Rackspace
+class is provided for users of Rackspace's cloud services, and other cloud
+providers are welcome to add their own subclasses as well.</p>
+
+<p>General usage example:</p>
+
+<pre><code> $username = 'My Username';
+ $secret = 'My Secret';
+ $connection = new OpenCloud\OpenStack($username, $secret);
+ // having established the connection, we can set some defaults
+ // this sets the default name and region of the Compute service
+ $connection->SetDefaults('Compute', 'cloudServersOpenStack', 'ORD');
+ // access a Compute service
+ $chicago = $connection->Compute();
+ // if we want to access a different service, we can:
+ $dallas = $connection->Compute('cloudServersOpenStack', 'DFW');
+</code></pre></p>
+<table class="table table-bordered">
+<tr>
+<th>author</th>
+<td><a href="mailto:glen.campbell@rackspace.com">Glen Campbell</a></td>
+</tr>
+<tr>
+<th>version</th>
+<td>1.0</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a name="AppendUserAgent" id="AppendUserAgent"></a><div class="element clickable method public AppendUserAgent" data-toggle="collapse" data-target=".AppendUserAgent .collapse">
+<h2>Allows the user to append a user agent string</h2>
+<pre>AppendUserAgent(string $agent) : void</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Programs that are using these bindings are encouraged to add their
+user agent to the one supplied by this SDK. This will permit cloud
+providers to track users so that they can provide better service.</p></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$agent</h4>
+<code>string</code><p>an arbitrary user-agent string; e.g. "My Cloud App"</p>
+</div>
+</div></div>
+</div>
+<a name="Authenticate" id="Authenticate"></a><div class="element clickable method public Authenticate" data-toggle="collapse" data-target=".Authenticate .collapse">
+<h2>Authenticates using the supplied credentials</h2>
+<pre>Authenticate() : void</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/OpenCloud.AuthenticationError.html">\OpenCloud\AuthenticationError</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a name="CheckJsonError" id="CheckJsonError"></a><div class="element clickable method public CheckJsonError" data-toggle="collapse" data-target=".CheckJsonError .collapse">
+<h2>check the most recent JSON operation for errors</h2>
+<pre>CheckJsonError() : boolean</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This function should be called after any <code>json_*()</code> function call.
+This ensures that nasty JSON errors are detected and the proper
+exception thrown.</p>
+
+<p>Example:
+  <code>$obj = json_decode($string);</code>
+  <code>if (check_json_error()) do something ...</code></p></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::CheckJsonError()</td>
+</tr></table>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/OpenCloud.JsonError.html">\OpenCloud\JsonError</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>boolean</code>TRUE if an error occurred, FALSE if none</div>
+</div></div>
+</div>
+<a name="Compute" id="Compute"></a><div class="element clickable method public Compute" data-toggle="collapse" data-target=".Compute .collapse">
+<h2>Creates a new Compute object (Nova/Cloud Servers)</h2>
+<pre>Compute(string $name, string $region, string $urltype) : <a href="../classes/OpenCloud.ObjectStore.html">\OpenCloud\ObjectStore</a></pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>the name of the Compute service to attach to</p></div>
+<div class="subelement argument">
+<h4>$region</h4>
+<code>string</code><p>the name of the region to use</p></div>
+<div class="subelement argument">
+<h4>$urltype</h4>
+<code>string</code><p>the URL type (normally "publicURL")</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/OpenCloud.ObjectStore.html">\OpenCloud\ObjectStore</a></code></div>
+</div></div>
+</div>
+<a name="Credentials" id="Credentials"></a><div class="element clickable method public Credentials" data-toggle="collapse" data-target=".Credentials .collapse">
+<h2>Creates and returns the formatted credentials to POST to the auth
+service.</h2>
+<pre>Credentials() : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="MakeQueryString" id="MakeQueryString"></a><div class="element clickable method public MakeQueryString" data-toggle="collapse" data-target=".MakeQueryString .collapse">
+<h2>converts an array of key/value pairs into a single query string</h2>
+<pre>MakeQueryString(array $arr) : string</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'</p></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::MakeQueryString()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$arr</h4>
+<code>array</code><p>array of key/value pairs</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="ObjectStore" id="ObjectStore"></a><div class="element clickable method public ObjectStore" data-toggle="collapse" data-target=".ObjectStore .collapse">
+<h2>Creates a new ObjectStore object (Swift/Cloud Files)</h2>
+<pre>ObjectStore(string $name, string $region, string $urltype) : <a href="../classes/OpenCloud.ObjectStore.html">\OpenCloud\ObjectStore</a></pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>the name of the Object Storage service to attach to</p></div>
+<div class="subelement argument">
+<h4>$region</h4>
+<code>string</code><p>the name of the region to use</p></div>
+<div class="subelement argument">
+<h4>$urltype</h4>
+<code>string</code><p>the URL type (normally "publicURL")</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="../classes/OpenCloud.ObjectStore.html">\OpenCloud\ObjectStore</a></code></div>
+</div></div>
+</div>
+<a name="Request" id="Request"></a><div class="element clickable method public Request" data-toggle="collapse" data-target=".Request .collapse">
+<h2>Performs a single HTTP request</h2>
+<pre>Request(string $url, string $method, array $headers, string $data) : <a href="../classes/OpenCloud.HttpResponse.html">\OpenCloud\HttpResponse</a></pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The request() method is one of the most frequently-used in the entire
+library. It performs an HTTP request using the specified URL, method,
+and with the supplied headers and body. It handles error and
+exceptions for the request.</p></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$url</h4>
+<code>string</code><p>url - the URL of the request</p>
+</div>
+<div class="subelement argument">
+<h4>$method</h4>
+<code>string</code><p>method - the HTTP method (defaults to GET)</p>
+</div>
+<div class="subelement argument">
+<h4>$headers</h4>
+<code>array</code><p>headers - an associative array of headers</p>
+</div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>string</code><p>data - either a string or a resource (file pointer) to use as the request body (for PUT or POST)</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code>\OpenCloud\HttpOverLimitError,</code></th>
+<td>HttpUnauthorizedError, HttpForbiddenError</td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/OpenCloud.HttpResponse.html">\OpenCloud\HttpResponse</a></code>object</div>
+</div></div>
+</div>
+<a name="Secret" id="Secret"></a><div class="element clickable method public Secret" data-toggle="collapse" data-target=".Secret .collapse">
+<h2>Returns the stored secret</h2>
+<pre>Secret() : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code>array</code></div>
+</div></div>
+</div>
+<a name="ServiceCatalog" id="ServiceCatalog"></a><div class="element clickable method public ServiceCatalog" data-toggle="collapse" data-target=".ServiceCatalog .collapse">
+<h2>returns the service catalog object from the auth service</h2>
+<pre>ServiceCatalog() : <a href="http://php.net/manual/en/class.stdclass.php">\stdClass</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<h3>Returns</h3>
+<div class="subelement response"><code><a href="http://php.net/manual/en/class.stdclass.php">\stdClass</a></code></div>
+</div></div>
+</div>
+<a name="SetDefaults" id="SetDefaults"></a><div class="element clickable method public SetDefaults" data-toggle="collapse" data-target=".SetDefaults .collapse">
+<h2>Sets default values for name, region, URL type for a service</h2>
+<pre>SetDefaults(string $service, string $name, string $region, string $urltype) : void</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Once these are set (and they can also be set by defining global
+constants), then you do not need to specify these values when
+creating new service objects.</p></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$service</h4>
+<code>string</code><p>the name of a supported service; e.g. 'Compute'</p>
+</div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>the service name; e.g., 'cloudServersOpenStack'</p>
+</div>
+<div class="subelement argument">
+<h4>$region</h4>
+<code>string</code><p>the region name; e.g., 'LON'</p>
+</div>
+<div class="subelement argument">
+<h4>$urltype</h4>
+<code>string</code><p>the type of URL to use; e.g., 'internalURL'</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/OpenCloud.UnrecognizedServiceError.html">\OpenCloud\UnrecognizedServiceError</a></code></th>
+<td></td>
+</tr></table>
+</div></div>
+</div>
+<a name="SetDownloadProgressCallback" id="SetDownloadProgressCallback"></a><div class="element clickable method public SetDownloadProgressCallback" data-toggle="collapse" data-target=".SetDownloadProgressCallback .collapse">
+<h2>Allows the user to define a function for for tracking downloads</h2>
+<pre>SetDownloadProgressCallback(\OpenCloud\callable $callback) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This can be used to implement a progress bar or similar function. The
+callback function is called with a single parameter, the length of the
+data that is being downloaded on this call.</p></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$callback</h4>
+<code>\OpenCloud\callable</code><p>the name of a global callback function, or an array($object, $functionname)</p>
+</div>
+</div></div>
+</div>
+<a name="SetProperty" id="SetProperty"></a><div class="element clickable method public SetProperty" data-toggle="collapse" data-target=".SetProperty .collapse">
+<h2>Sets an extended (unrecognized) property on the current object</h2>
+<pre>SetProperty(string $property, mixed $value, array $prefixes) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>If RAXSDK_STRICT_PROPERTY_CHECKS is TRUE, then the prefix of the
+property name must appear in the $prefixes array, or else an
+exception is thrown.</p></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::SetProperty()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$property</h4>
+<code>string</code><p>the property name</p></div>
+<div class="subelement argument">
+<h4>$value</h4>
+<code>mixed</code><p>the value of the property</p></div>
+<div class="subelement argument">
+<h4>$prefixes</h4>
+<code>array</code><p>optional list of supported prefixes</p></div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/OpenCloud.AttributeError.html">\OpenCloud\AttributeError</a></code></th>
+<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
+</tr></table>
+</div></div>
+</div>
+<a name="SetTimeouts" id="SetTimeouts"></a><div class="element clickable method public SetTimeouts" data-toggle="collapse" data-target=".SetTimeouts .collapse">
+<h2>Sets the timeouts for the current connection</h2>
+<pre>SetTimeouts(integer $t_http, integer $t_conn, integer $t_overlimit) : void</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$t_http</h4>
+<code>integer</code><p>the HTTP timeout value (the max period that the OpenStack object will wait for any HTTP request to complete). Value is in seconds.</p>
+</div>
+<div class="subelement argument">
+<h4>$t_conn</h4>
+<code>integer</code><p>the Connect timeout value (the max period that the OpenStack object will wait to establish an HTTP connection). Value is in seconds.</p>
+</div>
+<div class="subelement argument">
+<h4>$t_overlimit</h4>
+<code>integer</code><p>the overlimit timeout value (the max period that the OpenStack object will wait to retry on an overlimit condition). Value is in seconds.</p>
+</div>
+</div></div>
+</div>
+<a name="SetUploadProgressCallback" id="SetUploadProgressCallback"></a><div class="element clickable method public SetUploadProgressCallback" data-toggle="collapse" data-target=".SetUploadProgressCallback .collapse">
+<h2>Allows the user to define a function for for tracking uploads</h2>
+<pre>SetUploadProgressCallback(\OpenCloud\callable $callback) : void</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This can be used to implement a progress bar or similar function. The
+callback function is called with a single parameter, the length of the
+data that is being uploaded on this call.</p></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$callback</h4>
+<code>\OpenCloud\callable</code><p>the name of a global callback function, or an array($object, $functionname)</p>
+</div>
+</div></div>
+</div>
+<a name="Tenant" id="Tenant"></a><div class="element clickable method public Tenant" data-toggle="collapse" data-target=".Tenant .collapse">
+<h2>returns the tenant ID, re-authenticating if necessary</h2>
+<pre>Tenant() : string</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Token" id="Token"></a><div class="element clickable method public Token" data-toggle="collapse" data-target=".Token .collapse">
+<h2>Returns the cached token; if it has expired, then it re-auths</h2>
+<pre>Token() : string</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="Url" id="Url"></a><div class="element clickable method public Url" data-toggle="collapse" data-target=".Url .collapse">
+<h2>returns the URL of this object</h2>
+<pre>Url() : string</pre>
+<div class="labels"><span class="label label-info">API</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The assumption is that nearly all objects will have a URL; at this
+base level, it simply throws an exception to enforce the idea that
+subclasses need to define this method.</p></p>
+<table class="table table-bordered"><tr>
+<th>api</th>
+<td></td>
+</tr></table>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/OpenCloud.UrlError.html">\OpenCloud\UrlError</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response"><code>string</code></div>
+</div></div>
+</div>
+<a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
+<h2>Creates a new OpenStack object</h2>
+<pre>__construct(string $url, array $secret) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The OpenStack object needs two bits of information: the URL to
+authenticate against, and a "secret", which is an associative array
+of name/value pairs. Usually, the secret will be a username and a
+password, but other values may be required by different authentication
+systems. For example, OpenStack Keystone requires a username and
+password, but Rackspace uses a username, tenant ID, and API key.
+(See OpenCloud\Rackspace for that.)</p></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$url</h4>
+<code>string</code><ul>
+<li>the authentication endpoint URL</li>
+</ul>
+</div>
+<div class="subelement argument">
+<h4>$secret</h4>
+<code>array</code><ul>
+<li>an associative array of auth information</li>
+</ul>
+</div>
+</div></div>
+</div>
+<a name="__set" id="__set"></a><div class="element clickable method public __set" data-toggle="collapse" data-target=".__set .collapse">
+<h2>Sets extended attributes on an object and validates them</h2>
+<pre>__set($property, mixed $value) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This function is provided to ensure that attributes cannot
+arbitrarily added to an object. If this function is called, it
+means that the attribute is not defined on the object, and thus
+an exception is thrown.</p></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::__set()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$property</h4>
+<code></code>
+</div>
+<div class="subelement argument">
+<h4>$value</h4>
+<code>mixed</code><p>the value of the attribute</p></div>
+</div></div>
+</div>
+<a name="_read_cb" id="_read_cb"></a><div class="element clickable method public _read_cb" data-toggle="collapse" data-target="._read_cb .collapse">
+<h2>Callback function to handle reads for file uploads</h2>
+<pre>_read_cb(resource $ch, resource $fd, integer $length) : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Internal function for handling file uploads. Note that, although this
+function's visibility is public, this is only because it must be called
+from the HttpRequest interface. This should NOT be called by users
+directly.</p></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$ch</h4>
+<code>resource</code><p>a CURL handle</p></div>
+<div class="subelement argument">
+<h4>$fd</h4>
+<code>resource</code><p>a file descriptor</p></div>
+<div class="subelement argument">
+<h4>$length</h4>
+<code>integer</code><p>the amount of data to read</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>string</code>the data read</div>
+</div></div>
+</div>
+<a name="_write_cb" id="_write_cb"></a><div class="element clickable method public _write_cb" data-toggle="collapse" data-target="._write_cb .collapse">
+<h2>Callback function to handle writes for file downloads</h2>
+<pre>_write_cb(resource $ch, string $data) : integer</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Internal function for handling file downloads. Note that, although this
+function's visibility is public, this is only because it must be called
+via the HttpRequest interface. This should NOT be called by users
+directly.</p></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$ch</h4>
+<code>resource</code><p>a CURL handle</p></div>
+<div class="subelement argument">
+<h4>$data</h4>
+<code>string</code><p>the data to be written to a file</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>integer</code>the number of bytes written</div>
+</div></div>
+</div>
+<a name="debug" id="debug"></a><div class="element clickable method public debug" data-toggle="collapse" data-target=".debug .collapse">
+<h2>Displays a debug message if RAXSDK_DEBUG is TRUE.</h2>
+<pre>debug(string $msg, $p1, $p2, $p3, $p4, $p5) : void</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>The primary parameter is a string in sprintf() format, and it can accept
+up to five optional parameters. It prints the debug message, prefixed
+with "Debug:" and the class name, to the standard output device.</p>
+
+<p>Example:
+  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::debug()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$msg</h4>
+<code>string</code><p>The message string (required); can be in sprintf() format.</p>
+</div>
+<div class="subelement argument">
+<h4>$p1</h4>
+<code></code>
+</div>
+<div class="subelement argument">
+<h4>$p2</h4>
+<code></code>
+</div>
+<div class="subelement argument">
+<h4>$p3</h4>
+<code></code>
+</div>
+<div class="subelement argument">
+<h4>$p4</h4>
+<code></code>
+</div>
+<div class="subelement argument">
+<h4>$p5</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="GetHttpRequestObject" id="GetHttpRequestObject"></a><div class="element clickable method protected GetHttpRequestObject" data-toggle="collapse" data-target=".GetHttpRequestObject .collapse">
+<h2>returns a class that implements the HttpRequest interface.</h2>
+<pre>GetHttpRequestObject($url, $method) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>We can stub this out for unit testing and avoid making live calls.</p></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::GetHttpRequestObject()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$url</h4>
+<code></code>
+</div>
+<div class="subelement argument">
+<h4>$method</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<a name="Service" id="Service"></a><div class="element clickable method protected Service" data-toggle="collapse" data-target=".Service .collapse">
+<h2>Generic Service factory method</h2>
+<pre>Service(string $class, string $name, string $region, string $urltype) : <a href="../classes/OpenCloud.Service.html">\OpenCloud\Service</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>Contains code reused by the other service factory methods.</p></p>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$class</h4>
+<code>string</code><p>the name of the Service class to produce</p></div>
+<div class="subelement argument">
+<h4>$name</h4>
+<code>string</code><p>the name of the Compute service to attach to</p></div>
+<div class="subelement argument">
+<h4>$region</h4>
+<code>string</code><p>the name of the region to use</p></div>
+<div class="subelement argument">
+<h4>$urltype</h4>
+<code>string</code><p>the URL type (normally "publicURL")</p>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/OpenCloud.ServiceValueError.html">\OpenCloud\ServiceValueError</a></code></th>
+<td></td>
+</tr></table>
+<h3>Returns</h3>
+<div class="subelement response">
+<code><a href="../classes/OpenCloud.Service.html">\OpenCloud\Service</a></code>(or subclass such as Compute, ObjectStore)</div>
+</div></div>
+</div>
+<a name="CheckAttributePrefix" id="CheckAttributePrefix"></a><div class="element clickable method private CheckAttributePrefix" data-toggle="collapse" data-target=".CheckAttributePrefix .collapse">
+<h2>Checks the attribute $name and only permits it if the prefix is
+in the specified $prefix array</h2>
+<pre>CheckAttributePrefix(string $property, array $prefixes) : boolean</pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"><p>This is to support extension namespaces in some services.</p></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::CheckAttributePrefix()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$property</h4>
+<code>string</code><p>the name of the attribute</p></div>
+<div class="subelement argument">
+<h4>$prefixes</h4>
+<code>array</code><p>a list of prefixes</p></div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>boolean</code>TRUE if valid; FALSE if not</div>
+</div></div>
+</div>
+<a name="to_string" id="to_string"></a><div class="element clickable method private to_string" data-toggle="collapse" data-target=".to_string .collapse">
+<h2>converts a value to a HTTP-displayable string form</h2>
+<pre>to_string($x) </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::to_string()</td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$x</h4>
+<code></code>
+</div>
+</div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a name="%24useragent" id="$useragent"> </a><div class="element clickable property public $useragent" data-toggle="collapse" data-target=".$useragent .collapse">
+<h2>$useragent</h2>
+<pre>$useragent </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24ServiceCatalog" id="$ServiceCatalog"> </a><div class="element clickable property protected $ServiceCatalog" data-toggle="collapse" data-target=".$ServiceCatalog .collapse">
+<h2>$ServiceCatalog</h2>
+<pre>$ServiceCatalog </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24connect_timeout" id="$connect_timeout"> </a><div class="element clickable property protected $connect_timeout" data-toggle="collapse" data-target=".$connect_timeout .collapse">
+<h2>$connect_timeout</h2>
+<pre>$connect_timeout </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24defaults" id="$defaults"> </a><div class="element clickable property protected $defaults" data-toggle="collapse" data-target=".$defaults .collapse">
+<h2>$defaults</h2>
+<pre>$defaults </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24expiration" id="$expiration"> </a><div class="element clickable property protected $expiration" data-toggle="collapse" data-target=".$expiration .collapse">
+<h2>$expiration</h2>
+<pre>$expiration </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24http_timeout" id="$http_timeout"> </a><div class="element clickable property protected $http_timeout" data-toggle="collapse" data-target=".$http_timeout .collapse">
+<h2>$http_timeout</h2>
+<pre>$http_timeout </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24overlimit_timeout" id="$overlimit_timeout"> </a><div class="element clickable property protected $overlimit_timeout" data-toggle="collapse" data-target=".$overlimit_timeout .collapse">
+<h2>$overlimit_timeout</h2>
+<pre>$overlimit_timeout </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24secret" id="$secret"> </a><div class="element clickable property protected $secret" data-toggle="collapse" data-target=".$secret .collapse">
+<h2>$secret</h2>
+<pre>$secret </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24tenant" id="$tenant"> </a><div class="element clickable property protected $tenant" data-toggle="collapse" data-target=".$tenant .collapse">
+<h2>$tenant</h2>
+<pre>$tenant </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24token" id="$token"> </a><div class="element clickable property protected $token" data-toggle="collapse" data-target=".$token .collapse">
+<h2>$token</h2>
+<pre>$token </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24url" id="$url"> </a><div class="element clickable property protected $url" data-toggle="collapse" data-target=".$url .collapse">
+<h2>$url</h2>
+<pre>$url </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24_errors" id="$_errors"> </a><div class="element clickable property private $_errors" data-toggle="collapse" data-target=".$_errors .collapse">
+<h2>$_errors</h2>
+<pre>$_errors </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::$$_errors</td>
+</tr></table>
+</div></div>
+</div>
+<a name="%24_file_descriptors" id="$_file_descriptors"> </a><div class="element clickable property private $_file_descriptors" data-toggle="collapse" data-target=".$_file_descriptors .collapse">
+<h2>$_file_descriptors</h2>
+<pre>$_file_descriptors </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24_user_read_progress_callback_func" id="$_user_read_progress_callback_func"> </a><div class="element clickable property private $_user_read_progress_callback_func" data-toggle="collapse" data-target=".$_user_read_progress_callback_func .collapse">
+<h2>$_user_read_progress_callback_func</h2>
+<pre>$_user_read_progress_callback_func </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24_user_write_progress_callback_func" id="$_user_write_progress_callback_func"> </a><div class="element clickable property private $_user_write_progress_callback_func" data-toggle="collapse" data-target=".$_user_write_progress_callback_func .collapse">
+<h2>$_user_write_progress_callback_func</h2>
+<pre>$_user_write_progress_callback_func </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+<a name="%24http_headers" id="$http_headers"> </a><div class="element clickable property private $http_headers" data-toggle="collapse" data-target=".$http_headers .collapse">
+<h2>$http_headers</h2>
+<pre>$http_headers </pre>
+<div class="labels"><span class="label">Inherited</span></div>
+<div class="row collapse"><div class="detail-description">
+<p class="long_description"></p>
+<table class="table table-bordered"><tr>
+<th>inherited_from</th>
+<td>\OpenCloud\Base::$$http_headers</td>
+</tr></table>
+</div></div>
+</div>
+<a name="%24template" id="$template"> </a><div class="element clickable property private $template" data-toggle="collapse" data-target=".$template .collapse">
+<h2>$template</h2>
+<pre>$template </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a8</a> and<br>
+            generated on 2012-09-10T12:03:34-05:00.<br></footer></div>
+</div>
+</body>
+</html>
