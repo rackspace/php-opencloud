@@ -30,7 +30,7 @@ We are not able to test and validate every possible combination of PHP
 versions and supporting libraries, but here's our recommended minimum
 version list:
 
-* PHP 5.2
+* PHP 5.3
 * CURL extensions to PHP
 
 ### Installation
@@ -47,11 +47,11 @@ value.
 
 ### NOTE
 
-This version only supports OpenStack Nova (Rackspace Cloud Servers) and
-Swift (Rackspace Cloud Files). You will note that there is some support
-for Rackspace Cloud Databases included, but these extensions are not
-currently supported and are subject to change as they are still under
-active development.
+This version supports the following components:
+
+* OpenStack Nova (Rackspace Cloud Servers)
+* OpenStack Swift (Rackspace Cloud Files, which includes CDN extensions)
+* Rackspace Cloud Databases
 
 Authentication
 --------------
