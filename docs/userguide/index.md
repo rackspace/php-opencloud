@@ -101,7 +101,7 @@ it is a true open-source initiative. If you would like to add your cloud
 provider's support, feel free to submit your changes via our
 Github repository:
 
-https://github.com/rackspacedrg/raxsdk-php
+https://github.com/rackspace/php-opencloud
 
 Likewise, if you find any bugs or problems, please report them via the
 Github issue system.
