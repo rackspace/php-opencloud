@@ -84,9 +84,15 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 	        get_class($this->instance->Database('FOO')));
 	}
 	public function testUser() {
+	    // user with 2 databases
+	    $u = $this->instance->User('BAR',array('FOO','BAR'));
 	    $this->assertEquals(
 	        'OpenCloud\DbService\User',
-	        get_class($this->instance->User('BAR',array('FOO'))));
+	        get_class($u));
+	    // make sure it has 2 databases
+	    $this->assertEquals(
+	        2,
+	        count($u->databases));
 	}
 	public function testDatabaseList() {
 		$this->assertEquals(

@@ -33,6 +33,12 @@ class UserTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'OpenCloud\DbService\User',
 			get_class(new OpenCloud\DbService\User($this->inst)));
+		$u = new OpenCloud\DbService\User(
+		    $this->inst,
+		    'glen',
+		    array('one','two'));
+		$this->assertEquals('glen', $u->name);
+		$this->assertEquals(2, count($u->databases));
 	}
 	public function testUrl() {
 		$this->user->name = 'TEST';

@@ -242,9 +242,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 * @param string $name the user name
 	 */
 	public function User($name='', $databases=array()) {
-	    $u = new User($this, $name);
-	    $u->databases = $databases;
-	    return $u;
+	    return new User($this, $name, $databases);
 	}
 
 	/**
