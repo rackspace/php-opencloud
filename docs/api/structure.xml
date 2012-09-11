@@ -5382,25 +5382,17 @@ $conn = new Rackspace(
       <error line="0" code="50007">No page-level DocBlock was found in file rackspace.inc</error>
     </parse_markers>
   </file>
-  <file path="server.inc" hash="3b1883b8af72c0813e239dc5aadc3015" package="Default">
-    <include line="7" type="Require Once" package="Default">
+  <file path="server.inc" hash="5989f947e3e01333ad160d36973a9d2f" package="Default">
+    <include line="17" type="Require Once" package="Default">
       <name>novainstance.inc</name>
     </include>
-    <include line="8" type="Require Once" package="Default">
+    <include line="18" type="Require Once" package="Default">
       <name>metadata.inc</name>
     </include>
     <class final="false" abstract="false" namespace="OpenCloud\Compute" line="20" package="Default">
       <extends>\OpenCloud\Compute\NovaInstance</extends>
       <name>Server</name>
       <full_name>\OpenCloud\Compute\Server</full_name>
-      <docblock line="10">
-        <description><![CDATA[The Server class represents a single server node.]]></description>
-        <long-description><![CDATA[<p>A Server is always associated with a (Compute) Service. This implementation
-supports extension attributes OS-DCF:diskConfig, RAX-SERVER:bandwidth,
-rax-bandwidth:bandwith</p>]]></long-description>
-        <tag line="10" name="api" description=""/>
-        <tag line="10" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
-      </docblock>
       <property final="false" static="false" visibility="public" line="23" namespace="OpenCloud\Compute" package="Default">
         <name>$status</name>
         <default><![CDATA[]]></default>
@@ -5816,6 +5808,7 @@ with a server.</p>]]></long-description>
     </class>
     <parse_markers>
       <error line="0" code="50007">No page-level DocBlock was found in file server.inc</error>
+      <error line="20" code="50000">No DocBlock was found for \OpenCloud\Compute\Server</error>
       <error line="23" code="50018">No DocBlock was found for property $status</error>
       <error line="24" code="50018">No DocBlock was found for property $updated</error>
       <error line="25" code="50018">No DocBlock was found for property $hostId</error>
@@ -6493,26 +6486,25 @@ is not necessarily tied to an actual database.</p>]]></long-description>
       <error line="131" code="50015">Argument $params is missing from the Docblock of Update()</error>
     </parse_markers>
   </file>
-  <file path="userlist.inc" hash="65951387e64df5657d03c4b8e8c8dc5a" package="Default">
-    <include line="7" type="Require Once" package="Default">
+  <file path="userlist.inc" hash="62a966f15e33c8eb07b0cf9b02eda665" package="Default">
+    <include line="11" type="Require Once" package="Default">
       <name>collection.inc</name>
     </include>
-    <include line="8" type="Require Once" package="Default">
+    <include line="12" type="Require Once" package="Default">
       <name>user.inc</name>
     </include>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="15" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="17" package="Default">
       <extends>\OpenCloud\Collection</extends>
       <name>UserList</name>
       <full_name>\OpenCloud\DbService\UserList</full_name>
-      <docblock line="10">
-        <description><![CDATA[UserList is a Collection of Users]]></description>
+      <docblock line="14">
+        <description><![CDATA[a UserList is a Collection (q.v.) of Users (q.v.)]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="10" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
       </docblock>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="19" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="21" package="Default">
         <name>Next</name>
         <full_name>Next</full_name>
-        <docblock line="16">
+        <docblock line="18">
           <description><![CDATA[Retrieves the next instance in the list, uses factory to produce object]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>

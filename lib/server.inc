@@ -2,11 +2,6 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-namespace OpenCloud\Compute;
-
-require_once('novainstance.inc');
-require_once('metadata.inc');
-
 /**
  * The Server class represents a single server node.
  *
@@ -17,6 +12,11 @@ require_once('metadata.inc');
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
+namespace OpenCloud\Compute;
+
+require_once('novainstance.inc');
+require_once('metadata.inc');
+
 class Server extends \OpenCloud\Compute\NovaInstance {
 
 	public

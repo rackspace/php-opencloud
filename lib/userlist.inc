@@ -1,6 +1,10 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * (c)2012 Rackspace Hosting
+ * See COPYING for licensing information
+ *
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 namespace OpenCloud\DbService;
 
@@ -8,9 +12,7 @@ require_once('collection.inc');
 require_once('user.inc');
 
 /**
- * UserList is a Collection of Users
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * a UserList is a Collection (q.v.) of Users (q.v.)
  */
 class UserList extends \OpenCloud\Collection {
 	/**
