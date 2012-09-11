@@ -1,6 +1,13 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * Unit Tests
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 define('RAXSDK_FATAL_HALT', False);	// don't halt on Fatal errors
 require_once('base.inc');

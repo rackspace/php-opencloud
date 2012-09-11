@@ -1,6 +1,13 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * Unit Tests
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 require_once('containerlist.inc');
 require_once('stub_conn.inc');
@@ -11,7 +18,7 @@ class ContainerListTest extends PHPUnit_Framework_TestCase
 	private
 		$service,
 		$container;
-	
+
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
 		$this->service = new StubService(

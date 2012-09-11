@@ -1,6 +1,13 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * Unit Tests
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 require_once('http.inc');
 
@@ -64,7 +71,7 @@ class HttpResponseTest extends PHPUnit_Framework_TestCase
     	$req->ReturnHeaders();
     	$req->_get_header_cb(curl_init('http://example.com'), 'X-Status: Blame');
     	$this->response = new OpenCloud\HttpResponse(
-    		$req, 
+    		$req,
     		TESTDATA);
         $this->assertGreaterThan(0, count($this->response->Headers()));
     	$this->assertEquals('', $req->close());
