@@ -1,5 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -1362,6 +1361,7 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a style="font-style: italic;" href="#Container::CheckAttributePrefix()">CheckAttributePrefix</a>,
       <a style="font-style: italic;" href="#Container::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#Container::Create()">Create</a>,
+      <a style="font-style: italic;" href="#Container::CreateStaticSite()">CreateStaticSite</a>,
       <a style="font-style: italic;" href="#Container::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#Container::DisableCDN()">DisableCDN</a>,
       <a style="font-style: italic;" href="#Container::GetHttpRequestObject()">GetHttpRequestObject</a>,
@@ -1377,6 +1377,7 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a style="font-style: italic;" href="#Container::SSLURI()">SSLURI</a>,
       <a style="font-style: italic;" href="#Container::Service()">Service</a>,
       <a style="font-style: italic;" href="#Container::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#Container::StaticSiteErrorPage()">StaticSiteErrorPage</a>,
       <a style="font-style: italic;" href="#Container::StreamingURI()">StreamingURI</a>,
       <a style="font-style: italic;" href="#Container::Update()">Update</a>,
       <a style="font-style: italic;" href="#Container::Url()">Url</a>,
@@ -1701,6 +1702,63 @@ exception thrown.</p>
 <tr>
 <td>inherited_from</td>
 <td><a href="container.inc.html#%5COpenCloud%5CObjectStore%5CCDNContainer::Create()"><small>\OpenCloud\ObjectStore\CDNContainer::Create()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Container::CreateStaticSite()"></a><h3>CreateStaticSite<span class="nb-faded-text">(
+          string
+             
+            $index,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>Creates a static website from the container</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$index</td>
+<td style="white-space: normal;">string</td>
+<td><p>the index page (starting page) of the website</p>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>link</td>
+<td><a href="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html"><small>http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -2428,6 +2486,62 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="Container::StaticSiteErrorPage()"></a><h3>StaticSiteErrorPage<span class="nb-faded-text">(
+          string
+             
+            $name,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>Sets the error page(s) for the static website</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the error page</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>link</td>
+<td><a href="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html"><small>http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="Container::StreamingURI()"></a><h3>StreamingURI<span class="nb-faded-text">(
           
           )
@@ -3047,7 +3161,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -3221,6 +3335,7 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="container.inc.html#Container">Container</a><br><small>A regular container with a (potentially) CDN container</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerError">ContainerError</a><br><small></small></span></li>
 <li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>

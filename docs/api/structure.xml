@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project version="2.0.0a10" title="">
+<project version="2.0.0a8" title="">
   <file path="base.inc" hash="92dda6f80d2cdd13ddb390994c1ef8b9" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The root class for all other classes in this library]]></description>
@@ -661,7 +661,7 @@ an ImageList object directly.</p>]]></long-description>
       <error line="53" code="50014">Name of argument $urltype does not match with the DocBlock's name $serviceName in __construct()</error>
     </parse_markers>
   </file>
-  <file path="container.inc" hash="607f61c66eb0906cc6ad96f23a8e5dea" package="phpOpenCloud">
+  <file path="container.inc" hash="8f4ff005bb81763f00232f841d93111f" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Containers for OpenStack Object Storage (Swift) and Rackspace Cloud Files]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -934,93 +934,135 @@ its TTL expires.</p>]]></long-description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="371" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="376" package="Default">
+        <name>CreateStaticSite</name>
+        <full_name>CreateStaticSite</full_name>
+        <docblock line="368">
+          <description><![CDATA[Creates a static website from the container]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="368" name="api" description=""/>
+          <tag line="368" name="link" description="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html" link="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html"/>
+          <tag line="368" name="param" description="the index page (starting page) of the website" type="string" variable="$index">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="368" name="return" description="" type="\OpenCloud\HttpResponse">
+            <type by_reference="false">\OpenCloud\HttpResponse</type>
+          </tag>
+        </docblock>
+        <argument line="376">
+          <name>$index</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="397" package="Default">
+        <name>StaticSiteErrorPage</name>
+        <full_name>StaticSiteErrorPage</full_name>
+        <docblock line="389">
+          <description><![CDATA[Sets the error page(s) for the static website]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="389" name="api" description=""/>
+          <tag line="389" name="link" description="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html" link="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html"/>
+          <tag line="389" name="param" description="the name of the error page" type="string" variable="$name">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="389" name="return" description="" type="\OpenCloud\HttpResponse">
+            <type by_reference="false">\OpenCloud\HttpResponse</type>
+          </tag>
+        </docblock>
+        <argument line="397">
+          <name>$name</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="414" package="Default">
         <name>CDN</name>
         <full_name>CDN</full_name>
-        <docblock line="368">
+        <docblock line="411">
           <description><![CDATA[Returns the CDN service associated with this container.]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="388" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="431" package="Default">
         <name>CDNURL</name>
         <full_name>CDNURL</full_name>
-        <docblock line="378">
+        <docblock line="421">
           <description><![CDATA[Returns the CDN URL of the container (if enabled)]]></description>
           <long-description><![CDATA[<p>The CDNURL() is used to manage the container. Note that it is different
 from the PublicURL() of the container, which is the publicly-accessible
 URL on the network.</p>]]></long-description>
-          <tag line="378" name="api" description=""/>
-          <tag line="378" name="return" description="" type="string">
+          <tag line="421" name="api" description=""/>
+          <tag line="421" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="396" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="439" package="Default">
         <name>PublicURL</name>
         <full_name>PublicURL</full_name>
-        <docblock line="392">
+        <docblock line="435">
           <description><![CDATA[Returns the Public URL of the container (on the CDN network)]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="406" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="449" package="Default">
         <name>CDNinfo</name>
         <full_name>CDNinfo</full_name>
-        <docblock line="400">
+        <docblock line="443">
           <description><![CDATA[Returns the CDN info about the container]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="400" name="api" description=""/>
-          <tag line="400" name="return" description="" type="\OpenCloud\ObjectStore\stdClass">
+          <tag line="443" name="api" description=""/>
+          <tag line="443" name="return" description="" type="\OpenCloud\ObjectStore\stdClass">
             <type by_reference="false">\OpenCloud\ObjectStore\stdClass</type>
           </tag>
         </docblock>
-        <argument line="406">
+        <argument line="449">
           <name>$prop</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="430" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="473" package="Default">
         <name>CDNURI</name>
         <full_name>CDNURI</full_name>
-        <docblock line="424">
+        <docblock line="467">
           <description><![CDATA[Returns the CDN container URI prefix]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="424" name="api" description=""/>
-          <tag line="424" name="return" description="" type="string">
+          <tag line="467" name="api" description=""/>
+          <tag line="467" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="440" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="483" package="Default">
         <name>SSLURI</name>
         <full_name>SSLURI</full_name>
-        <docblock line="434">
+        <docblock line="477">
           <description><![CDATA[Returns the SSL URI for the container]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="434" name="api" description=""/>
-          <tag line="434" name="return" description="" type="string">
+          <tag line="477" name="api" description=""/>
+          <tag line="477" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="450" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="493" package="Default">
         <name>StreamingURI</name>
         <full_name>StreamingURI</full_name>
-        <docblock line="444">
+        <docblock line="487">
           <description><![CDATA[Returns the streaming URI for the container]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="444" name="api" description=""/>
-          <tag line="444" name="return" description="" type="string">
+          <tag line="487" name="api" description=""/>
+          <tag line="487" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\ObjectStore" line="457" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\ObjectStore" line="500" package="Default">
         <name>Refresh</name>
         <full_name>Refresh</full_name>
-        <docblock line="454">
+        <docblock line="497">
           <description><![CDATA[Refresh, then associate the CDN container]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
@@ -1035,7 +1077,7 @@ URL on the network.</p>]]></long-description>
       <error line="32" code="50018">No DocBlock was found for property $_cdn</error>
       <error line="34" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $service in __construct()</error>
       <error line="307" code="50018">No DocBlock was found for property $_cdn</error>
-      <error line="400" code="50015">Argument $prop is missing from the Docblock of CDNinfo()</error>
+      <error line="443" code="50015">Argument $prop is missing from the Docblock of CDNinfo()</error>
     </parse_markers>
   </file>
   <file path="containerlist.inc" hash="4ab695c6b56f89b51d600aeb63c39215" package="phpOpenCloud">
@@ -1849,7 +1891,7 @@ because the /flavors/detail resource is not supported</p>]]></long-description>
       <error line="66" code="50015">Argument $params is missing from the Docblock of InstanceList()</error>
     </parse_markers>
   </file>
-  <file path="exceptions.inc" hash="31947bffbd9b03a0b2943e83f61bd947" package="phpOpenCloud">
+  <file path="exceptions.inc" hash="d761c0a51c1766588f6f234db34917bc" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The exceptions used by php-opencloud]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -2093,145 +2135,150 @@ because the /flavors/detail resource is not supported</p>]]></long-description>
     </class>
     <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="85" package="Default">
       <extends>\Exception</extends>
+      <name>ContainerError</name>
+      <full_name>\OpenCloud\ObjectStore\ContainerError</full_name>
+    </class>
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="86" package="Default">
+      <extends>\Exception</extends>
       <name>ContainerNameError</name>
       <full_name>\OpenCloud\ObjectStore\ContainerNameError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="86" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="87" package="Default">
       <extends>\Exception</extends>
       <name>ContainerNotFoundError</name>
       <full_name>\OpenCloud\ObjectStore\ContainerNotFoundError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="87" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="88" package="Default">
       <extends>\Exception</extends>
       <name>ContainerNotEmptyError</name>
       <full_name>\OpenCloud\ObjectStore\ContainerNotEmptyError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="88" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="89" package="Default">
       <extends>\Exception</extends>
       <name>DeleteError</name>
       <full_name>\OpenCloud\ObjectStore\DeleteError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="89" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="90" package="Default">
       <extends>\Exception</extends>
       <name>IOError</name>
       <full_name>\OpenCloud\ObjectStore\IOError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="90" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="91" package="Default">
       <extends>\Exception</extends>
       <name>MetadataPrefixError</name>
       <full_name>\OpenCloud\ObjectStore\MetadataPrefixError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="91" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="92" package="Default">
       <extends>\Exception</extends>
       <name>MisMatchedChecksumError</name>
       <full_name>\OpenCloud\ObjectStore\MisMatchedChecksumError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="92" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="93" package="Default">
       <extends>\Exception</extends>
       <name>NoNameError</name>
       <full_name>\OpenCloud\ObjectStore\NoNameError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="93" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="94" package="Default">
       <extends>\Exception</extends>
       <name>NoContentTypeError</name>
       <full_name>\OpenCloud\ObjectStore\NoContentTypeError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="94" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="95" package="Default">
       <extends>\Exception</extends>
       <name>ObjectError</name>
       <full_name>\OpenCloud\ObjectStore\ObjectError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="95" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="96" package="Default">
       <extends>\Exception</extends>
       <name>ObjectCopyError</name>
       <full_name>\OpenCloud\ObjectStore\ObjectCopyError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="96" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="97" package="Default">
       <extends>\Exception</extends>
       <name>ObjFetchError</name>
       <full_name>\OpenCloud\ObjectStore\ObjFetchError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="97" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="98" package="Default">
       <extends>\Exception</extends>
       <name>UnknownParameterError</name>
       <full_name>\OpenCloud\ObjectStore\UnknownParameterError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="104" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="105" package="Default">
       <extends>\Exception</extends>
       <name>DatabaseCreateError</name>
       <full_name>\OpenCloud\DbService\DatabaseCreateError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="105" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="106" package="Default">
       <extends>\Exception</extends>
       <name>DatabaseDeleteError</name>
       <full_name>\OpenCloud\DbService\DatabaseDeleteError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="106" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="107" package="Default">
       <extends>\Exception</extends>
       <name>DatabaseListError</name>
       <full_name>\OpenCloud\DbService\DatabaseListError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="107" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="108" package="Default">
       <extends>\Exception</extends>
       <name>DatabaseUpdateError</name>
       <full_name>\OpenCloud\DbService\DatabaseUpdateError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="108" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="109" package="Default">
       <extends>\Exception</extends>
       <name>DatabaseNameError</name>
       <full_name>\OpenCloud\DbService\DatabaseNameError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="109" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="110" package="Default">
       <extends>\Exception</extends>
       <name>InstanceCreateError</name>
       <full_name>\OpenCloud\DbService\InstanceCreateError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="110" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="111" package="Default">
       <extends>\Exception</extends>
       <name>InstanceDeleteError</name>
       <full_name>\OpenCloud\DbService\InstanceDeleteError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="111" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="112" package="Default">
       <extends>\Exception</extends>
       <name>InstanceUpdateError</name>
       <full_name>\OpenCloud\DbService\InstanceUpdateError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="112" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="113" package="Default">
       <extends>\Exception</extends>
       <name>InstanceError</name>
       <full_name>\OpenCloud\DbService\InstanceError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="113" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="114" package="Default">
       <extends>\Exception</extends>
       <name>InstanceFlavorError</name>
       <full_name>\OpenCloud\DbService\InstanceFlavorError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="114" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="115" package="Default">
       <extends>\Exception</extends>
       <name>InvalidIdTypeError</name>
       <full_name>\OpenCloud\DbService\InvalidIdTypeError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="115" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="116" package="Default">
       <extends>\Exception</extends>
       <name>UserCreateError</name>
       <full_name>\OpenCloud\DbService\UserCreateError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="116" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="117" package="Default">
       <extends>\Exception</extends>
       <name>UserDeleteError</name>
       <full_name>\OpenCloud\DbService\UserDeleteError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="117" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="118" package="Default">
       <extends>\Exception</extends>
       <name>UserListError</name>
       <full_name>\OpenCloud\DbService\UserListError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="118" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="119" package="Default">
       <extends>\Exception</extends>
       <name>UserUpdateError</name>
       <full_name>\OpenCloud\DbService\UserUpdateError</full_name>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="119" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DbService" line="120" package="Default">
       <extends>\Exception</extends>
       <name>UserNameError</name>
       <full_name>\OpenCloud\DbService\UserNameError</full_name>
@@ -2280,35 +2327,36 @@ because the /flavors/detail resource is not supported</p>]]></long-description>
       <error line="82" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\CreateUpdateError</error>
       <error line="83" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerCreateError</error>
       <error line="84" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerDeleteError</error>
-      <error line="85" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerNameError</error>
-      <error line="86" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerNotFoundError</error>
-      <error line="87" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerNotEmptyError</error>
-      <error line="88" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\DeleteError</error>
-      <error line="89" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\IOError</error>
-      <error line="90" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\MetadataPrefixError</error>
-      <error line="91" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\MisMatchedChecksumError</error>
-      <error line="92" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\NoNameError</error>
-      <error line="93" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\NoContentTypeError</error>
-      <error line="94" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ObjectError</error>
-      <error line="95" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ObjectCopyError</error>
-      <error line="96" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ObjFetchError</error>
-      <error line="97" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\UnknownParameterError</error>
-      <error line="104" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseCreateError</error>
-      <error line="105" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseDeleteError</error>
-      <error line="106" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseListError</error>
-      <error line="107" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseUpdateError</error>
-      <error line="108" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseNameError</error>
-      <error line="109" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceCreateError</error>
-      <error line="110" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceDeleteError</error>
-      <error line="111" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceUpdateError</error>
-      <error line="112" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceError</error>
-      <error line="113" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceFlavorError</error>
-      <error line="114" code="50000">No DocBlock was found for \OpenCloud\DbService\InvalidIdTypeError</error>
-      <error line="115" code="50000">No DocBlock was found for \OpenCloud\DbService\UserCreateError</error>
-      <error line="116" code="50000">No DocBlock was found for \OpenCloud\DbService\UserDeleteError</error>
-      <error line="117" code="50000">No DocBlock was found for \OpenCloud\DbService\UserListError</error>
-      <error line="118" code="50000">No DocBlock was found for \OpenCloud\DbService\UserUpdateError</error>
-      <error line="119" code="50000">No DocBlock was found for \OpenCloud\DbService\UserNameError</error>
+      <error line="85" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerError</error>
+      <error line="86" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerNameError</error>
+      <error line="87" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerNotFoundError</error>
+      <error line="88" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ContainerNotEmptyError</error>
+      <error line="89" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\DeleteError</error>
+      <error line="90" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\IOError</error>
+      <error line="91" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\MetadataPrefixError</error>
+      <error line="92" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\MisMatchedChecksumError</error>
+      <error line="93" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\NoNameError</error>
+      <error line="94" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\NoContentTypeError</error>
+      <error line="95" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ObjectError</error>
+      <error line="96" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ObjectCopyError</error>
+      <error line="97" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\ObjFetchError</error>
+      <error line="98" code="50000">No DocBlock was found for \OpenCloud\ObjectStore\UnknownParameterError</error>
+      <error line="105" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseCreateError</error>
+      <error line="106" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseDeleteError</error>
+      <error line="107" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseListError</error>
+      <error line="108" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseUpdateError</error>
+      <error line="109" code="50000">No DocBlock was found for \OpenCloud\DbService\DatabaseNameError</error>
+      <error line="110" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceCreateError</error>
+      <error line="111" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceDeleteError</error>
+      <error line="112" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceUpdateError</error>
+      <error line="113" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceError</error>
+      <error line="114" code="50000">No DocBlock was found for \OpenCloud\DbService\InstanceFlavorError</error>
+      <error line="115" code="50000">No DocBlock was found for \OpenCloud\DbService\InvalidIdTypeError</error>
+      <error line="116" code="50000">No DocBlock was found for \OpenCloud\DbService\UserCreateError</error>
+      <error line="117" code="50000">No DocBlock was found for \OpenCloud\DbService\UserDeleteError</error>
+      <error line="118" code="50000">No DocBlock was found for \OpenCloud\DbService\UserListError</error>
+      <error line="119" code="50000">No DocBlock was found for \OpenCloud\DbService\UserUpdateError</error>
+      <error line="120" code="50000">No DocBlock was found for \OpenCloud\DbService\UserNameError</error>
     </parse_markers>
   </file>
   <file path="flavor.inc" hash="9868bcbdfc5667f9a8c2049ae4a347da" package="phpOpenCloud">
@@ -6747,6 +6795,9 @@ is not necessarily tied to an actual database.</p>]]></long-description>
       </method>
     </class>
     <parse_markers>
+      <critical line="23" code="50019">No short description for property $name</critical>
+      <critical line="23" code="50019">No short description for property $password</critical>
+      <critical line="23" code="50019">No short description for property $databases</critical>
       <error line="34" code="50018">No DocBlock was found for property $_instance</error>
     </parse_markers>
   </file>
