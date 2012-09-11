@@ -8,6 +8,7 @@ Contents:
 * [Authentication](#auth)
 * [ObjectStore (Swift/Cloud Files)](#ostore)
 * [Compute (Nova/Cloud Servers)](#compute)
+* [Cloud Databases](#dbaas)
 
 <a name="auth"></a>
 Authentication
@@ -306,3 +307,130 @@ callback function that is passed the server object:
     }
     $myserver->Create(...);
     $myserver->WaitFor('ACTIVE', 600, 'myProgressMeter');
+
+<a name="dbaas"></a>
+Quick Reference - Cloud Databases (database as a service)
+=========================================================
+
+### Connecting to Cloud Databases
+
+Cloud Databases is not part of OpenStack; the product is only available
+under a Rackspace connection:
+
+    $cloud = new OpenCloud\Rackspace('https://...', array(...));
+
+To connect to Cloud Databases, specify the service name ("cloudDatabases"),
+the region, and the URL type:
+
+    $dbaas = $cloud->DbService('cloudDatabases','DFW','publicURL');
+
+This can be simplified by using the defaults:
+
+    $dbaas = $cloud->DbService(NULL, 'DFW');
+
+### Creating a database service instance
+
+    $instance = $dbaas->Instance();         // empty Instance
+    $instance->name = 'InstanceName';
+    $instance->flavor = $dbaas->Flavor(1);  // small
+    $instance->volume->size = 2;            // 2GB disk
+    $resp = $instance->Create();            // create it
+
+### Retrieve an existing instance
+
+    $instance = $dbaas->Instance({INSTANCE-ID});
+
+### List all instances
+
+    $instlist = $dbaas->InstanceList();
+    while($instance = $instlist->Next()) {
+        printf("%s (%s)\n", $instance->id, $instance->name);
+    }
+
+### Delete an instance
+
+    $instance->Delete();
+
+### Instance actions
+
+#### Restarting
+
+    $instance->Restart();
+
+#### Resizing
+
+    $instance->Resize($dbaas->Flavor(2));
+
+#### Resizing the disk volume
+
+    $instance->ResizeVolume(4); // 4GB of disk
+
+#### Enabling the root user
+
+    $user = $instance->EnableRootUser();
+    printf("Root user name=%s password=%s\n", $user->name, $user->password);
+
+#### Checking the root user status
+
+    if ($instance->IsRootEnabled())
+        print("Root user ie enabled\n");
+
+### Working with databases
+
+#### Create a new database
+
+    $db = $instance->Database();        // empty database
+    $db->Create(array(
+        'name' => 'db-name',            // required
+        'character_set' => 'utf8',      // optional
+        'collate' => 'utf8_general_ci'  // optional
+    );
+
+#### Delete a database
+
+    $db->Delete();
+
+#### Listing all databases for an instance
+
+    $dblist = $instance->DatabaseList();
+    while($db = $dblist->Next())
+        printf("Database %s\n", $db->name);
+
+### Working with users
+
+Users, like databases, are related to the *Instance*, but they are also
+associated with a database. Thus, they are created from the `Instance`
+object:
+
+    $user = $instance->User();
+
+#### Create a new user
+
+    $user = $instance->User('username');    // assigns a name
+    $user->Create();    // user is not associated with a database
+
+#### Associating a user with a database
+
+Note that, since the `User` object cannot be updated, the user must be
+associated with all databases prior to it being created:
+
+    $user = $instance->User('myusername');  // assigns a name
+    $user->AddDatabase('db-name1');
+    $user->AddDatabase('db-name2');
+    $user->Create();
+
+#### Deleting a user
+
+    $user->Delete();
+
+#### Listing all users for an instance
+
+The `databases` attribute of a user contains a list of all the database
+(names) that the user is associated with.
+
+    $ulist = $instance->UserList();
+    while($user = $ulist->Next()) {
+        printf("User: %s\n", $user->name);
+        foreach($user->databases as $dbname)
+            printf("  database: %s\n", $dbname);
+    }
