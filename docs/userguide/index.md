@@ -85,10 +85,12 @@ Table of contents
 * [Collections](collections.md)
 * [Exceptions and Errors](exceptions.md)
 * [Working with object storage](objectstore.md)
+* [Working with objects](objects.md)
 * [Working with compute](compute.md)
-> * [Working with Servers](servers.md)
-> * [Working with Images](images.md)
-> * [Working with Flavors](flavors.md)
+* [Working with servers](servers.md)
+* [Working with images](images.md)
+* [Working with flavors](flavors.md)
+* [About the Access IPs](accessip.md)
 
 ----
 
