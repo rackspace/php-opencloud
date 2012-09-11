@@ -1,8 +1,12 @@
 <?php
 /**
- * (c)2012 Rackspace Hosting
+ * A Collection of User objects
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
+ * @package phpOpenCloud
+ * @version 1.0.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 

@@ -1,6 +1,14 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * A metadata object, used by other components in Compute and Object Storage
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 namespace OpenCloud;
 

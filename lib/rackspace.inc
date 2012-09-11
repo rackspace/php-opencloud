@@ -1,6 +1,15 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * The Rackspace cloud/connection class (which uses different authentication
+ * than the pure OpenStack class)
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 namespace OpenCloud;
 

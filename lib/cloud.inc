@@ -1,6 +1,14 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * A convenience file that loads all the other components
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 /**
  * This file is provided as a convenience in case you want to use multiple
@@ -19,3 +27,4 @@
 require_once('rackspace.inc');
 require_once('compute.inc');
 require_once('objectstore.inc');
+require_once('dbservice.inc');

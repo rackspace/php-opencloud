@@ -1,7 +1,18 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * The exceptions used by php-opencloud
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
+/**
+ * Top-level exceptions used by shared code
+ */
 namespace OpenCloud {
 
 	/**
@@ -31,6 +42,9 @@ namespace OpenCloud {
 
 }
 
+/**
+ * Exceptions used by the Compute service
+ */
 namespace OpenCloud\Compute {
 
 	class ImageError extends \Exception {}
@@ -57,6 +71,9 @@ namespace OpenCloud\Compute {
 
 }
 
+/**
+ * Exceptions used by the Object Storage service
+ */
 namespace OpenCloud\ObjectStore {
     class CdnError extends \Exception {}
     class CdnNotAvailableError extends \Exception {}
@@ -80,6 +97,9 @@ namespace OpenCloud\ObjectStore {
     class UnknownParameterError extends \Exception {}
 }
 
+/**
+ * Exceptions used by the Cloud Databases service
+ */
 namespace OpenCloud\DbService {
 	class DatabaseCreateError extends \Exception {}
 	class DatabaseDeleteError extends \Exception {}

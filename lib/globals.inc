@@ -1,11 +1,19 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * Defines global constants and functions
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 /**
  * This file contains only configuration data such as constants.
- * You can override these constants by defining them BEFORE you including any of the
- * top-level files from the SDK.
+ * You can override these constants by defining them BEFORE you including
+ * any of the top-level files from the SDK.
  *
  * Definitions:
  * * RAXSDK_TIMEZONE - the default timezone for interpreting date/time requests

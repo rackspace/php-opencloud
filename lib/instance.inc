@@ -1,6 +1,14 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * A Cloud Databases instance (similar to a Compute Server)
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 namespace OpenCloud\DbService;
 
@@ -164,7 +172,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	public function ResizeVolume($newvolumesize) {
 		return $this->Action($this->ResizeVolumeJson($newvolumesize));
 	}
-	
+
 	/**
 	 * enables the root user for the instance
 	 *
@@ -174,14 +182,14 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 */
 	public function EnableRootUser() {
 		$response = $this->Service()->Request($this->Url('root'), 'POST');
-		
+
 		// check response
 		if ($response->HttpStatus() > 202)
 			throw New InstanceError(sprintf(
 				_('Error enabling root user for instance [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		$obj = json_decode($response->HttpBody());
 		if ($this->CheckJsonError())
 			return FALSE;
@@ -190,7 +198,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		else
 			return FALSE;
 	}
-	
+
 	/**
 	 * returns TRUE if the root user is enabled
 	 *
@@ -200,14 +208,14 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 */
 	public function IsRootEnabled() {
 		$response = $this->Service()->Request($this->Url('root'), 'GET');
-		
+
 		// check response
 		if ($response->HttpStatus() > 202)
 			throw New InstanceError(sprintf(
 				_('Error enabling root user for instance [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		$obj = json_decode($response->HttpBody());
 		if ($this->CheckJsonError())
 			return FALSE;
@@ -238,7 +246,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	    $u->databases = $databases;
 	    return $u;
 	}
-	
+
 	/**
 	 * returns a Collection of all databases in the instance
 	 *
@@ -247,13 +255,13 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 */
 	public function DatabaseList() {
 		$response = $this->Service()->Request($this->Url('databases'));
-		
+
 		// check response status
 		if ($response->HttpStatus() > 200)
 			throw new DatabaseListError(sprintf(
 				_('Error listing databases for instance [%s], status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		// parse the response
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
@@ -263,7 +271,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		}
 		return FALSE;
 	}
-	
+
 	/**
 	 * returns a Collection of all users in the instance
 	 *
@@ -278,7 +286,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 			throw new UserListError(sprintf(
 				_('Error listing users for instance [%s], status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		// parse the response
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {

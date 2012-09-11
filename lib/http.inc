@@ -1,6 +1,14 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * Performs low-level HTTP operations via CURL
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 namespace OpenCloud;
 
@@ -52,19 +60,19 @@ class CurlRequest implements HTTPRequest {
 
 		// set our options
         $this->SetOption(CURLOPT_CUSTOMREQUEST, $method);
-        
+
         // follow redirects
         $this->SetOption(CURLOPT_FOLLOWLOCATION, TRUE);
-        
+
         // don't return the headers in the request
 		$this->SetOption(CURLOPT_HEADER, FALSE);
-		
+
         // retrieve headers via callback
         $this->SetOption(CURLOPT_HEADERFUNCTION, array($this, '_get_header_cb'));
 
 		// return the entire request on curl_exec()
         $this->SetOption(CURLOPT_RETURNTRANSFER, TRUE);
-        
+
         // uncomment to turn on Verbose mode
         //$http->SetOption(CURLOPT_VERBOSE, TRUE);
 
@@ -166,7 +174,7 @@ class CurlRequest implements HTTPRequest {
 		foreach ($this->headers as $name => $value)
 			$headarr[] = $name.': '.$value;
         $this->SetOption(CURLOPT_HTTPHEADER, $headarr);
-        
+
         // set up to retry if necessary
         $try_counter = 0;
         do {
@@ -235,14 +243,14 @@ class CurlRequest implements HTTPRequest {
 	public function close() {
 		return curl_close($this->handle);
 	}
-	
+
 	/**
 	 * Returns the headers as an array
 	 */
 	public function ReturnHeaders() {
 		return $this->returnheaders;
 	}
-	
+
 	/**
 	 *
 	 */

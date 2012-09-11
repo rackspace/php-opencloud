@@ -1,6 +1,15 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
+/**
+ * An abstract class that defines shared components for products that use
+ * OpenStack Nova
+ *
+ * @copyright 2012 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @package phpOpenCloud
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
 
 namespace OpenCloud;
 
@@ -141,7 +150,7 @@ abstract class Nova extends Service {
 	public function namespaces() {
 	    return $this->_namespaces;
 	}
-	
+
 	/********** PRIVATE METHODS **********/
 
 	/**

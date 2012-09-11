@@ -22,6 +22,9 @@
 <li><a>Namespaces</a></li>
 <li><a href="../namespaces/OpenCloud.html"><i class="icon-th"></i> OpenCloud</a></li>
 <li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/phpOpenCloud.html"><i class="icon-folder-open"></i> phpOpenCloud</a></li>
 </ul>
 </li>
 <li class="dropdown" id="charts-menu">
@@ -32,7 +35,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">316</span></a></li>
+                <span class="label label-info">280</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -79,9 +82,9 @@ in the specified $prefix array</span><pre>CheckAttributePrefix()</pre></a></li>
 <li class="method private inherited"><a href="#to_string" title="to_string :: converts a value to a HTTP-displayable string form"><span class="description">converts a value to a HTTP-displayable string form</span><pre>to_string()</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-property"></i> Properties</li>
-<li class="property public "><a href="#%24databases" title="$databases :: "><span class="description">$databases</span><pre>$databases</pre></a></li>
-<li class="property public "><a href="#%24name" title="$name :: "><span class="description">$name</span><pre>$name</pre></a></li>
-<li class="property public "><a href="#%24password" title="$password :: "><span class="description">$password</span><pre>$password</pre></a></li>
+<li class="property public "><a href="#%24databases" title="$databases :: "><span class="description">&lt;p&gt;the user name&lt;/p&gt;</span><pre>$databases</pre></a></li>
+<li class="property public "><a href="#%24name" title="$name :: "><span class="description">&lt;p&gt;the user name&lt;/p&gt;</span><pre>$name</pre></a></li>
+<li class="property public "><a href="#%24password" title="$password :: "><span class="description">&lt;p&gt;the user name&lt;/p&gt;</span><pre>$password</pre></a></li>
 <li class="nav-header private">» Private</li>
 <li class="property private inherited"><a href="#%24_errors" title="$_errors :: "><span class="description">$_errors</span><pre>$_errors</pre></a></li>
 <li class="property private "><a href="#%24_instance" title="$_instance :: "><span class="description">$_instance</span><pre>$_instance</pre></a></li>
@@ -264,15 +267,14 @@ exception is thrown.</p></p>
 </div>
 <a name="Update" id="Update"></a><div class="element clickable method public Update" data-toggle="collapse" data-target=".Update .collapse">
 <h2>updates a database user (not currently permitted)</h2>
-<pre>Update($params) </pre>
+<pre>Update(array $params) </pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <p class="long_description"></p>
 <h3>Parameters</h3>
 <div class="subelement argument">
 <h4>$params</h4>
-<code></code>
-</div>
+<code>array</code><p>not currently used, but provided for future updates</p></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
 <th><code><a href="../classes/OpenCloud.DbService.UserUpdateError.html">\OpenCloud\DbService\UserUpdateError</a></code></th>
@@ -299,7 +301,7 @@ subclasses need to define this method.</p></p>
 </div>
 <a name="__construct" id="__construct"></a><div class="element clickable method public __construct" data-toggle="collapse" data-target=".__construct .collapse">
 <h2>Creates a new database object</h2>
-<pre>__construct(\OpenCloud\DbService\Instance $instance, mixed $info, $db) : void</pre>
+<pre>__construct(\OpenCloud\DbService\Instance $instance, mixed $info, array $db) : void</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description">
 <p class="long_description"><p>Unlike other objects (Servers, DataObjects, etc.), passing a database
@@ -321,8 +323,7 @@ is not necessarily tied to an actual database.</p></p>
 <code>mixed</code><p>if an array or object, treated as properties to set; if a string, treated as the database name</p></div>
 <div class="subelement argument">
 <h4>$db</h4>
-<code></code>
-</div>
+<code>array</code><p>a list of database names to associate with the User</p></div>
 <h3>Exceptions</h3>
 <table class="table table-bordered"><tr>
 <th><code><a href="../classes/OpenCloud.DbService.UserNameError.html">\OpenCloud\DbService\UserNameError</a></code></th>
@@ -465,20 +466,20 @@ in the specified $prefix array</h2>
 <h3>
 <i class="icon-custom icon-property"></i> Properties</h3>
 <a name="%24databases" id="$databases"> </a><div class="element clickable property public $databases" data-toggle="collapse" data-target=".$databases .collapse">
-<h2>$databases</h2>
-<pre>$databases </pre>
+<h2>&lt;p&gt;the user name&lt;/p&gt;</h2>
+<pre>$databases : string: string: array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
 </div>
 <a name="%24name" id="$name"> </a><div class="element clickable property public $name" data-toggle="collapse" data-target=".$name .collapse">
-<h2>$name</h2>
-<pre>$name </pre>
+<h2>&lt;p&gt;the user name&lt;/p&gt;</h2>
+<pre>$name : string: string: array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
 </div>
 <a name="%24password" id="$password"> </a><div class="element clickable property public $password" data-toggle="collapse" data-target=".$password .collapse">
-<h2>$password</h2>
-<pre>$password </pre>
+<h2>&lt;p&gt;the user name&lt;/p&gt;</h2>
+<pre>$password : string: string: array</pre>
 <div class="labels"></div>
 <div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
 </div>
@@ -519,7 +520,7 @@ in the specified $prefix array</h2>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a8</a> and<br>
-            generated on 2012-09-11T08:43:07-05:00.<br></footer></div>
+            generated on 2012-09-11T09:15:05-05:00.<br></footer></div>
 </div>
 </body>
 </html>

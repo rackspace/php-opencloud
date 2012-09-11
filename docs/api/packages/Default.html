@@ -22,6 +22,9 @@
 <li><a>Namespaces</a></li>
 <li><a href="../namespaces/OpenCloud.html"><i class="icon-th"></i> OpenCloud</a></li>
 <li><a href="../namespaces/global.html"><i class="icon-th"></i> global</a></li>
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/phpOpenCloud.html"><i class="icon-folder-open"></i> phpOpenCloud</a></li>
 </ul>
 </li>
 <li class="dropdown" id="charts-menu">
@@ -32,7 +35,7 @@
 <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
                                     Reports <b class="caret"></b></a><ul class="dropdown-menu">
 <li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">316</span></a></li>
+                <span class="label label-info">280</span></a></li>
 <li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
                 <ul></ul></a></li>
 <li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
@@ -59,13 +62,6 @@
 <li>
 <a href="../packages/Default.html" title="Default"><i class="icon-folder-open"></i>Default</a><ul class="nav nav-list nav-packages"></ul>
 </li>
-<li class="nav-header">
-<i class="icon-custom icon-function"></i> Functions</li>
-<li class="function  "><a href="#_" title="_ :: "><span class="description">_()
-        </span><pre>_</pre></a></li>
-<li class="function  "><a href="#define_gettext" title="define_gettext :: _() - this function should be used to wrap all static strings."><span class="description">_() - this function should be used to wrap all static strings.</span><pre>define_gettext</pre></a></li>
-<li class="function  "><a href="#noslash" title="noslash :: removes trailing slash(es) from a URL string"><span class="description">removes trailing slash(es) from a URL string</span><pre>noslash</pre></a></li>
-<li class="function  "><a href="#setDebug" title="setDebug :: Turns debugging on or off"><span class="description">Turns debugging on or off</span><pre>setDebug</pre></a></li>
 <li class="nav-header">
 <i class="icon-custom icon-interface"></i> Interfaces</li>
 <li><a href="#HttpRequest" title="The HttpRequest interface defines methods for wrapping CURL; this allows
@@ -184,7 +180,7 @@ objects.">ObjectStoreBase</a></li>
 <li><a href="#OpenStack" title="The OpenStack class represents a relationship between a user and a service">OpenStack</a></li>
 <li><a href="#Rackspace" title="Rackspace extends the OpenStack class with support for Rackspace's
 API key and tenant requirements.">Rackspace</a></li>
-<li><a href="#Server" title="The NovaInstance class represents a single nova instance.">Server</a></li>
+<li><a href="#Server" title="The Server class represents a single server node.">Server</a></li>
 <li><a href="#ServerList" title="ServerList is a Collection of servers">ServerList</a></li>
 <li><a href="#ServerMetadata" title="This class handles server metadata">ServerMetadata</a></li>
 <li><a href="#Service" title='This class defines a "service"—a relationship between a specific OpenStack
@@ -192,41 +188,6 @@ and a provided service, represented by a URL in the service catalog.'>Service</a
 <li><a href="#User" title='This class represents a User in the Rackspace "Red Dwarf"
 database-as-a-service product.'>User</a></li>
 <li><a href="#UserList" title="a UserList is a Collection (q.v.) of Users (q.v.)">UserList</a></li>
-<li class="nav-header">
-<i class="icon-custom icon-constant"></i> Constants</li>
-<li class="constant  "><a href="#RAXSDK_COMPUTE_NAME" title="RAXSDK_COMPUTE_NAME :: "><span class="description">RAXSDK_COMPUTE_NAME</span><pre>RAXSDK_COMPUTE_NAME</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_COMPUTE_REGION" title="RAXSDK_COMPUTE_REGION :: "><span class="description">RAXSDK_COMPUTE_REGION</span><pre>RAXSDK_COMPUTE_REGION</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_COMPUTE_URLTYPE" title="RAXSDK_COMPUTE_URLTYPE :: "><span class="description">RAXSDK_COMPUTE_URLTYPE</span><pre>RAXSDK_COMPUTE_URLTYPE</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_CONNECTTIMEOUT" title="RAXSDK_CONNECTTIMEOUT :: "><span class="description">RAXSDK_CONNECTTIMEOUT</span><pre>RAXSDK_CONNECTTIMEOUT</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_CONTENT_TYPE" title="RAXSDK_CONTENT_TYPE :: "><span class="description">RAXSDK_CONTENT_TYPE</span><pre>RAXSDK_CONTENT_TYPE</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_DATABASE_NAME" title="RAXSDK_DATABASE_NAME :: "><span class="description">RAXSDK_DATABASE_NAME</span><pre>RAXSDK_DATABASE_NAME</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_DATABASE_REGION" title="RAXSDK_DATABASE_REGION :: "><span class="description">RAXSDK_DATABASE_REGION</span><pre>RAXSDK_DATABASE_REGION</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_DATABASE_URLTYPE" title="RAXSDK_DATABASE_URLTYPE :: "><span class="description">RAXSDK_DATABASE_URLTYPE</span><pre>RAXSDK_DATABASE_URLTYPE</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_DEFAULT_IP_VERSION" title="RAXSDK_DEFAULT_IP_VERSION :: "><span class="description">RAXSDK_DEFAULT_IP_VERSION</span><pre>RAXSDK_DEFAULT_IP_VERSION</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_DETAILS" title="RAXSDK_DETAILS :: "><span class="description">RAXSDK_DETAILS</span><pre>RAXSDK_DETAILS</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_ERROR" title="RAXSDK_ERROR :: "><span class="description">RAXSDK_ERROR</span><pre>RAXSDK_ERROR</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_FATAL" title="RAXSDK_FATAL :: "><span class="description">RAXSDK_FATAL</span><pre>RAXSDK_FATAL</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_FUDGE" title="RAXSDK_FUDGE :: "><span class="description">RAXSDK_FUDGE</span><pre>RAXSDK_FUDGE</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_HARD_REBOOT" title="RAXSDK_HARD_REBOOT :: "><span class="description">RAXSDK_HARD_REBOOT</span><pre>RAXSDK_HARD_REBOOT</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_MAX_CONTAINER_NAME_LEN" title="RAXSDK_MAX_CONTAINER_NAME_LEN :: "><span class="description">RAXSDK_MAX_CONTAINER_NAME_LEN</span><pre>RAXSDK_MAX_CONTAINER_NAME_LEN</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_OBJSTORE_NAME" title="RAXSDK_OBJSTORE_NAME :: "><span class="description">RAXSDK_OBJSTORE_NAME</span><pre>RAXSDK_OBJSTORE_NAME</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_OBJSTORE_REGION" title="RAXSDK_OBJSTORE_REGION :: "><span class="description">RAXSDK_OBJSTORE_REGION</span><pre>RAXSDK_OBJSTORE_REGION</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_OBJSTORE_URLTYPE" title="RAXSDK_OBJSTORE_URLTYPE :: "><span class="description">RAXSDK_OBJSTORE_URLTYPE</span><pre>RAXSDK_OBJSTORE_URLTYPE</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_OVERLIMIT_TIMEOUT" title="RAXSDK_OVERLIMIT_TIMEOUT :: "><span class="description">RAXSDK_OVERLIMIT_TIMEOUT</span><pre>RAXSDK_OVERLIMIT_TIMEOUT</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_POLL_INTERVAL" title="RAXSDK_POLL_INTERVAL :: "><span class="description">RAXSDK_POLL_INTERVAL</span><pre>RAXSDK_POLL_INTERVAL</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_SERVER_MAXTIMEOUT" title="RAXSDK_SERVER_MAXTIMEOUT :: "><span class="description">RAXSDK_SERVER_MAXTIMEOUT</span><pre>RAXSDK_SERVER_MAXTIMEOUT</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_SOFT_REBOOT" title="RAXSDK_SOFT_REBOOT :: "><span class="description">RAXSDK_SOFT_REBOOT</span><pre>RAXSDK_SOFT_REBOOT</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_STRICT_PROPERTY_CHECKS" title="RAXSDK_STRICT_PROPERTY_CHECKS :: "><span class="description">RAXSDK_STRICT_PROPERTY_CHECKS</span><pre>RAXSDK_STRICT_PROPERTY_CHECKS</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_TERMINATED" title="RAXSDK_TERMINATED :: "><span class="description">RAXSDK_TERMINATED</span><pre>RAXSDK_TERMINATED</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_TIMEOUT" title="RAXSDK_TIMEOUT :: "><span class="description">RAXSDK_TIMEOUT</span><pre>RAXSDK_TIMEOUT</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_TIMEZONE" title="RAXSDK_TIMEZONE :: "><span class="description">RAXSDK_TIMEZONE</span><pre>RAXSDK_TIMEZONE</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_URL_INTERNAL" title="RAXSDK_URL_INTERNAL :: "><span class="description">RAXSDK_URL_INTERNAL</span><pre>RAXSDK_URL_INTERNAL</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_URL_PUBLIC" title="RAXSDK_URL_PUBLIC :: "><span class="description">RAXSDK_URL_PUBLIC</span><pre>RAXSDK_URL_PUBLIC</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_URL_VERSION_INFO" title="RAXSDK_URL_VERSION_INFO :: "><span class="description">RAXSDK_URL_VERSION_INFO</span><pre>RAXSDK_URL_VERSION_INFO</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_URL_VERSION_LIST" title="RAXSDK_URL_VERSION_LIST :: "><span class="description">RAXSDK_URL_VERSION_LIST</span><pre>RAXSDK_URL_VERSION_LIST</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_USER_AGENT" title="RAXSDK_USER_AGENT :: "><span class="description">RAXSDK_USER_AGENT</span><pre>RAXSDK_USER_AGENT</pre></a></li>
-<li class="constant  "><a href="#RAXSDK_VERSION" title="RAXSDK_VERSION :: "><span class="description">RAXSDK_VERSION</span><pre>RAXSDK_VERSION</pre></a></li>
-<li class="constant  "><a href="#SWIFT_MAX_OBJECT_SIZE" title="SWIFT_MAX_OBJECT_SIZE :: "><span class="description">SWIFT_MAX_OBJECT_SIZE</span><pre>SWIFT_MAX_OBJECT_SIZE</pre></a></li>
 </ul>
 </div>
 <div class="span8 package-contents">
@@ -237,57 +198,6 @@ database-as-a-service product.'>User</a></li>
 <li class="active"><a href="../packages/Default.html">Default</a></li>
 </ul>
 <div class="package-indent">
-<h3>
-<i class="icon-custom icon-function"></i> Functions</h3>
-<a name="_" id="_"></a><div class="element clickable function  _" data-toggle="collapse" data-target="._ .collapse">
-<h2>_()
-        </h2>
-<pre>_($str) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$str</h4>
-<code></code>
-</div>
-</div></div>
-</div>
-<a name="define_gettext" id="define_gettext"></a><div class="element clickable function  define_gettext" data-toggle="collapse" data-target=".define_gettext .collapse">
-<h2>_() - this function should be used to wrap all static strings.</h2>
-<pre>define_gettext() </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"><p>In the future,
-this may provide us with a hook for providing different language
-translations.</p></p></div></div>
-</div>
-<a name="noslash" id="noslash"></a><div class="element clickable function  noslash" data-toggle="collapse" data-target=".noslash .collapse">
-<h2>removes trailing slash(es) from a URL string</h2>
-<pre>noslash($str) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"><p>Mainly, this is just for appearance's sake. I really hate to see
-URLs like .../servers//address, for some reason.</p></p>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$str</h4>
-<code></code>
-</div>
-</div></div>
-</div>
-<a name="setDebug" id="setDebug"></a><div class="element clickable function  setDebug" data-toggle="collapse" data-target=".setDebug .collapse">
-<h2>Turns debugging on or off</h2>
-<pre>setDebug($state) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<p class="long_description"></p>
-<h3>Parameters</h3>
-<div class="subelement argument">
-<h4>$state</h4>
-<code></code>
-</div>
-</div></div>
-</div>
 <h3>
 <i class="icon-custom icon-class"></i> Classes and interfaces</h3>
 <a name="HttpRequest" id="HttpRequest"></a><div class="element ajax clickable interface" href="../classes/OpenCloud.HttpRequest.html">
@@ -479,7 +389,7 @@ Compute service.</p>
 <a name="Server" id="Server"></a><div class="element ajax clickable class" href="../classes/OpenCloud.Compute.Server.html">
 <h1>Server<a href="../classes/OpenCloud.Compute.Server.html">¶</a>
 </h1>
-<p class="short_description">The NovaInstance class represents a single nova instance.</p>
+<p class="short_description">The Server class represents a single server node.</p>
 <div class="details collapse"></div>
 <a href="../classes/OpenCloud.Compute.Server.html" class="more">« More »</a>
 </div>
@@ -1072,213 +982,13 @@ and a provided service, represented by a URL in the service catalog.</p>
 <div class="details collapse"></div>
 <a href="../classes/OpenCloud.UrlError.html" class="more">« More »</a>
 </div>
-<h3>
-<i class="icon-custom icon-constant"></i> Constants</h3>
-<a name="RAXSDK_COMPUTE_NAME" id="RAXSDK_COMPUTE_NAME"> </a><div class="element clickable constant  RAXSDK_COMPUTE_NAME" data-toggle="collapse" data-target=".RAXSDK_COMPUTE_NAME .collapse">
-<h2>RAXSDK_COMPUTE_NAME</h2>
-<pre>RAXSDK_COMPUTE_NAME </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_COMPUTE_REGION" id="RAXSDK_COMPUTE_REGION"> </a><div class="element clickable constant  RAXSDK_COMPUTE_REGION" data-toggle="collapse" data-target=".RAXSDK_COMPUTE_REGION .collapse">
-<h2>RAXSDK_COMPUTE_REGION</h2>
-<pre>RAXSDK_COMPUTE_REGION </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_COMPUTE_URLTYPE" id="RAXSDK_COMPUTE_URLTYPE"> </a><div class="element clickable constant  RAXSDK_COMPUTE_URLTYPE" data-toggle="collapse" data-target=".RAXSDK_COMPUTE_URLTYPE .collapse">
-<h2>RAXSDK_COMPUTE_URLTYPE</h2>
-<pre>RAXSDK_COMPUTE_URLTYPE </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_CONNECTTIMEOUT" id="RAXSDK_CONNECTTIMEOUT"> </a><div class="element clickable constant  RAXSDK_CONNECTTIMEOUT" data-toggle="collapse" data-target=".RAXSDK_CONNECTTIMEOUT .collapse">
-<h2>RAXSDK_CONNECTTIMEOUT</h2>
-<pre>RAXSDK_CONNECTTIMEOUT </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_CONTENT_TYPE" id="RAXSDK_CONTENT_TYPE"> </a><div class="element clickable constant  RAXSDK_CONTENT_TYPE" data-toggle="collapse" data-target=".RAXSDK_CONTENT_TYPE .collapse">
-<h2>RAXSDK_CONTENT_TYPE</h2>
-<pre>RAXSDK_CONTENT_TYPE </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_DATABASE_NAME" id="RAXSDK_DATABASE_NAME"> </a><div class="element clickable constant  RAXSDK_DATABASE_NAME" data-toggle="collapse" data-target=".RAXSDK_DATABASE_NAME .collapse">
-<h2>RAXSDK_DATABASE_NAME</h2>
-<pre>RAXSDK_DATABASE_NAME </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_DATABASE_REGION" id="RAXSDK_DATABASE_REGION"> </a><div class="element clickable constant  RAXSDK_DATABASE_REGION" data-toggle="collapse" data-target=".RAXSDK_DATABASE_REGION .collapse">
-<h2>RAXSDK_DATABASE_REGION</h2>
-<pre>RAXSDK_DATABASE_REGION </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_DATABASE_URLTYPE" id="RAXSDK_DATABASE_URLTYPE"> </a><div class="element clickable constant  RAXSDK_DATABASE_URLTYPE" data-toggle="collapse" data-target=".RAXSDK_DATABASE_URLTYPE .collapse">
-<h2>RAXSDK_DATABASE_URLTYPE</h2>
-<pre>RAXSDK_DATABASE_URLTYPE </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_DEFAULT_IP_VERSION" id="RAXSDK_DEFAULT_IP_VERSION"> </a><div class="element clickable constant  RAXSDK_DEFAULT_IP_VERSION" data-toggle="collapse" data-target=".RAXSDK_DEFAULT_IP_VERSION .collapse">
-<h2>RAXSDK_DEFAULT_IP_VERSION</h2>
-<pre>RAXSDK_DEFAULT_IP_VERSION </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_DETAILS" id="RAXSDK_DETAILS"> </a><div class="element clickable constant  RAXSDK_DETAILS" data-toggle="collapse" data-target=".RAXSDK_DETAILS .collapse">
-<h2>RAXSDK_DETAILS</h2>
-<pre>RAXSDK_DETAILS </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_ERROR" id="RAXSDK_ERROR"> </a><div class="element clickable constant  RAXSDK_ERROR" data-toggle="collapse" data-target=".RAXSDK_ERROR .collapse">
-<h2>RAXSDK_ERROR</h2>
-<pre>RAXSDK_ERROR </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_FATAL" id="RAXSDK_FATAL"> </a><div class="element clickable constant  RAXSDK_FATAL" data-toggle="collapse" data-target=".RAXSDK_FATAL .collapse">
-<h2>RAXSDK_FATAL</h2>
-<pre>RAXSDK_FATAL </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_FUDGE" id="RAXSDK_FUDGE"> </a><div class="element clickable constant  RAXSDK_FUDGE" data-toggle="collapse" data-target=".RAXSDK_FUDGE .collapse">
-<h2>RAXSDK_FUDGE</h2>
-<pre>RAXSDK_FUDGE </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_HARD_REBOOT" id="RAXSDK_HARD_REBOOT"> </a><div class="element clickable constant  RAXSDK_HARD_REBOOT" data-toggle="collapse" data-target=".RAXSDK_HARD_REBOOT .collapse">
-<h2>RAXSDK_HARD_REBOOT</h2>
-<pre>RAXSDK_HARD_REBOOT </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_MAX_CONTAINER_NAME_LEN" id="RAXSDK_MAX_CONTAINER_NAME_LEN"> </a><div class="element clickable constant  RAXSDK_MAX_CONTAINER_NAME_LEN" data-toggle="collapse" data-target=".RAXSDK_MAX_CONTAINER_NAME_LEN .collapse">
-<h2>RAXSDK_MAX_CONTAINER_NAME_LEN</h2>
-<pre>RAXSDK_MAX_CONTAINER_NAME_LEN </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_OBJSTORE_NAME" id="RAXSDK_OBJSTORE_NAME"> </a><div class="element clickable constant  RAXSDK_OBJSTORE_NAME" data-toggle="collapse" data-target=".RAXSDK_OBJSTORE_NAME .collapse">
-<h2>RAXSDK_OBJSTORE_NAME</h2>
-<pre>RAXSDK_OBJSTORE_NAME </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_OBJSTORE_REGION" id="RAXSDK_OBJSTORE_REGION"> </a><div class="element clickable constant  RAXSDK_OBJSTORE_REGION" data-toggle="collapse" data-target=".RAXSDK_OBJSTORE_REGION .collapse">
-<h2>RAXSDK_OBJSTORE_REGION</h2>
-<pre>RAXSDK_OBJSTORE_REGION </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_OBJSTORE_URLTYPE" id="RAXSDK_OBJSTORE_URLTYPE"> </a><div class="element clickable constant  RAXSDK_OBJSTORE_URLTYPE" data-toggle="collapse" data-target=".RAXSDK_OBJSTORE_URLTYPE .collapse">
-<h2>RAXSDK_OBJSTORE_URLTYPE</h2>
-<pre>RAXSDK_OBJSTORE_URLTYPE </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_OVERLIMIT_TIMEOUT" id="RAXSDK_OVERLIMIT_TIMEOUT"> </a><div class="element clickable constant  RAXSDK_OVERLIMIT_TIMEOUT" data-toggle="collapse" data-target=".RAXSDK_OVERLIMIT_TIMEOUT .collapse">
-<h2>RAXSDK_OVERLIMIT_TIMEOUT</h2>
-<pre>RAXSDK_OVERLIMIT_TIMEOUT </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_POLL_INTERVAL" id="RAXSDK_POLL_INTERVAL"> </a><div class="element clickable constant  RAXSDK_POLL_INTERVAL" data-toggle="collapse" data-target=".RAXSDK_POLL_INTERVAL .collapse">
-<h2>RAXSDK_POLL_INTERVAL</h2>
-<pre>RAXSDK_POLL_INTERVAL </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_SERVER_MAXTIMEOUT" id="RAXSDK_SERVER_MAXTIMEOUT"> </a><div class="element clickable constant  RAXSDK_SERVER_MAXTIMEOUT" data-toggle="collapse" data-target=".RAXSDK_SERVER_MAXTIMEOUT .collapse">
-<h2>RAXSDK_SERVER_MAXTIMEOUT</h2>
-<pre>RAXSDK_SERVER_MAXTIMEOUT </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_SOFT_REBOOT" id="RAXSDK_SOFT_REBOOT"> </a><div class="element clickable constant  RAXSDK_SOFT_REBOOT" data-toggle="collapse" data-target=".RAXSDK_SOFT_REBOOT .collapse">
-<h2>RAXSDK_SOFT_REBOOT</h2>
-<pre>RAXSDK_SOFT_REBOOT </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_STRICT_PROPERTY_CHECKS" id="RAXSDK_STRICT_PROPERTY_CHECKS"> </a><div class="element clickable constant  RAXSDK_STRICT_PROPERTY_CHECKS" data-toggle="collapse" data-target=".RAXSDK_STRICT_PROPERTY_CHECKS .collapse">
-<h2>RAXSDK_STRICT_PROPERTY_CHECKS</h2>
-<pre>RAXSDK_STRICT_PROPERTY_CHECKS </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_TERMINATED" id="RAXSDK_TERMINATED"> </a><div class="element clickable constant  RAXSDK_TERMINATED" data-toggle="collapse" data-target=".RAXSDK_TERMINATED .collapse">
-<h2>RAXSDK_TERMINATED</h2>
-<pre>RAXSDK_TERMINATED </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_TIMEOUT" id="RAXSDK_TIMEOUT"> </a><div class="element clickable constant  RAXSDK_TIMEOUT" data-toggle="collapse" data-target=".RAXSDK_TIMEOUT .collapse">
-<h2>RAXSDK_TIMEOUT</h2>
-<pre>RAXSDK_TIMEOUT </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_TIMEZONE" id="RAXSDK_TIMEZONE"> </a><div class="element clickable constant  RAXSDK_TIMEZONE" data-toggle="collapse" data-target=".RAXSDK_TIMEZONE .collapse">
-<h2>RAXSDK_TIMEZONE</h2>
-<pre>RAXSDK_TIMEZONE </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_URL_INTERNAL" id="RAXSDK_URL_INTERNAL"> </a><div class="element clickable constant  RAXSDK_URL_INTERNAL" data-toggle="collapse" data-target=".RAXSDK_URL_INTERNAL .collapse">
-<h2>RAXSDK_URL_INTERNAL</h2>
-<pre>RAXSDK_URL_INTERNAL </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_URL_PUBLIC" id="RAXSDK_URL_PUBLIC"> </a><div class="element clickable constant  RAXSDK_URL_PUBLIC" data-toggle="collapse" data-target=".RAXSDK_URL_PUBLIC .collapse">
-<h2>RAXSDK_URL_PUBLIC</h2>
-<pre>RAXSDK_URL_PUBLIC </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_URL_VERSION_INFO" id="RAXSDK_URL_VERSION_INFO"> </a><div class="element clickable constant  RAXSDK_URL_VERSION_INFO" data-toggle="collapse" data-target=".RAXSDK_URL_VERSION_INFO .collapse">
-<h2>RAXSDK_URL_VERSION_INFO</h2>
-<pre>RAXSDK_URL_VERSION_INFO </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_URL_VERSION_LIST" id="RAXSDK_URL_VERSION_LIST"> </a><div class="element clickable constant  RAXSDK_URL_VERSION_LIST" data-toggle="collapse" data-target=".RAXSDK_URL_VERSION_LIST .collapse">
-<h2>RAXSDK_URL_VERSION_LIST</h2>
-<pre>RAXSDK_URL_VERSION_LIST </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_USER_AGENT" id="RAXSDK_USER_AGENT"> </a><div class="element clickable constant  RAXSDK_USER_AGENT" data-toggle="collapse" data-target=".RAXSDK_USER_AGENT .collapse">
-<h2>RAXSDK_USER_AGENT</h2>
-<pre>RAXSDK_USER_AGENT </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="RAXSDK_VERSION" id="RAXSDK_VERSION"> </a><div class="element clickable constant  RAXSDK_VERSION" data-toggle="collapse" data-target=".RAXSDK_VERSION .collapse">
-<h2>RAXSDK_VERSION</h2>
-<pre>RAXSDK_VERSION </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
-<a name="SWIFT_MAX_OBJECT_SIZE" id="SWIFT_MAX_OBJECT_SIZE"> </a><div class="element clickable constant  SWIFT_MAX_OBJECT_SIZE" data-toggle="collapse" data-target=".SWIFT_MAX_OBJECT_SIZE .collapse">
-<h2>SWIFT_MAX_OBJECT_SIZE</h2>
-<pre>SWIFT_MAX_OBJECT_SIZE </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description"><p class="long_description"></p></div></div>
-</div>
 </div>
 </div>
 </div>
 <div class="row"><footer class="span12">
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a8</a> and<br>
-            generated on 2012-09-11T08:43:06-05:00.<br></footer></div>
+            generated on 2012-09-11T09:15:04-05:00.<br></footer></div>
 </div>
 </body>
 </html>
