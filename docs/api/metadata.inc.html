@@ -1,0 +1,977 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+          $(document).ready(function()
+          {
+            $(".filetree").treeview({
+              animated: "fast",
+              collapsed: true,
+              persist: "cookie"
+            });
+          });
+
+          function jq_escape(myid)
+          {
+            return '#' + myid.replace(/(#|\$|:|\.|\(|\))/g, '\\$1');
+          }
+
+          function applySearchHash()
+          {
+            hashes = document.location.hash.substr(1, document.location.hash.length);
+            if (hashes != "")
+            {
+              hashes = hashes.split('/');
+              $.each(hashes, function(index, hash)
+              {
+                node = $(jq_escape(hash));
+                switch (node[0].nodeName)
+                {
+                  case 'DIV':
+                    tabs = node.parents('.tabs');
+                    $(tabs[0]).tabs('select', '#' + hash)
+                    break;
+                  case 'A':
+                    window.scrollTo(0, node.offset().top);
+                    break;
+                }
+              });
+            }
+          }
+
+          jQuery(function()
+          {
+            jQuery(".tabs").tabs();
+            applySearchHash();
+          });
+        </script><div id="maincontainer"><div id="header"><h1>
+                phpDocumentor
+              <img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
+<li><a href="graph.html">Class diagram</a></li>
+<li><a href="markers.html">TODO / Markers</a></li>
+<li><a href="parse_markers.html">Errors</a></li>
+</ul>
+<div id="content_container"><div xmlns="" id="content">
+<h1>metadata.inc</h1>
+<div class="file_menu">
+<a href="#includes">Includes</a> |<a href="#classes">Classes</a> |</div>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">author</label><div class="property-value"></div>
+<label class="property-key">copyright</label><div class="property-value"></div>
+<label class="property-key">package</label><div class="property-value"></div>
+<label class="property-key">version</label><div class="property-value"></div>
+</div>
+<h2>Description</h2>A metadata object, used by other components in Compute and Object Storage<br><br><a name="includes"></a><h2>Includes</h2>base.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="Metadata" class="class">
+<h3>Metadata</h3>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">Extends</label><div class="property-value">
+<a href="base.inc.html#%5COpenCloud%5CBase">\OpenCloud\Base</a>
+         </div>
+<label class="property-key">Implements</label><div class="property-value"> 
+      </div>
+<label class="property-key">api</label><div class="property-value">
+<a title=""></a>
+             
+        </div>
+<label class="property-key">author</label><div class="property-value">
+<a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
+             
+        </div>
+<label class="property-key">Abstract</label><div class="property-value">No 
+      </div>
+<label class="property-key">Final</label><div class="property-value">No 
+      </div>
+</div>
+<h4>Description</h4>
+<em>The Metadata class represents either Server or Image metadata</em><br><p>It contains common code for error handling as well as service functions that
+are useful. Because it is an abstract class, it cannot be called directly,
+and it has no publicly-visible properties.</p><br><div id="methods_Metadata">
+<h4>Methods</h4>
+<a style="font-style: italic;" href="#Metadata::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#Metadata::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#Metadata::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#Metadata::Keylist()">Keylist</a>,
+      <a style="font-style: italic;" href="#Metadata::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#Metadata::SetArray()">SetArray</a>,
+      <a style="font-style: italic;" href="#Metadata::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#Metadata::Url()">Url</a>,
+      <a style="font-style: italic;" href="#Metadata::__set()">__set</a>,
+      <a style="font-style: italic;" href="#Metadata::debug()">debug</a>,
+      <a style="font-style: italic;" href="#Metadata::to_string()">to_string</a>,
+      <div class="method">
+<a id="Metadata::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+          string
+             
+            $property,
+          array
+             
+            $prefixes
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">boolean</span>
+</h3>
+<h4>Description</h4>
+<em>Checks the attribute $name and only permits it if the prefix is
+in the specified $prefix array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$property</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the attribute</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$prefixes</td>
+<td style="white-space: normal;">array</td>
+<td><p>a list of prefixes</p></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>boolean</td>
+<td>TRUE if valid; FALSE if not</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::CheckAttributePrefix()"><small>\OpenCloud\Base::CheckAttributePrefix()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">boolean</span>
+</h3>
+<h4>Description</h4>
+<em>check the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
+This ensures that nasty JSON errors are detected and the proper
+exception thrown.</p>
+
+<p>Example:
+  <code>$obj = json_decode($string);</code>
+  <code>if (check_json_error()) do something ...</code></p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>boolean</td>
+<td>TRUE if an error occurred, FALSE if none</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::CheckJsonError()"><small>\OpenCloud\Base::CheckJsonError()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+          
+             
+            $url,
+          
+             
+            $method
+            = 'GET',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns a class that implements the HttpRequest interface.</em><br><small><p>We can stub this out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$method</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>'GET'</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Base::GetHttpRequestObject()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::Keylist()"></a><h3>Keylist<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the list of keys defined</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+          array
+             
+            $arr,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$arr</td>
+<td style="white-space: normal;">array</td>
+<td><p>array of key/value pairs</p>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::MakeQueryString()"><small>\OpenCloud\Base::MakeQueryString()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::SetArray()"></a><h3>SetArray<span class="nb-faded-text">(
+          array
+             
+            $values,
+          string
+             
+            $prefix
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Sets metadata values from an array, with optional prefix</em><br><small><p>If $prefix is provided, then only array keys that match the prefix
+are set as metadata values, and $prefix is stripped from the key name.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$values</td>
+<td style="white-space: normal;">array</td>
+<td><p>an array of key/value pairs to set</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$prefix</td>
+<td style="white-space: normal;">string</td>
+<td><p>if provided, a prefix that is used to identify metadata values. For example, you can set values from headers for a Container by using $prefix='X-Container-Meta-'.</p>
+</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+          string
+             
+            $property,
+          mixed
+             
+            $value,
+          array
+             
+            $prefixes
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Sets an extended (unrecognized) property on the current object</em><br><small><p>If RAXSDK_STRICT_PROPERTY_CHECKS is TRUE, then the prefix of the
+property name must appear in the $prefixes array, or else an
+exception is thrown.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$property</td>
+<td style="white-space: normal;">string</td>
+<td><p>the property name</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>the value of the property</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$prefixes</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional list of supported prefixes</p></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::SetProperty()"><small>\OpenCloud\Base::SetProperty()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::Url()"></a><h3>Url<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns the URL of the service/object</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
+base level, it simply throws an exception to enforce the idea that
+subclasses need to define this method.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::Url()"><small>\OpenCloud\Base::Url()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::__set()"></a><h3>__set<span class="nb-faded-text">(
+          string
+             
+            $key,
+          string
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>This setter overrides the base one, since the metadata key can be
+anything</em><br><small><p>This function is provided to ensure that attributes cannot
+arbitrarily added to an object. If this function is called, it
+means that the attribute is not defined on the object, and thus
+an exception is thrown.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$key</td>
+<td style="white-space: normal;">string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">string</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::debug()"></a><h3>debug<span class="nb-faded-text">(
+          string
+             
+            $msg,
+          
+             
+            $p1
+            = NULL,
+          
+             
+            $p2
+            = NULL,
+          
+             
+            $p3
+            = NULL,
+          
+             
+            $p4
+            = NULL,
+          
+             
+            $p5
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Displays a debug message if RAXSDK_DEBUG is TRUE.</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
+up to five optional parameters. It prints the debug message, prefixed
+with "Debug:" and the class name, to the standard output device.</p>
+
+<p>Example:
+  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$msg</td>
+<td style="white-space: normal;">string</td>
+<td><p>The message string (required); can be in sprintf() format.</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$p1</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p2</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p3</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p4</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p5</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::debug()"><small>\OpenCloud\Base::debug()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Metadata::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+          
+             
+            $x,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>converts a value to a HTTP-displayable string form</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$x</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.inc.html#%5COpenCloud%5CBase::to_string()"><small>\OpenCloud\Base::to_string()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div id="properties_Metadata">
+<h4>Properties</h4>
+<a href="#Metadata::%24_errors">$_errors</a>,
+      <a href="#Metadata::%24_keylist">$_keylist</a>,
+      <a href="#Metadata::%24http_headers">$http_headers</a>,
+      <div class="method">
+<a id="Metadata::$_errors"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_errors
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Metadata::$_keylist"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_keylist
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Metadata::$http_headers"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$http_headers
+          =
+          array()</h3>
+<em></em><br>
+</div>
+</div>
+<div style="clear: both"></div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+      $(function() {
+
+        var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
+        var is_local = /file:\/\//.test(document.location.href);
+        if (is_chrome && is_local)
+        {
+          // search is disabled on chrome with local files due to http://code.google.com/p/chromium/issues/detail?id=40787
+          return;
+        }
+
+        $("#search_box").show();
+        var search_index = {};
+        $.ajax({
+          url: "search_index.xml",
+          dataType: ($.browser.msie) ? "text" : "xml",
+          error: function(data) {
+            alert('An error occurred using the search data');
+          },
+          success: function( data ) {
+            var xml;
+            if (typeof data == "string") {
+              xml = new ActiveXObject("Microsoft.XMLDOM");
+              xml.async = false;
+              xml.loadXML(data);
+            } else {
+              xml = data;
+            }
+
+            search_index = $("node", xml).map(function() {
+              type = $("type", this).text();
+              return {
+                value: $("value", this).text(),
+                label: '<img src="images/icons/'+type+'.png" align="absmiddle">'+$("value", this).text(),
+                id: $("id", this).text(),
+              };
+            }).get();
+
+            $("#search_box").autocomplete({
+              source: search_index,
+              select: function(event, ui) {
+                // redirect to the documentation
+                if ((parent) && (parent.content))
+                {
+                  parent.content.document.location = ''+ui.item.id;
+                }
+                else
+                {
+                  jQuery(document).location = ''+ui.item.id;
+                }
+                applySearchHash();
+              }
+            });
+          }
+        });
+      });
+    </script><input id="search_box"></input><div class="section">
+<h1>Namespaces</h1>
+<ul id="namespaces-" class="filetree">
+<li class="closed">
+<span class="folder">OpenCloud</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#AttributeError">AttributeError</a><br><small>General Exceptions</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
+<li><span class="class"><a href="base.inc.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
+this SDK.</small></span></li>
+<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out response for unit testing</small></span></li>
+<li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
+<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>Compute is the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#EndpointError">EndpointError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpError">HttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
+<li><span class="interface"><a href="http.inc.html#HttpRequest">HttpRequest</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
+those methods to be stubbed out for unit testing, thus allowing us to
+test without actually making live calls.</small></span></li>
+<li><span class="class"><a href="http.inc.html#HttpResponse">HttpResponse</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code between the ObjectStore and ObjectStoreCDN
+objects.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship between a user and a service</small></span></li>
+<li><span class="class"><a href="rackspace.inc.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
+API key and tenant requirements.</small></span></li>
+<li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
+<li class="closed">
+<span class="folder">Compute</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavorlist.inc.html#FlavorList">FlavorList</a><br><small>An FlavorList is a Collection of Flavors</small></span></li>
+<li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
+Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
+<li><span class="class"><a href="imagelist.inc.html#ImageList">ImageList</a><br><small>An ImageList is a Collection of Images</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataError">MetadataError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
+<li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="serverlist.inc.html#ServerList">ServerList</a><br><small>ServerList is a Collection of servers</small></span></li>
+<li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DbService</span><ul>
+<li><span class="class"><a href="database.inc.html#Database">Database</a><br><small>This class represents a Database in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="databaselist.inc.html#DatabaseList">DatabaseList</a><br><small>DatabaseList is a Collection of Databases</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="instance.inc.html#Instance">Instance</a><br><small>Instance represents an instance of DbService, similar to a Server in a
+Compute service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceError">InstanceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="instancelist.inc.html#InstanceList">InstanceList</a><br><small>InstanceList is a Collection of Database instances</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="user.inc.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="userlist.inc.html#UserList">UserList</a><br><small>a UserList is a Collection (q.v.) of Users (q.v.)</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserListError">UserListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserNameError">UserNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">ObjectStore</span><ul>
+<li><span class="class"><a href="container.inc.html#CDNContainer">CDNContainer</a><br><small>A simple container for the CDN Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnError">CdnError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
+<li><span class="class"><a href="container.inc.html#Container">Container</a><br><small>A regular container with a (potentially) CDN container</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="dataobject.inc.html#DataObject">DataObject</a><br><small>A DataObject is an object in the ObjectStore</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#IOError">IOError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoNameError">NoNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
+<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="objectlist.inc.html#ObjectList">ObjectList</a><br><small>The ObjectList class defines a Collection of data objects from the
+Object Storage Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">global</span><ul></ul>
+</li>
+</ul>
+</div><div class="section">
+<h1>Packages</h1>
+<ul id="packages-" class="filetree">
+<li class="closed">
+<span class="folder">Default</span><ul id="packages_Default" class="filetree"></ul>
+</li>
+<li class="closed">
+<span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree"></ul>
+</li>
+</ul>
+</div>
+</div></div><div id="footer"><div class="padder"></div></div></div></body></html>

@@ -1,0 +1,1852 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+          $(document).ready(function()
+          {
+            $(".filetree").treeview({
+              animated: "fast",
+              collapsed: true,
+              persist: "cookie"
+            });
+          });
+
+          function jq_escape(myid)
+          {
+            return '#' + myid.replace(/(#|\$|:|\.|\(|\))/g, '\\$1');
+          }
+
+          function applySearchHash()
+          {
+            hashes = document.location.hash.substr(1, document.location.hash.length);
+            if (hashes != "")
+            {
+              hashes = hashes.split('/');
+              $.each(hashes, function(index, hash)
+              {
+                node = $(jq_escape(hash));
+                switch (node[0].nodeName)
+                {
+                  case 'DIV':
+                    tabs = node.parents('.tabs');
+                    $(tabs[0]).tabs('select', '#' + hash)
+                    break;
+                  case 'A':
+                    window.scrollTo(0, node.offset().top);
+                    break;
+                }
+              });
+            }
+          }
+
+          jQuery(function()
+          {
+            jQuery(".tabs").tabs();
+            applySearchHash();
+          });
+        </script><div id="maincontainer"><div id="header"><h1>
+                phpDocumentor
+              <img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
+<li><a href="graph.html">Class diagram</a></li>
+<li><a href="markers.html">TODO / Markers</a></li>
+<li><a href="parse_markers.html">Errors</a></li>
+</ul>
+<div id="content_container"><script xmlns="" type="text/javascript">
+        $(document).ready(function() {
+            $("#marker-accordion").accordion({
+                collapsible: true,
+                autoHeight:  false
+            });
+        });
+    </script><div xmlns="" id="content">
+<h1>Compilation Errors</h1>
+<div id="marker-accordion">
+<h3><a href="#">base.inc<small>13</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $http_headers</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $_errors</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>Name of argument $p1 does not match with the DocBlock's name $p1-$p5 in debug()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>Argument $p2 is missing from the Docblock of debug()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>Argument $p3 is missing from the Docblock of debug()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>Argument $p4 is missing from the Docblock of debug()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>Argument $p5 is missing from the Docblock of debug()</td>
+</tr>
+<tr>
+<td>notice</td>
+<td>36</td>
+<td>Parameter $p1-$p5 could not be found in debug()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>73</td>
+<td>Name of argument $property does not match with the DocBlock's name $name in __set()</td>
+</tr>
+<tr>
+<td>notice</td>
+<td>73</td>
+<td>Parameter $name could not be found in __set()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>183</td>
+<td>Argument $url is missing from the Docblock of GetHttpRequestObject()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>183</td>
+<td>Argument $method is missing from the Docblock of GetHttpRequestObject()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>209</td>
+<td>Argument $x is missing from the Docblock of to_string()</td>
+</tr>
+</table></div>
+<h3><a href="#">collection.inc<small>3</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for property $service</td>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $itemlist</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $pointer</td>
+</tr>
+</table></div>
+<h3><a href="#">compute.inc<small>4</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $conn in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>Name of argument $serviceName does not match with the DocBlock's name $serviceRegion in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>Name of argument $serviceRegion does not match with the DocBlock's name $urltype in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>Name of argument $urltype does not match with the DocBlock's name $serviceName in __construct()</td>
+</tr>
+</table></div>
+<h3><a href="#">container.inc<small>9</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for property $name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for property $count</td>
+</tr>
+<tr>
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for property $bytes</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $service</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $container_url</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $_cdn</td>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $service in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>307</td>
+<td>No DocBlock was found for property $_cdn</td>
+</tr>
+<tr>
+<td>error</td>
+<td>400</td>
+<td>Argument $prop is missing from the Docblock of CDNinfo()</td>
+</tr>
+</table></div>
+<h3><a href="#">database.inc<small>4</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>24</td>
+<td>No DocBlock was found for property $name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for property $_instance</td>
+</tr>
+<tr>
+<td>error</td>
+<td>118</td>
+<td>Argument $params is missing from the Docblock of Update()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>145</td>
+<td>Argument $params is missing from the Docblock of CreateJson()</td>
+</tr>
+</table></div>
+<h3><a href="#">dataobject.inc<small>10</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $hash</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $bytes</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $last_modified</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $content_type</td>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $content_length</td>
+</tr>
+<tr>
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for property $data</td>
+</tr>
+<tr>
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for property $etag</td>
+</tr>
+<tr>
+<td>error</td>
+<td>39</td>
+<td>No DocBlock was found for property $container</td>
+</tr>
+<tr>
+<td>error</td>
+<td>214</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $target in Copy()</td>
+</tr>
+</table></div>
+<h3><a href="#">dbservice.inc<small>4</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>41</td>
+<td>Argument $resource is missing from the Docblock of Url()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>41</td>
+<td>Argument $args is missing from the Docblock of Url()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>59</td>
+<td>Argument $id is missing from the Docblock of Instance()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>66</td>
+<td>Argument $params is missing from the Docblock of InstanceList()</td>
+</tr>
+</table></div>
+<h3><a href="#">exceptions.inc<small>72</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>22</td>
+<td>No DocBlock was found for \OpenCloud\AuthenticationError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>23</td>
+<td>No DocBlock was found for \OpenCloud\CollectionError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>24</td>
+<td>No DocBlock was found for \OpenCloud\DocumentError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for \OpenCloud\EndpointError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for \OpenCloud\HttpError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for \OpenCloud\HttpUnauthorizedError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for \OpenCloud\HttpForbiddenError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for \OpenCloud\HttpRetryError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for \OpenCloud\HttpTimeoutError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for \OpenCloud\HttpUrlError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for \OpenCloud\HttpOverLimitError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for \OpenCloud\JsonError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for \OpenCloud\ServiceValueError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for \OpenCloud\UnrecognizedServiceError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for \OpenCloud\UrlError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>50</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ImageError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>51</td>
+<td>No DocBlock was found for \OpenCloud\Compute\InvalidArgumentError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>52</td>
+<td>No DocBlock was found for \OpenCloud\Compute\FlavorError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>No DocBlock was found for \OpenCloud\Compute\EmptyResponseError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>54</td>
+<td>No DocBlock was found for \OpenCloud\Compute\InvalidRequestError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>55</td>
+<td>No DocBlock was found for \OpenCloud\Compute\InvalidParameterError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>56</td>
+<td>No DocBlock was found for \OpenCloud\Compute\InvalidIpTypeError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>57</td>
+<td>No DocBlock was found for \OpenCloud\Compute\MetadataError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>58</td>
+<td>No DocBlock was found for \OpenCloud\Compute\MetadataKeyError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>59</td>
+<td>No DocBlock was found for \OpenCloud\Compute\MetadataJsonError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>60</td>
+<td>No DocBlock was found for \OpenCloud\Compute\MetadataCreateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>61</td>
+<td>No DocBlock was found for \OpenCloud\Compute\MetadataUpdateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>62</td>
+<td>No DocBlock was found for \OpenCloud\Compute\MetadataDeleteError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>63</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerCreateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>64</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerUpdateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>65</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerDeleteError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>66</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerActionError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>67</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerIdRequiredError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>68</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerIpsError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>69</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerUrlError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>70</td>
+<td>No DocBlock was found for \OpenCloud\Compute\ServerJsonError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>78</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\CdnError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>79</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\CdnNotAvailableError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>80</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\CdnHttpError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>81</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\CdnTtlError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>82</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\CreateUpdateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>83</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ContainerCreateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>84</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ContainerDeleteError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>85</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ContainerNameError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>86</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ContainerNotFoundError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>87</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ContainerNotEmptyError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>88</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\DeleteError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>89</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\IOError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>90</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\MetadataPrefixError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>91</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\MisMatchedChecksumError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>92</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\NoNameError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>93</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\NoContentTypeError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>94</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ObjectError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>95</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ObjectCopyError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>96</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\ObjFetchError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>97</td>
+<td>No DocBlock was found for \OpenCloud\ObjectStore\UnknownParameterError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>104</td>
+<td>No DocBlock was found for \OpenCloud\DbService\DatabaseCreateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>105</td>
+<td>No DocBlock was found for \OpenCloud\DbService\DatabaseDeleteError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>106</td>
+<td>No DocBlock was found for \OpenCloud\DbService\DatabaseListError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>107</td>
+<td>No DocBlock was found for \OpenCloud\DbService\DatabaseUpdateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>108</td>
+<td>No DocBlock was found for \OpenCloud\DbService\DatabaseNameError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>109</td>
+<td>No DocBlock was found for \OpenCloud\DbService\InstanceCreateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>110</td>
+<td>No DocBlock was found for \OpenCloud\DbService\InstanceDeleteError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>111</td>
+<td>No DocBlock was found for \OpenCloud\DbService\InstanceUpdateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>112</td>
+<td>No DocBlock was found for \OpenCloud\DbService\InstanceError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>113</td>
+<td>No DocBlock was found for \OpenCloud\DbService\InstanceFlavorError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>114</td>
+<td>No DocBlock was found for \OpenCloud\DbService\InvalidIdTypeError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>115</td>
+<td>No DocBlock was found for \OpenCloud\DbService\UserCreateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>116</td>
+<td>No DocBlock was found for \OpenCloud\DbService\UserDeleteError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>117</td>
+<td>No DocBlock was found for \OpenCloud\DbService\UserListError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>118</td>
+<td>No DocBlock was found for \OpenCloud\DbService\UserUpdateError</td>
+</tr>
+<tr>
+<td>error</td>
+<td>119</td>
+<td>No DocBlock was found for \OpenCloud\DbService\UserNameError</td>
+</tr>
+</table></div>
+<h3><a href="#">flavor.inc<small>16</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for property $status</td>
+</tr>
+<tr>
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for property $updated</td>
+</tr>
+<tr>
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for property $vcpus</td>
+</tr>
+<tr>
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for property $disk</td>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $links</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $rxtx_factor</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $ram</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $id</td>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $swap</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $service</td>
+</tr>
+<tr>
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for property $flavorurl</td>
+</tr>
+<tr>
+<td>error</td>
+<td>39</td>
+<td>Argument $id is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>97</td>
+<td>Argument $name is missing from the Docblock of __set()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>97</td>
+<td>Argument $value is missing from the Docblock of __set()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>104</td>
+<td>No short description for method Service()</td>
+</tr>
+</table></div>
+<h3><a href="#">globals.inc<small>3</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>116</td>
+<td>No DocBlock was found for function \_()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>123</td>
+<td>Argument $str is missing from the Docblock of \noslash()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>135</td>
+<td>Argument $state is missing from the Docblock of \setDebug()</td>
+</tr>
+</table></div>
+<h3><a href="#">http.inc<small>35</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>25</td>
+<td>No DocBlock was found for method SetOption()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for method setheaders()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for method SetHeader()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for method Execute()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for method close()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>44</td>
+<td>No DocBlock was found for property $url</td>
+</tr>
+<tr>
+<td>error</td>
+<td>45</td>
+<td>No DocBlock was found for property $method</td>
+</tr>
+<tr>
+<td>error</td>
+<td>46</td>
+<td>No DocBlock was found for property $handle</td>
+</tr>
+<tr>
+<td>error</td>
+<td>47</td>
+<td>No DocBlock was found for property $retries</td>
+</tr>
+<tr>
+<td>error</td>
+<td>48</td>
+<td>No DocBlock was found for property $headers</td>
+</tr>
+<tr>
+<td>error</td>
+<td>49</td>
+<td>No DocBlock was found for property $returnheaders</td>
+</tr>
+<tr>
+<td>error</td>
+<td>51</td>
+<td>Argument $url is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>51</td>
+<td>Argument $method is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>122</td>
+<td>Argument $value is missing from the Docblock of SetRetries()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>254</td>
+<td>No short description for method _get_header_cb()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>254</td>
+<td>Argument $ch is missing from the Docblock of _get_header_cb()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>254</td>
+<td>Argument $header is missing from the Docblock of _get_header_cb()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>274</td>
+<td>No DocBlock was found for property $errno</td>
+</tr>
+<tr>
+<td>error</td>
+<td>275</td>
+<td>No DocBlock was found for property $error</td>
+</tr>
+<tr>
+<td>error</td>
+<td>276</td>
+<td>No DocBlock was found for property $info</td>
+</tr>
+<tr>
+<td>error</td>
+<td>277</td>
+<td>No DocBlock was found for property $body</td>
+</tr>
+<tr>
+<td>error</td>
+<td>278</td>
+<td>No DocBlock was found for property $headers</td>
+</tr>
+<tr>
+<td>error</td>
+<td>280</td>
+<td>Argument $request is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>280</td>
+<td>Argument $data is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>319</td>
+<td>Argument $name is missing from the Docblock of Header()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>371</td>
+<td>No DocBlock was found for property $errno</td>
+</tr>
+<tr>
+<td>error</td>
+<td>372</td>
+<td>No DocBlock was found for property $error</td>
+</tr>
+<tr>
+<td>error</td>
+<td>373</td>
+<td>No DocBlock was found for property $info</td>
+</tr>
+<tr>
+<td>error</td>
+<td>374</td>
+<td>No DocBlock was found for property $body</td>
+</tr>
+<tr>
+<td>error</td>
+<td>375</td>
+<td>No DocBlock was found for property $headers</td>
+</tr>
+<tr>
+<td>error</td>
+<td>376</td>
+<td>No DocBlock was found for property $status</td>
+</tr>
+<tr>
+<td>error</td>
+<td>377</td>
+<td>No DocBlock was found for property $rawdata</td>
+</tr>
+<tr>
+<td>error</td>
+<td>378</td>
+<td>No DocBlock was found for method __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>382</td>
+<td>No DocBlock was found for method HttpBody()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>383</td>
+<td>No DocBlock was found for method HttpStatus()</td>
+</tr>
+</table></div>
+<h3><a href="#">image.inc<small>16</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for property $status</td>
+</tr>
+<tr>
+<td>error</td>
+<td>27</td>
+<td>No DocBlock was found for property $updated</td>
+</tr>
+<tr>
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for property $links</td>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $minDisk</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $id</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $created</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $progress</td>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $minRam</td>
+</tr>
+<tr>
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for property $metadata</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $server</td>
+</tr>
+<tr>
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for property $service</td>
+</tr>
+<tr>
+<td>error</td>
+<td>39</td>
+<td>No DocBlock was found for property $imageurl</td>
+</tr>
+<tr>
+<td>error</td>
+<td>41</td>
+<td>Argument $id is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>86</td>
+<td>Argument $name is missing from the Docblock of __set()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>86</td>
+<td>Argument $value is missing from the Docblock of __set()</td>
+</tr>
+</table></div>
+<h3><a href="#">instance.inc<small>17</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $id</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $status</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $links</td>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $hostname</td>
+</tr>
+<tr>
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for property $volume</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $created</td>
+</tr>
+<tr>
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for property $updated</td>
+</tr>
+<tr>
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for property $flavor</td>
+</tr>
+<tr>
+<td>error</td>
+<td>41</td>
+<td>No DocBlock was found for property $_databases</td>
+</tr>
+<tr>
+<td>error</td>
+<td>42</td>
+<td>No DocBlock was found for property $_users</td>
+</tr>
+<tr>
+<td>error</td>
+<td>44</td>
+<td>Argument $service is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>44</td>
+<td>Argument $info is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>239</td>
+<td>Argument $databases is missing from the Docblock of User()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>309</td>
+<td>Argument $params is missing from the Docblock of CreateJson()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>352</td>
+<td>Argument $flavorRef is missing from the Docblock of ResizeJson()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>362</td>
+<td>Argument $size is missing from the Docblock of ResizeVolumeJson()</td>
+</tr>
+</table></div>
+<h3><a href="#">metadata.inc<small>1</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for property $_keylist</td>
+</tr>
+</table></div>
+<h3><a href="#">nova.inc<small>7</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>28</td>
+<td>No DocBlock was found for property $_namespaces</td>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $_url</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $conn in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>Name of argument $serviceType does not match with the DocBlock's name $serviceRegion in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>Name of argument $serviceName does not match with the DocBlock's name $urltype in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>Name of argument $serviceRegion does not match with the DocBlock's name $serviceName in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>Argument $urltype is missing from the Docblock of __construct()</td>
+</tr>
+</table></div>
+<h3><a href="#">novainstance.inc<small>6</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $id</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $_service</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No short description for method __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>Argument $nova is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>Argument $info is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>129</td>
+<td>Argument $id is missing from the Docblock of Refresh()</td>
+</tr>
+</table></div>
+<h3><a href="#">objectlist.inc<small>1</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>26</td>
+<td>No DocBlock was found for property $container</td>
+</tr>
+</table></div>
+<h3><a href="#">objectstore.inc<small>4</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>107</td>
+<td>No DocBlock was found for property $cdn</td>
+</tr>
+<tr>
+<td>error</td>
+<td>109</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $conn in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>172</td>
+<td>Name of argument $urltype does not match with the DocBlock's name $urlType in __construct()</td>
+</tr>
+<tr>
+<td>notice</td>
+<td>172</td>
+<td>Parameter $urlType could not be found in __construct()</td>
+</tr>
+</table></div>
+<h3><a href="#">objstorebase.inc<small>4</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $metadata</td>
+</tr>
+<tr>
+<td>error</td>
+<td>42</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $response in GetMetadata()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>87</td>
+<td>No short description for method Prefix()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>87</td>
+<td>Argument $type is missing from the Docblock of Prefix()</td>
+</tr>
+</table></div>
+<h3><a href="#">openstack.inc<small>15</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>61</td>
+<td>No DocBlock was found for property $useragent</td>
+</tr>
+<tr>
+<td>error</td>
+<td>64</td>
+<td>No DocBlock was found for property $url</td>
+</tr>
+<tr>
+<td>error</td>
+<td>65</td>
+<td>No DocBlock was found for property $secret</td>
+</tr>
+<tr>
+<td>error</td>
+<td>66</td>
+<td>No DocBlock was found for property $token</td>
+</tr>
+<tr>
+<td>error</td>
+<td>67</td>
+<td>No DocBlock was found for property $expiration</td>
+</tr>
+<tr>
+<td>error</td>
+<td>68</td>
+<td>No DocBlock was found for property $tenant</td>
+</tr>
+<tr>
+<td>error</td>
+<td>69</td>
+<td>No DocBlock was found for property $ServiceCatalog</td>
+</tr>
+<tr>
+<td>error</td>
+<td>82</td>
+<td>No DocBlock was found for property $defaults</td>
+</tr>
+<tr>
+<td>error</td>
+<td>99</td>
+<td>No DocBlock was found for property $connect_timeout</td>
+</tr>
+<tr>
+<td>error</td>
+<td>100</td>
+<td>No DocBlock was found for property $http_timeout</td>
+</tr>
+<tr>
+<td>error</td>
+<td>101</td>
+<td>No DocBlock was found for property $overlimit_timeout</td>
+</tr>
+<tr>
+<td>error</td>
+<td>104</td>
+<td>No DocBlock was found for property $template</td>
+</tr>
+<tr>
+<td>error</td>
+<td>106</td>
+<td>No DocBlock was found for property $_user_write_progress_callback_func</td>
+</tr>
+<tr>
+<td>error</td>
+<td>107</td>
+<td>No DocBlock was found for property $_user_read_progress_callback_func</td>
+</tr>
+<tr>
+<td>error</td>
+<td>117</td>
+<td>No DocBlock was found for property $_file_descriptors</td>
+</tr>
+</table></div>
+<h3><a href="#">server.inc<small>23</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $status</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $updated</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $hostId</td>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $addresses</td>
+</tr>
+<tr>
+<td>error</td>
+<td>35</td>
+<td>No DocBlock was found for property $links</td>
+</tr>
+<tr>
+<td>error</td>
+<td>36</td>
+<td>No DocBlock was found for property $image</td>
+</tr>
+<tr>
+<td>error</td>
+<td>37</td>
+<td>No DocBlock was found for property $flavor</td>
+</tr>
+<tr>
+<td>error</td>
+<td>38</td>
+<td>No DocBlock was found for property $id</td>
+</tr>
+<tr>
+<td>error</td>
+<td>39</td>
+<td>No DocBlock was found for property $user_id</td>
+</tr>
+<tr>
+<td>error</td>
+<td>40</td>
+<td>No DocBlock was found for property $name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>41</td>
+<td>No DocBlock was found for property $created</td>
+</tr>
+<tr>
+<td>error</td>
+<td>42</td>
+<td>No DocBlock was found for property $tenant_id</td>
+</tr>
+<tr>
+<td>error</td>
+<td>43</td>
+<td>No DocBlock was found for property $accessIPv4</td>
+</tr>
+<tr>
+<td>error</td>
+<td>44</td>
+<td>No DocBlock was found for property $accessIPv6</td>
+</tr>
+<tr>
+<td>error</td>
+<td>45</td>
+<td>No DocBlock was found for property $progress</td>
+</tr>
+<tr>
+<td>error</td>
+<td>46</td>
+<td>No DocBlock was found for property $adminPass</td>
+</tr>
+<tr>
+<td>error</td>
+<td>47</td>
+<td>No DocBlock was found for property $metadata</td>
+</tr>
+<tr>
+<td>error</td>
+<td>50</td>
+<td>No DocBlock was found for property $imageRef</td>
+</tr>
+<tr>
+<td>error</td>
+<td>51</td>
+<td>No DocBlock was found for property $flavorRef</td>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>Name of argument $service does not match with the DocBlock's name $info in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $service in __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>53</td>
+<td>Argument $info is missing from the Docblock of __construct()</td>
+</tr>
+<tr>
+<td>error</td>
+<td>396</td>
+<td>Argument $params is missing from the Docblock of UpdateJson()</td>
+</tr>
+</table></div>
+<h3><a href="#">servermetadata.inc<small>4</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $_parent</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $_key</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $_url</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>The type hint of the argument is incorrect for the type definition of the @param tag with argument $parent in __construct()</td>
+</tr>
+</table></div>
+<h3><a href="#">service.inc<small>5</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>29</td>
+<td>No DocBlock was found for property $conn</td>
+</tr>
+<tr>
+<td>error</td>
+<td>30</td>
+<td>No DocBlock was found for property $service_type</td>
+</tr>
+<tr>
+<td>error</td>
+<td>31</td>
+<td>No DocBlock was found for property $service_name</td>
+</tr>
+<tr>
+<td>error</td>
+<td>32</td>
+<td>No DocBlock was found for property $service_region</td>
+</tr>
+<tr>
+<td>error</td>
+<td>33</td>
+<td>No DocBlock was found for property $service_url</td>
+</tr>
+</table></div>
+<h3><a href="#">user.inc<small>1</small></a></h3>
+<div><table>
+<tr>
+<th>Type</th>
+<th>Line</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>error</td>
+<td>34</td>
+<td>No DocBlock was found for property $_instance</td>
+</tr>
+</table></div>
+</div>
+</div></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+      $(function() {
+
+        var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
+        var is_local = /file:\/\//.test(document.location.href);
+        if (is_chrome && is_local)
+        {
+          // search is disabled on chrome with local files due to http://code.google.com/p/chromium/issues/detail?id=40787
+          return;
+        }
+
+        $("#search_box").show();
+        var search_index = {};
+        $.ajax({
+          url: "search_index.xml",
+          dataType: ($.browser.msie) ? "text" : "xml",
+          error: function(data) {
+            alert('An error occurred using the search data');
+          },
+          success: function( data ) {
+            var xml;
+            if (typeof data == "string") {
+              xml = new ActiveXObject("Microsoft.XMLDOM");
+              xml.async = false;
+              xml.loadXML(data);
+            } else {
+              xml = data;
+            }
+
+            search_index = $("node", xml).map(function() {
+              type = $("type", this).text();
+              return {
+                value: $("value", this).text(),
+                label: '<img src="images/icons/'+type+'.png" align="absmiddle">'+$("value", this).text(),
+                id: $("id", this).text(),
+              };
+            }).get();
+
+            $("#search_box").autocomplete({
+              source: search_index,
+              select: function(event, ui) {
+                // redirect to the documentation
+                if ((parent) && (parent.content))
+                {
+                  parent.content.document.location = ''+ui.item.id;
+                }
+                else
+                {
+                  jQuery(document).location = ''+ui.item.id;
+                }
+                applySearchHash();
+              }
+            });
+          }
+        });
+      });
+    </script><input id="search_box"></input><div class="section">
+<h1>Namespaces</h1>
+<ul id="namespaces-" class="filetree">
+<li class="closed">
+<span class="folder">OpenCloud</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#AttributeError">AttributeError</a><br><small>General Exceptions</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
+<li><span class="class"><a href="base.inc.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
+this SDK.</small></span></li>
+<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out response for unit testing</small></span></li>
+<li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
+<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>Compute is the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#EndpointError">EndpointError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpError">HttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
+<li><span class="interface"><a href="http.inc.html#HttpRequest">HttpRequest</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
+those methods to be stubbed out for unit testing, thus allowing us to
+test without actually making live calls.</small></span></li>
+<li><span class="class"><a href="http.inc.html#HttpResponse">HttpResponse</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code between the ObjectStore and ObjectStoreCDN
+objects.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship between a user and a service</small></span></li>
+<li><span class="class"><a href="rackspace.inc.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
+API key and tenant requirements.</small></span></li>
+<li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
+<li class="closed">
+<span class="folder">Compute</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavorlist.inc.html#FlavorList">FlavorList</a><br><small>An FlavorList is a Collection of Flavors</small></span></li>
+<li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
+Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
+<li><span class="class"><a href="imagelist.inc.html#ImageList">ImageList</a><br><small>An ImageList is a Collection of Images</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataError">MetadataError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
+<li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="serverlist.inc.html#ServerList">ServerList</a><br><small>ServerList is a Collection of servers</small></span></li>
+<li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DbService</span><ul>
+<li><span class="class"><a href="database.inc.html#Database">Database</a><br><small>This class represents a Database in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="databaselist.inc.html#DatabaseList">DatabaseList</a><br><small>DatabaseList is a Collection of Databases</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="instance.inc.html#Instance">Instance</a><br><small>Instance represents an instance of DbService, similar to a Server in a
+Compute service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceError">InstanceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="instancelist.inc.html#InstanceList">InstanceList</a><br><small>InstanceList is a Collection of Database instances</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="user.inc.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="userlist.inc.html#UserList">UserList</a><br><small>a UserList is a Collection (q.v.) of Users (q.v.)</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserListError">UserListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserNameError">UserNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">ObjectStore</span><ul>
+<li><span class="class"><a href="container.inc.html#CDNContainer">CDNContainer</a><br><small>A simple container for the CDN Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnError">CdnError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
+<li><span class="class"><a href="container.inc.html#Container">Container</a><br><small>A regular container with a (potentially) CDN container</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="dataobject.inc.html#DataObject">DataObject</a><br><small>A DataObject is an object in the ObjectStore</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#IOError">IOError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoNameError">NoNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
+<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="objectlist.inc.html#ObjectList">ObjectList</a><br><small>The ObjectList class defines a Collection of data objects from the
+Object Storage Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">global</span><ul></ul>
+</li>
+</ul>
+</div><div class="section">
+<h1>Packages</h1>
+<ul id="packages-" class="filetree">
+<li class="closed">
+<span class="folder">Default</span><ul id="packages_Default" class="filetree"></ul>
+</li>
+<li class="closed">
+<span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree"></ul>
+</li>
+</ul>
+</div>
+</div></div><div id="footer"><div class="padder"></div></div></div></body></html>

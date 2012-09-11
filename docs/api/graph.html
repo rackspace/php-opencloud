@@ -1,0 +1,277 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+          $(document).ready(function()
+          {
+            $(".filetree").treeview({
+              animated: "fast",
+              collapsed: true,
+              persist: "cookie"
+            });
+          });
+
+          function jq_escape(myid)
+          {
+            return '#' + myid.replace(/(#|\$|:|\.|\(|\))/g, '\\$1');
+          }
+
+          function applySearchHash()
+          {
+            hashes = document.location.hash.substr(1, document.location.hash.length);
+            if (hashes != "")
+            {
+              hashes = hashes.split('/');
+              $.each(hashes, function(index, hash)
+              {
+                node = $(jq_escape(hash));
+                switch (node[0].nodeName)
+                {
+                  case 'DIV':
+                    tabs = node.parents('.tabs');
+                    $(tabs[0]).tabs('select', '#' + hash)
+                    break;
+                  case 'A':
+                    window.scrollTo(0, node.offset().top);
+                    break;
+                }
+              });
+            }
+          }
+
+          jQuery(function()
+          {
+            jQuery(".tabs").tabs();
+            applySearchHash();
+          });
+        </script><div id="maincontainer"><div id="header"><h1>
+                phpDocumentor
+              <img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
+<li><a href="graph.html">Class diagram</a></li>
+<li><a href="markers.html">TODO / Markers</a></li>
+<li><a href="parse_markers.html">Errors</a></li>
+</ul>
+<div id="content_container"><div xmlns="" id="content"><table width="100%" height="95%">
+<tr><td height="60px"><div style="font-size: 10px; white-space: normal;">
+          The following actions are supported in this diagram:
+          <ul>
+<li>
+<b>Zoom</b>, you can use the scrollwheel to zoom in or out</li>
+<li>
+<b>Move</b>, you can move around by dragging the Diagram</li>
+<li>
+<b>Go to class</b>, you can view the details of a class by clicking on it</li>
+</ul>
+</div></td></tr>
+<tr><td><embed src="classes.svg" width="100%" height="100%"></embed></td></tr>
+</table></div></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+      $(function() {
+
+        var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
+        var is_local = /file:\/\//.test(document.location.href);
+        if (is_chrome && is_local)
+        {
+          // search is disabled on chrome with local files due to http://code.google.com/p/chromium/issues/detail?id=40787
+          return;
+        }
+
+        $("#search_box").show();
+        var search_index = {};
+        $.ajax({
+          url: "search_index.xml",
+          dataType: ($.browser.msie) ? "text" : "xml",
+          error: function(data) {
+            alert('An error occurred using the search data');
+          },
+          success: function( data ) {
+            var xml;
+            if (typeof data == "string") {
+              xml = new ActiveXObject("Microsoft.XMLDOM");
+              xml.async = false;
+              xml.loadXML(data);
+            } else {
+              xml = data;
+            }
+
+            search_index = $("node", xml).map(function() {
+              type = $("type", this).text();
+              return {
+                value: $("value", this).text(),
+                label: '<img src="images/icons/'+type+'.png" align="absmiddle">'+$("value", this).text(),
+                id: $("id", this).text(),
+              };
+            }).get();
+
+            $("#search_box").autocomplete({
+              source: search_index,
+              select: function(event, ui) {
+                // redirect to the documentation
+                if ((parent) && (parent.content))
+                {
+                  parent.content.document.location = ''+ui.item.id;
+                }
+                else
+                {
+                  jQuery(document).location = ''+ui.item.id;
+                }
+                applySearchHash();
+              }
+            });
+          }
+        });
+      });
+    </script><input id="search_box"></input><div class="section">
+<h1>Namespaces</h1>
+<ul id="namespaces-" class="filetree">
+<li class="closed">
+<span class="folder">OpenCloud</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#AttributeError">AttributeError</a><br><small>General Exceptions</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
+<li><span class="class"><a href="base.inc.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
+this SDK.</small></span></li>
+<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out response for unit testing</small></span></li>
+<li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
+<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>Compute is the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#EndpointError">EndpointError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpError">HttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
+<li><span class="interface"><a href="http.inc.html#HttpRequest">HttpRequest</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
+those methods to be stubbed out for unit testing, thus allowing us to
+test without actually making live calls.</small></span></li>
+<li><span class="class"><a href="http.inc.html#HttpResponse">HttpResponse</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code between the ObjectStore and ObjectStoreCDN
+objects.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship between a user and a service</small></span></li>
+<li><span class="class"><a href="rackspace.inc.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
+API key and tenant requirements.</small></span></li>
+<li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
+<li class="closed">
+<span class="folder">Compute</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavorlist.inc.html#FlavorList">FlavorList</a><br><small>An FlavorList is a Collection of Flavors</small></span></li>
+<li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
+Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
+<li><span class="class"><a href="imagelist.inc.html#ImageList">ImageList</a><br><small>An ImageList is a Collection of Images</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataError">MetadataError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
+<li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="serverlist.inc.html#ServerList">ServerList</a><br><small>ServerList is a Collection of servers</small></span></li>
+<li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DbService</span><ul>
+<li><span class="class"><a href="database.inc.html#Database">Database</a><br><small>This class represents a Database in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="databaselist.inc.html#DatabaseList">DatabaseList</a><br><small>DatabaseList is a Collection of Databases</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="instance.inc.html#Instance">Instance</a><br><small>Instance represents an instance of DbService, similar to a Server in a
+Compute service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceError">InstanceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="instancelist.inc.html#InstanceList">InstanceList</a><br><small>InstanceList is a Collection of Database instances</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="user.inc.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="userlist.inc.html#UserList">UserList</a><br><small>a UserList is a Collection (q.v.) of Users (q.v.)</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserListError">UserListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserNameError">UserNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">ObjectStore</span><ul>
+<li><span class="class"><a href="container.inc.html#CDNContainer">CDNContainer</a><br><small>A simple container for the CDN Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnError">CdnError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
+<li><span class="class"><a href="container.inc.html#Container">Container</a><br><small>A regular container with a (potentially) CDN container</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="dataobject.inc.html#DataObject">DataObject</a><br><small>A DataObject is an object in the ObjectStore</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#IOError">IOError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoNameError">NoNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
+<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="objectlist.inc.html#ObjectList">ObjectList</a><br><small>The ObjectList class defines a Collection of data objects from the
+Object Storage Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">global</span><ul></ul>
+</li>
+</ul>
+</div><div class="section">
+<h1>Packages</h1>
+<ul id="packages-" class="filetree">
+<li class="closed">
+<span class="folder">Default</span><ul id="packages_Default" class="filetree"></ul>
+</li>
+<li class="closed">
+<span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree"></ul>
+</li>
+</ul>
+</div>
+</div></div><div id="footer"><div class="padder"></div></div></div></body></html>

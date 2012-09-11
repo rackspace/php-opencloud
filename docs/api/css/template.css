@@ -83,6 +83,10 @@ a.brand, h2, .hero-unit h1
     background: white;
 }
 
+.dropdown-menu a{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 h2
 {
     border-bottom:  1px dashed #55A72F;
@@ -445,6 +449,11 @@ div.labels
     text-transform: uppercase;
     font-size: 0.7em;
     font-weight: bold;
+}
+
+.iviewer_common
+{
+    z-index: 100;
 }
 
 @media (min-width: 980px)

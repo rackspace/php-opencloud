@@ -1,0 +1,1769 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+          $(document).ready(function()
+          {
+            $(".filetree").treeview({
+              animated: "fast",
+              collapsed: true,
+              persist: "cookie"
+            });
+          });
+
+          function jq_escape(myid)
+          {
+            return '#' + myid.replace(/(#|\$|:|\.|\(|\))/g, '\\$1');
+          }
+
+          function applySearchHash()
+          {
+            hashes = document.location.hash.substr(1, document.location.hash.length);
+            if (hashes != "")
+            {
+              hashes = hashes.split('/');
+              $.each(hashes, function(index, hash)
+              {
+                node = $(jq_escape(hash));
+                switch (node[0].nodeName)
+                {
+                  case 'DIV':
+                    tabs = node.parents('.tabs');
+                    $(tabs[0]).tabs('select', '#' + hash)
+                    break;
+                  case 'A':
+                    window.scrollTo(0, node.offset().top);
+                    break;
+                }
+              });
+            }
+          }
+
+          jQuery(function()
+          {
+            jQuery(".tabs").tabs();
+            applySearchHash();
+          });
+        </script><div id="maincontainer"><div id="header"><h1>
+                phpDocumentor
+              <img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
+<li><a href="graph.html">Class diagram</a></li>
+<li><a href="markers.html">TODO / Markers</a></li>
+<li><a href="parse_markers.html">Errors</a></li>
+</ul>
+<div id="content_container"><div xmlns="" id="content">
+<h1>http.inc</h1>
+<div class="file_menu">
+<a href="#includes">Includes</a> |<a href="#classes">Classes</a> |<a href="#interfaces">Interfaces</a>
+</div>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">author</label><div class="property-value"></div>
+<label class="property-key">copyright</label><div class="property-value"></div>
+<label class="property-key">package</label><div class="property-value"></div>
+<label class="property-key">version</label><div class="property-value"></div>
+</div>
+<h2>Description</h2>Performs low-level HTTP operations via CURL<br><br><a name="includes"></a><h2>Includes</h2>globals.inc <span class="nb-faded-text">(Require Once)</span><br>exceptions.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="CurlRequest" class="class">
+<h3>CurlRequest</h3>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">Extends</label><div class="property-value">
+         </div>
+<label class="property-key">Implements</label><div class="property-value">\OpenCloud\HTTPRequest<br> 
+      </div>
+<label class="property-key">api</label><div class="property-value">
+<a title=""></a>
+             
+        </div>
+<label class="property-key">author</label><div class="property-value">
+<a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
+             
+        </div>
+<label class="property-key">Abstract</label><div class="property-value">No 
+      </div>
+<label class="property-key">Final</label><div class="property-value">No 
+      </div>
+</div>
+<h4>Description</h4>
+<em>The CurlRequest class is a simple wrapper to CURL functions.</em><br><p>Not only does
+this permit stubbing of the interface as described under the HttpRequest
+interface, it could potentially allow us to replace the interface methods
+with other function calls in the future.</p><br><div id="methods_CurlRequest">
+<h4>Methods</h4>
+<a style="font-style: italic;" href="#CurlRequest::Execute()">Execute</a>,
+      <a style="font-style: italic;" href="#CurlRequest::ReturnHeaders()">ReturnHeaders</a>,
+      <a style="font-style: italic;" href="#CurlRequest::SetConnectTimeout()">SetConnectTimeout</a>,
+      <a style="font-style: italic;" href="#CurlRequest::SetHeader()">SetHeader</a>,
+      <a style="font-style: italic;" href="#CurlRequest::SetHttpTimeout()">SetHttpTimeout</a>,
+      <a style="font-style: italic;" href="#CurlRequest::SetOption()">SetOption</a>,
+      <a style="font-style: italic;" href="#CurlRequest::SetRetries()">SetRetries</a>,
+      <a style="font-style: italic;" href="#CurlRequest::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#CurlRequest::_get_header_cb()">_get_header_cb</a>,
+      <a style="font-style: italic;" href="#CurlRequest::close()">close</a>,
+      <a style="font-style: italic;" href="#CurlRequest::errno()">errno</a>,
+      <a style="font-style: italic;" href="#CurlRequest::error()">error</a>,
+      <a style="font-style: italic;" href="#CurlRequest::info()">info</a>,
+      <a style="font-style: italic;" href="#CurlRequest::setheaders()">setheaders</a>,
+      <div class="method">
+<a id="CurlRequest::Execute()"></a><h3>Execute<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>Executes the current request</em><br><small><p>This method actually performs the request using the values set
+previously. It throws a OpenCloud\HttpError exception on
+any CURL error.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::ReturnHeaders()"></a><h3>ReturnHeaders<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the headers as an array</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::SetConnectTimeout()"></a><h3>SetConnectTimeout<span class="nb-faded-text">(
+          integer
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Explicit method for setting the connect timeout</em><br><small><p>The connect timeout is the time it takes for the initial connection
+request to be established. It is different than the HTTP timeout, which
+is the time for the entire request to be serviced.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$value</td>
+<td style="white-space: normal;">integer</td>
+<td><p>The connection timeout in seconds. Use 0 to wait indefinitely (NOT recommended)</p>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::SetHeader()"></a><h3>SetHeader<span class="nb-faded-text">(
+          string
+             
+            $name,
+          mixed
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Sets a single header</em><br><small><p>For example, to set the content type to JSON:
+<code>$request-&gt;SetHeader('Content-Type','application/json');</code></p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>The name of the header</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>The value of the header</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::SetHttpTimeout()"></a><h3>SetHttpTimeout<span class="nb-faded-text">(
+          integer
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Explicit method for setting the HTTP timeout</em><br><small><p>The HTTP timeout is the time it takes for the HTTP request to be
+serviced. This value is usually larger than the connect timeout
+value.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$value</td>
+<td style="white-space: normal;">integer</td>
+<td><ul>
+<li>the number of seconds to wait before timing out the HTTP request.</li>
+</ul>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::SetOption()"></a><h3>SetOption<span class="nb-faded-text">(
+          \OpenCloud\const
+             
+            $name,
+          mixed
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Sets a CURL option</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">\OpenCloud\const</td>
+<td><ul>
+<li>a CURL named constant; e.g. CURLOPT_TIMEOUT</li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">mixed</td>
+<td><ul>
+<li>the value for the option</li>
+</ul>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::SetRetries()"></a><h3>SetRetries<span class="nb-faded-text">(
+          
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Sets the number of retries</em><br><small><p>If you set this to a non-zero value, then it will repeat the request
+up to that number.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$value</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          
+             
+            $url,
+          
+             
+            $method
+            = 'GET',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>initializes the CURL handle and HTTP method</em><br><small><p>The constructor also sets a number of default values for options.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$method</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>'GET'</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::_get_header_cb()"></a><h3>_get_header_cb<span class="nb-faded-text">(
+          
+             
+            $ch,
+          
+             
+            $header,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$ch</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$header</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::close()"></a><h3>close<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Closes the HTTP request</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::errno()"></a><h3>errno<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns the most recent CURL error number</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::error()"></a><h3>error<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns the most recent CURL error string</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::info()"></a><h3>info<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns an array of information about the request</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::setheaders()"></a><h3>setheaders<span class="nb-faded-text">(
+          array
+             
+            $arr,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Simplified method for setting lots of headers at once</em><br><small><p>This method takes an associative array of header/value pairs and calls
+the setheader() method on each of them.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$arr</td>
+<td style="white-space: normal;">array</td>
+<td><p>an associative array of headers</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div id="properties_CurlRequest">
+<h4>Properties</h4>
+<a href="#CurlRequest::%24handle">$handle</a>,
+      <a href="#CurlRequest::%24headers">$headers</a>,
+      <a href="#CurlRequest::%24method">$method</a>,
+      <a href="#CurlRequest::%24retries">$retries</a>,
+      <a href="#CurlRequest::%24returnheaders">$returnheaders</a>,
+      <a href="#CurlRequest::%24url">$url</a>,
+      <div class="method">
+<a id="CurlRequest::$handle"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$handle
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="CurlRequest::$headers"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$headers
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="CurlRequest::$method"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$method
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="CurlRequest::$retries"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$retries
+          =
+          0</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="CurlRequest::$returnheaders"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$returnheaders
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="CurlRequest::$url"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$url
+          =
+          </h3>
+<em></em><br>
+</div>
+</div>
+<div style="clear: both"></div>
+</div>
+<div id="HttpResponse" class="class">
+<h3>HttpResponse</h3>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">Extends</label><div class="property-value">
+         </div>
+<label class="property-key">Implements</label><div class="property-value"> 
+      </div>
+<label class="property-key">api</label><div class="property-value">
+<a title=""></a>
+             
+        </div>
+<label class="property-key">author</label><div class="property-value">
+<a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
+             
+        </div>
+<label class="property-key">Abstract</label><div class="property-value">No 
+      </div>
+<label class="property-key">Final</label><div class="property-value">No 
+      </div>
+</div>
+<h4>Description</h4>
+<em>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</em><br><br><div id="methods_HttpResponse">
+<h4>Methods</h4>
+<a style="font-style: italic;" href="#HttpResponse::Header()">Header</a>,
+      <a style="font-style: italic;" href="#HttpResponse::Headers()">Headers</a>,
+      <a style="font-style: italic;" href="#HttpResponse::HttpBody()">HttpBody</a>,
+      <a style="font-style: italic;" href="#HttpResponse::HttpStatus()">HttpStatus</a>,
+      <a style="font-style: italic;" href="#HttpResponse::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#HttpResponse::errno()">errno</a>,
+      <a style="font-style: italic;" href="#HttpResponse::error()">error</a>,
+      <a style="font-style: italic;" href="#HttpResponse::info()">info</a>,
+      <div class="method">
+<a id="HttpResponse::Header()"></a><h3>Header<span class="nb-faded-text">(
+          
+             
+            $name,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns a single header</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$name</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>with the value of the requested header, or NULL</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpResponse::Headers()"></a><h3>Headers<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\associative</span>
+</h3>
+<h4>Description</h4>
+<em>returns an array of headers</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\associative</td>
+<td>array('header'=&gt;value)</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpResponse::HttpBody()"></a><h3>HttpBody<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the full body of the request</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpResponse::HttpStatus()"></a><h3>HttpStatus<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">integer</span>
+</h3>
+<h4>Description</h4>
+<em>the HTTP status code</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>integer</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpResponse::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          
+             
+            $request,
+          
+             
+            $data,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>The constructor parses everything necessary</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$request</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$data</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpResponse::errno()"></a><h3>errno<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">integer</span>
+</h3>
+<h4>Description</h4>
+<em>most recent error number</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>integer</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpResponse::error()"></a><h3>error<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>most recent error message</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpResponse::info()"></a><h3>info<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>returns an array of information</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div id="properties_HttpResponse">
+<h4>Properties</h4>
+<a href="#HttpResponse::%24body">$body</a>,
+      <a href="#HttpResponse::%24errno">$errno</a>,
+      <a href="#HttpResponse::%24error">$error</a>,
+      <a href="#HttpResponse::%24headers">$headers</a>,
+      <a href="#HttpResponse::%24info">$info</a>,
+      <div class="method">
+<a id="HttpResponse::$body"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$body
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="HttpResponse::$errno"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$errno
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="HttpResponse::$error"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$error
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="HttpResponse::$headers"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$headers
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="HttpResponse::$info"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$info
+          =
+          array()</h3>
+<em></em><br>
+</div>
+</div>
+<div style="clear: both"></div>
+</div>
+<div id="BlankResponse" class="class">
+<h3>BlankResponse</h3>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">Extends</label><div class="property-value">
+<a href="http.inc.html#%5COpenCloud%5CHttpResponse">\OpenCloud\HttpResponse</a>
+         </div>
+<label class="property-key">Implements</label><div class="property-value"> 
+      </div>
+<label class="property-key">author</label><div class="property-value">
+<a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
+             
+        </div>
+<label class="property-key">Abstract</label><div class="property-value">No 
+      </div>
+<label class="property-key">Final</label><div class="property-value">No 
+      </div>
+</div>
+<h4>Description</h4>
+<em>This is a stubbed-out response for unit testing</em><br><br><div id="methods_BlankResponse">
+<h4>Methods</h4>
+<a style="font-style: italic;" href="#BlankResponse::Header()">Header</a>,
+      <a style="font-style: italic;" href="#BlankResponse::Headers()">Headers</a>,
+      <a style="font-style: italic;" href="#BlankResponse::HttpBody()">HttpBody</a>,
+      <a style="font-style: italic;" href="#BlankResponse::HttpStatus()">HttpStatus</a>,
+      <a style="font-style: italic;" href="#BlankResponse::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#BlankResponse::errno()">errno</a>,
+      <a style="font-style: italic;" href="#BlankResponse::error()">error</a>,
+      <a style="font-style: italic;" href="#BlankResponse::info()">info</a>,
+      <div class="method">
+<a id="BlankResponse::Header()"></a><h3>Header<span class="nb-faded-text">(
+          
+             
+            $name,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns a single header</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$name</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>with the value of the requested header, or NULL</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="http.inc.html#%5COpenCloud%5CHttpResponse::Header()"><small>\OpenCloud\HttpResponse::Header()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="BlankResponse::Headers()"></a><h3>Headers<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\associative</span>
+</h3>
+<h4>Description</h4>
+<em>returns an array of headers</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\associative</td>
+<td>array('header'=&gt;value)</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="http.inc.html#%5COpenCloud%5CHttpResponse::Headers()"><small>\OpenCloud\HttpResponse::Headers()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="BlankResponse::HttpBody()"></a><h3>HttpBody<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the full body of the request</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="BlankResponse::HttpStatus()"></a><h3>HttpStatus<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">integer</span>
+</h3>
+<h4>Description</h4>
+<em>the HTTP status code</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>integer</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="BlankResponse::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          
+             
+            $values
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>The constructor parses everything necessary</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$values</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="BlankResponse::errno()"></a><h3>errno<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">integer</span>
+</h3>
+<h4>Description</h4>
+<em>most recent error number</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>integer</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="http.inc.html#%5COpenCloud%5CHttpResponse::errno()"><small>\OpenCloud\HttpResponse::errno()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="BlankResponse::error()"></a><h3>error<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>most recent error message</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="http.inc.html#%5COpenCloud%5CHttpResponse::error()"><small>\OpenCloud\HttpResponse::error()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="BlankResponse::info()"></a><h3>info<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>returns an array of information</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="http.inc.html#%5COpenCloud%5CHttpResponse::info()"><small>\OpenCloud\HttpResponse::info()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div id="properties_BlankResponse">
+<h4>Properties</h4>
+<a href="#BlankResponse::%24body">$body</a>,
+      <a href="#BlankResponse::%24errno">$errno</a>,
+      <a href="#BlankResponse::%24error">$error</a>,
+      <a href="#BlankResponse::%24headers">$headers</a>,
+      <a href="#BlankResponse::%24info">$info</a>,
+      <a href="#BlankResponse::%24rawdata">$rawdata</a>,
+      <a href="#BlankResponse::%24status">$status</a>,
+      <div class="method">
+<a id="BlankResponse::$body"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$body
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="BlankResponse::$errno"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$errno
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="BlankResponse::$error"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$error
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="BlankResponse::$headers"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$headers
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="BlankResponse::$info"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$info
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="BlankResponse::$rawdata"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$rawdata
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="BlankResponse::$status"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$status
+          =
+          200</h3>
+<em></em><br>
+</div>
+</div>
+<div style="clear: both"></div>
+</div>
+<a name="interfaces"></a><h2>Interfaces</h2>
+<div id="HttpRequest" class="interface">
+<h3>HttpRequest</h3>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">Extends</label><div class="property-value">
+         </div>
+<label class="property-key">Implements</label><div class="property-value"> 
+      </div>
+<label class="property-key">Abstract</label><div class="property-value"> 
+      </div>
+<label class="property-key">Final</label><div class="property-value"> 
+      </div>
+</div>
+<h4>Description</h4>
+<em>The HttpRequest interface defines methods for wrapping CURL; this allows
+those methods to be stubbed out for unit testing, thus allowing us to
+test without actually making live calls.</em><br><br><div id="methods_HttpRequest">
+<h4>Methods</h4>
+<a style="font-style: italic;" href="#HttpRequest::Execute()">Execute</a>,
+      <a style="font-style: italic;" href="#HttpRequest::SetHeader()">SetHeader</a>,
+      <a style="font-style: italic;" href="#HttpRequest::SetOption()">SetOption</a>,
+      <a style="font-style: italic;" href="#HttpRequest::close()">close</a>,
+      <a style="font-style: italic;" href="#HttpRequest::setheaders()">setheaders</a>,
+      <div class="method">
+<a id="HttpRequest::Execute()"></a><h3>Execute<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpRequest::SetHeader()"></a><h3>SetHeader<span class="nb-faded-text">(
+          
+             
+            $header,
+          
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$header</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpRequest::SetOption()"></a><h3>SetOption<span class="nb-faded-text">(
+          
+             
+            $name,
+          
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpRequest::close()"></a><h3>close<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="HttpRequest::setheaders()"></a><h3>setheaders<span class="nb-faded-text">(
+          
+             
+            $arr,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$arr</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div style="clear: both"></div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+      $(function() {
+
+        var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
+        var is_local = /file:\/\//.test(document.location.href);
+        if (is_chrome && is_local)
+        {
+          // search is disabled on chrome with local files due to http://code.google.com/p/chromium/issues/detail?id=40787
+          return;
+        }
+
+        $("#search_box").show();
+        var search_index = {};
+        $.ajax({
+          url: "search_index.xml",
+          dataType: ($.browser.msie) ? "text" : "xml",
+          error: function(data) {
+            alert('An error occurred using the search data');
+          },
+          success: function( data ) {
+            var xml;
+            if (typeof data == "string") {
+              xml = new ActiveXObject("Microsoft.XMLDOM");
+              xml.async = false;
+              xml.loadXML(data);
+            } else {
+              xml = data;
+            }
+
+            search_index = $("node", xml).map(function() {
+              type = $("type", this).text();
+              return {
+                value: $("value", this).text(),
+                label: '<img src="images/icons/'+type+'.png" align="absmiddle">'+$("value", this).text(),
+                id: $("id", this).text(),
+              };
+            }).get();
+
+            $("#search_box").autocomplete({
+              source: search_index,
+              select: function(event, ui) {
+                // redirect to the documentation
+                if ((parent) && (parent.content))
+                {
+                  parent.content.document.location = ''+ui.item.id;
+                }
+                else
+                {
+                  jQuery(document).location = ''+ui.item.id;
+                }
+                applySearchHash();
+              }
+            });
+          }
+        });
+      });
+    </script><input id="search_box"></input><div class="section">
+<h1>Namespaces</h1>
+<ul id="namespaces-" class="filetree">
+<li class="closed">
+<span class="folder">OpenCloud</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#AttributeError">AttributeError</a><br><small>General Exceptions</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
+<li><span class="class"><a href="base.inc.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
+this SDK.</small></span></li>
+<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out response for unit testing</small></span></li>
+<li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
+<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>Compute is the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#EndpointError">EndpointError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpError">HttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
+<li><span class="interface"><a href="http.inc.html#HttpRequest">HttpRequest</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
+those methods to be stubbed out for unit testing, thus allowing us to
+test without actually making live calls.</small></span></li>
+<li><span class="class"><a href="http.inc.html#HttpResponse">HttpResponse</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code between the ObjectStore and ObjectStoreCDN
+objects.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship between a user and a service</small></span></li>
+<li><span class="class"><a href="rackspace.inc.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
+API key and tenant requirements.</small></span></li>
+<li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
+<li class="closed">
+<span class="folder">Compute</span><ul>
+<li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="flavorlist.inc.html#FlavorList">FlavorList</a><br><small>An FlavorList is a Collection of Flavors</small></span></li>
+<li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
+Compute service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
+<li><span class="class"><a href="imagelist.inc.html#ImageList">ImageList</a><br><small>An ImageList is a Collection of Images</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataError">MetadataError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
+<li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="serverlist.inc.html#ServerList">ServerList</a><br><small>ServerList is a Collection of servers</small></span></li>
+<li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DbService</span><ul>
+<li><span class="class"><a href="database.inc.html#Database">Database</a><br><small>This class represents a Database in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="databaselist.inc.html#DatabaseList">DatabaseList</a><br><small>DatabaseList is a Collection of Databases</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="instance.inc.html#Instance">Instance</a><br><small>Instance represents an instance of DbService, similar to a Server in a
+Compute service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceError">InstanceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="instancelist.inc.html#InstanceList">InstanceList</a><br><small>InstanceList is a Collection of Database instances</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="user.inc.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="userlist.inc.html#UserList">UserList</a><br><small>a UserList is a Collection (q.v.) of Users (q.v.)</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserListError">UserListError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserNameError">UserNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">ObjectStore</span><ul>
+<li><span class="class"><a href="container.inc.html#CDNContainer">CDNContainer</a><br><small>A simple container for the CDN Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnError">CdnError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
+<li><span class="class"><a href="container.inc.html#Container">Container</a><br><small>A regular container with a (potentially) CDN container</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="dataobject.inc.html#DataObject">DataObject</a><br><small>A DataObject is an object in the ObjectStore</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#IOError">IOError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NoNameError">NoNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
+<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="objectlist.inc.html#ObjectList">ObjectList</a><br><small>The ObjectList class defines a Collection of data objects from the
+Object Storage Service</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">global</span><ul></ul>
+</li>
+</ul>
+</div><div class="section">
+<h1>Packages</h1>
+<ul id="packages-" class="filetree">
+<li class="closed">
+<span class="folder">Default</span><ul id="packages_Default" class="filetree"></ul>
+</li>
+<li class="closed">
+<span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree"></ul>
+</li>
+</ul>
+</div>
+</div></div><div id="footer"><div class="padder"></div></div></div></body></html>

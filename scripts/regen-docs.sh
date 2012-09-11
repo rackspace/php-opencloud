@@ -7,20 +7,21 @@
 # accumulating (for example, if you change the name of a class, the docs for
 # the old class name are still there because they've been checked into Git).
 
+# define variables
+APIDOCDIR=docs/api
+TEMPLATE=old_ocean
+
 # make sure we're in the root directory
 if [ ! -d docs ]; then
     echo "No docs/ directory found; run this script from the top directory"
     exit;
 fi
 
-# docs directory
-APIDOCDIR=docs/api
-
 # clean out all the old files
 find $APIDOCDIR -type f -exec git rm {} \;
 
 # regenerate all the docs!
-phpdoc -d lib --extensions="inc" -t $APIDOCDIR
+phpdoc -d lib --extensions="inc" -t $APIDOCDIR --template $TEMPLATE
 
 # note that it does NOT check them in, but it adds them
 find $APIDOCDIR -type f -exec git add {} \;

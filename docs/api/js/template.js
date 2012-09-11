@@ -140,7 +140,10 @@ $(document).ready(function() {
             var thisPath = filterPath(this.pathname) || locationPath;
             if (locationPath == thisPath && (location.hostname == this.hostname || !this.hostname) && this.hash.replace(/#/, ''))
             {
-                var $target = $(this.hash), target = this.hash;
+                var target = decodeURIComponent(this.hash.replace(/#/,''));
+                // note: I'm using attribute selector, because id selector can't match elements with '$' 
+                var $target = $('[id="'+target+'"]');
+
                 if ($target.length > 0)
                 {
                     $(this).click(function (event)

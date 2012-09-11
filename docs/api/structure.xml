@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project version="2.0.0a8" title="">
+<project version="2.0.0a10" title="">
   <file path="base.inc" hash="92dda6f80d2cdd13ddb390994c1ef8b9" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The root class for all other classes in this library]]></description>
@@ -6747,9 +6747,6 @@ is not necessarily tied to an actual database.</p>]]></long-description>
       </method>
     </class>
     <parse_markers>
-      <critical line="23" code="50019">No short description for property $name</critical>
-      <critical line="23" code="50019">No short description for property $password</critical>
-      <critical line="23" code="50019">No short description for property $databases</critical>
       <error line="34" code="50018">No DocBlock was found for property $_instance</error>
     </parse_markers>
   </file>
