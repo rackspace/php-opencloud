@@ -364,6 +364,49 @@ class Container extends CDNContainer {
 	            _('HTTP error disabling CDN, status [%d] response [%s]'),
 	            $response->HttpStatus(), $response->HttpBody()));
 	}
+	
+	/**
+	 * Creates a static website from the container
+	 *
+	 * @api
+	 * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html
+	 * @param string $index the index page (starting page) of the website
+	 * @return \OpenCloud\HttpResponse
+	 */
+	public function CreateStaticSite($index) {
+		$headers = array('X-Container-Meta-Web-Index'=>$index);
+		$response = $this->Service()->Request($this->Url(), 'POST', $headers);
+		
+		// check return code
+		if ($response->HttpStatus() > 204)
+			throw new ContainerError(sprintf(
+				_('Error creating static website for [%s], status [%d] response [%s]'),
+				$this->name, $response->HttpStatus(), $response->HttpBody()));
+		
+		return $response;
+	}
+	
+	/**
+	 * Sets the error page(s) for the static website
+	 *
+	 * @api
+	 * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html
+	 * @param string $name the name of the error page
+	 * @return \OpenCloud\HttpResponse
+	 */
+	public function StaticSiteErrorPage($name) {
+		$headers = array('X-Container-Meta-Web-Error'=>$name);
+		$response = $this->Service()->Request($this->Url(), 'POST', $headers);
+		
+		// check return code
+		if ($response->HttpStatus() > 204)
+			throw new ContainerError(sprintf(
+				_('Error creating static site error page for [%s], '.
+				  'status [%d] response [%s]'),
+				$this->name, $response->HttpStatus(), $response->HttpBody()));
+		
+		return $response;
+	}
 
 	/**
 	 * Returns the CDN service associated with this container.

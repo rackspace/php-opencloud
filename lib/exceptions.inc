@@ -82,6 +82,7 @@ namespace OpenCloud\ObjectStore {
     class CreateUpdateError extends \Exception {}
     class ContainerCreateError extends \Exception {}
     class ContainerDeleteError extends \Exception {}
+    class ContainerError extends \Exception {}
     class ContainerNameError extends \Exception {}
     class ContainerNotFoundError extends \Exception {}
     class ContainerNotEmptyError extends \Exception {}

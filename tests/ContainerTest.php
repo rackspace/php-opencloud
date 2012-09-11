@@ -131,4 +131,14 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	        NULL,
 	        $this->container->StreamingURI());
 	}
+	public function testCreateStaticSite() {
+		$this->assertEquals(
+			'OpenCloud\BlankResponse',
+			get_class($this->container->CreateStaticSite('index.html')));
+	}
+	public function testStaticSiteErrorPage() {
+		$this->assertEquals(
+			'OpenCloud\BlankResponse',
+			get_class($this->container->StaticSiteErrorPage('error.html')));
+	}
 }
