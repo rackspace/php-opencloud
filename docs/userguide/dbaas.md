@@ -131,6 +131,7 @@ Users cannot be altered after they are created, so they must be assigned to
 databases when they are created:
 
 	$user->name = 'Fred';				// user gotta have a name
+	$user->password = 'S0m3thyng';
 	$user->AddDatabase('simple');		// Fred can access the 'simple' DB
 	$user->AddDatabase('production');	// as well as 'production'
 	$user->Create();					// creates the user
@@ -143,6 +144,7 @@ As a shortcut, you can specify all the info in the parameter of the `Create()` m
 	$user = $instance->User();
 	$user->Create(array(
 		'name' => 'Fred',
+		'password' => 'S0m3thyng',		// I made this up; don't bother trying it
 		'databases => array('simple','production')));
 
 ### Deleting users
@@ -150,6 +152,25 @@ As a shortcut, you can specify all the info in the parameter of the `Create()` m
 This should be familiar to you by now:
 
 	$user->Delete();
+
+## The root user
+
+By default, Cloud Databases does not enable the root user. In most cases, the root
+user is not needed, and having one can leave you open to security violations. However,
+if you want to enable access to the root user, the `EnableRootUser()` method is
+available:
+
+	$root_user = $instance->EnableRootUser();
+
+This returns a regular `User` object with the `name` attribute set to `root` and the
+`password` attribute set to an auto-generated password. 
+
+To check if the root user is enabled, use the `IsRootEnabled()` method:
+
+	if ($instance->IsRootEnabled())
+		print("The root user is enabled\n");
+	else
+		print("No root access to this instance\n");
 
 ## Sample code
 
