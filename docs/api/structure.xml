@@ -322,7 +322,7 @@ for your connection object.</p>]]></long-description>
       <name>dbservice.inc</name>
     </include>
   </file>
-  <file path="collection.inc" hash="db31d3bf99030e93d73184f6f409d220" package="phpOpenCloud">
+  <file path="collection.inc" hash="52a7d88dd14f1e5996e694c65af3976d" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[An abstraction for working with ordered sets of objects]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -345,91 +345,94 @@ multiple objects in a container, or multiple servers in a service.</p>]]></long-
         <tag line="17" name="since" description="1.0"/>
         <tag line="17" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
       </docblock>
-      <property final="false" static="false" visibility="private" line="28" namespace="OpenCloud" package="Default">
+      <property final="false" static="false" visibility="private" line="29" namespace="OpenCloud" package="Default">
         <name>$service</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="private" line="29" namespace="OpenCloud" package="Default">
+      <property final="false" static="false" visibility="private" line="30" namespace="OpenCloud" package="Default">
         <name>$itemlist</name>
         <default><![CDATA[array()]]></default>
       </property>
-      <property final="false" static="false" visibility="private" line="30" namespace="OpenCloud" package="Default">
+      <property final="false" static="false" visibility="private" line="31" namespace="OpenCloud" package="Default">
         <name>$pointer</name>
         <default><![CDATA[0]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="38" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="39" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="32">
+        <docblock line="33">
           <description><![CDATA[a Collection is an array of objects]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="32" name="param" description="- the service associated with the collection" type="\OpenCloud\Service" variable="$service">
+          <tag line="33" name="param" description="- the service associated with the collection" type="\OpenCloud\Service" variable="$service">
             <type by_reference="false">\OpenCloud\Service</type>
           </tag>
-          <tag line="32" name="param" description="- the input array" type="array" variable="$arr">
+          <tag line="33" name="param" description="- the input array" type="array" variable="$arr">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
-        <argument line="38">
+        <argument line="39">
           <name>$service</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="38">
+        <argument line="39">
           <name>$arr</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="51" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="52" package="Default">
         <name>service</name>
         <full_name>service</full_name>
-        <docblock line="46">
+        <docblock line="47">
           <description><![CDATA[retrieves the service associated with the Collection]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="46" name="return" description="" type="\OpenCloud\Service">
+          <tag line="47" name="return" description="" type="\OpenCloud\Service">
             <type by_reference="false">\OpenCloud\Service</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="60" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="62" package="Default">
         <name>First</name>
         <full_name>First</full_name>
-        <docblock line="55">
+        <docblock line="56">
           <description><![CDATA[Resets the collection pointer back to the first item in the set]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="55" name="return" description="the first item in the set" type="\OpenCloud\Base">
+          <tag line="56" name="api" description=""/>
+          <tag line="56" name="return" description="the first item in the set" type="\OpenCloud\Base">
             <type by_reference="false">\OpenCloud\Base</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="70" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="73" package="Default">
         <name>Next</name>
         <full_name>Next</full_name>
-        <docblock line="65">
+        <docblock line="67">
           <description><![CDATA[Returns the next item in the set]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="65" name="return" description="the next item or FALSE if at the end of the set" type="\OpenCloud\Base">
+          <tag line="67" name="api" description=""/>
+          <tag line="67" name="return" description="the next item or FALSE if at the end of the set" type="\OpenCloud\Base">
             <type by_reference="false">\OpenCloud\Base</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="81" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="85" package="Default">
         <name>Size</name>
         <full_name>Size</full_name>
-        <docblock line="76">
+        <docblock line="79">
           <description><![CDATA[Returns the number of items in the collection]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="76" name="return" description="The number of items in the set" type="integer">
+          <tag line="79" name="api" description=""/>
+          <tag line="79" name="return" description="The number of items in the set" type="integer">
             <type by_reference="false">integer</type>
           </tag>
         </docblock>
       </method>
     </class>
     <parse_markers>
-      <error line="28" code="50018">No DocBlock was found for property $service</error>
-      <error line="29" code="50018">No DocBlock was found for property $itemlist</error>
-      <error line="30" code="50018">No DocBlock was found for property $pointer</error>
+      <error line="29" code="50018">No DocBlock was found for property $service</error>
+      <error line="30" code="50018">No DocBlock was found for property $itemlist</error>
+      <error line="31" code="50018">No DocBlock was found for property $pointer</error>
     </parse_markers>
   </file>
   <file path="compute.inc" hash="2159ea400a1f1d07febca508f30b4678" package="phpOpenCloud">
@@ -4792,7 +4795,7 @@ wrong object.]]></description>
       <notice line="172" code="50013">Parameter $urlType could not be found in __construct()</notice>
     </parse_markers>
   </file>
-  <file path="objstorebase.inc" hash="cc1d7e69a831bc96c3458ddf28a9b852" package="phpOpenCloud">
+  <file path="objstorebase.inc" hash="e4834e55083db332e754ccc280711298" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[An abstract class that defines shared code among all Object Storage
 components]]></description>
@@ -4802,86 +4805,92 @@ components]]></description>
       <tag line="2" name="version" description="1.0.0"/>
       <tag line="2" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
     </docblock>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="24" package="Default">
+    <include line="16" type="Require Once" package="Default">
+      <name>base.inc</name>
+    </include>
+    <include line="17" type="Require Once" package="Default">
+      <name>metadata.inc</name>
+    </include>
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="27" package="Default">
       <extends>\OpenCloud\Base</extends>
       <name>ObjStoreBase</name>
       <full_name>\OpenCloud\ObjectStore\ObjStoreBase</full_name>
-      <docblock line="16">
+      <docblock line="19">
         <description><![CDATA[Intermediate class to implement share features of all object-storage classes]]></description>
         <long-description><![CDATA[<p>This class implements metadata-handling and other features that are common to
 the object storage components.</p>]]></long-description>
-        <tag line="16" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
+        <tag line="19" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
       </docblock>
-      <constant namespace="OpenCloud\ObjectStore" line="27" package="Default">
+      <constant namespace="OpenCloud\ObjectStore" line="30" package="Default">
         <name>ACCOUNT_META_PREFIX</name>
         <full_name>ACCOUNT_META_PREFIX</full_name>
         <value><![CDATA['X-Account-']]></value>
       </constant>
-      <constant namespace="OpenCloud\ObjectStore" line="28" package="Default">
+      <constant namespace="OpenCloud\ObjectStore" line="31" package="Default">
         <name>CONTAINER_META_PREFIX</name>
         <full_name>CONTAINER_META_PREFIX</full_name>
         <value><![CDATA['X-Container-Meta-']]></value>
       </constant>
-      <constant namespace="OpenCloud\ObjectStore" line="29" package="Default">
+      <constant namespace="OpenCloud\ObjectStore" line="32" package="Default">
         <name>OBJECT_META_PREFIX</name>
         <full_name>OBJECT_META_PREFIX</full_name>
         <value><![CDATA['X-Object-Meta-']]></value>
       </constant>
-      <constant namespace="OpenCloud\ObjectStore" line="30" package="Default">
+      <constant namespace="OpenCloud\ObjectStore" line="33" package="Default">
         <name>CDNCONTAINER_META_PREFIX</name>
         <full_name>CDNCONTAINER_META_PREFIX</full_name>
         <value><![CDATA['X-Cdn-']]></value>
       </constant>
-      <property final="false" static="false" visibility="public" line="33" namespace="OpenCloud\ObjectStore" package="Default">
+      <property final="false" static="false" visibility="public" line="36" namespace="OpenCloud\ObjectStore" package="Default">
         <name>$metadata</name>
         <default><![CDATA[]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="38" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="41" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="35">
+        <docblock line="38">
           <description><![CDATA[initializes the metadata component]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="49" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="52" package="Default">
         <name>GetMetadata</name>
         <full_name>GetMetadata</full_name>
-        <docblock line="42">
+        <docblock line="45">
           <description><![CDATA[Given an HttpResponse object, converts the appropriate headers
 to metadata]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="42" name="param" description="\OpenCloud\HttpResponse" type="" variable="$response"/>
-          <tag line="42" name="return" description="" type="void">
+          <tag line="45" name="param" description="\OpenCloud\HttpResponse" type="" variable="$response"/>
+          <tag line="45" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="49">
+        <argument line="52">
           <name>$response</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\HttpResponse</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="72" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="75" package="Default">
         <name>MetadataHeaders</name>
         <full_name>MetadataHeaders</full_name>
-        <docblock line="64">
+        <docblock line="67">
           <description><![CDATA[If object has metadata, return an associative array of headers]]></description>
           <long-description><![CDATA[<p>For example, if a DataObject has a metadata item named 'FOO',
 then this would return array('X-Object-Meta-FOO'=>$value);</p>]]></long-description>
-          <tag line="64" name="return" description="" type="\OpenCloud\ObjectStore\array;">
+          <tag line="67" name="return" description="" type="\OpenCloud\ObjectStore\array;">
             <type by_reference="false">\OpenCloud\ObjectStore\array;</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="89" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="92" package="Default">
         <name>Prefix</name>
         <full_name>Prefix</full_name>
-        <docblock line="87">
+        <docblock line="90">
           <description><![CDATA[]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="89">
+        <argument line="92">
           <name>$type</name>
           <default><![CDATA[NULL]]></default>
           <type/>
@@ -4889,10 +4898,10 @@ then this would return array('X-Object-Meta-FOO'=>$value);</p>]]></long-descript
       </method>
     </class>
     <parse_markers>
-      <error line="33" code="50018">No DocBlock was found for property $metadata</error>
-      <error line="42" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $response in GetMetadata()</error>
-      <error line="87" code="50012">No short description for method Prefix()</error>
-      <error line="87" code="50015">Argument $type is missing from the Docblock of Prefix()</error>
+      <error line="36" code="50018">No DocBlock was found for property $metadata</error>
+      <error line="45" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $response in GetMetadata()</error>
+      <error line="90" code="50012">No short description for method Prefix()</error>
+      <error line="90" code="50015">Argument $type is missing from the Docblock of Prefix()</error>
     </parse_markers>
   </file>
   <file path="openstack.inc" hash="11a59d6a1b410ac592b8e9e1ae98af96" package="phpOpenCloud">
