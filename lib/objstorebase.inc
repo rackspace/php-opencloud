@@ -13,6 +13,9 @@
 
 namespace OpenCloud\ObjectStore;
 
+require_once('base.inc');
+require_once('metadata.inc');
+
 /**
  * Intermediate class to implement share features of all object-storage classes
  *
