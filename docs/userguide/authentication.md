@@ -58,6 +58,19 @@ Next, create a `Rackspace` object with the proper credentials:
 Replace `'YOUR USERNAME'` and the other values with those that have
 been assigned to you by your Provider.
 
+Note that Rackspace UK users will have a different endpoint than US users.
+
+## Credential Caching
+
+Note that you only need to authenticate once; the <b>php-opencloud</b> library caches
+your credentials internally and will reuse them until they expire, at which point it
+will automatically re-authenticate. The only time you will need to create a new
+`OpenStack` or `Rackspace` object is if your credentials change (for example, if your
+password changes) or to use a different account.
+
+Repeatedly re-authenticating can create a load on the authentication servers and 
+potentially degrade performance for all users. 
+
 What's next?
 ------------
 
