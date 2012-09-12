@@ -209,7 +209,7 @@ exception thrown.</p>
 </div>
 <div class="method">
 <a id="Database::Create()"></a><h3>Create<span class="nb-faded-text">(
-          
+          array
              
             $params
             = array(),
@@ -230,8 +230,8 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>$params</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">array</td>
+<td><p>array of attributes to set prior to Create</p></td>
 <td>array()</td>
 </tr></tbody>
 </table>
@@ -243,6 +243,17 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -293,7 +304,7 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\HttpResponseb</span>
 </h3>
 <h4>Description</h4>
 <em>deletes a database</em><br><h4>Return value</h4>
@@ -303,8 +314,19 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\HttpResponseb</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -376,7 +398,7 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\DbService\Instance</span>
 </h3>
 <h4>Description</h4>
 <em>returns the Instance of the database</em><br><h4>Return value</h4>
@@ -386,8 +408,8 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\DbService\Instance</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -448,7 +470,7 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\DbService</span>
 </h3>
 <h4>Description</h4>
 <em>returns the related service</em><br><h4>Return value</h4>
@@ -458,8 +480,8 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\DbService</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -599,7 +621,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
 <em>returns the Url of the Database</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
@@ -611,8 +633,8 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -621,10 +643,16 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
 <td>throws</td>
 <td></td>
-</tr></tbody>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">

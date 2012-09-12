@@ -256,6 +256,10 @@ exception thrown.</p>
 </tr></thead>
 <tbody>
 <tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
 <td>inherited_from</td>
 <td><a href="service.inc.html#%5COpenCloud%5CService::Extensions()"><small>\OpenCloud\Service::Extensions()</small></a></td>
 </tr>
@@ -345,7 +349,18 @@ because the /flavors/detail resource is not supported</p></small><br><h4>Return 
 </tr></thead>
 <tbody><tr>
 <td>\OpenCloud\Compute\FlavorList</td>
-<td>(or FALSE on an error)</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -480,7 +495,7 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="DbService::Instance()"></a><h3>Instance<span class="nb-faded-text">(
-          
+          string
              
             $id
             = NULL,
@@ -488,7 +503,7 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\DbService\Instance</span>
 </h3>
 <h4>Description</h4>
 <em>Factory method to create a Instance object</em><br><h4>Arguments</h4>
@@ -501,8 +516,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$id</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">string</td>
+<td><p>the ID of the instance to retrieve</p></td>
 <td>NULL</td>
 </tr></tbody>
 </table>
@@ -513,14 +528,25 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\DbService\Instance</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
 <a id="DbService::InstanceList()"></a><h3>InstanceList<span class="nb-faded-text">(
-          
+          array
              
             $params
             = array(),
@@ -528,7 +554,7 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\DbService\InstanceList</span>
 </h3>
 <h4>Description</h4>
 <em>Factory method to create a Collection of Instance objects</em><br><h4>Arguments</h4>
@@ -541,8 +567,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$params</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">array</td>
+<td><p>array of parameters to pass to the request as query strings</p></td>
 <td>array()</td>
 </tr></tbody>
 </table>
@@ -553,8 +579,19 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\DbService\InstanceList</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -585,6 +622,10 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
 <tr>
 <td>inherited_from</td>
 <td><a href="service.inc.html#%5COpenCloud%5CService::Limits()"><small>\OpenCloud\Service::Limits()</small></a></td>
@@ -872,17 +913,13 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><ul>
-<li>a child resource. For example, passing 'servers' would return .../servers. Should <em>not</em> be prefixed with a slash (/).</li>
-</ul>
-</td>
+<td><p>the resource required</p></td>
 <td>'instances'</td>
 </tr>
 <tr>
 <td>$args</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) an array of key-value pairs for query strings to append to the URL</p>
-</td>
+<td><p>extra arguments to pass to the URL as query strings</p></td>
 <td>array()</td>
 </tr>
 </tbody>

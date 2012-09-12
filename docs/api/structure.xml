@@ -1122,7 +1122,7 @@ URL on the network.</p>]]></long-description>
       </method>
     </class>
   </file>
-  <file path="database.inc" hash="d6aa50db3d66b4e5ec1336688e271ccb" package="phpOpenCloud">
+  <file path="database.inc" hash="b329e2a9ebe49baf939565ee7fed0c76" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[A database in the Cloud Databases service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -1187,82 +1187,99 @@ is not necessarily tied to an actual database.</p>]]></long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="63" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="66" package="Default">
         <name>Url</name>
         <full_name>Url</full_name>
         <docblock line="60">
           <description><![CDATA[returns the Url of the Database]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="60" name="api" description=""/>
+          <tag line="60" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="74" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="79" package="Default">
         <name>Instance</name>
         <full_name>Instance</full_name>
-        <docblock line="71">
+        <docblock line="74">
           <description><![CDATA[returns the Instance of the database]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="74" name="return" description="" type="\OpenCloud\DbService\Instance">
+            <type by_reference="false">\OpenCloud\DbService\Instance</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="81" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="88" package="Default">
         <name>Service</name>
         <full_name>Service</full_name>
-        <docblock line="78">
+        <docblock line="83">
           <description><![CDATA[returns the related service]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="83" name="return" description="" type="\OpenCloud\DbService">
+            <type by_reference="false">\OpenCloud\DbService</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="91" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="99" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <docblock line="85">
+        <docblock line="92">
           <description><![CDATA[creates a new database]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="85" name="param" description="" type="" variable="$params"/>
-          <tag line="85" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="92" name="api" description=""/>
+          <tag line="92" name="param" description="array of attributes to set prior to Create" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="92" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
         </docblock>
-        <argument line="91">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="124" package="Default">
-        <name>Update</name>
-        <full_name>Update</full_name>
-        <docblock line="118">
-          <description><![CDATA[updates an existing database]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="118" name="throws" description="always; updates are not permitted" type="\OpenCloud\DbService\DatabaseUpdateError">
-            <type by_reference="false">\OpenCloud\DbService\DatabaseUpdateError</type>
-          </tag>
-          <tag line="118" name="return" description="" type="void">
-            <type by_reference="false">void</type>
-          </tag>
-        </docblock>
-        <argument line="124">
+        <argument line="99">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="132" package="Default">
+        <name>Update</name>
+        <full_name>Update</full_name>
+        <docblock line="126">
+          <description><![CDATA[updates an existing database]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="126" name="throws" description="always; updates are not permitted" type="\OpenCloud\DbService\DatabaseUpdateError">
+            <type by_reference="false">\OpenCloud\DbService\DatabaseUpdateError</type>
+          </tag>
+          <tag line="126" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="132">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="143" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
-        <docblock line="129">
+        <docblock line="137">
           <description><![CDATA[deletes a database]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="137" name="api" description=""/>
+          <tag line="137" name="return" description="" type="\OpenCloud\HttpResponseb">
+            <type by_reference="false">\OpenCloud\HttpResponseb</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="148" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="159" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="145">
+        <docblock line="156">
           <description><![CDATA[returns the JSON object for creating the database]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="148">
+        <argument line="159">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
@@ -1272,8 +1289,8 @@ is not necessarily tied to an actual database.</p>]]></long-description>
     <parse_markers>
       <error line="24" code="50018">No DocBlock was found for property $name</error>
       <error line="27" code="50018">No DocBlock was found for property $_instance</error>
-      <error line="118" code="50015">Argument $params is missing from the Docblock of Update()</error>
-      <error line="145" code="50015">Argument $params is missing from the Docblock of CreateJson()</error>
+      <error line="126" code="50015">Argument $params is missing from the Docblock of Update()</error>
+      <error line="156" code="50015">Argument $params is missing from the Docblock of CreateJson()</error>
     </parse_markers>
   </file>
   <file path="databaselist.inc" hash="bbd36f56fdc77f77ed9be1832fa80c67" package="phpOpenCloud">
@@ -1764,7 +1781,7 @@ mime_content_type function.</p>]]></long-description>
       <error line="214" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $target in Copy()</error>
     </parse_markers>
   </file>
-  <file path="dbservice.inc" hash="66d8ab0ece5fc0fae0296cee8e668f7c" package="phpOpenCloud">
+  <file path="dbservice.inc" hash="88588738e70bb032ae2a056a772fe0eb" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Rackspace's Cloud Databases (database as a service)]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -1832,67 +1849,85 @@ OpenStack or Rackspace connection object.</p>]]></long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="45" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="48" package="Default">
         <name>Url</name>
         <full_name>Url</full_name>
         <docblock line="41">
           <description><![CDATA[Returns the URL of this database service, or optionally that of
 an instance]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="41" name="param" description="the resource required" type="string" variable="$resource">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="41" name="param" description="extra arguments to pass to the URL as query strings" type="array" variable="$args">
+            <type by_reference="false">array</type>
+          </tag>
         </docblock>
-        <argument line="45">
+        <argument line="48">
           <name>$resource</name>
           <default><![CDATA['instances']]></default>
           <type/>
         </argument>
-        <argument line="45">
+        <argument line="48">
           <name>$args</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="55" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="61" package="Default">
         <name>FlavorList</name>
         <full_name>FlavorList</full_name>
-        <docblock line="49">
+        <docblock line="52">
           <description><![CDATA[returns a list of flavors]]></description>
           <long-description><![CDATA[<p>just call the parent FlavorList() method, but pass FALSE
 because the /flavors/detail resource is not supported</p>]]></long-description>
+          <tag line="52" name="api" description=""/>
+          <tag line="52" name="return" description="" type="\OpenCloud\Compute\FlavorList">
+            <type by_reference="false">\OpenCloud\Compute\FlavorList</type>
+          </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="62" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="72" package="Default">
         <name>Instance</name>
         <full_name>Instance</full_name>
-        <docblock line="59">
+        <docblock line="65">
           <description><![CDATA[Factory method to create a Instance object]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="65" name="api" description=""/>
+          <tag line="65" name="param" description="the ID of the instance to retrieve" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="65" name="return" description="" type="\OpenCloud\DbService\Instance">
+            <type by_reference="false">\OpenCloud\DbService\Instance</type>
+          </tag>
         </docblock>
-        <argument line="62">
+        <argument line="72">
           <name>$id</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="69" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="83" package="Default">
         <name>InstanceList</name>
         <full_name>InstanceList</full_name>
-        <docblock line="66">
+        <docblock line="76">
           <description><![CDATA[Factory method to create a Collection of Instance objects]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="76" name="api" description=""/>
+          <tag line="76" name="param" description="array of parameters to pass to the request as query strings" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="76" name="return" description="" type="\OpenCloud\DbService\InstanceList">
+            <type by_reference="false">\OpenCloud\DbService\InstanceList</type>
+          </tag>
         </docblock>
-        <argument line="69">
+        <argument line="83">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <parse_markers>
-      <error line="41" code="50015">Argument $resource is missing from the Docblock of Url()</error>
-      <error line="41" code="50015">Argument $args is missing from the Docblock of Url()</error>
-      <error line="59" code="50015">Argument $id is missing from the Docblock of Instance()</error>
-      <error line="66" code="50015">Argument $params is missing from the Docblock of InstanceList()</error>
-    </parse_markers>
   </file>
   <file path="exceptions.inc" hash="d761c0a51c1766588f6f234db34917bc" package="phpOpenCloud">
     <docblock line="2">
@@ -3487,7 +3522,7 @@ image with the specified ID is retrieved.]]></description>
       </method>
     </class>
   </file>
-  <file path="instance.inc" hash="6ef12e5bdb04bd3a63ca8f904d7b2adf" package="phpOpenCloud">
+  <file path="instance.inc" hash="b6b7201c02e845eaa03662bc92d74000" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[A Cloud Databases instance (similar to a Compute Server)]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -3565,289 +3600,295 @@ Compute service]]></description>
         <name>$_users</name>
         <default><![CDATA[]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="50" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="53" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="44">
           <description><![CDATA[Creates a new instance object]]></description>
           <long-description><![CDATA[<p>This could use the default constructor, but we want to make sure that
 the volume attribute is an object.</p>]]></long-description>
+          <tag line="44" name="param" description="the DbService object associated with this" type="\OpenCloud\DbService" variable="$service">
+            <type by_reference="false">\OpenCloud\DbService</type>
+          </tag>
+          <tag line="44" name="param" description="the ID or array of info for the object" type="mixed" variable="$info">
+            <type by_reference="false">mixed</type>
+          </tag>
         </docblock>
-        <argument line="50">
+        <argument line="53">
           <name>$service</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\DbService</type>
         </argument>
-        <argument line="50">
+        <argument line="53">
           <name>$info</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="61" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="64" package="Default">
         <name>Url</name>
         <full_name>Url</full_name>
-        <docblock line="55">
+        <docblock line="58">
           <description><![CDATA[returns the URL of the instance (or a sub-resource)]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="55" name="param" description="a possible sub-resource" type="string" variable="$resource">
+          <tag line="58" name="param" description="a possible sub-resource" type="string" variable="$resource">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="55" name="return" description="" type="string">
+          <tag line="58" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="61">
+        <argument line="64">
           <name>$resource</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="76" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="79" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <docblock line="66">
+        <docblock line="69">
           <description><![CDATA[creates a new database instance]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="66" name="api" description=""/>
-          <tag line="66" name="param" description="a hashed array of extra values to set on the object prior to creating it" type="array" variable="$params">
+          <tag line="69" name="api" description=""/>
+          <tag line="69" name="param" description="a hashed array of extra values to set on the object prior to creating it" type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="66" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="69" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
-          <tag line="66" name="throws" description="on unexpected HTTP status response or if the response document does not contain `{&quot;instance&quot;:...}`" type="\OpenCloud\DbService\InstanceCreateError">
+          <tag line="69" name="throws" description="on unexpected HTTP status response or if the response document does not contain `{&quot;instance&quot;:...}`" type="\OpenCloud\DbService\InstanceCreateError">
             <type by_reference="false">\OpenCloud\DbService\InstanceCreateError</type>
           </tag>
         </docblock>
-        <argument line="76">
+        <argument line="79">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="119" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="122" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <docblock line="112">
+        <docblock line="115">
           <description><![CDATA[updates a database instance]]></description>
           <long-description><![CDATA[<p>Update() is not supported by database instances</p>]]></long-description>
-          <tag line="112" name="throws" description="always" type="\OpenCloud\DbService\InstanceUpdateError">
+          <tag line="115" name="throws" description="always" type="\OpenCloud\DbService\InstanceUpdateError">
             <type by_reference="false">\OpenCloud\DbService\InstanceUpdateError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="131" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="134" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
-        <docblock line="124">
+        <docblock line="127">
           <description><![CDATA[deletes a database instance]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="124" name="api" description=""/>
-          <tag line="124" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="127" name="api" description=""/>
+          <tag line="127" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
-          <tag line="124" name="throws" description="if response is not 202" type="\OpenCloud\DbService\InstanceDeleteError">
+          <tag line="127" name="throws" description="if response is not 202" type="\OpenCloud\DbService\InstanceDeleteError">
             <type by_reference="false">\OpenCloud\DbService\InstanceDeleteError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="150" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="153" package="Default">
         <name>Restart</name>
         <full_name>Restart</full_name>
-        <docblock line="144">
+        <docblock line="147">
           <description><![CDATA[restart the database instance]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="144" name="api" description=""/>
-          <tag line="144" name="returns" description="\OpenCloud\HttpResponse"/>
+          <tag line="147" name="api" description=""/>
+          <tag line="147" name="returns" description="\OpenCloud\HttpResponse"/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="161" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="164" package="Default">
         <name>Resize</name>
         <full_name>Resize</full_name>
-        <docblock line="154">
+        <docblock line="157">
           <description><![CDATA[resize the database instance (sets RAM)]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="154" name="api" description=""/>
-          <tag line="154" name="param" description="a flavor object" type="\OpenCloud\Compute\Flavor" variable="$flavor">
+          <tag line="157" name="api" description=""/>
+          <tag line="157" name="param" description="a flavor object" type="\OpenCloud\Compute\Flavor" variable="$flavor">
             <type by_reference="false">\OpenCloud\Compute\Flavor</type>
           </tag>
-          <tag line="154" name="returns" description="\OpenCloud\HttpResponse"/>
+          <tag line="157" name="returns" description="\OpenCloud\HttpResponse"/>
         </docblock>
-        <argument line="161">
+        <argument line="164">
           <name>$flavor</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\Compute\Flavor</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="172" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="175" package="Default">
         <name>ResizeVolume</name>
         <full_name>ResizeVolume</full_name>
-        <docblock line="165">
+        <docblock line="168">
           <description><![CDATA[resizes the volume associated with the database instance (disk space)]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="165" name="api" description=""/>
-          <tag line="165" name="param" description="the size of the new volume, in gigabytes" type="integer" variable="$newvolumesize">
+          <tag line="168" name="api" description=""/>
+          <tag line="168" name="param" description="the size of the new volume, in gigabytes" type="integer" variable="$newvolumesize">
             <type by_reference="false">integer</type>
           </tag>
-          <tag line="165" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="168" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
         </docblock>
-        <argument line="172">
+        <argument line="175">
           <name>$newvolumesize</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="183" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="186" package="Default">
         <name>EnableRootUser</name>
         <full_name>EnableRootUser</full_name>
-        <docblock line="176">
+        <docblock line="179">
           <description><![CDATA[enables the root user for the instance]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="176" name="api" description=""/>
-          <tag line="176" name="return" description="the root user, including name and password" type="\OpenCloud\DbService\User">
+          <tag line="179" name="api" description=""/>
+          <tag line="179" name="return" description="the root user, including name and password" type="\OpenCloud\DbService\User">
             <type by_reference="false">\OpenCloud\DbService\User</type>
           </tag>
-          <tag line="176" name="throws" description="if HTTP response is not Success" type="\OpenCloud\DbService\InstanceError">
+          <tag line="179" name="throws" description="if HTTP response is not Success" type="\OpenCloud\DbService\InstanceError">
             <type by_reference="false">\OpenCloud\DbService\InstanceError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="209" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="212" package="Default">
         <name>IsRootEnabled</name>
         <full_name>IsRootEnabled</full_name>
-        <docblock line="202">
+        <docblock line="205">
           <description><![CDATA[returns TRUE if the root user is enabled]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="202" name="api" description=""/>
-          <tag line="202" name="return" description="TRUE if the root user is enabled; FALSE otherwise" type="boolean">
+          <tag line="205" name="api" description=""/>
+          <tag line="205" name="return" description="TRUE if the root user is enabled; FALSE otherwise" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="202" name="throws" description="if HTTP status is not Success" type="\OpenCloud\DbService\InstanceError">
+          <tag line="205" name="throws" description="if HTTP status is not Success" type="\OpenCloud\DbService\InstanceError">
             <type by_reference="false">\OpenCloud\DbService\InstanceError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="235" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="238" package="Default">
         <name>Database</name>
         <full_name>Database</full_name>
-        <docblock line="230">
+        <docblock line="233">
           <description><![CDATA[returns a new database]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="230" name="param" description="the database name" type="string" variable="$name">
+          <tag line="233" name="param" description="the database name" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="235">
+        <argument line="238">
           <name>$name</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="244" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="247" package="Default">
         <name>User</name>
         <full_name>User</full_name>
-        <docblock line="239">
+        <docblock line="242">
           <description><![CDATA[returns a new user]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="239" name="param" description="the user name" type="string" variable="$name">
+          <tag line="242" name="param" description="the user name" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="244">
+        <argument line="247">
           <name>$name</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
-        <argument line="244">
+        <argument line="247">
           <name>$databases</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="254" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="257" package="Default">
         <name>DatabaseList</name>
         <full_name>DatabaseList</full_name>
-        <docblock line="248">
+        <docblock line="251">
           <description><![CDATA[returns a Collection of all databases in the instance]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="248" name="return" description="" type="\OpenCloud\DbService\DatabaseList">
+          <tag line="251" name="return" description="" type="\OpenCloud\DbService\DatabaseList">
             <type by_reference="false">\OpenCloud\DbService\DatabaseList</type>
           </tag>
-          <tag line="248" name="throws" description="if HTTP status is not Success" type="\OpenCloud\DbService\DatabaseListError">
+          <tag line="251" name="throws" description="if HTTP status is not Success" type="\OpenCloud\DbService\DatabaseListError">
             <type by_reference="false">\OpenCloud\DbService\DatabaseListError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="279" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="282" package="Default">
         <name>UserList</name>
         <full_name>UserList</full_name>
-        <docblock line="273">
+        <docblock line="276">
           <description><![CDATA[returns a Collection of all users in the instance]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="273" name="return" description="" type="\OpenCloud\DbService\UserList">
+          <tag line="276" name="return" description="" type="\OpenCloud\DbService\UserList">
             <type by_reference="false">\OpenCloud\DbService\UserList</type>
           </tag>
-          <tag line="273" name="throws" description="if HTTP status is not Success" type="\OpenCloud\DbService\UserListError">
+          <tag line="276" name="throws" description="if HTTP status is not Success" type="\OpenCloud\DbService\UserListError">
             <type by_reference="false">\OpenCloud\DbService\UserListError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\DbService" line="303" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\DbService" line="306" package="Default">
         <name>JsonName</name>
         <full_name>JsonName</full_name>
-        <docblock line="300">
+        <docblock line="303">
           <description><![CDATA[the top-level document name]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="314" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="317" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="309">
+        <docblock line="312">
           <description><![CDATA[generates the JSON string for Create()]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="309" name="return" description="" type="\stdClass">
+          <tag line="312" name="return" description="" type="\stdClass">
             <type by_reference="false">\stdClass</type>
           </tag>
         </docblock>
-        <argument line="314">
+        <argument line="317">
           <name>$params</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="346" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="349" package="Default">
         <name>RestartJson</name>
         <full_name>RestartJson</full_name>
-        <docblock line="343">
+        <docblock line="346">
           <description><![CDATA[generates the JSON object for Restart]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="355" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="358" package="Default">
         <name>ResizeJson</name>
         <full_name>ResizeJson</full_name>
-        <docblock line="352">
+        <docblock line="355">
           <description><![CDATA[generates the JSON object for Resize]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="355">
+        <argument line="358">
           <name>$flavorRef</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="365" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="368" package="Default">
         <name>ResizeVolumeJson</name>
         <full_name>ResizeVolumeJson</full_name>
-        <docblock line="362">
+        <docblock line="365">
           <description><![CDATA[generates the JSON object for ResizeVolume]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="365">
+        <argument line="368">
           <name>$size</name>
           <default><![CDATA[]]></default>
           <type/>
@@ -3866,12 +3907,10 @@ the volume attribute is an object.</p>]]></long-description>
       <error line="38" code="50018">No DocBlock was found for property $flavor</error>
       <error line="41" code="50018">No DocBlock was found for property $_databases</error>
       <error line="42" code="50018">No DocBlock was found for property $_users</error>
-      <error line="44" code="50015">Argument $service is missing from the Docblock of __construct()</error>
-      <error line="44" code="50015">Argument $info is missing from the Docblock of __construct()</error>
-      <error line="239" code="50015">Argument $databases is missing from the Docblock of User()</error>
-      <error line="309" code="50015">Argument $params is missing from the Docblock of CreateJson()</error>
-      <error line="352" code="50015">Argument $flavorRef is missing from the Docblock of ResizeJson()</error>
-      <error line="362" code="50015">Argument $size is missing from the Docblock of ResizeVolumeJson()</error>
+      <error line="242" code="50015">Argument $databases is missing from the Docblock of User()</error>
+      <error line="312" code="50015">Argument $params is missing from the Docblock of CreateJson()</error>
+      <error line="355" code="50015">Argument $flavorRef is missing from the Docblock of ResizeJson()</error>
+      <error line="365" code="50015">Argument $size is missing from the Docblock of ResizeVolumeJson()</error>
     </parse_markers>
   </file>
   <file path="instancelist.inc" hash="b69c372edd311e37b7408c669c7e959e" package="phpOpenCloud">
@@ -6309,7 +6348,7 @@ anything]]></description>
       <error line="33" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $parent in __construct()</error>
     </parse_markers>
   </file>
-  <file path="service.inc" hash="2547d663ac1e580cd24d1fa39c3f5535" package="phpOpenCloud">
+  <file path="service.inc" hash="0430a8f109d7806c479b30a15fd7f5f7" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[An abstraction that defines a cloud service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -6416,136 +6455,138 @@ the criteria, then an exception is thrown.</p>]]></long-description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="75" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="76" package="Default">
         <name>Extensions</name>
         <full_name>Extensions</full_name>
         <docblock line="70">
           <description><![CDATA[returns the /extensions for the service]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="70" name="api" description=""/>
           <tag line="70" name="return" description="of objects" type="array">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="88" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="90" package="Default">
         <name>Limits</name>
         <full_name>Limits</full_name>
-        <docblock line="83">
+        <docblock line="84">
           <description><![CDATA[returns the /limits for the service]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="83" name="return" description="of limits" type="array">
+          <tag line="84" name="api" description=""/>
+          <tag line="84" name="return" description="of limits" type="array">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="110" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="112" package="Default">
         <name>Request</name>
         <full_name>Request</full_name>
-        <docblock line="96">
+        <docblock line="98">
           <description><![CDATA[Performs an authenticated request]]></description>
           <long-description><![CDATA[<p>This method handles the addition of authentication headers to each
 request. It always adds the X-Auth-Token: header and will add the
 X-Auth-Project-Id: header if there is a tenant defined on the
 connection.</p>]]></long-description>
-          <tag line="96" name="param" description="The URL of the request" type="string" variable="$url">
+          <tag line="98" name="param" description="The URL of the request" type="string" variable="$url">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="96" name="param" description="The HTTP method (defaults to &quot;GET&quot;)" type="string" variable="$method">
+          <tag line="98" name="param" description="The HTTP method (defaults to &quot;GET&quot;)" type="string" variable="$method">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="96" name="param" description="An associative array of headers" type="array" variable="$headers">
+          <tag line="98" name="param" description="An associative array of headers" type="array" variable="$headers">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="96" name="param" description="An optional body for POST/PUT requests" type="string" variable="$body">
+          <tag line="98" name="param" description="An optional body for POST/PUT requests" type="string" variable="$body">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="96" name="return" description="" type="\OpenCloud\HttpResult">
+          <tag line="98" name="return" description="" type="\OpenCloud\HttpResult">
             <type by_reference="false">\OpenCloud\HttpResult</type>
           </tag>
         </docblock>
-        <argument line="110">
+        <argument line="112">
           <name>$url</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="110">
+        <argument line="112">
           <name>$method</name>
           <default><![CDATA['GET']]></default>
           <type/>
         </argument>
-        <argument line="110">
+        <argument line="112">
           <name>$headers</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
-        <argument line="110">
+        <argument line="112">
           <name>$body</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="135" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="137" package="Default">
         <name>get_endpoint</name>
         <full_name>get_endpoint</full_name>
-        <docblock line="119">
+        <docblock line="121">
           <description><![CDATA[Given a service type, name, and region, return the url]]></description>
           <long-description><![CDATA[<p>This function ensures that services are represented by an entry in the
 service catalog, and NOT by an arbitrarily-constructed URL.</p>
 
 <p>Note that it will always return the first match found in the
 service catalog (there <em>should</em> be only one, but you never know...)</p>]]></long-description>
-          <tag line="119" name="param" description="The OpenStack service type (&quot;compute&quot; or &quot;object-store&quot;, for example" type="string" variable="$type">
+          <tag line="121" name="param" description="The OpenStack service type (&quot;compute&quot; or &quot;object-store&quot;, for example" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="119" name="param" description="The name of the service in the service catlog" type="string" variable="$name">
+          <tag line="121" name="param" description="The name of the service in the service catlog" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="119" name="param" description="The region of the service" type="string" variable="$region">
+          <tag line="121" name="param" description="The region of the service" type="string" variable="$region">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="119" name="param" description="The URL type; defaults to &quot;publicURL&quot;" type="string" variable="$urltype">
+          <tag line="121" name="param" description="The URL type; defaults to &quot;publicURL&quot;" type="string" variable="$urltype">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="119" name="return" description="The URL of the service" type="string">
+          <tag line="121" name="return" description="The URL of the service" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="135">
+        <argument line="137">
           <name>$type</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="135">
+        <argument line="137">
           <name>$name</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="135">
+        <argument line="137">
           <name>$region</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="135">
+        <argument line="137">
           <name>$urltype</name>
           <default><![CDATA['publicURL']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="179" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="181" package="Default">
         <name>GetMetaUrl</name>
         <full_name>GetMetaUrl</full_name>
-        <docblock line="169">
+        <docblock line="171">
           <description><![CDATA[construct a specified URL from the subresource]]></description>
           <long-description><![CDATA[<p>Given a subresource (e.g., "extensions"), this constructs the proper
 URL and retrieves the resource.</p>]]></long-description>
-          <tag line="169" name="param" description="The resource requested; should NOT have slashes at the beginning or end" type="string" variable="$resource">
+          <tag line="171" name="param" description="The resource requested; should NOT have slashes at the beginning or end" type="string" variable="$resource">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="169" name="return" description="object" type="\stdClass">
+          <tag line="171" name="return" description="object" type="\stdClass">
             <type by_reference="false">\stdClass</type>
           </tag>
         </docblock>
-        <argument line="179">
+        <argument line="181">
           <name>$resource</name>
           <default><![CDATA[]]></default>
           <type/>
@@ -6560,7 +6601,7 @@ URL and retrieves the resource.</p>]]></long-description>
       <error line="33" code="50018">No DocBlock was found for property $service_url</error>
     </parse_markers>
   </file>
-  <file path="user.inc" hash="ed61c13e71ad4ed74e001b6d9a8e5238" package="phpOpenCloud">
+  <file path="user.inc" hash="ff4bede1226fbcb6a5538c3550131ef2" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[A Database user]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -6736,12 +6777,13 @@ is not necessarily tied to an actual database.</p>]]></long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="121" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="122" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
         <docblock line="113">
           <description><![CDATA[creates a new database user]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="113" name="api" description=""/>
           <tag line="113" name="param" description="an associative array of parameters" type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
@@ -6755,49 +6797,50 @@ is not necessarily tied to an actual database.</p>]]></long-description>
             <type by_reference="false">\OpenCloud\DbService\UserCreateError</type>
           </tag>
         </docblock>
-        <argument line="121">
+        <argument line="122">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="153" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="154" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <docblock line="146">
+        <docblock line="147">
           <description><![CDATA[updates a database user (not currently permitted)]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="146" name="param" description="not currently used, but provided for future updates" type="array" variable="$params">
+          <tag line="147" name="param" description="not currently used, but provided for future updates" type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="146" name="throws" description="always; updates are not currently permitted by this service." type="\OpenCloud\DbService\UserUpdateError">
+          <tag line="147" name="throws" description="always; updates are not currently permitted by this service." type="\OpenCloud\DbService\UserUpdateError">
             <type by_reference="false">\OpenCloud\DbService\UserUpdateError</type>
           </tag>
         </docblock>
-        <argument line="153">
+        <argument line="154">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="164" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="166" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
-        <docblock line="158">
+        <docblock line="159">
           <description><![CDATA[deletes a database user]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="158" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="159" name="api" description=""/>
+          <tag line="159" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
-          <tag line="158" name="throws" description="if HTTP response is not Success" type="\OpenCloud\DbService\UserDeleteError">
+          <tag line="159" name="throws" description="if HTTP response is not Success" type="\OpenCloud\DbService\UserDeleteError">
             <type by_reference="false">\OpenCloud\DbService\UserDeleteError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="184" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="186" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="181">
+        <docblock line="183">
           <description><![CDATA[creates the JSON object for Creates]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
