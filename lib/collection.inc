@@ -24,10 +24,11 @@ require_once('base.inc');
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 abstract class Collection extends Base {
-private
-	$service,
-	$itemlist=array(),
-	$pointer=0;
+
+	private
+		$service,
+		$itemlist=array(),
+		$pointer=0;
 
 	/**
 	 * a Collection is an array of objects
@@ -55,6 +56,7 @@ private
 	/**
 	 * Resets the collection pointer back to the first item in the set
 	 *
+	 * @api
 	 * @return Base the first item in the set
 	 */
 	public function First() {
@@ -65,6 +67,7 @@ private
 	/**
 	 * Returns the next item in the set
 	 *
+	 * @api
 	 * @return Base the next item or FALSE if at the end of the set
 	 */
 	public function Next() {
@@ -76,6 +79,7 @@ private
 	/**
 	 * Returns the number of items in the collection
 	 *
+	 * @api
 	 * @return integer The number of items in the set
 	 */
 	public function Size() {
