@@ -70,6 +70,7 @@ abstract class Service extends Base {
 	/**
 	 * returns the /extensions for the service
 	 *
+	 * @api
 	 * @return array of objects
 	 */
 	public function Extensions() {
@@ -83,6 +84,7 @@ abstract class Service extends Base {
 	/**
 	 * returns the /limits for the service
 	 *
+	 * @api
 	 * @return array of limits
 	 */
 	public function Limits() {

@@ -46,6 +46,9 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 *
 	 * This could use the default constructor, but we want to make sure that
 	 * the volume attribute is an object.
+	 *
+	 * @param \OpenCloud\DbService $service the DbService object associated with this
+	 * @param mixed $info the ID or array of info for the object
 	 */
 	public function __construct(\OpenCloud\DbService $service, $info=NULL) {
 		$this->volume = new \stdClass();

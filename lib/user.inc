@@ -113,6 +113,7 @@ class User extends \OpenCloud\Base {
 	/**
 	 * creates a new database user
 	 *
+	 * @api
 	 * @param array $params an associative array of parameters
 	 * @return \OpenCloud\HttpResponse
 	 * @throws UserNameError if the user's name is not defined
@@ -158,6 +159,7 @@ class User extends \OpenCloud\Base {
 	/**
 	 * deletes a database user
 	 *
+	 * @api
 	 * @return \OpenCloud\HttpResponse
 	 * @throws UserDeleteError if HTTP response is not Success
 	 */

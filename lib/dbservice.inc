@@ -41,6 +41,9 @@ class DbService extends Nova {
 	/**
 	 * Returns the URL of this database service, or optionally that of
 	 * an instance
+	 *
+	 * @param string $resource the resource required
+	 * @param array $args extra arguments to pass to the URL as query strings
 	 */
 	public function Url($resource='instances', $args=array()) {
 		return parent::Url($resource, $args);
@@ -51,6 +54,9 @@ class DbService extends Nova {
 	 *
 	 * just call the parent FlavorList() method, but pass FALSE
 	 * because the /flavors/detail resource is not supported
+	 *
+	 * @api
+	 * @return \OpenCloud\Compute\FlavorList
 	 */
 	public function FlavorList() {
 	    return parent::FlavorList(FALSE);
@@ -58,6 +64,10 @@ class DbService extends Nova {
 
 	/**
 	 * Factory method to create a Instance object
+	 *
+	 * @api
+	 * @param string $id the ID of the instance to retrieve
+	 * @return DbService\Instance
 	 */
 	public function Instance($id=NULL) {
 		return new DbService\Instance($this, $id);
@@ -65,6 +75,10 @@ class DbService extends Nova {
 
 	/**
 	 * Factory method to create a Collection of Instance objects
+	 *
+	 * @api
+	 * @param array $params array of parameters to pass to the request as query strings
+	 * @return DbService\InstanceList
 	 */
 	public function InstanceList($params=array()) {
 		$response = $this->Request($this->Url());

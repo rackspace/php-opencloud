@@ -59,6 +59,9 @@ class Database extends \OpenCloud\Base {
 
     /**
      * returns the Url of the Database
+     *
+     * @api
+     * @return string
      */
     public function Url() {
         if (!isset($this->name))
@@ -70,6 +73,8 @@ class Database extends \OpenCloud\Base {
 
     /**
      * returns the Instance of the database
+     *
+     * @return Instance
      */
     public function Instance() {
         return $this->_instance;
@@ -77,6 +82,8 @@ class Database extends \OpenCloud\Base {
 
     /**
      * returns the related service
+     *
+     * @return \OpenCloud\DbService
      */
     public function Service() {
     	return $this->Instance()->Service();
@@ -85,7 +92,8 @@ class Database extends \OpenCloud\Base {
     /**
      * creates a new database
      *
-     * @param
+     * @api
+     * @param array $params array of attributes to set prior to Create
      * @return \OpenCloud\HttpResponse
      */
     public function Create($params=array()) {
@@ -128,6 +136,9 @@ class Database extends \OpenCloud\Base {
 
     /**
      * deletes a database
+     *
+     * @api
+     * @return \OpenCloud\HttpResponseb
      */
     public function Delete() {
     	$resp = $this->Service()->Request($this->Url(), 'DELETE');
