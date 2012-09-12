@@ -90,7 +90,8 @@ Table of contents
 * [Working with servers](servers.md)
 * [Working with images](images.md)
 * [Working with flavors](flavors.md)
-* [About the Access IPs](accessip.md)
+* [About the access IPs](accessip.md)
+* [Working with Cloud Databases](dbaas.md)
 
 ----
 
