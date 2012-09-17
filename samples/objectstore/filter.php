@@ -39,7 +39,7 @@ $sample->Create(CONTAINERNAME);
 // create a bunch of objects
 printf("\nCreating %d randomly-named objects:\n", NUM_OBJECTS);
 for ($i=0; $i<=NUM_OBJECTS; $i++) {
-    $obj = $sample->Object();
+    $obj = $sample->DataObject();
     $obj->SetData(rand());
     $obj->name = sprintf('%d-object-%d', rand(0,9), rand(0,999));
     $obj->Create(array('type'=>'text/plain'));

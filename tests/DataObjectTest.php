@@ -78,7 +78,7 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals('DATA-OBJECT', $this->dataobject->name);
 	}
 	public function testCopy() {
-	    $target = $this->container->Object();
+	    $target = $this->container->DataObject();
 	    $target->name = 'DESTINATION';
 	    $this->assertEquals(
 	        'OpenCloud\BlankResponse',

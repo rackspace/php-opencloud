@@ -233,7 +233,7 @@ class CDNContainer extends ObjStoreBase {
 	 * @param string $name if supplied, the name of the object to return
 	 * @return DataObject
 	 */
-	public function Object($name=NULL) {
+	public function DataObject($name=NULL) {
 		return new DataObject($this, $name);
 	}
 

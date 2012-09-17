@@ -123,7 +123,7 @@ objects in it have also been deleted). Example:
 
 ### Create a new object in a container
 
-    $mypicture = $mycontainer->Object();
+    $mypicture = $mycontainer->DataObject();
     $mypicture->Create(
         array('name'=>'picture.jpg', 'type'=>'image/jpeg'),
         '/path/to/mypicture.jpg');
@@ -136,7 +136,7 @@ streamed from the local file to the stored Object.
 
 If you prefer, you can create the object in-memory first:
 
-    $mypicture = $mycontainer->Object();
+    $mypicture = $mycontainer->DataObject();
     $mypicture->SetData(file_get_contents('/path/to/picture.jpg'));
     $mypicture->name = 'potato.jpg';
     $mypicture->content_type = 'image/jpeg';
@@ -148,7 +148,7 @@ Because objects are sometimes enormous, they are not retrieved directly
 from the object store; instead, the metadata about the object is returned.
 For example, this call:
 
-    $myphoto = $mycontainer->Object('photo.jpg');
+    $myphoto = $mycontainer->DataObject('photo.jpg');
 
 does not actually retrieve the photo data; it retrieve the metadata about
 the photo. To save the data to a file, use this method:

@@ -30,7 +30,7 @@ $cont = $ostore->Container();
 $cont->Create('Sample');
 
 // finally, create an object in that container named hello.txt
-$obj = $cont->Object();
+$obj = $cont->DataObject();
 $obj->data = 'Hello, World';
 $obj->Create(array('name' => 'hello.txt', 'type' => 'text/plain'));
 

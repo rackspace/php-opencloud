@@ -1,20 +1,20 @@
-Working with Object Storage services
+Working with object storage services
 ====================================
 
-*Swift* is the OpenStack object-storage service. In the *php-opencloud* library,
-it is accessed via the `ObjectStore` class, which is created from a Connection
-object.
+*Swift* is the OpenStack object storage service. In the *php-opencloud* library,
+it is accessed via the `ObjectStore` class, which is created from a connection
+object (either `OpenStack` or `Rackspace`).
 
 For example:
 
-	$cloud = new OpenStack(array(
+	$cloud = new OpenCloud\OpenStack(array(
 	    'username'=>'{username}','password'=>'{password}'));
 	$swift = $cloud->ObjectStore('cloudFiles','DFW');
 
-With this newly-created `$swift` object, you can now work with various Object
-Store components.
+With this newly-created `$swift` object, you can now work with various object
+storage components.
 
-The highest-level component in an Object Store instance is the Container.
+The highest-level component in an object store instance is the Container.
 Essentially, a Container is a named collection of objects; it is similar (though
 definitely not identical) to a directory or folder in a file system.
 
@@ -22,19 +22,19 @@ All objects live in a Container.
 
 ## List the containers in an object store instance
 
-The `ContainerList` object is a [Collection](../collections.md) of Containers.
+The `ContainerList` object is a [Collection](collections.md) of `Container` objects.
 To list all the containers in an object storage instance:
 
 	$containers = $swift->ContainerList();
 	while($container = $containers->Next())
 		printf("%s\n", $container->name);
 
-Like other Collection objects, this supports the `First()`, `Next()`, and `Count()`
+Like other Collection objects, this supports the `First()`, `Next()`, and `Size()`
 methods.
 
 ## Create a new container
 
-Assuming the newly-created `$swift` object created above, use the `Container()`
+With the newly-created `$swift` object created above, use the `Container()`
 method to create a new (empty) container:
 
 	$mycontainer = $swift->Container();

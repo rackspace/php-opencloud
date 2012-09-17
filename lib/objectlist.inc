@@ -50,7 +50,7 @@ class ObjectList extends \OpenCloud\Collection {
 	public function Next() {
 		$item = parent::Next();
 		if ($item)
-			return $this->container->Object($item);
+			return $this->container->DataObject($item);
 		else
 			return FALSE;
 	} // function Next()

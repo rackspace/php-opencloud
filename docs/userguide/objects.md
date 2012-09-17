@@ -7,17 +7,17 @@ be stored.
 
 Unfortunately, the term *object* has a very specific meaning in terms of computer
 programming, and it can be rather confusing to have multiple things carry the same
-"object" moniker. Thus, *php-opencloud* refers to an object stored in the Object
-Storage service as a *DataObject*. This is purely to avoid confusion—for example, the 
+"object" moniker. Thus, *php-opencloud* refers to an object stored in the object
+storage service as a `DataObject`. This is purely to avoid confusion—for example, the 
 built-in PHP function `is_object()` checks to see whether its argument is a PHP
-object, not if it's stored in the Object Store.
+object, not if it's stored in the `ObjectStore`.
 
 Thus, the complete hierarchy for the object storage service is:
 
-* *OpenStack* (or *Rackspace*) is the parent of
-* *ObjectStore* instance, which is the parent of
-* *Container*, which is the parent of
-* *DataObject*, which holds the actual object data
+* `OpenStack` (or `Rackspace`) is the parent of
+* `ObjectStore` service instance, which is the parent of
+* `Container`, which is the parent of
+* `DataObject`, which holds the actual object data
 
 ### The DataObject class and its methods
 

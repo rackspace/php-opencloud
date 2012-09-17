@@ -105,7 +105,7 @@ $container->PublishToCDN(60); // 60-second TTL
 info('CDN URL: %s', $container->CDNUrl());
 
 step('Create Object from this file');
-$object = $container->Object();
+$object = $container->DataObject();
 $object->Create(array('name'=>'SmokeTestObject','type'=>'text/plain'), __FILE__);
 
 step('List Containers');

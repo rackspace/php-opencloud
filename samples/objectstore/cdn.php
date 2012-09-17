@@ -37,7 +37,7 @@ printf("  CDN URL: %s\n", $container->CDNUrl());
 
 // load this file into the CDN container
 print("Creating a CDN object\n");
-$object = $container->Object();
+$object = $container->DataObject();
 $object->Create(array('name'=>'FOOBAR'), __FILE__);
 printf("  The CDN URL of the object is %s\n", $object->CDNUrl());
 
