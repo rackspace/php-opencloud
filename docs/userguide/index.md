@@ -41,6 +41,15 @@ in your PHP's `include_path` setting. (Or, if you prefer, you can edit
 your `php.ini` and change the `include_path` to point to the `lib/` directory,
 wherever it is.)
 
+For example, if your include path looks like this:
+
+	include_path = "/usr/lib/php:/usr/local/lib/php"
+
+and you have installed the library files in `/home/php-opencloud/lib`, you would
+change the `include_path` like this:
+
+	include_path = "/usr/lib/php:/usr/local/lib/php:/home/php-opencloud/lib"
+
 You can also use the full path to the library as shown below.
 
 ## Using php-opencloud
