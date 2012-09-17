@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project version="2.0.0a8" title="">
-  <file path="base.inc" hash="92dda6f80d2cdd13ddb390994c1ef8b9" package="phpOpenCloud">
+  <file path="base.inc" hash="fc0afc86cbbfee746cb5f9ee0bbee936" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The root class for all other classes in this library]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -39,7 +39,7 @@ and it has no publicly-visible properties.</p>]]></long-description>
         <name>$_errors</name>
         <default><![CDATA[array()]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="51" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="55" package="Default">
         <name>debug</name>
         <full_name>debug</full_name>
         <docblock line="36">
@@ -53,147 +53,159 @@ with "Debug:" and the class name, to the standard output device.</p>
           <tag line="36" name="param" description="The message string (required); can be in sprintf() format." type="string" variable="$msg">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="36" name="param" description="Optional argument(s) to be passed to sprintf()" type="mixed" variable="$p1-$p5">
+          <tag line="36" name="param" description="Optional argument to be passed to sprintf()" type="mixed" variable="$p1">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="36" name="param" description="Optional argument to be passed to sprintf()" type="mixed" variable="$p2">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="36" name="param" description="Optional argument to be passed to sprintf()" type="mixed" variable="$p3">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="36" name="param" description="Optional argument to be passed to sprintf()" type="mixed" variable="$p4">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="36" name="param" description="Optional argument to be passed to sprintf()" type="mixed" variable="$p5">
             <type by_reference="false">mixed</type>
           </tag>
           <tag line="36" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="51">
+        <argument line="55">
           <name>$msg</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="51">
+        <argument line="55">
           <name>$p1</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
-        <argument line="51">
+        <argument line="55">
           <name>$p2</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
-        <argument line="51">
+        <argument line="55">
           <name>$p3</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
-        <argument line="51">
+        <argument line="55">
           <name>$p4</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
-        <argument line="51">
+        <argument line="55">
           <name>$p5</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="68" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="72" package="Default">
         <name>Url</name>
         <full_name>Url</full_name>
-        <docblock line="59">
+        <docblock line="63">
           <description><![CDATA[returns the URL of the service/object]]></description>
           <long-description><![CDATA[<p>The assumption is that nearly all objects will have a URL; at this
 base level, it simply throws an exception to enforce the idea that
 subclasses need to define this method.</p>]]></long-description>
-          <tag line="59" name="throws" description="" type="\OpenCloud\UrlError">
+          <tag line="63" name="throws" description="" type="\OpenCloud\UrlError">
             <type by_reference="false">\OpenCloud\UrlError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="85" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="89" package="Default">
         <name>__set</name>
         <full_name>__set</full_name>
-        <docblock line="73">
+        <docblock line="77">
           <description><![CDATA[Sets extended attributes on an object and validates them]]></description>
           <long-description><![CDATA[<p>This function is provided to ensure that attributes cannot
 arbitrarily added to an object. If this function is called, it
 means that the attribute is not defined on the object, and thus
 an exception is thrown.</p>]]></long-description>
-          <tag line="73" name="param" description="the name of the attribute" type="string" variable="$name">
+          <tag line="77" name="param" description="the name of the attribute" type="string" variable="$property">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="73" name="param" description="the value of the attribute" type="mixed" variable="$value">
+          <tag line="77" name="param" description="the value of the attribute" type="mixed" variable="$value">
             <type by_reference="false">mixed</type>
           </tag>
-          <tag line="73" name="return" description="" type="void">
+          <tag line="77" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="85">
+        <argument line="89">
           <name>$property</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="85">
+        <argument line="89">
           <name>$value</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="102" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="106" package="Default">
         <name>SetProperty</name>
         <full_name>SetProperty</full_name>
-        <docblock line="89">
+        <docblock line="93">
           <description><![CDATA[Sets an extended (unrecognized) property on the current object]]></description>
           <long-description><![CDATA[<p>If RAXSDK_STRICT_PROPERTY_CHECKS is TRUE, then the prefix of the
 property name must appear in the $prefixes array, or else an
 exception is thrown.</p>]]></long-description>
-          <tag line="89" name="param" description="the property name" type="string" variable="$property">
+          <tag line="93" name="param" description="the property name" type="string" variable="$property">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="89" name="param" description="the value of the property" type="mixed" variable="$value">
+          <tag line="93" name="param" description="the value of the property" type="mixed" variable="$value">
             <type by_reference="false">mixed</type>
           </tag>
-          <tag line="89" name="param" description="optional list of supported prefixes" type="array" variable="$prefixes">
+          <tag line="93" name="param" description="optional list of supported prefixes" type="array" variable="$prefixes">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="89" name="throws" description="if strict checks are on and the property prefix is not in the list of prefixes." type="\OpenCloud\AttributeError">
+          <tag line="93" name="throws" description="if strict checks are on and the property prefix is not in the list of prefixes." type="\OpenCloud\AttributeError">
             <type by_reference="false">\OpenCloud\AttributeError</type>
           </tag>
         </docblock>
-        <argument line="102">
+        <argument line="106">
           <name>$property</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="102">
+        <argument line="106">
           <name>$value</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="102">
+        <argument line="106">
           <name>$prefixes</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="125" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="129" package="Default">
         <name>MakeQueryString</name>
         <full_name>MakeQueryString</full_name>
-        <docblock line="117">
+        <docblock line="121">
           <description><![CDATA[converts an array of key/value pairs into a single query string]]></description>
           <long-description><![CDATA[<p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'</p>]]></long-description>
-          <tag line="117" name="param" description="array of key/value pairs" type="array" variable="$arr">
+          <tag line="121" name="param" description="array of key/value pairs" type="array" variable="$arr">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="117" name="return" description="" type="string">
+          <tag line="121" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="125">
+        <argument line="129">
           <name>$arr</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="150" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="154" package="Default">
         <name>CheckJsonError</name>
         <full_name>CheckJsonError</full_name>
-        <docblock line="136">
+        <docblock line="140">
           <description><![CDATA[check the most recent JSON operation for errors]]></description>
           <long-description><![CDATA[<p>This function should be called after any <code>json_*()</code> function call.
 This ensures that nasty JSON errors are detected and the proper
@@ -202,68 +214,68 @@ exception thrown.</p>
 <p>Example:
   <code>$obj = json_decode($string);</code>
   <code>if (check_json_error()) do something ...</code></p>]]></long-description>
-          <tag line="136" name="return" description="TRUE if an error occurred, FALSE if none" type="boolean">
+          <tag line="140" name="return" description="TRUE if an error occurred, FALSE if none" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="136" name="throws" description="" type="\OpenCloud\JsonError">
+          <tag line="140" name="throws" description="" type="\OpenCloud\JsonError">
             <type by_reference="false">\OpenCloud\JsonError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="187" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="191" package="Default">
         <name>GetHttpRequestObject</name>
         <full_name>GetHttpRequestObject</full_name>
-        <docblock line="183">
+        <docblock line="187">
           <description><![CDATA[returns a class that implements the HttpRequest interface.]]></description>
           <long-description><![CDATA[<p>We can stub this out for unit testing and avoid making live calls.</p>]]></long-description>
         </docblock>
-        <argument line="187">
+        <argument line="191">
           <name>$url</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="187">
+        <argument line="191">
           <name>$method</name>
           <default><![CDATA['GET']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="201" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="205" package="Default">
         <name>CheckAttributePrefix</name>
         <full_name>CheckAttributePrefix</full_name>
-        <docblock line="191">
+        <docblock line="195">
           <description><![CDATA[Checks the attribute $name and only permits it if the prefix is
 in the specified $prefix array]]></description>
           <long-description><![CDATA[<p>This is to support extension namespaces in some services.</p>]]></long-description>
-          <tag line="191" name="param" description="the name of the attribute" type="string" variable="$property">
+          <tag line="195" name="param" description="the name of the attribute" type="string" variable="$property">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="191" name="param" description="a list of prefixes" type="array" variable="$prefixes">
+          <tag line="195" name="param" description="a list of prefixes" type="array" variable="$prefixes">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="191" name="return" description="TRUE if valid; FALSE if not" type="boolean">
+          <tag line="195" name="return" description="TRUE if valid; FALSE if not" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="201">
+        <argument line="205">
           <name>$property</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="201">
+        <argument line="205">
           <name>$prefixes</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="212" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="216" package="Default">
         <name>to_string</name>
         <full_name>to_string</full_name>
-        <docblock line="209">
+        <docblock line="213">
           <description><![CDATA[converts a value to a HTTP-displayable string form]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="212">
+        <argument line="216">
           <name>$x</name>
           <default><![CDATA[]]></default>
           <type/>
@@ -273,17 +285,9 @@ in the specified $prefix array]]></description>
     <parse_markers>
       <error line="32" code="50018">No DocBlock was found for property $http_headers</error>
       <error line="33" code="50018">No DocBlock was found for property $_errors</error>
-      <error line="36" code="50014">Name of argument $p1 does not match with the DocBlock's name $p1-$p5 in debug()</error>
-      <error line="36" code="50015">Argument $p2 is missing from the Docblock of debug()</error>
-      <error line="36" code="50015">Argument $p3 is missing from the Docblock of debug()</error>
-      <error line="36" code="50015">Argument $p4 is missing from the Docblock of debug()</error>
-      <error line="36" code="50015">Argument $p5 is missing from the Docblock of debug()</error>
-      <notice line="36" code="50013">Parameter $p1-$p5 could not be found in debug()</notice>
-      <error line="73" code="50014">Name of argument $property does not match with the DocBlock's name $name in __set()</error>
-      <notice line="73" code="50013">Parameter $name could not be found in __set()</notice>
-      <error line="183" code="50015">Argument $url is missing from the Docblock of GetHttpRequestObject()</error>
-      <error line="183" code="50015">Argument $method is missing from the Docblock of GetHttpRequestObject()</error>
-      <error line="209" code="50015">Argument $x is missing from the Docblock of to_string()</error>
+      <error line="187" code="50015">Argument $url is missing from the Docblock of GetHttpRequestObject()</error>
+      <error line="187" code="50015">Argument $method is missing from the Docblock of GetHttpRequestObject()</error>
+      <error line="213" code="50015">Argument $x is missing from the Docblock of to_string()</error>
     </parse_markers>
   </file>
   <file path="cloud.inc" hash="5719881e23106d7bc826ca309edeb019" package="phpOpenCloud">

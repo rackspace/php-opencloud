@@ -45,7 +45,11 @@ abstract class Base {
 	 *
 	 * @param string $msg The message string (required); can be in
 	 *      sprintf() format.
-	 * @param mixed $p1-$p5 Optional argument(s) to be passed to sprintf()
+	 * @param mixed $p1 Optional argument to be passed to sprintf()
+	 * @param mixed $p2 Optional argument to be passed to sprintf()
+	 * @param mixed $p3 Optional argument to be passed to sprintf()
+	 * @param mixed $p4 Optional argument to be passed to sprintf()
+	 * @param mixed $p5 Optional argument to be passed to sprintf()
 	 * @return void
 	 */
 	public function debug($msg,$p1=NULL,$p2=NULL,$p3=NULL,$p4=NULL,$p5=NULL) {
@@ -78,7 +82,7 @@ abstract class Base {
 	 * means that the attribute is not defined on the object, and thus
 	 * an exception is thrown.
 	 *
-	 * @param string $name the name of the attribute
+	 * @param string $property the name of the attribute
 	 * @param mixed $value the value of the attribute
 	 * @return void
 	 */
