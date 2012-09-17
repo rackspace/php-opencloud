@@ -234,6 +234,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 * returns a new database
 	 *
 	 * @param string $name the database name
+	 * @return Database
 	 */
 	public function Database($name='') {
 	    return new Database($this, $name);
@@ -243,6 +244,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 * returns a new user
 	 *
 	 * @param string $name the user name
+	 * @param array $databases a simple array of database names
+	 * @return User
 	 */
 	public function User($name='', $databases=array()) {
 	    return new User($this, $name, $databases);
