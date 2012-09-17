@@ -1,7 +1,7 @@
 Exceptions and errors
 =====================
 
-*php-opencloud* handles errors by throwing 
+<b>php-opencloud</b> handles errors by throwing 
 [Exceptions](http://php.net/manual/en/language.exceptions.php).
 The entire list of exceptions is defined in `lib/exceptions.inc` and
 is documented in the full API reference.
@@ -16,9 +16,13 @@ code will handle the exception:
 	try {
 		// this will fail if the container doesn't exist
 		$container = $objectstore('ImportantContainer');
-	catch (OpenCloud\ObjectStore\ContainerNotFoundError $e) {
+	} catch (OpenCloud\ObjectStore\ContainerNotFoundError $e) {
 		// here if the container was not found
 		$container->Create('ImportantContainer');
 	}
 	// continue on...
 	$container->...
+
+## What's next?
+
+Return to the [Table of Contents](toc.md).

@@ -1,6 +1,8 @@
 Getting started with php-opencloud
 ==================================
 
+[Table of Contents](toc.md)
+
 The <b>php-opencloud</b> library is a software development kit (SDK) to help
 developers using PHP to work with OpenStack&reg; and other open clouds. Since
 the library was developed at Rackspace, it works with the Rackspace public
@@ -74,25 +76,6 @@ setting.
 Before you can do anything else, you need to authenticate with
 your cloud. See the [Authentication](authentication.md) section
 for more details on that.
-
-----
-
-Table of contents
-=================
-
-* [Authentication](authentication.md)
-* [Working with services](services.md)
-* [Factory methods](factories.md)
-* [Collections](collections.md)
-* [Exceptions and Errors](exceptions.md)
-* [Working with object storage](objectstore.md)
-* [Working with objects](objects.md)
-* [Working with compute](compute.md)
-* [Working with servers](servers.md)
-* [Working with images](images.md)
-* [Working with flavors](flavors.md)
-* [About the access IPs](accessip.md)
-* [Working with Cloud Databases](dbaas.md)
 
 ----
 
