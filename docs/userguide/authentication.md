@@ -1,17 +1,17 @@
 Authentication
 ==============
 
-Before you can do anything with _php-opencloud_, you must authenticate
+Before you can do anything with php-opencloud, you must authenticate
 with your cloud provider. This is simultaneously the simplest and sometimes
 the most frustrating part of the whole process.
 
 It is simple because you only need to have two pieces of information:
 
-* The authentication endpoint of your cloud provider, and
-* The credentials required to authenticate.
+* The authentication endpoint of your cloud provider
+* The credentials required to authenticate
 
 Once you have authenticated, the cloud provider will respond with a
-[service catalog](link to openstack.org) that contains links to all the
+[@TODO service catalog](link to openstack.org) that contains links to all the
 various provider's services. All you need to do is specify which service
 to use, and the library will take care of finding the appropriate links.
 
@@ -35,8 +35,9 @@ Next, create an `OpenStack` object with the proper credentials:
     );
     $cloud = new OpenCloud\OpenStack($endpoint, $credentials);
 
-Make sure you replace `'YOUR USERNAME'` and `'YOUR PASSWORD'` with
-your assigned username and password.
+In this example, `$credentials` is an associative array (or "hashed" array). The
+keys are `username` and `password` and their values are your assigned OpenStack user
+name and password, respectively. 
 
 ## Authenticating against the Rackspace public cloud
 
@@ -55,10 +56,12 @@ Next, create a `Rackspace` object with the proper credentials:
     );
     $cloud = new OpenCloud\Rackspace($endpoint, $credentials);
 
-Replace `'YOUR USERNAME'` and the other values with those that have
-been assigned to you by your Provider.
+Replace the values for `username`, `tenantName` (sometimes called the *tenant ID* or
+the *customer ID* in Rackspace documentation), and `apiKey` with the values for your
+account. If you don't have an API key, see
+[@TODO need link for API key].
 
-Note that Rackspace UK users will have a different endpoint than US users.
+Note that Rackspace UK users will have a different `$endpoint` than US users.
 
 ## Credential Caching
 

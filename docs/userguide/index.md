@@ -2,7 +2,7 @@ Getting started with php-opencloud
 ==================================
 
 The <b>php-opencloud</b> library is a software development kit (SDK) to help
-developers using PHP to work with OpenStack and other open clouds. Since
+developers using PHP to work with OpenStack&reg; and other open clouds. Since
 the library was developed at Rackspace, it works with the Rackspace public
 cloud, and should also work with other OpenStack-based clouds with minimal
 effort.
@@ -17,7 +17,7 @@ See the [Authentication](authentication.md) section for more details on this.
 This initial release of the <b>php-opencloud</b> library supports Compute
 (OpenStack Nova) and Object Storage (OpenStack Swift) services.
 It also supports Rackspace's extensions to these services, such as the
-content distribution network (CDN) provided with Rackspace's Cloud Files
+content distribution network (CDN) provided with Rackspace's Cloud Files&trade;
 offering, which is built on OpenStack Swift.
 
 ## Before you start
@@ -48,8 +48,9 @@ There are currently two top-level entry points into the library:
 * `openstack.inc` for pure OpenStack-based clouds
 * `rackspace.inc` for the Rackspace public cloud
 
-(`rackspace.inc` is merely a subclass of `OpenStack` with some variation as
-to how the authentication is handled.)
+(`rackspace.inc` is a subclass of `OpenStack` with some variation as
+to how the authentication is handled, as well as factory methods for
+Rackspace-only services such as Cloud Databases&trade;.)
 
 To use the library, you can `include()` or `require()` one of these scripts
 in your program, like this:
@@ -62,12 +63,12 @@ or
     <?php
     include('rackspace.inc');   // for the Rackspace cloud
 
-If you prefer, you can use the full path to the libary file:
+If you prefer, you can use the full path to the library file:
 
     <?php
     include('/full/path/to/your/rackspace.inc');
 
-In this case, you do not need to have the files in your PHP's `include_path`
+In this case, you do not need to have the library location in your PHP's `include_path`
 setting.
 
 Before you can do anything else, you need to authenticate with
@@ -94,6 +95,23 @@ Table of contents
 * [Working with Cloud Databases](dbaas.md)
 
 ----
+
+Other Available Documentation
+=============================
+
+The *php-opencloud API Reference* is auto-generated documentation on the entire
+php-opencloud library. Because it is auto-generated, it is kept in sync with the
+actual underlying source code (unlike this document, which must be manually 
+edited). 
+[@TODO provide links to internal and online versions]
+
+The *php-opencloud Quick Reference* is a simplified reference, providing API 
+descriptions and syntax for the core features of the library. It is found in
+various formats:
+
+* `docs/quickref.md` The Markdown source
+* [@TODO link to online version]
+* [@TODO link to downloadable PDF]
 
 A note for developers
 =====================

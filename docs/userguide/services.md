@@ -6,22 +6,28 @@ cloud, the authentication endpoint returns a _service catalog_ that
 contains a directory or listing of all of the various services supported
 by the endpoint. Each service is identified by two bits of information:
 
-* The service _type_, which is a standard identifier; for example, `compute` identifies the OpenStack Compute service (aka Nova).
+* The service _type_, which is a standard identifier; for example, `compute` identifies the OpenStack Compute service (also known as "Nova").
 * The service _name_, which is an arbitrary identifier assigned by the cloud provider. For example, the object storage service (Swift) at Rackspace is named `cloudFiles`.
 
 For each type of service, there may be multiple endpoints for accessing the
 specific type of service. To support geographic deployments, each service
-may have one or more _regions_ identified. For example, the Rackspace Compute service ("Cloud Servers") is (currently) accessible through three different regions: Dallas/Fort Worth (identified by `DFW`), Chicago (identified by `ORD`), and London (identified by `LON`).
+may have one or more _regions_ identified. For example, the Rackspace Compute 
+service (Cloud Servers&trade;) is accessible through three different 
+regions: 
+
+* Dallas/Fort Worth (identified by `DFW`)
+* Chicago (identified by `ORD`)
+* London (identified by `LON`).
 
 Finally, each service and region may have different types of URLs.
 For example, your provider may have an internal URL used for testing
 or for beta program participants. However, in most cases, the public URL
 (identified by the _urltype_ of `publicURL`) will be what is used.
 
-Complicated, isn't it? However, such complications provide developers great
+This may seem overly complicated; however, such complications provide developers great
 flexibility in how to deploy their cloud components. For example, a US-based
 developer might deploy servers in both `DFW` and `ORD`. This is done to ensure
-continuous availability (for example, a storm in one area might interrupt
+continuous availability (a storm in one area might interrupt
 the Internet connectivity in a given region) or to improve performance
 (a server in Chicago might have a shorter network path for some users
 than a server in Dallas).
@@ -51,7 +57,7 @@ what you need:
 
     $compute = $cloud->Compute('{name}', '{region}');
 
-By using the service default constants (SEE below), you don't even need to
+By using the [service default constants](#constants), you don't even need to
 specify those:
 
     $compute = $cloud->Compute(); // uses default values
@@ -63,16 +69,16 @@ values for your services.
 
 The `SetDefaults()` method takes up to four parameters:
 
-* the service type,
-* the service name,
-* the service region, and
+* the service type
+* the service name
+* the service region
 * the service URL type
 
 To set the defaults for the Object Storage service:
 
     $cloud->SetDefaults('ObjectStore','cloudFiles','DFW','publicURL');
 
-Use NULL to rely on the values set in the service default constants (SEE below):
+Use `NULL` to rely on the values set in the service default constants (SEE below):
 
     $cloud->SetDefaults('ObjectStore', NULL, 'ORD');
 
@@ -115,6 +121,12 @@ like this:
     define('RAXSDK_OBJSTORE_REGION', 'DFW');
     require('rackspace.inc');
 
+## What's next?
+
+Having established a connection to a service, you can then use that service's 
+[factory methods](factories.md) to generate objects. 
+
+<a name="constants"
 ## User-settable constants
 
 <table>
@@ -129,7 +141,7 @@ listed <a href="http://php.net/manual/en/timezones.php">in the PHP documentation
 <tr><td> RAXSDK_OBJSTORE_NAME </td><td> cloudFiles </td><td> The default name for the Object Storage service. </td></tr>
 <tr><td> RAXSDK_OBJSTORE_REGION </td><td> - </td><td> The default region for the Object Storage service. </td></tr>
 <tr><td> RAXSDK_OBJSTORE_URLTYPE </td><td> publicURL </td><td> The default URL type for the Object Storage service. </td></tr>
-<tr><td> RAXSDK_DATABASE_NAME </td><td> cloudDatabases </td><td> The default name for the Database-as-a-service </td></tr>
+<tr><td> RAXSDK_DATABASE_NAME </td><td> cloudDatabases </td><td> The default name for the Database-as-a-service. </td></tr>
 <tr><td> RAXSDK_DATABASE_REGION </td><td> - </td><td> The default region for the cloud database. </td></tr>
 <tr><td> RAXSDK_DATABASE_URLTYPE </td><td> publicURL </td><td> The default URL type for the cloud database. </td></tr>
 <tr><td> RAXSDK_CONNECTTIMEOUT </td><td> 2 </td><td> The max time (in seconds) to wait for a connection to a service. Increase this value if you have a very slow Internet connection. </td></tr>

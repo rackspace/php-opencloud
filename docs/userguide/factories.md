@@ -2,7 +2,7 @@ Factory methods
 ===============
 
 Much of the work in <b>php-opencloud</b> is handled by _factory methods_.
-These are special functions that return a specified object. For example,
+These are special methods that return a specified object. For example,
 to work with an instance of a service, use the factory method on the
 top-level provider object:
 
@@ -17,6 +17,19 @@ class. Likewise, the `Compute()` method returns a `Compute` object:
     $nova = $cloud->Compute(...);
 
 Each of _those_ objects has its own factory methods as well.
+
+You can actually create various objects directly, but it's much more cumbersome than
+using the factory methods. For example, to create a connection to a Compute instance,
+you could do this:
+
+	$nova = new OpenCloud\Compute($cloud, $name, $region, $urltype);
+
+In this case, you would need to maintain the relationships between the Compute object 
+and its parent OpenStack or Rackspace object as well as providing the other three
+parameters. By using a factory method, the parent object takes care of the book keeping
+to manage the relationship as well as handling default values for the other parameters:
+
+	$nova = $cloud->Compute();	// isn't this simpler?
 
 ## Compute object factory methods
 
@@ -44,3 +57,8 @@ associated objects.
 
 * `Container::Object()`
 * `Container::ObjectList()`
+
+## What's next?
+
+Continue with [Working with collections](collections.md)
+
