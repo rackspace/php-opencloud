@@ -22,6 +22,19 @@ It also supports Rackspace's extensions to these services, such as the
 content distribution network (CDN) provided with Rackspace's Cloud Files&trade;
 offering, which is built on OpenStack Swift.
 
+## Who should read this
+
+I'm assuming that you are an experienced PHP developer, or at least have a
+substantial familiarity with the language. This document does not instruct you into
+how to write or execute a PHP program; if you need help with that, start with
+[the official PHP website](http://www.php.net).
+
+I'm also assuming that you have a cloud account with Rackspace or another OpenStack
+cloud provider, that you have either a username and password or can get access to it.
+For Rackspace, you need to have API access; this means that you need to have an
+API key and customer number (also called "customer ID" or "tenant ID"), which is
+available through the Rackspace Cloud Control panel.
+
 ## Before you start
 
 PHP 5.3 is required. This library uses PHP namespaces, which were introduced
