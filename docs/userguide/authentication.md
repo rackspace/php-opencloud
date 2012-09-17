@@ -11,7 +11,8 @@ It is simple because you only need to have two pieces of information:
 * The credentials required to authenticate
 
 Once you have authenticated, the cloud provider will respond with a
-[@TODO service catalog](link to openstack.org) that contains links to all the
+[service catalog](http://docs.rackspace.com/auth/api/v2.0/auth-client-devguide/content/Sample_Request_Response-d1e64.html) 
+that contains links to all the
 various provider's services. All you need to do is specify which service
 to use, and the library will take care of finding the appropriate links.
 
