@@ -1126,7 +1126,7 @@ URL on the network.</p>]]></long-description>
       </method>
     </class>
   </file>
-  <file path="database.inc" hash="b329e2a9ebe49baf939565ee7fed0c76" package="phpOpenCloud">
+  <file path="database.inc" hash="b2423eb8db5ab13f561ed93cea16e25f" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[A database in the Cloud Databases service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -1245,12 +1245,15 @@ is not necessarily tied to an actual database.</p>]]></long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="132" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="133" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
         <docblock line="126">
           <description><![CDATA[updates an existing database]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="126" name="param" description="ignored" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
           <tag line="126" name="throws" description="always; updates are not permitted" type="\OpenCloud\DbService\DatabaseUpdateError">
             <type by_reference="false">\OpenCloud\DbService\DatabaseUpdateError</type>
           </tag>
@@ -1258,32 +1261,32 @@ is not necessarily tied to an actual database.</p>]]></long-description>
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="132">
+        <argument line="133">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="143" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DbService" line="144" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
-        <docblock line="137">
+        <docblock line="138">
           <description><![CDATA[deletes a database]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="137" name="api" description=""/>
-          <tag line="137" name="return" description="" type="\OpenCloud\HttpResponseb">
+          <tag line="138" name="api" description=""/>
+          <tag line="138" name="return" description="" type="\OpenCloud\HttpResponseb">
             <type by_reference="false">\OpenCloud\HttpResponseb</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="159" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\DbService" line="160" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="156">
+        <docblock line="157">
           <description><![CDATA[returns the JSON object for creating the database]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="159">
+        <argument line="160">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
@@ -1293,8 +1296,7 @@ is not necessarily tied to an actual database.</p>]]></long-description>
     <parse_markers>
       <error line="24" code="50018">No DocBlock was found for property $name</error>
       <error line="27" code="50018">No DocBlock was found for property $_instance</error>
-      <error line="126" code="50015">Argument $params is missing from the Docblock of Update()</error>
-      <error line="156" code="50015">Argument $params is missing from the Docblock of CreateJson()</error>
+      <error line="157" code="50015">Argument $params is missing from the Docblock of CreateJson()</error>
     </parse_markers>
   </file>
   <file path="databaselist.inc" hash="bbd36f56fdc77f77ed9be1832fa80c67" package="phpOpenCloud">
@@ -5673,7 +5675,7 @@ $conn = new Rackspace(
       </method>
     </class>
   </file>
-  <file path="server.inc" hash="09b3321955ee3bfa8fe882e8af002db4" package="phpOpenCloud">
+  <file path="server.inc" hash="4843557e3748d4aae700f4c745f41cc6" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines an OpenStack Compute virtual server]]></description>
       <long-description><![CDATA[]]></long-description>

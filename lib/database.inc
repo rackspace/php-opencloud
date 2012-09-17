@@ -126,6 +126,7 @@ class Database extends \OpenCloud\Base {
     /**
      * updates an existing database
      *
+     * @param array $params ignored
      * @throws DatabaseUpdateError always; updates are not permitted
      * @return void
      */

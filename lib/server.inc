@@ -28,23 +28,23 @@ require_once('metadata.inc');
 class Server extends \OpenCloud\Compute\NovaInstance {
 
 	public
-		$status,
-		$updated,
-		$hostId,
-		$addresses,
-		$links,
-		$image,
-		$flavor,
-		$id,
-		$user_id,
-		$name,
-		$created,
-		$tenant_id,
-		$accessIPv4,
-		$accessIPv6,
-		$progress,
-		$adminPass,
-		$metadata;
+		$status,		// server status
+		$updated,		// date and time of last update
+		$hostId,		// the ID of the host holding the server instance
+		$addresses,		// an object holding the server's network addresses
+		$links,			// an object containing servers permanent and bookmark links
+		$image,			// the object object of the server
+		$flavor,		// the flavor object of the server
+		$id,			// the server's ID
+		$user_id,		// the user ID that created the server
+		$name,			// the server's name
+		$created,		// date and time the server was created
+		$tenant_id,		// tenant/customer ID that created the server
+		$accessIPv4,	// the IPv4 access address
+		$accessIPv6,	// the IPv6 access address
+		$progress,		// build progress, from 0 (%) to 100 (%)
+		$adminPass,		// the root password returned from the Create() method
+		$metadata;		// a Metadata object associated with the server
 
 	private
 		$imageRef,
