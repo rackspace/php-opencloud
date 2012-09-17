@@ -1,7 +1,7 @@
-Working with Servers
+Working with servers
 ====================
 
-A *Server* is a virtual machine instance that is managed by OpenStack Nova,
+A *server* is a virtual machine instance that is managed by OpenStack Nova,
 the `Compute` service. One advantage of using OpenStack is that the
 virtualization layer makes it easy to create and discard servers as needed.
 
@@ -22,7 +22,8 @@ To retrieve the data on an existing server:
 
 ### Creating a new server
 
-A server requires both a [Flavor](flavors.md) and an [Image](images.md) to
+A server requires both a [Flavor object](flavors.md) and an 
+[Image object](images.md) to
 be created. In addition, a server requires a name. You can easily create a
 new server by setting the proper values and calling the `Create()` method:
 
@@ -88,7 +89,7 @@ Use the `SetPassword()` method to change the root user's password:
 
 Note that it may take a few second for the new password to take effect. Also,
 password restrictions (such as the minimum number of characters, numbers of
-punctuation characters, etc.) are enforced by the operating system and are
+punctuation characters, and so forth) are enforced by the operating system and are
 not always detectable by the Compute service. This means that, even though
 the `SetPassword()` method succeeds, the password may not be changed, and
 there may not be any feedback to that effect.
@@ -109,7 +110,7 @@ the only way to access the server.
 
 ### To resize the server
 
-A server can be resized by providing a new [flavor](flavors.md):
+A server can be resized by providing a new [Flavor object](flavors.md):
 
     $server->Resize($compute->Flavor(5));
 
@@ -120,4 +121,9 @@ confirm it:
 
 or revert it back to the original size:
 
-    $server->ResizeRevers();
+    $server->ResizeRevert();
+
+## What next?
+
+Return to the [Table of Contents](toc.md)
+

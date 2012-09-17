@@ -435,7 +435,7 @@ multiple objects in a container, or multiple servers in a service.</p>]]></long-
       <error line="31" code="50018">No DocBlock was found for property $pointer</error>
     </parse_markers>
   </file>
-  <file path="compute.inc" hash="2159ea400a1f1d07febca508f30b4678" package="phpOpenCloud">
+  <file path="compute.inc" hash="9d7415bb01272489a56d60d841a3bc29" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The OpenStack Compute (Nova) service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -627,7 +627,7 @@ creating an Image object directly.</p>]]></long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="176" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="180" package="Default">
         <name>ImageList</name>
         <full_name>ImageList</full_name>
         <docblock line="163">
@@ -638,19 +638,19 @@ an ImageList object directly.</p>]]></long-description>
           <tag line="163" name="param" description="- if TRUE (the default), returns complete image details. Set to FALSE to improve performance, but only return a minimal set of data" type="boolean" variable="$details">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="163" name="param" description="- key/value pairs to pass to the images resource" type="array" variable="$filter">
+          <tag line="163" name="param" description="- key/value pairs to pass to the images resource. The actual values available here are determined by the OpenStack code and any extensions installed by your cloud provider; see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html for current filters available." type="array" variable="$filter">
             <type by_reference="false">array</type>
           </tag>
           <tag line="163" name="return" description="object (or FALSE on an error)" type="\OpenCloud\Compute\ImageList">
             <type by_reference="false">\OpenCloud\Compute\ImageList</type>
           </tag>
         </docblock>
-        <argument line="176">
+        <argument line="180">
           <name>$details</name>
           <default><![CDATA[TRUE]]></default>
           <type/>
         </argument>
-        <argument line="176">
+        <argument line="180">
           <name>$filter</name>
           <default><![CDATA[array()]]></default>
           <type/>

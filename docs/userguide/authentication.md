@@ -17,7 +17,9 @@ to use, and the library will take care of finding the appropriate links.
 
 First, however, you need to know if you're using the Rackspace cloud
 or an OpenStack cloud, and include the proper top-level file. These are
-called *Connection* classes, and they are required for any use of *php-opencloud*.
+called *Connection* classes, because they establish a connection between an
+authorized user and a specific cloud deployment. They are required for any use of 
+<b>php-opencloud</b>.
 
 ## Authenticating against OpenStack clouds
 

@@ -27,11 +27,8 @@ object:
 	$cloud = new OpenStack(...);
 	$ostore = $cloud->ObjectStore(...);
 	$container = $ostore->Container('MyContainer');
-	$obj = $container->Object();
+	$obj = $container->DataObject();
 
-(Yes, the `DataObject` class is created by calling the `Object()` method. If this is
-confusing, let us know. We're trying to use standard terminology here as best as we
-can, but "object" can be very ambiguous.)
 
 #### Attributes
 
@@ -60,11 +57,13 @@ These are the available methods (examples are below):
 
 It is not uncommon for objects stored in the object storage service to me much
 large that the available memory on the server. For example, the server may only
-have a few gigabytes of memory, but a stored video file may be 100G in size. 
+have a few gigabytes of memory, but a stored video file may be 100GB in size. 
 Thus, the objects' data is typically read from (or written to) files in the
 local filesystem. This is not always the case, of course, so other methods
 are provided, but they are marked as (rarely used) in the list above.
 
+## What's Next?
 
+Return to the [Table of Contents](toc.md)
 
 

@@ -170,7 +170,11 @@ class Compute extends Nova {
 	 * @param boolean $details - if TRUE (the default), returns complete image
 	 *		details. Set to FALSE to improve performance, but only return a
 	 *      minimal set of data
-	 * @param array $filter - key/value pairs to pass to the images resource
+	 * @param array $filter - key/value pairs to pass to the images resource. 
+	 *		The actual values available here are determined by the OpenStack
+	 *		code and any extensions installed by your cloud provider;
+	 *		see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
+	 *		for current filters available.
 	 * @return Compute\ImageList object (or FALSE on an error)
 	 */
 	public function ImageList($details=TRUE, $filter=array()) {

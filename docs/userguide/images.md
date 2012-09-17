@@ -1,4 +1,4 @@
-Working with Images
+Working with images
 ===================
 
 An `Image` object represents a stored virtual machine image. Images are used
@@ -8,7 +8,7 @@ via the `Image()` method:
 
     $myimage = $compute->Image();
 
-This creates an empty image object, which is not useful by itself. More
+This creates an empty Image object (which is not really useful by itself). More
 commonly, you'll find an existing image and create an `Image` object by
 using its ID:
 
@@ -32,7 +32,8 @@ that you have created.
 
 By default, the `ImageList()` method returns full details on all images;
 because of the overhead involved in retrieving all the details, this may
-become slow when you have a large number of images. The first parameter
+become slow when you are working with a large number of images.
+The first (optional) parameter
 to the `ImageList()` method is a boolean that determines whether or not
 the full image details are included. For example,
 
