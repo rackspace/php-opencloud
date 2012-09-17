@@ -77,3 +77,7 @@ any backup, or *Server*, images that might have the same name).
 ### Examples
 
 * `samples/compute/images.php` - various image list examples
+
+## What next?
+
+See [Working with flavors](flavors.md).

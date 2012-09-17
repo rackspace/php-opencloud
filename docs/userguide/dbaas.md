@@ -5,10 +5,12 @@ Cloud Databases is a "database-as-a-service" product offered by Rackspace. Since
 not an official OpenStack project, it is only available via Rackspace connections,
 and *not* through an OpenStack connection.
 
+Therefore, this example will cause an error:
+
 	$cloud = new OpenStack(...);
 	$dbservice = $cloud->DbService(...);	// this won't work
 
-however,
+However, this code *will* work properly:
 
 	$cloud = new Rackspace(...);
 	$dbservice = $cloud->DbService(...);	// this will
@@ -22,16 +24,16 @@ and, like the other services, you can rely upon the defaults to select the prope
 
 	$dbservice = $cloud->DbService(NULL, 'LON');
 
-## Instances and Databases
+## Instances and databases
 
-An *Instance* is a virtual server running MySQL; it can support multiple databases. 
+An `Instance` is a virtual server running MySQL; it can support multiple databases. 
 As such, it has much in common with the [Server](servers.md) object. However, there 
-are some differences as well:
+are some differences between the `Server` and the `Instance` objects:
 
-1. Like a Server, a database Instance requires a [Flavor](flavors.md) at creation. This specifies the amount of RAM allocated to the Instance.
-1. Unlike a Server, the Flavor does not control the disk space; this is set via the volume size attribute.
-1. Unlike a Server, you do not specify an [Image](images.md). The image is provided by the database service.
-1. Listing flavors for the DbService service is the same as for the Compute service.
+1. Like a Server, a database Instance requires a [Flavor object](flavors.md) at creation. This specifies the amount of RAM allocated to the Instance.
+1. Unlike a Server, the Instance's Flavor object does not control the disk space; this is set via the volume size attribute.
+1. Unlike a Server, you do not specify an [Image object](images.md). The image is provided by the database service.
+1. Listing the available Flavor objects for the DbService service is the same as for the Compute service.
 
 Listing flavors:
 
@@ -41,7 +43,9 @@ Listing flavors:
 	$dbaas_flavors = $dbaas->FlavorList();
 
 The flavors themselves *are* different between the Compute service and the DbService, 
-however.
+however. In other words, you cannot use a `Flavor` from a Compute service to create
+a database Instance, and you cannot use a `Flavor` from a DbService service to 
+create a Server object. 
 
 ### Create a new DbService Instance
 
@@ -130,7 +134,7 @@ the `User()` factory method:
 Users cannot be altered after they are created, so they must be assigned to 
 databases when they are created:
 
-	$user->name = 'Fred';				// user gotta have a name
+	$user->name = 'Fred';				// the user must have a name
 	$user->password = 'S0m3thyng';
 	$user->AddDatabase('simple');		// Fred can access the 'simple' DB
 	$user->AddDatabase('production');	// as well as 'production'
@@ -176,3 +180,7 @@ To check if the root user is enabled, use the `IsRootEnabled()` method:
 
 The directory `samples/database` contains various tested sample code snippets for your
 use.
+
+## What next?
+
+Return to the [Table of Contents](toc.md)

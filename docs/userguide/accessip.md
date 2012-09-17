@@ -1,4 +1,4 @@
-About the Access IP addresses
+About the access IP addresses
 =============================
 
 OpenStack deployments generally provide new [servers](servers.md) with one
@@ -20,6 +20,8 @@ validation on them:
 * `accessIPv4` holds the IPv4 access address, and
 * `accessIPv6` holds the IPv6 access address.
 
+### Updating the access IP address(es)
+
 For example, you may have a private cloud with internal addresses in the
 10.1.x range. However, you can access a server via a firewall device at
 address 50.57.94.244. In this case, you can change the `accessIPv4` attribute
@@ -32,3 +34,19 @@ to point to the firewall:
 When a client application retrieves the server's information, it will know
 that it needs to use the `accessIPv4` address to connect to the server, and
 *not* the IP address assigned to one of the network interfaces.
+
+### Retrieving the server's IP address
+
+The `Server::ip()` method is used to retrieve the server's IP address.
+It has one optional parameter: the format (either IPv4 or IPv6) of the address
+to return (by default, it returns the IPv4 address):
+
+	$server = $compute->Server('...');	// get a server
+	print $server->ip();				// the IPv4 address
+	print $server->ip(4);				// the IPv4 address, too
+	print $server->ip(6);				// the IPv6 address
+	print $server->ip(8);				// causes an exception
+
+## What next?
+
+Return to the [Table of Contents](toc.md)
