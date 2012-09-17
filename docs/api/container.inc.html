@@ -85,12 +85,12 @@ the object storage components.</p><br><div id="methods_CDNContainer">
 <a style="font-style: italic;" href="#CDNContainer::CheckAttributePrefix()">CheckAttributePrefix</a>,
       <a style="font-style: italic;" href="#CDNContainer::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#CDNContainer::Create()">Create</a>,
+      <a style="font-style: italic;" href="#CDNContainer::DataObject()">DataObject</a>,
       <a style="font-style: italic;" href="#CDNContainer::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#CDNContainer::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#CDNContainer::GetMetadata()">GetMetadata</a>,
       <a style="font-style: italic;" href="#CDNContainer::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#CDNContainer::MetadataHeaders()">MetadataHeaders</a>,
-      <a style="font-style: italic;" href="#CDNContainer::Object()">Object</a>,
       <a style="font-style: italic;" href="#CDNContainer::ObjectList()">ObjectList</a>,
       <a style="font-style: italic;" href="#CDNContainer::Prefix()">Prefix</a>,
       <a style="font-style: italic;" href="#CDNContainer::Refresh()">Refresh</a>,
@@ -267,6 +267,46 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>throws</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CDNContainer::DataObject()"></a><h3>DataObject<span class="nb-faded-text">(
+          string
+             
+            $name
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\ObjectStore\DataObject</span>
+</h3>
+<h4>Description</h4>
+<em>returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>if supplied, the name of the object to return</p></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\ObjectStore\DataObject</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -510,46 +550,6 @@ then this would return array('X-Object-Meta-FOO'=>$value);</p></small><br><h4>Re
 <tbody><tr>
 <td>inherited_from</td>
 <td><a href="objstorebase.inc.html#%5COpenCloud%5CObjectStore%5CObjStoreBase::MetadataHeaders()"><small>\OpenCloud\ObjectStore\ObjStoreBase::MetadataHeaders()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="CDNContainer::Object()"></a><h3>Object<span class="nb-faded-text">(
-          string
-             
-            $name
-            = NULL,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\ObjectStore\DataObject</span>
-</h3>
-<h4>Description</h4>
-<em>returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>if supplied, the name of the object to return</p></td>
-<td>NULL</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\ObjectStore\DataObject</td>
-<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -1362,13 +1362,13 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a style="font-style: italic;" href="#Container::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#Container::Create()">Create</a>,
       <a style="font-style: italic;" href="#Container::CreateStaticSite()">CreateStaticSite</a>,
+      <a style="font-style: italic;" href="#Container::DataObject()">DataObject</a>,
       <a style="font-style: italic;" href="#Container::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#Container::DisableCDN()">DisableCDN</a>,
       <a style="font-style: italic;" href="#Container::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#Container::GetMetadata()">GetMetadata</a>,
       <a style="font-style: italic;" href="#Container::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#Container::MetadataHeaders()">MetadataHeaders</a>,
-      <a style="font-style: italic;" href="#Container::Object()">Object</a>,
       <a style="font-style: italic;" href="#Container::ObjectList()">ObjectList</a>,
       <a style="font-style: italic;" href="#Container::Prefix()">Prefix</a>,
       <a style="font-style: italic;" href="#Container::PublicURL()">PublicURL</a>,
@@ -1764,6 +1764,57 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
+<a id="Container::DataObject()"></a><h3>DataObject<span class="nb-faded-text">(
+          string
+             
+            $name
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\ObjectStore\DataObject</span>
+</h3>
+<h4>Description</h4>
+<em>returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>if supplied, the name of the object to return</p></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\ObjectStore\DataObject</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="container.inc.html#%5COpenCloud%5CObjectStore%5CCDNContainer::DataObject()"><small>\OpenCloud\ObjectStore\CDNContainer::DataObject()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Container::Delete()"></a><h3>Delete<span class="nb-faded-text">(
           
           )
@@ -2062,57 +2113,6 @@ then this would return array('X-Object-Meta-FOO'=>$value);</p></small><br><h4>Re
 <td><a href="container.inc.html#%5COpenCloud%5CObjectStore%5CCDNContainer::MetadataHeaders()"><small>\OpenCloud\ObjectStore\CDNContainer::MetadataHeaders()</small></a></td>
 </tr>
 </tbody>
-</table>
-</div>
-<div class="method">
-<a id="Container::Object()"></a><h3>Object<span class="nb-faded-text">(
-          string
-             
-            $name
-            = NULL,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\ObjectStore\DataObject</span>
-</h3>
-<h4>Description</h4>
-<em>returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>if supplied, the name of the object to return</p></td>
-<td>NULL</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\ObjectStore\DataObject</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="container.inc.html#%5COpenCloud%5CObjectStore%5CCDNContainer::Object()"><small>\OpenCloud\ObjectStore\CDNContainer::Object()</small></a></td>
-</tr></tbody>
 </table>
 </div>
 <div class="method">
