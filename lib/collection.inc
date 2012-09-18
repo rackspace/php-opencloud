@@ -52,6 +52,16 @@ abstract class Collection extends Base {
 	public function service() {
 		return $this->service;
 	}
+	
+	/**
+	 * resets the pointer to the beginning, but does NOT return the first item
+	 *
+	 * @api
+	 * @return void
+	 */
+	public function Reset() {
+		$this->pointer = 0;
+	}
 
 	/**
 	 * Resets the collection pointer back to the first item in the set
@@ -60,7 +70,7 @@ abstract class Collection extends Base {
 	 * @return Base the first item in the set
 	 */
 	public function First() {
-		$this->pointer = 0;
+		$this->Reset();
 		return $this->Next();
 	}
 

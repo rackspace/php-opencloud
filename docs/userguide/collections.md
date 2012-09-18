@@ -27,17 +27,26 @@ In most cases, you will use the `Next()` method in conjunction with a PHP `while
 		printf("Server name %s\n", $myserver->name);
 	}
 
-## The First() method
+## The Reset() method 
 
-You only need to use the `First()` method to return to the beginning of the list and
-process it all over again:
+This resets the pointer to the beginning of the list:
 
 	$servers = $nova->ServerList();	// get all the servers
 	while($serv = $servers->Next())	// print all the names
 		print($serv->name."\n");
-	$servers->First();
+	$servers->Reset();
 	while($serv = $servers->Next())	// reboot them all
 		$serv->Reboot();
+
+## The First() method
+
+You only need to use the `First()` method to return to the beginning of the list and
+return the first item:
+
+	$servers = $nova->ServerList();	// get all the servers
+	while($serv = $servers->Next())	// print all the names
+		print($serv->name."\n");
+	$servers->First()->Reboot();	// reboot the first server
 
 ## The Size() method
 
