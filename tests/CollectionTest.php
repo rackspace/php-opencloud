@@ -45,6 +45,13 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($this->my->Next(), 'four');
 		$this->assertEquals($this->my->Next(), FALSE);
 	}
+	public function testReset() {
+		$first = $this->my->First();
+		$this->my->Reset();
+		$this->assertEquals(
+			$first,
+			$this->my->Next());
+	}
 	public function testSize() {
 	    $this->assertEquals(4, $this->my->Size());
 	}
