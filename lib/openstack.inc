@@ -346,15 +346,17 @@ class OpenStack extends \OpenCloud\Base {
         switch($response->HttpStatus()) {
         case 401:
         	throw new HttpUnauthorizedError(
-        		sprintf(_('401 Unauthorized for [%s]'), $url));
+        		sprintf(_('401 Unauthorized for [%s] [%s]'), 
+        			$url, $response->HttpBody()));
         	break;
         case 403:
         	throw new HttpForbiddenError(
-        		sprintf(_('403 Forbidden for [%s]'), $url));
+        		sprintf(_('403 Forbidden for [%s] [%s]'), 
+        			$url, $response->HttpBody()));
         	break;
         case 413:   // limit
             throw new HttpOverlimitError(
-                sprintf(_('413 Over limit for [%s], response [%s]'),
+                sprintf(_('413 Over limit for [%s] [%s]'),
                     $url, $response->HttpBody()));
             break;
         default:

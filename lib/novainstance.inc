@@ -38,8 +38,8 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 */
 	public function __construct(\OpenCloud\Nova $nova, $info=NULL) {
 		$this->_service = $nova;
-		if (is_string($info))
-			$this->Refresh($info);
+		if (is_string($info) || is_integer($info))
+			$this->Refresh((string)$info);
 		elseif (is_object($info) || is_array($info))
 			foreach($info as $key => $value)
 				$this->$key = $value;

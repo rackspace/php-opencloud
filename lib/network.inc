@@ -87,10 +87,11 @@ class Network extends NovaInstance {
 		
 		// set values from response
 		$retobj = json_decode($response->HttpBody());
-		$top = $this->JsonName();
-		if (!$this->CheckJsonError())
+		if (!$this->CheckJsonError()) {
+			$top = $this->JsonName();
 			foreach($retobj->$top as $key => $value)
 				$this->$key = $value;
+		}
 		
 		return $response;
 	}
@@ -112,6 +113,13 @@ class Network extends NovaInstance {
 	 * @throws NetworkDeleteError if HTTP status is not Success
 	 */
 	public function Delete() {
+		switch($this->id) {
+		case RAX_PUBLIC:
+		case RAX_PRIVATE:
+			throw new NetworkDeleteError(_('Network may not be deleted'));
+		default:
+			break;
+		}
 		$response = $this->Service()->Request($this->Url(), 'DELETE');
 		if ($response->HttpStatus() > 204)
 			throw new NetworkDeleteError(sprintf(

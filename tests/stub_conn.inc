@@ -25,6 +25,9 @@ class StubConnection extends OpenCloud\OpenStack
 				$resp->body = '{to be filled in}';
 				$resp->status = 202;
 			}
+			elseif (strpos($url, 'network'))
+				$resp->body = 
+					'{"network":{"id":"1","cidr":"192.168.0.0/24","label":"foo"}}';
 			elseif (strpos($url, '/instances'))
 				$resp->body = file_get_contents(TESTDIR.'/dbinstance-create.json');
 			else
@@ -41,7 +44,7 @@ class StubConnection extends OpenCloud\OpenStack
 		    $resp->body = file_get_contents(TESTDIR.'/extensions.json');
 		    $resp->status = 200;
 		}
-		elseif (preg_match('/flavors\/[0-9a-f]+$/', $url)) {
+		elseif (preg_match('/flavors\/[0-9a-f-]+$/', $url)) {
 			$resp->body = file_get_contents(TESTDIR.'/flavor.json');
 			$resp->status = 200;
 		}
