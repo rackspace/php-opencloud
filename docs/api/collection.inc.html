@@ -92,13 +92,16 @@ multiple objects in a container, or multiple servers in a service.</p><br><div i
       <a style="font-style: italic;" href="#Collection::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#Collection::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#Collection::Next()">Next</a>,
+      <a style="font-style: italic;" href="#Collection::Reset()">Reset</a>,
+      <a style="font-style: italic;" href="#Collection::Service()">Service</a>,
       <a style="font-style: italic;" href="#Collection::SetProperty()">SetProperty</a>,
       <a style="font-style: italic;" href="#Collection::Size()">Size</a>,
+      <a style="font-style: italic;" href="#Collection::Sort()">Sort</a>,
       <a style="font-style: italic;" href="#Collection::Url()">Url</a>,
       <a style="font-style: italic;" href="#Collection::__construct()">__construct</a>,
       <a style="font-style: italic;" href="#Collection::__set()">__set</a>,
       <a style="font-style: italic;" href="#Collection::debug()">debug</a>,
-      <a style="font-style: italic;" href="#Collection::service()">service</a>,
+      <a style="font-style: italic;" href="#Collection::sortCompare()">sortCompare</a>,
       <a style="font-style: italic;" href="#Collection::to_string()">to_string</a>,
       <div class="method">
 <a id="Collection::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
@@ -385,6 +388,59 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
+<a id="Collection::Reset()"></a><h3>Reset<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>resets the pointer to the beginning, but does NOT return the first item</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Collection::Service()"></a><h3>Service<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Service</span>
+</h3>
+<h4>Description</h4>
+<em>retrieves the service associated with the Collection</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Service</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Collection::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
@@ -496,6 +552,57 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="Collection::Sort()"></a><h3>Sort<span class="nb-faded-text">(
+          string
+             
+            $keyname
+            = 'id',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Sorts the collection on a specified key</em><br><small><p>Note: only top-level keys can be used as the sort key</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$keyname</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the field to use as the sort key</p></td>
+<td>'id'</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Collection::Url()"></a><h3>Url<span class="nb-faded-text">(
           
           )
@@ -540,6 +647,9 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
           <a href="service.inc.html#%5COpenCloud%5CService">\OpenCloud\Service</a>
              
             $service,
+          string
+             
+            $itemclass,
           array
              
             $arr,
@@ -564,6 +674,15 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <td style="white-space: normal;"><a href="service.inc.html#%5COpenCloud%5CService">\OpenCloud\Service</a></td>
 <td><ul>
 <li>the service associated with the collection</li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$itemclass</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>the Class of each item in the collection (assumed to be the name of the factory method)</li>
 </ul>
 </td>
 <td></td>
@@ -769,23 +888,52 @@ with "Debug:" and the class name, to the standard output device.</p>
 </table>
 </div>
 <div class="method">
-<a id="Collection::service()"></a><h3>service<span class="nb-faded-text">(
+<a id="Collection::sortCompare()"></a><h3>sortCompare<span class="nb-faded-text">(
+          
+             
+            $a,
+          
+             
+            $b,
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\Service</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>retrieves the service associated with the Collection</em><br><h4>Return value</h4>
+<em>compares two values of sort keys</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$a</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$b</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\Service</td>
-<td></td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 </div>
@@ -844,9 +992,11 @@ with "Debug:" and the class name, to the standard output device.</p>
 <h4>Properties</h4>
 <a href="#Collection::%24_errors">$_errors</a>,
       <a href="#Collection::%24http_headers">$http_headers</a>,
+      <a href="#Collection::%24itemclass">$itemclass</a>,
       <a href="#Collection::%24itemlist">$itemlist</a>,
       <a href="#Collection::%24pointer">$pointer</a>,
       <a href="#Collection::%24service">$service</a>,
+      <a href="#Collection::%24sortkey">$sortkey</a>,
       <div class="method">
 <a id="Collection::$_errors"></a><h3>
 <span class="nb-faded-text"> 
@@ -863,6 +1013,15 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$http_headers
           =
           array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Collection::$itemclass"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$itemclass
+          =
+          </h3>
 <em></em><br>
 </div>
 <div class="method">
@@ -888,6 +1047,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <span class="nb-faded-text"> 
           private 
           </span>$service
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Collection::$sortkey"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$sortkey
           =
           </h3>
 <em></em><br>
@@ -1002,11 +1170,10 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
 <li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="flavorlist.inc.html#FlavorList">FlavorList</a><br><small>An FlavorList is a Collection of Flavors</small></span></li>
 <li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
 Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
-<li><span class="class"><a href="imagelist.inc.html#ImageList">ImageList</a><br><small>An ImageList is a Collection of Images</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
@@ -1017,6 +1184,12 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="network.inc.html#Network">Network</a><br><small>The Network class represents a single virtual network</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkCreateError">NetworkCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkDeleteError">NetworkDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkError">NetworkError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
 <li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
@@ -1025,7 +1198,6 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
-<li><span class="class"><a href="serverlist.inc.html#ServerList">ServerList</a><br><small>ServerList is a Collection of servers</small></span></li>
 <li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
@@ -1037,7 +1209,6 @@ Compute service.</small></span></li>
 database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="databaselist.inc.html#DatabaseList">DatabaseList</a><br><small>DatabaseList is a Collection of Databases</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
@@ -1047,14 +1218,12 @@ Compute service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceError">InstanceError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="instancelist.inc.html#InstanceList">InstanceList</a><br><small>InstanceList is a Collection of Database instances</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="user.inc.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
 database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="userlist.inc.html#UserList">UserList</a><br><small>a UserList is a Collection (q.v.) of Users (q.v.)</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserListError">UserListError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserNameError">UserNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
@@ -1071,7 +1240,6 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerError">ContainerError</a><br><small></small></span></li>
-<li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
@@ -1087,8 +1255,6 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
-<li><span class="class"><a href="objectlist.inc.html#ObjectList">ObjectList</a><br><small>The ObjectList class defines a Collection of data objects from the
-Object Storage Service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
 </ul>
 </li>

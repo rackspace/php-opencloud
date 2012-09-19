@@ -104,6 +104,7 @@ rax-bandwidth:bandwith</p><br><div id="methods_Server">
       <a style="font-style: italic;" href="#Server::Resize()">Resize</a>,
       <a style="font-style: italic;" href="#Server::ResizeConfirm()">ResizeConfirm</a>,
       <a style="font-style: italic;" href="#Server::ResizeRevert()">ResizeRevert</a>,
+      <a style="font-style: italic;" href="#Server::ResourceName()">ResourceName</a>,
       <a style="font-style: italic;" href="#Server::Service()">Service</a>,
       <a style="font-style: italic;" href="#Server::SetPassword()">SetPassword</a>,
       <a style="font-style: italic;" href="#Server::SetProperty()">SetProperty</a>,
@@ -994,6 +995,39 @@ changing states)</em><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="Server::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>the URL resource</em><br><small><p>For example, a server is /servers/, a database instance is /instances/.
+Must be overridden in child classes.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Server::Service()"></a><h3>Service<span class="nb-faded-text">(
           
           )
@@ -1260,10 +1294,10 @@ can modify are the server name and the accessIPvX values.</p></small><br><h4>Arg
 </div>
 <div class="method">
 <a id="Server::Url()"></a><h3>Url<span class="nb-faded-text">(
-          string
+          
              
             $subresource
-            = '',
+            = NULL,
           
           )
         </span>
@@ -1271,7 +1305,7 @@ can modify are the server name and the accessIPvX values.</p></small><br><h4>Arg
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the URL of the instance or a subresource</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<em>returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1281,10 +1315,9 @@ can modify are the server name and the accessIPvX values.</p></small><br><h4>Arg
 </tr></thead>
 <tbody><tr>
 <td>$subresource</td>
-<td style="white-space: normal;">string</td>
-<td><p>This is used to construct sub-resource URLs such as servers/{id}/metadata or servers/{id}/ips</p>
-</td>
-<td>''</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
@@ -1304,10 +1337,16 @@ can modify are the server name and the accessIPvX values.</p></small><br><h4>Arg
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
-<td>if the server does not have a URL (i.e., is empty)</td>
-</tr></tbody>
+<td>if URL is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Url()"><small>\OpenCloud\Compute\NovaInstance::Url()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
@@ -1849,6 +1888,7 @@ routed through a NAT device to be reached.</p></small><br><h4>Arguments</h4>
       <a href="#Server::%24links">$links</a>,
       <a href="#Server::%24metadata">$metadata</a>,
       <a href="#Server::%24name">$name</a>,
+      <a href="#Server::%24networks">$networks</a>,
       <a href="#Server::%24progress">$progress</a>,
       <a href="#Server::%24status">$status</a>,
       <a href="#Server::%24tenant_id">$tenant_id</a>,
@@ -2008,6 +2048,15 @@ routed through a NAT device to be reached.</p></small><br><h4>Arguments</h4>
 <em></em><br>
 </div>
 <div class="method">
+<a id="Server::$networks"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$networks
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
 <a id="Server::$progress"></a><h3>
 <span class="nb-faded-text"> 
           public 
@@ -2051,6 +2100,25 @@ routed through a NAT device to be reached.</p></small><br><h4>Arguments</h4>
           =
           </h3>
 <em></em><br>
+</div>
+</div>
+<div id="constants_Server">
+<h4>Constants</h4>
+<a id="Server::JSON_ELEMENT"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>JSON_ELEMENT<span class="nb-faded-text">
+         = 'server'</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="Server::URL_RESOURCE"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>URL_RESOURCE<span class="nb-faded-text">
+         = 'servers'</span>
+</h3>
+<em></em><br><br>
 </div>
 </div>
 <div style="clear: both"></div>
@@ -2162,11 +2230,10 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
 <li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="flavorlist.inc.html#FlavorList">FlavorList</a><br><small>An FlavorList is a Collection of Flavors</small></span></li>
 <li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
 Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
-<li><span class="class"><a href="imagelist.inc.html#ImageList">ImageList</a><br><small>An ImageList is a Collection of Images</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
@@ -2177,6 +2244,12 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="network.inc.html#Network">Network</a><br><small>The Network class represents a single virtual network</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkCreateError">NetworkCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkDeleteError">NetworkDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkError">NetworkError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
 <li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
@@ -2185,7 +2258,6 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
-<li><span class="class"><a href="serverlist.inc.html#ServerList">ServerList</a><br><small>ServerList is a Collection of servers</small></span></li>
 <li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
@@ -2197,7 +2269,6 @@ Compute service.</small></span></li>
 database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="databaselist.inc.html#DatabaseList">DatabaseList</a><br><small>DatabaseList is a Collection of Databases</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
@@ -2207,14 +2278,12 @@ Compute service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceError">InstanceError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="instancelist.inc.html#InstanceList">InstanceList</a><br><small>InstanceList is a Collection of Database instances</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="user.inc.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
 database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="userlist.inc.html#UserList">UserList</a><br><small>a UserList is a Collection (q.v.) of Users (q.v.)</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserListError">UserListError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserNameError">UserNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
@@ -2231,7 +2300,6 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerError">ContainerError</a><br><small></small></span></li>
-<li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
@@ -2247,8 +2315,6 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
-<li><span class="class"><a href="objectlist.inc.html#ObjectList">ObjectList</a><br><small>The ObjectList class defines a Collection of data objects from the
-Object Storage Service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
 </ul>
 </li>

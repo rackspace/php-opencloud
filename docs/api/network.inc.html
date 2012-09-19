@@ -49,7 +49,7 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>containerlist.inc</h1>
+<h1>network.inc</h1>
 <div class="file_menu">
 <a href="#includes">Includes</a> |<a href="#classes">Classes</a> |</div>
 <div class="properties">
@@ -59,16 +59,20 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>A Collection of Container objects<br><br><a name="includes"></a><h2>Includes</h2>collection.inc <span class="nb-faded-text">(Require Once)</span><br>container.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
-<div id="ContainerList" class="class">
-<h3>ContainerList</h3>
+<h2>Description</h2>Defines a virtual network<br><br><a name="includes"></a><h2>Includes</h2>novainstance.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="Network" class="class">
+<h3>Network</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="collection.inc.html#%5COpenCloud%5CCollection">\OpenCloud\Collection</a>
+<a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance">\OpenCloud\Compute\NovaInstance</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
+<label class="property-key">api</label><div class="property-value">
+<a title=""></a>
+             
+        </div>
 <label class="property-key">author</label><div class="property-value">
 <a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
@@ -79,25 +83,102 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>A ContainerList is a Collection of Containers</em><br><p>Collection objects are used whenever there are multiples; for example,
-multiple objects in a container, or multiple servers in a service.</p><br><div id="methods_ContainerList">
+<em>The Network class represents a single virtual network</em><br><p>This can be a Server, a
+database instance, or another type of packaged product that uses a Nova instance as
+its base.</p><br><div id="methods_Network">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#ContainerList::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#ContainerList::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#ContainerList::First()">First</a>,
-      <a style="font-style: italic;" href="#ContainerList::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#ContainerList::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#ContainerList::Next()">Next</a>,
-      <a style="font-style: italic;" href="#ContainerList::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#ContainerList::Size()">Size</a>,
-      <a style="font-style: italic;" href="#ContainerList::Url()">Url</a>,
-      <a style="font-style: italic;" href="#ContainerList::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#ContainerList::__set()">__set</a>,
-      <a style="font-style: italic;" href="#ContainerList::debug()">debug</a>,
-      <a style="font-style: italic;" href="#ContainerList::service()">service</a>,
-      <a style="font-style: italic;" href="#ContainerList::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#Network::Action()">Action</a>,
+      <a style="font-style: italic;" href="#Network::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#Network::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#Network::Create()">Create</a>,
+      <a style="font-style: italic;" href="#Network::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#Network::Delete()">Delete</a>,
+      <a style="font-style: italic;" href="#Network::FindLink()">FindLink</a>,
+      <a style="font-style: italic;" href="#Network::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#Network::JsonName()">JsonName</a>,
+      <a style="font-style: italic;" href="#Network::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#Network::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#Network::ResourceName()">ResourceName</a>,
+      <a style="font-style: italic;" href="#Network::Service()">Service</a>,
+      <a style="font-style: italic;" href="#Network::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#Network::Update()">Update</a>,
+      <a style="font-style: italic;" href="#Network::Url()">Url</a>,
+      <a style="font-style: italic;" href="#Network::WaitFor()">WaitFor</a>,
+      <a style="font-style: italic;" href="#Network::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#Network::__set()">__set</a>,
+      <a style="font-style: italic;" href="#Network::debug()">debug</a>,
+      <a style="font-style: italic;" href="#Network::to_string()">to_string</a>,
       <div class="method">
-<a id="ContainerList::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="Network::Action()"></a><h3>Action<span class="nb-faded-text">(
+          \OpenCloud\Compute\$object
+             
+            $object,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>action(object) - sends the json string to the /action resource.</em><br><small><p>This is used for many purposes, such as rebooting the server,
+setting the root password, creating images, etc.
+Since it can only be used on a live server, it checks for a valid ID</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$object</td>
+<td style="white-space: normal;">\OpenCloud\Compute\$object</td>
+<td><ul>
+<li>this will be encoded as json, and we handle all the JSON error-checking in one place</li>
+</ul>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if server ID is not defined</td>
+</tr>
+<tr>
+<td>throws</td>
+<td>on other errors</td>
+</tr>
+<tr>
+<td>returns</td>
+<td>boolean; TRUE if successful, FALSE otherwise</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Action()"><small>\OpenCloud\Compute\NovaInstance::Action()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -160,13 +241,13 @@ in the specified $prefix array</em><br><small><p>This is to support extension na
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::CheckAttributePrefix()"><small>\OpenCloud\Collection::CheckAttributePrefix()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::CheckAttributePrefix()"><small>\OpenCloud\Compute\NovaInstance::CheckAttributePrefix()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="Network::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -208,29 +289,48 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::CheckJsonError()"><small>\OpenCloud\Collection::CheckJsonError()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::CheckJsonError()"><small>\OpenCloud\Compute\NovaInstance::CheckJsonError()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::First()"></a><h3>First<span class="nb-faded-text">(
+<a id="Network::Create()"></a><h3>Create<span class="nb-faded-text">(
+          array
+             
+            $params
+            = array(),
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\Base</span>
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Resets the collection pointer back to the first item in the set</em><br><h4>Return value</h4>
+<em>creates a new isolated network</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">array</td>
+<td><p>array of values to set when creating the network</p></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\Base</td>
-<td>the first item in the set</td>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -245,14 +345,127 @@ exception thrown.</p>
 <td></td>
 </tr>
 <tr>
-<td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::First()"><small>\OpenCloud\Collection::First()</small></a></td>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="Network::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>creates the JSON object for Create()</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::Delete()"></a><h3>Delete<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>deletes an isolated network</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
+          string
+             
+            $type
+            = 'self',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Since each server can have multiple likes, this returns the desired one</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$type</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>'self' is most common; use 'bookmark' for the version-independent one</li>
+</ul>
+</td>
+<td>'self'</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>the URL from the links block</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::FindLink()"><small>\OpenCloud\Compute\NovaInstance::FindLink()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -314,13 +527,47 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::GetHttpRequestObject()"><small>\OpenCloud\Collection::GetHttpRequestObject()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::GetHttpRequestObject()"><small>\OpenCloud\Compute\NovaInstance::GetHttpRequestObject()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="Network::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns the top-level document identifier</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an Instance
+document is <code>{"instance": ...}</code> - this function must return the top level
+document name.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if not overridden</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -371,34 +618,136 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::MakeQueryString()"><small>\OpenCloud\Collection::MakeQueryString()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::MakeQueryString()"><small>\OpenCloud\Compute\NovaInstance::MakeQueryString()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::Next()"></a><h3>Next<span class="nb-faded-text">(
+<a id="Network::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
+          
+             
+            $id
+            = NULL,
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\ObjectStore\OpenCloud\ObjectStore\Container</span>
+        <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>retrieves the next Container from the list</em><br><h4>Return value</h4>
+<em>refreshes the server from the origin (useful when the server is
+changing states)</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\ObjectStore\OpenCloud\ObjectStore\Container</td>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Refresh()"><small>\OpenCloud\Compute\NovaInstance::Refresh()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>the URL resource</em><br><small><p>For example, a server is /servers/, a database instance is /instances/.
+Must be overridden in child classes.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
 <td></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="Network::Service()"></a><h3>Service<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns the service object associated with this server</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Service()"><small>\OpenCloud\Compute\NovaInstance::Service()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -475,29 +824,167 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::SetProperty()"><small>\OpenCloud\Collection::SetProperty()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::SetProperty()"><small>\OpenCloud\Compute\NovaInstance::SetProperty()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::Size()"></a><h3>Size<span class="nb-faded-text">(
+<a id="Network::Update()"></a><h3>Update<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">integer</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the number of items in the collection</em><br><h4>Return value</h4>
+<em>always throws an error; updates are not permitted</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>integer</td>
-<td>The number of items in the set</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>always</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::Url()"></a><h3>Url<span class="nb-faded-text">(
+          
+             
+            $subresource
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$subresource</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if URL is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Url()"><small>\OpenCloud\Compute\NovaInstance::Url()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Network::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
+          string
+             
+            $terminal
+            = 'ACTIVE',
+          integer
+             
+            $timeout
+            = RAXSDK_SERVER_MAXTIMEOUT,
+          \OpenCloud\Compute\callable
+             
+            $callback
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>waits for the server status to change</em><br><small><p>This function repeatedly polls the system for a change in server
+status. Once the status reaches the <code>$terminal</code> value (or 'ERROR'),
+then the function returns.</p>
+
+<p>The polling interval is set by the constant RAXSDK_POLL_INTERVAL.</p>
+
+<p>The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
+seconds elapse.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$terminal</td>
+<td style="white-space: normal;">string</td>
+<td><p>the terminal state to wait for</p></td>
+<td>'ACTIVE'</td>
+</tr>
+<tr>
+<td>$timeout</td>
+<td style="white-space: normal;">integer</td>
+<td><p>the max time (in seconds) to wait</p>
+</td>
+<td>RAXSDK_SERVER_MAXTIMEOUT</td>
+</tr>
+<tr>
+<td>$callback</td>
+<td style="white-space: normal;">\OpenCloud\Compute\callable</td>
+<td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -513,63 +1000,20 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::Size()"><small>\OpenCloud\Collection::Size()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::WaitFor()"><small>\OpenCloud\Compute\NovaInstance::WaitFor()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::Url()"></a><h3>Url<span class="nb-faded-text">(
+<a id="Network::__construct()"></a><h3>__construct<span class="nb-faded-text">(
           
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>returns the URL of the service/object</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
-base level, it simply throws an exception to enforce the idea that
-subclasses need to define this method.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="base.inc.html#%5COpenCloud%5CBase::Url()"><small>\OpenCloud\Base::Url()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::Url()"><small>\OpenCloud\Collection::Url()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="ContainerList::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          <a href="service.inc.html#%5COpenCloud%5CService">\OpenCloud\Service</a>
              
             $service,
-          array
+          
              
-            $arr,
+            $id
+            = NULL,
           
           )
         </span>
@@ -577,7 +1021,8 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>a Collection is an array of objects</em><br><h4>Arguments</h4>
+<em>creates a new isolated network</em><br><small><p>NOTE: contains hacks to recognize the Rackspace public and private networks.
+These are not really networks, but they show up in lists.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -588,21 +1033,15 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <tbody>
 <tr>
 <td>$service</td>
-<td style="white-space: normal;"><a href="service.inc.html#%5COpenCloud%5CService">\OpenCloud\Service</a></td>
-<td><ul>
-<li>the service associated with the collection</li>
-</ul>
-</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
-<td>$arr</td>
-<td style="white-space: normal;">array</td>
-<td><ul>
-<li>the input array</li>
-</ul>
-</td>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
 <td></td>
+<td>NULL</td>
 </tr>
 </tbody>
 </table>
@@ -624,16 +1063,16 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::__construct()"><small>\OpenCloud\Collection::__construct()</small></a></td>
+<td>throws</td>
+<td>if $info has an invalid data type</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::__set()"></a><h3>__set<span class="nb-faded-text">(
+<a id="Network::__set()"></a><h3>__set<span class="nb-faded-text">(
           string
              
-            $property,
+            $name,
           mixed
              
             $value,
@@ -644,9 +1083,8 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Sets extended attributes on an object and validates them</em><br><small><p>This function is provided to ensure that attributes cannot
-arbitrarily added to an object. If this function is called, it
-means that the attribute is not defined on the object, and thus
+<em>Validates properties that have a namespace: prefix.</em><br><small><p>If the property prefix: appears in the list of supported extension
+namespaces, then the property is applied to the object. Otherwise,
 an exception is thrown.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
@@ -657,15 +1095,16 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$property</td>
+<td>$name</td>
 <td style="white-space: normal;">string</td>
-<td><p>the name of the attribute</p></td>
+<td><p>the name of the property</p></td>
 <td></td>
 </tr>
 <tr>
 <td>$value</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>the value of the attribute</p></td>
+<td><p>the property's value</p>
+</td>
 <td></td>
 </tr>
 </tbody>
@@ -689,18 +1128,18 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>inherited_from</td>
-<td><a href="base.inc.html#%5COpenCloud%5CBase::__set()"><small>\OpenCloud\Base::__set()</small></a></td>
+<td>throws</td>
+<td></td>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::__set()"><small>\OpenCloud\Collection::__set()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::__set()"><small>\OpenCloud\Compute\NovaInstance::__set()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="Network::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -813,45 +1252,13 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::debug()"><small>\OpenCloud\Collection::debug()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::debug()"><small>\OpenCloud\Compute\NovaInstance::debug()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ContainerList::service()"></a><h3>service<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\Service</span>
-</h3>
-<h4>Description</h4>
-<em>retrieves the service associated with the Collection</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\Service</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::service()"><small>\OpenCloud\Collection::service()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="ContainerList::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="Network::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           
              
             $x,
@@ -901,21 +1308,22 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="collection.inc.html#%5COpenCloud%5CCollection::to_string()"><small>\OpenCloud\Collection::to_string()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::to_string()"><small>\OpenCloud\Compute\NovaInstance::to_string()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="properties_ContainerList">
+<div id="properties_Network">
 <h4>Properties</h4>
-<a href="#ContainerList::%24_errors">$_errors</a>,
-      <a href="#ContainerList::%24http_headers">$http_headers</a>,
-      <a href="#ContainerList::%24itemlist">$itemlist</a>,
-      <a href="#ContainerList::%24pointer">$pointer</a>,
-      <a href="#ContainerList::%24service">$service</a>,
+<a href="#Network::%24_errors">$_errors</a>,
+      <a href="#Network::%24_service">$_service</a>,
+      <a href="#Network::%24cidr">$cidr</a>,
+      <a href="#Network::%24http_headers">$http_headers</a>,
+      <a href="#Network::%24id">$id</a>,
+      <a href="#Network::%24label">$label</a>,
       <div class="method">
-<a id="ContainerList::$_errors"></a><h3>
+<a id="Network::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -924,7 +1332,25 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ContainerList::$http_headers"></a><h3>
+<a id="Network::$_service"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$_service
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Network::$cidr"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$cidr
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Network::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
@@ -933,31 +1359,41 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ContainerList::$itemlist"></a><h3>
+<a id="Network::$id"></a><h3>
 <span class="nb-faded-text"> 
-          private 
-          </span>$itemlist
-          =
-          array()</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="ContainerList::$pointer"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$pointer
-          =
-          0</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="ContainerList::$service"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$service
+          public 
+          </span>$id
           =
           </h3>
 <em></em><br>
+</div>
+<div class="method">
+<a id="Network::$label"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$label
+          =
+          </h3>
+<em></em><br>
+</div>
+</div>
+<div id="constants_Network">
+<h4>Constants</h4>
+<a id="Network::JSON_ELEMENT"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>JSON_ELEMENT<span class="nb-faded-text">
+         = 'network'</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="Network::URL_RESOURCE"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>URL_RESOURCE<span class="nb-faded-text">
+         = 'rax-networks'</span>
+</h3>
+<em></em><br><br>
 </div>
 </div>
 <div style="clear: both"></div>
@@ -1069,11 +1505,10 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
 <li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="flavorlist.inc.html#FlavorList">FlavorList</a><br><small>An FlavorList is a Collection of Flavors</small></span></li>
 <li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
 Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
-<li><span class="class"><a href="imagelist.inc.html#ImageList">ImageList</a><br><small>An ImageList is a Collection of Images</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
@@ -1084,6 +1519,12 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="network.inc.html#Network">Network</a><br><small>The Network class represents a single virtual network</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkCreateError">NetworkCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkDeleteError">NetworkDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkError">NetworkError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
 <li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
@@ -1092,7 +1533,6 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
-<li><span class="class"><a href="serverlist.inc.html#ServerList">ServerList</a><br><small>ServerList is a Collection of servers</small></span></li>
 <li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
@@ -1104,7 +1544,6 @@ Compute service.</small></span></li>
 database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="databaselist.inc.html#DatabaseList">DatabaseList</a><br><small>DatabaseList is a Collection of Databases</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
@@ -1114,14 +1553,12 @@ Compute service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceError">InstanceError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="instancelist.inc.html#InstanceList">InstanceList</a><br><small>InstanceList is a Collection of Database instances</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="user.inc.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
 database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="userlist.inc.html#UserList">UserList</a><br><small>a UserList is a Collection (q.v.) of Users (q.v.)</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserListError">UserListError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserNameError">UserNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
@@ -1138,7 +1575,6 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerError">ContainerError</a><br><small></small></span></li>
-<li><span class="class"><a href="containerlist.inc.html#ContainerList">ContainerList</a><br><small>A ContainerList is a Collection of Containers</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
@@ -1154,8 +1590,6 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
-<li><span class="class"><a href="objectlist.inc.html#ObjectList">ObjectList</a><br><small>The ObjectList class defines a Collection of data objects from the
-Object Storage Service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
 </ul>
 </li>
