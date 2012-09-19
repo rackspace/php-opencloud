@@ -35,9 +35,6 @@ function info($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
 }
 define('TIMEFORMAT', 'r');
 
-// record the time
-printf("SmokeTest started at %s\n", date(TIMEFORMAT, $start));
-
 step('Authenticate');
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
@@ -79,6 +76,27 @@ $server1->WaitFor('ACTIVE', 300, 'dot');
 print "\n";
 $server2->WaitFor('ACTIVE', 300, 'dot');
 print "\n";
+
+step('Setting root passwords on both servers to "Turp3ntin3"');
+$server1->SetPassword("Turp3ntin3");
+$server2->SetPassword("Turp3ntin3");
+
+step('Pause for verification');
+info('Server1 IP is %s', $server1->ip());
+info('Server2 IP is %s', $server2->ip());
+info('Verify network interfaces and press RETURN to continue');
+print "\t> ";
+$fp = fopen('php://stdin', 'r');
+fgets($fp);
+fclose($fp);
+
+step('Deleting servers');
+$server1->Delete();
+$server2->Delete();
+sleep(5);
+
+step('Deleting the network');
+$samplenet->Delete();
 
 step('DONE');
 exit;
