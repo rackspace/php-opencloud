@@ -43,9 +43,11 @@ class Network extends NovaInstance {
 		switch($id) {
 		case RAX_PUBLIC:
 			$this->label = 'public';
+			$this->cidr = 'NA';
 			return;
 		case RAX_PRIVATE:
 			$this->label = 'private';
+			$this->cidr = 'NA';
 			return;
 		default:
 			return parent::__construct($service, $id);

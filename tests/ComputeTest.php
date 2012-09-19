@@ -47,7 +47,7 @@ class ComputeTest extends PHPUnit_Framework_TestCase
 	}
 	public function testServerList() {
 		$list = $this->compute->ServerList();
-		$this->assertEquals('OpenCloud\Compute\ServerList', get_class($list));
+		$this->assertEquals('OpenCloud\Collection', get_class($list));
 	}
 	public function testImage() {
 	    $im = $this->compute->Image(); // blank
@@ -55,7 +55,7 @@ class ComputeTest extends PHPUnit_Framework_TestCase
 	}
 	public function testImageList() {
 	    $list = $this->compute->ImageList();
-	    $this->assertEquals('OpenCloud\Compute\ImageList', get_class($list));
+	    $this->assertEquals('OpenCloud\Collection', get_class($list));
 	}
 	public function testNetwork() {
 		$this->assertEquals(
@@ -64,7 +64,7 @@ class ComputeTest extends PHPUnit_Framework_TestCase
 	}
 	public function testNetworkList() {
 		$this->assertEquals(
-			'OpenCloud\Compute\NetworkList',
+			'OpenCloud\Collection',
 			get_class($this->compute->NetworkList()));
 	}
 }

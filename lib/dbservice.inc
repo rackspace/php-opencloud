@@ -13,7 +13,6 @@
 namespace OpenCloud;
 
 require_once('nova.inc');
-require_once('instancelist.inc');
 require_once('instance.inc');
 
 /**
@@ -78,7 +77,7 @@ class DbService extends Nova {
 	 *
 	 * @api
 	 * @param array $params array of parameters to pass to the request as query strings
-	 * @return DbService\InstanceList
+	 * @return Collection
 	 */
 	public function InstanceList($params=array()) {
 		$response = $this->Request($this->Url());
@@ -86,7 +85,7 @@ class DbService extends Nova {
 		if ($this->CheckJsonError())
 			return FALSE;
 		if (!is_object($obj))
-			return new DbService\InstanceList($this, array());
-		return new DbService\InstanceList($this, $obj->instances);
+			return new Collection($this, 'Instance', array());
+		return new Collection($this, 'Instance', $obj->instances);
 	}
 }

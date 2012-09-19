@@ -12,7 +12,6 @@
 
 namespace OpenCloud\ObjectStore;
 
-require_once('objectlist.inc');
 require_once('dataobject.inc');
 require_once('objstorebase.inc');
 
@@ -217,14 +216,14 @@ class CDNContainer extends ObjStoreBase {
 
 		// this if there's no objects
 		if (!is_array($data))
-			return new ObjectList($this, array());
+			return new \OpenCloud\Collection($this, 'DataObject', array());
 
 		// this seems counter-intuitive, but, trust me, it's correct
 		if ($this->CheckJsonError())
 			return FALSE;
 
 		// here if we have real data
-		return new ObjectList($this, $data);
+		return new \OpenCloud\Collection($this, 'DataObject', $data);
 	} // object_list()
 
 	/**

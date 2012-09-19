@@ -49,11 +49,13 @@ $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 
 step('List Flavors');
 $flavorlist = $cloudservers->FlavorList();
+$flavorlist->Sort('id');
 while($f = $flavorlist->Next())
     info('%s: %sMB', $f->name, $f->ram);
 
 step('List Images');
 $imagelist = $cloudservers->ImageList();
+$imagelist->Sort('name');
 while($i = $imagelist->Next()) {
     info($i->name);
     // save a CentOS image for later
@@ -67,6 +69,7 @@ $network->Create(array('label'=>'SMOKETEST', 'cidr'=>'192.168.0.0/24'));
 
 step('List Networks');
 $netlist = $cloudservers->NetworkList();
+$netlist->Sort('label');
 while($net = $netlist->Next())
 	info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
 
@@ -88,6 +91,7 @@ $server->WaitFor('ACTIVE', 300, 'dotter');
 
 step('List Servers');
 $list = $cloudservers->ServerList();
+$list->Sort('name');
 while($s = $list->Next())
     info($s->name);
 
@@ -100,14 +104,12 @@ while($s = $list->Next()) {
     }
 }
 
-step('Deleting the test network');
-$network->Delete();
-
 step('Connect to Cloud Databases');
 $dbaas = $rackspace->DbService('cloudDatabases', 'DFW', 'publicURL');
 
 step('Get Database Flavors');
 $dbflist = $dbaas->FlavorList();
+$dbflist->Sort();
 while($flavor = $dbflist->Next())
     info('%s - %dM', $flavor->name, $flavor->ram);
 
@@ -189,6 +191,9 @@ while($o = $list->Next()) {
 
 step('Delete Container: %s', $container->name);
 $container->Delete();
+
+step('Deleting the test network');
+$network->Delete();
 
 step('FINISHED at %s in %d seconds', date(TIMEFORMAT), time()-$start);
 exit();

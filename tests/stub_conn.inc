@@ -36,6 +36,10 @@ class StubConnection extends OpenCloud\OpenStack
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
 		}
+		elseif (strpos($url, OpenCloud\Compute\Network::URL_RESOURCE)) {
+			$resp->body = NULL;
+			$resp->status = 200;
+		}
 		elseif (strpos($url, '/metadata')) {
 			$resp->body = NULL;
 			$resp->status = 200;

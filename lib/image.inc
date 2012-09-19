@@ -54,7 +54,11 @@ class Image extends \OpenCloud\Base {
         $this->metadata = new \OpenCloud\Metadata();
 
         // if ID is specified, retrieve it
-        if ($id) {
+        if (is_array($id) || is_object($id)) {
+        	foreach($id as $name => $value)
+        		$this->$name = $value;
+        }
+        elseif ($id) {
             $this->imageurl = $this->service->Url('images/'.$id);
             $response = $this->service->Request($this->imageurl);
             if ($response->HttpStatus() >= 300)

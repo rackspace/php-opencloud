@@ -48,8 +48,12 @@ class Flavor extends \OpenCloud\Base {
         $this->service = $compute;
 
         // if ID is specified, retrieve it
-        if ($id) {
-            $this->flavorurl = $this->service->Url('flavors/'.$id);
+        if (is_array($id) || is_object($id)) {
+        	foreach($id as $name => $value)
+        		$this->$name = $value;
+        }
+        elseif ($id) {
+            $this->flavorurl = $this->Service()->Url('flavors/'.$id);
             $response = $this->service->Request($this->flavorurl);
             if ($response->HttpStatus() >= 300)
                 throw new FlavorError(

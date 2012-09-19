@@ -45,7 +45,7 @@ class NovaTest extends PHPUnit_Framework_TestCase
 	}
 	public function testFlavorList() {
 		$flist = $this->nova->FlavorList();
-		$this->assertEquals('OpenCloud\Compute\FlavorList', get_class($flist));
+		$this->assertEquals('OpenCloud\Collection', get_class($flist));
 	}
 	public function testRequest() {
 		// this returns 404 because the Connection::Request() is stubbed out

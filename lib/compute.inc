@@ -14,11 +14,8 @@ namespace OpenCloud;
 
 require_once('nova.inc');
 require_once('server.inc');
-require_once('serverlist.inc');
 require_once('image.inc');
-require_once('imagelist.inc');
 require_once('network.inc');
-require_once('networklist.inc');
 require_once('servermetadata.inc');
 
 /**
@@ -122,7 +119,7 @@ class Compute extends Nova {
 	 *      not having all the information you need.
 	 * @param array $filter - a set of key/value pairs that is passed to the
 	 *    servers list for filtering
-	 * @returns Compute\ServerList object
+	 * @returns Collection
 	 */
 	public function ServerList($details=TRUE, $filter=array()) {
 	    if (!is_bool($details))
@@ -143,9 +140,9 @@ class Compute extends Nova {
 		if ($this->CheckJsonError())
 			return FALSE;
 		if (isset($obj->servers))
-			return new Compute\ServerList($this, $obj->servers);
+			return new Collection($this, 'Server', $obj->servers);
 		else
-			return new Compute\ServerList($this, array());
+			return new Collection($this, 'Server', array());
 	}
 	
 	/**
@@ -164,19 +161,21 @@ class Compute extends Nova {
 	 *
 	 * @api
 	 * @param array $filters array of filter key/value pairs
-	 * @return Compute\NetworkList
+	 * @return Collection
 	 */
 	public function NetworkList($filter=array()) {
 		$url = $this->Url(Compute\Network::URL_RESOURCE);
 		$response = $this->Request($url);
 		
 		// check return code
-		if ($response->HttpStatus() == 404)
-			return new Compute\NetworkList($this, array());
 		if ($response->HttpStatus() > 202)
 			throw new Compute\NetworkError(sprintf(
 				_('Unable to retrieve network info [%s], status [%d] response [%s]'),
 				$url, $response->HttpStatus(), $response->HttpBody()));
+		
+		// handle empty response
+		if (strlen($response->HttpBody()) == 0)
+			return new Collection($this, 'Network', array());
 		
 		// parse the return
 		$obj = json_decode($response->HttpBody());
@@ -184,7 +183,7 @@ class Compute extends Nova {
 			return FALSE;
 		
 		// and say goodbye
-		return new Compute\NetworkList($this, $obj->networks);
+		return new Collection($this, 'Network', $obj->networks);
 	}
 
 	/**
@@ -216,7 +215,7 @@ class Compute extends Nova {
 	 *		code and any extensions installed by your cloud provider;
 	 *		see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
 	 *		for current filters available.
-	 * @return Compute\ImageList object (or FALSE on an error)
+	 * @return Collection
 	 */
 	public function ImageList($details=TRUE, $filter=array()) {
 		// validate arguments
@@ -231,11 +230,11 @@ class Compute extends Nova {
 	    $response = $this->Request($url);
 	    $json = $response->HttpBody();
 	    if (strlen($json) == 0)
-	        return new Compute\ImageList($this, array());
+	        return new Collection($this, 'Image', array());
 	    $obj = json_decode($json);
 	    if ($this->CheckJsonError())
 	    	return FALSE;
-	    return new Compute\ImageList($this, $obj->images);
+	    return new Collection($this, 'Image', $obj->images);
 	}
 
 } // class Compute

@@ -74,7 +74,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	public function testObjectList() {
 		$olist = $this->container->ObjectList();
 		$this->assertEquals(
-		    'OpenCloud\ObjectStore\ObjectList',
+		    'OpenCloud\Collection',
 		    get_class($olist));
 	}
 	public function testDataObject() {

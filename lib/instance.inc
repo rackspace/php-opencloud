@@ -15,8 +15,6 @@ namespace OpenCloud\DbService;
 require_once('novainstance.inc');
 require_once('database.inc');
 require_once('user.inc');
-require_once('databaselist.inc');
-require_once('userlist.inc');
 
 /**
  * Instance represents an instance of DbService, similar to a Server in a
@@ -247,7 +245,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	/**
 	 * returns a Collection of all databases in the instance
 	 *
-	 * @return DatabaseList
+	 * @return Collection
 	 * @throws DatabaseListError if HTTP status is not Success
 	 */
 	public function DatabaseList() {
@@ -263,8 +261,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			if (!isset($obj->databases))
-				return new DatabaseList($this, array());
-			return new DatabaseList($this, $obj->databases);
+				return new \OpenCloud\Collection($this, 'Database', array());
+			return new \OpenCloud\Collection($this, 'Database', $obj->databases);
 		}
 		return FALSE;
 	}
@@ -272,7 +270,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	/**
 	 * returns a Collection of all users in the instance
 	 *
-	 * @return UserList
+	 * @return Collection
 	 * @throws UserListError if HTTP status is not Success
 	 */
 	public function UserList() {
@@ -288,8 +286,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			if (!isset($obj->users))
-				return new UserList($this, array());
-			return new UserList($this, $obj->users);
+				return new \OpenCloud\Collection($this, 'User', array());
+			return new \OpenCloud\Collection($this, 'User', $obj->users);
 		}
 		return FALSE;
 	}

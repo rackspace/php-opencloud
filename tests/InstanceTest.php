@@ -96,12 +96,12 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 	}
 	public function testDatabaseList() {
 		$this->assertEquals(
-			'OpenCloud\DbService\DatabaseList',
+			'OpenCloud\Collection',
 			get_class($this->instance->DatabaseList()));
 	}
 	public function testUserList() {
 		$this->assertEquals(
-			'OpenCloud\DbService\UserList',
+			'OpenCloud\Collection',
 			get_class($this->instance->UserList()));
 	}
 }

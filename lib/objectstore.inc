@@ -14,7 +14,6 @@ namespace OpenCloud;
 
 require_once('service.inc');
 require_once('container.inc');
-require_once('containerlist.inc');
 
 define('SWIFT_MAX_OBJECT_SIZE', 5*1024*1024*1024+1);
 
@@ -71,8 +70,8 @@ class ObjectStoreBase extends Service {
 		if ($this->CheckJsonError())
 			return FALSE;
 		if (!is_array($obj))
-			return new ObjectStore\ContainerList($this, array());
-		return new ObjectStore\ContainerList($this, $obj);
+			return new Collection($this, 'Container', array());
+		return new Collection($this, 'Container', $obj);
 	}
 
 } // class ObjectStoreBase

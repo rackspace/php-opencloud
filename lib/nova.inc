@@ -15,7 +15,7 @@ namespace OpenCloud;
 
 require_once('service.inc');
 require_once('flavor.inc');
-require_once('flavorlist.inc');
+require_once('collection.inc');
 
 /**
  * Nova is an abstraction layer for the OpenStack compute service
@@ -106,7 +106,7 @@ abstract class Nova extends Service {
 	 *      performance.
 	 * @param array $filter - optional key/value pairs for creating query
 	 *      strings
-	 * @return Compute\FlavorList (or FALSE on an error)
+	 * @return Collection (or FALSE on an error)
 	 */
 	public function FlavorList($details=TRUE, $filter=array()) {
 	    if ($details)
@@ -116,11 +116,11 @@ abstract class Nova extends Service {
 	    $response = $this->Request($url);
 	    $json = $response->HttpBody();
 	    if (strlen($json) == 0)
-	        return new Compute\FlavorList($this, array());
+	        return new Collection($this, 'Flavor', array());
 	    $obj = json_decode($json);
 	    if ($this->CheckJsonError())
 	    	return FALSE;
-	    return new Compute\FlavorList($this, $obj->flavors);
+	    return new Collection($this, 'Flavor', $obj->flavors);
 	}
 
     /**

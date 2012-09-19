@@ -55,6 +55,16 @@ This simply returns the number of items in the list:
 	$servers = $nova->ServerList();
 	printf("You have %d server(s)\n", $servers->Size());
 
+## The Sort() method
+
+Sorts the collection according to the specified top-level key:
+
+	$servers = $nova->ServerList();
+	$server->Sort('name');			// sorts by name
+	$server->Sort('accessIPv4');	// sorts by the IP address
+	$server->Sort();				// sorts by ID (default)
+	$server->Sort('id');			// sorts by ID
+
 ## What's next?
 
 See [Exceptions and error handling](exceptions.md)

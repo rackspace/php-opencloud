@@ -23,21 +23,26 @@ require_once('base.inc');
  * @since 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class Collection extends Base {
+class Collection extends Base {
 
 	private
 		$service,
+		$itemclass,
 		$itemlist=array(),
-		$pointer=0;
+		$pointer=0,
+		$sortkey;
 
 	/**
 	 * a Collection is an array of objects
 	 *
 	 * @param Service $service - the service associated with the collection
+	 * @param string $itemclass - the Class of each item in the collection
+	 *		(assumed to be the name of the factory method)
 	 * @param array $arr - the input array
 	 */
-	public function __construct($service, $arr) {
+	public function __construct($service, $itemclass, $arr) {
 		$this->service = $service;
+		$this->itemclass = $itemclass;
 		if (!is_array($arr))
 			throw new \OpenCloud\CollectionError(
 				_('Cannot create a Collection without an array'));
@@ -49,7 +54,7 @@ abstract class Collection extends Base {
 	 *
 	 * @return Service
 	 */
-	public function service() {
+	public function Service() {
 		return $this->service;
 	}
 	
@@ -83,7 +88,8 @@ abstract class Collection extends Base {
 	public function Next() {
 		if ($this->pointer >= count($this->itemlist))
 			return FALSE;
-		return $this->itemlist[$this->pointer++];
+		$class = $this->itemclass;
+		return $this->Service()->$class($this->itemlist[$this->pointer++]);
 	}
 
 	/**
@@ -94,6 +100,41 @@ abstract class Collection extends Base {
 	 */
 	public function Size() {
 	    return count($this->itemlist);
+	}
+	
+	/**
+	 * Sorts the collection on a specified key
+	 *
+	 * Note: only top-level keys can be used as the sort key
+	 *
+	 * @api
+	 * @param string $keyname the name of the field to use as the sort key
+	 * @return void
+	 */
+	public function Sort($keyname='id') {
+		$this->sortkey = $keyname;
+		usort($this->itemlist, array($this, 'sortCompare'));
+	}
+	
+	/********** PRIVATE METHODS **********/
+	
+	/**
+	 * compares two values of sort keys
+	 */
+	private function sortCompare($a, $b) {
+		$key = $this->sortkey;
+		
+		// handle strings with strcmp()
+		if (is_string($a->$key))
+			return strcmp($a->$key, $b->$key);
+		
+		// handle others with logical comparisons
+		if ($a->$key == $b->$key)
+			return 0;
+		if ($a->$key < $b->$key)
+			return -1;
+		else
+			return 1;
 	}
 
 } // class Collection

@@ -23,7 +23,7 @@ $dbservice = $connection->DbService('cloudDatabases', 'DFW');
 // delete all the instances created by the create.php script
 $inlist = $dbservice->InstanceList();
 while($instance = $inlist->Next()) {
-    if ($instance->name == 'MySQL') {
+    if ($instance->name == 'MySQL' || $instance->name == 'SmokeTestInstance') {
         printf("Deleting instance %s\n", $instance->id);
         $instance->Delete();
     }
