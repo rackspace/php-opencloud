@@ -54,10 +54,8 @@ class NovaInstanceTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests
 	 */
-
-
 	/**
-	 * @expectedException OpenCloud\DocumentError
+	 * @expectedException OpenCloud\UrlError
 	 */
 	public function testRefresh() {
 	    $this->instance->Refresh('SERVER-ID');

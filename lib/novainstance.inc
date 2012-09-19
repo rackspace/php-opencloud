@@ -30,6 +30,11 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		$_service;
 
 	/**
+	 * retrieves the instance from persistent storage
+	 *
+	 * @param OpenCloud\Nova $nova the service object
+	 * @param mixed $info the ID or array/object of data
+	 * @throws InvalidArgumentError if $info has an invalid data type
 	 */
 	public function __construct(\OpenCloud\Nova $nova, $info=NULL) {
 		$this->_service = $nova;
@@ -49,19 +54,24 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * returns the default URL of the object
 	 *
 	 * This may have to be overridden in subclasses.
+	 *
+	 * @return string
+	 * @throws \OpenCloud\UrlError if URL is not defined
 	 */
-	public function Url() {
+	public function Url($subresource=NULL) {
 		// first, see if we have a [self] link
 		$url = $this->FindLink('self');
-		if ($url)
-			return $url;
 
 		// next, check to see if we have an ID
-		if ($this->id)
-			return noslash($this->Service()->Url()).'/'.$this->id;
+		if (!$url && $this->id)
+			$url = noslash($this->Service()->Url($this->ResourceName())).'/'.$this->id;
+		
+		// add the subresource
+		if ($url)
+			return $url . ($subresource ? ('/'.$subresource) : '');
 
 		// otherwise, we don't have a URL yet
-		throw new ServerUrlError(
+		throw new \OpenCloud\UrlError(
 			sprintf(_('%s does not have a URL yet'), get_class($this)));
 		return FALSE;
 	}
@@ -143,13 +153,15 @@ abstract class NovaInstance extends \OpenCloud\Base {
 
 		// retrieve it
 		$this->debug(_('%s id [%s]'), get_class($this), $id);
-		$url = noslash($this->Service()->Url()) . '/' . $id;
+		$this->id = $id;
+		$url = $this->Url();
 		$response = $this->Service()->Request($url);
 
 		// check status codes
 		if ($response->HttpStatus() == 404)
-			throw new ServerNotFound(
-				sprintf(_('%s [%s] not found'), get_class($this), $this->id));
+			throw new InstanceNotFound(
+				sprintf(_('%s [%s] not found [%s]'), 
+					get_class($this), $this->id, $url));
 
 		if ($response->HttpStatus() >= 300)
 			throw new UnknownError(
@@ -166,8 +178,9 @@ abstract class NovaInstance extends \OpenCloud\Base {
 				throw new ServerJsonError(sprintf(
 				    _('JSON parse error on %s refresh'), get_class($this)));
 			$top = $this->JsonName();
-			foreach($resp->$top as $item => $value)
+			foreach($resp->$top as $item => $value) {
 				$this->$item = $value;
+			}
 		}
 	}
 
@@ -239,7 +252,9 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * @return string the URL from the links block
 	 */
 	protected function FindLink($type='self') {
-		if (!$this->links)
+		if (!isset($this->links))
+			return FALSE;
+		elseif (!$this->links)
 			return FALSE;
 		foreach ($this->links as $link) {
 			if ($link->rel == $type)
@@ -260,6 +275,20 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	protected function JsonName() {
 		throw new \OpenCloud\DocumentError(sprintf(
 			_('Unrecognized class [%s] in JsonName() function'),
+			get_class($this)));
+	}
+	
+	/**
+	 * returns the resource name for the URL of the object
+	 *
+	 * For example, a server is /servers/, a database instance is /instances/.
+	 * Must be overridden in child classes.
+	 *
+	 * @throws \OpenCloud\UrlError
+	 */
+	protected function ResourceName() {
+		throw new \OpenCloud\UrlError(sprintf(
+			_('Unrecognized class [%s] in ResourceName() function'),
 			get_class($this)));
 	}
 

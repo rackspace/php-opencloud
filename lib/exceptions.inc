@@ -51,6 +51,7 @@ namespace OpenCloud\Compute {
 	class InvalidArgumentError extends \Exception {}
 	class FlavorError extends \Exception {}
 	class EmptyResponseError extends \Exception {}
+	class InstanceNotFound extends \Exception {}
 	class InvalidRequestError extends \Exception {}
 	class InvalidParameterError extends \Exception {}
 	class InvalidIpTypeError extends \Exception {}
@@ -60,6 +61,11 @@ namespace OpenCloud\Compute {
 	class MetadataCreateError extends \Exception {}
 	class MetadataUpdateError extends \Exception {}
 	class MetadataDeleteError extends \Exception {}
+	class NetworkError extends \Exception {}
+	class NetworkUrlError extends \Exception {}
+	class NetworkCreateError extends \Exception {}
+	class NetworkUpdateError extends \Exception {}
+	class NetworkDeleteError extends \Exception {}
 	class ServerCreateError extends \Exception {}
 	class ServerUpdateError extends \Exception {}
 	class ServerDeleteError extends \Exception {}

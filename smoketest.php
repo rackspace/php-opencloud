@@ -44,6 +44,65 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
+step('Connect to Cloud Servers');
+$cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
+
+step('List Flavors');
+$flavorlist = $cloudservers->FlavorList();
+while($f = $flavorlist->Next())
+    info('%s: %sMB', $f->name, $f->ram);
+
+step('List Images');
+$imagelist = $cloudservers->ImageList();
+while($i = $imagelist->Next()) {
+    info($i->name);
+    // save a CentOS image for later
+    if (!isset($centos) && $i->metadata->os_distro == 'centos')
+        $centos = $i;
+}
+
+step('Create Network');
+$network = $cloudservers->Network();
+$network->Create(array('label'=>'SMOKETEST', 'cidr'=>'192.168.0.0/24'));
+
+step('List Networks');
+$netlist = $cloudservers->NetworkList();
+while($net = $netlist->Next())
+	info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
+
+step('Create Server');
+$server = $cloudservers->Server();
+$server->Create(array(
+    'name'=>SERVERNAME,
+    'image'=>$centos,
+    'flavor'=>$flavorlist->First(),
+    'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))
+));
+
+step('Wait for Server create');
+$server->WaitFor('ACTIVE', 300, 'dotter');
+
+step('Reboot Server');
+$server->Reboot();
+$server->WaitFor('ACTIVE', 300, 'dotter');
+
+step('List Servers');
+$list = $cloudservers->ServerList();
+while($s = $list->Next())
+    info($s->name);
+
+step('Deleting the test server(s)');
+$list = $cloudservers->ServerList();
+while($s = $list->Next()) {
+    if ($s->name == SERVERNAME) {
+        info('Deleting %s', $s->id);
+        $s->Delete();
+    }
+}
+
+step('Deleting the test network');
+$network->Delete();
+
 step('Connect to Cloud Databases');
 $dbaas = $rackspace->DbService('cloudDatabases', 'DFW', 'publicURL');
 
@@ -130,52 +189,6 @@ while($o = $list->Next()) {
 
 step('Delete Container: %s', $container->name);
 $container->Delete();
-
-step('Connect to Cloud Servers');
-$cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
-
-step('List Flavors');
-$flavorlist = $cloudservers->FlavorList();
-while($f = $flavorlist->Next())
-    info('%s: %sMB', $f->name, $f->ram);
-
-step('List Images');
-$imagelist = $cloudservers->ImageList();
-while($i = $imagelist->Next()) {
-    info($i->name);
-    // save a CentOS image for later
-    if (!isset($centos) && $i->metadata->os_distro == 'centos')
-        $centos = $i;
-}
-
-step('Create Server');
-$server = $cloudservers->Server();
-$server->Create(array(
-    'name'=>SERVERNAME,
-    'image'=>$centos,
-    'flavor'=>$flavorlist->First()
-));
-
-step('Wait for Server create');
-$server->WaitFor('ACTIVE', 300, 'dotter');
-
-step('Reboot Server');
-$server->Reboot();
-$server->WaitFor('ACTIVE', 300, 'dotter');
-
-step('List Servers');
-$list = $cloudservers->ServerList();
-while($s = $list->Next())
-    info($s->name);
-
-step('Deleting the test server(s)');
-$list = $cloudservers->ServerList();
-while($s = $list->Next()) {
-    if ($s->name == SERVERNAME) {
-        info('Deleting %s', $s->id);
-        $s->Delete();
-    }
-}
 
 step('FINISHED at %s in %d seconds', date(TIMEFORMAT), time()-$start);
 exit();

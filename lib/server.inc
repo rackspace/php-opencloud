@@ -27,6 +27,10 @@ require_once('metadata.inc');
  */
 class Server extends \OpenCloud\Compute\NovaInstance {
 
+	const
+		JSON_ELEMENT = 'server',
+		URL_RESOURCE = 'servers';
+
 	public
 		$status,		// server status
 		$updated,		// date and time of last update
@@ -35,6 +39,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		$links,			// an object containing servers permanent and bookmark links
 		$image,			// the object object of the server
 		$flavor,		// the flavor object of the server
+		$networks=array(),	// array of attached networks
 		$id,			// the server's ID
 		$user_id,		// the user ID that created the server
 		$name,			// the server's name
@@ -72,20 +77,6 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 
 		// the metadata item is an object, not an array
 		$this->metadata = $this->Metadata();
-	}
-
-	/**
-	 * Returns the URL of the instance or a subresource
-	 *
-	 * @param string $subresource This is used to construct sub-resource
-	 *      URLs such as
-	 *  		servers/{id}/metadata or servers/{id}/ips
-	 * @return string
-	 * @throws ServerUrlError if the server does not have a URL (i.e., is empty)
-	 */
-	public function Url($subresource='') {
-		$delim = $subresource ? '/' : '';
-		return noslash(parent::Url()) . $delim . noslash($subresource);
 	}
 
 	/**
@@ -134,8 +125,6 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		$this->metadata->sdk = RAXSDK_USER_AGENT;
 		$this->imageRef = $this->image->links[0]->href;
 		$this->flavorRef = $this->flavor->links[0]->href;
-		foreach($params as $name => $value)
-			$this->$name = $value;
 		$this->debug(_('Server::Create() [%s]'), $this->name);
 		$response = $this->Service()->Request(
 			$this->Service()->Url(),
@@ -381,6 +370,14 @@ class Server extends \OpenCloud\Compute\NovaInstance {
         $obj->server->imageRef = $this->imageRef;
         $obj->server->flavorRef = $this->flavorRef;
         $obj->server->metadata = $this->metadata;
+		if (is_array($this->networks)) {
+			$obj->server->networks = array();
+			foreach($this->networks as $net) {
+				$netobj = new \stdClass();
+				$netobj->uuid = $net->id;
+				$obj->server->networks[] = $netobj;
+			}
+		}
         // @TODO(glen) personality is not handled yet
         // handle the $other stuff
         /*
@@ -411,6 +408,15 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	/**
 	 * the top-level JSON identifier
 	 */
-	protected function JsonName() { return 'server'; }
+	protected function JsonName() { 
+		return self::JSON_ELEMENT; 
+	}
+
+	/**
+	 * the URL resource
+	 */
+	protected function ResourceName() {
+		return self::URL_RESOURCE;
+	}
 
 } // class Server

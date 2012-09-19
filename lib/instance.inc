@@ -26,6 +26,10 @@ require_once('userlist.inc');
  */
 class Instance extends \OpenCloud\Compute\NovaInstance {
 
+	const
+		JSON_ELEMENT = 'instance',
+		URL_RESOURCE = 'instances';
+
 	public
 		$id,
 		$name,
@@ -52,18 +56,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 */
 	public function __construct(\OpenCloud\DbService $service, $info=NULL) {
 		$this->volume = new \stdClass();
-		parent::__construct($service, $info);
-	}
-
-	/**
-	 * returns the URL of the instance (or a sub-resource)
-	 *
-	 * @param string $resource a possible sub-resource
-	 * @return string
-	 */
-	public function Url($resource='') {
-	    $url = parent::Url();
-	    return stripslashes($url) . ($resource ? '/'.$resource : '');
+		return parent::__construct($service, $info);
 	}
 
 	/**
@@ -307,7 +300,14 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 * the top-level document name
 	 */
 	protected function JsonName() {
-		return 'instance';
+		return self::JSON_ELEMENT;
+	}
+	
+	/**
+	 * the URL resource
+	 */
+	protected function ResourceName() {
+		return self::URL_RESOURCE;
 	}
 
 	/********** PRIVATE METHODS **********/

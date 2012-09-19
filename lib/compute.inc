@@ -17,6 +17,8 @@ require_once('server.inc');
 require_once('serverlist.inc');
 require_once('image.inc');
 require_once('imagelist.inc');
+require_once('network.inc');
+require_once('networklist.inc');
 require_once('servermetadata.inc');
 
 /**
@@ -130,9 +132,9 @@ class Compute extends Nova {
 	        throw new InvalidArgumentException(
 	            _('Second argument for Compute::ServerList() must be array'));
 	    if ($details)
-	        $url = $this->Url('servers/detail', $filter);
+	        $url = $this->Url(Compute\Server::URL_RESOURCE.'/detail', $filter);
 	    else
-	        $url = $this->Url('servers', $filter);
+	        $url = $this->Url(Compute\Server::URL_RESOURCE, $filter);
 		$response = $this->Request($url);
 		$json = $response->HttpBody();
 		if (strlen($json) == 0)
@@ -144,6 +146,45 @@ class Compute extends Nova {
 			return new Compute\ServerList($this, $obj->servers);
 		else
 			return new Compute\ServerList($this, array());
+	}
+	
+	/**
+	 * returns a Network object
+	 *
+	 * @api
+	 * @param string $id the network ID
+	 * @return Compute\Network
+	 */
+	public function Network($id=NULL) {
+		return new Compute\Network($this, $id);
+	}
+	
+	/**
+	 * returns a Collection of Network objects
+	 *
+	 * @api
+	 * @param array $filters array of filter key/value pairs
+	 * @return Compute\NetworkList
+	 */
+	public function NetworkList($filter=array()) {
+		$url = $this->Url(Compute\Network::URL_RESOURCE);
+		$response = $this->Request($url);
+		
+		// check return code
+		if ($response->HttpStatus() == 404)
+			return new Compute\NetworkList($this, array());
+		if ($response->HttpStatus() > 202)
+			throw new Compute\NetworkError(sprintf(
+				_('Unable to retrieve network info [%s], status [%d] response [%s]'),
+				$url, $response->HttpStatus(), $response->HttpBody()));
+		
+		// parse the return
+		$obj = json_decode($response->HttpBody());
+		if ($this->CheckJsonError())
+			return FALSE;
+		
+		// and say goodbye
+		return new Compute\NetworkList($this, $obj->networks);
 	}
 
 	/**

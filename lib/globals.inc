@@ -104,6 +104,15 @@ define('RAXSDK_SOFT_REBOOT', 'soft');
 define('RAXSDK_HARD_REBOOT', 'hard');
 define('RAXSDK_DETAILS', TRUE);
 define('RAXSDK_MAX_CONTAINER_NAME_LEN', 256);
+/**
+ * UUID of the Rackspace 'public' network
+ */
+define('RAX_PUBLIC','00000000-0000-0000-0000-000000000000');
+/**
+ * UUID of the Rackspace 'private' network
+ */
+define('RAX_PRIVATE','11111111-1111-1111-1111-111111111111');
+
 
 /********** SOME GLOBAL FUNCTIONS **********/
 

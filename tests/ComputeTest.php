@@ -57,4 +57,14 @@ class ComputeTest extends PHPUnit_Framework_TestCase
 	    $list = $this->compute->ImageList();
 	    $this->assertEquals('OpenCloud\Compute\ImageList', get_class($list));
 	}
+	public function testNetwork() {
+		$this->assertEquals(
+			'OpenCloud\Compute\Network',
+			get_class($this->compute->Network()));
+	}
+	public function testNetworkList() {
+		$this->assertEquals(
+			'OpenCloud\Compute\NetworkList',
+			get_class($this->compute->NetworkList()));
+	}
 }
