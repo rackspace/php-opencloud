@@ -144,7 +144,7 @@ class Compute extends Nova {
 		else
 			return new Collection($this, 'Server', array());
 	}
-	
+
 	/**
 	 * returns a Network object
 	 *
@@ -155,7 +155,7 @@ class Compute extends Nova {
 	public function Network($id=NULL) {
 		return new Compute\Network($this, $id);
 	}
-	
+
 	/**
 	 * returns a Collection of Network objects
 	 *
@@ -166,22 +166,22 @@ class Compute extends Nova {
 	public function NetworkList($filter=array()) {
 		$url = $this->Url(Compute\Network::URL_RESOURCE);
 		$response = $this->Request($url);
-		
+
 		// check return code
 		if ($response->HttpStatus() > 202)
 			throw new Compute\NetworkError(sprintf(
 				_('Unable to retrieve network info [%s], status [%d] response [%s]'),
 				$url, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		// handle empty response
 		if (strlen($response->HttpBody()) == 0)
 			return new Collection($this, 'Network', array());
-		
+
 		// parse the return
 		$obj = json_decode($response->HttpBody());
 		if ($this->CheckJsonError())
 			return FALSE;
-		
+
 		// and say goodbye
 		return new Collection($this, 'Network', $obj->networks);
 	}
@@ -210,7 +210,7 @@ class Compute extends Nova {
 	 * @param boolean $details - if TRUE (the default), returns complete image
 	 *		details. Set to FALSE to improve performance, but only return a
 	 *      minimal set of data
-	 * @param array $filter - key/value pairs to pass to the images resource. 
+	 * @param array $filter - key/value pairs to pass to the images resource.
 	 *		The actual values available here are determined by the OpenStack
 	 *		code and any extensions installed by your cloud provider;
 	 *		see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
@@ -220,8 +220,8 @@ class Compute extends Nova {
 	public function ImageList($details=TRUE, $filter=array()) {
 		// validate arguments
 		if (gettype($details)!='boolean')
-			throw new InvalidParameterError(
-				_('Invalid argument for Compute::image_list; '.
+			throw new Compute\InvalidParameterError(
+				_('Invalid argument for Compute::ImageList(); '.
 				  'boolean required'));
 	    if ($details)
 	        $url = $this->Url('images/detail', $filter);

@@ -373,6 +373,11 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		if (is_array($this->networks)) {
 			$obj->server->networks = array();
 			foreach($this->networks as $net) {
+			    if (get_class($net) != 'OpenCloud\Compute\Network')
+			        throw new Compute\InvalidParameterError(sprintf(
+			            _('"networks" parameter must be an array of '.
+			              'Compute\Network objects; [%s] found'),
+			              get_class($net)));
 				$netobj = new \stdClass();
 				$netobj->uuid = $net->id;
 				$obj->server->networks[] = $netobj;

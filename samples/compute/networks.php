@@ -47,8 +47,44 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 step('Connect to Cloud Servers');
 $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 
+step('Create a network SAMPLENET');
+$samplenet = $cloudservers->Network();
+$samplenet->Create(array(
+    'label' => 'SAMPLENET',
+    'cidr' => '192.168.0.0/28'));
+
 step('List Networks');
 $netlist = $cloudservers->NetworkList();
 $netlist->Sort('id');
 while($net = $netlist->Next())
 	info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
+
+step('Create two servers on SAMPLENET');
+$list = $cloudservers->ImageList(TRUE, array('name'=>'CentOS 6.3'));
+$image = $list->First();
+$flavor = $cloudservers->Flavor(2); // 512MB
+$server1 = $cloudservers->Server();
+$server1->Create(array(
+    'name' => 'Server1',
+    'image' => $image,
+    'flavor' => $flavor,
+    'networks' => array($samplenet, $cloudservers->Network(RAX_PUBLIC))));
+$server2 = $cloudservers->Server();
+$server2->Create(array(
+    'name' => 'Server2',
+    'image' => $image,
+    'flavor' => $flavor,
+    'networks' => array($samplenet, $cloudservers->Network(RAX_PUBLIC))));
+$server1->WaitFor('ACTIVE', 300, 'dot');
+print "\n";
+$server2->WaitFor('ACTIVE', 300, 'dot');
+print "\n";
+
+step('DONE');
+exit;
+
+// callback for WaitFor
+function dot($server) {
+    printf("\r%s %s %3d%% %s",
+        $server->id, $server->name, $server->progress, $server->status);
+}
