@@ -86,7 +86,8 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	public function testResize() {
 		$this->assertEquals(
 		    200,
-		    $this->server->Resize(new OpenCloud\Compute\Flavor(false))->HttpStatus());
+		    $this->server->Resize(
+		        new OpenCloud\Compute\Flavor(false))->HttpStatus());
 	}
 	public function testResizeConfirm() {
 	    $this->assertEquals(

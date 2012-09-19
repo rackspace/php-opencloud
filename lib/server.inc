@@ -36,7 +36,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		$updated,		// date and time of last update
 		$hostId,		// the ID of the host holding the server instance
 		$addresses,		// an object holding the server's network addresses
-		$links,			// an object containing servers permanent and bookmark links
+		$links,			// an object with server's permanent and bookmark links
 		$image,			// the object object of the server
 		$flavor,		// the flavor object of the server
 		$networks=array(),	// array of attached networks
@@ -408,8 +408,8 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	/**
 	 * the top-level JSON identifier
 	 */
-	protected function JsonName() { 
-		return self::JSON_ELEMENT; 
+	protected function JsonName() {
+		return self::JSON_ELEMENT;
 	}
 
 	/**

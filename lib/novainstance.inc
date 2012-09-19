@@ -64,8 +64,9 @@ abstract class NovaInstance extends \OpenCloud\Base {
 
 		// next, check to see if we have an ID
 		if (!$url && $this->id)
-			$url = noslash($this->Service()->Url($this->ResourceName())).'/'.$this->id;
-		
+			$url = noslash($this->Service()->Url($this->ResourceName()))
+			        . '/' . $this->id;
+
 		// add the subresource
 		if ($url)
 			return $url . ($subresource ? ('/'.$subresource) : '');
@@ -160,7 +161,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		// check status codes
 		if ($response->HttpStatus() == 404)
 			throw new InstanceNotFound(
-				sprintf(_('%s [%s] not found [%s]'), 
+				sprintf(_('%s [%s] not found [%s]'),
 					get_class($this), $this->id, $url));
 
 		if ($response->HttpStatus() >= 300)
@@ -231,7 +232,8 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		);
 		if (!is_object($response))
 			throw new \OpenCloud\HttpError(sprintf(
-			    _('Invalid response for %s::Action() request'), get_class($this)));
+			    _('Invalid response for %s::Action() request'),
+			    get_class($this)));
 
 		// check for errors
 		if ($response->HttpStatus() >= 300) {
@@ -277,7 +279,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 			_('Unrecognized class [%s] in JsonName() function'),
 			get_class($this)));
 	}
-	
+
 	/**
 	 * returns the resource name for the URL of the object
 	 *
