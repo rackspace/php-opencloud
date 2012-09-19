@@ -135,15 +135,4 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	        get_class($this->server->Service())
 	    );
 	}
-	public function testWaitFor() {
-	    $this->server->WaitFor('FOOBAR', -1,
-	        array($this, 'WaitForCallBack'));
-	    $this->assertEquals(
-	        'FOOBAR',
-	        $this->server->status);
-	}
-	// this is called by the WaitFor function, above
-	public function WaitForCallBack($server) {
-	    $server->status = 'FOOBAR';
-	}
 }

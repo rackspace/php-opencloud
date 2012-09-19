@@ -78,7 +78,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * waits for the server status to change
+	 * waits for the server/instance status to change
 	 *
 	 * This function repeatedly polls the system for a change in server
 	 * status. Once the status reaches the `$terminal` value (or 'ERROR'),
