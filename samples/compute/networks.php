@@ -2,10 +2,10 @@
 /**
  * (c)2012 Rackspace Hosting. See COPYING for license details
  *
- * The purpose of this smoketest is simply to ensure that the core
- * functionality of the library is present. It is not an exhaustive
- * integration test, nor is it a unit test. The goal is to rapidly
- * identify major problems if a code change breaks something.
+ * This sample creates an isolated network called SAMPLENET. It then
+ * creates two servers attached to that network. Once the servers are
+ * created, it pauses to wait for you to verify the connectivity. When
+ * it continues, it deletes the servers and SAMPLENET.
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
@@ -52,7 +52,7 @@ $samplenet->Create(array(
 
 step('List Networks');
 $netlist = $cloudservers->NetworkList();
-$netlist->Sort('id');
+$netlist->Sort('label');
 while($net = $netlist->Next())
 	info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
 
@@ -61,17 +61,20 @@ $list = $cloudservers->ImageList(TRUE, array('name'=>'CentOS 6.3'));
 $image = $list->First();
 $flavor = $cloudservers->Flavor(2); // 512MB
 $server1 = $cloudservers->Server();
+info('Creating Server1');
 $server1->Create(array(
     'name' => 'Server1',
     'image' => $image,
     'flavor' => $flavor,
     'networks' => array($samplenet, $cloudservers->Network(RAX_PUBLIC))));
 $server2 = $cloudservers->Server();
+info('Creating Server2');
 $server2->Create(array(
     'name' => 'Server2',
     'image' => $image,
     'flavor' => $flavor,
     'networks' => array($samplenet, $cloudservers->Network(RAX_PUBLIC))));
+info('Waiting for server build to complete:');
 $server1->WaitFor('ACTIVE', 300, 'dot');
 print "\n";
 $server2->WaitFor('ACTIVE', 300, 'dot');
@@ -103,6 +106,6 @@ exit;
 
 // callback for WaitFor
 function dot($server) {
-    printf("\r%s %s %3d%% %s",
+    printf("\r\t%s %s %3d%% %s",
         $server->id, $server->name, $server->progress, $server->status);
 }
