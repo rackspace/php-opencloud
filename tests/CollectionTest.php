@@ -12,9 +12,14 @@
 require_once('collection.inc');
 
 class Gertrude {
-	public function foobar($id) {
+	public function foobar($item) {
 		$obj = new stdClass();
-		$obj->id = $id;
+	    if (is_array($item) || is_object($item)) {
+	        foreach($item as $k => $v)
+	            $obj->$k = $v;
+	    }
+	    else
+		    $obj->id = $item;
 		return $obj;
 	}
 }
@@ -27,10 +32,17 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	 * create our private collection
 	 */
 	public function __construct() {
+	    $x = new Gertrude;
 		$this->my = new OpenCloud\Collection(
-			new Gertrude,
+			$x,
 			'foobar',
-			array('one', 'two', 'three', 'four'));
+			//array('one', 'two', 'three', 'four'));
+			array(
+			    (object)array('id'=>'one'),
+			    (object)array('id'=>'two'),
+			    (object)array('id'=>'three'),
+			    (object)array('id'=>'four'),
+			));
 	}
 
 	/**
@@ -58,5 +70,11 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	}
 	public function testSize() {
 	    $this->assertEquals(4, $this->my->Size());
+	}
+	public function testSort() {
+	    $this->my->Sort();
+	    $this->assertEquals(
+	        'four',
+	        $this->my->First()->id);
 	}
 }
