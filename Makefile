@@ -6,7 +6,7 @@ LIBRARY=php-opencloud-$(VERSION)_$(BUILD)
 ARCHIVE=$(LIBRARY).tar
 TARFILE=$(ARCHIVE).gz
 ZIPFILE=$(LIBRARY).zip
-FILES=README.md COPYING lib docs samples tests
+FILES=*.md COPYING lib docs samples tests
 
 all: $(TARFILE) $(ZIPFILE)
 	echo $(BUILD) > scripts/BUILD
