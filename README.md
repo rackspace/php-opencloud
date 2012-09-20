@@ -41,6 +41,17 @@ you can use:
 This prepends the local `./lib` directory to the existing `include_path`
 value.
 
+If you prefer, you can modify the `include_path` setting in your `php.ini`
+file (usually found in `/etc/php.ini` or `/usr/local/etc/php.ini`).
+
+If `php.ini` has this line:
+
+    include_path = "/usr/lib/php:/usr/lib/pear"
+
+then add the `lib/` directory to it:
+
+    include_path = "/usr/lib/php:/usr/lib/pear:/path/to/php-opencloud/lib"
+
 ### NOTE
 
 This version supports the following components:
