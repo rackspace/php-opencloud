@@ -8,6 +8,7 @@ Contents:
 * [Authentication](#auth)
 * [ObjectStore (Swift/Cloud Files)](#ostore)
 * [Compute (Nova/Cloud Servers)](#compute)
+* [Networks (Quantum/Cloud Networks)](#networks)
 * [Cloud Databases](#dbaas)
 
 <a name="auth"></a>
@@ -155,22 +156,23 @@ the photo. To save the data to a file, use this method:
 
     $myphoto->SaveToFilename('/path/to/yourfile.jpg');
 
-### Deleting an object
+### Delete an object
 
-Very simple:
+To delete an object:
 
     $myobject->Delete();
 
 ### List the objects in a container
 
-Remember the Collection object discussed above? Here it is again:
+Remember the Collection object discussed above? Here it is used again
+to list each object in a container:
 
     $objlist = $mycontainer->ObjectList();
     while($object = $objlist->Next()) {
         printf("Object %s size=%u\n", $object->name, $object->bytes);
     }
 
-### Filtering lists
+### Filter lists
 
 Most functions that return a collection can be passed an associative array of
 values that are used as filters. For example, see [the API guide](http://docs.rackspace.com/files/api/v1/cf-devguide/content/List_Objects-d1e1284.html)
@@ -219,21 +221,27 @@ connects to the same service, but on the `'ORD'` endpoint.
 A `Collection` is a special type of object that manages lists. For example,
 a list of _flavors_ is returned as a `Collection` object.
 
-Collections have three primary methods:
+Collections have four primary methods:
 
-* `Next()` - returns the next item in the collection, or `FALSE` at the end,
-* `First()` - resets the pointer to the first item in the collection, and
-* `Size()` - returns the number of items in the collection.
+* `Next()` - returns the next item in the collection, or `FALSE` at the end
+* `First()` - resets the pointer to the first item in the collection
+* `Sort()` - sorts the collection on a top-level key
+* `Size()` - returns the number of items in the collection
 
 ### List Flavors
 
+The following examples display the lists of flavors, images, and servers
+for a compute object:
+
     $flavorlist = $compute->FlavorList();
+    $flavorlist->Sort();    // The default sort key is 'id'
     while($flavor = $flavorlist->Next())
         printf("Flavor: %s RAM=%d\n", $flavor->name, $flavor->ram);
 
 ### List Images
 
     $imagelist = $compute->ImageList();
+    $imagelist->Sort('name');   // sort by name
     while($image = $imagelist->Next())
         printf("Image: %s\n", $image->name);
 
@@ -266,6 +274,9 @@ server:
 
 ### Performing server actions
 
+The following examples perform actions on the server to create an image,
+reboot, and resize the server
+
 #### Create an image from a server
 
     $myserver->CreateImage('imageName');
@@ -277,6 +288,11 @@ server:
 #### Resize the server
 
     $myserver->Resize($myflavor); // requires a Flavor
+
+Resizing can take some time (as much as an hour or more for large instances).
+Once the resize is complete, you can either confirm it or revert it back to
+the original size:
+
     // once ready, then either
     $myserver->ResizeConfirm();
     // or
@@ -299,7 +315,8 @@ If you don't want to wait forever, you can specify a timeout:
     if ($myserver->status == 'REBOOT')
         die('I waited five minutes and the server did not reboot yet');
 
-If you want to provide visual feedback while waiting, you can provide a
+If you want to display progress messages to provide feedback feedback
+while waiting, you can provide a
 callback function that is passed the server object:
 
     function myProgressMeter($server) {
@@ -308,6 +325,87 @@ callback function that is passed the server object:
     $myserver->Create(...);
     $myserver->WaitFor('ACTIVE', 600, 'myProgressMeter');
 
+<a name="networks"></a>
+Quick Reference - Cloud Networks
+================================
+Cloud Networks is accessible via the `Compute` object. Thus, before you can
+create or manage virtual networks, you must have a Compute connection:
+
+    $cloud = new Rackspace(...);
+    $compute = $cloud->Compute(...);
+
+The following examples assume the use of the `$compute` object.
+
+### Create a new network
+
+To create a isolated network, you must specify a `label` (name) and a CIDR
+(range of addresses in CIDR notation):
+
+    $backend_network = $compute->Network();     // empty network object
+    $backend_network->Create(array(
+        'label' => 'Backend Network',
+        'cidr' => '192.168.0.0/28'));
+    printf("Network ID is %s\n", $backend_network->id);
+
+### Retrieve an existing network
+
+To retrieve information on an existing network, use the `Compute::Network`
+method and specify a network ID:
+
+    $mynetwork = $compute->Network('0fe1-819...');
+    printf $mynetwork->label;
+
+### Delete a network
+
+Use the `Delete()` method:
+
+    $backend_network->Delete();
+
+Note that a network cannot be deleted if it is in use; that is, if there are
+any servers attached to the network. To delete the network, you must first
+delete the attached servers.
+
+### Listing networks
+
+The `Compute::NetworkList` method returns a `Collection` of `Network` objects:
+
+    $mynetworks = $compute->NetworkList();
+    $mynetworks->Sort('label');
+    while ($network = $mynetworks->Next()) {
+        printf("%s: %s (%s)\n",
+            $network->id, $network->label, $network->cidr);
+    }
+
+### Pseudo-networks 'public' and 'private'
+
+Rackspace has two *pseudo-networks* called `public` and `private`. They
+represent the Internet and the internal ServiceNet, respectively. The
+constants RAX_PUBLIC and RAX_PRIVATE represent the UUIDs of these
+pseudo-networks. Unlike user-created networks, the CIDR ranges of these
+networks are not exposed, and they cannot be deleted.
+
+They are necessary, however, to attach a server to one of these networks
+(see the following section).
+
+### Creating a server with virtual networks
+
+To attach a new server to one or more networks, use the 'networks' attribute
+(which is an array)
+as a parameter for the `Server::Create` method:
+
+    $server = $compute->Server();
+    $server->Create(array(
+        'name' => 'My Private Server',
+        'image' => $compute->Image(...),
+        'flavor' => $compute->Flavor(...),
+        'networks' => array(
+            $compute->Network($backend_network),    // an isolated network
+            $compute->Network(RAX_PUBLIC)           // uses the Internet
+        )));
+
+To create an interface on the ServiceNet, use `Network(RAX_PRIVATE)`
+instead of, or in addition to, the `RAX_PUBLIC` network shown above.
+
 <a name="dbaas"></a>
 Quick Reference - Cloud Databases (database as a service)
 =========================================================
@@ -315,7 +413,7 @@ Quick Reference - Cloud Databases (database as a service)
 ### Connecting to Cloud Databases
 
 Cloud Databases is not part of OpenStack; the product is only available
-under a Rackspace connection:
+via a Rackspace connection:
 
     $cloud = new OpenCloud\Rackspace('https://...', array(...));
 
@@ -351,26 +449,26 @@ This can be simplified by using the defaults:
 
     $instance->Delete();
 
-### Instance actions
+### Performing instance actions
 
-#### Restarting
+#### Restart
 
     $instance->Restart();
 
-#### Resizing
+#### Resize
 
     $instance->Resize($dbaas->Flavor(2));
 
-#### Resizing the disk volume
+#### Resize the disk volume
 
     $instance->ResizeVolume(4); // 4GB of disk
 
-#### Enabling the root user
+#### Enable the root user
 
     $user = $instance->EnableRootUser();
     printf("Root user name=%s password=%s\n", $user->name, $user->password);
 
-#### Checking the root user status
+#### Check the root user status
 
     if ($instance->IsRootEnabled())
         print("Root user ie enabled\n");
@@ -409,7 +507,7 @@ object:
     $user = $instance->User('username');    // assigns a name
     $user->Create();    // user is not associated with a database
 
-#### Associating a user with a database
+#### Associate a user with a database
 
 Note that, since the `User` object cannot be updated, the user must be
 associated with all databases prior to it being created:
@@ -419,11 +517,11 @@ associated with all databases prior to it being created:
     $user->AddDatabase('db-name2');
     $user->Create();
 
-#### Deleting a user
+#### Delete a user
 
     $user->Delete();
 
-#### Listing all users for an instance
+#### List all users for an instance
 
 The `databases` attribute of a user contains a list of all the database
 (names) that the user is associated with.
