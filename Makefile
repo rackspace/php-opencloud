@@ -2,7 +2,7 @@
 
 BUILD=$(shell expr `cat scripts/BUILD` + 1)
 VERSION=$(shell grep "'RAXSDK_VERSION'" lib/globals.inc | sed -e 's/[^0-9\.]//g')
-LIBRARY=php-opencloud-$(VERSION).$(BUILD)
+LIBRARY=php-opencloud-$(VERSION)_$(BUILD)
 ARCHIVE=$(LIBRARY).tar
 TARFILE=$(ARCHIVE).gz
 ZIPFILE=$(LIBRARY).zip
