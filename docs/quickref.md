@@ -63,7 +63,7 @@ Quick Reference - ObjectStore (Swift/Cloud Files)
 These examples all assume a `$conn` object created via one of the
 authentication methods outlined above.
 
-### Attach an ObjectStore instance
+### Connecting to the ObjectStore service
 
     $ostore = $conn->ObjectStore({name}, {region}, {urltype});
 
@@ -189,7 +189,7 @@ Quick Reference - Compute (Nova/Cloud Servers)
 These examples all assume a connection object `$conn` created using either the
 `OpenStack` or `Rackspace` classes (see "Authentication," above).
 
-### Connecting to a Compute instance
+### Connecting to the Compute service
 
 To connect to a Compute instance, you need to specify the name of the service,
 the region, and the URL type:
@@ -410,14 +410,15 @@ instead of, or in addition to, the `RAX_PUBLIC` network shown above.
 Quick Reference - Cloud Databases (database as a service)
 =========================================================
 
-### Connecting to Cloud Databases
+### Connecting to the Database service
 
 Cloud Databases is not part of OpenStack; the product is only available
 via a Rackspace connection:
 
     $cloud = new OpenCloud\Rackspace('https://...', array(...));
 
-To connect to Cloud Databases, specify the service name ("cloudDatabases"),
+To connect to Cloud Databases, you use the `DbService` object. Like the other
+services, you must specify the service name ("cloudDatabases"),
 the region, and the URL type:
 
     $dbaas = $cloud->DbService('cloudDatabases','DFW','publicURL');
@@ -432,7 +433,7 @@ This can be simplified by using the defaults:
     $instance->name = 'InstanceName';
     $instance->flavor = $dbaas->Flavor(1);  // small
     $instance->volume->size = 2;            // 2GB disk
-    $resp = $instance->Create();            // create it
+    $instance->Create();            		// create it
 
 ### Retrieve an existing instance
 
