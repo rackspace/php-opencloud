@@ -12,6 +12,7 @@ ini_set('include_path', './lib:'.ini_get('include_path'));
 require('rackspace.inc');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
+define('NETWORKNAME', 'SMOKETEST');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -65,7 +66,7 @@ while($i = $imagelist->Next()) {
 
 step('Create Network');
 $network = $cloudservers->Network();
-$network->Create(array('label'=>'SMOKETEST', 'cidr'=>'192.168.0.0/24'));
+$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
 
 step('List Networks');
 $netlist = $cloudservers->NetworkList();
@@ -192,8 +193,14 @@ while($o = $list->Next()) {
 step('Delete Container: %s', $container->name);
 $container->Delete();
 
-step('Deleting the test network');
-$network->Delete();
+step('Deleting the test network(s)');
+$list = $cloudservers->NetworkList();
+while($network = $list->Next()) {
+	if ($network->label == NETWORKNAME) {
+		info('Deleting: %s %s', $network->id, $network->label);
+		$network->Delete();
+	}
+}
 
 step('FINISHED at %s in %d seconds', date(TIMEFORMAT), time()-$start);
 exit();

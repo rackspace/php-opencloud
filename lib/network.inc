@@ -25,7 +25,7 @@ class Network extends NovaInstance {
 
 	const
 		JSON_ELEMENT = 'network',
-		URL_RESOURCE = 'rax-networks';
+		URL_RESOURCE = 'os-networksv2';		// this could change in the future
 
 	public
 		$id,
