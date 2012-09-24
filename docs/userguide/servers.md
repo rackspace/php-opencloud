@@ -56,6 +56,10 @@ root password:
 (Note: it is not recommended that you print out the root password because of
 security risks. This is only provided as an example.)
 
+When you create a new server on the Rackspace public cloud, you can also 
+associate it with one or more isolated networks. For more information, see
+[Working with Cloud Networks](networks.md).
+
 ### Updating a server
 
 The `Update()` method is very similar to `Create()` except that the only
