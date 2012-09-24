@@ -28,8 +28,17 @@ class Network extends NovaInstance {
 		URL_RESOURCE = 'os-networksv2';		// this could change in the future
 
 	public
+		/**
+		 * The ID of the isolated network
+		 */
 		$id,
+		/**
+		 * The label of the isolated network (i.e., the name)
+		 */
 		$label,
+		/**
+		 * The CIDR-formatted address range of the network (e.g., "192.168.0.0/24")
+		 */
 		$cidr;
 	
 	/**

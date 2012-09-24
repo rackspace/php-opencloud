@@ -1007,10 +1007,10 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="Network::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          
+          <a href="compute.inc.html#%5COpenCloud%5CCompute">\OpenCloud\Compute</a>
              
             $service,
-          
+          string
              
             $id
             = NULL,
@@ -1018,7 +1018,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
 <em>creates a new isolated network</em><br><small><p>NOTE: contains hacks to recognize the Rackspace public and private networks.
@@ -1033,14 +1033,15 @@ These are not really networks, but they show up in lists.</p></small><br><h4>Arg
 <tbody>
 <tr>
 <td>$service</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;"><a href="compute.inc.html#%5COpenCloud%5CCompute">\OpenCloud\Compute</a></td>
+<td><p>The compute service associated with the network</p></td>
 <td></td>
 </tr>
 <tr>
 <td>$id</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">string</td>
+<td><p>The ID of the network (this handles the pseudo-networks RAX_PUBLIC and RAX_PRIVATE</p>
+</td>
 <td>NULL</td>
 </tr>
 </tbody>
@@ -1052,8 +1053,8 @@ These are not really networks, but they show up in lists.</p></small><br><h4>Arg
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>void</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
