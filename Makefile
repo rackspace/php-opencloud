@@ -9,7 +9,7 @@ ZIPFILE=$(LIBRARY).zip
 FILES=*.md COPYING lib docs samples tests
 
 all: $(TARFILE) $(ZIPFILE)
-	echo $(BUILD) > scripts/BUILD
+	echo $(BUILD) > scripts/BUILD; git commit -m "Updated" scripts/BUILD
 
 $(TARFILE): $(ARCHIVE)
 	gzip $(ARCHIVE)
