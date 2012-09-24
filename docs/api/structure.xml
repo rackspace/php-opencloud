@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project version="2.0.0a10" title="">
+<project version="2.0.0a8" title="">
   <file path="base.inc" hash="fc0afc86cbbfee746cb5f9ee0bbee936" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The root class for all other classes in this library]]></description>
@@ -4036,7 +4036,7 @@ are set as metadata values, and $prefix is stripped from the key name.</p>]]></l
       <error line="26" code="50018">No DocBlock was found for property $_keylist</error>
     </parse_markers>
   </file>
-  <file path="network.inc" hash="920e4543eeaefc33f851c7f8251c3a82" package="phpOpenCloud">
+  <file path="network.inc" hash="0513c7b8dc074ba0d49187c22ea5184f" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines a virtual network]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -4069,7 +4069,7 @@ are set as metadata values, and $prefix is stripped from the key name.</p>]]></l
       <constant namespace="OpenCloud\Compute" line="28" package="Default">
         <name>URL_RESOURCE</name>
         <full_name>URL_RESOURCE</full_name>
-        <value><![CDATA['rax-networks']]></value>
+        <value><![CDATA['os-networksv2']]></value>
       </constant>
       <property final="false" static="false" visibility="public" line="31" namespace="OpenCloud\Compute" package="Default">
         <name>$id</name>
@@ -6909,6 +6909,9 @@ is not necessarily tied to an actual database.</p>]]></long-description>
       </method>
     </class>
     <parse_markers>
+      <critical line="23" code="50019">No short description for property $name</critical>
+      <critical line="23" code="50019">No short description for property $password</critical>
+      <critical line="23" code="50019">No short description for property $databases</critical>
       <error line="34" code="50018">No DocBlock was found for property $_instance</error>
     </parse_markers>
   </file>
