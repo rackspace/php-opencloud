@@ -50,6 +50,19 @@ To delete a network, use the `Delete()` method:
 
 Note that you cannot delete a network if there are still servers attached to it
 
+### Listing networks
+
+The `Compute::NetworkList()` method returns a [Collection](collections.md) of 
+`Network` objects:
+
+	$list = $compute->NetworkList();
+	$list->Sort('label');
+	while($network = $list->Next())
+		printf("%s: %s\n", $network->id, $network->label);
+
+This displays the ID and label of all your available networks (including the `public`
+and `private` pseudo-networks).
+
 <a name="server"></a>
 ## Create a server with an isolated network
 
