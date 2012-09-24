@@ -31,6 +31,10 @@ version list:
 
 ### Installation
 
+You can download the latest official release here:
+
+https://github.com/rackspace/php-opencloud/downloads
+
 Move the files in the `lib/` directory to a location in your PHP's
 `include_path` or, conversely, set the `include_path` to point to the
 location of the `lib/` files. From within a PHP program, for example,
