@@ -68,6 +68,7 @@ Example:
 	// assuming the $backend network we created above
 	$server = $compute->Server();			// create an empty server object
 	$server->Create(array(
+		'name' => 'My Server',
 		'flavor' => 2,
 		'image' => $image,
 		'networks' => array(				// associate our networks
