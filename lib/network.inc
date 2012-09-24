@@ -37,6 +37,11 @@ class Network extends NovaInstance {
 	 *
 	 * NOTE: contains hacks to recognize the Rackspace public and private networks.
 	 * These are not really networks, but they show up in lists.
+	 *
+	 * @param \OpenCloud\Compute $service The compute service associated with the network
+	 * @param string $id The ID of the network (this handles the pseudo-networks
+	 *		RAX_PUBLIC and RAX_PRIVATE
+	 * @return void
 	 */
 	public function __construct(\OpenCloud\Compute $service, $id=NULL) {
 		$this->id = $id;
