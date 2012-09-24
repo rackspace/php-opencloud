@@ -4036,7 +4036,7 @@ are set as metadata values, and $prefix is stripped from the key name.</p>]]></l
       <error line="26" code="50018">No DocBlock was found for property $_keylist</error>
     </parse_markers>
   </file>
-  <file path="network.inc" hash="20d82c2bbc8c79ee27a99abbb5fdae03" package="phpOpenCloud">
+  <file path="network.inc" hash="2fedc034e86cbc8ad0d87e978b28e225" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines a virtual network]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -4071,124 +4071,124 @@ are set as metadata values, and $prefix is stripped from the key name.</p>]]></l
         <full_name>URL_RESOURCE</full_name>
         <value><![CDATA['os-networksv2']]></value>
       </constant>
-      <property final="false" static="false" visibility="public" line="31" namespace="OpenCloud\Compute" package="Default">
+      <property final="false" static="false" visibility="public" line="34" namespace="OpenCloud\Compute" package="Default">
         <name>$id</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="32" namespace="OpenCloud\Compute" package="Default">
+      <property final="false" static="false" visibility="public" line="38" namespace="OpenCloud\Compute" package="Default">
         <name>$label</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="33" namespace="OpenCloud\Compute" package="Default">
+      <property final="false" static="false" visibility="public" line="42" namespace="OpenCloud\Compute" package="Default">
         <name>$cidr</name>
         <default><![CDATA[]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="46" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="55" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="35">
+        <docblock line="44">
           <description><![CDATA[creates a new isolated network]]></description>
           <long-description><![CDATA[<p>NOTE: contains hacks to recognize the Rackspace public and private networks.
 These are not really networks, but they show up in lists.</p>]]></long-description>
-          <tag line="35" name="param" description="The compute service associated with the network" type="\OpenCloud\Compute" variable="$service">
+          <tag line="44" name="param" description="The compute service associated with the network" type="\OpenCloud\Compute" variable="$service">
             <type by_reference="false">\OpenCloud\Compute</type>
           </tag>
-          <tag line="35" name="param" description="The ID of the network (this handles the pseudo-networks RAX_PUBLIC and RAX_PRIVATE" type="string" variable="$id">
+          <tag line="44" name="param" description="The ID of the network (this handles the pseudo-networks RAX_PUBLIC and RAX_PRIVATE" type="string" variable="$id">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="35" name="return" description="" type="void">
+          <tag line="44" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="46">
+        <argument line="55">
           <name>$service</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\Compute</type>
         </argument>
-        <argument line="46">
+        <argument line="55">
           <name>$id</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="70" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="79" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <docblock line="62">
+        <docblock line="71">
           <description><![CDATA[creates a new isolated network]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="62" name="api" description=""/>
-          <tag line="62" name="param" description="array of values to set when creating the network" type="array" variable="$params">
+          <tag line="71" name="api" description=""/>
+          <tag line="71" name="param" description="array of values to set when creating the network" type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="62" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="71" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
-          <tag line="62" name="throws" description="if HTTP status is not Success" type="\OpenCloud\Compute\NetworkCreateError">
+          <tag line="71" name="throws" description="if HTTP status is not Success" type="\OpenCloud\Compute\NetworkCreateError">
             <type by_reference="false">\OpenCloud\Compute\NetworkCreateError</type>
           </tag>
         </docblock>
-        <argument line="70">
+        <argument line="79">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="111" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="120" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <docblock line="106">
+        <docblock line="115">
           <description><![CDATA[always throws an error; updates are not permitted]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="106" name="throws" description="always" type="\OpenCloud\Compute\NetworkUpdateError">
+          <tag line="115" name="throws" description="always" type="\OpenCloud\Compute\NetworkUpdateError">
             <type by_reference="false">\OpenCloud\Compute\NetworkUpdateError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="122" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="131" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
-        <docblock line="115">
+        <docblock line="124">
           <description><![CDATA[deletes an isolated network]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="115" name="api" description=""/>
-          <tag line="115" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="124" name="api" description=""/>
+          <tag line="124" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
-          <tag line="115" name="throws" description="if HTTP status is not Success" type="\OpenCloud\Compute\NetworkDeleteError">
+          <tag line="124" name="throws" description="if HTTP status is not Success" type="\OpenCloud\Compute\NetworkDeleteError">
             <type by_reference="false">\OpenCloud\Compute\NetworkDeleteError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="143" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="152" package="Default">
         <name>JsonName</name>
         <full_name>JsonName</full_name>
-        <docblock line="140">
+        <docblock line="149">
           <description><![CDATA[returns the top-level document identifier]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="150" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="159" package="Default">
         <name>ResourceName</name>
         <full_name>ResourceName</full_name>
-        <docblock line="147">
+        <docblock line="156">
           <description><![CDATA[the URL resource]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\Compute" line="159" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\Compute" line="168" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="156">
+        <docblock line="165">
           <description><![CDATA[creates the JSON object for Create()]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
     </class>
     <parse_markers>
-      <error line="31" code="50018">No DocBlock was found for property $id</error>
-      <error line="32" code="50018">No DocBlock was found for property $label</error>
-      <error line="33" code="50018">No DocBlock was found for property $cidr</error>
+      <error line="34" code="50018">No DocBlock was found for property $id</error>
+      <error line="38" code="50018">No DocBlock was found for property $label</error>
+      <error line="42" code="50018">No DocBlock was found for property $cidr</error>
     </parse_markers>
   </file>
   <file path="nova.inc" hash="72cd829fc28d4d19aa6f2fb643829d91" package="phpOpenCloud">
