@@ -18,7 +18,7 @@ $(ARCHIVE):
 	tar cvf $(ARCHIVE) $(FILES)
 
 $(ZIPFILE):
-	zip $(ZIPFILE) $(FILES)
+	zip -r $(ZIPFILE) $(FILES)
 
 clean:
 	rm *.gz *.zip
