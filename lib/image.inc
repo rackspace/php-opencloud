@@ -1,6 +1,6 @@
 <?php
 /**
- * A object that defines a virtual machine image
+ * An object that defines a virtual machine image
  *
  * @copyright 2012 Rackspace Hosting, Inc.
  * See COPYING for licensing information

@@ -121,7 +121,7 @@ abstract class Base {
 	/**
 	 * Converts an array of key/value pairs into a single query string
 	 *
-	 * For example, array('A'=>1,'B'=>2) would become 'A=1&B=2'
+	 * For example, array('A'=>1,'B'=>2) would become 'A=1&B=2'.
 	 *
 	 * @param array $arr array of key/value pairs
 	 * @return string
@@ -212,7 +212,10 @@ abstract class Base {
 	}
 
     /**
-     * Converts a value to a HTTP-displayable string form
+     * Converts a value to an HTTP-displayable string form
+     * 
+     * @param mixed $x a value to convert
+     * @return string
      */
     private function to_string($x) {
         if (is_bool($x) && $x)

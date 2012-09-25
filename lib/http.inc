@@ -252,7 +252,10 @@ class CurlRequest implements HTTPRequest {
 	}
 
 	/**
+	 * This is a callback method used to handle the returned HTTP headers
 	 *
+	 * @param mixed $ch a CURL handle
+	 * @param string $header the header string in its entirety
 	 */
 	public function _get_header_cb($ch, $header) {
 		$this->returnheaders[] = $header;
@@ -299,7 +302,7 @@ class HttpResponse {
 	}
 
 	/**
-	 * returns the full body of the request
+	 * Returns the full body of the request
 	 *
 	 * @return string
 	 */
@@ -308,7 +311,7 @@ class HttpResponse {
 	}
 
 	/**
-	 * returns an array of headers
+	 * Returns an array of headers
 	 *
 	 * @return associative array('header'=>value)
 	 */
@@ -317,7 +320,7 @@ class HttpResponse {
 	}
 
 	/**
-	 * returns a single header
+	 * Returns a single header
 	 *
 	 * @return string with the value of the requested header, or NULL
 	 */
@@ -326,7 +329,7 @@ class HttpResponse {
 	}
 
 	/**
-	 * returns an array of information
+	 * Returns an array of information
 	 *
 	 * @return array
 	 */
@@ -335,7 +338,7 @@ class HttpResponse {
 	}
 
 	/**
-	 * most recent error number
+	 * Returns the most recent error number
 	 *
 	 * @return integer
 	 */
@@ -344,7 +347,7 @@ class HttpResponse {
 	}
 
 	/**
-	 * most recent error message
+	 * Returns the most recent error message
 	 *
 	 * @return string
 	 */
@@ -353,7 +356,7 @@ class HttpResponse {
 	}
 
 	/**
-	 * the HTTP status code
+	 * Returns the HTTP status code
 	 *
 	 * @return integer
 	 */
@@ -364,7 +367,7 @@ class HttpResponse {
 } // class HttpResponse
 
 /**
- * This is a stubbed-out response for unit testing
+ * This is a stubbed-out variant of HttpResponse for unit testing
  */
 class BlankResponse extends HttpResponse {
 	public

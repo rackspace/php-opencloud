@@ -267,11 +267,12 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * Returns the top-level document identifier; must be overridden in child classes
+	 * Returns the top-level document identifier for the returned response JSON document; 
+	 * must be overridden in child classes
 	 *
 	 * For example, a server document is (JSON) `{"server": ...}` and an Instance
 	 * document is `{"instance": ...}` - this function must return the top level
-	 * document name.
+	 * document name (either "server" or "instance", in these examples).
 	 *
 	 * @throws \OpenCloud\DocumentError if not overridden
 	 */
@@ -285,7 +286,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * Returns the resource name for the URL of the object; must be overridden in child
 	 * classes
 	 *
-	 * For example, a server is /servers/, a database instance is /instances/.
+	 * For example, a server is `/servers/`, a database instance is `/instances/`.
 	 * Must be overridden in child classes.
 	 *
 	 * @throws \OpenCloud\UrlError

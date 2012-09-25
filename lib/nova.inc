@@ -21,7 +21,8 @@ require_once('collection.inc');
  * Nova is an abstraction layer for the OpenStack compute service.
  *
  * Nova is used as a basis for several products, including Compute services
- * as well as Rackspace's Cloud Databases.
+ * as well as Rackspace's Cloud Databases. This class is, in essence, a vehicle
+ * for sharing common code between those other classes. 
  */
 abstract class Nova extends Service {
 	private
@@ -61,7 +62,7 @@ abstract class Nova extends Service {
 	} // function __construct()
 
 	/**
-	 * Returns the selected endpoint URL of this Compute Service
+	 * Returns the selected endpoint URL of this Service
 	 *
 	 * @param string $resource - a child resource. For example,
 	 *      passing 'servers' would return .../servers. Should *not* be

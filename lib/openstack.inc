@@ -17,7 +17,8 @@ require_once('objectstore.inc');
 require_once('compute.inc');
 
 /**
- * The OpenStack class represents a relationship between a user and a service
+ * The OpenStack class represents a relationship (or "connection") 
+ * between a user and a service.
  *
  * This is the primary entry point into an OpenStack system, and the only one
  * where the developer is required to know and provide the endpoint URL (in
@@ -156,7 +157,7 @@ class OpenStack extends \OpenCloud\Base {
 	}
 
     /**
-     * Returns the cached token; if it has expired, then it re-auths
+     * Returns the cached token; if it has expired, then it re-authenticates
      *
      * @api
      * @return string
@@ -440,7 +441,7 @@ class OpenStack extends \OpenCloud\Base {
     }
 
     /**
-     * Allows the user to define a function for for tracking uploads
+     * Allows the user to define a function for tracking uploads
      *
      * This can be used to implement a progress bar or similar function. The
      * callback function is called with a single parameter, the length of the
@@ -455,7 +456,7 @@ class OpenStack extends \OpenCloud\Base {
     }
 
     /**
-     * Allows the user to define a function for for tracking downloads
+     * Allows the user to define a function for tracking downloads
      *
      * This can be used to implement a progress bar or similar function. The
      * callback function is called with a single parameter, the length of the

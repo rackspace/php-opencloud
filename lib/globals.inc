@@ -97,9 +97,16 @@ define('RAXSDK_URL_PUBLIC', 'publicURL');
 define('RAXSDK_URL_INTERNAL', 'internalURL');
 define('RAXSDK_URL_VERSION_INFO', 'versionInfo');
 define('RAXSDK_URL_VERSION_LIST', 'versionList');
-// we can re-authenticate this many seconds before the token expires
-define('RAXSDK_FUDGE', 60);
-// more readable constants
+/**
+ * We can re-authenticate this many seconds before the token expires
+ *
+ * Set this to a higher value if your service does not cache tokens; if it *does* cache
+ * them, then this value is not required. 
+ */
+define('RAXSDK_FUDGE', 0);
+/**
+ * Readable constants
+ */
 define('RAXSDK_SOFT_REBOOT', 'soft');
 define('RAXSDK_HARD_REBOOT', 'hard');
 define('RAXSDK_DETAILS', TRUE);
