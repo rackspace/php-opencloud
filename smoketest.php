@@ -6,6 +6,8 @@
  * functionality of the library is present. It is not an exhaustive
  * integration test, nor is it a unit test. The goal is to rapidly
  * identify major problems if a code change breaks something.
+ *
+ * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
@@ -36,7 +38,9 @@ function info($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
 }
 define('TIMEFORMAT', 'r');
 
-// record the time
+/**
+ * START THE TESTS!
+ */
 printf("SmokeTest started at %s\n", date(TIMEFORMAT, $start));
 
 step('Authenticate');
@@ -46,6 +50,9 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 		   'apiKey' => APIKEY ));
 $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
 
+/**
+ * Cloud Servers
+ */
 step('Connect to Cloud Servers');
 $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 
@@ -106,6 +113,9 @@ while($s = $list->Next()) {
     }
 }
 
+/**
+ * Cloud Databases
+ */
 step('Connect to Cloud Databases');
 $dbaas = $rackspace->DbService('cloudDatabases', 'DFW', 'publicURL');
 
@@ -156,6 +166,9 @@ while($inst = $ilist->Next())
         $inst->Delete();
     }
 
+/**
+ * Cloud Files
+ */
 step('Connect to Cloud Files');
 $cloudfiles = $rackspace->ObjectStore('cloudFiles', 'DFW');
 
@@ -194,6 +207,9 @@ while($o = $list->Next()) {
 step('Delete Container: %s', $container->name);
 $container->Delete();
 
+/**
+ * Cleanup
+ */
 step('Deleting the test network(s)');
 $list = $cloudservers->NetworkList();
 while($network = $list->Next()) {
@@ -207,7 +223,7 @@ step('FINISHED at %s in %d seconds', date(TIMEFORMAT), time()-$start);
 exit();
 
 /**
- * callback for WaitFor function, above
+ * Callback for the WaitFor() method
  */
 function dotter($obj) {
     info('...waiting on %s/%s - %d%%',
