@@ -85,3 +85,14 @@ working after code changes.
 The `samples/` directory has a collection of tested, working sample code.
 Note that these may create objects in your cloud that you could be
 charged for.
+
+Support and Feedback
+--------------------
+Your feedback is appreciated! If you have specific issues with the php-opencloud
+language bindings, we'd prefer that you file an issue via Github if you're a 
+developer. 
+
+For general feedback and support requests, send an email to:
+
+sdk-support@rackspace.com
+
