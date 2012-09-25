@@ -119,8 +119,8 @@ the object storage components.</p><br><div id="methods_CDNContainer">
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>Checks the attribute $name and only permits it if the prefix is
-in the specified $prefix array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
+<em>Checks the attribute $property and only permits it if the prefix is
+in the specified $prefixes array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -181,7 +181,7 @@ in the specified $prefix array</em><br><small><p>This is to support extension na
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>check the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
+<em>Checks the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
 This ensures that nasty JSON errors are detected and the proper
 exception thrown.</p>
 
@@ -233,7 +233,7 @@ exception thrown.</p>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>creates a new container with the specified attributes</em><br><h4>Arguments</h4>
+<em>Creates a new container with the specified attributes</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -284,7 +284,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\ObjectStore\DataObject</span>
 </h3>
 <h4>Description</h4>
-<em>returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
+<em>Returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -320,7 +320,7 @@ exception thrown.</p>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>deletes the specified container</em><br><h4>Return value</h4>
+<em>Deletes the specified container</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -359,7 +359,7 @@ exception thrown.</p>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>returns a class that implements the HttpRequest interface.</em><br><small><p>We can stub this out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
+<em>Returns a class that implements the HttpRequest interface.</em><br><small><p>This can be stubbed out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -475,7 +475,7 @@ to metadata</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'</p></small><br><h4>Arguments</h4>
+<em>Converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -529,7 +529,7 @@ to metadata</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">\OpenCloud\ObjectStore\array;</span>
 </h3>
 <h4>Description</h4>
-<em>If object has metadata, return an associative array of headers</em><br><small><p>For example, if a DataObject has a metadata item named 'FOO',
+<em>If object has metadata, returns an associative array of headers</em><br><small><p>For example, if a DataObject has a metadata item named 'FOO',
 then this would return array('X-Object-Meta-FOO'=>$value);</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
@@ -566,7 +566,7 @@ then this would return array('X-Object-Meta-FOO'=>$value);</p></small><br><h4>Re
         <span class="nb-faded-text">\OpenCloud\ObjectStore\OpenCloud\Collection</span>
 </h3>
 <h4>Description</h4>
-<em>creates a Collection of objects in the container</em><br><h4>Arguments</h4>
+<em>Creates a Collection of objects in the container</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -614,7 +614,7 @@ names and values</small></a></td>
 </div>
 <div class="method">
 <a id="CDNContainer::Prefix()"></a><h3>Prefix<span class="nb-faded-text">(
-          
+          string
              
             $type
             = NULL,
@@ -624,7 +624,8 @@ names and values</small></a></td>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
-<h4>Arguments</h4>
+<h4>Description</h4>
+<em>Returns the proper prefix for the specified type of object</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -634,8 +635,9 @@ names and values</small></a></td>
 </tr></thead>
 <tbody><tr>
 <td>$type</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">string</td>
+<td><p>The type of object; derived from <code>get_class()</code> if not specified.</p>
+</td>
 <td>NULL</td>
 </tr></tbody>
 </table>
@@ -671,7 +673,7 @@ names and values</small></a></td>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Load the object from the service</em><br><h4>Return value</h4>
+<em>Loads the object from the service</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -692,7 +694,7 @@ names and values</small></a></td>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>the Service associated with the Container</em><br><h4>Return value</h4>
+<em>Returns the Service associated with the Container</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -828,7 +830,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>returns the URL of the container</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
+<em>Returns the URL of the container</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
 base level, it simply throws an exception to enforce the idea that
 subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <table>
@@ -1014,7 +1016,7 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Displays a debug message if RAXSDK_DEBUG is TRUE.</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
+<em>Displays a debug message if $RAXSDK_DEBUG is TRUE</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
 up to five optional parameters. It prints the debug message, prefixed
 with "Debug:" and the class name, to the standard output device.</p>
 
@@ -1113,7 +1115,7 @@ with "Debug:" and the class name, to the standard output device.</p>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>Validate that the container name is acceptable</em><br><h4>Arguments</h4>
+<em>Validates that the container name is acceptable</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1153,17 +1155,17 @@ with "Debug:" and the class name, to the standard output device.</p>
 </div>
 <div class="method">
 <a id="CDNContainer::to_string()"></a><h3>to_string<span class="nb-faded-text">(
-          
+          mixed
              
             $x,
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>converts a value to a HTTP-displayable string form</em><br><h4>Arguments</h4>
+<em>Converts a value to an HTTP-displayable string form</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1173,8 +1175,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr></thead>
 <tbody><tr>
 <td>$x</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">mixed</td>
+<td><p>a value to convert</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -1185,8 +1187,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1545,8 +1547,8 @@ URL on the network.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>Checks the attribute $name and only permits it if the prefix is
-in the specified $prefix array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
+<em>Checks the attribute $property and only permits it if the prefix is
+in the specified $prefixes array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1611,7 +1613,7 @@ in the specified $prefix array</em><br><small><p>This is to support extension na
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>check the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
+<em>Checks the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
 This ensures that nasty JSON errors are detected and the proper
 exception thrown.</p>
 
@@ -1667,7 +1669,7 @@ exception thrown.</p>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>creates a new container with the specified attributes</em><br><h4>Arguments</h4>
+<em>Creates a new container with the specified attributes</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1781,7 +1783,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\ObjectStore\DataObject</span>
 </h3>
 <h4>Description</h4>
-<em>returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
+<em>Returns a new DataObject associated with this container</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1828,7 +1830,7 @@ exception thrown.</p>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>deletes the specified container</em><br><h4>Return value</h4>
+<em>Deletes the specified container</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1906,7 +1908,7 @@ its TTL expires.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>returns a class that implements the HttpRequest interface.</em><br><small><p>We can stub this out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
+<em>Returns a class that implements the HttpRequest interface.</em><br><small><p>This can be stubbed out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -2032,7 +2034,7 @@ to metadata</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'</p></small><br><h4>Arguments</h4>
+<em>Converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -2090,7 +2092,7 @@ to metadata</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">\OpenCloud\ObjectStore\array;</span>
 </h3>
 <h4>Description</h4>
-<em>If object has metadata, return an associative array of headers</em><br><small><p>For example, if a DataObject has a metadata item named 'FOO',
+<em>If object has metadata, returns an associative array of headers</em><br><small><p>For example, if a DataObject has a metadata item named 'FOO',
 then this would return array('X-Object-Meta-FOO'=>$value);</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
@@ -2133,7 +2135,7 @@ then this would return array('X-Object-Meta-FOO'=>$value);</p></small><br><h4>Re
         <span class="nb-faded-text">\OpenCloud\ObjectStore\OpenCloud\Collection</span>
 </h3>
 <h4>Description</h4>
-<em>creates a Collection of objects in the container</em><br><h4>Arguments</h4>
+<em>Creates a Collection of objects in the container</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -2185,7 +2187,7 @@ names and values</small></a></td>
 </div>
 <div class="method">
 <a id="Container::Prefix()"></a><h3>Prefix<span class="nb-faded-text">(
-          
+          string
              
             $type
             = NULL,
@@ -2195,7 +2197,8 @@ names and values</small></a></td>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
-<h4>Arguments</h4>
+<h4>Description</h4>
+<em>Returns the proper prefix for the specified type of object</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -2205,8 +2208,9 @@ names and values</small></a></td>
 </tr></thead>
 <tbody><tr>
 <td>$type</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">string</td>
+<td><p>The type of object; derived from <code>get_class()</code> if not specified.</p>
+</td>
 <td>NULL</td>
 </tr></tbody>
 </table>
@@ -2273,7 +2277,7 @@ names and values</small></a></td>
         <span class="nb-faded-text">\OpenCloud\ObjectStore\CDNContainer</span>
 </h3>
 <h4>Description</h4>
-<em>Make the container public via the CDN</em><br><h4>Arguments</h4>
+<em>Makes the container public via the CDN</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -2327,7 +2331,7 @@ names and values</small></a></td>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Refresh, then associate the CDN container</em><br><h4>Return value</h4>
+<em>Refreshes, then associates the CDN container</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -2380,7 +2384,7 @@ names and values</small></a></td>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>the Service associated with the Container</em><br><h4>Return value</h4>
+<em>Returns the Service associated with the Container</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -2625,7 +2629,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>returns the URL of the container</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
+<em>Returns the URL of the container</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
 base level, it simply throws an exception to enforce the idea that
 subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <table>
@@ -2832,7 +2836,7 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Displays a debug message if RAXSDK_DEBUG is TRUE.</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
+<em>Displays a debug message if $RAXSDK_DEBUG is TRUE</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
 up to five optional parameters. It prints the debug message, prefixed
 with "Debug:" and the class name, to the standard output device.</p>
 
@@ -2935,7 +2939,7 @@ with "Debug:" and the class name, to the standard output device.</p>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>Validate that the container name is acceptable</em><br><h4>Arguments</h4>
+<em>Validates that the container name is acceptable</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -2981,17 +2985,17 @@ with "Debug:" and the class name, to the standard output device.</p>
 </div>
 <div class="method">
 <a id="Container::to_string()"></a><h3>to_string<span class="nb-faded-text">(
-          
+          mixed
              
             $x,
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>converts a value to a HTTP-displayable string form</em><br><h4>Arguments</h4>
+<em>Converts a value to an HTTP-displayable string form</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -3001,8 +3005,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr></thead>
 <tbody><tr>
 <td>$x</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">mixed</td>
+<td><p>a value to convert</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -3013,8 +3017,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -3236,10 +3240,10 @@ with "Debug:" and the class name, to the standard output device.</p>
 <li><span class="class"><a href="exceptions.inc.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
 <li><span class="class"><a href="base.inc.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
 this SDK.</small></span></li>
-<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out response for unit testing</small></span></li>
+<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out variant of HttpResponse for unit testing</small></span></li>
 <li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
-<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>Compute is the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
 <li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
 <li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
@@ -3258,12 +3262,13 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
-<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service</small></span></li>
+<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
-<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code between the ObjectStore and ObjectStoreCDN
-objects.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and ObjectStoreCDN
+objects</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
-<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship between a user and a service</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
+between a user and a service.</small></span></li>
 <li><span class="class"><a href="rackspace.inc.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
 <li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
@@ -3275,7 +3280,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li class="closed">
 <span class="folder">Compute</span><ul>
 <li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
-<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
+<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
 <li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
 Compute service.</small></span></li>
@@ -3359,7 +3364,8 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NoNameError">NoNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
-<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
+<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate (abstract) class to implement shared
+features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>

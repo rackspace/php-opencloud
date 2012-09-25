@@ -113,9 +113,9 @@ its base.</p><br><div id="methods_NovaInstance">
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>action(object) - sends the json string to the /action resource.</em><br><small><p>This is used for many purposes, such as rebooting the server,
+<em>Sends the json string to the /action resource</em><br><small><p>This is used for many purposes, such as rebooting the server,
 setting the root password, creating images, etc.
-Since it can only be used on a live server, it checks for a valid ID</p></small><br><h4>Arguments</h4>
+Since it can only be used on a live server, it checks for a valid ID.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -182,8 +182,8 @@ Since it can only be used on a live server, it checks for a valid ID</p></small>
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>Checks the attribute $name and only permits it if the prefix is
-in the specified $prefix array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
+<em>Checks the attribute $property and only permits it if the prefix is
+in the specified $prefixes array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -238,7 +238,7 @@ in the specified $prefix array</em><br><small><p>This is to support extension na
         <span class="nb-faded-text">boolean</span>
 </h3>
 <h4>Description</h4>
-<em>check the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
+<em>Checks the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
 This ensures that nasty JSON errors are detected and the proper
 exception thrown.</p>
 
@@ -286,7 +286,7 @@ exception thrown.</p>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Since each server can have multiple likes, this returns the desired one</em><br><h4>Arguments</h4>
+<em>Since each server can have multiple links, this returns the desired one</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -332,7 +332,7 @@ exception thrown.</p>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>returns a class that implements the HttpRequest interface.</em><br><small><p>We can stub this out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
+<em>Returns a class that implements the HttpRequest interface.</em><br><small><p>This can be stubbed out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -387,9 +387,10 @@ exception thrown.</p>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>returns the top-level document identifier; should be overridden in child classes</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an Instance
+<em>Returns the top-level document identifier for the returned response JSON document;
+must be overridden in child classes</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an Instance
 document is <code>{"instance": ...}</code> - this function must return the top level
-document name.</p></small><br><h4>Return value</h4>
+document name (either "server" or "instance", in these examples).</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -424,7 +425,7 @@ document name.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'</p></small><br><h4>Arguments</h4>
+<em>Converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -476,7 +477,7 @@ document name.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>refreshes the server from the origin (useful when the server is
+<em>Refreshes the server from the origin (useful when the server is
 changing states)</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
@@ -524,7 +525,8 @@ changing states)</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>returns the resource name for the URL of the object</em><br><small><p>For example, a server is /servers/, a database instance is /instances/.
+<em>Returns the resource name for the URL of the object; must be overridden in child
+classes</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is <code>/instances/</code>.
 Must be overridden in child classes.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
@@ -557,7 +559,7 @@ Must be overridden in child classes.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>returns the service object associated with this server</em><br><h4>Return value</h4>
+<em>Returns the Service object associated with this server</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -661,7 +663,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -720,7 +722,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>waits for the server/instance status to change</em><br><small><p>This function repeatedly polls the system for a change in server
+<em>Waits for the server/instance status to change</em><br><small><p>This function repeatedly polls the system for a change in server
 status. Once the status reaches the <code>$terminal</code> value (or 'ERROR'),
 then the function returns.</p>
 
@@ -796,7 +798,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>retrieves the instance from persistent storage</em><br><h4>Arguments</h4>
+<em>Retrieves the instance from persistent storage</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -858,7 +860,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Validates properties that have a namespace: prefix.</em><br><small><p>If the property prefix: appears in the list of supported extension
+<em>Validates properties that have a namespace: prefix</em><br><small><p>If the property prefix: appears in the list of supported extension
 namespaces, then the property is applied to the object. Otherwise,
 an exception is thrown.</p></small><br><h4>Arguments</h4>
 <table>
@@ -939,7 +941,7 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Displays a debug message if RAXSDK_DEBUG is TRUE.</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
+<em>Displays a debug message if $RAXSDK_DEBUG is TRUE</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
 up to five optional parameters. It prints the debug message, prefixed
 with "Debug:" and the class name, to the standard output device.</p>
 
@@ -1022,17 +1024,17 @@ with "Debug:" and the class name, to the standard output device.</p>
 </div>
 <div class="method">
 <a id="NovaInstance::to_string()"></a><h3>to_string<span class="nb-faded-text">(
-          
+          mixed
              
             $x,
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>converts a value to a HTTP-displayable string form</em><br><h4>Arguments</h4>
+<em>Converts a value to an HTTP-displayable string form</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1042,8 +1044,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr></thead>
 <tbody><tr>
 <td>$x</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">mixed</td>
+<td><p>a value to convert</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -1054,8 +1056,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1182,10 +1184,10 @@ with "Debug:" and the class name, to the standard output device.</p>
 <li><span class="class"><a href="exceptions.inc.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
 <li><span class="class"><a href="base.inc.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
 this SDK.</small></span></li>
-<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out response for unit testing</small></span></li>
+<li><span class="class"><a href="http.inc.html#BlankResponse">BlankResponse</a><br><small>This is a stubbed-out variant of HttpResponse for unit testing</small></span></li>
 <li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
-<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>Compute is the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
 <li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
 <li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
@@ -1204,12 +1206,13 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
-<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service</small></span></li>
+<li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
-<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code between the ObjectStore and ObjectStoreCDN
-objects.</small></span></li>
+<li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and ObjectStoreCDN
+objects</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
-<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship between a user and a service</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
+between a user and a service.</small></span></li>
 <li><span class="class"><a href="rackspace.inc.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
 <li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
@@ -1221,7 +1224,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li class="closed">
 <span class="folder">Compute</span><ul>
 <li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
-<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service.</small></span></li>
+<li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
 <li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
 Compute service.</small></span></li>
@@ -1305,7 +1308,8 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NoNameError">NoNameError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
-<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate class to implement share features of all object-storage classes</small></span></li>
+<li><span class="class"><a href="objstorebase.inc.html#ObjStoreBase">ObjStoreBase</a><br><small>Intermediate (abstract) class to implement shared
+features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
