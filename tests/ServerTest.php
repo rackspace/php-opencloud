@@ -32,7 +32,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests
 	 */
-	public function test___construct() {
+	public function test__construct() {
 		$this->assertEquals(
 		    'OpenCloud\Compute\Server',
 		    get_class($this->server));
@@ -134,5 +134,12 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	        'OpenCloud\Compute',
 	        get_class($this->server->Service())
 	    );
+	}
+	public function testResourceName() {
+		$s = new OpenCloud\Compute\Server($this->service);
+		$s->id = 'Bad-ID';
+		$this->assertEquals(
+			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID',
+			$s->Url());
 	}
 }
