@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -42,7 +42,7 @@ class Network extends NovaInstance {
 		$cidr;
 	
 	/**
-	 * creates a new isolated network
+	 * Creates a new isolated Network object
 	 *
 	 * NOTE: contains hacks to recognize the Rackspace public and private networks.
 	 * These are not really networks, but they show up in lists.
@@ -69,7 +69,7 @@ class Network extends NovaInstance {
 	}
 
 	/**
-	 * creates a new isolated network
+	 * Creates a new isolated network
 	 *
 	 * @api
 	 * @param array $params array of values to set when creating the network
@@ -113,7 +113,7 @@ class Network extends NovaInstance {
 	}
 	
 	/**
-	 * always throws an error; updates are not permitted
+	 * Always throws an error; updates are not permitted
 	 *
 	 * @throws NetworkUpdateError always
 	 */
@@ -122,7 +122,7 @@ class Network extends NovaInstance {
 	}
 	
 	/**
-	 * deletes an isolated network
+	 * Deletes an isolated network
 	 *
 	 * @api
 	 * @return \OpenCloud\HttpResponse
@@ -147,14 +147,14 @@ class Network extends NovaInstance {
 	/********** PROTECTED METHODS **********/
 
 	/**
-	 * returns the top-level document identifier
+	 * Returns the top-level document identifier
 	 */
 	protected function JsonName() {
 		return self::JSON_ELEMENT;
 	}
 	
 	/**
-	 * the URL resource
+	 * Returns the URL resource
 	 */
 	protected function ResourceName() {
 		return self::URL_RESOURCE;
@@ -163,7 +163,7 @@ class Network extends NovaInstance {
 	/********** PRIVATE METHODS **********/
 	
 	/**
-	 * creates the JSON object for Create()
+	 * Creates the JSON object for the Create() method
 	 */
 	private function CreateJson() {
 		$obj = new \stdClass();

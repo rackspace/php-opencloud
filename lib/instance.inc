@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -58,7 +58,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * creates a new database instance
+	 * Creates a new database instance
 	 *
 	 * @api
 	 * @param array $params a hashed array of extra values to set on the object
@@ -104,7 +104,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * updates a database instance
+	 * Updates a database instance
 	 *
 	 * Update() is not supported by database instances
 	 *
@@ -116,7 +116,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * deletes a database instance
+	 * Deletes a database instance
 	 *
 	 * @api
 	 * @return \OpenCloud\HttpResponse
@@ -136,7 +136,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * restart the database instance
+	 * Restarts the database instance
 	 *
 	 * @api
 	 * @returns \OpenCloud\HttpResponse
@@ -146,7 +146,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * resize the database instance (sets RAM)
+	 * Resizes the database instance (sets RAM)
 	 *
 	 * @api
 	 * @param \OpenCloud\Compute\Flavor $flavor a flavor object
@@ -157,7 +157,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * resizes the volume associated with the database instance (disk space)
+	 * Resizes the volume associated with the database instance (disk space)
 	 *
 	 * @api
 	 * @param integer $newvolumesize the size of the new volume, in gigabytes
@@ -168,7 +168,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * enables the root user for the instance
+	 * Enables the root user for the instance
 	 *
 	 * @api
 	 * @return User the root user, including name and password
@@ -194,7 +194,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * returns TRUE if the root user is enabled
+	 * Returns TRUE if the root user is enabled
 	 *
 	 * @api
 	 * @return boolean TRUE if the root user is enabled; FALSE otherwise
@@ -222,7 +222,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	/********** FACTORY METHODS **********/
 
 	/**
-	 * returns a new database
+	 * Returns a new Database object
 	 *
 	 * @param string $name the database name
 	 * @return Database
@@ -232,7 +232,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * returns a new user
+	 * Returns a new User object
 	 *
 	 * @param string $name the user name
 	 * @param array $databases a simple array of database names
@@ -243,7 +243,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * returns a Collection of all databases in the instance
+	 * Returns a Collection of all databases in the instance
 	 *
 	 * @return Collection
 	 * @throws DatabaseListError if HTTP status is not Success
@@ -268,7 +268,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * returns a Collection of all users in the instance
+	 * Returns a Collection of all users in the instance
 	 *
 	 * @return Collection
 	 * @throws UserListError if HTTP status is not Success
@@ -295,14 +295,14 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	/********** PROTECTED METHODS **********/
 
 	/**
-	 * the top-level document name
+	 * Returns the top-level document name
 	 */
 	protected function JsonName() {
 		return self::JSON_ELEMENT;
 	}
 	
 	/**
-	 * the URL resource
+	 * Returns the URL resource
 	 */
 	protected function ResourceName() {
 		return self::URL_RESOURCE;
@@ -311,7 +311,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	/********** PRIVATE METHODS **********/
 
 	/**
-	 * generates the JSON string for Create()
+	 * Generates the JSON string for Create()
 	 *
 	 * @return \stdClass
 	 */
@@ -345,7 +345,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * generates the JSON object for Restart
+	 * Generates the JSON object for Restart
 	 */
 	private function RestartJson() {
 		$obj = new \stdClass();
@@ -354,7 +354,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * generates the JSON object for Resize
+	 * Generates the JSON object for Resize
 	 */
 	private function ResizeJson($flavorRef) {
 		$obj = new \stdClass();
@@ -364,7 +364,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * generates the JSON object for ResizeVolume
+	 * Generates the JSON object for ResizeVolume
 	 */
 	private function ResizeVolumeJson($size) {
 		$obj = new \stdClass();

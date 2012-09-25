@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -59,7 +59,7 @@ abstract class Service extends Base {
 	} // public function __construct()
 
 	/**
-	 * returns the URL for the Service
+	 * Returns the URL for the Service
 	 *
 	 * @return string
 	 */
@@ -68,7 +68,7 @@ abstract class Service extends Base {
 	} // public function Url()
 
 	/**
-	 * returns the /extensions for the service
+	 * Returns the /extensions for the service
 	 *
 	 * @api
 	 * @return array of objects
@@ -82,7 +82,7 @@ abstract class Service extends Base {
 	} // public function Extensions()
 
 	/**
-	 * returns the /limits for the service
+	 * Returns the /limits for the service
 	 *
 	 * @api
 	 * @return array of limits
@@ -169,7 +169,7 @@ abstract class Service extends Base {
     } // function get_endpoint()
 
 	/**
-	 * construct a specified URL from the subresource
+	 * Constructs a specified URL from the subresource
 	 *
 	 * Given a subresource (e.g., "extensions"), this constructs the proper
 	 * URL and retrieves the resource.

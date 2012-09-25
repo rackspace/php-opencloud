@@ -7,7 +7,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -17,7 +17,8 @@ require_once('base.inc');
 require_once('metadata.inc');
 
 /**
- * Intermediate class to implement share features of all object-storage classes
+ * Intermediate (abstract) class to implement shared 
+ * features of all object-storage classes
  *
  * This class implements metadata-handling and other features that are common to
  * the object storage components.
@@ -36,7 +37,7 @@ abstract class ObjStoreBase extends \OpenCloud\Base {
 		$metadata;
 
 	/**
-	 * initializes the metadata component
+	 * Initializes the metadata component
 	 */
 	public function __construct() {
 	    $this->metadata = new \OpenCloud\Metadata();
@@ -65,7 +66,7 @@ abstract class ObjStoreBase extends \OpenCloud\Base {
 	}
 
 	/**
-	 * If object has metadata, return an associative array of headers
+	 * If object has metadata, returns an associative array of headers
 	 *
 	 * For example, if a DataObject has a metadata item named 'FOO',
 	 * then this would return array('X-Object-Meta-FOO'=>$value);
@@ -88,6 +89,10 @@ abstract class ObjStoreBase extends \OpenCloud\Base {
 	/********** PRIVATE METHODS **********/
 
 	/**
+	 * Returns the proper prefix for the specified type of object
+	 *
+	 * @param string $type The type of object; derived from `get_class()` if not
+	 *		specified. 
 	 */
 	private function Prefix($type=NULL) {
 		if (!isset($type)) {

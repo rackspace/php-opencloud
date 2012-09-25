@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -19,7 +19,7 @@ require_once('network.inc');
 require_once('servermetadata.inc');
 
 /**
- * Compute is the OpenStack Nova service.
+ * The Compute class represents the OpenStack Nova service.
  *
  * It is constructed from a OpenStack object and requires a service name,
  * region, and URL type to select the proper endpoint from the service
@@ -78,7 +78,7 @@ class Compute extends Nova {
 	} // function __construct()
 
 	/**
-	 * returns the selected endpoint URL of this compute Service
+	 * Returns the selected endpoint URL of this compute Service
 	 *
 	 * @param string $resource - an optional child resource. For example,
 	 *      passing 'details' would return .../servers/details. Should *not* be
@@ -107,7 +107,7 @@ class Compute extends Nova {
 	}
 
 	/**
-	 * Returns a list of servers, filtered by the specified filtering
+	 * Returns a Collection of server objects, filtered by the specified parameters
 	 *
 	 * This is a factory method and should normally be called instead of
 	 * creating a ServerList object directly.
@@ -146,7 +146,7 @@ class Compute extends Nova {
 	}
 
 	/**
-	 * returns a Network object
+	 * Returns a Network object
 	 *
 	 * @api
 	 * @param string $id the network ID
@@ -157,7 +157,7 @@ class Compute extends Nova {
 	}
 
 	/**
-	 * returns a Collection of Network objects
+	 * Returns a Collection of Network objects
 	 *
 	 * @api
 	 * @param array $filters array of filter key/value pairs
@@ -201,7 +201,7 @@ class Compute extends Nova {
 	}
 
 	/**
-	 * Returns a list of images (class Image)
+	 * Returns a Collection of images (class Image)
 	 *
 	 * This is a factory method and should normally be used instead of creating
 	 * an ImageList object directly.

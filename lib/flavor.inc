@@ -7,7 +7,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -16,9 +16,10 @@ namespace OpenCloud\Compute;
 require_once('base.inc');
 
 /**
- * The Flavor class represents a flavor defined by the Compute service.
+ * The Flavor class represents a flavor defined by the Compute service
+ * 
  * At its simplest, a Flavor represents a combination of RAM, disk space,
- * and compute CPUs, though there are other extended attributes
+ * and compute CPUs, though there are other extended attributes.
  */
 class Flavor extends \OpenCloud\Base {
     public
@@ -37,8 +38,8 @@ class Flavor extends \OpenCloud\Base {
         $flavorurl;  // the URL of this image
 
     /**
-     * creates a new flavor object; if ID is specified, then the
-     * flavor with the specified ID is retrieved.
+     * Creates a new flavor object; if ID is specified, then the
+     * flavor with the specified ID is retrieved
      *
      * @param $id - the ID of the flavor to retrieve; otherwise, an empty
      *    Flavor object is created.
@@ -99,16 +100,16 @@ class Flavor extends \OpenCloud\Base {
     }
 
     /**
-     * validate extension attributes
+     * Validates extension attributes
      */
     public function __set($name, $value) {
         $this->SetProperty($name, $value, $this->Service()->namespaces());
     }
 
     /**
-     *
+     * Returns the service associated with this Flavor
      */
     public function Service() {
         return $this->service;
     }
-} // class Image
+} // class Flavor

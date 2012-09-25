@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -19,7 +19,8 @@ require_once('objstorebase.inc');
 /**
  * A DataObject is an object in the ObjectStore
  *
- * I'm using the name DataObject because "Object" just seems too generic to me.
+ * This class uses the name DataObject because "Object" is too generic and conflicts with
+ * certain PHP keywords.
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
@@ -68,7 +69,7 @@ class DataObject extends ObjStoreBase {
 	} // __construct()
 
 	/**
-	 * returns the URL of the data object
+	 * Returns the URL of the data object
 	 *
 	 * If the object is new and doesn't have a name, then an exception is
 	 * thrown.
@@ -83,7 +84,7 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
-	 * creates (or updates; both the same) an instance of the object
+	 * Creates (or updates; both the same) an instance of the object
 	 *
 	 * @api
 	 * @param array $params an optional associative array that can contain the
@@ -163,7 +164,7 @@ class DataObject extends ObjStoreBase {
 	} // create()
 
 	/**
-	 * update() is provided as an alias for the create() function
+	 * Update() is provided as an alias for the Create() method
 	 *
 	 * Since update and create both use a PUT request, the different functions
 	 * may allow the developer to distinguish between the semantics in his or
@@ -180,7 +181,7 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
-	 * delete() removes an object
+	 * Deletes an object from the Object Store
 	 *
 	 * Note that we can delete without retrieving by specifying the name in the
 	 * parameter array.
@@ -212,7 +213,10 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
-	 * copies the object to another container/object
+	 * Copies the object to another container/object
+	 *
+	 * Note that this function, because it operates within the Object Store itself,
+	 * is much faster than downloading the object and re-uploading it to a new object.
 	 *
 	 * @param DataObject $target the target of the COPY command
 	 */
@@ -234,7 +238,7 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
-	 * returns the container of the object
+	 * Returns the container of the object
 	 *
 	 * @return Container
 	 */
@@ -243,7 +247,7 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
-	 * Set object data from string
+	 * Sets object data from string
 	 *
 	 * This is a convenience function to permit the use of other technologies
 	 * for setting an object's content.
@@ -266,7 +270,7 @@ class DataObject extends ObjStoreBase {
 	}
 
     /**
-     * Save Object's data to local filename
+     * Saves the object's data to local filename
      *
      * Given a local filename, the Object's data will be written to the newly
      * created file.
@@ -307,7 +311,7 @@ class DataObject extends ObjStoreBase {
     }
 
     /**
-     * Object's MD5 checksum
+     * Returns the object's MD5 checksum
      *
      * Accessor method for reading Object's private ETag attribute.
      *
@@ -322,7 +326,7 @@ class DataObject extends ObjStoreBase {
     /********** CDN METHODS **********/
 
     /**
-     * Purge the object from the CDN
+     * Purges the object from the CDN
      *
      * Note that the object will still be served up to the time of its
      * TTL value.
@@ -388,7 +392,7 @@ class DataObject extends ObjStoreBase {
 	/********** PRIVATE METHODS **********/
 
 	/**
-	 * sets parameters from an array; validates them
+	 * Sets parameters from an array; validates them
 	 *
 	 * @param array $params associative array of parameters
 	 * @return void
@@ -414,7 +418,7 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
-	 * retrieves a single object, parses headers
+	 * Retrieves a single object, parses headers
 	 *
 	 * @return void
 	 * @throws NoNameError, ObjFetchError
@@ -462,7 +466,7 @@ class DataObject extends ObjStoreBase {
 	}
 
     /**
-     * Internal check to get the proper mimetype.
+     * Performs an internal check to get the proper MIME type for an object
      *
      * This function would go over the available PHP methods to get
      * the MIME type.

@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -58,7 +58,7 @@ class Database extends \OpenCloud\Base {
     }
 
     /**
-     * returns the Url of the Database
+     * Returns the Url of the Database
      *
      * @api
      * @return string
@@ -72,7 +72,7 @@ class Database extends \OpenCloud\Base {
     }
 
     /**
-     * returns the Instance of the database
+     * Returns the Instance of the database
      *
      * @return Instance
      */
@@ -81,7 +81,7 @@ class Database extends \OpenCloud\Base {
     }
 
     /**
-     * returns the related service
+     * Returns the related service
      *
      * @return \OpenCloud\DbService
      */
@@ -90,7 +90,7 @@ class Database extends \OpenCloud\Base {
     }
 
     /**
-     * creates a new database
+     * Creates a new database
      *
      * @api
      * @param array $params array of attributes to set prior to Create
@@ -124,7 +124,7 @@ class Database extends \OpenCloud\Base {
     }
 
     /**
-     * updates an existing database
+     * Updates an existing database
      *
      * @param array $params ignored
      * @throws DatabaseUpdateError always; updates are not permitted
@@ -136,7 +136,7 @@ class Database extends \OpenCloud\Base {
     }
 
     /**
-     * deletes a database
+     * Deletes a database
      *
      * @api
      * @return \OpenCloud\HttpResponseb
@@ -155,7 +155,7 @@ class Database extends \OpenCloud\Base {
     /********** PRIVATE METHODS **********/
 
     /**
-     * returns the JSON object for creating the database
+     * Returns the JSON object for creating the database
      */
     private function CreateJson($params=array()) {
         $obj = new \stdClass();

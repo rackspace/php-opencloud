@@ -7,7 +7,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -30,7 +30,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		$_service;
 
 	/**
-	 * retrieves the instance from persistent storage
+	 * Retrieves the instance from persistent storage
 	 *
 	 * @param OpenCloud\Nova $nova the service object
 	 * @param mixed $info the ID or array/object of data
@@ -51,7 +51,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * returns the default URL of the object
+	 * Returns the default URL of the object
 	 *
 	 * This may have to be overridden in subclasses.
 	 *
@@ -78,7 +78,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * waits for the server/instance status to change
+	 * Waits for the server/instance status to change
 	 *
 	 * This function repeatedly polls the system for a change in server
 	 * status. Once the status reaches the `$terminal` value (or 'ERROR'),
@@ -115,14 +115,14 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * returns the service object associated with this server
+	 * Returns the Service object associated with this server
 	 */
 	public function Service() {
 		return $this->_service;
 	}
 
 	/**
-	 * Validates properties that have a namespace: prefix.
+	 * Validates properties that have a namespace: prefix
 	 *
 	 * If the property prefix: appears in the list of supported extension
 	 * namespaces, then the property is applied to the object. Otherwise,
@@ -138,7 +138,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
     }
 
 	/**
-	 * refreshes the server from the origin (useful when the server is
+	 * Refreshes the server from the origin (useful when the server is
 	 * changing states)
 	 *
 	 * @return void
@@ -188,10 +188,11 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	/********** PROTECTED METHODS **********/
 
 	/**
-	 * action(object) - sends the json string to the /action resource.
+	 * Sends the json string to the /action resource
+	 *
 	 * This is used for many purposes, such as rebooting the server,
 	 * setting the root password, creating images, etc.
-	 * Since it can only be used on a live server, it checks for a valid ID
+	 * Since it can only be used on a live server, it checks for a valid ID.
 	 *
 	 * @param $object - this will be encoded as json, and we handle all the JSON
 	 *     error-checking in one place
@@ -247,7 +248,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * Since each server can have multiple likes, this returns the desired one
+	 * Since each server can have multiple links, this returns the desired one
 	 *
 	 * @param string $type - 'self' is most common; use 'bookmark' for
 	 *      the version-independent one
@@ -266,7 +267,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * returns the top-level document identifier; should be overridden in child classes
+	 * Returns the top-level document identifier; must be overridden in child classes
 	 *
 	 * For example, a server document is (JSON) `{"server": ...}` and an Instance
 	 * document is `{"instance": ...}` - this function must return the top level
@@ -281,7 +282,8 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * returns the resource name for the URL of the object
+	 * Returns the resource name for the URL of the object; must be overridden in child
+	 * classes
 	 *
 	 * For example, a server is /servers/, a database instance is /instances/.
 	 * Must be overridden in child classes.

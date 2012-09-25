@@ -7,7 +7,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -31,7 +31,7 @@ class ServerMetadata extends \OpenCloud\Metadata {
 		$_url;				// the URL of this particular metadata item or block
 
 	/**
-	 * Contruct a Metadata object associated with a Server or Image object
+	 * Contructs a Metadata object associated with a Server or Image object
 	 *
 	 * @param object $parent either a Server or an Image object
 	 * @param string $key the (optional) key for the metadata item
@@ -77,7 +77,7 @@ class ServerMetadata extends \OpenCloud\Metadata {
 	}
 
 	/**
-	 * sets a new metadata value or block
+	 * Sets a new metadata value or block
 	 *
 	 * Note that, if you're setting a block, the block specified will
 	 * *entirely replace* the existing block.
@@ -103,7 +103,7 @@ class ServerMetadata extends \OpenCloud\Metadata {
 	}
 
 	/**
-	 * updates a metadata key or block
+	 * Updates a metadata key or block
 	 *
 	 * @api
 	 * @return void
@@ -126,7 +126,7 @@ class ServerMetadata extends \OpenCloud\Metadata {
 	}
 
 	/**
-	 * deletes a metadata key or block
+	 * Deletes a metadata key or block
 	 *
 	 * @api
 	 * @return void
@@ -148,7 +148,7 @@ class ServerMetadata extends \OpenCloud\Metadata {
 	}
 
 	/**
-	 * returns the parent object
+	 * Returns the parent Server object
 	 *
 	 * @return Server
 	 */
@@ -157,8 +157,8 @@ class ServerMetadata extends \OpenCloud\Metadata {
 	}
 
 	/**
-	 * This setter overrides the base one, since the metadata key can be
-	 * anything
+	 * Overrides the base setter method, since the metadata key can be
+	 * anything (no name-checking is required)
 	 *
 	 * @param string $key
 	 * @param string $value
@@ -180,7 +180,7 @@ class ServerMetadata extends \OpenCloud\Metadata {
 	/********** PRIVATE METHODS **********/
 
 	/**
-	 * builds a metadata JSON string
+	 * Builds a metadata JSON string
 	 *
 	 * @return string
 	 * @throws MetadataJsonError

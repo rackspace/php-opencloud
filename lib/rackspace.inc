@@ -7,7 +7,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -52,6 +52,8 @@ ENDCRED;
 
 	/**
 	 * Generates Rackspace API key credentials
+	 *
+	 * @return string
 	 */
     public function Credentials() {
     	$sec = $this->Secret();
@@ -68,9 +70,9 @@ ENDCRED;
      *
      * This is a factory method that is Rackspace-only (NOT part of OpenStack).
      *
-     * @param string $name
-     * @param string $region
-     * @param string $urltype
+     * @param string $name the name of the service (e.g., 'Cloud Databases')
+     * @param string $region the region (e.g., 'DFW')
+     * @param string $urltype the type of URL (e.g., 'publicURL');
      */
     public function DbService($name=NULL, $region=NULL, $urltype=NULL) {
         return $this->Service('DbService', $name, $region, $urltype);

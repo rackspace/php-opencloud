@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -68,7 +68,7 @@ class User extends \OpenCloud\Base {
     }
 
     /**
-     * returns the Url of the User
+     * Returns the Url of the User
      *
      * @return string
      * @throws UserNameError if the user name is not set
@@ -82,7 +82,7 @@ class User extends \OpenCloud\Base {
     }
 
     /**
-     * returns the Instance of the User
+     * Returns the Instance of the User
      *
      * @return Instance
      */
@@ -91,7 +91,7 @@ class User extends \OpenCloud\Base {
     }
 
     /**
-     * returns the related service
+     * Returns the related service
      *
      * @return \OpenCloud\DbService
      */
@@ -100,7 +100,7 @@ class User extends \OpenCloud\Base {
     }
 
 	/**
-	 * adds a new database to the list of databases for the user
+	 * Adds a new database to the list of databases for the user
 	 *
 	 * @api
 	 * @param string $dbname the database name to be added
@@ -111,7 +111,7 @@ class User extends \OpenCloud\Base {
 	}
 
 	/**
-	 * creates a new database user
+	 * Creates a new database user
 	 *
 	 * @api
 	 * @param array $params an associative array of parameters
@@ -145,7 +145,7 @@ class User extends \OpenCloud\Base {
 	}
 
 	/**
-	 * updates a database user (not currently permitted)
+	 * Updates a database user (not currently permitted)
 	 *
 	 * @param array $params not currently used, but provided for future updates
 	 * @throws UserUpdateError always; updates are not currently permitted by
@@ -157,7 +157,7 @@ class User extends \OpenCloud\Base {
 	}
 
 	/**
-	 * deletes a database user
+	 * Deletes a database user
 	 *
 	 * @api
 	 * @return \OpenCloud\HttpResponse
@@ -181,7 +181,7 @@ class User extends \OpenCloud\Base {
 	/********** PRIVATE METHODS **********/
 
 	/**
-	 * creates the JSON object for Creates
+	 * Creates the JSON object for the Create method
 	 */
 	private function CreateJson() {
 		// build the object

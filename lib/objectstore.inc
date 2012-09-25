@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -18,8 +18,8 @@ require_once('container.inc');
 define('SWIFT_MAX_OBJECT_SIZE', 5*1024*1024*1024+1);
 
 /**
- * A base class for common code between the ObjectStore and ObjectStoreCDN
- * objects.
+ * A base class for common code shared between the ObjectStore and ObjectStoreCDN
+ * objects
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
@@ -32,14 +32,14 @@ class ObjectStoreBase extends Service {
 
     /**
      * Returns the URL of the service, selected from the connection's
-     * serviceCatalog.
+     * serviceCatalog
      */
 	public function Url() {
 		return noslash(parent::Url());
 	}
 
     /**
-     * Creates a container object associated with the ObjectStore
+     * Creates a Container object associated with the ObjectStore
      *
      * This is a factory method and should generally be used instead of
      * calling the Container class directly.
@@ -169,7 +169,7 @@ class ObjectStore extends ObjectStoreBase {
 class ObjectStoreCDN extends ObjectStoreBase {
 
     /**
-     * Create a new ObjectStoreCDN object
+     * Creates a new ObjectStoreCDN object
      *
      * This is a simple wrapper function around the parent Service construct,
      * but supplies defaults for the service type.
@@ -196,8 +196,8 @@ class ObjectStoreCDN extends ObjectStoreBase {
 	}
 
 	/**
-	 * This should catch errors where someone calls the method on the
-	 * wrong object.
+	 * Helps catch errors if someone calls the method on the
+	 * wrong object
 	 */
 	public function CDN() {
 	    throw new ObjectStore\CdnError(

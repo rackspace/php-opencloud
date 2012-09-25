@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -33,7 +33,7 @@ class Collection extends Base {
 		$sortkey;
 
 	/**
-	 * a Collection is an array of objects
+	 * A Collection is an array of objects
 	 *
 	 * @param Service $service - the service associated with the collection
 	 * @param string $itemclass - the Class of each item in the collection
@@ -50,7 +50,7 @@ class Collection extends Base {
 	}
 
 	/**
-	 * retrieves the service associated with the Collection
+	 * Retrieves the service associated with the Collection
 	 *
 	 * @return Service
 	 */
@@ -59,7 +59,7 @@ class Collection extends Base {
 	}
 	
 	/**
-	 * resets the pointer to the beginning, but does NOT return the first item
+	 * Resets the pointer to the beginning, but does NOT return the first item
 	 *
 	 * @api
 	 * @return void
@@ -69,7 +69,9 @@ class Collection extends Base {
 	}
 
 	/**
-	 * Resets the collection pointer back to the first item in the set
+	 * Resets the collection pointer back to the first item in the set and returns it
+	 *
+	 * This is useful if you're only interested in the first item in the set.
 	 *
 	 * @api
 	 * @return Base the first item in the set
@@ -119,7 +121,7 @@ class Collection extends Base {
 	/********** PRIVATE METHODS **********/
 	
 	/**
-	 * compares two values of sort keys
+	 * Compares two values of sort keys
 	 */
 	private function sortCompare($a, $b) {
 		$key = $this->sortkey;

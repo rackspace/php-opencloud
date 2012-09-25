@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -16,7 +16,9 @@ require_once('base.inc');
 
 /**
  * The Image class represents a stored machine image returned by the
- * Compute service. In the future, this may be abstracted to access
+ * Compute service.
+ *
+ * In the future, this may be abstracted to access
  * Glance (the OpenStack image store) directly, but it is currently
  * not available to Rackspace customers, so we're using the /images
  * resource on the servers API endpoint.
@@ -39,7 +41,7 @@ class Image extends \OpenCloud\Base {
         $imageurl;  // the URL of this image
 
     /**
-     * creates a new image object; if ID is specified, then the
+     * Creates a new image object; if ID is specified, then the
      * image with the specified ID is retrieved.
      *
      * @param $id - the ID of the image to retrieve; otherwise, an empty
@@ -88,14 +90,14 @@ class Image extends \OpenCloud\Base {
     }
 
     /**
-     * validate extension attributes
+     * Validates extension attributes
      */
     public function __set($name, $value) {
         $this->SetProperty($name, $value, $this->Service()->namespaces());
     }
 
     /**
-     * return Service object
+     * Returns the associated Service object
      */
     public function Service() {
         return $this->service;

@@ -44,6 +44,7 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
+$rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
 
 step('Connect to Cloud Servers');
 $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');

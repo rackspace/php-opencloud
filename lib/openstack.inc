@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -22,7 +22,7 @@ require_once('compute.inc');
  * This is the primary entry point into an OpenStack system, and the only one
  * where the developer is required to know and provide the endpoint URL (in
  * all other cases, the endpoint is derived from the Service Catalog provided
- * by the authentication system.
+ * by the authentication system).
  *
  * Since various providers have different mechanisms for authentication, users
  * will often use a subclass of OpenStack. For example, the Rackspace
@@ -137,7 +137,7 @@ class OpenStack extends \OpenCloud\Base {
 	}
 
 	/**
-	 * returns the URL of this object
+	 * Returns the URL of this object
 	 *
 	 * @api
 	 * @return string
@@ -168,7 +168,7 @@ class OpenStack extends \OpenCloud\Base {
 	}
 
     /**
-     * returns the tenant ID, re-authenticating if necessary
+     * Returns the tenant ID, re-authenticating if necessary
      *
      * @api
      * @return string
@@ -180,7 +180,7 @@ class OpenStack extends \OpenCloud\Base {
 	}
 
     /**
-     * returns the service catalog object from the auth service
+     * Returns the service catalog object from the auth service
      *
      * @return \stdClass
      */

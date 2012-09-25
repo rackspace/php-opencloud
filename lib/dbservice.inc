@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -49,7 +49,7 @@ class DbService extends Nova {
 	}
 
 	/**
-	 * returns a list of flavors
+	 * Returns a list of flavors
 	 *
 	 * just call the parent FlavorList() method, but pass FALSE
 	 * because the /flavors/detail resource is not supported
@@ -62,7 +62,7 @@ class DbService extends Nova {
 	}
 
 	/**
-	 * Factory method to create a Instance object
+	 * Creates a Instance object
 	 *
 	 * @api
 	 * @param string $id the ID of the instance to retrieve
@@ -73,7 +73,7 @@ class DbService extends Nova {
 	}
 
 	/**
-	 * Factory method to create a Collection of Instance objects
+	 * Creates a Collection of Instance objects
 	 *
 	 * @api
 	 * @param array $params array of parameters to pass to the request as query strings

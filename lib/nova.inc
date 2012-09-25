@@ -7,7 +7,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -18,7 +18,7 @@ require_once('flavor.inc');
 require_once('collection.inc');
 
 /**
- * Nova is an abstraction layer for the OpenStack compute service
+ * Nova is an abstraction layer for the OpenStack compute service.
  *
  * Nova is used as a basis for several products, including Compute services
  * as well as Rackspace's Cloud Databases.
@@ -61,7 +61,7 @@ abstract class Nova extends Service {
 	} // function __construct()
 
 	/**
-	 * returns the selected endpoint URL of this compute Service
+	 * Returns the selected endpoint URL of this Compute Service
 	 *
 	 * @param string $resource - a child resource. For example,
 	 *      passing 'servers' would return .../servers. Should *not* be
@@ -80,7 +80,7 @@ abstract class Nova extends Service {
 	}
 
 	/**
-	 * returns a flavor from the service
+	 * Returns a flavor from the service
 	 *
 	 * This is a factory method and should generally be called instead of
 	 * creating a Flavor object directly.
@@ -95,7 +95,7 @@ abstract class Nova extends Service {
 	} // flavor()
 
 	/**
-	 * Returns a list of flavors (class Flavor)
+	 * Returns a list of Flavor objects
 	 *
 	 * This is a factory method and should generally be called instead of
 	 * creating a FlavorList object directly.
@@ -125,7 +125,7 @@ abstract class Nova extends Service {
 
     /**
      * Gets a request from an HTTP source and ensures that the
-     * content type is always application/json
+     * content type is always "application/json"
      *
      * This is a simple subclass of the parent::Request() method that ensures
      * that all Compute requests use application/json as the Content-Type:

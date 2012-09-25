@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -34,7 +34,7 @@ abstract class Base {
 
 	// debug() - display a debug message
 	/**
-	 * Displays a debug message if RAXSDK_DEBUG is TRUE.
+	 * Displays a debug message if $RAXSDK_DEBUG is TRUE
 	 *
 	 * The primary parameter is a string in sprintf() format, and it can accept
 	 * up to five optional parameters. It prints the debug message, prefixed
@@ -61,7 +61,7 @@ abstract class Base {
 	}
 
     /**
-     * returns the URL of the service/object
+     * Returns the URL of the service/object
      *
      * The assumption is that nearly all objects will have a URL; at this
      * base level, it simply throws an exception to enforce the idea that
@@ -119,7 +119,7 @@ abstract class Base {
 	}
 
 	/**
-	 * converts an array of key/value pairs into a single query string
+	 * Converts an array of key/value pairs into a single query string
 	 *
 	 * For example, array('A'=>1,'B'=>2) would become 'A=1&B=2'
 	 *
@@ -138,7 +138,7 @@ abstract class Base {
 	}
 
 	/**
-	 * check the most recent JSON operation for errors
+	 * Checks the most recent JSON operation for errors
 	 *
 	 * This function should be called after any `json_*()` function call.
 	 * This ensures that nasty JSON errors are detected and the proper
@@ -185,16 +185,17 @@ abstract class Base {
 	/********** PRIVATE METHODS **********/
 
 	/**
-	 * returns a class that implements the HttpRequest interface.
-	 * We can stub this out for unit testing and avoid making live calls.
+	 * Returns a class that implements the HttpRequest interface.
+	 *
+	 * This can be stubbed out for unit testing and avoid making live calls.
 	 */
 	protected function GetHttpRequestObject($url, $method='GET') {
 		return new CurlRequest($url, $method);
 	}
 
 	/**
-	 * Checks the attribute $name and only permits it if the prefix is
-	 * in the specified $prefix array
+	 * Checks the attribute $property and only permits it if the prefix is
+	 * in the specified $prefixes array
 	 *
 	 * This is to support extension namespaces in some services.
 	 *
@@ -211,7 +212,7 @@ abstract class Base {
 	}
 
     /**
-     * converts a value to a HTTP-displayable string form
+     * Converts a value to a HTTP-displayable string form
      */
     private function to_string($x) {
         if (is_bool($x) && $x)

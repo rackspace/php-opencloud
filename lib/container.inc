@@ -6,7 +6,7 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0.0
+ * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -62,7 +62,7 @@ class CDNContainer extends ObjStoreBase {
 	} // __construct()
 
     /**
-     * returns the URL of the container
+     * Returns the URL of the container
      *
      * @return string
      * @throws NoNameError
@@ -74,7 +74,7 @@ class CDNContainer extends ObjStoreBase {
 	}
 
 	/**
-	 * creates a new container with the specified attributes
+	 * Creates a new container with the specified attributes
 	 *
 	 * @param string $name the name of the new object
 	 * @return boolean TRUE on success; FALSE on failure
@@ -132,7 +132,7 @@ class CDNContainer extends ObjStoreBase {
 	}
 
 	/**
-	 * deletes the specified container
+	 * Deletes the specified container
 	 *
 	 * @return boolean TRUE on success; FALSE on failure
 	 * @throws ContainerDeleteError
@@ -166,7 +166,7 @@ class CDNContainer extends ObjStoreBase {
 	}
 
 	/**
-	 * creates a Collection of objects in the container
+	 * Creates a Collection of objects in the container
 	 *
 	 * @param array $params associative array of parameter values.
      * * account/tenant	- The unique identifier of the account/tenant.
@@ -227,7 +227,7 @@ class CDNContainer extends ObjStoreBase {
 	} // object_list()
 
 	/**
-	 * returns a new DataObject associated with this container
+	 * Returns a new DataObject associated with this container
 	 *
 	 * @param string $name if supplied, the name of the object to return
 	 * @return DataObject
@@ -237,7 +237,7 @@ class CDNContainer extends ObjStoreBase {
 	}
 
 	/**
-	 * the Service associated with the Container
+	 * Returns the Service associated with the Container
 	 */
 	public function Service() {
 		return $this->service;
@@ -246,7 +246,7 @@ class CDNContainer extends ObjStoreBase {
 	/********** PRIVATE METHODS **********/
 
 	/**
-	 * Load the object from the service
+	 * Loads the object from the service
 	 *
 	 * @return void
 	 */
@@ -271,7 +271,7 @@ class CDNContainer extends ObjStoreBase {
 	}
 
 	/**
-	 * Validate that the container name is acceptable
+	 * Validates that the container name is acceptable
 	 *
 	 * @param string $name the container name to validate
 	 * @return boolean TRUE if ok; throws an exception if not
@@ -306,7 +306,7 @@ class Container extends CDNContainer {
         $_cdn;      // holds the related CDN container (if any)
 
 	/**
-	 * Make the container public via the CDN
+	 * Makes the container public via the CDN
 	 *
 	 * @api
 	 * @param integer $TTL the Time-To-Live for the CDN container; if NULL,
@@ -494,7 +494,7 @@ class Container extends CDNContainer {
 	}
 
     /**
-     * Refresh, then associate the CDN container
+     * Refreshes, then associates the CDN container
      */
     protected function Refresh() {
         parent::Refresh();
