@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project version="2.0.0a8" title="">
+<project version="2.0.0a10" title="">
   <file path="base.inc" hash="47645b4c76c708781179beb5bf8889c8" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The root class for all other classes in this library]]></description>
@@ -2625,7 +2625,7 @@ flavor with the specified ID is retrieved]]></description>
       <error line="102" code="50015">Argument $value is missing from the Docblock of __set()</error>
     </parse_markers>
   </file>
-  <file path="globals.inc" hash="e6fd02522da33cd44d8d4552346cb692" package="phpOpenCloud">
+  <file path="globals.inc" hash="2dda56efc452f80cfd96bd3bd26a16bb" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines global constants and functions]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -2707,7 +2707,7 @@ flavor with the specified ID is retrieved]]></description>
     <constant namespace="global" line="80" package="phpOpenCloud">
       <name>RAXSDK_POLL_INTERVAL</name>
       <full_name>\RAXSDK_POLL_INTERVAL</full_name>
-      <value><![CDATA[20]]></value>
+      <value><![CDATA[5]]></value>
     </constant>
     <constant namespace="global" line="82" package="phpOpenCloud">
       <name>RAXSDK_DEFAULT_IP_VERSION</name>
@@ -5790,7 +5790,7 @@ $conn = new Rackspace(
       </method>
     </class>
   </file>
-  <file path="server.inc" hash="fb8891792117d7de12062ba8974d0386" package="phpOpenCloud">
+  <file path="server.inc" hash="ce4d6e340c06ec2ba423d7828bc10510" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines an OpenStack Compute virtual server]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -5958,7 +5958,7 @@ routed through a NAT device to be reached.</p>]]></long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="119" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="121" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
         <docblock line="107">
@@ -5967,6 +5967,9 @@ routed through a NAT device to be reached.</p>]]></long-description>
           <tag line="107" name="api" description=""/>
           <tag line="107" name="param" description="- an associative array of key/value pairs of attributes to set on the new server" type="array" variable="$params">
             <type by_reference="false">array</type>
+          </tag>
+          <tag line="107" name="param" description="- if TRUE, performs a rebuild of an existing server" type="boolean" variable="$rebuild">
+            <type by_reference="false">boolean</type>
           </tag>
           <tag line="107" name="return" description="- this will include the administrative password in the body" type="\OpenCloud\Compute\HttpResponse">
             <type by_reference="false">\OpenCloud\Compute\HttpResponse</type>
@@ -5981,250 +5984,312 @@ routed through a NAT device to be reached.</p>]]></long-description>
             <type by_reference="false">\OpenCloud\Compute\UnknownError</type>
           </tag>
         </docblock>
-        <argument line="119">
+        <argument line="121">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+        <argument line="121">
+          <name>$rebuild</name>
+          <default><![CDATA[TRUE]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="164" package="Default">
+        <name>Rebuild</name>
+        <full_name>Rebuild</full_name>
+        <docblock line="157">
+          <description><![CDATA[Rebuilds an existing server]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="157" name="api" description=""/>
+          <tag line="157" name="param" description="- an associative array of key/value pairs of attributes to set on the new server" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="164">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="162" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="175" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
-        <docblock line="155">
+        <docblock line="168">
           <description><![CDATA[Deletes a server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="155" name="api" description=""/>
-          <tag line="155" name="return" description="" type="\OpenCloud\Compute\HttpResponse">
+          <tag line="168" name="api" description=""/>
+          <tag line="168" name="return" description="" type="\OpenCloud\Compute\HttpResponse">
             <type by_reference="false">\OpenCloud\Compute\HttpResponse</type>
           </tag>
-          <tag line="155" name="throws" description="ServerDeleteError" type="\OpenCloud\Compute\HttpError,">
+          <tag line="168" name="throws" description="ServerDeleteError" type="\OpenCloud\Compute\HttpError,">
             <type by_reference="false">\OpenCloud\Compute\HttpError,</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="190" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="203" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <docblock line="178">
+        <docblock line="191">
           <description><![CDATA[Updates a server]]></description>
           <long-description><![CDATA[<p>Because of the way Nova handles update requests, the only properties you
 can modify are the server name and the accessIPvX values.</p>]]></long-description>
-          <tag line="178" name="api" description=""/>
-          <tag line="178" name="param" description="- optional associative array of key values pairs to set on the server before updating it." type="array" variable="$params">
+          <tag line="191" name="api" description=""/>
+          <tag line="191" name="param" description="- optional associative array of key values pairs to set on the server before updating it." type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="178" name="return" description="" type="\OpenCloud\Compute\HttpResponse">
+          <tag line="191" name="return" description="" type="\OpenCloud\Compute\HttpResponse">
             <type by_reference="false">\OpenCloud\Compute\HttpResponse</type>
           </tag>
-          <tag line="178" name="throws" description="ServerUpdateError" type="\OpenCloud\Compute\HttpError,">
+          <tag line="191" name="throws" description="ServerUpdateError" type="\OpenCloud\Compute\HttpError,">
             <type by_reference="false">\OpenCloud\Compute\HttpError,</type>
           </tag>
         </docblock>
-        <argument line="190">
+        <argument line="203">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="219" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="232" package="Default">
         <name>Reboot</name>
         <full_name>Reboot</full_name>
-        <docblock line="211">
+        <docblock line="224">
           <description><![CDATA[Reboots a server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="211" name="api" description=""/>
-          <tag line="211" name="param" description="- either 'soft' (the default) or 'hard' to indicate the type of reboot" type="string" variable="$type">
+          <tag line="224" name="api" description=""/>
+          <tag line="224" name="param" description="- either 'soft' (the default) or 'hard' to indicate the type of reboot" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="211" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="224" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="219">
+        <argument line="232">
           <name>$type</name>
           <default><![CDATA[RAXSDK_SOFT_REBOOT]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="235" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="248" package="Default">
         <name>CreateImage</name>
         <full_name>CreateImage</full_name>
-        <docblock line="227">
+        <docblock line="240">
           <description><![CDATA[Creates a new image from a server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="227" name="api" description=""/>
-          <tag line="227" name="param" description="The name of the new image" type="string" variable="$name">
+          <tag line="240" name="api" description=""/>
+          <tag line="240" name="param" description="The name of the new image" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="227" name="param" description="Optional metadata to be stored on the image" type="array" variable="$metadata">
+          <tag line="240" name="param" description="Optional metadata to be stored on the image" type="array" variable="$metadata">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="227" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="240" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="235">
+        <argument line="248">
           <name>$name</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="235">
+        <argument line="248">
           <name>$metadata</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="257" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="270" package="Default">
         <name>Resize</name>
         <full_name>Resize</full_name>
-        <docblock line="250">
+        <docblock line="263">
           <description><![CDATA[Initiates the resize of a server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="250" name="api" description=""/>
-          <tag line="250" name="param" description="a Flavor object indicating the new server size" type="\OpenCloud\Compute\Flavor" variable="$flavorRef">
+          <tag line="263" name="api" description=""/>
+          <tag line="263" name="param" description="a Flavor object indicating the new server size" type="\OpenCloud\Compute\Flavor" variable="$flavorRef">
             <type by_reference="false">\OpenCloud\Compute\Flavor</type>
           </tag>
-          <tag line="250" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="263" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="257">
+        <argument line="270">
           <name>$flavorRef</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\Compute\Flavor</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="271" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="284" package="Default">
         <name>ResizeConfirm</name>
         <full_name>ResizeConfirm</full_name>
-        <docblock line="265">
+        <docblock line="278">
           <description><![CDATA[confirms the resize of a server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="265" name="api" description=""/>
-          <tag line="265" name="return" description="TRUE on success; FALSE on failure" type="boolean">
-            <type by_reference="false">boolean</type>
-          </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="285" package="Default">
-        <name>ResizeRevert</name>
-        <full_name>ResizeRevert</full_name>
-        <docblock line="279">
-          <description><![CDATA[reverts the resize of a server]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="279" name="api" description=""/>
-          <tag line="279" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="278" name="api" description=""/>
+          <tag line="278" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
       </method>
       <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="298" package="Default">
-        <name>SetPassword</name>
-        <full_name>SetPassword</full_name>
-        <docblock line="291">
-          <description><![CDATA[Sets the root password on the server]]></description>
+        <name>ResizeRevert</name>
+        <full_name>ResizeRevert</full_name>
+        <docblock line="292">
+          <description><![CDATA[reverts the resize of a server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="291" name="api" description=""/>
-          <tag line="291" name="param" description="The new root password for the server" type="string" variable="$newpasswd">
-            <type by_reference="false">string</type>
-          </tag>
-          <tag line="291" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="292" name="api" description=""/>
+          <tag line="292" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
         </docblock>
-        <argument line="298">
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="311" package="Default">
+        <name>SetPassword</name>
+        <full_name>SetPassword</full_name>
+        <docblock line="304">
+          <description><![CDATA[Sets the root password on the server]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="304" name="api" description=""/>
+          <tag line="304" name="param" description="The new root password for the server" type="string" variable="$newpasswd">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="304" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="311">
           <name>$newpasswd</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="318" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="328" package="Default">
+        <name>Rescue</name>
+        <full_name>Rescue</full_name>
+        <docblock line="319">
+          <description><![CDATA[Puts the server into *rescue* mode]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="319" name="api" description=""/>
+          <tag line="319" name="link" description="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html" link="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html"/>
+          <tag line="319" name="return" description="the root password of the rescue server" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="319" name="throws" description="if the server has no ID (i.e., has not been created yet)" type="\OpenCloud\Compute\ServerActionError">
+            <type by_reference="false">\OpenCloud\Compute\ServerActionError</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="356" package="Default">
+        <name>Unrescue</name>
+        <full_name>Unrescue</full_name>
+        <docblock line="347">
+          <description><![CDATA[Takes the server out of *rescue* mode]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="347" name="api" description=""/>
+          <tag line="347" name="link" description="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html" link="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html"/>
+          <tag line="347" name="return" description="" type="\OpenCloud\Compute\HttpResponse">
+            <type by_reference="false">\OpenCloud\Compute\HttpResponse</type>
+          </tag>
+          <tag line="347" name="throws" description="if the server has no ID (i.e., has not been created yet)" type="\OpenCloud\Compute\ServerActionError">
+            <type by_reference="false">\OpenCloud\Compute\ServerActionError</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="377" package="Default">
         <name>Metadata</name>
         <full_name>Metadata</full_name>
-        <docblock line="306">
+        <docblock line="365">
           <description><![CDATA[Retrieves the metadata associated with a Server]]></description>
           <long-description><![CDATA[<p>If a metadata item name is supplied, then only the single item is
 returned. Otherwise, the default is to return all metadata associated
 with a server.</p>]]></long-description>
-          <tag line="306" name="api" description=""/>
-          <tag line="306" name="param" description="- the (optional) name of the metadata item to return" type="string" variable="$key">
+          <tag line="365" name="api" description=""/>
+          <tag line="365" name="param" description="- the (optional) name of the metadata item to return" type="string" variable="$key">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="306" name="return" description="object" type="\OpenCloud\Compute\OpenCloud\Compute\Metadata">
+          <tag line="365" name="return" description="object" type="\OpenCloud\Compute\OpenCloud\Compute\Metadata">
             <type by_reference="false">\OpenCloud\Compute\OpenCloud\Compute\Metadata</type>
           </tag>
-          <tag line="306" name="throws" description="" type="\OpenCloud\Compute\MetadataError">
+          <tag line="365" name="throws" description="" type="\OpenCloud\Compute\MetadataError">
             <type by_reference="false">\OpenCloud\Compute\MetadataError</type>
           </tag>
         </docblock>
-        <argument line="318">
+        <argument line="377">
           <name>$key</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="339" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="398" package="Default">
         <name>ips</name>
         <full_name>ips</full_name>
-        <docblock line="330">
+        <docblock line="389">
           <description><![CDATA[Returns the IP address block for the Server or for a specific network]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="330" name="api" description=""/>
-          <tag line="330" name="param" description="- if supplied, then only the IP(s) for the specified network are returned. Otherwise, all IPs are returned." type="string" variable="$network">
+          <tag line="389" name="api" description=""/>
+          <tag line="389" name="param" description="- if supplied, then only the IP(s) for the specified network are returned. Otherwise, all IPs are returned." type="string" variable="$network">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="330" name="return" description="" type="object">
+          <tag line="389" name="return" description="" type="object">
             <type by_reference="false">object</type>
           </tag>
-          <tag line="330" name="throws" description="" type="\OpenCloud\Compute\ServerIpsError">
+          <tag line="389" name="throws" description="" type="\OpenCloud\Compute\ServerIpsError">
             <type by_reference="false">\OpenCloud\Compute\ServerIpsError</type>
           </tag>
         </docblock>
-        <argument line="339">
+        <argument line="398">
           <name>$network</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\Compute" line="364" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\Compute" line="425" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="359">
+        <docblock line="418">
           <description><![CDATA[Creates the JSON for creating a new server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="359" name="return" description="" type="\OpenCloud\Compute\json">
+          <tag line="418" name="param" description="creates {server ...} by default, but can also create {rebuild ...} by changing this parameter" type="string" variable="$element">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="418" name="return" description="" type="\OpenCloud\Compute\json">
             <type by_reference="false">\OpenCloud\Compute\json</type>
           </tag>
         </docblock>
+        <argument line="425">
+          <name>$element</name>
+          <default><![CDATA['server']]></default>
+          <type/>
+        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\Compute" line="403" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\Compute" line="464" package="Default">
         <name>UpdateJson</name>
         <full_name>UpdateJson</full_name>
-        <docblock line="398">
+        <docblock line="459">
           <description><![CDATA[creates the JSON for updating a server]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="398" name="return" description="" type="\OpenCloud\Compute\json">
+          <tag line="459" name="return" description="" type="\OpenCloud\Compute\json">
             <type by_reference="false">\OpenCloud\Compute\json</type>
           </tag>
         </docblock>
-        <argument line="403">
+        <argument line="464">
           <name>$params</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="416" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="477" package="Default">
         <name>JsonName</name>
         <full_name>JsonName</full_name>
-        <docblock line="413">
+        <docblock line="474">
           <description><![CDATA[the top-level JSON identifier]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="423" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="484" package="Default">
         <name>ResourceName</name>
         <full_name>ResourceName</full_name>
-        <docblock line="420">
+        <docblock line="481">
           <description><![CDATA[the URL resource]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
@@ -6254,7 +6319,7 @@ with a server.</p>]]></long-description>
       <error line="58" code="50014">Name of argument $service does not match with the DocBlock's name $info in __construct()</error>
       <error line="58" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $service in __construct()</error>
       <error line="58" code="50015">Argument $info is missing from the Docblock of __construct()</error>
-      <error line="398" code="50015">Argument $params is missing from the Docblock of UpdateJson()</error>
+      <error line="459" code="50015">Argument $params is missing from the Docblock of UpdateJson()</error>
     </parse_markers>
   </file>
   <file path="servermetadata.inc" hash="5b53aefa4a85b73e8742f014875bccb2" package="phpOpenCloud">
@@ -6943,9 +7008,6 @@ is not necessarily tied to an actual database.</p>]]></long-description>
       </method>
     </class>
     <parse_markers>
-      <critical line="23" code="50019">No short description for property $name</critical>
-      <critical line="23" code="50019">No short description for property $password</critical>
-      <critical line="23" code="50019">No short description for property $databases</critical>
       <error line="34" code="50018">No DocBlock was found for property $_instance</error>
     </parse_markers>
   </file>

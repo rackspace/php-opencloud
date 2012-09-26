@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -100,7 +101,9 @@ rax-bandwidth:bandwith</p><br><div id="methods_Server">
       <a style="font-style: italic;" href="#Server::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#Server::Metadata()">Metadata</a>,
       <a style="font-style: italic;" href="#Server::Reboot()">Reboot</a>,
+      <a style="font-style: italic;" href="#Server::Rebuild()">Rebuild</a>,
       <a style="font-style: italic;" href="#Server::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#Server::Rescue()">Rescue</a>,
       <a style="font-style: italic;" href="#Server::Resize()">Resize</a>,
       <a style="font-style: italic;" href="#Server::ResizeConfirm()">ResizeConfirm</a>,
       <a style="font-style: italic;" href="#Server::ResizeRevert()">ResizeRevert</a>,
@@ -108,6 +111,7 @@ rax-bandwidth:bandwith</p><br><div id="methods_Server">
       <a style="font-style: italic;" href="#Server::Service()">Service</a>,
       <a style="font-style: italic;" href="#Server::SetPassword()">SetPassword</a>,
       <a style="font-style: italic;" href="#Server::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#Server::Unrescue()">Unrescue</a>,
       <a style="font-style: italic;" href="#Server::Update()">Update</a>,
       <a style="font-style: italic;" href="#Server::UpdateJson()">UpdateJson</a>,
       <a style="font-style: italic;" href="#Server::Url()">Url</a>,
@@ -310,6 +314,10 @@ exception thrown.</p>
              
             $params
             = array(),
+          boolean
+             
+            $rebuild
+            = TRUE,
           
           )
         </span>
@@ -325,7 +333,8 @@ exception thrown.</p>
 <th>Description</th>
 <th>Default</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
@@ -333,7 +342,17 @@ exception thrown.</p>
 </ul>
 </td>
 <td>array()</td>
-</tr></tbody>
+</tr>
+<tr>
+<td>$rebuild</td>
+<td style="white-space: normal;">boolean</td>
+<td><ul>
+<li>if TRUE, performs a rebuild of an existing server</li>
+</ul>
+</td>
+<td>TRUE</td>
+</tr>
+</tbody>
 </table>
 <h4>Return value</h4>
 <table>
@@ -436,6 +455,10 @@ exception thrown.</p>
 </div>
 <div class="method">
 <a id="Server::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+          string
+             
+            $element
+            = 'server',
           
           )
         </span>
@@ -443,7 +466,23 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\Compute\json</span>
 </h3>
 <h4>Description</h4>
-<em>Creates the JSON for creating a new server</em><br><h4>Return value</h4>
+<em>Creates the JSON for creating a new server</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$element</td>
+<td style="white-space: normal;">string</td>
+<td><p>creates {server ...} by default, but can also create {rebuild ...} by changing this parameter</p>
+</td>
+<td>'server'</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -823,6 +862,60 @@ with a server.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="Server::Rebuild()"></a><h3>Rebuild<span class="nb-faded-text">(
+          array
+             
+            $params
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Rebuilds an existing server</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">array</td>
+<td><ul>
+<li>an associative array of key/value pairs of attributes to set on the new server</li>
+</ul>
+</td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Server::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
           
              
@@ -876,6 +969,48 @@ changing states)</em><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Refresh()"><small>\OpenCloud\Compute\NovaInstance::Refresh()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Server::Rescue()"></a><h3>Rescue<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Puts the server into *rescue* mode</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>the root password of the rescue server</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>link</td>
+<td><a href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html"><small>http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html</small></a></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if the server has no ID (i.e., has not been created yet)</td>
 </tr>
 </tbody>
 </table>
@@ -1188,6 +1323,48 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::SetProperty()"><small>\OpenCloud\Compute\NovaInstance::SetProperty()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Server::Unrescue()"></a><h3>Unrescue<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Compute\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>Takes the server out of *rescue* mode</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Compute\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>link</td>
+<td><a href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html"><small>http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html</small></a></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if the server has no ID (i.e., has not been created yet)</td>
 </tr>
 </tbody>
 </table>
@@ -2124,7 +2301,7 @@ routed through a NAT device to be reached.</p></small><br><h4>Arguments</h4>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
