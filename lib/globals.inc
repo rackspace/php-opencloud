@@ -77,7 +77,7 @@ if (!defined('RAXSDK_TIMEOUT'))
 if (!defined('RAXSDK_SERVER_MAXTIMEOUT'))
     define('RAXSDK_SERVER_MAXTIMEOUT', 3600);
 if (!defined('RAXSDK_POLL_INTERVAL'))
-    define('RAXSDK_POLL_INTERVAL', 20);
+    define('RAXSDK_POLL_INTERVAL', 5);
 if (!defined('RAXSDK_DEFAULT_IP_VERSION'))
     define('RAXSDK_DEFAULT_IP_VERSION', 4);
 if (!defined('RAXSDK_OVERLIMIT_TIMEOUT'))
@@ -101,7 +101,7 @@ define('RAXSDK_URL_VERSION_LIST', 'versionList');
  * We can re-authenticate this many seconds before the token expires
  *
  * Set this to a higher value if your service does not cache tokens; if it *does* cache
- * them, then this value is not required. 
+ * them, then this value is not required.
  */
 define('RAXSDK_FUDGE', 0);
 /**
