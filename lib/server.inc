@@ -321,25 +321,46 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 *
 	 * @api
 	 * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html
-	 * @return Server returns a new server object for the rescue server
+	 * @return string the root password of the rescue server
+	 * @throws ServerActionError if the server has no ID (i.e., has not
+	 *      been created yet)
 	 */
 	public function Rescue() {
 	    if (!isset($this->id))
-	        throw new ServerActionError(_('Server has no ID; cannot Rescue()'));
+	        throw new ServerActionError(
+	            _('Server has no ID; cannot Rescue()'));
 	    $obj = new \stdClass();
 	    $obj->rescue = "none";
 	    $resp = $this->Action($obj);
 	    $newobj = json_decode($resp->HttpBody());
 	    if ($this->CheckJsonError())
 	        return FALSE;
-	    elseif (!isset($newobj->server))
+	    elseif (!isset($newobj->adminPass))
 	        throw new ServerActionError(sprintf(
 	            _('Rescue() method failed unexpectedly, '.
 	              'status [%s] response [%s]'),
 	            $resp->HttpStatus(), $resp->HttpBody()));
 	    else
-    	    return $this->Service()->Server($newobj->server);
+    	    return $newobj->adminPass;
 	}
+
+	/**
+	 * Takes the server out of *rescue* mode
+	 *
+	 * @api
+	 * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html
+	 * @return HttpResponse
+	 * @throws ServerActionError if the server has no ID (i.e., has not
+	 *      been created yet)
+     */
+    public function Unrescue() {
+	    if (!isset($this->id))
+	        throw new ServerActionError(
+	            _('Server has no ID; cannot Unescue()'));
+	    $obj = new \stdClass();
+	    $obj->unrescue = NULL;
+	    return $this->Action($obj);
+    }
 
 	/**
 	 * Retrieves the metadata associated with a Server

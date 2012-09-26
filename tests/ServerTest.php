@@ -144,21 +144,29 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$s = new OpenCloud\Compute\Server($this->service);
 		$s->id = 'Bad-ID';
 		$this->assertEquals(
-			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID',
+	'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID',
 			$s->Url());
 	}
 	/**
 	 * @expectedException OpenCloud\Compute\ServerActionError
 	 */
 	public function testRescue() {
-	    $s = $this->server->Rescue();
-	    $this->assertEquals(
-	        'OpenCloud\Compute\Server',
-	        get_class($s));
+	    $password = $this->server->Rescue();
 	    $this->assertGreaterThan(
-	        10,
-	        strlen($s->id));
+	        5,
+	        strlen($password));
 	    $blank = new OpenCloud\Compute\Server($this->service);
 	    $blank->Rescue(); // should trigger the exception
+	}
+	/**
+	 * @expectedException OpenCloud\Compute\ServerActionError
+	 */
+	public function testUnrescue() {
+	    $resp = $this->server->Unrescue();
+	    $this->assertEquals(
+	        '200',
+	        $resp->HttpStatus());
+	    $blank = new OpenCloud\Compute\Server($this->service);
+	    $blank->Unrescue(); // should trigger the exception
 	}
 }
