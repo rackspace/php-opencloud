@@ -40,14 +40,16 @@ class Network extends NovaInstance {
 		 * The CIDR-formatted address range of the network (e.g., "192.168.0.0/24")
 		 */
 		$cidr;
-	
+
 	/**
 	 * Creates a new isolated Network object
 	 *
-	 * NOTE: contains hacks to recognize the Rackspace public and private networks.
+	 * NOTE: contains hacks to recognize the Rackspace public and private
+	 * networks.
 	 * These are not really networks, but they show up in lists.
 	 *
-	 * @param \OpenCloud\Compute $service The compute service associated with the network
+	 * @param \OpenCloud\Compute $service The compute service associated with
+	 *      the network
 	 * @param string $id The ID of the network (this handles the pseudo-networks
 	 *		RAX_PUBLIC and RAX_PRIVATE
 	 * @return void
@@ -80,13 +82,13 @@ class Network extends NovaInstance {
 		// set parameters
 		foreach($params as $key => $value)
 			$this->$key = $value;
-		
+
 		// construct the JSON
 		$obj = $this->CreateJson();
 		$json = json_encode($obj);
 		if ($this->CheckJsonError())
 			return FALSE;
-		
+
 		// send the request
 		$response = $this->Service()->Request(
 			$this->Service()->Url(self::URL_RESOURCE),
@@ -94,13 +96,13 @@ class Network extends NovaInstance {
 			array(),
 			$json
 		);
-		
+
 		// check the return code
 		if ($response->HttpStatus() > 204)
 			throw new NetworkCreateError(sprintf(
 				_('Error creating network [%s], status [%d] response [%s]'),
 				$this->label, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		// set values from response
 		$retobj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
@@ -108,10 +110,10 @@ class Network extends NovaInstance {
 			foreach($retobj->$top as $key => $value)
 				$this->$key = $value;
 		}
-		
+
 		return $response;
 	}
-	
+
 	/**
 	 * Always throws an error; updates are not permitted
 	 *
@@ -120,7 +122,7 @@ class Network extends NovaInstance {
 	public function Update() {
 		throw new NetworkUpdateError(_('Isolated networks cannot be updated'));
 	}
-	
+
 	/**
 	 * Deletes an isolated network
 	 *
@@ -143,7 +145,7 @@ class Network extends NovaInstance {
 				$this->label, $response->HttpStatus(), $response->HttpBody()));
 		return $response;
 	}
-	
+
 	/********** PROTECTED METHODS **********/
 
 	/**
@@ -152,7 +154,7 @@ class Network extends NovaInstance {
 	protected function JsonName() {
 		return self::JSON_ELEMENT;
 	}
-	
+
 	/**
 	 * Returns the URL resource
 	 */
@@ -161,7 +163,7 @@ class Network extends NovaInstance {
 	}
 
 	/********** PRIVATE METHODS **********/
-	
+
 	/**
 	 * Creates the JSON object for the Create() method
 	 */

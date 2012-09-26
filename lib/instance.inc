@@ -254,7 +254,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		// check response status
 		if ($response->HttpStatus() > 200)
 			throw new DatabaseListError(sprintf(
-				_('Error listing databases for instance [%s], status [%d] response [%s]'),
+				_('Error listing databases for instance [%s], '.
+				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
 
 		// parse the response
@@ -262,7 +263,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		if (!$this->CheckJsonError()) {
 			if (!isset($obj->databases))
 				return new \OpenCloud\Collection($this, 'Database', array());
-			return new \OpenCloud\Collection($this, 'Database', $obj->databases);
+			return new \OpenCloud\Collection($this,
+			    'Database', $obj->databases);
 		}
 		return FALSE;
 	}
@@ -300,7 +302,7 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	protected function JsonName() {
 		return self::JSON_ELEMENT;
 	}
-	
+
 	/**
 	 * Returns the URL resource
 	 */
