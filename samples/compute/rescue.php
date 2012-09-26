@@ -16,6 +16,7 @@ function find_MODEL($list) {
         if ($server->name == 'MODEL')
             return $server;
     }
+    die("Can't find the MODEL server\n");
 }
 
 /**
