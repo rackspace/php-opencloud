@@ -118,7 +118,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 * @throws ServerCreateError
 	 * @throws UnknownError
 	 */
-	public function Create($params=array(), $rebuild=TRUE) {
+	public function Create($params=array(), $rebuild=FALSE) {
 	    // reset values
 	    $this->id = NULL;
 	    $this->status = NULL;
@@ -128,20 +128,25 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		$this->imageRef = $this->image->links[0]->href;
 		$this->flavorRef = $this->flavor->links[0]->href;
 		$this->debug(_('Server::Create() [%s]'), $this->name);
+		$create = $this->CreateJson( $rebuild ? 'rebuild' : 'server' );
 		$response = $this->Service()->Request(
 			$this->Service()->Url(),
 			'POST',
 			array(),
-			$this->CreateJson($rebuild ? 'rebuild' : 'server')
+			$create
 		);
 		if (!is_object($response))
-			throw new \OpenCloud\HttpError(
-			    _('Invalid response for Server::create request'));
+			throw new \OpenCloud\HttpError(sprintf(
+			    _('Invalid response for Server::%s() request'),
+			    $rebuild ? 'Rebuild' : 'Create'));
 		$json = $response->HttpBody();
 		if ($response->HttpStatus() >= 300)
 			throw new ServerCreateError(
-			    sprintf(_('Problem creating server, status [%d] response [%s]'),
-			        $response->HttpStatus(), $response->HttpBody()));
+			    sprintf(_('Problem creating server with [%s], '.
+			              'status [%d] response [%s]'),
+			        $create,
+			        $response->HttpStatus(),
+			        $response->HttpBody()));
 		else if (!$json)
 			throw new UnknownError(_('Unexpected error in Server::Create()'));
 		else {
