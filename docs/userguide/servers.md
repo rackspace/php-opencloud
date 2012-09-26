@@ -144,6 +144,27 @@ or revert it back to the original size:
 
     $server->ResizeRevert();
 
+### To rescue/unrescue a server
+
+In rescue mode, a server is rebuilt to a pristine state and the existing
+filesystem is mounted so that you can edit files and diagnose issues.
+See
+[this document](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html)
+for more details.
+
+Put server into rescue mode:
+
+    $password = $server->Rescue();
+
+The `$password` is the assigned root password of the rescue server.
+
+Take server out of rescue mode:
+
+    $server->Unrescue();
+
+This restores the server to its original state (plus any changes you may have
+made while it was in rescue mode).
+
 ## What next?
 
 Return to the [Table of Contents](toc.md)

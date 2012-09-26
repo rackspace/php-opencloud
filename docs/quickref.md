@@ -272,6 +272,15 @@ server:
 
     printf("The root password is %s\n", $myserver->adminPass);
 
+### Rebuild an existing server
+
+`Rebuild()` is identical to `Create()` except that an existing server is
+modified with a new image and/or flavor.
+
+    $server->Rebuild(array(
+        'image' => $myimage,
+        'flavor' => $myflavor));
+
 ### Performing server actions
 
 The following examples perform actions on the server to create an image,
@@ -297,6 +306,27 @@ the original size:
     $myserver->ResizeConfirm();
     // or
     $myserver->ResizeRevert();
+
+### To rescue/unrescue a server
+
+In rescue mode, a server is rebuilt to a pristine state and the existing
+filesystem is mounted so that you can edit files and diagnose issues.
+See
+[this document](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html)
+for more details.
+
+Put server into rescue mode:
+
+    $password = $server->Rescue();
+
+The `$password` is the assigned root password of the rescue server.
+
+Take server out of rescue mode:
+
+    $server->Unrescue();
+
+This restores the server to its original state (plus any changes you may have
+made while it was in rescue mode).
 
 ### Wait for server state change
 
