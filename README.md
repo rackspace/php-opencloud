@@ -20,6 +20,9 @@ http://www.rackspace.com/cloud and follow the prompts.
 If you are working with an OpenStack deployment, you can find more
 information at http://www.openstack.org.
 
+You can download the latest packaged versions of php-opencloud on
+[the Downloads page](https://github.com/rackspace/php-opencloud/downloads).
+
 ### Requirements
 
 We are not able to test and validate every possible combination of PHP
