@@ -64,6 +64,11 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(TRUE, $resp->HttpStatus());
 		$this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
 	}
+	public function testRebuild() {
+		$resp = $this->server->Rebuild();
+		$this->assertEquals(TRUE, $resp->HttpStatus());
+		$this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
+	}
 	public function testDelete() {
 		$resp = $this->server->Delete();
 		$this->assertEquals(TRUE, $resp->HttpStatus());
@@ -141,5 +146,19 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID',
 			$s->Url());
+	}
+	/**
+	 * @expectedException OpenCloud\Compute\ServerActionError
+	 */
+	public function testRescue() {
+	    $s = $this->server->Rescue();
+	    $this->assertEquals(
+	        'OpenCloud\Compute\Server',
+	        get_class($s));
+	    $this->assertGreaterThan(
+	        10,
+	        strlen($s->id));
+	    $blank = new OpenCloud\Compute\Server($this->service);
+	    $blank->Rescue(); // should trigger the exception
 	}
 }

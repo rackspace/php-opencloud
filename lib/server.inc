@@ -110,13 +110,15 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 * @api
 	 * @param array $params - an associative array of key/value pairs of
 	 *      attributes to set on the new server
+	 * @param boolean $rebuild - if TRUE, performs a rebuild of an existing
+	 *      server
 	 * @return HttpResponse - this will include the administrative password
 	 *      in the body
 	 * @throws \OpenCloud\HttpError
 	 * @throws ServerCreateError
 	 * @throws UnknownError
 	 */
-	public function Create($params=array()) {
+	public function Create($params=array(), $rebuild=TRUE) {
 	    // reset values
 	    $this->id = NULL;
 	    $this->status = NULL;
@@ -130,7 +132,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 			$this->Service()->Url(),
 			'POST',
 			array(),
-			$this->CreateJson()
+			$this->CreateJson($rebuild ? 'rebuild' : 'server')
 		);
 		if (!is_object($response))
 			throw new \OpenCloud\HttpError(
@@ -151,6 +153,17 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		}
 		return $response;
 	}
+
+	/**
+	 * Rebuilds an existing server
+	 *
+	 * @api
+	 * @param array $params - an associative array of key/value pairs of
+	 *      attributes to set on the new server
+     */
+    public function Rebuild($params=array()) {
+        return $this->Create($params, TRUE);
+    }
 
 	/**
 	 * Deletes a server
@@ -304,6 +317,31 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
+	 * Puts the server into *rescue* mode
+	 *
+	 * @api
+	 * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html
+	 * @return Server returns a new server object for the rescue server
+	 */
+	public function Rescue() {
+	    if (!isset($this->id))
+	        throw new ServerActionError(_('Server has no ID; cannot Rescue()'));
+	    $obj = new \stdClass();
+	    $obj->rescue = "none";
+	    $resp = $this->Action($obj);
+	    $newobj = json_decode($resp->HttpBody());
+	    if ($this->CheckJsonError())
+	        return FALSE;
+	    elseif (!isset($newobj->server))
+	        throw new ServerActionError(sprintf(
+	            _('Rescue() method failed unexpectedly, '.
+	              'status [%s] response [%s]'),
+	            $resp->HttpStatus(), $resp->HttpBody()));
+	    else
+    	    return $this->Service()->Server($newobj->server);
+	}
+
+	/**
 	 * Retrieves the metadata associated with a Server
 	 *
 	 * If a metadata item name is supplied, then only the single item is
@@ -359,19 +397,21 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	/**
 	 * Creates the JSON for creating a new server
 	 *
+	 * @param string $element creates {server ...} by default, but can also
+	 *      create {rebuild ...} by changing this parameter
 	 * @return json
 	 */
-	private function CreateJson() {
+	private function CreateJson($element='server') {
         // create a blank object
         $obj = new \stdClass();
         // set a bunch of properties
-        $obj->server = new \stdClass();
-        $obj->server->name = $this->name;
-        $obj->server->imageRef = $this->imageRef;
-        $obj->server->flavorRef = $this->flavorRef;
-        $obj->server->metadata = $this->metadata;
+        $obj->$element = new \stdClass();
+        $obj->$element->name = $this->name;
+        $obj->$element->imageRef = $this->imageRef;
+        $obj->$element->flavorRef = $this->flavorRef;
+        $obj->$element->metadata = $this->metadata;
 		if (is_array($this->networks)) {
-			$obj->server->networks = array();
+			$obj->$element->networks = array();
 			foreach($this->networks as $net) {
 			    if (get_class($net) != 'OpenCloud\Compute\Network')
 			        throw new Compute\InvalidParameterError(sprintf(
@@ -380,7 +420,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 			              get_class($net)));
 				$netobj = new \stdClass();
 				$netobj->uuid = $net->id;
-				$obj->server->networks[] = $netobj;
+				$obj->$element->networks[] = $netobj;
 			}
 		}
         // @TODO(glen) personality is not handled yet

@@ -22,7 +22,7 @@ To retrieve the data on an existing server:
 
 ### Creating a new server
 
-A server requires both a [Flavor object](flavors.md) and an 
+A server requires both a [Flavor object](flavors.md) and an
 [Image object](images.md) to
 be created. In addition, a server requires a name. You can easily create a
 new server by setting the proper values and calling the `Create()` method:
@@ -56,9 +56,26 @@ root password:
 (Note: it is not recommended that you print out the root password because of
 security risks. This is only provided as an example.)
 
-When you create a new server on the Rackspace public cloud, you can also 
+When you create a new server on the Rackspace public cloud, you can also
 associate it with one or more isolated networks. For more information, see
 [Working with Cloud Networks](networks.md).
+
+### Rebuilding an existing server
+
+"Rebuilding" a server is nearly identical to creating one; you must supply
+an Image object and a Flavor object, and the server is rebuilt using those
+parameters. You can also change the server's name as part of the rebuild.
+The primary difference between a create and a rebuild is that, in the rebuild,
+the server's IP address(es) are retained (when the server is created, new IP
+addresses are assigned).
+
+To rebuild a server:
+
+    $server = $compute->Server('abaf0...');     // existing server
+    $server->Rebuild(array(
+        'name' => 'A Bigger Server', // name is not required on rebuild
+        'flavor' => $compute->Flavor(4),
+        'image' => $compute->Image('c195ef3b-9195-4474-b6f7-16e5bd86acd0')));
 
 ### Updating a server
 

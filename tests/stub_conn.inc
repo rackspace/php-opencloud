@@ -15,8 +15,13 @@ class StubConnection extends OpenCloud\OpenStack
 		$resp = new OpenCloud\BlankResponse();
 		if ($method == 'POST') {
 			$resp->status = 200;
-			if (strpos($url, '/action'))
-				$resp->body = '';
+			if (strpos($url, '/action')) {
+			    if ('{"rescue' == substr($body, 0, 8))
+			        $resp->body =
+			            file_get_contents(TESTDIR.'/server-create.json');
+			    else
+    				$resp->body = '';
+			}
 			elseif (strpos($url, '/token'))
 				$resp->body = file_get_contents(TESTDIR.'/connection.json');
 			elseif (preg_match('/root$/', $url))
@@ -26,7 +31,7 @@ class StubConnection extends OpenCloud\OpenStack
 				$resp->status = 202;
 			}
 			elseif (strpos($url, 'network'))
-				$resp->body = 
+				$resp->body =
 					'{"network":{"id":"1","cidr":"192.168.0.0/24","label":"foo"}}';
 			elseif (strpos($url, '/instances'))
 				$resp->body = file_get_contents(TESTDIR.'/dbinstance-create.json');
