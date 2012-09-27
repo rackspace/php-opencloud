@@ -183,7 +183,10 @@ class Compute extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		return new Collection($this, 'Network', $obj->networks);
+		if (isset($obj->networks))
+			return new Collection($this, 'Network', $obj->networks);
+		else
+			return new Collection($this, 'Network', array());
 	}
 
 	/**

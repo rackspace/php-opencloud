@@ -38,6 +38,8 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 */
 	public function __construct(\OpenCloud\Nova $nova, $info=NULL) {
 		$this->_service = $nova;
+		if (property_exists($this, 'metadata'))
+			$this->metadata = new \OpenCloud\Metadata;
 		if (is_string($info) || is_integer($info))
 			$this->Refresh((string)$info);
 		elseif (is_object($info) || is_array($info))

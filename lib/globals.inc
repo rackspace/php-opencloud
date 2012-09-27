@@ -70,6 +70,12 @@ if (!defined('RAXSDK_DATABASE_REGION'))
     define('RAXSDK_DATABASE_REGION', NULL);
 if (!defined('RAXSDK_DATABASE_URLTYPE'))
     define('RAXSDK_DATABASE_URLTYPE', 'publicURL');
+if (!defined('RAXSDK_CBS_NAME'))
+    define('RAXSDK_CBS_NAME', 'cloudBlockStorage');
+if (!defined('RAXSDK_CBS_REGION'))
+    define('RAXSDK_CBS_REGION', NULL);
+if (!defined('RAXSDK_CBS_URLTYPE'))
+    define('RAXSDK_CBS_URLTYPE', 'publicURL');
 if (!defined('RAXSDK_CONNECTTIMEOUT'))
     define('RAXSDK_CONNECTTIMEOUT', 5);
 if (!defined('RAXSDK_TIMEOUT'))
