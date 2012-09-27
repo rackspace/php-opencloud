@@ -1,30 +1,31 @@
 Working with Cloud Networks
 ===========================
 
-Rackspace Cloud Networks is a virtual "isolated network" product based upon (though not
-strictly identical to) the [OpenStack Quantum](http://quantum.openstack.org) project.
-With Cloud Networks, you can create multiple isolated networks and associate them 
-with new Cloud Servers. (You cannot add an isolated network to an existing Cloud
-Server at this time, though that feature may be available in the future.)
+Rackspace Cloud Networks is a virtual "isolated network" product based upon
+(though not strictly identical to) the [OpenStack
+Quantum](http://quantum.openstack.org) project. With Cloud Networks, you can
+create multiple isolated networks and associate them with new Cloud Servers.
+(You cannot add an isolated network to an existing Cloud
+Server at this time, although that feature may be available in the future.)
 
-Since the network is a feature of the Cloud Servers product, you use the 
-`Compute::Network()` method to create a new network, and the `Compute::NetworkList()` 
-method to retrieve information about existing networks.
+Since the network is a feature of the Cloud Servers product, you use the
+`Compute::Network()` method to create a new network, and the
+`Compute::NetworkList()` method to retrieve information about existing networks.
 
 ### Pseudo-networks
 
 Rackspace has two *pseudo-networks* called `public` and `private`. The `public` network
 represents the Internet, while the `private` network represents the Rackspace internal
-ServiceNet (an infrastructure network used to facilitate communication within a 
+ServiceNet (an infrastructure network used to facilitate communication within a
 Rackspace data center). These are called "pseudo-networks" because they are not actually
 represented in the Quantum component, but have a special representation that you must
 use if you want to associate your server with them.
 
-The `public` network is represented by the special UUID 
+The `public` network is represented by the special UUID
 `00000000-0000-0000-0000-000000000000` and the `private` network by
 `11111111-1111-1111-1111-111111111111`. <b>php-opencloud</b> provides the special
 constants `RAX_PUBLIC` and `RAX_PRIVATE` to make using these networks easier
-(see [Create a server with an isolated network](#server) below). 
+(see [Create a server with an isolated network](#server) below).
 
 <a name="create"></a>
 ### Create a network
@@ -52,7 +53,7 @@ Note that you cannot delete a network if there are still servers attached to it
 
 ### Listing networks
 
-The `Compute::NetworkList()` method returns a [Collection](collections.md) of 
+The `Compute::NetworkList()` method returns a [Collection](collections.md) of
 `Network` objects:
 
 	$list = $compute->NetworkList();
@@ -89,9 +90,9 @@ Example:
 			$compute->Network(RAX_PUBLIC))));
 
 In this example, the server `$server` is attached to the `$backend` network that
-we created in the previous example. It is also attached to the Rackspace `public`
-network (the Internet). However, it is *not* attached to the Rackspace `private` 
-network. 
+we created in the previous example. It is also attached to the Rackspace
+`public` network (the Internet). However, it is *not* attached to the
+Rackspace `private` network (ServiceNet).
 
 The `networks` attribute is an array of `Network` objects (and not just a UUID of the
 network). This example will fail:
@@ -100,7 +101,7 @@ network). This example will fail:
 		...
 		'networks' => array(RAX_PUBLIC, RAX_PRIVATE)));
 
-because `RAX_PUBLIC` and `RAX_PRIVATE` are UUIDs, not networks. Use the 
+because `RAX_PUBLIC` and `RAX_PRIVATE` are UUIDs, not networks. Use the
 `Compute::Network()` method to convert a UUID into a network:
 
 	$server->Create(array(

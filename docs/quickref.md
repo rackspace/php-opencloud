@@ -373,8 +373,8 @@ To create a isolated network, you must specify a `label` (name) and a CIDR
 
     $backend_network = $compute->Network();     // empty network object
     $backend_network->Create(array(
-        'label' => 'Backend Network',
-        'cidr' => '192.168.0.0/28'));
+        'label' => 'Backend Network',           // visible name of the network
+        'cidr' => '192.168.0.0/28'));           // address range in CIDR format
     printf("Network ID is %s\n", $backend_network->id);
 
 ### Retrieve an existing network
