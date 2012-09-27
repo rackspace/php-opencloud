@@ -12,6 +12,15 @@ so that you can still use the SDK with a pure OpenStack instance
 (for example, see the `OpenStack` class (for OpenStack) and the
 `Rackspace` subclass).
 
+RELEASE NOTES
+-------------
+THIS - this is a forked version of php-opencloud where I'm working
+on features for the next release
+
+1.0 - initial release, featuring support for Nova (Rackspace Cloud
+Servers), Swift (Rackspace Cloud Files), Rackspace Cloud Networks,
+and Rackspace Cloud Databases.
+
 Getting Started with OpenStack/Rackspace
 ----------------------------------------
 To sign up for a Rackspace Cloud account, go to
@@ -99,4 +108,3 @@ For general feedback and support requests, send an email to:
 
 sdk-support@rackspace.com
 
---
