@@ -12,6 +12,9 @@ so that you can still use the SDK with a pure OpenStack instance
 (for example, see the `OpenStack` class (for OpenStack) and the
 `Rackspace` subclass).
 
+See the [Release Notes](RELEASENOTES.md) for what has changed in
+the latest version(s).
+
 Getting Started with OpenStack/Rackspace
 ----------------------------------------
 To sign up for a Rackspace Cloud account, go to
