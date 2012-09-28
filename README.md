@@ -62,33 +62,30 @@ then add the `lib/` directory to it:
 
     include_path = "/usr/lib/php:/usr/lib/pear:/path/to/php-opencloud/lib"
 
-### NOTE
-
-This version supports the following components:
-
-* OpenStack Nova (Rackspace Cloud Servers)
-* OpenStack Swift (Rackspace Cloud Files, which includes CDN extensions)
-* Rackspace Cloud Databases
-
 Further Reading
 ---------------
-The file `docs/quickref.md` contains a Quick Reference guide to the
+The file [docs/quickref.md](docs/quickref.md) contains a Quick Reference 
+guide to the
 <b>php-opencloud</b> library.
 
 The source for the "Getting Started with php-opencloud" document (the
-user's guide) starts in docs/userguide/index.md.
+user's guide) starts in 
+[docs/userguide/index.md](docs/userguide/index.md).
 
 There is a complete (auto-generated) API reference manual in the
 docs/api directory. Start with docs/api/index.html.
 
-See the `HOWTO.md` file for instructions on regenerating the documentation
+See the [HOWTO.md](HOWTO.md) file for instructions on regenerating 
+the documentation
 and running tests.
 
-See the `smoketest.php` file for some simple, working examples. This is a test
+See the [smoketest.php](smoketest.php) file for some simple, 
+working examples. This is a test
 we run before builds to ensure that all the core functionality is still
 working after code changes.
 
-The `samples/` directory has a collection of tested, working sample code.
+The [samples/](samples/) directory has a collection of tested, 
+working sample code.
 Note that these may create objects in your cloud that you could be
 charged for.
 
