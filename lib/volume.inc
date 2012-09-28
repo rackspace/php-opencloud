@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Compute;
+namespace OpenCloud\CBS;
 
 require_once('novainstance.inc');
 require_once('metadata.inc');
@@ -21,7 +21,7 @@ require_once('metadata.inc');
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Volume extends NovaInstance {
+class Volume extends \OpenCloud\Compute\NovaInstance {
 
 	const
 		JSON_ELEMENT = 'volume',

@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Compute;
+namespace OpenCloud\CBS;
 
 require_once('novainstance.inc');
 require_once('metadata.inc');
@@ -21,7 +21,7 @@ require_once('metadata.inc');
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class VolumeType extends NovaInstance {
+class VolumeType extends \OpenCloud\Compute\NovaInstance {
 
 	const
 		JSON_ELEMENT = 'volume_type',
@@ -31,5 +31,21 @@ class VolumeType extends NovaInstance {
 		$id,
 		$name,
 		$extra_specs;
+
+	/********** PROTECTED METHODS **********/
+
+	/**
+	 * Returns the top-level document identifier
+	 */
+	protected function JsonName() {
+		return self::JSON_ELEMENT;
+	}
+
+	/**
+	 * Returns the URL resource
+	 */
+	protected function ResourceName() {
+		return self::URL_RESOURCE;
+	}
 
 }

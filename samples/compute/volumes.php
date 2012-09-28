@@ -39,6 +39,7 @@ step('Connect to Cloud Block Storage');
 $cbs = $rackspace->CBS('cloudBlockStorage', 'DFW');
 
 step('Volume Types');
+setDebug(TRUE);
 $list = $cbs->VolumeTypeList();
 while($vtype = $list->Next())
 	info('%s - %s', $vtype->id, $vtype->name);
