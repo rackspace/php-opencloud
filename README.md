@@ -64,7 +64,9 @@ then add the `lib/` directory to it:
 
 Further Reading
 ---------------
-The file [docs/quickref.md](docs/quickref.md) contains a Quick Reference 
+The file 
+[docs/quickref.md](php-opencloud/blob/master/docs/quickref.md) 
+contains a Quick Reference 
 guide to the
 <b>php-opencloud</b> library.
 
@@ -84,7 +86,7 @@ working examples. This is a test
 we run before builds to ensure that all the core functionality is still
 working after code changes.
 
-The [samples/](tree/master/samples/) directory has a collection of tested, 
+The [samples/](php-opencloud/tree/master/samples/) directory has a collection of tested, 
 working sample code.
 Note that these may create objects in your cloud that you could be
 charged for.
