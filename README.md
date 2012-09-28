@@ -12,7 +12,7 @@ so that you can still use the SDK with a pure OpenStack instance
 (for example, see the `OpenStack` class (for OpenStack) and the
 `Rackspace` subclass).
 
-See the [Release Notes](blob/master/RELEASENOTES.md) for what has changed in
+See the [Release Notes](php-opencloud/blob/master/RELEASENOTES.md) for what has changed in
 the latest version(s).
 
 Getting Started with OpenStack/Rackspace
@@ -70,16 +70,16 @@ guide to the
 
 The source for the "Getting Started with php-opencloud" document (the
 user's guide) starts in 
-[docs/userguide/index.md](blob/master/docs/userguide/index.md).
+[docs/userguide/index.md](php-opencloud/blob/master/docs/userguide/index.md).
 
 There is a complete (auto-generated) API reference manual in the
 docs/api directory. Start with docs/api/index.html.
 
-See the [HOWTO.md](blob/master/HOWTO.md) file for instructions on regenerating 
+See the [HOWTO.md](php-opencloud/blob/master/HOWTO.md) file for instructions on regenerating 
 the documentation
 and running tests.
 
-See the [smoketest.php](blob/master/smoketest.php) file for some simple, 
+See the [smoketest.php](php-opencloud/blob/master/smoketest.php) file for some simple, 
 working examples. This is a test
 we run before builds to ensure that all the core functionality is still
 working after code changes.
