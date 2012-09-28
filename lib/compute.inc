@@ -75,6 +75,9 @@ class Compute extends Nova {
 			$serviceRegion,
 			$urltype
 		);
+
+		// load extension namespaces
+		$this->load_namespaces();
 	} // function __construct()
 
 	/**

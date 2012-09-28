@@ -56,9 +56,6 @@ abstract class Nova extends Service {
 			$urltype
 		);
 		$this->_url = noslash(parent::Url());
-
-		// load extension namespaces
-		$this->load_namespaces();
 	} // function __construct()
 
 	/**
@@ -157,7 +154,7 @@ abstract class Nova extends Service {
 	/**
 	 * Loads the available namespaces from the /extensions resource
 	 */
-	private function load_namespaces() {
+	protected function load_namespaces() {
 	    $ext = $this->Extensions();
 	    foreach($ext as $obj)
 	        $this->_namespaces[] = $obj->alias;
