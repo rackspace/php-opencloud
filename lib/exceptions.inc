@@ -54,8 +54,8 @@ namespace OpenCloud\Compute {
 
 	class ImageError extends \Exception {}
 	class InvalidArgumentError extends \Exception {}
-	class FlavorError extends \Exception {}
 	class EmptyResponseError extends \Exception {}
+	class FlavorError extends \Exception {}
 	class InstanceNotFound extends \Exception {}
 	class InvalidRequestError extends \Exception {}
 	class InvalidParameterError extends \Exception {}

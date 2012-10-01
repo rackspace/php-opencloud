@@ -53,9 +53,12 @@ class ComputeTest extends PHPUnit_Framework_TestCase
 	    $im = $this->compute->Image(); // blank
 	    $this->assertEquals('OpenCloud\Compute\Image', get_class($im));
 	}
+	/**
+	 * @expectedException OpenCloud\CollectionError
+	 */
 	public function testImageList() {
 	    $list = $this->compute->ImageList();
-	    $this->assertEquals('OpenCloud\Collection', get_class($list));
+	    $this->assertEquals('OpenCloud\Collection', get_class($list)); // 404
 	}
 	public function testNetwork() {
 		$this->assertEquals(

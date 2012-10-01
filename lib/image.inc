@@ -12,7 +12,7 @@
 
 namespace OpenCloud\Compute;
 
-require_once('base.inc');
+require_once('novainstance.inc');
 
 /**
  * The Image class represents a stored machine image returned by the
@@ -23,7 +23,12 @@ require_once('base.inc');
  * not available to Rackspace customers, so we're using the /images
  * resource on the servers API endpoint.
  */
-class Image extends \OpenCloud\Base {
+class Image extends NovaInstance {
+
+	const
+		JSON_NAME = 'image',
+		URL_RESOURCE = 'images';
+
     public
 		$status,
 		$updated,
@@ -36,58 +41,22 @@ class Image extends \OpenCloud\Base {
 		$minRam,
 		$metadata,
 		$server;
-    private
-        $service,   // the compute service associated with this image
-        $imageurl;  // the URL of this image
-
-    /**
-     * Creates a new image object; if ID is specified, then the
-     * image with the specified ID is retrieved.
-     *
-     * @param $id - the ID of the image to retrieve; otherwise, an empty
-     *    Image object is created.
-     * @throws ImageError, JsonError
-     */
-    public function __construct($compute, $id=NULL) {
-        $this->service = $compute;
-        $this->debug(('initializing Image [%s]'), $id);
-
-        // set the metadata object
-        $this->metadata = new \OpenCloud\Metadata();
-
-        // if ID is specified, retrieve it
-        if (is_array($id) || is_object($id)) {
-        	foreach($id as $name => $value)
-        		$this->$name = $value;
-        }
-        elseif ($id) {
-            $this->imageurl = $this->service->Url('images/'.$id);
-            $response = $this->service->Request($this->imageurl);
-            if ($response->HttpStatus() >= 300)
-                throw new ImageError(
-                	sprintf(_('Unable to retrieve image [%s] status [%d]'),
-                		$id, $response->HttpStatus()));
-            else if (!$response->HttpBody())
-                throw new EmptyResponseError(
-                    sprintf(_('Empty result for image [%s]'), $id));
-            else {
-                $obj = json_decode($response->HttpBody());
-                if ($this->CheckJsonError())
-                	return FALSE;
-                if (!isset($obj->image))
-                    throw new ImageError(
-                        sprintf(_('No image element in JSON for image [%s]'),
-                            $id));
-                else
-                    foreach($obj->image as $property => $value) {
-                        if ($property == 'metadata')
-                            $this->metadata->SetArray($value);
-                        else
-                            $this->$property = $value;
-                    }
-            }
-        }
-    }
+	
+	/**
+	 * error on Create
+	 */
+	public function Create() {
+		throw new \OpenCloud\CreateError(
+			_('Images cannot be created directly'));
+	}
+	
+	/**
+	 * error on Update()
+	 */
+	public function Update() {
+		throw new \OpenCloud\CreateError(
+			_('Images cannot be updated directly'));
+	}
 
     /**
      * Validates extension attributes
@@ -95,12 +64,15 @@ class Image extends \OpenCloud\Base {
     public function __set($name, $value) {
         $this->SetProperty($name, $value, $this->Service()->namespaces());
     }
-
-    /**
-     * Returns the associated Service object
-     */
-    public function Service() {
-        return $this->service;
+    
+    /********** PROTECTED METHODS **********/
+    
+    protected function ResourceName() {
+    	return self::URL_RESOURCE;
+    }
+    
+    protected function JsonName() {
+    	return self::JSON_NAME;
     }
 
 } // class Image

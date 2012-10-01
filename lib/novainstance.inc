@@ -40,11 +40,18 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		$this->_service = $nova;
 		if (property_exists($this, 'metadata'))
 			$this->metadata = new \OpenCloud\Metadata;
-		if (is_string($info) || is_integer($info))
-			$this->Refresh((string)$info);
-		elseif (is_object($info) || is_array($info))
-			foreach($info as $key => $value)
-				$this->$key = $value;
+		if (is_string($info) || is_integer($info)) {
+			$this->id = (string)$info;
+			$this->Refresh();
+		}
+		elseif (is_object($info) || is_array($info)) {
+			foreach($info as $key => $value) {
+				if ($key == 'metadata')
+					$this->$key->SetArray($value);
+				else
+					$this->$key = $value;
+			}
+		}
 		elseif (isset($info))
 			throw new InvalidArgumentError(sprintf(
 				_('Argument for %s must be string or object, [%s] used'),
@@ -292,6 +299,12 @@ abstract class NovaInstance extends \OpenCloud\Base {
 					get_class($this),
 					$response->HttpStatus(),
 					$response->HttpBody()));
+		
+		// check for empty response
+		if (!$response->HttpBody())
+			throw new EmptyResponseError(sprintf(
+				_('%s::Refresh() unexpected empty response'),
+				get_class($this)));
 
 		// we're ok, reload the response
 		if ($json = $response->HttpBody()) {

@@ -27,7 +27,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 
 	/**
-	 * @expectedException OpenCloud\Compute\ImageError
+	 * @expectedException OpenCloud\Compute\InstanceNotFound
 	 */
 	public function test___construct() {
 		$image = new OpenCloud\Compute\Image($this->compute, 'XXXXXX');

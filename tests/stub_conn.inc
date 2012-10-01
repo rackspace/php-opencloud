@@ -49,9 +49,6 @@ class StubConnection extends OpenCloud\OpenStack
 			$resp->body = NULL;
 			$resp->status = 200;
 		}
-		elseif (strpos($url, '/images/')) {
-			$resp->status = 200;
-		}
 		elseif (strpos($url, '/extensions')) {
 		    $resp->body = file_get_contents(TESTDIR.'/extensions.json');
 		    $resp->status = 200;
