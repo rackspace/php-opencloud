@@ -110,7 +110,8 @@ class Compute extends Nova {
 	}
 
 	/**
-	 * Returns a Collection of server objects, filtered by the specified parameters
+	 * Returns a Collection of server objects, filtered by the specified 
+	 * parameters
 	 *
 	 * This is a factory method and should normally be called instead of
 	 * creating a ServerList object directly.
@@ -135,17 +136,8 @@ class Compute extends Nova {
 	        $url = $this->Url(Compute\Server::URL_RESOURCE.'/detail', $filter);
 	    else
 	        $url = $this->Url(Compute\Server::URL_RESOURCE, $filter);
-		$response = $this->Request($url);
-		$json = $response->HttpBody();
-		if (strlen($json) == 0)
-			return new Compute\ServerList($this, array());
-		$obj = json_decode($json);
-		if ($this->CheckJsonError())
-			return FALSE;
-		if (isset($obj->servers))
-			return new Collection($this, 'Server', $obj->servers);
-		else
-			return new Collection($this, 'Server', array());
+	    
+	    return $this->Collection($url, 'Server', 'servers');
 	}
 
 	/**
@@ -167,29 +159,10 @@ class Compute extends Nova {
 	 * @return Collection
 	 */
 	public function NetworkList($filter=array()) {
-		$url = $this->Url(Compute\Network::URL_RESOURCE);
-		$response = $this->Request($url);
-
-		// check return code
-		if ($response->HttpStatus() > 202)
-			throw new Compute\NetworkError(sprintf(
-				_('Unable to retrieve network info [%s], status [%d] response [%s]'),
-				$url, $response->HttpStatus(), $response->HttpBody()));
-
-		// handle empty response
-		if (strlen($response->HttpBody()) == 0)
-			return new Collection($this, 'Network', array());
-
-		// parse the return
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-
-		// and say goodbye
-		if (isset($obj->networks))
-			return new Collection($this, 'Network', $obj->networks);
-		else
-			return new Collection($this, 'Network', array());
+		return $this->Collection(
+			$this->Url(Compute\Network::URL_RESOURCE),
+			'Network',
+			Compute\Network::JSON_NAME.'s');
 	}
 
 	/**
@@ -233,14 +206,7 @@ class Compute extends Nova {
 	        $url = $this->Url('images/detail', $filter);
 	    else
 	        $url = $this->Url('images', $filter);
-	    $response = $this->Request($url);
-	    $json = $response->HttpBody();
-	    if (strlen($json) == 0)
-	        return new Collection($this, 'Image', array());
-	    $obj = json_decode($json);
-	    if ($this->CheckJsonError())
-	    	return FALSE;
-	    return new Collection($this, 'Image', $obj->images);
+	    return $this->Collection($url, 'Image', 'images');
 	}
 
 } // class Compute

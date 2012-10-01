@@ -281,7 +281,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		// check response status
 		if ($response->HttpStatus() > 200)
 			throw new UserListError(sprintf(
-				_('Error listing users for instance [%s], status [%d] response [%s]'),
+				_('Error listing users for instance [%s], '.
+				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
 
 		// parse the response
@@ -310,14 +311,12 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 		return self::URL_RESOURCE;
 	}
 
-	/********** PRIVATE METHODS **********/
-
 	/**
 	 * Generates the JSON string for Create()
 	 *
 	 * @return \stdClass
 	 */
-	private function CreateJson($params) {
+	protected function CreateJson($params) {
 	    $obj = new \stdClass();
 	    $obj->instance = new \stdClass();
 
@@ -345,6 +344,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 
 		return $obj;
 	}
+
+	/********** PRIVATE METHODS **********/
 
 	/**
 	 * Generates the JSON object for Restart

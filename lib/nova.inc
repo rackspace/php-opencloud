@@ -149,6 +149,49 @@ abstract class Nova extends Service {
 	    return $this->_namespaces;
 	}
 
+	/********** PROTECTED METHODS **********/
+	
+	/**
+	 * returns a collection of objects
+	 *
+	 * @param string $url the URL to retrieve
+	 * @param string $class the class of objects to fetch
+	 * @param string $element the top-level JSON element holding the array
+	 * @return \OpenCloud\Collection
+	 */
+	protected function Collection($url, $class, $element) {
+		$this->debug('%s:Collection(%s, %s, %s)',
+			get_class($this), $url, $class, $element);
+		
+		// fetch the list
+		$response = $this->Request($url);
+
+		// check return code
+		if ($response->HttpStatus() > 202)
+			throw new \OpenCloud\CollectionError(sprintf(
+				_('Unable to retrieve [%s] list from [%s], '.
+				  'status [%d] response [%s]'),
+				$class,
+				$url, 
+				$response->HttpStatus(), 
+				$response->HttpBody()));
+
+		// handle empty response
+		if (strlen($response->HttpBody()) == 0)
+			return new Collection($this, $class, array());
+
+		// parse the return
+		$obj = json_decode($response->HttpBody());
+		if ($this->CheckJsonError())
+			return FALSE;
+
+		// and say goodbye
+		if (isset($obj->$element))
+			return new Collection($this, $class, $obj->$element);
+		else
+			return new Collection($this, $class, array());
+	}
+	
 	/********** PRIVATE METHODS **********/
 
 	/**

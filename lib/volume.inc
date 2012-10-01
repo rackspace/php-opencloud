@@ -24,8 +24,8 @@ require_once('metadata.inc');
 class Volume extends \OpenCloud\Compute\NovaInstance {
 
 	const
-		JSON_ELEMENT = 'volume',
-		URL_RESOURCE = 'os-volumes';
+		JSON_NAME =  'volume',		// JSON element for single item
+		URL_RESOURCE = 'volumes';	// URL resource
 
 	public
 		$id,
@@ -50,72 +50,23 @@ class Volume extends \OpenCloud\Compute\NovaInstance {
 		);
 
 	/**
-	 * Creates a new block storage volume
-	 *
-	 * @api
-	 * @param array $params array of values to set when creating the volume
-	 * @return \OpenCloud\HttpResponse
-	 * @throws VolumeCreateError if HTTP status is not Success
-	 */
-	public function Create($params=array()) {
-		// set parameters
-		foreach($params as $key => $value)
-			$this->$key = $value;
-
-		// construct the JSON
-		$obj = $this->CreateJson();
-		$json = json_encode($obj);
-		if ($this->CheckJsonError())
-			return FALSE;
-
-		// send the request
-		$response = $this->Service()->Request(
-			$this->Service()->Url(self::URL_RESOURCE),
-			'POST',
-			array(),
-			$json
-		);
-
-		// check the return code
-		if ($response->HttpStatus() > 204)
-			throw new VolumeCreateError(sprintf(
-				_('Error creating volume [%s], status [%d] response [%s]'),
-				$this->label, $response->HttpStatus(), $response->HttpBody()));
-
-		// set values from response
-		$retobj = json_decode($response->HttpBody());
-		if (!$this->CheckJsonError()) {
-			$top = $this->JsonName();
-			foreach($retobj->$top as $key => $value)
-				$this->$key = $value;
-		}
-
-		return $response;
-	}
-
-	/**
 	 * Always throws an error; updates are not permitted
 	 *
 	 * @throws VolumeUpdateError always
 	 */
 	public function Update() {
-		throw new VolumeUpdateError(_('Block storage volumes cannot be updated'));
+		throw new VolumeUpdateError(
+			_('Block storage volumes cannot be updated'));
 	}
-
+	
 	/**
-	 * Deletes an block storage volume
+	 * returns the name of the volume
 	 *
 	 * @api
-	 * @return \OpenCloud\HttpResponse
-	 * @throws VolumeDeleteError if HTTP status is not Success
+	 * @return string
 	 */
-	public function Delete() {
-		$response = $this->Service()->Request($this->Url(), 'DELETE');
-		if ($response->HttpStatus() > 204)
-			throw new NetworkDeleteError(sprintf(
-				_('Error deleting volume [%s], status [%d] response [%s]'),
-				$this->label, $response->HttpStatus(), $response->HttpBody()));
-		return $response;
+	public function Name() {
+		return $this->display_name;
 	}
 
 	/********** PROTECTED METHODS **********/
@@ -124,7 +75,7 @@ class Volume extends \OpenCloud\Compute\NovaInstance {
 	 * Returns the top-level document identifier
 	 */
 	protected function JsonName() {
-		return self::JSON_ELEMENT;
+		return self::JSON_NAME;
 	}
 
 	/**
@@ -134,13 +85,11 @@ class Volume extends \OpenCloud\Compute\NovaInstance {
 		return self::URL_RESOURCE;
 	}
 
-	/********** PRIVATE METHODS **********/
-
 	/**
 	 * Creates the JSON object for the Create() method
 	 */
-	private function CreateJson() {
-		$element = self::JSON_ELEMENT;
+	protected function CreateJson() {
+		$element = $this->JsonName();
 		$obj = new \stdClass();
 		$obj->$element = new \stdClass();
 		foreach ($this->CREATE_PROPERTIES as $name)

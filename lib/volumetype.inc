@@ -24,14 +24,23 @@ require_once('metadata.inc');
 class VolumeType extends \OpenCloud\Compute\NovaInstance {
 
 	const
-		JSON_ELEMENT = 'volume_type',
-		URL_RESOURCE = 'volume_types';
+		JSON_NAME = 'volume_type',
+		URL_RESOURCE = 'types';
 		
 	public
 		$id,
 		$name,
 		$extra_specs;
-
+	
+	/**
+	 * updates are not permitted
+	 *
+	 */
+	public function Update() {
+		throw new \OpenCloud\UpdateError(
+			_('Volumes cannot be updated'));
+	}
+		
 	/********** PROTECTED METHODS **********/
 
 	/**

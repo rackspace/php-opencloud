@@ -24,21 +24,12 @@ require_once('metadata.inc');
 class Network extends NovaInstance {
 
 	const
-		JSON_ELEMENT = 'network',
+		JSON_NAME = 'network',
 		URL_RESOURCE = 'os-networksv2';		// this could change in the future
 
 	public
-		/**
-		 * The ID of the isolated network
-		 */
 		$id,
-		/**
-		 * The label of the isolated network (i.e., the name)
-		 */
 		$label,
-		/**
-		 * The CIDR-formatted address range of the network (e.g., "192.168.0.0/24")
-		 */
 		$cidr;
 
 	/**
@@ -71,50 +62,6 @@ class Network extends NovaInstance {
 	}
 
 	/**
-	 * Creates a new isolated network
-	 *
-	 * @api
-	 * @param array $params array of values to set when creating the network
-	 * @return \OpenCloud\HttpResponse
-	 * @throws NetworkCreateError if HTTP status is not Success
-	 */
-	public function Create($params=array()) {
-		// set parameters
-		foreach($params as $key => $value)
-			$this->$key = $value;
-
-		// construct the JSON
-		$obj = $this->CreateJson();
-		$json = json_encode($obj);
-		if ($this->CheckJsonError())
-			return FALSE;
-
-		// send the request
-		$response = $this->Service()->Request(
-			$this->Service()->Url(self::URL_RESOURCE),
-			'POST',
-			array(),
-			$json
-		);
-
-		// check the return code
-		if ($response->HttpStatus() > 204)
-			throw new NetworkCreateError(sprintf(
-				_('Error creating network [%s], status [%d] response [%s]'),
-				$this->label, $response->HttpStatus(), $response->HttpBody()));
-
-		// set values from response
-		$retobj = json_decode($response->HttpBody());
-		if (!$this->CheckJsonError()) {
-			$top = $this->JsonName();
-			foreach($retobj->$top as $key => $value)
-				$this->$key = $value;
-		}
-
-		return $response;
-	}
-
-	/**
 	 * Always throws an error; updates are not permitted
 	 *
 	 * @throws NetworkUpdateError always
@@ -134,16 +81,19 @@ class Network extends NovaInstance {
 		switch($this->id) {
 		case RAX_PUBLIC:
 		case RAX_PRIVATE:
-			throw new NetworkDeleteError(_('Network may not be deleted'));
+			throw new \OpenCloud\DeleteError(_('Network may not be deleted'));
 		default:
-			break;
+			return parent::Delete();
 		}
-		$response = $this->Service()->Request($this->Url(), 'DELETE');
-		if ($response->HttpStatus() > 204)
-			throw new NetworkDeleteError(sprintf(
-				_('Error deleting network [%s], status [%d] response [%s]'),
-				$this->label, $response->HttpStatus(), $response->HttpBody()));
-		return $response;
+	}
+	
+	/**
+	 * returns the visible name (label) of the network
+	 *
+	 * @return string
+	 */
+	public function Name() {
+		return $this->label;
 	}
 
 	/********** PROTECTED METHODS **********/
@@ -152,7 +102,7 @@ class Network extends NovaInstance {
 	 * Returns the top-level document identifier
 	 */
 	protected function JsonName() {
-		return self::JSON_ELEMENT;
+		return self::JSON_NAME;
 	}
 
 	/**
@@ -162,12 +112,10 @@ class Network extends NovaInstance {
 		return self::URL_RESOURCE;
 	}
 
-	/********** PRIVATE METHODS **********/
-
 	/**
 	 * Creates the JSON object for the Create() method
 	 */
-	private function CreateJson() {
+	protected function CreateJson() {
 		$obj = new \stdClass();
 		$obj->network = new \stdClass();
 		$obj->network->cidr = $this->cidr;

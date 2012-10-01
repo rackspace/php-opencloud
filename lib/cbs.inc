@@ -67,8 +67,9 @@ class CBS extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		if (isset($obj->volumes))
-			return new Collection($this, 'Volume', $obj->volumes);
+		$element = CBS\Volume::JSON_NAME.'s';
+		if (isset($obj->$element))
+			return new Collection($this, 'Volume', $obj->$element);
 		else
 			return new Collection($this, 'Volume', array());
 	}
@@ -113,8 +114,9 @@ class CBS extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		if (isset($obj->networks))
-			return new Collection($this, 'VolumeType', $obj->networks);
+		$element = CBS\VolumeType::JSON_NAME.'s';
+		if (isset($obj->$element))
+			return new Collection($this, 'VolumeType', $obj->$element);
 		else
 			return new Collection($this, 'VolumeType', array());
 	}
