@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\CBS;
+namespace OpenCloud\VolumeService;
 
 require_once('novainstance.inc');
 require_once('metadata.inc');

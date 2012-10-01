@@ -67,4 +67,18 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$image = $this->compute->Image();
 		$this->assertEquals('OpenCloud\Compute', get_class($image->Service()));
     }
+    /**
+     * @expectedException OpenCloud\CreateError
+     */
+    public function testCreate() {
+    	$image = $this->compute->Image();
+    	$image->Create();
+    }
+    /**
+     * @expectedException OpenCloud\UpdateError
+     */
+    public function testUpdate() {
+    	$image = $this->compute->Image();
+    	$image->Update();
+    }
 }

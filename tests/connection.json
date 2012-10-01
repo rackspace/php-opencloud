@@ -102,6 +102,22 @@
       {
         "endpoints": [
           {
+            "region": "ORD",
+            "tenantId": "TENANT-ID",
+            "publicURL": "https:\/\/ord.blockstorage.api.rackspacecloud.com\/v1\/TENANT-ID"
+          },
+          {
+            "region": "DFW",
+            "tenantId": "TENANT-ID",
+            "publicURL": "https:\/\/dfw.blockstorage.api.rackspacecloud.com\/v1\/TENANT-ID"
+          }
+        ],
+        "name": "cloudBlockStorage",
+        "type": "volume"
+      },
+      {
+        "endpoints": [
+          {
             "tenantId": "TENANT-ID",
             "publicURL": "https:\/\/monitoring.api.rackspacecloud.com\/v1.0\/TENANT-ID"
           }

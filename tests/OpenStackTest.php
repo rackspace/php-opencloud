@@ -167,4 +167,17 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	    );
 	    $this->assertEquals('OpenCloud\Compute', get_class($comp));
 	}
+	public function testVolumeService() {
+		$cbs = $this->my->VolumeService('cloudBlockStorage', 'DFW');
+		$this->assertEquals(
+			'OpenCloud\VolumeService',
+			get_class($cbs));
+	}
+	public function testServiceList() {
+		$list = $this->my->ServiceList();
+		while($item = $list->Next())
+			$this->assertEquals(
+				'OpenCloud\ServiceCatalogItem',
+				get_class($item));
+	}
 }

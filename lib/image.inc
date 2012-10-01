@@ -54,7 +54,7 @@ class Image extends NovaInstance {
 	 * error on Update()
 	 */
 	public function Update() {
-		throw new \OpenCloud\CreateError(
+		throw new \OpenCloud\UpdateError(
 			_('Images cannot be updated directly'));
 	}
 
@@ -69,10 +69,6 @@ class Image extends NovaInstance {
     
     protected function ResourceName() {
     	return self::URL_RESOURCE;
-    }
-    
-    protected function JsonName() {
-    	return self::JSON_NAME;
     }
 
 } // class Image

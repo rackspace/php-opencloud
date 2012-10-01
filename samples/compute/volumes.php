@@ -37,8 +37,8 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
-step('Connect to Cloud Block Storage');
-$cbs = $rackspace->CBS('cloudBlockStorage', 'DFW');
+step('Connect to the VolumeService');
+$cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
 
 step('Volume Types');
 $list = $cbs->VolumeTypeList();

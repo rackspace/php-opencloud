@@ -15,6 +15,7 @@ namespace OpenCloud;
 require_once('base.inc');
 require_once('objectstore.inc');
 require_once('compute.inc');
+require_once('volumeservice.inc');
 
 /**
  * The OpenStack class represents a relationship (or "connection") 
@@ -96,10 +97,10 @@ class OpenStack extends \OpenCloud\Base {
 		    	'region' => RAXSDK_DATABASE_REGION,
 		    	'urltype' => RAXSDK_DATABASE_URLTYPE
 		    ),
-		    'CBS' => array(
-		    	'name' => RAXSDK_CBS_NAME,
-		    	'region' => RAXSDK_CBS_REGION,
-		    	'urltype' => RAXSDK_CBS_URLTYPE
+		    'VolumeService' => array(
+		    	'name' => RAXSDK_VOLUME_NAME,
+		    	'region' => RAXSDK_VOLUME_REGION,
+		    	'urltype' => RAXSDK_VOLUME_URLTYPE
 		    )
 		),
 		$connect_timeout=RAXSDK_CONNECTTIMEOUT,
@@ -271,7 +272,8 @@ class OpenStack extends \OpenCloud\Base {
      * @param string url - the URL of the request
      * @param string method - the HTTP method (defaults to GET)
      * @param array headers - an associative array of headers
-     * @param string data - either a string or a resource (file pointer) to use as the
+     * @param string data - either a string or a resource (file pointer) to 
+     *		use as the
      *		request body (for PUT or POST)
      * @return HttpResponse object
      * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
@@ -572,6 +574,19 @@ class OpenStack extends \OpenCloud\Base {
      */
     public function Compute($name=NULL, $region=NULL, $urltype=NULL) {
         return $this->Service('Compute', $name, $region, $urltype);
+    }
+
+    /**
+     * Creates a new VolumeService (cinder) service object
+     *
+     * This is a factory method that is Rackspace-only (NOT part of OpenStack).
+     *
+     * @param string $name the name of the service (e.g., 'cloudBlockStorage')
+     * @param string $region the region (e.g., 'DFW')
+     * @param string $urltype the type of URL (e.g., 'publicURL');
+     */
+    public function VolumeService($name=NULL, $region=NULL, $urltype=NULL) {
+        return $this->Service('VolumeService', $name, $region, $urltype);
     }
 
 	/********** PROTECTED METHODS **********/

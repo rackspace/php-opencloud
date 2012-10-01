@@ -105,4 +105,27 @@ class NovaInstanceTest extends PHPUnit_Framework_TestCase
 	public function WaitForCallBack($server) {
 	    $server->status = 'FOOBAR';
 	}
+	/**
+	 * @expectedException OpenCloud\CreateError
+	 */
+	public function testCreate() {
+		$this->instance->Create();
+	}
+	/**
+	 * @expectedException OpenCloud\UpdateError
+	 */
+	public function testUpdate() {
+		$this->instance->Update();
+	}
+	/**
+	 * @expectedException OpenCloud\UrlError
+	 */
+	public function testDelete() {
+		$this->instance->Delete();
+	}
+	public function testName() {
+		$this->assertEquals(
+			'',
+			$this->instance->Name());
+	}
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * The Rackspace Cloud Block Storage (CBS) service
+ * The OpenStack Cinder (Volume) service
  *
  * @copyright 2012 Rackspace Hosting, Inc.
  * See COPYING for licensing information
@@ -15,12 +15,12 @@ namespace OpenCloud;
 require_once('volume.inc');
 require_once('volumetype.inc');
 
-class CBS extends Nova {
+class VolumeService extends Nova {
 
 	/**
-	 * creates the CBS object
+	 * creates the VolumeService object
 	 */
-	public function __construct(Rackspace $conn, $name, $region, $urltype) {
+	public function __construct(OpenStack $conn, $name, $region, $urltype) {
 		parent::__construct($conn, 'volume', $name, $region, $urltype);
 	}
 
@@ -29,10 +29,10 @@ class CBS extends Nova {
 	 *
 	 * @api
 	 * @param string $id the Volume ID
-	 * @return CBS\Volume
+	 * @return VolumeService\Volume
 	 */
 	public function Volume($id=NULL) {
-		return new CBS\Volume($this, $id);
+		return new VolumeService\Volume($this, $id);
 	}
 
 	/**
@@ -44,7 +44,7 @@ class CBS extends Nova {
 	 * @return Collection
 	 */
 	public function VolumeList($details=TRUE, $filter=array()) {
-		$url = $this->Url(CBS\Volume::URL_RESOURCE);
+		$url = $this->Url(VolumeService\Volume::URL_RESOURCE);
 		if ($details)
 			$url .= '/detail';
 		$this->debug('VolumeList [%s]', $url);
@@ -52,7 +52,7 @@ class CBS extends Nova {
 
 		// check return code
 		if ($response->HttpStatus() > 202)
-			throw new CBS\VolumeError(sprintf(
+			throw new VolumeService\VolumeError(sprintf(
 				_('Unable to retrieve network info [%s], '.
 				  'status [%d] response [%s]'),
 				$url, $response->HttpStatus(), $response->HttpBody()));
@@ -67,7 +67,7 @@ class CBS extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		$element = CBS\Volume::JSON_NAME.'s';
+		$element = VolumeService\Volume::JSON_NAME.'s';
 		if (isset($obj->$element))
 			return new Collection($this, 'Volume', $obj->$element);
 		else
@@ -79,10 +79,10 @@ class CBS extends Nova {
 	 *
 	 * @api
 	 * @param string $id the VolumeType ID
-	 * @return CBS\Volume
+	 * @return VolumeService\Volume
 	 */
 	public function VolumeType($id=NULL) {
-		return new CBS\VolumeType($this, $id);
+		return new VolumeService\VolumeType($this, $id);
 	}
 
 	/**
@@ -93,13 +93,13 @@ class CBS extends Nova {
 	 * @return Collection
 	 */
 	public function VolumeTypeList($filter=array()) {
-		$url = $this->Url(CBS\VolumeType::URL_RESOURCE);
+		$url = $this->Url(VolumeService\VolumeType::URL_RESOURCE);
 		$response = $this->Request($url);
 		$this->debug('VolumeTypeList [%s]', $url);
 
 		// check return code
 		if ($response->HttpStatus() > 202)
-			throw new CBS\VolumeTypeError(sprintf(
+			throw new VolumeService\VolumeTypeError(sprintf(
 				_('Unable to retrieve volume type info [%s], '.
 				  'status [%d] response [%s]'),
 				$url, $response->HttpStatus(), $response->HttpBody()));
@@ -114,7 +114,7 @@ class CBS extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		$element = CBS\VolumeType::JSON_NAME.'s';
+		$element = VolumeService\VolumeType::JSON_NAME.'s';
 		if (isset($obj->$element))
 			return new Collection($this, 'VolumeType', $obj->$element);
 		else
