@@ -52,17 +52,4 @@ class NovaTest extends PHPUnit_Framework_TestCase
 		$resp = $this->nova->Request('http://example.com');
 		$this->assertEquals(404, $resp->HttpStatus());
 	}
-	public function testNamespaces() {
-	    $this->assertEquals(
-	        FALSE,
-	        in_array('FOO', $this->nova->namespaces()));
-	    $this->assertEquals(
-	        TRUE,
-	        in_array('rax-bandwidth', $this->nova->namespaces()));
-	}
-	public function test_load_namespaces() {
-	    $this->assertEquals(
-	        TRUE,
-	        in_array('rax-bandwidth', $this->nova->namespaces()));
-	}
 }

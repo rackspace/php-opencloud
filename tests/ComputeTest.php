@@ -67,4 +67,17 @@ class ComputeTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\Collection',
 			get_class($this->compute->NetworkList()));
 	}
+	public function testNamespaces() {
+	    $this->assertEquals(
+	        FALSE,
+	        in_array('FOO', $this->compute->namespaces()));
+	    $this->assertEquals(
+	        TRUE,
+	        in_array('rax-bandwidth', $this->compute->namespaces()));
+	}
+	public function test_load_namespaces() {
+	    $this->assertEquals(
+	        TRUE,
+	        in_array('rax-bandwidth', $this->compute->namespaces()));
+	}
 }

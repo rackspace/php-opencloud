@@ -418,7 +418,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 			return new \stdClass();
 	} // function ips()
 
-	/*********** PRIVATE METHODS ***********/
+	/*********** PROTECTED METHODS ***********/
 
 	/**
 	 * Creates the JSON for creating a new server
@@ -427,7 +427,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 *      create {rebuild ...} by changing this parameter
 	 * @return json
 	 */
-	private function CreateJson($element='server') {
+	protected function CreateJson($element='server') {
         // create a blank object
         $obj = new \stdClass();
         // set a bunch of properties
@@ -466,7 +466,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 *
 	 * @return json
 	 */
-	private function UpdateJson($params) {
+	protected function UpdateJson($params) {
 		$obj = new \stdClass();
 		$obj->server = new \stdClass();
 		foreach($params as $name => $value)

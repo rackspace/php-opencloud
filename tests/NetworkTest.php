@@ -62,5 +62,10 @@ class NetworkTest extends PHPUnit_Framework_TestCase {
 			202,
 			$resp->HttpStatus());
 	}
+	public function testName() {
+		$this->assertEquals(
+			'public',
+			$this->net->Name());
+	}
 
 }

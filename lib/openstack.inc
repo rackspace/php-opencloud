@@ -95,6 +95,11 @@ class OpenStack extends \OpenCloud\Base {
 		    	'name' => RAXSDK_DATABASE_NAME,
 		    	'region' => RAXSDK_DATABASE_REGION,
 		    	'urltype' => RAXSDK_DATABASE_URLTYPE
+		    ),
+		    'CBS' => array(
+		    	'name' => RAXSDK_CBS_NAME,
+		    	'region' => RAXSDK_CBS_REGION,
+		    	'urltype' => RAXSDK_CBS_URLTYPE
 		    )
 		),
 		$connect_timeout=RAXSDK_CONNECTTIMEOUT,
@@ -109,11 +114,11 @@ class OpenStack extends \OpenCloud\Base {
 		/**
 		 * Tracks file descriptors used by streaming downloads
 		 *
-		 * This will permit multiple simultaneous streaming downloads; the key is
-		 * the URL of the object, and the value is its file descriptor.
+		 * This will permit multiple simultaneous streaming downloads; the 
+		 * key is the URL of the object, and the value is its file descriptor.
 		 *
-		 * To prevent memory overflows, each array element is deleted when the end
-		 * of the file is reached.
+		 * To prevent memory overflows, each array element is deleted when 
+		 * the end of the file is reached.
 		 */
 		$_file_descriptors = array();
 
@@ -189,6 +194,17 @@ class OpenStack extends \OpenCloud\Base {
 		if (time() > ($this->expiration-RAXSDK_FUDGE))
 			$this->Authenticate();
 		return $this->ServiceCatalog;
+	}
+	
+	/**
+	 * Returns a Collection of objects with information on services
+	 *
+	 * Note that these are informational (read-only) and are not actually
+	 * 'Service'-class objects.
+	 */
+	public function ServiceList() {
+		return new Collection(
+			$this, 'ServiceCatalogItem', $this->ServiceCatalog());
 	}
 
     /**
@@ -603,5 +619,24 @@ class OpenStack extends \OpenCloud\Base {
             $urltype
         );
     }
+    
+    /**
+     * returns a service catalog item
+     *
+     * This is a helper function used to list service catalog items easily
+     */
+    public function ServiceCatalogItem($info=array()) {
+    	return new ServiceCatalogItem($info);
+    }
 
 } // class OpenStack
+
+/**
+ * Holds information on a single service from the Service Catalog
+ */
+class ServiceCatalogItem {
+	public function __construct($info=array()) {
+		foreach($info as $key => $value)
+			$this->$key = $value;
+	}
+}

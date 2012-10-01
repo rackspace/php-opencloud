@@ -38,6 +38,8 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 */
 	public function __construct(\OpenCloud\Nova $nova, $info=NULL) {
 		$this->_service = $nova;
+		if (property_exists($this, 'metadata'))
+			$this->metadata = new \OpenCloud\Metadata;
 		if (is_string($info) || is_integer($info))
 			$this->Refresh((string)$info);
 		elseif (is_object($info) || is_array($info))
@@ -50,6 +52,126 @@ abstract class NovaInstance extends \OpenCloud\Base {
 				get_class($info)));
 	}
 
+	/**
+	 * Creates a new object
+	 *
+	 * @api
+	 * @param array $params array of values to set when creating the object
+	 * @return \OpenCloud\HttpResponse
+	 * @throws VolumeCreateError if HTTP status is not Success
+	 */
+	public function Create($params=array()) {
+		// set parameters
+		foreach($params as $key => $value)
+			$this->$key = $value;
+		
+		// debug
+		$this->debug('%s::Create(%s)', get_class($this), $this->Name());
+
+		// construct the JSON
+		$obj = $this->CreateJson();
+		$json = json_encode($obj);
+		if ($this->CheckJsonError())
+			return FALSE;
+		$this->debug('%s::Create JSON [%s]', get_class($this), $json);
+
+		// send the request
+		$response = $this->Service()->Request(
+			$this->Service()->Url($this->ResourceName()),
+			'POST',
+			array(),
+			$json
+		);
+
+		// check the return code
+		if ($response->HttpStatus() > 204)
+			throw new \OpenCloud\CreateError(sprintf(
+				_('Error creating [%s] [%s], status [%d] response [%s]'),
+				get_class($this),
+				$this->Name(), 
+				$response->HttpStatus(), 
+				$response->HttpBody()));
+
+		// set values from response
+		$retobj = json_decode($response->HttpBody());
+		if (!$this->CheckJsonError()) {
+			$top = $this->JsonName();
+			foreach($retobj->$top as $key => $value)
+				$this->$key = $value;
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Updates an existing object
+	 *
+	 * @api
+	 * @param array $params array of values to set when updating the object
+	 * @return \OpenCloud\HttpResponse
+	 * @throws VolumeCreateError if HTTP status is not Success
+	 */
+	public function Update($params=array()) {
+		// set parameters
+		foreach($params as $key => $value)
+			$this->$key = $value;
+		
+		// debug
+		$this->debug('%s::Update(%s)', get_class($this), $this->Name());
+
+		// construct the JSON
+		$obj = $this->UpdateJson();
+		$json = json_encode($obj);
+		if ($this->CheckJsonError())
+			return FALSE;
+		$this->debug('%s::Update JSON [%s]', get_class($this), $json);
+
+		// send the request
+		$response = $this->Service()->Request(
+			$this->Url(),
+			'PUT',
+			array(),
+			$json
+		);
+
+		// check the return code
+		if ($response->HttpStatus() > 204)
+			throw new \OpenCloud\UpdateError(sprintf(
+				_('Error updating [%s] [%s], status [%d] response [%s]'),
+				get_class($this),
+				$this->Name(), 
+				$response->HttpStatus(), 
+				$response->HttpBody()));
+
+		// set values from response
+		$retobj = json_decode($response->HttpBody());
+		if (!$this->CheckJsonError()) {
+			$top = $this->JsonName();
+			foreach($retobj->$top as $key => $value)
+				$this->$key = $value;
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Deletes an block storage volume
+	 *
+	 * @api
+	 * @return \OpenCloud\HttpResponse
+	 * @throws VolumeDeleteError if HTTP status is not Success
+	 */
+	public function Delete() {
+		$this->debug('%s::Delete()', get_class($this));
+		$response = $this->Service()->Request($this->Url(), 'DELETE');
+		if ($response->HttpStatus() > 204)
+			throw new \OpenCloud\DeleteError(sprintf(
+				_('Error deleting volume [%s], status [%d] response [%s]'),
+				$this->display_name, 
+				$response->HttpStatus(), 
+				$response->HttpBody()));
+		return $response;
+	}
 	/**
 	 * Returns the default URL of the object
 	 *
@@ -185,8 +307,25 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		}
 	}
 
-	/********** PROTECTED METHODS **********/
+	/**
+	 * Returns the displayable name of the object
+	 *
+	 * Can be overridden by child objects
+	 *
+	 * @api
+	 * @throws \OpenCloud\NameError if attribute 'name' is not defined
+	 */
+	public function Name() {
+		if (property_exists($this, 'name'))
+			return $this->name;
+		else 
+			throw new \OpenCloud\NameError(sprintf(
+				_('Name attribute does not exist for [%s]'),
+				get_class($this)));
+	}
 
+	/********** PROTECTED METHODS **********/
+	
 	/**
 	 * Sends the json string to the /action resource
 	 *
@@ -267,12 +406,13 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * Returns the top-level document identifier for the returned response JSON document; 
-	 * must be overridden in child classes
+	 * Returns the top-level document identifier for the returned response 
+	 * JSON document; must be overridden in child classes
 	 *
-	 * For example, a server document is (JSON) `{"server": ...}` and an Instance
-	 * document is `{"instance": ...}` - this function must return the top level
-	 * document name (either "server" or "instance", in these examples).
+	 * For example, a server document is (JSON) `{"server": ...}` and an 
+	 * Instance document is `{"instance": ...}` - this function must return 
+	 * the top level document name (either "server" or "instance", in 
+	 * these examples).
 	 *
 	 * @throws \OpenCloud\DocumentError if not overridden
 	 */
@@ -283,11 +423,11 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	}
 
 	/**
-	 * Returns the resource name for the URL of the object; must be overridden in child
-	 * classes
+	 * Returns the resource name for the URL of the object; must be overridden 
+	 * in child classes
 	 *
-	 * For example, a server is `/servers/`, a database instance is `/instances/`.
-	 * Must be overridden in child classes.
+	 * For example, a server is `/servers/`, a database instance is 
+	 * `/instances/`. Must be overridden in child classes.
 	 *
 	 * @throws \OpenCloud\UrlError
 	 */
@@ -296,5 +436,30 @@ abstract class NovaInstance extends \OpenCloud\Base {
 			_('Unrecognized class [%s] in ResourceName() function'),
 			get_class($this)));
 	}
-
+	
+	/**
+	 * Returns an object for the Create() method JSON
+	 *
+	 * Must be overridden in a child class.
+	 *
+	 * @throws \OpenCloud\CreateError if not overridden
+	 */
+	protected function CreateJson() {
+		throw new \OpenCloud\CreateError(sprintf(
+			_('[%s] CreateJson() must be overridden'),
+			get_class($this)));
+	}
+	
+	/**
+	 * Returns an object for the Update() method JSON
+	 *
+	 * Must be overridden in a child class.
+	 *
+	 * @throws \OpenCloud\UpdateError if not overridden
+	 */
+	protected function UpdateJson() {
+		throw new \OpenCloud\UpdateError(sprintf(
+			_('[%s] UpdateJson() must be overridden'),
+			get_class($this)));
+	}
 }

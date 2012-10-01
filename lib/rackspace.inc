@@ -15,6 +15,7 @@ namespace OpenCloud;
 
 require_once('openstack.inc');
 require_once('dbservice.inc');
+require_once('cbs.inc');
 
 /**
  * Rackspace extends the OpenStack class with support for Rackspace's
@@ -76,6 +77,19 @@ ENDCRED;
      */
     public function DbService($name=NULL, $region=NULL, $urltype=NULL) {
         return $this->Service('DbService', $name, $region, $urltype);
+    }
+    
+    /**
+     * Creates a new CBS (cloud block storage) service object
+     *
+     * This is a factory method that is Rackspace-only (NOT part of OpenStack).
+     *
+     * @param string $name the name of the service (e.g., 'cloudBlockStorage')
+     * @param string $region the region (e.g., 'DFW')
+     * @param string $urltype the type of URL (e.g., 'publicURL');
+     */
+    public function CBS($name=NULL, $region=NULL, $urltype=NULL) {
+        return $this->Service('CBS', $name, $region, $urltype);
     }
 
 

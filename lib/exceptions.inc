@@ -34,6 +34,11 @@ namespace OpenCloud {
 	class ServiceValueError extends \Exception {}
 	class UnrecognizedServiceError extends \Exception {}
 	class UrlError extends \Exception {}
+	// used by NovaInstance
+	class CreateError extends \Exception {}
+	class DeleteError extends \Exception {}
+	class UpdateError extends \Exception {}
+	class NameError extends \Exception {}
 
 	/**
 	 * catch-all
@@ -124,4 +129,15 @@ namespace OpenCloud\DbService {
 	class UserListError extends \Exception {}
 	class UserUpdateError extends \Exception {}
 	class UserNameError extends \Exception {}
+}
+
+/**
+ * Exceptions used by the Cloud Block Storage (CBS) service
+ */
+namespace OpenCloud\CBS {
+	class VolumeError extends \Exception {}
+	class VolumeCreateError extends \Exception {}
+	class VolumeUpdateError extends \Exception {}
+	class VolumeDeleteError extends \Exception {}
+	class VolumeTypeError extends \Exception {}
 }
