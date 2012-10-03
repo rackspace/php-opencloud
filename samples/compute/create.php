@@ -62,8 +62,8 @@ print("Creating server...");
 $server->Create(array(
 		'image' => $myimage,
 		'flavor' => $myflavor));
-print("requested, now waiting...");
-print("ID=".$server->id."...");
+print("requested, now waiting...\n");
+print("ID=".$server->id."...\n");
 $server->WaitFor("ACTIVE", 600, 'OpenCloud\dot');
 print("done\n");
 exit(0);
