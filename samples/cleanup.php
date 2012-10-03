@@ -46,10 +46,10 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 step('Connect to Cloud Servers');
 $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 
-step('Deleting SmokeTestServer(s)');
+step('Deleting unused servers');
 $list = $cloudservers->ServerList();
 while($server = $list->Next())
-    if ($server->name == 'SmokeTestServer') {
+    if ($server->name != 'MODEL') {
         info('Deleting server [%s] %s', $server->id, $server->name);
         $server->Delete();
     }
