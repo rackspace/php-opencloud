@@ -83,7 +83,7 @@ if (!defined('RAXSDK_TIMEOUT'))
 if (!defined('RAXSDK_SERVER_MAXTIMEOUT'))
     define('RAXSDK_SERVER_MAXTIMEOUT', 3600);
 if (!defined('RAXSDK_POLL_INTERVAL'))
-    define('RAXSDK_POLL_INTERVAL', 5);
+    define('RAXSDK_POLL_INTERVAL', 10);
 if (!defined('RAXSDK_DEFAULT_IP_VERSION'))
     define('RAXSDK_DEFAULT_IP_VERSION', 4);
 if (!defined('RAXSDK_OVERLIMIT_TIMEOUT'))
