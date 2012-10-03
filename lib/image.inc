@@ -71,4 +71,7 @@ class Image extends NovaInstance {
     	return self::URL_RESOURCE;
     }
 
+	protected function JsonName() {
+		return self::JSON_NAME;
+	}
 } // class Image
