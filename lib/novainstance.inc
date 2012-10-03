@@ -284,6 +284,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		// retrieve it
 		$this->debug(_('%s id [%s]'), get_class($this), $id);
 		$this->id = $id;
+		$this->status = NULL;
 		$url = $this->Url();
 		$response = $this->Service()->Request($url);
 
