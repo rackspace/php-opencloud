@@ -37,8 +37,6 @@ printf("Wait for it to finish...\n");
 $server->WaitFor('ACTIVE', 600, 'progress');
 
 printf("DONE\n");
-$server->Refresh();
-printf("Server %s, IP %s\n", $server->Name(), $server->ip());
 exit;
 
 function progress($s) {
