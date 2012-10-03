@@ -436,7 +436,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
         $obj->$element->imageRef = $this->imageRef;
         $obj->$element->flavorRef = $this->flavorRef;
         $obj->$element->metadata = $this->metadata;
-		if (is_array($this->networks)) {
+		if (is_array($this->networks) && count($this->networks)) {
 			$obj->$element->networks = array();
 			foreach($this->networks as $net) {
 			    if (get_class($net) != 'OpenCloud\Compute\Network')
