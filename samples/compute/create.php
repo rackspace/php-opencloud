@@ -68,6 +68,6 @@ $server->WaitFor("ACTIVE", 600, 'OpenCloud\dot');
 print("done\n");
 exit(0);
 
-function dot() {
-	print("X");
+function dot($server) {
+	printf("%s %3d%%\n", $server->status, $server->progress);
 }

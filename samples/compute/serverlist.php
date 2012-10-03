@@ -26,7 +26,7 @@ $compute = $connection->Compute('cloudServersOpenStack', 'DFW');
 print("ALL SERVERS:\n");
 $slist = $compute->ServerList();
 while($server = $slist->Next())
-    printf("* %s\n", $server->name);
+    printf("* %s (%s)\n", $server->Name(), $server->ip());
 
 // list all servers named MODEL
 print("\nALL SERVERS NAMED 'MODEL':\n");

@@ -84,6 +84,9 @@ step('Setting root passwords on both servers to "Turp3ntin3"');
 $server1->SetPassword("Turp3ntin3");
 $server2->SetPassword("Turp3ntin3");
 
+$server1->Refresh();
+$server2->Refresh();
+
 step('Pause for verification');
 info('Server1 IP is %s', $server1->ip());
 info('Server2 IP is %s', $server2->ip());
