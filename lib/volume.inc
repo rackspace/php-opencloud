@@ -97,4 +97,4 @@ class Volume extends \OpenCloud\Compute\NovaInstance {
 		return $obj;
 	}
 
-} // class Network
+} // class Volume

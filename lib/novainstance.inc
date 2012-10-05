@@ -324,7 +324,8 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	/**
 	 * Returns the displayable name of the object
 	 *
-	 * Can be overridden by child objects
+	 * Can be overridden by child objects; *must* be overridden by child
+	 * objects if the object does not have a `name` attribute defined.
 	 *
 	 * @api
 	 * @throws \OpenCloud\NameError if attribute 'name' is not defined

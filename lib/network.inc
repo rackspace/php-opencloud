@@ -90,6 +90,7 @@ class Network extends NovaInstance {
 	/**
 	 * returns the visible name (label) of the network
 	 *
+	 * @api
 	 * @return string
 	 */
 	public function Name() {

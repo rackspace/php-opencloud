@@ -43,7 +43,11 @@ class Image extends NovaInstance {
 		$server;
 	
 	/**
-	 * error on Create
+	 * error on Create()
+	 *
+	 * The Create() method is not supported on the compute/image class.
+	 *
+	 * @throws OpenCloud\CreateError always
 	 */
 	public function Create() {
 		throw new \OpenCloud\CreateError(
@@ -52,25 +56,28 @@ class Image extends NovaInstance {
 	
 	/**
 	 * error on Update()
+	 *
+	 * The Update() method is not supported on the compute/image class.
+	 *
+	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update() {
 		throw new \OpenCloud\UpdateError(
 			_('Images cannot be updated directly'));
 	}
 
-    /**
-     * Validates extension attributes
-     */
-    public function __set($name, $value) {
-        $this->SetProperty($name, $value, $this->Service()->namespaces());
-    }
-    
     /********** PROTECTED METHODS **********/
     
+    /**
+     * returns the URL resource component
+     */
     protected function ResourceName() {
     	return self::URL_RESOURCE;
     }
 
+	/**
+	 * returns the JSON top-level element
+	 */
 	protected function JsonName() {
 		return self::JSON_NAME;
 	}

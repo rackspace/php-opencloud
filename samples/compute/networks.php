@@ -48,7 +48,7 @@ step('Create a network SAMPLENET');
 $samplenet = $cloudservers->Network();
 $samplenet->Create(array(
     'label' => 'SAMPLENET',
-    'cidr' => '192.168.0.0/28'));
+    'cidr' => '192.168.0.0/24'));
 
 step('List Networks');
 $netlist = $cloudservers->NetworkList();
