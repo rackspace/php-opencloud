@@ -49,7 +49,7 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>servermetadata.inc</h1>
+<h1>volumetype.inc</h1>
 <div class="file_menu">
 <a href="#includes">Includes</a> |<a href="#classes">Classes</a> |</div>
 <div class="properties">
@@ -59,19 +59,22 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>Specialized metadata for OpenStack Server objects (metadata items
-can be managed individually or in aggregate)<br><br><a name="includes"></a><h2>Includes</h2>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
-<div id="ServerMetadata" class="class">
-<h3>ServerMetadata</h3>
+<h2>Description</h2>Defines a block storage volume type<br><br><a name="includes"></a><h2>Includes</h2>novainstance.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="VolumeType" class="class">
+<h3>VolumeType</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="metadata.inc.html#%5COpenCloud%5CMetadata">\OpenCloud\Metadata</a>
+<a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance">\OpenCloud\Compute\NovaInstance</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
+<label class="property-key">api</label><div class="property-value">
+<a title=""></a>
+             
+        </div>
 <label class="property-key">author</label><div class="property-value">
-<a title="">Glen Campbell <glen.campbell@rackspace.com>s</a>
+<a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
         </div>
 <label class="property-key">Abstract</label><div class="property-value">No 
@@ -80,29 +83,105 @@ can be managed individually or in aggregate)<br><br><a name="includes"></a><h2>I
       </div>
 </div>
 <h4>Description</h4>
-<em>This class handles server metadata</em><br><p>Server metadata is a weird beast in that it has resource representations
-and HTTP calls to set the entire server metadata as well as individual
-items.</p><br><div id="methods_ServerMetadata">
+<em>The VolumeType class represents a single block storage volume type</em><br><p>This can be
+a Server, a database instance, or another type of packaged product that
+uses a Nova virtual server as its base.</p><br><div id="methods_VolumeType">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#ServerMetadata::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::Create()">Create</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::Delete()">Delete</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::GetMetadataJson()">GetMetadataJson</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::Keylist()">Keylist</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::Parent()">Parent</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::SetArray()">SetArray</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::Update()">Update</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::Url()">Url</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::__set()">__set</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::debug()">debug</a>,
-      <a style="font-style: italic;" href="#ServerMetadata::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#VolumeType::Action()">Action</a>,
+      <a style="font-style: italic;" href="#VolumeType::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#VolumeType::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#VolumeType::Create()">Create</a>,
+      <a style="font-style: italic;" href="#VolumeType::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#VolumeType::Delete()">Delete</a>,
+      <a style="font-style: italic;" href="#VolumeType::FindLink()">FindLink</a>,
+      <a style="font-style: italic;" href="#VolumeType::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#VolumeType::JsonName()">JsonName</a>,
+      <a style="font-style: italic;" href="#VolumeType::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#VolumeType::Name()">Name</a>,
+      <a style="font-style: italic;" href="#VolumeType::PrimaryKeyField()">PrimaryKeyField</a>,
+      <a style="font-style: italic;" href="#VolumeType::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#VolumeType::ResourceName()">ResourceName</a>,
+      <a style="font-style: italic;" href="#VolumeType::Service()">Service</a>,
+      <a style="font-style: italic;" href="#VolumeType::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#VolumeType::Update()">Update</a>,
+      <a style="font-style: italic;" href="#VolumeType::UpdateJson()">UpdateJson</a>,
+      <a style="font-style: italic;" href="#VolumeType::Url()">Url</a>,
+      <a style="font-style: italic;" href="#VolumeType::WaitFor()">WaitFor</a>,
+      <a style="font-style: italic;" href="#VolumeType::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#VolumeType::__set()">__set</a>,
+      <a style="font-style: italic;" href="#VolumeType::debug()">debug</a>,
+      <a style="font-style: italic;" href="#VolumeType::to_string()">to_string</a>,
       <div class="method">
-<a id="ServerMetadata::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="VolumeType::Action()"></a><h3>Action<span class="nb-faded-text">(
+          \OpenCloud\Compute\$object
+             
+            $object,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Sends the json string to the /action resource</em><br><small><p>This is used for many purposes, such as rebooting the server,
+setting the root password, creating images, etc.
+Since it can only be used on a live server, it checks for a valid ID.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$object</td>
+<td style="white-space: normal;">\OpenCloud\Compute\$object</td>
+<td><ul>
+<li>this will be encoded as json, and we handle all the JSON error-checking in one place</li>
+</ul>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if server ID is not defined</td>
+</tr>
+<tr>
+<td>throws</td>
+<td>on other errors</td>
+</tr>
+<tr>
+<td>returns</td>
+<td>boolean; TRUE if successful, FALSE otherwise</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Action()"><small>\OpenCloud\Compute\NovaInstance::Action()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -165,13 +244,13 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::CheckAttributePrefix()"><small>\OpenCloud\Metadata::CheckAttributePrefix()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::CheckAttributePrefix()"><small>\OpenCloud\Compute\NovaInstance::CheckAttributePrefix()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="VolumeType::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -213,30 +292,61 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::CheckJsonError()"><small>\OpenCloud\Metadata::CheckJsonError()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::CheckJsonError()"><small>\OpenCloud\Compute\NovaInstance::CheckJsonError()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::Create()"></a><h3>Create<span class="nb-faded-text">(
+<a id="VolumeType::Create()"></a><h3>Create<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Sets a new metadata value or block</em><br><small><p>Note that, if you're setting a block, the block specified will
-<em>entirely replace</em> the existing block.</p></small><br><h4>Return value</h4>
+<em>Creates are not permitted</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
+<td>\OpenCloud\HttpResponse</td>
 <td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns an object for the Create() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -247,33 +357,33 @@ exception thrown.</p>
 </tr></thead>
 <tbody>
 <tr>
-<td>api</td>
-<td></td>
+<td>throws</td>
+<td>if not overridden</td>
 </tr>
 <tr>
-<td>throws</td>
-<td></td>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::CreateJson()"><small>\OpenCloud\Compute\NovaInstance::CreateJson()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::Delete()"></a><h3>Delete<span class="nb-faded-text">(
+<a id="VolumeType::Delete()"></a><h3>Delete<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Deletes a metadata key or block</em><br><h4>Return value</h4>
+<em>deletes are not permitted</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
+<td>\OpenCloud\HttpResponse</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -283,20 +393,68 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
+<tbody><tr>
 <td>throws</td>
-<td></td>
-</tr>
-</tbody>
+<td>if HTTP status is not Success</td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="VolumeType::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
+          string
+             
+            $type
+            = 'self',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Since each server can have multiple links, this returns the desired one</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$type</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>'self' is most common; use 'bookmark' for the version-independent one</li>
+</ul>
+</td>
+<td>'self'</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>the URL from the links block</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::FindLink()"><small>\OpenCloud\Compute\NovaInstance::FindLink()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -358,29 +516,32 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::GetHttpRequestObject()"><small>\OpenCloud\Metadata::GetHttpRequestObject()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::GetHttpRequestObject()"><small>\OpenCloud\Compute\NovaInstance::GetHttpRequestObject()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::GetMetadataJson()"></a><h3>GetMetadataJson<span class="nb-faded-text">(
+<a id="VolumeType::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">string</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Builds a metadata JSON string</em><br><h4>Return value</h4>
+<em>Returns the top-level document identifier</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
+Instance document is <code>{"instance": ...}</code> - this function must return
+the top level document name (either "server" or "instance", in
+these examples).</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>string</td>
-<td></td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -391,44 +552,12 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>throws</td>
-<td></td>
+<td>if not overridden</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::Keylist()"></a><h3>Keylist<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">array</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the list of keys defined</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>array</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::Keylist()"><small>\OpenCloud\Metadata::Keylist()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="ServerMetadata::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="VolumeType::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -479,40 +608,92 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::MakeQueryString()"><small>\OpenCloud\Metadata::MakeQueryString()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::MakeQueryString()"><small>\OpenCloud\Compute\NovaInstance::MakeQueryString()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::Parent()"></a><h3>Parent<span class="nb-faded-text">(
+<a id="VolumeType::Name()"></a><h3>Name<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\Compute\Server</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the parent Server object</em><br><h4>Return value</h4>
+<em>Returns the displayable name of the object</em><br><small><p>Can be overridden by child objects; <em>must</em> be overridden by child
+objects if the object does not have a <code>name</code> attribute defined.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\Compute\Server</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
 <td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if attribute 'name' is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Name()"><small>\OpenCloud\Compute\NovaInstance::Name()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the primary key field for the object</em><br><small><p>The primary key is usually 'id', but this function is provided so that
+(in rare cases where it is not 'id'), it can be overridden.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::PrimaryKeyField()"><small>\OpenCloud\Compute\NovaInstance::PrimaryKeyField()</small></a></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::SetArray()"></a><h3>SetArray<span class="nb-faded-text">(
-          array
+<a id="VolumeType::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
+          
              
-            $values,
-          string
-             
-            $prefix
+            $id
             = NULL,
           
           )
@@ -521,8 +702,8 @@ exception thrown.</p>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Sets metadata values from an array, with optional prefix</em><br><small><p>If $prefix is provided, then only array keys that match the prefix
-are set as metadata values, and $prefix is stripped from the key name.</p></small><br><h4>Arguments</h4>
+<em>Refreshes the server from the origin (useful when the server is
+changing states)</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -530,22 +711,12 @@ are set as metadata values, and $prefix is stripped from the key name.</p></smal
 <th>Description</th>
 <th>Default</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>$values</td>
-<td style="white-space: normal;">array</td>
-<td><p>an array of key/value pairs to set</p>
-</td>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
 <td></td>
-</tr>
-<tr>
-<td>$prefix</td>
-<td style="white-space: normal;">string</td>
-<td><p>if provided, a prefix that is used to identify metadata values. For example, you can set values from headers for a Container by using $prefix='X-Container-Meta-'.</p>
-</td>
 <td>NULL</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 <h4>Return value</h4>
 <table>
@@ -564,14 +735,85 @@ are set as metadata values, and $prefix is stripped from the key name.</p></smal
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::SetArray()"><small>\OpenCloud\Metadata::SetArray()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Refresh()"><small>\OpenCloud\Compute\NovaInstance::Refresh()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the URL resource</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
+<code>/instances/</code>. Must be overridden in child classes.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="VolumeType::Service()"></a><h3>Service<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the Service object associated with this server</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Service()"><small>\OpenCloud\Compute\NovaInstance::Service()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -648,13 +890,152 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::SetProperty()"><small>\OpenCloud\Metadata::SetProperty()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::SetProperty()"><small>\OpenCloud\Compute\NovaInstance::SetProperty()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::Update()"></a><h3>Update<span class="nb-faded-text">(
+<a id="VolumeType::Update()"></a><h3>Update<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>updates are not permitted</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if not overridden</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::UpdateJson()"><small>\OpenCloud\Compute\NovaInstance::UpdateJson()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::Url()"></a><h3>Url<span class="nb-faded-text">(
+          
+             
+            $subresource
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$subresource</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if URL is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Url()"><small>\OpenCloud\Compute\NovaInstance::Url()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeType::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
+          string
+             
+            $terminal
+            = 'ACTIVE',
+          integer
+             
+            $timeout
+            = RAXSDK_SERVER_MAXTIMEOUT,
+          \OpenCloud\Compute\callable
+             
+            $callback
+            = NULL,
           
           )
         </span>
@@ -662,7 +1043,44 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Updates a metadata key or block</em><br><h4>Return value</h4>
+<em>Waits for the server/instance status to change</em><br><small><p>This function repeatedly polls the system for a change in server
+status. Once the status reaches the <code>$terminal</code> value (or 'ERROR'),
+then the function returns.</p>
+
+<p>The polling interval is set by the constant RAXSDK_POLL_INTERVAL.</p>
+
+<p>The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
+seconds elapse.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$terminal</td>
+<td style="white-space: normal;">string</td>
+<td><p>the terminal state to wait for</p></td>
+<td>'ACTIVE'</td>
+</tr>
+<tr>
+<td>$timeout</td>
+<td style="white-space: normal;">integer</td>
+<td><p>the max time (in seconds) to wait</p>
+</td>
+<td>RAXSDK_SERVER_MAXTIMEOUT</td>
+</tr>
+<tr>
+<td>$callback</td>
+<td style="white-space: normal;">\OpenCloud\Compute\callable</td>
+<td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -685,54 +1103,20 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td></td>
 </tr>
 <tr>
-<td>throws</td>
-<td></td>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::WaitFor()"><small>\OpenCloud\Compute\NovaInstance::WaitFor()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::Url()"></a><h3>Url<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the URL of the metadata (key or block)</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
-base level, it simply throws an exception to enforce the idea that
-subclasses need to define this method.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="ServerMetadata::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          object
+<a id="VolumeType::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          \OpenCloud\Compute\OpenCloud\Nova
              
-            $parent,
-          string
+            $nova,
+          mixed
              
-            $key
+            $info
             = NULL,
           
           )
@@ -741,7 +1125,7 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Contructs a Metadata object associated with a Server or Image object</em><br><h4>Arguments</h4>
+<em>Retrieves the instance from persistent storage</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -751,15 +1135,15 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$parent</td>
-<td style="white-space: normal;">object</td>
-<td><p>either a Server or an Image object</p></td>
+<td>$nova</td>
+<td style="white-space: normal;">\OpenCloud\Compute\OpenCloud\Nova</td>
+<td><p>the service object</p></td>
 <td></td>
 </tr>
 <tr>
-<td>$key</td>
-<td style="white-space: normal;">string</td>
-<td><p>the (optional) key for the metadata item</p>
+<td>$info</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>the ID or array/object of data</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -782,18 +1166,24 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
-<td></td>
-</tr></tbody>
+<td>if $info has an invalid data type</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::__construct()"><small>\OpenCloud\Compute\NovaInstance::__construct()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::__set()"></a><h3>__set<span class="nb-faded-text">(
+<a id="VolumeType::__set()"></a><h3>__set<span class="nb-faded-text">(
           string
              
-            $key,
-          string
+            $name,
+          mixed
              
             $value,
           
@@ -803,10 +1193,8 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Overrides the base setter method, since the metadata key can be
-anything (no name-checking is required)</em><br><small><p>This function is provided to ensure that attributes cannot
-arbitrarily added to an object. If this function is called, it
-means that the attribute is not defined on the object, and thus
+<em>Validates properties that have a namespace: prefix</em><br><small><p>If the property prefix: appears in the list of supported extension
+namespaces, then the property is applied to the object. Otherwise,
 an exception is thrown.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
@@ -817,15 +1205,16 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$key</td>
+<td>$name</td>
 <td style="white-space: normal;">string</td>
-<td></td>
+<td><p>the name of the property</p></td>
 <td></td>
 </tr>
 <tr>
 <td>$value</td>
-<td style="white-space: normal;">string</td>
-<td></td>
+<td style="white-space: normal;">mixed</td>
+<td><p>the property's value</p>
+</td>
 <td></td>
 </tr>
 </tbody>
@@ -847,14 +1236,20 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
 <td></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::__set()"><small>\OpenCloud\Compute\NovaInstance::__set()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="VolumeType::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -967,13 +1362,13 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::debug()"><small>\OpenCloud\Metadata::debug()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::debug()"><small>\OpenCloud\Compute\NovaInstance::debug()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="VolumeType::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           mixed
              
             $x,
@@ -1023,22 +1418,22 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="metadata.inc.html#%5COpenCloud%5CMetadata::to_string()"><small>\OpenCloud\Metadata::to_string()</small></a></td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::to_string()"><small>\OpenCloud\Compute\NovaInstance::to_string()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="properties_ServerMetadata">
+<div id="properties_VolumeType">
 <h4>Properties</h4>
-<a href="#ServerMetadata::%24_errors">$_errors</a>,
-      <a href="#ServerMetadata::%24_key">$_key</a>,
-      <a href="#ServerMetadata::%24_keylist">$_keylist</a>,
-      <a href="#ServerMetadata::%24_parent">$_parent</a>,
-      <a href="#ServerMetadata::%24_url">$_url</a>,
-      <a href="#ServerMetadata::%24http_headers">$http_headers</a>,
+<a href="#VolumeType::%24_errors">$_errors</a>,
+      <a href="#VolumeType::%24_service">$_service</a>,
+      <a href="#VolumeType::%24extra_specs">$extra_specs</a>,
+      <a href="#VolumeType::%24http_headers">$http_headers</a>,
+      <a href="#VolumeType::%24id">$id</a>,
+      <a href="#VolumeType::%24name">$name</a>,
       <div class="method">
-<a id="ServerMetadata::$_errors"></a><h3>
+<a id="VolumeType::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -1047,49 +1442,68 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ServerMetadata::$_key"></a><h3>
+<a id="VolumeType::$_service"></a><h3>
 <span class="nb-faded-text"> 
-          private 
-          </span>$_key
+          protected 
+          </span>$_service
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ServerMetadata::$_keylist"></a><h3>
+<a id="VolumeType::$extra_specs"></a><h3>
 <span class="nb-faded-text"> 
-          private 
-          </span>$_keylist
-          =
-          array()</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="ServerMetadata::$_parent"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_parent
+          public 
+          </span>$extra_specs
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ServerMetadata::$_url"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_url
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="ServerMetadata::$http_headers"></a><h3>
+<a id="VolumeType::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
           =
           array()</h3>
 <em></em><br>
+</div>
+<div class="method">
+<a id="VolumeType::$id"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$id
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="VolumeType::$name"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$name
+          =
+          </h3>
+<em></em><br>
+</div>
+</div>
+<div id="constants_VolumeType">
+<h4>Constants</h4>
+<a id="VolumeType::JSON_NAME"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>JSON_NAME<span class="nb-faded-text">
+         = 'volume_type'</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="VolumeType::URL_RESOURCE"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>URL_RESOURCE<span class="nb-faded-text">
+         = 'types'</span>
+</h3>
+<em></em><br><br>
 </div>
 </div>
 <div style="clear: both"></div>

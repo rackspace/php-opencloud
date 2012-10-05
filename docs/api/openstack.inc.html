@@ -1,5 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -60,7 +59,7 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>The OpenStack connection/cloud class<br><br><a name="includes"></a><h2>Includes</h2>base.inc <span class="nb-faded-text">(Require Once)</span><br>objectstore.inc <span class="nb-faded-text">(Require Once)</span><br>compute.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<h2>Description</h2>The OpenStack connection/cloud class<br><br><a name="includes"></a><h2>Includes</h2>base.inc <span class="nb-faded-text">(Require Once)</span><br>objectstore.inc <span class="nb-faded-text">(Require Once)</span><br>compute.inc <span class="nb-faded-text">(Require Once)</span><br>volumeservice.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="OpenStack" class="class">
 <h3>OpenStack</h3>
 <div class="properties">
@@ -122,6 +121,8 @@ providers are welcome to add their own subclasses as well.</p>
       <a style="font-style: italic;" href="#OpenStack::Secret()">Secret</a>,
       <a style="font-style: italic;" href="#OpenStack::Service()">Service</a>,
       <a style="font-style: italic;" href="#OpenStack::ServiceCatalog()">ServiceCatalog</a>,
+      <a style="font-style: italic;" href="#OpenStack::ServiceCatalogItem()">ServiceCatalogItem</a>,
+      <a style="font-style: italic;" href="#OpenStack::ServiceList()">ServiceList</a>,
       <a style="font-style: italic;" href="#OpenStack::SetDefaults()">SetDefaults</a>,
       <a style="font-style: italic;" href="#OpenStack::SetDownloadProgressCallback()">SetDownloadProgressCallback</a>,
       <a style="font-style: italic;" href="#OpenStack::SetProperty()">SetProperty</a>,
@@ -130,6 +131,7 @@ providers are welcome to add their own subclasses as well.</p>
       <a style="font-style: italic;" href="#OpenStack::Tenant()">Tenant</a>,
       <a style="font-style: italic;" href="#OpenStack::Token()">Token</a>,
       <a style="font-style: italic;" href="#OpenStack::Url()">Url</a>,
+      <a style="font-style: italic;" href="#OpenStack::VolumeService()">VolumeService</a>,
       <a style="font-style: italic;" href="#OpenStack::__construct()">__construct</a>,
       <a style="font-style: italic;" href="#OpenStack::__set()">__set</a>,
       <a style="font-style: italic;" href="#OpenStack::_read_cb()">_read_cb</a>,
@@ -838,6 +840,68 @@ exceptions for the request.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="OpenStack::ServiceCatalogItem()"></a><h3>ServiceCatalogItem<span class="nb-faded-text">(
+          
+             
+            $info
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns a service catalog item</em><br><small><p>This is a helper function used to list service catalog items easily</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$info</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="OpenStack::ServiceList()"></a><h3>ServiceList<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a Collection of objects with information on services</em><br><small><p>Note that these are informational (read-only) and are not actually
+'Service'-class objects.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="OpenStack::SetDefaults()"></a><h3>SetDefaults<span class="nb-faded-text">(
           string
              
@@ -1271,6 +1335,71 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <td></td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="method">
+<a id="OpenStack::VolumeService()"></a><h3>VolumeService<span class="nb-faded-text">(
+          string
+             
+            $name
+            = NULL,
+          string
+             
+            $region
+            = NULL,
+          string
+             
+            $urltype
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Creates a new VolumeService (cinder) service object</em><br><small><p>This is a factory method that is Rackspace-only (NOT part of OpenStack).</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the service (e.g., 'cloudBlockStorage')</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$region</td>
+<td style="white-space: normal;">string</td>
+<td><p>the region (e.g., 'DFW')</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$urltype</td>
+<td style="white-space: normal;">string</td>
+<td><p>the type of URL (e.g., 'publicURL');</p>
+</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -1757,7 +1886,7 @@ with "Debug:" and the class name, to the standard output device.</p>
           protected 
           </span>$defaults
           =
-          array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'DbService' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE))</h3>
+          array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'DbService' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE), 'VolumeService' =&gt; array('name' =&gt; RAXSDK_VOLUME_NAME, 'region' =&gt; RAXSDK_VOLUME_REGION, 'urltype' =&gt; RAXSDK_VOLUME_URLTYPE))</h3>
 <em></em><br>
 </div>
 <div class="method">
@@ -1853,8 +1982,67 @@ with "Debug:" and the class name, to the standard output device.</p>
 </div>
 <div style="clear: both"></div>
 </div>
+<div id="ServiceCatalogItem" class="class">
+<h3>ServiceCatalogItem</h3>
+<div class="properties">
+<h1>Properties</h1>
+<label class="property-key">Extends</label><div class="property-value">
+         </div>
+<label class="property-key">Implements</label><div class="property-value"> 
+      </div>
+<label class="property-key">Abstract</label><div class="property-value">No 
+      </div>
+<label class="property-key">Final</label><div class="property-value">No 
+      </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<h4>Description</h4>
+<em>Holds information on a single service from the Service Catalog</em><br><br><div id="methods_ServiceCatalogItem">
+<h4>Methods</h4>
+<a style="font-style: italic;" href="#ServiceCatalogItem::__construct()">__construct</a>,
+      <div class="method">
+<a id="ServiceCatalogItem::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          
+             
+            $info
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$info</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<div style="clear: both"></div>
+</div>
+</div>
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -1923,8 +2111,10 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
 <li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CreateError">CreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
 <li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#EndpointError">EndpointError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpError">HttpError</a><br><small></small></span></li>
@@ -1941,6 +2131,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NameError">NameError</a><br><small></small></span></li>
 <li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and ObjectStoreCDN
@@ -1952,10 +2143,13 @@ between a user and a service.</small></span></li>
 API key and tenant requirements.</small></span></li>
 <li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#ServiceCatalogItem">ServiceCatalogItem</a><br><small>Holds information on a single service from the Service Catalog</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UpdateError">UpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="volumeservice.inc.html#VolumeService">VolumeService</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li class="closed">
 <span class="folder">Compute</span><ul>
 <li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
@@ -2048,6 +2242,17 @@ features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">VolumeService</span><ul>
+<li><span class="class"><a href="volume.inc.html#Volume">Volume</a><br><small>The Volume class represents a single block storage volume</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeCreateError">VolumeCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeDeleteError">VolumeDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
+<li><span class="class"><a href="volumetype.inc.html#VolumeType">VolumeType</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeUpdateError">VolumeUpdateError</a><br><small></small></span></li>
 </ul>
 </li>
 </ul>

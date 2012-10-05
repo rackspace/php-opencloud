@@ -1,5 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -81,9 +80,9 @@
 </div>
 <h4>Description</h4>
 <em>Instance represents an instance of DbService, similar to a Server in a
-Compute service</em><br><p>This can be a Server, a
-database instance, or another type of packaged product that uses a Nova instance as
-its base.</p><br><div id="methods_Instance">
+Compute service</em><br><p>This can be
+a Server, a database instance, or another type of packaged product that
+uses a Nova virtual server as its base.</p><br><div id="methods_Instance">
 <h4>Methods</h4>
 <a style="font-style: italic;" href="#Instance::Action()">Action</a>,
       <a style="font-style: italic;" href="#Instance::CheckAttributePrefix()">CheckAttributePrefix</a>,
@@ -99,6 +98,8 @@ its base.</p><br><div id="methods_Instance">
       <a style="font-style: italic;" href="#Instance::IsRootEnabled()">IsRootEnabled</a>,
       <a style="font-style: italic;" href="#Instance::JsonName()">JsonName</a>,
       <a style="font-style: italic;" href="#Instance::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#Instance::Name()">Name</a>,
+      <a style="font-style: italic;" href="#Instance::PrimaryKeyField()">PrimaryKeyField</a>,
       <a style="font-style: italic;" href="#Instance::Refresh()">Refresh</a>,
       <a style="font-style: italic;" href="#Instance::Resize()">Resize</a>,
       <a style="font-style: italic;" href="#Instance::ResizeJson()">ResizeJson</a>,
@@ -110,6 +111,7 @@ its base.</p><br><div id="methods_Instance">
       <a style="font-style: italic;" href="#Instance::Service()">Service</a>,
       <a style="font-style: italic;" href="#Instance::SetProperty()">SetProperty</a>,
       <a style="font-style: italic;" href="#Instance::Update()">Update</a>,
+      <a style="font-style: italic;" href="#Instance::UpdateJson()">UpdateJson</a>,
       <a style="font-style: italic;" href="#Instance::Url()">Url</a>,
       <a style="font-style: italic;" href="#Instance::User()">User</a>,
       <a style="font-style: italic;" href="#Instance::UserList()">UserList</a>,
@@ -317,7 +319,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new database instance</em><br><h4>Arguments</h4>
+<em>Creates a new object</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -328,7 +330,7 @@ exception thrown.</p>
 <tbody><tr>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
-<td><p>a hashed array of extra values to set on the object prior to creating it</p></td>
+<td><p>array of values to set when creating the object</p></td>
 <td>array()</td>
 </tr></tbody>
 </table>
@@ -356,7 +358,11 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>throws</td>
-<td>on unexpected HTTP status response or if the response document does not contain `{"instance":...}`</td>
+<td>if HTTP status is not Success</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Create()"><small>\OpenCloud\Compute\NovaInstance::Create()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -364,31 +370,13 @@ exception thrown.</p>
 <div class="method">
 <a id="Instance::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
           
-             
-            $params,
-          
           )
         </span>
         :
         <span class="nb-faded-text">\stdClass</span>
 </h3>
 <h4>Description</h4>
-<em>Generates the JSON string for Create()</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
+<em>Generates the JSON string for Create()</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -397,6 +385,17 @@ exception thrown.</p>
 <tbody><tr>
 <td>\stdClass</td>
 <td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if not overridden</td>
 </tr></tbody>
 </table>
 </div>
@@ -481,7 +480,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Deletes a database instance</em><br><h4>Return value</h4>
+<em>Deletes an block storage volume</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -505,7 +504,11 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>throws</td>
-<td>if response is not 202</td>
+<td>if HTTP status is not Success</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Delete()"><small>\OpenCloud\Compute\NovaInstance::Delete()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -717,9 +720,10 @@ exception thrown.</p>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the top-level document name</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an Instance
-document is <code>{"instance": ...}</code> - this function must return the top level
-document name (either "server" or "instance", in these examples).</p></small><br><h4>Return value</h4>
+<em>Returns the top-level document name</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
+Instance document is <code>{"instance": ...}</code> - this function must return
+the top level document name (either "server" or "instance", in
+these examples).</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -797,6 +801,82 @@ document name (either "server" or "instance", in these examples).</p></small><br
 <td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::MakeQueryString()"><small>\OpenCloud\Compute\NovaInstance::MakeQueryString()</small></a></td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="method">
+<a id="Instance::Name()"></a><h3>Name<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the displayable name of the object</em><br><small><p>Can be overridden by child objects; <em>must</em> be overridden by child
+objects if the object does not have a <code>name</code> attribute defined.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if attribute 'name' is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Name()"><small>\OpenCloud\Compute\NovaInstance::Name()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Instance::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the primary key field for the object</em><br><small><p>The primary key is usually 'id', but this function is provided so that
+(in rare cases where it is not 'id'), it can be overridden.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::PrimaryKeyField()"><small>\OpenCloud\Compute\NovaInstance::PrimaryKeyField()</small></a></td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -1050,8 +1130,8 @@ changing states)</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the URL resource</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is <code>/instances/</code>.
-Must be overridden in child classes.</p></small><br><h4>Return value</h4>
+<em>Returns the URL resource</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
+<code>/instances/</code>. Must be overridden in child classes.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1254,10 +1334,43 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>Updates a database instance (not permitted)</em><br><small><p>Update() is not supported by database instances; thus, this always
+throws an exception.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>always</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Instance::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Updates a database instance</em><br><small><p>Update() is not supported by database instances</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1274,10 +1387,16 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
-<td>always</td>
-</tr></tbody>
+<td>if not overridden</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::UpdateJson()"><small>\OpenCloud\Compute\NovaInstance::UpdateJson()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
@@ -1982,7 +2101,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -2051,8 +2170,10 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="collection.inc.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
 <li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CreateError">CreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
 <li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#EndpointError">EndpointError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpError">HttpError</a><br><small></small></span></li>
@@ -2069,6 +2190,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#NameError">NameError</a><br><small></small></span></li>
 <li><span class="class"><a href="nova.inc.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and ObjectStoreCDN
@@ -2080,10 +2202,13 @@ between a user and a service.</small></span></li>
 API key and tenant requirements.</small></span></li>
 <li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li><span class="class"><a href="openstack.inc.html#ServiceCatalogItem">ServiceCatalogItem</a><br><small>Holds information on a single service from the Service Catalog</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UpdateError">UpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="volumeservice.inc.html#VolumeService">VolumeService</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li class="closed">
 <span class="folder">Compute</span><ul>
 <li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
@@ -2176,6 +2301,17 @@ features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ObjectError">ObjectError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">VolumeService</span><ul>
+<li><span class="class"><a href="volume.inc.html#Volume">Volume</a><br><small>The Volume class represents a single block storage volume</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeCreateError">VolumeCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeDeleteError">VolumeDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
+<li><span class="class"><a href="volumetype.inc.html#VolumeType">VolumeType</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeUpdateError">VolumeUpdateError</a><br><small></small></span></li>
 </ul>
 </li>
 </ul>
