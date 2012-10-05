@@ -33,24 +33,11 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\DbService\Instance',
 			get_class($this->instance));
 	}
-	public function testCreate() {
-		$resp = $this->instance->Create();
-		$this->assertEquals(
-			'OpenCloud\BlankResponse',
-			get_class($resp));
-		$this->assertEquals(
-			'56a0c515-9999-4ef1-9fe2-76be46a3aaaa',
-			$this->instance->id);
-	}
 	/**
 	 * @expectedException OpenCloud\DbService\InstanceUpdateError
 	 */
 	public function testUpdate() {
 		$this->instance->Update();
-	}
-	public function testDelete() {
-		$response = $this->instance->Delete();
-		$this->assertEquals(202, $response->HttpStatus());
 	}
 	public function testRestart() {
 		$this->assertEquals(

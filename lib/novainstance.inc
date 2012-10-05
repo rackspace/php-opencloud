@@ -17,9 +17,9 @@ require_once('base.inc');
 require_once('metadata.inc');
 
 /**
- * The NovaInstance class represents a single nova instance. This can be a Server, a
- * database instance, or another type of packaged product that uses a Nova instance as
- * its base.
+ * The NovaInstance class represents a single nova instance. This can be 
+ * a Server, a database instance, or another type of packaged product that 
+ * uses a Nova virtual server as its base.
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
@@ -41,7 +41,8 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		if (property_exists($this, 'metadata'))
 			$this->metadata = new \OpenCloud\Metadata;
 		if (is_string($info) || is_integer($info)) {
-			$this->id = (string)$info;
+			$pk = $this->PrimaryKeyField();
+			$this->{$pk} = (string)$info;
 			$this->Refresh();
 		}
 		elseif (is_object($info) || is_array($info)) {
@@ -188,13 +189,16 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * @throws \OpenCloud\UrlError if URL is not defined
 	 */
 	public function Url($subresource=NULL) {
+		// find the primary key attribute name
+		$pk = $this->PrimaryKeyField();
+		
 		// first, see if we have a [self] link
 		$url = $this->FindLink('self');
 
 		// next, check to see if we have an ID
-		if (!$url && $this->id)
+		if (!$url && $this->{$pk})
 			$url = noslash($this->Service()->Url($this->ResourceName()))
-			        . '/' . $this->id;
+			        . '/' . $this->{$pk};
 
 		// add the subresource
 		if ($url)
@@ -230,10 +234,14 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 */
 	public function WaitFor($terminal='ACTIVE',
 	        $timeout=RAXSDK_SERVER_MAXTIMEOUT, $callback=NULL) {
+	    // find the primary key field
+	    $pk = $this->PrimaryKeyField();
+	    
+	    // save stats
 		$starttime = time();
 		$startstatus = $this->status;
 		while (TRUE) {
-			$this->Refresh($this->id);
+			$this->Refresh($this->{$pk});
 			if ($callback)
 				call_user_func($callback, $this);
 			if ($this->status == 'ERROR') return;
@@ -274,25 +282,31 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * @throws ServerIdRequiredError
 	 */
 	public function Refresh($id=NULL) {
+		$pk = $this->PrimaryKeyField();
+		
 		// error if no ID
 		if (!isset($id))
-			$id = $this->id;
+			$id = $this->{$pk};
 		if (!$id)
 			throw new ServerIdRequiredError(sprintf(
 			    _('%s has no ID; cannot be refreshed'), get_class($this)));
 
 		// retrieve it
 		$this->debug(_('%s id [%s]'), get_class($this), $id);
-		$this->id = $id;
-		$this->status = NULL;
-		$url = $this->Url();
-		$response = $this->Service()->Request($url);
+		$this->{$pk} = $id;
+		
+		// reset status, if available
+		if (property_exists($this, 'status'))
+			$this->status = NULL;
+		
+		// perform a GET on the URL
+		$response = $this->Service()->Request($this->Url());
 
 		// check status codes
 		if ($response->HttpStatus() == 404)
 			throw new InstanceNotFound(
 				sprintf(_('%s [%s] not found [%s]'),
-					get_class($this), $this->id, $url));
+					get_class($this), $this->{$pk}, $this->Url()));
 
 		if ($response->HttpStatus() >= 300)
 			throw new UnknownError(
@@ -355,8 +369,9 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * @returns boolean; TRUE if successful, FALSE otherwise
 	 */
 	protected function Action($object) {
+		$pk = $this->PrimaryKeyField();
 		// we always require a valid ID
-		if (!$this->id)
+		if (!$this->{$pk})
 			throw new ServerIdRequiredError(sprintf(
 				_('%s is not defined'), get_class($this)));
 
@@ -418,6 +433,18 @@ abstract class NovaInstance extends \OpenCloud\Base {
 				return $link->href;
 		}
 		return FALSE;
+	}
+	
+	/**
+	 * Returns the primary key field for the object
+	 *
+	 * The primary key is usually 'id', but this function is provided so that
+	 * (in rare cases where it is not 'id'), it can be overridden.
+	 *
+	 * @return string
+	 */
+	protected function PrimaryKeyField() {
+		return 'id';
 	}
 
 	/**

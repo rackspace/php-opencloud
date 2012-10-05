@@ -49,7 +49,8 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 * This could use the default constructor, but we want to make sure that
 	 * the volume attribute is an object.
 	 *
-	 * @param \OpenCloud\DbService $service the DbService object associated with this
+	 * @param \OpenCloud\DbService $service the DbService object associated 
+	 *		with this
 	 * @param mixed $info the ID or array of info for the object
 	 */
 	public function __construct(\OpenCloud\DbService $service, $info=NULL) {
@@ -58,81 +59,16 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	}
 
 	/**
-	 * Creates a new database instance
+	 * Updates a database instance (not permitted)
 	 *
-	 * @api
-	 * @param array $params a hashed array of extra values to set on the object
-	 *		prior to creating it
-	 * @return \OpenCloud\HttpResponse
-	 * @throws InstanceCreateError on unexpected HTTP status response or if the
-	 *		response document does not contain `{"instance":...}`
-	 */
-	public function Create($params=array()) {
-		// set parameters
-		foreach($params as $property => $value)
-			$this->$property = $value;
-
-		// POST the request to the parent collection
-	    $url = $this->Service()->Url();
-	    $json = json_encode($this->CreateJson($params));
-	    if ($this->CheckJsonError())
-	    	return FALSE;
-
-	    // send the request
-	    $response = $this->Service()->Request($url, 'POST', array(), $json);
-
-	    // check the HTTP status
-	    if ($response->HttpStatus() >= 300)
-	    	throw new InstanceCreateError(sprintf(
-	    		_('Error creating instance, status [%s] response [%s]'),
-	    		$response->HttpStatus(),
-	    		$response->HttpBody()));
-
-	    // success
-	    $this->debug('Instance::Create() response JSON [%s]',
-	            $response->HttpBody());
-	    $obj = json_decode($response->HttpBody());
-	    if (!$this->CheckJsonError()) {
-			if (isset($obj->instance))
-				$this->Refresh($obj->instance->id);
-			else
-				throw new InstanceCreateError(sprintf(
-					_('"instance" document not found in response [%s]'),
-					$response->HttpBody()));
-		}
-		return $response;
-	}
-
-	/**
-	 * Updates a database instance
-	 *
-	 * Update() is not supported by database instances
+	 * Update() is not supported by database instances; thus, this always
+	 * throws an exception.
 	 *
 	 * @throws InstanceUpdateError always
 	 */
 	public function Update() {
 		throw new InstanceUpdateError(
 			_('Updates are not currently supported by Cloud Databases'));
-	}
-
-	/**
-	 * Deletes a database instance
-	 *
-	 * @api
-	 * @return \OpenCloud\HttpResponse
-	 * @throws InstanceDeleteError if response is not 202
-	 */
-	public function Delete() {
-		$response = $this->Service()->Request($this->Url(), 'DELETE');
-
-		// check return code
-		if ($response->HttpStatus() != 202)
-			throw new InstanceDeleteError(sprintf(
-				_('Error deleting instance, status [%d] response [%s]'),
-				$response->HttpStatus(),
-				$response->HttpBody()));
-
-		return $response;
 	}
 
 	/**
@@ -316,13 +252,9 @@ class Instance extends \OpenCloud\Compute\NovaInstance {
 	 *
 	 * @return \stdClass
 	 */
-	protected function CreateJson($params) {
+	protected function CreateJson() {
 	    $obj = new \stdClass();
 	    $obj->instance = new \stdClass();
-
-	    // copy data from params
-	    foreach($params as $property => $value)
-	    	$obj->instance->$property = $value;
 
 	    // flavor
 	    if (!isset($this->flavor))
