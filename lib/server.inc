@@ -229,6 +229,12 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	/**
 	 * Reboots a server
 	 *
+	 * You can pass the parameter RAXSDK_SOFT_REBOOT (default) or 
+	 * RAXSDK_HARD_REBOOT to specify the type of reboot. A "soft" reboot
+	 * requests that the operating system reboot itself; a "hard" reboot
+	 * is the equivalent of pulling the power plug and then turning it back
+	 * on, with a possibility of data loss.
+	 *
 	 * @api
 	 * @param string $type - either 'soft' (the default) or 'hard' to
 	 *      indicate the type of reboot

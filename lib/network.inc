@@ -36,8 +36,7 @@ class Network extends NovaInstance {
 	 * Creates a new isolated Network object
 	 *
 	 * NOTE: contains hacks to recognize the Rackspace public and private
-	 * networks.
-	 * These are not really networks, but they show up in lists.
+	 * networks. These are not really networks, but they show up in lists.
 	 *
 	 * @param \OpenCloud\Compute $service The compute service associated with
 	 *      the network

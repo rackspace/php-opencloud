@@ -33,12 +33,30 @@ class VolumeType extends \OpenCloud\Compute\NovaInstance {
 		$extra_specs;
 	
 	/**
+	 * Creates are not permitted
+	 *
+	 */
+	public function Create() {
+		throw new \OpenCloud\CreateError(
+			_('VolumeType cannot be created'));
+	}
+		
+	/**
 	 * updates are not permitted
 	 *
 	 */
 	public function Update() {
 		throw new \OpenCloud\UpdateError(
-			_('Volumes cannot be updated'));
+			_('VolumeType cannot be updated'));
+	}
+		
+	/**
+	 * deletes are not permitted
+	 *
+	 */
+	public function Delete() {
+		throw new \OpenCloud\DeleteError(
+			_('VolumeType cannot be deleted'));
 	}
 		
 	/********** PROTECTED METHODS **********/
