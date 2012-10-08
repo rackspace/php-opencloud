@@ -96,6 +96,7 @@ $server->WaitFor('ACTIVE', 300, 'dotter');
 
 step('Update the server name');
 $server->Update(array('name'=>SERVERNAME));
+$server->WaitFor('ACTIVE', 300, 'dotter');
 
 step('Reboot Server');
 $server->Reboot();
