@@ -169,4 +169,11 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	    $blank = new OpenCloud\Compute\Server($this->service);
 	    $blank->Unrescue(); // should trigger the exception
 	}
+	public function testAttachVolume() {
+		$vol = new \OpenCloud\VolumeService\Volume($this->service);
+		$response = $this->server->AttachVolume($vol);
+		$this->assertEquals(
+			200,
+			$response->HttpStatus());
+	}
 }
