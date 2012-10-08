@@ -49,13 +49,6 @@ $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 step('Connect to CBS');
 $cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
 
-step('Deleting unused volumes');
-$list = $cbs->VolumeList();
-while($vol = $list->Next()) {
-	info('Deleting volume [%s] %s', $vol->id, $vol->Name());
-	$vol->Delete();
-}
-
 step('Deleting unused servers');
 $list = $cloudservers->ServerList();
 while($server = $list->Next())
@@ -63,6 +56,17 @@ while($server = $list->Next())
         info('Deleting server [%s] %s', $server->id, $server->Name());
         $server->Delete();
     }
+
+step('Deleting unused volumes');
+$list = $cbs->VolumeList();
+while($vol = $list->Next()) {
+	if ($vol->status == 'in-use')
+		info('Volume [%s] %s is in use', $vol->id, $vol->Name());
+	else {
+		info('Deleting volume [%s] %s', $vol->id, $vol->Name());
+		$vol->Delete();
+	}
+}
 
 step('Deleting SAMPLENET and SMOKETEST Networks');
 $list = $cloudservers->NetworkList();

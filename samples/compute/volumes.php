@@ -18,6 +18,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('VOLUMENAME', 'SampleVolume');
+define('SERVERNAME', 'CBS-test-server');
 
 /**
  * numbers each step
@@ -75,14 +76,16 @@ while($vol = $list->Next()) {
 }
 
 step('Find a server');
-$slist = $compute->ServerList(TRUE, array('name'=>'CBStest'));
-$server = $slist->First();
+$slist = $compute->ServerList(TRUE, array('name'=>SERVERNAME));
 
-if ($server->status != 'ACTIVE') {
+if ($slist->Size() > 0) {
+	$server = $slist->First();
+}
+else {
 	step('Create a server');
 	$server = $compute->Server();
 	$server->Create(array(
-		'name' => 'CBStest',
+		'name' => SERVERNAME,
 		'flavor' => $compute->Flavor(2),
 		'image' => $compute->
 				ImageList(TRUE,array('name'=>'CentOS 6.3'))->
@@ -93,7 +96,7 @@ if ($server->status != 'ACTIVE') {
 
 step('Attach volume to server');
 setDebug(TRUE);
-$server->AttachVolume($volume, '/dev/xvdc');
+$server->AttachVolume($volume);	// use 'auto' device
 setDebug(FALSE);
 
 step('DONE');
