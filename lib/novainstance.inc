@@ -354,6 +354,17 @@ abstract class NovaInstance extends \OpenCloud\Base {
 				get_class($this)));
 	}
 
+	/**
+	 * checks for `$alias` in extensions and throws an error if not present
+	 *
+	 * @throws OpenCloud\UnsupportedExtensionError
+	 */
+	public function CheckExtension($alias) {
+		if (!in_array($alias, $this->Service()->namespaces()))
+			throw new \OpenCloud\UnsupportedExtensionError(sprintf(
+				_('Extension [%s] is not installed'), $alias));
+	}
+
 	/********** PROTECTED METHODS **********/
 	
 	/**
@@ -505,4 +516,5 @@ abstract class NovaInstance extends \OpenCloud\Base {
 			_('[%s] UpdateJson() must be overridden'),
 			get_class($this)));
 	}
+	
 }

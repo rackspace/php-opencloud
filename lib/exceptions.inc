@@ -79,6 +79,7 @@ namespace OpenCloud\Compute {
 	class ServerIpsError extends \Exception {}
 	class ServerUrlError extends \Exception {}
 	class ServerJsonError extends \Exception {}
+	class UnsupportedFeatureExtension extends \Exception {}
 	class VolumeError extends \Exception {}
 
 }

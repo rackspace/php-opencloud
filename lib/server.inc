@@ -281,6 +281,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 *      been created yet)
 	 */
 	public function Rescue() {
+		$this->CheckExtension('os-rescue');
 	    if (!isset($this->id))
 	        throw new ServerActionError(
 	            _('Server has no ID; cannot Rescue()'));
@@ -309,6 +310,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 *      been created yet)
      */
     public function Unrescue() {
+    	$this->CheckExtension('os-rescue');
 	    if (!isset($this->id))
 	        throw new ServerActionError(
 	            _('Server has no ID; cannot Unescue()'));
@@ -381,6 +383,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol, 
 								 $device='auto') {
 		
+		$this->CheckExtension('os-volumes');
 		$this->debug('AttachVolume vol=%d device=%s', $vol->id, $device);
 	
 		// check for os-volume extension and abort if not available
