@@ -394,7 +394,8 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		$obj = new \stdClass();
 		$obj->volumeAttachment = new \stdClass();
 		$obj->volumeAttachment->volumeId = $vol->id;
-		$obj->volumeAttachment->device = $device;
+		if ($device != 'auto')
+			$obj->volumeAttachment->device = $device;
 		$json = json_encode($obj);
 		if ($this->CheckJsonError())
 			return;
