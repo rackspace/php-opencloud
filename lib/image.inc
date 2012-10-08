@@ -71,8 +71,8 @@ class Image extends NovaInstance {
     /**
      * returns the URL resource component
      */
-    protected function ResourceName() {
-    	return self::URL_RESOURCE;
+	protected function ResourceName() {
+		return self::URL_RESOURCE;
     }
 
 	/**

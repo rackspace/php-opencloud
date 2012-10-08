@@ -13,6 +13,9 @@ require_once('image.inc');
 require_once('compute.inc');
 require_once('stub_conn.inc');
 
+class ImageStub extends OpenCloud\Compute\Image {
+	public function JsonName() { return parent::JsonName(); }
+}
 class ImageTest extends PHPUnit_Framework_TestCase
 {
 	private
@@ -31,11 +34,6 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test___construct() {
 		$image = new OpenCloud\Compute\Image($this->compute, 'XXXXXX');
-		/*
-		$this->assertEquals(
-			'OpenCloud\Metadata', 
-			get_class($image->metadata));
-		*/
     }
     public function test_good_image() {
 		$image = new OpenCloud\Compute\Image($this->compute);
@@ -54,23 +52,6 @@ class ImageTest extends PHPUnit_Framework_TestCase
     public function test_empty_json() {
 		$image = new OpenCloud\Compute\Image($this->compute, 'EMPTY');
     }
-    public function test__set1() {
-		$image = $this->compute->Image();
-		$image->id = 'NEW';
-		$this->assertEquals('NEW', $image->id);
-	}
-    /**
-     * @expectedException OpenCloud\AttributeError
-     */
-	public function test__set2() {
-		$image = $this->compute->Image();
-		$image->foo = 'BAR';
-		$this->assertEquals('BAR', $image->foo);
-    }
-    public function testService() {
-		$image = $this->compute->Image();
-		$this->assertEquals('OpenCloud\Compute', get_class($image->Service()));
-    }
     /**
      * @expectedException OpenCloud\CreateError
      */
@@ -84,5 +65,11 @@ class ImageTest extends PHPUnit_Framework_TestCase
     public function testUpdate() {
     	$image = $this->compute->Image();
     	$image->Update();
+    }
+    public function testJsonName() {
+    	$x = new ImageStub($this->compute);
+    	$this->assertEquals(
+    		'image',
+    		$x->JsonName());
     }
 }
