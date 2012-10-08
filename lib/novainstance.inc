@@ -128,7 +128,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		$this->debug('%s::Update(%s)', get_class($this), $this->Name());
 
 		// construct the JSON
-		$obj = $this->UpdateJson();
+		$obj = $this->UpdateJson($params);
 		$json = json_encode($obj);
 		if ($this->CheckJsonError())
 			return FALSE;
@@ -145,20 +145,21 @@ abstract class NovaInstance extends \OpenCloud\Base {
 		// check the return code
 		if ($response->HttpStatus() > 204)
 			throw new \OpenCloud\UpdateError(sprintf(
-				_('Error updating [%s] [%s], status [%d] response [%s]'),
+				_('Error updating [%s] with [%s], status [%d] response [%s]'),
 				get_class($this),
-				$this->Name(), 
+				$json, 
 				$response->HttpStatus(), 
 				$response->HttpBody()));
 
 		// set values from response
+/*
 		$retobj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			$top = $this->JsonName();
 			foreach($retobj->$top as $key => $value)
 				$this->$key = $value;
 		}
-
+*/
 		return $response;
 	}
 

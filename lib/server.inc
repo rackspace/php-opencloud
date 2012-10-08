@@ -171,62 +171,6 @@ class Server extends \OpenCloud\Compute\NovaInstance {
     }
 
 	/**
-	 * Deletes a server
-	 *
-	 * @api
-	 * @return HttpResponse
-	 * @throws HttpError, ServerDeleteError
-	 */
-	public function Delete() {
-		$this->debug(_('Server::Delete() [%s]'), $this->Url());
-		$response = $this->Service()->Request(
-			$this->Url(),
-			'DELETE'
-		);
-		if (!is_object($response))
-			throw new \OpenCloud\HttpError(
-			    _('Invalid response for Server::delete request'));
-		if ($response->HttpStatus() >= 300)
-			throw new ServerDeleteError(
-				sprintf(_('Problem deleting server [%s] response [%s]'),
-					$this->Url(), $response->HttpBody()));
-		return $response;
-	}
-
-	/**
-	 * Updates a server
-	 *
-	 * Because of the way Nova handles update requests, the only properties you
-	 * can modify are the server name and the accessIPvX values.
-	 *
-	 * @api
-	 * @param array $params - optional associative array of key values pairs
-	 *      to set on the server before updating it.
-	 * @return HttpResponse
-	 * @throws HttpError, ServerUpdateError
-	 */
-	public function Update($params=array()) {
-		$this->debug(_('Server::Update() [%s]'), $this->Url());
-		foreach($params as $name => $value)
-			$this->$name = $value;
-		$response = $this->Service()->Request(
-			$this->Url(),
-			'PUT',
-			array(),
-			$this->UpdateJson($params)
-		);
-		if (!is_object($response))
-			throw new \OpenCloud\HttpError(
-			    _('Invalid response for Server::update request'));
-		if ($response->HttpStatus() >= 300) {
-			throw new ServerUpdateError(
-				sprintf(_('Problem updating server [%s] response [%s]'),
-					$this->Url(), $response->HttpBody()));
-		}
-		return $response;
-	}
-
-	/**
 	 * Reboots a server
 	 *
 	 * You can pass the parameter RAXSDK_SOFT_REBOOT (default) or 
@@ -423,6 +367,51 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		else
 			return new \stdClass();
 	} // function ips()
+	
+	/**
+	 * Attaches a volume to a server
+	 *
+	 * Requires the os-volumes extension.
+	 *
+	 * @api
+	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach
+	 * @param string $device the device to which to attach it
+	 * @throws
+	 */
+	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol, 
+								 $device='auto') {
+		
+		$this->debug('AttachVolume vol=%d device=%s', $vol->id, $device);
+	
+		// check for os-volume extension and abort if not available
+		if (!in_array('os-volumes', $this->Service()->namespaces()))
+			throw new VolumeError(_('Volume extension is not available'));
+		
+		// construct URL
+		$url = $this->Url('os-volume_attachments');
+		
+		// create the payload
+		$obj = new \stdClass();
+		$obj->volumeAttachment = new \stdClass();
+		$obj->volumeAttachment->volumeId = $vol->id;
+		$obj->volumeAttachment->device = $device;
+		$json = json_encode($obj);
+		if ($this->CheckJsonError())
+			return;
+		
+		// submit it
+		$response = $this->Service()->Request($url, 'POST', array(), $json);
+		
+		// check response
+		if ($response->HttpStatus() > 204)
+			throw new VolumeError(sprintf(
+				_('Error attaching volume, request [%s] '.
+				  'status [%d] response [%s]'),
+				$json, $response->HttpStatus(), $response->HttpBody()));
+		
+		// return response
+		return $response;
+	}
 
 	/*********** PROTECTED METHODS ***********/
 
@@ -477,9 +466,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		$obj->server = new \stdClass();
 		foreach($params as $name => $value)
 			$obj->server->$name = $this->$name;
-		$json = json_encode($obj);
-		//$this->debug(_('JSON for Server::Update() [%s]'), $json);
-		return $json;
+		return $obj;
 	}
 
 	/**

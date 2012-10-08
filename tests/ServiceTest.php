@@ -47,7 +47,8 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID');
 	}
 	public function testRequest() {
-		// this returns 404 because the Connection::Request() function is stubbed out
+		// this returns 404 because the Connection::Request() function 
+		// is stubbed out
 		$resp = $this->service->Request('http://example.com');
 		$this->assertEquals(404, $resp->HttpStatus());
 	}

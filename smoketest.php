@@ -85,7 +85,7 @@ while($net = $netlist->Next())
 step('Create Server');
 $server = $cloudservers->Server();
 $server->Create(array(
-    'name'=>SERVERNAME,
+    'name'=>'FOOBAR',
     'image'=>$centos,
     'flavor'=>$flavorlist->First(),
     'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))
@@ -93,6 +93,9 @@ $server->Create(array(
 
 step('Wait for Server create');
 $server->WaitFor('ACTIVE', 300, 'dotter');
+
+step('Update the server name');
+$server->Update(array('name'=>SERVERNAME));
 
 step('Reboot Server');
 $server->Reboot();

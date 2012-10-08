@@ -46,11 +46,21 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 step('Connect to Cloud Servers');
 $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 
+step('Connect to CBS');
+$cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
+
+step('Deleting unused volumes');
+$list = $cbs->VolumeList();
+while($vol = $list->Next()) {
+	info('Deleting volume [%s] %s', $vol->id, $vol->Name());
+	$vol->Delete();
+}
+
 step('Deleting unused servers');
 $list = $cloudservers->ServerList();
 while($server = $list->Next())
     if ($server->name != 'MODEL') {
-        info('Deleting server [%s] %s', $server->id, $server->name);
+        info('Deleting server [%s] %s', $server->id, $server->Name());
         $server->Delete();
     }
 

@@ -37,6 +37,17 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
+step('Connect to the Compute Service');
+$compute = $rackspace->Compute('cloudServersOpenStack', 'DFW');
+
+/*
+step('List Extensions');
+$arr = $compute->Extensions();
+foreach($arr as $item)
+	print($item->alias."\n");
+exit;
+*/
+
 step('Connect to the VolumeService');
 $cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
 
@@ -61,11 +72,29 @@ while($vol = $list->Next()) {
 		$vol->display_name, 
 		$vol->display_description,
 		$vol->size);
-	if ($vol->display_name == VOLUMENAME) {
-		info('Deleting...');
-		$vol->Delete();
-	}
 }
+
+step('Find a server');
+$slist = $compute->ServerList(TRUE, array('name'=>'CBStest'));
+$server = $slist->First();
+
+if ($server->status != 'ACTIVE') {
+	step('Create a server');
+	$server = $compute->Server();
+	$server->Create(array(
+		'name' => 'CBStest',
+		'flavor' => $compute->Flavor(2),
+		'image' => $compute->
+				ImageList(TRUE,array('name'=>'CentOS 6.3'))->
+				Next()));
+	$server->WaitFor('ACTIVE', 300, 'dot');
+	print "\n";
+}
+
+step('Attach volume to server');
+setDebug(TRUE);
+$server->AttachVolume($volume, '/dev/xvdc');
+setDebug(FALSE);
 
 step('DONE');
 exit;
