@@ -18,6 +18,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('VOLUMENAME', 'SampleVolume');
+define('VOLUMESIZE', 100);
 define('SERVERNAME', 'CBS-test-server');
 
 /**
@@ -58,6 +59,17 @@ while($vtype = $list->Next()) {
 	info('%s - %s', $vtype->id, $vtype->name);
 }
 
+step('Create a new Volume');
+$volume = $cbs->Volume();
+setDebug(TRUE);
+$volume->Create(array(
+	'display_name' => VOLUMENAME,
+	'display_description' => 'A sample volume for testing',
+	'size' => VOLUMESIZE,
+	'volume_type' => 2
+));
+setDebug(FALSE);
+
 step('Listing volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {
@@ -66,17 +78,6 @@ while($vol = $list->Next()) {
 		$vol->display_description,
 		$vol->size);
 }
-
-step('Create a new Volume');
-$volume = $cbs->Volume();
-setDebug(TRUE);
-$volume->Create(array(
-	'display_name' => VOLUMENAME,
-	'display_description' => 'A sample volume for testing',
-	'size' => 1,
-	'volume_type' => 2
-));
-setDebug(FALSE);
 
 step('Find a server');
 $slist = $compute->ServerList(TRUE, array('name'=>SERVERNAME));
