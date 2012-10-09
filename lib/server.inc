@@ -379,7 +379,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 	 * @api
 	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach
 	 * @param string $device the device to which to attach it
-	 * @throws
+	 * @throws VolumeError
 	 */
 	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol, 
 								 $device='auto') {
@@ -417,6 +417,41 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		// return response
 		return $response;
 	}
+	
+	/**
+	 * removes a volume attachment from a server
+	 *
+	 * Requires the os-volumes extension.
+	 *
+	 * @api
+	 * @param OpenCloud\VolumeService\Volume $vol the volume to remove
+	 * @throws VolumeError
+	 */
+	public function RemoveVolume(\OpenCloud\VolumeService\Volume $vol) {
+		
+		$this->CheckExtension('os-volumes');
+		$this->debug('RemoveVolume vol=%d', $vol->id);
+	
+		// check for os-volume extension and abort if not available
+		if (!in_array('os-volumes', $this->Service()->namespaces()))
+			throw new VolumeError(_('Volume extension is not available'));
+		
+		// construct URL
+		$url = $this->Url('os-volume_attachments');
+		
+		// submit it
+		$response = $this->Service()->Request($url, 'DELETE');
+		
+		// check response
+		if ($response->HttpStatus() > 204)
+			throw new VolumeError(sprintf(
+				_('Error removing volume, request [%s] '.
+				  'status [%d] response [%s]'),
+				$json, $response->HttpStatus(), $response->HttpBody()));
+		
+		// return response
+		return $response;
+	}	 
 	
 	/**
 	 * adds a "personality" file to be uploaded during Create() or Rebuild()

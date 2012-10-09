@@ -137,6 +137,7 @@ namespace OpenCloud\DbService {
  * Exceptions used by the Cloud Block Storage (CBS) service
  */
 namespace OpenCloud\VolumeService {
+	class SnapshotError extends \Exception {}
 	class VolumeError extends \Exception {}
 	class VolumeCreateError extends \Exception {}
 	class VolumeUpdateError extends \Exception {}

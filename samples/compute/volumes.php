@@ -95,9 +95,11 @@ else {
 }
 
 step('Attach volume to server');
-setDebug(TRUE);
 $server->AttachVolume($volume);	// use 'auto' device
-setDebug(FALSE);
+
+step('Create a snapshot');
+$snap = $volume->Snapshot();
+$snap->Create();
 
 step('DONE');
 exit;

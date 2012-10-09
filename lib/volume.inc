@@ -68,7 +68,7 @@ class Volume extends \OpenCloud\Compute\NovaInstance {
 	public function Name() {
 		return $this->display_name;
 	}
-
+	
 	/********** PROTECTED METHODS **********/
 
 	/**

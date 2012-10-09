@@ -12,8 +12,10 @@
 
 namespace OpenCloud;
 
+require_once('nova.inc');
 require_once('volume.inc');
 require_once('volumetype.inc');
+require_once('snapshot.inc');
 
 class VolumeService extends Nova {
 
@@ -119,6 +121,52 @@ class VolumeService extends Nova {
 			return new Collection($this, 'VolumeType', $obj->$element);
 		else
 			return new Collection($this, 'VolumeType', array());
+	}
+
+	/**
+	 * returns a Snapshot object associated with this volume
+	 *
+	 * @return Snapshot
+	 */
+	public function Snapshot($id=NULL) {
+		return new VolumeService\Snapshot($this, $id);
+	}
+
+	/**
+	 * Returns a Collection of Snapshot objects
+	 *
+	 * @api
+	 * @param boolean $detail TRUE to return full details
+	 * @param array $filters array of filter key/value pairs
+	 * @return Collection
+	 */
+	public function SnapshotList($detail=TRUE, $filter=array()) {
+		$url = $this->Url(VolumeService\Snapshot::URL_RESOURCE);
+		$response = $this->Request($url.$detail?'/detail':'');
+		$this->debug('SnapshotList [%s]', $url);
+
+		// check return code
+		if ($response->HttpStatus() > 202)
+			throw new VolumeService\SnapshotError(sprintf(
+				_('Unable to retrieve Snapshot info [%s], '.
+				  'status [%d] response [%s]'),
+				$url, $response->HttpStatus(), $response->HttpBody()));
+
+		// handle empty response
+		if (strlen($response->HttpBody()) == 0)
+			return new Collection($this, 'Snapshot', array());
+
+		// parse the return
+		$obj = json_decode($response->HttpBody());
+		if ($this->CheckJsonError())
+			return FALSE;
+
+		// and say goodbye
+		$element = VolumeService\Snapshot::JSON_NAME.'s';
+		if (isset($obj->$element))
+			return new Collection($this, 'Snapshot', $obj->$element);
+		else
+			return new Collection($this, 'Snapshot', array());
 	}
 
     /**
