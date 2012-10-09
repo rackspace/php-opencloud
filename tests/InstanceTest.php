@@ -13,6 +13,11 @@ require_once('stub_conn.inc');
 require_once('stub_service.inc');
 require_once('dbservice.inc');
 
+class MyInstanceClass extends OpenCloud\DbService\Instance {
+	public function JsonName() { return parent::JsonName(); }
+	public function CreateJson() { return parent::CreateJson(); }
+}
+
 class InstanceTest extends PHPUnit_Framework_TestCase
 {
 	private
@@ -22,7 +27,7 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 		$conn = new StubConnection('http://example.com', 'SECRET');
 		$this->service = new OpenCloud\DbService(
 			$conn, 'cloudDatabases', 'DFW', 'publicURL');
-		$this->instance = new OpenCloud\DbService\Instance(
+		$this->instance = new MyInstanceClass(
 			$this->service,'INSTANCE-ID');
 	}
 	/**
@@ -30,7 +35,7 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test___construct() {
 		$this->assertEquals(
-			'OpenCloud\DbService\Instance',
+			'MyInstanceClass',
 			get_class($this->instance));
 	}
 	/**
@@ -90,5 +95,17 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'OpenCloud\Collection',
 			get_class($this->instance->UserList()));
+	}
+	public function testJsonName() {
+		$this->assertEquals(
+			'instance',
+			$this->instance->JsonName());
+	}
+	public function testCreateJson() {
+		$this->instance->name = 'FOOBAR';
+		$obj = $this->instance->CreateJson();
+		$this->assertEquals(
+			'FOOBAR',
+			$obj->instance->name);
 	}
 }
