@@ -40,11 +40,10 @@ class Volume extends \OpenCloud\Compute\NovaInstance {
 		$created_at;
 	
 	private
-		$CREATE_PROPERTIES = array(
+		$_create_keys = array(
 			'display_name',
 			'display_description',
 			'size',
-			'metadata',
 			'volume_type',
 			'availability_zone'
 		);
@@ -92,8 +91,15 @@ class Volume extends \OpenCloud\Compute\NovaInstance {
 		$element = $this->JsonName();
 		$obj = new \stdClass();
 		$obj->$element = new \stdClass();
-		foreach ($this->CREATE_PROPERTIES as $name)
-			$obj->$element->$name = $this->$name;
+		foreach ($this->_create_keys as $name) {
+			if ($this->$name)
+				$obj->$element->$name = $this->$name;
+		}
+		if (is_array($this->metadata) && count($this->metadata)) {
+			$obj->$element->metadata = new \stdClass();
+			foreach($this->metadata as $key => $value)
+				$obj->$element->metadata->$key = $value;
+		}
 		return $obj;
 	}
 

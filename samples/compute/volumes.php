@@ -58,14 +58,6 @@ while($vtype = $list->Next()) {
 	info('%s - %s', $vtype->id, $vtype->name);
 }
 
-step('Create a new Volume');
-$volume = $cbs->Volume();
-$volume->Create(array(
-	'display_name' => VOLUMENAME,
-	'display_description' => 'A sample volume for testing',
-	'size' => 1
-));
-
 step('Listing volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {
@@ -74,6 +66,17 @@ while($vol = $list->Next()) {
 		$vol->display_description,
 		$vol->size);
 }
+
+step('Create a new Volume');
+$volume = $cbs->Volume();
+setDebug(TRUE);
+$volume->Create(array(
+	'display_name' => VOLUMENAME,
+	'display_description' => 'A sample volume for testing',
+	'size' => 1,
+	'volume_type' => 2
+));
+setDebug(FALSE);
 
 step('Find a server');
 $slist = $compute->ServerList(TRUE, array('name'=>SERVERNAME));

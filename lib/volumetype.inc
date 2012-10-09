@@ -65,7 +65,7 @@ class VolumeType extends \OpenCloud\Compute\NovaInstance {
 	 * Returns the top-level document identifier
 	 */
 	protected function JsonName() {
-		return self::JSON_ELEMENT;
+		return self::JSON_NAME;
 	}
 
 	/**
