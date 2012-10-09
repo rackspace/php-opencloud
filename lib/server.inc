@@ -52,8 +52,9 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		$metadata;		// a Metadata object associated with the server
 
 	private
-		$imageRef,
-		$flavorRef;
+		$personality=array(),	// uploaded file attachments
+		$imageRef,				// image reference (for create)
+		$flavorRef;				// flavor reference (for create)
 
 	/**
 	 * Creates a new Server object and associates it with a Compute service
@@ -416,6 +417,24 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 		// return response
 		return $response;
 	}
+	
+	/**
+	 * adds a "personality" file to be uploaded during Create() or Rebuild()
+	 *
+	 * The `$path` argument specifies where the file will be stored on the
+	 * target server; the `$data` is the actual data values to be stored.
+	 * To upload a local file, use `file_get_contents('name')` for the `$data`
+	 * value.
+	 *
+	 * @param string $path the file path (up to 255 characters)
+	 * @param string $data the file contents (max size set by provider)
+	 * @return void
+	 * @throws PersonalityError if server already exists (has an ID)
+	 */
+	public function AddFile($path, $data) {
+		// set the value
+		$this->personality[$path] = $data;
+	}
 
 	/*********** PROTECTED METHODS ***********/
 
@@ -448,14 +467,16 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 				$obj->$element->networks[] = $netobj;
 			}
 		}
-        // @TODO(glen) personality is not handled yet
-        // handle the $other stuff
-        /*
-        if (is_array($other))
-            foreach($other as $name => $value)
-                $obj->$name = $value;
-        */
-        // return the JSON string
+		// handle personality files
+		if (count($this->personality)) {
+			$obj->$element->personality = array();
+			foreach($this->personality as $path => $data) {
+				$fileobj = new \stdClass();
+				$fileobj->path = $path;
+				$fileobj->contents = $data;
+				$obj->$element->personality[] = $fileobj;
+			}
+		}
         $json = json_encode($obj);
         return $json;
 	}

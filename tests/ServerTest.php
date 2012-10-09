@@ -12,6 +12,12 @@
 require_once('stub_conn.inc');
 require_once('compute.inc');
 
+class PublicServer extends OpenCloud\Compute\Server {
+	public function CreateJson($x='server') {
+		return parent::CreateJson($x);
+	}
+}
+
 class ServerTest extends PHPUnit_Framework_TestCase
 {
 	private
@@ -175,5 +181,16 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			200,
 			$response->HttpStatus());
+	}
+	public function testCreate_personality() {
+		$new = new PublicServer($this->service);
+		$new->AddFile('/tmp/hello.txt', 'Hello, world!');
+		$obj = json_decode($new->CreateJson());
+		$this->assertEquals(
+			TRUE, 
+			is_array($obj->server->personality));
+		$this->assertEquals(
+			'/tmp/hello.txt',
+			$obj->server->personality[0]->path);
 	}
 }
