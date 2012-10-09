@@ -1,7 +1,6 @@
 <?php
 /**
- * An abstraction that defines instances created under OpenStack Nova
- * (Servers and Cloud Database Instances)
+ * An abstraction that defines persistent objects associated with a service
  *
  * @copyright 2012 Rackspace Hosting, Inc.
  * See COPYING for licensing information
@@ -11,19 +10,24 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Compute;
+namespace OpenCloud;
 
 require_once('base.inc');
 require_once('metadata.inc');
 
 /**
- * The NovaInstance class represents a single nova instance. This can be 
- * a Server, a database instance, or another type of packaged product that 
- * uses a Nova virtual server as its base.
+ * represents an object that has the ability to be
+ * retrieved, created, updated, and deleted.
+ *
+ * This class abstracts much of the common functionality between Nova 
+ * servers, Swift containers and objects, DBAAS instances, Cinder volumes,
+ * and various other objects that (a) have a URL, (b) can be created, updated,
+ * deleted, or retrieved, and (c) use a standard JSON format with a top-level
+ * element followed by a child object with attributes.
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class NovaInstance extends \OpenCloud\Base {
+abstract class PersistentObject extends Base {
 
 	protected
 		$id,
@@ -32,14 +36,14 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	/**
 	 * Retrieves the instance from persistent storage
 	 *
-	 * @param OpenCloud\Nova $nova the service object
+	 * @param Nova $nova the service object
 	 * @param mixed $info the ID or array/object of data
 	 * @throws InvalidArgumentError if $info has an invalid data type
 	 */
-	public function __construct(\OpenCloud\Nova $nova, $info=NULL) {
+	public function __construct(Nova $nova, $info=NULL) {
 		$this->_service = $nova;
 		if (property_exists($this, 'metadata'))
-			$this->metadata = new \OpenCloud\Metadata;
+			$this->metadata = new Metadata;
 		if (is_string($info) || is_integer($info)) {
 			$pk = $this->PrimaryKeyField();
 			$this->{$pk} = (string)$info;
@@ -65,7 +69,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 *
 	 * @api
 	 * @param array $params array of values to set when creating the object
-	 * @return \OpenCloud\HttpResponse
+	 * @return HttpResponse
 	 * @throws VolumeCreateError if HTTP status is not Success
 	 */
 	public function Create($params=array()) {
@@ -93,7 +97,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 
 		// check the return code
 		if ($response->HttpStatus() > 204)
-			throw new \OpenCloud\CreateError(sprintf(
+			throw new CreateError(sprintf(
 				_('Error creating [%s] [%s], status [%d] response [%s]'),
 				get_class($this),
 				$this->Name(), 
@@ -116,7 +120,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 *
 	 * @api
 	 * @param array $params array of values to set when updating the object
-	 * @return \OpenCloud\HttpResponse
+	 * @return HttpResponse
 	 * @throws VolumeCreateError if HTTP status is not Success
 	 */
 	public function Update($params=array()) {
@@ -144,7 +148,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 
 		// check the return code
 		if ($response->HttpStatus() > 204)
-			throw new \OpenCloud\UpdateError(sprintf(
+			throw new UpdateError(sprintf(
 				_('Error updating [%s] with [%s], status [%d] response [%s]'),
 				get_class($this),
 				$json, 
@@ -167,14 +171,14 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * Deletes an block storage volume
 	 *
 	 * @api
-	 * @return \OpenCloud\HttpResponse
+	 * @return HttpResponse
 	 * @throws VolumeDeleteError if HTTP status is not Success
 	 */
 	public function Delete() {
 		$this->debug('%s::Delete()', get_class($this));
 		$response = $this->Service()->Request($this->Url(), 'DELETE');
 		if ($response->HttpStatus() > 204)
-			throw new \OpenCloud\DeleteError(sprintf(
+			throw new DeleteError(sprintf(
 				_('Error deleting volume [%s], status [%d] response [%s]'),
 				$this->display_name, 
 				$response->HttpStatus(), 
@@ -187,7 +191,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * This may have to be overridden in subclasses.
 	 *
 	 * @return string
-	 * @throws \OpenCloud\UrlError if URL is not defined
+	 * @throws UrlError if URL is not defined
 	 */
 	public function Url($subresource=NULL) {
 		// find the primary key attribute name
@@ -206,7 +210,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 			return $url . ($subresource ? ('/'.$subresource) : '');
 
 		// otherwise, we don't have a URL yet
-		throw new \OpenCloud\UrlError(
+		throw new UrlError(
 			sprintf(_('%s does not have a URL yet'), get_class($this)));
 		return FALSE;
 	}
@@ -269,7 +273,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * @param string $name the name of the property
 	 * @param mixed $value the property's value
 	 * @return void
-	 * @throws \OpenCloud\AttributeError
+	 * @throws AttributeError
 	 */
     public function __set($name, $value) {
         $this->SetProperty($name, $value, $this->Service()->namespaces());
@@ -343,13 +347,13 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * objects if the object does not have a `name` attribute defined.
 	 *
 	 * @api
-	 * @throws \OpenCloud\NameError if attribute 'name' is not defined
+	 * @throws NameError if attribute 'name' is not defined
 	 */
 	public function Name() {
 		if (property_exists($this, 'name'))
 			return $this->name;
 		else 
-			throw new \OpenCloud\NameError(sprintf(
+			throw new NameError(sprintf(
 				_('Name attribute does not exist for [%s]'),
 				get_class($this)));
 	}
@@ -357,11 +361,11 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	/**
 	 * checks for `$alias` in extensions and throws an error if not present
 	 *
-	 * @throws OpenCloud\UnsupportedExtensionError
+	 * @throws UnsupportedExtensionError
 	 */
 	public function CheckExtension($alias) {
 		if (!in_array($alias, $this->Service()->namespaces()))
-			throw new \OpenCloud\UnsupportedExtensionError(sprintf(
+			throw new UnsupportedExtensionError(sprintf(
 				_('Extension [%s] is not installed'), $alias));
 	}
 
@@ -413,7 +417,7 @@ abstract class NovaInstance extends \OpenCloud\Base {
 			$json
 		);
 		if (!is_object($response))
-			throw new \OpenCloud\HttpError(sprintf(
+			throw new HttpError(sprintf(
 			    _('Invalid response for %s::Action() request'),
 			    get_class($this)));
 
@@ -468,10 +472,10 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * the top level document name (either "server" or "instance", in 
 	 * these examples).
 	 *
-	 * @throws \OpenCloud\DocumentError if not overridden
+	 * @throws DocumentError if not overridden
 	 */
 	protected function JsonName() {
-		throw new \OpenCloud\DocumentError(sprintf(
+		throw new DocumentError(sprintf(
 			_('Unrecognized class [%s] in JsonName() function'),
 			get_class($this)));
 	}
@@ -483,10 +487,10 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 * For example, a server is `/servers/`, a database instance is 
 	 * `/instances/`. Must be overridden in child classes.
 	 *
-	 * @throws \OpenCloud\UrlError
+	 * @throws UrlError
 	 */
 	protected function ResourceName() {
-		throw new \OpenCloud\UrlError(sprintf(
+		throw new UrlError(sprintf(
 			_('Unrecognized class [%s] in ResourceName() function'),
 			get_class($this)));
 	}
@@ -496,10 +500,10 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 *
 	 * Must be overridden in a child class.
 	 *
-	 * @throws \OpenCloud\CreateError if not overridden
+	 * @throws CreateError if not overridden
 	 */
 	protected function CreateJson() {
-		throw new \OpenCloud\CreateError(sprintf(
+		throw new CreateError(sprintf(
 			_('[%s] CreateJson() must be overridden'),
 			get_class($this)));
 	}
@@ -509,10 +513,10 @@ abstract class NovaInstance extends \OpenCloud\Base {
 	 *
 	 * Must be overridden in a child class.
 	 *
-	 * @throws \OpenCloud\UpdateError if not overridden
+	 * @throws UpdateError if not overridden
 	 */
 	protected function UpdateJson() {
-		throw new \OpenCloud\UpdateError(sprintf(
+		throw new UpdateError(sprintf(
 			_('[%s] UpdateJson() must be overridden'),
 			get_class($this)));
 	}

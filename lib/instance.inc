@@ -12,7 +12,7 @@
 
 namespace OpenCloud\DbService;
 
-require_once('novainstance.inc');
+require_once('persistentobject.inc');
 require_once('database.inc');
 require_once('user.inc');
 
@@ -22,7 +22,7 @@ require_once('user.inc');
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Instance extends \OpenCloud\Compute\NovaInstance {
+class Instance extends \OpenCloud\PersistentObject {
 
 	const
 		JSON_ELEMENT = 'instance',

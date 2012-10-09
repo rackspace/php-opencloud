@@ -11,10 +11,10 @@
 
 require_once('stub_conn.inc');
 require_once('compute.inc');
-require_once('novainstance.inc');
+require_once('persistentobject.inc');
 
 // make a real class from the abstract one
-class MyNovaInstance extends OpenCloud\Compute\NovaInstance {
+class MyPersistentObject extends \OpenCloud\PersistentObject {
 	public
 		$status,
 		$updated,
@@ -52,7 +52,7 @@ class MyNovaInstance extends OpenCloud\Compute\NovaInstance {
 	}
 }
 
-class NovaInstanceTest extends PHPUnit_Framework_TestCase
+class PersistentObjectTest extends PHPUnit_Framework_TestCase
 {
 	private
 	    $service,
@@ -65,16 +65,16 @@ class NovaInstanceTest extends PHPUnit_Framework_TestCase
 			'DFW',
 			'publicURL'
 		);
-		$this->instance = new MyNovaInstance($this->service);
+		$this->instance = new MyPersistentObject($this->service);
 	}
 
 	/**
 	 * Tests
 	 */
 	public function test__construct() {
-	    $inst = new MyNovaInstance($this->service);
+	    $inst = new MyPersistentObject($this->service);
 	    $this->assertEquals(
-	        'MyNovaInstance',
+	        'MyPersistentObject',
 	        get_class($inst));
 	}
 	/**

@@ -12,7 +12,7 @@
 
 namespace OpenCloud\Compute;
 
-require_once('novainstance.inc');
+require_once('persistentobject.inc');
 
 /**
  * The Image class represents a stored machine image returned by the
@@ -23,7 +23,7 @@ require_once('novainstance.inc');
  * not available to Rackspace customers, so we're using the /images
  * resource on the servers API endpoint.
  */
-class Image extends NovaInstance {
+class Image extends \OpenCloud\PersistentObject {
 
 	const
 		JSON_NAME = 'image',

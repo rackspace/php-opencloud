@@ -30,7 +30,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 	 */
 
 	/**
-	 * @expectedException OpenCloud\Compute\InstanceNotFound
+	 * @expectedException OpenCloud\InstanceNotFound
 	 */
 	public function test___construct() {
 		$image = new OpenCloud\Compute\Image($this->compute, 'XXXXXX');
@@ -47,7 +47,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
 		$image = new OpenCloud\Compute\Image($this->compute, 'BADJSON');
     }
     /**
-     * @expectedException OpenCloud\Compute\EmptyResponseError
+     * @expectedException OpenCloud\EmptyResponseError
      */
     public function test_empty_json() {
 		$image = new OpenCloud\Compute\Image($this->compute, 'EMPTY');

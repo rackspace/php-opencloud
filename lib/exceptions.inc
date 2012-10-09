@@ -22,6 +22,7 @@ namespace OpenCloud {
 	class AuthenticationError extends \Exception {}
 	class CollectionError extends \Exception {}
 	class DocumentError extends \Exception {}
+	class EmptyResponseError extends \Exception {}
 	class EndpointError extends \Exception {}
 	class HttpError extends \Exception {}
 	class HttpUnauthorizedError extends \Exception {}
@@ -30,11 +31,12 @@ namespace OpenCloud {
 	class HttpTimeoutError extends \Exception {}
 	class HttpUrlError extends \Exception {}
 	class HttpOverLimitError extends \Exception {}
+	class InstanceNotFound extends \Exception {}
 	class JsonError extends \Exception {}
 	class ServiceValueError extends \Exception {}
 	class UnrecognizedServiceError extends \Exception {}
 	class UrlError extends \Exception {}
-	// used by NovaInstance
+	// used by PersistentObject
 	class CreateError extends \Exception {}
 	class DeleteError extends \Exception {}
 	class UpdateError extends \Exception {}
@@ -54,9 +56,7 @@ namespace OpenCloud\Compute {
 
 	class ImageError extends \Exception {}
 	class InvalidArgumentError extends \Exception {}
-	class EmptyResponseError extends \Exception {}
 	class FlavorError extends \Exception {}
-	class InstanceNotFound extends \Exception {}
 	class InvalidRequestError extends \Exception {}
 	class InvalidParameterError extends \Exception {}
 	class InvalidIpTypeError extends \Exception {}

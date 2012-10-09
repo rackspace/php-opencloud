@@ -12,7 +12,7 @@
 
 namespace OpenCloud\Compute;
 
-require_once('novainstance.inc');
+require_once('persistentobject.inc');
 require_once('metadata.inc');
 
 /**
@@ -21,7 +21,7 @@ require_once('metadata.inc');
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Network extends NovaInstance {
+class Network extends \OpenCloud\PersistentObject {
 
 	const
 		JSON_NAME = 'network',
