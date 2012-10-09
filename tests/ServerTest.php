@@ -182,6 +182,13 @@ class ServerTest extends PHPUnit_Framework_TestCase
 			200,
 			$response->HttpStatus());
 	}
+	public function testRemoveVolume() {
+		$vol = new \OpenCloud\VolumeService\Volume($this->service);
+		$response = $this->server->RemoveVolume($vol);
+		$this->assertEquals(
+			202,
+			$response->HttpStatus());
+	}
 	public function testCreate_personality() {
 		$new = new PublicServer($this->service);
 		$new->AddFile('/tmp/hello.txt', 'Hello, world!');

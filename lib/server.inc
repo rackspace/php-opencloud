@@ -437,7 +437,7 @@ class Server extends \OpenCloud\Compute\NovaInstance {
 			throw new VolumeError(_('Volume extension is not available'));
 		
 		// construct URL
-		$url = $this->Url('os-volume_attachments');
+		$url = $this->Url('os-volume_attachments/'.$vol->id);
 		
 		// submit it
 		$response = $this->Service()->Request($url, 'DELETE');
