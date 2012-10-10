@@ -41,6 +41,7 @@ class Volume extends \OpenCloud\PersistentObject {
 
 	private
 		$_create_keys = array(
+		    'snapshot_id',
 			'display_name',
 			'display_description',
 			'size',
@@ -92,8 +93,15 @@ class Volume extends \OpenCloud\PersistentObject {
 		$obj = new \stdClass();
 		$obj->$element = new \stdClass();
 		foreach ($this->_create_keys as $name) {
-			if ($this->$name)
-				$obj->$element->$name = $this->$name;
+			if ($this->$name) {
+			    switch($name) {
+			    case 'volume_type':
+			        $obj->$element->$name = $this->volume_type->Name();
+			        break;
+			    default:
+				    $obj->$element->$name = $this->$name;
+				}
+			}
 		}
 		if (is_array($this->metadata) && count($this->metadata)) {
 			$obj->$element->metadata = new \stdClass();
