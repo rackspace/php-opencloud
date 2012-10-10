@@ -48,5 +48,16 @@ class LoadBalancerService extends Nova {
 	public function Url($resource='loadbalancers', $args=array()) {
 		return parent::Url($resource, $args);
 	}
+	
+	/**
+	 * creates a new LoadBalancer object
+	 *
+	 * @api
+	 * @param string $id the identifier of the load balancer
+	 * @return LoadBalancerService\LoadBalancer
+	 */
+	public function LoadBalancer($id=NULL) {
+		return new LoadBalancerService\LoadBalancer($this, $id);
+	}
 
 }

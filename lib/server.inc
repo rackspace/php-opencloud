@@ -284,7 +284,7 @@ class Server extends \OpenCloud\PersistentObject {
 	public function Rescue() {
 		$this->CheckExtension('os-rescue');
 	    if (!isset($this->id))
-	        throw new ServerActionError(
+	        throw new \OpenCloud\ServerActionError(
 	            _('Server has no ID; cannot Rescue()'));
 	    $obj = new \stdClass();
 	    $obj->rescue = "none";
@@ -293,7 +293,7 @@ class Server extends \OpenCloud\PersistentObject {
 	    if ($this->CheckJsonError())
 	        return FALSE;
 	    elseif (!isset($newobj->adminPass))
-	        throw new ServerActionError(sprintf(
+	        throw new \OpenCloud\ServerActionError(sprintf(
 	            _('Rescue() method failed unexpectedly, '.
 	              'status [%s] response [%s]'),
 	            $resp->HttpStatus(), $resp->HttpBody()));
@@ -313,7 +313,7 @@ class Server extends \OpenCloud\PersistentObject {
     public function Unrescue() {
     	$this->CheckExtension('os-rescue');
 	    if (!isset($this->id))
-	        throw new ServerActionError(
+	        throw new \OpenCloud\ServerActionError(
 	            _('Server has no ID; cannot Unescue()'));
 	    $obj = new \stdClass();
 	    $obj->unrescue = NULL;

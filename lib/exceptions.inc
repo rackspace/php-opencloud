@@ -34,6 +34,7 @@ namespace OpenCloud {
 	class HttpOverLimitError extends \Exception {}
 	class InstanceNotFound extends \Exception {}
 	class JsonError extends \Exception {}
+	class ServerActionError extends \Exception {}
 	class ServiceValueError extends \Exception {}
 	class UnrecognizedServiceError extends \Exception {}
 	class UrlError extends \Exception {}
@@ -75,7 +76,6 @@ namespace OpenCloud\Compute {
 	class ServerCreateError extends \Exception {}
 	class ServerUpdateError extends \Exception {}
 	class ServerDeleteError extends \Exception {}
-	class ServerActionError extends \Exception {}
 	class ServerIdRequiredError extends \Exception {}
 	class ServerIpsError extends \Exception {}
 	class ServerUrlError extends \Exception {}

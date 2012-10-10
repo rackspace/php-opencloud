@@ -154,7 +154,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 			$s->Url());
 	}
 	/**
-	 * @expectedException OpenCloud\Compute\ServerActionError
+	 * @expectedException OpenCloud\ServerActionError
 	 */
 	public function testRescue() {
 	    $password = $this->server->Rescue();
@@ -165,7 +165,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	    $blank->Rescue(); // should trigger the exception
 	}
 	/**
-	 * @expectedException OpenCloud\Compute\ServerActionError
+	 * @expectedException OpenCloud\ServerActionError
 	 */
 	public function testUnrescue() {
 	    $resp = $this->server->Unrescue();

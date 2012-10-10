@@ -117,6 +117,17 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 */
 	protected function CreateJson() {
 	    $obj = new \stdClass();
+	    $elem = $this->JsonName();
+	    $obj->$elem = new \stdClass();
+	    
+	    // set the properties
+	    foreach($this->_create_keys as $key) {
+	    	if ($this->$key) {
+	    		$obj->$elem->$key = $this->$key;
+	    	}
+	    }
+	    
+	    return $obj;
 	}
 
 	/**
