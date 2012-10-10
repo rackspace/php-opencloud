@@ -215,8 +215,9 @@ class DataObject extends ObjStoreBase {
 	/**
 	 * Copies the object to another container/object
 	 *
-	 * Note that this function, because it operates within the Object Store itself,
-	 * is much faster than downloading the object and re-uploading it to a new object.
+	 * Note that this function, because it operates within the Object Store
+	 * itself, is much faster than downloading the object and re-uploading it
+	 * to a new object.
 	 *
 	 * @param DataObject $target the target of the COPY command
 	 */
