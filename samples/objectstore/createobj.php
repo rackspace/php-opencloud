@@ -30,15 +30,24 @@ $connection = new Rackspace(AUTHURL,
 $ostore = $connection->ObjectStore(/* uses defaults from above */);
 
 // next, make a container named 'Sample'
+printf("Creating container...\n");
 $cont = $ostore->Container();
 $cont->Create('Sample');
 
 // finally, create an object in that container named hello.txt
+printf("Creating object...\n");
 $obj = $cont->DataObject();
 // read this file!
 $obj->Create(array('name' => 'SampleObject', 'type' => 'text/plain'), __FILE__);
 
+// copy it to another object
+printf("Copying...\n");
+$target = $cont->DataObject();
+$target->name = $obj->Name().'-COPY';
+$obj->Copy($target);
+
 // list all the objects in the container
+printf("Listing:\n");
 $list = $cont->ObjectList();
 while($o = $list->Next())
 	printf("Object: %s size: %d type: %s\n",
