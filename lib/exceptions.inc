@@ -139,8 +139,5 @@ namespace OpenCloud\DbService {
 namespace OpenCloud\VolumeService {
 	class SnapshotError extends \Exception {}
 	class VolumeError extends \Exception {}
-	class VolumeCreateError extends \Exception {}
-	class VolumeUpdateError extends \Exception {}
-	class VolumeDeleteError extends \Exception {}
 	class VolumeTypeError extends \Exception {}
 }
