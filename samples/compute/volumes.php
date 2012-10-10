@@ -61,20 +61,20 @@ while($vtype = $list->Next()) {
 
 step('Create a new Volume');
 $volume = $cbs->Volume();
-setDebug(TRUE);
+//setDebug(TRUE);
 $volume->Create(array(
 	'display_name' => VOLUMENAME,
 	'display_description' => 'A sample volume for testing',
 	'size' => VOLUMESIZE,
-	'volume_type' => 2
+	'volume_type' => $cbs->VolumeType(2)
 ));
 setDebug(FALSE);
 
 step('Listing volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {
-	info('Volume: %s [%s] size=%d', 
-		$vol->display_name, 
+	info('Volume: %s [%s] size=%d',
+		$vol->display_name,
 		$vol->display_description,
 		$vol->size);
 }
@@ -102,8 +102,10 @@ step('Attach volume to server');
 $server->AttachVolume($volume);	// use 'auto' device
 
 step('Create a snapshot');
-$snap = $volume->Snapshot();
-$snap->Create();
+$snap = $cbs->Snapshot();
+$snap->Create(array(
+    'volume_id' => $volume->id
+));
 
 step('DONE');
 exit;

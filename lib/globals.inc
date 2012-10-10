@@ -76,6 +76,12 @@ if (!defined('RAXSDK_VOLUME_REGION'))
     define('RAXSDK_VOLUME_REGION', NULL);
 if (!defined('RAXSDK_VOLUME_URLTYPE'))
     define('RAXSDK_VOLUME_URLTYPE', 'publicURL');
+if (!defined('RAXSDK_LBSERVICE_NAME'))
+    define('RAXSDK_LBSERVICE_NAME', 'cloudLoadBalancers');
+if (!defined('RAXSDK_LBSERVICE_REGION'))
+    define('RAXSDK_LBSERVICE_REGION', NULL);
+if (!defined('RAXSDK_LBSERVICE_URLTYPE'))
+    define('RAXSDK_LBSERVICE_URLTYPE', 'publicURL');
 if (!defined('RAXSDK_CONNECTTIMEOUT'))
     define('RAXSDK_CONNECTTIMEOUT', 5);
 if (!defined('RAXSDK_TIMEOUT'))

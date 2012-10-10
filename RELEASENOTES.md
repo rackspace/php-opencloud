@@ -1,6 +1,10 @@
 RELEASE NOTES
 -------------
 
+Current MASTER is adding support for Nova Volumes (Rackspace Cloud Block
+Storage) and Rackspace Cloud Load Balancers. Note that the code here is in
+a very early state and is neither fully functional yet nor fully supported.
+
 ### 10/05/2012 Version 1.0 RC3
 * Some refactoring in classes that extend NovaInstance
 * Fixed bug where servers without networks did not receive default networks

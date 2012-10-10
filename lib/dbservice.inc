@@ -76,7 +76,8 @@ class DbService extends Nova {
 	 * Creates a Collection of Instance objects
 	 *
 	 * @api
-	 * @param array $params array of parameters to pass to the request as query strings
+	 * @param array $params array of parameters to pass to the request as
+	 *      query strings
 	 * @return Collection
 	 */
 	public function InstanceList($params=array()) {

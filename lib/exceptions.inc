@@ -22,6 +22,7 @@ namespace OpenCloud {
 	class AuthenticationError extends \Exception {}
 	class CollectionError extends \Exception {}
 	class DocumentError extends \Exception {}
+	class DomainError extends \Exception {}
 	class EmptyResponseError extends \Exception {}
 	class EndpointError extends \Exception {}
 	class HttpError extends \Exception {}

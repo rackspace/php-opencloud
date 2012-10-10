@@ -40,4 +40,10 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
 		$dbaas = $this->conn->DbService(NULL, 'DFW');
 		$this->assertEquals('OpenCloud\DbService', get_class($dbaas));
 	}
+	public function testLoadBalancerService() {
+	    $lbservice = $this->conn->LoadBalancerService(NULL, 'DFW');
+	    $this->assertEquals(
+	        'OpenCloud\LoadBalancerService',
+	        get_class($lbservice));
+	}
 }

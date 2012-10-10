@@ -18,7 +18,7 @@ require_once('compute.inc');
 require_once('volumeservice.inc');
 
 /**
- * The OpenStack class represents a relationship (or "connection") 
+ * The OpenStack class represents a relationship (or "connection")
  * between a user and a service.
  *
  * This is the primary entry point into an OpenStack system, and the only one
@@ -101,6 +101,11 @@ class OpenStack extends \OpenCloud\Base {
 		    	'name' => RAXSDK_VOLUME_NAME,
 		    	'region' => RAXSDK_VOLUME_REGION,
 		    	'urltype' => RAXSDK_VOLUME_URLTYPE
+		    ),
+		    'LoadBalancerService' => array(
+		    	'name' => RAXSDK_LBSERVICE_NAME,
+		    	'region' => RAXSDK_LBSERVICE_REGION,
+		    	'urltype' => RAXSDK_LBSERVICE_URLTYPE
 		    )
 		),
 		$connect_timeout=RAXSDK_CONNECTTIMEOUT,
@@ -115,10 +120,10 @@ class OpenStack extends \OpenCloud\Base {
 		/**
 		 * Tracks file descriptors used by streaming downloads
 		 *
-		 * This will permit multiple simultaneous streaming downloads; the 
+		 * This will permit multiple simultaneous streaming downloads; the
 		 * key is the URL of the object, and the value is its file descriptor.
 		 *
-		 * To prevent memory overflows, each array element is deleted when 
+		 * To prevent memory overflows, each array element is deleted when
 		 * the end of the file is reached.
 		 */
 		$_file_descriptors = array();
@@ -196,7 +201,7 @@ class OpenStack extends \OpenCloud\Base {
 			$this->Authenticate();
 		return $this->ServiceCatalog;
 	}
-	
+
 	/**
 	 * Returns a Collection of objects with information on services
 	 *
@@ -272,7 +277,7 @@ class OpenStack extends \OpenCloud\Base {
      * @param string url - the URL of the request
      * @param string method - the HTTP method (defaults to GET)
      * @param array headers - an associative array of headers
-     * @param string data - either a string or a resource (file pointer) to 
+     * @param string data - either a string or a resource (file pointer) to
      *		use as the
      *		request body (for PUT or POST)
      * @return HttpResponse object
@@ -300,7 +305,8 @@ class OpenStack extends \OpenCloud\Base {
         		$this->_file_descriptors[$url] = $data;
         		// set the CURL options
         		$http->SetOption(CURLOPT_FILE, $data);
-        		$http->SetOption(CURLOPT_WRITEFUNCTION, array($this, '_write_cb'));
+        		$http->SetOption(CURLOPT_WRITEFUNCTION,
+        		    array($this, '_write_cb'));
         		break;
         	case 'PUT':
         	case 'POST':
@@ -312,8 +318,10 @@ class OpenStack extends \OpenCloud\Base {
 						  'for file uploads'));
 				$http->SetOption(CURLOPT_UPLOAD, TRUE);
 				$http->SetOption(CURLOPT_INFILE, $data);
-				$http->SetOption(CURLOPT_INFILESIZE, $headers['Content-Length']);
-        		$http->SetOption(CURLOPT_READFUNCTION, array($this, '_read_cb'));
+				$http->SetOption(CURLOPT_INFILESIZE,
+				    $headers['Content-Length']);
+        		$http->SetOption(CURLOPT_READFUNCTION,
+        		    array($this, '_read_cb'));
         		break;
         	default:
         		// do nothing
@@ -335,10 +343,10 @@ class OpenStack extends \OpenCloud\Base {
             if (!$this->CheckJsonError()) {
                 if (isset($obj->overLimit)) {
                 	/**
-                	 * @TODO(glen) - The documentation says "retryAt", but the field
-                	 * returned is "retryAfter". If the doc changes, then there's no
-                	 * problem, but we'll need to fix this if they change the code to
-                	 * match the docs.
+                	 * @TODO(glen) - The documentation says "retryAt", but
+                	 * the field returned is "retryAfter". If the doc changes,
+                	 * then there's no problem, but we'll need to fix this if
+                	 * they change the code to match the docs.
                 	 */
                     $retry_s = $obj->overLimit->retryAfter;
                     $retry_t = strtotime($retry_s);
@@ -365,12 +373,12 @@ class OpenStack extends \OpenCloud\Base {
         switch($response->HttpStatus()) {
         case 401:
         	throw new HttpUnauthorizedError(
-        		sprintf(_('401 Unauthorized for [%s] [%s]'), 
+        		sprintf(_('401 Unauthorized for [%s] [%s]'),
         			$url, $response->HttpBody()));
         	break;
         case 403:
         	throw new HttpForbiddenError(
-        		sprintf(_('403 Forbidden for [%s] [%s]'), 
+        		sprintf(_('403 Forbidden for [%s] [%s]'),
         			$url, $response->HttpBody()));
         	break;
         case 413:   // limit
@@ -634,7 +642,7 @@ class OpenStack extends \OpenCloud\Base {
             $urltype
         );
     }
-    
+
     /**
      * returns a service catalog item
      *
