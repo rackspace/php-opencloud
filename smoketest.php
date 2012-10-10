@@ -188,6 +188,11 @@ step('Create Object from this file');
 $object = $container->DataObject();
 $object->Create(array('name'=>'SmokeTestObject','type'=>'text/plain'), __FILE__);
 
+step('Copy Object');
+$target = $container->DataObject();
+$target->name = 'COPY-of-SmokeTestObject';
+$object->Copy($target);
+
 step('List Containers');
 $list = $cloudfiles->ContainerList();
 while($c = $list->Next())
