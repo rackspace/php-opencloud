@@ -17,7 +17,7 @@ require_once('base.inc');
 require_once('metadata.inc');
 
 /**
- * Intermediate (abstract) class to implement shared 
+ * Intermediate (abstract) class to implement shared
  * features of all object-storage classes
  *
  * This class implements metadata-handling and other features that are common to
@@ -86,13 +86,31 @@ abstract class ObjStoreBase extends \OpenCloud\Base {
 	    return $headers;
 	}
 
+	/**
+	 * Returns the displayable name of the object
+	 *
+	 * Can be overridden by child objects; *must* be overridden by child
+	 * objects if the object does not have a `name` attribute defined.
+	 *
+	 * @api
+	 * @throws NameError if attribute 'name' is not defined
+	 */
+	public function Name() {
+		if (property_exists($this, 'name'))
+			return $this->name;
+		else
+			throw new \OpenCloud\NameError(sprintf(
+				_('Name attribute does not exist for [%s]'),
+				get_class($this)));
+	}
+
 	/********** PRIVATE METHODS **********/
 
 	/**
 	 * Returns the proper prefix for the specified type of object
 	 *
 	 * @param string $type The type of object; derived from `get_class()` if not
-	 *		specified. 
+	 *		specified.
 	 */
 	private function Prefix($type=NULL) {
 		if (!isset($type)) {

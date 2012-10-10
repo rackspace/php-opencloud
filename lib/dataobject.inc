@@ -224,6 +224,7 @@ class DataObject extends ObjStoreBase {
 	public function Copy(Dataobject $target) {
 	    $info = parse_url($target->Url());
 	    $uri = $info['path'];
+	    $this->debug('Copying object to [%s]', $uri);
 	    $response = $this->Service()->Request(
 	        $this->Url(),
 	        'COPY',
