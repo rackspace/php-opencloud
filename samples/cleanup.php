@@ -49,6 +49,9 @@ $cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 step('Connect to CBS');
 $cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
 
+step('Connect to Cloud Files');
+$files = $rackspace->ObjectStore('cloudFiles', 'DFW');
+
 step('Deleting unused servers');
 $list = $cloudservers->ServerList();
 while($server = $list->Next())
@@ -75,6 +78,21 @@ while($network = $list->Next()) {
         info('Deleting network [%s] %s', $network->id, $network->label);
         $network->Delete();
     }
+}
+
+step('Deleting objects');
+$list = $files->ContainerList();
+while($container = $list->Next()) {
+    info('Container: %s', $container->Name());
+    $objlist = $container->ObjectList();
+    if ($objlist->Size())
+        info('Objects:');
+    while($obj = $objlist->Next()) {
+        info('%30s deleting...', $obj->Name());
+        $obj->Delete();
+    }
+    info('Deleting container');
+    $container->Delete();
 }
 
 step('DONE');
