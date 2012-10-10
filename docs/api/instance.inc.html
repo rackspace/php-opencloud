@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -59,13 +60,13 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>A Cloud Databases instance (similar to a Compute Server)<br><br><a name="includes"></a><h2>Includes</h2>novainstance.inc <span class="nb-faded-text">(Require Once)</span><br>database.inc <span class="nb-faded-text">(Require Once)</span><br>user.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<h2>Description</h2>A Cloud Databases instance (similar to a Compute Server)<br><br><a name="includes"></a><h2>Includes</h2>persistentobject.inc <span class="nb-faded-text">(Require Once)</span><br>database.inc <span class="nb-faded-text">(Require Once)</span><br>user.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="Instance" class="class">
 <h3>Instance</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance">\OpenCloud\Compute\NovaInstance</a>
+<a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject">\OpenCloud\PersistentObject</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
@@ -80,12 +81,15 @@
 </div>
 <h4>Description</h4>
 <em>Instance represents an instance of DbService, similar to a Server in a
-Compute service</em><br><p>This can be
-a Server, a database instance, or another type of packaged product that
-uses a Nova virtual server as its base.</p><br><div id="methods_Instance">
+Compute service</em><br><p>This class abstracts much of the common functionality between Nova
+servers, Swift containers and objects, DBAAS instances, Cinder volumes,
+and various other objects that (a) have a URL, (b) can be created, updated,
+deleted, or retrieved, and (c) use a standard JSON format with a top-level
+element followed by a child object with attributes.</p><br><div id="methods_Instance">
 <h4>Methods</h4>
 <a style="font-style: italic;" href="#Instance::Action()">Action</a>,
       <a style="font-style: italic;" href="#Instance::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#Instance::CheckExtension()">CheckExtension</a>,
       <a style="font-style: italic;" href="#Instance::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#Instance::Create()">Create</a>,
       <a style="font-style: italic;" href="#Instance::CreateJson()">CreateJson</a>,
@@ -122,7 +126,7 @@ uses a Nova virtual server as its base.</p><br><div id="methods_Instance">
       <a style="font-style: italic;" href="#Instance::to_string()">to_string</a>,
       <div class="method">
 <a id="Instance::Action()"></a><h3>Action<span class="nb-faded-text">(
-          \OpenCloud\Compute\$object
+          \OpenCloud\$object
              
             $object,
           
@@ -144,7 +148,7 @@ Since it can only be used on a live server, it checks for a valid ID.</p></small
 </tr></thead>
 <tbody><tr>
 <td>$object</td>
-<td style="white-space: normal;">\OpenCloud\Compute\$object</td>
+<td style="white-space: normal;">\OpenCloud\$object</td>
 <td><ul>
 <li>this will be encoded as json, and we handle all the JSON error-checking in one place</li>
 </ul>
@@ -184,7 +188,7 @@ Since it can only be used on a live server, it checks for a valid ID.</p></small
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Action()"><small>\OpenCloud\Compute\NovaInstance::Action()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Action()"><small>\OpenCloud\PersistentObject::Action()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -253,7 +257,63 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::CheckAttributePrefix()"><small>\OpenCloud\Compute\NovaInstance::CheckAttributePrefix()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckAttributePrefix()"><small>\OpenCloud\PersistentObject::CheckAttributePrefix()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Instance::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
+          
+             
+            $alias,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>checks for `$alias` in extensions and throws an error if not present</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$alias</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckExtension()"><small>\OpenCloud\PersistentObject::CheckExtension()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -301,7 +361,7 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::CheckJsonError()"><small>\OpenCloud\Compute\NovaInstance::CheckJsonError()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckJsonError()"><small>\OpenCloud\PersistentObject::CheckJsonError()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -362,7 +422,7 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Create()"><small>\OpenCloud\Compute\NovaInstance::Create()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Create()"><small>\OpenCloud\PersistentObject::Create()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -508,7 +568,7 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Delete()"><small>\OpenCloud\Compute\NovaInstance::Delete()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Delete()"><small>\OpenCloud\PersistentObject::Delete()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -601,7 +661,7 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::FindLink()"><small>\OpenCloud\Compute\NovaInstance::FindLink()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::FindLink()"><small>\OpenCloud\PersistentObject::FindLink()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -668,7 +728,7 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::GetHttpRequestObject()"><small>\OpenCloud\Compute\NovaInstance::GetHttpRequestObject()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::GetHttpRequestObject()"><small>\OpenCloud\PersistentObject::GetHttpRequestObject()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -798,7 +858,7 @@ these examples).</p></small><br><h4>Return value</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::MakeQueryString()"><small>\OpenCloud\Compute\NovaInstance::MakeQueryString()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::MakeQueryString()"><small>\OpenCloud\PersistentObject::MakeQueryString()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -841,7 +901,7 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Name()"><small>\OpenCloud\Compute\NovaInstance::Name()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Name()"><small>\OpenCloud\PersistentObject::Name()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -875,7 +935,7 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 </tr></thead>
 <tbody><tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::PrimaryKeyField()"><small>\OpenCloud\Compute\NovaInstance::PrimaryKeyField()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::PrimaryKeyField()"><small>\OpenCloud\PersistentObject::PrimaryKeyField()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -932,7 +992,7 @@ changing states)</em><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Refresh()"><small>\OpenCloud\Compute\NovaInstance::Refresh()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Refresh()"><small>\OpenCloud\PersistentObject::Refresh()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1241,7 +1301,7 @@ changing states)</em><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Service()"><small>\OpenCloud\Compute\NovaInstance::Service()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Service()"><small>\OpenCloud\PersistentObject::Service()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -1323,7 +1383,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::SetProperty()"><small>\OpenCloud\Compute\NovaInstance::SetProperty()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::SetProperty()"><small>\OpenCloud\PersistentObject::SetProperty()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1394,7 +1454,7 @@ throws an exception.</p></small><br><h4>Return value</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::UpdateJson()"><small>\OpenCloud\Compute\NovaInstance::UpdateJson()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::UpdateJson()"><small>\OpenCloud\PersistentObject::UpdateJson()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1451,7 +1511,7 @@ throws an exception.</p></small><br><h4>Return value</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::Url()"><small>\OpenCloud\Compute\NovaInstance::Url()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Url()"><small>\OpenCloud\PersistentObject::Url()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1550,7 +1610,7 @@ throws an exception.</p></small><br><h4>Return value</h4>
              
             $timeout
             = RAXSDK_SERVER_MAXTIMEOUT,
-          \OpenCloud\Compute\callable
+          \OpenCloud\callable
              
             $callback
             = NULL,
@@ -1592,7 +1652,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>$callback</td>
-<td style="white-space: normal;">\OpenCloud\Compute\callable</td>
+<td style="white-space: normal;">\OpenCloud\callable</td>
 <td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
 <td>NULL</td>
 </tr>
@@ -1622,7 +1682,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::WaitFor()"><small>\OpenCloud\Compute\NovaInstance::WaitFor()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::WaitFor()"><small>\OpenCloud\PersistentObject::WaitFor()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1755,7 +1815,7 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::__set()"><small>\OpenCloud\Compute\NovaInstance::__set()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::__set()"><small>\OpenCloud\PersistentObject::__set()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1874,7 +1934,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::debug()"><small>\OpenCloud\Compute\NovaInstance::debug()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::debug()"><small>\OpenCloud\PersistentObject::debug()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1930,7 +1990,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="novainstance.inc.html#%5COpenCloud%5CCompute%5CNovaInstance::to_string()"><small>\OpenCloud\Compute\NovaInstance::to_string()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::to_string()"><small>\OpenCloud\PersistentObject::to_string()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -2101,7 +2161,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -2175,6 +2235,7 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#EndpointError">EndpointError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpError">HttpError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
@@ -2188,6 +2249,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="metadata.inc.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NameError">NameError</a><br><small></small></span></li>
@@ -2198,6 +2260,8 @@ objects</small></span></li>
 <li><span class="class"><a href="objectstore.inc.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
 <li><span class="class"><a href="openstack.inc.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
 between a user and a service.</small></span></li>
+<li><span class="class"><a href="persistentobject.inc.html#PersistentObject">PersistentObject</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="rackspace.inc.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
 <li><span class="class"><a href="service.inc.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
@@ -2211,13 +2275,11 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="volumeservice.inc.html#VolumeService">VolumeService</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li class="closed">
 <span class="folder">Compute</span><ul>
-<li><span class="class"><a href="exceptions.inc.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
 <li><span class="class"><a href="flavor.inc.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#FlavorError">FlavorError</a><br><small></small></span></li>
 <li><span class="class"><a href="image.inc.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
 Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ImageError">ImageError</a><br><small></small></span></li>
-<li><span class="class"><a href="exceptions.inc.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
@@ -2234,7 +2296,6 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NetworkError">NetworkError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
-<li><span class="class"><a href="novainstance.inc.html#NovaInstance">NovaInstance</a><br><small>The NovaInstance class represents a single nova instance.</small></span></li>
 <li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
@@ -2245,6 +2306,8 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -2305,13 +2368,12 @@ features of all object-storage classes</small></span></li>
 </li>
 <li class="closed">
 <span class="folder">VolumeService</span><ul>
+<li><span class="class"><a href="snapshot.inc.html#Snapshot">Snapshot</a><br><small>The Snapshot class represents a single block storage snapshot</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#SnapshotError">SnapshotError</a><br><small></small></span></li>
 <li><span class="class"><a href="volume.inc.html#Volume">Volume</a><br><small>The Volume class represents a single block storage volume</small></span></li>
-<li><span class="class"><a href="exceptions.inc.html#VolumeCreateError">VolumeCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="exceptions.inc.html#VolumeDeleteError">VolumeDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
 <li><span class="class"><a href="volumetype.inc.html#VolumeType">VolumeType</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
-<li><span class="class"><a href="exceptions.inc.html#VolumeUpdateError">VolumeUpdateError</a><br><small></small></span></li>
 </ul>
 </li>
 </ul>
