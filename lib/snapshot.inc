@@ -24,9 +24,9 @@ require_once('metadata.inc');
 class Snapshot extends \OpenCloud\PersistentObject {
 
 	const
-		JSON_NAME = 'snapshot',
+		JSON_ELEMENT = 'snapshot',
 		URL_RESOURCE = 'os-snapshots';
-		
+
 	public
 		$id,
 		$display_name,
@@ -35,12 +35,12 @@ class Snapshot extends \OpenCloud\PersistentObject {
 		$status,
 		$size,
 		$created_at;
-	
+
 	private
 		$force,
 		$_create_keys=array('display_name','display_description',
 							'volume_id','force');
-	
+
 	/**
 	 * updates are not permitted
 	 *
@@ -49,9 +49,19 @@ class Snapshot extends \OpenCloud\PersistentObject {
 		throw new \OpenCloud\UpdateError(
 			_('VolumeType cannot be updated'));
 	}
-		
+
+	/**
+	 * returns the display_name attribute
+	 *
+	 * @api
+	 * @return string
+	 */
+	public function Name() {
+	    return $this->display_name;
+	}
+
 	/********** PROTECTED METHODS **********/
-	
+
 	/**
 	 * returns the object for the Create() method's JSON
 	 *
@@ -59,12 +69,12 @@ class Snapshot extends \OpenCloud\PersistentObject {
 	 */
 	protected function CreateJson() {
 		$obj = new \stdClass();
-		
+
 		$elem = $this->JsonName();
 		$obj->$elem = new \stdClass();
 		foreach($this->_create_keys as $key)
 			$obj->$elem->$key = $this->$key;
-		
+
 		return $obj;
 	}
 
