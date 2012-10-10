@@ -38,7 +38,7 @@ class Volume extends \OpenCloud\PersistentObject {
 		$snapshot_id,
 		$attachments = array(),
 		$created_at;
-	
+
 	private
 		$_create_keys = array(
 			'display_name',
@@ -54,10 +54,10 @@ class Volume extends \OpenCloud\PersistentObject {
 	 * @throws VolumeUpdateError always
 	 */
 	public function Update() {
-		throw new VolumeUpdateError(
+		throw new \OpenCloud\UpdateError(
 			_('Block storage volumes cannot be updated'));
 	}
-	
+
 	/**
 	 * returns the name of the volume
 	 *
@@ -67,7 +67,7 @@ class Volume extends \OpenCloud\PersistentObject {
 	public function Name() {
 		return $this->display_name;
 	}
-	
+
 	/********** PROTECTED METHODS **********/
 
 	/**

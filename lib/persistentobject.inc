@@ -19,7 +19,7 @@ require_once('metadata.inc');
  * represents an object that has the ability to be
  * retrieved, created, updated, and deleted.
  *
- * This class abstracts much of the common functionality between Nova 
+ * This class abstracts much of the common functionality between Nova
  * servers, Swift containers and objects, DBAAS instances, Cinder volumes,
  * and various other objects that (a) have a URL, (b) can be created, updated,
  * deleted, or retrieved, and (c) use a standard JSON format with a top-level
@@ -40,7 +40,7 @@ abstract class PersistentObject extends Base {
 	 * @param mixed $info the ID or array/object of data
 	 * @throws InvalidArgumentError if $info has an invalid data type
 	 */
-	public function __construct(Nova $nova, $info=NULL) {
+	public function __construct(Service $nova, $info=NULL) {
 		$this->_service = $nova;
 		if (property_exists($this, 'metadata'))
 			$this->metadata = new Metadata;
@@ -76,7 +76,7 @@ abstract class PersistentObject extends Base {
 		// set parameters
 		foreach($params as $key => $value)
 			$this->$key = $value;
-		
+
 		// debug
 		$this->debug('%s::Create(%s)', get_class($this), $this->Name());
 
@@ -100,8 +100,8 @@ abstract class PersistentObject extends Base {
 			throw new CreateError(sprintf(
 				_('Error creating [%s] [%s], status [%d] response [%s]'),
 				get_class($this),
-				$this->Name(), 
-				$response->HttpStatus(), 
+				$this->Name(),
+				$response->HttpStatus(),
 				$response->HttpBody()));
 
 		// set values from response
@@ -127,7 +127,7 @@ abstract class PersistentObject extends Base {
 		// set parameters
 		foreach($params as $key => $value)
 			$this->$key = $value;
-		
+
 		// debug
 		$this->debug('%s::Update(%s)', get_class($this), $this->Name());
 
@@ -151,8 +151,8 @@ abstract class PersistentObject extends Base {
 			throw new UpdateError(sprintf(
 				_('Error updating [%s] with [%s], status [%d] response [%s]'),
 				get_class($this),
-				$json, 
-				$response->HttpStatus(), 
+				$json,
+				$response->HttpStatus(),
 				$response->HttpBody()));
 
 		// set values from response
@@ -180,8 +180,8 @@ abstract class PersistentObject extends Base {
 		if ($response->HttpStatus() > 204)
 			throw new DeleteError(sprintf(
 				_('Error deleting volume [%s], status [%d] response [%s]'),
-				$this->display_name, 
-				$response->HttpStatus(), 
+				$this->display_name,
+				$response->HttpStatus(),
 				$response->HttpBody()));
 		return $response;
 	}
@@ -196,7 +196,7 @@ abstract class PersistentObject extends Base {
 	public function Url($subresource=NULL) {
 		// find the primary key attribute name
 		$pk = $this->PrimaryKeyField();
-		
+
 		// first, see if we have a [self] link
 		$url = $this->FindLink('self');
 
@@ -241,7 +241,7 @@ abstract class PersistentObject extends Base {
 	        $timeout=RAXSDK_SERVER_MAXTIMEOUT, $callback=NULL) {
 	    // find the primary key field
 	    $pk = $this->PrimaryKeyField();
-	    
+
 	    // save stats
 		$starttime = time();
 		$startstatus = $this->status;
@@ -288,7 +288,7 @@ abstract class PersistentObject extends Base {
 	 */
 	public function Refresh($id=NULL) {
 		$pk = $this->PrimaryKeyField();
-		
+
 		// error if no ID
 		if (!isset($id))
 			$id = $this->{$pk};
@@ -299,11 +299,11 @@ abstract class PersistentObject extends Base {
 		// retrieve it
 		$this->debug(_('%s id [%s]'), get_class($this), $id);
 		$this->{$pk} = $id;
-		
+
 		// reset status, if available
 		if (property_exists($this, 'status'))
 			$this->status = NULL;
-		
+
 		// perform a GET on the URL
 		$response = $this->Service()->Request($this->Url());
 
@@ -319,7 +319,7 @@ abstract class PersistentObject extends Base {
 					get_class($this),
 					$response->HttpStatus(),
 					$response->HttpBody()));
-		
+
 		// check for empty response
 		if (!$response->HttpBody())
 			throw new EmptyResponseError(sprintf(
@@ -352,7 +352,7 @@ abstract class PersistentObject extends Base {
 	public function Name() {
 		if (property_exists($this, 'name'))
 			return $this->name;
-		else 
+		else
 			throw new NameError(sprintf(
 				_('Name attribute does not exist for [%s]'),
 				get_class($this)));
@@ -370,7 +370,7 @@ abstract class PersistentObject extends Base {
 	}
 
 	/********** PROTECTED METHODS **********/
-	
+
 	/**
 	 * Sends the json string to the /action resource
 	 *
@@ -450,7 +450,7 @@ abstract class PersistentObject extends Base {
 		}
 		return FALSE;
 	}
-	
+
 	/**
 	 * Returns the primary key field for the object
 	 *
@@ -464,12 +464,12 @@ abstract class PersistentObject extends Base {
 	}
 
 	/**
-	 * Returns the top-level document identifier for the returned response 
+	 * Returns the top-level document identifier for the returned response
 	 * JSON document; must be overridden in child classes
 	 *
-	 * For example, a server document is (JSON) `{"server": ...}` and an 
-	 * Instance document is `{"instance": ...}` - this function must return 
-	 * the top level document name (either "server" or "instance", in 
+	 * For example, a server document is (JSON) `{"server": ...}` and an
+	 * Instance document is `{"instance": ...}` - this function must return
+	 * the top level document name (either "server" or "instance", in
 	 * these examples).
 	 *
 	 * @throws DocumentError if not overridden
@@ -481,10 +481,10 @@ abstract class PersistentObject extends Base {
 	}
 
 	/**
-	 * Returns the resource name for the URL of the object; must be overridden 
+	 * Returns the resource name for the URL of the object; must be overridden
 	 * in child classes
 	 *
-	 * For example, a server is `/servers/`, a database instance is 
+	 * For example, a server is `/servers/`, a database instance is
 	 * `/instances/`. Must be overridden in child classes.
 	 *
 	 * @throws UrlError
@@ -494,7 +494,7 @@ abstract class PersistentObject extends Base {
 			_('Unrecognized class [%s] in ResourceName() function'),
 			get_class($this)));
 	}
-	
+
 	/**
 	 * Returns an object for the Create() method JSON
 	 *
@@ -507,7 +507,7 @@ abstract class PersistentObject extends Base {
 			_('[%s] CreateJson() must be overridden'),
 			get_class($this)));
 	}
-	
+
 	/**
 	 * Returns an object for the Update() method JSON
 	 *
@@ -520,5 +520,5 @@ abstract class PersistentObject extends Base {
 			_('[%s] UpdateJson() must be overridden'),
 			get_class($this)));
 	}
-	
+
 }
