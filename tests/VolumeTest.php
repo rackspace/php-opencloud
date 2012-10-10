@@ -57,6 +57,7 @@ class VolumeTest extends PHPUnit_Framework_TestCase
     }
     public function testCreateJson() {
         $this->vol->display_name = 'BARFOO';
+        $this->vol->metadata = array('one' => 'two');
         $obj = $this->vol->CreateJson();
         $this->assertEquals(
             'BARFOO',
