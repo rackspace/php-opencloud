@@ -50,9 +50,9 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>user.inc</h1>
+<h1>loadbalancer.inc</h1>
 <div class="file_menu">
-<a href="#classes">Classes</a> |</div>
+<a href="#includes">Includes</a> |<a href="#classes">Classes</a> |</div>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">author</label><div class="property-value"></div>
@@ -60,16 +60,20 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>A Database user<br><br><a name="classes"></a><h2>Classes</h2>
-<div id="User" class="class">
-<h3>User</h3>
+<h2>Description</h2>Defines a load balancer object<br><br><a name="includes"></a><h2>Includes</h2>persistentobject.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="LoadBalancer" class="class">
+<h3>LoadBalancer</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="base.inc.html#%5COpenCloud%5CBase">\OpenCloud\Base</a>
+<a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject">\OpenCloud\PersistentObject</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
+<label class="property-key">api</label><div class="property-value">
+<a title=""></a>
+             
+        </div>
 <label class="property-key">author</label><div class="property-value">
 <a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
@@ -80,41 +84,54 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>This class represents a User in the Rackspace "Red Dwarf"
-database-as-a-service product.</em><br><p>It contains common code for error handling as well as service functions that
-are useful. Because it is an abstract class, it cannot be called directly,
-and it has no publicly-visible properties.</p><br><div id="methods_User">
+<em>The LoadBalancer class represents a single load balancer</em><br><p>This class abstracts much of the common functionality between Nova
+servers, Swift containers and objects, DBAAS instances, Cinder volumes,
+and various other objects that (a) have a URL, (b) can be created, updated,
+deleted, or retrieved, and (c) use a standard JSON format with a top-level
+element followed by a child object with attributes.</p><br><div id="methods_LoadBalancer">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#User::AddDatabase()">AddDatabase</a>,
-      <a style="font-style: italic;" href="#User::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#User::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#User::Create()">Create</a>,
-      <a style="font-style: italic;" href="#User::CreateJson()">CreateJson</a>,
-      <a style="font-style: italic;" href="#User::Delete()">Delete</a>,
-      <a style="font-style: italic;" href="#User::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#User::Instance()">Instance</a>,
-      <a style="font-style: italic;" href="#User::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#User::Service()">Service</a>,
-      <a style="font-style: italic;" href="#User::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#User::Update()">Update</a>,
-      <a style="font-style: italic;" href="#User::Url()">Url</a>,
-      <a style="font-style: italic;" href="#User::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#User::__set()">__set</a>,
-      <a style="font-style: italic;" href="#User::debug()">debug</a>,
-      <a style="font-style: italic;" href="#User::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#LoadBalancer::Action()">Action</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::AddNode()">AddNode</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::AddVirtualIp()">AddVirtualIp</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::CheckExtension()">CheckExtension</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Create()">Create</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Delete()">Delete</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::FindLink()">FindLink</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::JsonName()">JsonName</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Name()">Name</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::PrimaryKeyField()">PrimaryKeyField</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::ResourceName()">ResourceName</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Service()">Service</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Update()">Update</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::UpdateJson()">UpdateJson</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Url()">Url</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::WaitFor()">WaitFor</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::__set()">__set</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::debug()">debug</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::to_string()">to_string</a>,
       <div class="method">
-<a id="User::AddDatabase()"></a><h3>AddDatabase<span class="nb-faded-text">(
-          string
+<a id="LoadBalancer::Action()"></a><h3>Action<span class="nb-faded-text">(
+          \OpenCloud\$object
              
-            $dbname,
+            $object,
           
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Adds a new database to the list of databases for the user</em><br><h4>Arguments</h4>
+<em>Sends the json string to the /action resource</em><br><small><p>This is used for many purposes, such as rebooting the server,
+setting the root password, creating images, etc.
+Since it can only be used on a live server, it checks for a valid ID.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -123,10 +140,152 @@ and it has no publicly-visible properties.</p><br><div id="methods_User">
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$dbname</td>
-<td style="white-space: normal;">string</td>
-<td><p>the database name to be added</p></td>
+<td>$object</td>
+<td style="white-space: normal;">\OpenCloud\$object</td>
+<td><ul>
+<li>this will be encoded as json, and we handle all the JSON error-checking in one place</li>
+</ul>
+</td>
 <td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if server ID is not defined</td>
+</tr>
+<tr>
+<td>throws</td>
+<td>on other errors</td>
+</tr>
+<tr>
+<td>returns</td>
+<td>boolean; TRUE if successful, FALSE otherwise</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Action()"><small>\OpenCloud\PersistentObject::Action()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::AddNode()"></a><h3>AddNode<span class="nb-faded-text">(
+          string
+             
+            $addr,
+          integer
+             
+            $port,
+          boolean
+             
+            $enabled
+            = TRUE,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>adds a node to the load balancer</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$addr</td>
+<td style="white-space: normal;">string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$port</td>
+<td style="white-space: normal;">integer</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$enabled</td>
+<td style="white-space: normal;">boolean</td>
+<td></td>
+<td>TRUE</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::AddVirtualIp()"></a><h3>AddVirtualIp<span class="nb-faded-text">(
+          string
+             
+            $id
+            = 'public',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>adds a virtual IP to the load balancer</em><br><small><p>You can use the strings <code>'PUBLIC'</code> or <code>'SERVICENET</code>' to indicate the
+public or internal networks, or you can pass the <code>Id</code> of an existing
+IP address.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">string</td>
+<td><p>either 'public' or 'servicenet' or an ID of an existing IP address</p>
+</td>
+<td>'public'</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
@@ -153,7 +312,7 @@ and it has no publicly-visible properties.</p><br><div id="methods_User">
 </table>
 </div>
 <div class="method">
-<a id="User::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="LoadBalancer::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -209,14 +368,76 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::CheckAttributePrefix()"><small>\OpenCloud\Base::CheckAttributePrefix()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckAttributePrefix()"><small>\OpenCloud\PersistentObject::CheckAttributePrefix()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="LoadBalancer::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
+          
+             
+            $alias,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>checks for `$alias` in extensions and throws an error if not present</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$alias</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckExtension()"><small>\OpenCloud\PersistentObject::CheckExtension()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -256,11 +477,15 @@ exception thrown.</p>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::CheckJsonError()"><small>\OpenCloud\Base::CheckJsonError()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckJsonError()"><small>\OpenCloud\PersistentObject::CheckJsonError()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Create()"></a><h3>Create<span class="nb-faded-text">(
+<a id="LoadBalancer::Create()"></a><h3>Create<span class="nb-faded-text">(
           array
              
             $params
@@ -272,7 +497,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new database user</em><br><h4>Arguments</h4>
+<em>Creates a new object</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -283,7 +508,7 @@ exception thrown.</p>
 <tbody><tr>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
-<td><p>an associative array of parameters</p></td>
+<td><p>array of values to set when creating the object</p></td>
 <td>array()</td>
 </tr></tbody>
 </table>
@@ -311,38 +536,49 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>throws</td>
-<td>if the user's name is not defined</td>
+<td>if HTTP status is not Success</td>
 </tr>
 <tr>
-<td>throws</td>
-<td>if the HTTP status is not Success</td>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Create()"><small>\OpenCloud\PersistentObject::Create()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+<a id="LoadBalancer::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\LoadBalancerService\stdClass</span>
 </h3>
 <h4>Description</h4>
-<em>Creates the JSON object for the Create method</em><br><h4>Return value</h4>
+<em>returns the JSON object for Create()</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\LoadBalancerService\stdClass</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if not overridden</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Delete()"></a><h3>Delete<span class="nb-faded-text">(
+<a id="LoadBalancer::Delete()"></a><h3>Delete<span class="nb-faded-text">(
           
           )
         </span>
@@ -350,7 +586,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Deletes a database user</em><br><h4>Return value</h4>
+<em>Deletes an block storage volume</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -374,13 +610,71 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>throws</td>
-<td>if HTTP response is not Success</td>
+<td>if HTTP status is not Success</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Delete()"><small>\OpenCloud\PersistentObject::Delete()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="LoadBalancer::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
+          string
+             
+            $type
+            = 'self',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Since each server can have multiple links, this returns the desired one</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$type</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>'self' is most common; use 'bookmark' for the version-independent one</li>
+</ul>
+</td>
+<td>'self'</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>the URL from the links block</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::FindLink()"><small>\OpenCloud\PersistentObject::FindLink()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -435,35 +729,55 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Base::GetHttpRequestObject()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::GetHttpRequestObject()"><small>\OpenCloud\PersistentObject::GetHttpRequestObject()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Instance()"></a><h3>Instance<span class="nb-faded-text">(
+<a id="LoadBalancer::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DbService\Instance</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the Instance of the User</em><br><h4>Return value</h4>
+<em>Returns the top-level document identifier</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
+Instance document is <code>{"instance": ...}</code> - this function must return
+the top level document name (either "server" or "instance", in
+these examples).</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\DbService\Instance</td>
-<td></td>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if not overridden</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="LoadBalancer::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -507,35 +821,219 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::MakeQueryString()"><small>\OpenCloud\Base::MakeQueryString()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::MakeQueryString()"><small>\OpenCloud\PersistentObject::MakeQueryString()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Service()"></a><h3>Service<span class="nb-faded-text">(
+<a id="LoadBalancer::Name()"></a><h3>Name<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DbService</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the related service</em><br><h4>Return value</h4>
+<em>Returns the displayable name of the object</em><br><small><p>Can be overridden by child objects; <em>must</em> be overridden by child
+objects if the object does not have a <code>name</code> attribute defined.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\DbService</td>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if attribute 'name' is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Name()"><small>\OpenCloud\PersistentObject::Name()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the primary key field for the object</em><br><small><p>The primary key is usually 'id', but this function is provided so that
+(in rare cases where it is not 'id'), it can be overridden.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::PrimaryKeyField()"><small>\OpenCloud\PersistentObject::PrimaryKeyField()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
+          
+             
+            $id
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Refreshes the server from the origin (useful when the server is
+changing states)</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Refresh()"><small>\OpenCloud\PersistentObject::Refresh()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the URL resource</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
+<code>/instances/</code>. Must be overridden in child classes.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
 <td></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="LoadBalancer::Service()"></a><h3>Service<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the Service object associated with this server</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Service()"><small>\OpenCloud\PersistentObject::Service()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -610,11 +1108,15 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::SetProperty()"><small>\OpenCloud\Base::SetProperty()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::SetProperty()"><small>\OpenCloud\PersistentObject::SetProperty()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Update()"></a><h3>Update<span class="nb-faded-text">(
+<a id="LoadBalancer::Update()"></a><h3>Update<span class="nb-faded-text">(
           array
              
             $params
@@ -623,10 +1125,10 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Updates a database user (not currently permitted)</em><br><h4>Arguments</h4>
+<em>Updates an existing object</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -637,11 +1139,53 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
-<td><p>not currently used, but provided for future updates</p></td>
+<td><p>array of values to set when updating the object</p></td>
 <td>array()</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Update()"><small>\OpenCloud\PersistentObject::Update()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -658,14 +1202,24 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
-<td>always; updates are not currently permitted by this service.</td>
-</tr></tbody>
+<td>if not overridden</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::UpdateJson()"><small>\OpenCloud\PersistentObject::UpdateJson()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Url()"></a><h3>Url<span class="nb-faded-text">(
+<a id="LoadBalancer::Url()"></a><h3>Url<span class="nb-faded-text">(
+          
+             
+            $subresource
+            = NULL,
           
           )
         </span>
@@ -673,9 +1227,22 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the Url of the User</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
-base level, it simply throws an exception to enforce the idea that
-subclasses need to define this method.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$subresource</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -692,25 +1259,32 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
-<td>if the user name is not set</td>
-</tr></tbody>
+<td>if URL is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Url()"><small>\OpenCloud\PersistentObject::Url()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          <a href="instance.inc.html#%5COpenCloud%5CDbService%5CInstance">\OpenCloud\DbService\Instance</a>
+<a id="LoadBalancer::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
+          string
              
-            $instance,
-          mixed
+            $terminal
+            = 'ACTIVE',
+          integer
              
-            $info
+            $timeout
+            = RAXSDK_SERVER_MAXTIMEOUT,
+          \OpenCloud\callable
+             
+            $callback
             = NULL,
-          array
-             
-            $db
-            = array(),
           
           )
         </span>
@@ -718,15 +1292,14 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new database object</em><br><small><p>Unlike other objects (Servers, DataObjects, etc.), passing a database
-name to the constructor does <em>not</em> pull information from the database.
-For example, if you pass an ID to the <code>Server()</code> constructor, it will
-attempt to retrieve the information on that server from the service,
-and will return an error if it is not found. However, the Cloud
-Users service does not permit retrieval of information on
-individual databases (only via Collection), and thus passing in a
-name via the <code>$info</code> parameter only creates an in-memory object that
-is not necessarily tied to an actual database.</p></small><br><h4>Arguments</h4>
+<em>Waits for the server/instance status to change</em><br><small><p>This function repeatedly polls the system for a change in server
+status. Once the status reaches the <code>$terminal</code> value (or 'ERROR'),
+then the function returns.</p>
+
+<p>The polling interval is set by the constant RAXSDK_POLL_INTERVAL.</p>
+
+<p>The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
+seconds elapse.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -736,23 +1309,23 @@ is not necessarily tied to an actual database.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$instance</td>
-<td style="white-space: normal;"><a href="instance.inc.html#%5COpenCloud%5CDbService%5CInstance">\OpenCloud\DbService\Instance</a></td>
-<td><p>the parent DbService\Instance of the database</p>
+<td>$terminal</td>
+<td style="white-space: normal;">string</td>
+<td><p>the terminal state to wait for</p></td>
+<td>'ACTIVE'</td>
+</tr>
+<tr>
+<td>$timeout</td>
+<td style="white-space: normal;">integer</td>
+<td><p>the max time (in seconds) to wait</p>
 </td>
-<td></td>
+<td>RAXSDK_SERVER_MAXTIMEOUT</td>
 </tr>
 <tr>
-<td>$info</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>if an array or object, treated as properties to set; if a string, treated as the database name</p></td>
+<td>$callback</td>
+<td style="white-space: normal;">\OpenCloud\callable</td>
+<td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
 <td>NULL</td>
-</tr>
-<tr>
-<td>$db</td>
-<td style="white-space: normal;">array</td>
-<td><p>a list of database names to associate with the User</p></td>
-<td>array()</td>
 </tr>
 </tbody>
 </table>
@@ -773,17 +1346,92 @@ is not necessarily tied to an actual database.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if `$info` is not a string, object, or array</td>
-</tr></tbody>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::WaitFor()"><small>\OpenCloud\PersistentObject::WaitFor()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::__set()"></a><h3>__set<span class="nb-faded-text">(
+<a id="LoadBalancer::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          <a href="nova.inc.html#%5COpenCloud%5CNova">\OpenCloud\Nova</a>
+             
+            $nova,
+          mixed
+             
+            $info
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Retrieves the instance from persistent storage</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$nova</td>
+<td style="white-space: normal;"><a href="nova.inc.html#%5COpenCloud%5CNova">\OpenCloud\Nova</a></td>
+<td><p>the service object</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$info</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>the ID or array/object of data</p>
+</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if $info has an invalid data type</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::__construct()"><small>\OpenCloud\PersistentObject::__construct()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::__set()"></a><h3>__set<span class="nb-faded-text">(
           string
              
-            $property,
+            $name,
           mixed
              
             $value,
@@ -794,9 +1442,8 @@ is not necessarily tied to an actual database.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Sets extended attributes on an object and validates them</em><br><small><p>This function is provided to ensure that attributes cannot
-arbitrarily added to an object. If this function is called, it
-means that the attribute is not defined on the object, and thus
+<em>Validates properties that have a namespace: prefix</em><br><small><p>If the property prefix: appears in the list of supported extension
+namespaces, then the property is applied to the object. Otherwise,
 an exception is thrown.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
@@ -807,15 +1454,16 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$property</td>
+<td>$name</td>
 <td style="white-space: normal;">string</td>
-<td><p>the name of the attribute</p></td>
+<td><p>the name of the property</p></td>
 <td></td>
 </tr>
 <tr>
 <td>$value</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>the value of the attribute</p></td>
+<td><p>the property's value</p>
+</td>
 <td></td>
 </tr>
 </tbody>
@@ -837,14 +1485,20 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
 <td>inherited_from</td>
-<td><a href="base.inc.html#%5COpenCloud%5CBase::__set()"><small>\OpenCloud\Base::__set()</small></a></td>
-</tr></tbody>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::__set()"><small>\OpenCloud\PersistentObject::__set()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="LoadBalancer::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -950,14 +1604,20 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::debug()"><small>\OpenCloud\Base::debug()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::debug()"><small>\OpenCloud\PersistentObject::debug()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="LoadBalancer::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           mixed
              
             $x,
@@ -1000,23 +1660,52 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::to_string()"><small>\OpenCloud\Base::to_string()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::to_string()"><small>\OpenCloud\PersistentObject::to_string()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
-<div id="properties_User">
+<div id="properties_LoadBalancer">
 <h4>Properties</h4>
-<a href="#User::%24_errors">$_errors</a>,
-      <a href="#User::%24_instance">$_instance</a>,
-      <a href="#User::%24databases">$databases</a>,
-      <a href="#User::%24http_headers">$http_headers</a>,
-      <a href="#User::%24name">$name</a>,
-      <a href="#User::%24password">$password</a>,
+<a href="#LoadBalancer::%24_create_keys">$_create_keys</a>,
+      <a href="#LoadBalancer::%24_errors">$_errors</a>,
+      <a href="#LoadBalancer::%24_service">$_service</a>,
+      <a href="#LoadBalancer::%24accessList">$accessList</a>,
+      <a href="#LoadBalancer::%24algorithm">$algorithm</a>,
+      <a href="#LoadBalancer::%24connectionLogging">$connectionLogging</a>,
+      <a href="#LoadBalancer::%24connectionThrottle">$connectionThrottle</a>,
+      <a href="#LoadBalancer::%24created">$created</a>,
+      <a href="#LoadBalancer::%24healthMonitor">$healthMonitor</a>,
+      <a href="#LoadBalancer::%24http_headers">$http_headers</a>,
+      <a href="#LoadBalancer::%24id">$id</a>,
+      <a href="#LoadBalancer::%24metadata">$metadata</a>,
+      <a href="#LoadBalancer::%24name">$name</a>,
+      <a href="#LoadBalancer::%24nodes">$nodes</a>,
+      <a href="#LoadBalancer::%24port">$port</a>,
+      <a href="#LoadBalancer::%24protocol">$protocol</a>,
+      <a href="#LoadBalancer::%24sessionPersistence">$sessionPersistence</a>,
+      <a href="#LoadBalancer::%24sourceAddresses">$sourceAddresses</a>,
+      <a href="#LoadBalancer::%24updated">$updated</a>,
+      <a href="#LoadBalancer::%24virtualIps">$virtualIps</a>,
       <div class="method">
-<a id="User::$_errors"></a><h3>
+<a id="LoadBalancer::$_create_keys"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_create_keys
+          =
+          array('name', 'port', 'protocol', 'virtualIps', 'nodes', 'accessList', 'algorithm', 'connectionLogging', 'connectionThrottle', 'healthMonitor', 'sessionPersistence')</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -1025,25 +1714,70 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="User::$_instance"></a><h3>
+<a id="LoadBalancer::$_service"></a><h3>
 <span class="nb-faded-text"> 
-          private 
-          </span>$_instance
+          protected 
+          </span>$_service
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="User::$databases"></a><h3>
-<span class="nb-faded-text">string 
+<a id="LoadBalancer::$accessList"></a><h3>
+<span class="nb-faded-text"> 
           public 
-          </span>$databases
+          </span>$accessList
           =
-          array()</h3>
-<em><p>the user name</p></em><br><small></small><br><br>
+          </h3>
+<em></em><br>
 </div>
 <div class="method">
-<a id="User::$http_headers"></a><h3>
+<a id="LoadBalancer::$algorithm"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$algorithm
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$connectionLogging"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$connectionLogging
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$connectionThrottle"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$connectionThrottle
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$created"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$created
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$healthMonitor"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$healthMonitor
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
@@ -1052,22 +1786,113 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="User::$name"></a><h3>
-<span class="nb-faded-text">string 
+<a id="LoadBalancer::$id"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$id
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$metadata"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$metadata
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$name"></a><h3>
+<span class="nb-faded-text"> 
           public 
           </span>$name
           =
           </h3>
-<em><p>the user name</p></em><br><small></small><br><br>
+<em></em><br>
 </div>
 <div class="method">
-<a id="User::$password"></a><h3>
-<span class="nb-faded-text">string 
+<a id="LoadBalancer::$nodes"></a><h3>
+<span class="nb-faded-text"> 
           public 
-          </span>$password
+          </span>$nodes
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$port"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$port
           =
           </h3>
-<em><p>the user name</p></em><br><small></small><br><br>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$protocol"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$protocol
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$sessionPersistence"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$sessionPersistence
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$sourceAddresses"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$sourceAddresses
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$updated"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$updated
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancer::$virtualIps"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$virtualIps
+          =
+          array()</h3>
+<em></em><br>
+</div>
+</div>
+<div id="constants_LoadBalancer">
+<h4>Constants</h4>
+<a id="LoadBalancer::JSON_ELEMENT"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>JSON_ELEMENT<span class="nb-faded-text">
+         = 'loadBalancer'</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="LoadBalancer::URL_RESOURCE"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>URL_RESOURCE<span class="nb-faded-text">
+         = 'loadbalancers'</span>
+</h3>
+<em></em><br><br>
 </div>
 </div>
 <div style="clear: both"></div>

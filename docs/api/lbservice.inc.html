@@ -50,9 +50,9 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>user.inc</h1>
+<h1>lbservice.inc</h1>
 <div class="file_menu">
-<a href="#classes">Classes</a> |</div>
+<a href="#includes">Includes</a> |<a href="#classes">Classes</a> |</div>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">author</label><div class="property-value"></div>
@@ -60,13 +60,13 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>A Database user<br><br><a name="classes"></a><h2>Classes</h2>
-<div id="User" class="class">
-<h3>User</h3>
+<h2>Description</h2>Rackspace's Cloud Load Balancers<br><br><a name="includes"></a><h2>Includes</h2>nova.inc <span class="nb-faded-text">(Require Once)</span><br>loadbalancer.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="LoadBalancerService" class="class">
+<h3>LoadBalancerService</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="base.inc.html#%5COpenCloud%5CBase">\OpenCloud\Base</a>
+<a href="nova.inc.html#%5COpenCloud%5CNova">\OpenCloud\Nova</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
@@ -80,80 +80,33 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>This class represents a User in the Rackspace "Red Dwarf"
-database-as-a-service product.</em><br><p>It contains common code for error handling as well as service functions that
-are useful. Because it is an abstract class, it cannot be called directly,
-and it has no publicly-visible properties.</p><br><div id="methods_User">
+<em>The Rackspace Cloud Load Balancers</em><br><p>Nova is used as a basis for several products, including Compute services
+as well as Rackspace's Cloud Databases. This class is, in essence, a vehicle
+for sharing common code between those other classes.</p><br><div id="methods_LoadBalancerService">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#User::AddDatabase()">AddDatabase</a>,
-      <a style="font-style: italic;" href="#User::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#User::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#User::Create()">Create</a>,
-      <a style="font-style: italic;" href="#User::CreateJson()">CreateJson</a>,
-      <a style="font-style: italic;" href="#User::Delete()">Delete</a>,
-      <a style="font-style: italic;" href="#User::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#User::Instance()">Instance</a>,
-      <a style="font-style: italic;" href="#User::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#User::Service()">Service</a>,
-      <a style="font-style: italic;" href="#User::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#User::Update()">Update</a>,
-      <a style="font-style: italic;" href="#User::Url()">Url</a>,
-      <a style="font-style: italic;" href="#User::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#User::__set()">__set</a>,
-      <a style="font-style: italic;" href="#User::debug()">debug</a>,
-      <a style="font-style: italic;" href="#User::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#LoadBalancerService::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::Collection()">Collection</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::Extensions()">Extensions</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::Flavor()">Flavor</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::FlavorList()">FlavorList</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::GetMetaUrl()">GetMetaUrl</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::Limits()">Limits</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::LoadBalancer()">LoadBalancer</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::Request()">Request</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::Url()">Url</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::__set()">__set</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::debug()">debug</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::get_endpoint()">get_endpoint</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::load_namespaces()">load_namespaces</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::namespaces()">namespaces</a>,
+      <a style="font-style: italic;" href="#LoadBalancerService::to_string()">to_string</a>,
       <div class="method">
-<a id="User::AddDatabase()"></a><h3>AddDatabase<span class="nb-faded-text">(
-          string
-             
-            $dbname,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Adds a new database to the list of databases for the user</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$dbname</td>
-<td style="white-space: normal;">string</td>
-<td><p>the database name to be added</p></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>api</td>
-<td></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="User::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="LoadBalancerService::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -209,14 +162,24 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::CheckAttributePrefix()"><small>\OpenCloud\Base::CheckAttributePrefix()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::CheckAttributePrefix()"><small>\OpenCloud\Service::CheckAttributePrefix()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::CheckAttributePrefix()"><small>\OpenCloud\Nova::CheckAttributePrefix()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="LoadBalancerService::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -256,23 +219,145 @@ exception thrown.</p>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::CheckJsonError()"><small>\OpenCloud\Base::CheckJsonError()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::CheckJsonError()"><small>\OpenCloud\Service::CheckJsonError()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::CheckJsonError()"><small>\OpenCloud\Nova::CheckJsonError()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Create()"></a><h3>Create<span class="nb-faded-text">(
-          array
+<a id="LoadBalancerService::Collection()"></a><h3>Collection<span class="nb-faded-text">(
+          string
              
-            $params
-            = array(),
+            $url,
+          string
+             
+            $class,
+          string
+             
+            $element,
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+        <span class="nb-faded-text">\OpenCloud\Collection</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new database user</em><br><h4>Arguments</h4>
+<em>returns a collection of objects</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">string</td>
+<td><p>the URL to retrieve</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$class</td>
+<td style="white-space: normal;">string</td>
+<td><p>the class of objects to fetch</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$element</td>
+<td style="white-space: normal;">string</td>
+<td><p>the top-level JSON element holding the array</p>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Collection</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::Collection()"><small>\OpenCloud\Nova::Collection()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancerService::Extensions()"></a><h3>Extensions<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the /extensions for the service</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td>of objects</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::Extensions()"><small>\OpenCloud\Service::Extensions()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::Extensions()"><small>\OpenCloud\Nova::Extensions()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancerService::Flavor()"></a><h3>Flavor<span class="nb-faded-text">(
+          string
+             
+            $id
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Compute\Flavor</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a flavor from the service</em><br><small><p>This is a factory method and should generally be called instead of
+creating a Flavor object directly.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -281,10 +366,13 @@ exception thrown.</p>
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">array</td>
-<td><p>an associative array of parameters</p></td>
-<td>array()</td>
+<td>$id</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>if supplied, the Flavor identified by this is retrieved</li>
+</ul>
+</td>
+<td>NULL</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
@@ -294,8 +382,8 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\HttpResponse</td>
-<td></td>
+<td>\OpenCloud\Compute\Flavor</td>
+<td>object</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -310,55 +398,68 @@ exception thrown.</p>
 <td></td>
 </tr>
 <tr>
-<td>throws</td>
-<td>if the user's name is not defined</td>
-</tr>
-<tr>
-<td>throws</td>
-<td>if the HTTP status is not Success</td>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::Flavor()"><small>\OpenCloud\Nova::Flavor()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+<a id="LoadBalancerService::FlavorList()"></a><h3>FlavorList<span class="nb-faded-text">(
+          boolean
+             
+            $details
+            = TRUE,
+          array
+             
+            $filter
+            = array(),
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\Collection</span>
 </h3>
 <h4>Description</h4>
-<em>Creates the JSON object for the Create method</em><br><h4>Return value</h4>
+<em>Returns a list of Flavor objects</em><br><small><p>This is a factory method and should generally be called instead of
+creating a FlavorList object directly.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
+<th>Name</th>
 <th>Type</th>
 <th>Description</th>
+<th>Default</th>
 </tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
+<tbody>
+<tr>
+<td>$details</td>
+<td style="white-space: normal;">boolean</td>
+<td><ul>
+<li>if TRUE (the default), returns full details. Set to FALSE to retrieve minimal details and possibly improve performance.</li>
+</ul>
+</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>$filter</td>
+<td style="white-space: normal;">array</td>
+<td><ul>
+<li>optional key/value pairs for creating query strings</li>
+</ul>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
 </table>
-</div>
-<div class="method">
-<a id="User::Delete()"></a><h3>Delete<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
-</h3>
-<h4>Description</h4>
-<em>Deletes a database user</em><br><h4>Return value</h4>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\HttpResponse</td>
-<td></td>
+<td>\OpenCloud\Collection</td>
+<td>(or FALSE on an error)</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -373,14 +474,14 @@ exception thrown.</p>
 <td></td>
 </tr>
 <tr>
-<td>throws</td>
-<td>if HTTP response is not Success</td>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::FlavorList()"><small>\OpenCloud\Nova::FlavorList()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="LoadBalancerService::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -435,35 +536,174 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Base::GetHttpRequestObject()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::GetHttpRequestObject()"><small>\OpenCloud\Service::GetHttpRequestObject()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::GetHttpRequestObject()"><small>\OpenCloud\Nova::GetHttpRequestObject()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Instance()"></a><h3>Instance<span class="nb-faded-text">(
+<a id="LoadBalancerService::GetMetaUrl()"></a><h3>GetMetaUrl<span class="nb-faded-text">(
+          string
+             
+            $resource,
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DbService\Instance</span>
+        <span class="nb-faded-text">\stdClass</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the Instance of the User</em><br><h4>Return value</h4>
+<em>Constructs a specified URL from the subresource</em><br><small><p>Given a subresource (e.g., "extensions"), this constructs the proper
+URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$resource</td>
+<td style="white-space: normal;">string</td>
+<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\DbService\Instance</td>
+<td>\stdClass</td>
+<td>object</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::GetMetaUrl()"><small>\OpenCloud\Service::GetMetaUrl()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::GetMetaUrl()"><small>\OpenCloud\Nova::GetMetaUrl()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancerService::Limits()"></a><h3>Limits<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the /limits for the service</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td>of limits</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::Limits()"><small>\OpenCloud\Service::Limits()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::Limits()"><small>\OpenCloud\Nova::Limits()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancerService::LoadBalancer()"></a><h3>LoadBalancer<span class="nb-faded-text">(
+          string
+             
+            $id
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\LoadBalancerService\LoadBalancer</span>
+</h3>
+<h4>Description</h4>
+<em>creates a new LoadBalancer object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">string</td>
+<td><p>the identifier of the load balancer</p></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\LoadBalancerService\LoadBalancer</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
 <td></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="LoadBalancerService::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -507,35 +747,120 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::MakeQueryString()"><small>\OpenCloud\Base::MakeQueryString()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::MakeQueryString()"><small>\OpenCloud\Service::MakeQueryString()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::MakeQueryString()"><small>\OpenCloud\Nova::MakeQueryString()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Service()"></a><h3>Service<span class="nb-faded-text">(
+<a id="LoadBalancerService::Request()"></a><h3>Request<span class="nb-faded-text">(
+          string
+             
+            $url,
+          string
+             
+            $method
+            = 'GET',
+          array
+             
+            $headers
+            = array(),
+          string
+             
+            $body
+            = NULL,
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DbService</span>
+        <span class="nb-faded-text">\Rackspace\HttpResult</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the related service</em><br><h4>Return value</h4>
+<em>Gets a request from an HTTP source and ensures that the
+content type is always "application/json"</em><br><small><p>This is a simple subclass of the parent::Request() method that ensures
+that all Compute requests use application/json as the Content-Type:</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>the URL of the request</li>
+</ul>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$method</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>the HTTP method ("GET" by default)</li>
+</ul>
+</td>
+<td>'GET'</td>
+</tr>
+<tr>
+<td>$headers</td>
+<td style="white-space: normal;">array</td>
+<td><ul>
+<li>an associative array of headers to pass to the request</li>
+</ul>
+</td>
+<td>array()</td>
+</tr>
+<tr>
+<td>$body</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>optional body for POST or PUT requests</li>
+</ul>
+</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\DbService</td>
-<td></td>
+<td>\Rackspace\HttpResult</td>
+<td>object</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::Request()"><small>\OpenCloud\Nova::Request()</small></a></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="LoadBalancerService::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -610,62 +935,27 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::SetProperty()"><small>\OpenCloud\Base::SetProperty()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::SetProperty()"><small>\OpenCloud\Service::SetProperty()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::SetProperty()"><small>\OpenCloud\Nova::SetProperty()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::Update()"></a><h3>Update<span class="nb-faded-text">(
+<a id="LoadBalancerService::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $resource
+            = 'loadbalancers',
           array
              
-            $params
+            $args
             = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Updates a database user (not currently permitted)</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">array</td>
-<td><p>not currently used, but provided for future updates</p></td>
-<td>array()</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>always; updates are not currently permitted by this service.</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="User::Url()"></a><h3>Url<span class="nb-faded-text">(
           
           )
         </span>
@@ -673,9 +963,33 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the Url of the User</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
+<em>Returns the URL of this service, or optionally that of
+an instance</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
 base level, it simply throws an exception to enforce the idea that
-subclasses need to define this method.</p></small><br><h4>Return value</h4>
+subclasses need to define this method.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$resource</td>
+<td style="white-space: normal;">string</td>
+<td><p>the resource required</p></td>
+<td>'loadbalancers'</td>
+</tr>
+<tr>
+<td>$args</td>
+<td style="white-space: normal;">array</td>
+<td><p>extra arguments to pass to the URL as query strings</p></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -694,39 +1008,33 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 </tr></thead>
 <tbody><tr>
 <td>throws</td>
-<td>if the user name is not set</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          <a href="instance.inc.html#%5COpenCloud%5CDbService%5CInstance">\OpenCloud\DbService\Instance</a>
+<a id="LoadBalancerService::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          <a href="openstack.inc.html#%5COpenCloud%5COpenStack">\OpenCloud\OpenStack</a>
              
-            $instance,
-          mixed
+            $conn,
+          string
              
-            $info
-            = NULL,
-          array
+            $name,
+          string
              
-            $db
-            = array(),
+            $region,
+          string
+             
+            $urltype,
           
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new database object</em><br><small><p>Unlike other objects (Servers, DataObjects, etc.), passing a database
-name to the constructor does <em>not</em> pull information from the database.
-For example, if you pass an ID to the <code>Server()</code> constructor, it will
-attempt to retrieve the information on that server from the service,
-and will return an error if it is not found. However, the Cloud
-Users service does not permit retrieval of information on
-individual databases (only via Collection), and thus passing in a
-name via the <code>$info</code> parameter only creates an in-memory object that
-is not necessarily tied to an actual database.</p></small><br><h4>Arguments</h4>
+<em>Creates a new LoadBalancerService connection</em><br><small><p>This is not normally called directly, but via the factory method on the
+OpenStack or Rackspace connection object.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -736,23 +1044,31 @@ is not necessarily tied to an actual database.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$instance</td>
-<td style="white-space: normal;"><a href="instance.inc.html#%5COpenCloud%5CDbService%5CInstance">\OpenCloud\DbService\Instance</a></td>
-<td><p>the parent DbService\Instance of the database</p>
+<td>$conn</td>
+<td style="white-space: normal;"><a href="openstack.inc.html#%5COpenCloud%5COpenStack">\OpenCloud\OpenStack</a></td>
+<td><p>the connection on which to create the service</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the service (e.g., "cloudDatabases")</p>
 </td>
 <td></td>
 </tr>
 <tr>
-<td>$info</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>if an array or object, treated as properties to set; if a string, treated as the database name</p></td>
-<td>NULL</td>
+<td>$region</td>
+<td style="white-space: normal;">string</td>
+<td><p>the region of the service (e.g., "DFW" or "LON")</p>
+</td>
+<td></td>
 </tr>
 <tr>
-<td>$db</td>
-<td style="white-space: normal;">array</td>
-<td><p>a list of database names to associate with the User</p></td>
-<td>array()</td>
+<td>$urltype</td>
+<td style="white-space: normal;">string</td>
+<td><p>the type of URL (normally "publicURL")</p>
+</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -763,24 +1079,13 @@ is not necessarily tied to an actual database.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if `$info` is not a string, object, or array</td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::__set()"></a><h3>__set<span class="nb-faded-text">(
+<a id="LoadBalancerService::__set()"></a><h3>__set<span class="nb-faded-text">(
           string
              
             $property,
@@ -837,14 +1142,24 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::__set()"><small>\OpenCloud\Base::__set()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::__set()"><small>\OpenCloud\Service::__set()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::__set()"><small>\OpenCloud\Nova::__set()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="LoadBalancerService::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -950,14 +1265,180 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::debug()"><small>\OpenCloud\Base::debug()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::debug()"><small>\OpenCloud\Service::debug()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::debug()"><small>\OpenCloud\Nova::debug()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancerService::get_endpoint()"></a><h3>get_endpoint<span class="nb-faded-text">(
+          string
+             
+            $type,
+          string
+             
+            $name,
+          string
+             
+            $region,
+          string
+             
+            $urltype
+            = 'publicURL',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Given a service type, name, and region, return the url</em><br><small><p>This function ensures that services are represented by an entry in the
+service catalog, and NOT by an arbitrarily-constructed URL.</p>
+
+<p>Note that it will always return the first match found in the
+service catalog (there <em>should</em> be only one, but you never know...)</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$type</td>
+<td style="white-space: normal;">string</td>
+<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>The name of the service in the service catlog</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$region</td>
+<td style="white-space: normal;">string</td>
+<td><p>The region of the service</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$urltype</td>
+<td style="white-space: normal;">string</td>
+<td><p>The URL type; defaults to "publicURL"</p>
+</td>
+<td>'publicURL'</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>The URL of the service</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::get_endpoint()"><small>\OpenCloud\Service::get_endpoint()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::get_endpoint()"><small>\OpenCloud\Nova::get_endpoint()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancerService::load_namespaces()"></a><h3>load_namespaces<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Loads the available namespaces from the /extensions resource</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::load_namespaces()"><small>\OpenCloud\Nova::load_namespaces()</small></a></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="User::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="LoadBalancerService::namespaces()"></a><h3>namespaces<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a list of supported namespaces</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::namespaces()"><small>\OpenCloud\Nova::namespaces()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancerService::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           mixed
              
             $x,
@@ -1000,23 +1481,36 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::to_string()"><small>\OpenCloud\Base::to_string()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.inc.html#%5COpenCloud%5CService::to_string()"><small>\OpenCloud\Service::to_string()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="nova.inc.html#%5COpenCloud%5CNova::to_string()"><small>\OpenCloud\Nova::to_string()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
-<div id="properties_User">
+<div id="properties_LoadBalancerService">
 <h4>Properties</h4>
-<a href="#User::%24_errors">$_errors</a>,
-      <a href="#User::%24_instance">$_instance</a>,
-      <a href="#User::%24databases">$databases</a>,
-      <a href="#User::%24http_headers">$http_headers</a>,
-      <a href="#User::%24name">$name</a>,
-      <a href="#User::%24password">$password</a>,
+<a href="#LoadBalancerService::%24_errors">$_errors</a>,
+      <a href="#LoadBalancerService::%24_namespaces">$_namespaces</a>,
+      <a href="#LoadBalancerService::%24_url">$_url</a>,
+      <a href="#LoadBalancerService::%24conn">$conn</a>,
+      <a href="#LoadBalancerService::%24http_headers">$http_headers</a>,
+      <a href="#LoadBalancerService::%24service_name">$service_name</a>,
+      <a href="#LoadBalancerService::%24service_region">$service_region</a>,
+      <a href="#LoadBalancerService::%24service_type">$service_type</a>,
+      <a href="#LoadBalancerService::%24service_url">$service_url</a>,
       <div class="method">
-<a id="User::$_errors"></a><h3>
+<a id="LoadBalancerService::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -1025,25 +1519,34 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="User::$_instance"></a><h3>
+<a id="LoadBalancerService::$_namespaces"></a><h3>
 <span class="nb-faded-text"> 
           private 
-          </span>$_instance
+          </span>$_namespaces
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancerService::$_url"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_url
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="User::$databases"></a><h3>
-<span class="nb-faded-text">string 
-          public 
-          </span>$databases
+<a id="LoadBalancerService::$conn"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$conn
           =
-          array()</h3>
-<em><p>the user name</p></em><br><small></small><br><br>
+          </h3>
+<em></em><br>
 </div>
 <div class="method">
-<a id="User::$http_headers"></a><h3>
+<a id="LoadBalancerService::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
@@ -1052,22 +1555,40 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="User::$name"></a><h3>
-<span class="nb-faded-text">string 
-          public 
-          </span>$name
+<a id="LoadBalancerService::$service_name"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$service_name
           =
           </h3>
-<em><p>the user name</p></em><br><small></small><br><br>
+<em></em><br>
 </div>
 <div class="method">
-<a id="User::$password"></a><h3>
-<span class="nb-faded-text">string 
-          public 
-          </span>$password
+<a id="LoadBalancerService::$service_region"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$service_region
           =
           </h3>
-<em><p>the user name</p></em><br><small></small><br><br>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancerService::$service_type"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$service_type
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="LoadBalancerService::$service_url"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$service_url
+          =
+          </h3>
+<em></em><br>
 </div>
 </div>
 <div style="clear: both"></div>
