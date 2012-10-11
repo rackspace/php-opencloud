@@ -69,7 +69,7 @@ class VolumeService extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		$element = VolumeService\Volume::JSON_NAME.'s';
+		$element = VolumeService\Volume::JSON_ELEMENT.'s';
 		if (isset($obj->$element))
 			return new Collection($this, 'Volume', $obj->$element);
 		else
@@ -116,7 +116,7 @@ class VolumeService extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		$element = VolumeService\VolumeType::JSON_NAME.'s';
+		$element = VolumeService\VolumeType::JSON_ELEMENT.'s';
 		if (isset($obj->$element))
 			return new Collection($this, 'VolumeType', $obj->$element);
 		else
@@ -140,9 +140,9 @@ class VolumeService extends Nova {
 	 * @param array $filters array of filter key/value pairs
 	 * @return Collection
 	 */
-	public function SnapshotList($detail=TRUE, $filter=array()) {
+	public function SnapshotList($filter=array()) {
 		$url = $this->Url(VolumeService\Snapshot::URL_RESOURCE);
-		$response = $this->Request($url.$detail?'/detail':'');
+		$response = $this->Request($url);
 		$this->debug('SnapshotList [%s]', $url);
 
 		// check return code
@@ -162,7 +162,7 @@ class VolumeService extends Nova {
 			return FALSE;
 
 		// and say goodbye
-		$element = VolumeService\Snapshot::JSON_NAME.'s';
+		$element = VolumeService\Snapshot::JSON_ELEMENT.'s';
 		if (isset($obj->$element))
 			return new Collection($this, 'Snapshot', $obj->$element);
 		else

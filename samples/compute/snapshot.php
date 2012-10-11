@@ -39,79 +39,23 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
-step('Connect to the Compute Service');
-$compute = $rackspace->Compute('cloudServersOpenStack', 'DFW');
-
-/*
-step('List Extensions');
-$arr = $compute->Extensions();
-foreach($arr as $item)
-	print($item->alias."\n");
-exit;
-*/
-
 step('Connect to the VolumeService');
 $cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
 
-step('Volume Types');
-$list = $cbs->VolumeTypeList();
-while($vtype = $list->Next()) {
-	info('%s - %s', $vtype->id, $vtype->name);
-}
-
-step('Create a new Volume');
-$volume = $cbs->Volume();
-//setDebug(TRUE);
-$volume->Create(array(
-	'display_name' => VOLUMENAME,
-	'display_description' => 'A sample volume for testing',
-	'size' => VOLUMESIZE,
-	'volume_type' => $cbs->VolumeType(2)
-));
-setDebug(FALSE);
-
-step('Listing volumes');
+step('Snapshotting volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {
 	info('Volume: %s [%s] size=%d',
 		$vol->display_name,
 		$vol->display_description,
 		$vol->size);
+    $snap = $cbs->Snapshot();   // empty snapshot object
+    info('  Creating snapshot');
+    $snap->Create(array(
+        'display_name' => $vol->Name().'Snapshot-'.time(),
+        'volume_id' => $vol->id
+    ));
 }
-
-step('Find a server');
-$slist = $compute->ServerList(TRUE, array('name'=>SERVERNAME));
-
-if ($slist->Size() > 0) {
-	$server = $slist->First();
-}
-else {
-	step('Create a server');
-	$server = $compute->Server();
-	$server->Create(array(
-		'name' => SERVERNAME,
-		'flavor' => $compute->Flavor(2),
-		'image' => $compute->
-				ImageList(TRUE,array('name'=>'CentOS 6.3'))->
-				Next()));
-	$server->WaitFor('ACTIVE', 300, 'dot');
-	print "\n";
-}
-
-step('Attach volume to server');
-$server->AttachVolume($volume);	// use 'auto' device
-
-step('Create a snapshot');
-$snap = $cbs->Snapshot();   // empty snapshot object
-$snap->Create(array(
-    'display_name' => 'Snapshot',
-    'volume_id' => $volume->id
-));
-
-step('List snapshots');
-$list = $cbs->SnapshotList();
-while($snap = $list->Next())
-    info('Snapshot [%s] %s', $snap->id, $snap->Name());
 
 step('DONE');
 exit;

@@ -60,6 +60,18 @@ while($server = $list->Next())
         $server->Delete();
     }
 
+step('Deleting snapshots');
+$list = $cbs->SnapshotList();
+while($snap = $list->Next()) {
+    if (($snap->status=='error')||($snap->status=='active')) {
+        info('Deleting snapshot [%s] %s', $snap->id, $snap->Name());
+        $snap->Delete();
+    }
+    else
+        info('[%s] %s status is %s',
+            $snap->id, $snap->Name(), $snap->status);
+}
+
 step('Deleting unused volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {

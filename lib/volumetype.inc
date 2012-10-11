@@ -24,7 +24,7 @@ require_once('metadata.inc');
 class VolumeType extends \OpenCloud\PersistentObject {
 
 	const
-		JSON_NAME = 'volume_type',
+		JSON_ELEMENT = 'volume_type',
 		URL_RESOURCE = 'types';
 		
 	public
@@ -65,7 +65,7 @@ class VolumeType extends \OpenCloud\PersistentObject {
 	 * Returns the top-level document identifier
 	 */
 	protected function JsonName() {
-		return self::JSON_NAME;
+		return self::JSON_ELEMENT;
 	}
 
 	/**

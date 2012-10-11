@@ -24,7 +24,7 @@ require_once('metadata.inc');
 class Network extends \OpenCloud\PersistentObject {
 
 	const
-		JSON_NAME = 'network',
+		JSON_ELEMENT = 'network',
 		URL_RESOURCE = 'os-networksv2';		// this could change in the future
 
 	public
@@ -102,7 +102,7 @@ class Network extends \OpenCloud\PersistentObject {
 	 * Returns the top-level document identifier
 	 */
 	protected function JsonName() {
-		return self::JSON_NAME;
+		return self::JSON_ELEMENT;
 	}
 
 	/**

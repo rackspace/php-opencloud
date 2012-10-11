@@ -24,7 +24,7 @@ require_once('metadata.inc');
 class Volume extends \OpenCloud\PersistentObject {
 
 	const
-		JSON_NAME =  'volume',		// JSON element for single item
+		JSON_ELEMENT =  'volume',		// JSON element for single item
 		URL_RESOURCE = 'volumes';	// URL resource
 
 	public
@@ -75,7 +75,7 @@ class Volume extends \OpenCloud\PersistentObject {
 	 * Returns the top-level document identifier
 	 */
 	protected function JsonName() {
-		return self::JSON_NAME;
+		return self::JSON_ELEMENT;
 	}
 
 	/**

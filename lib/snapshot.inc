@@ -25,7 +25,7 @@ class Snapshot extends \OpenCloud\PersistentObject {
 
 	const
 		JSON_ELEMENT = 'snapshot',
-		URL_RESOURCE = 'os-snapshots';
+		URL_RESOURCE = 'snapshots';
 
 	public
 		$id,
@@ -37,7 +37,7 @@ class Snapshot extends \OpenCloud\PersistentObject {
 		$created_at;
 
 	private
-		$force,
+		$force=FALSE,
 		$_create_keys=array('display_name','display_description',
 							'volume_id','force');
 
@@ -73,7 +73,7 @@ class Snapshot extends \OpenCloud\PersistentObject {
 		$elem = $this->JsonName();
 		$obj->$elem = new \stdClass();
 		foreach($this->_create_keys as $key)
-			$obj->$elem->$key = $this->$key;
+            $obj->$elem->$key = $this->$key;
 
 		return $obj;
 	}

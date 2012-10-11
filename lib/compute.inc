@@ -162,7 +162,7 @@ class Compute extends Nova {
 		return $this->Collection(
 			$this->Url(Compute\Network::URL_RESOURCE),
 			'Network',
-			Compute\Network::JSON_NAME.'s');
+			Compute\Network::JSON_ELEMENT.'s');
 	}
 
 	/**

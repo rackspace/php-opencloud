@@ -52,7 +52,7 @@ class SnapshotTest extends PHPUnit_Framework_TestCase
     }
     public function testResourceName() {
         $this->assertEquals(
-            'os-snapshots',
+            'snapshots',
             $this->snap->ResourceName());
     }
     public function testCreateJson() {

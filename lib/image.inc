@@ -26,7 +26,7 @@ require_once('persistentobject.inc');
 class Image extends \OpenCloud\PersistentObject {
 
 	const
-		JSON_NAME = 'image',
+		JSON_ELEMENT = 'image',
 		URL_RESOURCE = 'images';
 
     public
@@ -79,6 +79,6 @@ class Image extends \OpenCloud\PersistentObject {
 	 * returns the JSON top-level element
 	 */
 	protected function JsonName() {
-		return self::JSON_NAME;
+		return self::JSON_ELEMENT;
 	}
 } // class Image
