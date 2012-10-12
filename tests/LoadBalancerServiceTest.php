@@ -51,4 +51,9 @@ class LoadBalancerServiceTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\LoadBalancerService\LoadBalancer',
 			get_class($this->service->LoadBalancer()));
 	}
+	public function testLoadBalancerList() {
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($this->service->LoadBalancerList()));
+	}
 }
