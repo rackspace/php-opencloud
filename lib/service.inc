@@ -116,8 +116,6 @@ abstract class Service extends Base {
 		return $this->conn->Request($url, $method, $headers, $body);
 	} // function Request()
 	
-	/********** PROTECTED METHODS **********/
-	
 	/**
 	 * returns a collection of objects
 	 *
@@ -126,7 +124,7 @@ abstract class Service extends Base {
 	 * @param string $element the top-level JSON element holding the array
 	 * @return \OpenCloud\Collection
 	 */
-	protected function Collection($url, $class, $element) {
+	public function Collection($url, $class, $element) {
 		$this->debug('%s:Collection(%s, %s, %s)',
 			get_class($this), $url, $class, $element);
 		
