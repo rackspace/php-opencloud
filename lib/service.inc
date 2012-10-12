@@ -132,7 +132,7 @@ abstract class Service extends Base {
 		$response = $this->Request($url);
 
 		// check return code
-		if ($response->HttpStatus() > 202)
+		if ($response->HttpStatus() > 204)
 			throw new \OpenCloud\CollectionError(sprintf(
 				_('Unable to retrieve [%s] list from [%s], '.
 				  'status [%d] response [%s]'),
