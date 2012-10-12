@@ -63,6 +63,7 @@ class ObjectStoreBase extends Service {
      * @return ObjectStore\ContainerList
      */
 	public function ContainerList($filter=array()) {
+		$filter['format'] = 'json';
 		return $this->Collection(
 			$this->Url().'?'.$this->MakeQueryString($filter),
 			'Container',

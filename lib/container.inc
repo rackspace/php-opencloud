@@ -201,7 +201,8 @@ class CDNContainer extends ObjStoreBase {
 		return $this->Service()->Collection(
 			$url,
 			'DataObject',
-			FALSE
+			FALSE,
+			$this
 		);
 	} // object_list()
 

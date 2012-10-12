@@ -12,6 +12,7 @@ ini_set('include_path', './lib:'.ini_get('include_path'));
 require('rackspace.inc');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
+define('MYREGION', 'ORD');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -44,16 +45,16 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 		   'apiKey' => APIKEY ));
 
 step('Connect to Cloud Servers');
-$cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
+$cloudservers = $rackspace->Compute('cloudServersOpenStack', MYREGION);
 
 step('Connect to CBS');
-$cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
+$cbs = $rackspace->VolumeService('cloudBlockStorage', MYREGION);
 
 step('Connect to Cloud Files');
-$files = $rackspace->ObjectStore('cloudFiles', 'DFW');
+$files = $rackspace->ObjectStore('cloudFiles', MYREGION);
 
 step('Connect to Cloud Load Balancers');
-$lbservice = $rackspace->LoadBalancerService('cloudLoadBalancers', 'DFW');
+$lbservice = $rackspace->LoadBalancerService('cloudLoadBalancers', MYREGION);
 
 step('Deleting unused servers');
 $list = $cloudservers->ServerList();

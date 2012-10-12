@@ -15,6 +15,7 @@ require('rackspace.inc');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
 define('NETWORKNAME', 'SMOKETEST');
+define('MYREGION', 'ORD');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -54,7 +55,7 @@ $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
  * Cloud Servers
  */
 step('Connect to Cloud Servers');
-$cloudservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
+$cloudservers = $rackspace->Compute('cloudServersOpenStack', MYREGION);
 
 step('List Flavors');
 $flavorlist = $cloudservers->FlavorList();
@@ -121,7 +122,7 @@ while($s = $list->Next()) {
  * Cloud Databases
  */
 step('Connect to Cloud Databases');
-$dbaas = $rackspace->DbService('cloudDatabases', 'DFW', 'publicURL');
+$dbaas = $rackspace->DbService('cloudDatabases', MYREGION, 'publicURL');
 
 step('Get Database Flavors');
 $dbflist = $dbaas->FlavorList();
@@ -174,7 +175,7 @@ while($inst = $ilist->Next())
  * Cloud Files
  */
 step('Connect to Cloud Files');
-$cloudfiles = $rackspace->ObjectStore('cloudFiles', 'DFW');
+$cloudfiles = $rackspace->ObjectStore('cloudFiles', MYREGION);
 
 step('Create Container');
 $container = $cloudfiles->Container();
@@ -194,7 +195,9 @@ $target->name = 'COPY-of-SmokeTestObject';
 $object->Copy($target);
 
 step('List Containers');
+setDebug(TRUE);
 $list = $cloudfiles->ContainerList();
+setDebug(FALSE);
 while($c = $list->Next())
     info('Container: %s', $c->name);
 

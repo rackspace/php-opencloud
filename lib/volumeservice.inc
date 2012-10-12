@@ -117,9 +117,11 @@ class VolumeService extends Nova {
      * @param string $body - optional body for POST or PUT requests
      * @return \Rackspace\HttpResult object
      */
+    /*
 	public function Request($url, $method='GET', $headers=array(), $body=NULL) {
 		$headers['Content-Type'] = 'application/json';
 		return parent::Request($url, $method, $headers, $body);
 	}
+	*/
 
 }

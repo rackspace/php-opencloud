@@ -69,7 +69,8 @@ class Collection extends Base {
 	}
 
 	/**
-	 * Resets the collection pointer back to the first item in the set and returns it
+	 * Resets the collection pointer back to the first item in the set 
+	 * and returns it
 	 *
 	 * This is useful if you're only interested in the first item in the set.
 	 *

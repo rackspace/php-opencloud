@@ -124,7 +124,9 @@ abstract class Service extends Base {
 	 * @param string $element the top-level JSON element holding the array
 	 * @return \OpenCloud\Collection
 	 */
-	public function Collection($url, $class, $element) {
+	public function Collection($url, $class, $element, $parent=NULL) {
+		if (!isset($parent))
+			$parent = $this;
 		$this->debug('%s:Collection(%s, %s, %s)',
 			get_class($this), $url, $class, $element);
 		
@@ -143,7 +145,7 @@ abstract class Service extends Base {
 
 		// handle empty response
 		if (strlen($response->HttpBody()) == 0)
-			return new Collection($this, $class, array());
+			return new Collection($parent, $class, array());
 
 		// parse the return
 		$obj = json_decode($response->HttpBody());
@@ -152,11 +154,11 @@ abstract class Service extends Base {
 
 		// and say goodbye
 		if (!$element)
-			return new Collection($this, $class, $obj);
+			return new Collection($parent, $class, $obj);
 		elseif (isset($obj->$element))
-			return new Collection($this, $class, $obj->$element);
+			return new Collection($parent, $class, $obj->$element);
 		else
-			return new Collection($this, $class, array());
+			return new Collection($parent, $class, array());
 	}
 	
 	/********** PRIVATE METHODS **********/
