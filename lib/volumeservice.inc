@@ -46,34 +46,12 @@ class VolumeService extends Nova {
 	 * @return Collection
 	 */
 	public function VolumeList($details=TRUE, $filter=array()) {
-		$url = $this->Url(VolumeService\Volume::URL_RESOURCE);
-		if ($details)
-			$url .= '/detail';
-		$this->debug('VolumeList [%s]', $url);
-		$response = $this->Request($url);
-
-		// check return code
-		if ($response->HttpStatus() > 202)
-			throw new VolumeService\VolumeError(sprintf(
-				_('Unable to retrieve network info [%s], '.
-				  'status [%d] response [%s]'),
-				$url, $response->HttpStatus(), $response->HttpBody()));
-
-		// handle empty response
-		if (strlen($response->HttpBody()) == 0)
-			return new Collection($this, 'Volume', array());
-
-		// parse the return
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-
-		// and say goodbye
-		$element = VolumeService\Volume::JSON_ELEMENT.'s';
-		if (isset($obj->$element))
-			return new Collection($this, 'Volume', $obj->$element);
-		else
-			return new Collection($this, 'Volume', array());
+		$url = $this->Url(VolumeService\Volume::URL_RESOURCE) .
+				($details ? '/detail' : '');
+		return $this->Collection(
+			$url,
+			'Volume',
+			VolumeService\Volume::JSON_ELEMENT);
 	}
 
 	/**
@@ -95,32 +73,10 @@ class VolumeService extends Nova {
 	 * @return Collection
 	 */
 	public function VolumeTypeList($filter=array()) {
-		$url = $this->Url(VolumeService\VolumeType::URL_RESOURCE);
-		$response = $this->Request($url);
-		$this->debug('VolumeTypeList [%s]', $url);
-
-		// check return code
-		if ($response->HttpStatus() > 202)
-			throw new VolumeService\VolumeTypeError(sprintf(
-				_('Unable to retrieve volume type info [%s], '.
-				  'status [%d] response [%s]'),
-				$url, $response->HttpStatus(), $response->HttpBody()));
-
-		// handle empty response
-		if (strlen($response->HttpBody()) == 0)
-			return new Collection($this, 'VolumeType', array());
-
-		// parse the return
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-
-		// and say goodbye
-		$element = VolumeService\VolumeType::JSON_ELEMENT.'s';
-		if (isset($obj->$element))
-			return new Collection($this, 'VolumeType', $obj->$element);
-		else
-			return new Collection($this, 'VolumeType', array());
+		return $this->Collection(
+			$this->Url(VolumeService\VolumeType::URL_RESOURCE),
+			'VolumeType',
+			VolumeService\VolumeType::JSON_ELEMENT);
 	}
 
 	/**
@@ -141,32 +97,10 @@ class VolumeService extends Nova {
 	 * @return Collection
 	 */
 	public function SnapshotList($filter=array()) {
-		$url = $this->Url(VolumeService\Snapshot::URL_RESOURCE);
-		$response = $this->Request($url);
-		$this->debug('SnapshotList [%s]', $url);
-
-		// check return code
-		if ($response->HttpStatus() > 202)
-			throw new VolumeService\SnapshotError(sprintf(
-				_('Unable to retrieve Snapshot info [%s], '.
-				  'status [%d] response [%s]'),
-				$url, $response->HttpStatus(), $response->HttpBody()));
-
-		// handle empty response
-		if (strlen($response->HttpBody()) == 0)
-			return new Collection($this, 'Snapshot', array());
-
-		// parse the return
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-
-		// and say goodbye
-		$element = VolumeService\Snapshot::JSON_ELEMENT.'s';
-		if (isset($obj->$element))
-			return new Collection($this, 'Snapshot', $obj->$element);
-		else
-			return new Collection($this, 'Snapshot', array());
+		return $this->Collection(
+			$this->Url(VolumeService\Snapshot::URL_RESOURCE),
+			'Snapshot',
+			VolumeService\Snapshot::JSON_ELEMENT);
 	}
 
     /**

@@ -66,8 +66,8 @@ class LoadBalancerService extends Nova {
 	 * @api
 	 */
 	public function LoadBalancerList($filter=array()) {
-		return $this->GetCollection(
-			$this->Url('loadbalancers'),
+		return $this->Collection(
+			$this->Url(),
 			'LoadBalancer',
 			'loadBalancers');
 	}

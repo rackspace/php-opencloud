@@ -119,33 +119,26 @@ abstract class Service extends Base {
 	/********** PROTECTED METHODS **********/
 	
 	/**
-	 * returns a collection of a set of objects
+	 * returns a collection of objects
 	 *
-	 * This method is not called directly, but via a {something}List method
-	 * in the child service class. It abstracts out the various components
-	 * of building a list/Collection into a single code location.
-	 *
-	 * For example, to build a Collection of servers:
-	 * <code>
-	 * $servers = $this->GetCollection('http:...', 'Server', 'servers');
-	 * </code>
-	 *
-	 * @param string $url the URL to fetch the collection from
-	 * @param string $class the class of objects to include in the Collection
-	 * @param string $element the top-level element of the returned JSON
-	 * @throws OpenCloud\CollectionError when unable to retrieve the list
-	 * @return Collection
+	 * @param string $url the URL to retrieve
+	 * @param string $class the class of objects to fetch
+	 * @param string $element the top-level JSON element holding the array
+	 * @return \OpenCloud\Collection
 	 */
-	protected function GetCollection($url, $class, $element) {
+	protected function Collection($url, $class, $element) {
+		$this->debug('%s:Collection(%s, %s, %s)',
+			get_class($this), $url, $class, $element);
+		
+		// fetch the list
 		$response = $this->Request($url);
-		$this->debug('%s [%s]', get_class($this), $url);
 
 		// check return code
 		if ($response->HttpStatus() > 202)
 			throw new \OpenCloud\CollectionError(sprintf(
-				_('Unable to [%s] Collection via [%s], '.
+				_('Unable to retrieve [%s] list from [%s], '.
 				  'status [%d] response [%s]'),
-				get_class($this), 
+				$class,
 				$url, 
 				$response->HttpStatus(), 
 				$response->HttpBody()));
@@ -165,7 +158,7 @@ abstract class Service extends Base {
 		else
 			return new Collection($this, $class, array());
 	}
-
+	
 	/********** PRIVATE METHODS **********/
 
     /**

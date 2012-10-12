@@ -47,7 +47,7 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 			get_class($this->service->Volume()));
 	}
 	/**
-	 * @expectedException OpenCloud\VolumeService\VolumeError
+	 * @expectedException OpenCloud\CollectionError
 	 */
 	public function testVolumeList() {
 		$this->assertEquals(
@@ -60,7 +60,7 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 			get_class($this->service->VolumeType()));
 	}
 	/**
-	 * @expectedException OpenCloud\VolumeService\VolumeTypeError
+	 * @expectedException OpenCloud\CollectionError
 	 */
 	public function testVolumeTypeList() {
 		$this->assertEquals(
@@ -73,7 +73,7 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 			get_class($this->service->Snapshot()));
 	}
 	/**
-	 * @expectedException OpenCloud\VolumeService\SnapshotError
+	 * @expectedException OpenCloud\CollectionError
 	 */
 	public function testSnapshotList() {
 		$this->assertEquals(
