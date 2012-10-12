@@ -111,6 +111,8 @@ abstract class Nova extends Service {
 	        $url = $this->Url('flavors/detail', $filter);
 	    else
 	        $url = $this->Url('flavors', $filter);
+	    return $this->Collection($url, 'Flavor', 'flavors');
+	    /*
 	    $response = $this->Request($url);
 	    $json = $response->HttpBody();
 	    if (strlen($json) == 0)
@@ -119,6 +121,7 @@ abstract class Nova extends Service {
 	    if ($this->CheckJsonError())
 	    	return FALSE;
 	    return new Collection($this, 'Flavor', $obj->flavors);
+	    */
 	}
 
     /**
