@@ -63,15 +63,11 @@ class ObjectStoreBase extends Service {
      * @return ObjectStore\ContainerList
      */
 	public function ContainerList($filter=array()) {
-	    $filter['format'] = 'json';
-		$response = $this->Request(
-		    $this->Url().'?'.$this->MakeQueryString($filter));
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-		if (!is_array($obj))
-			return new Collection($this, 'Container', array());
-		return new Collection($this, 'Container', $obj);
+		return $this->Collection(
+			$this->Url().'?'.$this->MakeQueryString($filter),
+			'Container',
+			FALSE
+		);
 	}
 
 } // class ObjectStoreBase

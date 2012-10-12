@@ -153,7 +153,9 @@ abstract class Service extends Base {
 			return FALSE;
 
 		// and say goodbye
-		if (isset($obj->$element))
+		if (!$element)
+			return new Collection($this, $class, $obj);
+		elseif (isset($obj->$element))
 			return new Collection($this, $class, $obj->$element);
 		else
 			return new Collection($this, $class, array());
