@@ -81,12 +81,9 @@ class DbService extends Nova {
 	 * @return Collection
 	 */
 	public function InstanceList($params=array()) {
-		$response = $this->Request($this->Url());
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-		if (!is_object($obj))
-			return new Collection($this, 'Instance', array());
-		return new Collection($this, 'Instance', $obj->instances);
+		return $this->Collection(
+			$this->Url(),
+			'Instance',
+			'instances');
 	}
 }

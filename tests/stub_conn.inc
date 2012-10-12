@@ -72,6 +72,10 @@ ENDLB;
 			$resp->body = file_get_contents(TESTDIR.'/dbinstance.json');
 			$resp->status = 200;
 		}
+		elseif (strpos($url, '/instances')) {
+			$resp->body = '{"instances":[]}';
+			$resp->status = 200;
+		}
 		elseif (strpos($url, '/servers/')) {
 			$resp->body = file_get_contents(TESTDIR.'/server.json');
 			$resp->status = 200;
