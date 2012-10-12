@@ -62,8 +62,10 @@ while($cdncontainer = $cdnlist->Next()) {
 
 // Purge the object, then delete the object
 print("Purging and deleting the object\n");
+setDebug(TRUE);
 $object->PurgeCDN('glen.campbell@rackspace.com');
 $object->Delete();
+setDebug(FALSE);
 
 // delete the container
 print("Deleting the container\n");
