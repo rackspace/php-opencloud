@@ -30,7 +30,8 @@ require_once('metadata.inc');
 abstract class PersistentObject extends Base {
 
 	protected
-		$id,
+		$id;		// usually overridden as part of the child class
+	private
 		$_service;
 
 	/**

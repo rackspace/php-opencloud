@@ -52,6 +52,9 @@ $cbs = $rackspace->VolumeService('cloudBlockStorage', 'DFW');
 step('Connect to Cloud Files');
 $files = $rackspace->ObjectStore('cloudFiles', 'DFW');
 
+step('Connect to Cloud Load Balancers');
+$lbservice = $rackspace->LoadBalancerService('cloudLoadBalancers', 'DFW');
+
 step('Deleting unused servers');
 $list = $cloudservers->ServerList();
 while($server = $list->Next())
@@ -70,17 +73,6 @@ while($snap = $list->Next()) {
     else
         info('[%s] %s status is %s',
             $snap->id, $snap->Name(), $snap->status);
-}
-
-step('Deleting unused volumes');
-$list = $cbs->VolumeList();
-while($vol = $list->Next()) {
-	if ($vol->status == 'in-use')
-		info('Volume [%s] %s is in use', $vol->id, $vol->Name());
-	else {
-		info('Deleting volume [%s] %s', $vol->id, $vol->Name());
-		$vol->Delete();
-	}
 }
 
 step('Deleting SAMPLENET and SMOKETEST Networks');
@@ -105,6 +97,24 @@ while($container = $list->Next()) {
     }
     info('Deleting container');
     $container->Delete();
+}
+
+step('Deleting load balancers');
+$list = $lbservice->LoadBalancerList();
+while($lb = $list->Next()) {
+	info('Deleting [%s] %s', $lb->id, $lb->Name());
+	$lb->Delete();
+}
+
+step('Deleting unused volumes');
+$list = $cbs->VolumeList();
+while($vol = $list->Next()) {
+	if ($vol->status == 'in-use')
+		info('Volume [%s] %s is in use', $vol->id, $vol->Name());
+	else {
+		info('Deleting volume [%s] %s', $vol->id, $vol->Name());
+		$vol->Delete();
+	}
 }
 
 step('DONE');
