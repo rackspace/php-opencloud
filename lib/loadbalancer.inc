@@ -65,16 +65,26 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * adds a node to the load balancer
 	 *
 	 * @api
-	 * @param string $addr
-	 * @param integer $port
-	 * @param boolean $enabled
+	 * @param string $addr the IP address of the node
+	 * @param integer $port the port # of the node
+	 * @param boolean $condition the initial condition of the node
 	 * @return void
 	 */
-	public function AddNode($addr, $port, $enabled=TRUE) {
+	public function AddNode($addr, $port, $condition='ENABLED') {
 	    $obj = new \stdClass();
 	    $obj->address = $addr;
 	    $obj->port = $port;
-	    $obj->enabled = $enabled;
+	    $cond = strtoupper($condition);
+	    switch($cond) {
+	    case 'ENABLED':
+	    case 'DISABLED':
+	    case 'DRAINING':
+            $obj->condition = $cond;
+            break;
+        default:
+            throw new \OpenCloud\DomainError(sprintf(
+                _('Value [%s] for condition is not valid'), $condition));
+	    }
 	    $this->nodes[] = $obj;
 	}
 
@@ -88,9 +98,10 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * @api
 	 * @param string $id either 'public' or 'servicenet' or an ID of an
 	 *      existing IP address
+	 * @param integer $ipVersion either null, 4, or 6 (both, IPv4, or IPv6)
 	 * @return void
 	 */
-	public function AddVirtualIp($id='public') {
+	public function AddVirtualIp($id='PUBLIC', $ipVersion=NULL) {
         $obj = new \stdClass();
 
         /**
@@ -99,10 +110,24 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	    switch(strtoupper($id)) {
 	    case 'PUBLIC':
 	    case 'SERVICENET':
-	        $obj->type = $id;
+	        $obj->type = strtoupper($id);
 	        break;
 	    default:
 	        $obj->id = $id;
+	    }
+	    
+	    if ($ipVersion) {
+	        switch($ipVersion) {
+	        case 4:
+	            $obj->version = 'IPV4';
+	            break;
+	        case 6:
+	            $obj->version = 'IPV6';
+	            break;
+	        default:
+	            throw new \OpenCloud\DomainError(sprintf(
+	                _('Value [%s] for ipVersion is not vaid'), $ipVersion));
+	        }
 	    }
 
 	    $this->virtualIps[] = $obj;
