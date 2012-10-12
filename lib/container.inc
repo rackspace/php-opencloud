@@ -203,35 +203,6 @@ class CDNContainer extends ObjStoreBase {
 			'DataObject',
 			FALSE
 		);
-/*
-		// retrieve the object list
-		$response = $this->Service()->Request($url);
-		$json = $response->HttpBody();
-
-		// check the return status
-		if ($response->HttpStatus() >= 300)
-			throw new ObjFetchError(
-				sprintf(
-					_('Error retrieving data from [%s] HTTP status [%s] '.
-					    ' response [%s]'),
-					$url,
-					$response->HttpStatus(),
-					$response->HttpBody()));
-
-        // check the return
-		$data = json_decode($json);
-
-		// this if there's no objects
-		if (!is_array($data))
-			return new \OpenCloud\Collection($this, 'DataObject', array());
-
-		// this seems counter-intuitive, but, trust me, it's correct
-		if ($this->CheckJsonError())
-			return FALSE;
-
-		// here if we have real data
-		return new \OpenCloud\Collection($this, 'DataObject', $data);
-*/
 	} // object_list()
 
 	/**
