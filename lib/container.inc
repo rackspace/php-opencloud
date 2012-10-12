@@ -196,7 +196,14 @@ class CDNContainer extends ObjStoreBase {
 		$url = $this->Url();
 		if (strlen($qstring) > 0)
 			$url .= '?' . $qstring;
-
+		
+		// fetch it
+		return $this->Service()->Collection(
+			$url,
+			'DataObject',
+			FALSE
+		);
+/*
 		// retrieve the object list
 		$response = $this->Service()->Request($url);
 		$json = $response->HttpBody();
@@ -224,6 +231,7 @@ class CDNContainer extends ObjStoreBase {
 
 		// here if we have real data
 		return new \OpenCloud\Collection($this, 'DataObject', $data);
+*/
 	} // object_list()
 
 	/**
