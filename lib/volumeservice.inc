@@ -51,7 +51,7 @@ class VolumeService extends Nova {
 		return $this->Collection(
 			$url,
 			'Volume',
-			VolumeService\Volume::JSON_ELEMENT);
+			VolumeService\Volume::JSON_ELEMENT.'s');
 	}
 
 	/**
@@ -76,7 +76,7 @@ class VolumeService extends Nova {
 		return $this->Collection(
 			$this->Url(VolumeService\VolumeType::URL_RESOURCE),
 			'VolumeType',
-			VolumeService\VolumeType::JSON_ELEMENT);
+			VolumeService\VolumeType::JSON_ELEMENT.'s');
 	}
 
 	/**
@@ -100,7 +100,7 @@ class VolumeService extends Nova {
 		return $this->Collection(
 			$this->Url(VolumeService\Snapshot::URL_RESOURCE),
 			'Snapshot',
-			VolumeService\Snapshot::JSON_ELEMENT);
+			VolumeService\Snapshot::JSON_ELEMENT.'s');
 	}
 
     /**

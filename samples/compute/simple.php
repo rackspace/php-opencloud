@@ -2,7 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-define('IMAGE_ID', 'c195ef3b-9195-4474-b6f7-16e5bd86acd0');
+define('IMAGE_ID', '8bf22129-8483-462b-a020-1754ec822770');
 define('FLAVOR_ID', '2');
 
 require_once('rackspace.inc');

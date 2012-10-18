@@ -12,7 +12,7 @@ ini_set('include_path', './lib:'.ini_get('include_path'));
 require('rackspace.inc');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
-define('MYREGION', 'ORD');
+define('MYREGION', $_ENV['OS_REGION_NAME']);
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -67,7 +67,7 @@ while($server = $list->Next())
 step('Deleting snapshots');
 $list = $cbs->SnapshotList();
 while($snap = $list->Next()) {
-    if (($snap->status=='error')||($snap->status=='active')) {
+    if (($snap->status=='error')||($snap->status=='available')) {
         info('Deleting snapshot [%s] %s', $snap->id, $snap->Name());
         $snap->Delete();
     }
