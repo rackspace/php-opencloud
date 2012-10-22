@@ -60,7 +60,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	public function testCredentials() {
 		$this->assertRegExp(
 		    '/"passwordCredentials"/',
-		    $this->my->credentials());
+		    $this->my->Credentials());
 	}
 	public function testAuthenticate() {
 	    $this->my->Authenticate();

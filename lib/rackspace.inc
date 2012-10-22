@@ -58,12 +58,17 @@ ENDCRED;
 	 */
     public function Credentials() {
     	$sec = $this->Secret();
-        return sprintf(
-            self::APIKEYTEMPLATE,
-            $sec['username'],
-            $sec['tenantName'],
-            $sec['apiKey']
-       );
+    	if (isset($sec['username']) &&
+    		isset($sec['tenantName']) &&
+    		isset($sec['apiKey']))
+			return sprintf(
+				self::APIKEYTEMPLATE,
+				$sec['username'],
+				$sec['tenantName'],
+				$sec['apiKey']
+		   );
+		else
+			return parent::Credentials();
     }
 
     /**

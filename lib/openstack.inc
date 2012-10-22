@@ -220,10 +220,14 @@ class OpenStack extends \OpenCloud\Base {
      * @return string
      */
 	public function Credentials() {
-		return sprintf(
-			$this->template,
-			$this->secret['username'],
-			$this->secret['password']);
+		if (isset($this->secret['username'])&&isset($this->secret['password']))
+			return sprintf(
+				$this->template,
+				$this->secret['username'],
+				$this->secret['password']);
+		else
+			throw new CredentialError(
+				_('Unrecognized credential secret'));
 	}
 
 	/**
