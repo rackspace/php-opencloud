@@ -195,9 +195,9 @@ $target->name = 'COPY-of-SmokeTestObject';
 $object->Copy($target);
 
 step('List Containers');
-setDebug(TRUE);
+//setDebug(TRUE);
 $list = $cloudfiles->ContainerList();
-setDebug(FALSE);
+//setDebug(FALSE);
 while($c = $list->Next())
     info('Container: %s', $c->name);
 
