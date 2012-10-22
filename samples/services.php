@@ -46,5 +46,17 @@ while($service = $list->Next()) {
 			isset($endpoint->region) ? $endpoint->region : 'N/A');
 }
 
+step('Only list services in DFW');
+$list = $rackspace->ServiceList();
+$list->Select(function($item){
+	foreach($item->endpoints as $endpoint) {
+		if (isset($endpoint->region) && $endpoint->region == 'DFW') return true;
+	}
+	return false;
+});
+$list->Sort('name');
+while($service = $list->Next())
+	info('Name: %s', $service->name);
+
 step('DONE');
 exit;

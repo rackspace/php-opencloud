@@ -331,7 +331,7 @@ for your connection object.</p>]]></long-description>
       <name>dbservice.inc</name>
     </include>
   </file>
-  <file path="collection.inc" hash="ccca08d322db8381f28204b8a88cfd04" package="phpOpenCloud">
+  <file path="collection.inc" hash="fd3a8eda2101b2b3522216a89acc6886" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[An abstraction for working with ordered sets of objects]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -470,7 +470,7 @@ and returns it]]></description>
         <name>Sort</name>
         <full_name>Sort</full_name>
         <docblock line="108">
-          <description><![CDATA[Sorts the collection on a specified key]]></description>
+          <description><![CDATA[sorts the collection on a specified key]]></description>
           <long-description><![CDATA[<p>Note: only top-level keys can be used as the sort key</p>]]></long-description>
           <tag line="108" name="api" description=""/>
           <tag line="108" name="param" description="the name of the field to use as the sort key" type="string" variable="$keyname">
@@ -486,19 +486,56 @@ and returns it]]></description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="127" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="151" package="Default">
+        <name>Select</name>
+        <full_name>Select</full_name>
+        <docblock line="122">
+          <description><![CDATA[selects only specified items from the Collection]]></description>
+          <long-description><![CDATA[<p>This provides a simple form of filtering on Collections. For each item
+in the collection, it calls the callback function, passing it the item.
+If the callback returns <code>TRUE</code>, then the item is retained; if it returns
+<code>FALSE</code>, then the item is deleted from the collection.</p>
+
+<p>Note that this should not supersede server-side filtering; the
+<code>Collection::Select()</code> method requires that <em>all</em> of the data for the
+Collection be retrieved from the server before the filtering is
+performed; this can be very inefficient, especially for large data
+sets. This method is mostly useful on smaller-sized sets.</p>
+
+<p>Example:</p>
+
+<pre><code>$services = $connection->ServiceList();
+$services->Select(function($item){ return $item->region=='ORD';});
+// now the $services Collection only has items from the ORD region
+</code></pre>]]></long-description>
+          <tag line="122" name="api" description=""/>
+          <tag line="122" name="param" description="a callback function that is passed each item in turn. Note that `Select()` performs an explicit test for `FALSE`, so functions like `strpos()` need to be cast into a boolean value (and not just return the integer)." type="\OpenCloud\callable" variable="$testfunc">
+            <type by_reference="false">\OpenCloud\callable</type>
+          </tag>
+          <tag line="122" name="returns" description="void"/>
+          <tag line="122" name="throws" description="if callback doesn't return a boolean value" type="\OpenCloud\DomainError">
+            <type by_reference="false">\OpenCloud\DomainError</type>
+          </tag>
+        </docblock>
+        <argument line="151">
+          <name>$testfunc</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="168" package="Default">
         <name>sortCompare</name>
         <full_name>sortCompare</full_name>
-        <docblock line="124">
+        <docblock line="165">
           <description><![CDATA[Compares two values of sort keys]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="127">
+        <argument line="168">
           <name>$a</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="127">
+        <argument line="168">
           <name>$b</name>
           <default><![CDATA[]]></default>
           <type/>
@@ -511,8 +548,8 @@ and returns it]]></description>
       <error line="31" code="50018">No DocBlock was found for property $itemlist</error>
       <error line="32" code="50018">No DocBlock was found for property $pointer</error>
       <error line="33" code="50018">No DocBlock was found for property $sortkey</error>
-      <error line="124" code="50015">Argument $a is missing from the Docblock of sortCompare()</error>
-      <error line="124" code="50015">Argument $b is missing from the Docblock of sortCompare()</error>
+      <error line="165" code="50015">Argument $a is missing from the Docblock of sortCompare()</error>
+      <error line="165" code="50015">Argument $b is missing from the Docblock of sortCompare()</error>
     </parse_markers>
   </file>
   <file path="compute.inc" hash="ae1d495214f7009920f324dd2f233091" package="phpOpenCloud">
@@ -8002,7 +8039,7 @@ is not necessarily tied to an actual database.</p>]]></long-description>
       <error line="43" code="50018">No DocBlock was found for property $_create_keys</error>
     </parse_markers>
   </file>
-  <file path="volumeservice.inc" hash="fe5acdf2494cdbfec06b8aeacb06121c" package="phpOpenCloud">
+  <file path="volumeservice.inc" hash="845d257a6a476d7814e122ac323bcfe0" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The OpenStack Cinder (Volume) service]]></description>
       <long-description><![CDATA[]]></long-description>

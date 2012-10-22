@@ -93,6 +93,7 @@ multiple objects in a container, or multiple servers in a service.</p><br><div i
       <a style="font-style: italic;" href="#Collection::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#Collection::Next()">Next</a>,
       <a style="font-style: italic;" href="#Collection::Reset()">Reset</a>,
+      <a style="font-style: italic;" href="#Collection::Select()">Select</a>,
       <a style="font-style: italic;" href="#Collection::Service()">Service</a>,
       <a style="font-style: italic;" href="#Collection::SetProperty()">SetProperty</a>,
       <a style="font-style: italic;" href="#Collection::Size()">Size</a>,
@@ -421,6 +422,83 @@ and returns it</em><br><small><p>This is useful if you're only interested in the
 </table>
 </div>
 <div class="method">
+<a id="Collection::Select()"></a><h3>Select<span class="nb-faded-text">(
+          \OpenCloud\callable
+             
+            $testfunc,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>selects only specified items from the Collection</em><br><small><p>This provides a simple form of filtering on Collections. For each item
+in the collection, it calls the callback function, passing it the item.
+If the callback returns <code>TRUE</code>, then the item is retained; if it returns
+<code>FALSE</code>, then the item is deleted from the collection.</p>
+
+<p>Note that this should not supersede server-side filtering; the
+<code>Collection::Select()</code> method requires that <em>all</em> of the data for the
+Collection be retrieved from the server before the filtering is
+performed; this can be very inefficient, especially for large data
+sets. This method is mostly useful on smaller-sized sets.</p>
+
+<p>Example:</p>
+
+<pre><code>$services = $connection->ServiceList();
+$services->Select(function($item){ return $item->region=='ORD';});
+// now the $services Collection only has items from the ORD region
+</code></pre></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$testfunc</td>
+<td style="white-space: normal;">\OpenCloud\callable</td>
+<td><p>a callback function that is passed each item in turn. Note that <code>Select()</code> performs an explicit test for <code>FALSE</code>, so functions like <code>strpos()</code> need to be cast into a boolean value (and not just return the integer).</p>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>returns</td>
+<td>void</td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if callback doesn't return a boolean value</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="Collection::Service()"></a><h3>Service<span class="nb-faded-text">(
           
           )
@@ -565,7 +643,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Sorts the collection on a specified key</em><br><small><p>Note: only top-level keys can be used as the sort key</p></small><br><h4>Arguments</h4>
+<em>sorts the collection on a specified key</em><br><small><p>Note: only top-level keys can be used as the sort key</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>

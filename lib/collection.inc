@@ -106,7 +106,7 @@ class Collection extends Base {
 	}
 	
 	/**
-	 * Sorts the collection on a specified key
+	 * sorts the collection on a specified key
 	 *
 	 * Note: only top-level keys can be used as the sort key
 	 *
@@ -117,6 +117,47 @@ class Collection extends Base {
 	public function Sort($keyname='id') {
 		$this->sortkey = $keyname;
 		usort($this->itemlist, array($this, 'sortCompare'));
+	}
+	
+	/**
+	 * selects only specified items from the Collection
+	 *
+	 * This provides a simple form of filtering on Collections. For each item
+	 * in the collection, it calls the callback function, passing it the item.
+	 * If the callback returns `TRUE`, then the item is retained; if it returns
+	 * `FALSE`, then the item is deleted from the collection.
+	 *
+	 * Note that this should not supersede server-side filtering; the
+	 * `Collection::Select()` method requires that *all* of the data for the
+	 * Collection be retrieved from the server before the filtering is
+	 * performed; this can be very inefficient, especially for large data
+	 * sets. This method is mostly useful on smaller-sized sets.
+	 *
+	 * Example:
+	 * <code>
+	 * $services = $connection->ServiceList();
+	 * $services->Select(function($item){ return $item->region=='ORD';});
+	 * // now the $services Collection only has items from the ORD region
+	 * </code>
+	 *
+	 * @api
+	 * @param callable $testfunc a callback function that is passed each item
+	 *		in turn. Note that `Select()` performs an explicit test for
+	 *		`FALSE`, so functions like `strpos()` need to be cast into a
+	 *		boolean value (and not just return the integer).
+	 * @returns void
+	 * @throws DomainError if callback doesn't return a boolean value
+	 */
+	public function Select($testfunc) {
+		foreach($this->itemlist as $index => $item) {
+			$test = call_user_func($testfunc, $item);
+			if (!is_bool($test))
+				throw new DomainError(
+					_('Callback function for Collection::Select() '.
+					  'did not return boolean'));
+			if ($test === FALSE)
+				unset($this->itemlist[$index]);
+		}
 	}
 	
 	/********** PRIVATE METHODS **********/

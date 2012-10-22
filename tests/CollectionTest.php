@@ -38,18 +38,26 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 			'foobar',
 			//array('one', 'two', 'three', 'four'));
 			array(
-			    (object)array('id'=>'one'),
-			    (object)array('id'=>'two'),
-			    (object)array('id'=>'three'),
-			    (object)array('id'=>'four'),
+			    (object)array('id'=>'one',  'val'=>5),
+			    (object)array('id'=>'two',  'val'=>5),
+			    (object)array('id'=>'three','val'=>9),
+			    (object)array('id'=>'four',	'val'=>0),
 			));
 	}
 
 	/**
 	 * Tests
 	 */
+	/**
+	 * @expectedException OpenCloud\CollectionError
+	 */
 	public function test___construct() {
 		$this->assertEquals('one', $this->my->First()->id);
+		// this causes the expected exception
+		$coll = new OpenCloud\Collection(
+			new Gertrude,
+			'foobar',
+			"This string is not an array");
 	}
 	public function testService() {
 		$this->assertEquals('Gertrude', get_class($this->my->Service()));
@@ -76,5 +84,22 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals(
 	        'four',
 	        $this->my->First()->id);
+	    // test non-string items
+	    $this->my->Sort('val');
+	}
+	/**
+	 * @expectedException OpenCloud\DomainError
+	 */
+	public function testSelect() {
+		$coll = $this->my; // don't modify the global collection
+		$this->assertEquals(
+			4,
+			$coll->Size());
+		$coll->Select(function($item) { return strpos($item->id,'o')!==FALSE;});
+		$this->assertEquals(
+			3,
+			$coll->Size());
+		// this should cause an error
+		$coll->Select(function(){ return 5;});
 	}
 }
