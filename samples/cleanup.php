@@ -36,7 +36,8 @@ function info($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
 }
 define('TIMEFORMAT', 'r');
 
-print "This script deletes stuff created in other sample code scripts\n";
+print "This script deletes things created in other sample code scripts\n";
+printf("Region [%s]\n", MYREGION);
 
 step('Authenticate');
 $rackspace = new OpenCloud\Rackspace(AUTHURL,

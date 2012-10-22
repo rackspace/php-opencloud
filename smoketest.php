@@ -15,7 +15,7 @@ require('rackspace.inc');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
 define('NETWORKNAME', 'SMOKETEST');
-define('MYREGION', 'ORD');
+define('MYREGION', $_ENV['OS_REGION_NAME']);
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -43,6 +43,7 @@ define('TIMEFORMAT', 'r');
  * START THE TESTS!
  */
 printf("SmokeTest started at %s\n", date(TIMEFORMAT, $start));
+printf("Using region [%s]\n", MYREGION);
 
 step('Authenticate');
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
