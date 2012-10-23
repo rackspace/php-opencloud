@@ -25,7 +25,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		$conn, 		// connection
 		$service,	// service
 		$lb;		// load balancer
-		
+
 	public function __construct() {
 		$this->conn = new StubConnection('http://example.com', 'SECRET');
 		$this->service = new OpenCloud\LoadBalancerService(
@@ -36,7 +36,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		);
 		$this->lb = new publicLoadBalancer($this->service);
 	}
-	
+
 	/**
 	 * Tests
 	 */
