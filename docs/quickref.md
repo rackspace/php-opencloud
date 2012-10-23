@@ -591,21 +591,110 @@ This creates a connection to the `cloudBlockStorage` service (as it is
 called at Rackspace) in the `DFW` region.
 
 ### Volume Types
+
 Providers may support multiple types of volumes; at Rackspace, a volume can
 either be `SSD` (solid state disk: expensive, high-performance) or
 `SATA` (serial attached storage: regular disks, less expensive).
+
 #### Listing volume types
+The `VolumeTypeList` method returns a Collection of VolumeType objects:
+
+    $vtlist = $dallas->VolumeTypeList();
+    while($vt = $vtlist->Next())
+        printf("%s %s\n", $vt->id, $vt->Name());
+
+This lists the volume types and their IDs.
+
 #### Describe a single volume type
+
+If you know the ID of a volume type, use the `VolumeType` method to retrieve
+information on it:
+
+    $volumetype = $dallas->VolumeType(1);
+
 ### Working with Volumes
-#### Creating a volume
-#### Listing volumes
-#### Get details on a single volume
-#### Delete a volume
+
+Like other objects, you can create, list, and show volumes. The `Volume` method
+on the VolumeService object is the primary interface.
+
+#### To create a volume
+
+To create a volume, you must specify its size (in gigabytes). All other
+parameters are optional (and defaults will be provided), though providing
+the volume type is recommended.
+
+Example:
+
+    $myvolume = $dallas->Volume();  // an empty volume object
+    $response = $myvolume->Create(array(
+        'size' => 200,
+        'volume_type' => $dallas->VolumeType(1),
+        'display_name' => 'My Volume',
+        'display_description' => 'Use this for large object storage'));
+
+This creates a 200GB volume. Note that the `volume_type` parameter must be
+a `VolumeType` object.
+
+#### To list volumes
+
+The `VolumeList` method returns a Collection of Volume objects:
+
+    $volumes = $dallas->VolumeList();
+    $volumes->Sort('display_name');
+    while($vol = $volumes->Next())
+        print $vol->Name()."\n";
+
+This lists all the volumes associated with your account.
+
+#### To get details on a single volume
+
+If you specify an ID on the `Volume` method, it retrieves information on
+the specified volume:
+
+    $myvolume = $dallas->Volume('0d0f90209...');
+    printf("volume size = %d\n", $myvolume->size);
+
+#### To delete a volume
+
+The `Delete` method deletes a volume:
+
+    $myvolume->Delete();
+
 ### Working with Snapshots
-#### Create a snapshot
-#### List snapshots
-#### Get details on a single snapshot
-#### Delete a snapshot
+
+A `Snapshot` captures the contents of a volume at a point in time. It can be
+used, for example, as a backup point; and you can later create a volume from
+the snapshot.
+
+#### To create a snapshot
+#### To list snapshots
+#### To get details on a single snapshot
+#### To delete a snapshot
 ### Volumes and Servers
-#### Attaching a volume to a server
-#### Detaching a volume from a server
+
+A volume by itself is not much use; to be useful, it must be attached to
+a server so that the server can use the volume.
+
+#### To attach a volume to a server
+
+Syntax:
+
+    $server = $compute->Server({server-id});
+    $volume = $dallas->Volume({volume-id});
+    $server->AttachVolume($volume, {mount-point})
+
+`{server-id}` and `{volume-id}` are the IDs of the server and volume,
+respectively. `{mount-point}` is the location on the server on which to
+mount the volume (usually `/dev/xvhdd` or similar). You can also supply
+`'auto'` as the mount point, in which case the mount point will be
+automatically selected for you. `auto` is the default value for
+`{mount-point}`, so you do not actually need to supply anything for that
+parameter.
+
+Example:
+
+    $server = $compute->Server('010d092...');
+    $volume = $dallas->Volume('39d0f0...');
+    $server->AttachVolume($volume); // uses the 'auto' mount point
+
+#### To detach a volume from a server
