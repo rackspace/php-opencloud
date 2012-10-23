@@ -576,12 +576,15 @@ Cloud Block Storage is available on either the OpenStack or Rackspace
 connection using the `VolumeService` method:
 
 Assuming:
+
     $cloud = new Rackspace(...);
 
 Syntax:
+
     {variable} = $cloud->VolumeService({servicename}, {region}, {urltype});
 
 Example:
+
     $dallas = $cloud->VolumeService('cloudBlockStorage', 'DFW');
 
 This creates a connection to the `cloudBlockStorage` service (as it is
