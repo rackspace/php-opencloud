@@ -46,14 +46,12 @@ step('Create a Load Balancer');
 $lb = $lbservice->LoadBalancer();
 $lb->AddVirtualIp('public');
 $lb->AddNode('50.56.172.87', 80);
-setDebug(TRUE);
+//setDebug(TRUE);
 $response = $lb->Create(array(
-    'name' => 'My-First-Load-Balancer',
+    'name' => 'My-First-Load-Balancer '.time(),
     'protocol' => 'HTTP',
     'port' => 80));
 setDebug(FALSE);
-
-print_r($response);
 
 step('DONE');
 exit;

@@ -22,6 +22,12 @@ require_once('loadbalancer.inc');
  */
 class LoadBalancerService extends Nova {
 
+    const
+        SERVICE_TYPE = 'rax:load-balancer',
+        SERVICE_OBJECT_CLASS = 'LoadBalancer',
+        URL_RESOURCE = 'loadbalancers',
+        JSON_ELEMENT = 'loadBalancers';
+
 	/**
 	 * Creates a new LoadBalancerService connection
 	 *
@@ -34,7 +40,7 @@ class LoadBalancerService extends Nova {
 	 * @param string $urltype the type of URL (normally "publicURL")
 	 */
 	public function __construct(OpenStack $conn, $name, $region, $urltype) {
-		parent::__construct($conn, 'rax:load-balancer',
+		parent::__construct($conn, self::SERVICE_TYPE,
 		    $name, $region, $urltype);
 	}
 
@@ -45,10 +51,10 @@ class LoadBalancerService extends Nova {
 	 * @param string $resource the resource required
 	 * @param array $args extra arguments to pass to the URL as query strings
 	 */
-	public function Url($resource='loadbalancers', $args=array()) {
+	public function Url($resource=self::URL_RESOURCE, $args=array()) {
 		return parent::Url($resource, $args);
 	}
-	
+
 	/**
 	 * creates a new LoadBalancer object
 	 *
@@ -59,17 +65,22 @@ class LoadBalancerService extends Nova {
 	public function LoadBalancer($id=NULL) {
 		return new LoadBalancerService\LoadBalancer($this, $id);
 	}
-	
+
 	/**
 	 * returns a Collection of LoadBalancer objects
 	 *
 	 * @api
+	 * @param boolean $detail if TRUE (the default), then all details are
+	 *      returned; otherwise, the minimal set (ID, name) are retrieved
+	 * @param array $filter not currently used; to support potential future
+	 *      server-side filtering
+	 * @return \OpenCloud\Collection
 	 */
-	public function LoadBalancerList($filter=array()) {
+	public function LoadBalancerList($detail=TRUE, $filter=array()) {
 		return $this->Collection(
 			$this->Url(),
-			'LoadBalancer',
-			'loadBalancers');
+			self::SERVICE_OBJECT_CLASS,
+			self::JSON_ELEMENT);
 	}
 
 }

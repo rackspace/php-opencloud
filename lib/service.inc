@@ -55,7 +55,8 @@ abstract class Service extends Base {
 		$this->service_name = $name;
 		$this->service_region = $region;
 		$catalog = $conn->serviceCatalog();
-		$this->service_url = $this->get_endpoint($type, $name, $region, $urltype);
+		$this->service_url = $this->get_endpoint(
+		        $type, $name, $region, $urltype);
 	} // public function __construct()
 
 	/**
@@ -115,7 +116,7 @@ abstract class Service extends Base {
 			$headers['X-Auth-Project-Id'] = $tenant;
 		return $this->conn->Request($url, $method, $headers, $body);
 	} // function Request()
-	
+
 	/**
 	 * returns a collection of objects
 	 *
@@ -129,7 +130,7 @@ abstract class Service extends Base {
 			$parent = $this;
 		$this->debug('%s:Collection(%s, %s, %s)',
 			get_class($this), $url, $class, $element);
-		
+
 		// fetch the list
 		$response = $this->Request($url);
 
@@ -139,8 +140,8 @@ abstract class Service extends Base {
 				_('Unable to retrieve [%s] list from [%s], '.
 				  'status [%d] response [%s]'),
 				$class,
-				$url, 
-				$response->HttpStatus(), 
+				$url,
+				$response->HttpStatus(),
 				$response->HttpBody()));
 
 		// handle empty response
@@ -160,7 +161,7 @@ abstract class Service extends Base {
 		else
 			return new Collection($parent, $class, array());
 	}
-	
+
 	/********** PRIVATE METHODS **********/
 
     /**
