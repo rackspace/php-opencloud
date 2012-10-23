@@ -90,7 +90,7 @@ abstract class PersistentObject extends Base {
 
 		// send the request
 		$response = $this->Service()->Request(
-			$this->Service()->Url($this->ResourceName()),
+			$this->CreateUrl(),
 			'POST',
 			array(),
 			$json
@@ -450,6 +450,15 @@ abstract class PersistentObject extends Base {
 				return $link->href;
 		}
 		return FALSE;
+	}
+	
+	/**
+	 * returns the URL used for Create
+	 *
+	 * @return string
+	 */
+	protected function CreateUrl() {
+		return $this->Service()->Url($this->ResourceName());
 	}
 
 	/**
