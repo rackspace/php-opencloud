@@ -10,6 +10,7 @@ Contents:
 * [Compute (Nova/Cloud Servers)](#compute)
 * [Networks (Quantum/Cloud Networks)](#networks)
 * [Cloud Databases](#dbaas)
+* [Cloud Block Storage (Cinder)](#CBS)
 
 <a name="auth"></a>
 Authentication
@@ -563,3 +564,45 @@ The `databases` attribute of a user contains a list of all the database
         foreach($user->databases as $dbname)
             printf("  database: %s\n", $dbname);
     }
+
+<a name="CBS"></a>
+Quick Reference - Cloud Block Storage (Cinder)
+----------------------------------------------
+Cloud Block Storage is a dynamic volume creation and management service
+built upon the OpenStack Cinder project.
+
+### Connecting to Cloud Block Storage
+Cloud Block Storage is available on either the OpenStack or Rackspace
+connection using the `VolumeService` method:
+
+Assuming:
+    $cloud = new Rackspace(...);
+
+Syntax:
+    {variable} = $cloud->VolumeService({servicename}, {region}, {urltype});
+
+Example:
+    $dallas = $cloud->VolumeService('cloudBlockStorage', 'DFW');
+
+This creates a connection to the `cloudBlockStorage` service (as it is
+called at Rackspace) in the `DFW` region.
+
+### Volume Types
+Providers may support multiple types of volumes; at Rackspace, a volume can
+either be `SSD` (solid state disk: expensive, high-performance) or
+`SATA` (serial attached storage: regular disks, less expensive).
+#### Listing volume types
+#### Describe a single volume type
+### Working with Volumes
+#### Creating a volume
+#### Listing volumes
+#### Get details on a single volume
+#### Delete a volume
+### Working with Snapshots
+#### Create a snapshot
+#### List snapshots
+#### Get details on a single snapshot
+#### Delete a snapshot
+### Volumes and Servers
+#### Attaching a volume to a server
+#### Detaching a volume from a server
