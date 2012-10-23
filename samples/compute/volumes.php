@@ -28,8 +28,8 @@ function step($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
     global $STEPCOUNTER;
     printf("\nStep %d. %s\n", ++$STEPCOUNTER, sprintf($msg,$p1,$p2,$p3));
 }
-function info($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
-    printf("  %s\n", sprintf($msg,$p1,$p2,$p3));
+function info($msg,$p1=NULL,$p2=NULL,$p3=NULL,$p4=NULL) {
+    printf("  %s\n", sprintf($msg,$p1,$p2,$p3,$p4));
 }
 define('TIMEFORMAT', 'r');
 
@@ -73,7 +73,8 @@ setDebug(FALSE);
 step('Listing volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {
-	info('Volume: %s [%s] size=%d',
+	info('Volume: %s %s [%s] size=%d',
+		$vol->id,
 		$vol->display_name,
 		$vol->display_description,
 		$vol->size);
@@ -99,7 +100,9 @@ else {
 }
 
 step('Attach volume to server');
+setDebug(TRUE);
 $server->AttachVolume($volume);	// use 'auto' device
+setDebug(FALSE);
 
 step('Create a snapshot');
 $snap = $cbs->Snapshot();   // empty snapshot object
