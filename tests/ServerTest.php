@@ -189,6 +189,16 @@ class ServerTest extends PHPUnit_Framework_TestCase
 			202,
 			$response->HttpStatus());
 	}
+	public function testVolumeAttachment() {
+		$this->assertEquals(
+			'OpenCloud\Compute\VolumeAttachment',
+			get_class($this->server->VolumeAttachment()));
+	}
+	public function testVolumeAttachmentList() {
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($this->server->VolumeAttachmentList()));
+	}
 	public function testCreate_personality() {
 		$new = new PublicServer($this->service);
 		$new->AddFile('/tmp/hello.txt', 'Hello, world!');

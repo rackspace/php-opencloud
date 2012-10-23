@@ -405,8 +405,7 @@ class Server extends \OpenCloud\PersistentObject {
 		$this->CheckExtension('os-volumes');
 		$attachment = $this->VolumeAttachment($vol->id);
 		return $attachment->Delete();
-	}	 
-	
+	}
 
 	/**
 	 * returns a VolumeAttachment object
