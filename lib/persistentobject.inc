@@ -109,8 +109,10 @@ abstract class PersistentObject extends Base {
 		$retobj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			$top = $this->JsonName();
-			foreach($retobj->$top as $key => $value)
-				$this->$key = $value;
+			if (isset($retobj->$top)) {
+				foreach($retobj->$top as $key => $value)
+					$this->$key = $value;
+			}
 		}
 
 		return $response;

@@ -387,40 +387,6 @@ class Server extends \OpenCloud\PersistentObject {
 		return $attachment->Create(array(
 			'volumeId' => $vol->id,
 			'device' => ($device=='auto' ? NULL : $device)));
-		/*
-		$this->CheckExtension('os-volumes');
-		$this->debug('AttachVolume vol=%d device=%s', $vol->id, $device);
-	
-		// check for os-volume extension and abort if not available
-		if (!in_array('os-volumes', $this->Service()->namespaces()))
-			throw new VolumeError(_('Volume extension is not available'));
-		
-		// construct URL
-		$url = $this->Url('os-volume_attachments');
-		
-		// create the payload
-		$obj = new \stdClass();
-		$obj->volumeAttachment = new \stdClass();
-		$obj->volumeAttachment->volumeId = $vol->id;
-		if ($device != 'auto')
-			$obj->volumeAttachment->device = $device;
-		$json = json_encode($obj);
-		if ($this->CheckJsonError())
-			return;
-		
-		// submit it
-		$response = $this->Service()->Request($url, 'POST', array(), $json);
-		
-		// check response
-		if ($response->HttpStatus() > 204)
-			throw new VolumeError(sprintf(
-				_('Error attaching volume, request [%s] '.
-				  'status [%d] response [%s]'),
-				$json, $response->HttpStatus(), $response->HttpBody()));
-		
-		// return response
-		return $response;
-		*/
 	}
 	
 	/**
