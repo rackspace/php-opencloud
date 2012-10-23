@@ -14,6 +14,7 @@ namespace OpenCloud\Compute;
 
 require_once('persistentobject.inc');
 require_once('metadata.inc');
+require_once('volumeattachment.inc');
 
 /**
  * The Server class represents a single server node.
@@ -379,11 +380,14 @@ class Server extends \OpenCloud\PersistentObject {
 	 * @api
 	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach
 	 * @param string $device the device to which to attach it
-	 * @throws VolumeError
 	 */
 	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol, 
 								 $device='auto') {
-		
+		$attachment = $this->VolumeAttachment();
+		return $attachment->Create(array(
+			'volumeId' => $vol->id,
+			'device' => ($device=='auto' ? NULL : $device)));
+		/*
 		$this->CheckExtension('os-volumes');
 		$this->debug('AttachVolume vol=%d device=%s', $vol->id, $device);
 	
@@ -416,6 +420,30 @@ class Server extends \OpenCloud\PersistentObject {
 		
 		// return response
 		return $response;
+		*/
+	}
+	
+	/**
+	 * returns a VolumeAttachment object
+	 *
+	 */
+	public function VolumeAttachment($id=NULL) {
+		return new VolumeAttachment($this, $id);
+	}
+	
+	/**
+	 * returns a Collection of VolumeAttachment objects
+	 *
+	 * @api
+	 * @return Collection
+	 */
+	public function VolumeAttachmentList() {
+		return $this->Service()->Collection(
+			$this->Url(VolumeAttachment::URL_RESOURCE),
+			'VolumeAttachment',
+			'volumeAttachments',
+			$this
+		);
 	}
 	
 	/**
