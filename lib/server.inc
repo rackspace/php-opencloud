@@ -375,7 +375,8 @@ class Server extends \OpenCloud\PersistentObject {
 	/**
 	 * Attaches a volume to a server
 	 *
-	 * Requires the os-volumes extension.
+	 * Requires the os-volumes extension. This is a synonym for
+	 * `VolumeAttachment::Create()`
 	 *
 	 * @api
 	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach
@@ -383,12 +384,30 @@ class Server extends \OpenCloud\PersistentObject {
 	 */
 	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol, 
 								 $device='auto') {
+		$this->CheckExtension('os-volumes');
 		$attachment = $this->VolumeAttachment();
 		return $attachment->Create(array(
 			'volumeId' => $vol->id,
 			'device' => ($device=='auto' ? NULL : $device)));
 	}
 	
+	/**
+	 * removes a volume attachment from a server
+	 *
+	 * Requires the os-volumes extension. This is a synonym for
+	 * `VolumeAttachment::Delete()`
+	 *
+	 * @api
+	 * @param OpenCloud\VolumeService\Volume $vol the volume to remove
+	 * @throws VolumeError
+	 */
+	public function DetachVolume(\OpenCloud\VolumeService\Volume $vol) {
+		$this->CheckExtension('os-volumes');
+		$attachment = $this->VolumeAttachment($vol->id);
+		return $attachment->Delete();
+	}	 
+	
+
 	/**
 	 * returns a VolumeAttachment object
 	 *
@@ -411,41 +430,6 @@ class Server extends \OpenCloud\PersistentObject {
 			$this
 		);
 	}
-	
-	/**
-	 * removes a volume attachment from a server
-	 *
-	 * Requires the os-volumes extension.
-	 *
-	 * @api
-	 * @param OpenCloud\VolumeService\Volume $vol the volume to remove
-	 * @throws VolumeError
-	 */
-	public function RemoveVolume(\OpenCloud\VolumeService\Volume $vol) {
-		
-		$this->CheckExtension('os-volumes');
-		$this->debug('RemoveVolume vol=%d', $vol->id);
-	
-		// check for os-volume extension and abort if not available
-		if (!in_array('os-volumes', $this->Service()->namespaces()))
-			throw new VolumeError(_('Volume extension is not available'));
-		
-		// construct URL
-		$url = $this->Url('os-volume_attachments/'.$vol->id);
-		
-		// submit it
-		$response = $this->Service()->Request($url, 'DELETE');
-		
-		// check response
-		if ($response->HttpStatus() > 204)
-			throw new VolumeError(sprintf(
-				_('Error removing volume, request [%s] '.
-				  'status [%d] response [%s]'),
-				$json, $response->HttpStatus(), $response->HttpBody()));
-		
-		// return response
-		return $response;
-	}	 
 	
 	/**
 	 * adds a "personality" file to be uploaded during Create() or Rebuild()

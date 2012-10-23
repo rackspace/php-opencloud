@@ -28,7 +28,6 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 		URL_RESOURCE = 'os-volume_attachments';
 
 	public
-		$id,
 		$device,
 		$serverId,
 		$volumeId;
@@ -48,7 +47,7 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	 */
 	public function __construct(Server $server, $id=NULL) {
 		$this->_server = $server;
-		parent::__construct($server->Service(), $id);
+		return parent::__construct($server->Service(), $id);
 	}
 	
 	/**
@@ -72,6 +71,13 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	}
 
 	/********** PROTECTED METHODS **********/
+	
+	/**
+	 * returns the primary key field
+	 */
+	protected function PrimaryKeyField() {
+		return 'volumeId';
+	}
 	
 	/**
 	 * returns the URL for Create

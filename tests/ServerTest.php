@@ -182,9 +182,9 @@ class ServerTest extends PHPUnit_Framework_TestCase
 			200,
 			$response->HttpStatus());
 	}
-	public function testRemoveVolume() {
-		$vol = new \OpenCloud\VolumeService\Volume($this->service);
-		$response = $this->server->RemoveVolume($vol);
+	public function testDetachVolume() {
+		$vol = new \OpenCloud\VolumeService\Volume($this->service,'FOO');
+		$response = $this->server->DetachVolume($vol);
 		$this->assertEquals(
 			202,
 			$response->HttpStatus());

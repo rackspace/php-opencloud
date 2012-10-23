@@ -48,6 +48,6 @@ while($server = $slist->Next()) {
 	info('%s', $server->Name());
 	$alist = $server->VolumeAttachmentList();
 	while($attachment = $alist->Next())
-		printf("    Device: %s Volume: %s\n", 
-			$attachment->device, $attachment->volumeId);
+		printf("    %s Device: %s\n", 
+			$attachment->id, $attachment->device);
 }

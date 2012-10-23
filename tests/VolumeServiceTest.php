@@ -46,12 +46,9 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\VolumeService\Volume',
 			get_class($this->service->Volume()));
 	}
-	/**
-	 * @expectedException OpenCloud\CollectionError
-	 */
 	public function testVolumeList() {
 		$this->assertEquals(
-			'',
+			'OpenCloud\Collection',
 			get_class($this->service->VolumeList()));
 	}
 	public function testVolumeType() {
