@@ -50,7 +50,7 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>objstorebase.inc</h1>
+<h1>volumeattachment.inc</h1>
 <div class="file_menu">
 <a href="#includes">Includes</a> |<a href="#classes">Classes</a> |</div>
 <div class="properties">
@@ -60,17 +60,20 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>An abstract class that defines shared code among all Object Storage
-components<br><br><a name="includes"></a><h2>Includes</h2>base.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
-<div id="ObjStoreBase" class="class">
-<h3>ObjStoreBase</h3>
+<h2>Description</h2>Defines a volume attachment object<br><br><a name="includes"></a><h2>Includes</h2>persistentobject.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="VolumeAttachment" class="class">
+<h3>VolumeAttachment</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="base.inc.html#%5COpenCloud%5CBase">\OpenCloud\Base</a>
+<a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject">\OpenCloud\PersistentObject</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
+<label class="property-key">api</label><div class="property-value">
+<a title=""></a>
+             
+        </div>
 <label class="property-key">author</label><div class="property-value">
 <a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
@@ -81,26 +84,109 @@ components<br><br><a name="includes"></a><h2>Includes</h2>base.inc <span class=
       </div>
 </div>
 <h4>Description</h4>
-<em>Intermediate (abstract) class to implement shared
-features of all object-storage classes</em><br><p>This class implements metadata-handling and other features that are common to
-the object storage components.</p><br><div id="methods_ObjStoreBase">
+<em>The LoadBalancer class represents a single load balancer</em><br><p>This class abstracts much of the common functionality between Nova
+servers, Swift containers and objects, DBAAS instances, Cinder volumes,
+and various other objects that (a) have a URL, (b) can be created, updated,
+deleted, or retrieved, and (c) use a standard JSON format with a top-level
+element followed by a child object with attributes.</p><br><div id="methods_VolumeAttachment">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#ObjStoreBase::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::GetMetadata()">GetMetadata</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::MetadataHeaders()">MetadataHeaders</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::Name()">Name</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::Prefix()">Prefix</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::Url()">Url</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::__set()">__set</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::debug()">debug</a>,
-      <a style="font-style: italic;" href="#ObjStoreBase::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#VolumeAttachment::Action()">Action</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::CheckExtension()">CheckExtension</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Create()">Create</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::CreateUrl()">CreateUrl</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Delete()">Delete</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::FindLink()">FindLink</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::JsonName()">JsonName</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Name()">Name</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::PrimaryKeyField()">PrimaryKeyField</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::ResourceName()">ResourceName</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Service()">Service</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Update()">Update</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::UpdateJson()">UpdateJson</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Url()">Url</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::WaitFor()">WaitFor</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::__set()">__set</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::debug()">debug</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::to_string()">to_string</a>,
       <div class="method">
-<a id="ObjStoreBase::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="VolumeAttachment::Action()"></a><h3>Action<span class="nb-faded-text">(
+          \OpenCloud\$object
+             
+            $object,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Sends the json string to the /action resource</em><br><small><p>This is used for many purposes, such as rebooting the server,
+setting the root password, creating images, etc.
+Since it can only be used on a live server, it checks for a valid ID.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$object</td>
+<td style="white-space: normal;">\OpenCloud\$object</td>
+<td><ul>
+<li>this will be encoded as json, and we handle all the JSON error-checking in one place</li>
+</ul>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if server ID is not defined</td>
+</tr>
+<tr>
+<td>throws</td>
+<td>on other errors</td>
+</tr>
+<tr>
+<td>returns</td>
+<td>boolean; TRUE if successful, FALSE otherwise</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Action()"><small>\OpenCloud\PersistentObject::Action()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -156,14 +242,76 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::CheckAttributePrefix()"><small>\OpenCloud\Base::CheckAttributePrefix()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckAttributePrefix()"><small>\OpenCloud\PersistentObject::CheckAttributePrefix()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="VolumeAttachment::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
+          
+             
+            $alias,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>checks for `$alias` in extensions and throws an error if not present</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$alias</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckExtension()"><small>\OpenCloud\PersistentObject::CheckExtension()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -203,11 +351,225 @@ exception thrown.</p>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::CheckJsonError()"><small>\OpenCloud\Base::CheckJsonError()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CheckJsonError()"><small>\OpenCloud\PersistentObject::CheckJsonError()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="VolumeAttachment::Create()"></a><h3>Create<span class="nb-faded-text">(
+          array
+             
+            $params
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>Creates a new object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">array</td>
+<td><p>array of values to set when creating the object</p></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Create()"><small>\OpenCloud\PersistentObject::Create()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Compute\stdClass</span>
+</h3>
+<h4>Description</h4>
+<em>returns the JSON object for Create()</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Compute\stdClass</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if not overridden</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the URL for Create</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::Delete()"></a><h3>Delete<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>Deletes an block storage volume</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Delete()"><small>\OpenCloud\PersistentObject::Delete()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
+          string
+             
+            $type
+            = 'self',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Since each server can have multiple links, this returns the desired one</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$type</td>
+<td style="white-space: normal;">string</td>
+<td><ul>
+<li>'self' is most common; use 'bookmark' for the version-independent one</li>
+</ul>
+</td>
+<td>'self'</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>the URL from the links block</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::FindLink()"><small>\OpenCloud\PersistentObject::FindLink()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -262,55 +624,55 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Base::GetHttpRequestObject()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::GetHttpRequestObject()"><small>\OpenCloud\PersistentObject::GetHttpRequestObject()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::GetMetadata()"></a><h3>GetMetadata<span class="nb-faded-text">(
-          
-             
-            $response,
+<a id="VolumeAttachment::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Given an HttpResponse object, converts the appropriate headers
-to metadata</em><br><h4>Arguments</h4>
+<em>Returns the top-level document identifier</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
+Instance document is <code>{"instance": ...}</code> - this function must return
+the top level document name (either "server" or "instance", in
+these examples).</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
-<th>Name</th>
 <th>Type</th>
 <th>Description</th>
-<th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$response</td>
-<td style="white-space: normal;">n/a</td>
-<td><p>\OpenCloud\HttpResponse</p>
-</td>
+<td>string</td>
 <td></td>
 </tr></tbody>
 </table>
-<h4>Return value</h4>
+<h4>Tags</h4>
 <table>
 <thead><tr>
-<th>Type</th>
+<th>Name</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
-<td></td>
+<td>throws</td>
+<td>if not overridden</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="VolumeAttachment::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -354,53 +716,36 @@ to metadata</em><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::MakeQueryString()"><small>\OpenCloud\Base::MakeQueryString()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::MakeQueryString()"><small>\OpenCloud\PersistentObject::MakeQueryString()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::MetadataHeaders()"></a><h3>MetadataHeaders<span class="nb-faded-text">(
+<a id="VolumeAttachment::Name()"></a><h3>Name<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\ObjectStore\array;</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>If object has metadata, returns an associative array of headers</em><br><small><p>For example, if a DataObject has a metadata item named 'FOO',
-then this would return array('X-Object-Meta-FOO'=>$value);</p></small><br><h4>Return value</h4>
+<em>returns a readable name for the attachment</em><br><small><p>Since there is no 'name' attribute, we'll hardcode something</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\ObjectStore\array;</td>
+<td>string</td>
 <td></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="ObjStoreBase::Name()"></a><h3>Name<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the displayable name of the object</em><br><small><p>Can be overridden by child objects; <em>must</em> be overridden by child
-objects if the object does not have a <code>name</code> attribute defined.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -422,19 +767,42 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::Prefix()"></a><h3>Prefix<span class="nb-faded-text">(
-          string
+<a id="VolumeAttachment::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the primary key field</em><br><small><p>The primary key is usually 'id', but this function is provided so that
+(in rare cases where it is not 'id'), it can be overridden.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
+          
              
-            $type
+            $id
             = NULL,
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the proper prefix for the specified type of object</em><br><h4>Arguments</h4>
+<em>Refreshes the server from the origin (useful when the server is
+changing states)</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -443,10 +811,9 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$type</td>
-<td style="white-space: normal;">string</td>
-<td><p>The type of object; derived from <code>get_class()</code> if not specified.</p>
-</td>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td>NULL</td>
 </tr></tbody>
 </table>
@@ -457,13 +824,95 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Refresh()"><small>\OpenCloud\PersistentObject::Refresh()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the URL resource</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
+<code>/instances/</code>. Must be overridden in child classes.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="VolumeAttachment::Service()"></a><h3>Service<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the Service object associated with this server</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Service()"><small>\OpenCloud\PersistentObject::Service()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -538,11 +987,47 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::SetProperty()"><small>\OpenCloud\Base::SetProperty()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::SetProperty()"><small>\OpenCloud\PersistentObject::SetProperty()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::Url()"></a><h3>Url<span class="nb-faded-text">(
+<a id="VolumeAttachment::Update()"></a><h3>Update<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>updates are not permitted</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>always</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
           )
         </span>
@@ -550,9 +1035,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the URL of the service/object</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
-base level, it simply throws an exception to enforce the idea that
-subclasses need to define this method.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -572,17 +1055,168 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td></td>
+<td>if not overridden</td>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="base.inc.html#%5COpenCloud%5CBase::Url()"><small>\OpenCloud\Base::Url()</small></a></td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::UpdateJson()"><small>\OpenCloud\PersistentObject::UpdateJson()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+<a id="VolumeAttachment::Url()"></a><h3>Url<span class="nb-faded-text">(
+          
+             
+            $subresource
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$subresource</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if URL is not defined</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Url()"><small>\OpenCloud\PersistentObject::Url()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
+          string
+             
+            $terminal
+            = 'ACTIVE',
+          integer
+             
+            $timeout
+            = RAXSDK_SERVER_MAXTIMEOUT,
+          \OpenCloud\callable
+             
+            $callback
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Waits for the server/instance status to change</em><br><small><p>This function repeatedly polls the system for a change in server
+status. Once the status reaches the <code>$terminal</code> value (or 'ERROR'),
+then the function returns.</p>
+
+<p>The polling interval is set by the constant RAXSDK_POLL_INTERVAL.</p>
+
+<p>The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
+seconds elapse.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$terminal</td>
+<td style="white-space: normal;">string</td>
+<td><p>the terminal state to wait for</p></td>
+<td>'ACTIVE'</td>
+</tr>
+<tr>
+<td>$timeout</td>
+<td style="white-space: normal;">integer</td>
+<td><p>the max time (in seconds) to wait</p>
+</td>
+<td>RAXSDK_SERVER_MAXTIMEOUT</td>
+</tr>
+<tr>
+<td>$callback</td>
+<td style="white-space: normal;">\OpenCloud\callable</td>
+<td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::WaitFor()"><small>\OpenCloud\PersistentObject::WaitFor()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          
+             
+            $server,
+          
+             
+            $id
+            = NULL,
           
           )
         </span>
@@ -590,7 +1224,31 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Initializes the metadata component</em><br><h4>Return value</h4>
+<em>creates the object</em><br><small><p>This overrides the default constructor so that we can save off the
+server to which this attachment is associated.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$server</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -601,12 +1259,23 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if $info has an invalid data type</td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::__set()"></a><h3>__set<span class="nb-faded-text">(
+<a id="VolumeAttachment::__set()"></a><h3>__set<span class="nb-faded-text">(
           string
              
-            $property,
+            $name,
           mixed
              
             $value,
@@ -617,9 +1286,8 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Sets extended attributes on an object and validates them</em><br><small><p>This function is provided to ensure that attributes cannot
-arbitrarily added to an object. If this function is called, it
-means that the attribute is not defined on the object, and thus
+<em>Validates properties that have a namespace: prefix</em><br><small><p>If the property prefix: appears in the list of supported extension
+namespaces, then the property is applied to the object. Otherwise,
 an exception is thrown.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
@@ -630,15 +1298,16 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$property</td>
+<td>$name</td>
 <td style="white-space: normal;">string</td>
-<td><p>the name of the attribute</p></td>
+<td><p>the name of the property</p></td>
 <td></td>
 </tr>
 <tr>
 <td>$value</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>the value of the attribute</p></td>
+<td><p>the property's value</p>
+</td>
 <td></td>
 </tr>
 </tbody>
@@ -660,14 +1329,20 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
 <td>inherited_from</td>
-<td><a href="base.inc.html#%5COpenCloud%5CBase::__set()"><small>\OpenCloud\Base::__set()</small></a></td>
-</tr></tbody>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::__set()"><small>\OpenCloud\PersistentObject::__set()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="VolumeAttachment::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -773,14 +1448,20 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::debug()"><small>\OpenCloud\Base::debug()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::debug()"><small>\OpenCloud\PersistentObject::debug()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="ObjStoreBase::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="VolumeAttachment::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           mixed
              
             $x,
@@ -823,20 +1504,41 @@ with "Debug:" and the class name, to the standard output device.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::to_string()"><small>\OpenCloud\Base::to_string()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::to_string()"><small>\OpenCloud\PersistentObject::to_string()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
-<div id="properties_ObjStoreBase">
+<div id="properties_VolumeAttachment">
 <h4>Properties</h4>
-<a href="#ObjStoreBase::%24_errors">$_errors</a>,
-      <a href="#ObjStoreBase::%24http_headers">$http_headers</a>,
-      <a href="#ObjStoreBase::%24metadata">$metadata</a>,
+<a href="#VolumeAttachment::%24_create_keys">$_create_keys</a>,
+      <a href="#VolumeAttachment::%24_errors">$_errors</a>,
+      <a href="#VolumeAttachment::%24_server">$_server</a>,
+      <a href="#VolumeAttachment::%24_service">$_service</a>,
+      <a href="#VolumeAttachment::%24device">$device</a>,
+      <a href="#VolumeAttachment::%24http_headers">$http_headers</a>,
+      <a href="#VolumeAttachment::%24id">$id</a>,
+      <a href="#VolumeAttachment::%24serverId">$serverId</a>,
+      <a href="#VolumeAttachment::%24volumeId">$volumeId</a>,
       <div class="method">
-<a id="ObjStoreBase::$_errors"></a><h3>
+<a id="VolumeAttachment::$_create_keys"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_create_keys
+          =
+          array('volumeId', 'device')</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="VolumeAttachment::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -845,7 +1547,34 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ObjStoreBase::$http_headers"></a><h3>
+<a id="VolumeAttachment::$_server"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_server
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="VolumeAttachment::$_service"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_service
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="VolumeAttachment::$device"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$device
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="VolumeAttachment::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
@@ -854,46 +1583,48 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ObjStoreBase::$metadata"></a><h3>
+<a id="VolumeAttachment::$id"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$id
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="VolumeAttachment::$serverId"></a><h3>
 <span class="nb-faded-text"> 
           public 
-          </span>$metadata
+          </span>$serverId
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="VolumeAttachment::$volumeId"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$volumeId
           =
           </h3>
 <em></em><br>
 </div>
 </div>
-<div id="constants_ObjStoreBase">
+<div id="constants_VolumeAttachment">
 <h4>Constants</h4>
-<a id="ObjStoreBase::ACCOUNT_META_PREFIX"></a><div class="constant">
+<a id="VolumeAttachment::JSON_ELEMENT"></a><div class="constant">
 <h3>
 <span class="nb-faded-text"> 
-        </span>ACCOUNT_META_PREFIX<span class="nb-faded-text">
-         = 'X-Account-'</span>
+        </span>JSON_ELEMENT<span class="nb-faded-text">
+         = 'volumeAttachment'</span>
 </h3>
 <em></em><br><br>
 </div>
-<a id="ObjStoreBase::CDNCONTAINER_META_PREFIX"></a><div class="constant">
+<a id="VolumeAttachment::URL_RESOURCE"></a><div class="constant">
 <h3>
 <span class="nb-faded-text"> 
-        </span>CDNCONTAINER_META_PREFIX<span class="nb-faded-text">
-         = 'X-Cdn-'</span>
-</h3>
-<em></em><br><br>
-</div>
-<a id="ObjStoreBase::CONTAINER_META_PREFIX"></a><div class="constant">
-<h3>
-<span class="nb-faded-text"> 
-        </span>CONTAINER_META_PREFIX<span class="nb-faded-text">
-         = 'X-Container-Meta-'</span>
-</h3>
-<em></em><br><br>
-</div>
-<a id="ObjStoreBase::OBJECT_META_PREFIX"></a><div class="constant">
-<h3>
-<span class="nb-faded-text"> 
-        </span>OBJECT_META_PREFIX<span class="nb-faded-text">
-         = 'X-Object-Meta-'</span>
+        </span>URL_RESOURCE<span class="nb-faded-text">
+         = 'os-volume_attachments'</span>
 </h3>
 <em></em><br><br>
 </div>

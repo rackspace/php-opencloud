@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -59,7 +60,7 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>Defines an OpenStack Compute virtual server<br><br><a name="includes"></a><h2>Includes</h2>persistentobject.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<h2>Description</h2>Defines an OpenStack Compute virtual server<br><br><a name="includes"></a><h2>Includes</h2>persistentobject.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br>volumeattachment.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="Server" class="class">
 <h3>Server</h3>
 <div class="properties">
@@ -96,7 +97,9 @@ rax-bandwidth:bandwith</p><br><div id="methods_Server">
       <a style="font-style: italic;" href="#Server::Create()">Create</a>,
       <a style="font-style: italic;" href="#Server::CreateImage()">CreateImage</a>,
       <a style="font-style: italic;" href="#Server::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#Server::CreateUrl()">CreateUrl</a>,
       <a style="font-style: italic;" href="#Server::Delete()">Delete</a>,
+      <a style="font-style: italic;" href="#Server::DetachVolume()">DetachVolume</a>,
       <a style="font-style: italic;" href="#Server::FindLink()">FindLink</a>,
       <a style="font-style: italic;" href="#Server::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#Server::JsonName()">JsonName</a>,
@@ -107,7 +110,6 @@ rax-bandwidth:bandwith</p><br><div id="methods_Server">
       <a style="font-style: italic;" href="#Server::Reboot()">Reboot</a>,
       <a style="font-style: italic;" href="#Server::Rebuild()">Rebuild</a>,
       <a style="font-style: italic;" href="#Server::Refresh()">Refresh</a>,
-      <a style="font-style: italic;" href="#Server::RemoveVolume()">RemoveVolume</a>,
       <a style="font-style: italic;" href="#Server::Rescue()">Rescue</a>,
       <a style="font-style: italic;" href="#Server::Resize()">Resize</a>,
       <a style="font-style: italic;" href="#Server::ResizeConfirm()">ResizeConfirm</a>,
@@ -120,6 +122,8 @@ rax-bandwidth:bandwith</p><br><div id="methods_Server">
       <a style="font-style: italic;" href="#Server::Update()">Update</a>,
       <a style="font-style: italic;" href="#Server::UpdateJson()">UpdateJson</a>,
       <a style="font-style: italic;" href="#Server::Url()">Url</a>,
+      <a style="font-style: italic;" href="#Server::VolumeAttachment()">VolumeAttachment</a>,
+      <a style="font-style: italic;" href="#Server::VolumeAttachmentList()">VolumeAttachmentList</a>,
       <a style="font-style: italic;" href="#Server::WaitFor()">WaitFor</a>,
       <a style="font-style: italic;" href="#Server::__construct()">__construct</a>,
       <a style="font-style: italic;" href="#Server::__set()">__set</a>,
@@ -278,7 +282,8 @@ value.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Attaches a volume to a server</em><br><small><p>Requires the os-volumes extension.</p></small><br><h4>Arguments</h4>
+<em>Attaches a volume to a server</em><br><small><p>Requires the os-volumes extension. This is a synonym for
+<code>VolumeAttachment::Create()</code></p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -318,16 +323,10 @@ value.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>api</td>
 <td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -701,6 +700,38 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
+<a id="Server::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the URL used for Create</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CreateUrl()"><small>\OpenCloud\PersistentObject::CreateUrl()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Server::Delete()"></a><h3>Delete<span class="nb-faded-text">(
           
           )
@@ -738,6 +769,63 @@ exception thrown.</p>
 <tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Delete()"><small>\OpenCloud\PersistentObject::Delete()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Server::DetachVolume()"></a><h3>DetachVolume<span class="nb-faded-text">(
+          \OpenCloud\Compute\OpenCloud\VolumeService\Volume
+             
+            $vol,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>removes a volume attachment from a server</em><br><small><p>Requires the os-volumes extension. This is a synonym for
+<code>VolumeAttachment::Delete()</code></p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$vol</td>
+<td style="white-space: normal;">\OpenCloud\Compute\OpenCloud\VolumeService\Volume</td>
+<td><p>the volume to remove</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -1260,62 +1348,6 @@ changing states)</em><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Refresh()"><small>\OpenCloud\PersistentObject::Refresh()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Server::RemoveVolume()"></a><h3>RemoveVolume<span class="nb-faded-text">(
-          \OpenCloud\Compute\OpenCloud\VolumeService\Volume
-             
-            $vol,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>removes a volume attachment from a server</em><br><small><p>Requires the os-volumes extension.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$vol</td>
-<td style="white-space: normal;">\OpenCloud\Compute\OpenCloud\VolumeService\Volume</td>
-<td><p>the volume to remove</p></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -1882,6 +1914,78 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Url()"><small>\OpenCloud\PersistentObject::Url()</small></a></td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="method">
+<a id="Server::VolumeAttachment()"></a><h3>VolumeAttachment<span class="nb-faded-text">(
+          
+             
+            $id
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns a VolumeAttachment object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Server::VolumeAttachmentList()"></a><h3>VolumeAttachmentList<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Compute\Collection</span>
+</h3>
+<h4>Description</h4>
+<em>returns a Collection of VolumeAttachment objects</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Compute\Collection</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -2669,7 +2773,7 @@ routed through a NAT device to be reached.</p></small><br><h4>Arguments</h4>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -2739,6 +2843,7 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
 <li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CreateError">CreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CredentialError">CredentialError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
 <li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
@@ -2817,6 +2922,7 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li><span class="class"><a href="volumeattachment.inc.html#VolumeAttachment">VolumeAttachment</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
 </ul>
 </li>

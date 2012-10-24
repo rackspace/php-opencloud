@@ -1,4 +1,5 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -95,6 +96,7 @@ element followed by a child object with attributes.</p><br><div id="methods_Volu
       <a style="font-style: italic;" href="#Volume::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#Volume::Create()">Create</a>,
       <a style="font-style: italic;" href="#Volume::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#Volume::CreateUrl()">CreateUrl</a>,
       <a style="font-style: italic;" href="#Volume::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#Volume::FindLink()">FindLink</a>,
       <a style="font-style: italic;" href="#Volume::GetHttpRequestObject()">GetHttpRequestObject</a>,
@@ -423,7 +425,7 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\VolumeService\stdClass</span>
 </h3>
 <h4>Description</h4>
 <em>Creates the JSON object for the Create() method</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
@@ -433,8 +435,8 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\VolumeService\stdClass</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -446,6 +448,38 @@ exception thrown.</p>
 <tbody><tr>
 <td>throws</td>
 <td>if not overridden</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Volume::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the URL used for Create</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::CreateUrl()"><small>\OpenCloud\PersistentObject::CreateUrl()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -619,7 +653,7 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
 <em>Returns the top-level document identifier</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
@@ -632,8 +666,8 @@ these examples).</p></small><br><h4>Return value</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -841,7 +875,7 @@ changing states)</em><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
 <em>Returns the URL resource</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
@@ -852,8 +886,8 @@ changing states)</em><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1677,7 +1711,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -1747,6 +1781,7 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CollectionError">CollectionError</a><br><small></small></span></li>
 <li><span class="class"><a href="compute.inc.html#Compute">Compute</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#CreateError">CreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#CredentialError">CredentialError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.inc.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
 <li><span class="class"><a href="dbservice.inc.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#DeleteError">DeleteError</a><br><small></small></span></li>
@@ -1825,6 +1860,7 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li><span class="class"><a href="volumeattachment.inc.html#VolumeAttachment">VolumeAttachment</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
 </ul>
 </li>
