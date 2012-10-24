@@ -10,6 +10,7 @@
  */
 
 require_once('volume.inc');
+require_once('volumetype.inc');
 require_once('stub_conn.inc');
 require_once('volumeservice.inc');
 
@@ -56,6 +57,13 @@ class VolumeTest extends PHPUnit_Framework_TestCase
             $this->vol->ResourceName());
     }
     public function testCreateJson() {
+        $type = new OpenCloud\VolumeService\VolumeType(
+            new OpenCloud\VolumeService(
+                new StubConnection('http://', 'S'),
+                'cloudBlockStorage', 'DFW', 'publicURL')
+        );
+        $type->name = 'SSD';
+        $this->vol->volume_type = $type;
         $this->vol->display_name = 'BARFOO';
         $this->vol->metadata = array('one' => 'two');
         $obj = $this->vol->CreateJson();
