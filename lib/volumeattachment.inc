@@ -38,7 +38,7 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	        'volumeId',
 	        'device'
 	    );
-	
+
 	/**
 	 * creates the object
 	 *
@@ -49,7 +49,7 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 		$this->_server = $server;
 		return parent::__construct($server->Service(), $id);
 	}
-	
+
 	/**
 	 * updates are not permitted
 	 *
@@ -58,29 +58,38 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	public function Update() {
 		throw new \OpenCloud\UpdateError(_('Updates are not permitted'));
 	}
-	
+
 	/**
 	 * returns a readable name for the attachment
 	 *
 	 * Since there is no 'name' attribute, we'll hardcode something
 	 *
 	 * @api
+	 * @return string
 	 */
 	public function Name() {
-		return sprintf('Attachment [%s]', $this->id);
+	    if ($this->volumeId)
+	        $id = $this->volumeId;
+	    else
+	        $id = 'N/A';
+		return sprintf('Attachment [%s]', $id);
 	}
 
 	/********** PROTECTED METHODS **********/
-	
+
 	/**
 	 * returns the primary key field
+	 *
+	 * @return string
 	 */
 	protected function PrimaryKeyField() {
 		return 'volumeId';
 	}
-	
+
 	/**
 	 * returns the URL for Create
+	 *
+	 * @return string
 	 */
 	protected function CreateUrl() {
 		return $this->_server->Url(self::URL_RESOURCE);
@@ -95,19 +104,21 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	    $obj = new \stdClass();
 	    $elem = $this->JsonName();
 	    $obj->$elem = new \stdClass();
-	    
+
 	    // set the properties
 	    foreach($this->_create_keys as $key) {
 	    	if ($this->$key) {
 	    		$obj->$elem->$key = $this->$key;
 	    	}
 	    }
-	    
+
 	    return $obj;
 	}
 
 	/**
 	 * Returns the top-level document identifier
+	 *
+	 * @return string
 	 */
 	protected function JsonName() {
 		return self::JSON_ELEMENT;
@@ -115,6 +126,8 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 
 	/**
 	 * Returns the URL resource
+	 *
+	 * @return string
 	 */
 	protected function ResourceName() {
 		return self::URL_RESOURCE;

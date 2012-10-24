@@ -103,25 +103,4 @@ class VolumeService extends Nova {
 			VolumeService\Snapshot::JSON_ELEMENT.'s');
 	}
 
-    /**
-     * Gets a request from an HTTP source and ensures that the
-     * content type is always "application/json"
-     *
-     * This is a simple subclass of the parent::Request() method that ensures
-     * that all Compute requests use application/json as the Content-Type:
-     *
-     * @param string $url - the URL of the request
-     * @param string $method - the HTTP method ("GET" by default)
-     * @param array $headers - an associative array of headers to pass to
-     *      the request
-     * @param string $body - optional body for POST or PUT requests
-     * @return \Rackspace\HttpResult object
-     */
-    /*
-	public function Request($url, $method='GET', $headers=array(), $body=NULL) {
-		$headers['Content-Type'] = 'application/json';
-		return parent::Request($url, $method, $headers, $body);
-	}
-	*/
-
 }

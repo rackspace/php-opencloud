@@ -55,7 +55,7 @@ class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
     }
     public function testName() {
         $this->assertEquals(
-            'Attachment []',
+            'Attachment [FOO]',
             $this->att->Name());
     }
     public function testPrimaryKeyField() {

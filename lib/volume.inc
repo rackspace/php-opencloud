@@ -25,7 +25,7 @@ class Volume extends \OpenCloud\PersistentObject {
 
 	const
 		JSON_ELEMENT =  'volume',		// JSON element for single item
-		URL_RESOURCE = 'volumes';	// URL resource
+		URL_RESOURCE = 'volumes';	    // URL resource
 
 	public
 		$id,
@@ -52,7 +52,7 @@ class Volume extends \OpenCloud\PersistentObject {
 	/**
 	 * Always throws an error; updates are not permitted
 	 *
-	 * @throws VolumeUpdateError always
+	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update() {
 		throw new \OpenCloud\UpdateError(
@@ -73,6 +73,8 @@ class Volume extends \OpenCloud\PersistentObject {
 
 	/**
 	 * Returns the top-level document identifier
+	 *
+	 * @return string
 	 */
 	protected function JsonName() {
 		return self::JSON_ELEMENT;
@@ -80,6 +82,8 @@ class Volume extends \OpenCloud\PersistentObject {
 
 	/**
 	 * Returns the URL resource
+	 *
+	 * @return string
 	 */
 	protected function ResourceName() {
 		return self::URL_RESOURCE;
@@ -87,6 +91,8 @@ class Volume extends \OpenCloud\PersistentObject {
 
 	/**
 	 * Creates the JSON object for the Create() method
+	 *
+	 * @return stdClass
 	 */
 	protected function CreateJson() {
 		$element = $this->JsonName();

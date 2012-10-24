@@ -26,43 +26,48 @@ class VolumeType extends \OpenCloud\PersistentObject {
 	const
 		JSON_ELEMENT = 'volume_type',
 		URL_RESOURCE = 'types';
-		
+
 	public
 		$id,
 		$name,
 		$extra_specs;
-	
+
 	/**
 	 * Creates are not permitted
 	 *
+	 * @throws OpenCloud\CreateError always
 	 */
 	public function Create() {
 		throw new \OpenCloud\CreateError(
 			_('VolumeType cannot be created'));
 	}
-		
+
 	/**
 	 * updates are not permitted
 	 *
+	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update() {
 		throw new \OpenCloud\UpdateError(
 			_('VolumeType cannot be updated'));
 	}
-		
+
 	/**
 	 * deletes are not permitted
 	 *
+	 * @throws OpenCloud\DeleteError
 	 */
 	public function Delete() {
 		throw new \OpenCloud\DeleteError(
 			_('VolumeType cannot be deleted'));
 	}
-		
+
 	/********** PROTECTED METHODS **********/
 
 	/**
 	 * Returns the top-level document identifier
+	 *
+	 * @return string
 	 */
 	protected function JsonName() {
 		return self::JSON_ELEMENT;
@@ -70,6 +75,8 @@ class VolumeType extends \OpenCloud\PersistentObject {
 
 	/**
 	 * Returns the URL resource
+	 *
+	 * @return string
 	 */
 	protected function ResourceName() {
 		return self::URL_RESOURCE;

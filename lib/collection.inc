@@ -57,7 +57,7 @@ class Collection extends Base {
 	public function Service() {
 		return $this->service;
 	}
-	
+
 	/**
 	 * Resets the pointer to the beginning, but does NOT return the first item
 	 *
@@ -69,7 +69,7 @@ class Collection extends Base {
 	}
 
 	/**
-	 * Resets the collection pointer back to the first item in the set 
+	 * Resets the collection pointer back to the first item in the set
 	 * and returns it
 	 *
 	 * This is useful if you're only interested in the first item in the set.
@@ -104,7 +104,7 @@ class Collection extends Base {
 	public function Size() {
 	    return count($this->itemlist);
 	}
-	
+
 	/**
 	 * sorts the collection on a specified key
 	 *
@@ -118,7 +118,7 @@ class Collection extends Base {
 		$this->sortkey = $keyname;
 		usort($this->itemlist, array($this, 'sortCompare'));
 	}
-	
+
 	/**
 	 * selects only specified items from the Collection
 	 *
@@ -140,6 +140,11 @@ class Collection extends Base {
 	 * // now the $services Collection only has items from the ORD region
 	 * </code>
 	 *
+	 * `Select()` is *destructive*; that is, it actually removes entries from
+	 * the collection. For example, if you use `Select()` to find items with
+	 * the ID > 10, then use it again to find items that are <= 10, it will
+	 * return an empty list.
+	 *
 	 * @api
 	 * @param callable $testfunc a callback function that is passed each item
 	 *		in turn. Note that `Select()` performs an explicit test for
@@ -159,19 +164,19 @@ class Collection extends Base {
 				unset($this->itemlist[$index]);
 		}
 	}
-	
+
 	/********** PRIVATE METHODS **********/
-	
+
 	/**
 	 * Compares two values of sort keys
 	 */
 	private function sortCompare($a, $b) {
 		$key = $this->sortkey;
-		
+
 		// handle strings with strcmp()
 		if (is_string($a->$key))
 			return strcmp($a->$key, $b->$key);
-		
+
 		// handle others with logical comparisons
 		if ($a->$key == $b->$key)
 			return 0;

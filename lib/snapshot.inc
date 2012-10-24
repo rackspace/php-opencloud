@@ -44,6 +44,7 @@ class Snapshot extends \OpenCloud\PersistentObject {
 	/**
 	 * updates are not permitted
 	 *
+	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update() {
 		throw new \OpenCloud\UpdateError(
