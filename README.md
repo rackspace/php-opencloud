@@ -1,4 +1,4 @@
-php-opencloud
+**php-opencloud**
 =============
 PHP SDK for OpenStack/Rackspace APIs
 
@@ -23,7 +23,7 @@ http://www.rackspace.com/cloud and follow the prompts.
 If you are working with an OpenStack deployment, you can find more
 information at http://www.openstack.org.
 
-You can download the latest packaged versions of php-opencloud on
+You can download the latest packaged versions of **php-opencloud** on
 [the Downloads page](https://github.com/rackspace/php-opencloud/downloads).
 
 ### Requirements
@@ -68,9 +68,9 @@ The file
 [docs/quickref.md](php-opencloud/blob/master/docs/quickref.md) 
 contains a Quick Reference 
 guide to the
-<b>php-opencloud</b> library.
+**php-opencloud** library.
 
-The source for the "Getting Started with php-opencloud" document (the
+The source for the "Getting Started with **php-opencloud**" document (the
 user's guide) starts in 
 [docs/userguide/index.md](php-opencloud/blob/master/docs/userguide/index.md).
 
@@ -90,7 +90,7 @@ for which you could be charged.
 
 Support and Feedback
 --------------------
-Your feedback is appreciated! If you have specific issues with the php-opencloud
+Your feedback is appreciated! If you have specific issues with the **php-opencloud**
 language bindings, we'd prefer that you file an issue via Github if you're a 
 developer. 
 
