@@ -667,9 +667,35 @@ used, for example, as a backup point; and you can later create a volume from
 the snapshot.
 
 #### To create a snapshot
+
+A `Snapshot` object is created from the Cloud Block Storage service. However,
+it is associated with a volume, and you must specify a volume to create one:
+
+	$snapshot = $dallas->Snapshot();	// empty Snapshot object
+	$snapshot->Create(array(
+		'display_name' => 'Name that snapshot',
+		'volume_id' => $volume->id));
+
 #### To list snapshots
+
+The `SnapshotList` method returns a Collection of Snapshot objects:
+
+	$snaplist = $dallas->SnapshotList();
+	while($snap = $snaplist->Next())
+		printf("[%s] %s\n", $snap->id, $snap->Name());
+
 #### To get details on a single snapshot
+
+To retrieve a single Snapshot, specify its ID on the `Snapshot` method:
+
+	$snapshot = $dallas->Snapshot({snapshot-id});
+
 #### To delete a snapshot
+
+Use the `Delete()` method to remove a snapshot:
+
+	$snapshot->Delete();
+
 ### Volumes and Servers
 
 A volume by itself is not much use; to be useful, it must be attached to
