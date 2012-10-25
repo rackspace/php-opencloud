@@ -60,6 +60,16 @@ class CurlRequest implements HTTPRequest {
 
 		// set our options
         $this->SetOption(CURLOPT_CUSTOMREQUEST, $method);
+        
+        // set security handling options
+        if (RAXSDK_SSL_VERIFYHOST != 2)
+            $this->debug(
+                _('WARNING: RAXSDK_SSL_VERIFYHOST has reduced security, value [%d]'),
+                RAXSDK_SSL_VERIFYPEER);
+        if (RAXSDK_SSL_VERIFYPEER !== TRUE)
+            $this->debug('WARNING: RAXSDK_SSL_VERIFYPEER has reduced security');
+        $this->SetOption(CURLOPT_SSL_VERIFYHOST, RAXSDK_SSL_VERIFYHOST);
+        $this->SetOption(CURLOPT_SSL_VERIFYPEER, RAXSDK_SSL_VERIFYPEER);
 
         // follow redirects
         $this->SetOption(CURLOPT_FOLLOWLOCATION, TRUE);

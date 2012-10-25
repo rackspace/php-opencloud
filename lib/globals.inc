@@ -94,12 +94,26 @@ if (!defined('RAXSDK_DEFAULT_IP_VERSION'))
     define('RAXSDK_DEFAULT_IP_VERSION', 4);
 if (!defined('RAXSDK_OVERLIMIT_TIMEOUT'))
     define('RAXSDK_OVERLIMIT_TIMEOUT', 300);
+/**
+ * sets default (highly secure) value for CURLOPT_SSL_VERIFYHOST. If you are using
+ * a self-signed SSL certificate, you can reduce this setting, but you do so at your
+ * own risk. 
+ */
+if (!defined('RAXSDK_SSL_VERIFYHOST'))
+    define('RAXSDK_SSL_VERIFYHOST', 2);
+/**
+ * sets default (highly secure) value for CURLOPT_SSL_VERIFYPEER. If you are using
+ * a self-signed SSL certificate, you can reduce this setting, but you do so at your
+ * own risk.
+ */
+if (!defined('RAXSDK_SSL_VERIFYPEER'))
+    define('RAXSDK_SSL_VERIFYPEER', TRUE);
 
 // set the default timezone
 date_default_timezone_set(RAXSDK_TIMEZONE);
 
 /* these should not be overridden */
-define('RAXSDK_VERSION', '1.0');
+define('RAXSDK_VERSION', '1.1');
 define('RAXSDK_USER_AGENT', 'php-opencloud/'.RAXSDK_VERSION.' (Rackspace)');
 define('RAXSDK_ERROR', 'Error:');
 define('RAXSDK_FATAL', 'FATAL ERROR:');

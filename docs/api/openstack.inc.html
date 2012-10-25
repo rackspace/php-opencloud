@@ -1,5 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -998,7 +997,7 @@ creating new service objects.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="OpenStack::SetDownloadProgressCallback()"></a><h3>SetDownloadProgressCallback<span class="nb-faded-text">(
-          \OpenCloud\callable
+          callable
              
             $callback,
           
@@ -1020,7 +1019,7 @@ data that is being downloaded on this call.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$callback</td>
-<td style="white-space: normal;">\OpenCloud\callable</td>
+<td style="white-space: normal;">callable</td>
 <td><p>the name of a global callback function, or an array($object, $functionname)</p>
 </td>
 <td></td>
@@ -1108,7 +1107,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
+<td>if strict checks are on and
+     the property prefix is not in the list of prefixes.</td>
 </tr>
 <tr>
 <td>inherited_from</td>
@@ -1194,7 +1194,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="OpenStack::SetUploadProgressCallback()"></a><h3>SetUploadProgressCallback<span class="nb-faded-text">(
-          \OpenCloud\callable
+          callable
              
             $callback,
           
@@ -1216,7 +1216,7 @@ data that is being uploaded on this call.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$callback</td>
-<td style="white-space: normal;">\OpenCloud\callable</td>
+<td style="white-space: normal;">callable</td>
 <td><p>the name of a global callback function, or an array($object, $functionname)</p>
 </td>
 <td></td>

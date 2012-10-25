@@ -1,5 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title></title><meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta><link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.2.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/default.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script></head><body><script type="text/javascript">
           $(document).ready(function()
           {
             $(".filetree").treeview({
@@ -556,7 +555,8 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>\OpenCloud\Compute\HttpResponse</td>
-<td>- this will include the administrative password in the body</td>
+<td>- this will include the administrative password
+     in the body</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1389,7 +1389,8 @@ changing states)</em><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>throws</td>
-<td>if the server has no ID (i.e., has not been created yet)</td>
+<td>if the server has no ID (i.e., has not
+     been created yet)</td>
 </tr>
 </tbody>
 </table>
@@ -1693,7 +1694,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
+<td>if strict checks are on and
+     the property prefix is not in the list of prefixes.</td>
 </tr>
 <tr>
 <td>inherited_from</td>
@@ -1743,7 +1745,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>throws</td>
-<td>if the server has no ID (i.e., has not been created yet)</td>
+<td>if the server has no ID (i.e., has not
+     been created yet)</td>
 </tr>
 </tbody>
 </table>
@@ -1998,7 +2001,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
              
             $timeout
             = RAXSDK_SERVER_MAXTIMEOUT,
-          \OpenCloud\callable
+          callable
              
             $callback
             = NULL,
@@ -2040,7 +2043,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>$callback</td>
-<td style="white-space: normal;">\OpenCloud\callable</td>
+<td style="white-space: normal;">callable</td>
 <td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
 <td>NULL</td>
 </tr>
