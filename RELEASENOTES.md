@@ -1,6 +1,11 @@
 RELEASE NOTES
 -------------
 
+### 10/25/2012 Version 1.1
+* Fix for security issue #6
+* Includes Quick Reference material on Cinder/Cloud Block Storage, but
+  no additional docs yet (they're in progress)
+
 ### 10/12/2012 Version 1.0 final
 * More refactoring to reduce the amount of duplicated code
 * Fix for issue #3
