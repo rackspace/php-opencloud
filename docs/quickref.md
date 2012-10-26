@@ -724,3 +724,10 @@ Example:
     $server->AttachVolume($volume); // uses the 'auto' mount point
 
 #### To detach a volume from a server
+
+Syntax:
+
+	$server = $compute->Server({server-id});
+	$volume = $dallas->Volume({volume-id});
+	$server->DetachVolume($volume);
+

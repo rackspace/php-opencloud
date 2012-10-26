@@ -15,4 +15,4 @@ Table of contents
 * [Working with flavors](flavors.md)
 * [About the access IPs](accessip.md)
 * [Working with Cloud Databases](dbaas.md)
-
+* [Working with Volumes](volumes.md)

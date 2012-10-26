@@ -165,7 +165,16 @@ Take server out of rescue mode:
 This restores the server to its original state (plus any changes you may have
 made while it was in rescue mode).
 
+## Volumes
+
+See [Working with Volumes](volumes.md) for information on the 
+`Server::AttachVolume()`
+and `Server::DetachVolume()` methods. 
+
 ## What next?
 
-Return to the [Table of Contents](toc.md)
+* Return to the [Table of Contents](toc.md). 
+* To learn about dynamic 
+  volume creation and assignment, see 
+  [Working with Volumes](volumes.md).
 
