@@ -8,12 +8,14 @@
  * @version 1.0.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-
+ 
 require_once('objstorebase.inc');
 require_once('http.inc');
 
 // stub class, since ObjStoreBase is abstract
-class MyObjStoreBase extends OpenCloud\ObjectStore\ObjStoreBase {}
+class MyObjStoreBase extends \OpenCloud\ObjectStore\ObjStoreBase {
+	public $name='FOOBAR';
+}
 
 class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
 {
@@ -26,6 +28,7 @@ class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
      * Tests
      */
     public function test__construct() {
+        $this->obj = new MyObjStoreBase();
         $this->assertEquals(
             'OpenCloud\Metadata',
             get_class($this->obj->metadata));
@@ -40,5 +43,21 @@ class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
             'X-Meta-Else'=>'BAR'
         );
         $this->obj->GetMetadata($blank);
+    }
+    /**
+     * @expectedException OpenCloud\ObjectStore\MetadataPrefixError
+     */
+    public function testMetadataHeaders() {
+    	$this->obj->metadata = new \stdClass();
+    	$this->obj->metadata->foo = 'BAR';
+    	$arr = $this->obj->MetadataHeaders();
+    	$this->assertEquals(
+    		'',
+    		$arr['foo']);
+    }
+    public function testName() {
+    	$this->assertEquals(
+    		'FOOBAR',
+    		$this->obj->Name());
     }
 }

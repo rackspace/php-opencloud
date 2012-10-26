@@ -54,15 +54,6 @@ abstract class ObjStoreBase extends \OpenCloud\Base {
 	    $this->metadata = new \OpenCloud\Metadata();
 	    $prefix = $this->Prefix();
 	    $this->metadata->SetArray($response->Headers(), $prefix);
-	    /*
-		foreach($response->Headers() as $header => $value) {
-			$prefix = $this->prefix();
-			if (strpos($header, $prefix) === 0) {
-				$name = substr($header, strlen($prefix));
-				$this->metadata[$name] = $value;
-			}
-		}
-		*/
 	}
 
 	/**
@@ -100,7 +91,7 @@ abstract class ObjStoreBase extends \OpenCloud\Base {
 			return $this->name;
 		else
 			throw new \OpenCloud\NameError(sprintf(
-				_('Name attribute does not exist for [%s]'),
+				_('name attribute does not exist for [%s]'),
 				get_class($this)));
 	}
 
