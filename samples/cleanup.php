@@ -68,13 +68,13 @@ while($server = $list->Next())
 step('Deleting snapshots');
 $list = $cbs->SnapshotList();
 while($snap = $list->Next()) {
-    if (($snap->status=='error')||($snap->status=='available')) {
+    if (($snap->Status()=='error')||($snap->Status()=='available')) {
         info('Deleting snapshot [%s] %s', $snap->id, $snap->Name());
         $snap->Delete();
     }
     else
         info('[%s] %s status is %s',
-            $snap->id, $snap->Name(), $snap->status);
+            $snap->id, $snap->Name(), $snap->Status());
 }
 
 step('Deleting SAMPLENET and SMOKETEST Networks');
@@ -111,8 +111,8 @@ while($lb = $list->Next()) {
 step('Deleting unused volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {
-	if (in_array($vol->status, array('in-use','attaching')))
-		info('Volume [%s] %s is %s', $vol->id, $vol->Name(), $vol->status);
+	if (in_array($vol->Status(), array('in-use','attaching')))
+		info('Volume [%s] %s is %s', $vol->id, $vol->Name(), $vol->Status());
 	else {
 		info('Deleting volume [%s] %s', $vol->id, $vol->Name());
 		$vol->Delete();
