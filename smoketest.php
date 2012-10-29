@@ -133,6 +133,7 @@ step('Attach the volume');
 //setDebug(TRUE);
 $server->AttachVolume($volume);
 setDebug(FALSE);
+$volume->WaitFor('in-use', 600, 'dotter');
 
 step('Update the server name');
 $server->Update(array('name'=>SERVERNAME));
@@ -288,8 +289,8 @@ exit();
  * Callback for the WaitFor() method
  */
 function dotter($obj) {
-    info('...waiting on %s/%s - %d%%',
-		$obj->name,
-		$obj->status,
+    info('...waiting on %s/%-12s %3d%%',
+		$obj->Name(),
+		$obj->Status(),
 		isset($obj->progress) ? $obj->progress : 0);
 }
