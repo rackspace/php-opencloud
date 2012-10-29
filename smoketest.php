@@ -16,6 +16,8 @@ define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
 define('NETWORKNAME', 'SMOKETEST');
 define('MYREGION', $_ENV['OS_REGION_NAME']);
+define('VOLUMENAME', 'SmokeTestVolume');
+define('VOLUMESIZE', 103);
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -34,8 +36,8 @@ function step($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
     global $STEPCOUNTER;
     printf("\nStep %d. %s\n", ++$STEPCOUNTER, sprintf($msg,$p1,$p2,$p3));
 }
-function info($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
-    printf("  %s\n", sprintf($msg,$p1,$p2,$p3));
+function info($msg,$p1=NULL,$p2=NULL,$p3=NULL,$p4=NULL,$p5=NULL) {
+    printf("  %s\n", sprintf($msg,$p1,$p2,$p3,$p4,$p5));
 }
 define('TIMEFORMAT', 'r');
 
@@ -84,6 +86,37 @@ $netlist->Sort('label');
 while($net = $netlist->Next())
 	info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
 
+step('Connect to the VolumeService');
+$cbs = $rackspace->VolumeService('cloudBlockStorage', MYREGION);
+
+step('Volume Types');
+$list = $cbs->VolumeTypeList();
+while($vtype = $list->Next()) {
+	info('%s - %s', $vtype->id, $vtype->name);
+}
+
+step('Create a new Volume');
+$volume = $cbs->Volume();
+//setDebug(TRUE);
+$volume->Create(array(
+	'display_name' => VOLUMENAME,
+	'display_description' => 'A sample volume for testing',
+	'size' => VOLUMESIZE,
+	'volume_type' => $cbs->VolumeType(2)
+));
+$volume = $cbs->Volume($volume->id);
+setDebug(FALSE);
+
+step('Listing volumes');
+$list = $cbs->VolumeList();
+while($vol = $list->Next()) {
+	info('Volume: %s %s [%s] size=%d',
+		$vol->id,
+		$vol->display_name,
+		$vol->display_description,
+		$vol->size);
+}
+
 step('Create Server');
 $server = $cloudservers->Server();
 $server->Create(array(
@@ -94,7 +127,12 @@ $server->Create(array(
 ));
 
 step('Wait for Server create');
-$server->WaitFor('ACTIVE', 300, 'dotter');
+$server->WaitFor('ACTIVE', 600, 'dotter');
+
+step('Attach the volume');
+//setDebug(TRUE);
+$server->AttachVolume($volume);
+setDebug(FALSE);
 
 step('Update the server name');
 $server->Update(array('name'=>SERVERNAME));
@@ -109,6 +147,14 @@ $list = $cloudservers->ServerList();
 $list->Sort('name');
 while($s = $list->Next())
     info($s->name);
+
+step('Listing the server volume attachments');
+//setDebug(TRUE);
+$list = $server->VolumeAttachmentList();
+while($vol = $list->Next())
+	info('%s %-20s', $vol->id, $vol->Name());
+setDebug(FALSE);
+//exit;
 
 step('Deleting the test server(s)');
 $list = $cloudservers->ServerList();
@@ -223,6 +269,9 @@ $container->Delete();
 /**
  * Cleanup
  */
+step('Deleting the test volume');
+$volume->Delete();
+
 step('Deleting the test network(s)');
 $list = $cloudservers->NetworkList();
 while($network = $list->Next()) {
