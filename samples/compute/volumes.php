@@ -2,6 +2,8 @@
 /**
  * (c)2012 Rackspace Hosting. See COPYING for license details
  *
+ * This script creates a volume and attaches it to a server—an existing 
+ * server, if possible; if not, it will create a new server.
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
@@ -18,7 +20,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('VOLUMENAME', 'SampleVolume');
-define('VOLUMESIZE', 100);
+define('VOLUMESIZE', 101);
 define('SERVERNAME', 'CBS-test-server');
 
 /**
@@ -85,6 +87,7 @@ $slist = $compute->ServerList(TRUE, array('name'=>SERVERNAME));
 
 if ($slist->Size() > 0) {
 	$server = $slist->First();
+	info("Using [%s] %s", $server->id, $server->Name());
 }
 else {
 	step('Create a server');
@@ -100,9 +103,9 @@ else {
 }
 
 step('Attach volume to server');
-setDebug(TRUE);
 $server->AttachVolume($volume);	// use 'auto' device
-setDebug(FALSE);
+$volume->WaitFor('in-use', 600, 'dot');
+print "\n";
 
 step('Create a snapshot');
 $snap = $cbs->Snapshot();   // empty snapshot object
@@ -120,7 +123,10 @@ step('DONE');
 exit;
 
 // callback for WaitFor
-function dot($server) {
-    printf("\r\t%s %s %3d%% %s",
-        $server->id, $server->name, $server->progress, $server->status);
+function dot($object) {
+    printf("\r\t%s %s %3d%% %-10s",
+        $object->id, 
+        $object->Name(), 
+        get_class($object)=='OpenCloud\Compute\Server' ? $object->progress : 0, 
+        $object->status);
 }

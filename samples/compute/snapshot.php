@@ -2,6 +2,9 @@
 /**
  * (c)2012 Rackspace Hosting. See COPYING for license details
  *
+ * This is a simple script that iterates through the volumes owned by the
+ * current user and creates a Snapshot of each of them. The name of the 
+ * snapshot created it {volume name} + "Snapshot" + time().
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));

@@ -111,8 +111,8 @@ while($lb = $list->Next()) {
 step('Deleting unused volumes');
 $list = $cbs->VolumeList();
 while($vol = $list->Next()) {
-	if ($vol->status == 'in-use')
-		info('Volume [%s] %s is in use', $vol->id, $vol->Name());
+	if (in_array($vol->status, array('in-use','attaching')))
+		info('Volume [%s] %s is %s', $vol->id, $vol->Name(), $vol->status);
 	else {
 		info('Deleting volume [%s] %s', $vol->id, $vol->Name());
 		$vol->Delete();
