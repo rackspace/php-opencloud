@@ -59,6 +59,16 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		// trigger error
 		$this->lb->AddVirtualIp('foobar');
 	}
+	public function testStats() {
+		$this->lb->id = 1024;
+		$x = $this->lb->Stats();
+		$this->assertEquals(
+			'stdClass',
+			get_class($x));
+		$this->assertEquals(
+			10,
+			$x->connectTimeOut);
+	}
 	public function testCreateJson() {
 		$this->lb->name = 'FOOBAR';
 		$obj = $this->lb->CreateJson();

@@ -50,6 +50,15 @@ ENDNW;
 			$resp->body = NULL;
 			$resp->status = 200;
 		}
+		elseif (preg_match('/loadbalancers\/.*\/stats$/', $url)) {
+			$resp->body = <<<ENDLBSTATS
+{"connectTimeOut":10,"connectError":20,"connectFailure":30,"dataTimedOut":40,
+"keepAliveTimedOut":50,"maxConn":60}
+ENDLBSTATS;
+		}
+		elseif (strpos($url, '/loadbalancers/')) {
+			$resp->status = 200;
+		}
 		elseif (strpos($url, '/loadbalancers')) {
 			$resp->body = <<<ENDLB
 {"loadBalancers":[{"name":"one","id":1,"protocol":"HTTP","port":80}]}

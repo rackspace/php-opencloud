@@ -132,6 +132,30 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 
 	    $this->virtualIps[] = $obj;
 	}
+	
+	/**
+	 * returns statistics on this LoadBalancer
+	 *
+	 * @api
+	 * @return stdClass object containing LoadBalancer stats
+	 * @throws OpenCloud\HttpError if HTTP return code is not 200
+	 */
+	public function Stats() {
+		$url = $this->Url('stats');
+		$response = $this->Service()->Request($url);
+		
+		// trap errors
+		if ($response->HttpStatus() > 200)
+			throw new \OpenCloud\HttpError(sprintf(
+				_('HTTP error on Stats() method, code [%d] response [%s]'),
+				$response->HttpStatus(), $response->HttpBody()));
+		
+		// parse the returned json
+		$obj = json_decode($response->HttpBody());
+		if ($this->CheckJsonError())
+			return FALSE;
+		return $obj;
+	}
 
 	/********** PROTECTED METHODS **********/
 
