@@ -350,6 +350,7 @@ abstract class PersistentObject extends Base {
 	 * objects if the object does not have a `name` attribute defined.
 	 *
 	 * @api
+	 * @return string
 	 * @throws NameError if attribute 'name' is not defined
 	 */
 	public function Name() {
@@ -359,6 +360,34 @@ abstract class PersistentObject extends Base {
 			throw new NameError(sprintf(
 				_('Name attribute does not exist for [%s]'),
 				get_class($this)));
+	}
+	
+	/**
+	 * returns the object's status or `N/A` if not available
+	 *
+	 * @api
+	 * @return string
+	 */
+	public function Status() {
+		if (isset($this->status))
+			return $this->status;
+		else
+			return 'N/A';
+	}
+	
+	/**
+	 * returns the object's identifier
+	 *
+	 * Can be overridden by a child class if the identifier is not in the
+	 * `$id` property. Use of this function permits the `$id` attribute to
+	 * be protected or private to prevent unauthorized overwriting for
+	 * security.
+	 *
+	 * @api
+	 * @return string
+	 */
+	public function Id() {
+		return $this->id;
 	}
 
 	/**
