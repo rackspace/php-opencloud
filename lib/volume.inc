@@ -29,6 +29,7 @@ class Volume extends \OpenCloud\PersistentObject {
 
 	public
 		$id,
+		$status,
 		$display_name,
 		$display_description,
 		$size,

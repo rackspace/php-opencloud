@@ -28,6 +28,7 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 		URL_RESOURCE = 'os-volume_attachments';
 
 	public
+		$id,
 		$device,
 		$serverId,
 		$volumeId;
