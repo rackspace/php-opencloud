@@ -445,7 +445,7 @@ class Server extends \OpenCloud\PersistentObject {
 	 */
 	public function AddFile($path, $data) {
 		// set the value
-		$this->personality[$path] = $data;
+		$this->personality[$path] = base64_encode($data);
 	}
 
 	/*********** PROTECTED METHODS ***********/
