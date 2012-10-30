@@ -282,6 +282,22 @@ modified with a new image and/or flavor.
         'image' => $myimage,
         'flavor' => $myflavor));
 
+### Update a server
+
+Update is similar to `Create()`; however, you can only update a server's name.
+
+	$server->Update(array('name'=>'A NEW NAME!'));
+
+### Delete a server
+
+The `Delete()` method deletes a server:
+
+	$server->Delete();
+
+This is normally destructive and the server is *not* recoverable; however,
+providers may have a mechanism for recovering deleted servers. Contact
+your provider for support. 
+
 ### Performing server actions
 
 The following examples perform actions on the server to create an image,
