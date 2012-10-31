@@ -385,7 +385,7 @@ The following examples assume the use of the `$compute` object.
 
 ### Create a new network
 
-To create a isolated network, you must specify a `label` (name) and a CIDR
+To create an isolated network, you must specify a `label` (name) and a CIDR
 (range of addresses in CIDR notation):
 
     $backend_network = $compute->Network();     // empty network object

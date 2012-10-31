@@ -1,16 +1,18 @@
 Working with Objects
 ====================
 
-Objects are the fundamental component of the Object Storage service. An "object" can be
-an image, a movie, a file, or anything else that has bits and requires a place to
-be stored.
+Objects are the fundamental component of the Object Storage service.
+An "object" can be an image, a movie, a file, or anything else that
+has bits and requires a place to be stored.
 
-Unfortunately, the term *object* has a very specific meaning in terms of computer
-programming, and it can be rather confusing to have multiple things carry the same
-"object" moniker. Thus, *php-opencloud* refers to an object stored in the object
-storage service as a `DataObject`. This is purely to avoid confusion—for example, the 
-built-in PHP function `is_object()` checks to see whether its argument is a PHP
-object, not if it's stored in the `ObjectStore`.
+Unfortunately, the term *object* has a very specific meaning in
+terms of computer programming, and it can be rather confusing to
+have multiple things carry the same "object" moniker. Thus,
+*php-opencloud* refers to an object stored in the object storage
+service as a `DataObject`. This is purely to avoid confusion—for
+example, the built-in PHP function `is_object()` checks to see
+whether its argument is a PHP object, not if it's stored in the
+`ObjectStore`.
 
 Thus, the complete hierarchy for the object storage service is:
 
@@ -21,8 +23,8 @@ Thus, the complete hierarchy for the object storage service is:
 
 ### The DataObject class and its methods
 
-You create an (empty) `DataObject` by calling the factory method on a `Container`
-object:
+You create an (empty) `DataObject` by calling the factory method
+on a `Container` object:
 
 	$cloud = new OpenStack(...);
 	$ostore = $cloud->ObjectStore(...);
@@ -55,12 +57,13 @@ These are the available methods (examples are below):
 
 #### Large objects
 
-It is not uncommon for objects stored in the object storage service to me much
-large that the available memory on the server. For example, the server may only
-have a few gigabytes of memory, but a stored video file may be 100GB in size. 
-Thus, the objects' data is typically read from (or written to) files in the
-local filesystem. This is not always the case, of course, so other methods
-are provided, but they are marked as (rarely used) in the list above.
+It is not uncommon for objects stored in the object storage service
+to me much large that the available memory on the server. For
+example, the server may only have a few gigabytes of memory, but a
+stored video file may be 100GB in size.  Thus, the objects' data
+is typically read from (or written to) files in the local filesystem.
+This is not always the case, of course, so other methods are provided,
+but they are marked as (rarely used) in the list above.
 
 ## What's Next?
 
