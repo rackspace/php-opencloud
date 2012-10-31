@@ -1,4 +1,4 @@
-Working with object storage services
+Working with Object Storage Services
 ====================================
 
 *Swift* is the OpenStack object storage service. In the *php-opencloud* library,

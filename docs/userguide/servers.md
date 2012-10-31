@@ -1,4 +1,4 @@
-Working with servers
+Working with Servers
 ====================
 
 A *server* is a virtual machine instance that is managed by OpenStack Nova,

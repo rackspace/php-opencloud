@@ -1,4 +1,4 @@
-Working with images
+Working with Images
 ===================
 
 An `Image` object represents a stored virtual machine image. Images are used

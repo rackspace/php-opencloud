@@ -1,4 +1,4 @@
-Exceptions and errors
+Exceptions and Errors
 =====================
 
 <b>php-opencloud</b> handles errors by throwing 

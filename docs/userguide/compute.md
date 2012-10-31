@@ -1,4 +1,4 @@
-Working with compute services
+Working with Compute Services
 =============================
 
 *Nova* is the OpenStack compute service and is used to manage virtual

@@ -1,4 +1,4 @@
-Getting started with php-opencloud
+Getting Started with php-opencloud
 ==================================
 
 [Table of Contents](toc.md)

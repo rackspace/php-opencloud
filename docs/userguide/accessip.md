@@ -1,4 +1,4 @@
-About the access IP addresses
+About the Access IP Addresses
 =============================
 
 OpenStack deployments generally provide new [servers](servers.md) with one

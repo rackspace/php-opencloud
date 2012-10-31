@@ -1,4 +1,4 @@
-Working with services
+Working with Services
 =====================
 
 When you [authenticate](authentication.md) against an OpenStack-based

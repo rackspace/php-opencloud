@@ -1,4 +1,4 @@
-Working with objects
+Working with Objects
 ====================
 
 Objects are the fundamental component of the Object Storage service. An "object" can be

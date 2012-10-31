@@ -1,4 +1,4 @@
-Factory methods
+Factory Methods
 ===============
 
 Much of the work in <b>php-opencloud</b> is handled by _factory methods_.
