@@ -11,11 +11,11 @@ object. Like other [services](services.md), it is created from the top-level
 connection object (either `OpenStack` or `Rackspace`). The correct service is
 selected from the service catalog by specifying:
 
-* the service name (e.g., 'cloudBlockStorage')
-* the region (e.g., 'ORD')
-* the URL type (e.g., 'publicURL')
+* the service name (for example, 'cloudBlockStorage')
+* the region (for example, 'ORD')
+* the URL type (for example, 'publicURL')
 
-Defaults are provided for the service name and URL type; to specify a
+Defaults are provided for the service name and URL type. To specify a
 default region, define the `RAXSDK_VOLUME_REGION` constant *before* including
 the top-level library file:
 
@@ -100,7 +100,7 @@ a `VolumeType` object.
 
 #### To list volumes
 
-The `VolumeList` method returns a Collection of Volume objects:
+The `VolumeList()` method returns a Collection of Volume objects:
 
     $volumes = $dallas->VolumeList();
     $volumes->Sort('display_name');
@@ -111,7 +111,7 @@ This lists all the volumes associated with your account.
 
 #### To get details on a single volume
 
-If you specify an ID on the `Volume` method, it retrieves information on
+If you specify an ID on the `Volume()` method, it retrieves information on
 the specified volume:
 
     $myvolume = $dallas->Volume('0d0f90209...');
@@ -119,7 +119,7 @@ the specified volume:
 
 #### To delete a volume
 
-The `Delete` method deletes a volume:
+The `Delete()` method deletes a volume:
 
     $myvolume->Delete();
 
@@ -141,7 +141,7 @@ it is associated with a volume, and you must specify a volume to create one:
 
 #### To list snapshots
 
-The `SnapshotList` method returns a Collection of Snapshot objects:
+The `SnapshotList()` method returns a Collection of Snapshot objects:
 
 	$snaplist = $dallas->SnapshotList();
 	while($snap = $snaplist->Next())
@@ -149,7 +149,7 @@ The `SnapshotList` method returns a Collection of Snapshot objects:
 
 #### To get details on a single snapshot
 
-To retrieve a single Snapshot, specify its ID on the `Snapshot` method:
+To retrieve a single `Snapshot`, specify its ID on the `Snapshot()` method:
 
 	$snapshot = $dallas->Snapshot({snapshot-id});
 
@@ -161,7 +161,7 @@ Use the `Delete()` method to remove a snapshot:
 
 ### Volumes and Servers
 
-A volume by itself is not much use; to be useful, it must be attached to
+A volume by itself is useful when it is attached to
 a server so that the server can use the volume.
 
 #### To attach a volume to a server

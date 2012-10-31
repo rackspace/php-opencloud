@@ -174,6 +174,7 @@ and `Server::DetachVolume()` methods.
 ## What next?
 
 * Return to the [Table of Contents](toc.md). 
+* See also [Working with Networks](networks.md).
 * To learn about dynamic 
   volume creation and assignment, see 
   [Working with Volumes](volumes.md).

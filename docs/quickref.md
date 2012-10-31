@@ -396,7 +396,7 @@ To create an isolated network, you must specify a `label` (name) and a CIDR
 
 ### Retrieve an existing network
 
-To retrieve information on an existing network, use the `Compute::Network`
+To retrieve information on an existing network, use the `Compute::Network()`
 method and specify a network ID:
 
     $mynetwork = $compute->Network('0fe1-819...');
@@ -414,7 +414,7 @@ delete the attached servers.
 
 ### Listing networks
 
-The `Compute::NetworkList` method returns a `Collection` of `Network` objects:
+The `Compute::NetworkList()` method returns a `Collection` of `Network` objects:
 
     $mynetworks = $compute->NetworkList();
     $mynetworks->Sort('label');
@@ -436,9 +436,9 @@ They are necessary, however, to attach a server to one of these networks
 
 ### Creating a server with virtual networks
 
-To attach a new server to one or more networks, use the 'networks' attribute
+To attach a new server to one or more networks, use the `$networks` attribute
 (which is an array)
-as a parameter for the `Server::Create` method:
+as a parameter for the `Server::Create()` method:
 
     $server = $compute->Server();
     $server->Create(array(
