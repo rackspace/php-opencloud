@@ -101,6 +101,7 @@ element followed by a child object with attributes.</p><br><div id="methods_Load
       <a style="font-style: italic;" href="#LoadBalancer::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#LoadBalancer::FindLink()">FindLink</a>,
       <a style="font-style: italic;" href="#LoadBalancer::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Id()">Id</a>,
       <a style="font-style: italic;" href="#LoadBalancer::JsonName()">JsonName</a>,
       <a style="font-style: italic;" href="#LoadBalancer::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Name()">Name</a>,
@@ -109,6 +110,8 @@ element followed by a child object with attributes.</p><br><div id="methods_Load
       <a style="font-style: italic;" href="#LoadBalancer::ResourceName()">ResourceName</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Service()">Service</a>,
       <a style="font-style: italic;" href="#LoadBalancer::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Stats()">Stats</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Status()">Status</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Update()">Update</a>,
       <a style="font-style: italic;" href="#LoadBalancer::UpdateJson()">UpdateJson</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Url()">Url</a>,
@@ -787,6 +790,47 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
+<a id="LoadBalancer::Id()"></a><h3>Id<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the object's identifier</em><br><small><p>Can be overridden by a child class if the identifier is not in the
+<code>$id</code> property. Use of this function permits the <code>$id</code> attribute to
+be protected or private to prevent unauthorized overwriting for
+security.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Id()"><small>\OpenCloud\PersistentObject::Id()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="LoadBalancer::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
@@ -884,7 +928,7 @@ these examples).</p></small><br><h4>Return value</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
 <em>Returns the displayable name of the object</em><br><small><p>Can be overridden by child objects; <em>must</em> be overridden by child
@@ -895,8 +939,8 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1147,8 +1191,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td>if strict checks are on and
-     the property prefix is not in the list of prefixes.</td>
+<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
 </tr>
 <tr>
 <td>inherited_from</td>
@@ -1157,6 +1200,82 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::SetProperty()"><small>\OpenCloud\PersistentObject::SetProperty()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::Stats()"></a><h3>Stats<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\LoadBalancerService\stdClass</span>
+</h3>
+<h4>Description</h4>
+<em>returns statistics on this LoadBalancer</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\LoadBalancerService\stdClass</td>
+<td>object containing LoadBalancer stats</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if HTTP return code is not 200</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::Status()"></a><h3>Status<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the object's status or `N/A` if not available</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Status()"><small>\OpenCloud\PersistentObject::Status()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1327,7 +1446,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
              
             $timeout
             = RAXSDK_SERVER_MAXTIMEOUT,
-          callable
+          \OpenCloud\callable
              
             $callback
             = NULL,
@@ -1369,7 +1488,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>$callback</td>
-<td style="white-space: normal;">callable</td>
+<td style="white-space: normal;">\OpenCloud\callable</td>
 <td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
 <td>NULL</td>
 </tr>
@@ -1944,7 +2063,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -2093,7 +2212,8 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
-<li><span class="class"><a href="volumeattachment.inc.html#VolumeAttachment">VolumeAttachment</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li><span class="class"><a href="volumeattachment.inc.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
+to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
 </ul>
 </li>

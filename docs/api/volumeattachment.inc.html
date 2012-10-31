@@ -83,7 +83,8 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>The LoadBalancer class represents a single load balancer</em><br><p>This class abstracts much of the common functionality between Nova
+<em>The VolumeAttachment class represents a volume that is attached
+to a server.</em><br><p>This class abstracts much of the common functionality between Nova
 servers, Swift containers and objects, DBAAS instances, Cinder volumes,
 and various other objects that (a) have a URL, (b) can be created, updated,
 deleted, or retrieved, and (c) use a standard JSON format with a top-level
@@ -99,6 +100,7 @@ element followed by a child object with attributes.</p><br><div id="methods_Volu
       <a style="font-style: italic;" href="#VolumeAttachment::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::FindLink()">FindLink</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Id()">Id</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::JsonName()">JsonName</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Name()">Name</a>,
@@ -107,6 +109,7 @@ element followed by a child object with attributes.</p><br><div id="methods_Volu
       <a style="font-style: italic;" href="#VolumeAttachment::ResourceName()">ResourceName</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Service()">Service</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Status()">Status</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Update()">Update</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::UpdateJson()">UpdateJson</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Url()">Url</a>,
@@ -636,6 +639,47 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
+<a id="VolumeAttachment::Id()"></a><h3>Id<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the object's identifier</em><br><small><p>Can be overridden by a child class if the identifier is not in the
+<code>$id</code> property. Use of this function permits the <code>$id</code> attribute to
+be protected or private to prevent unauthorized overwriting for
+security.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Id()"><small>\OpenCloud\PersistentObject::Id()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="VolumeAttachment::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
@@ -980,8 +1024,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td>if strict checks are on and
-     the property prefix is not in the list of prefixes.</td>
+<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
 </tr>
 <tr>
 <td>inherited_from</td>
@@ -990,6 +1033,44 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::SetProperty()"><small>\OpenCloud\PersistentObject::SetProperty()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::Status()"></a><h3>Status<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the object's status or `N/A` if not available</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Status()"><small>\OpenCloud\PersistentObject::Status()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1131,7 +1212,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
              
             $timeout
             = RAXSDK_SERVER_MAXTIMEOUT,
-          callable
+          \OpenCloud\callable
              
             $callback
             = NULL,
@@ -1173,7 +1254,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>$callback</td>
-<td style="white-space: normal;">callable</td>
+<td style="white-space: normal;">\OpenCloud\callable</td>
 <td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
 <td>NULL</td>
 </tr>
@@ -1585,7 +1666,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div class="method">
 <a id="VolumeAttachment::$id"></a><h3>
 <span class="nb-faded-text"> 
-          protected 
+          public 
           </span>$id
           =
           </h3>
@@ -1632,7 +1713,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -1781,7 +1862,8 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
-<li><span class="class"><a href="volumeattachment.inc.html#VolumeAttachment">VolumeAttachment</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li><span class="class"><a href="volumeattachment.inc.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
+to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#VolumeError">VolumeError</a><br><small></small></span></li>
 </ul>
 </li>
