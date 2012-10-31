@@ -16,7 +16,8 @@ require_once('persistentobject.inc');
 require_once('metadata.inc');
 
 /**
- * The LoadBalancer class represents a single load balancer
+ * The VolumeAttachment class represents a volume that is attached
+ * to a server. 
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>

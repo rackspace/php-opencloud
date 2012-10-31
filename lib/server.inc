@@ -379,7 +379,11 @@ class Server extends \OpenCloud\PersistentObject {
 	 * `VolumeAttachment::Create()`
 	 *
 	 * @api
-	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach
+	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach. If 
+	 *		`"auto"` is specified (the default), then the first available
+	 *		device is used to mount the volume (for example, if the primary
+	 *		disk is on `/dev/xvhda`, then the new volume would be attached
+	 *		to `/dev/xvhdb`). 
 	 * @param string $device the device to which to attach it
 	 */
 	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol, 
