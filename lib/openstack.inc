@@ -113,8 +113,18 @@ class OpenStack extends \OpenCloud\Base {
 		$overlimit_timeout=RAXSDK_OVERLIMIT_TIMEOUT;
 
 	private
-		$template =
-		'{"auth":{"passwordCredentials":{"username": "%s", "password": "%s"}}}',
+		$template = <<<ENDAUTHTEMPLATE
+{
+  "auth": {
+    "passwordCredentials": {
+      "username":"%s",
+      "password":"%s"
+    },
+    "tenantName":"%s"
+  }
+}
+ENDAUTHTEMPLATE
+,
 		$_user_write_progress_callback_func,
 		$_user_read_progress_callback_func,
 		/**
@@ -140,7 +150,10 @@ class OpenStack extends \OpenCloud\Base {
      * (See OpenCloud\Rackspace for that.)
      *
      * @param string $url - the authentication endpoint URL
-     * @param array $secret - an associative array of auth information
+     * @param array $secret - an associative array of auth information:
+     * * username
+     * * password
+     * * tenantName
      */
 	public function __construct($url, $secret) {
 		$this->debug(_('initializing'));
@@ -224,7 +237,8 @@ class OpenStack extends \OpenCloud\Base {
 			return sprintf(
 				$this->template,
 				$this->secret['username'],
-				$this->secret['password']);
+				$this->secret['password'],
+				$this->secret['tenantName']);
 		else
 			throw new CredentialError(
 				_('Unrecognized credential secret'));
