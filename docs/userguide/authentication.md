@@ -34,9 +34,12 @@ Next, create an `OpenStack` object with the proper credentials:
     $endpoint = 'https://your-cloud-provider/path';
     $credentials = array(
         'username' => 'YOUR USERNAME',
-        'password' => 'YOUR PASSWORD'
+        'password' => 'YOUR PASSWORD',
+        'tenantName' => 'YOUR TENANT NAME'
     );
     $cloud = new OpenCloud\OpenStack($endpoint, $credentials);
+
+(Note that the `tenantName` value may not be required for all installations.)
 
 In this example, `$credentials` is an associative array (or "hashed" array). The
 keys are `username` and `password` and their values are your assigned OpenStack user

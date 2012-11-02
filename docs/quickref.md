@@ -39,8 +39,11 @@ username and password:
 		'https://example.com/v2/identity',
 		array(
 			'username' => 'your username',
-			'password' => 'your Keystone password'
+			'password' => 'your Keystone password',
+			'tenantName' => 'your tenant name'
 		));
+
+(Note that the `tenantName` value may not be required for all installations.)
 
 If you are using Rackspace's authentication, you need to pass your
 API key and tenant ID instead:
