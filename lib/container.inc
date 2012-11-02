@@ -435,7 +435,7 @@ class Container extends CDNContainer {
 
 	    // check to see if it's set
 	    if (isset($this->CDN()->metadata->$prop))
-	        return $this->CDN()->metadata->$prop;
+	        return trim($this->CDN()->metadata->$prop);
 	    else if (isset($prop))
 	        return NULL;
 

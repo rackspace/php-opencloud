@@ -40,6 +40,7 @@ print("Creating a CDN object\n");
 $object = $container->DataObject();
 $object->Create(array('name'=>'FOOBAR'), __FILE__);
 printf("  The CDN URL of the object is %s\n", $object->CDNUrl());
+printf("The PublicURL of the object is %s\n", $object->PublicURL('SSL'));
 
 // get our containers
 print("Containers:\n");

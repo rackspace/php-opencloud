@@ -231,11 +231,16 @@ $container->Create('SmokeTestContainer');
 
 step('Publish Container to CDN');
 $container->PublishToCDN(60); // 60-second TTL
-info('CDN URL: %s', $container->CDNUrl());
+info('CDN URL:    %s', $container->CDNUrl());
+info('Public URL: %s', $container->PublicURL());
 
 step('Create Object from this file');
 $object = $container->DataObject();
-$object->Create(array('name'=>'SmokeTestObject','type'=>'text/plain'), __FILE__);
+$object->Create(
+	array('name'=>'SmokeTestObject','type'=>'text/plain'), __FILE__);
+info('Public URL:    %s', $object->PublicURL());
+info('SSL URL:       %s', $object->PublicURL('SSL'));
+info('Streaming URL: %s', $object->PublicURL('Streaming'));
 
 step('Copy Object');
 $target = $container->DataObject();
@@ -257,6 +262,7 @@ while($o = $list->Next())
 step('Disable Container CDN');
 $container->DisableCDN();
 
+/*
 step('Delete Object');
 $list = $container->ObjectList();
 while($o = $list->Next()) {
@@ -266,6 +272,7 @@ while($o = $list->Next()) {
 
 step('Delete Container: %s', $container->name);
 $container->Delete();
+*/
 
 /**
  * Cleanup

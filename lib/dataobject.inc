@@ -378,7 +378,7 @@ class DataObject extends ObjStoreBase {
      * @return string
      */
     public function PublicURL($type=NULL) {
-        $prefix = $this->Container()->PublicURL();
+        $prefix = $this->Container()->CDNURI();
         if (!$prefix)
             return NULL;
         switch(strtoupper($type)) {
