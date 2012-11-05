@@ -14,7 +14,7 @@ require_once('loadbalancer.inc');
 require_once('stub_conn.inc');
 
 class publicLoadBalancer extends OpenCloud\LoadBalancerService\LoadBalancer {
-	public
+	protected 
 		$json_name = 'loadBalancer',
 		$url_resource = 'loadbalancers';
     public function CreateJson() { return parent::CreateJson(); }

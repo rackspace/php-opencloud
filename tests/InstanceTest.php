@@ -15,7 +15,8 @@ require_once('dbservice.inc');
 
 class MyInstanceClass extends OpenCloud\DbService\Instance {
 	public function CreateJson($parm=array()) { 
-		return parent::CreateJson($parm); }
+		return parent::CreateJson($parm); 
+	}
 }
 
 class InstanceTest extends PHPUnit_Framework_TestCase
@@ -95,11 +96,6 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'OpenCloud\Collection',
 			get_class($this->instance->UserList()));
-	}
-	public function testJsonName() {
-		$this->assertEquals(
-			'instance',
-			$this->instance->JsonName());
 	}
 	public function testCreateJson() {
 		$this->instance->name = 'FOOBAR';

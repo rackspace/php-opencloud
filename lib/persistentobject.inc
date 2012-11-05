@@ -48,7 +48,7 @@ abstract class PersistentObject extends Base {
 		if (is_string($info) || is_integer($info)) {
 			$pk = $this->PrimaryKeyField();
 			$this->{$pk} = (string)$info;
-			$this->Refresh();
+			$this->Refresh($info);
 		}
 		elseif (is_object($info) || is_array($info)) {
 			foreach($info as $key => $value) {
@@ -60,8 +60,8 @@ abstract class PersistentObject extends Base {
 		}
 		elseif (isset($info))
 			throw new InvalidArgumentError(sprintf(
-				_('Argument for %s must be string or object, [%s] used'),
-				get_class($this),
+				_('Argument for [%s] must be string or object, [%s] used'),
+				get_class(),
 				get_class($info)));
 	}
 
@@ -158,15 +158,6 @@ abstract class PersistentObject extends Base {
 				$response->HttpStatus(),
 				$response->HttpBody()));
 
-		// set values from response
-/*
-		$retobj = json_decode($response->HttpBody());
-		if (!$this->CheckJsonError()) {
-			$top = $this->JsonName();
-			foreach($retobj->$top as $key => $value)
-				$this->$key = $value;
-		}
-*/
 		return $response;
 	}
 
@@ -520,7 +511,26 @@ abstract class PersistentObject extends Base {
 			return $this->json_name;
 		throw new DocumentError(sprintf(
 			_('No JSON object defined for class [%s] in JsonName()'),
-			get_class($this)));
+			get_class()));
+	}
+
+	/**
+	 * returns the collection JSON element name
+	 *
+	 * When an object is returned in a collection, it usually has a top-level
+	 * object that is an array holding child objects of the object types.
+	 * This static function returns the name of the top-level element. Usually,
+	 * that top-level element is simply the JSON name of the resource.'s'; 
+	 * however, it can be overridden by specifying the $json_collection_name
+	 * attribute.
+	 *
+	 * @return string
+	 */
+	public function JsonCollectionName() {
+		if (isset($this->json_collection_name))
+			return $this->json_collection_name;
+		else
+			return $this->json_name.'s';
 	}
 
 	/**
@@ -537,9 +547,9 @@ abstract class PersistentObject extends Base {
 			return $this->url_resource;
 		throw new UrlError(sprintf(
 			_('No URL resource defined for class [%s] in ResourceName()'),
-			get_class($this)));
+			get_class()));
 	}
-
+	
 	/**
 	 * Returns an object for the Create() method JSON
 	 *
