@@ -25,10 +25,6 @@ require_once('persistentobject.inc');
  */
 class Image extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'image',
-		URL_RESOURCE = 'images';
-
     public
 		$status,
 		$updated,
@@ -41,6 +37,10 @@ class Image extends \OpenCloud\PersistentObject {
 		$minRam,
 		$metadata,
 		$server;
+	
+	protected
+		$json_name = 'image',
+		$url_resource = 'images';
 	
 	/**
 	 * error on Create()
@@ -66,19 +66,4 @@ class Image extends \OpenCloud\PersistentObject {
 			_('Images cannot be updated directly'));
 	}
 
-    /********** PROTECTED METHODS **********/
-    
-    /**
-     * returns the URL resource component
-     */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
-    }
-
-	/**
-	 * returns the JSON top-level element
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
 } // class Image

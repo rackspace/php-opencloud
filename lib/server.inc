@@ -28,10 +28,6 @@ require_once('volumeattachment.inc');
  */
 class Server extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'server',
-		URL_RESOURCE = 'servers';
-
 	public
 		$status,		// server status
 		$updated,		// date and time of last update
@@ -51,6 +47,10 @@ class Server extends \OpenCloud\PersistentObject {
 		$progress,		// build progress, from 0 (%) to 100 (%)
 		$adminPass,		// the root password returned from the Create() method
 		$metadata;		// a Metadata object associated with the server
+	
+	protected
+		$json_name = 'server',
+		$url_resource = 'servers';
 
 	private
 		$personality=array(),	// uploaded file attachments
@@ -427,7 +427,7 @@ class Server extends \OpenCloud\PersistentObject {
 	 */
 	public function VolumeAttachmentList() {
 		return $this->Service()->Collection(
-			$this->Url(VolumeAttachment::URL_RESOURCE),
+			$this->Url('os-volume_attachments'),
 			'VolumeAttachment',
 			'volumeAttachments',
 			$this
@@ -508,20 +508,6 @@ class Server extends \OpenCloud\PersistentObject {
 		foreach($params as $name => $value)
 			$obj->server->$name = $this->$name;
 		return $obj;
-	}
-
-	/**
-	 * the top-level JSON identifier
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * the URL resource
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
 	}
 
 } // class Server

@@ -23,10 +23,6 @@ require_once('metadata.inc');
  */
 class LoadBalancer extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'loadBalancer',
-		URL_RESOURCE = 'loadbalancers';
-
 	public
 		$id,
 		$name,
@@ -45,6 +41,10 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		$created,
 		$updated,
 		$sourceAddresses;
+	
+	protected
+		$json_element = 'loadBalancer',
+		$url_resource = 'loadbalancers';
 
 	private
 	    $_create_keys = array(
@@ -177,20 +177,6 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	    }
 	    
 	    return $obj;
-	}
-
-	/**
-	 * Returns the top-level document identifier
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * Returns the URL resource
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
 	}
 
 }

@@ -133,9 +133,9 @@ class Compute extends Nova {
 	        throw new InvalidArgumentException(
 	            _('Second argument for Compute::ServerList() must be array'));
 	    if ($details)
-	        $url = $this->Url(Compute\Server::URL_RESOURCE.'/detail', $filter);
+	        $url = $this->Url('servers/detail', $filter);
 	    else
-	        $url = $this->Url(Compute\Server::URL_RESOURCE, $filter);
+	        $url = $this->Url('servers', $filter);
 	    
 	    return $this->Collection($url, 'Server', 'servers');
 	}
@@ -160,9 +160,9 @@ class Compute extends Nova {
 	 */
 	public function NetworkList($filter=array()) {
 		return $this->Collection(
-			$this->Url(Compute\Network::URL_RESOURCE),
+			$this->Url('os-networksv2'),
 			'Network',
-			Compute\Network::JSON_ELEMENT.'s');
+			'networks');
 	}
 
 	/**

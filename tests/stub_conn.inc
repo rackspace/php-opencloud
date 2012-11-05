@@ -42,7 +42,7 @@ ENDNW;
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
 		}
-		elseif (strpos($url, OpenCloud\Compute\Network::URL_RESOURCE)) {
+		elseif (strpos($url, 'os-networksv2')) {
 			$resp->body = NULL;
 			$resp->status = 200;
 		}

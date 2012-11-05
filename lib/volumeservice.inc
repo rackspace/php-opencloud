@@ -46,12 +46,12 @@ class VolumeService extends Nova {
 	 * @return Collection
 	 */
 	public function VolumeList($details=TRUE, $filter=array()) {
-		$url = $this->Url(VolumeService\Volume::URL_RESOURCE) .
+		$url = $this->Url('volumes') .
 				($details ? '/detail' : '');
 		return $this->Collection(
 			$url,
 			'Volume',
-			VolumeService\Volume::JSON_ELEMENT.'s');
+			'volumes');
 	}
 
 	/**
@@ -74,9 +74,9 @@ class VolumeService extends Nova {
 	 */
 	public function VolumeTypeList($filter=array()) {
 		return $this->Collection(
-			$this->Url(VolumeService\VolumeType::URL_RESOURCE),
+			$this->Url('types'),
 			'VolumeType',
-			VolumeService\VolumeType::JSON_ELEMENT.'s');
+			'types');
 	}
 
 	/**
@@ -98,9 +98,9 @@ class VolumeService extends Nova {
 	 */
 	public function SnapshotList($filter=array()) {
 		return $this->Collection(
-			$this->Url(VolumeService\Snapshot::URL_RESOURCE),
+			$this->Url('snapshots'),
 			'Snapshot',
-			VolumeService\Snapshot::JSON_ELEMENT.'s');
+			'snapshots');
 	}
 
 }

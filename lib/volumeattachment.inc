@@ -24,15 +24,15 @@ require_once('metadata.inc');
  */
 class VolumeAttachment extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'volumeAttachment',
-		URL_RESOURCE = 'os-volume_attachments';
-
 	public
 		$id,
 		$device,
 		$serverId,
 		$volumeId;
+	
+	protected
+		$json_name = 'volumeAttachment',
+		$url_resource = 'os-volume_attachments';
 
 	private
 		$_server,
@@ -94,7 +94,7 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	 * @return string
 	 */
 	protected function CreateUrl() {
-		return $this->_server->Url(self::URL_RESOURCE);
+		return $this->_server->Url($this->url_resource);
 	}
 
 	/**
@@ -115,24 +115,6 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	    }
 
 	    return $obj;
-	}
-
-	/**
-	 * Returns the top-level document identifier
-	 *
-	 * @return string
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * Returns the URL resource
-	 *
-	 * @return string
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
 	}
 
 }

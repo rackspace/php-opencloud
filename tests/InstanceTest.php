@@ -14,8 +14,8 @@ require_once('stub_service.inc');
 require_once('dbservice.inc');
 
 class MyInstanceClass extends OpenCloud\DbService\Instance {
-	public function JsonName() { return parent::JsonName(); }
-	public function CreateJson() { return parent::CreateJson(); }
+	public function CreateJson($parm=array()) { 
+		return parent::CreateJson($parm); }
 }
 
 class InstanceTest extends PHPUnit_Framework_TestCase

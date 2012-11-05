@@ -23,14 +23,14 @@ require_once('metadata.inc');
  */
 class Network extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'network',
-		URL_RESOURCE = 'os-networksv2';		// this could change in the future
-
 	public
 		$id,
 		$label,
 		$cidr;
+	
+	protected
+		$json_name = 'network',
+		$url_resource = 'os-networksv2';
 
 	/**
 	 * Creates a new isolated Network object
@@ -97,20 +97,6 @@ class Network extends \OpenCloud\PersistentObject {
 	}
 
 	/********** PROTECTED METHODS **********/
-
-	/**
-	 * Returns the top-level document identifier
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * Returns the URL resource
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
-	}
 
 	/**
 	 * Creates the JSON object for the Create() method

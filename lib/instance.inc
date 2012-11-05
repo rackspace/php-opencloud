@@ -24,10 +24,6 @@ require_once('user.inc');
  */
 class Instance extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'instance',
-		URL_RESOURCE = 'instances';
-
 	public
 		$id,
 		$name,
@@ -38,6 +34,10 @@ class Instance extends \OpenCloud\PersistentObject {
 		$created,
 		$updated,
 		$flavor;
+	
+	protected
+		$json_name = 'instance',
+		$url_resource = 'instances';
 
 	private
 		$_databases,	// used to Create databases simultaneously
@@ -232,20 +232,6 @@ class Instance extends \OpenCloud\PersistentObject {
 	}
 
 	/********** PROTECTED METHODS **********/
-
-	/**
-	 * Returns the top-level document name
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * Returns the URL resource
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
-	}
 
 	/**
 	 * Generates the JSON string for Create()

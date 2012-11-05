@@ -23,10 +23,6 @@ require_once('metadata.inc');
  */
 class Snapshot extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'snapshot',
-		URL_RESOURCE = 'snapshots';
-
 	public
 		$id,
 		$display_name,
@@ -35,6 +31,10 @@ class Snapshot extends \OpenCloud\PersistentObject {
 		$status,
 		$size,
 		$created_at;
+	
+	protected
+		$json_name = 'snapshot',
+		$url_resource = 'snapshots';
 
 	private
 		$force=FALSE,
@@ -77,20 +77,6 @@ class Snapshot extends \OpenCloud\PersistentObject {
             $obj->$elem->$key = $this->$key;
 
 		return $obj;
-	}
-
-	/**
-	 * Returns the top-level document identifier
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * Returns the URL resource
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
 	}
 
 }

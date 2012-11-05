@@ -32,17 +32,17 @@ abstract class PersistentObject extends Base {
 	protected
 		$id;		// usually overridden as part of the child class
 	private
-		$_service;
+		$_parent;
 
 	/**
 	 * Retrieves the instance from persistent storage
 	 *
-	 * @param Nova $nova the service object
+	 * @param mixed $nova the parent object of the current object
 	 * @param mixed $info the ID or array/object of data
 	 * @throws InvalidArgumentError if $info has an invalid data type
 	 */
-	public function __construct(Service $nova, $info=NULL) {
-		$this->_service = $nova;
+	public function __construct($nova, $info=NULL) {
+		$this->_parent = $nova;
 		if (property_exists($this, 'metadata'))
 			$this->metadata = new Metadata;
 		if (is_string($info) || is_integer($info)) {
@@ -263,7 +263,7 @@ abstract class PersistentObject extends Base {
 	 * Returns the Service object associated with this server
 	 */
 	public function Service() {
-		return $this->_service;
+		return $this->_parent;
 	}
 
 	/**
@@ -515,9 +515,11 @@ abstract class PersistentObject extends Base {
 	 *
 	 * @throws DocumentError if not overridden
 	 */
-	protected function JsonName() {
+	public function JsonName() {
+		if (isset($this->json_name))
+			return $this->json_name;
 		throw new DocumentError(sprintf(
-			_('Unrecognized class [%s] in JsonName() function'),
+			_('No JSON object defined for class [%s] in JsonName()'),
 			get_class($this)));
 	}
 
@@ -530,9 +532,11 @@ abstract class PersistentObject extends Base {
 	 *
 	 * @throws UrlError
 	 */
-	protected function ResourceName() {
+	public function ResourceName() {
+		if (isset($this->url_resource))
+			return $this->url_resource;
 		throw new UrlError(sprintf(
-			_('Unrecognized class [%s] in ResourceName() function'),
+			_('No URL resource defined for class [%s] in ResourceName()'),
 			get_class($this)));
 	}
 

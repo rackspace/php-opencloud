@@ -129,6 +129,10 @@ $server->Create(array(
 step('Wait for Server create');
 $server->WaitFor('ACTIVE', 600, 'dotter');
 
+// check for error
+if ($server->Status() == 'ERROR')
+	die("Server create failed with ERROR\n");
+
 step('Attach the volume');
 //setDebug(TRUE);
 $server->AttachVolume($volume);
@@ -262,7 +266,6 @@ while($o = $list->Next())
 step('Disable Container CDN');
 $container->DisableCDN();
 
-/*
 step('Delete Object');
 $list = $container->ObjectList();
 while($o = $list->Next()) {
@@ -272,7 +275,6 @@ while($o = $list->Next()) {
 
 step('Delete Container: %s', $container->name);
 $container->Delete();
-*/
 
 /**
  * Cleanup

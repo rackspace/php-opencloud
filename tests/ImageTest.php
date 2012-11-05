@@ -14,7 +14,6 @@ require_once('compute.inc');
 require_once('stub_conn.inc');
 
 class ImageStub extends OpenCloud\Compute\Image {
-	public function JsonName() { return parent::JsonName(); }
 }
 class ImageTest extends PHPUnit_Framework_TestCase
 {

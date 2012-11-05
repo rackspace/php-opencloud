@@ -23,14 +23,14 @@ require_once('metadata.inc');
  */
 class VolumeType extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT = 'volume_type',
-		URL_RESOURCE = 'types';
-
 	public
 		$id,
 		$name,
 		$extra_specs;
+		
+	protected
+		$json_name = 'volume_type',
+		$url_resource = 'types';
 
 	/**
 	 * Creates are not permitted
@@ -60,26 +60,6 @@ class VolumeType extends \OpenCloud\PersistentObject {
 	public function Delete() {
 		throw new \OpenCloud\DeleteError(
 			_('VolumeType cannot be deleted'));
-	}
-
-	/********** PROTECTED METHODS **********/
-
-	/**
-	 * Returns the top-level document identifier
-	 *
-	 * @return string
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * Returns the URL resource
-	 *
-	 * @return string
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
 	}
 
 }

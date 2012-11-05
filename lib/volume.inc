@@ -23,10 +23,6 @@ require_once('metadata.inc');
  */
 class Volume extends \OpenCloud\PersistentObject {
 
-	const
-		JSON_ELEMENT =  'volume',		// JSON element for single item
-		URL_RESOURCE = 'volumes';	    // URL resource
-
 	public
 		$id,
 		$status,
@@ -39,6 +35,10 @@ class Volume extends \OpenCloud\PersistentObject {
 		$snapshot_id,
 		$attachments = array(),
 		$created_at;
+	
+	protected
+		$json_name = 'volume',
+		$url_resource = 'volumes';
 
 	private
 		$_create_keys = array(
@@ -71,24 +71,6 @@ class Volume extends \OpenCloud\PersistentObject {
 	}
 
 	/********** PROTECTED METHODS **********/
-
-	/**
-	 * Returns the top-level document identifier
-	 *
-	 * @return string
-	 */
-	protected function JsonName() {
-		return self::JSON_ELEMENT;
-	}
-
-	/**
-	 * Returns the URL resource
-	 *
-	 * @return string
-	 */
-	protected function ResourceName() {
-		return self::URL_RESOURCE;
-	}
 
 	/**
 	 * Creates the JSON object for the Create() method

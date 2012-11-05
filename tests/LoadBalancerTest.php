@@ -14,8 +14,9 @@ require_once('loadbalancer.inc');
 require_once('stub_conn.inc');
 
 class publicLoadBalancer extends OpenCloud\LoadBalancerService\LoadBalancer {
-    public function JsonName() { return parent::JsonName(); }
-    public function ResourceName() { return parent::ResourceName(); }
+	public
+		$json_name = 'loadBalancer',
+		$url_resource = 'loadbalancers';
     public function CreateJson() { return parent::CreateJson(); }
 }
 
@@ -75,15 +76,5 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'FOOBAR',
 			$obj->loadBalancer->name);
-	}
-	public function testJsonName() {
-		$this->assertEquals(
-			'loadBalancer',
-			$this->lb->JsonName());
-	}
-	public function testResourceName() {
-		$this->assertEquals(
-			'loadbalancers',
-			$this->lb->ResourceName());
 	}
 }
