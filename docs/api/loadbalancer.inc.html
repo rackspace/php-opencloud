@@ -59,7 +59,7 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>Defines a load balancer object<br><br><a name="includes"></a><h2>Includes</h2>persistentobject.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<h2>Description</h2>Defines a load balancer object<br><br><a name="includes"></a><h2>Includes</h2>persistentobject.inc <span class="nb-faded-text">(Require Once)</span><br>metadata.inc <span class="nb-faded-text">(Require Once)</span><br>lbresources.inc <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="LoadBalancer" class="class">
 <h3>LoadBalancer</h3>
 <div class="properties">
@@ -102,13 +102,19 @@ element followed by a child object with attributes.</p><br><div id="methods_Load
       <a style="font-style: italic;" href="#LoadBalancer::FindLink()">FindLink</a>,
       <a style="font-style: italic;" href="#LoadBalancer::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Id()">Id</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::JsonCollectionName()">JsonCollectionName</a>,
       <a style="font-style: italic;" href="#LoadBalancer::JsonName()">JsonName</a>,
       <a style="font-style: italic;" href="#LoadBalancer::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Name()">Name</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::NoCreate()">NoCreate</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::NoDelete()">NoDelete</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::NoUpdate()">NoUpdate</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Parent()">Parent</a>,
       <a style="font-style: italic;" href="#LoadBalancer::PrimaryKeyField()">PrimaryKeyField</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Refresh()">Refresh</a>,
       <a style="font-style: italic;" href="#LoadBalancer::ResourceName()">ResourceName</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Service()">Service</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::SessionPersistence()">SessionPersistence</a>,
       <a style="font-style: italic;" href="#LoadBalancer::SetProperty()">SetProperty</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Stats()">Stats</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Status()">Status</a>,
@@ -831,6 +837,43 @@ security.</p></small><br><h4>Return value</h4>
 </table>
 </div>
 <div class="method">
+<a id="LoadBalancer::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the collection JSON element name</em><br><small><p>When an object is returned in a collection, it usually has a top-level
+object that is an array holding child objects of the object types.
+This static function returns the name of the top-level element. Usually,
+that top-level element is simply the JSON name of the resource.'s';
+however, it can be overridden by specifying the $json_collection_name
+attribute.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::JsonCollectionName()"><small>\OpenCloud\PersistentObject::JsonCollectionName()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="LoadBalancer::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
@@ -839,7 +882,8 @@ security.</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the top-level document identifier</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
+<em>Returns the top-level document identifier for the returned response
+JSON document; must be overridden in child classes</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
 Instance document is <code>{"instance": ...}</code> - this function must return
 the top level document name (either "server" or "instance", in
 these examples).</p></small><br><h4>Return value</h4>
@@ -859,10 +903,16 @@ these examples).</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
 <td>if not overridden</td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::JsonName()"><small>\OpenCloud\PersistentObject::JsonName()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
@@ -966,6 +1016,153 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 </table>
 </div>
 <div class="method">
+<a id="LoadBalancer::NoCreate()"></a><h3>NoCreate<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>throws a CreateError for subclasses that don't support Create</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::NoCreate()"><small>\OpenCloud\PersistentObject::NoCreate()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::NoDelete()"></a><h3>NoDelete<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>throws a DeleteError for subclasses that don't support Delete</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::NoDelete()"><small>\OpenCloud\PersistentObject::NoDelete()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::NoUpdate()"></a><h3>NoUpdate<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>throws a UpdateError for subclasses that don't support Update</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::NoUpdate()"><small>\OpenCloud\PersistentObject::NoUpdate()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::Parent()"></a><h3>Parent<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns the parent object of this object</em><br><small><p>This is a synonym for Service(), since the object is usually a
+service.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Parent()"><small>\OpenCloud\PersistentObject::Parent()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="LoadBalancer::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
           
           )
@@ -1065,7 +1262,8 @@ changing states)</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the URL resource</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
+<em>Returns the resource name for the URL of the object; must be overridden
+in child classes</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
 <code>/instances/</code>. Must be overridden in child classes.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
@@ -1083,10 +1281,16 @@ changing states)</em><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
 <td></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::ResourceName()"><small>\OpenCloud\PersistentObject::ResourceName()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
@@ -1098,7 +1302,7 @@ changing states)</em><br><h4>Arguments</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the Service object associated with this server</em><br><h4>Return value</h4>
+<em>Returns the Service/parent object associated with this object</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1118,6 +1322,26 @@ changing states)</em><br><h4>Arguments</h4>
 <tbody><tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Service()"><small>\OpenCloud\PersistentObject::Service()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::SessionPersistence()"></a><h3>SessionPersistence<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 </div>
@@ -1525,7 +1749,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="LoadBalancer::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          <a href="nova.inc.html#%5COpenCloud%5CNova">\OpenCloud\Nova</a>
+          mixed
              
             $nova,
           mixed
@@ -1550,8 +1774,8 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>$nova</td>
-<td style="white-space: normal;"><a href="nova.inc.html#%5COpenCloud%5CNova">\OpenCloud\Nova</a></td>
-<td><p>the service object</p></td>
+<td style="white-space: normal;">mixed</td>
+<td><p>the parent object of the current object</p></td>
 <td></td>
 </tr>
 <tr>
@@ -1842,7 +2066,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <h4>Properties</h4>
 <a href="#LoadBalancer::%24_create_keys">$_create_keys</a>,
       <a href="#LoadBalancer::%24_errors">$_errors</a>,
-      <a href="#LoadBalancer::%24_service">$_service</a>,
+      <a href="#LoadBalancer::%24_parent">$_parent</a>,
       <a href="#LoadBalancer::%24accessList">$accessList</a>,
       <a href="#LoadBalancer::%24algorithm">$algorithm</a>,
       <a href="#LoadBalancer::%24connectionLogging">$connectionLogging</a>,
@@ -1851,6 +2075,7 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#LoadBalancer::%24healthMonitor">$healthMonitor</a>,
       <a href="#LoadBalancer::%24http_headers">$http_headers</a>,
       <a href="#LoadBalancer::%24id">$id</a>,
+      <a href="#LoadBalancer::%24json_name">$json_name</a>,
       <a href="#LoadBalancer::%24metadata">$metadata</a>,
       <a href="#LoadBalancer::%24name">$name</a>,
       <a href="#LoadBalancer::%24nodes">$nodes</a>,
@@ -1859,6 +2084,7 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#LoadBalancer::%24sessionPersistence">$sessionPersistence</a>,
       <a href="#LoadBalancer::%24sourceAddresses">$sourceAddresses</a>,
       <a href="#LoadBalancer::%24updated">$updated</a>,
+      <a href="#LoadBalancer::%24url_resource">$url_resource</a>,
       <a href="#LoadBalancer::%24virtualIps">$virtualIps</a>,
       <div class="method">
 <a id="LoadBalancer::$_create_keys"></a><h3>
@@ -1879,10 +2105,10 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$_service"></a><h3>
+<a id="LoadBalancer::$_parent"></a><h3>
 <span class="nb-faded-text"> 
           private 
-          </span>$_service
+          </span>$_parent
           =
           </h3>
 <em></em><br>
@@ -1960,6 +2186,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
+<a id="LoadBalancer::$json_name"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          static </span>$json_name
+          =
+          'loadBalancer'</h3>
+<em></em><br>
+</div>
+<div class="method">
 <a id="LoadBalancer::$metadata"></a><h3>
 <span class="nb-faded-text"> 
           public 
@@ -2032,6 +2267,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
+<a id="LoadBalancer::$url_resource"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          static </span>$url_resource
+          =
+          'loadbalancers'</h3>
+<em></em><br>
+</div>
+<div class="method">
 <a id="LoadBalancer::$virtualIps"></a><h3>
 <span class="nb-faded-text"> 
           public 
@@ -2039,25 +2283,6 @@ with "Debug:" and the class name, to the standard output device.</p>
           =
           array()</h3>
 <em></em><br>
-</div>
-</div>
-<div id="constants_LoadBalancer">
-<h4>Constants</h4>
-<a id="LoadBalancer::JSON_ELEMENT"></a><div class="constant">
-<h3>
-<span class="nb-faded-text"> 
-        </span>JSON_ELEMENT<span class="nb-faded-text">
-         = 'loadBalancer'</span>
-</h3>
-<em></em><br><br>
-</div>
-<a id="LoadBalancer::URL_RESOURCE"></a><div class="constant">
-<h3>
-<span class="nb-faded-text"> 
-        </span>URL_RESOURCE<span class="nb-faded-text">
-         = 'loadbalancers'</span>
-</h3>
-<em></em><br><br>
 </div>
 </div>
 <div style="clear: both"></div>
@@ -2244,7 +2469,15 @@ database-as-a-service product.</small></span></li>
 </ul>
 </li>
 <li class="closed">
-<span class="folder">LoadBalancerService</span><ul><li><span class="class"><a href="loadbalancer.inc.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li></ul>
+<span class="folder">LoadBalancerService</span><ul>
+<li><span class="class"><a href="lbresources.inc.html#LbAllowableDomains">LbAllowableDomains</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbSessionPersistence">LbSessionPersistence</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbSubResource">LbSubResource</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="loadbalancer.inc.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+</ul>
 </li>
 <li class="closed">
 <span class="folder">ObjectStore</span><ul>
