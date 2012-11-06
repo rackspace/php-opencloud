@@ -162,19 +162,20 @@ abstract class PersistentObject extends Base {
 	}
 
 	/**
-	 * Deletes an block storage volume
+	 * Deletes an object
 	 *
 	 * @api
 	 * @return HttpResponse
-	 * @throws VolumeDeleteError if HTTP status is not Success
+	 * @throws DeleteError if HTTP status is not Success
 	 */
 	public function Delete() {
 		$this->debug('%s::Delete()', get_class($this));
 		$response = $this->Service()->Request($this->Url(), 'DELETE');
 		if ($response->HttpStatus() > 204)
 			throw new DeleteError(sprintf(
-				_('Error deleting volume [%s], status [%d] response [%s]'),
-				$this->display_name,
+				_('Error deleting [%s] [%s], status [%d] response [%s]'),
+				get_class(),
+				$this->Name(),
 				$response->HttpStatus(),
 				$response->HttpBody()));
 		return $response;
@@ -195,6 +196,10 @@ abstract class PersistentObject extends Base {
 		$url = $this->FindLink('self');
 
 		// next, check to see if we have an ID
+		/**
+		 * Note that we use Parent() instead of Service(), since the parent
+		 * object might not be a service. 
+		 */
 		if (!$url && $this->{$pk})
 			$url = noslash($this->Parent()->Url($this->ResourceName()))
 			        . '/' . $this->{$pk};

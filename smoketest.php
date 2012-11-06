@@ -159,6 +159,17 @@ while($vol = $list->Next())
 setDebug(FALSE);
 //exit;
 
+step('Detaching the volume');
+$server->DetachVolume($volume);
+$volume->WaitFor('available', 600, 'dotter');
+
+step('Creating a snapshot');
+$snap = $cbs->Snapshot();   // empty snapshot object
+$snap->Create(array(
+    'display_name' => 'Smoketest Snapshot',
+    'volume_id' => $volume->id
+));
+
 step('Deleting the test server(s)');
 $list = $cloudservers->ServerList();
 while($s = $list->Next()) {
@@ -277,9 +288,6 @@ $container->Delete();
 /**
  * Cleanup
  */
-step('Deleting the test volume');
-$volume->Delete();
-
 step('Deleting the test network(s)');
 $list = $cloudservers->NetworkList();
 while($network = $list->Next()) {
@@ -290,6 +298,7 @@ while($network = $list->Next()) {
 }
 
 step('FINISHED at %s in %d seconds', date(TIMEFORMAT), time()-$start);
+info('Remember to manually delete the volume and snapshot created');
 exit();
 
 /**
