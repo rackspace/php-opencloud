@@ -2,7 +2,9 @@
 =============
 PHP SDK for OpenStack/Rackspace APIs
 
-See the COPYING file for license and copyright information.
+See the 
+[COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
+file for license and copyright information.
 
 The PHP SDK should work with most OpenStack-based cloud deployments,
 though it specifically targets the Rackspace public cloud. In
