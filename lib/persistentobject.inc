@@ -196,7 +196,7 @@ abstract class PersistentObject extends Base {
 
 		// next, check to see if we have an ID
 		if (!$url && $this->{$pk})
-			$url = noslash($this->Service()->Url($this->ResourceName()))
+			$url = noslash($this->Parent()->Url($this->ResourceName()))
 			        . '/' . $this->{$pk};
 
 		// add the subresource
@@ -251,10 +251,20 @@ abstract class PersistentObject extends Base {
 	}
 
 	/**
-	 * Returns the Service object associated with this server
+	 * Returns the Service/parent object associated with this object
 	 */
 	public function Service() {
 		return $this->_parent;
+	}
+	
+	/**
+	 * returns the parent object of this object
+	 *
+	 * This is a synonym for Service(), since the object is usually a
+	 * service.
+	 */
+	public function Parent() {
+		return $this->Service();
 	}
 
 	/**
@@ -288,7 +298,7 @@ abstract class PersistentObject extends Base {
 			$id = $this->{$pk};
 		if (!$id)
 			throw new ServerIdRequiredError(sprintf(
-			    _('%s has no ID; cannot be refreshed'), get_class($this)));
+			    _('%s has no ID; cannot be refreshed'), get_class()));
 
 		// retrieve it
 		$this->debug(_('%s id [%s]'), get_class($this), $id);
@@ -480,7 +490,7 @@ abstract class PersistentObject extends Base {
 	 * @return string
 	 */
 	protected function CreateUrl() {
-		return $this->Service()->Url($this->ResourceName());
+		return $this->Parent()->Url($this->ResourceName());
 	}
 
 	/**
@@ -506,9 +516,9 @@ abstract class PersistentObject extends Base {
 	 *
 	 * @throws DocumentError if not overridden
 	 */
-	public function JsonName() {
-		if (isset($this->json_name))
-			return $this->json_name;
+	public static function JsonName() {
+		if (isset(static::$json_name))
+			return static::$json_name;
 		throw new DocumentError(sprintf(
 			_('No JSON object defined for class [%s] in JsonName()'),
 			get_class()));
@@ -526,11 +536,11 @@ abstract class PersistentObject extends Base {
 	 *
 	 * @return string
 	 */
-	public function JsonCollectionName() {
-		if (isset($this->json_collection_name))
-			return $this->json_collection_name;
+	public static function JsonCollectionName() {
+		if (isset(static::$json_collection_name))
+			return static::$json_collection_name;
 		else
-			return $this->json_name.'s';
+			return static::$json_name.'s';
 	}
 
 	/**
@@ -542,9 +552,9 @@ abstract class PersistentObject extends Base {
 	 *
 	 * @throws UrlError
 	 */
-	public function ResourceName() {
-		if (isset($this->url_resource))
-			return $this->url_resource;
+	public static function ResourceName() {
+		if (isset(static::$url_resource))
+			return static::$url_resource;
 		throw new UrlError(sprintf(
 			_('No URL resource defined for class [%s] in ResourceName()'),
 			get_class()));
@@ -574,6 +584,36 @@ abstract class PersistentObject extends Base {
 		throw new UpdateError(sprintf(
 			_('[%s] UpdateJson() must be overridden'),
 			get_class($this)));
+	}
+	
+	/**
+	 * throws a CreateError for subclasses that don't support Create
+	 *
+	 * @throws CreateError
+	 */
+	protected function NoCreate() {
+		throw new CreateError(sprintf(
+			_('[%s] does not support Create()'), get_class()));
+	}
+
+	/**
+	 * throws a DeleteError for subclasses that don't support Delete
+	 *
+	 * @throws DeleteError
+	 */
+	protected function NoDelete() {
+		throw new DeleteError(sprintf(
+			_('[%s] does not support Delete()'), get_class()));
+	}
+
+	/**
+	 * throws a UpdateError for subclasses that don't support Update
+	 *
+	 * @throws UpdateError
+	 */
+	protected function NoUpdate() {
+		throw new UpdateError(sprintf(
+			_('[%s] does not support Update()'), get_class()));
 	}
 
 }

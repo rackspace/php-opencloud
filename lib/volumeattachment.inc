@@ -30,7 +30,7 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 		$serverId,
 		$volumeId;
 	
-	protected
+	public static
 		$json_name = 'volumeAttachment',
 		$url_resource = 'os-volume_attachments';
 
@@ -60,6 +60,17 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	public function Update() {
 		throw new \OpenCloud\UpdateError(_('Updates are not permitted'));
 	}
+	
+	/**
+	 * returns the Parent (server) of the volume attachment
+	 *
+	 * This is a subresource of the server, not of the service.
+	 *
+	 * @return Server
+	 */
+	public function Parent() { 
+		return $this->_server; 
+	}
 
 	/**
 	 * returns a readable name for the attachment
@@ -78,24 +89,6 @@ class VolumeAttachment extends \OpenCloud\PersistentObject {
 	}
 
 	/********** PROTECTED METHODS **********/
-
-	/**
-	 * returns the primary key field
-	 *
-	 * @return string
-	 */
-	protected function PrimaryKeyField() {
-		return 'volumeId';
-	}
-
-	/**
-	 * returns the URL for Create
-	 *
-	 * @return string
-	 */
-	protected function CreateUrl() {
-		return $this->_server->Url($this->url_resource);
-	}
 
 	/**
 	 * returns the JSON object for Create()
