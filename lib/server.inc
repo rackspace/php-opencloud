@@ -48,7 +48,7 @@ class Server extends \OpenCloud\PersistentObject {
 		$adminPass,		// the root password returned from the Create() method
 		$metadata;		// a Metadata object associated with the server
 	
-	protected
+	protected static
 		$json_name = 'server',
 		$url_resource = 'servers';
 

@@ -35,7 +35,7 @@ class Instance extends \OpenCloud\PersistentObject {
 		$updated,
 		$flavor;
 	
-	protected
+	protected static
 		$json_name = 'instance',
 		$url_resource = 'instances';
 

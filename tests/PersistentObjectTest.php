@@ -35,21 +35,10 @@ class MyPersistentObject extends \OpenCloud\PersistentObject {
 		$progress,
 		$adminPass,
 		$metadata;
+	public static
+		$json_name = 'instance',
+		$url_resource = 'instances';
 	public function Refresh($id) { return parent::Refresh($id); }
-	public function ResourceName() {
-	    try {
-	        parent::ResourceName();
-	    } catch (OpenCloud\UrlError $e) {
-	        return 'instances';
-	    }
-	}
-	public function JsonName() {
-	    try {
-    	    parent::JsonName();
-    	} catch (OpenCloud\DocumentError $e) {
-    	    return 'instance';
-    	}
-	}
 }
 
 class PersistentObjectTest extends PHPUnit_Framework_TestCase

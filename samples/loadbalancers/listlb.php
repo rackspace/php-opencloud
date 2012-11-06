@@ -47,6 +47,8 @@ if ($list->Size()) {
 	step('Load balancers:');
 	while($lb = $list->Next()) {
 		info('%10s %s', $lb->id, $lb->Name());
+		$sp = $lb->SessionPersistence();
+		print_r($sp);
 	}
 }
 else

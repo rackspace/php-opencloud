@@ -28,7 +28,7 @@ class VolumeType extends \OpenCloud\PersistentObject {
 		$name,
 		$extra_specs;
 		
-	protected
+	protected static
 		$json_name = 'volume_type',
 		$url_resource = 'types';
 

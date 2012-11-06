@@ -28,7 +28,7 @@ class Network extends \OpenCloud\PersistentObject {
 		$label,
 		$cidr;
 	
-	protected
+	protected static
 		$json_name = 'network',
 		$url_resource = 'os-networksv2';
 

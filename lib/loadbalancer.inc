@@ -12,8 +12,9 @@
 
 namespace OpenCloud\LoadBalancerService;
 
-require_once('persistentobject.inc');
-require_once('metadata.inc');
+require_once('persistentobject.inc');	// handles persistence
+require_once('metadata.inc');			// metadata common
+require_once('lbresources.inc');		// child resources
 
 /**
  * The LoadBalancer class represents a single load balancer
@@ -42,8 +43,8 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		$updated,
 		$sourceAddresses;
 	
-	protected
-		$json_element = 'loadBalancer',
+	protected static 
+		$json_name = 'loadBalancer',
 		$url_resource = 'loadbalancers';
 
 	private
@@ -131,6 +132,12 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	    }
 
 	    $this->virtualIps[] = $obj;
+	}
+	
+	/**
+	 */
+	public function SessionPersistence() {
+		return new LbSessionPersistence($this);
 	}
 	
 	/**

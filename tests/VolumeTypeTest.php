@@ -13,11 +13,6 @@ require_once('volumetype.inc');
 require_once('stub_conn.inc');
 require_once('volumeservice.inc');
 
-class publicVolumeType extends OpenCloud\VolumeService\VolumeType {
-    public function JsonName() { return parent::JsonName(); }
-    public function ResourceName() { return parent::ResourceName(); }
-}
-
 class VolumeTypeTest extends PHPUnit_Framework_TestCase
 {
     private
@@ -27,7 +22,7 @@ class VolumeTypeTest extends PHPUnit_Framework_TestCase
         $serv = new OpenCloud\VolumeService(
             $conn, 'cloudBlockStorage', 'DFW', 'publicURL'
         );
-        $this->vt = new publicVolumeType($serv);
+        $this->vt = new OpenCloud\VolumeService\VolumeType($serv);
     }
     /**
      * Tests

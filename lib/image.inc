@@ -38,7 +38,7 @@ class Image extends \OpenCloud\PersistentObject {
 		$metadata,
 		$server;
 	
-	protected
+	protected static
 		$json_name = 'image',
 		$url_resource = 'images';
 	

@@ -42,6 +42,12 @@ ENDNW;
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
 		}
+		elseif (strpos($url, '/os-volume_attachments/')) {
+			$resp->body = <<<ENDATT
+{"volumeAttachment":{"volumeId":"FOO"}}
+ENDATT;
+			$resp->status = 200;
+		}
 		elseif (strpos($url, 'os-networksv2')) {
 			$resp->body = NULL;
 			$resp->status = 200;
@@ -85,20 +91,14 @@ ENDLB;
 			$resp->body = '{"instances":[]}';
 			$resp->status = 200;
 		}
-		elseif (strpos($url, '/servers/')) {
-			$resp->body = file_get_contents(TESTDIR.'/server.json');
-			$resp->status = 200;
-		}
-		elseif (strpos($url, '/os-volume_attachments/')) {
-			$resp->body = <<<ENDATT
-{"volumeAttachment":{"volumeId":"FOO"}}
-ENDATT;
-			$resp->status = 200;
-		}
 		elseif (strpos($url, '/volumes/')) {
 			$resp->body = <<<ENDVOL
 {"volume":[]}
 ENDVOL;
+			$resp->status = 200;
+		}
+		elseif (strpos($url, '/servers/')) {
+			$resp->body = file_get_contents(TESTDIR.'/server.json');
 			$resp->status = 200;
 		}
 		elseif (strpos($url, 'EMPTY')) {

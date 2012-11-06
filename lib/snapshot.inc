@@ -32,7 +32,7 @@ class Snapshot extends \OpenCloud\PersistentObject {
 		$size,
 		$created_at;
 	
-	protected
+	protected static
 		$json_name = 'snapshot',
 		$url_resource = 'snapshots';
 

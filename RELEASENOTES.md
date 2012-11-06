@@ -1,6 +1,11 @@
 RELEASE NOTES
 -------------
 
+### 11/06/2012 Version 1.2
+* Adds full support for OpenStack Cinder/Rackspace Cloud Block Storage
+* Bug fixes
+* Refactoring to reduce code size
+
 ### 10/25/2012 Version 1.1
 * Fix for security issue #6
 * Includes Quick Reference material on Cinder/Cloud Block Storage, but

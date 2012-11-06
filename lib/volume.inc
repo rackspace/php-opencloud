@@ -36,7 +36,7 @@ class Volume extends \OpenCloud\PersistentObject {
 		$attachments = array(),
 		$created_at;
 	
-	protected
+	protected static
 		$json_name = 'volume',
 		$url_resource = 'volumes';
 

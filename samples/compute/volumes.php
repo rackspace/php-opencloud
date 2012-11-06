@@ -107,6 +107,10 @@ $server->AttachVolume($volume);	// use 'auto' device
 $volume->WaitFor('in-use', 600, 'dot');
 print "\n";
 
+step('Detach volume from server');
+$server->DetachVolume($volume);
+$volume->WaitFor('available', 600, 'dot');
+
 step('Create a snapshot');
 $snap = $cbs->Snapshot();   // empty snapshot object
 $snap->Create(array(

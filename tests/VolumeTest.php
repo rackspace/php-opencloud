@@ -15,8 +15,6 @@ require_once('stub_conn.inc');
 require_once('volumeservice.inc');
 
 class publicVolume extends OpenCloud\VolumeService\Volume {
-    public function JsonName() { return parent::JsonName(); }
-    public function ResourceName() { return parent::ResourceName(); }
     public function CreateJson() { return parent::CreateJson(); }
 }
 

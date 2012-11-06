@@ -14,10 +14,6 @@ require_once('stub_service.inc');
 require_once('volumeattachment.inc');
 
 class publicVolumeAttachment extends OpenCloud\Compute\VolumeAttachment {
-    public function PrimaryKeyField() { return parent::PrimaryKeyField(); }
-    public function CreateUrl() { return parent::CreateUrl(); }
-    public function JsonName() { return parent::JsonName(); }
-    public function ResourceName() { return parent::ResourceName(); }
     public function CreateJson() { return parent::CreateJson(); }
 }
 
@@ -28,10 +24,12 @@ class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
     public function __construct() {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $compute = $conn->Compute(NULL, 'DFW');
+        //setDebug(TRUE);
         $this->att = new publicVolumeAttachment(
             new OpenCloud\Compute\Server($compute, 'XXX'),
             'FOO'
         );
+        setDebug(FALSE);
     }
     /**
      * Tests
@@ -57,26 +55,6 @@ class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'Attachment [FOO]',
             $this->att->Name());
-    }
-    public function testPrimaryKeyField() {
-        $this->assertEquals(
-            'volumeId',
-            $this->att->PrimaryKeyField());
-    }
-    public function testCreateUrl() {
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/os-volume_attachments',
-            $this->att->CreateUrl());
-    }
-    public function testJsonName() {
-        $this->assertEquals(
-            'volumeAttachment',
-            $this->att->JsonName());
-    }
-    public function testResourceName() {
-        $this->assertEquals(
-            'os-volume_attachments',
-            $this->att->ResourceName());
     }
     public function testCreateJson() {
         $obj = $this->att->CreateJson();

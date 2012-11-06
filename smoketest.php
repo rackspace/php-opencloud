@@ -134,9 +134,7 @@ if ($server->Status() == 'ERROR')
 	die("Server create failed with ERROR\n");
 
 step('Attach the volume');
-//setDebug(TRUE);
 $server->AttachVolume($volume);
-setDebug(FALSE);
 $volume->WaitFor('in-use', 600, 'dotter');
 
 step('Update the server name');
