@@ -77,10 +77,7 @@ class LoadBalancerService extends Nova {
 	 * @return \OpenCloud\Collection
 	 */
 	public function LoadBalancerList($detail=TRUE, $filter=array()) {
-		return $this->Collection(
-			$this->Url(),
-			self::SERVICE_OBJECT_CLASS,
-			self::JSON_ELEMENT);
+		return $this->Collection('\OpenCloud\LoadBalancerService\LoadBalancer');
 	}
 
 }

@@ -46,12 +46,9 @@ class VolumeService extends Nova {
 	 * @return Collection
 	 */
 	public function VolumeList($details=TRUE, $filter=array()) {
-		$url = $this->Url('volumes') .
+		$url = $this->Url(VolumeService\Volume::ResourceName()) .
 				($details ? '/detail' : '');
-		return $this->Collection(
-			$url,
-			'Volume',
-			'volumes');
+		return $this->Collection('\OpenCloud\VolumeService\Volume', $url);
 	}
 
 	/**
@@ -73,10 +70,7 @@ class VolumeService extends Nova {
 	 * @return Collection
 	 */
 	public function VolumeTypeList($filter=array()) {
-		return $this->Collection(
-			$this->Url('types'),
-			'VolumeType',
-			'types');
+		return $this->Collection('\OpenCloud\VolumeService\VolumeType');
 	}
 
 	/**
@@ -97,10 +91,7 @@ class VolumeService extends Nova {
 	 * @return Collection
 	 */
 	public function SnapshotList($filter=array()) {
-		return $this->Collection(
-			$this->Url('snapshots'),
-			'Snapshot',
-			'snapshots');
+		return $this->Collection('\OpenCloud\VolumeService\Snapshot');
 	}
 
 }

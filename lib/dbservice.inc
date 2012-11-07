@@ -81,9 +81,6 @@ class DbService extends Nova {
 	 * @return Collection
 	 */
 	public function InstanceList($params=array()) {
-		return $this->Collection(
-			$this->Url(),
-			'Instance',
-			'instances');
+		return $this->Collection('\OpenCloud\DbService\Instance');
 	}
 }

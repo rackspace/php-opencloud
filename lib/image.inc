@@ -37,33 +37,12 @@ class Image extends \OpenCloud\PersistentObject {
 		$minRam,
 		$metadata,
 		$server;
-	
+
 	protected static
 		$json_name = 'image',
 		$url_resource = 'images';
-	
-	/**
-	 * error on Create()
-	 *
-	 * The Create() method is not supported on the compute/image class.
-	 *
-	 * @throws OpenCloud\CreateError always
-	 */
-	public function Create() {
-		throw new \OpenCloud\CreateError(
-			_('Images cannot be created directly'));
-	}
-	
-	/**
-	 * error on Update()
-	 *
-	 * The Update() method is not supported on the compute/image class.
-	 *
-	 * @throws OpenCloud\UpdateError always
-	 */
-	public function Update() {
-		throw new \OpenCloud\UpdateError(
-			_('Images cannot be updated directly'));
-	}
+
+	public function Create() { $this->NoCreate(); }
+	public function Update() { $this->NoUpdate(); }
 
 } // class Image

@@ -196,14 +196,10 @@ class CDNContainer extends ObjStoreBase {
 		$url = $this->Url();
 		if (strlen($qstring) > 0)
 			$url .= '?' . $qstring;
-		
+
 		// fetch it
 		return $this->Service()->Collection(
-			$url,
-			'DataObject',
-			FALSE,
-			$this
-		);
+		    '\OpenCloud\ObjectStore\DataObject', $url, $this);
 	} // object_list()
 
 	/**
@@ -221,6 +217,10 @@ class CDNContainer extends ObjStoreBase {
 	 */
 	public function Service() {
 		return $this->service;
+	}
+
+	public function JsonCollectionName() {
+	    return NULL;
 	}
 
 	/********** PRIVATE METHODS **********/
@@ -343,7 +343,7 @@ class Container extends CDNContainer {
 	            _('HTTP error disabling CDN, status [%d] response [%s]'),
 	            $response->HttpStatus(), $response->HttpBody()));
 	}
-	
+
 	/**
 	 * Creates a static website from the container
 	 *
@@ -355,16 +355,16 @@ class Container extends CDNContainer {
 	public function CreateStaticSite($index) {
 		$headers = array('X-Container-Meta-Web-Index'=>$index);
 		$response = $this->Service()->Request($this->Url(), 'POST', $headers);
-		
+
 		// check return code
 		if ($response->HttpStatus() > 204)
 			throw new ContainerError(sprintf(
 				_('Error creating static website for [%s], status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		return $response;
 	}
-	
+
 	/**
 	 * Sets the error page(s) for the static website
 	 *
@@ -376,14 +376,14 @@ class Container extends CDNContainer {
 	public function StaticSiteErrorPage($name) {
 		$headers = array('X-Container-Meta-Web-Error'=>$name);
 		$response = $this->Service()->Request($this->Url(), 'POST', $headers);
-		
+
 		// check return code
 		if ($response->HttpStatus() > 204)
 			throw new ContainerError(sprintf(
 				_('Error creating static site error page for [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
-		
+
 		return $response;
 	}
 

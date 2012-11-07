@@ -47,7 +47,7 @@ class Server extends \OpenCloud\PersistentObject {
 		$progress,		// build progress, from 0 (%) to 100 (%)
 		$adminPass,		// the root password returned from the Create() method
 		$metadata;		// a Metadata object associated with the server
-	
+
 	protected static
 		$json_name = 'server',
 		$url_resource = 'servers';
@@ -175,7 +175,7 @@ class Server extends \OpenCloud\PersistentObject {
 	/**
 	 * Reboots a server
 	 *
-	 * You can pass the parameter RAXSDK_SOFT_REBOOT (default) or 
+	 * You can pass the parameter RAXSDK_SOFT_REBOOT (default) or
 	 * RAXSDK_HARD_REBOOT to specify the type of reboot. A "soft" reboot
 	 * requests that the operating system reboot itself; a "hard" reboot
 	 * is the equivalent of pulling the power plug and then turning it back
@@ -371,7 +371,7 @@ class Server extends \OpenCloud\PersistentObject {
 		else
 			return new \stdClass();
 	} // function ips()
-	
+
 	/**
 	 * Attaches a volume to a server
 	 *
@@ -379,14 +379,14 @@ class Server extends \OpenCloud\PersistentObject {
 	 * `VolumeAttachment::Create()`
 	 *
 	 * @api
-	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach. If 
+	 * @param OpenCloud\VolumeService\Volume $vol the volume to attach. If
 	 *		`"auto"` is specified (the default), then the first available
 	 *		device is used to mount the volume (for example, if the primary
 	 *		disk is on `/dev/xvhda`, then the new volume would be attached
-	 *		to `/dev/xvhdb`). 
+	 *		to `/dev/xvhdb`).
 	 * @param string $device the device to which to attach it
 	 */
-	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol, 
+	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol,
 								 $device='auto') {
 		$this->CheckExtension('os-volumes');
 		$attachment = $this->VolumeAttachment();
@@ -394,7 +394,7 @@ class Server extends \OpenCloud\PersistentObject {
 			'volumeId' => $vol->id,
 			'device' => ($device=='auto' ? NULL : $device)));
 	}
-	
+
 	/**
 	 * removes a volume attachment from a server
 	 *
@@ -418,7 +418,7 @@ class Server extends \OpenCloud\PersistentObject {
 	public function VolumeAttachment($id=NULL) {
 		return new VolumeAttachment($this, $id);
 	}
-	
+
 	/**
 	 * returns a Collection of VolumeAttachment objects
 	 *
@@ -427,13 +427,11 @@ class Server extends \OpenCloud\PersistentObject {
 	 */
 	public function VolumeAttachmentList() {
 		return $this->Service()->Collection(
-			$this->Url('os-volume_attachments'),
-			'VolumeAttachment',
-			'volumeAttachments',
-			$this
-		);
+		    '\OpenCloud\Compute\VolumeAttachment',
+		    NULL,
+		    $this);
 	}
-	
+
 	/**
 	 * adds a "personality" file to be uploaded during Create() or Rebuild()
 	 *

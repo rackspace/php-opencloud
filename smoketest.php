@@ -72,8 +72,10 @@ $imagelist->Sort('name');
 while($i = $imagelist->Next()) {
     info($i->name);
     // save a CentOS image for later
-    if (!isset($centos) && $i->metadata->os_distro == 'centos')
+    if (!isset($centos) && isset($i->metadata->os_distro) &&
+         $i->metadata->os_distro == 'centos') {
         $centos = $i;
+    }
 }
 
 step('Create Network');

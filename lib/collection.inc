@@ -42,7 +42,11 @@ class Collection extends Base {
 	 */
 	public function __construct($service, $itemclass, $arr) {
 		$this->service = $service;
-		$this->itemclass = $itemclass;
+		$p = strrpos($itemclass, '\\');
+		if ($p !== FALSE)
+		    $this->itemclass = substr($itemclass, $p+1);
+		else
+		    $this->itemclass = $itemclass;
 		if (!is_array($arr))
 			throw new \OpenCloud\CollectionError(
 				_('Cannot create a Collection without an array'));

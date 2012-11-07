@@ -110,7 +110,7 @@ class Compute extends Nova {
 	}
 
 	/**
-	 * Returns a Collection of server objects, filtered by the specified 
+	 * Returns a Collection of server objects, filtered by the specified
 	 * parameters
 	 *
 	 * This is a factory method and should normally be called instead of
@@ -133,11 +133,12 @@ class Compute extends Nova {
 	        throw new InvalidArgumentException(
 	            _('Second argument for Compute::ServerList() must be array'));
 	    if ($details)
-	        $url = $this->Url('servers/detail', $filter);
+	        $url = $this->Url(Compute\Server::ResourceName().'/detail',
+	                            $filter);
 	    else
-	        $url = $this->Url('servers', $filter);
-	    
-	    return $this->Collection($url, 'Server', 'servers');
+	        $url = $this->Url(Compute\Server::ResourceName(), $filter);
+
+	    return $this->Collection('\OpenCloud\Compute\Server', $url);
 	}
 
 	/**
@@ -159,10 +160,7 @@ class Compute extends Nova {
 	 * @return Collection
 	 */
 	public function NetworkList($filter=array()) {
-		return $this->Collection(
-			$this->Url('os-networksv2'),
-			'Network',
-			'networks');
+		return $this->Collection('\OpenCloud\Compute\Network');
 	}
 
 	/**
@@ -206,7 +204,7 @@ class Compute extends Nova {
 	        $url = $this->Url('images/detail', $filter);
 	    else
 	        $url = $this->Url('images', $filter);
-	    return $this->Collection($url, 'Image', 'images');
+	    return $this->Collection('\OpenCloud\Compute\Image', $url);
 	}
 
 } // class Compute
