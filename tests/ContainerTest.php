@@ -43,6 +43,8 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	public function test_construct() {
+	    $this->container = new OpenCloud\ObjectStore\Container(
+	        $this->service, 'TEST');
 		$this->assertEquals(
 		    'TEST',
 		    $this->container->name);
@@ -140,5 +142,10 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'OpenCloud\BlankResponse',
 			get_class($this->container->StaticSiteErrorPage('error.html')));
+	}
+	public function testPublicUrl() {
+	    $this->assertEquals(
+	        '/TEST',
+	        $this->container->PublicUrl());
 	}
 }

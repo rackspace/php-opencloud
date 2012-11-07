@@ -35,10 +35,16 @@ class MyPersistentObject extends \OpenCloud\PersistentObject {
 		$progress,
 		$adminPass,
 		$metadata;
-	public static
+	protected static
 		$json_name = 'instance',
+		$json_collection_name = 'instanceCollection',
 		$url_resource = 'instances';
 	public function Refresh($id) { return parent::Refresh($id); }
+	public function NoCreate() { return parent::NoCreate(); }
+	public function NoUpdate() { return parent::NoUpdate(); }
+	public function NoDelete() { return parent::NoDelete(); }
+	public function Action($object) { return parent::Action($object); }
+	public function CreateUrl() { return parent::CreateUrl(); }
 }
 
 class PersistentObjectTest extends PHPUnit_Framework_TestCase
@@ -75,7 +81,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	public function testUrl() {
 	    $this->instance->id = '12';
 	    $this->assertEquals(
-	        'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12',
+'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12',
 	        $this->instance->Url());
 	}
 	public function testRefresh() {
@@ -116,5 +122,79 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'',
 			$this->instance->Name());
+	}
+	public function testStatus() {
+	    $this->assertEquals(
+	        'N/A',
+	        $this->instance->Status());
+	}
+	public function testId() {
+	    $this->assertEquals(
+	        NULL,
+	        $this->instance->Id());
+	}
+	public function testJsonName() {
+	    $this->assertEquals(
+	        'instance',
+	        MyPersistentObject::JsonName());
+	}
+	public function testResourceName() {
+	    $this->assertEquals(
+	        'instances',
+	        MyPersistentObject::ResourceName());
+	}
+	public function testJsonCollectionName() {
+	    $this->assertEquals(
+	        'instanceCollection',
+	        MyPersistentObject::JsonCollectionName());
+	}
+	/**
+	 * @expectedException OpenCloud\CreateError
+	 */
+	public function testNoCreate() {
+	    $this->instance->NoCreate();
+	}
+	/**
+	 * @expectedException OpenCloud\UpdateError
+	 */
+	public function testNoUpdate() {
+	    $this->instance->NoUpdate();
+	}
+	/**
+	 * @expectedException OpenCloud\DeleteError
+	 */
+	public function testNoDelete() {
+	    $this->instance->NoDelete();
+	}
+	public function testService() {
+	    $this->assertEquals(
+	        'OpenCloud\Compute',
+	        get_class($this->instance->Service()));
+	}
+	public function testParent() {
+	    $this->assertEquals(
+	        'OpenCloud\Compute',
+	        get_class($this->instance->Parent()));
+	}
+	/**
+	 * @expectedException OpenCloud\UnsupportedExtensionError
+	 */
+	public function testCheckExtension() {
+        // this should work
+        $this->assertEquals(
+            TRUE,
+    	    $this->instance->CheckExtension('os-rescue'));
+	    // this causes the exception
+	    $this->instance->CheckExtension('foobar');
+	}
+	public function testAction() {
+	    $obj = new \stdClass;
+	    $this->instance->id = 'foo';
+	    $this->instance->Action($obj);
+	}
+	public function testCreateUrl() {
+	    $this->assertEquals(
+	        'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances',
+	        $this->instance->CreateUrl());
 	}
 }
