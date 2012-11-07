@@ -22,7 +22,7 @@ require_once('collection.inc');
  *
  * Nova is used as a basis for several products, including Compute services
  * as well as Rackspace's Cloud Databases. This class is, in essence, a vehicle
- * for sharing common code between those other classes. 
+ * for sharing common code between those other classes.
  */
 abstract class Nova extends Service {
 	private
@@ -108,10 +108,11 @@ abstract class Nova extends Service {
 	 */
 	public function FlavorList($details=TRUE, $filter=array()) {
 	    if ($details)
-	        $url = $this->Url('flavors/detail', $filter);
+	        $url = $this->Url(Compute\Flavor::ResourceName().'/detail',
+	                    $filter);
 	    else
-	        $url = $this->Url('flavors', $filter);
-	    return $this->Collection($url, 'Flavor', 'flavors');
+	        $url = $this->Url(Compute\Flavor::ResourceName(), $filter);
+	    return $this->Collection('\OpenCloud\Compute\Flavor', $url);
 	}
 
     /**

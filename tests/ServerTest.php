@@ -97,8 +97,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	public function testResize() {
 		$this->assertEquals(
 		    200,
-		    $this->server->Resize(
-		        new OpenCloud\Compute\Flavor(false))->HttpStatus());
+		    $this->server->Resize($this->service->Flavor(4))->HttpStatus());
 	}
 	public function testResizeConfirm() {
 	    $this->assertEquals(
@@ -204,7 +203,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$new->AddFile('/tmp/hello.txt', 'Hello, world!');
 		$obj = json_decode($new->CreateJson());
 		$this->assertEquals(
-			TRUE, 
+			TRUE,
 			is_array($obj->server->personality));
 		$this->assertEquals(
 			'/tmp/hello.txt',

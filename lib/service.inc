@@ -120,20 +120,30 @@ abstract class Service extends Base {
 	/**
 	 * returns a collection of objects
 	 *
-	 * @param string $url the URL to retrieve
 	 * @param string $class the class of objects to fetch
-	 * @param string $element the top-level JSON element holding the array
+	 * @param string $url (optional) the URL to retrieve
+	 * @param mixed $parent (optional) the parent service/object
 	 * @return \OpenCloud\Collection
 	 */
-	public function Collection($url, $class, $element, $parent=NULL) {
+	public function Collection($class, $url=NULL, $parent=NULL) {
+	    // set the element name
+	    $element = $class::JsonCollectionName();
+
+	    // save the parent
 		if (!isset($parent))
 			$parent = $this;
+
+		// determine the URL
+		if (!$url)
+		    $url = $parent->Url($class::ResourceName());
+
+		// save debug info
 		$this->debug('%s:Collection(%s, %s, %s)',
 			get_class($this), $url, $class, $element);
 
 		// fetch the list
 		$response = $this->Request($url);
-		$this->debug('response %d [%s]', 
+		$this->debug('response %d [%s]',
 			$response->HttpStatus(), $response->HttpBody());
 
 		// check return code

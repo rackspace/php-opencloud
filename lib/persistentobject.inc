@@ -170,7 +170,11 @@ abstract class PersistentObject extends Base {
 	 */
 	public function Delete() {
 		$this->debug('%s::Delete()', get_class($this));
+
+		// send the request
 		$response = $this->Service()->Request($this->Url(), 'DELETE');
+
+		// check the return code
 		if ($response->HttpStatus() > 204)
 			throw new DeleteError(sprintf(
 				_('Error deleting [%s] [%s], status [%d] response [%s]'),
@@ -178,6 +182,7 @@ abstract class PersistentObject extends Base {
 				$this->Name(),
 				$response->HttpStatus(),
 				$response->HttpBody()));
+
 		return $response;
 	}
 	/**
@@ -198,7 +203,7 @@ abstract class PersistentObject extends Base {
 		// next, check to see if we have an ID
 		/**
 		 * Note that we use Parent() instead of Service(), since the parent
-		 * object might not be a service. 
+		 * object might not be a service.
 		 */
 		if (!$url && $this->{$pk})
 			$url = noslash($this->Parent()->Url($this->ResourceName()))
@@ -261,7 +266,7 @@ abstract class PersistentObject extends Base {
 	public function Service() {
 		return $this->_parent;
 	}
-	
+
 	/**
 	 * returns the parent object of this object
 	 *
@@ -293,7 +298,7 @@ abstract class PersistentObject extends Base {
 	 * changing states)
 	 *
 	 * @return void
-	 * @throws ServerIdRequiredError
+	 * @throws IdRequiredError
 	 */
 	public function Refresh($id=NULL) {
 		$pk = $this->PrimaryKeyField();
@@ -302,7 +307,7 @@ abstract class PersistentObject extends Base {
 		if (!isset($id))
 			$id = $this->{$pk};
 		if (!$id)
-			throw new ServerIdRequiredError(sprintf(
+			throw new IdRequiredError(sprintf(
 			    _('%s has no ID; cannot be refreshed'), get_class()));
 
 		// retrieve it
@@ -367,7 +372,7 @@ abstract class PersistentObject extends Base {
 				_('Name attribute does not exist for [%s]'),
 				get_class($this)));
 	}
-	
+
 	/**
 	 * returns the object's status or `N/A` if not available
 	 *
@@ -380,7 +385,7 @@ abstract class PersistentObject extends Base {
 		else
 			return 'N/A';
 	}
-	
+
 	/**
 	 * returns the object's identifier
 	 *
@@ -405,6 +410,7 @@ abstract class PersistentObject extends Base {
 		if (!in_array($alias, $this->Service()->namespaces()))
 			throw new UnsupportedExtensionError(sprintf(
 				_('Extension [%s] is not installed'), $alias));
+		return TRUE;
 	}
 
 	/********** PROTECTED METHODS **********/
@@ -426,7 +432,7 @@ abstract class PersistentObject extends Base {
 		$pk = $this->PrimaryKeyField();
 		// we always require a valid ID
 		if (!$this->{$pk})
-			throw new ServerIdRequiredError(sprintf(
+			throw new IdRequiredError(sprintf(
 				_('%s is not defined'), get_class($this)));
 
 		// verify that it is an object
@@ -488,7 +494,7 @@ abstract class PersistentObject extends Base {
 		}
 		return FALSE;
 	}
-	
+
 	/**
 	 * returns the URL used for Create
 	 *
@@ -535,7 +541,7 @@ abstract class PersistentObject extends Base {
 	 * When an object is returned in a collection, it usually has a top-level
 	 * object that is an array holding child objects of the object types.
 	 * This static function returns the name of the top-level element. Usually,
-	 * that top-level element is simply the JSON name of the resource.'s'; 
+	 * that top-level element is simply the JSON name of the resource.'s';
 	 * however, it can be overridden by specifying the $json_collection_name
 	 * attribute.
 	 *
@@ -564,7 +570,7 @@ abstract class PersistentObject extends Base {
 			_('No URL resource defined for class [%s] in ResourceName()'),
 			get_class()));
 	}
-	
+
 	/**
 	 * Returns an object for the Create() method JSON
 	 *
@@ -590,7 +596,7 @@ abstract class PersistentObject extends Base {
 			_('[%s] UpdateJson() must be overridden'),
 			get_class($this)));
 	}
-	
+
 	/**
 	 * throws a CreateError for subclasses that don't support Create
 	 *

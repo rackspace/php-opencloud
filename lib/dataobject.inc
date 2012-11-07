@@ -325,6 +325,10 @@ class DataObject extends ObjStoreBase {
         return $this->etag;
     }
 
+    public function JsonCollectionName() {
+        return NULL;
+    }
+
     /********** CDN METHODS **********/
 
     /**

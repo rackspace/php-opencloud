@@ -33,6 +33,7 @@ namespace OpenCloud {
 	class HttpTimeoutError extends \Exception {}
 	class HttpUrlError extends \Exception {}
 	class HttpOverLimitError extends \Exception {}
+	class IdRequiredError extends \Exception {}
 	class InstanceNotFound extends \Exception {}
 	class JsonError extends \Exception {}
 	class ServerActionError extends \Exception {}
@@ -44,6 +45,7 @@ namespace OpenCloud {
 	class DeleteError extends \Exception {}
 	class UpdateError extends \Exception {}
 	class NameError extends \Exception {}
+	class UnsupportedExtensionError extends \Exception {}
 
 	/**
 	 * catch-all
@@ -77,7 +79,6 @@ namespace OpenCloud\Compute {
 	class ServerCreateError extends \Exception {}
 	class ServerUpdateError extends \Exception {}
 	class ServerDeleteError extends \Exception {}
-	class ServerIdRequiredError extends \Exception {}
 	class ServerIpsError extends \Exception {}
 	class ServerUrlError extends \Exception {}
 	class ServerJsonError extends \Exception {}

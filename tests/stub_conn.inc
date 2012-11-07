@@ -48,6 +48,12 @@ ENDNW;
 ENDATT;
 			$resp->status = 200;
 		}
+		elseif (strpos($url, '/os-volume_attachments')) {
+		    $resp->body = <<<ENDATTLIST
+{"volumeAttachments": []}
+ENDATTLIST;
+            $resp->status = 200;
+		}
 		elseif (strpos($url, 'os-networksv2')) {
 			$resp->body = NULL;
 			$resp->status = 200;
