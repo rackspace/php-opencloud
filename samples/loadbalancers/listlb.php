@@ -47,8 +47,10 @@ if ($list->Size()) {
 	step('Load balancers:');
 	while($lb = $list->Next()) {
 		info('%10s %s', $lb->id, $lb->Name());
+		info('Error page: [%s]', $lb->ErrorPage()->content);
+		info('Max Connections: [%d]', $lb->Stats()->maxConn);
 		$sp = $lb->SessionPersistence();
-		print_r($sp);
+		//print_r($sp);
 	}
 }
 else

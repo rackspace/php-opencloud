@@ -66,7 +66,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		$this->lb->id = 1024;
 		$x = $this->lb->Stats();
 		$this->assertEquals(
-			'stdClass',
+			'OpenCloud\LoadBalancerService\LbStats',
 			get_class($x));
 		$this->assertEquals(
 			10,

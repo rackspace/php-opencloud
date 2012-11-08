@@ -140,28 +140,33 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		return new LbSessionPersistence($this);
 	}
 	
+	/********** FACTORY METHODS **********
+	 *
+	 * These are used for the various sub-resources of LoadBalancer that are
+	 * each managed by independent HTTP requests, such as the .../errorpage
+	 * and the .../sessionpersistence objects.
+	 */
+	
 	/**
-	 * returns statistics on this LoadBalancer
+	 * returns the load balancer's error page object
 	 *
 	 * @api
-	 * @return stdClass object containing LoadBalancer stats
-	 * @throws OpenCloud\HttpError if HTTP return code is not 200
+	 * @return LbErrorPage
+	 */
+	public function ErrorPage() {
+		return new LbErrorPage($this);
+	}
+	
+	/**
+	 * returns statistics on the load balancer operation
+	 *
+	 * cannot be created, updated, or deleted
+	 *
+	 * @api
+	 * @return LbStats
 	 */
 	public function Stats() {
-		$url = $this->Url('stats');
-		$response = $this->Service()->Request($url);
-		
-		// trap errors
-		if ($response->HttpStatus() > 200)
-			throw new \OpenCloud\HttpError(sprintf(
-				_('HTTP error on Stats() method, code [%d] response [%s]'),
-				$response->HttpStatus(), $response->HttpBody()));
-		
-		// parse the returned json
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-		return $obj;
+		return new LbStats($this);
 	}
 
 	/********** PROTECTED METHODS **********/

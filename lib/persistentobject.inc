@@ -37,12 +37,12 @@ abstract class PersistentObject extends Base {
 	/**
 	 * Retrieves the instance from persistent storage
 	 *
-	 * @param mixed $nova the parent object of the current object
+	 * @param mixed $parentobj the parent object of the current object
 	 * @param mixed $info the ID or array/object of data
 	 * @throws InvalidArgumentError if $info has an invalid data type
 	 */
-	public function __construct($nova, $info=NULL) {
-		$this->_parent = $nova;
+	public function __construct($parentobj, $info=NULL) {
+		$this->_parent = $parentobj;
 		if (property_exists($this, 'metadata'))
 			$this->metadata = new Metadata;
 		if (is_string($info) || is_integer($info)) {
@@ -348,9 +348,14 @@ abstract class PersistentObject extends Base {
 				throw new ServerJsonError(sprintf(
 				    _('JSON parse error on %s refresh'), get_class($this)));
 			$top = $this->JsonName();
-			foreach($resp->$top as $item => $value) {
-				$this->$item = $value;
-			}
+			if ($top === FALSE)
+				foreach($resp as $item => $value) {
+					$this->$item = $value;
+				}
+			else
+				foreach($resp->$top as $item => $value) {
+					$this->$item = $value;
+				}
 		}
 	}
 
