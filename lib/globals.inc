@@ -95,16 +95,16 @@ if (!defined('RAXSDK_DEFAULT_IP_VERSION'))
 if (!defined('RAXSDK_OVERLIMIT_TIMEOUT'))
     define('RAXSDK_OVERLIMIT_TIMEOUT', 300);
 /**
- * sets default (highly secure) value for CURLOPT_SSL_VERIFYHOST. If you are using
- * a self-signed SSL certificate, you can reduce this setting, but you do so at your
- * own risk. 
+ * sets default (highly secure) value for CURLOPT_SSL_VERIFYHOST. If you 
+ * are using a self-signed SSL certificate, you can reduce this setting, but 
+ * you do so at your own risk. 
  */
 if (!defined('RAXSDK_SSL_VERIFYHOST'))
     define('RAXSDK_SSL_VERIFYHOST', 2);
 /**
- * sets default (highly secure) value for CURLOPT_SSL_VERIFYPEER. If you are using
- * a self-signed SSL certificate, you can reduce this setting, but you do so at your
- * own risk.
+ * sets default (highly secure) value for CURLOPT_SSL_VERIFYPEER. If you 
+ * are using a self-signed SSL certificate, you can reduce this setting, but 
+ * you do so at your own risk.
  */
 if (!defined('RAXSDK_SSL_VERIFYPEER'))
     define('RAXSDK_SSL_VERIFYPEER', TRUE);

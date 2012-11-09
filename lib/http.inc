@@ -63,11 +63,12 @@ class CurlRequest implements HTTPRequest {
         
         // set security handling options
         if (RAXSDK_SSL_VERIFYHOST != 2)
-            $this->debug(
-                _('WARNING: RAXSDK_SSL_VERIFYHOST has reduced security, value [%d]'),
-                RAXSDK_SSL_VERIFYPEER);
+            printf(
+            	_('WARNING: RAXSDK_SSL_VERIFYHOST has reduced security, '.
+            	  "value [%d]\n"),
+                RAXSDK_SSL_VERIFYHOST);
         if (RAXSDK_SSL_VERIFYPEER !== TRUE)
-            $this->debug('WARNING: RAXSDK_SSL_VERIFYPEER has reduced security');
+            printf("WARNING: RAXSDK_SSL_VERIFYPEER has reduced security\n");
         $this->SetOption(CURLOPT_SSL_VERIFYHOST, RAXSDK_SSL_VERIFYHOST);
         $this->SetOption(CURLOPT_SSL_VERIFYPEER, RAXSDK_SSL_VERIFYPEER);
 

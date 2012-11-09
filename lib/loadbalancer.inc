@@ -65,28 +65,75 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	/**
 	 * adds a node to the load balancer
 	 *
+	 * This method creates a Node object and adds it to a list of Nodes
+	 * to be added to the LoadBalancer. *Very important:* this method *NEVER*
+	 * adds the nodes directly to the load balancer itself; it stores them
+	 * on the object, and the nodes are added later, in one of two ways:
+	 *
+	 * * for a new LoadBalancer, the Nodes are added as part of the Create()
+	 *   method call. 
+	 * * for an existing LoadBalancer, you must call the AddNodes() method
+	 *
 	 * @api
 	 * @param string $addr the IP address of the node
 	 * @param integer $port the port # of the node
 	 * @param boolean $condition the initial condition of the node
+	 * @param string $type either PRIMARY or SECONDARY
+	 * @param integer $weight the node weight (for round-robin)
+	 * @throws \OpenCloud\DomainError if value is not valid
 	 * @return void
 	 */
-	public function AddNode($addr, $port, $condition='ENABLED') {
-	    $obj = new \stdClass();
-	    $obj->address = $addr;
-	    $obj->port = $port;
+	public function AddNode($addr, $port, $condition='ENABLED', 
+			$type=NULL, $weight=NULL) {
+	    $node = new LbNode($this);
+	    $node->address = $addr;
+	    $node->port = $port;
 	    $cond = strtoupper($condition);
 	    switch($cond) {
 	    case 'ENABLED':
 	    case 'DISABLED':
 	    case 'DRAINING':
-            $obj->condition = $cond;
+            $node->condition = $cond;
             break;
         default:
             throw new \OpenCloud\DomainError(sprintf(
-                _('Value [%s] for condition is not valid'), $condition));
+                _('Value [%s] for Node::condition is not valid'), $condition));
 	    }
-	    $this->nodes[] = $obj;
+	    if (isset($type)) {
+	    	switch(strtoupper($type)) {
+	    	case 'PRIMARY':
+	    	case 'SECONDARY':
+	    		$node->type = $type;
+	    		break;
+	    	default:
+	    		throw new \OpenCloud\DomainError(sprintf(
+	    			_('Value [%s] for Node::type is not valid'), $type));
+	    	}
+	    }
+	    if (isset($weight)) {
+	    	if (is_integer($weight))
+	    		$node->weight = $weight;
+	    	else
+	    		throw new \OpenCloud\DomainError(sprintf(
+	    			_('Value [%s] for Node::weight must be integer'), $weight));
+	    }
+	    $this->nodes[] = $node;
+	}
+	
+	/**
+	 * adds queued nodes to the load balancer
+	 *
+	 * In many cases, Nodes will be added to the Load Balancer when it is
+	 * created (via the `Create()` method), but this method is provided when
+	 * a set of Nodes needs to be added after the fact. 
+	 *
+	 * @api
+	 * @return HttpResponse
+	 */
+	public function AddNodes() {
+		if (count($this->nodes) < 1)
+			throw new MissingValueError(
+				_('Cannot add nodes; no nodes are defined'));
 	}
 
 	/**

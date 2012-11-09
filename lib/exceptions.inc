@@ -144,3 +144,10 @@ namespace OpenCloud\VolumeService {
 	class VolumeError extends \Exception {}
 	class VolumeTypeError extends \Exception {}
 }
+
+/**
+ * Exceptions used by the LoadBalancerService
+ */
+namespace OpenCloud\LoadBalancerService {
+	class MissingValueError extends \Exception {}
+}

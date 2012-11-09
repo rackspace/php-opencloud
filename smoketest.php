@@ -11,6 +11,10 @@
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
+if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
+	define('RAXSDK_SSL_VERIFYHOST', 0);
+	define('RAXSDK_SSL_VERIFYPEER', 0);
+}
 require('rackspace.inc');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
@@ -24,7 +28,7 @@ define('VOLUMESIZE', 103);
  * variables that are used by python-novaclient. Just make sure that they're
  * set to the right values before running this test.
  */
-define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
+define('AUTHURL', $_ENV['NOVA_URL']);
 define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
@@ -45,6 +49,7 @@ define('TIMEFORMAT', 'r');
  * START THE TESTS!
  */
 printf("SmokeTest started at %s\n", date(TIMEFORMAT, $start));
+printf("Using endpoint [%s]\n", $_ENV['NOVA_URL']);
 printf("Using region [%s]\n", MYREGION);
 
 step('Authenticate');
@@ -57,130 +62,137 @@ $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
 /**
  * Cloud Servers
  */
-step('Connect to Cloud Servers');
-$cloudservers = $rackspace->Compute('cloudServersOpenStack', MYREGION);
-
-step('List Flavors');
-$flavorlist = $cloudservers->FlavorList();
-$flavorlist->Sort('id');
-while($f = $flavorlist->Next())
-    info('%s: %sMB', $f->name, $f->ram);
-
-step('List Images');
-$imagelist = $cloudservers->ImageList();
-$imagelist->Sort('name');
-while($i = $imagelist->Next()) {
-    info($i->name);
-    // save a CentOS image for later
-    if (!isset($centos) && isset($i->metadata->os_distro) &&
-         $i->metadata->os_distro == 'centos') {
-        $centos = $i;
-    }
+try {
+	$USE_SERVERS=TRUE;
+	step('Connect to Cloud Servers');
+	$cloudservers = $rackspace->Compute('cloudServersOpenStack', MYREGION);
+} catch (Exception $e) {
+	if (get_class($e) == 'OpenCloud\EndpointError')
+		$USE_SERVERS=FALSE;
 }
 
-step('Create Network');
-$network = $cloudservers->Network();
-$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
-
-step('List Networks');
-$netlist = $cloudservers->NetworkList();
-$netlist->Sort('label');
-while($net = $netlist->Next())
-	info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
-
-step('Connect to the VolumeService');
-$cbs = $rackspace->VolumeService('cloudBlockStorage', MYREGION);
-
-step('Volume Types');
-$list = $cbs->VolumeTypeList();
-while($vtype = $list->Next()) {
-	info('%s - %s', $vtype->id, $vtype->name);
+if ($USE_SERVERS) {
+	step('List Flavors');
+	$flavorlist = $cloudservers->FlavorList();
+	$flavorlist->Sort('id');
+	while($f = $flavorlist->Next())
+		info('%s: %sMB', $f->name, $f->ram);
+	
+	step('List Images');
+	$imagelist = $cloudservers->ImageList();
+	$imagelist->Sort('name');
+	while($i = $imagelist->Next()) {
+		info($i->name);
+		// save a CentOS image for later
+		if (!isset($centos) && isset($i->metadata->os_distro) &&
+			 $i->metadata->os_distro == 'centos') {
+			$centos = $i;
+		}
+	}
+	
+	step('Create Network');
+	$network = $cloudservers->Network();
+	$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
+	
+	step('List Networks');
+	$netlist = $cloudservers->NetworkList();
+	$netlist->Sort('label');
+	while($net = $netlist->Next())
+		info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
+	
+	step('Connect to the VolumeService');
+	$cbs = $rackspace->VolumeService('cloudBlockStorage', MYREGION);
+	
+	step('Volume Types');
+	$list = $cbs->VolumeTypeList();
+	while($vtype = $list->Next()) {
+		info('%s - %s', $vtype->id, $vtype->name);
+	}
+	
+	step('Create a new Volume');
+	$volume = $cbs->Volume();
+	//setDebug(TRUE);
+	$volume->Create(array(
+		'display_name' => VOLUMENAME,
+		'display_description' => 'A sample volume for testing',
+		'size' => VOLUMESIZE,
+		'volume_type' => $cbs->VolumeType(2)
+	));
+	$volume = $cbs->Volume($volume->id);
+	setDebug(FALSE);
+	
+	step('Listing volumes');
+	$list = $cbs->VolumeList();
+	while($vol = $list->Next()) {
+		info('Volume: %s %s [%s] size=%d',
+			$vol->id,
+			$vol->display_name,
+			$vol->display_description,
+			$vol->size);
+	}
+	
+	step('Create Server');
+	$server = $cloudservers->Server();
+	$server->Create(array(
+		'name'=>'FOOBAR',
+		'image'=>$centos,
+		'flavor'=>$flavorlist->First(),
+		'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))
+	));
+	
+	step('Wait for Server create');
+	$server->WaitFor('ACTIVE', 600, 'dotter');
+	
+	// check for error
+	if ($server->Status() == 'ERROR')
+		die("Server create failed with ERROR\n");
+	
+	step('Attach the volume');
+	$server->AttachVolume($volume);
+	$volume->WaitFor('in-use', 600, 'dotter');
+	
+	step('Update the server name');
+	$server->Update(array('name'=>SERVERNAME));
+	$server->WaitFor('ACTIVE', 300, 'dotter');
+	
+	step('Reboot Server');
+	$server->Reboot();
+	$server->WaitFor('ACTIVE', 300, 'dotter');
+	
+	step('List Servers');
+	$list = $cloudservers->ServerList();
+	$list->Sort('name');
+	while($s = $list->Next())
+		info($s->name);
+	
+	step('Listing the server volume attachments');
+	//setDebug(TRUE);
+	$list = $server->VolumeAttachmentList();
+	while($vol = $list->Next())
+		info('%s %-20s', $vol->id, $vol->Name());
+	setDebug(FALSE);
+	//exit;
+	
+	step('Detaching the volume');
+	$server->DetachVolume($volume);
+	$volume->WaitFor('available', 600, 'dotter');
+	
+	step('Creating a snapshot');
+	$snap = $cbs->Snapshot();   // empty snapshot object
+	$snap->Create(array(
+		'display_name' => 'Smoketest Snapshot',
+		'volume_id' => $volume->id
+	));
+	
+	step('Deleting the test server(s)');
+	$list = $cloudservers->ServerList();
+	while($s = $list->Next()) {
+		if ($s->name == SERVERNAME) {
+			info('Deleting %s', $s->id);
+			$s->Delete();
+		}
+	}
 }
-
-step('Create a new Volume');
-$volume = $cbs->Volume();
-//setDebug(TRUE);
-$volume->Create(array(
-	'display_name' => VOLUMENAME,
-	'display_description' => 'A sample volume for testing',
-	'size' => VOLUMESIZE,
-	'volume_type' => $cbs->VolumeType(2)
-));
-$volume = $cbs->Volume($volume->id);
-setDebug(FALSE);
-
-step('Listing volumes');
-$list = $cbs->VolumeList();
-while($vol = $list->Next()) {
-	info('Volume: %s %s [%s] size=%d',
-		$vol->id,
-		$vol->display_name,
-		$vol->display_description,
-		$vol->size);
-}
-
-step('Create Server');
-$server = $cloudservers->Server();
-$server->Create(array(
-    'name'=>'FOOBAR',
-    'image'=>$centos,
-    'flavor'=>$flavorlist->First(),
-    'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))
-));
-
-step('Wait for Server create');
-$server->WaitFor('ACTIVE', 600, 'dotter');
-
-// check for error
-if ($server->Status() == 'ERROR')
-	die("Server create failed with ERROR\n");
-
-step('Attach the volume');
-$server->AttachVolume($volume);
-$volume->WaitFor('in-use', 600, 'dotter');
-
-step('Update the server name');
-$server->Update(array('name'=>SERVERNAME));
-$server->WaitFor('ACTIVE', 300, 'dotter');
-
-step('Reboot Server');
-$server->Reboot();
-$server->WaitFor('ACTIVE', 300, 'dotter');
-
-step('List Servers');
-$list = $cloudservers->ServerList();
-$list->Sort('name');
-while($s = $list->Next())
-    info($s->name);
-
-step('Listing the server volume attachments');
-//setDebug(TRUE);
-$list = $server->VolumeAttachmentList();
-while($vol = $list->Next())
-	info('%s %-20s', $vol->id, $vol->Name());
-setDebug(FALSE);
-//exit;
-
-step('Detaching the volume');
-$server->DetachVolume($volume);
-$volume->WaitFor('available', 600, 'dotter');
-
-step('Creating a snapshot');
-$snap = $cbs->Snapshot();   // empty snapshot object
-$snap->Create(array(
-    'display_name' => 'Smoketest Snapshot',
-    'volume_id' => $volume->id
-));
-
-step('Deleting the test server(s)');
-$list = $cloudservers->ServerList();
-while($s = $list->Next()) {
-    if ($s->name == SERVERNAME) {
-        info('Deleting %s', $s->id);
-        $s->Delete();
-    }
-}
-
 /**
  * Cloud Databases
  */
