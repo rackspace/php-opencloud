@@ -5,6 +5,10 @@
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
+if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
+	define('RAXSDK_SSL_VERIFYHOST', 0);
+	define('RAXSDK_SSL_VERIFYPEER', 0);
+}
 require('rackspace.inc');
 
 /**
@@ -12,7 +16,7 @@ require('rackspace.inc');
  * variables that are used by python-novaclient. Just make sure that they're
  * set to the right values before running this test.
  */
-define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
+define('AUTHURL', $_ENV['NOVA_URL']);
 define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
