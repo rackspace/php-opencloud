@@ -85,7 +85,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 */
 	public function AddNode($addr, $port, $condition='ENABLED', 
 			$type=NULL, $weight=NULL) {
-	    $node = new LbNode($this);
+	    $node = new Node($this);
 	    $node->address = $addr;
 	    $node->port = $port;
 	    $cond = strtoupper($condition);
