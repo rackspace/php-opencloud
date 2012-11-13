@@ -44,8 +44,8 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 		return $this->_lb;
 	}
 	public function Name() {
-		return sprintf(_('%s for Load Balancer %s'), 
-			get_class($this), $this->Parent()->Name());
+		return sprintf(_('%s-%s'), 
+			get_class($this), $this->Parent()->Id());
 	}
 } // end LbSubResource
 
@@ -151,6 +151,23 @@ class ConnectionThrottle extends LbSubResource {
     		'rateInterval'
     	);
 	public function Create($parm=array()) { $this->Update($parm); }
+}
+
+/**
+ * subresource to manage connection logging
+ *
+ * @api
+ */
+class ConnectionLogging extends LbSubResource {
+	public
+		$enabled;
+    public static
+    	$json_name = "connectionLogging",
+    	$url_resource = "connectionlogging";
+    protected
+    	$_create_keys = array( 'enabled' );
+	public function Create($parm=array()) { $this->Update($parm); }
+	public function Delete() { $this->NoDelete(); }
 }
 
 class LbAllowableDomains extends LbSubResource {

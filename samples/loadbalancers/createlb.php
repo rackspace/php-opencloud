@@ -52,7 +52,11 @@ $response = $lb->Create(array(
     'protocol' => 'HTTP',
     'port' => 80));
 setDebug(FALSE);
+$lb->WaitFor('ACTIVE', 300, 'dot');
 
 step('DONE');
 exit;
 
+function dot($obj) {
+	info('...status: %s', $obj->Status());
+}

@@ -221,6 +221,12 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	public function ConnectionThrottle() {
 		return new ConnectionThrottle($this);
 	}
+	
+	/**
+	 */
+	public function ConnectionLogging() {
+		return new ConnectionLogging($this);
+	}
 
 	/********** PROTECTED METHODS **********/
 

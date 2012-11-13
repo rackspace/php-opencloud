@@ -48,8 +48,15 @@ if ($list->Size()) {
 	while($lb = $list->Next()) {
 		info('%10s %s', $lb->id, $lb->Name());
 		info('Status: [%s]', $lb->Status());
-		info('Error page: [%s]', $lb->ErrorPage()->content);
+		info('Error page: [%s]', 
+			substr($lb->ErrorPage()->content, 0, 50).'...');
 		info('Max Connections: [%d]', $lb->Stats()->maxConn);
+		info('Connection Logging: [%s]', 
+			$lb->ConnectionLogging()->enabled ? 'on' : 'off');
+		info('Turning it on...');
+			$cl = $lb->ConnectionLogging();
+			$cl->Update(array('enabled'=>TRUE));
+			$lb->WaitFor('ACTIVE', 300, 'dot');
 		info('Updating ConnectionThrottle...');
 		$th = $lb->ConnectionThrottle();
 		$th->rateInterval = 60;
@@ -76,5 +83,5 @@ step('DONE');
 exit;
 
 function dot($obj) {
-	printf("...%s\n", $obj->Status());
+	info('...%s', $obj->Status());
 }
