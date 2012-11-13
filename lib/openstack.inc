@@ -309,6 +309,7 @@ ENDAUTHTEMPLATE
 	    $http = $this->GetHttpRequestObject($url, $method);
 
         // set various options
+        $this->debug(_('Headers: [%s]'), print_r($headers,TRUE));
         $http->setheaders($headers);
         $http->SetHttpTimeout($this->http_timeout);
         $http->SetConnectTimeout($this->connect_timeout);

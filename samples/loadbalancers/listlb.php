@@ -47,10 +47,26 @@ if ($list->Size()) {
 	step('Load balancers:');
 	while($lb = $list->Next()) {
 		info('%10s %s', $lb->id, $lb->Name());
+		info('Status: [%s]', $lb->Status());
 		info('Error page: [%s]', $lb->ErrorPage()->content);
 		info('Max Connections: [%d]', $lb->Stats()->maxConn);
+		info('Updating ConnectionThrottle...');
+		$th = $lb->ConnectionThrottle();
+		$th->rateInterval = 60;
+		$th->maxConnectionRate = 500;
+		$th->minConnections = rand(0, 100);
+		$th->maxConnections = rand(0, 1000);
+		$th->Update();
+		info($th->Name());
+		info('  Max Connection Rate: [%d]', $th->maxConnectionRate);
+		info('  Max Connections: [%d]', $th->maxConnections);
+		info('  Min Connections: [%d]', $th->minConnections);
+		info('  Rate Interval: [%d]', $th->rateInterval);
 		$sp = $lb->SessionPersistence();
 		//print_r($sp);
+		info('Deleting ConnectionThrottle...');
+		$lb->Waitfor('ACTIVE', 300, 'dot');
+		$th->Delete();
 	}
 }
 else
@@ -59,3 +75,6 @@ else
 step('DONE');
 exit;
 
+function dot($obj) {
+	printf("...%s\n", $obj->Status());
+}

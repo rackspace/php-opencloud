@@ -215,6 +215,12 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	public function Stats() {
 		return new LbStats($this);
 	}
+	
+	/**
+	 */
+	public function ConnectionThrottle() {
+		return new ConnectionThrottle($this);
+	}
 
 	/********** PROTECTED METHODS **********/
 

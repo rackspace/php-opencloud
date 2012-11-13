@@ -29,6 +29,24 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 	public function Url() { 
 		return $this->_lb->Url($this->ResourceName());
 	}
+	protected function CreateJson() {
+    	$obj = new \stdClass();
+    	$top = $this->JsonName();
+    	$obj->$top = new \stdClass();
+    	foreach($this->_create_keys as $item)
+			$obj->$top->$item = $this->$item;
+    	return $obj;
+	}
+	protected function UpdateJson() {
+		return $this->CreateJson();
+	}
+	public function Parent() {
+		return $this->_lb;
+	}
+	public function Name() {
+		return sprintf(_('%s for Load Balancer %s'), 
+			get_class($this), $this->Parent()->Name());
+	}
 } // end LbSubResource
 
 /**
@@ -41,7 +59,7 @@ class LbErrorPage extends LbSubResource {
 	public static
 		$json_name = 'errorpage',
 		$url_resource = 'errorpage';
-	private
+	protected
 		$_create_keys = array('content');
 	/**
 	 * creates a new error page
@@ -109,6 +127,30 @@ class Node extends \OpenCloud\PersistentObject {
 	public function Parent() {
 		return $this->_lb;
 	}
+}
+
+/**
+ * subresource to manage connection throttling
+ *
+ * @api
+ */
+class ConnectionThrottle extends LbSubResource {
+	public
+		$minConnections,
+		$maxConnections,
+		$maxConnectionRate,
+		$rateInterval;
+    public static
+    	$json_name = "connectionThrottle",
+    	$url_resource = "connectionthrottle";
+    protected
+    	$_create_keys = array(
+    		'minConnections',
+    		'maxConnections',
+    		'maxConnectionRate',
+    		'rateInterval'
+    	);
+	public function Create($parm=array()) { $this->Update($parm); }
 }
 
 class LbAllowableDomains extends LbSubResource {
