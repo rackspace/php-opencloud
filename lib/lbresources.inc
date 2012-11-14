@@ -170,6 +170,23 @@ class ConnectionLogging extends LbSubResource {
 	public function Delete() { $this->NoDelete(); }
 }
 
+/**
+ * subresource to manage content caching
+ *
+ * @api
+ */
+class ContentCaching extends LbSubResource {
+	public
+		$enabled;
+    public static
+    	$json_name = "contentCaching",
+    	$url_resource = "contentcaching";
+    protected
+    	$_create_keys = array( 'enabled' );
+	public function Create($parm=array()) { $this->Update($parm); }
+	public function Delete() { $this->NoDelete(); }
+}
+
 class LbAllowableDomains extends LbSubResource {
 	public static
 		$json_name = 'allowedDomain',

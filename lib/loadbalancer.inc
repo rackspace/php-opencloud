@@ -228,6 +228,12 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		return new ConnectionLogging($this);
 	}
 
+	/**
+	 */
+	public function ContentCaching() {
+		return new ContentCaching($this);
+	}
+
 	/********** PROTECTED METHODS **********/
 
 	/**

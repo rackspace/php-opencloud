@@ -46,7 +46,7 @@ $list = $lbservice->LoadBalancerList();
 if ($list->Size()) {
 	step('Load balancers:');
 	while($lb = $list->Next()) {
-		info('%10s %s', $lb->id, $lb->Name());
+		info('%10s %s in %s', $lb->id, $lb->Name(), $lb->Region());
 		info('Status: [%s]', $lb->Status());
 		info('Error page: [%s]', 
 			substr($lb->ErrorPage()->content, 0, 50).'...');
@@ -70,10 +70,21 @@ if ($list->Size()) {
 		info('  Min Connections: [%d]', $th->minConnections);
 		info('  Rate Interval: [%d]', $th->rateInterval);
 		$sp = $lb->SessionPersistence();
+		$lb->Waitfor('ACTIVE', 300, 'dot');
 		//print_r($sp);
 		info('Deleting ConnectionThrottle...');
-		$lb->Waitfor('ACTIVE', 300, 'dot');
 		$th->Delete();
+		$lb->Waitfor('ACTIVE', 300, 'dot');
+		//setDebug(TRUE);
+		$cc = $lb->ContentCaching();
+		//setDebug(FALSE);
+		info('Content Caching: [%s]',
+			$cc->enabled ? 'on' : 'off');
+		info('Turning it ON...');
+		$cc->enabled = TRUE;
+		//setDebug(TRUE);
+		$cc->Update();
+		$lb->WaitFor('ACTIVE', 300, 'dot');
 	}
 }
 else

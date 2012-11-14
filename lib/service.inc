@@ -173,6 +173,16 @@ abstract class Service extends Base {
 		else
 			return new Collection($parent, $class, array());
 	}
+	
+	/**
+	 * returns the Region associated with the service
+	 *
+	 * @api
+	 * @return string
+	 */
+	public function Region() {
+		return $this->service_region;
+	}
 
 	/********** PRIVATE METHODS **********/
 

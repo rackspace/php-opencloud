@@ -197,4 +197,9 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	        'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances',
 	        $this->instance->CreateUrl());
 	}
+	public function testRegion() {
+		$this->assertEquals(
+			'DFW',
+			$this->instance->Region());
+	}
 }

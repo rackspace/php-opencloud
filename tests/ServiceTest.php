@@ -60,4 +60,9 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 		$lim = $this->service->Limits();
 		$this->assertEquals(TRUE, is_array($lim));
 	}
+	public function testRegion() {
+		$this->assertEquals(
+			'DFW',
+			$this->service->Region());
+	}
 }

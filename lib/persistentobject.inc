@@ -417,6 +417,17 @@ abstract class PersistentObject extends Base {
 				_('Extension [%s] is not installed'), $alias));
 		return TRUE;
 	}
+	
+	/**
+	 * returns the region associated with the object
+	 *
+	 * navigates to the parent service to determine the region.
+	 *
+	 * @api
+	 */
+	public function Region() {
+		return $this->Service()->Region();
+	}
 
 	/********** PROTECTED METHODS **********/
 
