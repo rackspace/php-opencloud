@@ -84,6 +84,14 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12',
 	        $this->instance->Url());
 	}
+	public function testUrl2() {
+	    $this->instance->id = '12';
+	    $qstr = array('a'=>1, 'b'=>2);
+	    $this->assertEquals(
+			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/'.
+				'instances/12/pogo?a=1&b=2',
+	        $this->instance->Url('pogo', $qstr));
+	}
 	public function testRefresh() {
 	    $this->instance->Refresh('SERVER-ID');
 	    $this->assertEquals('ACTIVE', $this->instance->status);

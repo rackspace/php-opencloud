@@ -190,10 +190,12 @@ abstract class PersistentObject extends Base {
 	 *
 	 * This may have to be overridden in subclasses.
 	 *
+	 * @param string $subresource optional sub-resource string
+	 * @param array $qstr optional k/v pairs for query strings
 	 * @return string
 	 * @throws UrlError if URL is not defined
 	 */
-	public function Url($subresource=NULL) {
+	public function Url($subresource=NULL, $qstr=array()) {
 		// find the primary key attribute name
 		$pk = $this->PrimaryKeyField();
 
@@ -210,8 +212,16 @@ abstract class PersistentObject extends Base {
 			        . '/' . $this->{$pk};
 
 		// add the subresource
-		if ($url)
-			return $url . ($subresource ? ('/'.$subresource) : '');
+		if ($url) {
+			$url .= ($subresource ? ('/'.$subresource) : '');
+		
+			// add the query strings
+			if (count($qstr))
+				$url .= '?' . $this->MakeQueryString($qstr);
+			
+			// and return
+			return $url;
+		}		
 
 		// otherwise, we don't have a URL yet
 		throw new UrlError(
