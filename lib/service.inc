@@ -62,10 +62,12 @@ abstract class Service extends Base {
 	/**
 	 * Returns the URL for the Service
 	 *
+	 * @param array $query optional k/v pairs for query strings
 	 * @return string
 	 */
-	public function Url() {
-		return $this->service_url;
+	public function Url($param=array()) {
+		return $this->service_url .
+			(count($param) ? ('?'.$this->MakeQueryString($param)) : '');
 	} // public function Url()
 
 	/**
