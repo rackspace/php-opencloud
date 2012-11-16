@@ -21,7 +21,7 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 		$this->_lb = $lb;
 		parent::__construct($lb->Service());
 		/**
-		 * Note that, since these subresources do not have an ID, we must
+		 * Note that, since these sub-resources do not have an ID, we must
 		 * fake out the `Refresh` method. 
 		 */
 		 $this->Refresh('<no id>');
@@ -96,7 +96,7 @@ class LbStats extends LbSubResource {
  * information on a single node in the load balancer
  *
  * This extends `PersistentObject` because it has an ID, unlike the other
- * subresources.
+ * sub-resources.
  */
 class Node extends \OpenCloud\PersistentObject {
 	public
@@ -130,7 +130,7 @@ class Node extends \OpenCloud\PersistentObject {
 }
 
 /**
- * subresource to manage connection throttling
+ * sub-resource to manage connection throttling
  *
  * @api
  */
@@ -154,7 +154,7 @@ class ConnectionThrottle extends LbSubResource {
 }
 
 /**
- * subresource to manage connection logging
+ * sub-resource to manage connection logging
  *
  * @api
  */
@@ -171,7 +171,7 @@ class ConnectionLogging extends LbSubResource {
 }
 
 /**
- * subresource to manage content caching
+ * sub-resource to manage content caching
  *
  * @api
  */
@@ -187,15 +187,21 @@ class ContentCaching extends LbSubResource {
 	public function Delete() { $this->NoDelete(); }
 }
 
+/**
+ * sub-resource to manage allowable domains
+*/
 class LbAllowableDomains extends LbSubResource {
 	public static
 		$json_name = 'allowedDomain',
 		$url_resource = 'alloweddomains';
 	public function Create() { $this->NoCreate(); }
-	public function Delete() { $this->NoDelete(); }
 	public function Update() { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
 }
 
+/**
+ * sub-resource to manage session persistence setting
+ */
 class LbSessionPersistence extends LbSubResource {
 	public
 		$persistenceType;

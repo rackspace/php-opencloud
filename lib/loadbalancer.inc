@@ -181,18 +181,18 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	    $this->virtualIps[] = $obj;
 	}
 	
-	/**
-	 */
-	public function SessionPersistence() {
-		return new LbSessionPersistence($this);
-	}
-	
 	/********** FACTORY METHODS **********
 	 *
 	 * These are used for the various sub-resources of LoadBalancer that are
 	 * each managed by independent HTTP requests, such as the .../errorpage
 	 * and the .../sessionpersistence objects.
 	 */
+	
+	/**
+	 */
+	public function SessionPersistence() {
+		return new LbSessionPersistence($this);
+	}
 	
 	/**
 	 * returns the load balancer's error page object
