@@ -55,7 +55,7 @@ class Volume extends \OpenCloud\PersistentObject {
 	 *
 	 * @throws OpenCloud\UpdateError always
 	 */
-	public function Update() {
+	public function Update($params=array()) {
 		throw new \OpenCloud\UpdateError(
 			_('Block storage volumes cannot be updated'));
 	}

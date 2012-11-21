@@ -500,7 +500,7 @@ class Server extends \OpenCloud\PersistentObject {
 	 *
 	 * @return json
 	 */
-	protected function UpdateJson($params) {
+	protected function UpdateJson($params = array()) {
 		$obj = new \stdClass();
 		$obj->server = new \stdClass();
 		foreach($params as $name => $value)

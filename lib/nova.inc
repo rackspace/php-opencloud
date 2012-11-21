@@ -68,7 +68,7 @@ abstract class Nova extends Service {
 	 *      strings to append to the URL
 	 * @returns string - the requested URL
 	 */
-	public function Url($resource, $args=array()) {
+	public function Url($resource='', $args=array()) {
 	    $baseurl = $this->_url;
 	    if ($resource != '')
 	        $baseurl = noslash($baseurl).'/'.$resource;

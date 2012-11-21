@@ -26,7 +26,7 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 		 */
 		 $this->Refresh('<no id>');
 	}
-	public function Url() { 
+	public function Url($subresource=NULL, $qstr=array()) { 
 		return $this->_lb->Url($this->ResourceName());
 	}
 	protected function CreateJson() {
@@ -37,7 +37,7 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 			$obj->$top->$item = $this->$item;
     	return $obj;
 	}
-	protected function UpdateJson() {
+	protected function UpdateJson($params = array()) {
 		return $this->CreateJson();
 	}
 	public function Parent() {
@@ -87,8 +87,8 @@ class LbStats extends LbSubResource {
 	public static
 		$json_name = FALSE,
 		$url_resource = 'stats';
-	public function Create() { $this->NoCreate(); }
-	public function Update() { $this->NoUpdate(); }
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }
 }
 
@@ -194,8 +194,8 @@ class LbAllowableDomains extends LbSubResource {
 	public static
 		$json_name = 'allowedDomain',
 		$url_resource = 'alloweddomains';
-	public function Create() { $this->NoCreate(); }
-	public function Update() { $this->NoUpdate(); }
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }
 }
 

@@ -71,6 +71,7 @@ class CurlRequest implements HTTPRequest {
             printf("WARNING: RAXSDK_SSL_VERIFYPEER has reduced security\n");
         $this->SetOption(CURLOPT_SSL_VERIFYHOST, RAXSDK_SSL_VERIFYHOST);
         $this->SetOption(CURLOPT_SSL_VERIFYPEER, RAXSDK_SSL_VERIFYPEER);
+        $this->SetOption(CURLOPT_CAINFO, __DIR__ . DIRECTORY_SEPARATOR . 'cacert.pem');
 
         // follow redirects
         $this->SetOption(CURLOPT_FOLLOWLOCATION, TRUE);

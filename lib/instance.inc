@@ -66,7 +66,7 @@ class Instance extends \OpenCloud\PersistentObject {
 	 *
 	 * @throws InstanceUpdateError always
 	 */
-	public function Update() {
+	public function Update($params=array()) {
 		throw new InstanceUpdateError(
 			_('Updates are not currently supported by Cloud Databases'));
 	}

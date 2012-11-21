@@ -37,7 +37,7 @@ class VolumeType extends \OpenCloud\PersistentObject {
 	 *
 	 * @throws OpenCloud\CreateError always
 	 */
-	public function Create() {
+	public function Create($params=array()) {
 		throw new \OpenCloud\CreateError(
 			_('VolumeType cannot be created'));
 	}
@@ -47,7 +47,7 @@ class VolumeType extends \OpenCloud\PersistentObject {
 	 *
 	 * @throws OpenCloud\UpdateError always
 	 */
-	public function Update() {
+	public function Update($params=array()) {
 		throw new \OpenCloud\UpdateError(
 			_('VolumeType cannot be updated'));
 	}

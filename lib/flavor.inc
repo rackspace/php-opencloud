@@ -39,7 +39,7 @@ class Flavor extends \OpenCloud\PersistentObject {
 	    $json_name = 'flavor',
 	    $url_resource = 'flavors';
 
-	public function Create() { return $this->NoCreate(); }
-	public function Update() { return $this->NoUpdate(); }
+	public function Create($params=array()) { return $this->NoCreate(); }
+	public function Update($params=array()) { return $this->NoUpdate(); }
     public function Delete() { return $this->NoDelete(); }
 } // class Flavor
