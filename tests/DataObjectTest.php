@@ -53,6 +53,15 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 		'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT',
 		$this->dataobject->Url());
 	}
+	// tests objects with spaces
+	public function testUrl2() {
+		$testobject = new OpenCloud\ObjectStore\DataObject(
+			$this->container, 'A name with spaces');
+		$this->assertEquals(
+		'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/'.
+			'A%20name%20with%20spaces',
+		$testobject->Url());
+	}
 	public function testCreate() {
 		$arr = array('name'=>'DOOFUS', 'type'=>'text/plain');
 		$obj = new OpenCloud\ObjectStore\DataObject($this->container);
