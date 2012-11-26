@@ -244,7 +244,7 @@ class CDNContainer extends ObjStoreBase {
                     _('Error retrieving Container, status [%d]'.
                     ' response [%s]'),
                     $response->HttpStatus(),
-                    $response->Body()));
+                    $response->HttpBody()));
 
         // parse the returned object
         $this->GetMetadata($response);
