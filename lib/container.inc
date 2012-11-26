@@ -81,7 +81,7 @@ class CDNContainer extends ObjStoreBase {
 	 * @throws ContainerCreateError
 	 */
 	public function Create($name=NULL) {
-		if ($this->is_valid_name($name))
+		if (isset($name) && $this->is_valid_name($name))
 			$this->name = $name;
 		$this->container_url = $this->Url();
 		$headers = $this->MetadataHeaders();
@@ -259,16 +259,16 @@ class CDNContainer extends ObjStoreBase {
 	 */
 	private function is_valid_name($name) {
 		if (($name == NULL) || ($name == ''))
-			throw new ContainerNameException(
+			throw new ContainerNameError(
 			    _('Container name cannot be blank'));
 		if ($name == '0')
-			throw new ContainerNameException(
+			throw new ContainerNameError(
 			    _('"0" is not a valid container name'));
 		if (strpos($name, '/') !== FALSE)
-			throw new ContainerNameException(
+			throw new ContainerNameError(
 			    _('Container name cannot contain "/"'));
 		if (strlen($name) > \OpenCloud\ObjectStore::MAX_CONTAINER_NAME_LEN)
-			throw new ContainerNameException(
+			throw new ContainerNameError(
 			    _('Container name is too long'));
 		return TRUE;
 	}

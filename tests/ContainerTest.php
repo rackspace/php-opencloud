@@ -64,6 +64,12 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND',
 		    $this->container->Url());
 	}
+	/**
+	 * @expectedException OpenCloud\ObjectStore\ContainerNameError
+	 */
+	public function testCreate0() {
+		$con = $this->container->Create('0');
+	}
 	public function testUpdate() {
 	    $this->assertEquals(
 	        TRUE,

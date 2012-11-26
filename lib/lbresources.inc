@@ -87,8 +87,8 @@ class LbStats extends LbSubResource {
 	public static
 		$json_name = FALSE,
 		$url_resource = 'stats';
-	public function Create() { $this->NoCreate(); }
-	public function Update() { $this->NoUpdate(); }
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }
 }
 
@@ -166,7 +166,7 @@ class ConnectionLogging extends LbSubResource {
     	$url_resource = "connectionlogging";
     protected
     	$_create_keys = array( 'enabled' );
-	public function Create($parm=array()) { $this->Update($parm); }
+	public function Create($params=array()) { $this->Update($params); }
 	public function Delete() { $this->NoDelete(); }
 }
 
@@ -194,8 +194,8 @@ class LbAllowableDomains extends LbSubResource {
 	public static
 		$json_name = 'allowedDomain',
 		$url_resource = 'alloweddomains';
-	public function Create() { $this->NoCreate(); }
-	public function Update() { $this->NoUpdate(); }
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }
 }
 
