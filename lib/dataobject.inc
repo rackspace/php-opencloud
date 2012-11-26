@@ -80,7 +80,9 @@ class DataObject extends ObjStoreBase {
 	public function Url() {
 		if (!$this->name)
 			throw new NoNameError(_('Object has no name'));
-		return noslash($this->container->Url()) . '/' . $this->name;
+		return noslash($this->container->Url()) . '/' .
+				str_replace('%2F', '/', rawurlencode($this->name));
+
 	}
 
 	/**
