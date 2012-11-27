@@ -111,6 +111,7 @@ element followed by a child object with attributes.</p><br><div id="methods_Volu
       <a style="font-style: italic;" href="#VolumeAttachment::Parent()">Parent</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::PrimaryKeyField()">PrimaryKeyField</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#VolumeAttachment::Region()">Region</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::ResourceName()">ResourceName</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Service()">Service</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::SetProperty()">SetProperty</a>,
@@ -499,7 +500,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Deletes an block storage volume</em><br><h4>Return value</h4>
+<em>Deletes an object</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -989,30 +990,18 @@ these examples).</p></small><br><h4>Return value</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\Compute\Server</span>
 </h3>
 <h4>Description</h4>
-<em>returns the parent object of this object</em><br><small><p>This is a synonym for Service(), since the object is usually a
-service.</p></small><br><h4>Return value</h4>
+<em>returns the Parent (server) of the volume attachment</em><br><small><p>This is a subresource of the server, not of the service.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Parent()"><small>\OpenCloud\PersistentObject::Parent()</small></a></td>
+<td>\OpenCloud\Compute\Server</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -1103,6 +1092,44 @@ changing states)</em><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Refresh()"><small>\OpenCloud\PersistentObject::Refresh()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="VolumeAttachment::Region()"></a><h3>Region<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns the region associated with the object</em><br><small><p>navigates to the parent service to determine the region.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::Region()"><small>\OpenCloud\PersistentObject::Region()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1372,10 +1399,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="VolumeAttachment::Url()"></a><h3>Url<span class="nb-faded-text">(
-          
+          string
              
             $subresource
             = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -1391,12 +1422,22 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 <th>Default</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>$subresource</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
 <td>NULL</td>
-</tr></tbody>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
 </table>
 <h4>Return value</h4>
 <table>
@@ -1902,7 +1943,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div class="method">
 <a id="VolumeAttachment::$json_name"></a><h3>
 <span class="nb-faded-text"> 
-          protected 
+          public 
           static </span>$json_name
           =
           'volumeAttachment'</h3>
@@ -1920,7 +1961,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div class="method">
 <a id="VolumeAttachment::$url_resource"></a><h3>
 <span class="nb-faded-text"> 
-          protected 
+          public 
           static </span>$url_resource
           =
           'os-volume_attachments'</h3>
@@ -2029,6 +2070,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbservice.inc.html#LoadBalancerService">LoadBalancerService</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
@@ -2052,6 +2094,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnsupportedExtensionError">UnsupportedExtensionError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UpdateError">UpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="volumeservice.inc.html#VolumeService">VolumeService</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
@@ -2081,7 +2124,6 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
@@ -2121,13 +2163,19 @@ database-as-a-service product.</small></span></li>
 </li>
 <li class="closed">
 <span class="folder">LoadBalancerService</span><ul>
-<li><span class="class"><a href="lbresources.inc.html#LbAllowableDomains">LbAllowableDomains</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#LbSessionPersistence">LbSessionPersistence</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#ConnectionThrottle">ConnectionThrottle</a><br><small>sub-resource to manage connection throttling</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbAllowableDomains">LbAllowableDomains</a><br><small>sub-resource to manage allowable domains</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbErrorPage">LbErrorPage</a><br><small>The /loadbalancer/{id}/errorpage manages the error page for the load
+balancer.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbSessionPersistence">LbSessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbStats">LbStats</a><br><small>LbStats returns statistics about the load balancer</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#LbSubResource">LbSubResource</a><br><small>represents an object that has the ability to be
 retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="loadbalancer.inc.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
 </ul>
 </li>
 <li class="closed">

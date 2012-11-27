@@ -695,6 +695,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbservice.inc.html#LoadBalancerService">LoadBalancerService</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
@@ -718,6 +719,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="exceptions.inc.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnknownError">UnknownError</a><br><small>catch-all</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#UnsupportedExtensionError">UnsupportedExtensionError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UpdateError">UpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#UrlError">UrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="volumeservice.inc.html#VolumeService">VolumeService</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
@@ -747,7 +749,6 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="server.inc.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="exceptions.inc.html#ServerIdRequiredError">ServerIdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="servermetadata.inc.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
@@ -787,13 +788,19 @@ database-as-a-service product.</small></span></li>
 </li>
 <li class="closed">
 <span class="folder">LoadBalancerService</span><ul>
-<li><span class="class"><a href="lbresources.inc.html#LbAllowableDomains">LbAllowableDomains</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#LbSessionPersistence">LbSessionPersistence</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#ConnectionThrottle">ConnectionThrottle</a><br><small>sub-resource to manage connection throttling</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbAllowableDomains">LbAllowableDomains</a><br><small>sub-resource to manage allowable domains</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbErrorPage">LbErrorPage</a><br><small>The /loadbalancer/{id}/errorpage manages the error page for the load
+balancer.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbSessionPersistence">LbSessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#LbStats">LbStats</a><br><small>LbStats returns statistics about the load balancer</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#LbSubResource">LbSubResource</a><br><small>represents an object that has the ability to be
 retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="loadbalancer.inc.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li><span class="class"><a href="exceptions.inc.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
 </ul>
 </li>
 <li class="closed">
