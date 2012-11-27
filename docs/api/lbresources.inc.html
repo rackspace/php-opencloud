@@ -1383,13 +1383,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="LbSubResource::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1414,6 +1433,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="LbSubResource::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -1421,7 +1448,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -3322,13 +3374,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="LbErrorPage::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -3359,6 +3430,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="LbErrorPage::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -3366,7 +3445,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -5304,13 +5408,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="LbStats::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -5341,6 +5464,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="LbStats::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -5348,7 +5479,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -7252,13 +7408,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="Node::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -9350,13 +9525,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="ConnectionThrottle::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -9387,6 +9581,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="ConnectionThrottle::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -9394,7 +9596,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -11380,13 +11607,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="ConnectionLogging::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -11417,6 +11663,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="ConnectionLogging::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -11424,7 +11678,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -13380,13 +13659,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="ContentCaching::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -13417,6 +13715,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="ContentCaching::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -13424,7 +13730,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -15362,13 +15693,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="LbAllowableDomains::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -15399,6 +15749,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="LbAllowableDomains::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -15406,7 +15764,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -17366,13 +17749,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="LbSessionPersistence::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -17403,6 +17805,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="LbSessionPersistence::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = NULL,
+          array
+             
+            $qstr
+            = array(),
           
           )
         </span>
@@ -17410,7 +17820,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Return value</h4>
+<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>optional sub-resource string</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$qstr</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional k/v pairs for query strings</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>

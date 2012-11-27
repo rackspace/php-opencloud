@@ -5,6 +5,9 @@ RELEASE NOTES
 * `DataObject::Create()` now uses `content_type`; using the older
   `type` parameter is deprecated and will cause an UnknownParameterError
   exception.
+* New global constant `RAXSDK_CACERTPEM`; if defined, this should be a path
+  to a `cacert.pem` file that defines the root certificate servers. Defining
+  this provides an extra degree of security in the HTTP transfer operations.
 
 ### 11/06/2012 Version 1.2
 * Adds full support for OpenStack Cinder/Rackspace Cloud Block Storage

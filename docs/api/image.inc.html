@@ -363,6 +363,10 @@ exception thrown.</p>
 </div>
 <div class="method">
 <a id="Image::Create()"></a><h3>Create<span class="nb-faded-text">(
+          array
+             
+            $params
+            = array(),
           
           )
         </span>
@@ -370,7 +374,22 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new object</em><br><h4>Return value</h4>
+<em>Creates a new object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">array</td>
+<td><p>array of values to set when creating the object</p></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1318,6 +1337,10 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="Image::Update()"></a><h3>Update<span class="nb-faded-text">(
+          array
+             
+            $params
+            = array(),
           
           )
         </span>
@@ -1325,7 +1348,22 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Updates an existing object</em><br><h4>Return value</h4>
+<em>Updates an existing object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">array</td>
+<td><p>array of values to set when updating the object</p></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1351,13 +1389,32 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <div class="method">
 <a id="Image::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
+             
+            $params
+            = array(),
+          
           )
         </span>
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>

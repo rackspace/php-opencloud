@@ -416,6 +416,14 @@ creating a Flavor object directly.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="DbService::FlavorList()"></a><h3>FlavorList<span class="nb-faded-text">(
+          boolean
+             
+            $details
+            = FALSE,
+          array
+             
+            $filter
+            = array(),
           
           )
         </span>
@@ -424,7 +432,36 @@ creating a Flavor object directly.</p></small><br><h4>Arguments</h4>
 </h3>
 <h4>Description</h4>
 <em>Returns a list of flavors</em><br><small><p>just call the parent FlavorList() method, but pass FALSE
-because the /flavors/detail resource is not supported</p></small><br><h4>Return value</h4>
+because the /flavors/detail resource is not supported</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$details</td>
+<td style="white-space: normal;">boolean</td>
+<td><ul>
+<li>if TRUE (the default), returns full details. Set to FALSE to retrieve minimal details and possibly improve performance.</li>
+</ul>
+</td>
+<td>FALSE</td>
+</tr>
+<tr>
+<td>$filter</td>
+<td style="white-space: normal;">array</td>
+<td><ul>
+<li>optional key/value pairs for creating query strings</li>
+</ul>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
