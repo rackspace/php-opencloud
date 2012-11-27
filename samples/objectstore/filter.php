@@ -34,7 +34,7 @@ $ostore = $connection->ObjectStore(/* uses defaults from above */);
 // next, make a container named 'Sample'
 printf("Creating container %s.\n", CONTAINERNAME);
 $sample = $ostore->Container();
-$sample->Create(CONTAINERNAME);
+$sample->Create(array('name'=>CONTAINERNAME));
 
 // create a bunch of objects
 printf("\nCreating %d randomly-named objects:\n", NUM_OBJECTS);

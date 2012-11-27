@@ -254,7 +254,7 @@ $cloudfiles = $rackspace->ObjectStore('cloudFiles', MYREGION);
 
 step('Create Container');
 $container = $cloudfiles->Container();
-$container->Create('SmokeTestContainer');
+$container->Create(array('name' => 'SmokeTestContainer'));
 
 step('Publish Container to CDN');
 $container->PublishToCDN(60); // 60-second TTL

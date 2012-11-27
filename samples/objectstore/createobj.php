@@ -32,7 +32,7 @@ $ostore = $connection->ObjectStore(/* uses defaults from above */);
 // next, make a container named 'Sample'
 printf("Creating container...\n");
 $cont = $ostore->Container();
-$cont->Create('Sample');
+$cont->Create(array('name'=>'Sample'));
 
 // finally, create an object in that container named hello.txt
 printf("Creating object...\n");

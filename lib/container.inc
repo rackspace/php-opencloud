@@ -76,13 +76,21 @@ class CDNContainer extends ObjStoreBase {
 	/**
 	 * Creates a new container with the specified attributes
 	 *
-	 * @param string $name the name of the new object
+	 * @param array $params array of parameters
 	 * @return boolean TRUE on success; FALSE on failure
 	 * @throws ContainerCreateError
 	 */
-	public function Create($name=NULL) {
-		if (isset($name) && $this->is_valid_name($name))
-			$this->name = $name;
+	public function Create($params=array()) {
+		foreach($params as $name => $value) {
+			switch($name) {
+			case 'name':
+				if ($this->is_valid_name($value))
+					$this->name = $value;
+				break;
+			default:
+				$this->$name = $value;
+			}
+		}
 		$this->container_url = $this->Url();
 		$headers = $this->MetadataHeaders();
 		$response = $this->Service()->Request(

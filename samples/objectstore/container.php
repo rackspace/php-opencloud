@@ -25,7 +25,7 @@ $objstore = $connection->ObjectStore('cloudFiles', 'DFW');
 // create a new container
 print("Creating NewContainer\n");
 $container = $objstore->Container();
-$container->Create('NewContainer');
+$container->Create(array('name'=>'NewContainer'));
 
 // get our containers
 print("Containers:\n");

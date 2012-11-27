@@ -25,7 +25,7 @@ $objstore = $connection->ObjectStore('cloudFiles', 'DFW');
 // create a new container
 print("Creating CdnContainer\n");
 $container = $objstore->Container();
-$container->Create('CdnContainer');
+$container->Create(array('name'=>'CdnContainer'));
 
 // publish it to the CDN
 print("Publishing to CDN...\n");

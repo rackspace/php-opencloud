@@ -58,7 +58,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		    $this->container->Url());
 	}
 	public function testCreate() {
-		$con = $this->container->Create('SECOND');
+		$con = $this->container->Create(array('name'=>'SECOND'));
 		$this->assertEquals(TRUE, $con);
 		$this->assertEquals(
 		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND',
@@ -68,7 +68,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	 * @expectedException OpenCloud\ObjectStore\ContainerNameError
 	 */
 	public function testCreate0() {
-		$con = $this->container->Create('0');
+		$con = $this->container->Create(array('name'=>'0'));
 	}
 	public function testUpdate() {
 	    $this->assertEquals(

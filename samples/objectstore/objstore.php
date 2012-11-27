@@ -27,7 +27,7 @@ $ostore = $connection->ObjectStore();
 
 // next, make a container named 'Sample'
 $cont = $ostore->Container();
-$cont->Create('Sample');
+$cont->Create(array('name'=>'Sample'));
 
 // finally, create an object in that container named hello.txt
 $obj = $cont->DataObject();
