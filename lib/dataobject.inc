@@ -413,6 +413,9 @@ class DataObject extends ObjStoreBase {
 				$this->name = $value;
 				break;
 			case 'type':
+				throw new UnknownParameterError(
+					_('Parameter [type] is deprecated; use "content_type"'));
+			case 'content_type':
 				$this->content_type = $value;
 				break;
 			default:

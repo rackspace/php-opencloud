@@ -32,7 +32,7 @@ $cont->Create('Sample');
 // finally, create an object in that container named hello.txt
 $obj = $cont->DataObject();
 $obj->data = 'Hello, World';
-$obj->Create(array('name' => 'hello.txt', 'type' => 'text/plain'));
+$obj->Create(array('name' => 'hello.txt', 'content_type' => 'text/plain'));
 
 // list all the objects in the container
 $list = $cont->ObjectList();

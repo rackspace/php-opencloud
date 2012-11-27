@@ -62,8 +62,8 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 			'A%20name%20with%20spaces',
 		$testobject->Url());
 	}
-	public function testCreate() {
-		$arr = array('name'=>'DOOFUS', 'type'=>'text/plain');
+	public function testCreate1() {
+		$arr = array('name'=>'DOOFUS', 'content_type'=>'text/plain');
 		$obj = new OpenCloud\ObjectStore\DataObject($this->container);
 		$this->assertEquals(
 		    'OpenCloud\BlankResponse',
@@ -74,8 +74,16 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 		    'OpenCloud\BlankResponse',
 		    get_class($obj->Create(array('name'=>'FOOBAR'), '/dev/null')));
 	}
+	/**
+	 * @expectedException OpenCloud\ObjectStore\UnknownParameterError
+	 */
+	public function testCreate2() {
+		$obj = new OpenCloud\ObjectStore\DataObject($this->container);
+		// "type" is deprecated; this causes the exception
+		$obj->Create(array('name'=>'X','type'=>'error'));
+	}
 	public function testUpdate() {
-		$arr = array('name'=>'XOOFUS', 'type'=>'text/plain');
+		$arr = array('name'=>'XOOFUS', 'content_type'=>'text/plain');
 		$obj = new OpenCloud\ObjectStore\DataObject($this->container);
 		$this->assertEquals(
 		    'OpenCloud\BlankResponse',
@@ -83,7 +91,7 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals('XOOFUS', $obj->name);
 	}
 	public function testDelete() {
-	    $this->dataobject->Delete(array('type'=>'text/plain'));
+	    $this->dataobject->Delete(array('content_type'=>'text/plain'));
 	    $this->assertEquals('DATA-OBJECT', $this->dataobject->name);
 	}
 	public function testCopy() {

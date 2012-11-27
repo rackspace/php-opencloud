@@ -42,7 +42,7 @@ for ($i=0; $i<=NUM_OBJECTS; $i++) {
     $obj = $sample->DataObject();
     $obj->SetData(rand());
     $obj->name = sprintf('%d-object-%d', rand(0,9), rand(0,999));
-    $obj->Create(array('type'=>'text/plain'));
+    $obj->Create(array('content_type'=>'text/plain'));
     printf("  Created %s\n", $obj->name);
 }
 

@@ -264,7 +264,7 @@ info('Public URL: %s', $container->PublicURL());
 step('Create Object from this file');
 $object = $container->DataObject();
 $object->Create(
-	array('name'=>'SmokeTestObject','type'=>'text/plain'), __FILE__);
+	array('name'=>'SmokeTestObject','content_type'=>'text/plain'), __FILE__);
 info('Public URL:    %s', $object->PublicURL());
 info('SSL URL:       %s', $object->PublicURL('SSL'));
 info('Streaming URL: %s', $object->PublicURL('Streaming'));

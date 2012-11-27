@@ -38,7 +38,9 @@ $cont->Create('Sample');
 printf("Creating object...\n");
 $obj = $cont->DataObject();
 // read this file!
-$obj->Create(array('name' => 'SampleObject', 'type' => 'text/plain'), __FILE__);
+$obj->Create(
+	array('name' => 'SampleObject', 'content_type' => 'text/plain'), 
+	__FILE__);
 
 // copy it to another object
 printf("Copying...\n");

@@ -1,6 +1,11 @@
 RELEASE NOTES
 -------------
 
+### next version
+* `DataObject::Create()` now uses `content_type`; using the older
+  `type` parameter is deprecated and will cause an UnknownParameterError
+  exception.
+
 ### 11/06/2012 Version 1.2
 * Adds full support for OpenStack Cinder/Rackspace Cloud Block Storage
 * Bug fixes
