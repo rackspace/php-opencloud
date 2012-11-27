@@ -57,7 +57,7 @@ class DbService extends Nova {
 	 * @api
 	 * @return \OpenCloud\Compute\FlavorList
 	 */
-	public function FlavorList() {
+	public function FlavorList($details=FALSE, $filter=array()) {
 	    return parent::FlavorList(FALSE);
 	}
 

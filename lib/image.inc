@@ -42,7 +42,7 @@ class Image extends \OpenCloud\PersistentObject {
 		$json_name = 'image',
 		$url_resource = 'images';
 
-	public function Create() { $this->NoCreate(); }
-	public function Update() { $this->NoUpdate(); }
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
 
 } // class Image

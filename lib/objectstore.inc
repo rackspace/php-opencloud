@@ -34,8 +34,8 @@ class ObjectStoreBase extends Service {
      * Returns the URL of the service, selected from the connection's
      * serviceCatalog
      */
-	public function Url() {
-		return noslash(parent::Url());
+	public function Url($param=array()) {
+		return noslash(parent::Url($param));
 	}
 
     /**

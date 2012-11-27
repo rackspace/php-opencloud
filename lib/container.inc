@@ -227,7 +227,7 @@ class CDNContainer extends ObjStoreBase {
 		return $this->service;
 	}
 
-	public function JsonCollectionName() {
+	public static function JsonCollectionName() {
 	    return NULL;
 	}
 

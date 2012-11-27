@@ -26,7 +26,7 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 		 */
 		 $this->Refresh('<no id>');
 	}
-	public function Url() { 
+	public function Url($subresource=NULL, $qstr=array()) { 
 		return $this->_lb->Url($this->ResourceName());
 	}
 	protected function CreateJson() {
@@ -37,7 +37,7 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 			$obj->$top->$item = $this->$item;
     	return $obj;
 	}
-	protected function UpdateJson() {
+	protected function UpdateJson($params = array()) {
 		return $this->CreateJson();
 	}
 	public function Parent() {

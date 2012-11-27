@@ -46,7 +46,7 @@ class Snapshot extends \OpenCloud\PersistentObject {
 	 *
 	 * @throws OpenCloud\UpdateError always
 	 */
-	public function Update() {
+	public function Update($params=array()) {
 		throw new \OpenCloud\UpdateError(
 			_('VolumeType cannot be updated'));
 	}
