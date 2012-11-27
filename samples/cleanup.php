@@ -119,8 +119,12 @@ while($vol = $list->Next()) {
 	if (in_array($vol->Status(), array('in-use','attaching')))
 		info('Volume [%s] %s is %s', $vol->id, $vol->Name(), $vol->Status());
 	else {
-		info('Deleting volume [%s] %s', $vol->id, $vol->Name());
-		$vol->Delete();
+		try {
+			info('Deleting volume [%s] %s', $vol->id, $vol->Name());
+			$vol->Delete();
+		} catch (OpenCloud\DeleteError $e) {
+			info('---Unable to delete volume [%s]', $vol->Name());
+		}
 	}
 }
 
