@@ -109,6 +109,12 @@ if (!defined('RAXSDK_SSL_VERIFYHOST'))
 if (!defined('RAXSDK_SSL_VERIFYPEER'))
     define('RAXSDK_SSL_VERIFYPEER', TRUE);
 
+/**
+ * sets default location of cacert.pem file
+ */
+if (!defined('RAXSDK_CACERTPEM'))
+    define('RAXSDK_CACERTPEM', __DIR__ . DIRECTORY_SEPARATOR . 'cacert.pem');
+
 // set the default timezone
 date_default_timezone_set(RAXSDK_TIMEZONE);
 
