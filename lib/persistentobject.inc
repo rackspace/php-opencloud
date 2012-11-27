@@ -617,7 +617,7 @@ abstract class PersistentObject extends Base {
 	 *
 	 * @throws UpdateError if not overridden
 	 */
-	protected function UpdateJson() {
+	protected function UpdateJson($params = array()) {
 		throw new UpdateError(sprintf(
 			_('[%s] UpdateJson() must be overridden'),
 			get_class($this)));

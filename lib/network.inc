@@ -65,7 +65,7 @@ class Network extends \OpenCloud\PersistentObject {
 	 *
 	 * @throws NetworkUpdateError always
 	 */
-	public function Update() {
+	public function Update($params=array()) {
 		throw new NetworkUpdateError(_('Isolated networks cannot be updated'));
 	}
 

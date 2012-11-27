@@ -85,7 +85,7 @@ if (!defined('RAXSDK_LBSERVICE_URLTYPE'))
 if (!defined('RAXSDK_CONNECTTIMEOUT'))
     define('RAXSDK_CONNECTTIMEOUT', 5);
 if (!defined('RAXSDK_TIMEOUT'))
-    define('RAXSDK_TIMEOUT', 30);
+    define('RAXSDK_TIMEOUT', 60);
 if (!defined('RAXSDK_SERVER_MAXTIMEOUT'))
     define('RAXSDK_SERVER_MAXTIMEOUT', 3600);
 if (!defined('RAXSDK_POLL_INTERVAL'))
@@ -108,6 +108,12 @@ if (!defined('RAXSDK_SSL_VERIFYHOST'))
  */
 if (!defined('RAXSDK_SSL_VERIFYPEER'))
     define('RAXSDK_SSL_VERIFYPEER', TRUE);
+
+/**
+ * sets default location of cacert.pem file
+ */
+if (!defined('RAXSDK_CACERTPEM'))
+    define('RAXSDK_CACERTPEM', __DIR__ . DIRECTORY_SEPARATOR . 'cacert.pem');
 
 // set the default timezone
 date_default_timezone_set(RAXSDK_TIMEZONE);
