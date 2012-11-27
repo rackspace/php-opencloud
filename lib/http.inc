@@ -301,9 +301,9 @@ class HttpResponse {
         // and split each line into name: value pairs
         foreach($request->ReturnHeaders() as $line) {
         	if (preg_match('/^([^:]+): (.*)$/', $line, $matches))
-	        	$this->headers[$matches[1]] = $matches[2];
+	        	$this->headers[$matches[1]] = trim($matches[2]);
 	        else
-	        	$this->headers[$line] = $line;
+	        	$this->headers[$line] = trim($line);
         }
 
         // set some other data

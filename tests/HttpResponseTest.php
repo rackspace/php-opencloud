@@ -36,9 +36,9 @@ class MyStubRequest extends OpenCloud\CurlRequest {
     }
     public function ReturnHeaders() {
     	return array(
-    		'HTTP/1.1 200 OK',
-    		'Content-Type: text/plain',
-    		'X-Test-Header: Nothing'
+    		"HTTP/1.1 200 OK\r\n",
+    		"Content-Type: text/plain\r\n",
+    		"X-Test-Header: Nothing\r\n"
     	);
     }
 }
@@ -80,7 +80,12 @@ class HttpResponseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Four', substr($this->response->HttpBody(), 0, 4));
     }
     public function testHeaders() {
-        $this->assertEquals(3, sizeof($this->response->Headers()));
+    	$harr = $this->response->Headers();
+        $this->assertEquals(3, sizeof($harr));
+        foreach($harr as $name => $value)
+        	$this->assertEquals(
+        		trim($value),
+        		$value);
     }
     public function testHeader() {
         $this->assertEquals(
