@@ -327,6 +327,10 @@ class DataObject extends ObjStoreBase {
         return $this->etag;
     }
 
+    public static function JsonName() {
+        return NULL;
+    }
+
     public static function JsonCollectionName() {
         return NULL;
     }

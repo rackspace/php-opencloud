@@ -50,6 +50,7 @@ class Collection extends Base {
 		if (!is_array($arr))
 			throw new \OpenCloud\CollectionError(
 				_('Cannot create a Collection without an array'));
+		// save the array of items
 		$this->itemlist=$arr;
 	}
 

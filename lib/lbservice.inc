@@ -80,4 +80,19 @@ class LoadBalancerService extends Nova {
 		return $this->Collection('\OpenCloud\LoadBalancerService\LoadBalancer');
 	}
 
+	/**
+	 * returns allowed domain
+	 */
+	public function AllowedDomain($data=NULL) {
+		return new LoadBalancerService\AllowedDomain($this, $data);
+	}
+	
+	/** 
+	 * returns Collection of AllowedDomain object
+	 */
+	public function AllowedDomainList() {
+		return $this->Collection(
+			'\OpenCloud\LoadBalancerService\AllowedDomain', NULL, $this);
+	}
+	
 }

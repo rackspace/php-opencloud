@@ -17,14 +17,17 @@ require_once('persistentobject.inc');
 class LbSubResource extends \OpenCloud\PersistentObject {
 	private
 		$_lb;	// holds the parent load balancer
-	public function __construct(LoadBalancer $lb) {
+	public function __construct(LoadBalancer $lb, $value=NULL) {
 		$this->_lb = $lb;
-		parent::__construct($lb->Service());
+		parent::__construct($lb->Service(), $value);
 		/**
 		 * Note that, since these sub-resources do not have an ID, we must
 		 * fake out the `Refresh` method. 
 		 */
-		 $this->Refresh('<no id>');
+		 if (isset($this->id))
+		 	$this->Refresh();
+		 else
+			 $this->Refresh('<no id>');
 	}
 	public function Url($subresource=NULL, $qstr=array()) { 
 		return $this->_lb->Url($this->ResourceName());
@@ -130,6 +133,39 @@ class Node extends \OpenCloud\PersistentObject {
 }
 
 /**
+ * VirtualIp represents a single virtual IP (usually returned in a Collection)
+ */
+class VirtualIp extends LbSubResource {
+	public
+		$id,
+		$address,
+		$type,
+		$ipVersion;
+	protected static
+		$json_collection_name = 'virtualIps',
+		$json_name = FALSE,
+		$url_resource = 'virtualips';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+}
+
+/**
+ * sub-resource to manage allowed domains
+*/
+class AllowedDomain extends \OpenCloud\PersistentObject {
+	public
+		$name;
+	public static
+		$json_name = 'allowedDomain',
+		$json_collection_name = 'allowedDomains',
+		$url_resource = 'loadbalancers/alloweddomains';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+}
+
+/**
  * sub-resource to manage connection throttling
  *
  * @api
@@ -184,18 +220,6 @@ class ContentCaching extends LbSubResource {
     protected
     	$_create_keys = array( 'enabled' );
 	public function Create($parm=array()) { $this->Update($parm); }
-	public function Delete() { $this->NoDelete(); }
-}
-
-/**
- * sub-resource to manage allowable domains
-*/
-class LbAllowableDomains extends LbSubResource {
-	public static
-		$json_name = 'allowedDomain',
-		$url_resource = 'alloweddomains';
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }
 }
 

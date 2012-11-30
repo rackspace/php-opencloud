@@ -189,6 +189,29 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 */
 	
 	/**
+	 * returns a Collection of Nodes
+	 */
+	public function NodeList() {
+		return $this->Parent()->Collection(
+			'\OpenCloud\LoadBalancerService\Node');
+	}
+	
+	/** 
+	 * returns a single Virtual IP (not called publicly)
+	 */
+	public function VirtualIp($data=NULL) {
+		return new VirtualIp($this, $data);
+	}
+	
+	/**
+	 * returns  a Collection of Virtual Ips
+	 */
+	public function VirtualIpList() {
+		return $this->Service()->Collection(
+			'\OpenCloud\LoadBalancerService\VirtualIp', NULL, $this);
+	}
+	
+	/**
 	 */
 	public function SessionPersistence() {
 		return new LbSessionPersistence($this);

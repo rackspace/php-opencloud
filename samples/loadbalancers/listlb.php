@@ -42,15 +42,32 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 step('Connect to the Load Balancer Service');
 $lbservice = $rackspace->LoadBalancerService('cloudLoadBalancers', 'DFW');
 
+// allowed domains
+$adlist = $lbservice->AllowedDomainList();
+while($ad = $adlist->Next()) {
+	info('Allowed domain: [%s]', $ad->Name());
+}
+
+// list load balancers
 $list = $lbservice->LoadBalancerList();
 if ($list->Size()) {
 	step('Load balancers:');
 	while($lb = $list->Next()) {
+		info('Url [%s]', $lb->Url());
 		info('%10s %s in %s', $lb->id, $lb->Name(), $lb->Region());
 		info('Status: [%s]', $lb->Status());
 		info('Error page: [%s]', 
 			substr($lb->ErrorPage()->content, 0, 50).'...');
 		info('Max Connections: [%d]', $lb->Stats()->maxConn);
+		// virtual IPs
+		//setDebug(TRUE);
+		$vips = $lb->VirtualIpList();
+		while($vip = $vips->Next()) {
+			info('  Virtual IP [%s,%s] [%s]', 
+				$vip->type, $vip->ipVersion, $vip->address);
+		}
+		setDebug(FALSE);
+		// connection logging
 		info('Connection Logging: [%s]', 
 			$lb->ConnectionLogging()->enabled ? 'on' : 'off');
 		info('Turning it on...');
