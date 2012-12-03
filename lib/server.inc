@@ -228,7 +228,7 @@ class Server extends \OpenCloud\PersistentObject {
 		// construct a resize object for jsonization
 		$obj = new \stdClass();
 		$obj->resize = new \stdClass();
-		$obj->resize->flavorRef = $flavorRef->Url();
+		$obj->resize->flavorRef = $flavorRef->id;
         return $this->Action($obj);
 	}
 
