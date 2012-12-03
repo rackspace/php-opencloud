@@ -35,9 +35,15 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 	protected function CreateJson() {
     	$obj = new \stdClass();
     	$top = $this->JsonName();
-    	$obj->$top = new \stdClass();
-    	foreach($this->_create_keys as $item)
-			$obj->$top->$item = $this->$item;
+    	if ($top) {
+			$obj->$top = new \stdClass();
+			foreach($this->_create_keys as $item)
+				$obj->$top->$item = $this->$item;
+		}
+		else {
+			foreach($this->_create_keys as $item)
+				$obj->$item = $this->$item;
+		}
     	return $obj;
 	}
 	protected function UpdateJson($params = array()) {
@@ -145,9 +151,9 @@ class VirtualIp extends LbSubResource {
 		$json_collection_name = 'virtualIps',
 		$json_name = FALSE,
 		$url_resource = 'virtualips';
-	public function Create($params=array()) { $this->NoCreate(); }
+	protected
+		$_create_keys = array('type', 'ipVersion');
 	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
 }
 
 /**

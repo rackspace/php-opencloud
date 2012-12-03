@@ -54,6 +54,11 @@ $response = $lb->Create(array(
 setDebug(FALSE);
 $lb->WaitFor('ACTIVE', 300, 'dot');
 
+step('Add a public IPv6 address');
+//setDebug(TRUE);
+$lb->AddVirtualIp('PUBLIC', 6);
+setDebug(FALSE);
+
 step('DONE');
 exit;
 

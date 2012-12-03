@@ -149,19 +149,19 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * @param integer $ipVersion either null, 4, or 6 (both, IPv4, or IPv6)
 	 * @return void
 	 */
-	public function AddVirtualIp($id='PUBLIC', $ipVersion=NULL) {
+	public function AddVirtualIp($type='PUBLIC', $ipVersion=NULL) {
         $obj = new \stdClass();
 
         /**
          * check for PUBLIC or SERVICENET
          */
-	    switch(strtoupper($id)) {
+	    switch(strtoupper($type)) {
 	    case 'PUBLIC':
 	    case 'SERVICENET':
-	        $obj->type = strtoupper($id);
+	        $obj->type = strtoupper($type);
 	        break;
 	    default:
-	        $obj->id = $id;
+	        $obj->id = $type;
 	    }
 	    
 	    if ($ipVersion) {
@@ -178,7 +178,24 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	        }
 	    }
 
-	    $this->virtualIps[] = $obj;
+		/** 
+		 * If the load balancer exists, we want to add it immediately. 
+		 * If not, we add it to the virtualIps list and add it when the load
+		 * balancer is created.
+		 */
+		if ($this->Id()) {
+			$vip = $this->VirtualIp();
+			$vip->type = $type;
+			$vip->ipVersion = $obj->version;
+			$http = $vip->Create();
+			$this->Debug('AddVirtualIp:response [%s]', $http->HttpBody());
+			return $http;
+		}
+		else // queue it
+			$this->virtualIps[] = $obj;
+		
+		// done
+		return TRUE;
 	}
 	
 	/********** FACTORY METHODS **********
