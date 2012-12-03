@@ -53,6 +53,17 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 step('Connect to Cloud Servers');
 $cloudservers = $rackspace->Compute('cloudServersOpenStack', MYREGION);
 
+step('Deleting the test network(s)');
+$list = $cloudservers->NetworkList();
+while($network = $list->Next()) {
+	info('Deleting: %s %s', $network->id, $network->label);
+	try {
+		$network->Delete();
+	} catch (OpenCloud\DeleteError $e) {
+		info('---Cannot delete');
+	}
+}
+
 step('Connect to CBS');
 $cbs = $rackspace->VolumeService('cloudBlockStorage', MYREGION);
 
