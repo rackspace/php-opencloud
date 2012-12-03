@@ -581,6 +581,23 @@ abstract class PersistentObject extends Base {
 	}
 
 	/**
+	 * returns the JSON name for each element in a collection
+	 *
+	 * Usually, elements in a collection are anonymous; this function, however,
+	 * provides for an element level name: 
+	 *
+	 * 	`{ "collection" : [ { "element" : ... } ] }`
+	 *
+	 * @return string
+	 */
+	public static function JsonCollectionElement() {
+		if (isset(static::$json_collection_element))
+			return static::$json_collection_element;
+		else
+			return NULL;
+	}
+
+	/**
 	 * Returns the resource name for the URL of the object; must be overridden
 	 * in child classes
 	 *

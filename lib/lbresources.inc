@@ -159,6 +159,7 @@ class AllowedDomain extends \OpenCloud\PersistentObject {
 	public static
 		$json_name = 'allowedDomain',
 		$json_collection_name = 'allowedDomains',
+		$json_collection_element = 'allowedDomain',
 		$url_resource = 'loadbalancers/alloweddomains';
 	public function Create($params=array()) { $this->NoCreate(); }
 	public function Update($params=array()) { $this->NoUpdate(); }

@@ -129,7 +129,8 @@ abstract class Service extends Base {
 	 */
 	public function Collection($class, $url=NULL, $parent=NULL) {
 	    // set the element name
-	    $element = $class::JsonCollectionName();
+	    $collection = $class::JsonCollectionName();
+	    $element = $class::JsonCollectionElement();
 	    //$jsonname = $class::JsonName();
 
 	    // save the parent
@@ -142,7 +143,7 @@ abstract class Service extends Base {
 
 		// save debug info
 		$this->debug('%s:Collection(%s, %s, %s)',
-			get_class($this), $url, $class, $element);
+			get_class($this), $url, $class, $collection);
 
 		// fetch the list
 		$response = $this->Request($url);
@@ -169,10 +170,18 @@ abstract class Service extends Base {
 			return FALSE;
 
 		// and say goodbye
-		if (!$element)
+		if (!$collection)
 			return new Collection($parent, $class, $obj);
-		elseif (isset($obj->$element))
-			return new Collection($parent, $class, $obj->$element);
+		elseif (isset($obj->$collection)) {
+			if (!$element)
+				return new Collection($parent, $class, $obj->$collection);
+			else { // handle element levels
+				$arr = array();
+				foreach($obj->$collection as $index => $item)
+					$arr[] = $item->$element;
+				return new Collection($parent, $class, $arr);
+			}
+		}
 		else
 			return new Collection($parent, $class, array());
 	}

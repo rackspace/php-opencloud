@@ -95,6 +95,18 @@ abstract class ObjStoreBase extends \OpenCloud\Base {
 				get_class($this)));
 	}
 
+	public static function JsonName() {
+	    return NULL;
+	}
+
+	public static function JsonCollectionName() {
+	    return NULL;
+	}
+
+	public static function JsonCollectionElement() {
+	    return NULL;
+	}
+
 	/********** PRIVATE METHODS **********/
 
 	/**
