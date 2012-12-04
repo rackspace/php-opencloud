@@ -42,8 +42,8 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		$created,
 		$updated,
 		$sourceAddresses;
-	
-	protected static 
+
+	protected static
 		$json_name = 'loadBalancer',
 		$url_resource = 'loadbalancers';
 
@@ -71,7 +71,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * on the object, and the nodes are added later, in one of two ways:
 	 *
 	 * * for a new LoadBalancer, the Nodes are added as part of the Create()
-	 *   method call. 
+	 *   method call.
 	 * * for an existing LoadBalancer, you must call the AddNodes() method
 	 *
 	 * @api
@@ -83,7 +83,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * @throws \OpenCloud\DomainError if value is not valid
 	 * @return void
 	 */
-	public function AddNode($addr, $port, $condition='ENABLED', 
+	public function AddNode($addr, $port, $condition='ENABLED',
 			$type=NULL, $weight=NULL) {
 	    $node = new Node($this);
 	    $node->address = $addr;
@@ -119,13 +119,13 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	    }
 	    $this->nodes[] = $node;
 	}
-	
+
 	/**
 	 * adds queued nodes to the load balancer
 	 *
 	 * In many cases, Nodes will be added to the Load Balancer when it is
 	 * created (via the `Create()` method), but this method is provided when
-	 * a set of Nodes needs to be added after the fact. 
+	 * a set of Nodes needs to be added after the fact.
 	 *
 	 * @api
 	 * @return HttpResponse
@@ -163,7 +163,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	    default:
 	        $obj->id = $id;
 	    }
-	    
+
 	    if ($ipVersion) {
 	        switch($ipVersion) {
 	        case 4:
@@ -180,14 +180,14 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 
 	    $this->virtualIps[] = $obj;
 	}
-	
+
 	/********** FACTORY METHODS **********
 	 *
 	 * These are used for the various sub-resources of LoadBalancer that are
 	 * each managed by independent HTTP requests, such as the .../errorpage
 	 * and the .../sessionpersistence objects.
 	 */
-	
+
 	/**
 	 * returns a Collection of Nodes
 	 */
@@ -195,14 +195,14 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		return $this->Parent()->Collection(
 			'\OpenCloud\LoadBalancerService\Node');
 	}
-	
-	/** 
+
+	/**
 	 * returns a single Virtual IP (not called publicly)
 	 */
 	public function VirtualIp($data=NULL) {
 		return new VirtualIp($this, $data);
 	}
-	
+
 	/**
 	 * returns  a Collection of Virtual Ips
 	 */
@@ -210,41 +210,60 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		return $this->Service()->Collection(
 			'\OpenCloud\LoadBalancerService\VirtualIp', NULL, $this);
 	}
-	
+
 	/**
 	 */
 	public function SessionPersistence() {
 		return new LbSessionPersistence($this);
 	}
-	
+
 	/**
 	 * returns the load balancer's error page object
 	 *
 	 * @api
-	 * @return LbErrorPage
+	 * @return ErrorPage
 	 */
 	public function ErrorPage() {
-		return new LbErrorPage($this);
+		return new ErrorPage($this);
 	}
-	
+
 	/**
 	 * returns statistics on the load balancer operation
 	 *
 	 * cannot be created, updated, or deleted
 	 *
 	 * @api
-	 * @return LbStats
+	 * @return Stats
 	 */
 	public function Stats() {
-		return new LbStats($this);
+		return new Stats($this);
 	}
-	
+
+	/**
+	 */
+	public function Usage() {
+		return new Usage($this);
+	}
+
+	/**
+	 */
+	public function Access($data=NULL) {
+		return new Access($this, $data);
+	}
+
+	/**
+	 */
+	public function AccessList() {
+		return $this->Service()->Collection(
+			'\OpenCloud\LoadBalancerService\Access', NULL, $this);
+	}
+
 	/**
 	 */
 	public function ConnectionThrottle() {
 		return new ConnectionThrottle($this);
 	}
-	
+
 	/**
 	 */
 	public function ConnectionLogging() {
@@ -268,15 +287,15 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	    $obj = new \stdClass();
 	    $elem = $this->JsonName();
 	    $obj->$elem = new \stdClass();
-	    
+
 	    // set the properties
 	    foreach($this->_create_keys as $key) {
 	    	if ($this->$key) {
 	    		$obj->$elem->$key = $this->$key;
 	    	}
 	    }
-	    
+
 	    return $obj;
 	}
 
-}
+} // end LoadBalancer

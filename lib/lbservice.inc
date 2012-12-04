@@ -72,8 +72,8 @@ class LoadBalancerService extends Nova {
 	 * @api
 	 * @param boolean $detail if TRUE (the default), then all details are
 	 *      returned; otherwise, the minimal set (ID, name) are retrieved
-	 * @param array $filter not currently used; to support potential future
-	 *      server-side filtering
+	 * @param array $filter if provided, a set of key/value pairs that are
+	 * 		set as query string parameters to the query
 	 * @return \OpenCloud\Collection
 	 */
 	public function LoadBalancerList($detail=TRUE, $filter=array()) {
@@ -86,13 +86,13 @@ class LoadBalancerService extends Nova {
 	public function AllowedDomain($data=NULL) {
 		return new LoadBalancerService\AllowedDomain($this, $data);
 	}
-	
-	/** 
+
+	/**
 	 * returns Collection of AllowedDomain object
 	 */
 	public function AllowedDomainList() {
 		return $this->Collection(
 			'\OpenCloud\LoadBalancerService\AllowedDomain', NULL, $this);
 	}
-	
+
 }

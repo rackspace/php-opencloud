@@ -15,7 +15,7 @@ require_once('stub_conn.inc');
 
 class publicLoadBalancer extends OpenCloud\LoadBalancerService\LoadBalancer {
 	/*
-	public static 
+	public static
 		$json_name = 'loadBalancer',
 		$url_resource = 'loadbalancers';
 	*/
@@ -66,7 +66,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		$this->lb->id = 1024;
 		$x = $this->lb->Stats();
 		$this->assertEquals(
-			'OpenCloud\LoadBalancerService\LbStats',
+			'OpenCloud\LoadBalancerService\Stats',
 			get_class($x));
 		$this->assertEquals(
 			10,

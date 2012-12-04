@@ -14,7 +14,7 @@ namespace OpenCloud\LoadBalancerService;
 
 require_once('persistentobject.inc');
 
-class LbSubResource extends \OpenCloud\PersistentObject {
+class SubResource extends \OpenCloud\PersistentObject {
 	private
 		$_lb;	// holds the parent load balancer
 	public function __construct(LoadBalancer $lb, $value=NULL) {
@@ -22,14 +22,14 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 		parent::__construct($lb->Service(), $value);
 		/**
 		 * Note that, since these sub-resources do not have an ID, we must
-		 * fake out the `Refresh` method. 
+		 * fake out the `Refresh` method.
 		 */
 		 if (isset($this->id))
 		 	$this->Refresh();
 		 else
 			 $this->Refresh('<no id>');
 	}
-	public function Url($subresource=NULL, $qstr=array()) { 
+	public function Url($subresource=NULL, $qstr=array()) {
 		return $this->_lb->Url($this->ResourceName());
 	}
 	protected function CreateJson() {
@@ -47,19 +47,19 @@ class LbSubResource extends \OpenCloud\PersistentObject {
 		return $this->_lb;
 	}
 	public function Name() {
-		return sprintf(_('%s-%s'), 
+		return sprintf(_('%s-%s'),
 			get_class($this), $this->Parent()->Id());
 	}
-} // end LbSubResource
+} // end SubResource
 
 /**
  * The /loadbalancer/{id}/errorpage manages the error page for the load
  * balancer.
  */
-class LbErrorPage extends LbSubResource {
+class ErrorPage extends SubResource {
 	public
 		$content;
-	public static
+	protected static
 		$json_name = 'errorpage',
 		$url_resource = 'errorpage';
 	protected
@@ -68,18 +68,18 @@ class LbErrorPage extends LbSubResource {
 	 * creates a new error page
 	 *
 	 * This calls the Update() method, since it requires a PUT to create
-	 * a new error page. A POST request is not supported, since the URL 
+	 * a new error page. A POST request is not supported, since the URL
 	 * resource is already defined.
 	 *
 	 * @param array $parm array of parameters
 	 */
 	public function Create($parm=array()) { $this->Update($parm); }
-} // end LbErrorPage
+} // end ErrorPage
 
 /**
- * LbStats returns statistics about the load balancer
+ * Stats returns statistics about the load balancer
  */
-class LbStats extends LbSubResource {
+class Stats extends SubResource {
 	public
 		$connectTimeOut,
 		$connectError,
@@ -87,7 +87,7 @@ class LbStats extends LbSubResource {
 		$dataTimedOut,
 		$keepAliveTimedOut,
 		$maxConn;
-	public static
+	protected static
 		$json_name = FALSE,
 		$url_resource = 'stats';
 	public function Create($params=array()) { $this->NoCreate(); }
@@ -133,9 +133,36 @@ class Node extends \OpenCloud\PersistentObject {
 }
 
 /**
- * VirtualIp represents a single virtual IP (usually returned in a Collection)
+ * sub-resource to manage allowed domains
+ *
+ * Note that this is actually a sub-resource of the load balancers service,
+ * and not of the load balancer object. It's included here for convenience,
+ * since it matches the pattern of the other LB subresources.
+ *
+ * @api
  */
-class VirtualIp extends LbSubResource {
+class AllowedDomain extends \OpenCloud\PersistentObject {
+	public
+		$name;
+	protected static
+		$json_name = 'allowedDomain',
+		$json_collection_name = 'allowedDomains',
+		$json_collection_element = 'allowedDomain',
+		$url_resource = 'loadbalancers/alloweddomains';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+}
+
+/**
+ * VirtualIp represents a single virtual IP (usually returned in a Collection)
+ *
+ * Virtual IPs can be added to a load balancer when it is created; however,
+ * this subresource allows the user to add or update them one at a time.
+ *
+ * @api
+ */
+class VirtualIp extends SubResource {
 	public
 		$id,
 		$address,
@@ -147,23 +174,63 @@ class VirtualIp extends LbSubResource {
 		$url_resource = 'virtualips';
 	public function Create($params=array()) { $this->NoCreate(); }
 	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
 }
 
 /**
- * sub-resource to manage allowed domains
-*/
-class AllowedDomain extends \OpenCloud\PersistentObject {
-	public
-		$name;
-	public static
-		$json_name = 'allowedDomain',
-		$json_collection_name = 'allowedDomains',
-		$json_collection_element = 'allowedDomain',
-		$url_resource = 'loadbalancers/alloweddomains';
+ * used to get a list of billable load balancers for a specific date range
+ */
+class BillableLoadBalancer extends SubResource {
+	protected static
+		$json_name = 'loadBalancer',
+		$url_resource = 'billable';
 	public function Create($params=array()) { $this->NoCreate(); }
 	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }
+} // end BillableLoadBalancer
+
+/**
+ * used to get usage data for a load balancer
+ */
+class Usage extends SubResource {
+	public
+		$id,
+		$averageNumConnections,
+		$incomingTransfer,
+		$outgoingTransfer,
+		$averageNumConnectionsSsl,
+		$incomingTransferSsl,
+		$outgoingTransferSsl,
+		$numVips,
+		$numPolls,
+		$startTime,
+		$endTime,
+		$vipType,
+		$sslMode,
+		$eventType;
+	protected static
+		$json_name = 'loadBalancerUsageRecord',
+		$url_resource = 'usage';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+} // end Usage
+
+/**
+ * sub-resource to manage access lists
+ *
+ * @api
+ */
+class Access extends SubResource {
+	public
+		$id,
+		$type,
+		$address;
+    protected static
+    	$json_name = "accessList",
+    	$url_resource = "accesslist";
+    protected
+    	$_create_keys = array('type', 'address');
+	public function Update($params=array()) { $this->NoUpdate(); }
 }
 
 /**
@@ -171,13 +238,13 @@ class AllowedDomain extends \OpenCloud\PersistentObject {
  *
  * @api
  */
-class ConnectionThrottle extends LbSubResource {
+class ConnectionThrottle extends SubResource {
 	public
 		$minConnections,
 		$maxConnections,
 		$maxConnectionRate,
 		$rateInterval;
-    public static
+    protected static
     	$json_name = "connectionThrottle",
     	$url_resource = "connectionthrottle";
     protected
@@ -195,10 +262,10 @@ class ConnectionThrottle extends LbSubResource {
  *
  * @api
  */
-class ConnectionLogging extends LbSubResource {
+class ConnectionLogging extends SubResource {
 	public
 		$enabled;
-    public static
+    protected static
     	$json_name = "connectionLogging",
     	$url_resource = "connectionlogging";
     protected
@@ -212,10 +279,10 @@ class ConnectionLogging extends LbSubResource {
  *
  * @api
  */
-class ContentCaching extends LbSubResource {
+class ContentCaching extends SubResource {
 	public
 		$enabled;
-    public static
+    protected static
     	$json_name = "contentCaching",
     	$url_resource = "contentcaching";
     protected
@@ -227,7 +294,7 @@ class ContentCaching extends LbSubResource {
 /**
  * sub-resource to manage session persistence setting
  */
-class LbSessionPersistence extends LbSubResource {
+class LbSessionPersistence extends SubResource {
 	public
 		$persistenceType;
 	protected static

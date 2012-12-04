@@ -56,19 +56,33 @@ if ($list->Size()) {
 		info('Url [%s]', $lb->Url());
 		info('%10s %s in %s', $lb->id, $lb->Name(), $lb->Region());
 		info('Status: [%s]', $lb->Status());
-		info('Error page: [%s]', 
+		info('Error page: [%s]',
 			substr($lb->ErrorPage()->content, 0, 50).'...');
 		info('Max Connections: [%d]', $lb->Stats()->maxConn);
+
+		// usage
+		info('Usage...');
+		//setDebug(TRUE);
+		$us = $lb->Usage();
+
+		// access list
+		info('AccessList...');
+		setDebug(TRUE);
+		$al = $lb->AccessList();
+		setDebug(FALSE);
+		while($a = $al->Next())
+			info(': %s, %s', $a->type, $a->address);
+
 		// virtual IPs
 		//setDebug(TRUE);
 		$vips = $lb->VirtualIpList();
 		while($vip = $vips->Next()) {
-			info('  Virtual IP [%s,%s] [%s]', 
+			info('  Virtual IP [%s,%s] [%s]',
 				$vip->type, $vip->ipVersion, $vip->address);
 		}
 		setDebug(FALSE);
 		// connection logging
-		info('Connection Logging: [%s]', 
+		info('Connection Logging: [%s]',
 			$lb->ConnectionLogging()->enabled ? 'on' : 'off');
 		info('Turning it on...');
 			$cl = $lb->ConnectionLogging();
