@@ -234,6 +234,20 @@ class Access extends SubResource {
 }
 
 /**
+ * sub-resource to manage health monitor
+ */
+class HealthMonitor extends SubResource {
+	public
+		$type;
+	protected static
+		$json_name = 'healthMonitor',
+		$url_resource = 'healthmonitor';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+} // end HealthMonitor
+
+/**
  * sub-resource to manage connection throttling
  *
  * @api
