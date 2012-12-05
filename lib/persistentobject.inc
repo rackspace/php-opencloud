@@ -25,6 +25,41 @@ require_once('metadata.inc');
  * deleted, or retrieved, and (c) use a standard JSON format with a top-level
  * element followed by a child object with attributes.
  *
+ * In general, you can create a persistent object class by subclassing this
+ * class and defining some protected, static variables:
+ *
+ * * `url_resource` - the sub-resource value in the URL of the parent. For
+ *   example, if the parent URL is `http://something/parent`, then setting
+ *   this value to `'another'` would result in a URL for the persistent
+ *   object of `http://something/parent/another`.
+ * * `json_name` - the top-level JSON object name. For example, if the
+ *   persistent object is represented by `{"foo": {"attr":value, ...}}`, then
+ *   set `json_name = 'foo'`.
+ * * `json_collection_name` - optional; this value is the name of a collection
+ *   of the persistent objects. If not provided, it defaults to `json_name`
+ *   with an appended `'s'` (e.g., if `json_name` is `"foo"`, then
+ *   `json_collection_name` would be `"foos"` by default). Set this value if
+ *   the collection name doesn't follow this pattern.
+ * * `json_collection_element` - the common pattern for a collection is:
+ *   `{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}`
+ *   That is, each element of the array is an anonymous object containing the
+ *   object's attributes. In (very) rare instances, the objects in the array
+ *   are named, and `json_collection_element` contains the name of the
+ *   collection objects. For example, in this:
+ *   `{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}`, then
+ *   `json_collection_element` would be set to `'allowedDomain'`.
+ *
+ * The PersistentObject class supports the standard `Create()`, `Update()`,
+ * and `Delete()` methods; if these are not needed (i.e., not supported by
+ * the service, the subclass should redefine these to call the
+ * `NoCreate`, `NoUpdate`, or `NoDelete` methods, which will trigger an
+ * appropriate exception. For example, if an object cannot be created:
+ *
+ *    function Create($parm=array()) { $this->NoCreate(); }
+ *
+ * This will cause any call to the `Create()` method to fail with an
+ * exception.
+ *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 abstract class PersistentObject extends Base {
@@ -214,14 +249,14 @@ abstract class PersistentObject extends Base {
 		// add the subresource
 		if ($url) {
 			$url .= ($subresource ? ('/'.$subresource) : '');
-		
+
 			// add the query strings
 			if (count($qstr))
 				$url .= '?' . $this->MakeQueryString($qstr);
-			
+
 			// and return
 			return $url;
-		}		
+		}
 
 		// otherwise, we don't have a URL yet
 		throw new UrlError(
@@ -358,14 +393,16 @@ abstract class PersistentObject extends Base {
 				throw new ServerJsonError(sprintf(
 				    _('JSON parse error on %s refresh'), get_class($this)));
 			$top = $this->JsonName();
-			if ($top === FALSE)
+			if ($top === FALSE) {
 				foreach($resp as $item => $value) {
 					$this->$item = $value;
 				}
-			else
+			}
+			else if (isset($resp->$top)) {
 				foreach($resp->$top as $item => $value) {
 					$this->$item = $value;
 				}
+			}
 		}
 	}
 
@@ -427,7 +464,7 @@ abstract class PersistentObject extends Base {
 				_('Extension [%s] is not installed'), $alias));
 		return TRUE;
 	}
-	
+
 	/**
 	 * returns the region associated with the object
 	 *
@@ -584,7 +621,7 @@ abstract class PersistentObject extends Base {
 	 * returns the JSON name for each element in a collection
 	 *
 	 * Usually, elements in a collection are anonymous; this function, however,
-	 * provides for an element level name: 
+	 * provides for an element level name:
 	 *
 	 * 	`{ "collection" : [ { "element" : ... } ] }`
 	 *
