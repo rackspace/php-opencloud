@@ -308,6 +308,12 @@ class HttpResponse {
 	        else
 	        	$this->headers[$line] = trim($line);
         }
+        
+        // debug caching
+        if (isset($this->headers['Cache-Control']))
+        	$this->debug('Cache-Control: %s', $this->headers['Cache-Control']);
+        if (isset($this->headers['Expires']))
+        	$this->debug('Expires: %s', $this->headers['Expires']);
 
         // set some other data
         $this->info = $request->info();

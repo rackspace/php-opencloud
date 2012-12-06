@@ -52,6 +52,32 @@ printf("SmokeTest started at %s\n", date(TIMEFORMAT, $start));
 printf("Using endpoint [%s]\n", $_ENV['NOVA_URL']);
 printf("Using region [%s]\n", MYREGION);
 
+// parse command-line arguments
+if ($argc > 1) {
+	foreach($argv as $arg) {
+		switch($arg) {
+		case '-D':
+		case '--debug':
+			printf("Debug ON\n");
+			setDebug(TRUE);
+			break;
+		case '-H':
+		case '--help':
+			printf(<<<ENDHELP
+Switches:
+
+    -D --debug      Turn debug mode ON
+    -H --help       Display help message
+
+ENDHELP
+			);
+			exit;
+		default:
+			
+		}
+	}
+}
+
 step('Authenticate');
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
@@ -111,7 +137,6 @@ if ($USE_SERVERS) {
 	
 	step('Create a new Volume');
 	$volume = $cbs->Volume();
-	//setDebug(TRUE);
 	$volume->Create(array(
 		'display_name' => VOLUMENAME,
 		'display_description' => 'A sample volume for testing',
@@ -119,7 +144,6 @@ if ($USE_SERVERS) {
 		'volume_type' => $cbs->VolumeType(2)
 	));
 	$volume = $cbs->Volume($volume->id);
-	setDebug(FALSE);
 	
 	step('Listing volumes');
 	$list = $cbs->VolumeList();
@@ -166,11 +190,9 @@ if ($USE_SERVERS) {
 		info($s->name);
 	
 	step('Listing the server volume attachments');
-	//setDebug(TRUE);
 	$list = $server->VolumeAttachmentList();
 	while($vol = $list->Next())
 		info('%s %-20s', $vol->id, $vol->Name());
-	setDebug(FALSE);
 	//exit;
 	
 	step('Detaching the volume');
@@ -275,9 +297,7 @@ $target->name = 'COPY-of-SmokeTestObject';
 $object->Copy($target);
 
 step('List Containers');
-//setDebug(TRUE);
 $list = $cloudfiles->ContainerList();
-//setDebug(FALSE);
 while($c = $list->Next())
     info('Container: %s', $c->name);
 

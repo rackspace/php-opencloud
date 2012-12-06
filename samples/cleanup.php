@@ -29,6 +29,11 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 /**
+ * servers to keep around
+ */
+$keep_servers = array('MODEL', 'Save');
+
+/**
  * numbers each step
  */
 function step($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
@@ -53,6 +58,17 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 step('Connect to Cloud Servers');
 $cloudservers = $rackspace->Compute('cloudServersOpenStack', MYREGION);
 
+step('Deleting servers');
+$slist = $cloudservers->ServerList();
+while($server = $slist->Next()) {
+	if (in_array($server->Name(), $keep_servers))
+		info('Keeping %s', $server->Name());
+	else {
+		info('Deleting %s', $server->Name());
+		$server->Delete();
+	}
+}
+
 step('Deleting the test network(s)');
 $list = $cloudservers->NetworkList();
 while($network = $list->Next()) {
@@ -72,14 +88,6 @@ $files = $rackspace->ObjectStore('cloudFiles', MYREGION);
 
 step('Connect to Cloud Load Balancers');
 $lbservice = $rackspace->LoadBalancerService('cloudLoadBalancers', MYREGION);
-
-step('Deleting unused servers');
-$list = $cloudservers->ServerList();
-while($server = $list->Next())
-    if ($server->name != 'MODEL') {
-        info('Deleting server [%s] %s', $server->id, $server->Name());
-        $server->Delete();
-    }
 
 step('Deleting snapshots');
 $list = $cbs->SnapshotList();
