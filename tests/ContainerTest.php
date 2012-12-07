@@ -99,13 +99,19 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	/**
 	 * @expectedException OpenCloud\ObjectStore\ContainerNotFoundError
 	 */
-	public function testPublishToCDN1() {
-	    $this->container->PublishToCDN(100);
+	public function testEnableCDN1() {
+	    $this->container->EnableCDN(100);
 	}
 	/**
 	 * @expectedException OpenCloud\ObjectStore\CdnTtlError
 	 */
-	public function testPublishToCDN2() {
+	public function testEnableCDN2() {
+	    $this->container->EnableCDN('FOOBAR');
+	}
+	/**
+	 * @expectedException OpenCloud\ObjectStore\CdnTtlError
+	 */
+	public function testPubishToCDN2() {
 	    $this->container->PublishToCDN('FOOBAR');
 	}
 	/**

@@ -298,7 +298,7 @@ class Container extends CDNContainer {
 	 * @throws CDNNotAvailableError if CDN services are not available
 	 * @return CDNContainer
 	 */
-	public function PublishToCDN($TTL=NULL) {
+	public function EnableCDN($TTL=NULL) {
 	    $url = $this->Service()->CDN()->Url().'/'.$this->name;
 	    $headers = $this->MetadataHeaders();
 	    if ($TTL && !is_integer($TTL))
@@ -323,6 +323,15 @@ class Container extends CDNContainer {
 	    // return the CDN container object
 	    $this->_cdn = new CDNContainer($this->Service()->CDN(), $this->name);
 	    return $this->CDN();
+	}
+	
+	/**
+	 * a synonym for PublishToCDN for backwards-compatibility
+	 *
+	 * @api
+	 */
+	public function PublishToCDN($TTL=NULL) {
+		return $this->EnableCDN($TTL);
 	}
 
 	/**
