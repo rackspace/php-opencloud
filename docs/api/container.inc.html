@@ -89,7 +89,9 @@ the object storage components.</p><br><div id="methods_CDNContainer">
       <a style="font-style: italic;" href="#CDNContainer::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#CDNContainer::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#CDNContainer::GetMetadata()">GetMetadata</a>,
+      <a style="font-style: italic;" href="#CDNContainer::JsonCollectionElement()">JsonCollectionElement</a>,
       <a style="font-style: italic;" href="#CDNContainer::JsonCollectionName()">JsonCollectionName</a>,
+      <a style="font-style: italic;" href="#CDNContainer::JsonName()">JsonName</a>,
       <a style="font-style: italic;" href="#CDNContainer::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#CDNContainer::MetadataHeaders()">MetadataHeaders</a>,
       <a style="font-style: italic;" href="#CDNContainer::Name()">Name</a>,
@@ -466,6 +468,37 @@ to metadata</em><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="CDNContainer::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="objstorebase.inc.html#%5COpenCloud%5CObjectStore%5CObjStoreBase::JsonCollectionElement()"><small>\OpenCloud\ObjectStore\ObjStoreBase::JsonCollectionElement()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="CDNContainer::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
           
           )
@@ -482,6 +515,48 @@ to metadata</em><br><h4>Arguments</h4>
 <tbody><tr>
 <td>n/a</td>
 <td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="objstorebase.inc.html#%5COpenCloud%5CObjectStore%5CObjStoreBase::JsonCollectionName()"><small>\OpenCloud\ObjectStore\ObjStoreBase::JsonCollectionName()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CDNContainer::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="objstorebase.inc.html#%5COpenCloud%5CObjectStore%5CObjStoreBase::JsonName()"><small>\OpenCloud\ObjectStore\ObjStoreBase::JsonName()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -1437,9 +1512,12 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a style="font-style: italic;" href="#Container::DataObject()">DataObject</a>,
       <a style="font-style: italic;" href="#Container::Delete()">Delete</a>,
       <a style="font-style: italic;" href="#Container::DisableCDN()">DisableCDN</a>,
+      <a style="font-style: italic;" href="#Container::EnableCDN()">EnableCDN</a>,
       <a style="font-style: italic;" href="#Container::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#Container::GetMetadata()">GetMetadata</a>,
+      <a style="font-style: italic;" href="#Container::JsonCollectionElement()">JsonCollectionElement</a>,
       <a style="font-style: italic;" href="#Container::JsonCollectionName()">JsonCollectionName</a>,
+      <a style="font-style: italic;" href="#Container::JsonName()">JsonName</a>,
       <a style="font-style: italic;" href="#Container::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#Container::MetadataHeaders()">MetadataHeaders</a>,
       <a style="font-style: italic;" href="#Container::Name()">Name</a>,
@@ -1960,6 +2038,64 @@ its TTL expires.</p></small><br><h4>Return value</h4>
 </table>
 </div>
 <div class="method">
+<a id="Container::EnableCDN()"></a><h3>EnableCDN<span class="nb-faded-text">(
+          integer
+             
+            $TTL
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\ObjectStore\CDNContainer</span>
+</h3>
+<h4>Description</h4>
+<em>Makes the container public via the CDN</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$TTL</td>
+<td style="white-space: normal;">integer</td>
+<td><p>the Time-To-Live for the CDN container; if NULL, then the cloud's default value will be used for caching.</p>
+</td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\ObjectStore\CDNContainer</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>throws</td>
+<td>if CDN services are not available</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="Container::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
@@ -2090,6 +2226,43 @@ to metadata</em><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="Container::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="objstorebase.inc.html#%5COpenCloud%5CObjectStore%5CObjStoreBase::JsonCollectionElement()"><small>\OpenCloud\ObjectStore\ObjStoreBase::JsonCollectionElement()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="container.inc.html#%5COpenCloud%5CObjectStore%5CCDNContainer::JsonCollectionElement()"><small>\OpenCloud\ObjectStore\CDNContainer::JsonCollectionElement()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="Container::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
           
           )
@@ -2114,10 +2287,53 @@ to metadata</em><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="objstorebase.inc.html#%5COpenCloud%5CObjectStore%5CObjStoreBase::JsonCollectionName()"><small>\OpenCloud\ObjectStore\ObjStoreBase::JsonCollectionName()</small></a></td>
+</tr>
+<tr>
 <td>inherited_from</td>
 <td><a href="container.inc.html#%5COpenCloud%5CObjectStore%5CCDNContainer::JsonCollectionName()"><small>\OpenCloud\ObjectStore\CDNContainer::JsonCollectionName()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Container::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="objstorebase.inc.html#%5COpenCloud%5CObjectStore%5CObjStoreBase::JsonName()"><small>\OpenCloud\ObjectStore\ObjStoreBase::JsonName()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="container.inc.html#%5COpenCloud%5CObjectStore%5CCDNContainer::JsonName()"><small>\OpenCloud\ObjectStore\CDNContainer::JsonName()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
@@ -2411,7 +2627,7 @@ names and values</small></a></td>
 </div>
 <div class="method">
 <a id="Container::PublishToCDN()"></a><h3>PublishToCDN<span class="nb-faded-text">(
-          integer
+          
              
             $TTL
             = NULL,
@@ -2419,10 +2635,10 @@ names and values</small></a></td>
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\ObjectStore\CDNContainer</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Makes the container public via the CDN</em><br><h4>Arguments</h4>
+<em>a synonym for PublishToCDN for backwards-compatibility</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -2432,9 +2648,8 @@ names and values</small></a></td>
 </tr></thead>
 <tbody><tr>
 <td>$TTL</td>
-<td style="white-space: normal;">integer</td>
-<td><p>the Time-To-Live for the CDN container; if NULL, then the cloud's default value will be used for caching.</p>
-</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td>NULL</td>
 </tr></tbody>
 </table>
@@ -2445,8 +2660,8 @@ names and values</small></a></td>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\ObjectStore\CDNContainer</td>
-<td></td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -2455,16 +2670,10 @@ names and values</small></a></td>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>api</td>
 <td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td>if CDN services are not available</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -3503,19 +3712,24 @@ database-as-a-service product.</small></span></li>
 </li>
 <li class="closed">
 <span class="folder">LoadBalancerService</span><ul>
+<li><span class="class"><a href="lbresources.inc.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#AllowedDomain">AllowedDomain</a><br><small>sub-resource to manage allowed domains</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#ConnectionThrottle">ConnectionThrottle</a><br><small>sub-resource to manage connection throttling</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#LbAllowableDomains">LbAllowableDomains</a><br><small>sub-resource to manage allowable domains</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#LbErrorPage">LbErrorPage</a><br><small>The /loadbalancer/{id}/errorpage manages the error page for the load
+<li><span class="class"><a href="lbresources.inc.html#ErrorPage">ErrorPage</a><br><small>The /loadbalancer/{id}/errorpage manages the error page for the load
 balancer.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#HealthMonitor">HealthMonitor</a><br><small>sub-resource to manage health monitor</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#LbSessionPersistence">LbSessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#LbStats">LbStats</a><br><small>LbStats returns statistics about the load balancer</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#LbSubResource">LbSubResource</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="loadbalancer.inc.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#Stats">Stats</a><br><small>Stats returns statistics about the load balancer</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#SubResource">SubResource</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#Usage">Usage</a><br><small>used to get usage data for a load balancer</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#VirtualIp">VirtualIp</a><br><small>VirtualIp represents a single virtual IP (usually returned in a Collection)</small></span></li>
 </ul>
 </li>
 <li class="closed">
