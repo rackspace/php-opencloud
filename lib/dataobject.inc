@@ -434,8 +434,8 @@ class DataObject extends ObjStoreBase {
 		if (!$this->name)
 			throw new NoNameError(_('Cannot retrieve an unnamed object'));
 
-        $response = $this->Service()->Request($this->Url());
-        $this->data = $response->HttpBody();
+        $response = $this->Service()->Request($this->Url(), 'HEAD');
+        //$this->data = $response->HttpBody();
 
         // check for errors
         if ($response->HttpStatus() >= 300) {
