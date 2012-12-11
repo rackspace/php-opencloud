@@ -8,6 +8,11 @@ RELEASE NOTES
 * New global constant `RAXSDK_CACERTPEM`; if defined, this should be a path
   to a `cacert.pem` file that defines the root certificate servers. Defining
   this provides an extra degree of security in the HTTP transfer operations.
+* Fixed a bug (issue #25) wherein the entire DataObject was retrieved in the
+  constructor. This was incorrect; the constructor now does a `HEAD` request,
+  and you need to use the `SaveToFilename()` or `SaveToString()` methods to
+  actually fetch the data from Swift/Cloud Files. **If your code relies upon
+  the previous behavior, this might cause it to break.**
 * Support for Rackspace Cloud Load Balancers
 
 ### 11/06/2012 Version 1.2
