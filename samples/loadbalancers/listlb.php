@@ -48,6 +48,13 @@ while($ad = $adlist->Next()) {
 	info('Allowed domain: [%s]', $ad->Name());
 }
 
+// protocols
+info('Protocols:');
+$prolist = $lbservice->ProtocolList();
+while($prot = $prolist->Next()) {
+	info('  %20s %d', $prot->Name(), $prot->port);
+}
+
 // list load balancers
 $list = $lbservice->LoadBalancerList();
 if ($list->Size()) {

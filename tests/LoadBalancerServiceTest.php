@@ -43,7 +43,8 @@ class LoadBalancerServiceTest extends PHPUnit_Framework_TestCase
 	}
 	public function testUrl() {
 		$this->assertEquals(
-'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers',
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/'.
+			'TENANT-ID/loadbalancers',
 			$this->service->Url());
 	}
 	public function testLoadBalancer() {
@@ -55,5 +56,25 @@ class LoadBalancerServiceTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'OpenCloud\Collection',
 			get_class($this->service->LoadBalancerList()));
+	}
+	public function testAllowedDomain() {
+		$this->assertEquals(
+			'OpenCloud\LoadBalancerService\AllowedDomain',
+			get_class($this->service->AllowedDomain()));
+	}
+	public function testAllowedDomainList() {
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($this->service->AllowedDomainList()));
+	}
+	public function testProtocol() {
+		$this->assertEquals(
+			'OpenCloud\LoadBalancerService\Protocol',
+			get_class($this->service->Protocol()));
+	}
+	public function testProtocolList() {
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($this->service->ProtocolList()));
 	}
 }

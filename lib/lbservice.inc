@@ -95,4 +95,19 @@ class LoadBalancerService extends Nova {
 			'\OpenCloud\LoadBalancerService\AllowedDomain', NULL, $this);
 	}
 
+	/**
+	 * single protocol (should never be called directly)
+	 */
+	public function Protocol($data=NULL) {
+		return new LoadBalancerService\Protocol($this, $data);
+	}
+	
+	/**
+	 * a list of Protocol objects
+	 */
+	public function ProtocolList() {
+		return $this->Collection(
+			'\OpenCloud\LoadBalancerService\Protocol', NULL, $this);
+	}
+
 }

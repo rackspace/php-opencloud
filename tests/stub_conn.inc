@@ -97,6 +97,10 @@ ENDLBSTATS;
 				$resp->body = '{}';
 			elseif (strpos($url, '/contentcaching'))
 				$resp->body = '{}';
+			elseif (strpos($url, '/alloweddomains'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/protocols'))
+				$resp->body = '{}';
 			else
 				die("NEED TO DEFINE RESPONSE FOR $url\n");
 		}

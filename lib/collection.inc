@@ -42,6 +42,8 @@ class Collection extends Base {
 	 */
 	public function __construct($service, $itemclass, $arr) {
 		$this->service = $service;
+		$this->debug('Collection:service=%s, class=%s, array=%s',
+			get_class($service), $itemclass, print_r($arr,TRUE));
 		$p = strrpos($itemclass, '\\');
 		if ($p !== FALSE)
 		    $this->itemclass = substr($itemclass, $p+1);

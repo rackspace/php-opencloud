@@ -258,7 +258,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	/**
 	 */
 	public function SessionPersistence() {
-		return new LbSessionPersistence($this);
+		return new SessionPersistence($this);
 	}
 
 	/**
@@ -319,7 +319,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	public function ContentCaching() {
 		return new ContentCaching($this);
 	}
-
+	
 	/********** PROTECTED METHODS **********/
 
 	/**
