@@ -201,6 +201,24 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 			$lb->ContentCaching()->Url()
 		);
 	}
+	public function testSSLTermination() {
+	}
+	public function testMetadata() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/metadata',
+			$lb->Metadata()->Url()
+		);
+	}
+	public function testMetadataList() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($lb->MetadataList()));
+	}
 	public function testCreateJson() {
 		$this->lb->name = 'FOOBAR';
 		$obj = $this->lb->CreateJson();
