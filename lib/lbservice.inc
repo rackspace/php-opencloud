@@ -110,4 +110,19 @@ class LoadBalancerService extends Nova {
 			'\OpenCloud\LoadBalancerService\Protocol', NULL, $this);
 	}
 
+	/**
+	 * single algorithm (should never be called directly)
+	 */
+	public function Algorithm($data=NULL) {
+		return new LoadBalancerService\Algorithm($this, $data);
+	}
+	
+	/**
+	 * a list of Algorithm objects
+	 */
+	public function AlgorithmList() {
+		return $this->Collection(
+			'\OpenCloud\LoadBalancerService\Algorithm', NULL, $this);
+	}
+
 }

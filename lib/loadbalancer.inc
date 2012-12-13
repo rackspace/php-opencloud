@@ -154,7 +154,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * @param integer $ipVersion either null, 4, or 6 (both, IPv4, or IPv6)
 	 * @return void
 	 */
-	public function AddVirtualIp($type='PUBLIC', $ipVersion=4) {
+	public function AddVirtualIp($type='PUBLIC', $ipVersion=NULL) {
         $obj = new \stdClass();
 
         /**
@@ -320,6 +320,12 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		return new ContentCaching($this);
 	}
 	
+	/**
+	 */
+	public function SSLTermination() {
+		return new SSLTermination($this);
+	}
+	
 	/********** PROTECTED METHODS **********/
 
 	/**
@@ -334,7 +340,16 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 
 	    // set the properties
 	    foreach($this->_create_keys as $key) {
-	    	if ($this->$key) {
+	    	if ($key == 'nodes') {
+	    		foreach($this->$key as $node) {
+	    			$n = new \stdClass();
+	    			foreach($node as $k => $v)
+	    				if (isset($v))
+	    					$n->$k = $v;
+					$obj->$elem->nodes[] = $n;
+	    		}
+	    	}
+	    	elseif (isset($this->$key)) {
 	    		$obj->$elem->$key = $this->$key;
 	    	}
 	    }

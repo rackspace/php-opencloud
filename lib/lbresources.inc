@@ -379,3 +379,43 @@ class Protocol extends \OpenCloud\PersistentObject {
 	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }
 }
+
+/**
+ * sub-resource to manage algorithms (read-only)
+ */
+class Algorithm extends \OpenCloud\PersistentObject {
+	public
+		$name;
+	protected static
+		$json_name = 'algorithm',
+		$url_resource = 'loadbalancers/algorithms';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+}
+
+/**
+ * sub-resource to manage SSL termination
+ */
+class SSLTermination extends SubResource {
+	public
+		$certificate,
+		$enabled,
+		$secureTrafficOnly,
+		$privatekey,
+		$intermediateCertificate,
+		$securePort;
+    protected static
+    	$json_name = "sslTermination",
+    	$url_resource = "ssltermination";
+    protected
+    	$_create_keys = array( 
+    		'certificate',
+    		'enabled',
+    		'secureTrafficOnly',
+    		'privatekey',
+    		'intermediateCertificate',
+    		'securePort'
+    	);
+	public function Create($params=array()) { $this->Update($params); }
+}

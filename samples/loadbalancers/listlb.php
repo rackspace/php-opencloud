@@ -52,7 +52,15 @@ while($ad = $adlist->Next()) {
 info('Protocols:');
 $prolist = $lbservice->ProtocolList();
 while($prot = $prolist->Next()) {
-	info('  %20s %d', $prot->Name(), $prot->port);
+	info('  %s %4d', 
+		substr($prot->Name().'.....................',0,20), $prot->port);
+}
+
+// algorithms
+info('Algorithms:');
+$alist = $lbservice->AlgorithmList();
+while($al = $alist->Next()) {
+	info('  %s', $al->Name());
 }
 
 // list load balancers
@@ -84,6 +92,14 @@ if ($list->Size()) {
 				info('  * Event: %s (%s)', 
 					$event->detailedMessage, $event->author);
 			}
+		}
+		
+		// SSL Termination
+		try {
+			$ssl = $lb->SSLTermination();
+			info('  SSL terminated');
+		} catch (OpenCloud\InstanceNotFound $e) {
+			info('  No SSL termination');
 		}
 	}
 }

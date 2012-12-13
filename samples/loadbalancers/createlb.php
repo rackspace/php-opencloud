@@ -47,12 +47,10 @@ $lb = $lbservice->LoadBalancer();
 $lb->AddVirtualIp('public');
 $lb->AddNode('192.168.0.1', 80);
 $lb->AddNode('192.168.0.2', 80);
-//setDebug(TRUE);
 $response = $lb->Create(array(
     'name' => LBNAME,
     'protocol' => 'HTTP',
     'port' => 80));
-setDebug(FALSE);
 $lb->WaitFor('ACTIVE', 300, 'dot');
 
 step('Add a public IPv6 address');
