@@ -47,20 +47,97 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 	 * @expectedException OpenCloud\DomainError
 	 */
 	public function testAddNode() {
-		$this->lb->AddNode('1.1.1.1', 80);
+		$lb = $this->service->LoadBalancer();
+		$lb->AddNode('1.1.1.1', 80);
 		$this->assertEquals(
 			'1.1.1.1',
-			$this->lb->nodes[0]->address);
+			$lb->nodes[0]->address);
 		// this should trigger an error
-		$this->lb->AddNode('1.1.1.2', 80, 'foobar');
+		$lb->AddNode('1.1.1.2', 80, 'foobar');
 	}
+	public function testAddNodes() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$lb->AddNode('1.1.1.1', 80);
+		$lb->AddNodes();
+	}
+	/**
+	 * @ expectedException OpenCloud\DomainError
+	 */
 	public function testAddVirtualIp() {
-		$this->lb->AddVirtualIp('public');
+		$lb = $this->service->LoadBalancer();
+		$lb->AddVirtualIp('public');
 		$this->assertEquals(
 			'PUBLIC',
-			$this->lb->virtualIps[0]->type);
+			$lb->virtualIps[0]->type);
 		// trigger error
-		$this->lb->AddVirtualIp('foobar');
+		//$lb->AddVirtualIp('foobar');
+	}
+	public function testNode() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/nodes/321',
+			$lb->Node('321')->Url()
+		);
+	}
+	public function testNodeList() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($lb->NodeList()));
+	}
+	public function testNodeEvent() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/nodes/events',
+			$lb->NodeEvent()->Url()
+		);
+	}
+	public function testNodeEventList() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($lb->NodeEventList()));
+	}
+	public function testVirtualIp() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/virtualips',
+			$lb->VirtualIp()->Url()
+		);
+	}
+	public function testVirtualIpList() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($lb->VirtualIpList()));
+	}
+	public function testSessionPersistence() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/sessionpersistence',
+			$lb->SessionPersistence()->Url()
+		);
+	}
+	public function testErrorPage() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/errorpage',
+			$lb->ErrorPage()->Url()
+		);
 	}
 	public function testStats() {
 		$this->lb->id = 1024;
@@ -71,6 +148,58 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			10,
 			$x->connectTimeOut);
+	}
+	public function testUsage() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/usage',
+			$lb->Usage()->Url()
+		);
+	}
+	public function testAccess() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/accesslist',
+			$lb->Access()->Url()
+		);
+	}
+	public function testAccessList() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($lb->AccessList()));
+	}
+	public function testConnectionThrottle() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/connectionthrottle',
+			$lb->ConnectionThrottle()->Url()
+		);
+	}
+	public function testConnectionLogging() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/connectionlogging',
+			$lb->ConnectionLogging()->Url()
+		);
+	}
+	public function testContentCaching() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/contentcaching',
+			$lb->ContentCaching()->Url()
+		);
 	}
 	public function testCreateJson() {
 		$this->lb->name = 'FOOBAR';

@@ -30,6 +30,15 @@ class StubConnection extends OpenCloud\OpenStack
 				$resp->body = '{to be filled in}';
 				$resp->status = 202;
 			}
+			elseif (strpos($url, '/loadbalancers')) {
+				$resp->body = <<<ENDLB
+{"loadBalancer":{
+  "id":"123",
+  "name":"NONAME"
+}}
+ENDLB;
+				$resp->status = 202;
+			}
 			elseif (strpos($url, 'network'))
 				$resp->body = <<<ENDNW
 {"network":{"id":"1","cidr":"192.168.0.0/24","label":"foo"}}
@@ -70,6 +79,26 @@ ENDLBSTATS;
 		}
 		elseif (strpos($url, '/loadbalancers/')) {
 			$resp->status = 200;
+			if (strpos($url, '/virtualips'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/nodes'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/sessionpersistence'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/errorpage'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/usage'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/accesslist'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/connectionthrottle'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/connectionlogging'))
+				$resp->body = '{}';
+			elseif (strpos($url, '/contentcaching'))
+				$resp->body = '{}';
+			else
+				die("NEED TO DEFINE RESPONSE FOR $url\n");
 		}
 		elseif (strpos($url, '/loadbalancers')) {
 			$resp->body = <<<ENDLB

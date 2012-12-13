@@ -154,7 +154,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * @param integer $ipVersion either null, 4, or 6 (both, IPv4, or IPv6)
 	 * @return void
 	 */
-	public function AddVirtualIp($type='PUBLIC', $ipVersion=NULL) {
+	public function AddVirtualIp($type='PUBLIC', $ipVersion=4) {
         $obj = new \stdClass();
 
         /**
@@ -179,7 +179,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	            break;
 	        default:
 	            throw new \OpenCloud\DomainError(sprintf(
-	                _('Value [%s] for ipVersion is not vaid'), $ipVersion));
+	                _('Value [%s] for ipVersion is not valid'), $ipVersion));
 	        }
 	    }
 

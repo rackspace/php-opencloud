@@ -25,9 +25,9 @@ class SubResource extends \OpenCloud\PersistentObject {
 		 * fake out the `Refresh` method.
 		 */
 		 if (isset($this->id))
-		 	$this->Refresh();
+			$this->Refresh();
 		 else
-			 $this->Refresh('<no id>');
+			$this->Refresh('<no id>');
 	}
 	public function Url($subresource=NULL, $qstr=array()) {
 		return $this->_lb->Url($this->ResourceName());
@@ -135,6 +135,20 @@ class Node extends \OpenCloud\PersistentObject {
 	}
 	public function Parent() {
 		return $this->_lb;
+	}
+	public function Name() {
+		return get_class().'['.$this->Id().']';
+	}
+	protected function CreateJson() {
+		$obj = new \stdClass();
+		$obj->nodes = array();
+		$node = new \stdClass();
+		$node->node = new \stdClass();
+		foreach($this->_create_keys as $key) {
+			$node->node->$key = $this->$key;
+		}
+		$obj->nodes[] = $node;
+		return $obj;
 	}
 }
 
