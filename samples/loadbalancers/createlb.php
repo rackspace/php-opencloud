@@ -19,7 +19,7 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('VOLUMENAME', 'SampleVolume');
 define('VOLUMESIZE', 100);
-define('SERVERNAME', 'CBS-test-server');
+define('LBNAME', 'LB-MODEL');
 
 /**
  * numbers each step
@@ -45,10 +45,11 @@ $lbservice = $rackspace->LoadBalancerService('cloudLoadBalancers', 'DFW');
 step('Create a Load Balancer');
 $lb = $lbservice->LoadBalancer();
 $lb->AddVirtualIp('public');
-$lb->AddNode('50.56.172.87', 80);
+$lb->AddNode('192.168.0.1', 80);
+$lb->AddNode('192.168.0.2', 80);
 //setDebug(TRUE);
 $response = $lb->Create(array(
-    'name' => 'My-First-Load-Balancer '.time(),
+    'name' => LBNAME,
     'protocol' => 'HTTP',
     'port' => 80));
 setDebug(FALSE);

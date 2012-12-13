@@ -222,7 +222,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 */
 	public function NodeList() {
 		return $this->Parent()->Collection(
-			'\OpenCloud\LoadBalancerService\Node');
+			'\OpenCloud\LoadBalancerService\Node', NULL, $this);
 	}
 	
 	/**
@@ -237,7 +237,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 */
 	public function NodeEventList() {
 		return $this->Parent()->Collection(
-			'\OpenCloud\LoadBalancerService\NodeEvent');
+			'\OpenCloud\LoadBalancerService\NodeEvent', NULL, $this);
 	}
 
 	/**
