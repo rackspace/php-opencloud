@@ -16,10 +16,10 @@ require_once('persistentobject.inc');
 
 class SubResource extends \OpenCloud\PersistentObject {
 	private
-		$_lb;	// holds the parent load balancer
-	public function __construct(LoadBalancer $lb, $value=NULL) {
-		$this->_lb = $lb;
-		parent::__construct($lb->Service(), $value);
+		$parent;	// holds the parent load balancer
+	public function __construct($obj, $value=NULL) {
+		$this->parent = $obj;
+		parent::__construct($obj->Service(), $value);
 		/**
 		 * Note that, since these sub-resources do not have an ID, we must
 		 * fake out the `Refresh` method.
@@ -27,10 +27,10 @@ class SubResource extends \OpenCloud\PersistentObject {
 		 if (isset($this->id))
 			$this->Refresh();
 		 else
-			$this->Refresh('<no id>');
+			$this->Refresh('<no-id>');
 	}
 	public function Url($subresource=NULL, $qstr=array()) {
-		return $this->_lb->Url($this->ResourceName());
+		return $this->Parent()->Url($this->ResourceName());
 	}
 	protected function CreateJson() {
     	$obj = new \stdClass();
@@ -50,7 +50,7 @@ class SubResource extends \OpenCloud\PersistentObject {
 		return $this->CreateJson();
 	}
 	public function Parent() {
-		return $this->_lb;
+		return $this->parent;
 	}
 	public function Name() {
 		return sprintf(_('%s-%s'),
@@ -150,6 +150,20 @@ class Node extends \OpenCloud\PersistentObject {
 		$obj->nodes[] = $node;
 		return $obj;
 	}
+	
+	/**
+	 */
+	public function Metadata($data=NULL) {
+		return new Metadata($this, $data);
+	}
+
+	/**
+	 */
+	public function MetadataList() {
+		return $this->Service()->Collection(
+			'\OpenCloud\LoadBalancerService\Metadata', NULL, $this);
+	}
+
 }
 
 /**
@@ -418,4 +432,23 @@ class SSLTermination extends SubResource {
     		'securePort'
     	);
 	public function Create($params=array()) { $this->Update($params); }
+}
+
+/**
+ * sub-resource to manage Metadata
+ */
+class Metadata extends SubResource {
+	public
+		$id,
+		$key,
+		$value;
+	protected static
+		$json_name = 'meta',
+		$json_collection_name = 'metadata',
+		$url_resource = 'metadata';
+	protected
+		$_create_keys = array('key', 'value');
+	public function Name() {
+		return $this->key;
+	}
 }

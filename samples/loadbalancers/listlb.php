@@ -101,6 +101,13 @@ if ($list->Size()) {
 		} catch (OpenCloud\InstanceNotFound $e) {
 			info('  No SSL termination');
 		}
+		
+		// Metadata
+		$list = $lb->MetadataList();
+		while($meta = $list->Next()) {
+			info('  [Metadata #%s] %s=%s', 
+				$meta->Id(), $meta->key, $meta->value);
+		}
 	}
 }
 else

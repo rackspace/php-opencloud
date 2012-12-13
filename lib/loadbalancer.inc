@@ -326,6 +326,19 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		return new SSLTermination($this);
 	}
 	
+	/**
+	 */
+	public function Metadata($data=NULL) {
+		return new Metadata($this, $data);
+	}
+
+	/**
+	 */
+	public function MetadataList() {
+		return $this->Service()->Collection(
+			'\OpenCloud\LoadBalancerService\Metadata', NULL, $this);
+	}
+
 	/********** PROTECTED METHODS **********/
 
 	/**
