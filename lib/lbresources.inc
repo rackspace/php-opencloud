@@ -139,6 +139,32 @@ class Node extends \OpenCloud\PersistentObject {
 }
 
 /**
+ * a single node event, usually called as part of a Collection
+ */
+class NodeEvent extends SubResource {
+	public
+		$detailedMessage,
+		$nodeId,
+		$id,
+		$type,
+		$description,
+		$category,
+		$severity,
+		$relativeUri,
+		$accountId,
+		$loadbalancerId,
+		$title,
+		$author,
+		$created;
+	protected static
+		$json_name = 'nodeServiceEvent',
+		$url_resource = 'nodes/events';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+}
+
+/**
  * sub-resource to manage allowed domains
  *
  * Note that this is actually a sub-resource of the load balancers service,

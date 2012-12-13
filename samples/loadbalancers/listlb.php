@@ -64,7 +64,7 @@ if ($list->Size()) {
 		info('Usage...');
 		//setDebug(TRUE);
 		$us = $lb->Usage();
-
+		
 		// access list
 		info('AccessList...');
 		setDebug(TRUE);
@@ -81,6 +81,7 @@ if ($list->Size()) {
 				$vip->type, $vip->ipVersion, $vip->address);
 		}
 		setDebug(FALSE);
+		
 		// connection logging
 		info('Connection Logging: [%s]',
 			$lb->ConnectionLogging()->enabled ? 'on' : 'off');

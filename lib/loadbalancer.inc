@@ -85,7 +85,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 */
 	public function AddNode($addr, $port, $condition='ENABLED',
 			$type=NULL, $weight=NULL) {
-	    $node = new Node($this);
+	    $node = $this->Node();
 	    $node->address = $addr;
 	    $node->port = $port;
 	    $cond = strtoupper($condition);
@@ -134,6 +134,11 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		if (count($this->nodes) < 1)
 			throw new MissingValueError(
 				_('Cannot add nodes; no nodes are defined'));
+		
+		// iterate through all the nodes
+		foreach($this->nodes as $node)
+			$resp = $node->Create();
+		return $resp;
 	}
 
 	/**
@@ -204,6 +209,13 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * each managed by independent HTTP requests, such as the .../errorpage
 	 * and the .../sessionpersistence objects.
 	 */
+	
+	/**
+	 * returns a Node object
+	 */
+	public function Node($id=NULL) {
+		return new Node($this, $id);
+	}
 
 	/**
 	 * returns a Collection of Nodes
@@ -211,6 +223,21 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	public function NodeList() {
 		return $this->Parent()->Collection(
 			'\OpenCloud\LoadBalancerService\Node');
+	}
+	
+	/**
+	 * returns a NodeEvent object
+	 */
+	public function NodeEvent() {
+		return new NodeEvent($this);
+	}
+	
+	/**
+	 * returns a Collection of NodeEvents
+	 */
+	public function NodeEventList() {
+		return $this->Parent()->Collection(
+			'\OpenCloud\LoadBalancerService\NodeEvent');
 	}
 
 	/**
