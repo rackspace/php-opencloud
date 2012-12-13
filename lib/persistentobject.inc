@@ -339,7 +339,7 @@ abstract class PersistentObject extends Base {
     }
 
 	/**
-	 * Refreshes the server from the origin (useful when the server is
+	 * Refreshes the object from the origin (useful when the server is
 	 * changing states)
 	 *
 	 * @return void
@@ -382,8 +382,9 @@ abstract class PersistentObject extends Base {
 		// check for empty response
 		if (!$response->HttpBody())
 			throw new EmptyResponseError(sprintf(
-				_('%s::Refresh() unexpected empty response'),
-				get_class($this)));
+				_('%s::Refresh() unexpected empty response, URL [%s]'),
+				get_class($this),
+				$this->Url()));
 
 		// we're ok, reload the response
 		if ($json = $response->HttpBody()) {
