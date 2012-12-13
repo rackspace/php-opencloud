@@ -154,6 +154,9 @@ exception.</p><br><div id="methods_LoadBalancer">
       <a style="font-style: italic;" href="#LoadBalancer::NoCreate()">NoCreate</a>,
       <a style="font-style: italic;" href="#LoadBalancer::NoDelete()">NoDelete</a>,
       <a style="font-style: italic;" href="#LoadBalancer::NoUpdate()">NoUpdate</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::Node()">Node</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::NodeEvent()">NodeEvent</a>,
+      <a style="font-style: italic;" href="#LoadBalancer::NodeEventList()">NodeEventList</a>,
       <a style="font-style: italic;" href="#LoadBalancer::NodeList()">NodeList</a>,
       <a style="font-style: italic;" href="#LoadBalancer::Parent()">Parent</a>,
       <a style="font-style: italic;" href="#LoadBalancer::PrimaryKeyField()">PrimaryKeyField</a>,
@@ -1433,6 +1436,88 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td><a href="persistentobject.inc.html#%5COpenCloud%5CPersistentObject::NoUpdate()"><small>\OpenCloud\PersistentObject::NoUpdate()</small></a></td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::Node()"></a><h3>Node<span class="nb-faded-text">(
+          
+             
+            $id
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns a Node object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::NodeEvent()"></a><h3>NodeEvent<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns a NodeEvent object</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="LoadBalancer::NodeEventList()"></a><h3>NodeEventList<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>returns a Collection of NodeEvents</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -2957,6 +3042,7 @@ balancer.</small></span></li>
 <li><span class="class"><a href="loadbalancer.inc.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#NodeEvent">NodeEvent</a><br><small>a single node event, usually called as part of a Collection</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#Stats">Stats</a><br><small>Stats returns statistics about the load balancer</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#SubResource">SubResource</a><br><small>represents an object that has the ability to be
 retrieved, created, updated, and deleted.</small></span></li>
