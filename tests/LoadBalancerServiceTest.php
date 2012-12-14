@@ -87,4 +87,14 @@ class LoadBalancerServiceTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\Collection',
 			get_class($this->service->ProtocolList()));
 	}
+	public function testAlgorithm() {
+		$this->assertEquals(
+			'OpenCloud\LoadBalancerService\Algorithm',
+			get_class($this->service->Algorithm()));
+	}
+	public function testAlgorithmList() {
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($this->service->AlgorithmList()));
+	}
 }

@@ -81,6 +81,8 @@ ENDLBSTATS;
 				$resp->body = '{}';
 			elseif (strpos($url, '/billable'))
 				$resp->body = '{}';
+			elseif (strpos($url, '/algorithms'))
+				$resp->body = '{}';
 			elseif (strpos($url, '/sessionpersistence'))
 				$resp->body = '{}';
 			elseif (strpos($url, '/errorpage'))
