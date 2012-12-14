@@ -429,7 +429,8 @@ class Container extends CDNContainer {
 	 *
 	 */
 	public function PublicURL() {
-	    return $this->CDNURI().'/'.$this->name;
+	    // return $this->CDNURI().'/'.$this->name;
+	    return $this->CDNURI();
 	}
 
 	/**

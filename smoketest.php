@@ -87,6 +87,63 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
 
 /**
+ * Cloud Files
+ */
+step('Connect to Cloud Files');
+$cloudfiles = $rackspace->ObjectStore('cloudFiles', MYREGION);
+
+step('Create Container');
+//setDebug(TRUE);
+$container = $cloudfiles->Container();
+$container->Create(array('name' => 'SmokeTestContainer'));
+
+step('Publish Container to CDN');
+$container->PublishToCDN(600); // 600-second TTL
+info('CDN URL:    %s', $container->CDNUrl());
+info('Public URL: %s', $container->PublicURL());
+
+step('Create Object from this file');
+$object = $container->DataObject();
+$resp = $object->Create(
+	array('name'=>'SmokeTestObject','content_type'=>'text/plain'), __FILE__);
+info('Public URL:    %s', $object->PublicURL());
+info('SSL URL:       %s', $object->PublicURL('SSL'));
+info('Streaming URL: %s', $object->PublicURL('Streaming'));
+setDebug(FALSE);
+
+step('Verify Object PublicURL (CDN)');
+$url = $object->PublicURL();
+system("curl -s -I $url|grep HTTP");
+
+step('Copy Object');
+$target = $container->DataObject();
+$target->name = 'COPY-of-SmokeTestObject';
+$object->Copy($target);
+
+step('List Containers');
+$list = $cloudfiles->ContainerList();
+while($c = $list->Next())
+    info('Container: %s', $c->name);
+
+step('List Objects in Container %s', $container->name);
+$list = $container->ObjectList();
+while($o = $list->Next())
+    info('Object: %s', $o->name);
+
+step('Disable Container CDN');
+$container->DisableCDN();
+
+step('Delete Object');
+$list = $container->ObjectList();
+while($o = $list->Next()) {
+    info('Deleting: %s', $o->name);
+    $o->Delete();
+}
+
+step('Delete Container: %s', $container->name);
+$container->Delete();
+
+/**
  * Cloud Load Balancers
  */
 step('Connect to the Load Balancer Service');
@@ -385,57 +442,6 @@ while($inst = $ilist->Next())
         info('Deleting %s', $inst->id);
         $inst->Delete();
     }
-
-/**
- * Cloud Files
- */
-step('Connect to Cloud Files');
-$cloudfiles = $rackspace->ObjectStore('cloudFiles', MYREGION);
-
-step('Create Container');
-$container = $cloudfiles->Container();
-$container->Create(array('name' => 'SmokeTestContainer'));
-
-step('Publish Container to CDN');
-$container->PublishToCDN(60); // 60-second TTL
-info('CDN URL:    %s', $container->CDNUrl());
-info('Public URL: %s', $container->PublicURL());
-
-step('Create Object from this file');
-$object = $container->DataObject();
-$object->Create(
-	array('name'=>'SmokeTestObject','content_type'=>'text/plain'), __FILE__);
-info('Public URL:    %s', $object->PublicURL());
-info('SSL URL:       %s', $object->PublicURL('SSL'));
-info('Streaming URL: %s', $object->PublicURL('Streaming'));
-
-step('Copy Object');
-$target = $container->DataObject();
-$target->name = 'COPY-of-SmokeTestObject';
-$object->Copy($target);
-
-step('List Containers');
-$list = $cloudfiles->ContainerList();
-while($c = $list->Next())
-    info('Container: %s', $c->name);
-
-step('List Objects in Container %s', $container->name);
-$list = $container->ObjectList();
-while($o = $list->Next())
-    info('Object: %s', $o->name);
-
-step('Disable Container CDN');
-$container->DisableCDN();
-
-step('Delete Object');
-$list = $container->ObjectList();
-while($o = $list->Next()) {
-    info('Deleting: %s', $o->name);
-    $o->Delete();
-}
-
-step('Delete Container: %s', $container->name);
-$container->Delete();
 
 /**
  * Cleanup
