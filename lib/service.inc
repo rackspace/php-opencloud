@@ -125,9 +125,11 @@ abstract class Service extends Base {
 	 * @param string $class the class of objects to fetch
 	 * @param string $url (optional) the URL to retrieve
 	 * @param mixed $parent (optional) the parent service/object
+	 * @param array $parm (optional) array of key/value pairs to use as
+	 *		query strings
 	 * @return \OpenCloud\Collection
 	 */
-	public function Collection($class, $url=NULL, $parent=NULL) {
+	public function Collection($class, $url=NULL, $parent=NULL, $parm=array()) {
 	    // set the element name
 	    $collection = $class::JsonCollectionName();
 	    $element = $class::JsonCollectionElement();
@@ -140,6 +142,10 @@ abstract class Service extends Base {
 		// determine the URL
 		if (!$url)
 		    $url = $parent->Url($class::ResourceName());
+		
+		// add query string parameters
+		if (count($parm))
+			$url .= '?' . $this->MakeQueryString($parm);
 
 		// save debug info
 		$this->debug('%s:Collection(%s, %s, %s)',

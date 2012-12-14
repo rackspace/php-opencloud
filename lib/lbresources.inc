@@ -240,10 +240,9 @@ class VirtualIp extends SubResource {
 /**
  * used to get a list of billable load balancers for a specific date range
  */
-class BillableLoadBalancer extends SubResource {
+class BillableLoadBalancer extends LoadBalancer {
 	protected static
-		$json_name = 'loadBalancer',
-		$url_resource = 'billable';
+		$url_resource = 'loadbalancers/billable';
 	public function Create($params=array()) { $this->NoCreate(); }
 	public function Update($params=array()) { $this->NoUpdate(); }
 	public function Delete() { $this->NoDelete(); }

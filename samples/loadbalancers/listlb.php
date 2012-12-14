@@ -112,6 +112,22 @@ if ($list->Size()) {
 else
 	step('There are no load balancers');
 
+// list Billable LBs
+$start = date('Y-m-d', time()-(3600*24*30));
+$end = date('Y-m-d');
+step('Billable Load Balancers from %s to %s', $start, $end);
+$list = $lbservice->BillableLoadBalancerList(
+	TRUE,
+	array('startTime'=>$start, 'endTime'=>$end));
+if ($list->Size() > 0) {
+	while($lb = $list->Next()) {
+		info('%10s %s', $lb->Id(), $lb->Name());
+		info('%10s created: %s', '', $lb->created->time);
+	}
+}
+else
+	info('None');
+
 step('DONE');
 exit;
 

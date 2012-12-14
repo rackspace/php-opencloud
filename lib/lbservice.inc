@@ -81,6 +81,35 @@ class LoadBalancerService extends Nova {
 	}
 
 	/**
+	 * creates a new BillableLoadBalancer object (read-only)
+	 *
+	 * @api
+	 * @param string $id the identifier of the load balancer
+	 * @return LoadBalancerService\LoadBalancer
+	 */
+	public function BillableLoadBalancer($id=NULL) {
+		return new LoadBalancerService\BillableLoadBalancer($this, $id);
+	}
+
+	/**
+	 * returns a Collection of BillableLoadBalancer objects
+	 *
+	 * @api
+	 * @param boolean $detail if TRUE (the default), then all details are
+	 *      returned; otherwise, the minimal set (ID, name) are retrieved
+	 * @param array $filter if provided, a set of key/value pairs that are
+	 * 		set as query string parameters to the query
+	 * @return \OpenCloud\Collection
+	 */
+	public function BillableLoadBalancerList($detail=TRUE, $filter=array()) {
+		return $this->Collection(
+			'\OpenCloud\LoadBalancerService\BillableLoadBalancer',
+			NULL,
+			NULL,
+			$filter);
+	}
+
+	/**
 	 * returns allowed domain
 	 */
 	public function AllowedDomain($data=NULL) {
@@ -94,7 +123,7 @@ class LoadBalancerService extends Nova {
 		return $this->Collection(
 			'\OpenCloud\LoadBalancerService\AllowedDomain', NULL, $this);
 	}
-
+	
 	/**
 	 * single protocol (should never be called directly)
 	 */
