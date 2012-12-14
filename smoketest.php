@@ -22,6 +22,7 @@ define('NETWORKNAME', 'SMOKETEST');
 define('MYREGION', $_ENV['OS_REGION_NAME']);
 define('VOLUMENAME', 'SmokeTestVolume');
 define('VOLUMESIZE', 103);
+define('LBNAME', 'SmokeTestLoadBalancer');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -84,6 +85,123 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
+
+/**
+ * Cloud Load Balancers
+ */
+step('Connect to the Load Balancer Service');
+$lbservice = $rackspace->LoadBalancerService('cloudLoadBalancers', MYREGION);
+
+step('Create a Load Balancer');
+$lb = $lbservice->LoadBalancer();
+$lb->AddVirtualIp('public');
+$lb->AddNode('192.168.0.1', 80);
+$lb->AddNode('192.168.0.2', 80);
+$response = $lb->Create(array(
+    'name' => LBNAME,
+    'protocol' => 'HTTP',
+    'port' => 80));
+$lb->WaitFor('ACTIVE', 300, 'dotter');
+
+step('Add a metadata item');
+$met = $lb->Metadata();
+$met->key = 'author';
+$met->value = 'Glen Campbell';
+$met->Create();
+
+step('Add a public IPv6 address');
+//setDebug(TRUE);
+$lb->AddVirtualIp('PUBLIC', 6);
+setDebug(FALSE);
+
+// allowed domains
+$adlist = $lbservice->AllowedDomainList();
+while($ad = $adlist->Next()) {
+	info('Allowed domain: [%s]', $ad->Name());
+}
+
+// protocols
+info('Protocols:');
+$prolist = $lbservice->ProtocolList();
+while($prot = $prolist->Next()) {
+	info('  %s %4d', 
+		substr($prot->Name().'.....................',0,20), $prot->port);
+}
+
+// algorithms
+info('Algorithms:');
+$alist = $lbservice->AlgorithmList();
+while($al = $alist->Next()) {
+	info('  %s', $al->Name());
+}
+
+// list load balancers
+$list = $lbservice->LoadBalancerList();
+if ($list->Size()) {
+	step('Load balancers:');
+	while($lb = $list->Next()) {
+		info('[%s] %s in %s', $lb->id, $lb->Name(), $lb->Region());
+		info('  Status: [%s]', $lb->Status());
+		
+		// Nodes
+		$list = $lb->NodeList();
+		if ($list->Size() == 0)
+			info('  No nodes');
+		else {
+			while($node = $list->Next()) {
+				info('  Node: [%s] %s:%d %s/%s', 
+					$node->Id(), $node->address, $node->port,
+					$node->condition, $node->status);
+			}
+		}
+		
+		// NodeEvents
+		$list = $lb->NodeEventList();
+		if ($list->Size() == 0)
+			info('  No node events');
+		else {
+			while($event = $list->Next()) {
+				info('  * Event: %s (%s)', 
+					$event->detailedMessage, $event->author);
+			}
+		}
+		
+		// SSL Termination
+		try {
+			$ssl = $lb->SSLTermination();
+			info('  SSL terminated');
+		} catch (OpenCloud\InstanceNotFound $e) {
+			info('  No SSL termination');
+		}
+		
+		// Metadata
+		$list = $lb->MetadataList();
+		while($meta = $list->Next()) {
+			info('  [Metadata #%s] %s=%s', 
+				$meta->Id(), $meta->key, $meta->value);
+		}
+	}
+}
+else
+	step('There are no load balancers');
+
+// list Billable LBs
+$start = date('Y-m-d', time()-(3600*24*30));
+$end = date('Y-m-d');
+step('Billable Load Balancers from %s to %s', $start, $end);
+$list = $lbservice->BillableLoadBalancerList(
+	TRUE,
+	array('startTime'=>$start, 'endTime'=>$end));
+if ($list->Size() > 0) {
+	while($lb = $list->Next()) {
+		info('%10s %s', $lb->Id(), $lb->Name());
+		info('%10s created: %s', '', $lb->created->time);
+	}
+}
+else
+	info('None');
+
+
 
 /**
  * Cloud Servers
