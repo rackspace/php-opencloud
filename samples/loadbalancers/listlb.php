@@ -19,7 +19,6 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('VOLUMENAME', 'SampleVolume');
 define('VOLUMESIZE', 100);
-define('SERVERNAME', 'CBS-test-server');
 
 /**
  * numbers each step
