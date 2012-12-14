@@ -97,6 +97,8 @@ ENDLBSTATS;
 				$resp->body = '{}';
 			elseif (strpos($url, '/protocols'))
 				$resp->body = '{}';
+			elseif (strpos($url, '/ssltermination'))
+				$resp->body = '{}';
 			elseif (strpos($url, '/metadata'))
 				$resp->body = '{}';
 			else

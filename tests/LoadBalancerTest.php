@@ -202,6 +202,13 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		);
 	}
 	public function testSSLTermination() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/ssltermination',
+			$lb->SSLTermination()->Url()
+		);
 	}
 	public function testMetadata() {
 		$lb = $this->service->LoadBalancer();
