@@ -157,7 +157,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	}
 	public function testPublicUrl() {
 	    $this->assertEquals(
-	        '/TEST',
+	        '',
 	        $this->container->PublicUrl());
 	}
 }

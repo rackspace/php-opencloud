@@ -235,7 +235,8 @@ class CDNContainer extends ObjStoreBase {
 	 * @return void
 	 */
 	protected function Refresh() {
-        $response = $this->Service()->Request($this->Url(), 'HEAD');
+        $response = $this->Service()->Request(
+        	$this->Url(), 'HEAD', array('Accept'=>'*/*'));
 
         // validate the response code
         if ($response->HttpStatus() == 404)
