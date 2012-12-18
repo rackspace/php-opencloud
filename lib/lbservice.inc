@@ -111,6 +111,10 @@ class LoadBalancerService extends Nova {
 
 	/**
 	 * returns allowed domain
+	 *
+	 * @api
+	 * @param mixed $data either an array of values or NULL
+	 * @return LoadBalancerService\AllowedDomain
 	 */
 	public function AllowedDomain($data=NULL) {
 		return new LoadBalancerService\AllowedDomain($this, $data);
@@ -118,6 +122,9 @@ class LoadBalancerService extends Nova {
 
 	/**
 	 * returns Collection of AllowedDomain object
+	 * 
+	 * @api
+	 * @return Collection
 	 */
 	public function AllowedDomainList() {
 		return $this->Collection(
@@ -126,6 +133,10 @@ class LoadBalancerService extends Nova {
 	
 	/**
 	 * single protocol (should never be called directly)
+	 *
+	 * Convenience method to be used by the ProtocolList Collection. 
+	 *
+	 * @return LoadBalancerService\Protocol
 	 */
 	public function Protocol($data=NULL) {
 		return new LoadBalancerService\Protocol($this, $data);
@@ -133,6 +144,9 @@ class LoadBalancerService extends Nova {
 	
 	/**
 	 * a list of Protocol objects
+	 *
+	 * @api
+	 * @return Collection
 	 */
 	public function ProtocolList() {
 		return $this->Collection(
@@ -141,6 +155,10 @@ class LoadBalancerService extends Nova {
 
 	/**
 	 * single algorithm (should never be called directly)
+	 *
+	 * convenience method used by the Collection factory
+	 *
+	 * @return LoadBalancerService\Algorithm
 	 */
 	public function Algorithm($data=NULL) {
 		return new LoadBalancerService\Algorithm($this, $data);
@@ -148,6 +166,9 @@ class LoadBalancerService extends Nova {
 	
 	/**
 	 * a list of Algorithm objects
+	 *
+	 * @api
+	 * @return Collection
 	 */
 	public function AlgorithmList() {
 		return $this->Collection(
