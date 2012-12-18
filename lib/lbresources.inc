@@ -14,7 +14,22 @@ namespace OpenCloud\LoadBalancerService;
 
 require_once('persistentobject.inc');
 
-class SubResource extends \OpenCloud\PersistentObject {
+/**
+ * SubResource is an abstract class that handles subresources of a 
+ * LoadBalancer object; for example, the 
+ * `/loadbalancers/{id}/errorpage`. Since most of the subresources are 
+ * handled in a similar manner, this consolidates the functions.
+ *
+ * There are really four pieces of data that define a subresource:
+ * * `$url_resource` - the actual name of the url component
+ * * `$json_name` - the name of the JSON object holding the data
+ * * `$json_collection_name` - if the collection is not simply
+ *   `$json_name . 's'`, this defines the collectio name.
+ * * `$json_collection_element` - if the object in a collection is not
+ *   anonymous, this defines the name of the element holding the object.
+ * Of these, only the `$json_name` and `$url_resource` are required.
+ */
+abstract class SubResource extends \OpenCloud\PersistentObject {
 	private
 		$parent;	// holds the parent load balancer
 	public function __construct($obj, $value=NULL) {
