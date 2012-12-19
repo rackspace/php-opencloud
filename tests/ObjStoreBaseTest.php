@@ -8,7 +8,7 @@
  * @version 1.0.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
- 
+
 require_once('objstorebase.inc');
 require_once('http.inc');
 
@@ -59,5 +59,20 @@ class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
     	$this->assertEquals(
     		'FOOBAR',
     		$this->obj->Name());
+    }
+    public function testJsonName() {
+    	$this->assertEquals(
+    		NULL,
+    		$this->obj->JsonName());
+    }
+    public function testJsonCollectionName() {
+    	$this->assertEquals(
+    		NULL,
+    		$this->obj->JsonCollectionName());
+    }
+    public function testJsonCollectionElement() {
+    	$this->assertEquals(
+    		NULL,
+    		$this->obj->JsonCollectionElement());
     }
 }
