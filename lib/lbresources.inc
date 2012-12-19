@@ -15,9 +15,9 @@ namespace OpenCloud\LoadBalancerService;
 require_once('persistentobject.inc');
 
 /**
- * SubResource is an abstract class that handles subresources of a 
- * LoadBalancer object; for example, the 
- * `/loadbalancers/{id}/errorpage`. Since most of the subresources are 
+ * SubResource is an abstract class that handles subresources of a
+ * LoadBalancer object; for example, the
+ * `/loadbalancers/{id}/errorpage`. Since most of the subresources are
  * handled in a similar manner, this consolidates the functions.
  *
  * There are really four pieces of data that define a subresource:
@@ -32,6 +32,13 @@ require_once('persistentobject.inc');
 abstract class SubResource extends \OpenCloud\PersistentObject {
 	private
 		$parent;	// holds the parent load balancer
+
+	/**
+	 * constructs the SubResource's object
+	 *
+	 * @param mixed $obj the parent object
+	 * @param mixed $value the ID or array of values for the object
+	 */
 	public function __construct($obj, $value=NULL) {
 		$this->parent = $obj;
 		parent::__construct($obj->Service(), $value);
@@ -44,9 +51,26 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 		 else
 			$this->Refresh('<no-id>');
 	}
+
+	/**
+	 * returns the URL of the SubResource
+	 *
+	 * @api
+	 * @param string $subresource the subresource of the parent
+	 * @param array $qstr an array of key/value pairs to be converted to
+	 *	query string parameters for the subresource
+	 * @return string
+	 */
 	public function Url($subresource=NULL, $qstr=array()) {
 		return $this->Parent()->Url($this->ResourceName());
 	}
+
+	/**
+	 * returns the JSON document's object for creating the subresource
+	 *
+	 * The value `$_create_keys` should be an array of names of data items
+	 * that can be used in the creation of the object.
+	 */
 	protected function CreateJson() {
     	$obj = new \stdClass();
     	$top = $this->JsonName();
@@ -165,7 +189,7 @@ class Node extends \OpenCloud\PersistentObject {
 		$obj->nodes[] = $node;
 		return $obj;
 	}
-	
+
 	/**
 	 */
 	public function Metadata($data=NULL) {
@@ -437,7 +461,7 @@ class SSLTermination extends SubResource {
     	$json_name = "sslTermination",
     	$url_resource = "ssltermination";
     protected
-    	$_create_keys = array( 
+    	$_create_keys = array(
     		'certificate',
     		'enabled',
     		'secureTrafficOnly',
