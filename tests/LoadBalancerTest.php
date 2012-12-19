@@ -87,6 +87,12 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'OpenCloud\LoadBalancerService\Node[456]',
 			$lb->Node('456')->Name());
+		$this->assertEquals(
+			'OpenCloud\LoadBalancerService\Metadata',
+			get_class($lb->Node('456')->Metadata()));
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($lb->Node('456')->MetadataList()));
 	}
 	public function testNodeList() {
 		$lb = $this->service->LoadBalancer();
