@@ -70,6 +70,8 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 	 *
 	 * The value `$_create_keys` should be an array of names of data items
 	 * that can be used in the creation of the object.
+	 *
+	 * @return \stdClass;
 	 */
 	protected function CreateJson() {
     	$obj = new \stdClass();
@@ -85,12 +87,35 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 		}
     	return $obj;
 	}
+	
+	/**
+	 * returns the JSON for the update (same as create)
+	 *
+	 * For these subresources, the update JSON is the same as the Create JSON
+	 * @return \stdClass
+	 */
 	protected function UpdateJson($params = array()) {
 		return $this->CreateJson();
 	}
+	
+	/**
+	 * returns the Parent object (usually a LoadBalancer, but sometimes another
+	 * SubResource)
+	 *
+	 * @return mixed
+	 */
 	public function Parent() {
 		return $this->parent;
 	}
+	
+	/**
+	 * returns a (default) name of the object
+	 *
+	 * The name is constructed by the object class and the object's ID.
+	 *
+	 * @api
+	 * @return string
+	 */
 	public function Name() {
 		return sprintf(_('%s-%s'),
 			get_class($this), $this->Parent()->Id());
