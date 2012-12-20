@@ -1184,6 +1184,7 @@ database-as-a-service product.</small></span></li>
 <li class="closed">
 <span class="folder">LoadBalancerService</span><ul>
 <li><span class="class"><a href="lbresources.inc.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#Algorithm">Algorithm</a><br><small>sub-resource to manage algorithms (read-only)</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#AllowedDomain">AllowedDomain</a><br><small>sub-resource to manage allowed domains</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
@@ -1191,15 +1192,21 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#ErrorPage">ErrorPage</a><br><small>The /loadbalancer/{id}/errorpage manages the error page for the load
 balancer.</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#HealthMonitor">HealthMonitor</a><br><small>sub-resource to manage health monitor</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#LbSessionPersistence">LbSessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#HealthMonitor">HealthMonitor</a><br><small>sub-resource to read health monitor info</small></span></li>
 <li><span class="class"><a href="loadbalancer.inc.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#Metadata">Metadata</a><br><small>sub-resource to manage Metadata</small></span></li>
 <li><span class="class"><a href="exceptions.inc.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#NodeEvent">NodeEvent</a><br><small>a single node event, usually called as part of a Collection</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#Protocol">Protocol</a><br><small>sub-resource to manage protocols (read-only)</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#ReadonlySubResource">ReadonlySubResource</a><br><small>This defines a read-only SubResource - one that cannot be created, updated,
+or deleted.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#SSLTermination">SSLTermination</a><br><small>sub-resource to manage SSL termination</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#SessionPersistence">SessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#Stats">Stats</a><br><small>Stats returns statistics about the load balancer</small></span></li>
-<li><span class="class"><a href="lbresources.inc.html#SubResource">SubResource</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="lbresources.inc.html#SubResource">SubResource</a><br><small>SubResource is an abstract class that handles subresources of a
+LoadBalancer object; for example, the
+`/loadbalancers/{id}/errorpage`.</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#Usage">Usage</a><br><small>used to get usage data for a load balancer</small></span></li>
 <li><span class="class"><a href="lbresources.inc.html#VirtualIp">VirtualIp</a><br><small>VirtualIp represents a single virtual IP (usually returned in a Collection)</small></span></li>
 </ul>

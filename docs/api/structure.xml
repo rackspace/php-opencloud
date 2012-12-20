@@ -331,7 +331,7 @@ for your connection object.</p>]]></long-description>
       <name>dbservice.inc</name>
     </include>
   </file>
-  <file path="collection.inc" hash="036e3feddd789e82b89a8cf06db44b36" package="phpOpenCloud">
+  <file path="collection.inc" hash="c4ede605981aba642121a92d572ddbef" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[An abstraction for working with ordered sets of objects]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -406,90 +406,90 @@ multiple objects in a container, or multiple servers in a service.</p>]]></long-
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="62" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="64" package="Default">
         <name>Service</name>
         <full_name>Service</full_name>
-        <docblock line="57">
+        <docblock line="59">
           <description><![CDATA[Retrieves the service associated with the Collection]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="57" name="return" description="" type="\OpenCloud\Service">
+          <tag line="59" name="return" description="" type="\OpenCloud\Service">
             <type by_reference="false">\OpenCloud\Service</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="72" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="74" package="Default">
         <name>Reset</name>
         <full_name>Reset</full_name>
-        <docblock line="66">
+        <docblock line="68">
           <description><![CDATA[Resets the pointer to the beginning, but does NOT return the first item]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="66" name="api" description=""/>
-          <tag line="66" name="return" description="" type="void">
+          <tag line="68" name="api" description=""/>
+          <tag line="68" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="85" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="87" package="Default">
         <name>First</name>
         <full_name>First</full_name>
-        <docblock line="76">
+        <docblock line="78">
           <description><![CDATA[Resets the collection pointer back to the first item in the set
 and returns it]]></description>
           <long-description><![CDATA[<p>This is useful if you're only interested in the first item in the set.</p>]]></long-description>
-          <tag line="76" name="api" description=""/>
-          <tag line="76" name="return" description="the first item in the set" type="\OpenCloud\Base">
+          <tag line="78" name="api" description=""/>
+          <tag line="78" name="return" description="the first item in the set" type="\OpenCloud\Base">
             <type by_reference="false">\OpenCloud\Base</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="96" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="98" package="Default">
         <name>Next</name>
         <full_name>Next</full_name>
-        <docblock line="90">
+        <docblock line="92">
           <description><![CDATA[Returns the next item in the set]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="90" name="api" description=""/>
-          <tag line="90" name="return" description="the next item or FALSE if at the end of the set" type="\OpenCloud\Base">
+          <tag line="92" name="api" description=""/>
+          <tag line="92" name="return" description="the next item or FALSE if at the end of the set" type="\OpenCloud\Base">
             <type by_reference="false">\OpenCloud\Base</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="109" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="111" package="Default">
         <name>Size</name>
         <full_name>Size</full_name>
-        <docblock line="103">
+        <docblock line="105">
           <description><![CDATA[Returns the number of items in the collection]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="103" name="api" description=""/>
-          <tag line="103" name="return" description="The number of items in the set" type="integer">
+          <tag line="105" name="api" description=""/>
+          <tag line="105" name="return" description="The number of items in the set" type="integer">
             <type by_reference="false">integer</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="122" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="124" package="Default">
         <name>Sort</name>
         <full_name>Sort</full_name>
-        <docblock line="113">
+        <docblock line="115">
           <description><![CDATA[sorts the collection on a specified key]]></description>
           <long-description><![CDATA[<p>Note: only top-level keys can be used as the sort key</p>]]></long-description>
-          <tag line="113" name="api" description=""/>
-          <tag line="113" name="param" description="the name of the field to use as the sort key" type="string" variable="$keyname">
+          <tag line="115" name="api" description=""/>
+          <tag line="115" name="param" description="the name of the field to use as the sort key" type="string" variable="$keyname">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="113" name="return" description="" type="void">
+          <tag line="115" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="122">
+        <argument line="124">
           <name>$keyname</name>
           <default><![CDATA['id']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="161" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="163" package="Default">
         <name>Select</name>
         <full_name>Select</full_name>
-        <docblock line="127">
+        <docblock line="129">
           <description><![CDATA[selects only specified items from the Collection]]></description>
           <long-description><![CDATA[<p>This provides a simple form of filtering on Collections. For each item
 in the collection, it calls the callback function, passing it the item.
@@ -513,34 +513,34 @@ $services->Select(function($item){ return $item->region=='ORD';});
 the collection. For example, if you use <code>Select()</code> to find items with
 the ID > 10, then use it again to find items that are &lt;= 10, it will
 return an empty list.</p>]]></long-description>
-          <tag line="127" name="api" description=""/>
-          <tag line="127" name="param" description="a callback function that is passed each item in turn. Note that `Select()` performs an explicit test for `FALSE`, so functions like `strpos()` need to be cast into a boolean value (and not just return the integer)." type="\OpenCloud\callable" variable="$testfunc">
+          <tag line="129" name="api" description=""/>
+          <tag line="129" name="param" description="a callback function that is passed each item in turn. Note that `Select()` performs an explicit test for `FALSE`, so functions like `strpos()` need to be cast into a boolean value (and not just return the integer)." type="\OpenCloud\callable" variable="$testfunc">
             <type by_reference="false">\OpenCloud\callable</type>
           </tag>
-          <tag line="127" name="returns" description="void"/>
-          <tag line="127" name="throws" description="if callback doesn't return a boolean value" type="\OpenCloud\DomainError">
+          <tag line="129" name="returns" description="void"/>
+          <tag line="129" name="throws" description="if callback doesn't return a boolean value" type="\OpenCloud\DomainError">
             <type by_reference="false">\OpenCloud\DomainError</type>
           </tag>
         </docblock>
-        <argument line="161">
+        <argument line="163">
           <name>$testfunc</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="178" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="180" package="Default">
         <name>sortCompare</name>
         <full_name>sortCompare</full_name>
-        <docblock line="175">
+        <docblock line="177">
           <description><![CDATA[Compares two values of sort keys]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="178">
+        <argument line="180">
           <name>$a</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="178">
+        <argument line="180">
           <name>$b</name>
           <default><![CDATA[]]></default>
           <type/>
@@ -553,8 +553,8 @@ return an empty list.</p>]]></long-description>
       <error line="31" code="50018">No DocBlock was found for property $itemlist</error>
       <error line="32" code="50018">No DocBlock was found for property $pointer</error>
       <error line="33" code="50018">No DocBlock was found for property $sortkey</error>
-      <error line="175" code="50015">Argument $a is missing from the Docblock of sortCompare()</error>
-      <error line="175" code="50015">Argument $b is missing from the Docblock of sortCompare()</error>
+      <error line="177" code="50015">Argument $a is missing from the Docblock of sortCompare()</error>
+      <error line="177" code="50015">Argument $b is missing from the Docblock of sortCompare()</error>
     </parse_markers>
   </file>
   <file path="compute.inc" hash="a722180c82f88d1cecc3c3dcdfd4e4cf" package="phpOpenCloud">
@@ -826,7 +826,7 @@ an ImageList object directly.</p>]]></long-description>
       <notice line="155" code="50013">Parameter $filters could not be found in NetworkList()</notice>
     </parse_markers>
   </file>
-  <file path="container.inc" hash="564df7ec69e884eb22a42786b10ed5bb" package="phpOpenCloud">
+  <file path="container.inc" hash="71b9c73643391ceeff223ea10f64f9cb" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Containers for OpenStack Object Storage (Swift) and Rackspace Cloud Files]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -1025,220 +1025,220 @@ array or an object, then its values are used to set this object.</p>]]></long-de
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="264" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="265" package="Default">
         <name>is_valid_name</name>
         <full_name>is_valid_name</full_name>
-        <docblock line="257">
+        <docblock line="258">
           <description><![CDATA[Validates that the container name is acceptable]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="257" name="param" description="the container name to validate" type="string" variable="$name">
+          <tag line="258" name="param" description="the container name to validate" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="257" name="return" description="TRUE if ok; throws an exception if not" type="boolean">
+          <tag line="258" name="return" description="TRUE if ok; throws an exception if not" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="257" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerNameError">
+          <tag line="258" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerNameError">
             <type by_reference="false">\OpenCloud\ObjectStore\ContainerNameError</type>
           </tag>
         </docblock>
-        <argument line="264">
+        <argument line="265">
           <name>$name</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="287" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\ObjectStore" line="288" package="Default">
       <extends>\OpenCloud\ObjectStore\CDNContainer</extends>
       <name>Container</name>
       <full_name>\OpenCloud\ObjectStore\Container</full_name>
-      <docblock line="282">
+      <docblock line="283">
         <description><![CDATA[A regular container with a (potentially) CDN container]]></description>
         <long-description><![CDATA[<p>This is the main entry point; CDN containers should only be used internally.</p>]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="private" line="290" namespace="OpenCloud\ObjectStore" package="Default">
+      <property final="false" static="false" visibility="private" line="291" namespace="OpenCloud\ObjectStore" package="Default">
         <name>$_cdn</name>
         <default><![CDATA[]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="301" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="302" package="Default">
         <name>EnableCDN</name>
         <full_name>EnableCDN</full_name>
-        <docblock line="292">
+        <docblock line="293">
           <description><![CDATA[Makes the container public via the CDN]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="292" name="api" description=""/>
-          <tag line="292" name="param" description="the Time-To-Live for the CDN container; if NULL, then the cloud's default value will be used for caching." type="integer" variable="$TTL">
+          <tag line="293" name="api" description=""/>
+          <tag line="293" name="param" description="the Time-To-Live for the CDN container; if NULL, then the cloud's default value will be used for caching." type="integer" variable="$TTL">
             <type by_reference="false">integer</type>
           </tag>
-          <tag line="292" name="throws" description="if CDN services are not available" type="\OpenCloud\ObjectStore\CDNNotAvailableError">
+          <tag line="293" name="throws" description="if CDN services are not available" type="\OpenCloud\ObjectStore\CDNNotAvailableError">
             <type by_reference="false">\OpenCloud\ObjectStore\CDNNotAvailableError</type>
           </tag>
-          <tag line="292" name="return" description="" type="\OpenCloud\ObjectStore\CDNContainer">
+          <tag line="293" name="return" description="" type="\OpenCloud\ObjectStore\CDNContainer">
             <type by_reference="false">\OpenCloud\ObjectStore\CDNContainer</type>
           </tag>
         </docblock>
-        <argument line="301">
+        <argument line="302">
           <name>$TTL</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="333" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="334" package="Default">
         <name>PublishToCDN</name>
         <full_name>PublishToCDN</full_name>
-        <docblock line="328">
+        <docblock line="329">
           <description><![CDATA[a synonym for PublishToCDN for backwards-compatibility]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="328" name="api" description=""/>
+          <tag line="329" name="api" description=""/>
         </docblock>
-        <argument line="333">
+        <argument line="334">
           <name>$TTL</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="346" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="347" package="Default">
         <name>DisableCDN</name>
         <full_name>DisableCDN</full_name>
-        <docblock line="337">
+        <docblock line="338">
           <description><![CDATA[Disables the containers CDN function.]]></description>
           <long-description><![CDATA[<p>Note that the container will still be available on the CDN until
 its TTL expires.</p>]]></long-description>
-          <tag line="337" name="api" description=""/>
-          <tag line="337" name="return" description="" type="void">
+          <tag line="338" name="api" description=""/>
+          <tag line="338" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="368" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="369" package="Default">
         <name>CreateStaticSite</name>
         <full_name>CreateStaticSite</full_name>
-        <docblock line="360">
+        <docblock line="361">
           <description><![CDATA[Creates a static website from the container]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="360" name="api" description=""/>
-          <tag line="360" name="link" description="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html" link="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html"/>
-          <tag line="360" name="param" description="the index page (starting page) of the website" type="string" variable="$index">
+          <tag line="361" name="api" description=""/>
+          <tag line="361" name="link" description="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html" link="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html"/>
+          <tag line="361" name="param" description="the index page (starting page) of the website" type="string" variable="$index">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="360" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="361" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
         </docblock>
-        <argument line="368">
+        <argument line="369">
           <name>$index</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="389" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="390" package="Default">
         <name>StaticSiteErrorPage</name>
         <full_name>StaticSiteErrorPage</full_name>
-        <docblock line="381">
+        <docblock line="382">
           <description><![CDATA[Sets the error page(s) for the static website]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="381" name="api" description=""/>
-          <tag line="381" name="link" description="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html" link="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html"/>
-          <tag line="381" name="param" description="the name of the error page" type="string" variable="$name">
+          <tag line="382" name="api" description=""/>
+          <tag line="382" name="link" description="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html" link="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html"/>
+          <tag line="382" name="param" description="the name of the error page" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="381" name="return" description="" type="\OpenCloud\HttpResponse">
+          <tag line="382" name="return" description="" type="\OpenCloud\HttpResponse">
             <type by_reference="false">\OpenCloud\HttpResponse</type>
           </tag>
         </docblock>
-        <argument line="389">
+        <argument line="390">
           <name>$name</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="406" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="407" package="Default">
         <name>CDN</name>
         <full_name>CDN</full_name>
-        <docblock line="403">
+        <docblock line="404">
           <description><![CDATA[Returns the CDN service associated with this container.]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="423" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="424" package="Default">
         <name>CDNURL</name>
         <full_name>CDNURL</full_name>
-        <docblock line="413">
+        <docblock line="414">
           <description><![CDATA[Returns the CDN URL of the container (if enabled)]]></description>
           <long-description><![CDATA[<p>The CDNURL() is used to manage the container. Note that it is different
 from the PublicURL() of the container, which is the publicly-accessible
 URL on the network.</p>]]></long-description>
-          <tag line="413" name="api" description=""/>
-          <tag line="413" name="return" description="" type="string">
+          <tag line="414" name="api" description=""/>
+          <tag line="414" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="431" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="432" package="Default">
         <name>PublicURL</name>
         <full_name>PublicURL</full_name>
-        <docblock line="427">
+        <docblock line="428">
           <description><![CDATA[Returns the Public URL of the container (on the CDN network)]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="441" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="443" package="Default">
         <name>CDNinfo</name>
         <full_name>CDNinfo</full_name>
-        <docblock line="435">
+        <docblock line="437">
           <description><![CDATA[Returns the CDN info about the container]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="435" name="api" description=""/>
-          <tag line="435" name="return" description="" type="\OpenCloud\ObjectStore\stdClass">
+          <tag line="437" name="api" description=""/>
+          <tag line="437" name="return" description="" type="\OpenCloud\ObjectStore\stdClass">
             <type by_reference="false">\OpenCloud\ObjectStore\stdClass</type>
           </tag>
         </docblock>
-        <argument line="441">
+        <argument line="443">
           <name>$prop</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="465" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="467" package="Default">
         <name>CDNURI</name>
         <full_name>CDNURI</full_name>
-        <docblock line="459">
+        <docblock line="461">
           <description><![CDATA[Returns the CDN container URI prefix]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="459" name="api" description=""/>
-          <tag line="459" name="return" description="" type="string">
+          <tag line="461" name="api" description=""/>
+          <tag line="461" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="475" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="477" package="Default">
         <name>SSLURI</name>
         <full_name>SSLURI</full_name>
-        <docblock line="469">
+        <docblock line="471">
           <description><![CDATA[Returns the SSL URI for the container]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="469" name="api" description=""/>
-          <tag line="469" name="return" description="" type="string">
+          <tag line="471" name="api" description=""/>
+          <tag line="471" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="485" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="487" package="Default">
         <name>StreamingURI</name>
         <full_name>StreamingURI</full_name>
-        <docblock line="479">
+        <docblock line="481">
           <description><![CDATA[Returns the streaming URI for the container]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="479" name="api" description=""/>
-          <tag line="479" name="return" description="" type="string">
+          <tag line="481" name="api" description=""/>
+          <tag line="481" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\ObjectStore" line="492" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\ObjectStore" line="494" package="Default">
         <name>Refresh</name>
         <full_name>Refresh</full_name>
-        <docblock line="489">
+        <docblock line="491">
           <description><![CDATA[Refreshes, then associates the CDN container]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
@@ -1252,9 +1252,9 @@ URL on the network.</p>]]></long-description>
       <error line="30" code="50018">No DocBlock was found for property $container_url</error>
       <error line="31" code="50018">No DocBlock was found for property $_cdn</error>
       <error line="33" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $service in __construct()</error>
-      <error line="290" code="50018">No DocBlock was found for property $_cdn</error>
-      <error line="328" code="50015">Argument $TTL is missing from the Docblock of PublishToCDN()</error>
-      <error line="435" code="50015">Argument $prop is missing from the Docblock of CDNinfo()</error>
+      <error line="291" code="50018">No DocBlock was found for property $_cdn</error>
+      <error line="329" code="50015">Argument $TTL is missing from the Docblock of PublishToCDN()</error>
+      <error line="437" code="50015">Argument $prop is missing from the Docblock of CDNinfo()</error>
     </parse_markers>
   </file>
   <file path="database.inc" hash="edf1971a07db1d7723b5a186d6da144c" package="phpOpenCloud">
@@ -1430,7 +1430,7 @@ is not necessarily tied to an actual database.</p>]]></long-description>
       <error line="157" code="50015">Argument $params is missing from the Docblock of CreateJson()</error>
     </parse_markers>
   </file>
-  <file path="dataobject.inc" hash="e1a7968ff05546565414fab0047fb282" package="phpOpenCloud">
+  <file path="dataobject.inc" hash="3166e6732437232740c3e3dcab2a4fd4" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[A core object in the Object Storage service (Swift).]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -1829,19 +1829,19 @@ to manage the object.</p>]]></long-description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="471" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="472" package="Default">
         <name>Service</name>
         <full_name>Service</full_name>
-        <docblock line="465">
+        <docblock line="466">
           <description><![CDATA[Returns the service associated with this object]]></description>
           <long-description><![CDATA[<p>It's actually the object's container's service, so this method will
 simplify things a bit.</p>]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="497" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="498" package="Default">
         <name>_guess_content_type</name>
         <full_name>_guess_content_type</full_name>
-        <docblock line="475">
+        <docblock line="476">
           <description><![CDATA[Performs an internal check to get the proper MIME type for an object]]></description>
           <long-description><![CDATA[<p>This function would go over the available PHP methods to get
 the MIME type.</p>
@@ -1857,17 +1857,17 @@ to use the file specified in the source directory of the API
 
 <p>if fileinfo is not available it will try to use the internal
 mime_content_type function.</p>]]></long-description>
-          <tag line="475" name="param" description="name of file or buffer to guess the type from" type="string" variable="$handle">
+          <tag line="476" name="param" description="name of file or buffer to guess the type from" type="string" variable="$handle">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="475" name="return" description="&lt;kbd&gt;TRUE&lt;/kbd&gt; if successful" type="boolean">
+          <tag line="476" name="return" description="&lt;kbd&gt;TRUE&lt;/kbd&gt; if successful" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="475" name="throws" description="" type="\OpenCloud\ObjectStore\BadContentTypeException">
+          <tag line="476" name="throws" description="" type="\OpenCloud\ObjectStore\BadContentTypeException">
             <type by_reference="false">\OpenCloud\ObjectStore\BadContentTypeException</type>
           </tag>
         </docblock>
-        <argument line="497">
+        <argument line="498">
           <name>$handle</name>
           <default><![CDATA[]]></default>
           <type/>
@@ -4023,7 +4023,7 @@ throws an exception.</p>]]></long-description>
       <error line="287" code="50015">Argument $size is missing from the Docblock of ResizeVolumeJson()</error>
     </parse_markers>
   </file>
-  <file path="lbresources.inc" hash="6a8a236d3a270f7e62279eded4338d2e" package="phpOpenCloud">
+  <file path="lbresources.inc" hash="07e9c460cac968b9a17c2fe78d6088f3" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines a a number of classes that are child resources of LoadBalancer]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -4035,951 +4035,1247 @@ throws an exception.</p>]]></long-description>
     <include line="15" type="Require Once" package="Default">
       <name>persistentobject.inc</name>
     </include>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="17" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="32" package="Default">
       <extends>\OpenCloud\PersistentObject</extends>
       <name>SubResource</name>
       <full_name>\OpenCloud\LoadBalancerService\SubResource</full_name>
-      <property final="false" static="false" visibility="private" line="19" namespace="OpenCloud\LoadBalancerService" package="Default">
-        <name>$_lb</name>
+      <docblock line="17">
+        <description><![CDATA[SubResource is an abstract class that handles subresources of a
+LoadBalancer object; for example, the
+`/loadbalancers/{id}/errorpage`.]]></description>
+        <long-description><![CDATA[<p>Since most of the subresources are
+handled in a similar manner, this consolidates the functions.</p>
+
+<p>There are really four pieces of data that define a subresource:
+* <code>$url_resource</code> - the actual name of the url component
+* <code>$json_name</code> - the name of the JSON object holding the data
+* <code>$json_collection_name</code> - if the collection is not simply
+  <code>$json_name . 's'</code>, this defines the collectio name.
+* <code>$json_collection_element</code> - if the object in a collection is not
+  anonymous, this defines the name of the element holding the object.
+Of these, only the <code>$json_name</code> and <code>$url_resource</code> are required.</p>]]></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="34" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$parent</name>
         <default><![CDATA[]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="20" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="42" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <argument line="20">
-          <name>$lb</name>
+        <docblock line="36">
+          <description><![CDATA[constructs the SubResource's object]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="36" name="param" description="the parent object" type="mixed" variable="$obj">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="36" name="param" description="the ID or array of values for the object" type="mixed" variable="$value">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="42">
+          <name>$obj</name>
           <default><![CDATA[]]></default>
-          <type>\OpenCloud\LoadBalancerService\LoadBalancer</type>
+          <type/>
         </argument>
-        <argument line="20">
+        <argument line="42">
           <name>$value</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="32" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="64" package="Default">
         <name>Url</name>
         <full_name>Url</full_name>
-        <argument line="32">
+        <docblock line="55">
+          <description><![CDATA[returns the URL of the SubResource]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="55" name="api" description=""/>
+          <tag line="55" name="param" description="the subresource of the parent" type="string" variable="$subresource">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="55" name="param" description="an array of key/value pairs to be converted to query string parameters for the subresource" type="array" variable="$qstr">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="55" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="64">
           <name>$subresource</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
-        <argument line="32">
+        <argument line="64">
           <name>$qstr</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\LoadBalancerService" line="35" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\LoadBalancerService" line="76" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
+        <docblock line="68">
+          <description><![CDATA[returns the JSON document's object for creating the subresource]]></description>
+          <long-description><![CDATA[<p>The value <code>$_create_keys</code> should be an array of names of data items
+that can be used in the creation of the object.</p>]]></long-description>
+          <tag line="68" name="return" description="" type="\stdClass;">
+            <type by_reference="false">\stdClass;</type>
+          </tag>
+        </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\LoadBalancerService" line="49" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\LoadBalancerService" line="97" package="Default">
         <name>UpdateJson</name>
         <full_name>UpdateJson</full_name>
-        <argument line="49">
+        <docblock line="91">
+          <description><![CDATA[returns the JSON for the update (same as create)]]></description>
+          <long-description><![CDATA[<p>For these subresources, the update JSON is the same as the Create JSON</p>]]></long-description>
+          <tag line="91" name="return" description="" type="\stdClass">
+            <type by_reference="false">\stdClass</type>
+          </tag>
+        </docblock>
+        <argument line="97">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="52" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="107" package="Default">
         <name>Parent</name>
         <full_name>Parent</full_name>
+        <docblock line="101">
+          <description><![CDATA[returns the Parent object (usually a LoadBalancer, but sometimes another
+SubResource)]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="101" name="return" description="" type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="55" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="119" package="Default">
         <name>Name</name>
         <full_name>Name</full_name>
+        <docblock line="111">
+          <description><![CDATA[returns a (default) name of the object]]></description>
+          <long-description><![CDATA[<p>The name is constructed by the object class and the object's ID.</p>]]></long-description>
+          <tag line="111" name="api" description=""/>
+          <tag line="111" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="65" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="130" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+      <name>ReadonlySubResource</name>
+      <full_name>\OpenCloud\LoadBalancerService\ReadonlySubResource</full_name>
+      <docblock line="125">
+        <description><![CDATA[This defines a read-only SubResource - one that cannot be created, updated,
+or deleted.]]></description>
+        <long-description><![CDATA[<p>Many subresources are like this, and this simplifies their
+class definitions.</p>]]></long-description>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="134" package="Default">
+        <name>Create</name>
+        <full_name>Create</full_name>
+        <docblock line="131">
+          <description><![CDATA[no Create]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+        <argument line="134">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="138" package="Default">
+        <name>Update</name>
+        <full_name>Update</full_name>
+        <docblock line="135">
+          <description><![CDATA[no Update]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+        <argument line="138">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="142" package="Default">
+        <name>Delete</name>
+        <full_name>Delete</full_name>
+        <docblock line="139">
+          <description><![CDATA[no Delete]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+      </method>
+    </class>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="149" package="Default">
       <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
       <name>ErrorPage</name>
       <full_name>\OpenCloud\LoadBalancerService\ErrorPage</full_name>
-      <docblock line="61">
+      <docblock line="145">
         <description><![CDATA[The /loadbalancer/{id}/errorpage manages the error page for the load
 balancer.]]></description>
         <long-description><![CDATA[]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="67" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="151" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$content</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="69" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="153" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA['errorpage']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="70" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="154" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['errorpage']]></default>
       </property>
-      <property final="false" static="false" visibility="protected" line="72" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="protected" line="156" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('content')]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="82" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="166" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <docblock line="73">
+        <docblock line="157">
           <description><![CDATA[creates a new error page]]></description>
           <long-description><![CDATA[<p>This calls the Update() method, since it requires a PUT to create
 a new error page. A POST request is not supported, since the URL
 resource is already defined.</p>]]></long-description>
-          <tag line="73" name="param" description="array of parameters" type="array" variable="$parm">
+          <tag line="157" name="param" description="array of parameters" type="array" variable="$parm">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
-        <argument line="82">
+        <argument line="166">
           <name>$parm</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="88" package="Default">
-      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="172" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\ReadonlySubResource</extends>
       <name>Stats</name>
       <full_name>\OpenCloud\LoadBalancerService\Stats</full_name>
-      <docblock line="85">
+      <docblock line="169">
         <description><![CDATA[Stats returns statistics about the load balancer]]></description>
         <long-description><![CDATA[]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="90" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="174" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$connectTimeOut</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="91" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="175" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$connectError</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="92" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="176" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$connectFailure</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="93" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="177" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$dataTimedOut</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="94" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="178" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$keepAliveTimedOut</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="95" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="179" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$maxConn</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="97" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="181" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA[FALSE]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="98" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="182" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['stats']]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="99" package="Default">
-        <name>Create</name>
-        <full_name>Create</full_name>
-        <argument line="99">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="100" package="Default">
-        <name>Update</name>
-        <full_name>Update</full_name>
-        <argument line="100">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="101" package="Default">
-        <name>Delete</name>
-        <full_name>Delete</full_name>
-      </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="110" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="191" package="Default">
       <extends>\OpenCloud\PersistentObject</extends>
       <name>Node</name>
       <full_name>\OpenCloud\LoadBalancerService\Node</full_name>
-      <docblock line="104">
+      <docblock line="185">
         <description><![CDATA[information on a single node in the load balancer]]></description>
-        <long-description><![CDATA[<p>This extends <code>PersistentObject</code> because it has an ID, unlike the other
+        <long-description><![CDATA[<p>This extends <code>PersistentObject</code> because it has an ID, unlike most other
 sub-resources.</p>]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="112" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="193" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$id</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="113" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="194" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$address</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="114" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="195" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$port</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="115" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="196" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$condition</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="116" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="197" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$status</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="117" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="198" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$weight</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="118" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="199" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$type</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="120" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="201" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA[FALSE]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="121" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="202" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_collection_name</name>
         <default><![CDATA['nodes']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="122" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="203" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['nodes']]></default>
       </property>
-      <property final="false" static="false" visibility="private" line="124" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="private" line="205" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('address', 'port', 'condition', 'type', 'weight')]]></default>
       </property>
-      <property final="false" static="false" visibility="private" line="131" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="private" line="212" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_lb</name>
         <default><![CDATA[]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="132" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="220" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <argument line="132">
+        <docblock line="213">
+          <description><![CDATA[builds a new Node object]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="213" name="param" description="the parent LB object" type="\OpenCloud\LoadBalancerService\LoadBalancer" variable="$lb">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\LoadBalancer</type>
+          </tag>
+          <tag line="213" name="param" description="either an ID or an array of values" type="mixed" variable="$info">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="213" name="returns" description="void"/>
+        </docblock>
+        <argument line="220">
           <name>$lb</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\LoadBalancerService\LoadBalancer</type>
         </argument>
-        <argument line="132">
+        <argument line="220">
           <name>$info</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="136" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="229" package="Default">
         <name>Parent</name>
         <full_name>Parent</full_name>
+        <docblock line="224">
+          <description><![CDATA[returns the parent LoadBalancer object]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="224" name="return" description="" type="\OpenCloud\LoadBalancerService\LoadBalancer">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\LoadBalancer</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="237" package="Default">
+        <name>Name</name>
+        <full_name>Name</full_name>
+        <docblock line="232">
+          <description><![CDATA[returns the Node name]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="232" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\LoadBalancerService" line="245" package="Default">
+        <name>CreateJson</name>
+        <full_name>CreateJson</full_name>
+        <docblock line="240">
+          <description><![CDATA[returns the object for the Create JSON]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="240" name="return" description="" type="\stdClass">
+            <type by_reference="false">\stdClass</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="263" package="Default">
+        <name>Metadata</name>
+        <full_name>Metadata</full_name>
+        <docblock line="257">
+          <description><![CDATA[factory method to create a new Metadata child of the Node]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="257" name="api" description=""/>
+          <tag line="257" name="return" description="" type="\OpenCloud\LoadBalancerService\Metadata">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\Metadata</type>
+          </tag>
+        </docblock>
+        <argument line="263">
+          <name>$data</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="276" package="Default">
+        <name>MetadataList</name>
+        <full_name>MetadataList</full_name>
+        <docblock line="267">
+          <description><![CDATA[factory method to create a Collection of Metadata object]]></description>
+          <long-description><![CDATA[<p>Note that these are metadata children of the Node, not of the
+LoadBalancer.</p>]]></long-description>
+          <tag line="267" name="api" description=""/>
+          <tag line="267" name="return" description="of Metadata" type="\OpenCloud\LoadBalancerService\Collection">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\Collection</type>
+          </tag>
+        </docblock>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="144" package="Default">
-      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="287" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\ReadonlySubResource</extends>
       <name>NodeEvent</name>
       <full_name>\OpenCloud\LoadBalancerService\NodeEvent</full_name>
-      <docblock line="141">
+      <docblock line="282">
         <description><![CDATA[a single node event, usually called as part of a Collection]]></description>
-        <long-description><![CDATA[]]></long-description>
+        <long-description><![CDATA[<p>This is a read-only subresource.</p>]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="146" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="289" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$detailedMessage</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="147" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="290" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$nodeId</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="148" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="291" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$id</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="149" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="292" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$type</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="150" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="293" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$description</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="151" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="294" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$category</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="152" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="295" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$severity</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="153" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="296" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$relativeUri</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="154" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="297" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$accountId</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="155" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="298" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$loadbalancerId</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="156" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="299" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$title</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="157" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="300" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$author</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="158" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="301" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$created</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="160" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="303" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA['nodeServiceEvent']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="161" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="304" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['nodes/events']]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="162" package="Default">
-        <name>Create</name>
-        <full_name>Create</full_name>
-        <argument line="162">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="163" package="Default">
-        <name>Update</name>
-        <full_name>Update</full_name>
-        <argument line="163">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="164" package="Default">
-        <name>Delete</name>
-        <full_name>Delete</full_name>
-      </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="176" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="316" package="Default">
       <extends>\OpenCloud\PersistentObject</extends>
       <name>AllowedDomain</name>
       <full_name>\OpenCloud\LoadBalancerService\AllowedDomain</full_name>
-      <docblock line="167">
+      <docblock line="307">
         <description><![CDATA[sub-resource to manage allowed domains]]></description>
         <long-description><![CDATA[<p>Note that this is actually a sub-resource of the load balancers service,
 and not of the load balancer object. It's included here for convenience,
 since it matches the pattern of the other LB subresources.</p>]]></long-description>
-        <tag line="167" name="api" description=""/>
+        <tag line="307" name="api" description=""/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="178" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="318" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$name</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="180" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="320" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA['allowedDomain']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="181" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="321" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_collection_name</name>
         <default><![CDATA['allowedDomains']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="182" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="322" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_collection_element</name>
         <default><![CDATA['allowedDomain']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="183" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="323" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['loadbalancers/alloweddomains']]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="184" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="324" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <argument line="184">
+        <argument line="324">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="185" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="325" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <argument line="185">
+        <argument line="325">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="186" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="326" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="197" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="337" package="Default">
       <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
       <name>VirtualIp</name>
       <full_name>\OpenCloud\LoadBalancerService\VirtualIp</full_name>
-      <docblock line="189">
+      <docblock line="329">
         <description><![CDATA[VirtualIp represents a single virtual IP (usually returned in a Collection)]]></description>
         <long-description><![CDATA[<p>Virtual IPs can be added to a load balancer when it is created; however,
 this subresource allows the user to add or update them one at a time.</p>]]></long-description>
-        <tag line="189" name="api" description=""/>
+        <tag line="329" name="api" description=""/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="199" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="339" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$id</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="200" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="340" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$address</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="201" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="341" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$type</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="202" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="342" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$ipVersion</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="204" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="344" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_collection_name</name>
         <default><![CDATA['virtualIps']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="205" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="345" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA[FALSE]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="206" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="346" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['virtualips']]></default>
       </property>
-      <property final="false" static="false" visibility="protected" line="208" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="protected" line="348" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('type', 'ipVersion')]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="209" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="349" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <argument line="209">
+        <argument line="349">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="215" package="Default">
-      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="355" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\LoadBalancer</extends>
       <name>BillableLoadBalancer</name>
       <full_name>\OpenCloud\LoadBalancerService\BillableLoadBalancer</full_name>
-      <docblock line="212">
+      <docblock line="352">
         <description><![CDATA[used to get a list of billable load balancers for a specific date range]]></description>
         <long-description><![CDATA[]]></long-description>
       </docblock>
-      <property final="false" static="true" visibility="protected" line="217" namespace="OpenCloud\LoadBalancerService" package="Default">
-        <name>$json_name</name>
-        <default><![CDATA['loadBalancer']]></default>
-      </property>
-      <property final="false" static="true" visibility="protected" line="218" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="357" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
-        <default><![CDATA['billable']]></default>
+        <default><![CDATA['loadbalancers/billable']]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="219" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="358" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <argument line="219">
+        <argument line="358">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="220" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="359" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <argument line="220">
+        <argument line="359">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="221" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="360" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="227" package="Default">
-      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="366" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\ReadonlySubResource</extends>
       <name>Usage</name>
       <full_name>\OpenCloud\LoadBalancerService\Usage</full_name>
-      <docblock line="224">
+      <docblock line="363">
         <description><![CDATA[used to get usage data for a load balancer]]></description>
         <long-description><![CDATA[]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="229" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="368" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$id</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="230" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="369" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$averageNumConnections</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="231" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="370" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$incomingTransfer</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="232" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="371" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$outgoingTransfer</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="233" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="372" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$averageNumConnectionsSsl</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="234" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="373" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$incomingTransferSsl</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="235" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="374" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$outgoingTransferSsl</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="236" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="375" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$numVips</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="237" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="376" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$numPolls</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="238" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="377" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$startTime</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="239" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="378" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$endTime</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="240" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="379" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$vipType</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="241" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="380" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$sslMode</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="242" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="381" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$eventType</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="244" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="383" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA['loadBalancerUsageRecord']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="245" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="384" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['usage']]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="246" package="Default">
-        <name>Create</name>
-        <full_name>Create</full_name>
-        <argument line="246">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="247" package="Default">
-        <name>Update</name>
-        <full_name>Update</full_name>
-        <argument line="247">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="248" package="Default">
-        <name>Delete</name>
-        <full_name>Delete</full_name>
-      </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="256" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="392" package="Default">
       <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
       <name>Access</name>
       <full_name>\OpenCloud\LoadBalancerService\Access</full_name>
-      <docblock line="251">
+      <docblock line="387">
         <description><![CDATA[sub-resource to manage access lists]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="251" name="api" description=""/>
+        <tag line="387" name="api" description=""/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="258" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="394" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$id</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="259" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="395" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$type</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="260" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="396" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$address</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="262" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="398" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA["accessList"]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="263" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="399" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA["accesslist"]]></default>
       </property>
-      <property final="false" static="false" visibility="protected" line="265" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="protected" line="401" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('type', 'address')]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="266" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="402" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <argument line="266">
+        <argument line="402">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="272" package="Default">
-      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="408" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\ReadonlySubResource</extends>
       <name>HealthMonitor</name>
       <full_name>\OpenCloud\LoadBalancerService\HealthMonitor</full_name>
-      <docblock line="269">
-        <description><![CDATA[sub-resource to manage health monitor]]></description>
+      <docblock line="405">
+        <description><![CDATA[sub-resource to read health monitor info]]></description>
         <long-description><![CDATA[]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="274" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="410" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$type</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="276" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="412" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA['healthMonitor']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="277" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="413" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['healthmonitor']]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="278" package="Default">
-        <name>Create</name>
-        <full_name>Create</full_name>
-        <argument line="278">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="279" package="Default">
-        <name>Update</name>
-        <full_name>Update</full_name>
-        <argument line="279">
-          <name>$params</name>
-          <default><![CDATA[array()]]></default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="280" package="Default">
-        <name>Delete</name>
-        <full_name>Delete</full_name>
-      </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="288" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="421" package="Default">
       <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
       <name>ConnectionThrottle</name>
       <full_name>\OpenCloud\LoadBalancerService\ConnectionThrottle</full_name>
-      <docblock line="283">
+      <docblock line="416">
         <description><![CDATA[sub-resource to manage connection throttling]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="283" name="api" description=""/>
+        <tag line="416" name="api" description=""/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="290" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="423" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$minConnections</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="291" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="424" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$maxConnections</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="292" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="425" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$maxConnectionRate</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="293" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="426" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$rateInterval</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="295" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="428" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA["connectionThrottle"]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="296" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="429" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA["connectionthrottle"]]></default>
       </property>
-      <property final="false" static="false" visibility="protected" line="298" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="protected" line="431" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('minConnections', 'maxConnections', 'maxConnectionRate', 'rateInterval')]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="304" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="440" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <argument line="304">
+        <docblock line="437">
+          <description><![CDATA[create uses PUT like Update]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+        <argument line="440">
           <name>$parm</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="312" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="448" package="Default">
       <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
       <name>ConnectionLogging</name>
       <full_name>\OpenCloud\LoadBalancerService\ConnectionLogging</full_name>
-      <docblock line="307">
+      <docblock line="443">
         <description><![CDATA[sub-resource to manage connection logging]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="307" name="api" description=""/>
+        <tag line="443" name="api" description=""/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="314" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="450" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$enabled</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="316" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="452" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA["connectionLogging"]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="317" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="453" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA["connectionlogging"]]></default>
       </property>
-      <property final="false" static="false" visibility="protected" line="319" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="protected" line="455" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('enabled')]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="320" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="456" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <argument line="320">
+        <argument line="456">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="321" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="457" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="329" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="465" package="Default">
       <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
       <name>ContentCaching</name>
       <full_name>\OpenCloud\LoadBalancerService\ContentCaching</full_name>
-      <docblock line="324">
+      <docblock line="460">
         <description><![CDATA[sub-resource to manage content caching]]></description>
         <long-description><![CDATA[]]></long-description>
-        <tag line="324" name="api" description=""/>
+        <tag line="460" name="api" description=""/>
       </docblock>
-      <property final="false" static="false" visibility="public" line="331" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="467" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$enabled</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="333" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="469" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA["contentCaching"]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="334" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="470" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA["contentcaching"]]></default>
       </property>
-      <property final="false" static="false" visibility="protected" line="336" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="protected" line="472" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('enabled')]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="337" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="473" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <argument line="337">
+        <argument line="473">
           <name>$parm</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="338" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="474" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="344" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="480" package="Default">
       <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
-      <name>LbSessionPersistence</name>
-      <full_name>\OpenCloud\LoadBalancerService\LbSessionPersistence</full_name>
-      <docblock line="341">
+      <name>SessionPersistence</name>
+      <full_name>\OpenCloud\LoadBalancerService\SessionPersistence</full_name>
+      <docblock line="477">
         <description><![CDATA[sub-resource to manage session persistence setting]]></description>
         <long-description><![CDATA[]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="346" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="public" line="482" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$persistenceType</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="348" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="484" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$json_name</name>
         <default><![CDATA['sessionPersistence']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="349" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="true" visibility="protected" line="485" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['sessionpersistence']]></default>
       </property>
-      <property final="false" static="false" visibility="private" line="351" namespace="OpenCloud\LoadBalancerService" package="Default">
+      <property final="false" static="false" visibility="private" line="487" namespace="OpenCloud\LoadBalancerService" package="Default">
         <name>$_create_keys</name>
         <default><![CDATA[array('persistenceType')]]></default>
       </property>
     </class>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="493" package="Default">
+      <extends>\OpenCloud\PersistentObject</extends>
+      <name>Protocol</name>
+      <full_name>\OpenCloud\LoadBalancerService\Protocol</full_name>
+      <docblock line="490">
+        <description><![CDATA[sub-resource to manage protocols (read-only)]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="495" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$name</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="496" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$port</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="498" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$json_name</name>
+        <default><![CDATA['protocol']]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="499" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$url_resource</name>
+        <default><![CDATA['loadbalancers/protocols']]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="500" package="Default">
+        <name>Create</name>
+        <full_name>Create</full_name>
+        <argument line="500">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="501" package="Default">
+        <name>Update</name>
+        <full_name>Update</full_name>
+        <argument line="501">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="502" package="Default">
+        <name>Delete</name>
+        <full_name>Delete</full_name>
+      </method>
+    </class>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="508" package="Default">
+      <extends>\OpenCloud\PersistentObject</extends>
+      <name>Algorithm</name>
+      <full_name>\OpenCloud\LoadBalancerService\Algorithm</full_name>
+      <docblock line="505">
+        <description><![CDATA[sub-resource to manage algorithms (read-only)]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="510" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$name</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="512" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$json_name</name>
+        <default><![CDATA['algorithm']]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="513" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$url_resource</name>
+        <default><![CDATA['loadbalancers/algorithms']]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="514" package="Default">
+        <name>Create</name>
+        <full_name>Create</full_name>
+        <argument line="514">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="515" package="Default">
+        <name>Update</name>
+        <full_name>Update</full_name>
+        <argument line="515">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="516" package="Default">
+        <name>Delete</name>
+        <full_name>Delete</full_name>
+      </method>
+    </class>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="522" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+      <name>SSLTermination</name>
+      <full_name>\OpenCloud\LoadBalancerService\SSLTermination</full_name>
+      <docblock line="519">
+        <description><![CDATA[sub-resource to manage SSL termination]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="524" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$certificate</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="525" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$enabled</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="526" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$secureTrafficOnly</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="527" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$privatekey</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="528" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$intermediateCertificate</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="529" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$securePort</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="531" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$json_name</name>
+        <default><![CDATA["sslTermination"]]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="532" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$url_resource</name>
+        <default><![CDATA["ssltermination"]]></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="534" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$_create_keys</name>
+        <default><![CDATA[array('certificate', 'enabled', 'secureTrafficOnly', 'privatekey', 'intermediateCertificate', 'securePort')]]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="542" package="Default">
+        <name>Create</name>
+        <full_name>Create</full_name>
+        <argument line="542">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <class final="false" abstract="false" namespace="OpenCloud\LoadBalancerService" line="548" package="Default">
+      <extends>\OpenCloud\LoadBalancerService\SubResource</extends>
+      <name>Metadata</name>
+      <full_name>\OpenCloud\LoadBalancerService\Metadata</full_name>
+      <docblock line="545">
+        <description><![CDATA[sub-resource to manage Metadata]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="550" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$id</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="551" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$key</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="552" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$value</name>
+        <default><![CDATA[]]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="554" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$json_name</name>
+        <default><![CDATA['meta']]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="555" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$json_collection_name</name>
+        <default><![CDATA['metadata']]></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="556" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$url_resource</name>
+        <default><![CDATA['metadata']]></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="558" namespace="OpenCloud\LoadBalancerService" package="Default">
+        <name>$_create_keys</name>
+        <default><![CDATA[array('key', 'value')]]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="559" package="Default">
+        <name>Name</name>
+        <full_name>Name</full_name>
+      </method>
+    </class>
     <parse_markers>
-      <error line="17" code="50000">No DocBlock was found for \OpenCloud\LoadBalancerService\SubResource</error>
-      <error line="19" code="50018">No DocBlock was found for property $_lb</error>
-      <error line="20" code="50010">No DocBlock was found for method __construct()</error>
-      <error line="32" code="50010">No DocBlock was found for method Url()</error>
-      <error line="35" code="50010">No DocBlock was found for method CreateJson()</error>
-      <error line="49" code="50010">No DocBlock was found for method UpdateJson()</error>
-      <error line="52" code="50010">No DocBlock was found for method Parent()</error>
-      <error line="55" code="50010">No DocBlock was found for method Name()</error>
-      <error line="67" code="50018">No DocBlock was found for property $content</error>
-      <error line="69" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="70" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="72" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="90" code="50018">No DocBlock was found for property $connectTimeOut</error>
-      <error line="91" code="50018">No DocBlock was found for property $connectError</error>
-      <error line="92" code="50018">No DocBlock was found for property $connectFailure</error>
-      <error line="93" code="50018">No DocBlock was found for property $dataTimedOut</error>
-      <error line="94" code="50018">No DocBlock was found for property $keepAliveTimedOut</error>
-      <error line="95" code="50018">No DocBlock was found for property $maxConn</error>
-      <error line="97" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="98" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="99" code="50010">No DocBlock was found for method Create()</error>
-      <error line="100" code="50010">No DocBlock was found for method Update()</error>
-      <error line="101" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="112" code="50018">No DocBlock was found for property $id</error>
-      <error line="113" code="50018">No DocBlock was found for property $address</error>
-      <error line="114" code="50018">No DocBlock was found for property $port</error>
-      <error line="115" code="50018">No DocBlock was found for property $condition</error>
-      <error line="116" code="50018">No DocBlock was found for property $status</error>
-      <error line="117" code="50018">No DocBlock was found for property $weight</error>
-      <error line="118" code="50018">No DocBlock was found for property $type</error>
-      <error line="120" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="121" code="50018">No DocBlock was found for property $json_collection_name</error>
-      <error line="122" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="124" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="131" code="50018">No DocBlock was found for property $_lb</error>
-      <error line="132" code="50010">No DocBlock was found for method __construct()</error>
-      <error line="136" code="50010">No DocBlock was found for method Parent()</error>
-      <error line="146" code="50018">No DocBlock was found for property $detailedMessage</error>
-      <error line="147" code="50018">No DocBlock was found for property $nodeId</error>
-      <error line="148" code="50018">No DocBlock was found for property $id</error>
-      <error line="149" code="50018">No DocBlock was found for property $type</error>
-      <error line="150" code="50018">No DocBlock was found for property $description</error>
-      <error line="151" code="50018">No DocBlock was found for property $category</error>
-      <error line="152" code="50018">No DocBlock was found for property $severity</error>
-      <error line="153" code="50018">No DocBlock was found for property $relativeUri</error>
-      <error line="154" code="50018">No DocBlock was found for property $accountId</error>
-      <error line="155" code="50018">No DocBlock was found for property $loadbalancerId</error>
-      <error line="156" code="50018">No DocBlock was found for property $title</error>
-      <error line="157" code="50018">No DocBlock was found for property $author</error>
-      <error line="158" code="50018">No DocBlock was found for property $created</error>
-      <error line="160" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="161" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="162" code="50010">No DocBlock was found for method Create()</error>
-      <error line="163" code="50010">No DocBlock was found for method Update()</error>
-      <error line="164" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="178" code="50018">No DocBlock was found for property $name</error>
-      <error line="180" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="181" code="50018">No DocBlock was found for property $json_collection_name</error>
-      <error line="182" code="50018">No DocBlock was found for property $json_collection_element</error>
-      <error line="183" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="184" code="50010">No DocBlock was found for method Create()</error>
-      <error line="185" code="50010">No DocBlock was found for method Update()</error>
-      <error line="186" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="199" code="50018">No DocBlock was found for property $id</error>
-      <error line="200" code="50018">No DocBlock was found for property $address</error>
-      <error line="201" code="50018">No DocBlock was found for property $type</error>
-      <error line="202" code="50018">No DocBlock was found for property $ipVersion</error>
-      <error line="204" code="50018">No DocBlock was found for property $json_collection_name</error>
-      <error line="205" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="206" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="208" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="209" code="50010">No DocBlock was found for method Update()</error>
-      <error line="217" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="218" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="219" code="50010">No DocBlock was found for method Create()</error>
-      <error line="220" code="50010">No DocBlock was found for method Update()</error>
-      <error line="221" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="229" code="50018">No DocBlock was found for property $id</error>
-      <error line="230" code="50018">No DocBlock was found for property $averageNumConnections</error>
-      <error line="231" code="50018">No DocBlock was found for property $incomingTransfer</error>
-      <error line="232" code="50018">No DocBlock was found for property $outgoingTransfer</error>
-      <error line="233" code="50018">No DocBlock was found for property $averageNumConnectionsSsl</error>
-      <error line="234" code="50018">No DocBlock was found for property $incomingTransferSsl</error>
-      <error line="235" code="50018">No DocBlock was found for property $outgoingTransferSsl</error>
-      <error line="236" code="50018">No DocBlock was found for property $numVips</error>
-      <error line="237" code="50018">No DocBlock was found for property $numPolls</error>
-      <error line="238" code="50018">No DocBlock was found for property $startTime</error>
-      <error line="239" code="50018">No DocBlock was found for property $endTime</error>
-      <error line="240" code="50018">No DocBlock was found for property $vipType</error>
-      <error line="241" code="50018">No DocBlock was found for property $sslMode</error>
-      <error line="242" code="50018">No DocBlock was found for property $eventType</error>
-      <error line="244" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="245" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="246" code="50010">No DocBlock was found for method Create()</error>
-      <error line="247" code="50010">No DocBlock was found for method Update()</error>
-      <error line="248" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="258" code="50018">No DocBlock was found for property $id</error>
-      <error line="259" code="50018">No DocBlock was found for property $type</error>
-      <error line="260" code="50018">No DocBlock was found for property $address</error>
-      <error line="262" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="263" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="265" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="266" code="50010">No DocBlock was found for method Update()</error>
-      <error line="274" code="50018">No DocBlock was found for property $type</error>
-      <error line="276" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="277" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="278" code="50010">No DocBlock was found for method Create()</error>
-      <error line="279" code="50010">No DocBlock was found for method Update()</error>
-      <error line="280" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="290" code="50018">No DocBlock was found for property $minConnections</error>
-      <error line="291" code="50018">No DocBlock was found for property $maxConnections</error>
-      <error line="292" code="50018">No DocBlock was found for property $maxConnectionRate</error>
-      <error line="293" code="50018">No DocBlock was found for property $rateInterval</error>
-      <error line="295" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="296" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="298" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="304" code="50010">No DocBlock was found for method Create()</error>
-      <error line="314" code="50018">No DocBlock was found for property $enabled</error>
-      <error line="316" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="317" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="319" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="320" code="50010">No DocBlock was found for method Create()</error>
-      <error line="321" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="331" code="50018">No DocBlock was found for property $enabled</error>
-      <error line="333" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="334" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="336" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="337" code="50010">No DocBlock was found for method Create()</error>
-      <error line="338" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="346" code="50018">No DocBlock was found for property $persistenceType</error>
-      <error line="348" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="349" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="351" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="34" code="50018">No DocBlock was found for property $parent</error>
+      <error line="91" code="50015">Argument $params is missing from the Docblock of UpdateJson()</error>
+      <error line="131" code="50015">Argument $params is missing from the Docblock of Create()</error>
+      <error line="135" code="50015">Argument $params is missing from the Docblock of Update()</error>
+      <error line="151" code="50018">No DocBlock was found for property $content</error>
+      <error line="153" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="154" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="156" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="174" code="50018">No DocBlock was found for property $connectTimeOut</error>
+      <error line="175" code="50018">No DocBlock was found for property $connectError</error>
+      <error line="176" code="50018">No DocBlock was found for property $connectFailure</error>
+      <error line="177" code="50018">No DocBlock was found for property $dataTimedOut</error>
+      <error line="178" code="50018">No DocBlock was found for property $keepAliveTimedOut</error>
+      <error line="179" code="50018">No DocBlock was found for property $maxConn</error>
+      <error line="181" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="182" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="193" code="50018">No DocBlock was found for property $id</error>
+      <error line="194" code="50018">No DocBlock was found for property $address</error>
+      <error line="195" code="50018">No DocBlock was found for property $port</error>
+      <error line="196" code="50018">No DocBlock was found for property $condition</error>
+      <error line="197" code="50018">No DocBlock was found for property $status</error>
+      <error line="198" code="50018">No DocBlock was found for property $weight</error>
+      <error line="199" code="50018">No DocBlock was found for property $type</error>
+      <error line="201" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="202" code="50018">No DocBlock was found for property $json_collection_name</error>
+      <error line="203" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="205" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="212" code="50018">No DocBlock was found for property $_lb</error>
+      <error line="257" code="50015">Argument $data is missing from the Docblock of Metadata()</error>
+      <error line="289" code="50018">No DocBlock was found for property $detailedMessage</error>
+      <error line="290" code="50018">No DocBlock was found for property $nodeId</error>
+      <error line="291" code="50018">No DocBlock was found for property $id</error>
+      <error line="292" code="50018">No DocBlock was found for property $type</error>
+      <error line="293" code="50018">No DocBlock was found for property $description</error>
+      <error line="294" code="50018">No DocBlock was found for property $category</error>
+      <error line="295" code="50018">No DocBlock was found for property $severity</error>
+      <error line="296" code="50018">No DocBlock was found for property $relativeUri</error>
+      <error line="297" code="50018">No DocBlock was found for property $accountId</error>
+      <error line="298" code="50018">No DocBlock was found for property $loadbalancerId</error>
+      <error line="299" code="50018">No DocBlock was found for property $title</error>
+      <error line="300" code="50018">No DocBlock was found for property $author</error>
+      <error line="301" code="50018">No DocBlock was found for property $created</error>
+      <error line="303" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="304" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="318" code="50018">No DocBlock was found for property $name</error>
+      <error line="320" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="321" code="50018">No DocBlock was found for property $json_collection_name</error>
+      <error line="322" code="50018">No DocBlock was found for property $json_collection_element</error>
+      <error line="323" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="324" code="50010">No DocBlock was found for method Create()</error>
+      <error line="325" code="50010">No DocBlock was found for method Update()</error>
+      <error line="326" code="50010">No DocBlock was found for method Delete()</error>
+      <error line="339" code="50018">No DocBlock was found for property $id</error>
+      <error line="340" code="50018">No DocBlock was found for property $address</error>
+      <error line="341" code="50018">No DocBlock was found for property $type</error>
+      <error line="342" code="50018">No DocBlock was found for property $ipVersion</error>
+      <error line="344" code="50018">No DocBlock was found for property $json_collection_name</error>
+      <error line="345" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="346" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="348" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="349" code="50010">No DocBlock was found for method Update()</error>
+      <error line="357" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="358" code="50010">No DocBlock was found for method Create()</error>
+      <error line="359" code="50010">No DocBlock was found for method Update()</error>
+      <error line="360" code="50010">No DocBlock was found for method Delete()</error>
+      <error line="368" code="50018">No DocBlock was found for property $id</error>
+      <error line="369" code="50018">No DocBlock was found for property $averageNumConnections</error>
+      <error line="370" code="50018">No DocBlock was found for property $incomingTransfer</error>
+      <error line="371" code="50018">No DocBlock was found for property $outgoingTransfer</error>
+      <error line="372" code="50018">No DocBlock was found for property $averageNumConnectionsSsl</error>
+      <error line="373" code="50018">No DocBlock was found for property $incomingTransferSsl</error>
+      <error line="374" code="50018">No DocBlock was found for property $outgoingTransferSsl</error>
+      <error line="375" code="50018">No DocBlock was found for property $numVips</error>
+      <error line="376" code="50018">No DocBlock was found for property $numPolls</error>
+      <error line="377" code="50018">No DocBlock was found for property $startTime</error>
+      <error line="378" code="50018">No DocBlock was found for property $endTime</error>
+      <error line="379" code="50018">No DocBlock was found for property $vipType</error>
+      <error line="380" code="50018">No DocBlock was found for property $sslMode</error>
+      <error line="381" code="50018">No DocBlock was found for property $eventType</error>
+      <error line="383" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="384" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="394" code="50018">No DocBlock was found for property $id</error>
+      <error line="395" code="50018">No DocBlock was found for property $type</error>
+      <error line="396" code="50018">No DocBlock was found for property $address</error>
+      <error line="398" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="399" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="401" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="402" code="50010">No DocBlock was found for method Update()</error>
+      <error line="410" code="50018">No DocBlock was found for property $type</error>
+      <error line="412" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="413" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="423" code="50018">No DocBlock was found for property $minConnections</error>
+      <error line="424" code="50018">No DocBlock was found for property $maxConnections</error>
+      <error line="425" code="50018">No DocBlock was found for property $maxConnectionRate</error>
+      <error line="426" code="50018">No DocBlock was found for property $rateInterval</error>
+      <error line="428" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="429" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="431" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="437" code="50015">Argument $parm is missing from the Docblock of Create()</error>
+      <error line="450" code="50018">No DocBlock was found for property $enabled</error>
+      <error line="452" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="453" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="455" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="456" code="50010">No DocBlock was found for method Create()</error>
+      <error line="457" code="50010">No DocBlock was found for method Delete()</error>
+      <error line="467" code="50018">No DocBlock was found for property $enabled</error>
+      <error line="469" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="470" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="472" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="473" code="50010">No DocBlock was found for method Create()</error>
+      <error line="474" code="50010">No DocBlock was found for method Delete()</error>
+      <error line="482" code="50018">No DocBlock was found for property $persistenceType</error>
+      <error line="484" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="485" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="487" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="495" code="50018">No DocBlock was found for property $name</error>
+      <error line="496" code="50018">No DocBlock was found for property $port</error>
+      <error line="498" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="499" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="500" code="50010">No DocBlock was found for method Create()</error>
+      <error line="501" code="50010">No DocBlock was found for method Update()</error>
+      <error line="502" code="50010">No DocBlock was found for method Delete()</error>
+      <error line="510" code="50018">No DocBlock was found for property $name</error>
+      <error line="512" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="513" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="514" code="50010">No DocBlock was found for method Create()</error>
+      <error line="515" code="50010">No DocBlock was found for method Update()</error>
+      <error line="516" code="50010">No DocBlock was found for method Delete()</error>
+      <error line="524" code="50018">No DocBlock was found for property $certificate</error>
+      <error line="525" code="50018">No DocBlock was found for property $enabled</error>
+      <error line="526" code="50018">No DocBlock was found for property $secureTrafficOnly</error>
+      <error line="527" code="50018">No DocBlock was found for property $privatekey</error>
+      <error line="528" code="50018">No DocBlock was found for property $intermediateCertificate</error>
+      <error line="529" code="50018">No DocBlock was found for property $securePort</error>
+      <error line="531" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="532" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="534" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="542" code="50010">No DocBlock was found for method Create()</error>
+      <error line="550" code="50018">No DocBlock was found for property $id</error>
+      <error line="551" code="50018">No DocBlock was found for property $key</error>
+      <error line="552" code="50018">No DocBlock was found for property $value</error>
+      <error line="554" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="555" code="50018">No DocBlock was found for property $json_collection_name</error>
+      <error line="556" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="558" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="559" code="50010">No DocBlock was found for method Name()</error>
     </parse_markers>
   </file>
-  <file path="lbservice.inc" hash="edcedcc64df3e45a8bb899535d47b922" package="phpOpenCloud">
+  <file path="lbservice.inc" hash="2b3c2a1b5ad7d4b52d55655c02098c3e" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Rackspace's Cloud Load Balancers]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -5137,33 +5433,149 @@ an instance]]></description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="86" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="90" package="Default">
+        <name>BillableLoadBalancer</name>
+        <full_name>BillableLoadBalancer</full_name>
+        <docblock line="83">
+          <description><![CDATA[creates a new BillableLoadBalancer object (read-only)]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="83" name="api" description=""/>
+          <tag line="83" name="param" description="the identifier of the load balancer" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="83" name="return" description="" type="\OpenCloud\LoadBalancerService\LoadBalancer">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\LoadBalancer</type>
+          </tag>
+        </docblock>
+        <argument line="90">
+          <name>$id</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="104" package="Default">
+        <name>BillableLoadBalancerList</name>
+        <full_name>BillableLoadBalancerList</full_name>
+        <docblock line="94">
+          <description><![CDATA[returns a Collection of BillableLoadBalancer objects]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="94" name="api" description=""/>
+          <tag line="94" name="param" description="if TRUE (the default), then all details are returned; otherwise, the minimal set (ID, name) are retrieved" type="boolean" variable="$detail">
+            <type by_reference="false">boolean</type>
+          </tag>
+          <tag line="94" name="param" description="if provided, a set of key/value pairs that are set as query string parameters to the query" type="array" variable="$filter">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="94" name="return" description="" type="\OpenCloud\Collection">
+            <type by_reference="false">\OpenCloud\Collection</type>
+          </tag>
+        </docblock>
+        <argument line="104">
+          <name>$detail</name>
+          <default><![CDATA[TRUE]]></default>
+          <type/>
+        </argument>
+        <argument line="104">
+          <name>$filter</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="119" package="Default">
         <name>AllowedDomain</name>
         <full_name>AllowedDomain</full_name>
-        <docblock line="83">
+        <docblock line="112">
           <description><![CDATA[returns allowed domain]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="112" name="api" description=""/>
+          <tag line="112" name="param" description="either an array of values or NULL" type="mixed" variable="$data">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="112" name="return" description="" type="\OpenCloud\LoadBalancerService\AllowedDomain">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\AllowedDomain</type>
+          </tag>
         </docblock>
-        <argument line="86">
+        <argument line="119">
           <name>$data</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="93" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="129" package="Default">
         <name>AllowedDomainList</name>
         <full_name>AllowedDomainList</full_name>
-        <docblock line="90">
+        <docblock line="123">
           <description><![CDATA[returns Collection of AllowedDomain object]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="123" name="api" description=""/>
+          <tag line="123" name="return" description="" type="\OpenCloud\Collection">
+            <type by_reference="false">\OpenCloud\Collection</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="141" package="Default">
+        <name>Protocol</name>
+        <full_name>Protocol</full_name>
+        <docblock line="134">
+          <description><![CDATA[single protocol (should never be called directly)]]></description>
+          <long-description><![CDATA[<p>Convenience method to be used by the ProtocolList Collection.</p>]]></long-description>
+          <tag line="134" name="return" description="" type="\OpenCloud\LoadBalancerService\Protocol">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\Protocol</type>
+          </tag>
+        </docblock>
+        <argument line="141">
+          <name>$data</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="151" package="Default">
+        <name>ProtocolList</name>
+        <full_name>ProtocolList</full_name>
+        <docblock line="145">
+          <description><![CDATA[a list of Protocol objects]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="145" name="api" description=""/>
+          <tag line="145" name="return" description="" type="\OpenCloud\Collection">
+            <type by_reference="false">\OpenCloud\Collection</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="163" package="Default">
+        <name>Algorithm</name>
+        <full_name>Algorithm</full_name>
+        <docblock line="156">
+          <description><![CDATA[single algorithm (should never be called directly)]]></description>
+          <long-description><![CDATA[<p>convenience method used by the Collection factory</p>]]></long-description>
+          <tag line="156" name="return" description="" type="\OpenCloud\LoadBalancerService\Algorithm">
+            <type by_reference="false">\OpenCloud\LoadBalancerService\Algorithm</type>
+          </tag>
+        </docblock>
+        <argument line="163">
+          <name>$data</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="173" package="Default">
+        <name>AlgorithmList</name>
+        <full_name>AlgorithmList</full_name>
+        <docblock line="167">
+          <description><![CDATA[a list of Algorithm objects]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="167" name="api" description=""/>
+          <tag line="167" name="return" description="" type="\OpenCloud\Collection">
+            <type by_reference="false">\OpenCloud\Collection</type>
+          </tag>
         </docblock>
       </method>
     </class>
     <parse_markers>
-      <error line="83" code="50015">Argument $data is missing from the Docblock of AllowedDomain()</error>
+      <error line="134" code="50015">Argument $data is missing from the Docblock of Protocol()</error>
+      <error line="156" code="50015">Argument $data is missing from the Docblock of Algorithm()</error>
     </parse_markers>
   </file>
-  <file path="loadbalancer.inc" hash="8e7f68c64e34468727bff0347b02e47d" package="phpOpenCloud">
+  <file path="loadbalancer.inc" hash="892ee760df47f5b7580c046f1876601d" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines a load balancer object]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -5518,13 +5930,42 @@ IP address.</p>]]></long-description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\LoadBalancerService" line="330" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="325" package="Default">
+        <name>SSLTermination</name>
+        <full_name>SSLTermination</full_name>
+        <docblock line="323">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="331" package="Default">
+        <name>Metadata</name>
+        <full_name>Metadata</full_name>
+        <docblock line="329">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+        <argument line="331">
+          <name>$data</name>
+          <default><![CDATA[NULL]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\LoadBalancerService" line="337" package="Default">
+        <name>MetadataList</name>
+        <full_name>MetadataList</full_name>
+        <docblock line="335">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\LoadBalancerService" line="349" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="325">
+        <docblock line="344">
           <description><![CDATA[returns the JSON object for Create()]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="325" name="return" description="" type="\OpenCloud\LoadBalancerService\stdClass">
+          <tag line="344" name="return" description="" type="\OpenCloud\LoadBalancerService\stdClass">
             <type by_reference="false">\OpenCloud\LoadBalancerService\stdClass</type>
           </tag>
         </docblock>
@@ -5562,6 +6003,10 @@ IP address.</p>]]></long-description>
       <error line="305" code="50012">No short description for method ConnectionThrottle()</error>
       <error line="311" code="50012">No short description for method ConnectionLogging()</error>
       <error line="317" code="50012">No short description for method ContentCaching()</error>
+      <error line="323" code="50012">No short description for method SSLTermination()</error>
+      <error line="329" code="50012">No short description for method Metadata()</error>
+      <error line="329" code="50015">Argument $data is missing from the Docblock of Metadata()</error>
+      <error line="335" code="50012">No short description for method MetadataList()</error>
     </parse_markers>
   </file>
   <file path="metadata.inc" hash="2c7c9fd8eb3eef2362a84ad586c8fab1" package="phpOpenCloud">
@@ -7132,7 +7577,7 @@ directly.</p>]]></long-description>
       <error line="680" code="50010">No DocBlock was found for method __construct()</error>
     </parse_markers>
   </file>
-  <file path="persistentobject.inc" hash="97a2ee0571ce4ad79686ae9ca04ce901" package="phpOpenCloud">
+  <file path="persistentobject.inc" hash="09b82ed257f30c340565de8b36b21f01" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[An abstraction that defines persistent objects associated with a service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -7420,7 +7865,7 @@ an exception is thrown.</p>]]></long-description>
         <name>Refresh</name>
         <full_name>Refresh</full_name>
         <docblock line="341">
-          <description><![CDATA[Refreshes the server from the origin (useful when the server is
+          <description><![CDATA[Refreshes the object from the origin (useful when the server is
 changing states)]]></description>
           <long-description><![CDATA[]]></long-description>
           <tag line="341" name="return" description="" type="void">
@@ -7436,160 +7881,160 @@ changing states)]]></description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="419" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="420" package="Default">
         <name>Name</name>
         <full_name>Name</full_name>
-        <docblock line="409">
+        <docblock line="410">
           <description><![CDATA[Returns the displayable name of the object]]></description>
           <long-description><![CDATA[<p>Can be overridden by child objects; <em>must</em> be overridden by child
 objects if the object does not have a <code>name</code> attribute defined.</p>]]></long-description>
-          <tag line="409" name="api" description=""/>
-          <tag line="409" name="return" description="" type="string">
+          <tag line="410" name="api" description=""/>
+          <tag line="410" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="409" name="throws" description="if attribute 'name' is not defined" type="\OpenCloud\NameError">
+          <tag line="410" name="throws" description="if attribute 'name' is not defined" type="\OpenCloud\NameError">
             <type by_reference="false">\OpenCloud\NameError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="434" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="435" package="Default">
         <name>Status</name>
         <full_name>Status</full_name>
-        <docblock line="428">
+        <docblock line="429">
           <description><![CDATA[returns the object's status or `N/A` if not available]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="428" name="api" description=""/>
-          <tag line="428" name="return" description="" type="string">
+          <tag line="429" name="api" description=""/>
+          <tag line="429" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="452" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="453" package="Default">
         <name>Id</name>
         <full_name>Id</full_name>
-        <docblock line="441">
+        <docblock line="442">
           <description><![CDATA[returns the object's identifier]]></description>
           <long-description><![CDATA[<p>Can be overridden by a child class if the identifier is not in the
 <code>$id</code> property. Use of this function permits the <code>$id</code> attribute to
 be protected or private to prevent unauthorized overwriting for
 security.</p>]]></long-description>
-          <tag line="441" name="api" description=""/>
-          <tag line="441" name="return" description="" type="string">
+          <tag line="442" name="api" description=""/>
+          <tag line="442" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="461" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="462" package="Default">
         <name>CheckExtension</name>
         <full_name>CheckExtension</full_name>
-        <docblock line="456">
+        <docblock line="457">
           <description><![CDATA[checks for `$alias` in extensions and throws an error if not present]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="456" name="throws" description="" type="\OpenCloud\UnsupportedExtensionError">
+          <tag line="457" name="throws" description="" type="\OpenCloud\UnsupportedExtensionError">
             <type by_reference="false">\OpenCloud\UnsupportedExtensionError</type>
           </tag>
         </docblock>
-        <argument line="461">
+        <argument line="462">
           <name>$alias</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="475" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="476" package="Default">
         <name>Region</name>
         <full_name>Region</full_name>
-        <docblock line="468">
+        <docblock line="469">
           <description><![CDATA[returns the region associated with the object]]></description>
           <long-description><![CDATA[<p>navigates to the parent service to determine the region.</p>]]></long-description>
-          <tag line="468" name="api" description=""/>
+          <tag line="469" name="api" description=""/>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="494" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="495" package="Default">
         <name>Action</name>
         <full_name>Action</full_name>
-        <docblock line="481">
+        <docblock line="482">
           <description><![CDATA[Sends the json string to the /action resource]]></description>
           <long-description><![CDATA[<p>This is used for many purposes, such as rebooting the server,
 setting the root password, creating images, etc.
 Since it can only be used on a live server, it checks for a valid ID.</p>]]></long-description>
-          <tag line="481" name="param" description="- this will be encoded as json, and we handle all the JSON error-checking in one place" type="\OpenCloud\$object" variable="$object">
+          <tag line="482" name="param" description="- this will be encoded as json, and we handle all the JSON error-checking in one place" type="\OpenCloud\$object" variable="$object">
             <type by_reference="false">\OpenCloud\$object</type>
           </tag>
-          <tag line="481" name="throws" description="if server ID is not defined" type="\OpenCloud\ServerIdError">
+          <tag line="482" name="throws" description="if server ID is not defined" type="\OpenCloud\ServerIdError">
             <type by_reference="false">\OpenCloud\ServerIdError</type>
           </tag>
-          <tag line="481" name="throws" description="on other errors" type="\OpenCloud\ServerActionError">
+          <tag line="482" name="throws" description="on other errors" type="\OpenCloud\ServerActionError">
             <type by_reference="false">\OpenCloud\ServerActionError</type>
           </tag>
-          <tag line="481" name="returns" description="boolean; TRUE if successful, FALSE otherwise"/>
+          <tag line="482" name="returns" description="boolean; TRUE if successful, FALSE otherwise"/>
         </docblock>
-        <argument line="494">
+        <argument line="495">
           <name>$object</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="549" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="550" package="Default">
         <name>FindLink</name>
         <full_name>FindLink</full_name>
-        <docblock line="542">
+        <docblock line="543">
           <description><![CDATA[Since each server can have multiple links, this returns the desired one]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="542" name="param" description="- 'self' is most common; use 'bookmark' for the version-independent one" type="string" variable="$type">
+          <tag line="543" name="param" description="- 'self' is most common; use 'bookmark' for the version-independent one" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="542" name="return" description="the URL from the links block" type="string">
+          <tag line="543" name="return" description="the URL from the links block" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="549">
+        <argument line="550">
           <name>$type</name>
           <default><![CDATA['self']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="566" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="567" package="Default">
         <name>CreateUrl</name>
         <full_name>CreateUrl</full_name>
-        <docblock line="561">
+        <docblock line="562">
           <description><![CDATA[returns the URL used for Create]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="561" name="return" description="" type="string">
+          <tag line="562" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="578" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="579" package="Default">
         <name>PrimaryKeyField</name>
         <full_name>PrimaryKeyField</full_name>
-        <docblock line="570">
+        <docblock line="571">
           <description><![CDATA[Returns the primary key field for the object]]></description>
           <long-description><![CDATA[<p>The primary key is usually 'id', but this function is provided so that
 (in rare cases where it is not 'id'), it can be overridden.</p>]]></long-description>
-          <tag line="570" name="return" description="" type="string">
+          <tag line="571" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="593" package="Default">
+      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="594" package="Default">
         <name>JsonName</name>
         <full_name>JsonName</full_name>
-        <docblock line="582">
+        <docblock line="583">
           <description><![CDATA[Returns the top-level document identifier for the returned response
 JSON document; must be overridden in child classes]]></description>
           <long-description><![CDATA[<p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
 Instance document is <code>{"instance": ...}</code> - this function must return
 the top level document name (either "server" or "instance", in
 these examples).</p>]]></long-description>
-          <tag line="582" name="throws" description="if not overridden" type="\OpenCloud\DocumentError">
+          <tag line="583" name="throws" description="if not overridden" type="\OpenCloud\DocumentError">
             <type by_reference="false">\OpenCloud\DocumentError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="613" package="Default">
+      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="614" package="Default">
         <name>JsonCollectionName</name>
         <full_name>JsonCollectionName</full_name>
-        <docblock line="601">
+        <docblock line="602">
           <description><![CDATA[returns the collection JSON element name]]></description>
           <long-description><![CDATA[<p>When an object is returned in a collection, it usually has a top-level
 object that is an array holding child objects of the object types.
@@ -7597,95 +8042,95 @@ This static function returns the name of the top-level element. Usually,
 that top-level element is simply the JSON name of the resource.'s';
 however, it can be overridden by specifying the $json_collection_name
 attribute.</p>]]></long-description>
-          <tag line="601" name="return" description="" type="string">
+          <tag line="602" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="630" package="Default">
+      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="631" package="Default">
         <name>JsonCollectionElement</name>
         <full_name>JsonCollectionElement</full_name>
-        <docblock line="620">
+        <docblock line="621">
           <description><![CDATA[returns the JSON name for each element in a collection]]></description>
           <long-description><![CDATA[<p>Usually, elements in a collection are anonymous; this function, however,
 provides for an element level name:</p>
 
 <pre><code>`{ "collection" : [ { "element" : ... } ] }`
 </code></pre>]]></long-description>
-          <tag line="620" name="return" description="" type="string">
+          <tag line="621" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="646" package="Default">
+      <method final="false" abstract="false" static="true" visibility="public" namespace="OpenCloud" line="647" package="Default">
         <name>ResourceName</name>
         <full_name>ResourceName</full_name>
-        <docblock line="637">
+        <docblock line="638">
           <description><![CDATA[Returns the resource name for the URL of the object; must be overridden
 in child classes]]></description>
           <long-description><![CDATA[<p>For example, a server is <code>/servers/</code>, a database instance is
 <code>/instances/</code>. Must be overridden in child classes.</p>]]></long-description>
-          <tag line="637" name="throws" description="" type="\OpenCloud\UrlError">
+          <tag line="638" name="throws" description="" type="\OpenCloud\UrlError">
             <type by_reference="false">\OpenCloud\UrlError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="661" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="662" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="654">
+        <docblock line="655">
           <description><![CDATA[Returns an object for the Create() method JSON]]></description>
           <long-description><![CDATA[<p>Must be overridden in a child class.</p>]]></long-description>
-          <tag line="654" name="throws" description="if not overridden" type="\OpenCloud\CreateError">
+          <tag line="655" name="throws" description="if not overridden" type="\OpenCloud\CreateError">
             <type by_reference="false">\OpenCloud\CreateError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="674" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="675" package="Default">
         <name>UpdateJson</name>
         <full_name>UpdateJson</full_name>
-        <docblock line="667">
+        <docblock line="668">
           <description><![CDATA[Returns an object for the Update() method JSON]]></description>
           <long-description><![CDATA[<p>Must be overridden in a child class.</p>]]></long-description>
-          <tag line="667" name="throws" description="if not overridden" type="\OpenCloud\UpdateError">
+          <tag line="668" name="throws" description="if not overridden" type="\OpenCloud\UpdateError">
             <type by_reference="false">\OpenCloud\UpdateError</type>
           </tag>
         </docblock>
-        <argument line="674">
+        <argument line="675">
           <name>$params</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="685" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="686" package="Default">
         <name>NoCreate</name>
         <full_name>NoCreate</full_name>
-        <docblock line="680">
+        <docblock line="681">
           <description><![CDATA[throws a CreateError for subclasses that don't support Create]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="680" name="throws" description="" type="\OpenCloud\CreateError">
+          <tag line="681" name="throws" description="" type="\OpenCloud\CreateError">
             <type by_reference="false">\OpenCloud\CreateError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="695" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="696" package="Default">
         <name>NoDelete</name>
         <full_name>NoDelete</full_name>
-        <docblock line="690">
+        <docblock line="691">
           <description><![CDATA[throws a DeleteError for subclasses that don't support Delete]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="690" name="throws" description="" type="\OpenCloud\DeleteError">
+          <tag line="691" name="throws" description="" type="\OpenCloud\DeleteError">
             <type by_reference="false">\OpenCloud\DeleteError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="705" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud" line="706" package="Default">
         <name>NoUpdate</name>
         <full_name>NoUpdate</full_name>
-        <docblock line="700">
+        <docblock line="701">
           <description><![CDATA[throws a UpdateError for subclasses that don't support Update]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="700" name="throws" description="" type="\OpenCloud\UpdateError">
+          <tag line="701" name="throws" description="" type="\OpenCloud\UpdateError">
             <type by_reference="false">\OpenCloud\UpdateError</type>
           </tag>
         </docblock>
@@ -7695,8 +8140,8 @@ in child classes]]></description>
       <error line="68" code="50018">No DocBlock was found for property $id</error>
       <error line="70" code="50018">No DocBlock was found for property $_parent</error>
       <error line="341" code="50015">Argument $id is missing from the Docblock of Refresh()</error>
-      <error line="456" code="50015">Argument $alias is missing from the Docblock of CheckExtension()</error>
-      <error line="667" code="50015">Argument $params is missing from the Docblock of UpdateJson()</error>
+      <error line="457" code="50015">Argument $alias is missing from the Docblock of CheckExtension()</error>
+      <error line="668" code="50015">Argument $params is missing from the Docblock of UpdateJson()</error>
     </parse_markers>
   </file>
   <file path="rackspace.inc" hash="c205e67722b655297f486e34b2529c9a" package="phpOpenCloud">
@@ -8610,7 +9055,7 @@ anything (no name-checking is required)]]></description>
       <error line="33" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $parent in __construct()</error>
     </parse_markers>
   </file>
-  <file path="service.inc" hash="9dfb947ad6a73cdcf2bcfa94baa7ff67" package="phpOpenCloud">
+  <file path="service.inc" hash="e30e7f21b7fc7156a2674f68fc3e0275" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[An abstraction that defines a cloud service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -8795,7 +9240,7 @@ connection.</p>]]></long-description>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="130" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="132" package="Default">
         <name>Collection</name>
         <full_name>Collection</full_name>
         <docblock line="122">
@@ -8810,100 +9255,108 @@ connection.</p>]]></long-description>
           <tag line="122" name="param" description="(optional) the parent service/object" type="mixed" variable="$parent">
             <type by_reference="false">mixed</type>
           </tag>
+          <tag line="122" name="param" description="(optional) array of key/value pairs to use as query strings" type="array" variable="$parm">
+            <type by_reference="false">array</type>
+          </tag>
           <tag line="122" name="return" description="" type="\OpenCloud\Collection">
             <type by_reference="false">\OpenCloud\Collection</type>
           </tag>
         </docblock>
-        <argument line="130">
+        <argument line="132">
           <name>$class</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="130">
+        <argument line="132">
           <name>$url</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
-        <argument line="130">
+        <argument line="132">
           <name>$parent</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
+        <argument line="132">
+          <name>$parm</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="195" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="201" package="Default">
         <name>Region</name>
         <full_name>Region</full_name>
-        <docblock line="189">
+        <docblock line="195">
           <description><![CDATA[returns the Region associated with the service]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="189" name="api" description=""/>
-          <tag line="189" name="return" description="" type="string">
+          <tag line="195" name="api" description=""/>
+          <tag line="195" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="217" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="223" package="Default">
         <name>get_endpoint</name>
         <full_name>get_endpoint</full_name>
-        <docblock line="201">
+        <docblock line="207">
           <description><![CDATA[Given a service type, name, and region, return the url]]></description>
           <long-description><![CDATA[<p>This function ensures that services are represented by an entry in the
 service catalog, and NOT by an arbitrarily-constructed URL.</p>
 
 <p>Note that it will always return the first match found in the
 service catalog (there <em>should</em> be only one, but you never know...)</p>]]></long-description>
-          <tag line="201" name="param" description="The OpenStack service type (&quot;compute&quot; or &quot;object-store&quot;, for example" type="string" variable="$type">
+          <tag line="207" name="param" description="The OpenStack service type (&quot;compute&quot; or &quot;object-store&quot;, for example" type="string" variable="$type">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="201" name="param" description="The name of the service in the service catlog" type="string" variable="$name">
+          <tag line="207" name="param" description="The name of the service in the service catlog" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="201" name="param" description="The region of the service" type="string" variable="$region">
+          <tag line="207" name="param" description="The region of the service" type="string" variable="$region">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="201" name="param" description="The URL type; defaults to &quot;publicURL&quot;" type="string" variable="$urltype">
+          <tag line="207" name="param" description="The URL type; defaults to &quot;publicURL&quot;" type="string" variable="$urltype">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="201" name="return" description="The URL of the service" type="string">
+          <tag line="207" name="return" description="The URL of the service" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="217">
+        <argument line="223">
           <name>$type</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="217">
+        <argument line="223">
           <name>$name</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="217">
+        <argument line="223">
           <name>$region</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="217">
+        <argument line="223">
           <name>$urltype</name>
           <default><![CDATA['publicURL']]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="261" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud" line="267" package="Default">
         <name>GetMetaUrl</name>
         <full_name>GetMetaUrl</full_name>
-        <docblock line="251">
+        <docblock line="257">
           <description><![CDATA[Constructs a specified URL from the subresource]]></description>
           <long-description><![CDATA[<p>Given a subresource (e.g., "extensions"), this constructs the proper
 URL and retrieves the resource.</p>]]></long-description>
-          <tag line="251" name="param" description="The resource requested; should NOT have slashes at the beginning or end" type="string" variable="$resource">
+          <tag line="257" name="param" description="The resource requested; should NOT have slashes at the beginning or end" type="string" variable="$resource">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="251" name="return" description="object" type="\stdClass">
+          <tag line="257" name="return" description="object" type="\stdClass">
             <type by_reference="false">\stdClass</type>
           </tag>
         </docblock>
-        <argument line="261">
+        <argument line="267">
           <name>$resource</name>
           <default><![CDATA[]]></default>
           <type/>

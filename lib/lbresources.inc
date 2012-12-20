@@ -434,6 +434,9 @@ class ConnectionThrottle extends SubResource {
     		'maxConnectionRate',
     		'rateInterval'
     	);
+    /**
+     * create uses PUT like Update
+     */
 	public function Create($parm=array()) { $this->Update($parm); }
 }
 
