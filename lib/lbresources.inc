@@ -123,6 +123,26 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 } // end SubResource
 
 /**
+ * This defines a read-only SubResource - one that cannot be created, updated,
+ * or deleted. Many subresources are like this, and this simplifies their
+ * class definitions.
+ */
+abstract class ReadonlySubResource extends SubResource {
+	/**
+	 * no Create
+	 */
+	public function Create($params=array()) { $this->NoCreate(); }
+	/**
+	 * no Update
+	 */
+	public function Update($params=array()) { $this->NoUpdate(); }
+	/**
+	 * no Delete
+	 */
+	public function Delete() { $this->NoDelete(); }
+} // end class ReadonlySubResource
+
+/**
  * The /loadbalancer/{id}/errorpage manages the error page for the load
  * balancer.
  */
@@ -149,7 +169,7 @@ class ErrorPage extends SubResource {
 /**
  * Stats returns statistics about the load balancer
  */
-class Stats extends SubResource {
+class Stats extends ReadonlySubResource {
 	public
 		$connectTimeOut,
 		$connectError,
@@ -160,15 +180,12 @@ class Stats extends SubResource {
 	protected static
 		$json_name = FALSE,
 		$url_resource = 'stats';
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
 }
 
 /**
  * information on a single node in the load balancer
  *
- * This extends `PersistentObject` because it has an ID, unlike the other
+ * This extends `PersistentObject` because it has an ID, unlike most other
  * sub-resources.
  */
 class Node extends \OpenCloud\PersistentObject {
@@ -193,16 +210,38 @@ class Node extends \OpenCloud\PersistentObject {
 			'weight'
 		),
 		$_lb;
+	/**
+	 * builds a new Node object
+	 *
+	 * @param LoadBalancer $lb the parent LB object
+	 * @param mixed $info either an ID or an array of values
+	 * @returns void
+	 */
 	public function __construct(LoadBalancer $lb, $info=NULL) {
 		$this->_lb = $lb;
 		parent::__construct($lb->Service(), $info);
 	}
+	/**
+	 * returns the parent LoadBalancer object
+	 *
+	 * @return LoadBalancer
+	 */
 	public function Parent() {
 		return $this->_lb;
 	}
+	/**
+	 * returns the Node name
+	 *
+	 * @return string
+	 */
 	public function Name() {
 		return get_class().'['.$this->Id().']';
 	}
+	/**
+	 * returns the object for the Create JSON
+	 *
+	 * @return \stdClass
+	 */
 	protected function CreateJson() {
 		$obj = new \stdClass();
 		$obj->nodes = array();
@@ -216,24 +255,36 @@ class Node extends \OpenCloud\PersistentObject {
 	}
 
 	/**
+	 * factory method to create a new Metadata child of the Node
+	 *
+	 * @api
+	 * @return Metadata
 	 */
 	public function Metadata($data=NULL) {
 		return new Metadata($this, $data);
 	}
 
 	/**
+	 * factory method to create a Collection of Metadata object
+	 *
+	 * Note that these are metadata children of the Node, not of the
+	 * LoadBalancer.
+	 *
+	 * @api
+	 * @return Collection of Metadata
 	 */
 	public function MetadataList() {
 		return $this->Service()->Collection(
 			'\OpenCloud\LoadBalancerService\Metadata', NULL, $this);
 	}
-
 }
 
 /**
  * a single node event, usually called as part of a Collection
+ *
+ * This is a read-only subresource. 
  */
-class NodeEvent extends SubResource {
+class NodeEvent extends ReadonlySubResource {
 	public
 		$detailedMessage,
 		$nodeId,
@@ -251,9 +302,6 @@ class NodeEvent extends SubResource {
 	protected static
 		$json_name = 'nodeServiceEvent',
 		$url_resource = 'nodes/events';
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
 }
 
 /**
@@ -315,7 +363,7 @@ class BillableLoadBalancer extends LoadBalancer {
 /**
  * used to get usage data for a load balancer
  */
-class Usage extends SubResource {
+class Usage extends ReadonlySubResource {
 	public
 		$id,
 		$averageNumConnections,
@@ -334,9 +382,6 @@ class Usage extends SubResource {
 	protected static
 		$json_name = 'loadBalancerUsageRecord',
 		$url_resource = 'usage';
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
 } // end Usage
 
 /**
@@ -358,17 +403,14 @@ class Access extends SubResource {
 }
 
 /**
- * sub-resource to manage health monitor
+ * sub-resource to read health monitor info
  */
-class HealthMonitor extends SubResource {
+class HealthMonitor extends ReadonlySubResource {
 	public
 		$type;
 	protected static
 		$json_name = 'healthMonitor',
 		$url_resource = 'healthmonitor';
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
 } // end HealthMonitor
 
 /**
