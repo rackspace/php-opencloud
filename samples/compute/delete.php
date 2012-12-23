@@ -16,7 +16,6 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 // establish our credentials
 $connection = new Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
 // now, connect to the compute service

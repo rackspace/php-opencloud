@@ -92,7 +92,6 @@ It looks like this:
     [Identity]
     url = "https://identity.api.rackspacecloud.com/v2.0/"
     username = "{username}"
-    tenantName = "{tenant}"
     apiKey = "{apikey}"
     [Compute]
     serviceName = "cloudServersOpenStack"

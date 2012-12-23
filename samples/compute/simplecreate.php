@@ -11,7 +11,6 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 print "Authenticating...\n";
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 $compute = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 $server = $compute->Server();

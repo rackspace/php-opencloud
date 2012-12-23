@@ -52,7 +52,6 @@ printf("Endpoint [%s]\n", $_ENV['NOVA_URL']);
 step('Authenticate');
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
 step('Connect to Cloud Servers');

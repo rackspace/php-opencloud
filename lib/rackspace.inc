@@ -22,20 +22,18 @@ require_once('lbservice.inc');
  * API key and tenant requirements.
  *
  * The only difference between Rackspace and OpenStack is that the
- * Rackspace class generates credentials using the username,
- * tenantName (ID), and API key, as required by the Rackspace authentication
+ * Rackspace class generates credentials using the username
+ * and API key, as required by the Rackspace authentication
  * service.
  *
  * Example:
  * <code>
  * $username = 'FRED';
- * $tenant = '1234560';
  * $apiKey = '0900af093093788912388fc09dde090ffee09';
  * $conn = new Rackspace(
- *      'http://identity.rackspace.com/v2/',
+ *      'https://identity.api.rackspacecloud.com/v2.0/',
  *      array(
  *          'username' => $username,
- *          'tenantName' => $tenant,
  *          'apiKey' => $apiKey
  *      ));
  * </code>
@@ -44,7 +42,6 @@ class Rackspace extends OpenStack {
 //this is the JSON string for our new credentials
 const APIKEYTEMPLATE = <<<ENDCRED
 { "auth": { "RAX-KSKEY:apiKeyCredentials": { "username": "%s",
-          "tenantName": "%s",
           "apiKey": "%s"
         }
     }
@@ -59,12 +56,10 @@ ENDCRED;
     public function Credentials() {
     	$sec = $this->Secret();
     	if (isset($sec['username']) &&
-    		isset($sec['tenantName']) &&
     		isset($sec['apiKey']))
 			return sprintf(
 				self::APIKEYTEMPLATE,
 				$sec['username'],
-				$sec['tenantName'],
 				$sec['apiKey']
 		   );
 		else
