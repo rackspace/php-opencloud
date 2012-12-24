@@ -93,23 +93,21 @@ step('Connect to Cloud Files');
 $cloudfiles = $rackspace->ObjectStore('cloudFiles', MYREGION);
 
 step('Create Container');
-//setDebug(TRUE);
 $container = $cloudfiles->Container();
 $container->Create(array('name' => 'SmokeTestContainer'));
-
-step('Publish Container to CDN');
-$container->PublishToCDN(600); // 600-second TTL
-info('CDN URL:    %s', $container->CDNUrl());
-info('Public URL: %s', $container->PublicURL());
 
 step('Create Object from this file');
 $object = $container->DataObject();
 $resp = $object->Create(
 	array('name'=>'SmokeTestObject','content_type'=>'text/plain'), __FILE__);
-info('Public URL:    %s', $object->PublicURL());
-info('SSL URL:       %s', $object->PublicURL('SSL'));
-info('Streaming URL: %s', $object->PublicURL('Streaming'));
-setDebug(FALSE);
+
+step('Publish Container to CDN');
+$container->PublishToCDN(600); // 600-second TTL
+info('CDN URL:              %s', $container->CDNUrl());
+info('Public URL:           %s', $container->PublicURL());
+info('Object Public URL:    %s', $object->PublicURL());
+info('Object SSL URL:       %s', $object->PublicURL('SSL'));
+info('Object Streaming URL: %s', $object->PublicURL('Streaming'));
 
 step('Verify Object PublicURL (CDN)');
 $url = $object->PublicURL();
