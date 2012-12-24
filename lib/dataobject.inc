@@ -109,7 +109,7 @@ class DataObject extends ObjStoreBase {
 					_('Could not open file [%s] for reading'), $filename));
 			}
 
-			clearstatcache();
+			clearstatcache(TRUE, $filename);
 
 			$filesize = (float) sprintf("%u", filesize($filename));
 			if ($filesize > \OpenCloud\ObjectStore::MAX_OBJECT_SIZE) {
