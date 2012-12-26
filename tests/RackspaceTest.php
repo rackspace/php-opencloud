@@ -35,13 +35,13 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
 	public function testCredentials() {
 		$this->conn = new MyRackspace(
 			'http://example.com',
-			array('username'=>'FOO', 'password'=>'BAR', 'tenantName'=>'BAZ'));
+			array('username'=>'FOO', 'password'=>'BAR'));
 		$this->assertRegExp(
 			'/"username":"FOO"/',
 			$this->conn->Credentials());
 		$this->conn = new MyRackspace(
 			'http://example.com',
-			array('username'=>'FOO','tenantName'=>'TENANT','apiKey'=>'KEY'));
+			array('username'=>'FOO','apiKey'=>'KEY'));
 		$this->assertRegExp(
 			'/RAX-KSKEY:apiKeyCredentials/', 
 			$this->conn->Credentials());

@@ -39,8 +39,7 @@ username and password:
 		'https://example.com/v2/identity',
 		array(
 			'username' => 'your username',
-			'password' => 'your Keystone password',
-			'tenantName' => 'your tenant name'
+			'password' => 'your Keystone password'
 		));
 
 (Note that the `tenantName` value may not be required for all installations.)
@@ -53,8 +52,7 @@ API key and tenant ID instead:
 		'https://example.com/v2/identity',
 		array(
 			'username' => 'your username',
-			'apiKey' => 'your API key',
-			'tenantName' => 'your tenant ID'
+			'apiKey' => 'your API key'
 		));
 
 The connection object can be re-used at will (so long as you're

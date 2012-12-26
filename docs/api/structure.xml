@@ -6999,7 +6999,7 @@ password, but Rackspace uses a username, tenant ID, and API key.
           <tag line="141" name="param" description="- the authentication endpoint URL" type="string" variable="$url">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="141" name="param" description="- an associative array of auth information: * username * password * tenantName" type="array" variable="$secret">
+          <tag line="141" name="param" description="- an associative array of auth information: * username * password" type="array" variable="$secret">
             <type by_reference="false">array</type>
           </tag>
         </docblock>
@@ -8171,20 +8171,17 @@ than the pure OpenStack class)]]></description>
         <description><![CDATA[Rackspace extends the OpenStack class with support for Rackspace's
 API key and tenant requirements.]]></description>
         <long-description><![CDATA[<p>The only difference between Rackspace and OpenStack is that the
-Rackspace class generates credentials using the username,
-tenantName (ID), and API key, as required by the Rackspace authentication
-service.</p>
+Rackspace class generates credentials using the username and API key, 
+as required by the Rackspace authentication service.</p>
 
 <p>Example:</p>
 
 <pre><code>$username = 'FRED';
-$tenant = '1234560';
 $apiKey = '0900af093093788912388fc09dde090ffee09';
 $conn = new Rackspace(
-     'http://identity.rackspace.com/v2/',
+     'https://identity.api.rackspacecloud.com/v2.0/',
      array(
          'username' => $username,
-         'tenantName' => $tenant,
          'apiKey' => $apiKey
      ));
 </code></pre>]]></long-description>

@@ -11,7 +11,6 @@ define('MYREGION', $_ENV['OS_REGION_NAME']);
 
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 $cservers = $rackspace->Compute('cloudServersOpenStack', MYREGION);
 $list = $cservers->ServerList();
