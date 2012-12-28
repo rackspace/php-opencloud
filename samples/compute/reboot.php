@@ -10,7 +10,6 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 $cservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');
 $list = $cservers->ServerList();

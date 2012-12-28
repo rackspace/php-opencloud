@@ -25,7 +25,6 @@ printf("Authenticating...\n");
 // establish our credentials
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
 // now, connect to the compute service in Dallas and Chicago

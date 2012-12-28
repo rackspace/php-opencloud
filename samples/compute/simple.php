@@ -16,7 +16,6 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 printf("Establish our credentials...\n");
 $connection = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
 printf("Connect to the compute service...\n");

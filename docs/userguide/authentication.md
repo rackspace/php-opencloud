@@ -34,8 +34,7 @@ Next, create an `OpenStack` object with the proper credentials:
     $endpoint = 'https://your-cloud-provider/path';
     $credentials = array(
         'username' => 'YOUR USERNAME',
-        'password' => 'YOUR PASSWORD',
-        'tenantName' => 'YOUR TENANT NAME'
+        'password' => 'YOUR PASSWORD'
     );
     $cloud = new OpenCloud\OpenStack($endpoint, $credentials);
 
@@ -57,15 +56,13 @@ Next, create a `Rackspace` object with the proper credentials:
     $endpoint = 'https://identity.api.rackspacecloud.com/v2.0/';
     $credentials = array(
         'username' => 'YOUR USERNAME',
-        'tenantName' => 'YOUR TENANT NAME',
         'apiKey' => 'YOUR API KEY'
     );
     $cloud = new OpenCloud\Rackspace($endpoint, $credentials);
 
-Replace the values for `username`, `tenantName` (sometimes called the *tenant ID* or
-the *customer ID* in Rackspace documentation), and `apiKey` with the values for your
-account. If you don't have an API key, see
-[@TODO need link for API key].
+Replace the values for `username` and `apiKey` with the values for your
+account. If you don't have an API key, see:
+https://mycloud.rackspace.com/a/`username`/account/api-keys
 
 Note that Rackspace UK users will have a different `$endpoint` than US users.
 

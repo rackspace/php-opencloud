@@ -119,8 +119,7 @@ class OpenStack extends \OpenCloud\Base {
     "passwordCredentials": {
       "username":"%s",
       "password":"%s"
-    },
-    "tenantName":"%s"
+    }
   }
 }
 ENDAUTHTEMPLATE
@@ -153,7 +152,6 @@ ENDAUTHTEMPLATE
      * @param array $secret - an associative array of auth information:
      * * username
      * * password
-     * * tenantName
      */
 	public function __construct($url, $secret) {
 		$this->debug(_('initializing'));
@@ -233,12 +231,12 @@ ENDAUTHTEMPLATE
      * @return string
      */
 	public function Credentials() {
-		if (isset($this->secret['username'])&&isset($this->secret['password']))
+		if (isset($this->secret['username']) &&
+            isset($this->secret['password']))
 			return sprintf(
 				$this->template,
 				$this->secret['username'],
-				$this->secret['password'],
-				$this->secret['tenantName']);
+				$this->secret['password']);
 		else
 			throw new CredentialError(
 				_('Unrecognized credential secret'));
@@ -262,7 +260,7 @@ ENDAUTHTEMPLATE
 		$json = $response->HttpBody();
 
 		// check for errors
-		if ($response->HttpStatus() >= 300) {
+		if ($response->HttpStatus() >= 400) {
 			throw new AuthenticationError(
 				sprintf(_('Authentication failure, status [%d], response [%s]'),
 					$response->HttpStatus(), $json));

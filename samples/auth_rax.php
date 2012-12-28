@@ -11,7 +11,6 @@ require_once('compute.inc');
 define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
 $mysecret = array(
     'username' => '{username}',
-    'tenantName' => '{tenantName}',
     'apiKey' => '{apiKey}'
 );
 
