@@ -93,10 +93,9 @@ service.</p>
 <p>Example:</p>
 
 <pre><code>$username = 'FRED';
-$tenant = '1234560';
 $apiKey = '0900af093093788912388fc09dde090ffee09';
 $conn = new Rackspace(
-     'http://identity.rackspace.com/v2/',
+     'https://identity.api.rackspacecloud.com/v2.0/',
      array(
          'username' => $username,
          'apiKey' => $apiKey
