@@ -31,7 +31,6 @@ define('LBNAME', 'SmokeTestLoadBalancer');
  */
 define('AUTHURL', $_ENV['NOVA_URL']);
 define('USERNAME', $_ENV['OS_USERNAME']);
-define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 /**
@@ -74,7 +73,7 @@ ENDHELP
 			);
 			exit;
 		default:
-			
+
 		}
 	}
 }
@@ -82,7 +81,6 @@ ENDHELP
 step('Authenticate');
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
-		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
 
@@ -179,7 +177,7 @@ while($ad = $adlist->Next()) {
 info('Protocols:');
 $prolist = $lbservice->ProtocolList();
 while($prot = $prolist->Next()) {
-	info('  %s %4d', 
+	info('  %s %4d',
 		substr($prot->Name().'.....................',0,20), $prot->port);
 }
 
@@ -197,30 +195,30 @@ if ($list->Size()) {
 	while($lb = $list->Next()) {
 		info('[%s] %s in %s', $lb->id, $lb->Name(), $lb->Region());
 		info('  Status: [%s]', $lb->Status());
-		
+
 		// Nodes
 		$list = $lb->NodeList();
 		if ($list->Size() == 0)
 			info('  No nodes');
 		else {
 			while($node = $list->Next()) {
-				info('  Node: [%s] %s:%d %s/%s', 
+				info('  Node: [%s] %s:%d %s/%s',
 					$node->Id(), $node->address, $node->port,
 					$node->condition, $node->status);
 			}
 		}
-		
+
 		// NodeEvents
 		$list = $lb->NodeEventList();
 		if ($list->Size() == 0)
 			info('  No node events');
 		else {
 			while($event = $list->Next()) {
-				info('  * Event: %s (%s)', 
+				info('  * Event: %s (%s)',
 					$event->detailedMessage, $event->author);
 			}
 		}
-		
+
 		// SSL Termination
 		try {
 			$ssl = $lb->SSLTermination();
@@ -228,11 +226,11 @@ if ($list->Size()) {
 		} catch (OpenCloud\InstanceNotFound $e) {
 			info('  No SSL termination');
 		}
-		
+
 		// Metadata
 		$list = $lb->MetadataList();
 		while($meta = $list->Next()) {
-			info('  [Metadata #%s] %s=%s', 
+			info('  [Metadata #%s] %s=%s',
 				$meta->Id(), $meta->key, $meta->value);
 		}
 	}
@@ -274,7 +272,7 @@ if ($USE_SERVERS) {
 	$flavorlist->Sort('id');
 	while($f = $flavorlist->Next())
 		info('%s: %sMB', $f->name, $f->ram);
-	
+
 	step('List Images');
 	$imagelist = $cloudservers->ImageList();
 	$imagelist->Sort('name');
@@ -286,26 +284,26 @@ if ($USE_SERVERS) {
 			$centos = $i;
 		}
 	}
-	
+
 	step('Create Network');
 	$network = $cloudservers->Network();
 	$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
-	
+
 	step('List Networks');
 	$netlist = $cloudservers->NetworkList();
 	$netlist->Sort('label');
 	while($net = $netlist->Next())
 		info('%s: %s (%s)', $net->id, $net->label, $net->cidr);
-	
+
 	step('Connect to the VolumeService');
 	$cbs = $rackspace->VolumeService('cloudBlockStorage', MYREGION);
-	
+
 	step('Volume Types');
 	$list = $cbs->VolumeTypeList();
 	while($vtype = $list->Next()) {
 		info('%s - %s', $vtype->id, $vtype->name);
 	}
-	
+
 	step('Create a new Volume');
 	$volume = $cbs->Volume();
 	$volume->Create(array(
@@ -315,7 +313,7 @@ if ($USE_SERVERS) {
 		'volume_type' => $cbs->VolumeType(2)
 	));
 	$volume = $cbs->Volume($volume->id);
-	
+
 	step('Listing volumes');
 	$list = $cbs->VolumeList();
 	while($vol = $list->Next()) {
@@ -325,7 +323,7 @@ if ($USE_SERVERS) {
 			$vol->display_description,
 			$vol->size);
 	}
-	
+
 	step('Create Server');
 	$server = $cloudservers->Server();
 	$server->Create(array(
@@ -334,49 +332,49 @@ if ($USE_SERVERS) {
 		'flavor'=>$flavorlist->First(),
 		'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))
 	));
-	
+
 	step('Wait for Server create');
 	$server->WaitFor('ACTIVE', 600, 'dotter');
-	
+
 	// check for error
 	if ($server->Status() == 'ERROR')
 		die("Server create failed with ERROR\n");
-	
+
 	step('Attach the volume');
 	$server->AttachVolume($volume);
 	$volume->WaitFor('in-use', 600, 'dotter');
-	
+
 	step('Update the server name');
 	$server->Update(array('name'=>SERVERNAME));
 	$server->WaitFor('ACTIVE', 300, 'dotter');
-	
+
 	step('Reboot Server');
 	$server->Reboot();
 	$server->WaitFor('ACTIVE', 300, 'dotter');
-	
+
 	step('List Servers');
 	$list = $cloudservers->ServerList();
 	$list->Sort('name');
 	while($s = $list->Next())
 		info($s->name);
-	
+
 	step('Listing the server volume attachments');
 	$list = $server->VolumeAttachmentList();
 	while($vol = $list->Next())
 		info('%s %-20s', $vol->id, $vol->Name());
 	//exit;
-	
+
 	step('Detaching the volume');
 	$server->DetachVolume($volume);
 	$volume->WaitFor('available', 600, 'dotter');
-	
+
 	step('Creating a snapshot');
 	$snap = $cbs->Snapshot();   // empty snapshot object
 	$snap->Create(array(
 		'display_name' => 'Smoketest Snapshot',
 		'volume_id' => $volume->id
 	));
-	
+
 	step('Deleting the test server(s)');
 	$list = $cloudservers->ServerList();
 	while($s = $list->Next()) {

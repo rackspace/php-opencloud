@@ -14,6 +14,7 @@ RELEASE NOTES
   actually fetch the data from Swift/Cloud Files. **If your code relies upon
   the previous behavior, this might cause it to break.**
 * Support for Rackspace Cloud Load Balancers
+* Fix to remove requirement for Tenant ID in authentication
 
 ### 11/06/2012 Version 1.2
 * Adds full support for OpenStack Cinder/Rackspace Cloud Block Storage
