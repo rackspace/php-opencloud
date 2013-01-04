@@ -2,7 +2,7 @@
 =============
 PHP SDK for OpenStack/Rackspace APIs
 
-See the 
+See the
 [COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
 file for license and copyright information.
 
@@ -14,8 +14,18 @@ so that you can still use the SDK with a pure OpenStack instance
 (for example, see the `OpenStack` class (for OpenStack) and the
 `Rackspace` subclass).
 
-See the [Release Notes](php-opencloud/blob/master/RELEASENOTES.md) 
+See the [Release Notes](php-opencloud/blob/master/RELEASENOTES.md)
 for what has changed in the latest release(s).
+
+Support and Feedback
+--------------------
+Your feedback is appreciated! If you have specific problems or bugs with the
+**php-opencloud**
+language bindings, please file an issue via Github.
+
+For general feedback and support requests, send an email to:
+
+sdk-support@rackspace.com
 
 Getting Started with OpenStack/Rackspace
 ----------------------------------------
@@ -66,37 +76,27 @@ then add the `lib/` directory to it:
 
 Further Reading
 ---------------
-The file 
-[docs/quickref.md](php-opencloud/blob/master/docs/quickref.md) 
-contains a Quick Reference 
+The file
+[docs/quickref.md](php-opencloud/blob/master/docs/quickref.md)
+contains a Quick Reference
 guide to the
 **php-opencloud** library.
 
 The source for the "Getting Started with **php-opencloud**" document (the
-user's guide) starts in 
+user's guide) starts in
 [docs/userguide/index.md](php-opencloud/blob/master/docs/userguide/index.md).
 
 There is a complete (auto-generated) API reference manual in the
 docs/api directory. Start with docs/api/index.html.
 
-See the [HOWTO.md](php-opencloud/blob/master/HOWTO.md) file for instructions on 
+See the [HOWTO.md](php-opencloud/blob/master/HOWTO.md) file for instructions on
 regenerating the documentation and running tests.
 
-See the [smoketest.php](php-opencloud/blob/master/smoketest.php) file for some 
-simple, working examples. This is a test we run before builds to ensure that all 
+See the [smoketest.php](php-opencloud/blob/master/smoketest.php) file for some
+simple, working examples. This is a test we run before builds to ensure that all
 the core functionality is still working after code changes.
 
-The [samples/](php-opencloud/tree/master/samples/) directory has a collection 
+The [samples/](php-opencloud/tree/master/samples/) directory has a collection
 of tested, working sample code. Note that these may create objects in your cloud
 for which you could be charged.
-
-Support and Feedback
---------------------
-Your feedback is appreciated! If you have specific issues with the **php-opencloud**
-language bindings, we'd prefer that you file an issue via Github if you're a 
-developer. 
-
-For general feedback and support requests, send an email to:
-
-sdk-support@rackspace.com
 
