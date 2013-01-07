@@ -114,6 +114,10 @@ ENDLBSTATS;
 ENDLB;
 			$resp->status = 200;
 		}
+		elseif (preg_match('/metadata$/', $url)) {
+			$resp->body = '{"metadata":{"foo":"bar","a":"1"}}';
+			$resp->status = 200;
+		}
 		elseif (strpos($url, '/metadata')) {
 			$resp->body = NULL;
 			$resp->status = 200;

@@ -33,8 +33,14 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	public function test___construct() {
-		$this->assertEquals('OpenCloud\Compute\ServerMetadata',
+		$this->assertEquals(
+			'OpenCloud\Compute\ServerMetadata',
 			get_class($this->metadata));
+		// test whole group
+		$metadata = $this->server->Metadata();
+		$this->assertEquals(
+			'bar',
+			$metadata->foo);
 		// now test individual property
 		$met = $this->server->metadata('foobar');
 		$met->foobar = 'BAZ';

@@ -58,6 +58,13 @@ class ServerMetadata extends \OpenCloud\Metadata {
 
             $this->debug(_('Metadata for [%s] is [%s]'),
                 $this->Url(), $response->HttpBody());
+
+            // parse and assign the server metadata
+            $obj = json_decode($response->HttpBody());
+            if ((!$this->CheckJsonError()) && isset($obj->metadata)) {
+            	foreach($obj->metadata as $k => $v)
+            		$this->$k = $v;
+            }
 		}
 	}
 
@@ -196,7 +203,7 @@ class ServerMetadata extends \OpenCloud\Metadata {
 		else {
 			$obj->metadata = new \stdClass();
 			foreach($this->Keylist() as $key)
-				$obj->metadata->$key = $this->$key;
+				$obj->metadata->$key = (string)$this->$key;
 		}
 		$json = json_encode($obj);
 		if ($this->CheckJsonError())
