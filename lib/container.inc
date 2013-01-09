@@ -308,6 +308,7 @@ class Container extends CDNContainer {
 	    if ($TTL)
 	        $headers['X-TTL'] = $TTL;
 	    $headers['X-Log-Retention'] = 'True';
+	    $headers['X-CDN-Enabled'] = 'True';
 
 	    // PUT to the CDN container
 	    $response = $this->Service()->Request($url, 'PUT', $headers);
@@ -325,7 +326,7 @@ class Container extends CDNContainer {
 	    $this->_cdn = new CDNContainer($this->Service()->CDN(), $this->name);
 	    return $this->CDN();
 	}
-	
+
 	/**
 	 * a synonym for PublishToCDN for backwards-compatibility
 	 *
