@@ -17,6 +17,9 @@ so that you can still use the SDK with a pure OpenStack instance
 See the [Release Notes](php-opencloud/blob/master/RELEASENOTES.md)
 for what has changed in the latest release(s).
 
+The easiest way to download the **php-opencloud** bindings is to use the
+GitHub "ZIP" button, above.
+
 Support and Feedback
 --------------------
 Your feedback is appreciated! If you have specific problems or bugs with the
@@ -34,9 +37,6 @@ http://www.rackspace.com/cloud and follow the prompts.
 
 If you are working with an OpenStack deployment, you can find more
 information at http://www.openstack.org.
-
-You can download the latest packaged versions of **php-opencloud** on
-[the Downloads page](https://github.com/rackspace/php-opencloud/downloads).
 
 ### Requirements
 
