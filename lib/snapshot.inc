@@ -31,13 +31,15 @@ class Snapshot extends \OpenCloud\PersistentObject {
 		$status,
 		$size,
 		$created_at;
-	
+
+	protected
+		$force=FALSE;
+
 	protected static
 		$json_name = 'snapshot',
 		$url_resource = 'snapshots';
 
 	private
-		$force=FALSE,
 		$_create_keys=array('display_name','display_description',
 							'volume_id','force');
 

@@ -3,7 +3,7 @@
  * (c)2012 Rackspace Hosting. See COPYING for license details
  *
  * This is a simple script that iterates through the volumes owned by the
- * current user and creates a Snapshot of each of them. The name of the 
+ * current user and creates a Snapshot of each of them. The name of the
  * snapshot created it {volume name} + "Snapshot" + time().
  */
 $start = time();
@@ -53,10 +53,13 @@ while($vol = $list->Next()) {
 		$vol->size);
     $snap = $cbs->Snapshot();   // empty snapshot object
     info('  Creating snapshot');
+    //setDebug(TRUE);
     $snap->Create(array(
         'display_name' => $vol->Name().'Snapshot-'.time(),
-        'volume_id' => $vol->id
+        'volume_id' => $vol->id,
+        'force' => TRUE
     ));
+    setDebug(FALSE);
 }
 
 step('DONE');
