@@ -13,7 +13,6 @@ require_once('openstack.inc');
 require_once('stub_conn.inc'); // stub Connection class
 
 if (!defined('TEST_DOMAIN')) define('TEST_DOMAIN', 'http://local.test');
-if (!defined('TEST_SECRET')) define('TEST_SECRET', 'a very secret string');
 
 /**
  * stub classes for testing the request() method (which is overridden in the
@@ -30,7 +29,8 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	private $my; // my Connection
 
 	public function __construct() {
-		$this->my = new StubConnection(TEST_DOMAIN, TEST_SECRET);
+		$this->my = new StubConnection(TEST_DOMAIN,
+			array('username'=>'Foo', 'password'=>'Bar'));
 	}
 
 	/**
@@ -45,7 +45,8 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(TEST_DOMAIN.'/tokens', $this->my->Url());
 	}
 	public function testSecret() {
-		$this->assertEquals($this->my->Secret(), TEST_SECRET);
+		$arr = $this->my->Secret();
+		$this->assertEquals($arr['username'], 'Foo');
 	}
 	public function testToken() {
 		$this->assertEquals('TOKEN-ID', $this->my->Token());
@@ -71,7 +72,8 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	 * we need to get this one to use the real code.
 	 */
 	public function testRequest() {
-	    $conn = new TestingConnection('http://example.com', 'SECRET');
+	    $conn = new TestingConnection('http://example.com',
+			array('username'=>'Foo', 'password'=>'Bar'));
 	    $response = $conn->Request('GOOD');
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
@@ -79,7 +81,8 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	 * @expectedException OpenCloud\HttpUnauthorizedError
 	 */
 	public function test_request_2() {
-	    $conn = new TestingConnection('http://example.com', 'SECRET');
+	    $conn = new TestingConnection('http://example.com',
+			array('username'=>'Foo', 'password'=>'Bar'));
 	    $response = $conn->Request('401');
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
@@ -87,7 +90,8 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	 * @expectedException OpenCloud\HttpForbiddenError
 	 */
 	public function test_request_3() {
-	    $conn = new TestingConnection('http://example.com', 'SECRET');
+	    $conn = new TestingConnection('http://example.com',
+			array('username'=>'Foo', 'password'=>'Bar'));
 	    $response = $conn->Request('403');
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
@@ -95,7 +99,8 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	 * @expectedException OpenCloud\HttpOverLimitError
 	 */
 	public function test_request_4() {
-	    $conn = new TestingConnection('http://example.com', 'SECRET');
+	    $conn = new TestingConnection('http://example.com',
+			array('username'=>'Foo', 'password'=>'Bar'));
 	    $response = $conn->Request('413');
 	    $this->assertEquals(200, $response->HttpStatus());
 	}

@@ -11,6 +11,13 @@ if (!defined('TESTDIR')) define('TESTDIR','.');
  */
 class StubConnection extends OpenCloud\OpenStack
 {
+	public function __construct($url, $secret) {
+		if (is_array($secret))
+			return parent::__construct($url, $secret);
+		else
+			return parent::__construct($url,
+				array('username'=>'X', 'password'=>'Y'));
+	}
 	public function Request($url, $method="GET", $headers=array(), $body=NULL) {
 		$resp = new OpenCloud\BlankResponse();
 		if ($method == 'POST') {

@@ -156,6 +156,8 @@ ENDAUTHTEMPLATE
 	public function __construct($url, $secret) {
 		$this->debug(_('initializing'));
 		$this->url = $url;
+		if (!is_array($secret))
+			throw new DomainError(_('[secret] must be an array'));
 		$this->secret = $secret;
 	}
 
