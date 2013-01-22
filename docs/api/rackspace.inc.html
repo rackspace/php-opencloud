@@ -619,7 +619,8 @@ exception thrown.</p>
 <tr>
 <td>$name</td>
 <td style="white-space: normal;">string</td>
-<td><p>the name of the service (e.g., 'Cloud Load Balancers')</p>
+<td><p>the name of the service
+     (e.g., 'Cloud Load Balancers')</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -848,7 +849,9 @@ exceptions for the request.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$data</td>
 <td style="white-space: normal;">string</td>
-<td><p>data - either a string or a resource (file pointer) to use as the request body (for PUT or POST)</p>
+<td><p>data - either a string or a resource (file pointer) to
+    use as the
+    request body (for PUT or POST)</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -1224,7 +1227,7 @@ creating new service objects.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="Rackspace::SetDownloadProgressCallback()"></a><h3>SetDownloadProgressCallback<span class="nb-faded-text">(
-          \OpenCloud\callable
+          callable
              
             $callback,
           
@@ -1246,8 +1249,9 @@ data that is being downloaded on this call.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$callback</td>
-<td style="white-space: normal;">\OpenCloud\callable</td>
-<td><p>the name of a global callback function, or an array($object, $functionname)</p>
+<td style="white-space: normal;">callable</td>
+<td><p>the name of a global callback function, or an
+    array($object, $functionname)</p>
 </td>
 <td></td>
 </tr></tbody>
@@ -1345,7 +1349,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
+<td>if strict checks are on and
+     the property prefix is not in the list of prefixes.</td>
 </tr>
 <tr>
 <td>inherited_from</td>
@@ -1390,21 +1395,27 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$t_http</td>
 <td style="white-space: normal;">integer</td>
-<td><p>the HTTP timeout value (the max period that the OpenStack object will wait for any HTTP request to complete). Value is in seconds.</p>
+<td><p>the HTTP timeout value (the max period that
+     the OpenStack object will wait for any HTTP request to complete).
+     Value is in seconds.</p>
 </td>
 <td></td>
 </tr>
 <tr>
 <td>$t_conn</td>
 <td style="white-space: normal;">integer</td>
-<td><p>the Connect timeout value (the max period that the OpenStack object will wait to establish an HTTP connection). Value is in seconds.</p>
+<td><p>the Connect timeout value (the max period
+     that the OpenStack object will wait to establish an HTTP
+     connection). Value is in seconds.</p>
 </td>
 <td>NULL</td>
 </tr>
 <tr>
 <td>$t_overlimit</td>
 <td style="white-space: normal;">integer</td>
-<td><p>the overlimit timeout value (the max period that the OpenStack object will wait to retry on an overlimit condition). Value is in seconds.</p>
+<td><p>the overlimit timeout value (the max period
+     that the OpenStack object will wait to retry on an overlimit
+     condition). Value is in seconds.</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -1441,7 +1452,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="Rackspace::SetUploadProgressCallback()"></a><h3>SetUploadProgressCallback<span class="nb-faded-text">(
-          \OpenCloud\callable
+          callable
              
             $callback,
           
@@ -1463,8 +1474,9 @@ data that is being uploaded on this call.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$callback</td>
-<td style="white-space: normal;">\OpenCloud\callable</td>
-<td><p>the name of a global callback function, or an array($object, $functionname)</p>
+<td style="white-space: normal;">callable</td>
+<td><p>the name of a global callback function, or an
+    array($object, $functionname)</p>
 </td>
 <td></td>
 </tr></tbody>
@@ -1696,6 +1708,10 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
           array
              
             $secret,
+          array
+             
+            $options
+            = array(),
           
           )
         </span>
@@ -1731,10 +1747,21 @@ password, but Rackspace uses a username, tenant ID, and API key.
 <td>$secret</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>an associative array of auth information: * username * password</li>
+<li>an associative array of auth information:</li>
+<li>username</li>
+<li>password</li>
 </ul>
 </td>
 <td></td>
+</tr>
+<tr>
+<td>$options</td>
+<td style="white-space: normal;">array</td>
+<td><ul>
+<li>CURL options to pass to the HttpRequest object</li>
+</ul>
+</td>
+<td>array()</td>
 </tr>
 </tbody>
 </table>
@@ -2017,7 +2044,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -2152,6 +2180,7 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#Rackspace::%24_user_read_progress_callback_func">$_user_read_progress_callback_func</a>,
       <a href="#Rackspace::%24_user_write_progress_callback_func">$_user_write_progress_callback_func</a>,
       <a href="#Rackspace::%24connect_timeout">$connect_timeout</a>,
+      <a href="#Rackspace::%24curl_options">$curl_options</a>,
       <a href="#Rackspace::%24defaults">$defaults</a>,
       <a href="#Rackspace::%24expiration">$expiration</a>,
       <a href="#Rackspace::%24http_headers">$http_headers</a>,
@@ -2215,6 +2244,15 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$connect_timeout
           =
           RAXSDK_CONNECTTIMEOUT</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Rackspace::$curl_options"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$curl_options
+          =
+          array()</h3>
 <em></em><br>
 </div>
 <div class="method">
@@ -2331,7 +2369,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );

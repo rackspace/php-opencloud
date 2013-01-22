@@ -310,7 +310,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -413,7 +414,8 @@ creating a Flavor object directly.</p></small><br><h4>Arguments</h4>
 <td>$id</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>if supplied, the Flavor identified by this is retrieved</li>
+<li>if supplied, the Flavor identified by this is
+ retrieved</li>
 </ul>
 </td>
 <td>NULL</td>
@@ -479,7 +481,9 @@ creating a FlavorList object directly.</p></small><br><h4>Arguments</h4>
 <td>$details</td>
 <td style="white-space: normal;">boolean</td>
 <td><ul>
-<li>if TRUE (the default), returns full details. Set to FALSE to retrieve minimal details and possibly improve performance.</li>
+<li>if TRUE (the default), returns full details.
+ Set to FALSE to retrieve minimal details and possibly improve
+ performance.</li>
 </ul>
 </td>
 <td>TRUE</td>
@@ -488,7 +492,8 @@ creating a FlavorList object directly.</p></small><br><h4>Arguments</h4>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>optional key/value pairs for creating query strings</li>
+<li>optional key/value pairs for creating query
+ strings</li>
 </ul>
 </td>
 <td>array()</td>
@@ -620,7 +625,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -739,7 +745,9 @@ an ImageList object directly.</p></small><br><h4>Arguments</h4>
 <td>$details</td>
 <td style="white-space: normal;">boolean</td>
 <td><ul>
-<li>if TRUE (the default), returns complete image details. Set to FALSE to improve performance, but only return a minimal set of data</li>
+<li>if TRUE (the default), returns complete image
+details. Set to FALSE to improve performance, but only return a
+ minimal set of data</li>
 </ul>
 </td>
 <td>TRUE</td>
@@ -748,7 +756,11 @@ an ImageList object directly.</p></small><br><h4>Arguments</h4>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>key/value pairs to pass to the images resource. The actual values available here are determined by the OpenStack code and any extensions installed by your cloud provider; see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html for current filters available.</li>
+<li>key/value pairs to pass to the images resource.
+The actual values available here are determined by the OpenStack
+code and any extensions installed by your cloud provider;
+see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
+for current filters available.</li>
 </ul>
 </td>
 <td>array()</td>
@@ -1082,7 +1094,8 @@ that all Compute requests use application/json as the Content-Type:</p></small><
 <td>$headers</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>an associative array of headers to pass to the request</li>
+<li>an associative array of headers to pass to
+ the request</li>
 </ul>
 </td>
 <td>array()</td>
@@ -1215,7 +1228,10 @@ creating a ServerList object directly.</p></small><br><h4>Arguments</h4>
 <td>$details</td>
 <td style="white-space: normal;">boolean</td>
 <td><ul>
-<li>if TRUE, full server details are returned; if FALSE, just the minimal set of info is listed. Defaults to TRUE; you might set this to FALSE to improve performance at the risk of not having all the information you need.</li>
+<li>if TRUE, full server details are returned; if
+ FALSE, just the minimal set of info is listed. Defaults to TRUE;
+ you might set this to FALSE to improve performance at the risk of
+ not having all the information you need.</li>
 </ul>
 </td>
 <td>TRUE</td>
@@ -1224,7 +1240,8 @@ creating a ServerList object directly.</p></small><br><h4>Arguments</h4>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>a set of key/value pairs that is passed to the servers list for filtering</li>
+<li>a set of key/value pairs that is passed to the
+servers list for filtering</li>
 </ul>
 </td>
 <td>array()</td>
@@ -1330,7 +1347,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
+<td>if strict checks are on and
+     the property prefix is not in the list of prefixes.</td>
 </tr>
 <tr>
 <td>inherited_from</td>
@@ -1379,7 +1397,9 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>an optional child resource. For example, passing 'details' would return .../servers/details. Should <em>not</em> be prefixed with a slash (/).</li>
+<li>an optional child resource. For example,
+ passing 'details' would return .../servers/details. Should <em>not</em> be
+prefixed with a slash (/).</li>
 </ul>
 </td>
 <td>'servers'</td>
@@ -1387,7 +1407,8 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$args</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) an array of key-value pairs for query strings to append to the URL</p>
+<td><p>(optional) an array of key-value pairs for query
+     strings to append to the URL</p>
 </td>
 <td>array()</td>
 </tr>
@@ -1468,7 +1489,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$serviceName</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the name of the service in the catalog</li>
+<li>identifies the name of the service in the
+ catalog</li>
 </ul>
 </td>
 <td></td>
@@ -1477,7 +1499,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$serviceRegion</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the region of this Compute service</li>
+<li>identifies the region of this Compute
+ service</li>
 </ul>
 </td>
 <td></td>
@@ -1486,7 +1509,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the URL type ("publicURL", "privateURL")</li>
+<li>identifies the URL type ("publicURL",
+ "privateURL")</li>
 </ul>
 </td>
 <td></td>
@@ -1628,7 +1652,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -1740,7 +1765,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -2015,7 +2041,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
