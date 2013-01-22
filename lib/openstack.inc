@@ -68,7 +68,7 @@ class OpenStack extends \OpenCloud\Base {
 		$token,
 		$expiration=0,
 		$tenant,
-		$ServiceCatalog,
+		$catalog,
 		/**
 		 * This associative array holds default values used to identify each
 		 * service (and to select it from the Service Catalog). Use the
@@ -139,7 +139,11 @@ ENDAUTHTEMPLATE
 		/**
 		 * array of options to pass to the CURL request object
 		 */
-		$curl_options=array();
+		$curl_options=array(),
+		/**
+		 * list of attributes to export/import
+		 */
+		$export_items = array('token', 'expiration', 'tenant', 'catalog');
 
     /**
      * Creates a new OpenStack object
@@ -222,7 +226,7 @@ ENDAUTHTEMPLATE
 	public function ServiceCatalog() {
 		if (time() > ($this->expiration-RAXSDK_FUDGE))
 			$this->Authenticate();
-		return $this->ServiceCatalog;
+		return $this->catalog;
 	}
 
 	/**
@@ -290,7 +294,7 @@ ENDAUTHTEMPLATE
          * consistently in these bindings, but the actual serviceCatalog is
          * how OpenStack returns it.
          */
-        $this->ServiceCatalog = $resp->access->serviceCatalog;
+        $this->catalog = $resp->access->serviceCatalog;
 	}
 
     /**
@@ -577,6 +581,35 @@ ENDAUTHTEMPLATE
 
         // MUST return the length to CURL
         return $dlen;
+    }
+
+    /**
+     * exports saved token, expiration, tenant, and service catalog as an array
+     *
+     * This could be stored in a cache (APC or disk file) and reloaded using
+     * ImportCredentials()
+     *
+     * @return array
+     */
+    public function ExportCredentials() {
+    	$arr = array();
+    	foreach($this->export_items as $item)
+    		$arr[$item] = $this->$item;
+    	return $arr;
+    }
+
+    /**
+     * imports credentials from an array
+     *
+     * Takes the same values as ExportCredentials() and reuses them.
+     *
+     * @return void
+     */
+    public function ImportCredentials($values) {
+    	if (!is_array($values))
+    		throw new DomainError(_('ImportCredentials() requires an array'));
+    	foreach($this->export_items as $item)
+    		$this->$item = $values[$item];
     }
 
     /********** FACTORY METHODS **********/

@@ -147,6 +147,26 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 		$len = $this->my->_write_cb($ch, 'FOOBAR');
 		$this->assertEquals(6, $len);
 	}
+	public function testExportCredentials() {
+		$this->my->Authenticate();
+		$arr = $this->my->ExportCredentials();
+		$this->assertEquals(
+			TRUE,
+			is_array($arr));
+		$this->assertEquals(
+			TRUE,
+			is_array($arr['catalog']));
+	}
+	public function testImportCredentials() {
+		$this->my->Authenticate();
+		$arr = $this->my->ExportCredentials();
+		$conn = new StubConnection(TEST_DOMAIN,
+			array('username'=>'Foo', 'password'=>'Bar'));
+		$conn->ImportCredentials($arr);
+		$this->assertEquals(
+			$arr['token'],
+			$conn->Token());
+	}
 	public function testObjectStore() {
 	    $objs = $this->my->ObjectStore(
 	        'cloudFiles',
