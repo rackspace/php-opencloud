@@ -41,6 +41,14 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	        'StubConnection',
 	        get_class($this->my));
 	}
+	/**
+	 * @expectedException OpenCloud\DomainError
+	 */
+	public function test__options() {
+		$test = new StubConnection(TEST_DOMAIN,
+			array('username'=>'Foo', 'password'=>'Bar'),
+			'bad option');
+	}
 	public function testUrl() {
 		$this->assertEquals(TEST_DOMAIN.'/tokens', $this->my->Url());
 	}

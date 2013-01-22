@@ -135,7 +135,11 @@ ENDAUTHTEMPLATE
 		 * To prevent memory overflows, each array element is deleted when
 		 * the end of the file is reached.
 		 */
-		$_file_descriptors = array();
+		$_file_descriptors = array(),
+		/**
+		 * array of options to pass to the CURL request object
+		 */
+		$curl_options=array();
 
     /**
      * Creates a new OpenStack object
@@ -152,13 +156,19 @@ ENDAUTHTEMPLATE
      * @param array $secret - an associative array of auth information:
      * * username
      * * password
+     * @param array $options - CURL options to pass to the HttpRequest object
      */
-	public function __construct($url, $secret) {
+	public function __construct($url, $secret, $options=array()) {
 		$this->debug(_('initializing'));
 		$this->url = $url;
+
 		if (!is_array($secret))
 			throw new DomainError(_('[secret] must be an array'));
 		$this->secret = $secret;
+
+		if (!is_array($options))
+			throw new DomainError(_('[options] must be an array'));
+		$this->curl_options = $options;
 	}
 
 	/**
@@ -306,7 +316,7 @@ ENDAUTHTEMPLATE
     	    $url, $method, $data);
 
         // get the request object
-	    $http = $this->GetHttpRequestObject($url, $method);
+	    $http = $this->GetHttpRequestObject($url, $method, $this->curl_options);
 
         // set various options
         $this->debug(_('Headers: [%s]'), print_r($headers,TRUE));
