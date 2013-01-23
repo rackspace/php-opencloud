@@ -207,6 +207,19 @@ ENDAUTHTEMPLATE
 	}
 
     /**
+     * Returns the cached expiration time;
+     * if it has expired, then it re-authenticates
+     *
+     * @api
+     * @return string
+     */
+	public function Expiration() {
+		if (time() > ($this->expiration-RAXSDK_FUDGE))
+			$this->Authenticate();
+		return $this->expiration;
+	}
+
+    /**
      * Returns the tenant ID, re-authenticating if necessary
      *
      * @api

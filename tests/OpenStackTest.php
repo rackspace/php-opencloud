@@ -62,6 +62,9 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	public function testTenant() {
 		$this->assertEquals('TENANT-ID', $this->my->Tenant());
 	}
+	public function testExpiration() {
+		$this->assertEquals('978374510', $this->my->Expiration());
+	}
 	public function testServiceCatalog() {
 		$cat = $this->my->serviceCatalog();
 		$this->assertEquals('DFW', $cat[0]->endpoints[0]->region);
