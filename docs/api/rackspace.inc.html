@@ -109,7 +109,9 @@ $conn = new Rackspace(
       <a style="font-style: italic;" href="#Rackspace::Compute()">Compute</a>,
       <a style="font-style: italic;" href="#Rackspace::Credentials()">Credentials</a>,
       <a style="font-style: italic;" href="#Rackspace::DbService()">DbService</a>,
+      <a style="font-style: italic;" href="#Rackspace::ExportCredentials()">ExportCredentials</a>,
       <a style="font-style: italic;" href="#Rackspace::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#Rackspace::ImportCredentials()">ImportCredentials</a>,
       <a style="font-style: italic;" href="#Rackspace::LoadBalancerService()">LoadBalancerService</a>,
       <a style="font-style: italic;" href="#Rackspace::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#Rackspace::ObjectStore()">ObjectStore</a>,
@@ -519,6 +521,39 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
+<a id="Rackspace::ExportCredentials()"></a><h3>ExportCredentials<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>exports saved token, expiration, tenant, and service catalog as an array</em><br><small><p>This could be stored in a cache (APC or disk file) and reloaded using
+ImportCredentials()</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="openstack.inc.html#%5COpenCloud%5COpenStack::ExportCredentials()"><small>\OpenCloud\OpenStack::ExportCredentials()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Rackspace::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
@@ -584,6 +619,56 @@ exception thrown.</p>
 <td><a href="openstack.inc.html#%5COpenCloud%5COpenStack::GetHttpRequestObject()"><small>\OpenCloud\OpenStack::GetHttpRequestObject()</small></a></td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="method">
+<a id="Rackspace::ImportCredentials()"></a><h3>ImportCredentials<span class="nb-faded-text">(
+          
+             
+            $values,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>imports credentials from an array</em><br><small><p>Takes the same values as ExportCredentials() and reuses them.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$values</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="openstack.inc.html#%5COpenCloud%5COpenStack::ImportCredentials()"><small>\OpenCloud\OpenStack::ImportCredentials()</small></a></td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -2174,15 +2259,16 @@ with "Debug:" and the class name, to the standard output device.</p>
 </div>
 <div id="properties_Rackspace">
 <h4>Properties</h4>
-<a href="#Rackspace::%24ServiceCatalog">$ServiceCatalog</a>,
-      <a href="#Rackspace::%24_errors">$_errors</a>,
+<a href="#Rackspace::%24_errors">$_errors</a>,
       <a href="#Rackspace::%24_file_descriptors">$_file_descriptors</a>,
       <a href="#Rackspace::%24_user_read_progress_callback_func">$_user_read_progress_callback_func</a>,
       <a href="#Rackspace::%24_user_write_progress_callback_func">$_user_write_progress_callback_func</a>,
+      <a href="#Rackspace::%24catalog">$catalog</a>,
       <a href="#Rackspace::%24connect_timeout">$connect_timeout</a>,
       <a href="#Rackspace::%24curl_options">$curl_options</a>,
       <a href="#Rackspace::%24defaults">$defaults</a>,
       <a href="#Rackspace::%24expiration">$expiration</a>,
+      <a href="#Rackspace::%24export_items">$export_items</a>,
       <a href="#Rackspace::%24http_headers">$http_headers</a>,
       <a href="#Rackspace::%24http_timeout">$http_timeout</a>,
       <a href="#Rackspace::%24overlimit_timeout">$overlimit_timeout</a>,
@@ -2193,15 +2279,6 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#Rackspace::%24url">$url</a>,
       <a href="#Rackspace::%24useragent">$useragent</a>,
       <div class="method">
-<a id="Rackspace::$ServiceCatalog"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$ServiceCatalog
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
 <a id="Rackspace::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
@@ -2233,6 +2310,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <span class="nb-faded-text"> 
           private 
           </span>$_user_write_progress_callback_func
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Rackspace::$catalog"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$catalog
           =
           </h3>
 <em></em><br>
@@ -2271,6 +2357,15 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$expiration
           =
           0</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Rackspace::$export_items"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$export_items
+          =
+          array('token', 'expiration', 'tenant', 'catalog')</h3>
 <em></em><br>
 </div>
 <div class="method">

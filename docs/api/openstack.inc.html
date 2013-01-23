@@ -114,7 +114,9 @@ providers are welcome to add their own subclasses as well.</p>
       <a style="font-style: italic;" href="#OpenStack::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#OpenStack::Compute()">Compute</a>,
       <a style="font-style: italic;" href="#OpenStack::Credentials()">Credentials</a>,
+      <a style="font-style: italic;" href="#OpenStack::ExportCredentials()">ExportCredentials</a>,
       <a style="font-style: italic;" href="#OpenStack::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#OpenStack::ImportCredentials()">ImportCredentials</a>,
       <a style="font-style: italic;" href="#OpenStack::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#OpenStack::ObjectStore()">ObjectStore</a>,
       <a style="font-style: italic;" href="#OpenStack::Request()">Request</a>,
@@ -433,6 +435,28 @@ service.</em><br><h4>Return value</h4>
 </table>
 </div>
 <div class="method">
+<a id="OpenStack::ExportCredentials()"></a><h3>ExportCredentials<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>exports saved token, expiration, tenant, and service catalog as an array</em><br><small><p>This could be stored in a cache (APC or disk file) and reloaded using
+ImportCredentials()</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="OpenStack::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
@@ -491,6 +515,45 @@ service.</em><br><h4>Return value</h4>
 <tbody><tr>
 <td>inherited_from</td>
 <td><a href="base.inc.html#%5COpenCloud%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Base::GetHttpRequestObject()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="OpenStack::ImportCredentials()"></a><h3>ImportCredentials<span class="nb-faded-text">(
+          
+             
+            $values,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>imports credentials from an array</em><br><small><p>Takes the same values as ExportCredentials() and reuses them.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$values</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
 </tr></tbody>
 </table>
 </div>
@@ -1836,15 +1899,16 @@ with "Debug:" and the class name, to the standard output device.</p>
 </div>
 <div id="properties_OpenStack">
 <h4>Properties</h4>
-<a href="#OpenStack::%24ServiceCatalog">$ServiceCatalog</a>,
-      <a href="#OpenStack::%24_errors">$_errors</a>,
+<a href="#OpenStack::%24_errors">$_errors</a>,
       <a href="#OpenStack::%24_file_descriptors">$_file_descriptors</a>,
       <a href="#OpenStack::%24_user_read_progress_callback_func">$_user_read_progress_callback_func</a>,
       <a href="#OpenStack::%24_user_write_progress_callback_func">$_user_write_progress_callback_func</a>,
+      <a href="#OpenStack::%24catalog">$catalog</a>,
       <a href="#OpenStack::%24connect_timeout">$connect_timeout</a>,
       <a href="#OpenStack::%24curl_options">$curl_options</a>,
       <a href="#OpenStack::%24defaults">$defaults</a>,
       <a href="#OpenStack::%24expiration">$expiration</a>,
+      <a href="#OpenStack::%24export_items">$export_items</a>,
       <a href="#OpenStack::%24http_headers">$http_headers</a>,
       <a href="#OpenStack::%24http_timeout">$http_timeout</a>,
       <a href="#OpenStack::%24overlimit_timeout">$overlimit_timeout</a>,
@@ -1855,15 +1919,6 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#OpenStack::%24url">$url</a>,
       <a href="#OpenStack::%24useragent">$useragent</a>,
       <div class="method">
-<a id="OpenStack::$ServiceCatalog"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$ServiceCatalog
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
 <a id="OpenStack::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
@@ -1895,6 +1950,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <span class="nb-faded-text"> 
           private 
           </span>$_user_write_progress_callback_func
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="OpenStack::$catalog"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$catalog
           =
           </h3>
 <em></em><br>
@@ -1933,6 +1997,15 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$expiration
           =
           0</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="OpenStack::$export_items"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$export_items
+          =
+          array('token', 'expiration', 'tenant', 'catalog')</h3>
 <em></em><br>
 </div>
 <div class="method">
