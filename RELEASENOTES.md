@@ -15,6 +15,8 @@ RELEASE NOTES
   the previous behavior, this might cause it to break.**
 * Support for Rackspace Cloud Load Balancers
 * Fix to remove requirement for Tenant ID in authentication
+* Added `ExportCredentials()` and `ImportCredentials()` methods to the
+  `OpenStack` class to permit caching of tokens.
 
 ### 11/06/2012 Version 1.2
 * Adds full support for OpenStack Cinder/Rackspace Cloud Block Storage

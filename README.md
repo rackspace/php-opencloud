@@ -49,9 +49,8 @@ version list:
 
 ### Installation
 
-You can download the latest official release here:
-
-https://github.com/rackspace/php-opencloud/downloads
+GitHub has deprecated its `/downloads` directory. Click on the `ZIP` button
+on this page to download the entire repository as a .ZIP file.
 
 Move the files in the `lib/` directory to a location in your PHP's
 `include_path` or, conversely, set the `include_path` to point to the
