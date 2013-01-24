@@ -128,11 +128,11 @@ objects in it have also been deleted). Example:
 
     $mypicture = $mycontainer->DataObject();
     $mypicture->Create(
-        array('name'=>'picture.jpg', 'type'=>'image/jpeg'),
+        array('name'=>'picture.jpg', 'content_type'=>'image/jpeg'),
         '/path/to/mypicture.jpg');
 
 The first parameter to `Create()` is a hashed array of values. `name` is the
-object name, and `type` is the Content-Type.
+object name, and `content_type` is the Content-Type.
 
 The second parameter to `Create()` is an optional filename; the data will be
 streamed from the local file to the stored Object.

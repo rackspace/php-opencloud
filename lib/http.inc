@@ -52,15 +52,23 @@ class CurlRequest implements HTTPRequest {
      * initializes the CURL handle and HTTP method
      *
      * The constructor also sets a number of default values for options.
+     *
+     * @param string $url the URL to connect to
+     * @param string $method the HTTP method (default "GET")
+     * @param array $options optional hashed array of options => value pairs
      */
-	public function __construct($url, $method='GET') {
+	public function __construct($url, $method='GET', $options=array()) {
 		$this->url = $url;
 		$this->method = $method;
 		$this->handle = curl_init($url);
 
 		// set our options
         $this->SetOption(CURLOPT_CUSTOMREQUEST, $method);
-        
+        foreach($options as $opt => $value) {
+        	$this->debug(_('Setting option %s=%s'), $opt, $value);
+        	$this->SetOptions($opt, $value);
+        }
+
         // set security handling options
         if (RAXSDK_SSL_VERIFYHOST != 2)
             printf(
@@ -82,7 +90,8 @@ class CurlRequest implements HTTPRequest {
 		$this->SetOption(CURLOPT_HEADER, FALSE);
 
         // retrieve headers via callback
-        $this->SetOption(CURLOPT_HEADERFUNCTION, array($this, '_get_header_cb'));
+        $this->SetOption(CURLOPT_HEADERFUNCTION,
+        	array($this, '_get_header_cb'));
 
 		// return the entire request on curl_exec()
         $this->SetOption(CURLOPT_RETURNTRANSFER, TRUE);
@@ -308,7 +317,7 @@ class HttpResponse {
 	        else
 	        	$this->headers[$line] = trim($line);
         }
-        
+
         // debug caching
         if (isset($this->headers['Cache-Control']))
         	$this->debug('Cache-Control: %s', $this->headers['Cache-Control']);

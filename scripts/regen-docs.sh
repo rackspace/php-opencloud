@@ -9,7 +9,7 @@
 
 # define variables
 APIDOCDIR=docs/api
-TEMPLATE=old_ocean
+TEMPLATE=old-ocean
 
 # make sure we're in the root directory
 if [ ! -d docs ]; then

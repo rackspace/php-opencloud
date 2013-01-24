@@ -29,8 +29,8 @@ while($instance = $inlist->Next()) {
     }
     $userlist = $instance->UserList();
     while($user = $userlist->Next()) {
-        printf("  User: %s\n", $user->Name());
+        printf("  User: %s\n", $user->name);
         foreach($user->databases as $db)
-            printf("    Database for user; %s\n", $db->Name());
+            printf("    Database for user; %s\n", $db->name);
     }
 }

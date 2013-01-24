@@ -26,7 +26,8 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
 	private
 		$conn;
 	public function __construct() {
-		$this->conn = new MyRackspace('http://example.com', 'secret');
+		$this->conn = new MyRackspace('http://example.com',
+			array('username'=>'FOO', 'password'=>'BAR'));
 	}
 
 	/**
@@ -43,7 +44,7 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
 			'http://example.com',
 			array('username'=>'FOO','apiKey'=>'KEY'));
 		$this->assertRegExp(
-			'/RAX-KSKEY:apiKeyCredentials/', 
+			'/RAX-KSKEY:apiKeyCredentials/',
 			$this->conn->Credentials());
 	}
 	public function testDbService() {

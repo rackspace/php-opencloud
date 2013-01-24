@@ -146,4 +146,12 @@ while($vol = $list->Next()) {
 	}
 }
 
+step('Deleting database instances');
+$dbservice = $rackspace->DbService('cloudDatabases', MYREGION);
+$list = $dbservice->InstanceList();
+while($instance = $list->Next()) {
+	info('Deleting %s', $instance->Name());
+	$instance->Delete();
+}
+
 step('DONE');

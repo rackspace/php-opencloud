@@ -213,7 +213,7 @@ abstract class Base {
 
     /**
      * Converts a value to an HTTP-displayable string form
-     * 
+     *
      * @param mixed $x a value to convert
      * @return string
      */

@@ -74,7 +74,7 @@ OpenStack Nova<br><br><a name="includes"></a><h2>Includes</h2>service.inc <span
 <a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
         </div>
-<label class="property-key">Abstract</label><div class="property-value">No 
+<label class="property-key">Abstract</label><div class="property-value">Yes 
       </div>
 <label class="property-key">Final</label><div class="property-value">No 
       </div>
@@ -278,7 +278,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -371,7 +372,8 @@ creating a Flavor object directly.</p></small><br><h4>Arguments</h4>
 <td>$id</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>if supplied, the Flavor identified by this is retrieved</li>
+<li>if supplied, the Flavor identified by this is
+ retrieved</li>
 </ul>
 </td>
 <td>NULL</td>
@@ -431,7 +433,9 @@ creating a FlavorList object directly.</p></small><br><h4>Arguments</h4>
 <td>$details</td>
 <td style="white-space: normal;">boolean</td>
 <td><ul>
-<li>if TRUE (the default), returns full details. Set to FALSE to retrieve minimal details and possibly improve performance.</li>
+<li>if TRUE (the default), returns full details.
+ Set to FALSE to retrieve minimal details and possibly improve
+ performance.</li>
 </ul>
 </td>
 <td>TRUE</td>
@@ -440,7 +444,8 @@ creating a FlavorList object directly.</p></small><br><h4>Arguments</h4>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>optional key/value pairs for creating query strings</li>
+<li>optional key/value pairs for creating query
+ strings</li>
 </ul>
 </td>
 <td>array()</td>
@@ -562,7 +567,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -779,7 +785,8 @@ that all Compute requests use application/json as the Content-Type:</p></small><
 <td>$headers</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>an associative array of headers to pass to the request</li>
+<li>an associative array of headers to pass to
+ the request</li>
 </ul>
 </td>
 <td>array()</td>
@@ -877,7 +884,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>throws</td>
-<td>if strict checks are on and the property prefix is not in the list of prefixes.</td>
+<td>if strict checks are on and
+     the property prefix is not in the list of prefixes.</td>
 </tr>
 <tr>
 <td>inherited_from</td>
@@ -922,7 +930,9 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>a child resource. For example, passing 'servers' would return .../servers. Should <em>not</em> be prefixed with a slash (/).</li>
+<li>a child resource. For example,
+ passing 'servers' would return .../servers. Should <em>not</em> be
+prefixed with a slash (/).</li>
 </ul>
 </td>
 <td>''</td>
@@ -930,7 +940,8 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$args</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) an array of key-value pairs for query strings to append to the URL</p>
+<td><p>(optional) an array of key-value pairs for query
+     strings to append to the URL</p>
 </td>
 <td>array()</td>
 </tr>
@@ -1020,7 +1031,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$serviceName</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the name of the service in the catalog</li>
+<li>identifies the name of the service in the
+ catalog</li>
 </ul>
 </td>
 <td></td>
@@ -1029,7 +1041,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$serviceRegion</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the region of this Compute service</li>
+<li>identifies the region of this Compute
+ service</li>
 </ul>
 </td>
 <td></td>
@@ -1038,7 +1051,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the URL type ("publicURL", "privateURL")</li>
+<li>identifies the URL type ("publicURL",
+ "privateURL")</li>
 </ul>
 </td>
 <td></td>
@@ -1176,7 +1190,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -1284,7 +1299,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -1527,7 +1543,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a8</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );

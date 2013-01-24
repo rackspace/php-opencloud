@@ -68,7 +68,7 @@ class OpenStack extends \OpenCloud\Base {
 		$token,
 		$expiration=0,
 		$tenant,
-		$ServiceCatalog,
+		$catalog,
 		/**
 		 * This associative array holds default values used to identify each
 		 * service (and to select it from the Service Catalog). Use the
@@ -135,7 +135,15 @@ ENDAUTHTEMPLATE
 		 * To prevent memory overflows, each array element is deleted when
 		 * the end of the file is reached.
 		 */
-		$_file_descriptors = array();
+		$_file_descriptors = array(),
+		/**
+		 * array of options to pass to the CURL request object
+		 */
+		$curl_options=array(),
+		/**
+		 * list of attributes to export/import
+		 */
+		$export_items = array('token', 'expiration', 'tenant', 'catalog');
 
     /**
      * Creates a new OpenStack object
@@ -152,11 +160,19 @@ ENDAUTHTEMPLATE
      * @param array $secret - an associative array of auth information:
      * * username
      * * password
+     * @param array $options - CURL options to pass to the HttpRequest object
      */
-	public function __construct($url, $secret) {
+	public function __construct($url, $secret, $options=array()) {
 		$this->debug(_('initializing'));
 		$this->url = $url;
+
+		if (!is_array($secret))
+			throw new DomainError(_('[secret] must be an array'));
 		$this->secret = $secret;
+
+		if (!is_array($options))
+			throw new DomainError(_('[options] must be an array'));
+		$this->curl_options = $options;
 	}
 
 	/**
@@ -191,6 +207,19 @@ ENDAUTHTEMPLATE
 	}
 
     /**
+     * Returns the cached expiration time;
+     * if it has expired, then it re-authenticates
+     *
+     * @api
+     * @return string
+     */
+	public function Expiration() {
+		if (time() > ($this->expiration-RAXSDK_FUDGE))
+			$this->Authenticate();
+		return $this->expiration;
+	}
+
+    /**
      * Returns the tenant ID, re-authenticating if necessary
      *
      * @api
@@ -210,7 +239,7 @@ ENDAUTHTEMPLATE
 	public function ServiceCatalog() {
 		if (time() > ($this->expiration-RAXSDK_FUDGE))
 			$this->Authenticate();
-		return $this->ServiceCatalog;
+		return $this->catalog;
 	}
 
 	/**
@@ -278,7 +307,7 @@ ENDAUTHTEMPLATE
          * consistently in these bindings, but the actual serviceCatalog is
          * how OpenStack returns it.
          */
-        $this->ServiceCatalog = $resp->access->serviceCatalog;
+        $this->catalog = $resp->access->serviceCatalog;
 	}
 
     /**
@@ -304,7 +333,7 @@ ENDAUTHTEMPLATE
     	    $url, $method, $data);
 
         // get the request object
-	    $http = $this->GetHttpRequestObject($url, $method);
+	    $http = $this->GetHttpRequestObject($url, $method, $this->curl_options);
 
         // set various options
         $this->debug(_('Headers: [%s]'), print_r($headers,TRUE));
@@ -565,6 +594,35 @@ ENDAUTHTEMPLATE
 
         // MUST return the length to CURL
         return $dlen;
+    }
+
+    /**
+     * exports saved token, expiration, tenant, and service catalog as an array
+     *
+     * This could be stored in a cache (APC or disk file) and reloaded using
+     * ImportCredentials()
+     *
+     * @return array
+     */
+    public function ExportCredentials() {
+    	$arr = array();
+    	foreach($this->export_items as $item)
+    		$arr[$item] = $this->$item;
+    	return $arr;
+    }
+
+    /**
+     * imports credentials from an array
+     *
+     * Takes the same values as ExportCredentials() and reuses them.
+     *
+     * @return void
+     */
+    public function ImportCredentials($values) {
+    	if (!is_array($values))
+    		throw new DomainError(_('ImportCredentials() requires an array'));
+    	foreach($this->export_items as $item)
+    		$this->$item = $values[$item];
     }
 
     /********** FACTORY METHODS **********/

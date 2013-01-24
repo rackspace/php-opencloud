@@ -23,6 +23,7 @@ define('MYREGION', $_ENV['OS_REGION_NAME']);
 define('VOLUMENAME', 'SmokeTestVolume');
 define('VOLUMESIZE', 103);
 define('LBNAME', 'SmokeTestLoadBalancer');
+define('CACHEFILE', '/tmp/smoketest.credentials');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -83,6 +84,27 @@ $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
+
+/**
+ * load cached credentials
+ */
+$fp = @fopen(CACHEFILE, 'r');
+if (!$fp) { // no cached credentials
+	info('Saving credentials in %s', CACHEFILE);
+	$rackspace->Authenticate();
+	$cred = $rackspace->ExportCredentials();
+	$fp = @fopen(CACHEFILE, 'w');
+	if (!$fp)
+		die(sprintf("Cannot open cache file %s for writing\n", CACHEFILE));
+	fwrite($fp, serialize($cred));
+	fclose($fp);
+}
+else { // load cached credentials
+	info('Loading credentials from %s', CACHEFILE);
+	$str = fread($fp, 99999); // read it all
+	fclose($fp);
+	$rackspace->ImportCredentials(unserialize($str));
+}
 
 /**
  * Cloud Files
