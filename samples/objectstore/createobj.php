@@ -20,10 +20,18 @@ define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
+// progress callback function
+function UploadProgress($len) {
+	printf("[uploading %d bytes]", $len);
+}
+
 // establish our credentials
 $connection = new Rackspace(AUTHURL,
 	array('username' => USERNAME,
 		   'apiKey' => APIKEY));
+
+// set the callback function
+$connection->SetUploadProgressCallback('OpenCloud\UploadProgress');
 
 // create a Cloud Files (ObjectStore) connection
 $ostore = $connection->ObjectStore(/* uses defaults from above */);
@@ -38,7 +46,7 @@ printf("Creating object...\n");
 $obj = $cont->DataObject();
 // read this file!
 $obj->Create(
-	array('name' => 'SampleObject', 'content_type' => 'text/plain'), 
+	array('name' => 'SampleObject', 'content_type' => 'text/plain'),
 	__FILE__);
 
 // copy it to another object
