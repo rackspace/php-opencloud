@@ -748,3 +748,52 @@ Syntax:
 	$volume = $dallas->Volume({volume-id});
 	$server->DetachVolume($volume);
 
+<a name="CLB"></a>
+Quick Reference - Cloud Load Balancers
+--------------------------------------
+Cloud Load Balancers is a service for creating and managing load balancers
+dynamically. It is not currently part of the OpenStack project. 
+
+### Connecting to Cloud Load Balancers
+Cloud Block Storage is available only via a `Rackspace`
+connection using the `LoadBalancerService` method:
+
+Assuming:
+
+    $cloud = new Rackspace(...);
+
+Syntax:
+
+    {variable} = $cloud->LoadBalancerService({servicename}, {region}, {urltype});
+
+Example:
+
+    $chitown = $cloud->VolumeService('cloudLoadBalancers', 'ORD');
+
+This creates a connection to the `cloudLoadBalancers` service 
+in the `ORD` (Chicago) region.
+
+In this example, `$chitown` is a variable of type `LoadBalancerService`. The
+`LoadBalancerService` class supports a number of methods that
+provide information about the region, in addition to the functions for creating
+and listing load balancers themselves.
+
+### Service-Level Methods
+
+(full details below)
+
+* `LoadBalancerService::LoadBalancer()` - returns a `LoadBalancer` object, which
+  is the primary way of managing the virtual load balancers. 
+* `LoadBalancerService::LoadBalancerList()` - returns a 
+  [`Collection`](collection.md) of `LoadBalancer` objects.
+* `LoadBalancerService::BillableLoadBalancerList()` - returns a
+  [`Collection`](collection.md) of objects representing load balancers that
+  had been in existence during a specified time frame. This is used for
+  analyzing and reporting your usage. 
+* `LoadBalancerService::AllowedDomainList()` - returns a
+  [`Collection`](collection.md) of the domains permitted for your account.
+* `LoadBalancerService::ProtocolList()` - returns a 
+  [`Collection`](collection.md) of the protocols available in the region.
+* `LoadBalancerService::AlgorithmList()` - returns a 
+  [`Collection`](collection.md) of the algorithms available in the region. 
+
