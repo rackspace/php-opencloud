@@ -442,8 +442,10 @@ $user->Create(array('name'=>'FOO','password'=>'BAR','databases'=>array('fooDb'))
 
 step('List database instances');
 $dblist = $dbaas->InstanceList();
-while($dbitem = $dblist->Next())
-	info('Database Instance: %s (id %s)', $dbitem->name, $dbitem->id);
+do {
+	while($dbitem = $dblist->Next())
+		info('Database Instance: %s (id %s)', $dbitem->name, $dbitem->id);
+} while ($dblist = $dblist->NextPage());
 
 step('Deleting the database user');
 $user->Delete();
