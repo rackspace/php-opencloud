@@ -102,4 +102,22 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 		// this should cause an error
 		$coll->Select(function(){ return 5;});
 	}
+	public function testNextPage() {
+		$coll = $this->my;
+		$coll->SetNextPageCallback(
+			array($this,'_callback'), 
+			'http://something');
+		$this->assertEquals(
+			'CollectionTest',
+			get_class($coll->NextPage()));
+		$this->assertEquals(
+			FALSE,
+			$coll->NextPage());
+	}
+	public function _callback($class, $url) {
+		// stub function used by SetNextPageCallback
+	}
+	public function testSetNextPageCallback() {
+		// not needed; exercised by testNextPage(), above
+	}
 }

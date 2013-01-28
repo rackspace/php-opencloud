@@ -24,7 +24,7 @@ print "Creating a new instance...\n";
 $instance = $dbservice->Instance();
 $instance->flavor = $dbservice->Flavor(1);
 $instance->volume->size = 3;
-$instance->Create(array('name'=>'MySQL'));
+$instance->Create(array('name'=>'TestInstance'.time()));
 $instance->WaitFor('ACTIVE', 300, 'showstatus');
 
 // create a database

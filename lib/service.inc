@@ -174,22 +174,47 @@ abstract class Service extends Base {
 		$obj = json_decode($response->HttpBody());
 		if ($this->CheckJsonError())
 			return FALSE;
+			
+		// see if there is a "next" link
+		if (isset($obj->links)) {
+			if (is_array($obj->links)) {
+				foreach($obj->links as $link) {
+					if (isset($link->rel) && ($link->rel=='next')) {
+						if (isset($link->href))
+							$next_page_url = $link->href;
+						else
+							throw new \OpenCloud\DomainError(
+								_('unexpected [links] found with no [href]'));
+					}
+				}
+			}
+		}
 
 		// and say goodbye
 		if (!$collection)
-			return new Collection($parent, $class, $obj);
+			$coll_obj = new Collection($parent, $class, $obj);
 		elseif (isset($obj->$collection)) {
 			if (!$element)
-				return new Collection($parent, $class, $obj->$collection);
+				$coll_obj = new Collection($parent, $class, $obj->$collection);
 			else { // handle element levels
 				$arr = array();
 				foreach($obj->$collection as $index => $item)
 					$arr[] = $item->$element;
-				return new Collection($parent, $class, $arr);
+				$coll_obj = new Collection($parent, $class, $arr);
 			}
 		}
 		else
-			return new Collection($parent, $class, array());
+			$coll_obj = new Collection($parent, $class, array());
+		
+		// if there's a $next_page_url, then we need to establish a
+		// callback method
+		if (isset($next_page_url)) {
+			$coll_obj->SetNextPageCallback(
+				array($this, 'Collection'), 
+				$next_page_url);
+		}
+		
+		return $coll_obj;
 	}
 	
 	/**

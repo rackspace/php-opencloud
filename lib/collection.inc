@@ -30,7 +30,10 @@ class Collection extends Base {
 		$itemclass,
 		$itemlist=array(),
 		$pointer=0,
-		$sortkey;
+		$sortkey,
+		$next_page_class,
+		$next_page_callback,
+		$next_page_url;
 
 	/**
 	 * A Collection is an array of objects
@@ -44,6 +47,7 @@ class Collection extends Base {
 		$this->service = $service;
 		$this->debug('Collection:service=%s, class=%s, array=%s',
 			get_class($service), $itemclass, print_r($arr,TRUE));
+		$this->next_page_class = $itemclass;
 		$p = strrpos($itemclass, '\\');
 		if ($p !== FALSE)
 		    $this->itemclass = substr($itemclass, $p+1);
@@ -170,6 +174,51 @@ class Collection extends Base {
 			if ($test === FALSE)
 				unset($this->itemlist[$index]);
 		}
+	}
+	
+	/**
+	 * returns the Collection object for the next page of results, or
+	 * FALSE if there are no more pages
+	 *
+	 * Generally, the structure for a multi-page collection will look like
+	 * this:
+	 *
+	 *		$coll = $obj->Collection();
+	 *		do {
+	 *			while($item = $coll->Next()) {
+	 *				// do something with the item
+	 *			|
+	 *		} while ($coll = $coll->NextPage());
+	 *
+	 * @api
+	 * @return Collection if there are more pages of results, otherwise FALSE
+	 */
+	public function NextPage() {
+		if (isset($this->next_page_url)) {
+			return call_user_func(
+				$this->next_page_callback, 
+				$this->next_page_class,
+				$this->next_page_url);
+		}
+		return FALSE;
+	}
+	
+	/**
+	 * for paginated collection, sets the callback function and URL for
+	 * the next page
+	 *
+	 * The callback function should have the signature:
+	 *		function Whatever($class, $url, $parent)
+	 * and the `$url` should be the URL of the next page of results
+	 *
+	 * @param callable $callback the name of the function (or array of 
+	 *		object, function name)
+	 * @param string $url the URL of the next page of results
+	 * @return void
+	 */
+	public function SetNextPageCallback($callback, $url) {
+		$this->next_page_callback = $callback;
+		$this->next_page_url = $url;
 	}
 
 	/********** PRIVATE METHODS **********/
