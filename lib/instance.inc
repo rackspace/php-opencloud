@@ -198,9 +198,10 @@ class Instance extends \OpenCloud\PersistentObject {
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			if (!isset($obj->databases))
-				return new \OpenCloud\Collection($this, 'Database', array());
-			return new \OpenCloud\Collection($this,
-			    'Database', $obj->databases);
+				return new \OpenCloud\Collection(
+					$this, '\OpenCloud\DbService\Database', array());
+			return new \OpenCloud\Collection(
+				$this, '\OpenCloud\DbService\Database', $obj->databases);
 		}
 		return FALSE;
 	}
@@ -225,8 +226,10 @@ class Instance extends \OpenCloud\PersistentObject {
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			if (!isset($obj->users))
-				return new \OpenCloud\Collection($this, 'User', array());
-			return new \OpenCloud\Collection($this, 'User', $obj->users);
+				return new \OpenCloud\Collection(
+					$this, '\OpenCloud\DbService\User', array());
+			return new \OpenCloud\Collection(
+				$this, '\OpenCloud\DbService\User', $obj->users);
 		}
 		return FALSE;
 	}
