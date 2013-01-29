@@ -3,7 +3,7 @@
  * Specialized metadata for OpenStack Server objects (metadata items
  * can be managed individually or in aggregate)
  *
- * @copyright 2012 Rackspace Hosting, Inc.
+ * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
  * @package phpOpenCloud

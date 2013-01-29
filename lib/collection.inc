@@ -2,11 +2,11 @@
 /**
  * An abstraction for working with ordered sets of objects
  *
- * @copyright 2012 Rackspace Hosting, Inc.
+ * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0
+ * @version 1.1
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
@@ -80,10 +80,10 @@ class Collection extends Base {
 	}
 
 	/**
-	 * Resets the collection pointer back to the first item in the set
+	 * Resets the collection pointer back to the first item in the page
 	 * and returns it
 	 *
-	 * This is useful if you're only interested in the first item in the set.
+	 * This is useful if you're only interested in the first item in the page.
 	 *
 	 * @api
 	 * @return Base the first item in the set
@@ -94,10 +94,10 @@ class Collection extends Base {
 	}
 
 	/**
-	 * Returns the next item in the set
+	 * Returns the next item in the page
 	 *
 	 * @api
-	 * @return Base the next item or FALSE if at the end of the set
+	 * @return Base the next item or FALSE if at the end of the page
 	 */
 	public function Next() {
 		if ($this->pointer >= count($this->itemlist))
@@ -107,7 +107,11 @@ class Collection extends Base {
 	}
 
 	/**
-	 * Returns the number of items in the collection
+	 * Returns the number of items in the page
+	 *
+	 * For most services, this is the total number of items. If the Collection
+	 * is paginated, however, this only returns the count of items in the
+	 * current page of data.
 	 *
 	 * @api
 	 * @return integer The number of items in the set
@@ -119,7 +123,9 @@ class Collection extends Base {
 	/**
 	 * sorts the collection on a specified key
 	 *
-	 * Note: only top-level keys can be used as the sort key
+	 * Note: only top-level keys can be used as the sort key. Note that this
+	 * only sorts the data in the current page of the Collection (for
+	 * multi-page data).
 	 *
 	 * @api
 	 * @param string $keyname the name of the field to use as the sort key
@@ -175,7 +181,7 @@ class Collection extends Base {
 				unset($this->itemlist[$index]);
 		}
 	}
-	
+
 	/**
 	 * returns the Collection object for the next page of results, or
 	 * FALSE if there are no more pages
@@ -196,22 +202,24 @@ class Collection extends Base {
 	public function NextPage() {
 		if (isset($this->next_page_url)) {
 			return call_user_func(
-				$this->next_page_callback, 
+				$this->next_page_callback,
 				$this->next_page_class,
 				$this->next_page_url);
 		}
 		return FALSE;
 	}
-	
+
 	/**
 	 * for paginated collection, sets the callback function and URL for
 	 * the next page
 	 *
 	 * The callback function should have the signature:
+	 *
 	 *		function Whatever($class, $url, $parent)
+	 *
 	 * and the `$url` should be the URL of the next page of results
 	 *
-	 * @param callable $callback the name of the function (or array of 
+	 * @param callable $callback the name of the function (or array of
 	 *		object, function name)
 	 * @param string $url the URL of the next page of results
 	 * @return void

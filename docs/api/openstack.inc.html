@@ -114,6 +114,7 @@ providers are welcome to add their own subclasses as well.</p>
       <a style="font-style: italic;" href="#OpenStack::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#OpenStack::Compute()">Compute</a>,
       <a style="font-style: italic;" href="#OpenStack::Credentials()">Credentials</a>,
+      <a style="font-style: italic;" href="#OpenStack::Expiration()">Expiration</a>,
       <a style="font-style: italic;" href="#OpenStack::ExportCredentials()">ExportCredentials</a>,
       <a style="font-style: italic;" href="#OpenStack::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#OpenStack::ImportCredentials()">ImportCredentials</a>,
@@ -430,6 +431,39 @@ service.</em><br><h4>Return value</h4>
 </tr></thead>
 <tbody><tr>
 <td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="OpenStack::Expiration()"></a><h3>Expiration<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the cached expiration time;
+if it has expired, then it re-authenticates</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
 <td></td>
 </tr></tbody>
 </table>

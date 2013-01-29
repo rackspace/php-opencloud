@@ -2,7 +2,7 @@
 /**
  * A metadata object, used by other components in Compute and Object Storage
  *
- * @copyright 2012 Rackspace Hosting, Inc.
+ * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
  * @package phpOpenCloud

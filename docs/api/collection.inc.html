@@ -92,9 +92,11 @@ multiple objects in a container, or multiple servers in a service.</p><br><div i
       <a style="font-style: italic;" href="#Collection::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#Collection::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#Collection::Next()">Next</a>,
+      <a style="font-style: italic;" href="#Collection::NextPage()">NextPage</a>,
       <a style="font-style: italic;" href="#Collection::Reset()">Reset</a>,
       <a style="font-style: italic;" href="#Collection::Select()">Select</a>,
       <a style="font-style: italic;" href="#Collection::Service()">Service</a>,
+      <a style="font-style: italic;" href="#Collection::SetNextPageCallback()">SetNextPageCallback</a>,
       <a style="font-style: italic;" href="#Collection::SetProperty()">SetProperty</a>,
       <a style="font-style: italic;" href="#Collection::Size()">Size</a>,
       <a style="font-style: italic;" href="#Collection::Sort()">Sort</a>,
@@ -220,8 +222,8 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\Base</span>
 </h3>
 <h4>Description</h4>
-<em>Resets the collection pointer back to the first item in the set
-and returns it</em><br><small><p>This is useful if you're only interested in the first item in the set.</p></small><br><h4>Return value</h4>
+<em>Resets the collection pointer back to the first item in the page
+and returns it</em><br><small><p>This is useful if you're only interested in the first item in the page.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -366,7 +368,7 @@ and returns it</em><br><small><p>This is useful if you're only interested in the
         <span class="nb-faded-text">\OpenCloud\Base</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the next item in the set</em><br><h4>Return value</h4>
+<em>Returns the next item in the page</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -374,7 +376,49 @@ and returns it</em><br><small><p>This is useful if you're only interested in the
 </tr></thead>
 <tbody><tr>
 <td>\OpenCloud\Base</td>
-<td>the next item or FALSE if at the end of the set</td>
+<td>the next item or FALSE if at the end of the page</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Collection::NextPage()"></a><h3>NextPage<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Collection</span>
+</h3>
+<h4>Description</h4>
+<em>returns the Collection object for the next page of results, or
+FALSE if there are no more pages</em><br><small><p>Generally, the structure for a multi-page collection will look like
+this:</p>
+
+<pre><code>$coll = $obj-&gt;Collection();
+do {
+    while($item = $coll-&gt;Next()) {
+        // do something with the item
+    |
+} while ($coll = $coll-&gt;NextPage());
+</code></pre></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Collection</td>
+<td>if there are more pages of results, otherwise FALSE</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -528,6 +572,64 @@ return an empty list.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="Collection::SetNextPageCallback()"></a><h3>SetNextPageCallback<span class="nb-faded-text">(
+          callable
+             
+            $callback,
+          string
+             
+            $url,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>for paginated collection, sets the callback function and URL for
+the next page</em><br><small><p>The callback function should have the signature:</p>
+
+<pre><code>function Whatever($class, $url, $parent)
+</code></pre>
+
+<p>and the <code>$url</code> should be the URL of the next page of results</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$callback</td>
+<td style="white-space: normal;">callable</td>
+<td><p>the name of the function (or array of
+    object, function name)</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">string</td>
+<td><p>the URL of the next page of results</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Collection::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
@@ -616,7 +718,9 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">integer</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the number of items in the collection</em><br><h4>Return value</h4>
+<em>Returns the number of items in the page</em><br><small><p>For most services, this is the total number of items. If the Collection
+is paginated, however, this only returns the count of items in the
+current page of data.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -652,7 +756,9 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>sorts the collection on a specified key</em><br><small><p>Note: only top-level keys can be used as the sort key</p></small><br><h4>Arguments</h4>
+<em>sorts the collection on a specified key</em><br><small><p>Note: only top-level keys can be used as the sort key. Note that this
+only sorts the data in the current page of the Collection (for
+multi-page data).</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1084,6 +1190,9 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#Collection::%24http_headers">$http_headers</a>,
       <a href="#Collection::%24itemclass">$itemclass</a>,
       <a href="#Collection::%24itemlist">$itemlist</a>,
+      <a href="#Collection::%24next_page_callback">$next_page_callback</a>,
+      <a href="#Collection::%24next_page_class">$next_page_class</a>,
+      <a href="#Collection::%24next_page_url">$next_page_url</a>,
       <a href="#Collection::%24pointer">$pointer</a>,
       <a href="#Collection::%24service">$service</a>,
       <a href="#Collection::%24sortkey">$sortkey</a>,
@@ -1121,6 +1230,33 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$itemlist
           =
           array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Collection::$next_page_callback"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$next_page_callback
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Collection::$next_page_class"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$next_page_class
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Collection::$next_page_url"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$next_page_url
+          =
+          </h3>
 <em></em><br>
 </div>
 <div class="method">

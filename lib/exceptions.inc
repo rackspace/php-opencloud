@@ -2,7 +2,7 @@
 /**
  * The exceptions used by php-opencloud
  *
- * @copyright 2012 Rackspace Hosting, Inc.
+ * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
  * @package phpOpenCloud

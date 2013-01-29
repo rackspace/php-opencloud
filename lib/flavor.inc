@@ -3,7 +3,7 @@
  * A flavor object, which defines RAM, disk, and other settings for a virtual
  * machine.
  *
- * @copyright 2012 Rackspace Hosting, Inc.
+ * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
