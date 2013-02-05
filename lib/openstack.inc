@@ -301,7 +301,14 @@ ENDAUTHTEMPLATE
 			return FALSE;
         $this->token = $resp->access->token->id;
         $this->expiration = strtotime($resp->access->token->expires);
-        $this->tenant = $resp->access->token->tenant->id;
+        /**
+         * In some cases, the tenant name/id is not returned
+         * as part of the auth token, so we check for it before
+         * we set it. This occurs with pure Keystone, but not
+         * with the Rackspace auth.
+         */
+        if (isset($resp->access->token->tenant))
+        	$this->tenant = $resp->access->token->tenant->id;
         /**
          * Note the different capitalization; I'm trying to use CamelCase
          * consistently in these bindings, but the actual serviceCatalog is
