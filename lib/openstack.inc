@@ -113,17 +113,6 @@ class OpenStack extends \OpenCloud\Base {
 		$overlimit_timeout=RAXSDK_OVERLIMIT_TIMEOUT;
 
 	private
-		$template = <<<ENDAUTHTEMPLATE
-{
-  "auth": {
-    "passwordCredentials": {
-      "username":"%s",
-      "password":"%s"
-    }
-  }
-}
-ENDAUTHTEMPLATE
-,
 		$_user_write_progress_callback_func,
 		$_user_read_progress_callback_func,
 		/**
@@ -261,11 +250,25 @@ ENDAUTHTEMPLATE
      */
 	public function Credentials() {
 		if (isset($this->secret['username']) &&
-            isset($this->secret['password']))
-			return sprintf(
-				$this->template,
-				$this->secret['username'],
-				$this->secret['password']);
+			isset($this->secret['password']))
+		{
+			$credentials =
+				array( 'auth' =>
+					array( 'passwordCredentials' =>
+						array(
+							'username' => $this->secret['username'],
+							'password'=>$this->secret['password']
+						)
+					)
+				);
+
+			if (isset($this->secret['tenantName']))
+			{
+				$credentials['auth']['tenantName'] = $this->secret['tenantName'];
+			}
+
+			return json_encode($credentials);
+		}
 		else
 			throw new CredentialError(
 				_('Unrecognized credential secret'));
