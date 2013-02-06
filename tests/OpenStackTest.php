@@ -73,6 +73,11 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 		$this->assertRegExp(
 		    '/"passwordCredentials"/',
 		    $this->my->Credentials());
+	    $test = new StubConnection(TEST_DOMAIN,
+	        array('username'=>'Foo', 'password'=>'Bar', 'tenantName'=>'Phil'));
+	    $this->assertRegExp(
+	        '/"tenantName":"Phil"/',
+	        $test->Credentials());
 	}
 	public function testAuthenticate() {
 	    $this->my->Authenticate();
