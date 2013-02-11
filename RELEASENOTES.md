@@ -1,7 +1,7 @@
 RELEASE NOTES
 -------------
 
-### 02/10/2013 Version 1.0
+### 02/10/2013 Version 1.3
 * **IMPORTANT**: The file extension for include files is not `.php` (instead of 
   `.inc`). This came at the request of numerous individuals. However, it means
   that all of your scripts that use **php-opencloud** must be edited. 
