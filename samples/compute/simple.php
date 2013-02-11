@@ -5,8 +5,8 @@
 define('IMAGE_ID', '8bf22129-8483-462b-a020-1754ec822770');
 define('FLAVOR_ID', '2');
 
-require_once('rackspace.inc');
-require_once('compute.inc');
+require_once('rackspace.php');
+require_once('compute.php');
 
 define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
 define('USERNAME', $_ENV['OS_USERNAME']);

@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.inc');
-require_once('service.inc');
+require_once('stub_conn.php');
+require_once('service.php');
 
 /**
  * Since Service is an abstract class, we'll wrap it so we can test it

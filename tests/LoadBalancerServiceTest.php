@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('lbservice.inc');
-require_once('stub_conn.inc');
+require_once('lbservice.php');
+require_once('stub_conn.php');
 
 class LoadBalancerServiceTest extends PHPUnit_Framework_TestCase
 {

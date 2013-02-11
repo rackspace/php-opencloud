@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('openstack.inc');
-require_once('stub_conn.inc'); // stub Connection class
+require_once('openstack.php');
+require_once('stub_conn.php'); // stub Connection class
 
 if (!defined('TEST_DOMAIN')) define('TEST_DOMAIN', 'http://local.test');
 

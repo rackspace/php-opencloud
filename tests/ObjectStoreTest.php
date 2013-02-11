@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('objectstore.inc');
-require_once('stub_conn.inc');
+require_once('objectstore.php');
+require_once('stub_conn.php');
 
 /**
  * Stub wrapper class so that we can override the request() method

@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('lbservice.inc');
-require_once('loadbalancer.inc');
-require_once('stub_conn.inc');
+require_once('lbservice.php');
+require_once('loadbalancer.php');
+require_once('stub_conn.php');
 
 class publicLoadBalancer extends OpenCloud\LoadBalancerService\LoadBalancer {
 	/*

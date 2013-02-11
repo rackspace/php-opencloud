@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('dbservice.inc');
-require_once('stub_conn.inc');
+require_once('dbservice.php');
+require_once('stub_conn.php');
 
 class DbServiceTest extends PHPUnit_Framework_TestCase {
 	private

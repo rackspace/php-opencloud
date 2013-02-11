@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('volumeservice.inc');
-require_once('stub_conn.inc');
+require_once('volumeservice.php');
+require_once('stub_conn.php');
 
 class VolumeServiceTest extends PHPUnit_Framework_TestCase
 {

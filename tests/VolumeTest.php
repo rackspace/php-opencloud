@@ -9,10 +9,10 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('volume.inc');
-require_once('volumetype.inc');
-require_once('stub_conn.inc');
-require_once('volumeservice.inc');
+require_once('volume.php');
+require_once('volumetype.php');
+require_once('stub_conn.php');
+require_once('volumeservice.php');
 
 class publicVolume extends OpenCloud\VolumeService\Volume {
     public function CreateJson() { return parent::CreateJson(); }

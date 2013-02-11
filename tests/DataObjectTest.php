@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('dataobject.inc');
-require_once('stub_conn.inc');
-require_once('stub_service.inc');
+require_once('dataobject.php');
+require_once('stub_conn.php');
+require_once('stub_service.php');
 
 class DataObjectTest extends PHPUnit_Framework_TestCase
 {

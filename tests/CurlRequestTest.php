@@ -9,7 +9,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('http.inc');
+require_once('http.php');
 
 class CurlRequestTest extends PHPUnit_Framework_TestCase
 {

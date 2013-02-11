@@ -2,7 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-require_once('rackspace.inc');
+require_once('rackspace.php');
 
 define('INIFILE', 'auth.ini');
 

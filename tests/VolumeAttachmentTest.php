@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.inc');
-require_once('stub_service.inc');
-require_once('volumeattachment.inc');
+require_once('stub_conn.php');
+require_once('stub_service.php');
+require_once('volumeattachment.php');
 
 class publicVolumeAttachment extends OpenCloud\Compute\VolumeAttachment {
     public function CreateJson() { return parent::CreateJson(); }

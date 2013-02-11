@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('image.inc');
-require_once('compute.inc');
-require_once('stub_conn.inc');
+require_once('image.php');
+require_once('compute.php');
+require_once('stub_conn.php');
 
 class ImageStub extends OpenCloud\Compute\Image {
 }

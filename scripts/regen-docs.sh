@@ -21,7 +21,7 @@ fi
 find $APIDOCDIR -type f -exec git rm {} \;
 
 # regenerate all the docs!
-phpdoc -d lib --extensions="inc" -t $APIDOCDIR --template $TEMPLATE
+phpdoc -d lib --extensions="php" -t $APIDOCDIR --template $TEMPLATE
 
 # note that it does NOT check them in, but it adds them
 find $APIDOCDIR -type f -exec git add {} \;

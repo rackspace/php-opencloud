@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.inc');
-require_once('compute.inc');
+require_once('stub_conn.php');
+require_once('compute.php');
 
 class NetworkTest extends PHPUnit_Framework_TestCase {
 

@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.inc');
-require_once('servermetadata.inc');
-require_once('compute.inc');
+require_once('stub_conn.php');
+require_once('servermetadata.php');
+require_once('compute.php');
 
 class ServerMetadataTest extends PHPUnit_Framework_TestCase
 {

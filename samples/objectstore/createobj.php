@@ -12,8 +12,8 @@ namespace OpenCloud;
 
 define('RAXSDK_OBJSTORE_NAME','cloudFiles');
 define('RAXSDK_OBJSTORE_REGION','DFW');
-require_once('rackspace.inc');
-require_once('objectstore.inc');
+require_once('rackspace.php');
+require_once('objectstore.php');
 
 define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
 define('USERNAME', $_ENV['OS_USERNAME']);

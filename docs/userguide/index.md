@@ -69,10 +69,10 @@ You can also use the full path to the library as shown below.
 
 There are currently two top-level entry points into the library:
 
-* `openstack.inc` for pure OpenStack-based clouds
-* `rackspace.inc` for the Rackspace public cloud
+* `openstack.php` for pure OpenStack-based clouds
+* `rackspace.php` for the Rackspace public cloud
 
-(`rackspace.inc` is a subclass of `OpenStack` with some variation as
+(`rackspace.php` is a subclass of `OpenStack` with some variation as
 to how the authentication is handled, as well as factory methods for
 Rackspace-only services such as Cloud Databases&trade;.)
 
@@ -80,17 +80,17 @@ To use the library, you can `include()` or `require()` one of these scripts
 in your program, like this:
 
     <?php
-    include('openstack.inc');   // for OpenStack clouds
+    include('openstack.php');   // for OpenStack clouds
 
 or
 
     <?php
-    include('rackspace.inc');   // for the Rackspace cloud
+    include('rackspace.php');   // for the Rackspace cloud
 
 If you prefer, you can use the full path to the library file:
 
     <?php
-    include('/full/path/to/your/rackspace.inc');
+    include('/full/path/to/your/rackspace.php');
 
 In this case, you do not need to have the library location in your PHP's `include_path`
 setting.

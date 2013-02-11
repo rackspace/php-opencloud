@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.inc');
-require_once('stub_service.inc');
-require_once('dbservice.inc');
+require_once('stub_conn.php');
+require_once('stub_service.php');
+require_once('dbservice.php');
 
 class MyInstanceClass extends OpenCloud\DbService\Instance {
 	public function CreateJson($parm=array()) { 

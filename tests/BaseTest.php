@@ -10,7 +10,7 @@
  */
 
 define('RAXSDK_FATAL_HALT', False);	// don't halt on Fatal errors
-require_once('base.inc');
+require_once('base.php');
 
 /**
  * Can't test Base directly, since it is an abstract class, so we instantiate it

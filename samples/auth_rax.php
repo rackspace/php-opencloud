@@ -4,8 +4,8 @@
 
 namespace OpenCloud;
 
-require_once('rackspace.inc');
-require_once('compute.inc');
+require_once('rackspace.php');
+require_once('compute.php');
 
 // my credentials
 define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');

@@ -9,7 +9,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('rackspace.inc');
+require_once('rackspace.php');
 
 /**
  * Stub for Rackspace to Override the ->Request() method

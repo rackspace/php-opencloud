@@ -3,7 +3,7 @@ Exceptions and Errors
 
 <b>php-opencloud</b> handles errors by throwing 
 [Exceptions](http://php.net/manual/en/language.exceptions.php).
-The entire list of exceptions is defined in `lib/exceptions.inc` and
+The entire list of exceptions is defined in `lib/exceptions.php` and
 is documented in the full API reference.
 
 If an exception is expected, you will usually surround the call in

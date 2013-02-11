@@ -7,7 +7,7 @@ to work with an instance of a service, use the factory method on the
 top-level provider object:
 
     <?php
-    require('openstack.inc');
+    require('openstack.php');
     $cloud = new OpenStack('endpoint',array(...));
     $swift = $cloud->ObjectStore(...);
 

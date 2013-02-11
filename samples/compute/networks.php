@@ -9,7 +9,7 @@
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
-require('rackspace.inc');
+require('rackspace.php');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
 

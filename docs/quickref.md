@@ -24,17 +24,17 @@ encouraged to contribute theirs).
 
 To use an OpenStack service, use
 
-    require('openstack.inc');
+    require('openstack.php');
 
 To use the Rackspace public cloud, use:
 
-    require('rackspace.inc');
+    require('rackspace.php');
 
 Once you've included the desired connection class, you can proceed
 to establish the connection. For OpenStack clouds, provide the
 username and password:
 
-    require('openstack.inc');
+    require('openstack.php');
 	$conn = new OpenCloud\OpenStack(
 		'https://example.com/v2/identity',
 		array(
@@ -47,7 +47,7 @@ username and password:
 If you are using Rackspace's authentication, you need to pass your
 API key and tenant ID instead:
 
-    require('rackspace.inc');
+    require('rackspace.php');
 	$conn = new OpenCloud\Rackspace(
 		'https://example.com/v2/identity',
 		array(

@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('flavor.inc');
-require_once('compute.inc');
-require_once('stub_conn.inc');
+require_once('flavor.php');
+require_once('compute.php');
+require_once('stub_conn.php');
 
 class FlavorTest extends PHPUnit_Framework_TestCase
 {

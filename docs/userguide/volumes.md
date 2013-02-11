@@ -22,7 +22,7 @@ the top-level library file:
 	// set the default region to London
 	define('RAXSDK_VOLUME_REGION','LON');
 	// include the connection object
-	require('rackspace.inc');
+	require('rackspace.php');
 
 Use the `VolumeService()` method to create a new `VolumeService` object:
 

@@ -1,7 +1,10 @@
 RELEASE NOTES
 -------------
 
-### next version (in development)
+### 02/10/2013 Version 1.0
+* **IMPORTANT**: The file extension for include files is not `.php` (instead of 
+  `.inc`). This came at the request of numerous individuals. However, it means
+  that all of your scripts that use **php-opencloud** must be edited. 
 * `DataObject::Create()` now uses `content_type`; using the older
   `type` parameter is deprecated and will cause an UnknownParameterError
   exception.

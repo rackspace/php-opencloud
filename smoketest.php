@@ -15,7 +15,7 @@ if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
 	define('RAXSDK_SSL_VERIFYHOST', 0);
 	define('RAXSDK_SSL_VERIFYPEER', 0);
 }
-require('rackspace.inc');
+require('rackspace.php');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
 define('NETWORKNAME', 'SMOKETEST');

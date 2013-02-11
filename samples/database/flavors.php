@@ -2,8 +2,8 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-require_once('rackspace.inc');
-require_once('compute.inc');
+require_once('rackspace.php');
+require_once('compute.php');
 
 define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
 define('USERNAME', $_ENV['OS_USERNAME']);

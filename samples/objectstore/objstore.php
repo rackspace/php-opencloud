@@ -8,7 +8,7 @@ namespace OpenCloud;
 // connection class
 define('RAXSDK_OBJSTORE_NAME','cloudFiles');
 define('RAXSDK_OBJSTORE_REGION','DFW');
-require_once('rackspace.inc');
+require_once('rackspace.php');
 
 // these hold our environment variable settings
 define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');

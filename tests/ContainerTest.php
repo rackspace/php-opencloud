@@ -9,10 +9,10 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('container.inc');
-require_once('stub_conn.inc');
-require_once('stub_service.inc');
-require_once('http.inc');
+require_once('container.php');
+require_once('stub_conn.php');
+require_once('stub_service.php');
+require_once('http.php');
 
 class StubObjectStore extends OpenCloud\ObjectStore {
     public function Request($url, $method='GET', $headers=array(), $data=NULL) {

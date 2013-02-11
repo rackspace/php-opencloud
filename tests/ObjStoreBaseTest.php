@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('objstorebase.inc');
-require_once('http.inc');
+require_once('objstorebase.php');
+require_once('http.php');
 
 // stub class, since ObjStoreBase is abstract
 class MyObjStoreBase extends \OpenCloud\ObjectStore\ObjStoreBase {

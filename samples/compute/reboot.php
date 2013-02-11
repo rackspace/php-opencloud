@@ -1,7 +1,7 @@
 <?php
 // (c)2012 Rackspace Hosting. See COPYING for license.
 
-require('rackspace.inc');
+require('rackspace.php');
 
 define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
 define('USERNAME', $_ENV['OS_USERNAME']);

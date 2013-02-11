@@ -14,7 +14,7 @@
  * password. 
  */
 
-require_once('openstack.inc');
+require_once('openstack.php');
 
 // my credentials
 define('AUTHURL', '{your authorization URL}');

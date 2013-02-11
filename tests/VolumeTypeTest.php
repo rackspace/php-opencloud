@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('volumetype.inc');
-require_once('stub_conn.inc');
-require_once('volumeservice.inc');
+require_once('volumetype.php');
+require_once('stub_conn.php');
+require_once('volumeservice.php');
 
 class VolumeTypeTest extends PHPUnit_Framework_TestCase
 {

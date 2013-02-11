@@ -42,7 +42,7 @@ a [factory method](factories.md) on the cloud provider object. For example, assu
 you're connecting to an OpenStack cloud:
 
     <?php
-    require('openstack.inc');
+    require('openstack.php');
     $endpoint = 'https://....';
     $credentials = array('username'=>'USER','password'='PASS');
     $cloud = new OpenCloud\OpenStack($endpoint,$credentials);
@@ -118,7 +118,7 @@ like this:
     <?php
     define('RAXSDK_COMPUTE_REGION', 'DFW');
     define('RAXSDK_OBJSTORE_REGION', 'DFW');
-    require('rackspace.inc');
+    require('rackspace.php');
 
 ## What's next?
 

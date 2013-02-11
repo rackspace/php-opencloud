@@ -9,8 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('nova.inc');
-require_once('stub_conn.inc');
+require_once('nova.php');
+require_once('stub_conn.php');
 
 // stub out Nova because it's an abstract class
 class MyNova extends OpenCloud\Nova { }

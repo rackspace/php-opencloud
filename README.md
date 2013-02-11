@@ -2,6 +2,10 @@
 =============
 PHP SDK for OpenStack/Rackspace APIs
 
+> **IMPORTANT NOTE**: With release 1.3, all of the file extensions have been
+  changed from `.inc` to `.php`. This means that any existing code must be 
+  edited to use this new version.
+
 See the
 [COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
 file for license and copyright information.

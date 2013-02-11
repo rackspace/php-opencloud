@@ -9,7 +9,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('http.inc');
+require_once('http.php');
 
 define('TESTDATA',<<<ENDTESTDATA
 Four score and seven years ago, our

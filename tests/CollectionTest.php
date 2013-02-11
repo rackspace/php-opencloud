@@ -9,7 +9,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('collection.inc');
+require_once('collection.php');
 
 class Gertrude {
 	public function foobar($item) {

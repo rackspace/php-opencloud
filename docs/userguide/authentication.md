@@ -24,10 +24,10 @@ authorized user and a specific cloud deployment. They are required for any use o
 
 ## Authenticating against OpenStack clouds
 
-First, include the `openstack.inc` top-level file:
+First, include the `openstack.php` top-level file:
 
     <?php
-    include('openstack.inc');
+    include('openstack.php');
 
 Next, create an `OpenStack` object with the proper credentials:
 
@@ -46,10 +46,10 @@ name and password, respectively.
 
 ## Authenticating against the Rackspace public cloud
 
-First, include the `rackspace.inc` top-level file:
+First, include the `rackspace.php` top-level file:
 
     <?php
-    include('rackspace.inc');
+    include('rackspace.php');
 
 Next, create a `Rackspace` object with the proper credentials:
 

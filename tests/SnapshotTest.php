@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('snapshot.inc');
-require_once('stub_conn.inc');
-require_once('volumeservice.inc');
+require_once('snapshot.php');
+require_once('stub_conn.php');
+require_once('volumeservice.php');
 
 class publicSnapshot extends OpenCloud\VolumeService\Snapshot {
     public function CreateJson() { return parent::CreateJson(); }

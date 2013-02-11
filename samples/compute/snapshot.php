@@ -8,7 +8,7 @@
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
-require('rackspace.inc');
+require('rackspace.php');
 
 /**
  * Relies upon environment variable settings — these are the same environment

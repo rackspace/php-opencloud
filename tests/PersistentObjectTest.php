@@ -9,9 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.inc');
-require_once('compute.inc');
-require_once('persistentobject.inc');
+require_once('stub_conn.php');
+require_once('compute.php');
+require_once('persistentobject.php');
 
 // make a real class from the abstract one
 class MyPersistentObject extends \OpenCloud\PersistentObject {
