@@ -21,8 +21,15 @@ so that you can still use the SDK with a pure OpenStack instance
 See the [Release Notes](php-opencloud/blob/master/RELEASENOTES.md)
 for what has changed in the latest release(s).
 
-The easiest way to download the **php-opencloud** bindings is to use the
-GitHub "ZIP" button, above.
+Downloading
+-----------
+
+Visit https://github.com/rackspace/php-opencloud/tags to see tagged releases 
+that you can download.
+
+You can download the master branch using the 
+GitHub "ZIP" button, above. However, this has the latest code and may not
+be as stable as the tagged branches.
 
 Support and Feedback
 --------------------
