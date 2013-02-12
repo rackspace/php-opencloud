@@ -21,6 +21,10 @@ so that you can still use the SDK with a pure OpenStack instance
 See the [Release Notes](php-opencloud/blob/master/RELEASENOTES.md)
 for what has changed in the latest release(s).
 
+See the [php-opencloud wiki](https://github.com/rackspace/php-opencloud/wiki)
+for incidental notes mostly aimed at developers who are working *on* the
+SDK (and not developers working *with* the SDK).
+
 Downloading
 -----------
 
