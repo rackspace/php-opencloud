@@ -12,8 +12,8 @@
 
 namespace OpenCloud\VolumeService;
 
-require_once('persistentobject.php');
-require_once('metadata.php');
+require_once(__DIR__.'/persistentobject.php');
+require_once(__DIR__.'/metadata.php');
 
 /**
  * The Snapshot class represents a single block storage snapshot

@@ -13,9 +13,9 @@
 
 namespace OpenCloud;
 
-require_once('service.php');
-require_once('flavor.php');
-require_once('collection.php');
+require_once(__DIR__.'/service.php');
+require_once(__DIR__.'/flavor.php');
+require_once(__DIR__.'/collection.php');
 
 /**
  * Nova is an abstraction layer for the OpenStack compute service.

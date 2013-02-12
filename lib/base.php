@@ -12,9 +12,9 @@
 
 namespace OpenCloud;
 
-require_once('globals.php');
-require_once('exceptions.php');
-require_once('http.php');
+require_once(__DIR__.'/globals.php');
+require_once(__DIR__.'/exceptions.php');
+require_once(__DIR__.'/http.php');
 
 /**
  * The Base class is the root class for all other objects used or defined by

@@ -12,9 +12,9 @@
 
 namespace OpenCloud\DbService;
 
-require_once('persistentobject.php');
-require_once('database.php');
-require_once('user.php');
+require_once(__DIR__.'/persistentobject.php');
+require_once(__DIR__.'/database.php');
+require_once(__DIR__.'/user.php');
 
 /**
  * Instance represents an instance of DbService, similar to a Server in a

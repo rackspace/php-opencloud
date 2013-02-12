@@ -12,11 +12,11 @@
 
 namespace OpenCloud;
 
-require_once('nova.php');
-require_once('server.php');
-require_once('image.php');
-require_once('network.php');
-require_once('servermetadata.php');
+require_once(__DIR__.'/nova.php');
+require_once(__DIR__.'/server.php');
+require_once(__DIR__.'/image.php');
+require_once(__DIR__.'/network.php');
+require_once(__DIR__.'/servermetadata.php');
 
 /**
  * The Compute class represents the OpenStack Nova service.

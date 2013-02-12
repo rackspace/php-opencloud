@@ -13,9 +13,9 @@
 
 namespace OpenCloud;
 
-require_once('openstack.php');
-require_once('dbservice.php');
-require_once('lbservice.php');
+require_once(__DIR__.'/openstack.php');
+require_once(__DIR__.'/dbservice.php');
+require_once(__DIR__.'/lbservice.php');
 
 /**
  * Rackspace extends the OpenStack class with support for Rackspace's

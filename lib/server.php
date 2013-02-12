@@ -12,9 +12,9 @@
 
 namespace OpenCloud\Compute;
 
-require_once('persistentobject.php');
-require_once('metadata.php');
-require_once('volumeattachment.php');
+require_once(__DIR__.'/persistentobject.php');
+require_once(__DIR__.'/metadata.php');
+require_once(__DIR__.'/volumeattachment.php');
 
 /**
  * The Server class represents a single server node.

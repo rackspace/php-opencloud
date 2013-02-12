@@ -12,7 +12,7 @@
 
 namespace OpenCloud\LoadBalancerService;
 
-require_once('persistentobject.php');
+require_once(__DIR__.'/persistentobject.php');
 
 /**
  * SubResource is an abstract class that handles subresources of a

@@ -12,8 +12,8 @@
 
 namespace OpenCloud;
 
-require_once('base.php');
-require_once('metadata.php');
+require_once(__DIR__.'/base.php');
+require_once(__DIR__.'/metadata.php');
 
 /**
  * represents an object that has the ability to be

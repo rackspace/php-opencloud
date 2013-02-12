@@ -24,7 +24,7 @@
  * for your connection object.
  */
 
-require_once('rackspace.php');
-require_once('compute.php');
-require_once('objectstore.php');
-require_once('dbservice.php');
+require_once(__DIR__.'/rackspace.php');
+require_once(__DIR__.'/compute.php');
+require_once(__DIR__.'/objectstore.php');
+require_once(__DIR__.'/dbservice.php');

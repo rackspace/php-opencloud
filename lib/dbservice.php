@@ -12,8 +12,8 @@
 
 namespace OpenCloud;
 
-require_once('nova.php');
-require_once('instance.php');
+require_once(__DIR__.'/nova.php');
+require_once(__DIR__.'/instance.php');
 
 /**
  * The Rackspace Database As A Service (aka "Red Dwarf")

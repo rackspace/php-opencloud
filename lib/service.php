@@ -12,7 +12,7 @@
 
 namespace OpenCloud;
 
-require_once('base.php');
+require_once(__DIR__.'/base.php');
 
 /**
  * This class defines a "service"—a relationship between a specific OpenStack

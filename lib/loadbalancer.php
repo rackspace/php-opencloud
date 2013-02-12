@@ -12,9 +12,9 @@
 
 namespace OpenCloud\LoadBalancerService;
 
-require_once('persistentobject.php');	// handles persistence
-require_once('metadata.php');			// metadata common
-require_once('lbresources.php');		// child resources
+require_once(__DIR__.'/persistentobject.php');	// handles persistence
+require_once(__DIR__.'/metadata.php');			// metadata common
+require_once(__DIR__.'/lbresources.php');		// child resources
 
 /**
  * The LoadBalancer class represents a single load balancer

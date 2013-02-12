@@ -12,8 +12,8 @@
 
 namespace OpenCloud;
 
-require_once('service.php');
-require_once('container.php');
+require_once(__DIR__.'/service.php');
+require_once(__DIR__.'/container.php');
 
 define('SWIFT_MAX_OBJECT_SIZE', 5*1024*1024*1024+1);
 

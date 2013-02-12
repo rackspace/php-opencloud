@@ -13,7 +13,7 @@
 
 namespace OpenCloud\Compute;
 
-require_once('metadata.php');
+require_once(__DIR__.'/metadata.php');
 
 /**
  * This class handles server metadata

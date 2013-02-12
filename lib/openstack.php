@@ -12,10 +12,10 @@
 
 namespace OpenCloud;
 
-require_once('base.php');
-require_once('objectstore.php');
-require_once('compute.php');
-require_once('volumeservice.php');
+require_once(__DIR__.'/base.php');
+require_once(__DIR__.'/objectstore.php');
+require_once(__DIR__.'/compute.php');
+require_once(__DIR__.'/volumeservice.php');
 
 /**
  * The OpenStack class represents a relationship (or "connection")

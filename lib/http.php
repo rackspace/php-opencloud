@@ -12,8 +12,8 @@
 
 namespace OpenCloud;
 
-require_once('globals.php');
-require_once('exceptions.php');
+require_once(__DIR__.'/globals.php');
+require_once(__DIR__.'/exceptions.php');
 
 /**
  * The HttpRequest interface defines methods for wrapping CURL; this allows

@@ -12,8 +12,8 @@
 
 namespace OpenCloud\ObjectStore;
 
-require_once('dataobject.php');
-require_once('objstorebase.php');
+require_once(__DIR__.'/dataobject.php');
+require_once(__DIR__.'/objstorebase.php');
 
 /**
  * A simple container for the CDN Service

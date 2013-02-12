@@ -13,7 +13,7 @@
 
 namespace OpenCloud\Compute;
 
-require_once('persistentobject.php');
+require_once(__DIR__.'/persistentobject.php');
 
 /**
  * The Flavor class represents a flavor defined by the Compute service

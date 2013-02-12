@@ -12,9 +12,9 @@
 
 namespace OpenCloud\ObjectStore;
 
-require_once('base.php');
-require_once('container.php');
-require_once('objstorebase.php');
+require_once(__DIR__.'/base.php');
+require_once(__DIR__.'/container.php');
+require_once(__DIR__.'/objstorebase.php');
 
 /**
  * A DataObject is an object in the ObjectStore

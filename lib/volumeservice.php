@@ -12,10 +12,10 @@
 
 namespace OpenCloud;
 
-require_once('nova.php');
-require_once('volume.php');
-require_once('volumetype.php');
-require_once('snapshot.php');
+require_once(__DIR__.'/nova.php');
+require_once(__DIR__.'/volume.php');
+require_once(__DIR__.'/volumetype.php');
+require_once(__DIR__.'/snapshot.php');
 
 class VolumeService extends Nova {
 

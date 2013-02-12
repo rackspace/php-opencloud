@@ -13,8 +13,8 @@
 
 namespace OpenCloud\ObjectStore;
 
-require_once('base.php');
-require_once('metadata.php');
+require_once(__DIR__.'/base.php');
+require_once(__DIR__.'/metadata.php');
 
 /**
  * Intermediate (abstract) class to implement shared

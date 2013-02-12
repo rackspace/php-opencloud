@@ -12,7 +12,7 @@
 
 namespace OpenCloud;
 
-require_once('base.php');
+require_once(__DIR__.'/base.php');
 
 /**
  * The Metadata class represents either Server or Image metadata

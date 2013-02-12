@@ -12,7 +12,7 @@
 
 namespace OpenCloud;
 
-require_once('base.php');
+require_once(__DIR__.'/base.php');
 
 /**
  * Provides an abstraction for working with ordered sets of objects

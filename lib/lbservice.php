@@ -12,8 +12,8 @@
 
 namespace OpenCloud;
 
-require_once('nova.php');
-require_once('loadbalancer.php');
+require_once(__DIR__.'/nova.php');
+require_once(__DIR__.'/loadbalancer.php');
 
 /**
  * The Rackspace Cloud Load Balancers
