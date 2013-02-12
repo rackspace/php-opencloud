@@ -1,6 +1,9 @@
 RELEASE NOTES
 -------------
 
+### Master (in progress)
+* Added __DIR__ to all internal `require()` calls. [Issue #40]
+
 ### 02/10/2013 Version 1.3
 * **IMPORTANT**: The file extension for include files is not `.php` (instead of 
   `.inc`). This came at the request of numerous individuals. However, it means
