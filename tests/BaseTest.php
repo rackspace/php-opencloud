@@ -9,7 +9,6 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-define('RAXSDK_FATAL_HALT', False);	// don't halt on Fatal errors
 require_once('base.php');
 
 /**
@@ -76,6 +75,12 @@ class BaseTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals(
 	        'A=1&B=2',
 	        $this->my->MakeQueryString(array('A'=>1,'B'=>2)));
+	    $this->assertEquals(
+	        'A=1&B=False',
+	        $this->my->MakeQueryString(array('A'=>1,'B'=>FALSE)));
+	    $this->assertEquals(
+	        'A=1&B=True',
+	        $this->my->MakeQueryString(array('A'=>1,'B'=>TRUE)));
 	}
 	/**
 	 * @expectedException OpenCloud\JsonError
