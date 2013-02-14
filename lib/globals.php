@@ -82,6 +82,12 @@ if (!defined('RAXSDK_LBSERVICE_REGION'))
     define('RAXSDK_LBSERVICE_REGION', NULL);
 if (!defined('RAXSDK_LBSERVICE_URLTYPE'))
     define('RAXSDK_LBSERVICE_URLTYPE', 'publicURL');
+if (!defined('RAXSDK_DNS_NAME'))
+    define('RAXSDK_DNS_NAME', 'cloudDNS');
+if (!defined('RAXSDK_DNS_REGION'))
+    define('RAXSDK_DNS_REGION', '{IGNORE}'); // DNS is regionless
+if (!defined('RAXSDK_DNS_URLTYPE'))
+    define('RAXSDK_DNS_URLTYPE', 'publicURL');
 if (!defined('RAXSDK_CONNECTTIMEOUT'))
     define('RAXSDK_CONNECTTIMEOUT', 5);
 if (!defined('RAXSDK_TIMEOUT'))

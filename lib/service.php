@@ -256,8 +256,14 @@ abstract class Service extends Base {
                  (!strcasecmp($service->name, $name))) {
                 // found the service, now we need to find the region
                 foreach($service->endpoints as $endpoint) {
+					// regionless service
+                    if (!isset($endpoint->region) &&
+                    	 isset($endpoint->$urltype)) {
+                    	++$found;
+                    	return $endpoint->$urltype;
+                    }
                     // compare the regions
-                    if ((!strcasecmp($endpoint->region, $region)) &&
+                    elseif ((!strcasecmp($endpoint->region, $region)) &&
                          isset($endpoint->$urltype)) {
                         // now we have a match! Yay!
                         ++$found;

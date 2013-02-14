@@ -106,6 +106,11 @@ class OpenStack extends \OpenCloud\Base {
 		    	'name' => RAXSDK_LBSERVICE_NAME,
 		    	'region' => RAXSDK_LBSERVICE_REGION,
 		    	'urltype' => RAXSDK_LBSERVICE_URLTYPE
+		    ),
+		    'DNS' => array(
+		    	'name' => RAXSDK_DNS_NAME,
+		    	'region' => RAXSDK_DNS_REGION,
+		    	'urltype' => RAXSDK_DNS_URLTYPE
 		    )
 		),
 		$connect_timeout=RAXSDK_CONNECTTIMEOUT,
@@ -264,7 +269,8 @@ class OpenStack extends \OpenCloud\Base {
 
 			if (isset($this->secret['tenantName']))
 			{
-				$credentials['auth']['tenantName'] = $this->secret['tenantName'];
+				$credentials['auth']['tenantName'] = 
+					$this->secret['tenantName'];
 			}
 
 			return json_encode($credentials);

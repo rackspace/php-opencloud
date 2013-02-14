@@ -16,6 +16,7 @@ namespace OpenCloud;
 require_once(__DIR__.'/openstack.php');
 require_once(__DIR__.'/dbservice.php');
 require_once(__DIR__.'/lbservice.php');
+require_once(__DIR__.'/dns.php');
 
 /**
  * Rackspace extends the OpenStack class with support for Rackspace's
@@ -91,6 +92,16 @@ ENDCRED;
      */
     public function LoadBalancerService($name=NULL,$region=NULL,$urltype=NULL) {
         return $this->Service('LoadBalancerService', $name, $region, $urltype);
+    }
+    
+    /**
+     * creates a new DNS service object
+     *
+     * This is a factory method that is currently Rackspace-only
+     * (not available via the OpenStack class)
+     */
+    public function DNS($name=NULL, $region=NULL, $urltype=NULL) {
+    	return $this->Service('DNS', $name, $region, $urltype);
     }
 
 } // end class Rackspace
