@@ -41,9 +41,13 @@ class DnsTest extends PHPUnit_Framework_TestCase
 			get_class($this->dns->Domain()));
 	}
 	public function testDomainList() {
+		$list = $this->dns->DomainList();
 		$this->assertEquals(
-			'FOOBAR',
-			get_class($this->dns->DomainList()));
+			'OpenCloud\Collection',
+			get_class($list));
+		$this->assertGreaterThan(
+			2,
+			strlen($list->Next()->Name()));
 	}
 	public function testAsyncRequest() {
 	}

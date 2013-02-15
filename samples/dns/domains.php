@@ -14,15 +14,16 @@ $cloud = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 
-//setDebug(TRUE);
-
 $dns = $cloud->DNS();
+setDebug(TRUE);
 $dlist = $dns->DomainList();
+setDebug(FALSE);
 while($domain = $dlist->Next()) {
 	printf("%-30s [%s]\n",
 		$domain->Name(), $domain->emailAddress);
 	$async = $domain->Export();
 	$async->WaitFor('COMPLETED', 300, 'disp_status', 1);
+	print($async->response->contents);
 }
 
 exit();

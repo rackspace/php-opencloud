@@ -125,6 +125,14 @@ ENDLB;
 			$resp->body = '{"metadata":{"foo":"bar","a":"1"}}';
 			$resp->status = 200;
 		}
+		elseif (strpos($url, '/domain/')) {
+		}
+		elseif (strpos($url, '/domains')) {
+			$resp->body = <<<ENDDOM
+{"domains":[{"name":"raxdrg.info","id":999919,"accountId":"TENANT-ID","emailAddress":"noname@dontuseemail.com","updated":"2013-02-15T16:30:28.000+0000","created":"2013-02-15T16:30:27.000+0000"}]}
+ENDDOM;
+			$resp->status = 200;
+		}
 		elseif (strpos($url, '/metadata')) {
 			$resp->body = NULL;
 			$resp->status = 200;
