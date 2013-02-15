@@ -15,7 +15,7 @@ namespace OpenCloud\DNS;
 require_once(__DIR__.'/persistentobject.php');
 
 /**
- * The Domain class represents a single domain
+ * The Record class represents a single domain record
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
@@ -41,10 +41,12 @@ class Record extends \OpenCloud\PersistentObject {
 	private
 		$_domain,
 		$_create_keys = array(
-		    'name',
-			'emailAddress',
-			'ttl',
-			'comment'
+		    'ttl',
+			'name',
+			'type',
+			'data',
+			'comment',
+			'priority'
 		);
 		
 	/**
@@ -62,6 +64,18 @@ class Record extends \OpenCloud\PersistentObject {
 	 */
 	public function Parent() {
 		return $this->_domain;
+	}
+	
+	/**
+	 * creates the JSON for update
+	 */
+	protected function UpdateJson() {
+		$keys = array('name', 'ttl', 'data', 'priority', 'comment');
+		$obj = new \stdClass;
+		foreach($keys as $item)
+			if ($this->$item)
+				$obj->$item = $this->$item;
+		return $obj;
 	}
 	
 } // class Record
