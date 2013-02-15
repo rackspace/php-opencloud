@@ -13,6 +13,7 @@
 namespace OpenCloud\DNS;
 
 require_once(__DIR__.'/persistentobject.php');
+require_once(__DIR__.'/record.php');
 
 /**
  * The Domain class represents a single domain
@@ -33,7 +34,7 @@ class Domain extends \OpenCloud\PersistentObject {
 		$comment;
 	
 	protected static
-		$json_name = '',
+		$json_name = FALSE,
 		$json_collection_name = 'domains',
 		$url_resource = 'domains';
 
@@ -46,6 +47,27 @@ class Domain extends \OpenCloud\PersistentObject {
 		);
 	
 	/**
+	 * returns a Record object
+	 *
+	 * @return Record
+	 */
+	public function Record($info=NULL) {
+		return new Record($this, $info);
+	}
+	
+	/**
+	 * returns a Collection of Record objects
+	 *
+	 * @param array $filter query-string parameters
+	 * @return \OpenCloud\Collection
+	 */
+	public function RecordList($filter=array()) {
+		$url = $this->Url(Record::ResourceName(), $filter);
+		return $this->Parent()->Collection(
+			'\OpenCloud\DNS\Record', NULL, $this);
+	}
+	
+	/**
 	 * exports the domain
 	 *
 	 * @return AsyncResponse
@@ -55,34 +77,4 @@ class Domain extends \OpenCloud\PersistentObject {
 		return $this->Service()->AsyncRequest($url);
 	}
 
-	/********** PROTECTED METHODS **********/
-
-	/**
-	 * Creates the JSON object for the Create() method
-	 *
-	 * @return stdClass
-	 */
-	protected function CreateJson() {
-		$element = $this->JsonName();
-		$obj = new \stdClass();
-		$obj->$element = new \stdClass();
-		foreach ($this->_create_keys as $name) {
-			if ($this->$name) {
-			    switch($name) {
-			    case 'volume_type':
-			        $obj->$element->$name = $this->volume_type->Name();
-			        break;
-			    default:
-				    $obj->$element->$name = $this->$name;
-				}
-			}
-		}
-		if (is_array($this->metadata) && count($this->metadata)) {
-			$obj->$element->metadata = new \stdClass();
-			foreach($this->metadata as $key => $value)
-				$obj->$element->metadata->$key = $value;
-		}
-		return $obj;
-	}
-
-} // class Volume
+} // class Domain

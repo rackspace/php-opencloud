@@ -15,15 +15,21 @@ $cloud = new OpenCloud\Rackspace(AUTHURL,
 		   'apiKey' => APIKEY ));
 
 $dns = $cloud->DNS();
-setDebug(TRUE);
 $dlist = $dns->DomainList();
-setDebug(FALSE);
 while($domain = $dlist->Next()) {
-	printf("%-30s [%s]\n",
+	printf("%s [%s]\n",
 		$domain->Name(), $domain->emailAddress);
+	/*
 	$async = $domain->Export();
 	$async->WaitFor('COMPLETED', 300, 'disp_status', 1);
 	print($async->response->contents);
+	*/
+	$rlist = $domain->RecordList();
+	while($rec = $rlist->Next()) {
+		$name = str_replace($domain->Name(), '', $rec->name);
+		printf("  %s %d %s %s\n", 
+			$rec->type, $rec->ttl, $name, $rec->data);
+	}
 }
 
 exit();
