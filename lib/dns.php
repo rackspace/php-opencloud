@@ -12,7 +12,9 @@
 
 namespace OpenCloud;
 
+require_once(__DIR__.'/asyncresponse.php');
 require_once(__DIR__.'/domain.php');
+require_once(__DIR__.'/service.php');
 
 class DNS extends Service {
 
@@ -60,6 +62,34 @@ class DNS extends Service {
 	public function DomainList($filter=array()) {
 		$url = $this->Url(DNS\Domain::ResourceName(), $filter);
 		return $this->Collection('\OpenCloud\DNS\Domain', $url);
+	}
+	
+	/**
+	 * retrieves an asynchronous response
+	 *
+	 * This method calls the provided `$url` and expects an asynchronous
+	 * response. It checks for various HTTP error codes and returns
+	 * an `AsyncResponse` object. This object can then be used to poll
+	 * for the status or to retrieve the final data as needed. 
+	 *
+	 * @param string $url the URL of the request
+	 * @return DNS\AsyncResponse
+	 */
+	public function AsyncRequest(
+			$url, $method='GET', $headers=array(), $body=NULL) {
+		
+		// perform the initial request
+		$resp = $this->Request($url, $method, $headers, $body);
+		
+		// check response status
+		if ($resp->HttpStatus() > 204)
+			throw new DNS\AsyncHttpError(sprintf(
+				_('Unexpected HTTP status for async request: '.
+				  'URL [%s] method [%s] status [%s] response [%s]'),
+				$url, $method, $resp->HttpStatus(), $resp->HttpBody()));
+		
+		// return an AsyncResponse object
+		return new DNS\AsyncResponse($this, $resp->HttpBody());
 	}
 
 } // end class DNS

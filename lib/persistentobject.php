@@ -287,7 +287,8 @@ abstract class PersistentObject extends Base {
 	 *
 	 */
 	public function WaitFor($terminal='ACTIVE',
-	        $timeout=RAXSDK_SERVER_MAXTIMEOUT, $callback=NULL) {
+	        $timeout=RAXSDK_SERVER_MAXTIMEOUT, $callback=NULL,
+	        $sleep=RAXSDK_POLL_INTERVAL) {
 	    // find the primary key field
 	    $pk = $this->PrimaryKeyField();
 
@@ -301,7 +302,7 @@ abstract class PersistentObject extends Base {
 			if ($this->status == 'ERROR') return;
 			if ($this->status == $terminal) return;
 			if (time()-$starttime > $timeout) return;
-			sleep(RAXSDK_POLL_INTERVAL);
+			sleep($sleep);
 		}
 	}
 

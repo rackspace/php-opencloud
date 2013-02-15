@@ -151,3 +151,12 @@ namespace OpenCloud\VolumeService {
 namespace OpenCloud\LoadBalancerService {
 	class MissingValueError extends \Exception {}
 }
+
+/**
+ * Exceptions used by the DNS service
+ */
+namespace OpenCloud\DNS {
+	class AsyncHttpError extends \Exception {}
+	class AsyncError extends \Exception {}
+	class AsyncTimeoutError extends \Exception {}
+}

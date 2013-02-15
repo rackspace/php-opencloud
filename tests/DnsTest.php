@@ -1,0 +1,50 @@
+<?php
+/**
+ * Unit Tests
+ *
+ * @copyright 2012-2013 Rackspace Hosting, Inc.
+ * See COPYING for licensing information
+ *
+ * @version 1.0.0
+ * @author Glen Campbell <glen.campbell@rackspace.com>
+ */
+
+require_once('dns.php');
+require_once('stub_conn.php');
+
+class DnsTest extends PHPUnit_Framework_TestCase
+{
+	private
+		$conn, 		// connection
+		$dns;	// compute service
+
+	public function __construct() {
+		$this->conn = new StubConnection('http://example.com', 'SECRET');
+		$this->dns = new OpenCloud\DNS(
+			$this->conn,
+			'cloudDNS',
+			'N/A',
+			'publicURL'
+		);
+	}
+	/**
+	 * Tests
+	 */
+	public function testUrl() {
+		$this->assertEquals(
+			'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID',
+			$this->dns->Url());
+	}
+	public function testDomain() {
+		$this->assertEquals(
+			'OpenCloud\DNS\Domain',
+			get_class($this->dns->Domain()));
+	}
+	public function testDomainList() {
+		$this->assertEquals(
+			'FOOBAR',
+			get_class($this->dns->DomainList()));
+	}
+	public function testAsyncRequest() {
+	}
+}

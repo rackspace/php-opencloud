@@ -88,6 +88,10 @@ if (!defined('RAXSDK_DNS_REGION'))
     define('RAXSDK_DNS_REGION', '{IGNORE}'); // DNS is regionless
 if (!defined('RAXSDK_DNS_URLTYPE'))
     define('RAXSDK_DNS_URLTYPE', 'publicURL');
+if (!defined('RAXSDK_DNS_ASYNC_TIMEOUT'))
+	define('RAXSDK_DNS_ASYNC_TIMEOUT', 60);
+if (!defined('RAXSDK_DNS_ASYNC_INTERVAL'))
+	define('RAXSDK_DNS_ASYNC_INTERVAL', 1);
 if (!defined('RAXSDK_CONNECTTIMEOUT'))
     define('RAXSDK_CONNECTTIMEOUT', 5);
 if (!defined('RAXSDK_TIMEOUT'))

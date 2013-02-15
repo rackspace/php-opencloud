@@ -44,6 +44,16 @@ class Domain extends \OpenCloud\PersistentObject {
 			'ttl',
 			'comment'
 		);
+	
+	/**
+	 * exports the domain
+	 *
+	 * @return AsyncResponse
+	 */
+	public function Export() {
+		$url = $this->Url('export');
+		return $this->Service()->AsyncRequest($url);
+	}
 
 	/********** PROTECTED METHODS **********/
 
