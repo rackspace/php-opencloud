@@ -30,6 +30,12 @@ class DnsTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests
 	 */
+	public function test__construct() {
+	    $thing = new OpenCloud\DNS($this->conn,'cloudDNS','N/A','publicURL');
+	    $this->assertEquals(
+	        'OpenCloud\DNS',
+	        get_class($thing));
+	}
 	public function testUrl() {
 		$this->assertEquals(
 			'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID',
@@ -49,6 +55,10 @@ class DnsTest extends PHPUnit_Framework_TestCase
 			2,
 			strlen($list->Next()->Name()));
 	}
+	/**
+	 * @expectedException OpenCloud\DNS\AsyncHttpError
+	 */
 	public function testAsyncRequest() {
+	    $resp = $this->dns->AsyncRequest('FOOBAR');
 	}
 }
