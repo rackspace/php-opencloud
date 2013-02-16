@@ -12,7 +12,7 @@
 
 namespace OpenCloud\DNS;
 
-require_once(__DIR__.'/persistentobject.php');
+require_once(__DIR__.'/dnsobject.php');
 
 /**
  * The Record class represents a single domain record
@@ -20,7 +20,7 @@ require_once(__DIR__.'/persistentobject.php');
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Record extends \OpenCloud\PersistentObject {
+class Record extends DnsObject {
 
 	public
 		$ttl,
@@ -38,10 +38,10 @@ class Record extends \OpenCloud\PersistentObject {
 		$json_collection_name = 'records',
 		$url_resource = 'records';
 
-	private
+	protected
 		$_domain,
 		$_update_keys = array('name','ttl','data','priority','comment'),
-		$_create_keys = array('name','ttl','type','data','priority','comment');
+		$_create_keys = array('type','name','ttl','data','priority','comment');
 		
 	/**
 	 * create a new record object
@@ -58,42 +58,6 @@ class Record extends \OpenCloud\PersistentObject {
 	 */
 	public function Parent() {
 		return $this->_domain;
-	}
-	
-	/* ---------- PROTECTED METHODS ---------- */
-	
-	/**
-	 * creates the JSON for create
-	 *
-	 * @return stdClass
-	 */
-	protected function CreateJson() {
-		return $this->GetJson($this->_create_keys);
-	}
-	
-	/**
-	 * creates the JSON for update
-	 *
-	 * @return stdClass
-	 */
-	protected function UpdateJson() {
-		return $this->GetJson($this->_update_keys);
-	}
-	
-	/* ---------- PRIVATE METHODS ---------- */
-	
-	/**
-	 * returns JSON based on $keys
-	 *
-	 * @param array $keys list of items to include
-	 * @return stdClass
-	 */
-	private function GetJson($keys) {
-		$obj = new \stdClass;
-		foreach($keys as $item)
-			if ($this->$item)
-				$obj->$item = $this->$item;
-		return $obj;
 	}
 	
 } // class Record

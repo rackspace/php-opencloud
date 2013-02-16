@@ -12,7 +12,7 @@
 
 namespace OpenCloud\DNS;
 
-require_once(__DIR__.'/persistentobject.php');
+require_once(__DIR__.'/dnsobject.php');
 require_once(__DIR__.'/record.php');
 
 /**
@@ -21,7 +21,7 @@ require_once(__DIR__.'/record.php');
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Domain extends \OpenCloud\PersistentObject {
+class Domain extends DnsObject {
 
 	public
 		$id,
