@@ -32,17 +32,20 @@ while($domain = $dlist->Next()) {
 			echo "  Deleting...\n";
 			$rec->Delete();
 		}
+		else if ($rec->type=='NS') {
+			$rec->ttl = rand(300, 600);
+			printf("Updating ttl=%d\n", $rec->ttl);
+			$rec->Update();
+		}
 	}
 	if (!$foobar) {
 		echo "  Creating CNAME foobar...\n";
 		$foo = $domain->Record();
-		setDebug(TRUE);
 		$foo->Create(array(
 			'type' => 'CNAME',
 			'name' => 'foobar.raxdrg.info',
 			'ttl'  => 600,
 			'data' => 'rack2.broadpool.net'
 		));
-		setDebug(FALSE);
 	}
 }

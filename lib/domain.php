@@ -64,6 +64,20 @@ class Domain extends DnsObject {
 	}
 	
 	/**
+	 * returns a Collection of subdomains
+	 *
+	 * The subdomains are all `DNS:Domain` objects that are children of
+	 * the current domain.
+	 *
+	 * @param array $filter key/value pairs for query string parameters
+	 * return \OpenCloud\Collection
+	 */
+	public function SubdomainList($filter=array()) {
+		return $this->Parent()->Collection(
+			'\OpenCloud\DNS\Domain', NULL, $this);
+	}
+	
+	/**
 	 * exports the domain
 	 *
 	 * @return AsyncResponse
