@@ -30,26 +30,6 @@ while($domain = $dlist->Next()) {
 		printf("%s %s %d %s %s\n", 
 			$domain->Name(),
 			$rec->type, $rec->ttl, $name, $rec->data);
-		if ($rec->type == 'MX') {
-			switch($rec->data) {
-			case 'mx1.listserv.co':
-				/*
-				echo "Updating...\n";
-				$rec->data = 'mx1.xlerb.com';
-				$rec->Update();
-				*/
-				break;
-			case 'mx2.listserv.co':
-				echo "Updating...\n";
-				$rec->data = 'mx2.xlerb.com';
-				setDebug(TRUE);
-				$rec->Update();
-				setDebug(FALSE);
-				break;
-			default:
-				break;
-			}
-		}
 	}
 }
 

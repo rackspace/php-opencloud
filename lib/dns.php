@@ -66,6 +66,15 @@ class DNS extends Service {
 	}
 	
 	/**
+	 * override request with JSON content type
+	 */
+	public function Request($url,$method='GET',$headers=array(),$body=NULL) {
+		$headers['Accept'] = 'application/json';
+		$headers['Content-Type'] = 'application/json';
+		return parent::Request($url, $method, $headers, $body);
+	}
+	
+	/**
 	 * retrieves an asynchronous response
 	 *
 	 * This method calls the provided `$url` and expects an asynchronous
