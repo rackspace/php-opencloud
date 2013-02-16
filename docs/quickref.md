@@ -39,7 +39,8 @@ username and password:
 		'https://example.com/v2/identity',
 		array(
 			'username' => 'your username',
-			'password' => 'your Keystone password'
+			'password' => 'your Keystone password',
+			'tenantName' => 'your tenant (project) name'
 		));
 
 (Note that the `tenantName` value may not be required for all installations.)
