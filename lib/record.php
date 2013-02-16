@@ -40,14 +40,8 @@ class Record extends \OpenCloud\PersistentObject {
 
 	private
 		$_domain,
-		$_create_keys = array(
-		    'ttl',
-			'name',
-			'type',
-			'data',
-			'comment',
-			'priority'
-		);
+		$_update_keys = array('name','ttl','data','priority','comment'),
+		$_create_keys = array('name','ttl','type','data','priority','comment');
 		
 	/**
 	 * create a new record object
@@ -66,11 +60,35 @@ class Record extends \OpenCloud\PersistentObject {
 		return $this->_domain;
 	}
 	
+	/* ---------- PROTECTED METHODS ---------- */
+	
+	/**
+	 * creates the JSON for create
+	 *
+	 * @return stdClass
+	 */
+	protected function CreateJson() {
+		return $this->GetJson($this->_create_keys);
+	}
+	
 	/**
 	 * creates the JSON for update
+	 *
+	 * @return stdClass
 	 */
 	protected function UpdateJson() {
-		$keys = array('name', 'ttl', 'data', 'priority', 'comment');
+		return $this->GetJson($this->_update_keys);
+	}
+	
+	/* ---------- PRIVATE METHODS ---------- */
+	
+	/**
+	 * returns JSON based on $keys
+	 *
+	 * @param array $keys list of items to include
+	 * @return stdClass
+	 */
+	private function GetJson($keys) {
 		$obj = new \stdClass;
 		foreach($keys as $item)
 			if ($this->$item)

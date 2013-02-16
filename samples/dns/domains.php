@@ -17,13 +17,9 @@ $cloud = new OpenCloud\Rackspace(AUTHURL,
 $dns = $cloud->DNS();
 $dlist = $dns->DomainList();
 while($domain = $dlist->Next()) {
-	printf("%s [%s]\n",
+	printf("\n%s [%s]\n",
 		$domain->Name(), $domain->emailAddress);
-	/*
-	$async = $domain->Export();
-	$async->WaitFor('COMPLETED', 300, 'disp_status', 1);
-	print($async->response->contents);
-	*/
+	// list records
 	$rlist = $domain->RecordList();
 	while($rec = $rlist->Next()) {
 		$name = str_replace($domain->Name(), '', $rec->name);
@@ -31,10 +27,4 @@ while($domain = $dlist->Next()) {
 			$domain->Name(),
 			$rec->type, $rec->ttl, $name, $rec->data);
 	}
-}
-
-exit();
-
-function disp_status($obj) {
-	printf("%s [%s]\n", $obj->Name(), $obj->Status());
 }

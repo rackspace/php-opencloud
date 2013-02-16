@@ -39,12 +39,8 @@ class Domain extends \OpenCloud\PersistentObject {
 		$url_resource = 'domains';
 
 	private
-		$_create_keys = array(
-		    'name',
-			'emailAddress',
-			'ttl',
-			'comment'
-		);
+		$_create_keys = array('name','emailAddress','ttl','comment'),
+		$_update_keys = array('emailAddress','ttl','comment');
 	
 	/**
 	 * returns a Record object
@@ -77,4 +73,40 @@ class Domain extends \OpenCloud\PersistentObject {
 		return $this->Service()->AsyncRequest($url);
 	}
 
+	/* ---------- PROTECTED METHODS ---------- */
+	
+	/**
+	 * creates the JSON for create
+	 *
+	 * @return stdClass
+	 */
+	protected function CreateJson() {
+		return $this->GetJson($this->_create_keys);
+	}
+	
+	/**
+	 * creates the JSON for update
+	 *
+	 * @return stdClass
+	 */
+	protected function UpdateJson() {
+		return $this->GetJson($this->_update_keys);
+	}
+	
+	/* ---------- PRIVATE METHODS ---------- */
+	
+	/**
+	 * returns JSON based on $keys
+	 *
+	 * @param array $keys list of items to include
+	 * @return stdClass
+	 */
+	private function GetJson($keys) {
+		$obj = new \stdClass;
+		foreach($keys as $item)
+			if ($this->$item)
+				$obj->$item = $this->$item;
+		return $obj;
+	}
+	
 } // class Domain
