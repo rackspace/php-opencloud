@@ -52,8 +52,12 @@ $domain->AddRecord($domain->Record(array(
 	'comment' => 'Added '.date('Y-m-d H:i:s'))));
 $domain->AddSubdomain($domain->Subdomain(array(
 	'name' => 'foo.raxdrg.info',
-	'ttl' => 3600,
+	'ttl' => 600,
 	'emailAddress' => 'glen@glenc.co')));
-setDebug(True);
+$domain->AddSubdomain($domain->Subdomain(array(
+	'name' => 'bar.raxdrg.info',
+	'ttl' => 600,
+	'emailAddress' => 'glen@glenc.co')));
+//setDebug(True);
 $domain->Create();
 setDebug(False);
