@@ -68,11 +68,11 @@ class Domain extends DnsObject {
 	}
 	
 	/**
-	 * returns a SubDomain object (child of current domain)
+	 * returns a Subdomain object (child of current domain)
 	 *
 	 */
-	public function SubDomain($info=array()) {
-		return new SubDomain($this, $info);
+	public function Subdomain($info=array()) {
+		return new Subdomain($this, $info);
 	}
 	
 	/**
@@ -86,17 +86,7 @@ class Domain extends DnsObject {
 	 */
 	public function SubdomainList($filter=array()) {
 		return $this->Parent()->Collection(
-			'\OpenCloud\DNS\SubDomain', NULL, $this);
-	}
-	
-	/**
-	 * exports the domain
-	 *
-	 * @return AsyncResponse
-	 */
-	public function Export() {
-		$url = $this->Url('export');
-		return $this->Service()->AsyncRequest($url);
+			'\OpenCloud\DNS\Subdomain', NULL, $this);
 	}
 	
 	/**
@@ -114,13 +104,34 @@ class Domain extends DnsObject {
 	 * adds a new subdomain (for multiple subdomain creation)
 	 *
 	 * @api
-	 * @param SubDomain $subd the subdomain to add
+	 * @param Subdomain $subd the subdomain to add
 	 * @return void
 	 */
-	public function AddSubDomain(SubDomain $subd) {
+	public function AddSubdomain(Subdomain $subd) {
 		$this->subdomains[] = $subd;
 	}
 
+	/**
+	 * exports the domain
+	 *
+	 * @return AsyncResponse
+	 */
+	public function Export() {
+		$url = $this->Url('export');
+		return $this->Service()->AsyncRequest($url);
+	}
+	
+	/**
+	 * imports domain records
+	 * @TODO
+	 * Should this go at the DNS level? After all, we're importing a domain,
+	 * and not importing it into a domain object. Or are we?
+	 */
+	public function Import() {
+		$url = $this->Service()->Url('domains/import');
+		return $this->Service()->AsyncRequest($url, 'POST', '');
+	}
+	
 	/* ---------- PROTECTED METHODS ---------- */
 	
 	/**
@@ -148,7 +159,7 @@ class Domain extends DnsObject {
 	
 } // class Domain
 
-class SubDomain extends Domain {
+class Subdomain extends Domain {
 
 	protected static
 		$json_name = FALSE,
@@ -165,4 +176,4 @@ class SubDomain extends Domain {
 		return $this->_parent;
 	}
 
-} // class SubDomain
+} // class Subdomain

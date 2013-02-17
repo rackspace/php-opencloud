@@ -125,7 +125,11 @@ ENDLB;
 			$resp->body = '{"metadata":{"foo":"bar","a":"1"}}';
 			$resp->status = 200;
 		}
+		elseif (strpos($url, '/export')) { // domain export
+			// @TODO
+		}
 		elseif (strpos($url, '/domain/')) {
+			// @TODO
 		}
 		elseif (strpos($url, '/domains')) {
 			$resp->body = <<<ENDDOM

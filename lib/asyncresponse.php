@@ -48,7 +48,9 @@ class AsyncResponse extends \OpenCloud\PersistentObject {
 	 * @param \OpenCloud\Service $service the calling service
 	 * @param string $json the json response from the initial request
 	 */
-	public function __construct(\OpenCloud\Service $service, $json) {
+	public function __construct(\OpenCloud\Service $service, $json=NULL) {
+		if (!$json)
+			return;
 		$obj = json_decode($json);
 		if ($this->CheckJsonError())
 			return;
