@@ -42,7 +42,7 @@ class Record extends DnsObject {
 		$_domain,
 		$_update_keys = array('name','ttl','data','priority','comment'),
 		$_create_keys = array('type','name','ttl','data','priority','comment');
-		
+	
 	/**
 	 * create a new record object
 	 */
@@ -58,6 +58,13 @@ class Record extends DnsObject {
 	 */
 	public function Parent() {
 		return $this->_domain;
+	}
+	
+	/**
+	 * returns the create keys
+	 */
+	public function CreateKeys() {
+		return $this->_create_keys;
 	}
 	
 } // class Record

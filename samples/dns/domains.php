@@ -20,11 +20,19 @@ while($domain = $dlist->Next()) {
 	printf("\n%s [%s]\n",
 		$domain->Name(), $domain->emailAddress);
 	// list records
+	printf("Records:\n");
 	$rlist = $domain->RecordList();
 	while($rec = $rlist->Next()) {
 		$name = str_replace($domain->Name(), '', $rec->name);
-		printf("%s %s %d %s %s\n", 
+		printf("- %s %s %d %s %s\n", 
 			$domain->Name(),
 			$rec->type, $rec->ttl, $name, $rec->data);
+	}
+	printf("Subdomains:\n");
+	setDebug(TRUE);
+	$slist = $domain->SubDomainList();
+	setDebug(FALSE);
+	while($dom = $slist->Next()) {
+		printf("- %s\n", $dom->Name());
 	}
 }

@@ -38,10 +38,14 @@ class Domain extends DnsObject {
 		$json_collection_name = 'domains',
 		$url_resource = 'domains';
 
-	private
+	protected
 		$_create_keys = array('name','emailAddress','ttl','comment'),
 		$_update_keys = array('emailAddress','ttl','comment');
 	
+	private
+		$records = array(),
+		$subdomains = array();
+		
 	/**
 	 * returns a Record object
 	 *
@@ -64,6 +68,14 @@ class Domain extends DnsObject {
 	}
 	
 	/**
+	 * returns a SubDomain object (child of current domain)
+	 *
+	 */
+	public function SubDomain($info=array()) {
+		return new SubDomain($this, $info);
+	}
+	
+	/**
 	 * returns a Collection of subdomains
 	 *
 	 * The subdomains are all `DNS:Domain` objects that are children of
@@ -74,7 +86,7 @@ class Domain extends DnsObject {
 	 */
 	public function SubdomainList($filter=array()) {
 		return $this->Parent()->Collection(
-			'\OpenCloud\DNS\Domain', NULL, $this);
+			'\OpenCloud\DNS\SubDomain', NULL, $this);
 	}
 	
 	/**
@@ -86,41 +98,71 @@ class Domain extends DnsObject {
 		$url = $this->Url('export');
 		return $this->Service()->AsyncRequest($url);
 	}
+	
+	/**
+	 * Adds a new record to the list (for multiple record creation)
+	 *
+	 * @api
+	 * @param Record $rec the record to add
+	 * @return void
+	 */
+	public function AddRecord(Record $rec) {
+		$this->records[] = $rec;
+	}
+	
+	/**
+	 * adds a new subdomain (for multiple subdomain creation)
+	 *
+	 * @api
+	 * @param SubDomain $subd the subdomain to add
+	 * @return void
+	 */
+	public function AddSubDomain(SubDomain $subd) {
+		$this->subdomains[] = $subd;
+	}
 
 	/* ---------- PROTECTED METHODS ---------- */
 	
 	/**
-	 * creates the JSON for create
+	 * handles creation of multiple records at Create()
 	 *
-	 * @return stdClass
+	 * @api
+	 * @return \stdClass
 	 */
-	protected function CreateJson() {
-		return $this->GetJson($this->_create_keys);
-	}
-	
-	/**
-	 * creates the JSON for update
-	 *
-	 * @return stdClass
-	 */
-	protected function UpdateJson() {
-		return $this->GetJson($this->_update_keys);
-	}
-	
-	/* ---------- PRIVATE METHODS ---------- */
-	
-	/**
-	 * returns JSON based on $keys
-	 *
-	 * @param array $keys list of items to include
-	 * @return stdClass
-	 */
-	private function GetJson($keys) {
-		$obj = new \stdClass;
-		foreach($keys as $item)
-			if ($this->$item)
-				$obj->$item = $this->$item;
+	public function CreateJson() {
+		$obj = parent::CreateJson();
+		if (count($this->records) > 0) {
+			$obj->domains[0]->recordsList = new \stdClass;
+			$obj->domains[0]->recordsList->records = array();
+			foreach($this->records as $rec) {
+				$robj = new \stdClass;
+				foreach($rec->CreateKeys() as $key)
+					if (isset($rec->$key))
+						$robj->$key = $rec->$key;
+				$obj->domains[0]->recordsList->records[] = $robj;
+			}
+		}
+		// TODO: add subdomains
 		return $obj;
 	}
 	
 } // class Domain
+
+class SubDomain extends Domain {
+
+	protected static
+		$json_name = FALSE,
+		$json_collection_name = 'domains',
+		$url_resource = 'subdomains';
+	
+	private
+		$_parent;
+	public function __construct(Domain $parent, $info=array()) {
+		$this->_parent = $parent;
+		return parent::__construct($parent->Service(), $info);
+	}
+	public function Parent() {
+		return $this->_parent;
+	}
+
+} // class SubDomain

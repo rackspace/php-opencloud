@@ -19,6 +19,17 @@ $dlist = $dns->DomainList();
 while($domain = $dlist->Next()) {
 	printf("\n%s [%s]\n",
 		$domain->Name(), $domain->emailAddress);
+	// add subdomain
+	if ($domain->Name() == 'raxdrg.info') {
+		printf("Adding subdomain 'test'...\n");
+		$sdom = $domain->SubDomain();
+		setDebug(TRUE);
+		$sdom->Create(array(
+			'name' => 'test.raxdrg.info',
+			'emailAddress' => 'glen@broadpool.com',
+			'ttl' => 7200));
+		setDebug(FALSE);
+	}
 	// list records
 	$rlist = $domain->RecordList();
 	$foobar = FALSE;
