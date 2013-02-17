@@ -60,11 +60,4 @@ class Record extends DnsObject {
 		return $this->_domain;
 	}
 	
-	/**
-	 * returns the create keys
-	 */
-	public function CreateKeys() {
-		return $this->_create_keys;
-	}
-	
 } // class Record

@@ -55,6 +55,13 @@ abstract class DnsObject extends \OpenCloud\PersistentObject {
 		return new AsyncResponse($this->Service(), $resp->HttpBody());
 	}
 
+	/**
+	 * returns the create keys
+	 */
+	public function CreateKeys() {
+		return $this->_create_keys;
+	}
+	
 	/* ---------- PROTECTED METHODS ---------- */
 	
 	/**

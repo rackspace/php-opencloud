@@ -18,6 +18,9 @@ require_once(__DIR__.'/record.php');
 /**
  * The Domain class represents a single domain
  *
+ * Note that the `Subdomain` class is defined in this same file because of
+ * mutual dependencies.
+ *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
@@ -142,23 +145,46 @@ class Domain extends DnsObject {
 	 */
 	public function CreateJson() {
 		$obj = parent::CreateJson();
+		
+		// add records, if any
 		if (count($this->records) > 0) {
-			$obj->domains[0]->recordsList = new \stdClass;
-			$obj->domains[0]->recordsList->records = array();
+			$recobj = new \stdClass;
+			$recobj->records = array();
 			foreach($this->records as $rec) {
 				$robj = new \stdClass;
 				foreach($rec->CreateKeys() as $key)
 					if (isset($rec->$key))
 						$robj->$key = $rec->$key;
-				$obj->domains[0]->recordsList->records[] = $robj;
+				$recobj->records[] = $robj;
 			}
+			$obj->domains[0]->recordsList = $recobj;
 		}
-		// TODO: add subdomains
+		
+		// add subdomains, if any
+		if (count($this->subdomains) > 0) {
+			$sub = new \stdClass;
+			$sub->domains = array();
+			foreach($this->subdomains as $subdom) {
+				$sobj = new \stdClass;
+				foreach($subdom->CreateKeys() as $key)
+					if (isset($subdom->$key))
+						$sobj->$key = $subdom->$key;
+				$sub->domains[] = $sobj;
+			}
+			$obj->domains[0]->subdomains = $sub;
+		}
+
 		return $obj;
 	}
 	
 } // class Domain
 
+/**
+ * The Subdomain is basically another domain, albeit one that is a child of
+ * a parent domain. In terms of the code involved, the JSON is slightly
+ * different than a top-level domain, and the parent is a domain instead of
+ * the DNS service itself. 
+ */
 class Subdomain extends Domain {
 
 	protected static
@@ -168,10 +194,17 @@ class Subdomain extends Domain {
 	
 	private
 		$_parent;
+	
+	/**
+	 */
 	public function __construct(Domain $parent, $info=array()) {
 		$this->_parent = $parent;
 		return parent::__construct($parent->Service(), $info);
 	}
+	
+	/**
+	 * returns the parent domain object
+	 */
 	public function Parent() {
 		return $this->_parent;
 	}

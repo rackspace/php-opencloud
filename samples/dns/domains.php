@@ -23,16 +23,14 @@ while($domain = $dlist->Next()) {
 	printf("Records:\n");
 	$rlist = $domain->RecordList();
 	while($rec = $rlist->Next()) {
-		$name = str_replace($domain->Name(), '', $rec->name);
-		printf("- %s %s %d %s %s\n", 
-			$domain->Name(),
-			$rec->type, $rec->ttl, $name, $rec->data);
+		printf("- %s %d %s %s\n", 
+			$rec->type, $rec->ttl, $rec->Name(), $rec->data);
 	}
 	printf("Subdomains:\n");
-	setDebug(TRUE);
+	// setDebug(TRUE);
 	$slist = $domain->SubDomainList();
 	setDebug(FALSE);
 	while($dom = $slist->Next()) {
-		printf("- %s\n", $dom->Name());
+		printf("- %s [%s]\n", $dom->Name(), $dom->emailAddress);
 	}
 }

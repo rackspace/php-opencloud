@@ -49,7 +49,11 @@ $domain->AddRecord($domain->Record(array(
 	'name' => 'www.raxdrg.info',
 	'ttl' => 600,
 	'data' => 'rack2.broadpool.net',
-	'comment' => 'Added '.date('%Y-%m-%d %H:%I:%S'))));
-//setDebug(True);
+	'comment' => 'Added '.date('Y-m-d H:i:s'))));
+$domain->AddSubdomain($domain->Subdomain(array(
+	'name' => 'foo.raxdrg.info',
+	'ttl' => 3600,
+	'emailAddress' => 'glen@glenc.co')));
+setDebug(True);
 $domain->Create();
 setDebug(False);
