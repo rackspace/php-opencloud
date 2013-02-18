@@ -52,6 +52,9 @@ class Domain extends DnsObject {
 	/**
 	 * returns a Record object
 	 *
+	 * Note that this method is available at the DNS level, but only for
+	 * PTR records. 
+	 *
 	 * @return Record
 	 */
 	public function Record($info=NULL) {

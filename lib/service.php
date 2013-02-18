@@ -232,6 +232,18 @@ abstract class Service extends Base {
 	}
 
 	/**
+	 * returns the serviceName associated with the service
+	 *
+	 * This is used by DNS for PTR record lookups
+	 *
+	 * @api
+	 * @return string
+	 */
+	public function Name() {
+		return $this->service_name;
+	}
+
+	/**
 	 * Returns a list of supported namespaces
 	 *
 	 * @return array
