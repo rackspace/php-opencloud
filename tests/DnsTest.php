@@ -11,6 +11,7 @@
 
 require_once('dns.php');
 require_once('stub_conn.php');
+require_once('compute.php');
 
 class DnsTest extends PHPUnit_Framework_TestCase
 {
@@ -65,5 +66,19 @@ class DnsTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->dns->Import('foo bar oops')));
+	}
+	public function testPtrRecordList() {
+		$server = new \OpenCloud\Compute\Server(
+			new \OpenCloud\Compute($this->conn, 
+				'cloudServersOpenStack', 'DFW', 'publicURL'));
+		$server->id = '42';
+		$this->assertEquals(
+			'OpenCloud\Collection',
+			get_class($this->dns->PtrRecordList($server)));
+	}
+	public function testRecord() {
+		$this->assertEquals(
+			'OpenCloud\DNS\Record',
+			get_class($this->dns->Record()));
 	}
 }

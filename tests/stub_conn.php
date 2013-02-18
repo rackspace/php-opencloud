@@ -150,6 +150,12 @@ ENDLB;
 ENDDOM;
 			$resp->status = 200;
 		}
+		elseif (strpos($url, '/rdns/')) {
+			$resp->body = <<<ENDRDNS
+{"records":[{"name":"foobar.raxdrg.info","id":"PTR-548486","type":"PTR","data":"2001:4800:7811:513:199e:7e1e:ff04:be3f","ttl":900,"updated":"2013-02-18T20:24:50.000+0000","created":"2013-02-18T20:24:50.000+0000"},{"name":"foobar.raxdrg.info","id":"PTR-548485","type":"PTR","data":"166.78.48.90","ttl":900,"updated":"2013-02-18T20:24:34.000+0000","created":"2013-02-18T20:24:34.000+0000"}]}
+ENDRDNS;
+			$resp->status = 200;
+		}
 		elseif (strpos($url, '/metadata')) {
 			$resp->body = NULL;
 			$resp->status = 200;
