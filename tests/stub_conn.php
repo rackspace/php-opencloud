@@ -11,6 +11,10 @@ if (!defined('TESTDIR')) define('TESTDIR','.');
  */
 class StubConnection extends OpenCloud\OpenStack
 {
+	public
+		$async_response = <<<ENDRESPONSE
+{"status":"RUNNING","verb":"GET","jobId":"852a1e4a-45b4-409b-9d46-2d6d641b27cf","callbackUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/status/852a1e4a-45b4-409b-9d46-2d6d641b27cf","requestUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/domains/3612932/export"}
+ENDRESPONSE;
 	public function __construct($url, $secret, $options=array()) {
 		if (is_array($secret))
 			return parent::__construct($url, $secret, $options);
@@ -52,6 +56,10 @@ ENDLB;
 ENDNW;
 			elseif (strpos($url, '/instances'))
 				$resp->body = file_get_contents(TESTDIR.'/dbinstance-create.json');
+			elseif (strpos($url, '/import')) { // domain import
+				$resp->body = $this->async_response;
+				$resp->status = 202;
+			}
 			else
 				$resp->body = file_get_contents(TESTDIR.'/server-create.json');
 		}
@@ -126,7 +134,8 @@ ENDLB;
 			$resp->status = 200;
 		}
 		elseif (strpos($url, '/export')) { // domain export
-			// @TODO
+			$resp->body = $this->async_response;
+			$resp->status = 202;
 		}
 		elseif (strpos($url, '/domain/')) {
 			// @TODO

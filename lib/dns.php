@@ -125,6 +125,9 @@ class DNS extends Service {
 				  'URL [%s] method [%s] status [%s] response [%s]'),
 				$url, $method, $resp->HttpStatus(), $resp->HttpBody()));
 		
+		// debug
+		$this->debug('AsyncResponse [%s]', $resp->HttpBody());
+		
 		// return an AsyncResponse object
 		return new DNS\AsyncResponse($this, $resp->HttpBody());
 	}

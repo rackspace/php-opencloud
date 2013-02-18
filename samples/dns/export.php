@@ -24,7 +24,9 @@ $dns = $cloud->DNS();
 $dlist = $dns->DomainList(array('name'=>EXPORT_DOMAIN));
 while($domain = $dlist->Next()) {
 	printf("Exporting %s\n", $domain->Name());
+	setDebug(TRUE);
 	$resp = $domain->Export();
+	setDebug(FALSE);
 	$resp->WaitFor('COMPLETED', 300, 'ShowStatus', 1);
 	// check result
 	if ($resp->Status() == 'ERROR')
