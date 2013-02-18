@@ -97,10 +97,11 @@ class Domain extends DnsObject {
 	 *
 	 * @api
 	 * @param Record $rec the record to add
-	 * @return void
+	 * @return integer the number of records
 	 */
 	public function AddRecord(Record $rec) {
 		$this->records[] = $rec;
+		return count($this->records);
 	}
 	
 	/**
@@ -108,10 +109,11 @@ class Domain extends DnsObject {
 	 *
 	 * @api
 	 * @param Subdomain $subd the subdomain to add
-	 * @return void
+	 * @return integer the number of subdomains
 	 */
 	public function AddSubdomain(Subdomain $subd) {
 		$this->subdomains[] = $subd;
+		return count($this->subdomains);
 	}
 
 	/**
@@ -132,7 +134,7 @@ class Domain extends DnsObject {
 	 * @api
 	 * @return \stdClass
 	 */
-	public function CreateJson() {
+	protected function CreateJson() {
 		$obj = parent::CreateJson();
 		
 		// add records, if any

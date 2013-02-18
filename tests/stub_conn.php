@@ -60,6 +60,10 @@ ENDNW;
 				$resp->body = $this->async_response;
 				$resp->status = 202;
 			}
+			elseif (strpos($url, '/domains')) { // domain create
+				$resp->body = $this->async_response;
+				$resp->status = 202;
+			}
 			else
 				$resp->body = file_get_contents(TESTDIR.'/server-create.json');
 		}
