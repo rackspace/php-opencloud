@@ -2264,7 +2264,7 @@ because the /flavors/detail resource is not supported</p>]]></long-description>
       <error line="51" code="50015">Argument $filter is missing from the Docblock of FlavorList()</error>
     </parse_markers>
   </file>
-  <file path="dns.php" hash="3de0ac800283f9b34d61867e9c1a6b2e" package="phpOpenCloud">
+  <file path="dns.php" hash="1ceac353f2d10b89d7bf007e80ea1833" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The Rackspace Cloud DNS service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -2289,145 +2289,195 @@ because the /flavors/detail resource is not supported</p>]]></long-description>
       <extends>\OpenCloud\Service</extends>
       <name>DNS</name>
       <full_name>\OpenCloud\DNS</full_name>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="24" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="30" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="22">
-          <description><![CDATA[]]></description>
+          <description><![CDATA[creates a new DNS object]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="22" name="param" description="connection object" type="\OpenCloud\OpenStack" variable="$conn">
+            <type by_reference="false">\OpenCloud\OpenStack</type>
+          </tag>
+          <tag line="22" name="param" description="the name of the service" type="string" variable="$serviceName">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="22" name="param" description="(not currently used; DNS is regionless)" type="string" variable="$serviceRegion">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="22" name="param" description="the type of URL" type="string" variable="$urltype">
+            <type by_reference="false">string</type>
+          </tag>
         </docblock>
-        <argument line="24">
+        <argument line="30">
           <name>$conn</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\OpenStack</type>
         </argument>
-        <argument line="25">
+        <argument line="31">
           <name>$serviceName</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="25">
+        <argument line="31">
           <name>$serviceRegion</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="25">
+        <argument line="31">
           <name>$urltype</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="46" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="52" package="Default">
         <name>Url</name>
         <full_name>Url</full_name>
-        <docblock line="36">
+        <docblock line="42">
           <description><![CDATA[Returns the selected endpoint URL of this Service]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="36" name="param" description="- a child resource. For example, passing 'servers' would return .../servers. Should *not* be prefixed with a slash (/)." type="string" variable="$resource">
+          <tag line="42" name="param" description="- a child resource. For example, passing 'servers' would return .../servers. Should *not* be prefixed with a slash (/)." type="string" variable="$resource">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="36" name="param" description="(optional) an array of key-value pairs for query strings to append to the URL" type="array" variable="$args">
+          <tag line="42" name="param" description="(optional) an array of key-value pairs for query strings to append to the URL" type="array" variable="$args">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="36" name="returns" description="string - the requested URL"/>
+          <tag line="42" name="returns" description="string - the requested URL"/>
         </docblock>
-        <argument line="46">
+        <argument line="52">
           <name>$resource</name>
           <default><![CDATA['']]></default>
           <type/>
         </argument>
-        <argument line="46">
+        <argument line="52">
           <name>$args</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="57" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="68" package="Default">
         <name>Domain</name>
         <full_name>Domain</full_name>
-        <docblock line="55">
-          <description><![CDATA[]]></description>
+        <docblock line="61">
+          <description><![CDATA[returns a DNS::Domain object]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="61" name="api" description=""/>
+          <tag line="61" name="param" description="either the ID, an object, or array of parameters" type="mixed" variable="$info">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="61" name="return" description="" type="\OpenCloud\DNS\Domain">
+            <type by_reference="false">\OpenCloud\DNS\Domain</type>
+          </tag>
         </docblock>
-        <argument line="57">
+        <argument line="68">
           <name>$info</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="63" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="79" package="Default">
         <name>DomainList</name>
         <full_name>DomainList</full_name>
-        <docblock line="61">
-          <description><![CDATA[]]></description>
+        <docblock line="72">
+          <description><![CDATA[returns a Collection of DNS::Domain objects]]></description>
           <long-description><![CDATA[]]></long-description>
+          <tag line="72" name="api" description=""/>
+          <tag line="72" name="param" description="key/value pairs to use as query strings" type="array" variable="$filter">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="72" name="return" description="" type="\OpenCloud\Collection">
+            <type by_reference="false">\OpenCloud\Collection</type>
+          </tag>
         </docblock>
-        <argument line="63">
+        <argument line="79">
           <name>$filter</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="71" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="95" package="Default">
         <name>Request</name>
         <full_name>Request</full_name>
-        <docblock line="68">
-          <description><![CDATA[override request with JSON content type]]></description>
-          <long-description><![CDATA[]]></long-description>
+        <docblock line="84">
+          <description><![CDATA[performs a HTTP request]]></description>
+          <long-description><![CDATA[<p>This method overrides the request with JSON content type</p>]]></long-description>
+          <tag line="84" name="param" description="the URL to target" type="string" variable="$url">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="84" name="param" description="the HTTP method to use" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="84" name="param" description="key/value pairs for headers to include" type="array" variable="$headers">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="84" name="param" description="the body of the request (for PUT and POST)" type="string" variable="$body">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="84" name="return" description="" type="\OpenCloud\HttpResponse">
+            <type by_reference="false">\OpenCloud\HttpResponse</type>
+          </tag>
         </docblock>
-        <argument line="71">
+        <argument line="95">
           <name>$url</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="71">
+        <argument line="95">
           <name>$method</name>
           <default><![CDATA['GET']]></default>
           <type/>
         </argument>
-        <argument line="71">
+        <argument line="95">
           <name>$headers</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
-        <argument line="71">
+        <argument line="95">
           <name>$body</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="88" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="115" package="Default">
         <name>AsyncRequest</name>
         <full_name>AsyncRequest</full_name>
-        <docblock line="77">
+        <docblock line="101">
           <description><![CDATA[retrieves an asynchronous response]]></description>
           <long-description><![CDATA[<p>This method calls the provided <code>$url</code> and expects an asynchronous
 response. It checks for various HTTP error codes and returns
 an <code>AsyncResponse</code> object. This object can then be used to poll
 for the status or to retrieve the final data as needed.</p>]]></long-description>
-          <tag line="77" name="param" description="the URL of the request" type="string" variable="$url">
+          <tag line="101" name="param" description="the URL of the request" type="string" variable="$url">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="77" name="return" description="" type="\OpenCloud\DNS\AsyncResponse">
+          <tag line="101" name="param" description="the HTTP method to use" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="101" name="param" description="key/value pairs for headers to include" type="array" variable="$headers">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="101" name="param" description="the body of the request (for PUT and POST)" type="string" variable="$body">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="101" name="return" description="" type="\OpenCloud\DNS\AsyncResponse">
             <type by_reference="false">\OpenCloud\DNS\AsyncResponse</type>
           </tag>
         </docblock>
-        <argument line="89">
+        <argument line="116">
           <name>$url</name>
           <default><![CDATA[]]></default>
           <type/>
         </argument>
-        <argument line="89">
+        <argument line="116">
           <name>$method</name>
           <default><![CDATA['GET']]></default>
           <type/>
         </argument>
-        <argument line="89">
+        <argument line="116">
           <name>$headers</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
-        <argument line="89">
+        <argument line="116">
           <name>$body</name>
           <default><![CDATA[NULL]]></default>
           <type/>
@@ -2436,22 +2486,6 @@ for the status or to retrieve the final data as needed.</p>]]></long-description
     </class>
     <parse_markers>
       <error line="20" code="50000">No DocBlock was found for \OpenCloud\DNS</error>
-      <error line="22" code="50012">No short description for method __construct()</error>
-      <error line="22" code="50015">Argument $conn is missing from the Docblock of __construct()</error>
-      <error line="22" code="50015">Argument $serviceName is missing from the Docblock of __construct()</error>
-      <error line="22" code="50015">Argument $serviceRegion is missing from the Docblock of __construct()</error>
-      <error line="22" code="50015">Argument $urltype is missing from the Docblock of __construct()</error>
-      <error line="55" code="50012">No short description for method Domain()</error>
-      <error line="55" code="50015">Argument $info is missing from the Docblock of Domain()</error>
-      <error line="61" code="50012">No short description for method DomainList()</error>
-      <error line="61" code="50015">Argument $filter is missing from the Docblock of DomainList()</error>
-      <error line="68" code="50015">Argument $url is missing from the Docblock of Request()</error>
-      <error line="68" code="50015">Argument $method is missing from the Docblock of Request()</error>
-      <error line="68" code="50015">Argument $headers is missing from the Docblock of Request()</error>
-      <error line="68" code="50015">Argument $body is missing from the Docblock of Request()</error>
-      <error line="77" code="50015">Argument $method is missing from the Docblock of AsyncRequest()</error>
-      <error line="77" code="50015">Argument $headers is missing from the Docblock of AsyncRequest()</error>
-      <error line="77" code="50015">Argument $body is missing from the Docblock of AsyncRequest()</error>
     </parse_markers>
   </file>
   <file path="dnsobject.php" hash="acc459e783638e38af026371a891add1" package="phpOpenCloud">
