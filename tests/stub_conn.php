@@ -92,6 +92,10 @@ ENDATTLIST;
 "keepAliveTimedOut":50,"maxConn":60}
 ENDLBSTATS;
 		}
+		elseif (strpos($url, 'ignore')) {
+			$resp->status = 200;
+			$resp->body = '{"ignore":{}}';
+		}
 		elseif (strpos($url, '/loadbalancers/')) {
 			$resp->status = 200;
 			if (strpos($url, '/virtualips'))
