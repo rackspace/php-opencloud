@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project version="2.0.0a8" title="">
-  <file path="asyncresponse.php" hash="d0f0a3dd5f3c4a899f58fcafcbf8f871" package="phpOpenCloud">
+  <file path="asyncresponse.php" hash="d135bc951e64b180fdbf38d71f8b1ae1" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The Rackspace Cloud DNS service asynchronous response object]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -12,136 +12,130 @@
     <include line="15" type="Require Once" package="Default">
       <name/>
     </include>
-    <class final="false" abstract="false" namespace="OpenCloud\DNS" line="29" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DNS" line="21" package="Default">
       <extends>\OpenCloud\PersistentObject</extends>
       <name>AsyncResponse</name>
       <full_name>\OpenCloud\DNS\AsyncResponse</full_name>
       <docblock line="17">
         <description><![CDATA[The AsyncResponse class encapsulates the data returned by a Cloud DNS
 asynchronous response.]]></description>
-        <long-description><![CDATA[<p>{
-"status": "RUNNING",
-"verb": "GET",
-"jobId": "613873f5-9ca9-4276-9c48-a0dac143f7d6",
-"callbackUrl": "https:\/\/dns.api.rackspacecloud.com\/v1.0\/545108\/status\/613873f5-9ca9-4276-9c48-a0dac143f7d6",
-"requestUrl": "https:\/\/dns.api.rackspacecloud.com\/v1.0\/545108\/domains\/3597879\/export"
-}</p>]]></long-description>
+        <long-description><![CDATA[]]></long-description>
       </docblock>
-      <property final="false" static="false" visibility="public" line="32" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="24" namespace="OpenCloud\DNS" package="Default">
         <name>$jobId</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="33" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="25" namespace="OpenCloud\DNS" package="Default">
         <name>$callbackUrl</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="34" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="26" namespace="OpenCloud\DNS" package="Default">
         <name>$status</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="35" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="27" namespace="OpenCloud\DNS" package="Default">
         <name>$requestUrl</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="36" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="28" namespace="OpenCloud\DNS" package="Default">
         <name>$verb</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="37" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="29" namespace="OpenCloud\DNS" package="Default">
         <name>$request</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="38" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="30" namespace="OpenCloud\DNS" package="Default">
         <name>$response</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="false" visibility="public" line="39" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="public" line="31" namespace="OpenCloud\DNS" package="Default">
         <name>$error</name>
         <default><![CDATA[]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="42" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="true" visibility="protected" line="34" namespace="OpenCloud\DNS" package="Default">
         <name>$json_name</name>
         <default><![CDATA[FALSE]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="51" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="43" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="44">
+        <docblock line="36">
           <description><![CDATA[constructs a new AsyncResponse object from a JSON
 string]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="44" name="param" description="the calling service" type="\OpenCloud\Service" variable="$service">
+          <tag line="36" name="param" description="the calling service" type="\OpenCloud\Service" variable="$service">
             <type by_reference="false">\OpenCloud\Service</type>
           </tag>
-          <tag line="44" name="param" description="the json response from the initial request" type="string" variable="$json">
+          <tag line="36" name="param" description="the json response from the initial request" type="string" variable="$json">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
-        <argument line="51">
+        <argument line="43">
           <name>$service</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\Service</type>
         </argument>
-        <argument line="51">
+        <argument line="43">
           <name>$json</name>
           <default><![CDATA[NULL]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="62" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="54" package="Default">
         <name>Url</name>
         <full_name>Url</full_name>
-        <docblock line="60">
+        <docblock line="52">
           <description><![CDATA[]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="71" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="63" package="Default">
         <name>Name</name>
         <full_name>Name</full_name>
-        <docblock line="66">
+        <docblock line="58">
           <description><![CDATA[returns the Name of the request (the job ID)]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="66" name="return" description="" type="string">
+          <tag line="58" name="return" description="" type="string">
             <type by_reference="false">string</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="78" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="70" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <docblock line="75">
+        <docblock line="67">
           <description><![CDATA[overrides for methods]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="79" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="71" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="80" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="72" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="81" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="73" package="Default">
         <name>PrimaryKeyField</name>
         <full_name>PrimaryKeyField</full_name>
       </method>
     </class>
     <parse_markers>
-      <error line="32" code="50018">No DocBlock was found for property $jobId</error>
-      <error line="33" code="50018">No DocBlock was found for property $callbackUrl</error>
-      <error line="34" code="50018">No DocBlock was found for property $status</error>
-      <error line="35" code="50018">No DocBlock was found for property $requestUrl</error>
-      <error line="36" code="50018">No DocBlock was found for property $verb</error>
-      <error line="37" code="50018">No DocBlock was found for property $request</error>
-      <error line="38" code="50018">No DocBlock was found for property $response</error>
-      <error line="39" code="50018">No DocBlock was found for property $error</error>
-      <error line="42" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="60" code="50012">No short description for method Url()</error>
-      <error line="79" code="50010">No DocBlock was found for method Update()</error>
-      <error line="80" code="50010">No DocBlock was found for method Delete()</error>
-      <error line="81" code="50010">No DocBlock was found for method PrimaryKeyField()</error>
+      <error line="24" code="50018">No DocBlock was found for property $jobId</error>
+      <error line="25" code="50018">No DocBlock was found for property $callbackUrl</error>
+      <error line="26" code="50018">No DocBlock was found for property $status</error>
+      <error line="27" code="50018">No DocBlock was found for property $requestUrl</error>
+      <error line="28" code="50018">No DocBlock was found for property $verb</error>
+      <error line="29" code="50018">No DocBlock was found for property $request</error>
+      <error line="30" code="50018">No DocBlock was found for property $response</error>
+      <error line="31" code="50018">No DocBlock was found for property $error</error>
+      <error line="34" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="52" code="50012">No short description for method Url()</error>
+      <error line="71" code="50010">No DocBlock was found for method Update()</error>
+      <error line="72" code="50010">No DocBlock was found for method Delete()</error>
+      <error line="73" code="50010">No DocBlock was found for method PrimaryKeyField()</error>
     </parse_markers>
   </file>
   <file path="base.php" hash="29f108ca484499d9bd7b600994f7ca93" package="phpOpenCloud">
@@ -2264,7 +2258,7 @@ because the /flavors/detail resource is not supported</p>]]></long-description>
       <error line="51" code="50015">Argument $filter is missing from the Docblock of FlavorList()</error>
     </parse_markers>
   </file>
-  <file path="dns.php" hash="1ceac353f2d10b89d7bf007e80ea1833" package="phpOpenCloud">
+  <file path="dns.php" hash="940dcfb23e4019cc0d852a3884452dfd" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[The Rackspace Cloud DNS service]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -2483,6 +2477,29 @@ for the status or to retrieve the final data as needed.</p>]]></long-description
           <type/>
         </argument>
       </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud" line="144" package="Default">
+        <name>Import</name>
+        <full_name>Import</full_name>
+        <docblock line="132">
+          <description><![CDATA[imports domain records]]></description>
+          <long-description><![CDATA[<p>Note that this function is called from the service (DNS) level, and
+not (as you might suspect) from the Domain object. Because the function
+return an AsyncResponse, the domain object will not actually exist
+until some point after the import has occurred.</p>]]></long-description>
+          <tag line="132" name="api" description=""/>
+          <tag line="132" name="param" description="the BIND_9 formatted data to import" type="string" variable="$data">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="132" name="return" description="" type="\OpenCloud\DNS\AsyncResponse">
+            <type by_reference="false">\OpenCloud\DNS\AsyncResponse</type>
+          </tag>
+        </docblock>
+        <argument line="144">
+          <name>$data</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
     </class>
     <parse_markers>
       <error line="20" code="50000">No DocBlock was found for \OpenCloud\DNS</error>
@@ -2618,7 +2635,7 @@ permits the asynchronous responses used by Cloud DNS]]></description>
       <notice line="47" code="50013">Parameter $params could not be found in Delete()</notice>
     </parse_markers>
   </file>
-  <file path="domain.php" hash="26f04451d4b7dbe57eb3d1fa9568ab3a" package="phpOpenCloud">
+  <file path="domain.php" hash="124d1e34ef55b0215749c8a7449b2e5a" package="phpOpenCloud">
     <docblock line="2">
       <description><![CDATA[Defines a DNS domain]]></description>
       <long-description><![CDATA[]]></long-description>
@@ -2820,77 +2837,68 @@ the current domain.</p>]]></long-description>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="133" package="Default">
-        <name>Import</name>
-        <full_name>Import</full_name>
-        <docblock line="127">
-          <description><![CDATA[imports domain records]]></description>
-          <long-description><![CDATA[]]></long-description>
-          <tag line="127" name="TODO" description="Should this go at the DNS level? After all, we're importing a domain,&#10;and not importing it into a domain object. Or are we?"/>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="146" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="135" package="Default">
         <name>CreateJson</name>
         <full_name>CreateJson</full_name>
-        <docblock line="140">
+        <docblock line="129">
           <description><![CDATA[handles creation of multiple records at Create()]]></description>
           <long-description><![CDATA[]]></long-description>
-          <tag line="140" name="api" description=""/>
-          <tag line="140" name="return" description="" type="\stdClass">
+          <tag line="129" name="api" description=""/>
+          <tag line="129" name="return" description="" type="\stdClass">
             <type by_reference="false">\stdClass</type>
           </tag>
         </docblock>
       </method>
     </class>
-    <class final="false" abstract="false" namespace="OpenCloud\DNS" line="188" package="Default">
+    <class final="false" abstract="false" namespace="OpenCloud\DNS" line="177" package="Default">
       <extends>\OpenCloud\DNS\Domain</extends>
       <name>Subdomain</name>
       <full_name>\OpenCloud\DNS\Subdomain</full_name>
-      <docblock line="182">
+      <docblock line="171">
         <description><![CDATA[The Subdomain is basically another domain, albeit one that is a child of
 a parent domain.]]></description>
         <long-description><![CDATA[<p>In terms of the code involved, the JSON is slightly
 different than a top-level domain, and the parent is a domain instead of
 the DNS service itself.</p>]]></long-description>
       </docblock>
-      <property final="false" static="true" visibility="protected" line="191" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="true" visibility="protected" line="180" namespace="OpenCloud\DNS" package="Default">
         <name>$json_name</name>
         <default><![CDATA[FALSE]]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="192" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="true" visibility="protected" line="181" namespace="OpenCloud\DNS" package="Default">
         <name>$json_collection_name</name>
         <default><![CDATA['domains']]></default>
       </property>
-      <property final="false" static="true" visibility="protected" line="193" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="true" visibility="protected" line="182" namespace="OpenCloud\DNS" package="Default">
         <name>$url_resource</name>
         <default><![CDATA['subdomains']]></default>
       </property>
-      <property final="false" static="false" visibility="private" line="196" namespace="OpenCloud\DNS" package="Default">
+      <property final="false" static="false" visibility="private" line="185" namespace="OpenCloud\DNS" package="Default">
         <name>$_parent</name>
         <default><![CDATA[]]></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="200" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="189" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
-        <docblock line="198">
+        <docblock line="187">
           <description><![CDATA[]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
-        <argument line="200">
+        <argument line="189">
           <name>$parent</name>
           <default><![CDATA[]]></default>
           <type>\OpenCloud\DNS\Domain</type>
         </argument>
-        <argument line="200">
+        <argument line="189">
           <name>$info</name>
           <default><![CDATA[array()]]></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="208" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\DNS" line="197" package="Default">
         <name>Parent</name>
         <full_name>Parent</full_name>
-        <docblock line="205">
+        <docblock line="194">
           <description><![CDATA[returns the parent domain object]]></description>
           <long-description><![CDATA[]]></long-description>
         </docblock>
@@ -2914,13 +2922,13 @@ the DNS service itself.</p>]]></long-description>
       <error line="50" code="50018">No DocBlock was found for property $subdomains</error>
       <error line="52" code="50015">Argument $info is missing from the Docblock of Record()</error>
       <error line="73" code="50015">Argument $info is missing from the Docblock of Subdomain()</error>
-      <error line="191" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="192" code="50018">No DocBlock was found for property $json_collection_name</error>
-      <error line="193" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="196" code="50018">No DocBlock was found for property $_parent</error>
-      <error line="198" code="50012">No short description for method __construct()</error>
-      <error line="198" code="50015">Argument $parent is missing from the Docblock of __construct()</error>
-      <error line="198" code="50015">Argument $info is missing from the Docblock of __construct()</error>
+      <error line="180" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="181" code="50018">No DocBlock was found for property $json_collection_name</error>
+      <error line="182" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="185" code="50018">No DocBlock was found for property $_parent</error>
+      <error line="187" code="50012">No short description for method __construct()</error>
+      <error line="187" code="50015">Argument $parent is missing from the Docblock of __construct()</error>
+      <error line="187" code="50015">Argument $info is missing from the Docblock of __construct()</error>
     </parse_markers>
   </file>
   <file path="exceptions.php" hash="f40307b1498664ec00ac4d3cb5cc61e2" package="phpOpenCloud">
