@@ -50,6 +50,11 @@ class AsyncResponse extends \OpenCloud\PersistentObject {
 	}
 	
 	/**
+	 * URL for status
+	 *
+	 * We always show details
+	 *
+	 * @return string
 	 */
 	public function Url() {
 		return $this->callbackUrl.'?showDetails=True';
