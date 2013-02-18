@@ -71,6 +71,17 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals(
 	        'MyPersistentObject',
 	        get_class($inst));
+	    $inst = new MyPersistentObject($this->service,
+	    	array('id'=>'42'));
+	    $this->assertEquals(
+	    	'MyPersistentObject',
+	    	get_class($inst));
+	}
+	/**
+	 * @expectedException OpenCloud\InvalidArgumentError
+	 */
+	public function test__construct2() {
+	    $inst = new MyPersistentObject($this->service, FALSE);
 	}
 	/**
 	 * @expectedException OpenCloud\AttributeError

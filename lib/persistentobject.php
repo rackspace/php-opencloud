@@ -95,9 +95,8 @@ abstract class PersistentObject extends Base {
 		}
 		elseif (isset($info))
 			throw new InvalidArgumentError(sprintf(
-				_('Argument for [%s] must be string or object, [%s] used'),
-				get_class(),
-				get_class($info)));
+				_('Argument for [%s] must be string or object'),
+				get_class()));
 	}
 
 	/**
