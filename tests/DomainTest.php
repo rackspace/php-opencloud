@@ -63,9 +63,4 @@ class DomainTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->domain->Export()));
 	}
-	public function testImport() {
-		$this->assertEquals(
-			'OpenCloud\DNS\AsyncResponse',
-			get_class($this->domain->Import()));
-	}
 }

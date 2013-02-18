@@ -61,4 +61,9 @@ class DnsTest extends PHPUnit_Framework_TestCase
 	public function testAsyncRequest() {
 	    $resp = $this->dns->AsyncRequest('FOOBAR');
 	}
+	public function testImport() {
+		$this->assertEquals(
+			'OpenCloud\DNS\AsyncResponse',
+			get_class($this->dns->Import('foo bar oops')));
+	}
 }
