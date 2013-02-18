@@ -92,8 +92,14 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	public function testUrl() {
 	    $this->instance->id = '12';
 	    $this->assertEquals(
-'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12',
+			'https://dfw.servers.api.rackspacecloud.com/v2/'.
+			'TENANT-ID/instances/12',
 	        $this->instance->Url());
+	    $this->assertEquals(
+			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/'.
+			'instances/12/foobar?foo=BAZ',
+	        $this->instance->Url('foobar',
+	        	array('foo'=>'BAZ')));
 	}
 	public function testUrl2() {
 	    $this->instance->id = '12';
