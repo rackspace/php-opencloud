@@ -20,6 +20,12 @@ require_once(__DIR__.'/service.php');
 class DNS extends Service {
 
 	/**
+	 * creates a new DNS object
+	 *
+	 * @param \OpenCloud\OpenStack $conn connection object
+	 * @param string $serviceName the name of the service
+	 * @param string $serviceRegion (not currently used; DNS is regionless)
+	 * @param string $urltype the type of URL
 	 */
 	public function __construct(OpenStack $conn,
 	        $serviceName, $serviceRegion, $urltype) {
@@ -53,12 +59,22 @@ class DNS extends Service {
 	}
 	
 	/**
+	 * returns a DNS::Domain object
+	 * 
+	 * @api
+	 * @param mixed $info either the ID, an object, or array of parameters
+	 * @return DNS\Domain
 	 */
 	public function Domain($info=NULL) {
 		return new DNS\Domain($this, $info);
 	}
 
 	/**
+	 * returns a Collection of DNS::Domain objects
+	 *
+	 * @api
+	 * @param array $filter key/value pairs to use as query strings
+	 * @return \OpenCloud\Collection
 	 */
 	public function DomainList($filter=array()) {
 		$url = $this->Url(DNS\Domain::ResourceName(), $filter);
@@ -66,7 +82,15 @@ class DNS extends Service {
 	}
 	
 	/**
-	 * override request with JSON content type
+	 * performs a HTTP request
+	 *
+	 * This method overrides the request with JSON content type
+	 *
+	 * @param string $url the URL to target
+	 * @param string $method the HTTP method to use
+	 * @param array $headers key/value pairs for headers to include
+	 * @param string $body the body of the request (for PUT and POST)
+	 * @return \OpenCloud\HttpResponse
 	 */
 	public function Request($url,$method='GET',$headers=array(),$body=NULL) {
 		$headers['Accept'] = 'application/json';
@@ -83,6 +107,9 @@ class DNS extends Service {
 	 * for the status or to retrieve the final data as needed. 
 	 *
 	 * @param string $url the URL of the request
+	 * @param string $method the HTTP method to use
+	 * @param array $headers key/value pairs for headers to include
+	 * @param string $body the body of the request (for PUT and POST)
 	 * @return DNS\AsyncResponse
 	 */
 	public function AsyncRequest(
