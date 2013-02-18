@@ -129,4 +129,38 @@ class DNS extends Service {
 		return new DNS\AsyncResponse($this, $resp->HttpBody());
 	}
 
+	/**
+	 * imports domain records
+	 *
+	 * Note that this function is called from the service (DNS) level, and
+	 * not (as you might suspect) from the Domain object. Because the function
+	 * return an AsyncResponse, the domain object will not actually exist
+	 * until some point after the import has occurred. 
+	 *
+	 * @api
+	 * @param string $data the BIND_9 formatted data to import
+	 * @return DNS\AsyncResponse
+	 */
+	public function Import($data) {
+		// determine the URL
+		$url = $this->Url('domains/import');
+		
+		// create the JSON object
+		$obj = new \stdClass;
+		$obj->domains = array();
+		$dom = new \stdClass;
+		$dom->contents = $data;
+		$dom->contentType = 'BIND_9';
+		$obj->domains[] = $dom;
+		
+		// encode it
+		$json = json_encode($obj);
+		
+		// debug it
+		$this->debug('Importing [%s]', $json);
+		
+		// perform the request
+		return $this->AsyncRequest($url, 'POST', array(), $json);
+	}
+	
 } // end class DNS

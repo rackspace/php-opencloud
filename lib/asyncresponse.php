@@ -17,14 +17,6 @@ require_once(__DIR__.'/persistentobject.php');
 /**
  * The AsyncResponse class encapsulates the data returned by a Cloud DNS
  * asynchronous response.
- *
-{
-  "status": "RUNNING",
-  "verb": "GET",
-  "jobId": "613873f5-9ca9-4276-9c48-a0dac143f7d6",
-  "callbackUrl": "https:\/\/dns.api.rackspacecloud.com\/v1.0\/545108\/status\/613873f5-9ca9-4276-9c48-a0dac143f7d6",
-  "requestUrl": "https:\/\/dns.api.rackspacecloud.com\/v1.0\/545108\/domains\/3597879\/export"
-}
  */
 class AsyncResponse extends \OpenCloud\PersistentObject {
 

@@ -124,17 +124,6 @@ class Domain extends DnsObject {
 		return $this->Service()->AsyncRequest($url);
 	}
 	
-	/**
-	 * imports domain records
-	 * @TODO
-	 * Should this go at the DNS level? After all, we're importing a domain,
-	 * and not importing it into a domain object. Or are we?
-	 */
-	public function Import() {
-		$url = $this->Service()->Url('domains/import');
-		return $this->Service()->AsyncRequest($url, 'POST', '');
-	}
-	
 	/* ---------- PROTECTED METHODS ---------- */
 	
 	/**
