@@ -93,10 +93,24 @@ class PtrRecord extends Record {
 		$link_href;
 
 	/**
+	 * constructur ensures that the record type is PTR
+	 */
+	public function __construct($parent, $info=NULL) {
+		$this->type = 'PTR';
+		parent::__construct($parent, $info);
+		if ($this->type != 'PTR')
+			throw new RecordTypeError(sprintf(
+				_('Invalid record type [%s], must be PTR'), $this->type));
+	}
+
+	/**
 	 * specialized DNS PTR URL requires server service name and href
 	 */
 	public function Url($subresource=NULL, $params=array()) {
-		$url = $this->Parent()->Url(self::$url_resource, $params);
+		if (isset($subresource))
+			$url = $this->Parent()->Url($subresource, $params);
+		else
+			$url = $this->Parent()->Url(self::$url_resource, $params);
 		return $url;
 	}
 
@@ -120,11 +134,24 @@ class PtrRecord extends Record {
 
 	/**
 	 * DNS PTR Delete() method requires a server
+	 *
+	 * Note that delete will remove ALL PTR records associated with the device
+	 * unless you pass in the parameter ip={ip address}
+	 *
 	 */
 	public function Delete(\OpenCloud\Compute\Server $srv) {
 		$this->link_rel = $srv->Service()->Name();
 		$this->link_href = $srv->Url();
-		return parent::Delete();
+		$url = $this->Url('rdns/'.$this->link_rel,
+			array('href'=>$this->link_href));
+		if (isset($this->data))
+			$url .= '&ip='.$this->data;
+
+		// perform the request
+		$resp = $this->Service()->Request($url, 'DELETE');
+
+		// return the AsyncResponse object
+		return new AsyncResponse($this->Service(), $resp->HttpBody());
 	}
 
 	/* ---------- PROTECTED METHODS ---------- */

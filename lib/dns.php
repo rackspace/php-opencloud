@@ -57,10 +57,10 @@ class DNS extends Service {
 	        $baseurl .= '?'.$this->MakeQueryString($args);
 		return $baseurl;
 	}
-	
+
 	/**
 	 * returns a DNS::Domain object
-	 * 
+	 *
 	 * @api
 	 * @param mixed $info either the ID, an object, or array of parameters
 	 * @return DNS\Domain
@@ -80,7 +80,7 @@ class DNS extends Service {
 		$url = $this->Url(DNS\Domain::ResourceName(), $filter);
 		return $this->Collection('\OpenCloud\DNS\Domain', $url);
 	}
-	
+
 	/**
 	 * returns a PtrRecord object for a server
 	 *
@@ -90,7 +90,7 @@ class DNS extends Service {
 	public function PtrRecord($info=NULL) {
 		return new DNS\PtrRecord($this, $info);
 	}
-	
+
 	/**
 	 * returns a Collection of PTR records for a given Server
 	 *
@@ -104,7 +104,7 @@ class DNS extends Service {
 		$url .= '?' . $this->MakeQueryString(array('href'=>$server->Url()));
 		return $this->Collection('\OpenCloud\DNS\PtrRecord', $url);
 	}
-	
+
 	/**
 	 * performs a HTTP request
 	 *
@@ -121,14 +121,14 @@ class DNS extends Service {
 		$headers['Content-Type'] = 'application/json';
 		return parent::Request($url, $method, $headers, $body);
 	}
-	
+
 	/**
 	 * retrieves an asynchronous response
 	 *
 	 * This method calls the provided `$url` and expects an asynchronous
 	 * response. It checks for various HTTP error codes and returns
 	 * an `AsyncResponse` object. This object can then be used to poll
-	 * for the status or to retrieve the final data as needed. 
+	 * for the status or to retrieve the final data as needed.
 	 *
 	 * @param string $url the URL of the request
 	 * @param string $method the HTTP method to use
@@ -138,20 +138,20 @@ class DNS extends Service {
 	 */
 	public function AsyncRequest(
 			$url, $method='GET', $headers=array(), $body=NULL) {
-		
+
 		// perform the initial request
 		$resp = $this->Request($url, $method, $headers, $body);
-		
+
 		// check response status
 		if ($resp->HttpStatus() > 204)
 			throw new DNS\AsyncHttpError(sprintf(
 				_('Unexpected HTTP status for async request: '.
 				  'URL [%s] method [%s] status [%s] response [%s]'),
 				$url, $method, $resp->HttpStatus(), $resp->HttpBody()));
-		
+
 		// debug
 		$this->debug('AsyncResponse [%s]', $resp->HttpBody());
-		
+
 		// return an AsyncResponse object
 		return new DNS\AsyncResponse($this, $resp->HttpBody());
 	}
@@ -162,7 +162,7 @@ class DNS extends Service {
 	 * Note that this function is called from the service (DNS) level, and
 	 * not (as you might suspect) from the Domain object. Because the function
 	 * return an AsyncResponse, the domain object will not actually exist
-	 * until some point after the import has occurred. 
+	 * until some point after the import has occurred.
 	 *
 	 * @api
 	 * @param string $data the BIND_9 formatted data to import
@@ -171,7 +171,7 @@ class DNS extends Service {
 	public function Import($data) {
 		// determine the URL
 		$url = $this->Url('domains/import');
-		
+
 		// create the JSON object
 		$obj = new \stdClass;
 		$obj->domains = array();
@@ -179,15 +179,15 @@ class DNS extends Service {
 		$dom->contents = $data;
 		$dom->contentType = 'BIND_9';
 		$obj->domains[] = $dom;
-		
+
 		// encode it
 		$json = json_encode($obj);
-		
+
 		// debug it
 		$this->debug('Importing [%s]', $json);
-		
+
 		// perform the request
 		return $this->AsyncRequest($url, 'POST', array(), $json);
 	}
-	
+
 } // end class DNS

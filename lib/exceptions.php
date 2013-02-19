@@ -160,4 +160,5 @@ namespace OpenCloud\DNS {
 	class AsyncHttpError extends \Exception {}
 	class AsyncError extends \Exception {}
 	class AsyncTimeoutError extends \Exception {}
+	class RecordTypeError extends \Exception {}
 }
