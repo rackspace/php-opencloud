@@ -15,6 +15,7 @@ namespace OpenCloud;
 require_once(__DIR__.'/asyncresponse.php');
 require_once(__DIR__.'/domain.php');
 require_once(__DIR__.'/record.php');
+require_once(__DIR__.'/ptrrecord.php');
 require_once(__DIR__.'/service.php');
 
 class DNS extends Service {
