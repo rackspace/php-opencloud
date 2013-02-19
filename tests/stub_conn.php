@@ -77,6 +77,10 @@ ENDNW;
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
 		}
+		elseif (($method=='PUT') && strpos($url, '/domains')) {
+			$resp->body = $this->async_response;
+			$resp->status = 202;
+		}
 		elseif (strpos($url, '/os-volume_attachments/')) {
 			$resp->body = <<<ENDATT
 {"volumeAttachment":{"volumeId":"FOO"}}
@@ -153,7 +157,8 @@ ENDLB;
 			$resp->status = 202;
 		}
 		elseif (strpos($url, '/domain/')) {
-			// @TODO
+			$resp->body = $this->async_response;
+			$resp->status = 202;
 		}
 		elseif (strpos($url, '/domains')) {
 			$resp->body = <<<ENDDOM

@@ -48,6 +48,20 @@ class DomainTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->domain->Create()));
 	}
+	public function testUpdate() {
+		$resp = $this->domain->Update(array(
+			'id'=>'TEST',
+			'name'=>'FOO',
+			'emailAddress'=>'no-body@dontuseemail.com'));
+		$this->assertEquals(
+			'OpenCloud\DNS\AsyncResponse',
+			get_class($resp));
+	}
+	public function testDelete() {
+		$this->assertEquals(
+			'OpenCloud\DNS\AsyncResponse',
+			get_class($this->domain->Delete()));
+	}
 	public function testRecord() {
 		$this->assertEquals(
 			'OpenCloud\DNS\Record',
