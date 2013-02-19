@@ -82,6 +82,16 @@ class DNS extends Service {
 	}
 	
 	/**
+	 * returns a PtrRecord object for a server
+	 *
+	 * @param mixed $info ID, array, or object containing record data
+	 * @return Record
+	 */
+	public function PtrRecord($info=NULL) {
+		return new DNS\PtrRecord($this, $info);
+	}
+	
+	/**
 	 * returns a Collection of PTR records for a given Server
 	 *
 	 * @param \OpenCloud\Compute\Server $server the server for which to
@@ -92,7 +102,7 @@ class DNS extends Service {
 		$service_name = $server->Service()->Name();
 		$url = $this->Url('rdns/'.$service_name);
 		$url .= '?' . $this->MakeQueryString(array('href'=>$server->Url()));
-		return $this->Collection('\OpenCloud\DNS\Record', $url);
+		return $this->Collection('\OpenCloud\DNS\PtrRecord', $url);
 	}
 	
 	/**
@@ -178,19 +188,6 @@ class DNS extends Service {
 		
 		// perform the request
 		return $this->AsyncRequest($url, 'POST', array(), $json);
-	}
-	
-	/**
-	 * returns a Record object
-	 *
-	 * Note that this method is available at the Domain level; this one is only
-	 * used for PTR records. 
-	 *
-	 * @param mixed $info ID, array, or object containing record data
-	 * @return Record
-	 */
-	public function Record($info=NULL) {
-		return new DNS\Record($this, $info);
 	}
 	
 } // end class DNS

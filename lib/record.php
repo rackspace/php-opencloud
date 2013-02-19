@@ -34,7 +34,7 @@ class Record extends DnsObject {
 		$data,
 		$priority,
 		$comment;
-	
+
 	protected static
 		$json_name = FALSE,
 		$json_collection_name = 'records',
@@ -44,7 +44,7 @@ class Record extends DnsObject {
 		$_parent,
 		$_update_keys = array('name','ttl','data','priority','comment'),
 		$_create_keys = array('type','name','ttl','data','priority','comment');
-	
+
 	/**
 	 * create a new record object
 	 *
@@ -62,7 +62,7 @@ class Record extends DnsObject {
 				parent::__construct($parent, $info);
 		}
 	}
-	
+
 	/**
 	 * returns the parent domain
 	 *
@@ -71,5 +71,88 @@ class Record extends DnsObject {
 	public function Parent() {
 		return $this->_parent;
 	}
-	
+
 } // class Record
+
+/**
+ * PTR records are used for reverse DNS
+ *
+ * The PtrRecord object is nearly identical with the Record object. However,
+ * the PtrRecord is a child of the service, and not a child of a Domain.
+ *
+ */
+class PtrRecord extends Record {
+
+	protected static
+		$json_name = FALSE,
+		$json_collection_name = 'records',
+		$url_resource = 'rdns';
+
+	private
+		$link_rel,
+		$link_href;
+
+	/**
+	 * specialized DNS PTR URL requires server service name and href
+	 */
+	public function Url($subresource=NULL, $params=array()) {
+		$url = $this->Parent()->Url(self::$url_resource);
+		$url .= '/' . $this->link_rel;
+		$params = array_merge($params, array('href'=>$this->link_href));
+		$url .= '?' . $this->MakeQueryString($params);
+		return $url;
+	}
+
+	/**
+	 * DNS PTR Create() method requires a server
+	 */
+	public function Create(\OpenCloud\Compute\Server $srv, $param=array()) {
+		$this->link_rel = $srv->Service()->Name();
+		$this->link_href = $srv->Url();
+		return parent::Create($param);
+	}
+
+	/**
+	 * DNS PTR Update() method requires a server
+	 */
+	public function Update(\OpenCloud\Compute\Server $srv, $param=array()) {
+		$this->link_rel = $srv->Service()->Name();
+		$this->link_href = $srv->Url();
+		return parent::Update($param);
+	}
+
+	/**
+	 * DNS PTR Delete() method requires a server
+	 */
+	public function Delete(\OpenCloud\Compute\Server $srv) {
+		$this->link_rel = $srv->Service()->Name();
+		$this->link_href = $srv->Url();
+		return parent::Delete();
+	}
+
+	/* ---------- PROTECTED METHODS ---------- */
+
+	/**
+	 * Specialized JSON for DNS PTR creates and updates
+	 */
+	protected function CreateJson() {
+		$obj = new \stdClass;
+		$obj->recordsList = parent::CreateJson();
+
+		// add links from server
+		$obj->link = new \stdClass;
+		$obj->link->href = $this->link_href;
+		$obj->link->rel  = $this->link_rel;
+		return $obj;
+	}
+
+	/**
+	 * The Update() JSON requires a record ID
+	 */
+	protected function UpdateJson() {
+		$obj = $this->CreateJson();
+		$obj->recordsList->records[0]->id = $this->id;
+		return $obj;
+	}
+
+} // class PtrRecord
