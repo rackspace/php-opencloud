@@ -39,6 +39,14 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 			'PTR',
 			$this->record->type);
 	}
+	/**
+	 * @expectedException OpenCloud\DNS\RecordTypeError
+	 */
+	public function test__construct2() {
+		// not allowed to change the record type from PTR
+		$this->record = new OpenCloud\DNS\PtrRecord(
+			$this->dns, array('type' => 'A'));
+	}
 	public function testUrl() {
 		$this->assertEquals(
 			'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID/rdns',
