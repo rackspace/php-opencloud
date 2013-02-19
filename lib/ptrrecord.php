@@ -1,6 +1,6 @@
 <?php
 /**
- * Defines a DNS record
+ * Defines a DNS PTR record
  *
  * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
