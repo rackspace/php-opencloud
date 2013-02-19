@@ -35,7 +35,7 @@ class Domain extends DnsObject {
 		$created,
 		$name,
 		$comment;
-	
+
 	protected static
 		$json_name = FALSE,
 		$json_collection_name = 'domains',
@@ -44,23 +44,23 @@ class Domain extends DnsObject {
 	protected
 		$_create_keys = array('name','emailAddress','ttl','comment'),
 		$_update_keys = array('emailAddress','ttl','comment');
-	
+
 	private
 		$records = array(),
 		$subdomains = array();
-		
+
 	/**
 	 * returns a Record object
 	 *
 	 * Note that this method is available at the DNS level, but only for
-	 * PTR records. 
+	 * PTR records.
 	 *
 	 * @return Record
 	 */
 	public function Record($info=NULL) {
 		return new Record($this, $info);
 	}
-	
+
 	/**
 	 * returns a Collection of Record objects
 	 *
@@ -68,11 +68,10 @@ class Domain extends DnsObject {
 	 * @return \OpenCloud\Collection
 	 */
 	public function RecordList($filter=array()) {
-		$url = $this->Url(Record::ResourceName(), $filter);
 		return $this->Parent()->Collection(
-			'\OpenCloud\DNS\Record', NULL, $this);
+			'\OpenCloud\DNS\Record', NULL, $this, $filter);
 	}
-	
+
 	/**
 	 * returns a Subdomain object (child of current domain)
 	 *
@@ -80,7 +79,7 @@ class Domain extends DnsObject {
 	public function Subdomain($info=array()) {
 		return new Subdomain($this, $info);
 	}
-	
+
 	/**
 	 * returns a Collection of subdomains
 	 *
@@ -94,7 +93,7 @@ class Domain extends DnsObject {
 		return $this->Parent()->Collection(
 			'\OpenCloud\DNS\Subdomain', NULL, $this);
 	}
-	
+
 	/**
 	 * Adds a new record to the list (for multiple record creation)
 	 *
@@ -106,7 +105,7 @@ class Domain extends DnsObject {
 		$this->records[] = $rec;
 		return count($this->records);
 	}
-	
+
 	/**
 	 * adds a new subdomain (for multiple subdomain creation)
 	 *
@@ -128,9 +127,9 @@ class Domain extends DnsObject {
 		$url = $this->Url('export');
 		return $this->Service()->AsyncRequest($url);
 	}
-	
+
 	/* ---------- PROTECTED METHODS ---------- */
-	
+
 	/**
 	 * handles creation of multiple records at Create()
 	 *
@@ -139,7 +138,7 @@ class Domain extends DnsObject {
 	 */
 	protected function CreateJson() {
 		$obj = parent::CreateJson();
-		
+
 		// add records, if any
 		if (count($this->records) > 0) {
 			$recobj = new \stdClass;
@@ -153,7 +152,7 @@ class Domain extends DnsObject {
 			}
 			$obj->domains[0]->recordsList = $recobj;
 		}
-		
+
 		// add subdomains, if any
 		if (count($this->subdomains) > 0) {
 			$sub = new \stdClass;
@@ -170,14 +169,14 @@ class Domain extends DnsObject {
 
 		return $obj;
 	}
-	
+
 } // class Domain
 
 /**
  * The Subdomain is basically another domain, albeit one that is a child of
  * a parent domain. In terms of the code involved, the JSON is slightly
  * different than a top-level domain, and the parent is a domain instead of
- * the DNS service itself. 
+ * the DNS service itself.
  */
 class Subdomain extends Domain {
 
@@ -185,17 +184,17 @@ class Subdomain extends Domain {
 		$json_name = FALSE,
 		$json_collection_name = 'domains',
 		$url_resource = 'subdomains';
-	
+
 	private
 		$_parent;
-	
+
 	/**
 	 */
 	public function __construct(Domain $parent, $info=array()) {
 		$this->_parent = $parent;
 		return parent::__construct($parent->Service(), $info);
 	}
-	
+
 	/**
 	 * returns the parent domain object
 	 */

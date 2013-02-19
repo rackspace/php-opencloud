@@ -19,13 +19,22 @@ $dlist = $dns->DomainList();
 while($domain = $dlist->Next()) {
 	printf("\n%s [%s]\n",
 		$domain->Name(), $domain->emailAddress);
+
 	// list records
 	printf("Records:\n");
 	$rlist = $domain->RecordList();
 	while($rec = $rlist->Next()) {
-		printf("- %s %d %s %s\n", 
+		printf("- %s %d %s %s\n",
 			$rec->type, $rec->ttl, $rec->Name(), $rec->data);
 	}
+
+	printf("A records:\n");
+	$rlist = $domain->RecordList(array('type'=>'A'));
+	while($rec = $rlist->Next()) {
+		printf("- %s %d %s %s\n",
+			$rec->type, $rec->ttl, $rec->Name(), $rec->data);
+	}
+
 	printf("Subdomains:\n");
 	// setDebug(TRUE);
 	$slist = $domain->SubDomainList();
