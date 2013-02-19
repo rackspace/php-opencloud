@@ -34,5 +34,11 @@ class MetadataTest extends PHPUnit_Framework_TestCase
     public function testSetArray() {
         $this->metadata->SetArray(array('opt'=>'uno','foobar'=>'baz'));
         $this->assertEquals('uno', $this->metadata->opt);
+        $this->metadata->SetArray(
+        	array('X-one'=>1, 'X-two'=>2),
+        	'X-');
+        $this->assertEquals(
+        	2,
+        	$this->metadata->two);
     }
 }
