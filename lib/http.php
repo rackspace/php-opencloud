@@ -83,6 +83,11 @@ class CurlRequest implements HTTPRequest {
             $this->setOption(CURLOPT_CAINFO, RAXSDK_CACERTPEM);
         }
 
+        //  curl code [18]
+        //	message [transfer closed with x bytes remaining to read]
+        if ($method === 'HEAD')
+        	$this->SetOption(CURLOPT_NOBODY, TRUE);
+
         // follow redirects
         $this->SetOption(CURLOPT_FOLLOWLOCATION, TRUE);
 
