@@ -96,10 +96,7 @@ class PtrRecord extends Record {
 	 * specialized DNS PTR URL requires server service name and href
 	 */
 	public function Url($subresource=NULL, $params=array()) {
-		$url = $this->Parent()->Url(self::$url_resource);
-		$url .= '/' . $this->link_rel;
-		$params = array_merge($params, array('href'=>$this->link_href));
-		$url .= '?' . $this->MakeQueryString($params);
+		$url = $this->Parent()->Url(self::$url_resource, $params);
 		return $url;
 	}
 

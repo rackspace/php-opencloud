@@ -30,13 +30,19 @@ while($server = $slist->Next()) {
 		$ptrlist = $dns->PtrRecordList($server);
 		while($ptr = $ptrlist->Next()) {
 			printf("- %s=%s\n", $ptr->data, $ptr->name);
+			printf("- comment: %s\n", $ptr->comment);
 			printf("  modifying...\n");
 			$ptr->comment = sprintf('Updated at %s', date('H:i:s'));
-			setDebug(TRUE);
-			$ptr->Update($server);
-			setDebug(FALSE);
+			$aresp = $ptr->Update($server);
+			$aresp->WaitFor('COMPLETED', 300, 'pstat', 1);
 		}
 	} catch (\OpenCloud\CollectionError $e) {
 		echo "- No records found\n";
 	}
+}
+
+exit;
+
+function pstat($obj) {
+	printf("  ...%s\n", $obj->Status());
 }
