@@ -64,8 +64,15 @@ ENDNW;
 				$resp->body = $this->async_response;
 				$resp->status = 202;
 			}
-			else
+			elseif (strpos($url, '/rdns')) {
+				$resp->body = $this->async_response;
+				$resp->status = 202;
+			}
+			elseif (strpos($url, '/servers')) {
 				$resp->body = file_get_contents(TESTDIR.'/server-create.json');
+			}
+			else
+				die("No stub data for URL $url\n");
 		}
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
@@ -200,6 +207,10 @@ ENDVOL;
 		}
 		elseif (strpos($url, 'BADJSON')) {
 			$resp->body = '{"bad jjson';
+			$resp->status = 200;
+		}
+		elseif (strpos($url, '/rdns')) {
+			$resp->body = $this->async_response;
 			$resp->status = 200;
 		}
 		else

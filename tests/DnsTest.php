@@ -69,7 +69,7 @@ class DnsTest extends PHPUnit_Framework_TestCase
 	}
 	public function testPtrRecordList() {
 		$server = new \OpenCloud\Compute\Server(
-			new \OpenCloud\Compute($this->conn, 
+			new \OpenCloud\Compute($this->conn,
 				'cloudServersOpenStack', 'DFW', 'publicURL'));
 		$server->id = '42';
 		$this->assertEquals(
@@ -78,7 +78,7 @@ class DnsTest extends PHPUnit_Framework_TestCase
 	}
 	public function testRecord() {
 		$this->assertEquals(
-			'OpenCloud\DNS\Record',
-			get_class($this->dns->Record()));
+			'OpenCloud\DNS\PtrRecord',
+			get_class($this->dns->PtrRecord()));
 	}
 }
