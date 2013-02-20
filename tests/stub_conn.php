@@ -167,7 +167,17 @@ ENDLB;
 			$resp->body = <<<ENDTYPES
 {"limitTypes":["RATE_LIMIT","DOMAIN_LIMIT","DOMAIN_RECORD_LIMIT"]}
 ENDTYPES;
-			$resp->body = 202;
+			$resp->status = 202;
+		}
+		elseif (strpos($url, '/limits/DOMAIN_LIMIT')) { // individual limit
+			$resp->status = 202;
+			$resp->body = <<<ENDDOMLIMIT
+{"absolute":{"limits":[{"name":"domains","value":500}]}}
+ENDDOMLIMIT;
+		}
+		elseif (strpos($url, '/limits')) { // all limits
+			$resp->status = 202;
+			$resp->body = file_get_contents(__DIR__.'/dnslimits.json');
 		}
 		elseif (strpos($url, '/changes')) {
 			$resp->body = <<<ENDCHANGES

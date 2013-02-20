@@ -230,7 +230,7 @@ class DNS extends Service {
 	 * @return array
 	 */
 	public function LimitTypes() {
-		$url = $this->url('limits/types');
+		$url = $this->Url('limits/types');
 
 		// perform the request
 		$resp = $this->Request($url);

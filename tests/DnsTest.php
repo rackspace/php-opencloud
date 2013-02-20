@@ -81,4 +81,20 @@ class DnsTest extends PHPUnit_Framework_TestCase
 			'OpenCloud\DNS\PtrRecord',
 			get_class($this->dns->PtrRecord()));
 	}
+	public function testLimits() {
+		$obj = $this->dns->Limits();
+		$this->assertEquals(
+			TRUE,
+			is_array($obj->rate));
+		$obj = $this->dns->Limits('DOMAIN_LIMIT');
+		$this->assertEquals(
+			500,
+			$obj->absolute->limits[0]->value);
+	}
+	public function testLimitTypes() {
+		$arr = $this->dns->LimitTypes();
+		$this->assertEquals(
+			TRUE,
+			in_array('RATE_LIMIT', $arr));
+	}
 }
