@@ -141,7 +141,7 @@ rax-bandwidth:bandwith</p><br><div id="methods_Server">
       <a style="font-style: italic;" href="#Server::to_string()">to_string</a>,
       <div class="method">
 <a id="Server::Action()"></a><h3>Action<span class="nb-faded-text">(
-          \OpenCloud\$object
+          
              
             $object,
           
@@ -163,9 +163,10 @@ Since it can only be used on a live server, it checks for a valid ID.</p></small
 </tr></thead>
 <tbody><tr>
 <td>$object</td>
-<td style="white-space: normal;">\OpenCloud\$object</td>
+<td style="white-space: normal;">n/a</td>
 <td><ul>
-<li>this will be encoded as json, and we handle all the JSON error-checking in one place</li>
+<li>this will be encoded as json, and we handle all the JSON
+error-checking in one place</li>
 </ul>
 </td>
 <td></td>
@@ -303,7 +304,11 @@ value.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$vol</td>
 <td style="white-space: normal;">\OpenCloud\Compute\OpenCloud\VolumeService\Volume</td>
-<td><p>the volume to attach. If <code>"auto"</code> is specified (the default), then the first available device is used to mount the volume (for example, if the primary disk is on <code>/dev/xvhda</code>, then the new volume would be attached to <code>/dev/xvhdb</code>).</p>
+<td><p>the volume to attach. If
+    <code>"auto"</code> is specified (the default), then the first available
+    device is used to mount the volume (for example, if the primary
+    disk is on <code>/dev/xvhda</code>, then the new volume would be attached
+    to <code>/dev/xvhdb</code>).</p>
 </td>
 <td></td>
 </tr>
@@ -541,7 +546,8 @@ exception thrown.</p>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>an associative array of key/value pairs of attributes to set on the new server</li>
+<li>an associative array of key/value pairs of
+ attributes to set on the new server</li>
 </ul>
 </td>
 <td>array()</td>
@@ -550,7 +556,8 @@ exception thrown.</p>
 <td>$rebuild</td>
 <td style="white-space: normal;">boolean</td>
 <td><ul>
-<li>if TRUE, performs a rebuild of an existing server</li>
+<li>if TRUE, performs a rebuild of an existing
+ server</li>
 </ul>
 </td>
 <td>FALSE</td>
@@ -681,7 +688,8 @@ exception thrown.</p>
 <tbody><tr>
 <td>$element</td>
 <td style="white-space: normal;">string</td>
-<td><p>creates {server ...} by default, but can also create {rebuild ...} by changing this parameter</p>
+<td><p>creates {server ...} by default, but can also
+     create {rebuild ...} by changing this parameter</p>
 </td>
 <td>'server'</td>
 </tr></tbody>
@@ -865,7 +873,8 @@ exception thrown.</p>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>'self' is most common; use 'bookmark' for the version-independent one</li>
+<li>'self' is most common; use 'bookmark' for
+ the version-independent one</li>
 </ul>
 </td>
 <td>'self'</td>
@@ -1489,7 +1498,8 @@ on, with a possibility of data loss.</p></small><br><h4>Arguments</h4>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>either 'soft' (the default) or 'hard' to indicate the type of reboot</li>
+<li>either 'soft' (the default) or 'hard' to
+ indicate the type of reboot</li>
 </ul>
 </td>
 <td>RAXSDK_SOFT_REBOOT</td>
@@ -1543,7 +1553,8 @@ on, with a possibility of data loss.</p></small><br><h4>Arguments</h4>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>an associative array of key/value pairs of attributes to set on the new server</li>
+<li>an associative array of key/value pairs of
+ attributes to set on the new server</li>
 </ul>
 </td>
 <td>array()</td>
@@ -2424,7 +2435,10 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$callback</td>
 <td style="white-space: normal;">callable</td>
-<td><p>a callback function that is invoked with each repetition of the polling sequence. This can be used, for example, to update a status display or to permit other operations to continue</p></td>
+<td><p>a callback function that is invoked with
+     each repetition of the polling sequence. This can be used, for
+     example, to update a status display or to permit other operations
+     to continue</p></td>
 <td>NULL</td>
 </tr>
 <tr>
@@ -2499,7 +2513,15 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <td>$info</td>
 <td style="white-space: normal;">mixed</td>
 <td><ul>
-<li>If NULL, an empty Server object is created * If an object, then a Server object is created from the data in the object * If a string, then it's treated as a Server ID and retrieved from the service The normal use case for SDK clients is to treat it as either NULL or an ID. The object value parameter is a special case used to construct a Server object from a ServerList element to avoid a secondary call to the Service.</li>
+<li>If NULL, an empty Server object is created</li>
+<li>If an object, then a Server object is created from the data in the
+ object</li>
+<li>If a string, then it's treated as a Server ID and retrieved from the
+ service
+The normal use case for SDK clients is to treat it as either NULL or an
+ ID. The object value parameter is a special case used to construct
+ a Server object from a ServerList element to avoid a secondary
+ call to the Service.</li>
 </ul>
 </td>
 <td>NULL</td>
@@ -2654,7 +2676,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -2805,7 +2828,8 @@ routed through a NAT device to be reached.</p></small><br><h4>Arguments</h4>
 <td>$network</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>if supplied, then only the IP(s) for the specified network are returned. Otherwise, all IPs are returned.</li>
+<li>if supplied, then only the IP(s) for
+ the specified network are returned. Otherwise, all IPs are returned.</li>
 </ul>
 </td>
 <td>NULL</td>
@@ -3163,7 +3187,7 @@ routed through a NAT device to be reached.</p></small><br><h4>Arguments</h4>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -3331,7 +3355,9 @@ asynchronous response.</small></span></li>
 <li><span class="class"><a href="dnsobject.html#DnsObject">DnsObject</a><br><small>The DnsObject class is an extension of the PersistentObject class that
 permits the asynchronous responses used by Cloud DNS</small></span></li>
 <li><span class="class"><a href="domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li><span class="class"><a href="ptrrecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
 <li><span class="class"><a href="record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li><span class="class"><a href="exceptions.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="domain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
 a parent domain.</small></span></li>
 </ul>

@@ -64,7 +64,7 @@
 <h3>
 <span class="nb-faded-text"> 
         </span>SWIFT_MAX_OBJECT_SIZE<span class="nb-faded-text">
-         = ((5 * 1024) * 1024) * 1024 + 1</span>
+         = 5 * 1024 * 1024 * 1024 + 1</span>
 </h3>
 <em></em><br><br>
 </div>
@@ -287,7 +287,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -341,7 +342,8 @@ calling the Container class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$cdata</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>(optional) the name of the container (if string) or an object from which to set values</p>
+<td><p>(optional) the name of the container (if string)
+     or an object from which to set values</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -383,7 +385,8 @@ calling the ContainerList class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
-<td><p>a list of key-value pairs to pass to the service to filter the results</p>
+<td><p>a list of key-value pairs to pass to the
+     service to filter the results</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -530,7 +533,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -1031,7 +1035,8 @@ the criteria, then an exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>the specified URL from the catalog (e.g., "publicURL")</li>
+<li>the specified URL from the catalog
+ (e.g., "publicURL")</li>
 </ul>
 </td>
 <td>RAXSDK_URL_PUBLIC</td>
@@ -1180,7 +1185,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -1288,7 +1294,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -1795,7 +1802,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -1855,7 +1863,8 @@ calling the Container class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$cdata</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>(optional) the name of the container (if string) or an object from which to set values</p>
+<td><p>(optional) the name of the container (if string)
+     or an object from which to set values</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -1908,7 +1917,8 @@ calling the ContainerList class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
-<td><p>a list of key-value pairs to pass to the service to filter the results</p>
+<td><p>a list of key-value pairs to pass to the
+     service to filter the results</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -2074,7 +2084,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -2734,7 +2745,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -2846,7 +2858,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -3393,7 +3406,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -3453,7 +3467,8 @@ calling the Container class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$cdata</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>(optional) the name of the container (if string) or an object from which to set values</p>
+<td><p>(optional) the name of the container (if string)
+     or an object from which to set values</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -3506,7 +3521,8 @@ calling the ContainerList class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
-<td><p>a list of key-value pairs to pass to the service to filter the results</p>
+<td><p>a list of key-value pairs to pass to the
+     service to filter the results</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -3672,7 +3688,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -4329,7 +4346,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -4441,7 +4459,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -4707,7 +4726,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -4875,7 +4894,9 @@ asynchronous response.</small></span></li>
 <li><span class="class"><a href="dnsobject.html#DnsObject">DnsObject</a><br><small>The DnsObject class is an extension of the PersistentObject class that
 permits the asynchronous responses used by Cloud DNS</small></span></li>
 <li><span class="class"><a href="domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li><span class="class"><a href="ptrrecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
 <li><span class="class"><a href="record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li><span class="class"><a href="exceptions.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="domain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
 a parent domain.</small></span></li>
 </ul>

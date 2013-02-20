@@ -49,7 +49,7 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>volumetype.php</h1>
+<h1>ptrrecord.php</h1>
 <div class="file_menu">
 <a href="#includes">Includes</a> |<a href="#classes">Classes</a> |</div>
 <div class="properties">
@@ -59,20 +59,16 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>Defines a block storage volume type<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
-<div id="VolumeType" class="class">
-<h3>VolumeType</h3>
+<h2>Description</h2>Defines a DNS PTR record<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<div id="PtrRecord" class="class">
+<h3>PtrRecord</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="persistentobject.html#%5COpenCloud%5CPersistentObject">\OpenCloud\PersistentObject</a>
+<a href="record.html#%5COpenCloud%5CDNS%5CRecord">\OpenCloud\DNS\Record</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
-<label class="property-key">api</label><div class="property-value">
-<a title=""></a>
-             
-        </div>
 <label class="property-key">author</label><div class="property-value">
 <a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
@@ -83,86 +79,48 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>The VolumeType class represents a single block storage volume type</em><br><p>This class abstracts much of the common functionality between Nova
-servers, Swift containers and objects, DBAAS instances, Cinder volumes,
-and various other objects that (a) have a URL, (b) can be created, updated,
-deleted, or retrieved, and (c) use a standard JSON format with a top-level
-element followed by a child object with attributes.</p>
-
-<p>In general, you can create a persistent object class by subclassing this
-class and defining some protected, static variables:</p>
-
-<ul>
-<li><code>url_resource</code> - the sub-resource value in the URL of the parent. For
-example, if the parent URL is <code>http://something/parent</code>, then setting
-this value to <code>'another'</code> would result in a URL for the persistent
-object of <code>http://something/parent/another</code>.</li>
-<li><code>json_name</code> - the top-level JSON object name. For example, if the
-persistent object is represented by <code>{"foo": {"attr":value, ...}}</code>, then
-set <code>json_name = 'foo'</code>.</li>
-<li><code>json_collection_name</code> - optional; this value is the name of a collection
-of the persistent objects. If not provided, it defaults to <code>json_name</code>
-with an appended <code>'s'</code> (e.g., if <code>json_name</code> is <code>"foo"</code>, then
-<code>json_collection_name</code> would be <code>"foos"</code> by default). Set this value if
-the collection name doesn't follow this pattern.</li>
-<li><code>json_collection_element</code> - the common pattern for a collection is:
-<code>{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}</code>
-That is, each element of the array is an anonymous object containing the
-object's attributes. In (very) rare instances, the objects in the array
-are named, and <code>json_collection_element</code> contains the name of the
-collection objects. For example, in this:
-<code>{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}</code>, then
-<code>json_collection_element</code> would be set to <code>'allowedDomain'</code>.</li>
-</ul>
-
-<p>The PersistentObject class supports the standard <code>Create()</code>, <code>Update()</code>,
-and <code>Delete()</code> methods; if these are not needed (i.e., not supported by
-the service, the subclass should redefine these to call the
-<code>NoCreate</code>, <code>NoUpdate</code>, or <code>NoDelete</code> methods, which will trigger an
-appropriate exception. For example, if an object cannot be created:</p>
-
-<p>function Create($parm=array()) { $this->NoCreate(); }</p>
-
-<p>This will cause any call to the <code>Create()</code> method to fail with an
-exception.</p><br><div id="methods_VolumeType">
+<em>PTR records are used for reverse DNS</em><br><p>The PtrRecord object is nearly identical with the Record object. However,
+the PtrRecord is a child of the service, and not a child of a Domain.</p><br><div id="methods_PtrRecord">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#VolumeType::Action()">Action</a>,
-      <a style="font-style: italic;" href="#VolumeType::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#VolumeType::CheckExtension()">CheckExtension</a>,
-      <a style="font-style: italic;" href="#VolumeType::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#VolumeType::Create()">Create</a>,
-      <a style="font-style: italic;" href="#VolumeType::CreateJson()">CreateJson</a>,
-      <a style="font-style: italic;" href="#VolumeType::CreateUrl()">CreateUrl</a>,
-      <a style="font-style: italic;" href="#VolumeType::Delete()">Delete</a>,
-      <a style="font-style: italic;" href="#VolumeType::FindLink()">FindLink</a>,
-      <a style="font-style: italic;" href="#VolumeType::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#VolumeType::Id()">Id</a>,
-      <a style="font-style: italic;" href="#VolumeType::JsonCollectionElement()">JsonCollectionElement</a>,
-      <a style="font-style: italic;" href="#VolumeType::JsonCollectionName()">JsonCollectionName</a>,
-      <a style="font-style: italic;" href="#VolumeType::JsonName()">JsonName</a>,
-      <a style="font-style: italic;" href="#VolumeType::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#VolumeType::Name()">Name</a>,
-      <a style="font-style: italic;" href="#VolumeType::NoCreate()">NoCreate</a>,
-      <a style="font-style: italic;" href="#VolumeType::NoDelete()">NoDelete</a>,
-      <a style="font-style: italic;" href="#VolumeType::NoUpdate()">NoUpdate</a>,
-      <a style="font-style: italic;" href="#VolumeType::Parent()">Parent</a>,
-      <a style="font-style: italic;" href="#VolumeType::PrimaryKeyField()">PrimaryKeyField</a>,
-      <a style="font-style: italic;" href="#VolumeType::Refresh()">Refresh</a>,
-      <a style="font-style: italic;" href="#VolumeType::Region()">Region</a>,
-      <a style="font-style: italic;" href="#VolumeType::ResourceName()">ResourceName</a>,
-      <a style="font-style: italic;" href="#VolumeType::Service()">Service</a>,
-      <a style="font-style: italic;" href="#VolumeType::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#VolumeType::Status()">Status</a>,
-      <a style="font-style: italic;" href="#VolumeType::Update()">Update</a>,
-      <a style="font-style: italic;" href="#VolumeType::UpdateJson()">UpdateJson</a>,
-      <a style="font-style: italic;" href="#VolumeType::Url()">Url</a>,
-      <a style="font-style: italic;" href="#VolumeType::WaitFor()">WaitFor</a>,
-      <a style="font-style: italic;" href="#VolumeType::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#VolumeType::__set()">__set</a>,
-      <a style="font-style: italic;" href="#VolumeType::debug()">debug</a>,
-      <a style="font-style: italic;" href="#VolumeType::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#PtrRecord::Action()">Action</a>,
+      <a style="font-style: italic;" href="#PtrRecord::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#PtrRecord::CheckExtension()">CheckExtension</a>,
+      <a style="font-style: italic;" href="#PtrRecord::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Create()">Create</a>,
+      <a style="font-style: italic;" href="#PtrRecord::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#PtrRecord::CreateKeys()">CreateKeys</a>,
+      <a style="font-style: italic;" href="#PtrRecord::CreateUrl()">CreateUrl</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Delete()">Delete</a>,
+      <a style="font-style: italic;" href="#PtrRecord::FindLink()">FindLink</a>,
+      <a style="font-style: italic;" href="#PtrRecord::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#PtrRecord::GetJson()">GetJson</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Id()">Id</a>,
+      <a style="font-style: italic;" href="#PtrRecord::JsonCollectionElement()">JsonCollectionElement</a>,
+      <a style="font-style: italic;" href="#PtrRecord::JsonCollectionName()">JsonCollectionName</a>,
+      <a style="font-style: italic;" href="#PtrRecord::JsonName()">JsonName</a>,
+      <a style="font-style: italic;" href="#PtrRecord::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Name()">Name</a>,
+      <a style="font-style: italic;" href="#PtrRecord::NoCreate()">NoCreate</a>,
+      <a style="font-style: italic;" href="#PtrRecord::NoDelete()">NoDelete</a>,
+      <a style="font-style: italic;" href="#PtrRecord::NoUpdate()">NoUpdate</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Parent()">Parent</a>,
+      <a style="font-style: italic;" href="#PtrRecord::PrimaryKeyField()">PrimaryKeyField</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Region()">Region</a>,
+      <a style="font-style: italic;" href="#PtrRecord::ResourceName()">ResourceName</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Service()">Service</a>,
+      <a style="font-style: italic;" href="#PtrRecord::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Status()">Status</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Update()">Update</a>,
+      <a style="font-style: italic;" href="#PtrRecord::UpdateJson()">UpdateJson</a>,
+      <a style="font-style: italic;" href="#PtrRecord::Url()">Url</a>,
+      <a style="font-style: italic;" href="#PtrRecord::WaitFor()">WaitFor</a>,
+      <a style="font-style: italic;" href="#PtrRecord::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#PtrRecord::__set()">__set</a>,
+      <a style="font-style: italic;" href="#PtrRecord::debug()">debug</a>,
+      <a style="font-style: italic;" href="#PtrRecord::to_string()">to_string</a>,
       <div class="method">
-<a id="VolumeType::Action()"></a><h3>Action<span class="nb-faded-text">(
+<a id="PtrRecord::Action()"></a><h3>Action<span class="nb-faded-text">(
           
              
             $object,
@@ -228,11 +186,19 @@ error-checking in one place</li>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Action()"><small>\OpenCloud\PersistentObject::Action()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::Action()"><small>\OpenCloud\DNS\DnsObject::Action()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Action()"><small>\OpenCloud\DNS\Record::Action()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="PtrRecord::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -297,11 +263,19 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::CheckAttributePrefix()"><small>\OpenCloud\PersistentObject::CheckAttributePrefix()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::CheckAttributePrefix()"><small>\OpenCloud\DNS\DnsObject::CheckAttributePrefix()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::CheckAttributePrefix()"><small>\OpenCloud\DNS\Record::CheckAttributePrefix()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
+<a id="PtrRecord::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
           
              
             $alias,
@@ -353,11 +327,19 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::CheckExtension()"><small>\OpenCloud\PersistentObject::CheckExtension()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::CheckExtension()"><small>\OpenCloud\DNS\DnsObject::CheckExtension()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::CheckExtension()"><small>\OpenCloud\DNS\Record::CheckExtension()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="PtrRecord::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -401,23 +383,34 @@ exception thrown.</p>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::CheckJsonError()"><small>\OpenCloud\PersistentObject::CheckJsonError()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::CheckJsonError()"><small>\OpenCloud\DNS\DnsObject::CheckJsonError()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::CheckJsonError()"><small>\OpenCloud\DNS\Record::CheckJsonError()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Create()"></a><h3>Create<span class="nb-faded-text">(
-          array
+<a id="PtrRecord::Create()"></a><h3>Create<span class="nb-faded-text">(
+          
              
-            $params
+            $srv,
+          
+             
+            $param
             = array(),
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+        <span class="nb-faded-text">\OpenCloud\DNS\AsyncResponse</span>
 </h3>
 <h4>Description</h4>
-<em>Creates are not permitted</em><br><h4>Arguments</h4>
+<em>DNS PTR Create() method requires a server</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -425,12 +418,20 @@ exception thrown.</p>
 <th>Description</th>
 <th>Default</th>
 </tr></thead>
-<tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">array</td>
-<td><p>array of values to set when creating the object</p></td>
+<tbody>
+<tr>
+<td>$srv</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$param</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td>array()</td>
-</tr></tbody>
+</tr>
+</tbody>
 </table>
 <h4>Return value</h4>
 <table>
@@ -439,7 +440,7 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\HttpResponse</td>
+<td>\OpenCloud\DNS\AsyncResponse</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -451,12 +452,44 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>throws</td>
-<td>always</td>
+<td>if HTTP status is not Success</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+<a id="PtrRecord::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\DNS\stdClass</span>
+</h3>
+<h4>Description</h4>
+<em>Specialized JSON for DNS PTR creates and updates</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\DNS\stdClass</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if not overridden</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="PtrRecord::CreateKeys()"></a><h3>CreateKeys<span class="nb-faded-text">(
           
           )
         </span>
@@ -464,7 +497,7 @@ exception thrown.</p>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Create() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>returns the create keys</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -483,18 +516,18 @@ exception thrown.</p>
 </tr></thead>
 <tbody>
 <tr>
-<td>throws</td>
-<td>if not overridden</td>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::CreateKeys()"><small>\OpenCloud\DNS\DnsObject::CreateKeys()</small></a></td>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::CreateJson()"><small>\OpenCloud\PersistentObject::CreateJson()</small></a></td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::CreateKeys()"><small>\OpenCloud\DNS\Record::CreateKeys()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
+<a id="PtrRecord::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
           
           )
         </span>
@@ -519,29 +552,58 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::CreateUrl()"><small>\OpenCloud\PersistentObject::CreateUrl()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::CreateUrl()"><small>\OpenCloud\DNS\DnsObject::CreateUrl()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::CreateUrl()"><small>\OpenCloud\DNS\Record::CreateUrl()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Delete()"></a><h3>Delete<span class="nb-faded-text">(
+<a id="PtrRecord::Delete()"></a><h3>Delete<span class="nb-faded-text">(
+          
+             
+            $srv,
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+        <span class="nb-faded-text">\OpenCloud\DNS\AsyncResponse</span>
 </h3>
 <h4>Description</h4>
-<em>deletes are not permitted</em><br><h4>Return value</h4>
+<em>DNS PTR Delete() method requires a server</em><br><small><p>Note that delete will remove ALL PTR records associated with the device
+unless you pass in the parameter ip={ip address}</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$srv</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\HttpResponse</td>
+<td>\OpenCloud\DNS\AsyncResponse</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -553,12 +615,12 @@ exception thrown.</p>
 </tr></thead>
 <tbody><tr>
 <td>throws</td>
-<td></td>
+<td>if HTTP status is not Success</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
+<a id="PtrRecord::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
           string
              
             $type
@@ -606,14 +668,24 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::FindLink()"><small>\OpenCloud\PersistentObject::FindLink()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::FindLink()"><small>\OpenCloud\DNS\DnsObject::FindLink()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::FindLink()"><small>\OpenCloud\DNS\Record::FindLink()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="PtrRecord::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -677,11 +749,75 @@ exception thrown.</p>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::GetHttpRequestObject()"><small>\OpenCloud\PersistentObject::GetHttpRequestObject()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::GetHttpRequestObject()"><small>\OpenCloud\DNS\DnsObject::GetHttpRequestObject()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::GetHttpRequestObject()"><small>\OpenCloud\DNS\Record::GetHttpRequestObject()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Id()"></a><h3>Id<span class="nb-faded-text">(
+<a id="PtrRecord::GetJson()"></a><h3>GetJson<span class="nb-faded-text">(
+          array
+             
+            $keys,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\DNS\stdClass</span>
+</h3>
+<h4>Description</h4>
+<em>returns JSON based on $keys</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$keys</td>
+<td style="white-space: normal;">array</td>
+<td><p>list of items to include</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\DNS\stdClass</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::GetJson()"><small>\OpenCloud\DNS\DnsObject::GetJson()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::GetJson()"><small>\OpenCloud\DNS\Record::GetJson()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="PtrRecord::Id()"></a><h3>Id<span class="nb-faded-text">(
           
           )
         </span>
@@ -718,11 +854,19 @@ security.</p></small><br><h4>Return value</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Id()"><small>\OpenCloud\PersistentObject::Id()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::Id()"><small>\OpenCloud\DNS\DnsObject::Id()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Id()"><small>\OpenCloud\DNS\Record::Id()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
+<a id="PtrRecord::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
           
           )
         </span>
@@ -751,14 +895,24 @@ provides for an element level name:</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::JsonCollectionElement()"><small>\OpenCloud\PersistentObject::JsonCollectionElement()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::JsonCollectionElement()"><small>\OpenCloud\DNS\DnsObject::JsonCollectionElement()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::JsonCollectionElement()"><small>\OpenCloud\DNS\Record::JsonCollectionElement()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
+<a id="PtrRecord::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
           
           )
         </span>
@@ -788,14 +942,24 @@ attribute.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::JsonCollectionName()"><small>\OpenCloud\PersistentObject::JsonCollectionName()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::JsonCollectionName()"><small>\OpenCloud\DNS\DnsObject::JsonCollectionName()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::JsonCollectionName()"><small>\OpenCloud\DNS\Record::JsonCollectionName()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
+<a id="PtrRecord::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
         </span>
@@ -833,11 +997,19 @@ these examples).</p></small><br><h4>Return value</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::JsonName()"><small>\OpenCloud\PersistentObject::JsonName()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::JsonName()"><small>\OpenCloud\DNS\DnsObject::JsonName()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::JsonName()"><small>\OpenCloud\DNS\Record::JsonName()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="PtrRecord::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -890,11 +1062,19 @@ these examples).</p></small><br><h4>Return value</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::MakeQueryString()"><small>\OpenCloud\PersistentObject::MakeQueryString()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::MakeQueryString()"><small>\OpenCloud\DNS\DnsObject::MakeQueryString()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::MakeQueryString()"><small>\OpenCloud\DNS\Record::MakeQueryString()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Name()"></a><h3>Name<span class="nb-faded-text">(
+<a id="PtrRecord::Name()"></a><h3>Name<span class="nb-faded-text">(
           
           )
         </span>
@@ -933,11 +1113,19 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Name()"><small>\OpenCloud\PersistentObject::Name()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::Name()"><small>\OpenCloud\DNS\DnsObject::Name()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Name()"><small>\OpenCloud\DNS\Record::Name()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::NoCreate()"></a><h3>NoCreate<span class="nb-faded-text">(
+<a id="PtrRecord::NoCreate()"></a><h3>NoCreate<span class="nb-faded-text">(
           
           )
         </span>
@@ -971,11 +1159,19 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::NoCreate()"><small>\OpenCloud\PersistentObject::NoCreate()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::NoCreate()"><small>\OpenCloud\DNS\DnsObject::NoCreate()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::NoCreate()"><small>\OpenCloud\DNS\Record::NoCreate()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::NoDelete()"></a><h3>NoDelete<span class="nb-faded-text">(
+<a id="PtrRecord::NoDelete()"></a><h3>NoDelete<span class="nb-faded-text">(
           
           )
         </span>
@@ -1009,11 +1205,19 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::NoDelete()"><small>\OpenCloud\PersistentObject::NoDelete()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::NoDelete()"><small>\OpenCloud\DNS\DnsObject::NoDelete()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::NoDelete()"><small>\OpenCloud\DNS\Record::NoDelete()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::NoUpdate()"></a><h3>NoUpdate<span class="nb-faded-text">(
+<a id="PtrRecord::NoUpdate()"></a><h3>NoUpdate<span class="nb-faded-text">(
           
           )
         </span>
@@ -1047,19 +1251,27 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::NoUpdate()"><small>\OpenCloud\PersistentObject::NoUpdate()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::NoUpdate()"><small>\OpenCloud\DNS\DnsObject::NoUpdate()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::NoUpdate()"><small>\OpenCloud\DNS\Record::NoUpdate()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Parent()"></a><h3>Parent<span class="nb-faded-text">(
+<a id="PtrRecord::Parent()"></a><h3>Parent<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\DNS\Domain</span>
 </h3>
 <h4>Description</h4>
-<em>returns the parent object of this object</em><br><small><p>This is a synonym for Service(), since the object is usually a
+<em>returns the parent domain</em><br><small><p>This is a synonym for Service(), since the object is usually a
 service.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
@@ -1067,8 +1279,8 @@ service.</p></small><br><h4>Return value</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\DNS\Domain</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1079,12 +1291,12 @@ service.</p></small><br><h4>Return value</h4>
 </tr></thead>
 <tbody><tr>
 <td>inherited_from</td>
-<td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Parent()"><small>\OpenCloud\PersistentObject::Parent()</small></a></td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Parent()"><small>\OpenCloud\DNS\Record::Parent()</small></a></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
+<a id="PtrRecord::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
           
           )
         </span>
@@ -1110,14 +1322,24 @@ service.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::PrimaryKeyField()"><small>\OpenCloud\PersistentObject::PrimaryKeyField()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::PrimaryKeyField()"><small>\OpenCloud\DNS\DnsObject::PrimaryKeyField()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::PrimaryKeyField()"><small>\OpenCloud\DNS\Record::PrimaryKeyField()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
+<a id="PtrRecord::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
           
              
             $id
@@ -1171,11 +1393,19 @@ changing states)</em><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Refresh()"><small>\OpenCloud\PersistentObject::Refresh()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::Refresh()"><small>\OpenCloud\DNS\DnsObject::Refresh()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Refresh()"><small>\OpenCloud\DNS\Record::Refresh()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Region()"></a><h3>Region<span class="nb-faded-text">(
+<a id="PtrRecord::Region()"></a><h3>Region<span class="nb-faded-text">(
           
           )
         </span>
@@ -1209,11 +1439,19 @@ changing states)</em><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Region()"><small>\OpenCloud\PersistentObject::Region()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::Region()"><small>\OpenCloud\DNS\DnsObject::Region()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Region()"><small>\OpenCloud\DNS\Record::Region()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+<a id="PtrRecord::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
           
           )
         </span>
@@ -1249,11 +1487,19 @@ in child classes</em><br><small><p>For example, a server is <code>/servers/</cod
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::ResourceName()"><small>\OpenCloud\PersistentObject::ResourceName()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::ResourceName()"><small>\OpenCloud\DNS\DnsObject::ResourceName()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::ResourceName()"><small>\OpenCloud\DNS\Record::ResourceName()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Service()"></a><h3>Service<span class="nb-faded-text">(
+<a id="PtrRecord::Service()"></a><h3>Service<span class="nb-faded-text">(
           
           )
         </span>
@@ -1278,14 +1524,24 @@ in child classes</em><br><small><p>For example, a server is <code>/servers/</cod
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Service()"><small>\OpenCloud\PersistentObject::Service()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::Service()"><small>\OpenCloud\DNS\DnsObject::Service()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Service()"><small>\OpenCloud\DNS\Record::Service()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="PtrRecord::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -1365,11 +1621,19 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::SetProperty()"><small>\OpenCloud\PersistentObject::SetProperty()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::SetProperty()"><small>\OpenCloud\DNS\DnsObject::SetProperty()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::SetProperty()"><small>\OpenCloud\DNS\Record::SetProperty()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Status()"></a><h3>Status<span class="nb-faded-text">(
+<a id="PtrRecord::Status()"></a><h3>Status<span class="nb-faded-text">(
           
           )
         </span>
@@ -1403,126 +1667,120 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Status()"><small>\OpenCloud\PersistentObject::Status()</small></a></td>
 </tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="VolumeType::Update()"></a><h3>Update<span class="nb-faded-text">(
-          array
-             
-            $params
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
-</h3>
-<h4>Description</h4>
-<em>updates are not permitted</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">array</td>
-<td><p>array of values to set when updating the object</p></td>
-<td>array()</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\HttpResponse</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>always</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="VolumeType::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
-          
-             
-            $params
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>array()</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
 <tr>
-<td>throws</td>
-<td>if not overridden</td>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::Status()"><small>\OpenCloud\DNS\DnsObject::Status()</small></a></td>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::UpdateJson()"><small>\OpenCloud\PersistentObject::UpdateJson()</small></a></td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::Status()"><small>\OpenCloud\DNS\Record::Status()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::Url()"></a><h3>Url<span class="nb-faded-text">(
+<a id="PtrRecord::Update()"></a><h3>Update<span class="nb-faded-text">(
+          
+             
+            $srv,
+          
+             
+            $param
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\DNS\AsyncResponse</span>
+</h3>
+<h4>Description</h4>
+<em>DNS PTR Update() method requires a server</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$srv</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$param</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\DNS\AsyncResponse</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if HTTP status is not Success</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="PtrRecord::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\DNS\stdClass</span>
+</h3>
+<h4>Description</h4>
+<em>The Update() JSON requires a record ID</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\DNS\stdClass</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td>if not overridden</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="PtrRecord::Url()"></a><h3>Url<span class="nb-faded-text">(
           string
              
             $subresource
             = NULL,
-          array
+          
              
-            $qstr
+            $params
             = array(),
           
           )
@@ -1531,7 +1789,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<em>specialized DNS PTR URL requires server service name and href</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1548,10 +1806,9 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>NULL</td>
 </tr>
 <tr>
-<td>$qstr</td>
-<td style="white-space: normal;">array</td>
-<td><p>optional k/v pairs for query strings</p>
-</td>
+<td>$params</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td>array()</td>
 </tr>
 </tbody>
@@ -1573,20 +1830,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>throws</td>
 <td>if URL is not defined</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::Url()"><small>\OpenCloud\PersistentObject::Url()</small></a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
+<a id="PtrRecord::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
           string
              
             $terminal
@@ -1682,14 +1933,22 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::WaitFor()"><small>\OpenCloud\PersistentObject::WaitFor()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::WaitFor()"><small>\OpenCloud\DNS\DnsObject::WaitFor()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::WaitFor()"><small>\OpenCloud\DNS\Record::WaitFor()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+<a id="PtrRecord::__construct()"></a><h3>__construct<span class="nb-faded-text">(
           mixed
              
-            $parentobj,
+            $parent,
           mixed
              
             $info
@@ -1698,10 +1957,10 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Retrieves the instance from persistent storage</em><br><h4>Arguments</h4>
+<em>constructur ensures that the record type is PTR</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1711,15 +1970,16 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$parentobj</td>
+<td>$parent</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>the parent object of the current object</p></td>
+<td><p>either the domain object or the DNS object (for PTR)</p>
+</td>
 <td></td>
 </tr>
 <tr>
 <td>$info</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>the ID or array/object of data</p>
+<td><p>ID or array/object of data for the object</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -1732,8 +1992,8 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>void</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1742,20 +2002,14 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>throws</td>
 <td>if $info has an invalid data type</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::__construct()"><small>\OpenCloud\PersistentObject::__construct()</small></a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::__set()"></a><h3>__set<span class="nb-faded-text">(
+<a id="PtrRecord::__set()"></a><h3>__set<span class="nb-faded-text">(
           string
              
             $name,
@@ -1821,11 +2075,19 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::__set()"><small>\OpenCloud\PersistentObject::__set()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::__set()"><small>\OpenCloud\DNS\DnsObject::__set()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::__set()"><small>\OpenCloud\DNS\Record::__set()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="PtrRecord::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -1941,11 +2203,19 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::debug()"><small>\OpenCloud\PersistentObject::debug()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::debug()"><small>\OpenCloud\DNS\DnsObject::debug()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::debug()"><small>\OpenCloud\DNS\Record::debug()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="VolumeType::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="PtrRecord::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           mixed
              
             $x,
@@ -1997,22 +2267,50 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td>inherited_from</td>
 <td><a href="persistentobject.html#%5COpenCloud%5CPersistentObject::to_string()"><small>\OpenCloud\PersistentObject::to_string()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="dnsobject.html#%5COpenCloud%5CDNS%5CDnsObject::to_string()"><small>\OpenCloud\DNS\DnsObject::to_string()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="record.html#%5COpenCloud%5CDNS%5CRecord::to_string()"><small>\OpenCloud\DNS\Record::to_string()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="properties_VolumeType">
+<div id="properties_PtrRecord">
 <h4>Properties</h4>
-<a href="#VolumeType::%24_errors">$_errors</a>,
-      <a href="#VolumeType::%24_parent">$_parent</a>,
-      <a href="#VolumeType::%24extra_specs">$extra_specs</a>,
-      <a href="#VolumeType::%24http_headers">$http_headers</a>,
-      <a href="#VolumeType::%24id">$id</a>,
-      <a href="#VolumeType::%24json_name">$json_name</a>,
-      <a href="#VolumeType::%24name">$name</a>,
-      <a href="#VolumeType::%24url_resource">$url_resource</a>,
+<a href="#PtrRecord::%24_create_keys">$_create_keys</a>,
+      <a href="#PtrRecord::%24_errors">$_errors</a>,
+      <a href="#PtrRecord::%24_parent">$_parent</a>,
+      <a href="#PtrRecord::%24_update_keys">$_update_keys</a>,
+      <a href="#PtrRecord::%24comment">$comment</a>,
+      <a href="#PtrRecord::%24created">$created</a>,
+      <a href="#PtrRecord::%24data">$data</a>,
+      <a href="#PtrRecord::%24http_headers">$http_headers</a>,
+      <a href="#PtrRecord::%24id">$id</a>,
+      <a href="#PtrRecord::%24json_collection_name">$json_collection_name</a>,
+      <a href="#PtrRecord::%24json_name">$json_name</a>,
+      <a href="#PtrRecord::%24link_href">$link_href</a>,
+      <a href="#PtrRecord::%24link_rel">$link_rel</a>,
+      <a href="#PtrRecord::%24name">$name</a>,
+      <a href="#PtrRecord::%24priority">$priority</a>,
+      <a href="#PtrRecord::%24ttl">$ttl</a>,
+      <a href="#PtrRecord::%24type">$type</a>,
+      <a href="#PtrRecord::%24updated">$updated</a>,
+      <a href="#PtrRecord::%24url_resource">$url_resource</a>,
       <div class="method">
-<a id="VolumeType::$_errors"></a><h3>
+<a id="PtrRecord::$_create_keys"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$_create_keys
+          =
+          array('type', 'name', 'ttl', 'data', 'priority', 'comment')</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -2021,25 +2319,52 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="VolumeType::$_parent"></a><h3>
+<a id="PtrRecord::$_parent"></a><h3>
 <span class="nb-faded-text"> 
-          private 
+          protected 
           </span>$_parent
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="VolumeType::$extra_specs"></a><h3>
+<a id="PtrRecord::$_update_keys"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$_update_keys
+          =
+          array('name', 'ttl', 'data', 'priority', 'comment')</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$comment"></a><h3>
 <span class="nb-faded-text"> 
           public 
-          </span>$extra_specs
+          </span>$comment
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="VolumeType::$http_headers"></a><h3>
+<a id="PtrRecord::$created"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$created
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$data"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$data
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
@@ -2048,7 +2373,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="VolumeType::$id"></a><h3>
+<a id="PtrRecord::$id"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$id
@@ -2057,16 +2382,43 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="VolumeType::$json_name"></a><h3>
+<a id="PtrRecord::$json_collection_name"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          static </span>$json_collection_name
+          =
+          'records'</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$json_name"></a><h3>
 <span class="nb-faded-text"> 
           protected 
           static </span>$json_name
           =
-          'volume_type'</h3>
+          FALSE</h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="VolumeType::$name"></a><h3>
+<a id="PtrRecord::$link_href"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$link_href
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$link_rel"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$link_rel
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$name"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$name
@@ -2075,12 +2427,48 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="VolumeType::$url_resource"></a><h3>
+<a id="PtrRecord::$priority"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$priority
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$ttl"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$ttl
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$type"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$type
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$updated"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$updated
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="PtrRecord::$url_resource"></a><h3>
 <span class="nb-faded-text"> 
           protected 
           static </span>$url_resource
           =
-          'types'</h3>
+          'rdns'</h3>
 <em></em><br>
 </div>
 </div>

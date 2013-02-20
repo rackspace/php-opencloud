@@ -59,7 +59,7 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>The Rackspace Cloud DNS service<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<h2>Description</h2>The Rackspace Cloud DNS service<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="DNS" class="class">
 <h3>DNS</h3>
 <div class="properties">
@@ -94,14 +94,16 @@ subclassed from Service.</p><br><div id="methods_DNS">
       <a style="font-style: italic;" href="#DNS::GetHttpRequestObject()">GetHttpRequestObject</a>,
       <a style="font-style: italic;" href="#DNS::GetMetaUrl()">GetMetaUrl</a>,
       <a style="font-style: italic;" href="#DNS::Import()">Import</a>,
+      <a style="font-style: italic;" href="#DNS::LimitTypes()">LimitTypes</a>,
       <a style="font-style: italic;" href="#DNS::Limits()">Limits</a>,
       <a style="font-style: italic;" href="#DNS::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#DNS::Name()">Name</a>,
+      <a style="font-style: italic;" href="#DNS::PtrRecord()">PtrRecord</a>,
       <a style="font-style: italic;" href="#DNS::PtrRecordList()">PtrRecordList</a>,
-      <a style="font-style: italic;" href="#DNS::Record()">Record</a>,
       <a style="font-style: italic;" href="#DNS::Region()">Region</a>,
       <a style="font-style: italic;" href="#DNS::Request()">Request</a>,
       <a style="font-style: italic;" href="#DNS::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#DNS::SimpleRequest()">SimpleRequest</a>,
       <a style="font-style: italic;" href="#DNS::Url()">Url</a>,
       <a style="font-style: italic;" href="#DNS::__construct()">__construct</a>,
       <a style="font-style: italic;" href="#DNS::__set()">__set</a>,
@@ -358,7 +360,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -620,7 +623,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -701,7 +705,7 @@ until some point after the import has occurred.</p></small><br><h4>Arguments</h4
 </table>
 </div>
 <div class="method">
-<a id="DNS::Limits()"></a><h3>Limits<span class="nb-faded-text">(
+<a id="DNS::LimitTypes()"></a><h3>LimitTypes<span class="nb-faded-text">(
           
           )
         </span>
@@ -709,7 +713,47 @@ until some point after the import has occurred.</p></small><br><h4>Arguments</h4
         <span class="nb-faded-text">array</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the /limits for the service</em><br><h4>Return value</h4>
+<em>returns an array of limit types</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="DNS::Limits()"></a><h3>Limits<span class="nb-faded-text">(
+          
+             
+            $type
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>returns a list of limits</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$type</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -719,23 +763,6 @@ until some point after the import has occurred.</p></small><br><h4>Arguments</h4
 <td>array</td>
 <td>of limits</td>
 </tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="service.html#%5COpenCloud%5CService::Limits()"><small>\OpenCloud\Service::Limits()</small></a></td>
-</tr>
-</tbody>
 </table>
 </div>
 <div class="method">
@@ -834,46 +861,7 @@ until some point after the import has occurred.</p></small><br><h4>Arguments</h4
 </table>
 </div>
 <div class="method">
-<a id="DNS::PtrRecordList()"></a><h3>PtrRecordList<span class="nb-faded-text">(
-          <a href="server.html#%5COpenCloud%5CCompute%5CServer">\OpenCloud\Compute\Server</a>
-             
-            $server,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\Collection</span>
-</h3>
-<h4>Description</h4>
-<em>returns a Collection of PTR records for a given Server</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$server</td>
-<td style="white-space: normal;"><a href="server.html#%5COpenCloud%5CCompute%5CServer">\OpenCloud\Compute\Server</a></td>
-<td><p>the server for which to retrieve the PTR records</p></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\Collection</td>
-<td></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="DNS::Record()"></a><h3>Record<span class="nb-faded-text">(
+<a id="DNS::PtrRecord()"></a><h3>PtrRecord<span class="nb-faded-text">(
           mixed
              
             $info
@@ -885,8 +873,7 @@ until some point after the import has occurred.</p></small><br><h4>Arguments</h4
         <span class="nb-faded-text">\OpenCloud\Record</span>
 </h3>
 <h4>Description</h4>
-<em>returns a Record object</em><br><small><p>Note that this method is available at the Domain level; this one is only
-used for PTR records.</p></small><br><h4>Arguments</h4>
+<em>returns a PtrRecord object for a server</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -909,6 +896,46 @@ used for PTR records.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>\OpenCloud\Record</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="DNS::PtrRecordList()"></a><h3>PtrRecordList<span class="nb-faded-text">(
+          <a href="server.html#%5COpenCloud%5CCompute%5CServer">\OpenCloud\Compute\Server</a>
+             
+            $server,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Collection</span>
+</h3>
+<h4>Description</h4>
+<em>returns a Collection of PTR records for a given Server</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$server</td>
+<td style="white-space: normal;"><a href="server.html#%5COpenCloud%5CCompute%5CServer">\OpenCloud\Compute\Server</a></td>
+<td><p>the server for which to
+	retrieve the PTR records</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Collection</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -1109,6 +1136,45 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="DNS::SimpleRequest()"></a><h3>SimpleRequest<span class="nb-faded-text">(
+          string
+             
+            $url,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>performs a simple request and returns the JSON as an object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$url</td>
+<td style="white-space: normal;">string</td>
+<td><p>the URL to GET</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="DNS::Url()"></a><h3>Url<span class="nb-faded-text">(
           string
              
@@ -1140,7 +1206,9 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>a child resource. For example, passing 'servers' would return .../servers. Should <em>not</em> be prefixed with a slash (/).</li>
+<li>a child resource. For example,
+ passing 'servers' would return .../servers. Should <em>not</em> be
+prefixed with a slash (/).</li>
 </ul>
 </td>
 <td>''</td>
@@ -1148,7 +1216,8 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$args</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) an array of key-value pairs for query strings to append to the URL</p>
+<td><p>(optional) an array of key-value pairs for query
+     strings to append to the URL</p>
 </td>
 <td>array()</td>
 </tr>
@@ -1375,7 +1444,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -1483,7 +1553,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -1706,7 +1777,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -1874,7 +1945,9 @@ asynchronous response.</small></span></li>
 <li><span class="class"><a href="dnsobject.html#DnsObject">DnsObject</a><br><small>The DnsObject class is an extension of the PersistentObject class that
 permits the asynchronous responses used by Cloud DNS</small></span></li>
 <li><span class="class"><a href="domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li><span class="class"><a href="ptrrecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
 <li><span class="class"><a href="record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li><span class="class"><a href="exceptions.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="domain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
 a parent domain.</small></span></li>
 </ul>
