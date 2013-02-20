@@ -832,13 +832,19 @@ sufficient:
 
 ### Domain-Level Methods
 
-* `Domain::AddRecord()`
-* `Domain::AddSubdomain()`
-* `Domain::Changes()`
-* `Domain::Export()`
+* `Domain::AddRecord()` - adds a Record object to the Domain for automatic
+  creation when the domain is created.
+* `Domain::AddSubdomain()` - adds a Subdomain object to the Domain for
+  automatic creation when the domain is created.
+* `Domain::Changes($since)` - returns an object listing changes since the
+  specified time (the `$since` parameter is optional; if omitted, returns
+  changes since the prior day at midnight).
+* `Domain::Export()` - exports the domain in BIND_9 format.
 * `Domain::Record($id)` - returns a Record object, optionally identified by
   `$id`.
 * `Domain::RecordList()` - returns a `Collection` of all the records for a
   domain.
-* `Domain::Subdomain()`
-* `Domain::SubdomainList()`
+* `Domain::Subdomain()` - returns a Subdomain object. This is a regular Domain
+  object, but identified by its parent Domain.
+* `Domain::SubdomainList()` - returns a list of Subdomains for the current
+  Domain (note: *very* slow call).
