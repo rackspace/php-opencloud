@@ -9,6 +9,9 @@ define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
+// uncomment for debug output
+//setDebug(TRUE);
+
 // establish our credentials
 $cloud = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
@@ -19,6 +22,14 @@ $dlist = $dns->DomainList();
 while($domain = $dlist->Next()) {
 	printf("\n%s [%s]\n",
 		$domain->Name(), $domain->emailAddress);
+
+	$changes = $domain->Changes();
+	printf("%d changes:\n", $changes->totalEntries);
+	if ($changes->totalEntries) {
+		foreach($changes->changes as $change) {
+			print_r($change);
+		}
+	}
 
 	// list records
 	printf("Records:\n");
@@ -35,11 +46,4 @@ while($domain = $dlist->Next()) {
 			$rec->type, $rec->ttl, $rec->Name(), $rec->data);
 	}
 
-	printf("Subdomains:\n");
-	// setDebug(TRUE);
-	$slist = $domain->SubDomainList();
-	setDebug(FALSE);
-	while($dom = $slist->Next()) {
-		printf("- %s [%s]\n", $dom->Name(), $dom->emailAddress);
-	}
 }

@@ -100,6 +100,11 @@ class DomainTest extends PHPUnit_Framework_TestCase
 			$this->domain,
 			$sub->Parent());
 	}
+	public function testChanges() {
+		$this->assertEquals(
+			'OpenCloud\DNS\Changes',
+			get_class($this->domain->Changes()));
+	}
 	public function testExport() {
 		$this->assertEquals(
 			'OpenCloud\DNS\AsyncResponse',

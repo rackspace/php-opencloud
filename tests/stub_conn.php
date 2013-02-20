@@ -8,6 +8,13 @@ if (!defined('TESTDIR')) define('TESTDIR','.');
 
 /**
  * This is a stub Connection class that bypasses the actual connections
+ *
+ * NOTE THAT EVERYTHING IN THIS FILE IS IN A STRICT SEQUENCE (usually)
+ * Many items (e.g., /changes) must come before other patterns that also
+ * match the same URL (e.g., /domains, because the full URL is
+ * /domains/{id}/changes).
+ *
+ * Be careful where you put things.
  */
 class StubConnection extends OpenCloud\OpenStack
 {
@@ -154,6 +161,12 @@ ENDLB;
 		}
 		elseif (strpos($url, '/export')) { // domain export
 			$resp->body = $this->async_response;
+			$resp->status = 202;
+		}
+		elseif (strpos($url, '/changes')) {
+			$resp->body = <<<ENDCHANGES
+{"changes":[],"from":"2013-02-20T00:00:00.000+0000","to":"2013-02-20T16:12:08.000+0000","totalEntries":0}
+ENDCHANGES;
 			$resp->status = 202;
 		}
 		elseif (strpos($url, '/domain/')) {

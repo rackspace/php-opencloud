@@ -54,13 +54,10 @@ class Record extends DnsObject {
 	 */
 	public function __construct($parent, $info=NULL) {
 		$this->_parent = $parent;
-		switch(get_class($parent)) {
-			case '\OpenCloud\DNS\Domain':
-				parent::__construct($parent->Service(), $info);
-				break;
-			default:
-				parent::__construct($parent, $info);
-		}
+		if (get_class($parent) == 'OpenCloud\DNS')
+			parent::__construct($parent, $info);
+		else
+			parent::__construct($parent->Service(), $info);
 	}
 
 	/**
