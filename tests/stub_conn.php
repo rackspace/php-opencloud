@@ -163,6 +163,12 @@ ENDLB;
 			$resp->body = $this->async_response;
 			$resp->status = 202;
 		}
+		elseif (strpos($url, 'limits/types')) {
+			$resp->body = <<<ENDTYPES
+{"limitTypes":["RATE_LIMIT","DOMAIN_LIMIT","DOMAIN_RECORD_LIMIT"]}
+ENDTYPES;
+			$resp->body = 202;
+		}
 		elseif (strpos($url, '/changes')) {
 			$resp->body = <<<ENDCHANGES
 {"changes":[],"from":"2013-02-20T00:00:00.000+0000","to":"2013-02-20T16:12:08.000+0000","totalEntries":0}

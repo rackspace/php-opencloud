@@ -29,8 +29,11 @@ require_once(__DIR__.'/dnsobject.php');
  */
 class Changes extends DnsObject {
 
+	const
+		DEFAULTSINCE = 'NA';
+
 	public
-		$since,
+		$since=self::DEFAULTSINCE,
 		$to,
 		$from,
 		$totalEntries,
@@ -55,7 +58,7 @@ class Changes extends DnsObject {
 	 * @param string $since the date/time for start of change records
 	 * @return void
 	 */
-	public function __construct(Domain $domain, $since=-1) {
+	public function __construct(Domain $domain, $since=self::DEFAULTSINCE) {
 		$this->domain = $domain;
 		$this->since = $since;
 		parent::__construct($domain->Service());
@@ -66,7 +69,7 @@ class Changes extends DnsObject {
 	 * generates the URL for the request
 	 */
 	public function Url() {
-		if ($this->since != -1)
+		if ($this->since != self::DEFAULTSINCE)
 			return $this->Parent()->Url('changes',
 						array('since', $this->since));
 		else
