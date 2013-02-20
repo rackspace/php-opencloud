@@ -14,7 +14,6 @@ namespace OpenCloud\DNS;
 
 require_once(__DIR__.'/dnsobject.php');
 require_once(__DIR__.'/record.php');
-require_once(__DIR__.'/changes.php');
 
 /**
  * The Domain class represents a single domain
@@ -125,8 +124,16 @@ class Domain extends DnsObject {
 	 * @param string $since the date or time
 	 * @return DNS\Changes
 	 */
-	public function Changes($since=-1) {
-		return new Changes($this, $since);
+	public function Changes($since=NULL) {
+		if (isset($since))
+			$url = $this->Url('changes', array('since'=>$since));
+		else
+			$url = $this->Url('changes');
+
+		// perform the request
+		$obj = $this->Service()->SimpleRequest($url);
+
+		return $obj;
 	}
 
 	/**

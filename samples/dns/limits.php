@@ -10,7 +10,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 // uncomment for debug output
-setDebug(TRUE);
+//setDebug(TRUE);
 
 // establish our credentials
 $cloud = new OpenCloud\Rackspace(AUTHURL,

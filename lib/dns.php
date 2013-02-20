@@ -201,22 +201,7 @@ class DNS extends Service {
 			$url .= '/'.$type;
 
 		// perform the request
-		$resp = $this->Request($url);
-
-		// check for errors
-		if ($resp->HttpStatus() > 202)
-			throw new \OpenCloud\HttpError(sprintf(
-				_('Unexpected status [%s] for URL [%s], body [%s]'),
-				$resp->HttpStatus(),
-				$url,
-				$resp->HttpBody()));
-
-		// decode the JSON
-		$json = $resp->HttpBody();
-		$this->debug(_('Limit Types for [%s] JSON [%s]'), $url, $json);
-		$obj = json_decode($json);
-		if ($this->CheckJsonError())
-			return FALSE;
+		$obj = $this->SimpleRequest($url);
 
 		if (isset($type))
 			return $obj;
@@ -231,7 +216,16 @@ class DNS extends Service {
 	 */
 	public function LimitTypes() {
 		$url = $this->Url('limits/types');
+		$obj = $this->SimpleRequest($url);
+		return $obj->limitTypes;
+	}
 
+	/**
+	 * performs a simple request and returns the JSON as an object
+	 *
+	 * @param string $url the URL to GET
+	 */
+	public function SimpleRequest($url) {
 		// perform the request
 		$resp = $this->Request($url);
 
@@ -250,7 +244,7 @@ class DNS extends Service {
 		if ($this->CheckJsonError())
 			return FALSE;
 
-		return $obj->limitTypes;
+		return $obj;
 	}
 
 } // end class DNS
