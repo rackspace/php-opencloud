@@ -15,7 +15,6 @@ namespace OpenCloud;
 require_once(__DIR__.'/asyncresponse.php');
 require_once(__DIR__.'/domain.php');
 require_once(__DIR__.'/record.php');
-require_once(__DIR__.'/limits.php');
 require_once(__DIR__.'/ptrrecord.php');
 require_once(__DIR__.'/service.php');
 
@@ -196,8 +195,30 @@ class DNS extends Service {
 	 * returns a list of limits
 	 *
 	 */
-	public function Limits($info=NULL) {
-		return new DNS\Limits($this, $info);
+	public function Limits($type=NULL) {
+		$url = $this->url('limits');
+		if (isset($type))
+			$url .= '/'.$type;
+
+		// perform the request
+		$resp = $this->Request($url);
+
+		// check for errors
+		if ($resp->HttpStatus() > 202)
+			throw new \OpenCloud\HttpError(sprintf(
+				_('Unexpected status [%s] for URL [%s], body [%s]'),
+				$resp->HttpStatus(),
+				$url,
+				$resp->HttpBody()));
+
+		// decode the JSON
+		$json = $resp->HttpBody();
+		$this->debug(_('Limit Types for [%s] JSON [%s]'), $url, $json);
+		$obj = json_decode($json);
+		if ($this->CheckJsonError())
+			return FALSE;
+
+		return $obj->limits;
 	}
 
 	/**

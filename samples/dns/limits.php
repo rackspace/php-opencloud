@@ -10,7 +10,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 // uncomment for debug output
-setDebug(TRUE);
+//setDebug(TRUE);
 
 // establish our credentials
 $cloud = new OpenCloud\Rackspace(AUTHURL,
@@ -22,9 +22,23 @@ $dns = $cloud->DNS();
 // get the limits
 printf("Limit Types:\n");
 $types = $dns->LimitTypes();
+$limits = $dns->Limits();
+printf("Rate limits:\n");
+foreach($limits->rate as $limit) {
+	printf("  Regex: %s URI: %s\n", $limit->regex, $limit->uri);
+	foreach($limit->limit as $item)
+		printf("    Verb %s allowed %d per %s\n",
+			$item->verb, $item->value, $item->unit);
+}
+printf("Absolute limits:\n");
+foreach($limits->absolute as $key => $value) {
+	printf("    %s per %s\n", $key, $value);
+}
+
+// by type
 foreach($types as $type) {
-	printf("\t%s\n", $type);
+	printf("%s\n", $type);
 	printf("Limits for %s:\n", $type);
 	$limits = $dns->Limits($type);
-	print_r($limits);
+	//print_r($limits);
 }
