@@ -175,7 +175,7 @@ ENDTYPES;
 {"absolute":{"limits":[{"name":"domains","value":500}]}}
 ENDDOMLIMIT;
 		}
-		elseif (strpos($url, '/limits')) { // all limits
+		elseif (preg_match('/dns.*\/limits/', $url)) { // all limits
 			$resp->status = 202;
 			$resp->body = file_get_contents(__DIR__.'/dnslimits.json');
 		}
