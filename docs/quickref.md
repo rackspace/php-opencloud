@@ -11,6 +11,7 @@ Contents:
 * [Networks (Quantum/Cloud Networks)](#networks)
 * [Cloud Databases](#dbaas)
 * [Cloud Block Storage (Cinder)](#CBS)
+* [Cloud DNS](#DNS)
 
 <a name="auth"></a>
 Authentication
@@ -298,7 +299,7 @@ The `Delete()` method deletes a server:
 
 This is normally destructive and the server is *not* recoverable; however,
 providers may have a mechanism for recovering deleted servers. Contact
-your provider for support. 
+your provider for support.
 
 ### Performing server actions
 
@@ -753,7 +754,7 @@ Syntax:
 Quick Reference - Cloud Load Balancers
 --------------------------------------
 Cloud Load Balancers is a service for creating and managing load balancers
-dynamically. It is not currently part of the OpenStack project. 
+dynamically. It is not currently part of the OpenStack project.
 
 ### Connecting to Cloud Load Balancers
 Cloud Block Storage is available only via a `Rackspace`
@@ -771,7 +772,7 @@ Example:
 
     $chitown = $cloud->VolumeService('cloudLoadBalancers', 'ORD');
 
-This creates a connection to the `cloudLoadBalancers` service 
+This creates a connection to the `cloudLoadBalancers` service
 in the `ORD` (Chicago) region.
 
 In this example, `$chitown` is a variable of type `LoadBalancerService`. The
@@ -784,17 +785,60 @@ and listing load balancers themselves.
 (full details below)
 
 * `LoadBalancerService::LoadBalancer()` - returns a `LoadBalancer` object, which
-  is the primary way of managing the virtual load balancers. 
-* `LoadBalancerService::LoadBalancerList()` - returns a 
+  is the primary way of managing the virtual load balancers.
+* `LoadBalancerService::LoadBalancerList()` - returns a
   [`Collection`](collection.md) of `LoadBalancer` objects.
 * `LoadBalancerService::BillableLoadBalancerList()` - returns a
   [`Collection`](collection.md) of objects representing load balancers that
   had been in existence during a specified time frame. This is used for
-  analyzing and reporting your usage. 
+  analyzing and reporting your usage.
 * `LoadBalancerService::AllowedDomainList()` - returns a
   [`Collection`](collection.md) of the domains permitted for your account.
-* `LoadBalancerService::ProtocolList()` - returns a 
+* `LoadBalancerService::ProtocolList()` - returns a
   [`Collection`](collection.md) of the protocols available in the region.
-* `LoadBalancerService::AlgorithmList()` - returns a 
-  [`Collection`](collection.md) of the algorithms available in the region. 
+* `LoadBalancerService::AlgorithmList()` - returns a
+  [`Collection`](collection.md) of the algorithms available in the region.
 
+<a name="DNS"></a>
+Quick Reference — Cloud DNS
+---------------------------
+
+Cloud DNS lets you manage your domain names via a simple interface. To connect
+to Cloud DNS:
+
+	$cloud = new Rackspace(...);
+	$dns = $cloud->DNS({name}, {region}, {urltype});
+
+Omitted values use defaults; since Cloud DNS is regionless, this is usually
+sufficient:
+
+	$dns = $cloud->DNS();
+
+### Service-Level Methods
+
+* `DNS::Domain($id)` - returns a domain object, optionally for the domain
+  identified by `$id`
+* `DNS::DomainList($filter)` - returns a `Collection` of domains. The optional
+  `$filter` argument can be an array of key-value pairs.
+* `DNS::Import($data)` - imports the BIND_9-formatted `$data` and creates a new
+  domain from it.
+* `DNS::Limits($type)` - returns an object containing the DNS limits. The
+  optional `$type` argument can restrict this to limits of a single type
+* `DNS::LimitTypes()` - returns an array of limit types
+* `DNS::PtrRecord($id)` - creates a reverse-DNS (PTR) record. The optional
+  `$id` can identify a specific record.
+* `DNS::PtrRecordList($server)` - returns a `Collection` of all PTR records
+  associated with the specified `$server` (a Cloud Server or Nova instance).
+
+### Domain-Level Methods
+
+* `Domain::AddRecord()`
+* `Domain::AddSubdomain()`
+* `Domain::Changes()`
+* `Domain::Export()`
+* `Domain::Record($id)` - returns a Record object, optionally identified by
+  `$id`.
+* `Domain::RecordList()` - returns a `Collection` of all the records for a
+  domain.
+* `Domain::Subdomain()`
+* `Domain::SubdomainList()`
