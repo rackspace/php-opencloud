@@ -20,8 +20,6 @@ $cloud = new OpenCloud\Rackspace(AUTHURL,
 $dns = $cloud->DNS();
 
 // get the limits
-printf("Limit Types:\n");
-$types = $dns->LimitTypes();
 $limits = $dns->Limits();
 printf("Rate limits:\n");
 foreach($limits->rate as $limit) {
@@ -32,13 +30,14 @@ foreach($limits->rate as $limit) {
 }
 printf("Absolute limits:\n");
 foreach($limits->absolute as $key => $value) {
-	printf("    %s per %s\n", $key, $value);
+	printf("    %s = %s\n", $key, $value);
 }
 
 // by type
+printf("Limit Types:\n");
+$types = $dns->LimitTypes();
 foreach($types as $type) {
 	printf("%s\n", $type);
 	printf("Limits for %s:\n", $type);
 	$limits = $dns->Limits($type);
-	//print_r($limits);
 }

@@ -218,7 +218,10 @@ class DNS extends Service {
 		if ($this->CheckJsonError())
 			return FALSE;
 
-		return $obj->limits;
+		if (isset($type))
+			return $obj;
+		else
+			return $obj->limits;
 	}
 
 	/**
