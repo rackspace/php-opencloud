@@ -102,7 +102,7 @@ class DomainTest extends PHPUnit_Framework_TestCase
 	}
 	public function testChanges() {
 		$this->assertEquals(
-			'OpenCloud\DNS\Changes',
+			'stdClass',
 			get_class($this->domain->Changes()));
 	}
 	public function testExport() {
