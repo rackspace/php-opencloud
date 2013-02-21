@@ -37,7 +37,15 @@ class DataObject extends ObjStoreBase {
     private
         $data,				// the actual data
         $etag,              // the ETag
-        $container;         // the container used by this object
+        $container,         // the container used by this object
+        /**
+         * this array translates header values (returned by requests) into
+         * properties
+         */
+        $header_translate = array(
+        	'Etag' => 'hash',
+        	'Last-Modified' => 'last_modified'
+        );
 
 	/**
 	 * A DataObject is related to a container and has a name
@@ -125,9 +133,10 @@ class DataObject extends ObjStoreBase {
 			*/
 			$this->debug('Uploading %u bytes from %s', $filesize, $filename);
 		}
-		else
+		else {
 			// compute the length
 			$this->content_length = strlen($this->data);
+		}
 
 		// flag missing Content-Type
 		if (!$this->content_type)
@@ -160,8 +169,17 @@ class DataObject extends ObjStoreBase {
 			return FALSE;
 		}
 
+		// set values from response
+		foreach($response->Headers() as $key => $value) {
+			if (isset($this->header_translate[$key])) {
+				$this->{$this->header_translate[$key]} = $value;
+			}
+		}
+
+		// close the file handle
 		if ($fp)
 			fclose($fp);
+
 		return $response;
 	} // create()
 

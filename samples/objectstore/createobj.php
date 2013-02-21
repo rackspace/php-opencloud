@@ -36,6 +36,8 @@ $connection->SetUploadProgressCallback('OpenCloud\UploadProgress');
 // create a Cloud Files (ObjectStore) connection
 $ostore = $connection->ObjectStore(/* uses defaults from above */);
 
+//setDebug(TRUE);
+
 // next, make a container named 'Sample'
 printf("Creating container...\n");
 $cont = $ostore->Container();
@@ -48,6 +50,7 @@ $obj = $cont->DataObject();
 $obj->Create(
 	array('name' => 'SampleObject', 'content_type' => 'text/plain'),
 	__FILE__);
+printf("\nObject hash is %s\n", $obj->hash);
 
 // copy it to another object
 printf("Copying...\n");
