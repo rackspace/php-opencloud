@@ -58,7 +58,6 @@ abstract class Service extends Base {
 		$this->service_type = $type;
 		$this->service_name = $name;
 		$this->service_region = $region;
-		$catalog = $conn->serviceCatalog();
 		$this->service_url = $this->get_endpoint(
 		        $type, $name, $region, $urltype);
 	} // public function __construct()
@@ -146,7 +145,7 @@ abstract class Service extends Base {
 		// determine the URL
 		if (!$url)
 		    $url = $parent->Url($class::ResourceName());
-		
+
 		// add query string parameters
 		if (count($parm))
 			$url .= '?' . $this->MakeQueryString($parm);
@@ -178,7 +177,7 @@ abstract class Service extends Base {
 		$obj = json_decode($response->HttpBody());
 		if ($this->CheckJsonError())
 			return FALSE;
-			
+
 		// see if there is a "next" link
 		if (isset($obj->links)) {
 			if (is_array($obj->links)) {
@@ -209,18 +208,18 @@ abstract class Service extends Base {
 		}
 		else
 			$coll_obj = new Collection($parent, $class, array());
-		
+
 		// if there's a $next_page_url, then we need to establish a
 		// callback method
 		if (isset($next_page_url)) {
 			$coll_obj->SetNextPageCallback(
-				array($this, 'Collection'), 
+				array($this, 'Collection'),
 				$next_page_url);
 		}
-		
+
 		return $coll_obj;
 	}
-	
+
 	/**
 	 * returns the Region associated with the service
 	 *
