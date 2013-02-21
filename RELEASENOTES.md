@@ -1,6 +1,8 @@
 RELEASE NOTES
 -------------
 
+### Current branch: working
+
 ### 02/21/2013 Version 1.4
 * Added __DIR__ to all internal `require()` calls. [Issue #40]
 * Added support for Rackspace Cloud DNS (see the quick reference in docs/
