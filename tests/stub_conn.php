@@ -8,9 +8,20 @@ if (!defined('TESTDIR')) define('TESTDIR','.');
 
 /**
  * This is a stub Connection class that bypasses the actual connections
+ *
+ * NOTE THAT EVERYTHING IN THIS FILE IS IN A STRICT SEQUENCE (usually)
+ * Many items (e.g., /changes) must come before other patterns that also
+ * match the same URL (e.g., /domains, because the full URL is
+ * /domains/{id}/changes).
+ *
+ * Be careful where you put things.
  */
 class StubConnection extends OpenCloud\OpenStack
 {
+	public
+		$async_response = <<<ENDRESPONSE
+{"status":"RUNNING","verb":"GET","jobId":"852a1e4a-45b4-409b-9d46-2d6d641b27cf","callbackUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/status/852a1e4a-45b4-409b-9d46-2d6d641b27cf","requestUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/domains/3612932/export"}
+ENDRESPONSE;
 	public function __construct($url, $secret, $options=array()) {
 		if (is_array($secret))
 			return parent::__construct($url, $secret, $options);
@@ -52,10 +63,29 @@ ENDLB;
 ENDNW;
 			elseif (strpos($url, '/instances'))
 				$resp->body = file_get_contents(TESTDIR.'/dbinstance-create.json');
-			else
+			elseif (strpos($url, '/import')) { // domain import
+				$resp->body = $this->async_response;
+				$resp->status = 202;
+			}
+			elseif (strpos($url, '/domains')) { // domain create
+				$resp->body = $this->async_response;
+				$resp->status = 202;
+			}
+			elseif (strpos($url, '/rdns')) {
+				$resp->body = $this->async_response;
+				$resp->status = 202;
+			}
+			elseif (strpos($url, '/servers')) {
 				$resp->body = file_get_contents(TESTDIR.'/server-create.json');
+			}
+			else
+				die("No stub data for URL $url\n");
 		}
 		elseif ($method == 'DELETE') {
+			$resp->status = 202;
+		}
+		elseif (($method=='PUT') && strpos($url, '/domains')) {
+			$resp->body = $this->async_response;
 			$resp->status = 202;
 		}
 		elseif (strpos($url, '/os-volume_attachments/')) {
@@ -79,6 +109,10 @@ ENDATTLIST;
 {"connectTimeOut":10,"connectError":20,"connectFailure":30,"dataTimedOut":40,
 "keepAliveTimedOut":50,"maxConn":60}
 ENDLBSTATS;
+		}
+		elseif (strpos($url, 'ignore')) {
+			$resp->status = 200;
+			$resp->body = '{"ignore":{}}';
 		}
 		elseif (strpos($url, '/loadbalancers/')) {
 			$resp->status = 200;
@@ -125,6 +159,48 @@ ENDLB;
 			$resp->body = '{"metadata":{"foo":"bar","a":"1"}}';
 			$resp->status = 200;
 		}
+		elseif (strpos($url, '/export')) { // domain export
+			$resp->body = $this->async_response;
+			$resp->status = 202;
+		}
+		elseif (strpos($url, 'limits/types')) {
+			$resp->body = <<<ENDTYPES
+{"limitTypes":["RATE_LIMIT","DOMAIN_LIMIT","DOMAIN_RECORD_LIMIT"]}
+ENDTYPES;
+			$resp->status = 202;
+		}
+		elseif (strpos($url, '/limits/DOMAIN_LIMIT')) { // individual limit
+			$resp->status = 202;
+			$resp->body = <<<ENDDOMLIMIT
+{"absolute":{"limits":[{"name":"domains","value":500}]}}
+ENDDOMLIMIT;
+		}
+		elseif (preg_match('/dns.*\/limits/', $url)) { // all limits
+			$resp->status = 202;
+			$resp->body = file_get_contents(__DIR__.'/dnslimits.json');
+		}
+		elseif (strpos($url, '/changes')) {
+			$resp->body = <<<ENDCHANGES
+{"changes":[],"from":"2013-02-20T00:00:00.000+0000","to":"2013-02-20T16:12:08.000+0000","totalEntries":0}
+ENDCHANGES;
+			$resp->status = 202;
+		}
+		elseif (strpos($url, '/domain/')) {
+			$resp->body = $this->async_response;
+			$resp->status = 202;
+		}
+		elseif (strpos($url, '/domains')) {
+			$resp->body = <<<ENDDOM
+{"domains":[{"name":"raxdrg.info","id":999919,"accountId":"TENANT-ID","emailAddress":"noname@dontuseemail.com","updated":"2013-02-15T16:30:28.000+0000","created":"2013-02-15T16:30:27.000+0000"}]}
+ENDDOM;
+			$resp->status = 200;
+		}
+		elseif (strpos($url, '/rdns/')) {
+			$resp->body = <<<ENDRDNS
+{"records":[{"name":"foobar.raxdrg.info","id":"PTR-548486","type":"PTR","data":"2001:4800:7811:513:199e:7e1e:ff04:be3f","ttl":900,"updated":"2013-02-18T20:24:50.000+0000","created":"2013-02-18T20:24:50.000+0000"},{"name":"foobar.raxdrg.info","id":"PTR-548485","type":"PTR","data":"166.78.48.90","ttl":900,"updated":"2013-02-18T20:24:34.000+0000","created":"2013-02-18T20:24:34.000+0000"}]}
+ENDRDNS;
+			$resp->status = 200;
+		}
 		elseif (strpos($url, '/metadata')) {
 			$resp->body = NULL;
 			$resp->status = 200;
@@ -165,6 +241,10 @@ ENDVOL;
 		}
 		elseif (strpos($url, 'BADJSON')) {
 			$resp->body = '{"bad jjson';
+			$resp->status = 200;
+		}
+		elseif (strpos($url, '/rdns')) {
+			$resp->body = $this->async_response;
 			$resp->status = 200;
 		}
 		else

@@ -95,9 +95,8 @@ abstract class PersistentObject extends Base {
 		}
 		elseif (isset($info))
 			throw new InvalidArgumentError(sprintf(
-				_('Argument for [%s] must be string or object, [%s] used'),
-				get_class(),
-				get_class($info)));
+				_('Argument for [%s] must be string or object'),
+				get_class()));
 	}
 
 	/**
@@ -287,7 +286,8 @@ abstract class PersistentObject extends Base {
 	 *
 	 */
 	public function WaitFor($terminal='ACTIVE',
-	        $timeout=RAXSDK_SERVER_MAXTIMEOUT, $callback=NULL) {
+	        $timeout=RAXSDK_SERVER_MAXTIMEOUT, $callback=NULL,
+	        $sleep=RAXSDK_POLL_INTERVAL) {
 	    // find the primary key field
 	    $pk = $this->PrimaryKeyField();
 
@@ -301,7 +301,7 @@ abstract class PersistentObject extends Base {
 			if ($this->status == 'ERROR') return;
 			if ($this->status == $terminal) return;
 			if (time()-$starttime > $timeout) return;
-			sleep(RAXSDK_POLL_INTERVAL);
+			sleep($sleep);
 		}
 	}
 

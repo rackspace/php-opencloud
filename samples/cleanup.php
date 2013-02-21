@@ -154,4 +154,12 @@ while($instance = $list->Next()) {
 	$instance->Delete();
 }
 
+step('Deleting DNS entries');
+$dns = $rackspace->DNS();
+$list = $dns->DomainList();
+while($domain = $list->Next()) {
+	info('Deleting domain %s', $domain->Name());
+	$domain->Delete();
+}
+
 step('DONE');

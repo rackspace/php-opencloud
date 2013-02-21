@@ -46,13 +46,6 @@ function info($msg,$p1=NULL,$p2=NULL,$p3=NULL,$p4=NULL,$p5=NULL) {
 }
 define('TIMEFORMAT', 'r');
 
-/**
- * START THE TESTS!
- */
-printf("SmokeTest started at %s\n", date(TIMEFORMAT, $start));
-printf("Using endpoint [%s]\n", $_ENV['NOVA_URL']);
-printf("Using region [%s]\n", MYREGION);
-
 // parse command-line arguments
 if ($argc > 1) {
 	foreach($argv as $arg) {
@@ -79,6 +72,13 @@ ENDHELP
 	}
 }
 
+/**
+ * START THE TESTS!
+ */
+printf("SmokeTest started at %s\n", date(TIMEFORMAT, $start));
+printf("Using endpoint [%s]\n", $_ENV['NOVA_URL']);
+printf("Using region [%s]\n", MYREGION);
+
 step('Authenticate');
 $rackspace = new OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
@@ -104,6 +104,53 @@ else { // load cached credentials
 	$str = fread($fp, 99999); // read it all
 	fclose($fp);
 	$rackspace->ImportCredentials(unserialize($str));
+}
+
+/**
+ * Cloud DNS
+ */
+step('Connect to Cloud DNS');
+$dns = $rackspace->DNS();
+
+step('Try to add a domain raxdrg.info');
+$domain = $dns->Domain();
+$aresp = $domain->Create(array(
+	'name' => 'raxdrg.info',
+	'emailAddress' => 'sdk-support@rackspace.com',
+	'ttl' => 3600));
+$aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
+if ($aresp->Status() == 'ERROR') {
+	info('Error condition (this may be valid if the domain exists');
+	info('[%d] %s - %s',
+		$aresp->error->code, $aresp->error->message, $aresp->error->details);
+}
+
+step('Adding a CNAME record www.raxdrg.info');
+$dlist = $dns->DomainList(array('name'=>'raxdrg.info'));
+$domain = $dlist->Next();
+$record = $domain->Record();
+$aresp = $record->Create(array(
+	'type' => 'CNAME', 'ttl' => 600, 'name' => 'www.raxdrg.info',
+	'data' => 'developer.rackspace.com'));
+$aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
+if ($aresp->Status() == 'ERROR') {
+	info('Error status:');
+	info('[%d] $s - %s', $aresp->error->code, $aresp->error->message,
+		$aresp->error->details);
+}
+
+step('List domains and records');
+$dlist = $dns->DomainList();
+while($domain = $dlist->Next()) {
+	info('%s [%s]',
+		$domain->Name(), $domain->emailAddress);
+	// list records
+	info('Domain Records:');
+	$rlist = $domain->RecordList();
+	while($rec = $rlist->Next()) {
+		info('- %s %d %s %s',
+			$rec->type, $rec->ttl, $rec->Name(), $rec->data);
+	}
 }
 
 /**
@@ -481,8 +528,8 @@ exit();
  * Callback for the WaitFor() method
  */
 function dotter($obj) {
-    info('...waiting on %s/%-12s %3d%%',
+    info('...waiting on %s/%-12s %4s',
 		$obj->Name(),
 		$obj->Status(),
-		isset($obj->progress) ? $obj->progress : 0);
+		isset($obj->progress) ? $obj->progress.'%' : 0);
 }

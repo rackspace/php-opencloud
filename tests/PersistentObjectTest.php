@@ -71,6 +71,17 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals(
 	        'MyPersistentObject',
 	        get_class($inst));
+	    $inst = new MyPersistentObject($this->service,
+	    	array('id'=>'42'));
+	    $this->assertEquals(
+	    	'MyPersistentObject',
+	    	get_class($inst));
+	}
+	/**
+	 * @expectedException OpenCloud\InvalidArgumentError
+	 */
+	public function test__construct2() {
+	    $inst = new MyPersistentObject($this->service, FALSE);
 	}
 	/**
 	 * @expectedException OpenCloud\AttributeError
@@ -81,8 +92,14 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	public function testUrl() {
 	    $this->instance->id = '12';
 	    $this->assertEquals(
-'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12',
+			'https://dfw.servers.api.rackspacecloud.com/v2/'.
+			'TENANT-ID/instances/12',
 	        $this->instance->Url());
+	    $this->assertEquals(
+			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/'.
+			'instances/12/foobar?foo=BAZ',
+	        $this->instance->Url('foobar',
+	        	array('foo'=>'BAZ')));
 	}
 	public function testUrl2() {
 	    $this->instance->id = '12';

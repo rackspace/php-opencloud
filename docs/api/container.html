@@ -59,7 +59,7 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>Containers for OpenStack Object Storage (Swift) and Rackspace Cloud Files<br><br><a name="includes"></a><h2>Includes</h2>dataobject.php <span class="nb-faded-text">(Require Once)</span><br>objstorebase.php <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+<h2>Description</h2>Containers for OpenStack Object Storage (Swift) and Rackspace Cloud Files<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="CDNContainer" class="class">
 <h3>CDNContainer</h3>
 <div class="properties">
@@ -417,7 +417,7 @@ exception thrown.</p>
 </div>
 <div class="method">
 <a id="CDNContainer::GetMetadata()"></a><h3>GetMetadata<span class="nb-faded-text">(
-          
+          <a href="http.html#%5COpenCloud%5CHttpResponse">\OpenCloud\HttpResponse</a>
              
             $response,
           
@@ -438,9 +438,8 @@ to metadata</em><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$response</td>
-<td style="white-space: normal;">n/a</td>
-<td><p>\OpenCloud\HttpResponse</p>
-</td>
+<td style="white-space: normal;"><a href="http.html#%5COpenCloud%5CHttpResponse">\OpenCloud\HttpResponse</a></td>
+<td></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -717,7 +716,20 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <tbody><tr>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
-<td><p>associative array of parameter values. * account/tenant - The unique identifier of the account/tenant. * container- The unique identifier of the container. * limit (Optional) - The number limit of results. * marker (Optional) - Value of the marker, that the object names greater in value than are returned. * end_marker (Optional) - Value of the marker, that the object names less in value than are returned. * prefix (Optional) - Value of the prefix, which the returned object names begin with. * format (Optional) - Value of the serialized response format, either json or xml. * delimiter (Optional) - Value of the delimiter, that all the object names nested in the container are returned.</p>
+<td><p>associative array of parameter values.
+* account/tenant    - The unique identifier of the account/tenant.
+* container- The unique identifier of the container.
+* limit (Optional) - The number limit of results.
+* marker (Optional) - Value of the marker, that the object names
+     greater in value than are returned.
+* end_marker (Optional) - Value of the marker, that the object names
+     less in value than are returned.
+* prefix (Optional) - Value of the prefix, which the returned object
+     names begin with.
+* format (Optional) - Value of the serialized response format, either
+     json or xml.
+* delimiter (Optional) - Value of the delimiter, that all the object
+     names nested in the container are returned.</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -776,7 +788,8 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <tbody><tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The type of object; derived from <code>get_class()</code> if not specified.</p>
+<td><p>The type of object; derived from <code>get_class()</code> if not
+    specified.</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -1174,7 +1187,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -2062,7 +2076,8 @@ its TTL expires.</p></small><br><h4>Return value</h4>
 <tbody><tr>
 <td>$TTL</td>
 <td style="white-space: normal;">integer</td>
-<td><p>the Time-To-Live for the CDN container; if NULL, then the cloud's default value will be used for caching.</p>
+<td><p>the Time-To-Live for the CDN container; if NULL,
+     then the cloud's default value will be used for caching.</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -2170,7 +2185,7 @@ its TTL expires.</p></small><br><h4>Return value</h4>
 </div>
 <div class="method">
 <a id="Container::GetMetadata()"></a><h3>GetMetadata<span class="nb-faded-text">(
-          
+          <a href="http.html#%5COpenCloud%5CHttpResponse">\OpenCloud\HttpResponse</a>
              
             $response,
           
@@ -2191,9 +2206,8 @@ to metadata</em><br><h4>Arguments</h4>
 </tr></thead>
 <tbody><tr>
 <td>$response</td>
-<td style="white-space: normal;">n/a</td>
-<td><p>\OpenCloud\HttpResponse</p>
-</td>
+<td style="white-space: normal;"><a href="http.html#%5COpenCloud%5CHttpResponse">\OpenCloud\HttpResponse</a></td>
+<td></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -2508,7 +2522,20 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <tbody><tr>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
-<td><p>associative array of parameter values. * account/tenant - The unique identifier of the account/tenant. * container- The unique identifier of the container. * limit (Optional) - The number limit of results. * marker (Optional) - Value of the marker, that the object names greater in value than are returned. * end_marker (Optional) - Value of the marker, that the object names less in value than are returned. * prefix (Optional) - Value of the prefix, which the returned object names begin with. * format (Optional) - Value of the serialized response format, either json or xml. * delimiter (Optional) - Value of the delimiter, that all the object names nested in the container are returned.</p>
+<td><p>associative array of parameter values.
+* account/tenant    - The unique identifier of the account/tenant.
+* container- The unique identifier of the container.
+* limit (Optional) - The number limit of results.
+* marker (Optional) - Value of the marker, that the object names
+     greater in value than are returned.
+* end_marker (Optional) - Value of the marker, that the object names
+     less in value than are returned.
+* prefix (Optional) - Value of the prefix, which the returned object
+     names begin with.
+* format (Optional) - Value of the serialized response format, either
+     json or xml.
+* delimiter (Optional) - Value of the delimiter, that all the object
+     names nested in the container are returned.</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -2571,7 +2598,8 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <tbody><tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The type of object; derived from <code>get_class()</code> if not specified.</p>
+<td><p>The type of object; derived from <code>get_class()</code> if not
+    specified.</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -3209,7 +3237,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -3531,7 +3560,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -3603,6 +3632,8 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="exceptions.html#CreateError">CreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#CredentialError">CredentialError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dns.html#DNS">DNS</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
 <li><span class="class"><a href="dbservice.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.html#DeleteError">DeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#DocumentError">DocumentError</a><br><small></small></span></li>
@@ -3623,6 +3654,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbservice.html#LoadBalancerService">LoadBalancerService</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
 <li><span class="class"><a href="metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
@@ -3684,6 +3716,23 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="volumeattachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
 to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.html#VolumeError">VolumeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DNS</span><ul>
+<li><span class="class"><a href="exceptions.html#AsyncError">AsyncError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="asyncresponse.html#AsyncResponse">AsyncResponse</a><br><small>The AsyncResponse class encapsulates the data returned by a Cloud DNS
+asynchronous response.</small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="dnsobject.html#DnsObject">DnsObject</a><br><small>The DnsObject class is an extension of the PersistentObject class that
+permits the asynchronous responses used by Cloud DNS</small></span></li>
+<li><span class="class"><a href="domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li><span class="class"><a href="ptrrecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
+<li><span class="class"><a href="record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li><span class="class"><a href="exceptions.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="domain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
+a parent domain.</small></span></li>
 </ul>
 </li>
 <li class="closed">

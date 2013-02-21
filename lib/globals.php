@@ -88,6 +88,10 @@ if (!defined('RAXSDK_DNS_REGION'))
     define('RAXSDK_DNS_REGION', '{IGNORE}'); // DNS is regionless
 if (!defined('RAXSDK_DNS_URLTYPE'))
     define('RAXSDK_DNS_URLTYPE', 'publicURL');
+if (!defined('RAXSDK_DNS_ASYNC_TIMEOUT'))
+	define('RAXSDK_DNS_ASYNC_TIMEOUT', 60);
+if (!defined('RAXSDK_DNS_ASYNC_INTERVAL'))
+	define('RAXSDK_DNS_ASYNC_INTERVAL', 1);
 if (!defined('RAXSDK_CONNECTTIMEOUT'))
     define('RAXSDK_CONNECTTIMEOUT', 5);
 if (!defined('RAXSDK_TIMEOUT'))
@@ -101,15 +105,15 @@ if (!defined('RAXSDK_DEFAULT_IP_VERSION'))
 if (!defined('RAXSDK_OVERLIMIT_TIMEOUT'))
     define('RAXSDK_OVERLIMIT_TIMEOUT', 300);
 /**
- * sets default (highly secure) value for CURLOPT_SSL_VERIFYHOST. If you 
- * are using a self-signed SSL certificate, you can reduce this setting, but 
- * you do so at your own risk. 
+ * sets default (highly secure) value for CURLOPT_SSL_VERIFYHOST. If you
+ * are using a self-signed SSL certificate, you can reduce this setting, but
+ * you do so at your own risk.
  */
 if (!defined('RAXSDK_SSL_VERIFYHOST'))
     define('RAXSDK_SSL_VERIFYHOST', 2);
 /**
- * sets default (highly secure) value for CURLOPT_SSL_VERIFYPEER. If you 
- * are using a self-signed SSL certificate, you can reduce this setting, but 
+ * sets default (highly secure) value for CURLOPT_SSL_VERIFYPEER. If you
+ * are using a self-signed SSL certificate, you can reduce this setting, but
  * you do so at your own risk.
  */
 if (!defined('RAXSDK_SSL_VERIFYPEER'))
@@ -124,12 +128,12 @@ if (!defined('RAXSDK_SSL_VERIFYPEER'))
 date_default_timezone_set(RAXSDK_TIMEZONE);
 
 /* these should not be overridden */
-define('RAXSDK_VERSION', '1.3');
+define('RAXSDK_VERSION', '1.4');
 define('RAXSDK_USER_AGENT', 'php-opencloud/'.RAXSDK_VERSION.' (Rackspace)');
 define('RAXSDK_ERROR', 'Error:');
 define('RAXSDK_FATAL', 'FATAL ERROR:');
 define('RAXSDK_TERMINATED', '*** PROCESSING HALTED ***');
-define('RAXSDK_CONTENT_TYPE', 'Content-Type: application/json');
+define('RAXSDK_CONTENT_TYPE_JSON', 'application/json');
 define('RAXSDK_URL_PUBLIC', 'publicURL');
 define('RAXSDK_URL_INTERNAL', 'internalURL');
 define('RAXSDK_URL_VERSION_INFO', 'versionInfo');

@@ -25,6 +25,10 @@ require_once(__DIR__.'/base.php');
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 abstract class Service extends Base {
+
+	protected
+		$_namespaces=array();
+
 	private
 		$conn,
 		$service_type,
@@ -225,6 +229,31 @@ abstract class Service extends Base {
 	 */
 	public function Region() {
 		return $this->service_region;
+	}
+
+	/**
+	 * returns the serviceName associated with the service
+	 *
+	 * This is used by DNS for PTR record lookups
+	 *
+	 * @api
+	 * @return string
+	 */
+	public function Name() {
+		return $this->service_name;
+	}
+
+	/**
+	 * Returns a list of supported namespaces
+	 *
+	 * @return array
+	 */
+	public function namespaces() {
+		if (!isset($this->_namespaces))
+			return array();
+		if (is_array($this->_namespaces))
+		    return $this->_namespaces;
+		return array();
 	}
 
 	/********** PRIVATE METHODS **********/

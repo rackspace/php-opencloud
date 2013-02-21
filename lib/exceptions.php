@@ -35,6 +35,7 @@ namespace OpenCloud {
 	class HttpOverLimitError extends \Exception {}
 	class IdRequiredError extends \Exception {}
 	class InstanceNotFound extends \Exception {}
+	class InvalidArgumentError extends \Exception {}
 	class JsonError extends \Exception {}
 	class ServerActionError extends \Exception {}
 	class ServiceValueError extends \Exception {}
@@ -150,4 +151,14 @@ namespace OpenCloud\VolumeService {
  */
 namespace OpenCloud\LoadBalancerService {
 	class MissingValueError extends \Exception {}
+}
+
+/**
+ * Exceptions used by the DNS service
+ */
+namespace OpenCloud\DNS {
+	class AsyncHttpError extends \Exception {}
+	class AsyncError extends \Exception {}
+	class AsyncTimeoutError extends \Exception {}
+	class RecordTypeError extends \Exception {}
 }

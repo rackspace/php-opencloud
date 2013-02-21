@@ -21,6 +21,17 @@ class publicLoadBalancer extends OpenCloud\LoadBalancerService\LoadBalancer {
 	*/
     public function CreateJson() { return parent::CreateJson(); }
 }
+class MySubResource extends OpenCloud\LoadBalancerService\SubResource {
+	public static 
+		$json_name = 'ignore',
+		$url_resource = 'ignore';
+	protected
+		$_create_keys = array('id');
+	public function CreateJson() { return parent::CreateJson(); }
+	public function UpdateJson($params=array()) {
+		return parent::UpdateJson($params);
+	}
+}
 
 class LoadBalancerTest extends PHPUnit_Framework_TestCase
 {
@@ -248,5 +259,27 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'FOOBAR',
 			$obj->loadBalancer->name);
+	}
+	public function testSubResource() {
+		$this->lb->id = '42';
+		$sub = new MySubResource($this->lb, '42');
+		$this->assertEquals(
+			'MySubResource',
+			get_class($sub));
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/'.
+			'TENANT-ID/loadbalancers/42/ignore',
+			$sub->Url('foo', array('one'=>1)));
+		$obj = $sub->UpdateJson();
+		$json = json_encode($obj);
+		$this->assertEquals(
+			'{"ignore":{"id":"42"}}',
+			$json);
+		$this->assertEquals(
+			$this->lb,
+			$sub->Parent());
+		$this->assertEquals(
+			'MySubResource-42',
+			$sub->Name());
 	}
 }

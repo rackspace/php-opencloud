@@ -60,7 +60,7 @@
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
 <h2>Description</h2>An abstract class that defines shared components for products that use
-OpenStack Nova<br><br><a name="includes"></a><h2>Includes</h2>service.php <span class="nb-faded-text">(Require Once)</span><br>flavor.php <span class="nb-faded-text">(Require Once)</span><br>collection.php <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+OpenStack Nova<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="Nova" class="class">
 <h3>Nova</h3>
 <div class="properties">
@@ -76,7 +76,7 @@ OpenStack Nova<br><br><a name="includes"></a><h2>Includes</h2>service.php <span
         </div>
 <label class="property-key">Abstract</label><div class="property-value">Yes 
       </div>
-<label class="property-key">Final</label><div class="property-value">Yes 
+<label class="property-key">Final</label><div class="property-value">No 
       </div>
 </div>
 <h4>Description</h4>
@@ -94,6 +94,7 @@ for sharing common code between those other classes.</p><br><div id="methods_Nov
       <a style="font-style: italic;" href="#Nova::GetMetaUrl()">GetMetaUrl</a>,
       <a style="font-style: italic;" href="#Nova::Limits()">Limits</a>,
       <a style="font-style: italic;" href="#Nova::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#Nova::Name()">Name</a>,
       <a style="font-style: italic;" href="#Nova::Region()">Region</a>,
       <a style="font-style: italic;" href="#Nova::Request()">Request</a>,
       <a style="font-style: italic;" href="#Nova::SetProperty()">SetProperty</a>,
@@ -278,7 +279,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -371,7 +373,8 @@ creating a Flavor object directly.</p></small><br><h4>Arguments</h4>
 <td>$id</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>if supplied, the Flavor identified by this is retrieved</li>
+<li>if supplied, the Flavor identified by this is
+ retrieved</li>
 </ul>
 </td>
 <td>NULL</td>
@@ -431,7 +434,9 @@ creating a FlavorList object directly.</p></small><br><h4>Arguments</h4>
 <td>$details</td>
 <td style="white-space: normal;">boolean</td>
 <td><ul>
-<li>if TRUE (the default), returns full details. Set to FALSE to retrieve minimal details and possibly improve performance.</li>
+<li>if TRUE (the default), returns full details.
+ Set to FALSE to retrieve minimal details and possibly improve
+ performance.</li>
 </ul>
 </td>
 <td>TRUE</td>
@@ -440,7 +445,8 @@ creating a FlavorList object directly.</p></small><br><h4>Arguments</h4>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>optional key/value pairs for creating query strings</li>
+<li>optional key/value pairs for creating query
+ strings</li>
 </ul>
 </td>
 <td>array()</td>
@@ -562,7 +568,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -685,6 +692,44 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="Nova::Name()"></a><h3>Name<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the serviceName associated with the service</em><br><small><p>This is used by DNS for PTR record lookups</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::Name()"><small>\OpenCloud\Service::Name()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="Nova::Region()"></a><h3>Region<span class="nb-faded-text">(
           
           )
@@ -779,7 +824,8 @@ that all Compute requests use application/json as the Content-Type:</p></small><
 <td>$headers</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>an associative array of headers to pass to the request</li>
+<li>an associative array of headers to pass to
+ the request</li>
 </ul>
 </td>
 <td>array()</td>
@@ -923,7 +969,9 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>a child resource. For example, passing 'servers' would return .../servers. Should <em>not</em> be prefixed with a slash (/).</li>
+<li>a child resource. For example,
+ passing 'servers' would return .../servers. Should <em>not</em> be
+prefixed with a slash (/).</li>
 </ul>
 </td>
 <td>''</td>
@@ -931,7 +979,8 @@ subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$args</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) an array of key-value pairs for query strings to append to the URL</p>
+<td><p>(optional) an array of key-value pairs for query
+     strings to append to the URL</p>
 </td>
 <td>array()</td>
 </tr>
@@ -1021,7 +1070,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$serviceName</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the name of the service in the catalog</li>
+<li>identifies the name of the service in the
+ catalog</li>
 </ul>
 </td>
 <td></td>
@@ -1030,7 +1080,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$serviceRegion</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the region of this Compute service</li>
+<li>identifies the region of this Compute
+ service</li>
 </ul>
 </td>
 <td></td>
@@ -1039,7 +1090,8 @@ modified as often.</p></small><br><h4>Arguments</h4>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>identifies the URL type ("publicURL", "privateURL")</li>
+<li>identifies the URL type ("publicURL",
+ "privateURL")</li>
 </ul>
 </td>
 <td></td>
@@ -1177,7 +1229,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -1285,7 +1338,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -1374,6 +1428,17 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <td></td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::namespaces()"><small>\OpenCloud\Service::namespaces()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
 <a id="Nova::to_string()"></a><h3>to_string<span class="nb-faded-text">(
@@ -1455,7 +1520,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div class="method">
 <a id="Nova::$_namespaces"></a><h3>
 <span class="nb-faded-text"> 
-          private 
+          protected 
           </span>$_namespaces
           =
           array()</h3>
@@ -1528,7 +1593,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -1600,6 +1665,8 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="exceptions.html#CreateError">CreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#CredentialError">CredentialError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dns.html#DNS">DNS</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
 <li><span class="class"><a href="dbservice.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.html#DeleteError">DeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#DocumentError">DocumentError</a><br><small></small></span></li>
@@ -1620,6 +1687,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbservice.html#LoadBalancerService">LoadBalancerService</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
 <li><span class="class"><a href="metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
@@ -1681,6 +1749,23 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="volumeattachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
 to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.html#VolumeError">VolumeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DNS</span><ul>
+<li><span class="class"><a href="exceptions.html#AsyncError">AsyncError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="asyncresponse.html#AsyncResponse">AsyncResponse</a><br><small>The AsyncResponse class encapsulates the data returned by a Cloud DNS
+asynchronous response.</small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="dnsobject.html#DnsObject">DnsObject</a><br><small>The DnsObject class is an extension of the PersistentObject class that
+permits the asynchronous responses used by Cloud DNS</small></span></li>
+<li><span class="class"><a href="domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li><span class="class"><a href="ptrrecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
+<li><span class="class"><a href="record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li><span class="class"><a href="exceptions.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="domain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
+a parent domain.</small></span></li>
 </ul>
 </li>
 <li class="closed">

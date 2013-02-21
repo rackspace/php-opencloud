@@ -26,7 +26,6 @@ require_once(__DIR__.'/collection.php');
  */
 abstract class Nova extends Service {
 	private
-	    $_namespaces=array(),
 		$_url;
 
 	/**
@@ -130,17 +129,8 @@ abstract class Nova extends Service {
      * @return \Rackspace\HttpResult object
      */
 	public function Request($url, $method='GET', $headers=array(), $body=NULL) {
-		$headers['Content-Type'] = 'application/json';
+		$headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
 		return parent::Request($url, $method, $headers, $body);
-	}
-
-	/**
-	 * Returns a list of supported namespaces
-	 *
-	 * @return array
-	 */
-	public function namespaces() {
-	    return $this->_namespaces;
 	}
 
 	/********** PRIVATE METHODS **********/

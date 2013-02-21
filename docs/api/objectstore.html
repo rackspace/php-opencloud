@@ -59,12 +59,12 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>The Object Storage service<br><br><a name="includes"></a><h2>Includes</h2>service.php <span class="nb-faded-text">(Require Once)</span><br>container.php <span class="nb-faded-text">(Require Once)</span><br><a name="constants"></a><h2>Constants</h2>
+<h2>Description</h2>The Object Storage service<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br><a name="constants"></a><h2>Constants</h2>
 <a id="::SWIFT_MAX_OBJECT_SIZE"></a><div class="constant">
 <h3>
 <span class="nb-faded-text"> 
         </span>SWIFT_MAX_OBJECT_SIZE<span class="nb-faded-text">
-         = ((5 * 1024) * 1024) * 1024 + 1</span>
+         = 5 * 1024 * 1024 * 1024 + 1</span>
 </h3>
 <em></em><br><br>
 </div>
@@ -103,6 +103,7 @@ subclassed from Service.</p><br><div id="methods_ObjectStoreBase">
       <a style="font-style: italic;" href="#ObjectStoreBase::GetMetaUrl()">GetMetaUrl</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::Limits()">Limits</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#ObjectStoreBase::Name()">Name</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::Region()">Region</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::Request()">Request</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::SetProperty()">SetProperty</a>,
@@ -111,6 +112,7 @@ subclassed from Service.</p><br><div id="methods_ObjectStoreBase">
       <a style="font-style: italic;" href="#ObjectStoreBase::__set()">__set</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::debug()">debug</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::get_endpoint()">get_endpoint</a>,
+      <a style="font-style: italic;" href="#ObjectStoreBase::namespaces()">namespaces</a>,
       <a style="font-style: italic;" href="#ObjectStoreBase::to_string()">to_string</a>,
       <div class="method">
 <a id="ObjectStoreBase::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
@@ -285,7 +287,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -339,7 +342,8 @@ calling the Container class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$cdata</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>(optional) the name of the container (if string) or an object from which to set values</p>
+<td><p>(optional) the name of the container (if string)
+     or an object from which to set values</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -381,7 +385,8 @@ calling the ContainerList class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
-<td><p>a list of key-value pairs to pass to the service to filter the results</p>
+<td><p>a list of key-value pairs to pass to the
+     service to filter the results</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -528,7 +533,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -646,6 +652,44 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="service.html#%5COpenCloud%5CService::MakeQueryString()"><small>\OpenCloud\Service::MakeQueryString()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="ObjectStoreBase::Name()"></a><h3>Name<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the serviceName associated with the service</em><br><small><p>This is used by DNS for PTR record lookups</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::Name()"><small>\OpenCloud\Service::Name()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -991,7 +1035,8 @@ the criteria, then an exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><ul>
-<li>the specified URL from the catalog (e.g., "publicURL")</li>
+<li>the specified URL from the catalog
+ (e.g., "publicURL")</li>
 </ul>
 </td>
 <td>RAXSDK_URL_PUBLIC</td>
@@ -1140,7 +1185,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -1248,7 +1294,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -1293,6 +1340,38 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tbody><tr>
 <td>inherited_from</td>
 <td><a href="service.html#%5COpenCloud%5CService::get_endpoint()"><small>\OpenCloud\Service::get_endpoint()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="ObjectStoreBase::namespaces()"></a><h3>namespaces<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a list of supported namespaces</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::namespaces()"><small>\OpenCloud\Service::namespaces()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -1356,6 +1435,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div id="properties_ObjectStoreBase">
 <h4>Properties</h4>
 <a href="#ObjectStoreBase::%24_errors">$_errors</a>,
+      <a href="#ObjectStoreBase::%24_namespaces">$_namespaces</a>,
       <a href="#ObjectStoreBase::%24conn">$conn</a>,
       <a href="#ObjectStoreBase::%24http_headers">$http_headers</a>,
       <a href="#ObjectStoreBase::%24service_name">$service_name</a>,
@@ -1367,6 +1447,15 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="ObjectStoreBase::$_namespaces"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$_namespaces
           =
           array()</h3>
 <em></em><br>
@@ -1500,6 +1589,7 @@ RAXSDK_OBJSTORE_REGION, and RAXSDK_OBJSTORE_URLTYPE.</p><br><div id="methods_Obj
       <a style="font-style: italic;" href="#ObjectStore::GetMetaUrl()">GetMetaUrl</a>,
       <a style="font-style: italic;" href="#ObjectStore::Limits()">Limits</a>,
       <a style="font-style: italic;" href="#ObjectStore::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#ObjectStore::Name()">Name</a>,
       <a style="font-style: italic;" href="#ObjectStore::Region()">Region</a>,
       <a style="font-style: italic;" href="#ObjectStore::Request()">Request</a>,
       <a style="font-style: italic;" href="#ObjectStore::SetProperty()">SetProperty</a>,
@@ -1508,6 +1598,7 @@ RAXSDK_OBJSTORE_REGION, and RAXSDK_OBJSTORE_URLTYPE.</p><br><div id="methods_Obj
       <a style="font-style: italic;" href="#ObjectStore::__set()">__set</a>,
       <a style="font-style: italic;" href="#ObjectStore::debug()">debug</a>,
       <a style="font-style: italic;" href="#ObjectStore::get_endpoint()">get_endpoint</a>,
+      <a style="font-style: italic;" href="#ObjectStore::namespaces()">namespaces</a>,
       <a style="font-style: italic;" href="#ObjectStore::to_string()">to_string</a>,
       <div class="method">
 <a id="ObjectStore::CDN()"></a><h3>CDN<span class="nb-faded-text">(
@@ -1711,7 +1802,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -1771,7 +1863,8 @@ calling the Container class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$cdata</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>(optional) the name of the container (if string) or an object from which to set values</p>
+<td><p>(optional) the name of the container (if string)
+     or an object from which to set values</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -1824,7 +1917,8 @@ calling the ContainerList class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
-<td><p>a list of key-value pairs to pass to the service to filter the results</p>
+<td><p>a list of key-value pairs to pass to the
+     service to filter the results</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -1990,7 +2084,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -2122,6 +2217,48 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::MakeQueryString()"><small>\OpenCloud\ObjectStoreBase::MakeQueryString()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="ObjectStore::Name()"></a><h3>Name<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the serviceName associated with the service</em><br><small><p>This is used by DNS for PTR record lookups</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::Name()"><small>\OpenCloud\Service::Name()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::Name()"><small>\OpenCloud\ObjectStoreBase::Name()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -2608,7 +2745,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -2720,7 +2858,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -2770,6 +2909,44 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>inherited_from</td>
 <td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::get_endpoint()"><small>\OpenCloud\ObjectStoreBase::get_endpoint()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="ObjectStore::namespaces()"></a><h3>namespaces<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a list of supported namespaces</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::namespaces()"><small>\OpenCloud\Service::namespaces()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::namespaces()"><small>\OpenCloud\ObjectStoreBase::namespaces()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -2838,6 +3015,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div id="properties_ObjectStore">
 <h4>Properties</h4>
 <a href="#ObjectStore::%24_errors">$_errors</a>,
+      <a href="#ObjectStore::%24_namespaces">$_namespaces</a>,
       <a href="#ObjectStore::%24cdn">$cdn</a>,
       <a href="#ObjectStore::%24conn">$conn</a>,
       <a href="#ObjectStore::%24http_headers">$http_headers</a>,
@@ -2850,6 +3028,15 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="ObjectStore::$_namespaces"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$_namespaces
           =
           array()</h3>
 <em></em><br>
@@ -3005,6 +3192,7 @@ not work for other public clouds.</p><br><div id="methods_ObjectStoreCDN">
       <a style="font-style: italic;" href="#ObjectStoreCDN::GetMetaUrl()">GetMetaUrl</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::Limits()">Limits</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#ObjectStoreCDN::Name()">Name</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::Region()">Region</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::Request()">Request</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::SetProperty()">SetProperty</a>,
@@ -3013,6 +3201,7 @@ not work for other public clouds.</p><br><div id="methods_ObjectStoreCDN">
       <a style="font-style: italic;" href="#ObjectStoreCDN::__set()">__set</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::debug()">debug</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::get_endpoint()">get_endpoint</a>,
+      <a style="font-style: italic;" href="#ObjectStoreCDN::namespaces()">namespaces</a>,
       <a style="font-style: italic;" href="#ObjectStoreCDN::to_string()">to_string</a>,
       <div class="method">
 <a id="ObjectStoreCDN::CDN()"></a><h3>CDN<span class="nb-faded-text">(
@@ -3217,7 +3406,8 @@ exception thrown.</p>
 <tr>
 <td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>(optional) array of key/value pairs to use as query strings</p>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
 </td>
 <td>array()</td>
 </tr>
@@ -3277,7 +3467,8 @@ calling the Container class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$cdata</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>(optional) the name of the container (if string) or an object from which to set values</p>
+<td><p>(optional) the name of the container (if string)
+     or an object from which to set values</p>
 </td>
 <td>NULL</td>
 </tr></tbody>
@@ -3330,7 +3521,8 @@ calling the ContainerList class directly.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$filter</td>
 <td style="white-space: normal;">array</td>
-<td><p>a list of key-value pairs to pass to the service to filter the results</p>
+<td><p>a list of key-value pairs to pass to the
+     service to filter the results</p>
 </td>
 <td>array()</td>
 </tr></tbody>
@@ -3496,7 +3688,8 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>The resource requested; should NOT have slashes at the beginning or end</p></td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -3628,6 +3821,48 @@ URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>inherited_from</td>
 <td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::MakeQueryString()"><small>\OpenCloud\ObjectStoreBase::MakeQueryString()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="ObjectStoreCDN::Name()"></a><h3>Name<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the serviceName associated with the service</em><br><small><p>This is used by DNS for PTR record lookups</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>api</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::Name()"><small>\OpenCloud\Service::Name()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::Name()"><small>\OpenCloud\ObjectStoreBase::Name()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -4111,7 +4346,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -4223,7 +4459,8 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>$type</td>
 <td style="white-space: normal;">string</td>
-<td><p>The OpenStack service type ("compute" or "object-store", for example</p>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
 </td>
 <td></td>
 </tr>
@@ -4273,6 +4510,44 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <tr>
 <td>inherited_from</td>
 <td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::get_endpoint()"><small>\OpenCloud\ObjectStoreBase::get_endpoint()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="ObjectStoreCDN::namespaces()"></a><h3>namespaces<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a list of supported namespaces</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>inherited_from</td>
+<td><a href="service.html#%5COpenCloud%5CService::namespaces()"><small>\OpenCloud\Service::namespaces()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::namespaces()"><small>\OpenCloud\ObjectStoreBase::namespaces()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -4341,6 +4616,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div id="properties_ObjectStoreCDN">
 <h4>Properties</h4>
 <a href="#ObjectStoreCDN::%24_errors">$_errors</a>,
+      <a href="#ObjectStoreCDN::%24_namespaces">$_namespaces</a>,
       <a href="#ObjectStoreCDN::%24conn">$conn</a>,
       <a href="#ObjectStoreCDN::%24http_headers">$http_headers</a>,
       <a href="#ObjectStoreCDN::%24service_name">$service_name</a>,
@@ -4352,6 +4628,15 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="ObjectStoreCDN::$_namespaces"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$_namespaces
           =
           array()</h3>
 <em></em><br>
@@ -4441,7 +4726,7 @@ service catalog (there <em>should</em> be only one, but you never know...)</p></
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -4513,6 +4798,8 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="exceptions.html#CreateError">CreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#CredentialError">CredentialError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dns.html#DNS">DNS</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
 <li><span class="class"><a href="dbservice.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.html#DeleteError">DeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#DocumentError">DocumentError</a><br><small></small></span></li>
@@ -4533,6 +4820,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbservice.html#LoadBalancerService">LoadBalancerService</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
 <li><span class="class"><a href="metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
@@ -4594,6 +4882,23 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="volumeattachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
 to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.html#VolumeError">VolumeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DNS</span><ul>
+<li><span class="class"><a href="exceptions.html#AsyncError">AsyncError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="asyncresponse.html#AsyncResponse">AsyncResponse</a><br><small>The AsyncResponse class encapsulates the data returned by a Cloud DNS
+asynchronous response.</small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="dnsobject.html#DnsObject">DnsObject</a><br><small>The DnsObject class is an extension of the PersistentObject class that
+permits the asynchronous responses used by Cloud DNS</small></span></li>
+<li><span class="class"><a href="domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li><span class="class"><a href="ptrrecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
+<li><span class="class"><a href="record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li><span class="class"><a href="exceptions.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="domain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
+a parent domain.</small></span></li>
 </ul>
 </li>
 <li class="closed">

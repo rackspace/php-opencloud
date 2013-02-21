@@ -70,4 +70,9 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 			'DFW',
 			$this->service->Region());
 	}
+	public function testName() {
+		$this->assertEquals(
+			'cloudServersOpenStack',
+			$this->service->Name());
+	}
 }

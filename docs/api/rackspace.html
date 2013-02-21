@@ -60,7 +60,7 @@
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
 <h2>Description</h2>The Rackspace cloud/connection class (which uses different authentication
-than the pure OpenStack class)<br><br><a name="includes"></a><h2>Includes</h2>openstack.php <span class="nb-faded-text">(Require Once)</span><br>dbservice.php <span class="nb-faded-text">(Require Once)</span><br>lbservice.php <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
+than the pure OpenStack class)<br><br><a name="includes"></a><h2>Includes</h2> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br> <span class="nb-faded-text">(Require Once)</span><br><a name="classes"></a><h2>Classes</h2>
 <div id="Rackspace" class="class">
 <h3>Rackspace</h3>
 <div class="properties">
@@ -108,6 +108,7 @@ $conn = new Rackspace(
       <a style="font-style: italic;" href="#Rackspace::CheckJsonError()">CheckJsonError</a>,
       <a style="font-style: italic;" href="#Rackspace::Compute()">Compute</a>,
       <a style="font-style: italic;" href="#Rackspace::Credentials()">Credentials</a>,
+      <a style="font-style: italic;" href="#Rackspace::DNS()">DNS</a>,
       <a style="font-style: italic;" href="#Rackspace::DbService()">DbService</a>,
       <a style="font-style: italic;" href="#Rackspace::Expiration()">Expiration</a>,
       <a style="font-style: italic;" href="#Rackspace::ExportCredentials()">ExportCredentials</a>,
@@ -457,6 +458,69 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
+<a id="Rackspace::DNS()"></a><h3>DNS<span class="nb-faded-text">(
+          
+             
+            $name
+            = NULL,
+          
+             
+            $region
+            = NULL,
+          
+             
+            $urltype
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>creates a new DNS service object</em><br><small><p>This is a factory method that is currently Rackspace-only
+(not available via the OpenStack class)</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$region</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$urltype</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Rackspace::DbService()"></a><h3>DbService<span class="nb-faded-text">(
           string
              
@@ -744,7 +808,8 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
 <tr>
 <td>$name</td>
 <td style="white-space: normal;">string</td>
-<td><p>the name of the service (e.g., 'Cloud Load Balancers')</p>
+<td><p>the name of the service
+     (e.g., 'Cloud Load Balancers')</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -973,7 +1038,9 @@ exceptions for the request.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$data</td>
 <td style="white-space: normal;">string</td>
-<td><p>data - either a string or a resource (file pointer) to use as the request body (for PUT or POST)</p>
+<td><p>data - either a string or a resource (file pointer) to
+    use as the
+    request body (for PUT or POST)</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -1372,7 +1439,8 @@ data that is being downloaded on this call.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$callback</td>
 <td style="white-space: normal;">callable</td>
-<td><p>the name of a global callback function, or an array($object, $functionname)</p>
+<td><p>the name of a global callback function, or an
+    array($object, $functionname)</p>
 </td>
 <td></td>
 </tr></tbody>
@@ -1516,21 +1584,27 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tr>
 <td>$t_http</td>
 <td style="white-space: normal;">integer</td>
-<td><p>the HTTP timeout value (the max period that the OpenStack object will wait for any HTTP request to complete). Value is in seconds.</p>
+<td><p>the HTTP timeout value (the max period that
+     the OpenStack object will wait for any HTTP request to complete).
+     Value is in seconds.</p>
 </td>
 <td></td>
 </tr>
 <tr>
 <td>$t_conn</td>
 <td style="white-space: normal;">integer</td>
-<td><p>the Connect timeout value (the max period that the OpenStack object will wait to establish an HTTP connection). Value is in seconds.</p>
+<td><p>the Connect timeout value (the max period
+     that the OpenStack object will wait to establish an HTTP
+     connection). Value is in seconds.</p>
 </td>
 <td>NULL</td>
 </tr>
 <tr>
 <td>$t_overlimit</td>
 <td style="white-space: normal;">integer</td>
-<td><p>the overlimit timeout value (the max period that the OpenStack object will wait to retry on an overlimit condition). Value is in seconds.</p>
+<td><p>the overlimit timeout value (the max period
+     that the OpenStack object will wait to retry on an overlimit
+     condition). Value is in seconds.</p>
 </td>
 <td>NULL</td>
 </tr>
@@ -1590,7 +1664,8 @@ data that is being uploaded on this call.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>$callback</td>
 <td style="white-space: normal;">callable</td>
-<td><p>the name of a global callback function, or an array($object, $functionname)</p>
+<td><p>the name of a global callback function, or an
+    array($object, $functionname)</p>
 </td>
 <td></td>
 </tr></tbody>
@@ -1861,7 +1936,9 @@ password, but Rackspace uses a username, tenant ID, and API key.
 <td>$secret</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
-<li>an associative array of auth information: * username * password</li>
+<li>an associative array of auth information:</li>
+<li>username</li>
+<li>password</li>
 </ul>
 </td>
 <td></td>
@@ -2156,7 +2233,8 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>$msg</td>
 <td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in sprintf() format.</p>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
 </td>
 <td></td>
 </tr>
@@ -2372,7 +2450,7 @@ with "Debug:" and the class name, to the standard output device.</p>
           protected 
           </span>$defaults
           =
-          array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'DbService' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE), 'VolumeService' =&gt; array('name' =&gt; RAXSDK_VOLUME_NAME, 'region' =&gt; RAXSDK_VOLUME_REGION, 'urltype' =&gt; RAXSDK_VOLUME_URLTYPE), 'LoadBalancerService' =&gt; array('name' =&gt; RAXSDK_LBSERVICE_NAME, 'region' =&gt; RAXSDK_LBSERVICE_REGION, 'urltype' =&gt; RAXSDK_LBSERVICE_URLTYPE))</h3>
+          array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'DbService' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE), 'VolumeService' =&gt; array('name' =&gt; RAXSDK_VOLUME_NAME, 'region' =&gt; RAXSDK_VOLUME_REGION, 'urltype' =&gt; RAXSDK_VOLUME_URLTYPE), 'LoadBalancerService' =&gt; array('name' =&gt; RAXSDK_LBSERVICE_NAME, 'region' =&gt; RAXSDK_LBSERVICE_REGION, 'urltype' =&gt; RAXSDK_LBSERVICE_URLTYPE), 'DNS' =&gt; array('name' =&gt; RAXSDK_DNS_NAME, 'region' =&gt; RAXSDK_DNS_REGION, 'urltype' =&gt; RAXSDK_DNS_URLTYPE))</h3>
 <em></em><br>
 </div>
 <div class="method">
@@ -2480,7 +2558,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a10</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
       $(function() {
 
         var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
@@ -2552,6 +2630,8 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="exceptions.html#CreateError">CreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#CredentialError">CredentialError</a><br><small></small></span></li>
 <li><span class="class"><a href="http.html#CurlRequest">CurlRequest</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="dns.html#DNS">DNS</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
 <li><span class="class"><a href="dbservice.html#DbService">DbService</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
 <li><span class="class"><a href="exceptions.html#DeleteError">DeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#DocumentError">DocumentError</a><br><small></small></span></li>
@@ -2572,6 +2652,7 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#JsonError">JsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="lbservice.html#LoadBalancerService">LoadBalancerService</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
 <li><span class="class"><a href="metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
@@ -2633,6 +2714,23 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="volumeattachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
 to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.html#VolumeError">VolumeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">DNS</span><ul>
+<li><span class="class"><a href="exceptions.html#AsyncError">AsyncError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="asyncresponse.html#AsyncResponse">AsyncResponse</a><br><small>The AsyncResponse class encapsulates the data returned by a Cloud DNS
+asynchronous response.</small></span></li>
+<li><span class="class"><a href="exceptions.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="dnsobject.html#DnsObject">DnsObject</a><br><small>The DnsObject class is an extension of the PersistentObject class that
+permits the asynchronous responses used by Cloud DNS</small></span></li>
+<li><span class="class"><a href="domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li><span class="class"><a href="ptrrecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
+<li><span class="class"><a href="record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li><span class="class"><a href="exceptions.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="domain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
+a parent domain.</small></span></li>
 </ul>
 </li>
 <li class="closed">
