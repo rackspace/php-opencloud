@@ -118,8 +118,8 @@ class DNS extends Service {
 	 * @return \OpenCloud\HttpResponse
 	 */
 	public function Request($url,$method='GET',$headers=array(),$body=NULL) {
-		$headers['Accept'] = 'application/json';
-		$headers['Content-Type'] = 'application/json';
+		$headers['Accept'] = RAXSDK_CONTENT_TYPE_JSON;
+		$headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
 		return parent::Request($url, $method, $headers, $body);
 	}
 
