@@ -1,13 +1,16 @@
 RELEASE NOTES
 -------------
 
-### Master (in progress)
+### 02/21/2013 Version 1.4
 * Added __DIR__ to all internal `require()` calls. [Issue #40]
+* Added support for Rackspace Cloud DNS (see the quick reference in docs/
+  for the details)
+* Other bug fixes that I can't remember, but which are really good. Really.
 
 ### 02/10/2013 Version 1.3
-* **IMPORTANT**: The file extension for include files is not `.php` (instead of 
+* **IMPORTANT**: The file extension for include files is not `.php` (instead of
   `.inc`). This came at the request of numerous individuals. However, it means
-  that all of your scripts that use **php-opencloud** must be edited. 
+  that all of your scripts that use **php-opencloud** must be edited.
 * `DataObject::Create()` now uses `content_type`; using the older
   `type` parameter is deprecated and will cause an UnknownParameterError
   exception.
