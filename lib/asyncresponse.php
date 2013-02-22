@@ -29,7 +29,7 @@ class AsyncResponse extends \OpenCloud\PersistentObject {
 		$request,
 		$response,
 		$error;
-	
+
 	protected static
 		$json_name=FALSE;
 
@@ -48,7 +48,7 @@ class AsyncResponse extends \OpenCloud\PersistentObject {
 			return;
 		parent::__construct($service, $obj);
 	}
-	
+
 	/**
 	 * URL for status
 	 *
@@ -56,10 +56,10 @@ class AsyncResponse extends \OpenCloud\PersistentObject {
 	 *
 	 * @return string
 	 */
-	public function Url() {
+	public function Url($subresource=NULL, $qstr=array()) {
 		return $this->callbackUrl.'?showDetails=True';
 	}
-	
+
 	/**
 	 * returns the Name of the request (the job ID)
 	 *
@@ -68,12 +68,12 @@ class AsyncResponse extends \OpenCloud\PersistentObject {
 	public function Name() {
 		return $this->jobId;
 	}
-	
+
 	/**
 	 * overrides for methods
 	 */
-	public function Create() { return $this->NoCreate(); }
-	public function Update() { return $this->NoUpdate(); }
+	public function Create($parm=array()) { return $this->NoCreate(); }
+	public function Update($parm=array()) { return $this->NoUpdate(); }
 	public function Delete() { return $this->NoDelete(); }
 	public function PrimaryKeyField() { return 'jobId'; }
 }

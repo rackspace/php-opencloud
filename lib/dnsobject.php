@@ -61,9 +61,9 @@ abstract class DnsObject extends \OpenCloud\PersistentObject {
 	public function CreateKeys() {
 		return $this->_create_keys;
 	}
-	
+
 	/* ---------- PROTECTED METHODS ---------- */
-	
+
 	/**
 	 * creates the JSON for create
 	 *
@@ -77,20 +77,20 @@ abstract class DnsObject extends \OpenCloud\PersistentObject {
 		$obj->{$top}[] = $this->GetJson($this->_create_keys);
 		return $obj;
 	}
-	
+
 	/**
 	 * creates the JSON for update
 	 *
 	 * @return stdClass
 	 */
-	protected function UpdateJson() {
+	protected function UpdateJson($params=array()) {
 		if (!isset($this->_update_keys))
 			throw new \OpenCloud\UpdateError(_('Missing [_update_keys]'));
 		return $this->GetJson($this->_update_keys);
 	}
-	
+
 	/* ---------- PRIVATE METHODS ---------- */
-	
+
 	/**
 	 * returns JSON based on $keys
 	 *
@@ -104,5 +104,5 @@ abstract class DnsObject extends \OpenCloud\PersistentObject {
 				$obj->$item = $this->$item;
 		return $obj;
 	}
-	
+
 } // class DnsObject
