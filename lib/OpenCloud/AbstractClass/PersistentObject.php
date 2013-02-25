@@ -149,10 +149,9 @@ abstract class PersistentObject extends Base
             ));
         }
 
-        $headers = $response->Headers();
-        if ($response->HttpStatus() == "201" && array_key_exists('Location', $headers)) {
+        if ($response->HttpStatus() == "201" && $location = $response->Header('Location')) {
             // follow Location header
-            $this->Refresh(NULL, $headers['Location']);
+            $this->Refresh(NULL, $location);
         } else {
             // set values from response
             $retobj = json_decode($response->HttpBody());
