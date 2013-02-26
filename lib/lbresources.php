@@ -13,7 +13,6 @@
 namespace OpenCloud\LoadBalancerService;
 
 require_once(__DIR__.'/persistentobject.php');
-require_once(__DIR__.'/loadbalancer.php');
 
 /**
  * SubResource is an abstract class that handles subresources of a
@@ -349,17 +348,6 @@ class VirtualIp extends SubResource {
 		$_create_keys = array('type', 'ipVersion');
 	public function Update($params=array()) { $this->NoUpdate(); }
 }
-
-/**
- * used to get a list of billable load balancers for a specific date range
- */
-class BillableLoadBalancer extends LoadBalancer {
-	protected static
-		$url_resource = 'loadbalancers/billable';
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
-} // end BillableLoadBalancer
 
 /**
  * used to get usage data for a load balancer

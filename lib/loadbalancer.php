@@ -19,6 +19,8 @@ require_once(__DIR__.'/lbresources.php');		// child resources
 /**
  * The LoadBalancer class represents a single load balancer
  *
+ * NOTE: see BillableLoadBalancer, a subclass, defined at the end of this file.
+ *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
@@ -134,7 +136,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		if (count($this->nodes) < 1)
 			throw new MissingValueError(
 				_('Cannot add nodes; no nodes are defined'));
-		
+
 		// iterate through all the nodes
 		foreach($this->nodes as $node)
 			$resp = $node->Create();
@@ -183,8 +185,8 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	        }
 	    }
 
-		/** 
-		 * If the load balancer exists, we want to add it immediately. 
+		/**
+		 * If the load balancer exists, we want to add it immediately.
 		 * If not, we add it to the virtualIps list and add it when the load
 		 * balancer is created.
 		 */
@@ -198,7 +200,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		}
 		else // queue it
 			$this->virtualIps[] = $obj;
-		
+
 		// done
 		return TRUE;
 	}
@@ -209,7 +211,7 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	 * each managed by independent HTTP requests, such as the .../errorpage
 	 * and the .../sessionpersistence objects.
 	 */
-	
+
 	/**
 	 * returns a Node object
 	 */
@@ -224,14 +226,14 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 		return $this->Parent()->Collection(
 			'\OpenCloud\LoadBalancerService\Node', NULL, $this);
 	}
-	
+
 	/**
 	 * returns a NodeEvent object
 	 */
 	public function NodeEvent() {
 		return new NodeEvent($this);
 	}
-	
+
 	/**
 	 * returns a Collection of NodeEvents
 	 */
@@ -319,13 +321,13 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	public function ContentCaching() {
 		return new ContentCaching($this);
 	}
-	
+
 	/**
 	 */
 	public function SSLTermination() {
 		return new SSLTermination($this);
 	}
-	
+
 	/**
 	 */
 	public function Metadata($data=NULL) {
@@ -371,3 +373,15 @@ class LoadBalancer extends \OpenCloud\PersistentObject {
 	}
 
 } // end LoadBalancer
+
+/**
+ * used to get a list of billable load balancers for a specific date range
+ */
+class BillableLoadBalancer extends LoadBalancer {
+	protected static
+		$url_resource = 'loadbalancers/billable';
+	public function Create($params=array()) { $this->NoCreate(); }
+	public function Update($params=array()) { $this->NoUpdate(); }
+	public function Delete() { $this->NoDelete(); }
+} // end BillableLoadBalancer
+
