@@ -13,6 +13,7 @@
 namespace OpenCloud\LoadBalancerService;
 
 require_once(__DIR__.'/persistentobject.php');
+require_once(__DIR__.'/loadbalancer.php');
 
 /**
  * SubResource is an abstract class that handles subresources of a
@@ -87,7 +88,7 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 		}
     	return $obj;
 	}
-	
+
 	/**
 	 * returns the JSON for the update (same as create)
 	 *
@@ -97,7 +98,7 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 	protected function UpdateJson($params = array()) {
 		return $this->CreateJson();
 	}
-	
+
 	/**
 	 * returns the Parent object (usually a LoadBalancer, but sometimes another
 	 * SubResource)
@@ -107,7 +108,7 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 	public function Parent() {
 		return $this->parent;
 	}
-	
+
 	/**
 	 * returns a (default) name of the object
 	 *
@@ -282,7 +283,7 @@ class Node extends \OpenCloud\PersistentObject {
 /**
  * a single node event, usually called as part of a Collection
  *
- * This is a read-only subresource. 
+ * This is a read-only subresource.
  */
 class NodeEvent extends ReadonlySubResource {
 	public

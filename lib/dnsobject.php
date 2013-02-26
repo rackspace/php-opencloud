@@ -70,10 +70,11 @@ abstract class DnsObject extends \OpenCloud\PersistentObject {
 	 * @return stdClass
 	 */
 	protected function CreateJson() {
+		$obj = new \stdClass;
 		if (!isset($this->_create_keys))
 			throw new \OpenCloud\CreateError(_('Missing [_create_keys]'));
 		$top = self::JsonCollectionName();
-		$obj->$top = array();
+		$obj->{$top} = array();
 		$obj->{$top}[] = $this->GetJson($this->_create_keys);
 		return $obj;
 	}
