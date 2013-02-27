@@ -88,7 +88,8 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>A base class for common code shared between the ObjectStore and ObjectStoreCDN
+<em>A base class for common code shared between the ObjectStore and
+ObjectStoreCDN
 objects</em><br><p>Because Service is an abstract class, it cannot be called directly. Provider
 services such as Rackspace Cloud Servers or OpenStack Swift are each
 subclassed from Service.</p><br><div id="methods_ObjectStoreBase">
@@ -1593,6 +1594,7 @@ RAXSDK_OBJSTORE_REGION, and RAXSDK_OBJSTORE_URLTYPE.</p><br><div id="methods_Obj
       <a style="font-style: italic;" href="#ObjectStore::Region()">Region</a>,
       <a style="font-style: italic;" href="#ObjectStore::Request()">Request</a>,
       <a style="font-style: italic;" href="#ObjectStore::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#ObjectStore::SetTempUrlSecret()">SetTempUrlSecret</a>,
       <a style="font-style: italic;" href="#ObjectStore::Url()">Url</a>,
       <a style="font-style: italic;" href="#ObjectStore::__construct()">__construct</a>,
       <a style="font-style: italic;" href="#ObjectStore::__set()">__set</a>,
@@ -2484,6 +2486,45 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td><a href="objectstore.html#%5COpenCloud%5CObjectStoreBase::SetProperty()"><small>\OpenCloud\ObjectStoreBase::SetProperty()</small></a></td>
 </tr>
 </tbody>
+</table>
+</div>
+<div class="method">
+<a id="ObjectStore::SetTempUrlSecret()"></a><h3>SetTempUrlSecret<span class="nb-faded-text">(
+          string
+             
+            $secret,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
+</h3>
+<h4>Description</h4>
+<em>sets the shared secret value for the TEMP_URL</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$secret</td>
+<td style="white-space: normal;">string</td>
+<td><p>the shared secret</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\HttpResponse</td>
+<td></td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
@@ -4827,7 +4868,8 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.html#NameError">NameError</a><br><small></small></span></li>
 <li><span class="class"><a href="nova.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="objectstore.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
-<li><span class="class"><a href="objectstore.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and ObjectStoreCDN
+<li><span class="class"><a href="objectstore.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and
+ObjectStoreCDN
 objects</small></span></li>
 <li><span class="class"><a href="objectstore.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
 <li><span class="class"><a href="openstack.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
@@ -4932,7 +4974,7 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="lbresources.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
 <li><span class="class"><a href="lbresources.html#Algorithm">Algorithm</a><br><small>sub-resource to manage algorithms (read-only)</small></span></li>
 <li><span class="class"><a href="lbresources.html#AllowedDomain">AllowedDomain</a><br><small>sub-resource to manage allowed domains</small></span></li>
-<li><span class="class"><a href="lbresources.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
+<li><span class="class"><a href="loadbalancer.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
 <li><span class="class"><a href="lbresources.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
 <li><span class="class"><a href="lbresources.html#ConnectionThrottle">ConnectionThrottle</a><br><small>sub-resource to manage connection throttling</small></span></li>
 <li><span class="class"><a href="lbresources.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
@@ -4984,6 +5026,7 @@ LoadBalancer object; for example, the
 features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#TempUrlMethodError">TempUrlMethodError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
 </ul>
 </li>

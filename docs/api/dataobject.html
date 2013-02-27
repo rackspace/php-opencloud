@@ -107,6 +107,7 @@ certain PHP keywords.</p><br><div id="methods_DataObject">
       <a style="font-style: italic;" href="#DataObject::SetData()">SetData</a>,
       <a style="font-style: italic;" href="#DataObject::SetParams()">SetParams</a>,
       <a style="font-style: italic;" href="#DataObject::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#DataObject::TempUrl()">TempUrl</a>,
       <a style="font-style: italic;" href="#DataObject::Update()">Update</a>,
       <a style="font-style: italic;" href="#DataObject::Url()">Url</a>,
       <a style="font-style: italic;" href="#DataObject::__construct()">__construct</a>,
@@ -1280,6 +1281,74 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="DataObject::TempUrl()"></a><h3>TempUrl<span class="nb-faded-text">(
+          string
+             
+            $secret,
+          integer
+             
+            $expires,
+          string
+             
+            $method,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>returns the TEMP_URL for the object</em><br><small><p>Some notes:
+* The <code>$secret</code> value is arbitrary; it must match the value set for
+  the <code>X-Account-Meta-Temp-URL-Key</code> on the account level. This can be
+  set by calling <code>$service-&gt;SetTempUrlSecret($secret)</code>.
+* The <code>$expires</code> value is the number of seconds you want the temporary
+  URL to be valid for. For example, use <code>60</code> to make it valid for a
+  minute
+* The <code>$method</code> must be either GET or PUT. No other methods are
+  supported.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$secret</td>
+<td style="white-space: normal;">string</td>
+<td><p>the shared secret</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$expires</td>
+<td style="white-space: normal;">integer</td>
+<td><p>the expiration time (in seconds)</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$method</td>
+<td style="white-space: normal;">string</td>
+<td><p>either GET or PUT</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>the temporary URL</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="DataObject::Update()"></a><h3>Update<span class="nb-faded-text">(
           array
              
@@ -1787,6 +1856,7 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#DataObject::%24data">$data</a>,
       <a href="#DataObject::%24etag">$etag</a>,
       <a href="#DataObject::%24hash">$hash</a>,
+      <a href="#DataObject::%24header_translate">$header_translate</a>,
       <a href="#DataObject::%24http_headers">$http_headers</a>,
       <a href="#DataObject::%24last_modified">$last_modified</a>,
       <a href="#DataObject::%24metadata">$metadata</a>,
@@ -1861,6 +1931,15 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$hash
           =
           </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="DataObject::$header_translate"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$header_translate
+          =
+          array('Etag' =&gt; 'hash', 'Last-Modified' =&gt; 'last_modified')</h3>
 <em></em><br>
 </div>
 <div class="method">
@@ -2039,7 +2118,8 @@ headers, and any response body necessary.</small></span></li>
 <li><span class="class"><a href="exceptions.html#NameError">NameError</a><br><small></small></span></li>
 <li><span class="class"><a href="nova.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="objectstore.html#ObjectStore">ObjectStore</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
-<li><span class="class"><a href="objectstore.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and ObjectStoreCDN
+<li><span class="class"><a href="objectstore.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and
+ObjectStoreCDN
 objects</small></span></li>
 <li><span class="class"><a href="objectstore.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
 <li><span class="class"><a href="openstack.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
@@ -2144,7 +2224,7 @@ database-as-a-service product.</small></span></li>
 <li><span class="class"><a href="lbresources.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
 <li><span class="class"><a href="lbresources.html#Algorithm">Algorithm</a><br><small>sub-resource to manage algorithms (read-only)</small></span></li>
 <li><span class="class"><a href="lbresources.html#AllowedDomain">AllowedDomain</a><br><small>sub-resource to manage allowed domains</small></span></li>
-<li><span class="class"><a href="lbresources.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
+<li><span class="class"><a href="loadbalancer.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
 <li><span class="class"><a href="lbresources.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
 <li><span class="class"><a href="lbresources.html#ConnectionThrottle">ConnectionThrottle</a><br><small>sub-resource to manage connection throttling</small></span></li>
 <li><span class="class"><a href="lbresources.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
@@ -2196,6 +2276,7 @@ LoadBalancer object; for example, the
 features of all object-storage classes</small></span></li>
 <li><span class="class"><a href="exceptions.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#TempUrlMethodError">TempUrlMethodError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
 </ul>
 </li>
