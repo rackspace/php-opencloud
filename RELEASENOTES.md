@@ -1,7 +1,10 @@
 RELEASE NOTES
 -------------
 
-### Current branch: working
+### Current branch: master
+
+### Next release:
+* Issue #38 - added support for Cloud Files TEMP_URL feature
 
 ### 02/21/2013 Version 1.4
 * Added __DIR__ to all internal `require()` calls. [Issue #40]
