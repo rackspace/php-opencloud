@@ -106,6 +106,21 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 	        'OpenCloud\ObjectStore\Container',
 	        get_class($this->dataobject->Container()));
 	}
+	public function testTempUrl1() {
+		$this->assertEquals(
+			0,
+			strpos(
+				'https://storage101.dfw1.clouddrive.com/v1/'.
+				'M-ALT-ID/TEST/DATA-OBJECT?temp_url_sig',
+				$this->dataobject->TempUrl('secret', 60, 'GET')));
+	}
+	/**
+	 * @expectedException OpenCloud\ObjectStore\TempUrlMethodError
+	 */
+	public function testTempUrl2() {
+		// POST is invalid
+		$this->dataobject->TempUrl('secret', 60, 'POST');
+	}
 	public function testSetData() {
 	    $this->dataobject->SetData(12345);
 	    $this->dataobject->SetData('hello');

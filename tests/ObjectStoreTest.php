@@ -59,6 +59,12 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
 		    'OpenCloud\Collection',
 		    get_class($clist));
 	}
+	public function testSetTempUrlSecret() {
+		$resp = $this->ostore->SetTempUrlSecret('foobar');
+		$this->assertEquals(
+			200,
+			$resp->HttpStatus());
+	}
 	public function testCDN() {
 	    $this->assertEquals(
 	        'OpenCloud\ObjectStoreCDN',

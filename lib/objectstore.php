@@ -18,7 +18,8 @@ require_once(__DIR__.'/container.php');
 define('SWIFT_MAX_OBJECT_SIZE', 5*1024*1024*1024+1);
 
 /**
- * A base class for common code shared between the ObjectStore and ObjectStoreCDN
+ * A base class for common code shared between the ObjectStore and
+ * ObjectStoreCDN
  * objects
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
@@ -142,6 +143,24 @@ class ObjectStore extends ObjectStoreBase {
 		    $this->cdn = NULL;
 		}
 	} // function __construct()
+
+	/**
+	 * sets the shared secret value for the TEMP_URL
+	 *
+	 * @param string $secret the shared secret
+	 * @return HttpResponse
+	 */
+	public function SetTempUrlSecret($secret) {
+		$resp = $this->Request($this->Url(), 'POST',
+			array('X-Account-Meta-Temp-URL-Key' => $secret));
+		if ($resp->HttpStatus() > 204)
+			throw new \OpenCloud\HttpError(sprintf(
+				_('Error in request, status [%d] for URL [%s] [%s]'),
+				$resp->HttpStatus(),
+				$this->Url(),
+				$resp->HttpBody()));
+		return $resp;
+	}
 
     /**
      * returns the CDN object

@@ -269,6 +269,53 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
+	 * returns the TEMP_URL for the object
+	 *
+	 * Some notes:
+	 * * The `$secret` value is arbitrary; it must match the value set for
+	 *   the `X-Account-Meta-Temp-URL-Key` on the account level. This can be
+	 *   set by calling `$service->SetTempUrlSecret($secret)`.
+	 * * The `$expires` value is the number of seconds you want the temporary
+	 *   URL to be valid for. For example, use `60` to make it valid for a
+	 *   minute
+	 * * The `$method` must be either GET or PUT. No other methods are
+	 *   supported.
+	 *
+	 * @param string $secret the shared secret
+	 * @param integer $expires the expiration time (in seconds)
+	 * @param string $method either GET or PUT
+	 * @return string the temporary URL
+	 */
+	public function TempUrl($secret, $expires, $method) {
+		$method = strtoupper($method);
+		$expiry_time = time() + $expires;
+
+		// check for proper method
+		switch($method) {
+		case 'GET':
+		case 'PUT':
+			break;
+		default:
+			throw new TempUrlMethodError(sprintf(
+				_('Bad method [%s] for TempUrl; only GET or PUT supported'),
+				$method));
+		}
+
+		// construct the URL
+		$url = $this->Url();
+		$path = parse_url($url, PHP_URL_PATH);
+		$temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d',
+			$url,
+			hash_hmac('sha1', "$method\n$expires\n$path", $secret),
+			$expiry_time);
+
+		// debug that stuff
+		$this->debug('TempUrl generated [%s]', $temp_url);
+
+		return $temp_url;
+	}
+
+	/**
 	 * Sets object data from string
 	 *
 	 * This is a convenience function to permit the use of other technologies

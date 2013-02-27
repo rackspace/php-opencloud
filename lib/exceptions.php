@@ -112,6 +112,7 @@ namespace OpenCloud\ObjectStore {
     class ObjectError extends \Exception {}     // SyntaxException
     class ObjectCopyError extends \Exception {}
     class ObjFetchError extends \Exception {}
+    class TempUrlMethodError extends \Exception {}
     class UnknownParameterError extends \Exception {}
 }
 
