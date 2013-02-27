@@ -299,7 +299,7 @@ class CurlRequest implements HTTPRequest {
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class HttpResponse {
+class HttpResponse extends \OpenCloud\Base {
 
 	private
 		$errno,
