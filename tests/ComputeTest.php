@@ -30,6 +30,16 @@ class ComputeTest extends PHPUnit_Framework_TestCase
 	/**
 	 * Tests
 	 */
+	/**
+	 * @expectedException OpenCloud\Compute\UnsupportedVersionError
+	 */
+	public function test__construct() {
+		$compute = new OpenCloud\Compute(
+			$this->conn,
+			'cloudServers', // invalid version
+			'DFW',
+			'publicURL');
+	}
 	public function testUrl() {
 		$this->assertEquals(
 		'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers',

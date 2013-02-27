@@ -76,6 +76,13 @@ class Compute extends Nova {
 			$urltype
 		);
 
+		// check the URL version
+		$path = parse_url($this->Url(), PHP_URL_PATH);
+		if (substr($path, 0, 3) == '/v1')
+			throw new Compute\UnsupportedVersionError(sprintf(
+				_('Sorry; API version /v1 is not supported [%s]'),
+				$this->Url()));
+
 		// load extension namespaces
 		$this->load_namespaces();
 	} // function __construct()
