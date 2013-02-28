@@ -8,7 +8,7 @@ require_once('rackspace.php');
 require_once('compute.php');
 
 // my credentials
-define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
+define('AUTHURL', RACKSPACE_US);
 $mysecret = array(
     'username' => '{username}',
     'apiKey' => '{apiKey}'

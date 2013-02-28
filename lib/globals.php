@@ -138,13 +138,21 @@ define('RAXSDK_URL_PUBLIC', 'publicURL');
 define('RAXSDK_URL_INTERNAL', 'internalURL');
 define('RAXSDK_URL_VERSION_INFO', 'versionInfo');
 define('RAXSDK_URL_VERSION_LIST', 'versionList');
+
+/**
+ * definitions for Rackspace authentication endpoints
+ */
+define('RACKSPACE_US', 'https://identity.api.rackspacecloud.com/v2.0/');
+define('RACKSPACE_UK', 'https://lon.identity.api.rackspacecloud.com/v2.0/');
+
 /**
  * We can re-authenticate this many seconds before the token expires
  *
- * Set this to a higher value if your service does not cache tokens; if it *does* cache
- * them, then this value is not required.
+ * Set this to a higher value if your service does not cache tokens; if
+ * it *does* cache them, then this value is not required.
  */
 define('RAXSDK_FUDGE', 0);
+
 /**
  * Readable constants
  */
@@ -152,6 +160,7 @@ define('RAXSDK_SOFT_REBOOT', 'soft');
 define('RAXSDK_HARD_REBOOT', 'hard');
 define('RAXSDK_DETAILS', TRUE);
 define('RAXSDK_MAX_CONTAINER_NAME_LEN', 256);
+
 /**
  * UUID of the Rackspace 'public' network
  */

@@ -15,7 +15,7 @@ require_once('rackspace.php');
 define('MYSERVERID', '9bfd203a-0695-410d-8202-66c4194c967b');
 
 // auth credentials
-define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
+define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);

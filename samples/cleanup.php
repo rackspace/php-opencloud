@@ -24,7 +24,8 @@ define('MYREGION', $_ENV['OS_REGION_NAME']);
  * set to the right values before running this test.
  */
 define('AUTHURL', $_ENV['NOVA_URL']);
-define('USERNAME', $_ENV['OS_USERNAME']);
+// hard-coded to prevent inadvertently deleting stuff in my other account
+define('USERNAME', 'raxglenc');
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 

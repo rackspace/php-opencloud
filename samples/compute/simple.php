@@ -8,7 +8,7 @@ define('FLAVOR_ID', '2');
 require_once('rackspace.php');
 require_once('compute.php');
 
-define('AUTHURL', 'https://identity.api.rackspacecloud.com/v2.0/');
+define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
