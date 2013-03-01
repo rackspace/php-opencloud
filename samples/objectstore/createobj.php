@@ -20,7 +20,7 @@ define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
-define('TEMP_URL_SECRET', 'FUBAR');
+define('TEMP_URL_SECRET', 'April is the cruellest month, breeding lilacs...');
 
 // progress callback function
 function UploadProgress($len) {
