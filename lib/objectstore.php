@@ -152,7 +152,7 @@ class ObjectStore extends ObjectStoreBase {
 	 */
 	public function SetTempUrlSecret($secret) {
 		$resp = $this->Request($this->Url(), 'POST',
-			array('X-Account-Meta-Temp-URL-Key' => $secret));
+			array('X-Account-Meta-Temp-Url-Key' => $secret));
 		if ($resp->HttpStatus() > 204)
 			throw new \OpenCloud\HttpError(sprintf(
 				_('Error in request, status [%d] for URL [%s] [%s]'),

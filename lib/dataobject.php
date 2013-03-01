@@ -304,10 +304,11 @@ class DataObject extends ObjStoreBase {
 		// construct the URL
 		$url = $this->Url();
 		$path = parse_url($url, PHP_URL_PATH);
+		$hmac_body = "$method\n$expiry_time\n$path";
+		$hash = hash_hmac('sha1', $hmac_body, $secret);
+		$this->debug('URL [%s] SIG [%s] HASH [%s]', $url, $hmac_body, $hash);
 		$temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d',
-			$url,
-			hash_hmac('sha1', "$method\n$expires\n$path", $secret),
-			$expiry_time);
+			$url, $hash, $expiry_time);
 
 		// debug that stuff
 		$this->debug('TempUrl generated [%s]', $temp_url);

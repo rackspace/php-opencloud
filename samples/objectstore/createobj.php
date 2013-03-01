@@ -20,7 +20,7 @@ define('USERNAME', $_ENV['OS_USERNAME']);
 define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
-define('TEMP_URL_SECRET', 'April is the cruellest month, breeding lilacs...');
+define('TEMP_URL_SECRET', 'FUBAR');
 
 // progress callback function
 function UploadProgress($len) {
@@ -38,10 +38,10 @@ $connection->SetUploadProgressCallback('OpenCloud\UploadProgress');
 // create a Cloud Files (ObjectStore) connection
 $ostore = $connection->ObjectStore(/* uses defaults from above */);
 
+//setDebug(TRUE);
+
 // set the temp URL secret
 $ostore->SetTempUrlSecret(TEMP_URL_SECRET);
-
-//setDebug(TRUE);
 
 // next, make a container named 'Sample'
 printf("Creating container...\n");
@@ -56,7 +56,9 @@ $obj->Create(
 	array('name' => 'SampleObject', 'content_type' => 'text/plain'),
 	__FILE__);
 printf("\nObject hash is %s\n", $obj->hash);
-printf("TEMP_URL is %s\n", $obj->TempUrl(TEMP_URL_SECRET, 60, 'GET'));
+printf("Object URL is %s\n", $obj->Url());
+$temp = $obj->TempUrl(TEMP_URL_SECRET, 600, 'GET');
+printf("TEMP_URL is %s\n", $temp);
 
 // copy it to another object
 printf("Copying...\n");
