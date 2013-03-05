@@ -57,4 +57,10 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
 	        'OpenCloud\LoadBalancerService',
 	        get_class($lbservice));
 	}
+	public function testDNS() {
+		$dns = $this->conn->DNS(NULL, 'DFW');
+		$this->assertEquals(
+			'OpenCloud\DNS',
+			get_class($dns));
+	}
 }
