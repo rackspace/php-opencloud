@@ -32,7 +32,8 @@ class DataObject extends ObjStoreBase {
         $bytes,             // size of object in bytes
         $last_modified,     // date of last modification
         $content_type,		// Content-Type:
-        $content_length;	// Content-Length:
+        $content_length,	// Content-Length:
+        $extra_headers;		// Other headers, eg. Access-Control-Allow-Origin:
 
     private
         $data,				// the actual data
@@ -98,7 +99,7 @@ class DataObject extends ObjStoreBase {
 	 *
 	 * @api
 	 * @param array $params an optional associative array that can contain the
-	 *      'name' and 'type' of the object
+	 *      'name' and 'content_type' of the object
 	 * @param string $filename if provided, then the object is loaded from the
 	 *		specified file
 	 * @return boolean
@@ -125,7 +126,8 @@ class DataObject extends ObjStoreBase {
 			}
 			$this->content_length = $filesize;
 
-			$this->_guess_content_type($filename);
+			if (empty($this->content_type))
+				$this->_guess_content_type($filename);
 			/*
 			$this->write($fp, $size, $verify);
 			fclose($fp);
@@ -139,8 +141,8 @@ class DataObject extends ObjStoreBase {
 		}
 
 		// flag missing Content-Type
-		if (!$this->content_type)
-		    $this->content_type = 'application/octet-stream';
+		if (empty($this->content_type))
+			$this->content_type = 'application/octet-stream';
 
 		// set the headers
 		$headers = $this->MetadataHeaders();
@@ -148,6 +150,13 @@ class DataObject extends ObjStoreBase {
 		    $headers['ETag'] = $this->etag;
 		$headers['Content-Type'] = $this->content_type;
 		$headers['Content-Length'] = $this->content_length;
+
+		// copy any extra headers
+		if (!empty($this->extra_headers) ) {
+			foreach ($this->extra_headers as $header=>$value) {
+				$headers[$header] = $value;
+			}
+		}
 
 		// perform the request
 		$response = $this->Service()->Request(
@@ -480,6 +489,9 @@ class DataObject extends ObjStoreBase {
 			case 'content_type':
 				$this->content_type = $value;
 				break;
+			case 'extra_headers':
+				$this->extra_headers = $value;
+				break;
 			default:
 				throw new UnknownParameterError(
 				    sprintf(
@@ -511,6 +523,9 @@ class DataObject extends ObjStoreBase {
             return FALSE;
         }
 
+        if(!isset($this->extra_headers))
+            $this->extra_headers = array();
+
         // set headers as metadata?
         foreach($response->Headers() as $header => $value) {
             switch($header) {
@@ -521,6 +536,7 @@ class DataObject extends ObjStoreBase {
                 $this->content_length = $value;
                 break;
             default:
+                $this->extra_headers[$header] = $value;
                 break;
             }
         }
