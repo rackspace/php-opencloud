@@ -98,7 +98,7 @@ class DataObject extends ObjStoreBase {
 	 *
 	 * @api
 	 * @param array $params an optional associative array that can contain the
-	 *      'name' and 'type' of the object
+	 *      'name' and 'content_type' of the object
 	 * @param string $filename if provided, then the object is loaded from the
 	 *		specified file
 	 * @return boolean
@@ -125,7 +125,8 @@ class DataObject extends ObjStoreBase {
 			}
 			$this->content_length = $filesize;
 
-			$this->_guess_content_type($filename);
+			if (empty($this->content_type))
+				$this->_guess_content_type($filename);
 			/*
 			$this->write($fp, $size, $verify);
 			fclose($fp);
@@ -139,8 +140,8 @@ class DataObject extends ObjStoreBase {
 		}
 
 		// flag missing Content-Type
-		if (!$this->content_type)
-		    $this->content_type = 'application/octet-stream';
+		if (empty($this->content_type))
+			$this->content_type = 'application/octet-stream';
 
 		// set the headers
 		$headers = $this->MetadataHeaders();
