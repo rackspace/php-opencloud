@@ -109,12 +109,15 @@ class ObjectStore extends ObjectStoreBase {
      * @param string $serviceName the name of the service to use
      * @param string $serviceRegion the name of the service region to use
      * @param string $urltype the type of URL to use (usually "publicURL")
+     * @param string $cdnUrltype the type of URL to use for CDN operations
+     *      (optional, NULL defaults to $urltype)
      */
 	public function __construct(
 		OpenStack $conn,
 		$serviceName=RAXSDK_OBJSTORE_NAME,
 		$serviceRegion=RAXSDK_OBJSTORE_REGION,
-		$urltype=RAXSDK_OBJSTORE_URLTYPE) {
+		$urltype=RAXSDK_OBJSTORE_URLTYPE,
+		$cdnUrltype=NULL) {
 		$this->debug(_('initializing ObjectStore...'));
 
 		// call the parent contructor
@@ -126,13 +129,18 @@ class ObjectStore extends ObjectStoreBase {
 			$urltype
 		);
 
+		// If no URL type is passed for CDN operations, then assume
+		// it's the same as the main URL type.
+		if (is_null($cdnUrltype) )
+			$cdnUrltype = $urltype;
+
 		// establish the CDN container, if available
 		try {
             $this->cdn = new ObjectStoreCDN(
                 $conn,
                 $serviceName.'CDN', // will work for Rackspace
                 $serviceRegion,
-                $urltype
+                $cdnUrltype
             );
 		} catch (\OpenCloud\EndpointError $e) {
 		    /**
