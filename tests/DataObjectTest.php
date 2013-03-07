@@ -82,6 +82,23 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 		// "type" is deprecated; this causes the exception
 		$obj->Create(array('name'=>'X','type'=>'error'));
 	}
+	public function testCreateContentType() {
+		$arr = array('name'=>'MOOFUS', 'content_type'=>'application/x-arbitrary-mime-type');
+		$obj = new OpenCloud\ObjectStore\DataObject($this->container);
+		$obj->Create($arr, __FILE__);
+		$this->assertEquals('application/x-arbitrary-mime-type', $obj->content_type);
+	}
+	public function testCreateWithHeaders() {
+		$arr = array('name'=>'HOOFUS',
+		             'extra_headers'=>array('Access-Control-Allow-Origin'=>'http://example.com'));
+		$obj = new OpenCloud\ObjectStore\DataObject($this->container);
+		$obj->Create($arr, __FILE__);
+		$this->assertEquals('http://example.com', $obj->extra_headers['Access-Control-Allow-Origin']);
+
+		//$obj2 = new OpenCloud\ObjectStore\DataObject($this->container, 'HOOFUS');
+		//$this->assertArrayHasKey('Access-Control-Allow-Origin', $obj2->extra_headers);
+		//$this->assertEquals('http://example.com', $obj2->extra_headers['Access-Control-Allow-Origin']);
+	}
 	public function testUpdate() {
 		$arr = array('name'=>'XOOFUS', 'content_type'=>'text/plain');
 		$obj = new OpenCloud\ObjectStore\DataObject($this->container);

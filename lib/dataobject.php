@@ -528,6 +528,9 @@ class DataObject extends ObjStoreBase {
 
         // set headers as metadata?
         foreach($response->Headers() as $header => $value) {
+            if (0===strpos($header, 'HTTP/') or 0===strpos($header, "\n"))
+                continue;
+
             switch($header) {
             case 'Content-Type':
                 $this->content_type = $value;
