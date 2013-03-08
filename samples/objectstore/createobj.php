@@ -22,6 +22,8 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('TEMP_URL_SECRET', 'April is the cruellest month, breeding lilacs...');
 
+define('CONTAINER_NAME', 'A Container Name With Spaces');
+
 // progress callback function
 function UploadProgress($len) {
 	printf("[uploading %d bytes]", $len);
@@ -43,10 +45,10 @@ $ostore = $connection->ObjectStore(/* uses defaults from above */);
 // set the temp URL secret
 $ostore->SetTempUrlSecret(TEMP_URL_SECRET);
 
-// next, make a container named 'Sample'
+// next, make a container named CONTAINER_NAME
 printf("Creating container...\n");
 $cont = $ostore->Container();
-$cont->Create(array('name'=>'Sample'));
+$cont->Create(array('name'=>CONTAINER_NAME));
 
 // finally, create an object in that container named hello.txt
 printf("Creating object...\n");

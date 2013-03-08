@@ -70,7 +70,7 @@ class CDNContainer extends ObjStoreBase {
 	public function Url() {
 		if (!$this->name)
 			throw new NoNameError(_('Container does not have an identifier'));
-		return noslash($this->Service()->Url()).'/'.$this->name;
+		return noslash($this->Service()->Url()).'/'.rawurlencode($this->name);
 	}
 
 	/**
