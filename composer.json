@@ -1,5 +1,5 @@
 {
-    "name": "james75/php-opencloud",
+    "name": "rackspace/php-opencloud",
     "description": "Rackspace open cloud php library",
     "keywords": ["opencloud", "cloudfiles"],
     "version": "1.4.0",
