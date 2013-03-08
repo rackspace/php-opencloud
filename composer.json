@@ -1,0 +1,16 @@
+{
+    "name": "rackspace/php-opencloud",
+    "description": "Rackspace open cloud php library",
+    "keywords": ["opencloud", "cloudfiles"],
+    "version": "1.4.0",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "classmap": ["lib/"]
+    },
+    "require": {
+        "php"     : ">=5.3.0",
+        "ext-curl": "*"
+    }
+
+}
