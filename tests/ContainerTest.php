@@ -56,6 +56,12 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST',
 		    $this->container->Url());
+		$space_cont = new OpenCloud\ObjectStore\Container(
+		    $this->service, 'Name With Spaces');
+		$this->assertEquals(
+	        'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/'.
+	            'Name%20With%20Spaces',
+		    $space_cont->Url());
 	}
 	public function testCreate() {
 		$con = $this->container->Create(array('name'=>'SECOND'));
