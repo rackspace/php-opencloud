@@ -98,8 +98,8 @@ contains a Quick Reference
 guide to the
 **php-opencloud** library.
 
-The source for the "Getting Started with **php-opencloud**" document (the
-user's guide) starts in
+The source for the "Getting Started with
+**php-opencloud**" document (the user guide) starts in
 [docs/userguide/index.md](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/index.md).
 
 There is a complete (auto-generated) API reference manual in the
