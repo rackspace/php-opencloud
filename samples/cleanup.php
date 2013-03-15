@@ -2,10 +2,11 @@
 /**
  * (c)2012 Rackspace Hosting. See COPYING for license details
  *
- * This sample creates an isolated network called SAMPLENET. It then
- * creates two servers attached to that network. Once the servers are
- * created, it pauses to wait for you to verify the connectivity. When
- * it continues, it deletes the servers and SAMPLENET.
+ * This sample script deletes all cloud servers, snapshots, 
+ * cloud networks, cloud files containers, load balancers, DNS
+ * entries, and database instances associated with your account.
+ * Be careful using this script unless you want to purge all items
+ * created under your account.
  */
 $start = time();
 ini_set('include_path', './lib:'.ini_get('include_path'));
