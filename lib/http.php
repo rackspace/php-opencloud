@@ -38,7 +38,7 @@ interface HttpRequest
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class CurlRequest implements HTTPRequest {
+class CurlRequest extends Base implements HTTPRequest {
 
 	private
 		$url,
@@ -66,7 +66,7 @@ class CurlRequest implements HTTPRequest {
         $this->SetOption(CURLOPT_CUSTOMREQUEST, $method);
         foreach($options as $opt => $value) {
         	$this->debug(_('Setting option %s=%s'), $opt, $value);
-        	$this->SetOptions($opt, $value);
+        	$this->SetOption($opt, $value);
         }
 
         // set security handling options

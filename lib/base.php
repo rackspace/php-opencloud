@@ -189,8 +189,8 @@ abstract class Base {
 	 *
 	 * This can be stubbed out for unit testing and avoid making live calls.
 	 */
-	protected function GetHttpRequestObject($url, $method='GET') {
-		return new CurlRequest($url, $method);
+	protected function GetHttpRequestObject($url, $method='GET', $options = array()) {
+		return new CurlRequest($url, $method, $options);
 	}
 
 	/**
