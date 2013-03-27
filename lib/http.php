@@ -71,13 +71,10 @@ class CurlRequest extends Base implements HTTPRequest {
 
         // set security handling options
         if (RAXSDK_SSL_VERIFYHOST != 2) {
-            error_log(printf(
-                _('WARNING: RAXSDK_SSL_VERIFYHOST has reduced security, '.
-                    "value [%d]\n"),
-                RAXSDK_SSL_VERIFYHOST));
+            syslog(LOG_WARNING, _("WARNING: RAXSDK_SSL_VERIFYHOST has reduced security, value [" . RAXSDK_SSL_VERIFYHOST . "]\n"));
         }
         if (RAXSDK_SSL_VERIFYPEER !== TRUE) {
-            error_log(printf(_("WARNING: RAXSDK_SSL_VERIFYPEER has reduced security\n")));
+            syslog(LOG_WARNING, _("WARNING: RAXSDK_SSL_VERIFYPEER has reduced security\n"));
         }
         $this->SetOption(CURLOPT_SSL_VERIFYHOST, RAXSDK_SSL_VERIFYHOST);
         $this->SetOption(CURLOPT_SSL_VERIFYPEER, RAXSDK_SSL_VERIFYPEER);
