@@ -582,19 +582,16 @@ class DataObject extends ObjStoreBase {
             return;
 
         if (function_exists("finfo_open")) {
-            $local_magic = dirname(__FILE__) . "/share/magic";
-            $finfo = @finfo_open(FILEINFO_MIME, $local_magic);
-
-            if (!$finfo)
-                $finfo = @finfo_open(FILEINFO_MIME);
-
+            $finfo = finfo_open(FILEINFO_MIME);
+            if (!$finfo) {
+                $local_magic = dirname(__FILE__) . "/share/magic";
+                if (is_file($local_magic))
+                    $finfo = finfo_open(FILEINFO_MIME, $local_magic);
+            }
             if ($finfo) {
-
-                if (is_file((string)$handle))
-                    $ct = @finfo_file($finfo, $handle);
-                else
-                    $ct = @finfo_buffer($finfo, $handle);
-
+                $ct = is_file((string)$handle) ?
+                        finfo_file($finfo, $handle):
+                        finfo_buffer($finfo, $handle);
                 /* PHP 5.3 fileinfo display extra information like
                    charset so we remove everything after the ; since
                    we are not into that stuff */
@@ -603,11 +600,10 @@ class DataObject extends ObjStoreBase {
                     if ($extra_content_type_info)
                         $ct = substr($ct, 0, $extra_content_type_info);
                 }
-
                 if ($ct && $ct != 'application/octet-stream')
                     $this->content_type = $ct;
 
-                @finfo_close($finfo);
+                finfo_close($finfo);
             }
         }
 
