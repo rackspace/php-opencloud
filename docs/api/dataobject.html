@@ -348,7 +348,7 @@ to a new object.</p></small><br><h4>Arguments</h4>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
 <td><p>an optional associative array that can contain the
-     'name' and 'type' of the object</p>
+     'name' and 'content_type' of the object</p>
 </td>
 <td>array()</td>
 </tr>
@@ -490,6 +490,10 @@ parameter array.</p></small><br><h4>Arguments</h4>
             $method
             = 'GET',
           
+             
+            $options
+            = array(),
+          
           )
         </span>
         :
@@ -516,6 +520,12 @@ parameter array.</p></small><br><h4>Arguments</h4>
 <td style="white-space: normal;">n/a</td>
 <td></td>
 <td>'GET'</td>
+</tr>
+<tr>
+<td>$options</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
 </tr>
 </tbody>
 </table>
@@ -1855,6 +1865,7 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#DataObject::%24content_type">$content_type</a>,
       <a href="#DataObject::%24data">$data</a>,
       <a href="#DataObject::%24etag">$etag</a>,
+      <a href="#DataObject::%24extra_headers">$extra_headers</a>,
       <a href="#DataObject::%24hash">$hash</a>,
       <a href="#DataObject::%24header_translate">$header_translate</a>,
       <a href="#DataObject::%24http_headers">$http_headers</a>,
@@ -1920,6 +1931,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <span class="nb-faded-text"> 
           private 
           </span>$etag
+          =
+          </h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="DataObject::$extra_headers"></a><h3>
+<span class="nb-faded-text"> 
+          public 
+          </span>$extra_headers
           =
           </h3>
 <em></em><br>
@@ -2171,6 +2191,7 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#UnsupportedVersionError">UnsupportedVersionError</a><br><small></small></span></li>
 <li><span class="class"><a href="volumeattachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
 to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.html#VolumeError">VolumeError</a><br><small></small></span></li>

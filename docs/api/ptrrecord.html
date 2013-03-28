@@ -398,11 +398,11 @@ exception thrown.</p>
 <a id="PtrRecord::Create()"></a><h3>Create<span class="nb-faded-text">(
           
              
-            $srv,
-          
-             
             $param
             = array(),
+          
+             
+            $srv,
           
           )
         </span>
@@ -420,16 +420,16 @@ exception thrown.</p>
 </tr></thead>
 <tbody>
 <tr>
-<td>$srv</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td>$param</td>
 <td style="white-space: normal;">n/a</td>
 <td></td>
 <td>array()</td>
+</tr>
+<tr>
+<td>$srv</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -694,6 +694,10 @@ unless you pass in the parameter ip={ip address}</p></small><br><h4>Arguments</h
             $method
             = 'GET',
           
+             
+            $options
+            = array(),
+          
           )
         </span>
         :
@@ -720,6 +724,12 @@ unless you pass in the parameter ip={ip address}</p></small><br><h4>Arguments</h
 <td style="white-space: normal;">n/a</td>
 <td></td>
 <td>'GET'</td>
+</tr>
+<tr>
+<td>$options</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
 </tr>
 </tbody>
 </table>
@@ -1682,11 +1692,11 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <a id="PtrRecord::Update()"></a><h3>Update<span class="nb-faded-text">(
           
              
-            $srv,
-          
-             
             $param
             = array(),
+          
+             
+            $srv,
           
           )
         </span>
@@ -1704,16 +1714,16 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$srv</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td>$param</td>
 <td style="white-space: normal;">n/a</td>
 <td></td>
 <td>array()</td>
+</tr>
+<tr>
+<td>$srv</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -2629,6 +2639,7 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#UnsupportedVersionError">UnsupportedVersionError</a><br><small></small></span></li>
 <li><span class="class"><a href="volumeattachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
 to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.html#VolumeError">VolumeError</a><br><small></small></span></li>

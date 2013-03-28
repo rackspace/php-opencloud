@@ -66,6 +66,7 @@
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
+<a href="base.html#%5COpenCloud%5CBase">\OpenCloud\Base</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value">\OpenCloud\HTTPRequest<br> 
       </div>
@@ -88,21 +89,137 @@ this permit stubbing of the interface as described under the HttpRequest
 interface, it could potentially allow us to replace the interface methods
 with other function calls in the future.</p><br><div id="methods_CurlRequest">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#CurlRequest::Execute()">Execute</a>,
+<a style="font-style: italic;" href="#CurlRequest::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#CurlRequest::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#CurlRequest::Execute()">Execute</a>,
+      <a style="font-style: italic;" href="#CurlRequest::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#CurlRequest::MakeQueryString()">MakeQueryString</a>,
       <a style="font-style: italic;" href="#CurlRequest::ReturnHeaders()">ReturnHeaders</a>,
       <a style="font-style: italic;" href="#CurlRequest::SetConnectTimeout()">SetConnectTimeout</a>,
       <a style="font-style: italic;" href="#CurlRequest::SetHeader()">SetHeader</a>,
       <a style="font-style: italic;" href="#CurlRequest::SetHttpTimeout()">SetHttpTimeout</a>,
       <a style="font-style: italic;" href="#CurlRequest::SetOption()">SetOption</a>,
+      <a style="font-style: italic;" href="#CurlRequest::SetProperty()">SetProperty</a>,
       <a style="font-style: italic;" href="#CurlRequest::SetRetries()">SetRetries</a>,
+      <a style="font-style: italic;" href="#CurlRequest::Url()">Url</a>,
       <a style="font-style: italic;" href="#CurlRequest::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#CurlRequest::__set()">__set</a>,
       <a style="font-style: italic;" href="#CurlRequest::_get_header_cb()">_get_header_cb</a>,
       <a style="font-style: italic;" href="#CurlRequest::close()">close</a>,
+      <a style="font-style: italic;" href="#CurlRequest::debug()">debug</a>,
       <a style="font-style: italic;" href="#CurlRequest::errno()">errno</a>,
       <a style="font-style: italic;" href="#CurlRequest::error()">error</a>,
       <a style="font-style: italic;" href="#CurlRequest::info()">info</a>,
       <a style="font-style: italic;" href="#CurlRequest::setheaders()">setheaders</a>,
+      <a style="font-style: italic;" href="#CurlRequest::to_string()">to_string</a>,
       <div class="method">
+<a id="CurlRequest::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+          string
+             
+            $property,
+          array
+             
+            $prefixes
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">boolean</span>
+</h3>
+<h4>Description</h4>
+<em>Checks the attribute $property and only permits it if the prefix is
+in the specified $prefixes array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$property</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the attribute</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$prefixes</td>
+<td style="white-space: normal;">array</td>
+<td><p>a list of prefixes</p></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>boolean</td>
+<td>TRUE if valid; FALSE if not</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::CheckAttributePrefix()"><small>\OpenCloud\Base::CheckAttributePrefix()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">boolean</span>
+</h3>
+<h4>Description</h4>
+<em>Checks the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
+This ensures that nasty JSON errors are detected and the proper
+exception thrown.</p>
+
+<p>Example:
+  <code>$obj = json_decode($string);</code>
+  <code>if (check_json_error()) do something ...</code></p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>boolean</td>
+<td>TRUE if an error occurred, FALSE if none</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::CheckJsonError()"><small>\OpenCloud\Base::CheckJsonError()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="CurlRequest::Execute()"></a><h3>Execute<span class="nb-faded-text">(
           
           )
@@ -133,6 +250,129 @@ any CURL error.</p></small><br><h4>Return value</h4>
 <tbody><tr>
 <td>throws</td>
 <td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+          
+             
+            $url,
+          
+             
+            $method
+            = 'GET',
+          
+             
+            $options
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a class that implements the HttpRequest interface.</em><br><small><p>This can be stubbed out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$method</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>'GET'</td>
+</tr>
+<tr>
+<td>$options</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Base::GetHttpRequestObject()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+          array
+             
+            $arr,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$arr</td>
+<td style="white-space: normal;">array</td>
+<td><p>array of key/value pairs</p>
+</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::MakeQueryString()"><small>\OpenCloud\Base::MakeQueryString()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -353,6 +593,86 @@ value.</p></small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
+<a id="CurlRequest::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+          string
+             
+            $property,
+          mixed
+             
+            $value,
+          array
+             
+            $prefixes
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Sets an extended (unrecognized) property on the current object</em><br><small><p>If RAXSDK_STRICT_PROPERTY_CHECKS is TRUE, then the prefix of the
+property name must appear in the $prefixes array, or else an
+exception is thrown.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$property</td>
+<td style="white-space: normal;">string</td>
+<td><p>the property name</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>the value of the property</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$prefixes</td>
+<td style="white-space: normal;">array</td>
+<td><p>optional list of supported prefixes</p></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td>if strict checks are on and
+     the property prefix is not in the list of prefixes.</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::SetProperty()"><small>\OpenCloud\Base::SetProperty()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
 <a id="CurlRequest::SetRetries()"></a><h3>SetRetries<span class="nb-faded-text">(
           
              
@@ -390,6 +710,46 @@ up to that number.</p></small><br><h4>Arguments</h4>
 <td>n/a</td>
 <td>n/a</td>
 </tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::Url()"></a><h3>Url<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the URL of the service/object</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
+base level, it simply throws an exception to enforce the idea that
+subclasses need to define this method.</p></small><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>throws</td>
+<td></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::Url()"><small>\OpenCloud\Base::Url()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
@@ -452,6 +812,70 @@ up to that number.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>n/a</td>
 <td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::__set()"></a><h3>__set<span class="nb-faded-text">(
+          string
+             
+            $property,
+          mixed
+             
+            $value,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Sets extended attributes on an object and validates them</em><br><small><p>This function is provided to ensure that attributes cannot
+arbitrarily added to an object. If this function is called, it
+means that the attribute is not defined on the object, and thus
+an exception is thrown.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$property</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the attribute</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$value</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>the value of the attribute</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::__set()"><small>\OpenCloud\Base::__set()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -523,6 +947,120 @@ up to that number.</p></small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>n/a</td>
 <td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="CurlRequest::debug()"></a><h3>debug<span class="nb-faded-text">(
+          string
+             
+            $msg,
+          mixed
+             
+            $p1
+            = NULL,
+          mixed
+             
+            $p2
+            = NULL,
+          mixed
+             
+            $p3
+            = NULL,
+          mixed
+             
+            $p4
+            = NULL,
+          mixed
+             
+            $p5
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Displays a debug message if $RAXSDK_DEBUG is TRUE</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
+up to five optional parameters. It prints the debug message, prefixed
+with "Debug:" and the class name, to the standard output device.</p>
+
+<p>Example:
+  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$msg</td>
+<td style="white-space: normal;">string</td>
+<td><p>The message string (required); can be in
+     sprintf() format.</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$p1</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>Optional argument to be passed to sprintf()</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p2</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>Optional argument to be passed to sprintf()</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p3</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>Optional argument to be passed to sprintf()</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p4</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>Optional argument to be passed to sprintf()</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$p5</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>Optional argument to be passed to sprintf()</p>
+</td>
+<td>NULL</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::debug()"><small>\OpenCloud\Base::debug()</small></a></td>
 </tr></tbody>
 </table>
 </div>
@@ -629,16 +1167,77 @@ the setheader() method on each of them.</p></small><br><h4>Arguments</h4>
 </tr></tbody>
 </table>
 </div>
+<div class="method">
+<a id="CurlRequest::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+          mixed
+             
+            $x,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Converts a value to an HTTP-displayable string form</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$x</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>a value to convert</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="base.html#%5COpenCloud%5CBase::to_string()"><small>\OpenCloud\Base::to_string()</small></a></td>
+</tr></tbody>
+</table>
+</div>
 </div>
 <div id="properties_CurlRequest">
 <h4>Properties</h4>
-<a href="#CurlRequest::%24handle">$handle</a>,
+<a href="#CurlRequest::%24_errors">$_errors</a>,
+      <a href="#CurlRequest::%24handle">$handle</a>,
       <a href="#CurlRequest::%24headers">$headers</a>,
+      <a href="#CurlRequest::%24http_headers">$http_headers</a>,
       <a href="#CurlRequest::%24method">$method</a>,
       <a href="#CurlRequest::%24retries">$retries</a>,
       <a href="#CurlRequest::%24returnheaders">$returnheaders</a>,
       <a href="#CurlRequest::%24url">$url</a>,
       <div class="method">
+<a id="CurlRequest::$_errors"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$_errors
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
 <a id="CurlRequest::$handle"></a><h3>
 <span class="nb-faded-text"> 
           private 
@@ -652,6 +1251,15 @@ the setheader() method on each of them.</p></small><br><h4>Arguments</h4>
 <span class="nb-faded-text"> 
           private 
           </span>$headers
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="CurlRequest::$http_headers"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$http_headers
           =
           array()</h3>
 <em></em><br>
@@ -857,6 +1465,10 @@ exception thrown.</p>
             $method
             = 'GET',
           
+             
+            $options
+            = array(),
+          
           )
         </span>
         :
@@ -883,6 +1495,12 @@ exception thrown.</p>
 <td style="white-space: normal;">n/a</td>
 <td></td>
 <td>'GET'</td>
+</tr>
+<tr>
+<td>$options</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
 </tr>
 </tbody>
 </table>
@@ -1766,6 +2384,10 @@ exception thrown.</p>
             $method
             = 'GET',
           
+             
+            $options
+            = array(),
+          
           )
         </span>
         :
@@ -1792,6 +2414,12 @@ exception thrown.</p>
 <td style="white-space: normal;">n/a</td>
 <td></td>
 <td>'GET'</td>
+</tr>
+<tr>
+<td>$options</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
 </tr>
 </tbody>
 </table>
@@ -2969,6 +3597,7 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="exceptions.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
 <li><span class="class"><a href="exceptions.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li><span class="class"><a href="exceptions.html#UnsupportedVersionError">UnsupportedVersionError</a><br><small></small></span></li>
 <li><span class="class"><a href="volumeattachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
 to a server.</small></span></li>
 <li><span class="class"><a href="exceptions.html#VolumeError">VolumeError</a><br><small></small></span></li>
