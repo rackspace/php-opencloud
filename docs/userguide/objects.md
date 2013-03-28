@@ -49,7 +49,7 @@ These are the available methods (examples are below):
 
 * `Url()` - the URL of the object in the storage system
 * `Create()` - creates a new object in the object storage system
-* `Update()` - updates an existing object
+* `Update()` - updates an existing object - does this really update it seems to just create
 * `Delete()` - deletes an object
 * `SetData()` - sets the content of the object directly (rarely used)
 * `SaveToString()` - returns the object as a string (rarely used)
