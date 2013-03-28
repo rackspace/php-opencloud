@@ -57,7 +57,7 @@ class PtrRecord extends Record {
 	/**
 	 * DNS PTR Create() method requires a server
 	 */
-	public function Create(\OpenCloud\Compute\Server $srv, $param=array()) {
+	public function Create($param=array(), \OpenCloud\Compute\Server $srv) {
 		$this->link_rel = $srv->Service()->Name();
 		$this->link_href = $srv->Url();
 		return parent::Create($param);
@@ -66,7 +66,7 @@ class PtrRecord extends Record {
 	/**
 	 * DNS PTR Update() method requires a server
 	 */
-	public function Update(\OpenCloud\Compute\Server $srv, $param=array()) {
+	public function Update($param=array(), \OpenCloud\Compute\Server $srv) {
 		$this->link_rel = $srv->Service()->Name();
 		$this->link_href = $srv->Url();
 		return parent::Update($param);
