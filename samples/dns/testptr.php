@@ -37,10 +37,11 @@ while($server = $slist->Next()) {
 			printf("- comment: %s\n", $ptr->comment);
 			printf("  modifying...\n");
 			$ptr->comment = sprintf('Updated at %s', date('H:i:s'));
-			$aresp = $ptr->Update($server);
+			$aresp = $ptr->Update(array('server'=>$server));
 			$aresp->WaitFor('COMPLETED', 300, 'pstat', 1);
 			printf("  deleting...\n");
-			$aresp = $ptr->Delete($server, $ptr->data);
+			$ptr->server = $server;
+			$aresp = $ptr->Delete();
 			$aresp->WaitFor('COMPLETED', 300, 'pstat', 1);
 		}
 	} catch (\OpenCloud\CollectionError $e) {
@@ -51,11 +52,11 @@ while($server = $slist->Next()) {
 	printf("- IPv4\n");
 	$ptr->name = 'foo.raxdrg.info';
 	$ptr->data = $server->accessIPv4;
-	$aresp = $ptr->Create($server);
+	$aresp = $ptr->Create(array('server'=>$server));
 	$aresp->WaitFor('COMPLETED', 300, 'pstat', 1);
 	printf("- IPv6\n");
 	$ptr->data = $server->accessIPv6;
-	$aresp = $ptr->Create($server);
+	$aresp = $ptr->Create(array('server'=>$server));
 	$aresp->WaitFor('COMPLETED', 300, 'pstat', 1);
 }
 

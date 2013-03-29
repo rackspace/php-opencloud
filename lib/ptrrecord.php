@@ -23,6 +23,9 @@ require_once(__DIR__.'/record.php');
  */
 class PtrRecord extends Record {
 
+	public
+		$server;
+
 	protected static
 		$json_name = FALSE,
 		$json_collection_name = 'records',
@@ -56,19 +59,27 @@ class PtrRecord extends Record {
 
 	/**
 	 * DNS PTR Create() method requires a server
+	 *
+	 * Generally called as `Create(array('server'=>$server))`
 	 */
-	public function Create($param=array(), \OpenCloud\Compute\Server $srv) {
-		$this->link_rel = $srv->Service()->Name();
-		$this->link_href = $srv->Url();
+	public function Create($param=array()) {
+		foreach($param as $key => $value) {
+			$this->$key = $value;
+		}
+		$this->link_rel = $this->server->Service()->Name();
+		$this->link_href = $this->server->Url();
 		return parent::Create($param);
 	}
 
 	/**
 	 * DNS PTR Update() method requires a server
 	 */
-	public function Update($param=array(), \OpenCloud\Compute\Server $srv) {
-		$this->link_rel = $srv->Service()->Name();
-		$this->link_href = $srv->Url();
+	public function Update($param=array()) {
+		foreach($param as $key => $value) {
+			$this->$key = $value;
+		}
+		$this->link_rel = $this->server->Service()->Name();
+		$this->link_href = $this->server->Url();
 		return parent::Update($param);
 	}
 
@@ -79,9 +90,9 @@ class PtrRecord extends Record {
 	 * unless you pass in the parameter ip={ip address}
 	 *
 	 */
-	public function Delete(\OpenCloud\Compute\Server $srv) {
-		$this->link_rel = $srv->Service()->Name();
-		$this->link_href = $srv->Url();
+	public function Delete() {
+		$this->link_rel = $this->server->Service()->Name();
+		$this->link_href = $this->server->Url();
 		$url = $this->Url('rdns/'.$this->link_rel,
 			array('href'=>$this->link_href));
 		if (isset($this->data))
@@ -113,7 +124,9 @@ class PtrRecord extends Record {
 	/**
 	 * The Update() JSON requires a record ID
 	 */
-	protected function UpdateJson() {
+	protected function UpdateJson($params=array()) {
+		foreach($params as $key => $value)
+			$this->$key = $value;
 		$obj = $this->CreateJson();
 		$obj->recordsList->records[0]->id = $this->id;
 		return $obj;

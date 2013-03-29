@@ -56,18 +56,19 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 		$server = $this->conn->Compute(NULL, 'ORD')->Server(array('id'=>'foo'));
 		$this->assertEquals(
 			'OpenCloud\DNS\AsyncResponse',
-			get_class($this->record->Create(array(), $server)));
+			get_class($this->record->Create(array('server'=>$server))));
 	}
 	public function testUpdate() {
 		$server = $this->conn->Compute(NULL, 'ORD')->Server(array('id'=>'foo'));
 		$this->assertEquals(
 			'OpenCloud\DNS\AsyncResponse',
-			get_class($this->record->Update(array(), $server)));
+			get_class($this->record->Create(array('server'=>$server))));
 	}
 	public function testDelete() {
 		$server = $this->conn->Compute(NULL, 'ORD')->Server(array('id'=>'foo'));
+		$this->record->server = $server;
 		$this->assertEquals(
 			'OpenCloud\DNS\AsyncResponse',
-			get_class($this->record->Delete($server)));
+			get_class($this->record->Delete()));
 	}
 }
