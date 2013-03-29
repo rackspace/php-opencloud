@@ -210,6 +210,43 @@ class DataObject extends ObjStoreBase {
 	}
 
 	/**
+	 * UpdateMetadata() - updates headers
+	 *
+	 * Updates metadata headers
+	 *
+	 * @api
+	 * @param array $params an optional associative array that can contain the
+	 *      'name' and 'type' of the object
+	 * @return boolean
+	 */
+	public function UpdateMetadata($params=array()) {
+		$this->SetParams($params);
+
+		// set the headers
+		$headers = $this->MetadataHeaders();
+		$headers['Content-Type'] = $this->content_type;
+
+		$response = $this->Service()->Request(
+			$this->Url(),
+			'POST',
+			$headers
+		);
+
+		// check the status
+		if (($stat=$response->HttpStatus()) >= 204) {
+			throw new UpdateError(
+			    sprintf(
+			        _('Problem updating object [%s] HTTP status [%s]'.
+			            ' response [%s]'),
+				    $this->Url(),
+				    $stat,
+				    $response->HttpBody()));
+			return FALSE;
+		}
+		return $response;
+	}
+
+	/**
 	 * Deletes an object from the Object Store
 	 *
 	 * Note that we can delete without retrieving by specifying the name in the
