@@ -111,6 +111,13 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 	    $this->dataobject->Delete(array('content_type'=>'text/plain'));
 	    $this->assertEquals('DATA-OBJECT', $this->dataobject->name);
 	}
+	public function testUpdateMetadata() {
+		$this->dataobject->UpdateMetadata(array(
+			'content_type'=>'text/html'));
+		$this->assertEquals(
+			'text/html',
+			$this->dataobject->content_type);
+	}
 	public function testCopy() {
 	    $target = $this->container->DataObject();
 	    $target->name = 'DESTINATION';
