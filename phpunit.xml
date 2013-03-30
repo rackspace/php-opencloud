@@ -7,8 +7,7 @@
     <const name="TEST_DOMAIN" value="http://example.com"/>
     <const name="TEST_SECRET" value="This is a secret"/>
   </php>
-  <logging>
-    <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
-    <log type="json" target="/tmp/phpunit-logfile.json"/>
-  </logging>
+  <testsuite>
+    <directory>./tests/</directory>
+  </testsuite>
 </phpunit>
