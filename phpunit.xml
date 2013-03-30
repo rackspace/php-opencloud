@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit verbose="false">
-  <php>
-    <includePath>./lib/</includePath>
-    <const name="RAXSDK_STRICT_PROPERTY_CHECKS" value="1"/>
-    <const name="TESTDIR" value="tests/"/>
-    <const name="TEST_DOMAIN" value="http://example.com"/>
-    <const name="TEST_SECRET" value="This is a secret"/>
-  </php>
+<phpunit verbose="true" bootstrap="./tests/bootstrap.php">
+  
+    <testsuites>
+        <testsuite name="OpenCloud">
+            <directory>./tests/OpenCloud/Tests</directory>
+        </testsuite>
+    </testsuites>
+
   <logging>
     <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
     <log type="json" target="/tmp/phpunit-logfile.json"/>
   </logging>
+
+  <filter>
+        <whitelist>
+            <directory suffix=".php">./lib</directory>
+        </whitelist>
+  </filter>
+
 </phpunit>
