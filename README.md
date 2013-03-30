@@ -10,7 +10,8 @@ See the
 [COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
 file for license and copyright information.
 
-Now running continuous integration at http://travis-ci.org
+Now running continuous integration at 
+[travis-ci.org](https://travis-ci.org/rackspace/php-opencloud)
 
 For other SDKs, see http://developer.rackspace.com
 
