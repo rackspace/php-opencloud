@@ -9,13 +9,14 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('nova.php');
-require_once('stub_conn.php');
+namespace OpenCloud\Tests;
+
+require_once('StubConnection.php');
 
 // stub out Nova because it's an abstract class
-class MyNova extends OpenCloud\Nova { }
+class MyNova extends \OpenCloud\AbstractClass\Nova { }
 
-class NovaTest extends PHPUnit_Framework_TestCase
+class NovaTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$conn, 		// connection
@@ -45,7 +46,7 @@ class NovaTest extends PHPUnit_Framework_TestCase
 	}
 	public function testFlavorList() {
 		$flist = $this->nova->FlavorList();
-		$this->assertEquals('OpenCloud\Collection', get_class($flist));
+		$this->assertEquals('OpenCloud\AbstractClass\Collection', get_class($flist));
 	}
 	public function testRequest() {
 		// this returns 404 because the Connection::Request() is stubbed out

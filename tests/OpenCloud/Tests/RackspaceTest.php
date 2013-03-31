@@ -9,19 +9,19 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('rackspace.php');
+namespace OpenCloud\Tests;
 
 /**
  * Stub for Rackspace to Override the ->Request() method
  */
-class MyRackspace extends OpenCloud\Rackspace {
+class MyRackspace extends \OpenCloud\Base\Rackspace {
     public function Request() {
-    	return new OpenCloud\Base\Request\Response\Blank(array(
+    	return new \OpenCloud\Base\Request\Response\Blank(array(
     		'body'=>file_get_contents(TESTDIR.'/connection.json')));
     }
 }
 
-class RackspaceTest extends PHPUnit_Framework_TestCase
+class RackspaceTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$conn;
@@ -49,18 +49,18 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
 	}
 	public function testDbService() {
 		$dbaas = $this->conn->DbService(NULL, 'DFW');
-		$this->assertEquals('OpenCloud\DbService', get_class($dbaas));
+		$this->assertEquals('OpenCloud\Database\Service', get_class($dbaas));
 	}
 	public function testLoadBalancerService() {
 	    $lbservice = $this->conn->LoadBalancerService(NULL, 'DFW');
 	    $this->assertEquals(
-	        'OpenCloud\LoadBalancerService',
+	        'OpenCloud\LoadBalancer\Service',
 	        get_class($lbservice));
 	}
 	public function testDNS() {
 		$dns = $this->conn->DNS(NULL, 'DFW');
 		$this->assertEquals(
-			'OpenCloud\DNS',
+			'OpenCloud\DNS\Service',
 			get_class($dns));
 	}
 }

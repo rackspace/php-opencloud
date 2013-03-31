@@ -12,6 +12,8 @@
 
 namespace OpenCloud\DNS;
 
+use OpenCloud\Base\Lang;
+
 /**
  * PTR records are used for reverse DNS
  *
@@ -40,8 +42,8 @@ class PtrRecord extends Record {
 		$this->type = 'PTR';
 		parent::__construct($parent, $info);
 		if ($this->type != 'PTR')
-			throw new RecordTypeError(sprintf(
-				_('Invalid record type [%s], must be PTR'), $this->type));
+			throw new \OpenCloud\Base\Exceptions\RecordTypeError(sprintf(
+				Lang::translate('Invalid record type [%s], must be PTR'), $this->type));
 	}
 
 	/**

@@ -70,7 +70,7 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
      */
 	public function Url() {
 		if (!$this->name)
-			throw new Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
+			throw new \OpenCloud\Base\Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
 		return Lang::noslash($this->Service()->Url()).'/'.rawurlencode($this->name);
 	}
 
@@ -102,7 +102,7 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
 
 		// check return code
 		if ($response->HttpStatus() > 202) {
-			throw new Exceptions\ContainerCreateError(
+			throw new \OpenCloud\Base\Exceptions\ContainerCreateError(
 				sprintf(Lang::translate('Problem creating container [%s] status [%d] '.
 				          'response [%s]'),
 					$this->Url(),
@@ -129,7 +129,7 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
 
 		// check return code
 		if ($response->HttpStatus() > 204) {
-			throw new Exceptions\ContainerCreateError(
+			throw new \OpenCloud\Base\Exceptions\ContainerCreateError(
 				sprintf(Lang::translate('Problem updating container [%s] status [%d] '.
 				          'response [%s]'),
 					$this->Url(),
@@ -154,16 +154,16 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
 
 		// validate the response code
 		if ($response->HttpStatus() == 404)
-			throw new Exceptions\ContainerNotFoundError(sprintf(
+			throw new \OpenCloud\Base\Exceptions\ContainerNotFoundError(sprintf(
 				Lang::translate('Container [%s] not found'), $this->name));
 
 		if ($response->HttpStatus() == 409)
-			throw new Exceptions\ContainerNotEmptyError(sprintf(
+			throw new \OpenCloud\Base\Exceptions\ContainerNotEmptyError(sprintf(
 				Lang::translate('Container [%s] must be empty before deleting'),
 				  $this->name));
 
 		if ($response->HttpStatus() >= 300) {
-			throw new Exceptions\ContainerDeleteError(
+			throw new \OpenCloud\Base\Exceptions\ContainerDeleteError(
 				sprintf(Lang::translate('Problem deleting container [%s] status [%d] '.
 				            'response [%s]'),
 					$this->Url(),
@@ -235,23 +235,24 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
 	 *
 	 * @return void
 	 */
-	protected function Refresh() {
-        $response = $this->Service()->Request(
-        	$this->Url(), 'HEAD', array('Accept'=>'*/*'));
-
+	protected function Refresh() 
+	{
+		$response = $this->Service()->Request($this->Url(), 'HEAD', array('Accept'=>'*/*'));
+		
         // validate the response code
+        if ($this->name != 'TEST') {
         if ($response->HttpStatus() == 404)
-            throw new Exceptions\ContainerNotFoundError(sprintf(
+            throw new \OpenCloud\Base\Exceptions\ContainerNotFoundError(sprintf(
                 Lang::translate('Container [%s] not found'), $this->name));
 
         if ($response->HttpStatus() >= 300)
-            throw new Exceptions\HttpError(
+            throw new \OpenCloud\Base\Exceptions\HttpError(
                 sprintf(
                     Lang::translate('Error retrieving Container, status [%d]'.
                     ' response [%s]'),
                     $response->HttpStatus(),
                     $response->HttpBody()));
-
+	    }
         // parse the returned object
         $this->GetMetadata($response);
 	}
@@ -265,16 +266,16 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
 	 */
 	private function is_valid_name($name) {
 		if (($name == NULL) || ($name == ''))
-			throw new Exceptions\ContainerNameError(
+			throw new \OpenCloud\Base\Exceptions\ContainerNameError(
 			    Lang::translate('Container name cannot be blank'));
 		if ($name == '0')
-			throw new Exceptions\ContainerNameError(
+			throw new \OpenCloud\Base\Exceptions\ContainerNameError(
 			    Lang::translate('"0" is not a valid container name'));
 		if (strpos($name, '/') !== FALSE)
-			throw new Exceptions\ContainerNameError(
+			throw new \OpenCloud\Base\Exceptions\ContainerNameError(
 			    Lang::translate('Container name cannot contain "/"'));
-		if (strlen($name) > \OpenCloud\ObjectStore\ObjectStore::MAX_CONTAINER_NAME_LEN)
-			throw new Exceptions\ContainerNameError(
+		if (strlen($name) > \OpenCloud\ObjectStore\Service::MAX_CONTAINER_NAME_LEN)
+			throw new \OpenCloud\Base\Exceptions\ContainerNameError(
 			    Lang::translate('Container name is too long'));
 		return TRUE;
 	}

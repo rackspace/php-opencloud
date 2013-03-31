@@ -17,7 +17,7 @@ namespace OpenCloud\DNS;
  * permits the asynchronous responses used by Cloud DNS
  *
  */
-abstract class Object extends \OpenCloud\Abstract\PersistentObject {
+abstract class Object extends \OpenCloud\AbstractClass\PersistentObject {
 
 	/**
 	 * Create() returns an asynchronous response
@@ -69,7 +69,7 @@ abstract class Object extends \OpenCloud\Abstract\PersistentObject {
 	protected function CreateJson() {
 		$obj = new \stdClass;
 		if (!isset($this->_create_keys))
-			throw new \OpenCloud\CreateError(_('Missing [_create_keys]'));
+			throw new \OpenCloud\Base\Exceptions\CreateError(\OpenCloud\Base\Lang::translate('Missing [_create_keys]'));
 		$top = self::JsonCollectionName();
 		$obj->{$top} = array();
 		$obj->{$top}[] = $this->GetJson($this->_create_keys);
@@ -83,7 +83,7 @@ abstract class Object extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	protected function UpdateJson($params=array()) {
 		if (!isset($this->_update_keys))
-			throw new \OpenCloud\UpdateError(_('Missing [_update_keys]'));
+			throw new \OpenCloud\Base\Exceptions\UpdateError(\OpenCloud\Base\Lang::translate('Missing [_update_keys]'));
 		return $this->GetJson($this->_update_keys);
 	}
 

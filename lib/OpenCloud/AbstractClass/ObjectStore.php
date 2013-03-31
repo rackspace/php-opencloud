@@ -87,8 +87,8 @@ abstract class ObjectStore extends \OpenCloud\Base\Base {
 		if (property_exists($this, 'name'))
 			return $this->name;
 		else
-			throw new \OpenCloud\NameError(sprintf(
-				_('name attribute does not exist for [%s]'),
+			throw new \OpenCloud\Base\Exceptions\NameError(sprintf(
+				\OpenCloud\Base\Lang::translate('name attribute does not exist for [%s]'),
 				get_class($this)));
 	}
 
@@ -127,8 +127,8 @@ abstract class ObjectStore extends \OpenCloud\Base\Base {
 		case 'DataObject':
 			return self::OBJECT_META_PREFIX;
 		default:
-			throw new MetadataPrefixError(sprintf(
-				_('Unrecognized metadata type [%s]'), $type));
+			throw new \OpenCloud\Base\Exceptions\MetadataPrefixError(sprintf(
+				\OpenCloud\Base\Lang::translate('Unrecognized metadata type [%s]'), $type));
 		}
 	}
 }

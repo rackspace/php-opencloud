@@ -47,7 +47,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		    'DATA-OBJECT',
 		    $this->dataobject->name);
 		$this->assertEquals(
-		    'OpenCloud\Metadata',
+		    'OpenCloud\Base\Metadata',
 		    get_class($this->dataobject->metadata));
 	}
 	public function testUrl() {
@@ -67,16 +67,16 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		$arr = array('name'=>'DOOFUS', 'content_type'=>'text/plain');
 		$obj = new \OpenCloud\ObjectStore\DataObject($this->container);
 		$this->assertEquals(
-		    '\OpenCloud\Base\Request\Response\Blank',
+		    'OpenCloud\Base\Request\Response\Blank',
 		    get_class($obj->Create($arr)));
 		$this->assertEquals('DOOFUS', $obj->name);
 		$obj = new \OpenCloud\ObjectStore\DataObject($this->container);
 		$this->assertEquals(
-		    '\OpenCloud\Base\Request\Response\Blank',
+		    'OpenCloud\Base\Request\Response\Blank',
 		    get_class($obj->Create(array('name'=>'FOOBAR'), '/dev/null')));
 	}
 	/**
-	 * @expectedException OpenCloud\ObjectStore\UnknownParameterError
+	 * @expectedException \OpenCloud\Base\Exceptions\UnknownParameterError
 	 */
 	public function testCreate2() {
 		$obj = new \OpenCloud\ObjectStore\DataObject($this->container);
@@ -96,7 +96,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		$obj->Create($arr, __FILE__);
 		$this->assertEquals('http://example.com', $obj->extra_headers['Access-Control-Allow-Origin']);
 
-		//$obj2 = new OpenCloud\ObjectStore\DataObject($this->container, 'HOOFUS');
+		//$obj2 = new \OpenCloud\ObjectStore\DataObject($this->container, 'HOOFUS');
 		//$this->assertArrayHasKey('Access-Control-Allow-Origin', $obj2->extra_headers);
 		//$this->assertEquals('http://example.com', $obj2->extra_headers['Access-Control-Allow-Origin']);
 	}
@@ -104,7 +104,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		$arr = array('name'=>'XOOFUS', 'content_type'=>'text/plain');
 		$obj = new \OpenCloud\ObjectStore\DataObject($this->container);
 		$this->assertEquals(
-		    '\OpenCloud\Base\Request\Response\Blank',
+		    'OpenCloud\Base\Request\Response\Blank',
 		    get_class($obj->Update($arr)));
 		$this->assertEquals('XOOFUS', $obj->name);
 	}
@@ -123,12 +123,12 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	    $target = $this->container->DataObject();
 	    $target->name = 'DESTINATION';
 	    $this->assertEquals(
-	        '\OpenCloud\Base\Request\Response\Blank',
+	        'OpenCloud\Base\Request\Response\Blank',
 	        get_class($this->dataobject->Copy($target)));
 	}
 	public function testContainer() {
 	    $this->assertEquals(
-	        '\OpenCloud\ObjectStore\Container',
+	        'OpenCloud\ObjectStore\Container',
 	        get_class($this->dataobject->Container()));
 	}
 	public function testTempUrl1() {
@@ -140,7 +140,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 				$this->dataobject->TempUrl('secret', 60, 'GET')));
 	}
 	/**
-	 * @expectedException OpenCloud\ObjectStore\TempUrlMethodError
+	 * @expectedException \OpenCloud\Base\Exceptions\TempUrlMethodError
 	 */
 	public function testTempUrl2() {
 		// POST is invalid
@@ -164,7 +164,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	        $this->dataobject->getETag());
 	}
 	/**
-	 * @expectedException OpenCloud\ObjectStore\UnknownParameterError
+	 * @expectedException \OpenCloud\Base\Exceptions\UnknownParameterError
 	 */
 	public function testSetParams() {
 	    $this->dataobject->Delete(array('FOO'=>'BAR'));
@@ -177,7 +177,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals('FOO', $obj->name);
 	}
 	/**
-	 * @expectedException OpenCloud\ObjectStore\CdnNotAvailableError
+	 * @expectedException \OpenCloud\Base\Exceptions\CdnNotAvailableError
 	 */
 	public function testCDNURL() {
 	    $this->assertEquals(
@@ -185,13 +185,13 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	        $this->dataobject->CDNURL());
 	}
 	/**
-	 * @expectedException OpenCloud\ObjectStore\CdnNotAvailableError
+	 * @expectedException \OpenCloud\Base\Exceptions\CdnNotAvailableError
 	 */
 	public function testPurgeCDN() {
 	    $this->dataobject->PurgeCDN('glen@glenc.co');
 	}
 	/**
-	 * @expectedException OpenCloud\ObjectStore\CdnNotAvailableError
+	 * @expectedException \OpenCloud\Base\Exceptions\CdnNotAvailableError
 	 */
 	public function testPublicURL() {
 	    $this->assertEquals(

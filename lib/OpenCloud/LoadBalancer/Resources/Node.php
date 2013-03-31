@@ -8,7 +8,7 @@ namespace OpenCloud\LoadBalancer\Resources;
  * This extends `PersistentObject` because it has an ID, unlike most other
  * sub-resources.
  */
-class Node extends \OpenCloud\Abstract\PersistentObject {
+class Node extends \OpenCloud\AbstractClass\PersistentObject {
 	public
 		$id,
 		$address,
@@ -37,7 +37,7 @@ class Node extends \OpenCloud\Abstract\PersistentObject {
 	 * @param mixed $info either an ID or an array of values
 	 * @returns void
 	 */
-	public function __construct(LoadBalancer $lb, $info=NULL) {
+	public function __construct(\OpenCloud\LoadBalancer\LoadBalancer $lb, $info=NULL) {
 		$this->_lb = $lb;
 		parent::__construct($lb->Service(), $info);
 	}
@@ -95,6 +95,6 @@ class Node extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	public function MetadataList() {
 		return $this->Service()->Collection(
-			'\OpenCloud\LoadBalancerService\Metadata', NULL, $this);
+			'\OpenCloud\LoadBalancer\Resources\Metadata', NULL, $this);
 	}
 }

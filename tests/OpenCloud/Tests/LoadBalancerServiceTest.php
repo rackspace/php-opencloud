@@ -9,6 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
+namespace OpenCloud\Tests;
+
 require_once('StubConnection.php');
 
 class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
@@ -25,6 +27,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 			'DFW',
 			'publicURL'
 		);
+		
 	}
 	/**
 	 * Tests
@@ -37,7 +40,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 			'publicURL'
 		);
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\Service',
+			'OpenCloud\LoadBalancer\Service',
 			get_class($this->service));
 	}
 	public function testUrl() {
@@ -48,52 +51,52 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testLoadBalancer() {
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\LoadBalancer',
+			'OpenCloud\LoadBalancer\LoadBalancer',
 			get_class($this->service->LoadBalancer()));
 	}
 	public function testLoadBalancerList() {
 		$this->assertEquals(
-			'OpenCloud\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->service->LoadBalancerList()));
 	}
 	public function testBillableLoadBalancer() {
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\Billable',
+			'OpenCloud\LoadBalancer\Billable',
 			get_class($this->service->BillableLoadBalancer()));
 	}
 	public function testLoadBillableBalancerList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->service->BillableLoadBalancerList()));
 	}
 	public function testAllowedDomain() {
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\AllowedDomain',
+			'OpenCloud\LoadBalancer\AllowedDomain',
 			get_class($this->service->AllowedDomain()));
 	}
 	public function testAllowedDomainList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->service->AllowedDomainList()));
 	}
 	public function testProtocol() {
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\Protocol',
+			'OpenCloud\LoadBalancer\Protocol',
 			get_class($this->service->Protocol()));
 	}
 	public function testProtocolList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractService\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->service->ProtocolList()));
 	}
 	public function testAlgorithm() {
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\Algorithm',
+			'OpenCloud\LoadBalancer\Algorithm',
 			get_class($this->service->Algorithm()));
 	}
 	public function testAlgorithmList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractService\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->service->AlgorithmList()));
 	}
 }

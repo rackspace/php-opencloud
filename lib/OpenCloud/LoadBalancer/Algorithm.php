@@ -5,7 +5,7 @@ namespace OpenCloud\LoadBalancer;
 /**
  * sub-resource to manage algorithms (read-only)
  */
-class Algorithm extends \OpenCloud\Abstract\PersistentObject {
+class Algorithm extends \OpenCloud\AbstractClass\PersistentObject {
 	public
 		$name;
 	protected static

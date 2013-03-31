@@ -9,27 +9,32 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('stub_service.php');
-require_once('volumeattachment.php');
+namespace OpenCloud\Tests;
 
-class publicVolumeAttachment extends OpenCloud\Compute\VolumeAttachment {
+require_once('StubConnection.php');
+require_once('StubService.php');
+
+class publicVolumeAttachment extends \OpenCloud\Compute\Attachment {
     public function CreateJson() { return parent::CreateJson(); }
 }
 
-class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
+class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
 {
     private
         $att;
     public function __construct() {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $compute = $conn->Compute(NULL, 'DFW');
-        //setDebug(TRUE);
+        
+        $debug = new \OpenCloud\Base\Debug;
+        $debug->setState(true);
+        
         $this->att = new publicVolumeAttachment(
-            new OpenCloud\Compute\Server($compute, 'XXX'),
+            new \OpenCloud\Compute\Server($compute, 'XXX'),
             'FOO'
         );
-        setDebug(FALSE);
+        
+        $debug->setState(FALSE);
     }
     /**
      * Tests
@@ -38,7 +43,7 @@ class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
         $conn = new StubConnection('http://example.com', 'SECRET');
         $compute = $conn->Compute(NULL, 'DFW');
         $this->att = new publicVolumeAttachment(
-            new OpenCloud\Compute\Server($compute, 'XXX'),
+            new \OpenCloud\Compute\Server($compute, 'XXX'),
             'FOO'
         );
         $this->assertEquals(
@@ -46,7 +51,7 @@ class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
             $this->att->volumeId);
     }
     /**
-     * @expectedException OpenCloud\UpdateError
+     * @expectedException \OpenCloud\Base\Exceptions\UpdateError
      */
     public function testUpdate() {
         $this->att->Update();

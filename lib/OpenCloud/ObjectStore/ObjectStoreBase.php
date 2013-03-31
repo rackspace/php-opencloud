@@ -35,7 +35,7 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
      */
 	public function Url(array $param = array()) 
 	{
-		return Lang::noslash(parent::Url($param));
+		return \OpenCloud\Base\Lang::noslash(parent::Url($param));
 	}
 
     /**
@@ -50,7 +50,7 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
      */
 	public function Container($cdata = NULL) 
 	{
-		return new ObjectStore\Container($this, $cdata);
+		return new Container($this, $cdata);
 	}
 
     /**

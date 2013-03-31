@@ -20,7 +20,7 @@ namespace OpenCloud\LoadBalancer;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
+class LoadBalancer extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
@@ -94,8 +94,8 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
             $node->condition = $cond;
             break;
         default:
-            throw new \OpenCloud\DomainError(sprintf(
-                _('Value [%s] for Node::condition is not valid'), $condition));
+            throw new \OpenCloud\Base\Exceptions\DomainError(sprintf(
+                \OpenCloud\Base\Lang::translate('Value [%s] for Node::condition is not valid'), $condition));
 	    }
 	    if (isset($type)) {
 	    	switch(strtoupper($type)) {
@@ -104,16 +104,16 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	    		$node->type = $type;
 	    		break;
 	    	default:
-	    		throw new \OpenCloud\DomainError(sprintf(
-	    			_('Value [%s] for Node::type is not valid'), $type));
+	    		throw new \OpenCloud\Base\Exceptions\DomainError(sprintf(
+	    			\OpenCloud\Base\Lang::translate('Value [%s] for Node::type is not valid'), $type));
 	    	}
 	    }
 	    if (isset($weight)) {
 	    	if (is_integer($weight))
 	    		$node->weight = $weight;
 	    	else
-	    		throw new \OpenCloud\DomainError(sprintf(
-	    			_('Value [%s] for Node::weight must be integer'), $weight));
+	    		throw new \OpenCloud\Base\Exceptions\DomainError(sprintf(
+	    			\OpenCloud\Base\Lang::translate('Value [%s] for Node::weight must be integer'), $weight));
 	    }
 	    $this->nodes[] = $node;
 	}
@@ -130,8 +130,8 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	public function AddNodes() {
 		if (count($this->nodes) < 1)
-			throw new MissingValueError(
-				_('Cannot add nodes; no nodes are defined'));
+			throw new \OpenCloud\Base\Exceptions\MissingValueError(
+				\OpenCloud\Base\Lang::translate('Cannot add nodes; no nodes are defined'));
 
 		// iterate through all the nodes
 		foreach($this->nodes as $node)
@@ -176,8 +176,8 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	            $obj->version = 'IPV6';
 	            break;
 	        default:
-	            throw new \OpenCloud\DomainError(sprintf(
-	                _('Value [%s] for ipVersion is not valid'), $ipVersion));
+	            throw new \OpenCloud\Base\Exceptions\DomainError(sprintf(
+	                \OpenCloud\Base\Lang::translate('Value [%s] for ipVersion is not valid'), $ipVersion));
 	        }
 	    }
 
@@ -212,7 +212,7 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	 * returns a Node object
 	 */
 	public function Node($id=NULL) {
-		return new Node($this, $id);
+		return new Resources\Node($this, $id);
 	}
 
 	/**
@@ -220,14 +220,14 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	public function NodeList() {
 		return $this->Parent()->Collection(
-			'\OpenCloud\LoadBalancerService\Node', NULL, $this);
+			'\OpenCloud\LoadBalancer\Resources\Node', NULL, $this);
 	}
 
 	/**
 	 * returns a NodeEvent object
 	 */
 	public function NodeEvent() {
-		return new NodeEvent($this);
+		return new Resources\NodeEvent($this);
 	}
 
 	/**
@@ -235,14 +235,14 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	public function NodeEventList() {
 		return $this->Parent()->Collection(
-			'\OpenCloud\LoadBalancerService\NodeEvent', NULL, $this);
+			'\OpenCloud\LoadBalancer\Resources\NodeEvent', NULL, $this);
 	}
 
 	/**
 	 * returns a single Virtual IP (not called publicly)
 	 */
 	public function VirtualIp($data=NULL) {
-		return new VirtualIp($this, $data);
+		return new Resources\VirtualIp($this, $data);
 	}
 
 	/**
@@ -250,13 +250,13 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	public function VirtualIpList() {
 		return $this->Service()->Collection(
-			'\OpenCloud\LoadBalancerService\VirtualIp', NULL, $this);
+			'\OpenCloud\LoadBalancer\Resources\VirtualIp', NULL, $this);
 	}
 
 	/**
 	 */
 	public function SessionPersistence() {
-		return new SessionPersistence($this);
+		return new Resources\SessionPersistence($this);
 	}
 
 	/**
@@ -266,7 +266,7 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	 * @return ErrorPage
 	 */
 	public function ErrorPage() {
-		return new ErrorPage($this);
+		return new Resources\ErrorPage($this);
 	}
 
 	/**
@@ -278,63 +278,63 @@ class LoadBalancer extends \OpenCloud\Abstract\PersistentObject {
 	 * @return Stats
 	 */
 	public function Stats() {
-		return new Stats($this);
+		return new Resources\Stats($this);
 	}
 
 	/**
 	 */
 	public function Usage() {
-		return new Usage($this);
+		return new Resources\Usage($this);
 	}
 
 	/**
 	 */
 	public function Access($data=NULL) {
-		return new Access($this, $data);
+		return new Resources\Access($this, $data);
 	}
 
 	/**
 	 */
 	public function AccessList() {
 		return $this->Service()->Collection(
-			'\OpenCloud\LoadBalancerService\Access', NULL, $this);
+			'\OpenCloud\LoadBalancer\Resources\Access', NULL, $this);
 	}
 
 	/**
 	 */
 	public function ConnectionThrottle() {
-		return new ConnectionThrottle($this);
+		return new Resources\ConnectionThrottle($this);
 	}
 
 	/**
 	 */
 	public function ConnectionLogging() {
-		return new ConnectionLogging($this);
+		return new Resources\ConnectionLogging($this);
 	}
 
 	/**
 	 */
 	public function ContentCaching() {
-		return new ContentCaching($this);
+		return new Resources\ContentCaching($this);
 	}
 
 	/**
 	 */
 	public function SSLTermination() {
-		return new SSLTermination($this);
+		return new Resources\SSLTermination($this);
 	}
 
 	/**
 	 */
 	public function Metadata($data=NULL) {
-		return new Metadata($this, $data);
+		return new Resources\Metadata($this, $data);
 	}
 
 	/**
 	 */
 	public function MetadataList() {
 		return $this->Service()->Collection(
-			'\OpenCloud\LoadBalancerService\Metadata', NULL, $this);
+			'\OpenCloud\LoadBalancer\Resources\Metadata', NULL, $this);
 	}
 
 	/********** PROTECTED METHODS **********/

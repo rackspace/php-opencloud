@@ -5,7 +5,7 @@ namespace OpenCloud\LoadBalancer\Resources;
 /**
  * Stats returns statistics about the load balancer
  */
-class Stats extends ReadonlySubResource {
+class Stats extends Readonly {
 	public
 		$connectTimeOut,
 		$connectError,

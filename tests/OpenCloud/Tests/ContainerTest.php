@@ -12,21 +12,26 @@
 namespace OpenCloud\Tests;
 
 require_once('StubConnection.php');
+require_once('StubService.php');
 
-class StubObjectStore extends \OpenCloud\ObjectStore\ObjectStore {
-    public function Request($url, $method='GET', $headers=array(), $data=NULL) {
+class StubObjectStore extends \OpenCloud\ObjectStore\Service
+{
+    public function Request($url, $method='GET', $headers=array(), $data=NULL) 
+	{
         return new \OpenCloud\Base\Request\Response\Blank;
     }
 }
 
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
-	private
-		$service,
-		$container;
+	private $service;
+	private $container;
 
-	public function __construct() {
-		
+	/**
+	 * @expectedException OpenCloud\Base\Exceptions\ContainerNotFoundError
+	 */
+	public function __construct() 
+	{
 		$conn = new StubConnection('http://example.com', 'SECRET');
 		$this->service = new StubObjectStore(
 			$conn,
@@ -34,136 +39,180 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 			'DFW',
 			'publicURL'
 		);
+		//var_dump($this->service->Request());
+	}
+	
+	public function getContainer()
+	{
+		if (null === $this->container) {
+			$this->container = new \OpenCloud\ObjectStore\Container($this->service, 'TEST');
+		}
+		return $this->container;
 	}
 
-	/**
-	 * Tests
-	 */
-	/**
-	 * @expectedException ContainerNotFoundError
-	 */
-	public function test_construct() {
-	    $this->container = new \OpenCloud\ObjectStore\Container(
-	        $this->service, 'TEST');
-		$this->assertEquals(
+	public function test_construct() 
+	{
+	    $this->assertEquals(
 		    'TEST',
-		    $this->container->name);
+		    $this->getContainer()->name);
 		$this->assertEquals(
-		    'OpenCloud\Metadata',
-		    get_class($this->container->metadata));
+		    'OpenCloud\Base\Metadata',
+		    get_class($this->getContainer()->metadata));
 	}
-	public function testUrl() {
+	
+	/**
+	 * @expectedException OpenCloud\Base\Exceptions\ContainerNotFoundError
+	 */
+	public function testUrl() 
+	{
 		$this->assertEquals(
 		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST',
-		    $this->container->Url());
-		$space_cont = new \OpenCloud\ObjectStore\Container(
-		    $this->service, 'Name With Spaces');
+		    $this->getContainer()->Url()
+		);
+		
+		$space_cont = new \OpenCloud\ObjectStore\Container($this->service, 'Name With Spaces');
+		
 		$this->assertEquals(
-	        'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/'.
-	            'Name%20With%20Spaces',
-		    $space_cont->Url());
+	        'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/'.'Name%20With%20Spaces',
+		    $space_cont->Url()
+		);
 	}
-	public function testCreate() {
-		$con = $this->container->Create(array('name'=>'SECOND'));
+	
+	public function testCreate() 
+	{
+		$con = $this->getContainer()->Create(array('name'=>'SECOND'));
 		$this->assertEquals(TRUE, $con);
 		$this->assertEquals(
 		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND',
-		    $this->container->Url());
+		    $this->getContainer()->Url());
 	}
+	
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\ContainerNameError
+	 * @expectedException OpenCloud\Base\Exceptions\ContainerNameError
 	 */
-	public function testCreate0() {
-		$con = $this->container->Create(array('name'=>'0'));
+	public function testCreate0() 
+	{
+		$con = $this->getContainer()->Create(array('name'=>'0'));
 	}
-	public function testUpdate() {
+	
+	public function testUpdate() 
+	{
 	    $this->assertEquals(
 	        TRUE,
-	        $this->container->Update());
+	        $this->getContainer()->Update());
 	}
-	public function testDelete() {
-		$ret = $this->container->Delete();
+
+	public function testDelete() 
+	{
+		$ret = $this->getContainer()->Delete();
 		$this->assertEquals(TRUE, $ret);
 	}
-	public function testObjectList() {
-		$olist = $this->container->ObjectList();
+
+	public function testObjectList() 
+	{
+		$olist = $this->getContainer()->ObjectList();
 		$this->assertEquals(
-		    '\OpenCloud\AbstractClass\Collection',
+		    'OpenCloud\AbstractClass\Collection',
 		    get_class($olist));
 	}
-	public function testDataObject() {
-		$obj = $this->container->DataObject();
+
+	public function testDataObject() 
+	{
+		$obj = $this->getContainer()->DataObject();
 		$this->assertEquals(
-		    '\OpenCloud\ObjectStore\DataObject',
+		    'OpenCloud\ObjectStore\DataObject',
 		    get_class($obj));
-		$obj = $this->container->DataObject('FOO');
+		$obj = $this->getContainer()->DataObject('FOO');
 		$this->assertEquals('FOO', $obj->name);
 	}
-	public function testService() {
-		$this->assertEquals($this->service, $this->container->Service());
+	
+	public function testService() 
+	{
+		$this->assertEquals($this->service, $this->getContainer()->Service());
 	}
+	
+	public function testEnableCDN1() 
+	{
+	    $this->getContainer()->EnableCDN(100);
+	}
+	
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\ContainerNotFoundError
+	 * @expectedException OpenCloud\Base\Exceptions\CdnTtlError
 	 */
-	public function testEnableCDN1() {
-	    $this->container->EnableCDN(100);
+	public function testEnableCDN2() 
+	{
+	    $this->getContainer()->EnableCDN('FOOBAR');
 	}
+	
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CdnTtlError
+	 * @expectedException OpenCloud\Base\Exceptions\CdnTtlError
 	 */
-	public function testEnableCDN2() {
-	    $this->container->EnableCDN('FOOBAR');
+	public function testPubishToCDN2() 
+	{
+	    $this->getContainer()->PublishToCDN('FOOBAR');
 	}
+	
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CdnTtlError
+	 * @expectedException OpenCloud\Base\Exceptions\CdnHttpError
 	 */
-	public function testPubishToCDN2() {
-	    $this->container->PublishToCDN('FOOBAR');
+	public function testDisableCDN() 
+	{
+	    $this->getContainer()->DisableCDN();
 	}
-	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CdnHttpError
-	 */
-	public function testDisableCDN() {
-	    $this->container->DisableCDN();
-	}
-	public function testCDNURL() {
+	
+	public function testCDNURL() 
+	{
 	    $this->assertEquals(
 	        'https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST',
-	        $this->container->CDNURL());
+	        $this->getContainer()->CDNURL());
 	}
-	public function testCDNinfo() {
+
+	public function testCDNinfo() 
+	{
 	    $this->assertEquals(
 	        NULL,
-	        $this->container->CDNinfo());
+	        $this->getContainer()->CDNinfo());
 	}
-	public function testCDNURI() {
+
+	public function testCDNURI() 
+	{
 	    $this->assertEquals(
 	        NULL,
-	        $this->container->CDNURI());
+	        $this->getContainer()->CDNURI());
 	}
-	public function testSSLURI() {
+
+	public function testSSLURI() 
+	{
 	    $this->assertEquals(
 	        NULL,
-	        $this->container->SSLURI());
+	        $this->getContainer()->SSLURI());
 	}
-	public function testStreamingURI() {
+
+	public function testStreamingURI() 
+	{
 	    $this->assertEquals(
 	        NULL,
-	        $this->container->StreamingURI());
+	        $this->getContainer()->StreamingURI());
 	}
-	public function testCreateStaticSite() {
+
+	public function testCreateStaticSite() 
+	{
 		$this->assertEquals(
-			'\OpenCloud\Base\Request\Response\Blank',
-			get_class($this->container->CreateStaticSite('index.html')));
+			'OpenCloud\Base\Request\Response\Blank',
+			get_class($this->getContainer()->CreateStaticSite('index.html')));
 	}
-	public function testStaticSiteErrorPage() {
+
+	public function testStaticSiteErrorPage() 
+	{
 		$this->assertEquals(
-			'\OpenCloud\Base\Request\Response\Blank',
-			get_class($this->container->StaticSiteErrorPage('error.html')));
+			'OpenCloud\Base\Request\Response\Blank',
+			get_class($this->getContainer()->StaticSiteErrorPage('error.html')));
 	}
-	public function testPublicUrl() {
+
+	public function testPublicUrl() 
+	{
 	    $this->assertEquals(
 	        '',
-	        $this->container->PublicUrl());
+	        $this->getContainer()->PublicUrl());
 	}
 }

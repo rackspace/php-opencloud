@@ -52,7 +52,7 @@ abstract class Nova extends Service {
 			$serviceRegion,
 			$urltype
 		);
-		$this->_url = Lang::noslash(parent::Url());
+		$this->_url = \OpenCloud\Base\Lang::noslash(parent::Url());
 	} // function __construct()
 
 	/**
@@ -68,7 +68,7 @@ abstract class Nova extends Service {
 	public function Url($resource='', $args=array()) {
 	    $baseurl = $this->_url;
 	    if ($resource != '')
-	        $baseurl = Lang::noslash($baseurl).'/'.$resource;
+	        $baseurl = \OpenCloud\Base\Lang::noslash($baseurl).'/'.$resource;
 	    if (!empty($args))
 	        $baseurl .= '?'.$this->MakeQueryString($args);
 		return $baseurl;

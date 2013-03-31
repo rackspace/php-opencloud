@@ -51,8 +51,8 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 	 *		with this
 	 * @param mixed $info the ID or array of info for the object
 	 */
-	public function __construct(Database $service, $info=NULL) {
-		$this->volume = new \stdClass();
+	public function __construct(Service $service, $info=NULL) {
+		$this->volume = new \stdClass;
 		return parent::__construct($service, $info);
 	}
 
@@ -65,7 +65,7 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 	 * @throws InstanceUpdateError always
 	 */
 	public function Update($params=array()) {
-		throw new InstanceUpdateError(
+		throw new \OpenCloud\Base\Exceptions\InstanceUpdateError(
 			Lang::translate('Updates are not currently supported by Cloud Databases'));
 	}
 
@@ -113,7 +113,7 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 
 		// check response
 		if ($response->HttpStatus() > 202)
-			throw New InstanceError(sprintf(
+			throw new \OpenCloud\Base\Exceptions\InstanceError(sprintf(
 				Lang::translate('Error enabling root user for instance [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
@@ -139,7 +139,7 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 
 		// check response
 		if ($response->HttpStatus() > 202)
-			throw New InstanceError(sprintf(
+			throw new \OpenCloud\Base\Exceptions\InstanceError(sprintf(
 				Lang::translate('Error enabling root user for instance [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
@@ -187,7 +187,7 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 
 		// check response status
 		if ($response->HttpStatus() > 200)
-			throw new DatabaseListError(sprintf(
+			throw new \OpenCloud\Base\Exceptions\DatabaseListError(sprintf(
 				Lang::translate('Error listing databases for instance [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
@@ -196,9 +196,9 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			if (!isset($obj->databases))
-				return new \OpenCloud\Collection(
+				return new \OpenCloud\AbstractClass\Collection(
 					$this, '\OpenCloud\DbService\Database', array());
-			return new \OpenCloud\Collection(
+			return new \OpenCloud\AbstractClass\Collection(
 				$this, '\OpenCloud\DbService\Database', $obj->databases);
 		}
 		return FALSE;
@@ -215,7 +215,7 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 
 		// check response status
 		if ($response->HttpStatus() > 200)
-			throw new UserListError(sprintf(
+			throw new \OpenCloud\Base\Exceptions\UserListError(sprintf(
 				Lang::translate('Error listing users for instance [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
@@ -224,9 +224,9 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 		$obj = json_decode($response->HttpBody());
 		if (!$this->CheckJsonError()) {
 			if (!isset($obj->users))
-				return new \OpenCloud\Collection(
+				return new \OpenCloud\AbstractClass\Collection(
 					$this, '\OpenCloud\DbService\User', array());
-			return new \OpenCloud\Collection(
+			return new \OpenCloud\AbstractClass\Collection(
 				$this, '\OpenCloud\DbService\User', $obj->users);
 		}
 		return FALSE;
@@ -245,16 +245,16 @@ class Instance extends \OpenCloud\AbstractClass\PersistentObject {
 
 	    // flavor
 	    if (!isset($this->flavor))
-	        throw new InstanceFlavorError(
+	        throw new \OpenCloud\Base\Exceptions\InstanceFlavorError(
 	            Lang::translate('a flavor must be specified'));
 	    if (!is_object($this->flavor))
-	        throw new InstanceFlavorError(
+	        throw new \OpenCloud\Base\Exceptions\InstanceFlavorError(
 	            Lang::translate('the [flavor] attribute must be a Flavor object'));
 	    $obj->instance->flavorRef = $this->flavor->links[0]->href;
 
 	    // name
 	    if (!isset($this->name))
-	        throw new InstanceError(
+	        throw new \OpenCloud\Base\Exceptions\InstanceError(
 	            Lang::translate('Instance name is required'));
 	    $obj->instance->name = $this->name;
 

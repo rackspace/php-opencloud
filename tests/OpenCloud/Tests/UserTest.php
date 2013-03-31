@@ -9,31 +9,31 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('user.php');
-require_once('dbservice.php');
+namespace OpenCloud\Tests;
 
-class UserTest extends PHPUnit_Framework_TestCase
+require_once('StubConnection.php');
+
+class UserTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$inst,
 		$user;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$useraas = new OpenCloud\DbService(
+		$useraas = new \OpenCloud\Database\Service(
 		    $conn, 'cloudDatabases', 'DFW', 'publicURL');
-		$this->inst = new OpenCloud\DbService\Instance($useraas);
+		$this->inst = new \OpenCloud\Database\Instance($useraas);
 		$this->inst->id = '12345678';
-		$this->user = new OpenCloud\DbService\User($this->inst);
+		$this->user = new \OpenCloud\Database\User($this->inst);
 	}
 	/**
 	 * Tests
 	 */
 	public function test__construct() {
 		$this->assertEquals(
-			'OpenCloud\DbService\User',
-			get_class(new OpenCloud\DbService\User($this->inst)));
-		$u = new OpenCloud\DbService\User(
+			'OpenCloud\Database\User',
+			get_class(new \OpenCloud\Database\User($this->inst)));
+		$u = new \OpenCloud\Database\User(
 		    $this->inst,
 		    'glen',
 		    array('one','two'));
@@ -49,12 +49,12 @@ class UserTest extends PHPUnit_Framework_TestCase
 	}
 	public function testInstance() {
 		$this->assertEquals(
-			'OpenCloud\DbService\Instance',
+			'OpenCloud\Database\Instance',
 			get_class($this->user->Instance()));
 	}
 	public function testService() {
 		$this->assertEquals(
-			'OpenCloud\DbService',
+			'OpenCloud\Database\Service',
 			get_class($this->user->Service()));
 	}
 	public function testAddDatabase() {
@@ -78,7 +78,7 @@ class UserTest extends PHPUnit_Framework_TestCase
 			$this->user->password);
 	}
 	/**
-	 * @expectedException OpenCloud\DbService\UserUpdateError
+	 * @expectedException \OpenCloud\Base\Exceptions\UserUpdateError
 	 */
 	public function testUpdate() {
 		$this->user->Update();

@@ -9,25 +9,25 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('servermetadata.php');
-require_once('compute.php');
+namespace OpenCloud\Tests;
 
-class ServerMetadataTest extends PHPUnit_Framework_TestCase
+require_once('StubConnection.php');
+
+class ServerMetadataTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$server,
 		$metadata;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$compute = new OpenCloud\Compute(
+		$compute = new \OpenCloud\Compute\Service(
 			$conn,
 			'cloudServersOpenStack',
 			'DFW',
 			'publicURL'
 		);
-		$this->server = new OpenCloud\Compute\Server($compute, 'Identifier');
-		$this->metadata = new OpenCloud\Compute\ServerMetadata($this->server);
+		$this->server = new \OpenCloud\Compute\Server($compute, 'Identifier');
+		$this->metadata = new \OpenCloud\Compute\ServerMetadata($this->server);
 	}
 	/**
 	 * Tests
@@ -50,18 +50,18 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(
 			'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata',
 			$this->metadata->Url());
-		$m2 = new OpenCloud\Compute\ServerMetadata($this->server, 'property');
+		$m2 = new \OpenCloud\Compute\ServerMetadata($this->server, 'property');
 		$this->assertEquals(
 			'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property',
 			$m2->Url());
 	}
 	/**
-	 * @expectedException OpenCloud\Compute\MetadataKeyError
+	 * @expectedException \OpenCloud\Base\Exceptions\MetadataKeyError
 	 */
 	public function test___set() {
 		$this->metadata->property = 'value';
 		$this->assertEquals('value', $this->metadata->property);
-		$m2 = new OpenCloud\Compute\ServerMetadata($this->server, 'property');
+		$m2 = new \OpenCloud\Compute\ServerMetadata($this->server, 'property');
 		$m2->foo = 'bar'; // should cause exception
 		$this->assertEquals(NULL, $m2->foo);
 	}

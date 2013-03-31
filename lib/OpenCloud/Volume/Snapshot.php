@@ -18,7 +18,7 @@ namespace OpenCloud\Volume;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Snapshot extends \OpenCloud\Abstract\PersistentObject {
+class Snapshot extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
@@ -46,8 +46,8 @@ class Snapshot extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update($params=array()) {
-		throw new \OpenCloud\UpdateError(
-			_('VolumeType cannot be updated'));
+		throw new \OpenCloud\Base\Exceptions\UpdateError(
+			\OpenCloud\Base\Lang::translate('VolumeType cannot be updated'));
 	}
 
 	/**

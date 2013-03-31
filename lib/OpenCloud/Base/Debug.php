@@ -6,6 +6,11 @@ class Debug {
 	
 	protected $debugState = false;
 	
+	public function setDebug($state)
+	{
+		$this->setState($state);
+	}
+	
 	public function setState($state = true) 
 	{
 	    $this->debugState = $state;

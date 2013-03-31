@@ -52,7 +52,7 @@ class Record extends Object {
 	 */
 	public function __construct($parent, $info=NULL) {
 		$this->_parent = $parent;
-		if (get_class($parent) == 'OpenCloud\DNS')
+		if (get_class($parent) == 'OpenCloud\DNS\Service')
 			parent::__construct($parent, $info);
 		else
 			parent::__construct($parent->Service(), $info);

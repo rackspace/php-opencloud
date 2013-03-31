@@ -19,7 +19,7 @@ namespace OpenCloud\Compute;
  * At its simplest, a Flavor represents a combination of RAM, disk space,
  * and compute CPUs, though there are other extended attributes.
  */
-class Flavor extends \OpenCloud\Abstract\PersistentObject {
+class Flavor extends \OpenCloud\AbstractClass\PersistentObject {
 
     public
 		$status,

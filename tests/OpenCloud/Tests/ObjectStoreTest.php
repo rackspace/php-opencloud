@@ -9,22 +9,24 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
+namespace OpenCloud\Tests;
+
+require_once('StubConnection.php');
 
 /**
  * Stub wrapper class so that we can override the request() method
  */
-class MyObjectStore extends ObjectStore\ObjectStore 
+class MyObjectStore extends \OpenCloud\ObjectStore\Service 
 {
 	
 	public function Request() 
 	{
-		return new OpenCloud\Base\Request\Response\Blank;
+		return new \OpenCloud\Base\Request\Response\Blank;
 	}
 	
 }
 
-class ObjectStoreTest extends PHPUnit_Framework_TestCase
+class ObjectStoreTest extends \PHPUnit_Framework_TestCase
 {
 	private $ostore;
 	
@@ -45,7 +47,7 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
 	public function test__construct() {
 		$this->assertEquals(TRUE, is_object($this->ostore));
 		$this->assertEquals(
-		    'MyObjectStore',
+		    'OpenCloud\Tests\MyObjectStore',
 		    get_class($this->ostore));
 	}
 	public function testUrl() {
@@ -60,7 +62,7 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
 	public function testContainerList() {
 		$clist = $this->ostore->ContainerList();
 		$this->assertEquals(
-		    'OpenCloud\Collection',
+		    'OpenCloud\AbstractClass\Collection',
 		    get_class($clist));
 	}
 	public function testSetTempUrlSecret() {
@@ -71,11 +73,11 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
 	}
 	public function testCDN() {
 	    $this->assertEquals(
-	        'OpenCloud\ObjectStoreCDN',
+	        'OpenCloud\ObjectStore\ObjectStoreCDN',
 	        get_class($this->ostore->CDN()));
 	}
 	/**
-	 * @expectedException OpenCloud\ObjectStore\CdnError
+	 * @expectedException \OpenCloud\Base\Exceptions\CdnError
 	 */
 	public function testCDNCDN() {
 	    $this->assertEquals(

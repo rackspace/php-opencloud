@@ -22,7 +22,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 
 	public function __construct() {
 		$this->conn = new StubConnection('http://example.com', 'SECRET');
-		$this->dns = new \OpenCloud\DNS(
+		$this->dns = new \OpenCloud\DNS\Service(
 			$this->conn,
 			'cloudDNS',
 			'N/A',
@@ -36,7 +36,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test__construct() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\Domain',
+			'OpenCloud\DNS\Domain',
 			get_class($this->domain));
 	}
 	public function testCreate() {
@@ -45,7 +45,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 		$this->domain->AddSubdomain(
 			$this->domain->Subdomain(array('name'=>'foo')));
 		$this->assertEquals(
-			'\OpenCloud\DNS\AsyncResponse',
+			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->domain->Create()));
 	}
 	public function testUpdate() {
@@ -54,32 +54,32 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 			'name'=>'FOO',
 			'emailAddress'=>'no-body@dontuseemail.com'));
 		$this->assertEquals(
-			'\OpenCloud\DNS\AsyncResponse',
+			'OpenCloud\DNS\AsyncResponse',
 			get_class($resp));
 	}
 	public function testDelete() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\AsyncResponse',
+			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->domain->Delete()));
 	}
 	public function testRecord() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\Record',
+			'OpenCloud\DNS\Record',
 			get_class($this->domain->Record()));
 	}
 	public function testRecordList() {
 		$this->assertEquals(
-			'\OpenCloud\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->domain->RecordList()));
 	}
 	public function testSubdomain() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\Subdomain',
+			'OpenCloud\DNS\Subdomain',
 			get_class($this->domain->Subdomain()));
 	}
 	public function testSubdomainList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->domain->SubdomainList()));
 	}
 	public function testAddRecord() {
@@ -91,7 +91,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 	public function testAddSubdomain() {
 		$sub = $this->domain->Subdomain();
 		$this->assertEquals(
-			'\OpenCloud\DNS\Subdomain',
+			'OpenCloud\DNS\Subdomain',
 			get_class($sub));
 		$this->assertEquals(
 			1,
@@ -107,7 +107,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testExport() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\AsyncResponse',
+			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->domain->Export()));
 	}
 }

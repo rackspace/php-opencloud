@@ -21,7 +21,7 @@ class ComputeTest extends \PHPUnit_Framework_TestCase
 
 	public function __construct() {
 		$this->conn = new StubConnection('http://example.com', 'SECRET');
-		$this->compute = new \OpenCloud\Compute\Compute(
+		$this->compute = new \OpenCloud\Compute\Service(
 			$this->conn,
 			'cloudServersOpenStack',
 			'DFW',
@@ -32,10 +32,10 @@ class ComputeTest extends \PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	/**
-	 * @expectedException OpenCloud\Compute\UnsupportedVersionError
+	 * @expectedException \OpenCloud\Base\Exceptions\UnsupportedVersionError
 	 */
 	public function test__construct() {
-		$compute = new \OpenCloud\Compute\Compute(
+		$compute = new \OpenCloud\Compute\Service(
 			$this->conn,
 			'cloudServers', // invalid version
 			'DFW',
@@ -54,31 +54,31 @@ class ComputeTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testServer() {
 		$s = $this->compute->Server(); // blank
-		$this->assertEquals('\OpenCloud\Compute\Server', get_class($s));
+		$this->assertEquals('OpenCloud\Compute\Server', get_class($s));
 	}
 	public function testServerList() {
 		$list = $this->compute->ServerList();
-		$this->assertEquals('\OpenCloud\AbstractClass\Collection', get_class($list));
+		$this->assertEquals('OpenCloud\AbstractClass\Collection', get_class($list));
 	}
 	public function testImage() {
 	    $im = $this->compute->Image(); // blank
-	    $this->assertEquals('\OpenCloud\Compute\Image', get_class($im));
+	    $this->assertEquals('OpenCloud\Compute\Image', get_class($im));
 	}
 	/**
-	 * @expectedException OpenCloud\CollectionError
+	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
 	 */
 	public function testImageList() {
 	    $list = $this->compute->ImageList();
-	    $this->assertEquals('\OpenCloud\AbstractClass\Collection', get_class($list)); // 404
+	    $this->assertEquals('OpenCloud\AbstractClass\Collection', get_class($list)); // 404
 	}
 	public function testNetwork() {
 		$this->assertEquals(
-			'\OpenCloud\Compute\Network',
+			'OpenCloud\Compute\Network',
 			get_class($this->compute->Network()));
 	}
 	public function testNetworkList() {
 		$this->assertEquals(
-			'\OpenCloud\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->compute->NetworkList()));
 	}
 	public function testNamespaces() {

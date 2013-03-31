@@ -9,16 +9,16 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('metadata.php');
-require_once('compute.php');
+namespace OpenCloud\Tests;
 
-class MetadataTest extends PHPUnit_Framework_TestCase
+require_once('StubConnection.php');
+
+class MetadataTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$metadata;
 	public function __construct() {
-		$this->metadata = new OpenCloud\Metadata();
+		$this->metadata = new \OpenCloud\Base\Metadata;
 	}
 	/**
 	 * Tests

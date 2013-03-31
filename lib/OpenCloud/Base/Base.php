@@ -12,6 +12,8 @@
 
 namespace OpenCloud\Base;
 
+require_once 'Globals.php';
+
 /**
  * The Base class is the root class for all other objects used or defined by
  * this SDK.
@@ -24,10 +26,54 @@ namespace OpenCloud\Base;
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 abstract class Base {
-	private
-		$http_headers=array(),
-		$_errors=array();
-
+	
+	private $http_headers = array();
+	private $_errors = array();
+	
+	/**
+	 * Debug object.
+	 * 
+	 * @var \OpenCloud\Base\Debug
+	 * @access private
+	 */
+	private $debug;
+		
+	/**
+	 * __construct function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->setDebug();
+	}		
+	
+	/**
+	 * setDebug function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function setDebug()
+	{
+		$this->debug = new Debug;
+	}
+	
+	/**
+	 * getDebug function.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function getDebug()
+	{
+		if (null === $this->debug) {
+			$this->setDebug();
+		}
+		return $this->debug;
+	}
+	
 	// debug() - display a debug message
 	/**
 	 * Displays a debug message if $RAXSDK_DEBUG is TRUE
@@ -47,11 +93,12 @@ abstract class Base {
 	 * @param mixed $p4 Optional argument to be passed to sprintf()
 	 * @param mixed $p5 Optional argument to be passed to sprintf()
 	 * @return void
+	 *
+	 * @TODO - change this method name to something more descriptive/accurate
 	 */
 	public function debug($msg,$p1=NULL,$p2=NULL,$p3=NULL,$p4=NULL,$p5=NULL) {
 		// don't display the message unless the debug flag is set
-		$debug = new Debug;
-		if ($debug->isEnabled()) {
+		if ($this->getDebug()->isEnabled()) {
 			printf("Debug:(%s)$msg\n", get_class($this), $p1, $p2, $p3, $p4, $p5);
 		}
 	}
@@ -66,8 +113,8 @@ abstract class Base {
      * @throws UrlError
      */
     public function Url() {
-    	throw new UrlError(
-    	    _('URL method must be overridden in class definition'));
+    	throw new \OpenCloud\Base\Exceptions\UrlError(
+    	    \OpenCloud\Base\Lang::translate('URL method must be overridden in class definition'));
     }
 
 	/**
@@ -99,19 +146,21 @@ abstract class Base {
 	 * @throws \OpenCloud\AttributeError if strict checks are on and
 	 *      the property prefix is not in the list of prefixes.
 	 */
-	public function SetProperty($property, $value, $prefixes=array()) {
-	    // if strict checks are off, go ahead and set it
-        if (!RAXSDK_STRICT_PROPERTY_CHECKS)
+	public function SetProperty($property, $value, array $prefixes = array()) 
+	{
+		// if strict checks are off, go ahead and set it
+        if (!RAXSDK_STRICT_PROPERTY_CHECKS) {
             $this->$property = $value;
         // otherwise, check the prefix
-        elseif ($this->CheckAttributePrefix($property, $prefixes))
+        } elseif ($this->CheckAttributePrefix($property, $prefixes)) {
             $this->$property = $value;
         // if that fails, then throw the exception
-        else
-	        throw new \OpenCloud\AttributeError(sprintf(
-	            _('Unrecognized attribute [%s] for [%s]'),
+        } else {
+        	throw new \OpenCloud\Base\Exceptions\AttributeError(sprintf(
+	            \OpenCloud\Base\Lang::translate('Unrecognized attribute [%s] for [%s]'),
 	            $property,
 	            get_class($this)));
+	    }
 	}
 
 	/**
@@ -152,28 +201,28 @@ abstract class Base {
 		case JSON_ERROR_NONE:
 			return FALSE;
 		case JSON_ERROR_DEPTH:
-			throw new JsonError(
-			    _('JSON error: The maximum stack depth has been exceeded'));
+			throw new \OpenCloud\Base\Exceptions\JsonError(
+			    \OpenCloud\Base\Lang::translate('JSON error: The maximum stack depth has been exceeded'));
 			break;
 		case JSON_ERROR_STATE_MISMATCH:
-			throw new JsonError(
-			    _('JSON error: Invalid or malformed JSON'));
+			throw new \OpenCloud\Base\Exceptions\JsonError(
+			    \OpenCloud\Base\Lang::translate('JSON error: Invalid or malformed JSON'));
 			break;
 		case JSON_ERROR_CTRL_CHAR:
-			throw new JsonError(
-			    _('JSON error: Control character error, possibly '.
+			throw new \OpenCloud\Base\Exceptions\JsonError(
+			    \OpenCloud\Base\Lang::translate('JSON error: Control character error, possibly '.
 			        'incorrectly encoded'));
 			break;
 		case JSON_ERROR_SYNTAX:
-			throw new JsonError(_('JSON error: Syntax error'));
+			throw new \OpenCloud\Base\Exceptions\JsonError(\OpenCloud\Base\Lang::translate('JSON error: Syntax error'));
 			break;
 		case JSON_ERROR_UTF8:
-			throw new JsonError(
-			    _('JSON error: Malformed UTF-8 characters, possibly '.
+			throw new \OpenCloud\Base\Exceptions\JsonError(
+			    \OpenCloud\Base\Lang::translate('JSON error: Malformed UTF-8 characters, possibly '.
 			        'incorrectly encoded'));
 			break;
 		default:
-			throw new JsonError(_('Unexpected JSON error'));
+			throw new \OpenCloud\Base\Exceptions\JsonError(\OpenCloud\Base\Lang::translate('Unexpected JSON error'));
 		}
 		return TRUE;
 	}

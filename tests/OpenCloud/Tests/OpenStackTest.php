@@ -9,8 +9,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('openstack.php');
-require_once('stub_conn.php'); // stub Connection class
+namespace OpenCloud\Tests;
+
+require_once('StubConnection.php'); // stub Connection class
 
 if (!defined('TEST_DOMAIN')) define('TEST_DOMAIN', 'http://local.test');
 
@@ -18,13 +19,13 @@ if (!defined('TEST_DOMAIN')) define('TEST_DOMAIN', 'http://local.test');
  * stub classes for testing the request() method (which is overridden in the
  * StubConnection class used for testing everything else).
  */
-class TestingConnection extends OpenCloud\OpenStack {
+class TestingConnection extends \OpenCloud\Base\OpenStack {
     public function GetHttpRequestObject($url, $method='GET') {
         return new StubRequest($url, $method);
     }
 }
 
-class OpenStackTest extends PHPUnit_Framework_TestCase
+class OpenStackTest extends \PHPUnit_Framework_TestCase
 {
 	private $my; // my Connection
 
@@ -38,11 +39,11 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test__construct() {
 	    $this->assertEquals(
-	        'StubConnection',
+	        'OpenCloud\Tests\StubConnection',
 	        get_class($this->my));
 	}
 	/**
-	 * @expectedException OpenCloud\DomainError
+	 * @expectedException \OpenCloud\Base\Exceptions\DomainError
 	 */
 	public function test__options() {
 		$test = new StubConnection(TEST_DOMAIN,
@@ -94,7 +95,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
 	/**
-	 * @expectedException OpenCloud\HttpUnauthorizedError
+	 * @expectedException \OpenCloud\Base\Exceptions\HttpUnauthorizedError
 	 */
 	public function test_request_2() {
 	    $conn = new TestingConnection('http://example.com',
@@ -103,7 +104,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
 	/**
-	 * @expectedException OpenCloud\HttpForbiddenError
+	 * @expectedException \OpenCloud\Base\Exceptions\HttpForbiddenError
 	 */
 	public function test_request_3() {
 	    $conn = new TestingConnection('http://example.com',
@@ -112,7 +113,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
 	/**
-	 * @expectedException OpenCloud\HttpOverLimitError
+	 * @expectedException \OpenCloud\Base\Exceptions\HttpOverLimitError
 	 */
 	public function test_request_4() {
 	    $conn = new TestingConnection('http://example.com',
@@ -148,7 +149,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 		fclose($fp);
 	}
 	/**
-	 * @expectedException OpenCloud\HttpUrlError
+	 * @expectedException \OpenCloud\Base\Exceptions\HttpUrlError
 	 */
 	public function test_write_cb() {
 		$ch = curl_init('file:/dev/null');
@@ -181,7 +182,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	        'DFW',
 	        'publicURL'
 	    );
-	    $this->assertEquals('OpenCloud\ObjectStore', get_class($objs));
+	    $this->assertEquals('OpenCloud\ObjectStore\Service', get_class($objs));
 	}
 	public function testCompute1() {
 	    $comp = $this->my->Compute(
@@ -189,16 +190,16 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	        'DFW',
 	        'publicURL'
 	    );
-	    $this->assertEquals('OpenCloud\Compute', get_class($comp));
+	    $this->assertEquals('OpenCloud\Compute\Service', get_class($comp));
 	}
 	/**
-	 * @expectedException OpenCloud\ServiceValueError
+	 * @expectedException \OpenCloud\Base\Exceptions\ServiceValueError
 	 */
 	public function testCompute2() {
 	    $comp = $this->my->Compute();
 	}
 	/**
-	 * @expectedException OpenCloud\EndpointError
+	 * @expectedException \OpenCloud\Base\Exceptions\EndpointError
 	 */
 	public function testComputeFail() {
 	    $comp = $this->my->Compute(
@@ -206,19 +207,19 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 	        'DFW',
 	        'publicURL'
 	    );
-	    $this->assertEquals('OpenCloud\Compute', get_class($comp));
+	    $this->assertEquals('OpenCloud\Compute\Service', get_class($comp));
 	}
 	public function testVolumeService() {
 		$cbs = $this->my->VolumeService('cloudBlockStorage', 'DFW');
 		$this->assertEquals(
-			'OpenCloud\VolumeService',
+			'OpenCloud\Volume\Service',
 			get_class($cbs));
 	}
 	public function testServiceList() {
 		$list = $this->my->ServiceList();
 		while($item = $list->Next())
 			$this->assertEquals(
-				'OpenCloud\ServiceCatalogItem',
+				'OpenCloud\Base\ServiceCatalogItem',
 				get_class($item));
 	}
 }

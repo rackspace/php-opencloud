@@ -12,13 +12,11 @@
 
 namespace OpenCloud\DNS;
 
-use OpenCloud\Abstract\Service;
-
 /**
  * The AsyncResponse class encapsulates the data returned by a Cloud DNS
  * asynchronous response.
  */
-class AsyncResponse extends \OpenCloud\Abstract\PersistentObject {
+class AsyncResponse extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$jobId,
@@ -40,7 +38,7 @@ class AsyncResponse extends \OpenCloud\Abstract\PersistentObject {
 	 * @param \OpenCloud\Service $service the calling service
 	 * @param string $json the json response from the initial request
 	 */
-	public function __construct(Service $service, $json=NULL) {
+	public function __construct(\OpenCloud\AbstractClass\Service $service, $json=NULL) {
 		if (!$json)
 			return;
 		$obj = json_decode($json);

@@ -64,7 +64,7 @@ class Metadata extends Base {
 	        if ($prefix) {
 	            if (strpos($key, $prefix) === 0) {
 	                $name = substr($key, strlen($prefix));
-	                $this->debug(_('Setting [%s] to [%s]'), $name, $value);
+	                $this->debug(\OpenCloud\Base\Lang::translate('Setting [%s] to [%s]'), $name, $value);
 	                $this->$name = $value;
 	            }
 	        }

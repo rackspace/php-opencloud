@@ -17,7 +17,7 @@ namespace OpenCloud\LoadBalancer\Resources;
  *   anonymous, this defines the name of the element holding the object.
  * Of these, only the `$json_name` and `$url_resource` are required.
  */
-abstract class SubResource extends \OpenCloud\PersistentObject {
+abstract class SubResource extends \OpenCloud\AbstractClass\PersistentObject {
 	
 	private
 		$parent;	// holds the parent load balancer
@@ -106,7 +106,7 @@ abstract class SubResource extends \OpenCloud\PersistentObject {
 	 * @return string
 	 */
 	public function Name() {
-		return sprintf(_('%s-%s'),
+		return sprintf(\OpenCloud\Base\Lang::translate('%s-%s'),
 			get_class($this), $this->Parent()->Id());
 	}
 } // end SubResource

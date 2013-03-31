@@ -47,7 +47,7 @@ class ObjectStoreCDN extends ObjectStoreBase {
 	 * wrong object
 	 */
 	public function CDN() {
-	    throw new ObjectStore\CdnError(
-	        _('Invalid method call; no CDN() on the CDN object'));
+	    throw new \OpenCloud\Base\Exceptions\CdnError(
+	        \OpenCloud\Base\Lang::translate('Invalid method call; no CDN() on the CDN object'));
 	}
 }

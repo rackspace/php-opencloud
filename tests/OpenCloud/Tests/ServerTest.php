@@ -9,29 +9,30 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('compute.php');
+namespace OpenCloud\Tests;
 
-class PublicServer extends OpenCloud\Compute\Server {
+require_once('StubConnection.php');
+
+class PublicServer extends \OpenCloud\Compute\Server {
 	public function CreateJson($x='server') {
 		return parent::CreateJson($x);
 	}
 }
 
-class ServerTest extends PHPUnit_Framework_TestCase
+class ServerTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$service,
 		$server;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$this->service = new OpenCloud\Compute(
+		$this->service = new \OpenCloud\Compute\Service(
 			$conn,
 			'cloudServersOpenStack',
 			'DFW',
 			'publicURL'
 		);
-		$this->server = new OpenCloud\Compute\Server(
+		$this->server = new \OpenCloud\Compute\Server(
 		    $this->service, 'SERVER-ID');
 	}
 
@@ -60,7 +61,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	        $this->server->ip(6));
 	}
 	/**
-	 * @expectedException OpenCloud\Compute\InvalidIpTypeError
+	 * @expectedException \OpenCloud\Base\Exceptions\InvalidIpTypeError
 	 */
 	public function test_ip_bad() {
 	    $this->assertEquals('FOO', $this->server->ip(5));
@@ -115,7 +116,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 			$this->server->SetPassword('Bad Password')->HttpStatus());
 	}
 	public function testMetadata() {
-		$server = new OpenCloud\Compute\Server($this->service);
+		$server = new \OpenCloud\Compute\Server($this->service);
 		// this causes the exception
 		$this->assertEquals(TRUE, is_object($server->Metadata()));
 	}
@@ -131,7 +132,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals(TRUE, is_object($this->server->ips('public')));
 	}
 	/**
-	 * @expectedException OpenCloud\AttributeError
+	 * @expectedException \OpenCloud\Base\Exceptions\AttributeError
 	 */
 	public function test__set() {
 	    $prop = 'rax-bandwidth:foobar';
@@ -141,48 +142,48 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	}
 	public function testService() {
 	    $this->assertEquals(
-	        'OpenCloud\Compute',
+	        'OpenCloud\Compute\Service',
 	        get_class($this->server->Service())
 	    );
 	}
 	public function testResourceName() {
-		$s = new OpenCloud\Compute\Server($this->service);
+		$s = new \OpenCloud\Compute\Server($this->service);
 		$s->id = 'Bad-ID';
 		$this->assertEquals(
 	'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID',
 			$s->Url());
 	}
 	/**
-	 * @expectedException OpenCloud\ServerActionError
+	 * @expectedException \OpenCloud\Base\Exceptions\ServerActionError
 	 */
 	public function testRescue() {
 	    $password = $this->server->Rescue();
 	    $this->assertGreaterThan(
 	        5,
 	        strlen($password));
-	    $blank = new OpenCloud\Compute\Server($this->service);
+	    $blank = new \OpenCloud\Compute\Server($this->service);
 	    $blank->Rescue(); // should trigger the exception
 	}
 	/**
-	 * @expectedException OpenCloud\ServerActionError
+	 * @expectedException \OpenCloud\Base\Exceptions\ServerActionError
 	 */
 	public function testUnrescue() {
 	    $resp = $this->server->Unrescue();
 	    $this->assertEquals(
 	        '200',
 	        $resp->HttpStatus());
-	    $blank = new OpenCloud\Compute\Server($this->service);
+	    $blank = new \OpenCloud\Compute\Server($this->service);
 	    $blank->Unrescue(); // should trigger the exception
 	}
 	public function testAttachVolume() {
-		$vol = new \OpenCloud\VolumeService\Volume($this->service);
+		$vol = new \OpenCloud\Volume\Volume($this->service);
 		$response = $this->server->AttachVolume($vol);
 		$this->assertEquals(
 			200,
 			$response->HttpStatus());
 	}
 	public function testDetachVolume() {
-		$vol = new \OpenCloud\VolumeService\Volume($this->service,'FOO');
+		$vol = new \OpenCloud\Volume\Volume($this->service,'FOO');
 		$response = $this->server->DetachVolume($vol);
 		$this->assertEquals(
 			202,
@@ -190,12 +191,12 @@ class ServerTest extends PHPUnit_Framework_TestCase
 	}
 	public function testVolumeAttachment() {
 		$this->assertEquals(
-			'OpenCloud\Compute\VolumeAttachment',
+			'OpenCloud\Compute\Attachment',
 			get_class($this->server->VolumeAttachment()));
 	}
 	public function testVolumeAttachmentList() {
 		$this->assertEquals(
-			'OpenCloud\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->server->VolumeAttachmentList()));
 	}
 	public function testCreate_personality() {

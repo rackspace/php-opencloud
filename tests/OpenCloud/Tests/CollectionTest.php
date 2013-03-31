@@ -16,7 +16,7 @@ use OpenCloud\AbstractClass\Collection;
 
 class Gertrude {
 	public function foobar($item) {
-		$obj = new stdClass();
+		$obj = new \stdClass;
 	    if (is_array($item) || is_object($item)) {
 	        foreach($item as $k => $v)
 	            $obj->$k = $v;
@@ -50,7 +50,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	/**
-	 * @expectedException OpenCloud\CollectionError
+	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
 	 */
 	public function test___construct() {
 		$this->assertEquals('one', $this->my->First()->id);
@@ -61,7 +61,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 			"This string is not an array");
 	}
 	public function testService() {
-		$this->assertEquals('Gertrude', get_class($this->my->Service()));
+		$this->assertEquals('OpenCloud\Tests\Gertrude', get_class($this->my->Service()));
 	}
 	public function test_first_and_next() {
 		$this->assertEquals($this->my->First()->id, 'one');
@@ -89,7 +89,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	    $this->my->Sort('val');
 	}
 	/**
-	 * @expectedException OpenCloud\DomainError
+	 * @expectedException \OpenCloud\Base\Exceptions\DomainError
 	 */
 	public function testSelect() {
 		$coll = $this->my; // don't modify the global collection
@@ -109,7 +109,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 			array($this,'_callback'), 
 			'http://something');
 		$this->assertEquals(
-			'CollectionTest',
+			'OpenCloud\Tests\CollectionTest',
 			get_class($coll->NextPage()));
 		$this->assertEquals(
 			FALSE,

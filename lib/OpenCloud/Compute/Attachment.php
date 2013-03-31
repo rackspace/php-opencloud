@@ -12,8 +12,7 @@
 
 namespace OpenCloud\Compute;
 
-require_once(__DIR__.'/persistentobject.php');
-require_once(__DIR__.'/metadata.php');
+use OpenCloud\Base\Lang;
 
 /**
  * The VolumeAttachment class represents a volume that is attached
@@ -22,7 +21,7 @@ require_once(__DIR__.'/metadata.php');
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Attachment extends \OpenCloud\Abstract\PersistentObject {
+class Attachment extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
@@ -58,7 +57,7 @@ class Attachment extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update($params=array()) {
-		throw new \OpenCloud\UpdateError(_('Updates are not permitted'));
+		throw new \OpenCloud\Base\Exceptions\UpdateError(Lang::translate('Updates are not permitted'));
 	}
 	
 	/**

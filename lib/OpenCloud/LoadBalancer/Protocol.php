@@ -5,7 +5,7 @@ namespace OpenCloud\LoadBalancer;
 /**
  * sub-resource to manage protocols (read-only)
  */
-class Protocol extends \OpenCloud\Abstract\PersistentObject {
+class Protocol extends \OpenCloud\AbstractClass\PersistentObject {
 	public
 		$name,
 		$port;

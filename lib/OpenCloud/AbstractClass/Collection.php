@@ -42,8 +42,8 @@ class Collection extends \OpenCloud\Base\Base {
 		else
 		    $this->itemclass = $itemclass;
 		if (!is_array($arr))
-			throw new \OpenCloud\CollectionError(
-				_('Cannot create a Collection without an array'));
+			throw new \OpenCloud\Base\Exceptions\CollectionError(
+				\OpenCloud\Base\Lang::translate('Cannot create a Collection without an array'));
 		// save the array of items
 		$this->itemlist=$arr;
 	}
@@ -162,8 +162,8 @@ class Collection extends \OpenCloud\Base\Base {
 		foreach($this->itemlist as $index => $item) {
 			$test = call_user_func($testfunc, $item);
 			if (!is_bool($test))
-				throw new DomainError(
-					_('Callback function for Collection::Select() '.
+				throw new \OpenCloud\Base\Exceptions\DomainError(
+					\OpenCloud\Base\Lang::translate('Callback function for Collection::Select() '.
 					  'did not return boolean'));
 			if ($test === FALSE)
 				unset($this->itemlist[$index]);

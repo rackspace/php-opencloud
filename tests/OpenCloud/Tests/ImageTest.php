@@ -9,6 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
+namespace OpenCloud\Tests;
+
 require_once('StubConnection.php');
 
 class ImageStub extends \OpenCloud\Compute\Image {}
@@ -19,7 +21,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 		$compute;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com','SECRET');
-		$this->compute = new \OpenCloud\Compute\Compute($conn,
+		$this->compute = new \OpenCloud\Compute\Service($conn,
 		    'cloudServersOpenStack','DFW','publicURL');
 	}
 	/**
@@ -27,7 +29,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	 */
 
 	/**
-	 * @expectedException OpenCloud\InstanceNotFound
+	 * @expectedException \OpenCloud\Base\Exceptions\InstanceNotFound
 	 */
 	public function test___construct() {
 		$image = new \OpenCloud\Compute\Image($this->compute, 'XXXXXX');
@@ -35,29 +37,29 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function test_good_image() {
 		$image = new \OpenCloud\Compute\Image($this->compute);
 		$this->assertEquals(NULL, $image->status);
-		$this->assertEquals('OpenCloud\Metadata', get_class($image->metadata));
+		$this->assertEquals('OpenCloud\Base\Metadata', get_class($image->metadata));
 	}
 	/**
-	 * @expectedException OpenCloud\JsonError
+	 * @expectedException \OpenCloud\Base\Exceptions\JsonError
 	 */
     public function test_bad_json() {
 		$image = new \OpenCloud\Compute\Image($this->compute, 'BADJSON');
     }
     /**
-     * @expectedException OpenCloud\EmptyResponseError
+     * @expectedException \OpenCloud\Base\Exceptions\EmptyResponseError
      */
     public function test_empty_json() {
 		$image = new \OpenCloud\Compute\Image($this->compute, 'EMPTY');
     }
     /**
-     * @expectedException OpenCloud\CreateError
+     * @expectedException \OpenCloud\Base\Exceptions\CreateError
      */
     public function testCreate() {
     	$image = $this->compute->Image();
     	$image->Create();
     }
     /**
-     * @expectedException OpenCloud\UpdateError
+     * @expectedException \OpenCloud\Base\Exceptions\UpdateError
      */
     public function testUpdate() {
     	$image = $this->compute->Image();

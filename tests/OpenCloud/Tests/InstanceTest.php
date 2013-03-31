@@ -9,6 +9,8 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
+namespace OpenCloud\Tests;
+
 require_once('StubConnection.php');
 require_once('StubService.php');
 
@@ -25,7 +27,7 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 		$instance;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$this->service = new \OpenCloud\Database\Database(
+		$this->service = new \OpenCloud\Database\Service(
 			$conn, 'cloudDatabases', 'DFW', 'publicURL');
 		$this->instance = new MyInstanceClass(
 			$this->service,'INSTANCE-ID');
@@ -35,11 +37,11 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function test___construct() {
 		$this->assertEquals(
-			'MyInstanceClass',
+			'OpenCloud\Tests\MyInstanceClass',
 			get_class($this->instance));
 	}
 	/**
-	 * @expectedException OpenCloud\DbService\InstanceUpdateError
+	 * @expectedException \OpenCloud\Base\Exceptions\InstanceUpdateError
 	 */
 	public function testUpdate() {
 		$this->instance->Update();
@@ -62,7 +64,7 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testEnableRootUser() {
 		$this->assertEquals(
-			'\OpenCloud\Database\User',
+			'OpenCloud\Database\User',
 			get_class($this->instance->EnableRootUser()));
 	}
 	public function testIsRootEnabled() {
@@ -72,14 +74,14 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testDatabase() {
 	    $this->assertEquals(
-	        '\OpenCloud\Database\Database',
+	        'OpenCloud\Database\Database',
 	        get_class($this->instance->Database('FOO')));
 	}
 	public function testUser() {
 	    // user with 2 databases
 	    $u = $this->instance->User('BAR',array('FOO','BAR'));
 	    $this->assertEquals(
-	        '\OpenCloud\Database\User',
+	        'OpenCloud\Database\User',
 	        get_class($u));
 	    // make sure it has 2 databases
 	    $this->assertEquals(
@@ -88,12 +90,12 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testDatabaseList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->instance->DatabaseList()));
 	}
 	public function testUserList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->instance->UserList()));
 	}
 	public function testCreateJson() {

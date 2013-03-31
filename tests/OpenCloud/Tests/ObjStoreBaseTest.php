@@ -8,16 +8,15 @@
  * @version 1.0.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-
-require_once('objstorebase.php');
-require_once('http.php');
+ 
+namespace OpenCloud\Tests;
 
 // stub class, since ObjStoreBase is abstract
-class MyObjStoreBase extends \OpenCloud\ObjectStore\ObjStoreBase {
+class MyObjStoreBase extends \OpenCloud\AbstractClass\ObjectStore {
 	public $name='FOOBAR';
 }
 
-class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
+class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
 {
     private
         $obj;
@@ -30,14 +29,14 @@ class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
     public function test__construct() {
         $this->obj = new MyObjStoreBase();
         $this->assertEquals(
-            'OpenCloud\Metadata',
+            'OpenCloud\Base\Metadata',
             get_class($this->obj->metadata));
     }
     /**
-     * @expectedException OpenCloud\ObjectStore\MetadataPrefixError
+     * @expectedException \OpenCloud\Base\Exceptions\MetadataPrefixError
      */
     public function testGetMetadata() {
-        $blank = new OpenCloud\Base\Request\Response\Blank;
+        $blank = new \OpenCloud\Base\Request\Response\Blank;
         $blank->headers = array(
             'X-Meta-Something'=>'FOO',
             'X-Meta-Else'=>'BAR'
@@ -45,7 +44,7 @@ class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
         $this->obj->GetMetadata($blank);
     }
     /**
-     * @expectedException OpenCloud\ObjectStore\MetadataPrefixError
+     * @expectedException \OpenCloud\Base\Exceptions\MetadataPrefixError
      */
     public function testMetadataHeaders() {
     	$this->obj->metadata = new \stdClass();

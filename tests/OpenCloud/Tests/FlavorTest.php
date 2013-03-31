@@ -21,7 +21,7 @@ class FlavorTest extends \PHPUnit_Framework_TestCase
 
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$this->compute = new \OpenCloud\Compute\Compute(
+		$this->compute = new \OpenCloud\Compute\Service(
 			$conn,
 			'cloudServersOpenStack',
 			'DFW',
@@ -33,7 +33,7 @@ class FlavorTest extends \PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	public function test___construct() {
-	    $this->assertEquals('\OpenCloud\Compute\Flavor', get_class($this->flavor));
+	    $this->assertEquals('OpenCloud\Compute\Flavor', get_class($this->flavor));
 	}
     public function test__set1() {
 		$flavor = $this->compute->Flavor();
@@ -41,7 +41,7 @@ class FlavorTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals('NEW', $flavor->id);
 	}
     /**
-     * @expectedException OpenCloud\AttributeError
+     * @expectedException \OpenCloud\Base\Exceptions\AttributeError
      */
 	public function test__set2() {
 		$flavor = $this->compute->Flavor();
@@ -50,6 +50,6 @@ class FlavorTest extends \PHPUnit_Framework_TestCase
     }
     public function testService() {
 		$flavor = $this->compute->Flavor();
-		$this->assertEquals('\OpenCloud\Compute\Compute', get_class($flavor->Service()));
+		$this->assertEquals('OpenCloud\Compute\Service', get_class($flavor->Service()));
     }
 }

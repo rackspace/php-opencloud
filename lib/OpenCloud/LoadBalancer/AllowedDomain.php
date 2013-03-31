@@ -11,7 +11,7 @@ namespace OpenCloud\LoadBalancer;
  *
  * @api
  */
-class AllowedDomain extends \OpenCloud\Abstract\PersistentObject {
+class AllowedDomain extends \OpenCloud\AbstractClass\PersistentObject {
 	public
 		$name;
 	protected static

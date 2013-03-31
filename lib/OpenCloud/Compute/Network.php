@@ -18,7 +18,7 @@ namespace OpenCloud\Compute;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Network extends \OpenCloud\Abstract\PersistentObject {
+class Network extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
@@ -41,7 +41,7 @@ class Network extends \OpenCloud\Abstract\PersistentObject {
 	 *		RAX_PUBLIC and RAX_PRIVATE
 	 * @return void
 	 */
-	public function __construct(\OpenCloud\Compute\Compute $service, $id=NULL) {
+	public function __construct(\OpenCloud\Compute\Service $service, $id=NULL) {
 		$this->id = $id;
 		switch($id) {
 		case RAX_PUBLIC:
@@ -63,7 +63,7 @@ class Network extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws NetworkUpdateError always
 	 */
 	public function Update($params=array()) {
-		throw new NetworkUpdateError(_('Isolated networks cannot be updated'));
+		throw new \OpenCloud\Base\Exceptions\NetworkUpdateError(\OpenCloud\Base\Lang::translate('Isolated networks cannot be updated'));
 	}
 
 	/**
@@ -77,7 +77,7 @@ class Network extends \OpenCloud\Abstract\PersistentObject {
 		switch($this->id) {
 		case RAX_PUBLIC:
 		case RAX_PRIVATE:
-			throw new \OpenCloud\DeleteError(_('Network may not be deleted'));
+			throw new \OpenCloud\Base\Exceptions\DeleteError(\OpenCloud\Base\Lang::translate('Network may not be deleted'));
 		default:
 			return parent::Delete();
 		}

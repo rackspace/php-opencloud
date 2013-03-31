@@ -9,10 +9,11 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('compute.php');
+namespace OpenCloud\Tests;
 
-class NetworkTest extends PHPUnit_Framework_TestCase {
+require_once('StubConnection.php');
+
+class NetworkTest extends \PHPUnit_Framework_TestCase {
 
 	private
 		$service,
@@ -20,13 +21,13 @@ class NetworkTest extends PHPUnit_Framework_TestCase {
 	
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$this->service = new OpenCloud\Compute(
+		$this->service = new \OpenCloud\Compute\Service(
 			$conn,
 			'cloudServersOpenStack',
 			'DFW',
 			'publicURL'
 		);
-		$this->net = new Opencloud\Compute\Network($this->service, RAX_PUBLIC);
+		$this->net = new \OpenCloud\Compute\Network($this->service, RAX_PUBLIC);
 	}
 	
 	/**
@@ -49,7 +50,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase {
 			$net->label);
 	}
 	/**
-	 * @expectedException OpenCloud\Compute\NetworkUpdateError
+	 * @expectedException \OpenCloud\Base\Exceptions\NetworkUpdateError
 	 */
 	public function testUpdate() {
 		$this->net->Update();

@@ -21,7 +21,7 @@ class DnsTest extends \PHPUnit_Framework_TestCase
 
 	public function __construct() {
 		$this->conn = new StubConnection('http://example.com', 'SECRET');
-		$this->dns = new \OpenCloud\DNS\DNS(
+		$this->dns = new \OpenCloud\DNS\Service(
 			$this->conn,
 			'cloudDNS',
 			'N/A',
@@ -32,9 +32,9 @@ class DnsTest extends \PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	public function test__construct() {
-	    $thing = new \OpenCloud\DNS\DNS($this->conn,'cloudDNS','N/A','publicURL');
+	    $thing = new \OpenCloud\DNS\Service($this->conn,'cloudDNS','N/A','publicURL');
 	    $this->assertEquals(
-	        '\OpenCloud\DNS\DNS',
+	        'OpenCloud\DNS\Service',
 	        get_class($thing));
 	}
 	public function testUrl() {
@@ -44,41 +44,41 @@ class DnsTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testDomain() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\Domain',
+			'OpenCloud\DNS\Domain',
 			get_class($this->dns->Domain()));
 	}
 	public function testDomainList() {
 		$list = $this->dns->DomainList();
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($list));
 		$this->assertGreaterThan(
 			2,
 			strlen($list->Next()->Name()));
 	}
 	/**
-	 * @expectedException OpenCloud\DNS\AsyncHttpError
+	 * @expectedException \OpenCloud\Base\Exceptions\AsyncHttpError
 	 */
 	public function testAsyncRequest() {
 	    $resp = $this->dns->AsyncRequest('FOOBAR');
 	}
 	public function testImport() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\AsyncResponse',
+			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->dns->Import('foo bar oops')));
 	}
 	public function testPtrRecordList() {
 		$server = new \OpenCloud\Compute\Server(
-			new \OpenCloud\Compute\Compute($this->conn,
+			new \OpenCloud\Compute\Service($this->conn,
 				'cloudServersOpenStack', 'DFW', 'publicURL'));
 		$server->id = '42';
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->dns->PtrRecordList($server)));
 	}
 	public function testRecord() {
 		$this->assertEquals(
-			'\OpenCloud\DNS\PtrRecord',
+			'OpenCloud\DNS\PtrRecord',
 			get_class($this->dns->PtrRecord()));
 	}
 	public function testLimits() {

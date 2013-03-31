@@ -12,6 +12,8 @@
 
 namespace OpenCloud\AbstractClass;
 
+use OpenCloud\Base\Lang;
+
 /**
  * represents an object that has the ability to be
  * retrieved, created, updated, and deleted.
@@ -91,8 +93,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 			}
 		}
 		elseif (isset($info))
-			throw new InvalidArgumentError(sprintf(
-				_('Argument for [%s] must be string or object'),
+			throw new \OpenCloud\Base\Exceptions\InvalidArgumentError(sprintf(
+				Lang::translate('Argument for [%s] must be string or object'),
 				get_class()));
 	}
 
@@ -129,8 +131,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 
 		// check the return code
 		if ($response->HttpStatus() > 204)
-			throw new CreateError(sprintf(
-				_('Error creating [%s] [%s], status [%d] response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\CreateError(sprintf(
+				Lang::translate('Error creating [%s] [%s], status [%d] response [%s]'),
 				get_class($this),
 				$this->Name(),
 				$response->HttpStatus(),
@@ -182,8 +184,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 
 		// check the return code
 		if ($response->HttpStatus() > 204)
-			throw new UpdateError(sprintf(
-				_('Error updating [%s] with [%s], status [%d] response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\UpdateError(sprintf(
+				Lang::translate('Error updating [%s] with [%s], status [%d] response [%s]'),
 				get_class($this),
 				$json,
 				$response->HttpStatus(),
@@ -207,8 +209,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 
 		// check the return code
 		if ($response->HttpStatus() > 204)
-			throw new DeleteError(sprintf(
-				_('Error deleting [%s] [%s], status [%d] response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\DeleteError(sprintf(
+				Lang::translate('Error deleting [%s] [%s], status [%d] response [%s]'),
 				get_class(),
 				$this->Name(),
 				$response->HttpStatus(),
@@ -239,7 +241,7 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 		 * object might not be a service.
 		 */
 		if (!$url && $this->{$pk})
-			$url = noslash($this->Parent()->Url($this->ResourceName()))
+			$url = Lang::noslash($this->Parent()->Url($this->ResourceName()))
 			        . '/' . $this->{$pk};
 
 		// add the subresource
@@ -255,8 +257,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 		}
 
 		// otherwise, we don't have a URL yet
-		throw new UrlError(
-			sprintf(_('%s does not have a URL yet'), get_class($this)));
+		throw new \OpenCloud\Base\Exceptions\UrlError(
+			sprintf(Lang::translate('%s does not have a URL yet'), get_class($this)));
 		return FALSE;
 	}
 
@@ -349,11 +351,11 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 		if (!isset($id))
 			$id = $this->{$pk};
 		if (!$id)
-			throw new IdRequiredError(sprintf(
-			    _('%s has no ID; cannot be refreshed'), get_class()));
+			throw new \OpenCloud\Base\Exceptions\IdRequiredError(sprintf(
+			   Lang::translate('%s has no ID; cannot be refreshed'), get_class()));
 
 		// retrieve it
-		$this->debug(_('%s id [%s]'), get_class($this), $id);
+		$this->debug(Lang::translate('%s id [%s]'), get_class($this), $id);
 		$this->{$pk} = $id;
 
 		// reset status, if available
@@ -365,21 +367,21 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 
 		// check status codes
 		if ($response->HttpStatus() == 404)
-			throw new InstanceNotFound(
-				sprintf(_('%s [%s] not found [%s]'),
+			throw new \OpenCloud\Base\Exceptions\InstanceNotFound(
+				sprintf(Lang::translate('%s [%s] not found [%s]'),
 					get_class($this), $this->{$pk}, $this->Url()));
 
 		if ($response->HttpStatus() >= 300)
-			throw new UnknownError(
-				sprintf(_('Unexpected %s error [%d] [%s]'),
+			throw new \OpenCloud\Base\Exceptions\UnknownError(
+				sprintf(Lang::translate('Unexpected %s error [%d] [%s]'),
 					get_class($this),
 					$response->HttpStatus(),
 					$response->HttpBody()));
 
 		// check for empty response
 		if (!$response->HttpBody())
-			throw new EmptyResponseError(sprintf(
-				_('%s::Refresh() unexpected empty response, URL [%s]'),
+			throw new \OpenCloud\Base\Exceptions\EmptyResponseError(sprintf(
+				Lang::translate('%s::Refresh() unexpected empty response, URL [%s]'),
 				get_class($this),
 				$this->Url()));
 
@@ -388,8 +390,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 			$this->debug('Refresh() JSON [%s]', $json);
 			$resp = json_decode($json);
 			if ($this->CheckJsonError())
-				throw new ServerJsonError(sprintf(
-				    _('JSON parse error on %s refresh'), get_class($this)));
+				throw new \OpenCloud\Base\Exceptions\ServerJsonError(sprintf(
+				   Lang::translate('JSON parse error on %s refresh'), get_class($this)));
 			$top = $this->JsonName();
 			if ($top === FALSE) {
 				foreach($resp as $item => $value) {
@@ -418,8 +420,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 		if (property_exists($this, 'name'))
 			return $this->name;
 		else
-			throw new NameError(sprintf(
-				_('Name attribute does not exist for [%s]'),
+			throw new \OpenCloud\Base\Exceptions\NameError(sprintf(
+				Lang::translate('Name attribute does not exist for [%s]'),
 				get_class($this)));
 	}
 
@@ -458,8 +460,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	 */
 	public function CheckExtension($alias) {
 		if (!in_array($alias, $this->Service()->namespaces()))
-			throw new UnsupportedExtensionError(sprintf(
-				_('Extension [%s] is not installed'), $alias));
+			throw new \OpenCloud\Base\Exceptions\UnsupportedExtensionError(sprintf(
+				Lang::translate('Extension [%s] is not installed'), $alias));
 		return TRUE;
 	}
 
@@ -493,13 +495,13 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 		$pk = $this->PrimaryKeyField();
 		// we always require a valid ID
 		if (!$this->{$pk})
-			throw new IdRequiredError(sprintf(
-				_('%s is not defined'), get_class($this)));
+			throw new \OpenCloud\Base\Exceptions\IdRequiredError(sprintf(
+				Lang::translate('%s is not defined'), get_class($this)));
 
 		// verify that it is an object
 		if (!is_object($object))
-		    throw new ServerActionError(sprintf(
-		        _('%s::Action() requires an object as its parameter'),
+		    throw new \OpenCloud\Base\Exceptions\ServerActionError(sprintf(
+		       Lang::translate('%s::Action() requires an object as its parameter'),
 		        get_class($this)));
 
 		// convert the object to json
@@ -509,7 +511,7 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 			return FALSE;
 
 		// debug - save the request
-		$this->debug(_('%s::Action [%s]'), get_class($this), $json);
+		$this->debug(Lang::translate('%s::Action [%s]'), get_class($this), $json);
 
 		// get the URL for the POST message
 		$url = $this->Url('action');
@@ -522,15 +524,15 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 			$json
 		);
 		if (!is_object($response))
-			throw new HttpError(sprintf(
-			    _('Invalid response for %s::Action() request'),
+			throw new \OpenCloud\Base\Exceptions\HttpError(sprintf(
+			   Lang::translate('Invalid response for %s::Action() request'),
 			    get_class($this)));
 
 		// check for errors
 		if ($response->HttpStatus() >= 300) {
 			$obj = json_decode($response->HttpBody());
-			throw new ServerActionError(
-				sprintf(_('%s::Action() [%s] failed; response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\ServerActionError(
+				sprintf(Lang::translate('%s::Action() [%s] failed; response [%s]'),
 					get_class($this), $url, $response->HttpBody()));
 		}
 
@@ -591,8 +593,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	public static function JsonName() {
 		if (isset(static::$json_name))
 			return static::$json_name;
-		throw new DocumentError(sprintf(
-			_('No JSON object defined for class [%s] in JsonName()'),
+		throw new \OpenCloud\Base\Exceptions\DocumentError(sprintf(
+			Lang::translate('No JSON object defined for class [%s] in JsonName()'),
 			get_class()));
 	}
 
@@ -644,8 +646,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	public static function ResourceName() {
 		if (isset(static::$url_resource))
 			return static::$url_resource;
-		throw new UrlError(sprintf(
-			_('No URL resource defined for class [%s] in ResourceName()'),
+		throw new \OpenCloud\Base\Exceptions\UrlError(sprintf(
+			Lang::translate('No URL resource defined for class [%s] in ResourceName()'),
 			get_class()));
 	}
 
@@ -657,8 +659,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	 * @throws CreateError if not overridden
 	 */
 	protected function CreateJson() {
-		throw new CreateError(sprintf(
-			_('[%s] CreateJson() must be overridden'),
+		throw new \OpenCloud\Base\Exceptions\CreateError(sprintf(
+			Lang::translate('[%s] CreateJson() must be overridden'),
 			get_class($this)));
 	}
 
@@ -670,8 +672,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	 * @throws UpdateError if not overridden
 	 */
 	protected function UpdateJson($params = array()) {
-		throw new UpdateError(sprintf(
-			_('[%s] UpdateJson() must be overridden'),
+		throw new \OpenCloud\Base\Exceptions\UpdateError(sprintf(
+			Lang::translate('[%s] UpdateJson() must be overridden'),
 			get_class($this)));
 	}
 
@@ -681,8 +683,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	 * @throws CreateError
 	 */
 	protected function NoCreate() {
-		throw new CreateError(sprintf(
-			_('[%s] does not support Create()'), get_class()));
+		throw new \OpenCloud\Base\Exceptions\CreateError(sprintf(
+			Lang::translate('[%s] does not support Create()'), get_class()));
 	}
 
 	/**
@@ -691,8 +693,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	 * @throws DeleteError
 	 */
 	protected function NoDelete() {
-		throw new DeleteError(sprintf(
-			_('[%s] does not support Delete()'), get_class()));
+		throw new \OpenCloud\Base\Exceptions\DeleteError(sprintf(
+			Lang::translate('[%s] does not support Delete()'), get_class()));
 	}
 
 	/**
@@ -701,8 +703,8 @@ abstract class PersistentObject extends \OpenCloud\Base\Base {
 	 * @throws UpdateError
 	 */
 	protected function NoUpdate() {
-		throw new UpdateError(sprintf(
-			_('[%s] does not support Update()'), get_class()));
+		throw new \OpenCloud\Base\Exceptions\UpdateError(sprintf(
+			Lang::translate('[%s] does not support Update()'), get_class()));
 	}
 
 }

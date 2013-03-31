@@ -160,7 +160,7 @@ abstract class Service extends \OpenCloud\Base\Base {
 		// check return code
 		if ($response->HttpStatus() > 204)
 			throw new \OpenCloud\Base\Exceptions\CollectionError(sprintf(
-				_('Unable to retrieve [%s] list from [%s], '.
+				Lang::translate('Unable to retrieve [%s] list from [%s], '.
 				  'status [%d] response [%s]'),
 				$class,
 				$url,
@@ -184,8 +184,8 @@ abstract class Service extends \OpenCloud\Base\Base {
 						if (isset($link->href))
 							$next_page_url = $link->href;
 						else
-							throw new \OpenCloud\DomainError(
-								_('unexpected [links] found with no [href]'));
+							throw new \OpenCloud\Base\Exceptions\DomainError(
+								Lang::translate('unexpected [links] found with no [href]'));
 					}
 				}
 			}
@@ -301,8 +301,8 @@ abstract class Service extends \OpenCloud\Base\Base {
 
         // error if not found
         if (!$found)
-            throw new EndpointError(
-                sprintf(_('No endpoints for service type [%s], name [%s], '.
+            throw new \OpenCloud\Base\Exceptions\EndpointError(
+                sprintf(Lang::translate('No endpoints for service type [%s], name [%s], '.
                   'region [%s] and urlType [%s]'),
                 $type,
                 $name,
@@ -330,7 +330,7 @@ abstract class Service extends \OpenCloud\Base\Base {
 		);
 		if ($urlbase == '')
 			return array();
-		$ext_url = Lang::noslash($urlbase) .
+		$ext_url = \OpenCloud\Base\Lang::noslash($urlbase) .
 						'/' .
 						$resource;
 		$response = $this->Request($ext_url);
@@ -341,8 +341,8 @@ abstract class Service extends \OpenCloud\Base\Base {
 
 		// check for error status
 		if ($response->HttpStatus() >= 300)
-		    throw new HttpError(sprintf(
-		        _('Error accessing [%s] - status [%d], response [%s]'),
+		    throw new \OpenCloud\Base\Exceptions\HttpError(sprintf(
+		        Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
 		        $urlbase, $response->HttpStatus(), $response->HttpBody()));
 
 		// we're good; proceed

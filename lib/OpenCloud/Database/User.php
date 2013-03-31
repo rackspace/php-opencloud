@@ -63,8 +63,8 @@ class User extends \OpenCloud\Base\Base {
         elseif (is_string($info))
             $this->name = $info;
         elseif (isset($info))
-            throw new UserNameError(
-                _('User parameter must be an object, array, or string'));
+            throw new \OpenCloud\Base\Exceptions\UserNameError(
+                \OpenCloud\Base\Lang::translate('User parameter must be an object, array, or string'));
     }
 
     /**
@@ -75,8 +75,8 @@ class User extends \OpenCloud\Base\Base {
      */
     public function Url() {
         if (!isset($this->name))
-            throw new UserNameError(
-                _('The user does not have a Url yet'));
+            throw new \OpenCloud\Base\Exceptions\UserNameError(
+                \OpenCloud\Base\Lang::translate('The user does not have a Url yet'));
         return stripslashes($this->Instance()->Url('users'))
                 .'/'.$this->name;
     }
@@ -123,8 +123,8 @@ class User extends \OpenCloud\Base\Base {
 		foreach($params as $name => $value)
 			$this->$name = $value;
 		if (!isset($this->name))
-			throw new UserNameError(
-			    _('Cannot create a database user without a name'));
+			throw new \OpenCloud\Base\Exceptions\UserNameError(
+			    \OpenCloud\Base\Lang::translate('Cannot create a database user without a name'));
 		$json = json_encode($this->CreateJson());
 		$this->debug('Create() JSON[%s]', $json);
 		if ($this->CheckJsonError())
@@ -137,8 +137,8 @@ class User extends \OpenCloud\Base\Base {
 
 		// check the response
 		if ($response->HttpStatus() > 202)
-			throw new UserCreateError(sprintf(
-				_('Error creating user [%s], status [%d] response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\UserCreateError(sprintf(
+				\OpenCloud\Base\Lang::translate('Error creating user [%s], status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
 
 		return $response;
@@ -152,8 +152,8 @@ class User extends \OpenCloud\Base\Base {
 	 *		this service.
 	 */
 	public function Update($params=array()) {
-		throw new UserUpdateError(
-		    _('You cannot update a database user at this time'));
+		throw new \OpenCloud\Base\Exceptions\UserUpdateError(
+		    \OpenCloud\Base\Lang::translate('You cannot update a database user at this time'));
 	}
 
 	/**
@@ -171,8 +171,8 @@ class User extends \OpenCloud\Base\Base {
 
 		// check status code
 		if ($response->HttpStatus() > 202)
-			throw new UserDeleteError(sprintf(
-				_('Error deleting user [%s], status [%d] response [%s]',
+			throw new \OpenCloud\Base\Exceptions\UserDeleteError(sprintf(
+				\OpenCloud\Base\Lang::translate('Error deleting user [%s], status [%d] response [%s]',
 					$this->name, $response->HttpStatus(), $response->HttpBody())));
 
 		return $response;

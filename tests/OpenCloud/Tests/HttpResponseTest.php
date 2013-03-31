@@ -9,7 +9,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('http.php');
+namespace OpenCloud\Tests;
 
 define('TESTDATA',<<<ENDTESTDATA
 Four score and seven years ago, our
@@ -46,7 +46,7 @@ class MyStubRequest extends Curl {
     }
 }
 
-class HttpResponseTest extends PHPUnit_Framework_TestCase
+class HttpResponseTest extends \PHPUnit_Framework_TestCase
 {
     private
         $response;

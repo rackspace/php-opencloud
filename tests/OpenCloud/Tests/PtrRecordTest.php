@@ -9,11 +9,11 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('dns.php');
-require_once('server.php');
-require_once('stub_conn.php');
+namespace OpenCloud\Tests;
 
-class PtrRecordTest extends PHPUnit_Framework_TestCase
+require_once('StubConnection.php');
+
+class PtrRecordTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$conn,
@@ -22,29 +22,29 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
 	public function __construct() {
 		$this->conn = new StubConnection('http://example.com', 'SECRET');
-		$this->dns = new OpenCloud\DNS(
+		$this->dns = new \OpenCloud\DNS\Service(
 			$this->conn,
 			'cloudDNS',
 			'N/A',
 			'publicURL'
 		);
-		$this->record = new OpenCloud\DNS\PtrRecord($this->dns);
+		$this->record = new \OpenCloud\DNS\PtrRecord($this->dns);
 	}
 	/**
 	 * Tests
 	 */
 	public function test__construct() {
-		$this->record = new OpenCloud\DNS\PtrRecord($this->dns);
+		$this->record = new \OpenCloud\DNS\PtrRecord($this->dns);
 		$this->assertEquals(
 			'PTR',
 			$this->record->type);
 	}
 	/**
-	 * @expectedException OpenCloud\DNS\RecordTypeError
+	 * @expectedException \OpenCloud\Base\Exceptions\RecordTypeError
 	 */
 	public function test__construct2() {
 		// not allowed to change the record type from PTR
-		$this->record = new OpenCloud\DNS\PtrRecord(
+		$this->record = new \OpenCloud\DNS\PtrRecord(
 			$this->dns, array('type' => 'A'));
 	}
 	public function testUrl() {

@@ -18,7 +18,7 @@ namespace OpenCloud\Volume;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Volume extends \OpenCloud\Abstract\PersistentObject {
+class Volume extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
@@ -53,8 +53,8 @@ class Volume extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update($params=array()) {
-		throw new \OpenCloud\UpdateError(
-			_('Block storage volumes cannot be updated'));
+		throw new \OpenCloud\Base\Exceptions\UpdateError(
+			\OpenCloud\Base\Lang::translate('Block storage volumes cannot be updated'));
 	}
 
 	/**

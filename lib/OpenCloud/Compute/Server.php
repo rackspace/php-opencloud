@@ -22,7 +22,7 @@ namespace OpenCloud\Compute;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Server extends \OpenCloud\Abstract\PersistentObject {
+class Server extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$status,		// server status
@@ -69,7 +69,7 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws ServerNotFound if a 404 is returned
 	 * @throws UnknownError if another error status is reported
 	 */
-	public function __construct(\OpenCloud\Compute $service, $info=NULL) {
+	public function __construct(\OpenCloud\Compute\Service $service, $info=NULL) {
 		// make the service persistent
 		parent::__construct($service, $info);
 
@@ -97,8 +97,8 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	    case 6:
 	        return $this->accessIPv6;
 	    default:
-	        throw new InvalidIpTypeError(
-	            _('Invalid IP address type; must be 4 or 6'));
+	        throw new \OpenCloud\Base\Exceptions\InvalidIpTypeError(
+	            \OpenCloud\Base\Lang::translate('Invalid IP address type; must be 4 or 6'));
 	    }
 	}
 
@@ -125,7 +125,7 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 		$this->metadata->sdk = RAXSDK_USER_AGENT;
 		$this->imageRef = $this->image->links[0]->href;
 		$this->flavorRef = $this->flavor->links[0]->href;
-		$this->debug(_('Server::Create() [%s]'), $this->name);
+		$this->debug(\OpenCloud\Base\Lang::translate('Server::Create() [%s]'), $this->name);
 		$create = $this->CreateJson( $rebuild ? 'rebuild' : 'server' );
 		$response = $this->Service()->Request(
 			$this->Service()->Url(),
@@ -134,19 +134,19 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 			$create
 		);
 		if (!is_object($response))
-			throw new \OpenCloud\HttpError(sprintf(
-			    _('Invalid response for Server::%s() request'),
+			throw new \OpenCloud\Base\Exceptions\HttpError(sprintf(
+			    \OpenCloud\Base\Lang::translate('Invalid response for Server::%s() request'),
 			    $rebuild ? 'Rebuild' : 'Create'));
 		$json = $response->HttpBody();
 		if ($response->HttpStatus() >= 300)
-			throw new ServerCreateError(
-			    sprintf(_('Problem creating server with [%s], '.
+			throw new \OpenCloud\Base\Exceptions\ServerCreateError(
+			    sprintf(\OpenCloud\Base\Lang::translate('Problem creating server with [%s], '.
 			              'status [%d] response [%s]'),
 			        $create,
 			        $response->HttpStatus(),
 			        $response->HttpBody()));
 		else if (!$json)
-			throw new UnknownError(_('Unexpected error in Server::Create()'));
+			throw new \OpenCloud\Base\Exceptions\UnknownError(\OpenCloud\Base\Lang::translate('Unexpected error in Server::Create()'));
 		else {
 			$info = json_decode($json);
 			if ($this->CheckJsonError())
@@ -200,8 +200,8 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	public function CreateImage($name, $metadata=array()) {
 		if (!strlen($name))
-			throw new ImageError(
-			    _('Image name is required to create an image'));
+			throw new \OpenCloud\Base\Exceptions\ImageError(
+			    \OpenCloud\Base\Lang::translate('Image name is required to create an image'));
 
 		// construct a createImage object for jsonization
 		$obj = new \stdClass();
@@ -281,8 +281,8 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	public function Rescue() {
 		$this->CheckExtension('os-rescue');
 	    if (!isset($this->id))
-	        throw new \OpenCloud\ServerActionError(
-	            _('Server has no ID; cannot Rescue()'));
+	        throw new \OpenCloud\Base\Exceptions\ServerActionError(
+	            \OpenCloud\Base\Lang::translate('Server has no ID; cannot Rescue()'));
 	    $obj = new \stdClass();
 	    $obj->rescue = "none";
 	    $resp = $this->Action($obj);
@@ -290,8 +290,8 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	    if ($this->CheckJsonError())
 	        return FALSE;
 	    elseif (!isset($newobj->adminPass))
-	        throw new \OpenCloud\ServerActionError(sprintf(
-	            _('Rescue() method failed unexpectedly, '.
+	        throw new \OpenCloud\Base\Exceptions\ServerActionError(sprintf(
+	            \OpenCloud\Base\Lang::translate('Rescue() method failed unexpectedly, '.
 	              'status [%s] response [%s]'),
 	            $resp->HttpStatus(), $resp->HttpBody()));
 	    else
@@ -310,8 +310,8 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
     public function Unrescue() {
     	$this->CheckExtension('os-rescue');
 	    if (!isset($this->id))
-	        throw new \OpenCloud\ServerActionError(
-	            _('Server has no ID; cannot Unescue()'));
+	        throw new \OpenCloud\Base\Exceptions\ServerActionError(
+	            \OpenCloud\Base\Lang::translate('Server has no ID; cannot Unescue()'));
 	    $obj = new \stdClass();
 	    $obj->unrescue = NULL;
 	    return $this->Action($obj);
@@ -351,11 +351,11 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws ServerIpsError
 	 */
 	public function ips($network=NULL) {
-		$url = noslash($this->Url('ips/'.$network));
+		$url = \OpenCloud\Base\Lang::noslash($this->Url('ips/'.$network));
 		$response = $this->Service()->Request($url);
 		if ($response->HttpStatus() >= 300)
-			throw new ServerIpsError(
-				sprintf(_('Error in Server::ips(), status [%d], response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\ServerIpsError(
+				sprintf(\OpenCloud\Base\Lang::translate('Error in Server::ips(), status [%d], response [%s]'),
 					$response->HttpStatus(), $response->HttpBody()));
 		$obj = json_decode($response->HttpBody());
 		if ($this->CheckJsonError())
@@ -382,7 +382,7 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	 *		to `/dev/xvhdb`).
 	 * @param string $device the device to which to attach it
 	 */
-	public function AttachVolume(\OpenCloud\VolumeService\Volume $vol,
+	public function AttachVolume(\OpenCloud\Volume\Volume $vol,
 								 $device='auto') {
 		$this->CheckExtension('os-volumes');
 		$attachment = $this->VolumeAttachment();
@@ -401,7 +401,7 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	 * @param OpenCloud\VolumeService\Volume $vol the volume to remove
 	 * @throws VolumeError
 	 */
-	public function DetachVolume(\OpenCloud\VolumeService\Volume $vol) {
+	public function DetachVolume(\OpenCloud\Volume\Volume $vol) {
 		$this->CheckExtension('os-volumes');
 		$attachment = $this->VolumeAttachment($vol->id);
 		return $attachment->Delete();
@@ -412,7 +412,7 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	 *
 	 */
 	public function VolumeAttachment($id=NULL) {
-		return new VolumeAttachment($this, $id);
+		return new Attachment($this, $id);
 	}
 
 	/**
@@ -423,7 +423,7 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 	 */
 	public function VolumeAttachmentList() {
 		return $this->Service()->Collection(
-		    '\OpenCloud\Compute\VolumeAttachment',
+		    '\OpenCloud\Compute\Attachment',
 		    NULL,
 		    $this);
 	}
@@ -468,8 +468,8 @@ class Server extends \OpenCloud\Abstract\PersistentObject {
 			$obj->$element->networks = array();
 			foreach($this->networks as $net) {
 			    if (get_class($net) != 'OpenCloud\Compute\Network')
-			        throw new Compute\InvalidParameterError(sprintf(
-			            _('"networks" parameter must be an array of '.
+			        throw new OpenCloud\Base\Exceptions\InvalidParameterError(sprintf(
+			            \OpenCloud\Base\Lang::translate('"networks" parameter must be an array of '.
 			              'Compute\Network objects; [%s] found'),
 			              get_class($net)));
 				$netobj = new \stdClass();

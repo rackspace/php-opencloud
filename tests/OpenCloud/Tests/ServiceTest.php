@@ -9,19 +9,20 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('service.php');
+namespace OpenCloud\Tests;
+
+require_once('StubConnection.php');
 
 /**
  * Since Service is an abstract class, we'll wrap it so we can test it
  */
-class MyService extends OpenCloud\Service {
+class MyService extends \OpenCloud\AbstractClass\Service {
 	public function Request($url,$method='GET',$headers=array(),$body=NULL) {
 		return parent::Request($url,$method,$headers,$body);
 	}
 }
 
-class ServiceTest extends PHPUnit_Framework_TestCase
+class ServiceTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$conn,

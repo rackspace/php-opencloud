@@ -37,13 +37,13 @@ namespace OpenCloud\Base;
 class Rackspace extends OpenStack {
 
 	//this is the JSON string for our new credentials
-	const APIKEYTEMPLATE = <<<ENDCRED
-	{ "auth": { "RAX-KSKEY:apiKeyCredentials": { "username": "%s",
-	          "apiKey": "%s"
-	        }
-	    }
-	}
-	ENDCRED;
+const APIKEYTEMPLATE = <<<ENDCRED
+{ "auth": { "RAX-KSKEY:apiKeyCredentials": { "username": "%s",
+          "apiKey": "%s"
+        }
+    }
+}
+ENDCRED;
 
 	/**
 	 * Generates Rackspace API key credentials

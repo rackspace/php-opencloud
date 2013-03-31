@@ -18,7 +18,7 @@ class DbServiceTest extends \PHPUnit_Framework_TestCase {
 		$dbaas;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'secret');
-		$this->dbaas = new \OpenCloud\Database\Database(
+		$this->dbaas = new \OpenCloud\Database\Service(
 			$conn,
 			'cloudDatabases',
 			'DFW',
@@ -29,13 +29,13 @@ class DbServiceTest extends \PHPUnit_Framework_TestCase {
 	 * Tests
 	 */
 	public function test__construct() {
-		$this->dbaas = new \OpenCloud\Database\Database(
+		$this->dbaas = new \OpenCloud\Database\Service(
 			new StubConnection('http://example.com', 'secret'),
 			'cloudDatabases',
 			'DFW',
 			'publicURL'
 		);
-		$this->assertEquals('\OpenCloud\Database\Database', get_class($this->dbaas));
+		$this->assertEquals('OpenCloud\Database\Service', get_class($this->dbaas));
 	}
 	public function testUrl() {
 		$this->assertEquals(
@@ -47,17 +47,17 @@ class DbServiceTest extends \PHPUnit_Framework_TestCase {
 	}
 	public function testFlavorList() {
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->dbaas->FlavorList()));
 	}
 	public function testDbInstance() {
 		$inst = $this->dbaas->Instance();
-		$this->assertEquals('\OpenCloud\Database\Instance', get_class($inst));
+		$this->assertEquals('OpenCloud\Database\Instance', get_class($inst));
 	}
 	public function testDbInstanceList() {
 		$list = $this->dbaas->InstanceList();
 		$this->assertEquals(
-		    '\OpenCloud\AbstractClass\Collection',
+		    'OpenCloud\AbstractClass\Collection',
 		    get_class($list));
 	}
 }

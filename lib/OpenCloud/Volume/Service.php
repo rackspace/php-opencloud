@@ -12,7 +12,7 @@
 
 namespace OpenCloud\Volume;
 
-class Service extends Nova {
+class Service extends \OpenCloud\AbstractClass\Nova {
 
 	/**
 	 * creates the VolumeService object
@@ -29,7 +29,7 @@ class Service extends Nova {
 	 * @return VolumeService\Volume
 	 */
 	public function Volume($id=NULL) {
-		return new VolumeService\Volume($this, $id);
+		return new Volume($this, $id);
 	}
 
 	/**

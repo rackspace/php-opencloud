@@ -10,14 +10,14 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalance;
+namespace OpenCloud\LoadBalancer;
 
 /**
  * The Rackspace Cloud Load Balancers
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Service extends \OpenCloud\Abstract\Nova {
+class Service extends \OpenCloud\AbstractClass\Nova {
 
     const
         SERVICE_TYPE = 'rax:load-balancer',
@@ -85,7 +85,7 @@ class Service extends \OpenCloud\Abstract\Nova {
 	 * @return LoadBalancerService\LoadBalancer
 	 */
 	public function BillableLoadBalancer($id=NULL) {
-		return new BillableLoadBalancer($this, $id);
+		return new Billable($this, $id);
 	}
 
 	/**

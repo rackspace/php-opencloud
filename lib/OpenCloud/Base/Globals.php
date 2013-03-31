@@ -53,7 +53,7 @@ namespace Base;
 if (!defined('RAXSDK_TIMEZONE'))
     define('RAXSDK_TIMEZONE', 'America/Chicago');
 if (!defined('RAXSDK_STRICT_PROPERTY_CHECKS'))
-    define('RAXSDK_STRICT_PROPERTY_CHECKS', FALSE);
+    define('RAXSDK_STRICT_PROPERTY_CHECKS', true);
 if (!defined('RAXSDK_COMPUTE_NAME'))
     define('RAXSDK_COMPUTE_NAME', 'cloudServersOpenStack');
 if (!defined('RAXSDK_COMPUTE_REGION'))
@@ -176,12 +176,12 @@ define('RAX_PRIVATE','11111111-1111-1111-1111-111111111111');
 /********** SOME GLOBAL FUNCTIONS **********/
 
 	/**
-	 * _() - this function should be used to wrap all static strings. In the future,
+	 * \OpenCloud\Base\Lang::translate() - this function should be used to wrap all static strings. In the future,
 	 * this may provide us with a hook for providing different language
 	 * translations.
 	 */
 	function define_gettext() {
-		function _($str) {
+		function translate($str) {
 			return $str;
 		}
 	}

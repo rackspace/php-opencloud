@@ -5,7 +5,7 @@ namespace OpenCloud\LoadBalancer\Resources;
 /**
  * used to get usage data for a load balancer
  */
-class Usage extends ReadonlySubResource {
+class Usage extends Readonly {
 	public
 		$id,
 		$averageNumConnections,

@@ -49,7 +49,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals(TRUE, TRUE);
     }
     /**
-     * @expectedException OpenCloud\HttpError
+     * @expectedException \OpenCloud\Base\Exceptions\HttpError
      */
 	public function testExecute() {
 	    $obj = $this->http->Execute();

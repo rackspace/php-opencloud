@@ -8,23 +8,22 @@
  * @version 1.0.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
+ 
+namespace OpenCloud\Tests;
 
-require_once('volume.php');
-require_once('volumetype.php');
-require_once('stub_conn.php');
-require_once('volumeservice.php');
+require_once('StubConnection.php');
 
-class publicVolume extends OpenCloud\VolumeService\Volume {
+class publicVolume extends \OpenCloud\Volume\Volume {
     public function CreateJson() { return parent::CreateJson(); }
 }
 
-class VolumeTest extends PHPUnit_Framework_TestCase
+class VolumeTest extends \PHPUnit_Framework_TestCase
 {
     private
         $vol;
     public function __construct() {
         $conn = new StubConnection('http://example.com', 'SECRET');
-        $serv = new OpenCloud\VolumeService(
+        $serv = new \OpenCloud\Volume\Service(
             $conn, 'cloudBlockStorage', 'DFW', 'publicURL'
         );
         $this->vol = new publicVolume($serv);
@@ -33,7 +32,7 @@ class VolumeTest extends PHPUnit_Framework_TestCase
      * Tests
      */
     /**
-     * @expectedException OpenCloud\UpdateError
+     * @expectedException \OpenCloud\Base\Exceptions\UpdateError
      */
     public function testUpdate() {
         $this->vol->Update();
@@ -55,8 +54,8 @@ class VolumeTest extends PHPUnit_Framework_TestCase
             $this->vol->ResourceName());
     }
     public function testCreateJson() {
-        $type = new OpenCloud\VolumeService\VolumeType(
-            new OpenCloud\VolumeService(
+        $type = new \OpenCloud\Volume\Type(
+            new \OpenCloud\Volume\Service(
                 new StubConnection('http://', 'S'),
                 'cloudBlockStorage', 'DFW', 'publicURL')
         );

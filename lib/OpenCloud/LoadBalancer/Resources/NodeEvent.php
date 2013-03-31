@@ -7,7 +7,7 @@ namespace OpenCloud\LoadBalancer\Resources;
  *
  * This is a read-only subresource.
  */
-class NodeEvent extends ReadonlySubResource {
+class NodeEvent extends Readonly {
 	public
 		$detailedMessage,
 		$nodeId,

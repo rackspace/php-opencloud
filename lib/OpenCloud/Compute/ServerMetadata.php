@@ -13,6 +13,8 @@
 
 namespace OpenCloud\Compute;
 
+use OpenCloud\Base\Lang;
+
 /**
  * This class handles server metadata
  *
@@ -50,12 +52,12 @@ class ServerMetadata extends \OpenCloud\Base\Metadata {
 
             // check the response
             if ($response->HttpStatus() >= 300)
-                throw new MetadataError(
+                throw new \OpenCloud\Base\Exceptions\MetadataError(
                     sprintf(
-                        _('Unable to retrieve metadata [%s], response [%s]'),
+                        Lang::translate('Unable to retrieve metadata [%s], response [%s]'),
                         $this->Url(), $response->HttpBody()));
 
-            $this->debug(_('Metadata for [%s] is [%s]'),
+            $this->debug(Lang::translate('Metadata for [%s] is [%s]'),
                 $this->Url(), $response->HttpBody());
 
             // parse and assign the server metadata
@@ -75,7 +77,7 @@ class ServerMetadata extends \OpenCloud\Base\Metadata {
 	 */
 	public function Url() {
 	    if (!isset($this->_url))
-	        throw new ServerUrlError(_('Metadata has no URL (new object)'));
+	        throw new \OpenCloud\Base\Exceptions\ServerUrlError(Lang::translate('Metadata has no URL (new object)'));
 		if ($this->_key)
 			return $this->_url . '/' . $this->_key;
 		else
@@ -103,8 +105,8 @@ class ServerMetadata extends \OpenCloud\Base\Metadata {
 
 		// check the response
 		if ($response->HttpStatus() >= 300)
-			throw new MetadataCreateError(
-				sprintf(_('Error setting metadata on [%s], response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\MetadataCreateError(
+				sprintf(Lang::translate('Error setting metadata on [%s], response [%s]'),
 					$this->Url(), $response->HttpBody()));
 	}
 
@@ -126,8 +128,8 @@ class ServerMetadata extends \OpenCloud\Base\Metadata {
 
 		// check the response
 		if ($response->HttpStatus() >= 300)
-			throw new MetadataUpdateError(
-				sprintf(_('Error updating metadata on [%s], response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\MetadataUpdateError(
+				sprintf(Lang::translate('Error updating metadata on [%s], response [%s]'),
 					$this->Url(), $response->HttpBody()));
 	}
 
@@ -148,8 +150,8 @@ class ServerMetadata extends \OpenCloud\Base\Metadata {
 
 		// check the response
 		if ($response->HttpStatus() >= 300)
-			throw new MetadataDeleteError(
-				sprintf(_('Error deleting metadata on [%s], response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\MetadataDeleteError(
+				sprintf(Lang::translate('Error deleting metadata on [%s], response [%s]'),
 					$this->Url(), $response->HttpBody()));
 	}
 
@@ -175,8 +177,8 @@ class ServerMetadata extends \OpenCloud\Base\Metadata {
 		// if a key was supplied when creating the object, then we can't set
 		// any other values
 		if ($this->_key and ($key != $this->_key))
-			throw new MetadataKeyError(
-				sprintf(_('You cannot set extra values on [%s]'),
+			throw new \OpenCloud\Base\Exceptions\MetadataKeyError(
+				sprintf(Lang::translate('You cannot set extra values on [%s]'),
 				    $this->Url()));
 
 		// otherwise, just set it;
@@ -206,8 +208,8 @@ class ServerMetadata extends \OpenCloud\Base\Metadata {
 		}
 		$json = json_encode($obj);
 		if ($this->CheckJsonError())
-			throw new MetadataJsonError(
-			    _('Unable to encode JSON for metadata'));
+			throw new \OpenCloud\Base\Exceptions\MetadataJsonError(
+			    Lang::translate('Unable to encode JSON for metadata'));
 		else
 			return $json;
 	}

@@ -18,7 +18,7 @@ namespace OpenCloud\Volume;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Type extends \OpenCloud\Abstract\PersistentObject {
+class Type extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
@@ -35,8 +35,8 @@ class Type extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws OpenCloud\CreateError always
 	 */
 	public function Create($params=array()) {
-		throw new \OpenCloud\CreateError(
-			_('VolumeType cannot be created'));
+		throw new \OpenCloud\Base\Exceptions\CreateError(
+			\OpenCloud\Base\Lang::translate('VolumeType cannot be created'));
 	}
 
 	/**
@@ -45,8 +45,8 @@ class Type extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws OpenCloud\UpdateError always
 	 */
 	public function Update($params=array()) {
-		throw new \OpenCloud\UpdateError(
-			_('VolumeType cannot be updated'));
+		throw new \OpenCloud\Base\Exceptions\UpdateError(
+			\OpenCloud\Base\Lang::translate('VolumeType cannot be updated'));
 	}
 
 	/**
@@ -55,8 +55,8 @@ class Type extends \OpenCloud\Abstract\PersistentObject {
 	 * @throws OpenCloud\DeleteError
 	 */
 	public function Delete() {
-		throw new \OpenCloud\DeleteError(
-			_('VolumeType cannot be deleted'));
+		throw new \OpenCloud\Base\Exceptions\DeleteError(
+			\OpenCloud\Base\Lang::translate('VolumeType cannot be deleted'));
 	}
 
 }

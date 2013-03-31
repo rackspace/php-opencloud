@@ -21,7 +21,7 @@ namespace OpenCloud\Compute;
  * not available to Rackspace customers, so we're using the /images
  * resource on the servers API endpoint.
  */
-class Image extends \OpenCloud\Abstract\PersistentObject {
+class Image extends \OpenCloud\AbstractClass\PersistentObject {
 
     public
 		$status,

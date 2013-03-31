@@ -8,6 +8,8 @@
  * @version 1.0.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
+ 
+namespace OpenCloud\Tests;
 
 require_once('StubConnection.php');
 
@@ -46,14 +48,15 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 			'DFW',
 			'publicURL'
 		);
-		$this->lb = new publicLoadBalancer($this->service);
+		$this->lb = new publicLoadBalancer($this->service); 
+	
 	}
 
 	/**
 	 * Tests
 	 */
 	/**
-	 * @expectedException OpenCloud\DomainError
+	 * @expectedException \OpenCloud\Base\Exceptions\DomainError
 	 */
 	public function testAddNode() {
 		$lb = $this->service->LoadBalancer();
@@ -71,7 +74,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb->AddNodes();
 	}
 	/**
-	 * @ expectedException OpenCloud\DomainError
+	 * @ expectedException \OpenCloud\Base\Exceptions\DomainError
 	 */
 	public function testAddVirtualIp() {
 		$lb = $this->service->LoadBalancer();
@@ -91,16 +94,16 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 			$lb->Node('321')->Url()
 		);
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\LoadBalancer',
+			'OpenCloud\LoadBalancer\LoadBalancer',
 			get_class($lb->Node('345')->Parent()));
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\Node[456]',
+			'OpenCloud\LoadBalancer\Resources\Node[456]',
 			$lb->Node('456')->Name());
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\Metadata',
+			'OpenCloud\LoadBalancer\Resources\Metadata',
 			get_class($lb->Node('456')->Metadata()));
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($lb->Node('456')->MetadataList()));
 		$this->assertEquals(
 			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/'.
@@ -111,7 +114,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($lb->NodeList()));
 	}
 	public function testNodeEvent() {
@@ -127,7 +130,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($lb->NodeEventList()));
 	}
 	public function testVirtualIp() {
@@ -143,7 +146,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($lb->VirtualIpList()));
 	}
 	public function testSessionPersistence() {
@@ -168,7 +171,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$this->lb->id = 1024;
 		$x = $this->lb->Stats();
 		$this->assertEquals(
-			'\OpenCloud\LoadBalancer\Stats',
+			'OpenCloud\LoadBalancer\Resources\Stats',
 			get_class($x));
 		$this->assertEquals(
 			10,
@@ -196,7 +199,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($lb->AccessList()));
 	}
 	public function testConnectionThrottle() {
@@ -248,7 +251,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'\OpenCloud\AbstractClass\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($lb->MetadataList()));
 	}
 	public function testCreateJson() {
@@ -262,7 +265,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$this->lb->id = '42';
 		$sub = new MySubResource($this->lb, '42');
 		$this->assertEquals(
-			'MySubResource',
+			'OpenCloud\Tests\MySubResource',
 			get_class($sub));
 		$this->assertEquals(
 			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/'.
@@ -277,7 +280,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 			$this->lb,
 			$sub->Parent());
 		$this->assertEquals(
-			'MySubResource-42',
+			'OpenCloud\Tests\MySubResource-42',
 			$sub->Name());
 	}
 }

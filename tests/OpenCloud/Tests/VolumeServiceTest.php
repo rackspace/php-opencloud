@@ -9,10 +9,11 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('volumeservice.php');
-require_once('stub_conn.php');
+namespace OpenCloud\Tests;
 
-class VolumeServiceTest extends PHPUnit_Framework_TestCase
+require_once('StubConnection.php');
+
+class VolumeServiceTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$conn, 		// connection
@@ -20,7 +21,7 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 
 	public function __construct() {
 		$this->conn = new StubConnection('http://example.com', 'SECRET');
-		$this->service = new OpenCloud\Volume\Service(
+		$this->service = new \OpenCloud\Volume\Service(
 			$this->conn,
 			'cloudBlockStorage',
 			'DFW',
@@ -31,14 +32,14 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	public function test__construct() {
-		$this->service = new OpenCloud\Volume\Service(
+		$this->service = new \OpenCloud\Volume\Service(
 			$this->conn,
 			'cloudBlockStorage',
 			'DFW',
 			'publicURL'
 		);
 		$this->assertEquals(
-			'OpenCloud\Volume',
+			'OpenCloud\Volume\Service',
 			get_class($this->service));
 	}
 	public function testVolume() {
@@ -48,16 +49,16 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 	}
 	public function testVolumeList() {
 		$this->assertEquals(
-			'OpenCloud\Collection',
+			'OpenCloud\AbstractClass\Collection',
 			get_class($this->service->VolumeList()));
 	}
 	public function testVolumeType() {
 		$this->assertEquals(
-			'OpenCloud\Volume\VolumeType',
+			'OpenCloud\Volume\Type',
 			get_class($this->service->VolumeType()));
 	}
 	/**
-	 * @expectedException OpenCloud\CollectionError
+	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
 	 */
 	public function testVolumeTypeList() {
 		$this->assertEquals(
@@ -70,7 +71,7 @@ class VolumeServiceTest extends PHPUnit_Framework_TestCase
 			get_class($this->service->Snapshot()));
 	}
 	/**
-	 * @expectedException OpenCloud\CollectionError
+	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
 	 */
 	public function testSnapshotList() {
 		$this->assertEquals(

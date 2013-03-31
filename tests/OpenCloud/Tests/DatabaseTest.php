@@ -20,18 +20,18 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 		$db;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$dbaas = new \OpenCloud\Database\Database(
+		$dbaas = new \OpenCloud\Database\Service(
 		    $conn, 'cloudDatabases', 'DFW', 'publicURL');
 		$this->inst = new \OpenCloud\Database\Instance($dbaas);
 		$this->inst->id = '12345678';
-		$this->db = $dbaas;
+		$this->db = new \OpenCloud\Database\Database($this->inst);
 	}
 	/**
 	 * Tests
 	 */
 	public function test__construct() {
 		$this->assertEquals(
-			'\OpenCloud\Database\Database',
+			'OpenCloud\Database\Database',
 			get_class(new \OpenCloud\Database\Database($this->inst)));
 	}
 	public function testUrl() {
@@ -43,17 +43,17 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testInstance() {
 		$this->assertEquals(
-			'\OpenCloud\Database\Instance',
+			'OpenCloud\Database\Instance',
 			get_class($this->db->Instance()));
 	}
 	public function testCreate() {
 		$resp = $this->db->Create(array('name'=>'FOOBAR'));
 		$this->assertEquals(
-			'\OpenCloud\Base\Request\Response\Blank',
+			'OpenCloud\Base\Request\Response\Blank',
 			get_class($resp));
 	}
 	/**
-	 * @expectedException OpenCloud\DbService\DatabaseUpdateError
+	 * @expectedException \OpenCloud\Base\Exceptions\DatabaseUpdateError
 	 */
 	public function testUpdate() {
 		$this->db->Update();
@@ -61,7 +61,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	public function testDelete() {
 		$this->db->name = 'FOOBAR';
 		$this->assertEquals(
-			'\OpenCloud\Base\Request\Response\Blank',
+			'OpenCloud\Base\Request\Response\Blank',
 			get_class($this->db->Delete()));
 	}
 }

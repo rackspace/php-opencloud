@@ -5,7 +5,7 @@ namespace OpenCloud\LoadBalancer\Resources;
 /**
  * sub-resource to read health monitor info
  */
-class HealthMonitor extends ReadonlySubResource {
+class HealthMonitor extends Readonly {
 	public
 		$type;
 	protected static

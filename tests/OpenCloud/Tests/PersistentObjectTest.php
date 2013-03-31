@@ -9,12 +9,12 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('stub_conn.php');
-require_once('compute.php');
-require_once('persistentobject.php');
+namespace OpenCloud\Tests;
+
+require_once('StubConnection.php');
 
 // make a real class from the abstract one
-class MyPersistentObject extends \OpenCloud\PersistentObject {
+class MyPersistentObject extends \OpenCloud\AbstractClass\PersistentObject {
 	public
 		$status,
 		$updated,
@@ -47,14 +47,14 @@ class MyPersistentObject extends \OpenCloud\PersistentObject {
 	public function CreateUrl() { return parent::CreateUrl(); }
 }
 
-class PersistentObjectTest extends PHPUnit_Framework_TestCase
+class PersistentObjectTest extends \PHPUnit_Framework_TestCase
 {
 	private
 	    $service,
 		$instance;
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$this->service = new OpenCloud\Compute(
+		$this->service = new \OpenCloud\Compute\Service(
 			$conn,
 			'cloudServersOpenStack',
 			'DFW',
@@ -69,22 +69,22 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	public function test__construct() {
 	    $inst = new MyPersistentObject($this->service);
 	    $this->assertEquals(
-	        'MyPersistentObject',
+	        'OpenCloud\Tests\MyPersistentObject',
 	        get_class($inst));
 	    $inst = new MyPersistentObject($this->service,
 	    	array('id'=>'42'));
 	    $this->assertEquals(
-	    	'MyPersistentObject',
+	    	'OpenCloud\Tests\MyPersistentObject',
 	    	get_class($inst));
 	}
 	/**
-	 * @expectedException OpenCloud\InvalidArgumentError
+	 * @expectedException \OpenCloud\Base\Exceptions\InvalidArgumentError
 	 */
 	public function test__construct2() {
 	    $inst = new MyPersistentObject($this->service, FALSE);
 	}
 	/**
-	 * @expectedException OpenCloud\AttributeError
+	 * @expectedException \OpenCloud\Base\Exceptions\AttributeError
 	 */
 	public function test__set() {
 	    $this->instance->FOOBAR = 'BAZ';
@@ -127,19 +127,19 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	    $server->status = 'FOOBAR';
 	}
 	/**
-	 * @expectedException OpenCloud\CreateError
+	 * @expectedException \OpenCloud\Base\Exceptions\CreateError
 	 */
 	public function testCreate() {
 		$this->instance->Create();
 	}
 	/**
-	 * @expectedException OpenCloud\UpdateError
+	 * @expectedException \OpenCloud\Base\Exceptions\UpdateError
 	 */
 	public function testUpdate() {
 		$this->instance->Update();
 	}
 	/**
-	 * @expectedException OpenCloud\UrlError
+	 * @expectedException \OpenCloud\Base\Exceptions\UrlError
 	 */
 	public function testDelete() {
 		$this->instance->Delete();
@@ -175,35 +175,35 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 	        MyPersistentObject::JsonCollectionName());
 	}
 	/**
-	 * @expectedException OpenCloud\CreateError
+	 * @expectedException \OpenCloud\Base\Exceptions\CreateError
 	 */
 	public function testNoCreate() {
 	    $this->instance->NoCreate();
 	}
 	/**
-	 * @expectedException OpenCloud\UpdateError
+	 * @expectedException \OpenCloud\Base\Exceptions\UpdateError
 	 */
 	public function testNoUpdate() {
 	    $this->instance->NoUpdate();
 	}
 	/**
-	 * @expectedException OpenCloud\DeleteError
+	 * @expectedException \OpenCloud\Base\Exceptions\DeleteError
 	 */
 	public function testNoDelete() {
 	    $this->instance->NoDelete();
 	}
 	public function testService() {
 	    $this->assertEquals(
-	        'OpenCloud\Compute',
+	        'OpenCloud\Compute\Service',
 	        get_class($this->instance->Service()));
 	}
 	public function testParent() {
 	    $this->assertEquals(
-	        'OpenCloud\Compute',
+	        'OpenCloud\Compute\Service',
 	        get_class($this->instance->Parent()));
 	}
 	/**
-	 * @expectedException OpenCloud\UnsupportedExtensionError
+	 * @expectedException \OpenCloud\Base\Exceptions\UnsupportedExtensionError
 	 */
 	public function testCheckExtension() {
         // this should work

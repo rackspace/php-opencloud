@@ -41,16 +41,16 @@ class Curl extends Base implements HttpRequestInterface {
 		// set our options
         $this->SetOption(CURLOPT_CUSTOMREQUEST, $method);
         foreach($options as $opt => $value) {
-        	$this->debug(_('Setting option %s=%s'), $opt, $value);
+        	$this->debug(\OpenCloud\Base\Lang::translate('Setting option %s=%s'), $opt, $value);
         	$this->SetOption($opt, $value);
         }
 
         // set security handling options
         if (RAXSDK_SSL_VERIFYHOST != 2) {
-            syslog(LOG_WARNING, _("WARNING: RAXSDK_SSL_VERIFYHOST has reduced security, value [" . RAXSDK_SSL_VERIFYHOST . "]\n"));
+            syslog(LOG_WARNING, \OpenCloud\Base\Lang::translate("WARNING: RAXSDK_SSL_VERIFYHOST has reduced security, value [" . RAXSDK_SSL_VERIFYHOST . "]\n"));
         }
         if (RAXSDK_SSL_VERIFYPEER !== TRUE) {
-            syslog(LOG_WARNING, _("WARNING: RAXSDK_SSL_VERIFYPEER has reduced security\n"));
+            syslog(LOG_WARNING, \OpenCloud\Base\Lang::translate("WARNING: RAXSDK_SSL_VERIFYPEER has reduced security\n"));
         }
         $this->SetOption(CURLOPT_SSL_VERIFYHOST, RAXSDK_SSL_VERIFYHOST);
         $this->SetOption(CURLOPT_SSL_VERIFYPEER, RAXSDK_SSL_VERIFYPEER);
@@ -142,8 +142,8 @@ class Curl extends Base implements HttpRequestInterface {
 	 */
 	public function setheaders($arr) {
 		if (!is_array($arr))
-			throw new HttpException(
-				_('Value passed to CurlRequest::setheaders() must be array'));
+			throw new \OpenCloud\Base\Exceptions\HttpException(
+				\OpenCloud\Base\Lang::translate('Value passed to CurlRequest::setheaders() must be array'));
 		foreach ($arr as $name=>$value)
 			$this->SetHeader($name, $value);
 	}
@@ -183,15 +183,15 @@ class Curl extends Base implements HttpRequestInterface {
         do {
 		    $data = curl_exec($this->handle);
 		    if (curl_errno($this->handle)&&($try_counter<$this->retries))
-		        $this->debug(_('Curl error [%d]; retrying [%s]'),
+		        $this->debug(\OpenCloud\Base\Lang::translate('Curl error [%d]; retrying [%s]'),
 		                curl_errno($this->handle), $this->url);
 		} while((++$try_counter<=$this->retries) &&
 		        (curl_errno($this->handle)!=0));
 
 		// log retries error
 		if ($this->retries && curl_errno($this->handle))
-		    throw new HttpRetryError(
-		        sprintf(_('No more retries available, last error [%d]'),
+		    throw new \OpenCloud\Base\Exceptions\HttpRetryError(
+		        sprintf(\OpenCloud\Base\Lang::translate('No more retries available, last error [%d]'),
 		            curl_errno($this->handle)));
 
 		// check for CURL errors
@@ -199,24 +199,24 @@ class Curl extends Base implements HttpRequestInterface {
         case 0:     // everything's ok
             break;
         case 3:
-            throw new HttpUrlError(
-                sprintf(_('Malformed URL [%s]'), $this->url));
+            throw new \OpenCloud\Base\Exceptions\HttpUrlError(
+                sprintf(\OpenCloud\Base\Lang::translate('Malformed URL [%s]'), $this->url));
             break;
         case 28:    // timeout
-            throw new HttpTimeoutError(
-                _('Operation timed out; check RAXSDK_TIMEOUT value'));
+            throw new \OpenCloud\Base\Exceptions\HttpTimeoutError(
+                \OpenCloud\Base\Lang::translate('Operation timed out; check RAXSDK_TIMEOUT value'));
             break;
         default:
-            throw new HttpError(
+            throw new \OpenCloud\Base\Exceptions\HttpError(
                 sprintf(
-                    _('HTTP error on [%s], curl code [%d] message [%s]'),
+                    \OpenCloud\Base\Lang::translate('HTTP error on [%s], curl code [%d] message [%s]'),
                     $this->url,
                     curl_errno($this->handle),
                     curl_error($this->handle)));
         }
 
 		// otherwise, return the HttpResponse
-		return new HttpResponse($this, $data);
+		return new Response\Http($this, $data);
 	}
 
 	/**

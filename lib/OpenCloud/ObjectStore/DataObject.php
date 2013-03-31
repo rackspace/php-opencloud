@@ -86,7 +86,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 	 */
 	public function Url() {
 		if (!$this->name)
-			throw new NoNameError(Lang::translate('Object has no name'));
+			throw new \OpenCloud\Base\Exceptions\NoNameError(Lang::translate('Object has no name'));
 		return Lang::noslash($this->container->Url()) . '/' .
 				str_replace('%2F', '/', rawurlencode($this->name));
 
@@ -112,15 +112,15 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 		if ($filename) {
 			$fp = @fopen($filename, 'r');
 			if (!$fp) {
-				throw new IOError(sprintf(
+				throw new \OpenCloud\Base\Exceptions\IOError(sprintf(
 					Lang::translate('Could not open file [%s] for reading'), $filename));
 			}
 
 			clearstatcache(TRUE, $filename);
 
 			$filesize = (float) sprintf("%u", filesize($filename));
-			if ($filesize > \OpenCloud\ObjectStore::MAX_OBJECT_SIZE) {
-				throw new ObjectError("File size exceeds maximum object size.");
+			if ($filesize > \OpenCloud\ObjectStore\Service::MAX_OBJECT_SIZE) {
+				throw new \OpenCloud\Base\Exceptions\ObjectError("File size exceeds maximum object size.");
 			}
 			$this->content_length = $filesize;
 
@@ -166,7 +166,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 
 		// check the status
 		if (($stat=$response->HttpStatus()) >= 300) {
-			throw new CreateUpdateError(
+			throw new \OpenCloud\Base\Exceptions\CreateUpdateError(
 			    sprintf(
 			        Lang::translate('Problem saving/updating object [%s] HTTP status [%s] '.
 			            'response [%s]'),
@@ -232,7 +232,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 
 		// check the status
 		if (($stat=$response->HttpStatus()) >= 204) {
-			throw new UpdateError(
+			throw new \OpenCloud\Base\Exceptions\UpdateError(
 			    sprintf(
 			        Lang::translate('Problem updating object [%s] HTTP status [%s]'.
 			            ' response [%s]'),
@@ -264,7 +264,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 
 		// check the status
 		if (($stat=$response->HttpStatus()) >= 300) {
-			throw new DeleteError(
+			throw new \OpenCloud\Base\Exceptions\DeleteError(
 			    sprintf(
 			        Lang::translate('Problem deleting object [%s] HTTP status [%s]'.
 			            ' response [%s]'),
@@ -296,7 +296,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 
 	    // check response code
 	    if ($response->HttpStatus() > 202)
-	        throw new ObjectCopyError(sprintf(
+	        throw new \OpenCloud\Base\Exceptions\ObjectCopyError(sprintf(
 	            Lang::translate('Error copying object [%s], status [%d] response [%s]'),
 	            $this->Url(), $response->HttpStatus(), $response->HttpBody()));
 
@@ -340,7 +340,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 		case 'PUT':
 			break;
 		default:
-			throw new TempUrlMethodError(sprintf(
+			throw new \OpenCloud\Base\Exceptions\TempUrlMethodError(sprintf(
 				Lang::translate('Bad method [%s] for TempUrl; only GET or PUT supported'),
 				$method));
 		}
@@ -411,7 +411,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
     {
         $fp = @fopen($filename, "wb");
         if (!$fp) {
-            throw new IOError(sprintf(
+            throw new \OpenCloud\Base\Exceptions\IOError(sprintf(
                 Lang::translate('Could not open file [%s] for writing'), $filename));
         }
         $result = $this->Service()->Request(
@@ -455,14 +455,14 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
     public function PurgeCDN($email) {
         $cdn = $this->Container()->CDNURL();
         if (!$cdn)
-            throw new CdnError(Lang::translate('Container is not CDN-enabled'));
+            throw new \OpenCloud\Base\Exceptions\CdnError(Lang::translate('Container is not CDN-enabled'));
         $url = $cdn . '/' . $this->name;
         $headers['X-Purge-Email'] = $email;
         $response = $this->Service()->Request($url, 'DELETE', $headers);
 
         // check the status
         if ($response->HttpStatus() > 204)
-            throw new CdnHttpError(sprintf(
+            throw new \OpenCloud\Base\Exceptions\CdnHttpError(sprintf(
                 Lang::translate('Error purging object, status [%d] response [%s]'),
                 $response->HttpStatus(),
                 $response->HttpBody()));
@@ -519,7 +519,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 				$this->name = $value;
 				break;
 			case 'type':
-				throw new UnknownParameterError(
+				throw new \OpenCloud\Base\Exceptions\UnknownParameterError(
 					Lang::translate('Parameter [type] is deprecated; use "content_type"'));
 			case 'content_type':
 				$this->content_type = $value;
@@ -528,7 +528,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 				$this->extra_headers = $value;
 				break;
 			default:
-				throw new UnknownParameterError(
+				throw new \OpenCloud\Base\Exceptions\UnknownParameterError(
 				    sprintf(
 				        Lang::translate('Unrecognized parameter [%s] for object [%s]'),
 					    $item,
@@ -545,7 +545,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 	 */
 	private function Fetch() {
 		if (!$this->name)
-			throw new NoNameError(Lang::translate('Cannot retrieve an unnamed object'));
+			throw new \OpenCloud\Base\Exceptions\NoNameError(Lang::translate('Cannot retrieve an unnamed object'));
 
         $response = $this->Service()->Request(
         	$this->Url(), 'HEAD', array('Accept'=>'*/*'));
@@ -553,7 +553,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 
         // check for errors
         if ($response->HttpStatus() >= 300) {
-            throw new ObjFetchError(
+            throw new \OpenCloud\Base\Exceptions\ObjFetchError(
                 sprintf(Lang::translate('Problem retrieving object [%s]'), $this->Url()));
             return FALSE;
         }
@@ -652,7 +652,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
         }
 
         if (!$this->content_type) {
-            throw new NoContentTypeError(Lang::translate('Required Content-Type not set'));
+            throw new \OpenCloud\Base\Exceptions\NoContentTypeError(Lang::translate('Required Content-Type not set'));
         }
         return TRUE;
     }

@@ -9,11 +9,11 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('dns.php');
-require_once('domain.php');
-require_once('stub_conn.php');
+namespace OpenCloud\Tests;
 
-class RecordTest extends PHPUnit_Framework_TestCase
+require_once('StubConnection.php');
+
+class RecordTest extends \PHPUnit_Framework_TestCase
 {
 	private
 		$domain,
@@ -21,20 +21,20 @@ class RecordTest extends PHPUnit_Framework_TestCase
 
 	public function __construct() {
 		$conn = new StubConnection('http://example.com', 'SECRET');
-		$dns = new OpenCloud\DNS(
+		$dns = new \OpenCloud\DNS\Service(
 			$conn,
 			'cloudDNS',
 			'N/A',
 			'publicURL'
 		);
-		$this->domain = new OpenCloud\DNS\Domain($dns);
-		$this->record = new OpenCloud\DNS\Record($this->domain);
+		$this->domain = new \OpenCloud\DNS\Domain($dns);
+		$this->record = new \OpenCloud\DNS\Record($this->domain);
 	}
 	/**
 	 * Tests
 	 */
 	public function test__construct() {
-		$this->record = new OpenCloud\DNS\Record(
+		$this->record = new \OpenCloud\DNS\Record(
 			$this->domain,
 			array('type'=>'A','ttl'=>60,'data'=>'1.2.3.4'));
 		$this->assertEquals(

@@ -9,38 +9,38 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once('volumetype.php');
-require_once('stub_conn.php');
-require_once('volumeservice.php');
+namespace OpenCloud\Tests;
 
-class VolumeTypeTest extends PHPUnit_Framework_TestCase
+require_once('StubConnection.php');
+
+class VolumeTypeTest extends \PHPUnit_Framework_TestCase
 {
     private
         $vt;
     public function __construct() {
         $conn = new StubConnection('http://example.com', 'SECRET');
-        $serv = new OpenCloud\VolumeService(
+        $serv = new \OpenCloud\Volume\Service(
             $conn, 'cloudBlockStorage', 'DFW', 'publicURL'
         );
-        $this->vt = new OpenCloud\VolumeService\VolumeType($serv);
+        $this->vt = new \OpenCloud\Volume\Type($serv);
     }
     /**
      * Tests
      */
     /**
-     * @expectedException OpenCloud\CreateError
+     * @expectedException \OpenCloud\Base\Exceptions\CreateError
      */
     public function testCreate() {
         $this->vt->Create();
     }
     /**
-     * @expectedException OpenCloud\UpdateError
+     * @expectedException \OpenCloud\Base\Exceptions\UpdateError
      */
     public function testUpdate() {
         $this->vt->Update();
     }
     /**
-     * @expectedException OpenCloud\DeleteError
+     * @expectedException \OpenCloud\Base\Exceptions\DeleteError
      */
     public function testDelete() {
         $this->vt->Delete();

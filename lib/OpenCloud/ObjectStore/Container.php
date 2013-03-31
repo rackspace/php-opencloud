@@ -37,8 +37,8 @@ class Container extends CDNContainer {
 	    $url = $this->Service()->CDN()->Url().'/'.$this->name;
 	    $headers = $this->MetadataHeaders();
 	    if ($TTL && !is_integer($TTL))
-	        throw new CdnTtlError(sprintf(
-	            _('TTL value [%s] must be an integer'), $TTL));
+	        throw new \OpenCloud\Base\Exceptions\CdnTtlError(sprintf(
+	            \OpenCloud\Base\Lang::translate('TTL value [%s] must be an integer'), $TTL));
 	    if ($TTL)
 	        $headers['X-TTL'] = $TTL;
 	    $headers['X-Log-Retention'] = 'True';
@@ -49,8 +49,8 @@ class Container extends CDNContainer {
 
 	    // check the response status
 	    if ($response->HttpStatus() > 202)
-	        throw new CdnHttpError(sprintf(
-	            _('HTTP error publishing to CDN, status [%d] response [%s]'),
+	        throw new \OpenCloud\Base\Exceptions\CdnHttpError(sprintf(
+	            \OpenCloud\Base\Lang::translate('HTTP error publishing to CDN, status [%d] response [%s]'),
 	            $response->HttpStatus(), $response->HttpBody()));
 
 	    // refresh the data
@@ -88,8 +88,8 @@ class Container extends CDNContainer {
 
 	    // check the response status
 	    if ($response->HttpStatus() != 201)
-	        throw new CdnHttpError(sprintf(
-	            _('HTTP error disabling CDN, status [%d] response [%s]'),
+	        throw new \OpenCloud\Base\Exceptions\CdnHttpError(sprintf(
+	            \OpenCloud\Base\Lang::translate('HTTP error disabling CDN, status [%d] response [%s]'),
 	            $response->HttpStatus(), $response->HttpBody()));
 	}
 
@@ -107,8 +107,8 @@ class Container extends CDNContainer {
 
 		// check return code
 		if ($response->HttpStatus() > 204)
-			throw new ContainerError(sprintf(
-				_('Error creating static website for [%s], status [%d] response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\ContainerError(sprintf(
+				\OpenCloud\Base\Lang::translate('Error creating static website for [%s], status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
 
 		return $response;
@@ -128,8 +128,8 @@ class Container extends CDNContainer {
 
 		// check return code
 		if ($response->HttpStatus() > 204)
-			throw new ContainerError(sprintf(
-				_('Error creating static site error page for [%s], '.
+			throw new \OpenCloud\Base\Exceptions\ContainerError(sprintf(
+				\OpenCloud\Base\Lang::translate('Error creating static site error page for [%s], '.
 				  'status [%d] response [%s]'),
 				$this->name, $response->HttpStatus(), $response->HttpBody()));
 
@@ -142,7 +142,7 @@ class Container extends CDNContainer {
 	public function CDN() {
 	    $cdn = $this->_cdn;
 	    if (!$cdn)
-	        throw new CdnNotAvailableError(_('CDN service is not available'));
+	        throw new \OpenCloud\Base\Exceptions\CdnNotAvailableError(\OpenCloud\Base\Lang::translate('CDN service is not available'));
 	    return $cdn;
 	}
 
@@ -227,7 +227,7 @@ class Container extends CDNContainer {
      * Refreshes, then associates the CDN container
      */
     protected function Refresh() {
-        parent::Refresh();
+    	parent::Refresh();
 
         // find the CDN object
         $cdn = $this->Service()->CDN();

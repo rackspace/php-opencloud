@@ -88,17 +88,17 @@ class OpenStack extends Base {
 		        'region' => RAXSDK_OBJSTORE_REGION,
 		        'urltype' => RAXSDK_OBJSTORE_URLTYPE
 		    ),
-		    'DbService' => array(
+		    'Database' => array(
 		    	'name' => RAXSDK_DATABASE_NAME,
 		    	'region' => RAXSDK_DATABASE_REGION,
 		    	'urltype' => RAXSDK_DATABASE_URLTYPE
 		    ),
-		    'VolumeService' => array(
+		    'Volume' => array(
 		    	'name' => RAXSDK_VOLUME_NAME,
 		    	'region' => RAXSDK_VOLUME_REGION,
 		    	'urltype' => RAXSDK_VOLUME_URLTYPE
 		    ),
-		    'LoadBalancerService' => array(
+		    'LoadBalancer' => array(
 		    	'name' => RAXSDK_LBSERVICE_NAME,
 		    	'region' => RAXSDK_LBSERVICE_REGION,
 		    	'urltype' => RAXSDK_LBSERVICE_URLTYPE
@@ -157,11 +157,11 @@ class OpenStack extends Base {
 		$this->url = $url;
 
 		if (!is_array($secret))
-			throw new Exceptions\DomainError(Lang::translate('[secret] must be an array'));
+			throw new \OpenCloud\Base\Exceptions\DomainError(Lang::translate('[secret] must be an array'));
 		$this->secret = $secret;
 
 		if (!is_array($options))
-			throw new Exceptions\DomainError(Lang::translate('[options] must be an array'));
+			throw new \OpenCloud\Base\Exceptions\DomainError(Lang::translate('[options] must be an array'));
 		$this->curl_options = $options;
 	}
 
@@ -239,7 +239,7 @@ class OpenStack extends Base {
 	 * 'Service'-class objects.
 	 */
 	public function ServiceList() {
-		return new Collection(
+		return new \OpenCloud\AbstractClass\Collection(
 			$this, 'ServiceCatalogItem', $this->ServiceCatalog());
 	}
 
@@ -272,7 +272,7 @@ class OpenStack extends Base {
 			return json_encode($credentials);
 		}
 		else
-			throw new CredentialError(
+			throw new \OpenCloud\Base\Exceptions\CredentialError(
 				Lang::translate('Unrecognized credential secret'));
 	}
 
@@ -295,8 +295,8 @@ class OpenStack extends Base {
 
 		// check for errors
 		if ($response->HttpStatus() >= 400) {
-			throw new Exceptions\AuthenticationError(
-				sprintf(_('Authentication failure, status [%d], response [%s]'),
+			throw new \OpenCloud\Base\Exceptions\AuthenticationError(
+				sprintf(Lang::translate('Authentication failure, status [%d], response [%s]'),
 					$response->HttpStatus(), $json));
 		}
 
@@ -371,8 +371,8 @@ class OpenStack extends Base {
         		// need to save the file descriptor
         		$this->_file_descriptors[$url] = $data;
 				if (!isset($headers['Content-Length']))
-					throw new HttpError(
-						_('The Content-Length: header must be specified '.
+					throw new \OpenCloud\Base\Exceptions\HttpError(
+						Lang::translate('The Content-Length: header must be specified '.
 						  'for file uploads'));
 				$http->SetOption(CURLOPT_UPLOAD, TRUE);
 				$http->SetOption(CURLOPT_INFILE, $data);
@@ -388,7 +388,7 @@ class OpenStack extends Base {
         elseif (is_string($data))
             $http->SetOption(CURLOPT_POSTFIELDS, $data);
         elseif (isset($data))
-        	throw new HttpError(
+        	throw new \OpenCloud\Base\Exceptions\HttpError(
         		Lang::translate('Unrecognized data type for PUT/POST body, '.
         		  'must be string or resource'));
 
@@ -414,8 +414,8 @@ class OpenStack extends Base {
                         $response = $http->Execute();
                     }
                     else {
-                        throw new HttpOverlimitError(
-                            sprintf(_('Over limit; next available request '.
+                        throw new \OpenCloud\Base\Exceptions\HttpOverlimitError(
+                            sprintf(Lang::translate('Over limit; next available request '.
                                 '[%s][%s] is not '.
                                 'for [%d] seconds at [%s]'),
                                 $method,
@@ -430,17 +430,17 @@ class OpenStack extends Base {
         // do some common error checking
         switch($response->HttpStatus()) {
         case 401:
-        	throw new HttpUnauthorizedError(
+        	throw new \OpenCloud\Base\Exceptions\HttpUnauthorizedError(
         		sprintf(Lang::translate('401 Unauthorized for [%s] [%s]'),
         			$url, $response->HttpBody()));
         	break;
         case 403:
-        	throw new HttpForbiddenError(
+        	throw new \OpenCloud\Base\Exceptions\HttpForbiddenError(
         		sprintf(Lang::translate('403 Forbidden for [%s] [%s]'),
         			$url, $response->HttpBody()));
         	break;
         case 413:   // limit
-            throw new HttpOverlimitError(
+            throw new \OpenCloud\Base\Exceptions\HttpOverlimitError(
                 sprintf(Lang::translate('413 Over limit for [%s] [%s]'),
                     $url, $response->HttpBody()));
             break;
@@ -452,7 +452,7 @@ class OpenStack extends Base {
         $http->close();
 
         // return the HttpResponse object
-		$this->debug(_('HTTP STATUS [%s]'), $response->HttpStatus());
+		$this->debug(Lang::translate('HTTP STATUS [%s]'), $response->HttpStatus());
 		return $response;
     }
 
@@ -490,8 +490,8 @@ class OpenStack extends Base {
         $name=NULL, $region=NULL, $urltype=NULL) {
 
         if (!isset($this->defaults[$service]))
-            throw new Exceptions\UnrecognizedServiceError(sprintf(
-                _('Service [%s] is not recognized'), $service));
+            throw new \OpenCloud\Base\Exceptions\UnrecognizedServiceError(sprintf(
+                Lang::translate('Service [%s] is not recognized'), $service));
 
         if (isset($name))
             $this->defaults[$service]['name'] = $name;
@@ -593,8 +593,8 @@ class OpenStack extends Base {
     {
     	$url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
     	if (!isset($this->_file_descriptors[$url]))
-    		throw new Exceptions\HttpUrlError(sprintf(
-    			_('Cannot find file descriptor for URL [%s]'), $url));
+    		throw new \OpenCloud\Base\Exceptions\HttpUrlError(sprintf(
+    			Lang::translate('Cannot find file descriptor for URL [%s]'), $url));
     	$fp = $this->_file_descriptors[$url];
         $dlen = strlen($data);
         fwrite($fp, $data, $dlen);
@@ -632,7 +632,7 @@ class OpenStack extends Base {
      */
     public function ImportCredentials($values) {
     	if (!is_array($values))
-    		throw new Exceptions\DomainError(Lang::translate('ImportCredentials() requires an array'));
+    		throw new \OpenCloud\Base\Exceptions\DomainError(Lang::translate('ImportCredentials() requires an array'));
     	foreach($this->export_items as $item)
     		$this->$item = $values[$item];
     }
@@ -655,7 +655,7 @@ class OpenStack extends Base {
      * @return ObjectStore
      */
     public function ObjectStore($name=NULL, $region=NULL, $urltype=NULL) {
-        return $this->Service('\OpenCloud\ObjectStore\ObjectStore', $name, $region, $urltype);
+        return $this->Service('ObjectStore', $name, $region, $urltype);
     }
 
     /**
@@ -668,7 +668,7 @@ class OpenStack extends Base {
      * @return ObjectStore
      */
     public function Compute($name=NULL, $region=NULL, $urltype=NULL) {
-        return $this->Service('\OpenCloud\Compute\Compute', $name, $region, $urltype);
+        return $this->Service('Compute', $name, $region, $urltype);
     }
 
     /**
@@ -681,7 +681,7 @@ class OpenStack extends Base {
      * @param string $urltype the type of URL (e.g., 'publicURL');
      */
     public function VolumeService($name=NULL, $region=NULL, $urltype=NULL) {
-        return $this->Service('\OpenCloud\Volume\Service', $name, $region, $urltype);
+        return $this->Service('Volume', $name, $region, $urltype);
     }
 
 	/********** PROTECTED METHODS **********/
@@ -698,12 +698,14 @@ class OpenStack extends Base {
      * @return Service (or subclass such as Compute, ObjectStore)
      * @throws ServiceValueError
      */
-    protected function Service($class,
+    public function Service($class,
             $name=NULL, $region=NULL, $urltype=NULL) {
         // debug message
         $this->debug('Factory for class [%s] [%s/%s/%s]',
             $class, $name, $region, $urltype);
-
+        
+        if (strpos($class, '\OpenCloud\\') === 0) $class = str_replace('\OpenCloud\\', '', $class); 
+        
         // check for defaults
         if (!isset($name))
             $name = $this->defaults[$class]['name'];
@@ -714,14 +716,14 @@ class OpenStack extends Base {
 
         // report errors
         if (!$name)
-            throw new Exceptions\ServiceValueError(Lang::translate('No value for '.$class.' name'));
+            throw new \OpenCloud\Base\Exceptions\ServiceValueError(Lang::translate('No value for '.$class.' name'));
         if (!$region)
-            throw new Exceptions\ServiceValueError(Lang::translate('No value for '.$class.' region'));
+            throw new \OpenCloud\Base\Exceptions\ServiceValueError(Lang::translate('No value for '.$class.' region'));
         if (!$urltype)
-            throw new Exceptions\ServiceValueError(Lang::translate('No value for '.$class.' URL type'));
+            throw new \OpenCloud\Base\Exceptions\ServiceValueError(Lang::translate('No value for '.$class.' URL type'));
 
         // return the object
-        $fullclass = '\OpenCloud\\'.$class;
+        $fullclass = '\OpenCloud\\' . $class . '\\Service';
         return new $fullclass(
             $this,
             $name,
