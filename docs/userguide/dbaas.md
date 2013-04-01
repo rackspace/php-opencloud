@@ -7,12 +7,12 @@ and *not* through an OpenStack connection.
 
 Therefore, this example will cause an error:
 
-	$cloud = new OpenStack(...);
+	$cloud = new \OpenCloud\OpenStack(...);
 	$dbservice = $cloud->DbService(...);	// this won't work
 
 However, this code *will* work properly:
 
-	$cloud = new Rackspace(...);
+	$cloud = new \OpenCloud\Rackspace(...);
 	$dbservice = $cloud->DbService(...);	// this will
 
 Like other [services](services.md), you connect to a specific deployment of Cloud 

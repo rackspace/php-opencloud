@@ -6,9 +6,7 @@ These are special methods that return a specified object. For example,
 to work with an instance of a service, use the factory method on the
 top-level provider object:
 
-    <?php
-    require('openstack.php');
-    $cloud = new OpenStack('endpoint',array(...));
+    $cloud = new \OpenCloud\OpenStack('endpoint',array(...));
     $swift = $cloud->ObjectStore(...);
 
 In this case, the variable `$swift` now holds an instance of the `ObjectStore`

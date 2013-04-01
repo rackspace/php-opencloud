@@ -41,11 +41,9 @@ To access a service, you need a service object that is retrieved by
 a [factory method](factories.md) on the cloud provider object. For example, assume that
 you're connecting to an OpenStack cloud:
 
-    <?php
-    require('openstack.php');
     $endpoint = 'https://....';
     $credentials = array('username'=>'USER','password'='PASS');
-    $cloud = new OpenCloud\OpenStack($endpoint,$credentials);
+    $cloud = new \OpenCloud\OpenStack($endpoint,$credentials);
 
 To access the Compute service, use the OpenStack `Compute()` method:
 
