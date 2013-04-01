@@ -2,7 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-require_once('rackspace.php');
+require_once('bootstrap.php');
 
 define('INIFILE', 'auth.ini');
 
@@ -18,7 +18,7 @@ if (!$ini) {
 }
 
 // establish our credentials
-$RAX = new OpenCloud\Rackspace(
+$RAX = new \OpenCloud\Rackspace(
     $ini['Identity']['url'], $ini['Identity']);
 $RAX->SetDefaults('Compute',
     $ini['Compute']['serviceName'],

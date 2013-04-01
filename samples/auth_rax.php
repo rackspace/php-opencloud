@@ -2,10 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-namespace OpenCloud;
-
-require_once('rackspace.php');
-require_once('compute.php');
+require_once('bootstrap.php');
 
 // my credentials
 define('AUTHURL', RACKSPACE_US);
@@ -15,4 +12,4 @@ $mysecret = array(
 );
 
 // establish our credentials
-$connection = new Rackspace(AUTHURL, $mysecret);
+$connection = new \OpenCloud\Rackspace(AUTHURL, $mysecret);

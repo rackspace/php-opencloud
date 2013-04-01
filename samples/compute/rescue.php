@@ -1,7 +1,7 @@
 <?php
 // (c)2012 Rackspace Hosting. See COPYING for license.
 
-require('rackspace.php');
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -25,7 +25,7 @@ function find_MODEL($list) {
 function dot($server) {
     print(".");
 }
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
+$rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 $cservers = $rackspace->Compute('cloudServersOpenStack', 'DFW');

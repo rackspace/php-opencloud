@@ -8,14 +8,12 @@
  * own source code as the data!
  */
 
-namespace OpenCloud;
-
 define('NUM_OBJECTS', 30); // the number of objects to create
 define('CONTAINERNAME', 'OpenCloud-Sample-Container');
 define('RAXSDK_OBJSTORE_NAME','cloudFiles');
 define('RAXSDK_OBJSTORE_REGION','DFW');
-require_once('rackspace.php');
-require_once('objectstore.php');
+
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -23,7 +21,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 // establish our credentials
-$connection = new Rackspace(AUTHURL,
+$connection = new \OpenCloud\Rackspace(AUTHURL,
 	array('username' => USERNAME,
 		   'apiKey' => APIKEY));
 

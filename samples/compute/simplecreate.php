@@ -1,7 +1,7 @@
 <?php
 // (c)2012 Rackspace Hosting. See COPYING for license.
 
-require('rackspace.php');
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -9,7 +9,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 print "Authenticating...\n";
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
+$rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 $compute = $rackspace->Compute('cloudServersOpenStack', 'DFW');

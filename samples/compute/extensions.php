@@ -4,8 +4,8 @@
  *
  */
 $start = time();
-ini_set('include_path', './lib:'.ini_get('include_path'));
-require('rackspace.php');
+
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -30,7 +30,7 @@ function info($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
 define('TIMEFORMAT', 'r');
 
 step('Authenticate');
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
+$rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 

@@ -4,12 +4,13 @@
  *
  */
 $start = time();
-ini_set('include_path', './lib:'.ini_get('include_path'));
+
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
 	define('RAXSDK_SSL_VERIFYHOST', 0);
 	define('RAXSDK_SSL_VERIFYPEER', 0);
 }
-require('rackspace.php');
+
+require('bootstrap.php');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -34,7 +35,7 @@ function info($msg,$p1=NULL,$p2=NULL,$p3=NULL) {
 define('TIMEFORMAT', 'r');
 
 step('Authenticate');
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
+$rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 
