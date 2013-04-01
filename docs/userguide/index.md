@@ -51,14 +51,15 @@ then you'll need to make sure it is installed.
 In the .ZIP or .tar file in which you received the library, everything under
 the `lib/` directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to register the OpenCloud namespace for your app to use:
 
-<?
-
-$libPath = '/path/to/open_cloud_lib';
-
-require_once $libraryPath . '/Autoload.php';
-
-$classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
-$classLoader->register();
+    // Define the path to the library
+    $libPath = '/path/to/php-opencloud';
+    
+    // Include the autoloader
+    require_once $libraryPath . '/Autoload.php';
+    
+    // Register the root OpenCloud namespace
+    $classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
+    $classLoader->register();
 
 Once the OpenCloud namespace is registered, you will be able to access all functionality by referencing the class's namespace (in full PSR-0 compliance). For more information about namespaces, check out [PHP's documentation](http://php.net/manual/en/language.namespaces.php).
 
@@ -80,8 +81,6 @@ To use the library, you can use either of their namespaces:
 
 or you can omit the `use` line and reference the fully-qualified classname:
 
-    <?php
-    
     $rackspace = new \OpenCloud\Rackspace;
 
 Before you can do anything else, you need to authenticate with
