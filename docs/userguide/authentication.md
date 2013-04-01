@@ -24,10 +24,12 @@ authorized user and a specific cloud deployment. They are required for any use o
 
 ## Authenticating against OpenStack clouds
 
-First, include the `openstack.php` top-level file:
+First, include the `OpenStack` top-level namespace:
 
     <?php
-    include('openstack.php');
+    use \OpenCloud\OpenStack;
+
+This will allow you to access the OpenStack object through a simple `new OpenStack` declaration. If you omit the `use` line, you will have to access the OpenStack object through a fully-qualified namespace: `new \OpenCloud\OpenStack`.
 
 Next, create an `OpenStack` object with the proper credentials:
 
@@ -36,7 +38,7 @@ Next, create an `OpenStack` object with the proper credentials:
         'username' => 'YOUR USERNAME',
         'password' => 'YOUR PASSWORD'
     );
-    $cloud = new OpenCloud\OpenStack($endpoint, $credentials);
+    $cloud = new OpenStack($endpoint, $credentials);
 
 (Note that the `tenantName` value may not be required for all installations.)
 
@@ -46,10 +48,10 @@ name and password, respectively.
 
 ## Authenticating against the Rackspace public cloud
 
-First, include the `rackspace.php` top-level file:
+First, include the Rackspace top-level namespace:
 
     <?php
-    include('rackspace.php');
+    use OpenCloud\Rackspace;
 
 Next, create a `Rackspace` object with the proper credentials:
 
@@ -58,7 +60,7 @@ Next, create a `Rackspace` object with the proper credentials:
         'username' => 'YOUR USERNAME',
         'apiKey' => 'YOUR API KEY'
     );
-    $cloud = new OpenCloud\Rackspace($endpoint, $credentials);
+    $cloud = new Rackspace($endpoint, $credentials);
 
 Replace the values for `username` and `apiKey` with the values for your
 account. If you don't have an API key, see:
@@ -76,7 +78,7 @@ option/value pairs. For example, if your code requires you to use an HTTP
 proxy:
 
 	$options = array(CURLOPT_PROXY=>'proxy-name');
-	$cloud = new OpenCloud\OpenStack($endpoint, $credentials, $options);
+	$cloud = new \OpenCloud\OpenStack($endpoint, $credentials, $options);
 
 ## Credential Caching
 
@@ -104,7 +106,7 @@ The `OpenStack::ExportCredentials()` method exports the current credentials
 (authorization token, expiration, tenant ID, and service catalog)
 as an array:
 
-	$cloud = new OpenStack('URL', array('username'=>'xx','password'=>'yy'));
+	$cloud = new \OpenCloud\OpenStack('URL', array('username'=>'xx','password'=>'yy'));
 	$cloud->Authenticate();	// retrieves credentials from identity service
 	$arr = $cloud->ExportCredentials();
 	store_credentials_in_cache($arr);
@@ -121,7 +123,7 @@ needs.
 The `OpenStack::ImportCredentials()` method imports an array of credentials
 that was created by the `ExportCredentials()` method:
 
-	$cloud = new OpenStack('URL', array('username'=>'xx','password'=>'yy'));
+	$cloud = new \OpenCloud\OpenStack('URL', array('username'=>'xx','password'=>'yy'));
 	$arr = load_credentials_from_cache();
 	$cloud->ImportCredentials($arr);
 
@@ -133,7 +135,7 @@ Note that the `ImportCredentials()` method must be used *before* any other
 `OpenStack` methods. This is because the `OpenStack` class will automatically
 re-authenticate whenever it needs a token.
 
-	$cloud = new OpenStack('URL', array('username'=>'xx','password'=>'yy'));
+	$cloud = new \OpenCloud\OpenStack('URL', array('username'=>'xx','password'=>'yy'));
 	// this automatically re-authenticates against the identity service
 	$nova = $cloud->Compute(...);
 	// this accidentally overwrites the new credentials with the old one
