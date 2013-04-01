@@ -6,6 +6,9 @@ PHP SDK for OpenStack/Rackspace APIs
   changed from `.inc` to `.php`. This means that any existing code must be 
   edited to use this new version.
 
+> **ANOTHER IMPORTANT NOTE**: the working branch (soon to be master) has been
+  reorganized and all file locations have changed.
+
 See the
 [COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
 file for license and copyright information.
