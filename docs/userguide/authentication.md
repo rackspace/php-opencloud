@@ -27,7 +27,7 @@ authorized user and a specific cloud deployment. They are required for any use o
 First, include the `OpenStack` top-level namespace:
 
     <?php
-    use \OpenCloud\OpenStack;
+    use OpenCloud\OpenStack;
 
 This will allow you to access the OpenStack object through a simple `new OpenStack` declaration. If you omit the `use` line, you will have to access the OpenStack object through a fully-qualified namespace: `new \OpenCloud\OpenStack`.
 
