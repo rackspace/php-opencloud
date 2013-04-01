@@ -19,8 +19,10 @@ if (!defined('TEST_DOMAIN')) define('TEST_DOMAIN', 'http://local.test');
  * stub classes for testing the request() method (which is overridden in the
  * StubConnection class used for testing everything else).
  */
-class TestingConnection extends \OpenCloud\Base\OpenStack {
-    public function GetHttpRequestObject($url, $method='GET') {
+class TestingConnection extends \OpenCloud\OpenStack 
+{
+    public function GetHttpRequestObject($url, $method='GET', $options = array())  
+    {
         return new StubRequest($url, $method);
     }
 }

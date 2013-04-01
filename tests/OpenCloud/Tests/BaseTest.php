@@ -18,10 +18,12 @@ use OpenCloud\Base\Debug;
  * Can't test Base directly, since it is an abstract class, so we instantiate it
  */
 
-class MyBase extends \OpenCloud\Base\Base {
-    public
-        $foo; // to test SetProperty
-    public function GetHttpRequestObject($url, $method='GET') {
+class MyBase extends \OpenCloud\Base\Base 
+{    
+    public $foo; // to test SetProperty
+    
+    public function GetHttpRequestObject($url, $method='GET', $options = array()) 
+    {
         return parent::GetHttpRequestObject($url, $method);
     }
 }

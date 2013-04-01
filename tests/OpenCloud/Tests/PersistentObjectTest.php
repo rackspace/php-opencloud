@@ -39,7 +39,7 @@ class MyPersistentObject extends \OpenCloud\AbstractClass\PersistentObject {
 		$json_name = 'instance',
 		$json_collection_name = 'instanceCollection',
 		$url_resource = 'instances';
-	public function Refresh($id) { return parent::Refresh($id); }
+	public function Refresh($id=NULL) { return parent::Refresh($id); }
 	public function NoCreate() { return parent::NoCreate(); }
 	public function NoUpdate() { return parent::NoUpdate(); }
 	public function NoDelete() { return parent::NoDelete(); }

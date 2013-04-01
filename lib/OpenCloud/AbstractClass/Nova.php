@@ -42,7 +42,7 @@ abstract class Nova extends Service {
 	 * @param string $serviceName - identifies the name of the service in the
 	 *      catalog
 	 */
-	public function __construct(\OpenCloud\Base\OpenStack $conn,
+	public function __construct(\OpenCloud\OpenStack $conn,
 	        $serviceType, $serviceName, $serviceRegion, $urltype) {
 		$this->debug(Lang::translate('initializing Nova...'));
 		parent::__construct(

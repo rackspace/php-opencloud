@@ -30,7 +30,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param string $region the region of the service (e.g., "DFW" or "LON")
 	 * @param string $urltype the type of URL (normally "publicURL")
 	 */
-	public function __construct(\OpenCloud\Base\OpenStack $conn, $name, $region, $urltype) {
+	public function __construct(\OpenCloud\OpenStack $conn, $name, $region, $urltype) {
 		parent::__construct($conn, 'rax:database', $name, $region, $urltype);
 	}
 

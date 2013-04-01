@@ -9,13 +9,18 @@
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
+ 
+require_once 'Autoload.php';
+
+$classLoader = new SplClassLoader('OpenCloud', dirname(__FILE__) . '/lib');
+$classLoader->register();
+ 
 $start = time();
-ini_set('include_path', './lib:'.ini_get('include_path'));
+
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
 	define('RAXSDK_SSL_VERIFYHOST', 0);
 	define('RAXSDK_SSL_VERIFYPEER', 0);
 }
-require('rackspace.php');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
 define('NETWORKNAME', 'SMOKETEST');
@@ -72,6 +77,10 @@ ENDHELP
 	}
 }
 
+if (!USERNAME || !APIKEY || !AUTHURL) {
+	die('No environment values set');
+}
+
 /**
  * START THE TESTS!
  */
@@ -80,9 +89,9 @@ printf("Using endpoint [%s]\n", $_ENV['NOVA_URL']);
 printf("Using region [%s]\n", MYREGION);
 
 step('Authenticate');
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
-	array( 'username' => USERNAME,
-		   'apiKey' => APIKEY ));
+$secret = array('username' => USERNAME, 'apiKey' => APIKEY);
+var_dump($secret); die;
+$rackspace = new \OpenCloud\Rackspace(AUTHURL, $secret);
 $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
 
 /**
@@ -533,3 +542,4 @@ function dotter($obj) {
 		$obj->Status(),
 		isset($obj->progress) ? $obj->progress.'%' : 0);
 }
+

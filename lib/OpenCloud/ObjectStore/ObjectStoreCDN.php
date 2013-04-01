@@ -27,7 +27,7 @@ class ObjectStoreCDN extends ObjectStoreBase {
      * @param string $urlType the type of URL (normally 'publicURL')
      */
 	public function __construct(
-		\OpenCloud\Base\OpenStack $conn,
+		\OpenCloud\OpenStack $conn,
 		$serviceName=RAXSDK_OBJSTORE_NAME,
 		$serviceRegion=RAXSDK_OBJSTORE_REGION,
 		$urltype=RAXSDK_OBJSTORE_URLTYPE) {

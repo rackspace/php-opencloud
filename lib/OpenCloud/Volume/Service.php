@@ -17,7 +17,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	/**
 	 * creates the VolumeService object
 	 */
-	public function __construct(\OpenCloud\Base\OpenStack $conn, $name, $region, $urltype) {
+	public function __construct(\OpenCloud\OpenStack $conn, $name, $region, $urltype) {
 		parent::__construct($conn, 'volume', $name, $region, $urltype);
 	}
 

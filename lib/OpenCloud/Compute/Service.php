@@ -61,7 +61,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param string $serviceName - identifies the name of the service in the
 	 *      catalog
 	 */
-	public function __construct(\OpenCloud\Base\OpenStack $conn,
+	public function __construct(\OpenCloud\OpenStack $conn,
 	        $serviceName, $serviceRegion, $urltype) {
 		$this->debug(Lang::translate('initializing Compute...'));
 		parent::__construct(

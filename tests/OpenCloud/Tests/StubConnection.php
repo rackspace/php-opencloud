@@ -16,7 +16,7 @@ if (!defined('TESTDIR')) define('TESTDIR', dirname(__FILE__));
  *
  * Be careful where you put things.
  */
-class StubConnection extends \OpenCloud\Base\OpenStack
+class StubConnection extends \OpenCloud\OpenStack
 {
 	public
 		$async_response = <<<ENDRESPONSE
