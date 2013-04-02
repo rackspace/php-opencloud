@@ -5,7 +5,7 @@
 // This script searches for domains that don't have MX records,
 // then it adds them
 
-require_once('rackspace.php');
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -23,7 +23,7 @@ define('MX_TTL', 7200);
 //setDebug(TRUE);
 
 // establish our credentials
-$cloud = new OpenCloud\Rackspace(AUTHURL,
+$cloud = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 

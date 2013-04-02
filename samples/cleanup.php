@@ -9,7 +9,9 @@
  * created under your account.
  */
 $start = time();
-ini_set('include_path', './lib:'.ini_get('include_path'));
+
+require_once('bootstrap.php');
+
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
 	define('RAXSDK_SSL_VERIFYHOST', 0);
 	define('RAXSDK_SSL_VERIFYPEER', 0);
@@ -52,7 +54,7 @@ printf("Region [%s]\n", MYREGION);
 printf("Endpoint [%s]\n", $_ENV['NOVA_URL']);
 
 step('Authenticate');
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
+$rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 

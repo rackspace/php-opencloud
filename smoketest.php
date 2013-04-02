@@ -9,13 +9,18 @@
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
+
+require_once 'Autoload.php';
+
+$classLoader = new SplClassLoader('OpenCloud', dirname(__FILE__) . '/lib');
+$classLoader->register();
+ 
 $start = time();
-ini_set('include_path', './lib:'.ini_get('include_path'));
+
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
 	define('RAXSDK_SSL_VERIFYHOST', 0);
 	define('RAXSDK_SSL_VERIFYPEER', 0);
 }
-require('rackspace.php');
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');
 define('NETWORKNAME', 'SMOKETEST');
@@ -24,6 +29,7 @@ define('VOLUMENAME', 'SmokeTestVolume');
 define('VOLUMESIZE', 103);
 define('LBNAME', 'SmokeTestLoadBalancer');
 define('CACHEFILE', '/tmp/smoketest.credentials');
+define('RAXSDK_STRICT_PROPERTY_CHECKS', false);
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -33,6 +39,8 @@ define('CACHEFILE', '/tmp/smoketest.credentials');
 define('AUTHURL', $_ENV['NOVA_URL']);
 define('USERNAME', $_ENV['OS_USERNAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
+
+$debug = new \OpenCloud\Base\Debug;
 
 /**
  * numbers each step
@@ -53,7 +61,7 @@ if ($argc > 1) {
 		case '-D':
 		case '--debug':
 			printf("Debug ON\n");
-			setDebug(TRUE);
+			$debug->setDebug(TRUE);
 			break;
 		case '-H':
 		case '--help':
@@ -72,6 +80,10 @@ ENDHELP
 	}
 }
 
+if (!USERNAME || !APIKEY || !AUTHURL) {
+	die('No environment values set');
+}
+
 /**
  * START THE TESTS!
  */
@@ -80,9 +92,9 @@ printf("Using endpoint [%s]\n", $_ENV['NOVA_URL']);
 printf("Using region [%s]\n", MYREGION);
 
 step('Authenticate');
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
-	array( 'username' => USERNAME,
-		   'apiKey' => APIKEY ));
+$secret = array('username' => USERNAME, 'apiKey' => APIKEY);
+
+$rackspace = new \OpenCloud\Rackspace(AUTHURL, $secret);
 $rackspace->AppendUserAgent('(PHP SDK SMOKETEST)');
 
 /**
@@ -112,10 +124,12 @@ else { // load cached credentials
 step('Connect to Cloud DNS');
 $dns = $rackspace->DNS();
 
+$domainName = 'test' . rand(1,9999) . '.com';
+
 step('Try to add a domain raxdrg.info');
 $domain = $dns->Domain();
 $aresp = $domain->Create(array(
-	'name' => 'raxdrg.info',
+	'name' => $domainName,
 	'emailAddress' => 'sdk-support@rackspace.com',
 	'ttl' => 3600));
 $aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
@@ -125,12 +139,13 @@ if ($aresp->Status() == 'ERROR') {
 		$aresp->error->code, $aresp->error->message, $aresp->error->details);
 }
 
-step('Adding a CNAME record www.raxdrg.info');
-$dlist = $dns->DomainList(array('name'=>'raxdrg.info'));
+step("Adding a CNAME record $domainName");
+$dlist = $dns->DomainList(array('name'=>$domainName));
 $domain = $dlist->Next();
+
 $record = $domain->Record();
 $aresp = $record->Create(array(
-	'type' => 'CNAME', 'ttl' => 600, 'name' => 'www.raxdrg.info',
+	'type' => 'CNAME', 'ttl' => 600, 'name' => $domainName,
 	'data' => 'developer.rackspace.com'));
 $aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
 if ($aresp->Status() == 'ERROR') {
@@ -234,7 +249,7 @@ $met->Create();
 step('Add a public IPv6 address');
 //setDebug(TRUE);
 $lb->AddVirtualIp('PUBLIC', 6);
-setDebug(FALSE);
+$debug->setDebug(FALSE);
 
 // allowed domains
 $adlist = $lbservice->AllowedDomainList();
@@ -292,7 +307,7 @@ if ($list->Size()) {
 		try {
 			$ssl = $lb->SSLTermination();
 			info('  SSL terminated');
-		} catch (OpenCloud\InstanceNotFound $e) {
+		} catch (\OpenCloud\Base\Exceptions\InstanceNotFound $e) {
 			info('  No SSL termination');
 		}
 
@@ -356,8 +371,10 @@ if ($USE_SERVERS) {
 
 	step('Create Network');
 	$network = $cloudservers->Network();
-	$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
-
+	try {
+		$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
+	} catch (Exception $e) {}
+	
 	step('List Networks');
 	$netlist = $cloudservers->NetworkList();
 	$netlist->Sort('label');
@@ -533,3 +550,4 @@ function dotter($obj) {
 		$obj->Status(),
 		isset($obj->progress) ? $obj->progress.'%' : 0);
 }
+

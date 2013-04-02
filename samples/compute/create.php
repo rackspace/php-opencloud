@@ -2,10 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-namespace OpenCloud;
-
-require_once('rackspace.php');
-require_once('compute.php');
+require(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -13,7 +10,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 // establish our credentials
-$connection = new Rackspace(AUTHURL,
+$connection = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 

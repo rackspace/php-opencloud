@@ -51,7 +51,7 @@ abstract class Service extends \OpenCloud\Base\Base {
 	 *      (e.g., "publicURL")
 	 */
 	public function __construct(
-		\OpenCloud\Base\OpenStack $conn, $type, $name, $region, $urltype=RAXSDK_URL_PUBLIC) {
+		\OpenCloud\OpenStack $conn, $type, $name, $region, $urltype=RAXSDK_URL_PUBLIC) {
 		$this->conn = $conn;
 		$this->service_type = $type;
 		$this->service_name = $name;
@@ -66,10 +66,10 @@ abstract class Service extends \OpenCloud\Base\Base {
 	 * @param array $query optional k/v pairs for query strings
 	 * @return string
 	 */
-	public function Url($param=array()) {
-		return $this->service_url .
-			(count($param) ? ('?'.$this->MakeQueryString($param)) : '');
-	} // public function Url()
+	public function Url(array $param = array()) 
+	{
+		return $this->service_url . (count($param) ? ('?'.$this->MakeQueryString($param)) : '');
+	}
 
 	/**
 	 * Returns the /extensions for the service
@@ -113,7 +113,8 @@ abstract class Service extends \OpenCloud\Base\Base {
 	 * @param string $body An optional body for POST/PUT requests
 	 * @return \OpenCloud\HttpResult
 	 */
-	public function Request($url,$method='GET',$headers=array(),$body=NULL) {
+	public function Request($url,$method='GET',$headers=array(),$body=NULL) 
+	{
 		$headers['X-Auth-Token'] = $this->conn->Token();
 		if ($tenant = $this->conn->Tenant())
 			$headers['X-Auth-Project-Id'] = $tenant;

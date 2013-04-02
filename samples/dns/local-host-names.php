@@ -7,7 +7,7 @@
 // that file manually is a big pain, so I made this to automatically
 // generate it for my mail server.
 
-require_once('rackspace.php');
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -21,7 +21,7 @@ define('MX_HOST', 'mx1.xlerb.com');
 //setDebug(TRUE);
 
 // establish our credentials
-$cloud = new OpenCloud\Rackspace(AUTHURL,
+$cloud = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 

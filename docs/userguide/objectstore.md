@@ -7,7 +7,7 @@ object (either `OpenStack` or `Rackspace`).
 
 For example:
 
-	$cloud = new OpenCloud\OpenStack(array(
+	$cloud = new \OpenCloud\OpenStack(array(
 	    'username'=>'{username}','password'=>'{password}'));
 	$swift = $cloud->ObjectStore('cloudFiles','DFW');
 

@@ -5,8 +5,7 @@
 define('IMAGE_ID', '8bf22129-8483-462b-a020-1754ec822770');
 define('FLAVOR_ID', '2');
 
-require_once('rackspace.php');
-require_once('compute.php');
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -14,7 +13,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 printf("Establish our credentials...\n");
-$connection = new OpenCloud\Rackspace(AUTHURL,
+$connection = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 

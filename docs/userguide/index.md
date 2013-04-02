@@ -49,51 +49,39 @@ then you'll need to make sure it is installed.
 ## Installing the library
 
 In the .ZIP or .tar file in which you received the library, everything under
-the `lib/` directory should be installed in a location that is accessible
-in your PHP's `include_path` setting. (Or, if you prefer, you can edit
-your `php.ini` and change the `include_path` to point to the `lib/` directory,
-wherever it is.)
+the `lib/` directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to register the OpenCloud namespace for your app to use:
 
-For example, if your include path looks like this:
+    // Define the path to the library
+    $libPath = '/path/to/php-opencloud';
+    
+    // Include the autoloader
+    require_once $libraryPath . '/Autoload.php';
+    
+    // Register the root OpenCloud namespace
+    $classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
+    $classLoader->register();
 
-	include_path = "/usr/lib/php:/usr/local/lib/php"
-
-and you have installed the library files in `/home/php-opencloud/lib`, you would
-change the `include_path` like this:
-
-	include_path = "/usr/lib/php:/usr/local/lib/php:/home/php-opencloud/lib"
-
-You can also use the full path to the library as shown below.
+Once the OpenCloud namespace is registered, you will be able to access all functionality by referencing the class's namespace (in full PSR-0 compliance). For more information about namespaces, check out [PHP's documentation](http://php.net/manual/en/language.namespaces.php).
 
 ## Using php-opencloud
 
 There are currently two top-level entry points into the library:
 
-* `openstack.php` for pure OpenStack-based clouds
-* `rackspace.php` for the Rackspace public cloud
+* `OpenStack.php` for pure OpenStack-based clouds
+* `Rackspace.php` for the Rackspace public cloud
 
-(`rackspace.php` is a subclass of `OpenStack` with some variation as
+(`Rackspace.php` is a subclass of `OpenStack` with some variation as
 to how the authentication is handled, as well as factory methods for
 Rackspace-only services such as Cloud Databases&trade;.)
 
-To use the library, you can `include()` or `require()` one of these scripts
-in your program, like this:
+To use the library, you can use either of their namespaces:
 
-    <?php
-    include('openstack.php');   // for OpenStack clouds
+    use OpenCloud\OpenStack;
+    $openStack = new OpenStack;
 
-or
+or you can omit the `use` line and reference the fully-qualified classname:
 
-    <?php
-    include('rackspace.php');   // for the Rackspace cloud
-
-If you prefer, you can use the full path to the library file:
-
-    <?php
-    include('/full/path/to/your/rackspace.php');
-
-In this case, you do not need to have the library location in your PHP's `include_path`
-setting.
+    $rackspace = new \OpenCloud\Rackspace;
 
 Before you can do anything else, you need to authenticate with
 your cloud. See the [Authentication](authentication.md) section

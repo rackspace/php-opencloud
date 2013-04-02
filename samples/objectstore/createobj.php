@@ -8,12 +8,10 @@
  * own source code as the data!
  */
 
-namespace OpenCloud;
-
 define('RAXSDK_OBJSTORE_NAME','cloudFiles');
 define('RAXSDK_OBJSTORE_REGION','DFW');
-require_once('rackspace.php');
-require_once('objectstore.php');
+
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -30,7 +28,7 @@ function UploadProgress($len) {
 }
 
 // establish our credentials
-$connection = new Rackspace(AUTHURL,
+$connection = new \OpenCloud\Rackspace(AUTHURL,
 	array('username' => USERNAME,
 		   'apiKey' => APIKEY));
 

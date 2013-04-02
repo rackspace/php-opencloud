@@ -72,29 +72,20 @@ version list:
 
 ### Installation
 
-GitHub has deprecated its `/downloads` directory. Click on the `ZIP` button
-on this page to download the entire repository as a .ZIP file.
+In the .zip or .tar file in which you received the library, everything under
+the `lib/` directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to register the OpenCloud namespace for your app to use:
 
-Move the files in the `lib/` directory to a location in your PHP's
-`include_path` or, conversely, set the `include_path` to point to the
-location of the `lib/` files. From within a PHP program, for example,
-you can use:
+    // Define the path to the library
+    $libPath = '/path/to/php-opencloud';
+    
+    // Include the autoloader
+    require_once $libraryPath . '/Autoload.php';
+    
+    // Register the root OpenCloud namespace
+    $classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
+    $classLoader->register();
 
-    ini_set('include_path', './lib:'.ini_get('include_path'));
-
-This prepends the local `./lib` directory to the existing `include_path`
-value.
-
-If you prefer, you can modify the `include_path` setting in your `php.ini`
-file (usually found in `/etc/php.ini` or `/usr/local/etc/php.ini`).
-
-If `php.ini` has this line:
-
-    include_path = "/usr/lib/php:/usr/lib/pear"
-
-then add the `lib/` directory to it:
-
-    include_path = "/usr/lib/php:/usr/lib/pear:/path/to/php-opencloud/lib"
+Once the OpenCloud namespace is registered, you will be able to access all functionality by referencing the class's namespace (in full PSR-0 compliance). For more information about namespaces, check out [PHP's documentation](http://php.net/manual/en/language.namespaces.php).
 
 Further Reading
 ---------------

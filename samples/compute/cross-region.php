@@ -2,7 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-require_once('rackspace.php');
+require_once(dirname(__FILE__) . '/../bootstrap.php');
 
 /**
  * In this example, we're going to clone a server from one region to
@@ -23,7 +23,7 @@ define('APIKEY', $_ENV['NOVA_API_KEY']);
 printf("Authenticating...\n");
 
 // establish our credentials
-$rackspace = new OpenCloud\Rackspace(AUTHURL,
+$rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 

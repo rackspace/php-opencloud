@@ -14,8 +14,8 @@ namespace OpenCloud\Tests;
 /**
  * Stub for Rackspace to Override the ->Request() method
  */
-class MyRackspace extends \OpenCloud\Base\Rackspace {
-    public function Request() {
+class MyRackspace extends \OpenCloud\Rackspace {
+    public function Request($url,$method='GET',$headers=array(),$data=NULL) {
     	return new \OpenCloud\Base\Request\Response\Blank(array(
     		'body'=>file_get_contents(TESTDIR.'/connection.json')));
     }

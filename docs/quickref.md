@@ -23,34 +23,38 @@ two different connection services provided: OpenStack and Rackspace
 (hopefully, there will be more in the future, and developers are
 encouraged to contribute theirs).
 
-To use an OpenStack service, use
+To use an OpenStack service, use this namespace:
 
-    require('openstack.php');
+    use OpenCloud\OpenStack;
 
 To use the Rackspace public cloud, use:
 
-    require('rackspace.php');
+    use OpenCloud\Rackspace;
+    
+If you're not using an autoloader/dependency package system (such as Composer), you will need to register the root OpenCloud namespace:
 
-Once you've included the desired connection class, you can proceed
+    require 'Autoload.php';
+    $classLoader = new SplClassLoader('OpenCloud', 'path/to/Rackspace/lib');
+    $classLoader->register();
+
+Once you've referenced the desired connection class, you can proceed
 to establish the connection. For OpenStack clouds, provide the
 username and password:
 
-    require('openstack.php');
-	$conn = new OpenCloud\OpenStack(
-		'https://example.com/v2/identity',
-		array(
-			'username' => 'your username',
-			'password' => 'your Keystone password',
-			'tenantName' => 'your tenant (project) name'
-		));
+    $conn = new \OpenCloud\OpenStack(
+    	'https://example.com/v2/identity',
+    	array(
+    		'username' => 'your username',
+    		'password' => 'your Keystone password',
+    		'tenantName' => 'your tenant (project) name'
+    	));
 
 (Note that the `tenantName` value may not be required for all installations.)
 
 If you are using Rackspace's authentication, you need to pass your
 API key and tenant ID instead:
 
-    require('rackspace.php');
-	$conn = new OpenCloud\Rackspace(
+	$conn = new \OpenCloud\Rackspace(
 		'https://example.com/v2/identity',
 		array(
 			'username' => 'your username',

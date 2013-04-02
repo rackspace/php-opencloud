@@ -17,16 +17,14 @@ selected from the service catalog by specifying:
 
 Defaults are provided for the service name and URL type. To specify a
 default region, define the `RAXSDK_VOLUME_REGION` constant *before* including
-the top-level library file:
+the top-level Rackspace class:
 
 	// set the default region to London
 	define('RAXSDK_VOLUME_REGION','LON');
-	// include the connection object
-	require('rackspace.php');
 
 Use the `VolumeService()` method to create a new `VolumeService` object:
 
-	$cloud = new Rackspace(...);
+	$cloud = new \OpenCloud\Rackspace(...);
 	$cbs = $cloud->VolumeService();
 
 You can override any defaults by specifying them:

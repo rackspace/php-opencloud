@@ -43,7 +43,7 @@ class Service extends ObjectStoreBase {
      * @param string $urltype the type of URL to use (usually "publicURL")
      */
 	public function __construct(
-		\OpenCloud\Base\OpenStack $conn,
+		\OpenCloud\OpenStack $conn,
 		$serviceName=RAXSDK_OBJSTORE_NAME,
 		$serviceRegion=RAXSDK_OBJSTORE_REGION,
 		$urltype=RAXSDK_OBJSTORE_URLTYPE) {

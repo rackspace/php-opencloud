@@ -14,7 +14,7 @@
  * password. 
  */
 
-require_once('openstack.php');
+require_once('bootstrap.php');
 
 // my credentials
 define('AUTHURL', '{your authorization URL}');
@@ -24,4 +24,4 @@ $mysecret = array(
 );
 
 // establish our credentials
-$connection = new OpenCloud\OpenStack(AUTHURL, $mysecret);
+$connection = new \OpenCloud\OpenStack(AUTHURL, $mysecret);

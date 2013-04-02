@@ -24,7 +24,7 @@ class Service extends \OpenCloud\AbstractClass\Service {
 	 * @param string $serviceRegion (not currently used; DNS is regionless)
 	 * @param string $urltype the type of URL
 	 */
-	public function __construct(\OpenCloud\Base\OpenStack $conn,
+	public function __construct(\OpenCloud\OpenStack $conn,
 	        $serviceName, $serviceRegion, $urltype) {
 		$this->debug(Lang::translate('initializing DNS...'));
 		parent::__construct(
