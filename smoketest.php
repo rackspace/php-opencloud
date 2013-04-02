@@ -124,7 +124,7 @@ else { // load cached credentials
 step('Connect to Cloud DNS');
 $dns = $rackspace->DNS();
 
-$domainName = 'jamiehannaford.com';
+$domainName = 'test' . rand(1,9999) . '.com';
 
 step('Try to add a domain raxdrg.info');
 $domain = $dns->Domain();
