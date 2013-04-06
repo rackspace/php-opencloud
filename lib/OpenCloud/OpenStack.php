@@ -414,7 +414,7 @@ class OpenStack extends Base\Base {
                         $response = $http->Execute();
                     }
                     else {
-                        throw new \OpenCloud\Base\Exceptions\HttpOverlimitError(
+                        throw new \OpenCloud\Base\Exceptions\HttpOverLimitError(
                             sprintf(Base\Lang::translate('Over limit; next available request '.
                                 '[%s][%s] is not '.
                                 'for [%d] seconds at [%s]'),
@@ -440,7 +440,7 @@ class OpenStack extends Base\Base {
         			$url, $response->HttpBody()));
         	break;
         case 413:   // limit
-            throw new \OpenCloud\Base\Exceptions\HttpOverlimitError(
+            throw new \OpenCloud\Base\Exceptions\HttpOverLimitError(
                 sprintf(Base\Lang::translate('413 Over limit for [%s] [%s]'),
                     $url, $response->HttpBody()));
             break;

@@ -20,4 +20,4 @@ abstract class Readonly extends SubResource {
 	 * no Delete
 	 */
 	public function Delete() { $this->NoDelete(); }
-} // end class ReadonlySubResource
+}
