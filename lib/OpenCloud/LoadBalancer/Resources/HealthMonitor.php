@@ -3,7 +3,7 @@
 namespace OpenCloud\LoadBalancer\Resources;
 
 /**
- * sub-resource to read health monitor info
+ * sub-resource to manage health monitor info
  */
 class HealthMonitor extends SubResource {
 	public
