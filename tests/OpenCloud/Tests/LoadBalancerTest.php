@@ -167,6 +167,15 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 			$lb->ErrorPage()->Url()
 		);
 	}
+	public function testHealthMonitor() {
+		$lb = $this->service->LoadBalancer();
+		$lb->Create();
+		$this->assertEquals(
+			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/'.
+				'loadbalancers/123/healthmonitor',
+			$lb->HealthMonitor()->Url()
+		);
+	}
 	public function testStats() {
 		$this->lb->id = 1024;
 		$x = $this->lb->Stats();
