@@ -128,6 +128,8 @@ ENDLBSTATS;
 				$resp->body = '{}';
 			elseif (strpos($url, '/errorpage'))
 				$resp->body = '{}';
+			elseif (strpos($url, '/healthmonitor'))
+				$resp->body = '{}';
 			elseif (strpos($url, '/usage'))
 				$resp->body = '{}';
 			elseif (strpos($url, '/accesslist'))

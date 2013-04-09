@@ -270,6 +270,16 @@ class LoadBalancer extends \OpenCloud\AbstractClass\PersistentObject {
 	}
 
 	/**
+	 * returns the load balancer's health monitor object
+	 *
+	 * @api
+	 * @return HealthMonitor
+	 */
+	public function HealthMonitor() {
+		return new Resources\HealthMonitor($this);
+	}
+
+	/**
 	 * returns statistics on the load balancer operation
 	 *
 	 * cannot be created, updated, or deleted
