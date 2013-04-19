@@ -210,7 +210,14 @@ class Server extends \OpenCloud\AbstractClass\PersistentObject {
 		$obj->createImage->metadata = new \stdClass();
 		foreach($metadata as $name => $value)
 			$obj->createImage->metadata->$name = $value;
-        return $this->Action($obj);
+		$resp = $this->Action($obj);
+		if ($resp === FALSE)
+			return FALSE;
+		$location = $resp->Header('Location');
+		if (!$location)
+			return FALSE;
+		$imgid = basename($location);
+		return new Image($this->Service(), $imgid);
 	}
 
 	/**
