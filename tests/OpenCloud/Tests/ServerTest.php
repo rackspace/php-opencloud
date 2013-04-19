@@ -91,9 +91,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 		    $this->server->Reboot()->HttpStatus());
 	}
 	public function testCreateImage() {
+		$resp = $this->server->CreateImage('EPIC');
 		$this->assertEquals(
-		    200,
-		    $this->server->CreateImage('EPIC')->HttpStatus());
+		    FALSE,
+		    $resp);
 	}
 	public function testResize() {
 		$this->assertEquals(
