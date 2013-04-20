@@ -70,7 +70,7 @@ class Http extends \OpenCloud\Base\Base {
 	 * @return string with the value of the requested header, or NULL
 	 */
 	public function Header($name) {
-		return $this->headers[$name];
+		return isset($this->headers[$name]) ? $this->headers[$name] : NULL;
 	}
 
 	/**
