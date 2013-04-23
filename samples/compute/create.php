@@ -2,7 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-require(dirname(__FILE__) . '/../bootstrap.php');
+require('php-opencloud.php');
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);
@@ -60,7 +60,7 @@ $server->Create(array(
 		'flavor' => $myflavor));
 print("requested, now waiting...\n");
 print("ID=".$server->id."...\n");
-$server->WaitFor("ACTIVE", 600, 'OpenCloud\dot');
+$server->WaitFor("ACTIVE", 600, 'dot');
 print("done\n");
 exit(0);
 

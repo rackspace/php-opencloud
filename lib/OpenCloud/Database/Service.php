@@ -41,7 +41,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param string $resource the resource required
 	 * @param array $args extra arguments to pass to the URL as query strings
 	 */
-	public function Url($resource='instances', $args=array()) {
+	public function Url($resource='instances', array $args=array()) {
 		return parent::Url($resource, $args);
 	}
 

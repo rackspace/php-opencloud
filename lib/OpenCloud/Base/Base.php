@@ -97,7 +97,8 @@ abstract class Base {
 	public function debug($msg,$p1=NULL,$p2=NULL,$p3=NULL,$p4=NULL,$p5=NULL) {
 		// don't display the message unless the debug flag is set
 		if ($this->getDebug()->isEnabled()) {
-			printf("Debug:(%s)$msg\n", get_class($this), $p1, $p2, $p3, $p4, $p5);
+			printf("Debug:(%s)$msg\n",
+				get_class($this), $p1, $p2, $p3, $p4, $p5);
 		}
 	}
 

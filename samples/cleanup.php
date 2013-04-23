@@ -123,7 +123,11 @@ step('Deleting load balancers');
 $list = $lbservice->LoadBalancerList();
 while($lb = $list->Next()) {
 	info('Deleting [%s] %s', $lb->id, $lb->Name());
-	$lb->Delete();
+	try {
+		$lb->Delete();
+	} catch (OpenCloud\Base\Exceptions\DeleteError $e) {
+		info('---Cannot delete');
+	}
 }
 
 step('Deleting unused volumes');

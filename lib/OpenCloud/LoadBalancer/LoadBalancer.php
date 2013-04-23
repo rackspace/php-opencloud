@@ -39,6 +39,9 @@ class LoadBalancer extends \OpenCloud\AbstractClass\PersistentObject {
 		/* returned in response */
 		$created,
 		$updated,
+		$status,
+		$timeout,
+		$nodeCount,
 		$sourceAddresses;
 
 	protected static

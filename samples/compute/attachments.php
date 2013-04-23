@@ -5,7 +5,7 @@
  */
 $start = time();
 
-require(dirname(__FILE__) . '/../bootstrap.php');
+require('php-opencloud.php');
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -47,6 +47,6 @@ while($server = $slist->Next()) {
 	info('%s', $server->Name());
 	$alist = $server->VolumeAttachmentList();
 	while($attachment = $alist->Next())
-		printf("    %s Device: %s\n", 
+		printf("    %s Device: %s\n",
 			$attachment->id, $attachment->device);
 }
