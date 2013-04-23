@@ -7,7 +7,7 @@
 define('RAXSDK_OBJSTORE_NAME','cloudFiles');
 define('RAXSDK_OBJSTORE_REGION','DFW');
 
-require_once(dirname(__FILE__) . '/../bootstrap.php');
+require_once "php-opencloud.php";
 
 // these hold our environment variable settings
 define('AUTHURL', RACKSPACE_US);

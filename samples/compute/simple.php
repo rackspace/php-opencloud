@@ -5,7 +5,7 @@
 define('IMAGE_ID', '8bf22129-8483-462b-a020-1754ec822770');
 define('FLAVOR_ID', '2');
 
-require_once(dirname(__FILE__) . '/../bootstrap.php');
+require_once "php-opencloud.php";
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);

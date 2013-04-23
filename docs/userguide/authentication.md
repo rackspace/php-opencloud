@@ -24,10 +24,10 @@ authorized user and a specific cloud deployment. They are required for any use o
 
 ## Authenticating against OpenStack clouds
 
-First, include the `OpenStack` top-level namespace:
+First, include the top-level file:
 
     <?php
-    use OpenCloud\OpenStack;
+    require '/path/to/php-opencloud.php';
 
 This will allow you to access the OpenStack object through a simple `new OpenStack` declaration. If you omit the `use` line, you will have to access the OpenStack object through a fully-qualified namespace: `new \OpenCloud\OpenStack`.
 

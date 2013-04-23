@@ -10,7 +10,7 @@
  */
 $start = time();
 
-require_once('php-opencloud.php');
+require_once "php-opencloud.php";
 
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
 	define('RAXSDK_SSL_VERIFYHOST', 0);
@@ -78,7 +78,7 @@ while($network = $list->Next()) {
 	info('Deleting: %s %s', $network->id, $network->label);
 	try {
 		$network->Delete();
-	} catch (OpenCloud\DeleteError $e) {
+	} catch (OpenCloud\Base\Exceptions\DeleteError $e) {
 		info('---Cannot delete');
 	}
 }
@@ -102,15 +102,6 @@ while($snap = $list->Next()) {
     else
         info('[%s] %s status is %s',
             $snap->id, $snap->Name(), $snap->Status());
-}
-
-step('Deleting SAMPLENET and SMOKETEST Networks');
-$list = $cloudservers->NetworkList();
-while($network = $list->Next()) {
-    if ($network->label=='SAMPLENET' || $network->label=='SMOKETEST') {
-        info('Deleting network [%s] %s', $network->id, $network->label);
-        $network->Delete();
-    }
 }
 
 step('Deleting objects');

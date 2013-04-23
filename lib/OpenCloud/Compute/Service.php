@@ -93,7 +93,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 *      strings to append to the URL
 	 * @returns string - the requested URL
 	 */
-	public function Url($resource='servers', $args=array()) {
+	public function Url($resource='servers', array $args=array()) {
 	    return parent::Url($resource, $args);
 	}
 

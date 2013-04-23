@@ -2,7 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-require_once(dirname(__FILE__) . '/../bootstrap.php');
+require_once "php-opencloud.php";
 
 // set this to the name of the domain to export
 define('EXPORT_DOMAIN', 'raxdrg.info');

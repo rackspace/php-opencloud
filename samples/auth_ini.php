@@ -2,7 +2,7 @@
 // (c)2012 Rackspace Hosting
 // See COPYING for licensing information
 
-require_once('bootstrap.php');
+require_once "php-opencloud.php";
 
 define('INIFILE', 'auth.ini');
 

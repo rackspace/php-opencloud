@@ -48,7 +48,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param string $resource the resource required
 	 * @param array $args extra arguments to pass to the URL as query strings
 	 */
-	public function Url($resource=self::URL_RESOURCE, $args=array()) {
+	public function Url($resource=self::URL_RESOURCE, array $args=array()) {
 		return parent::Url($resource, $args);
 	}
 
@@ -119,7 +119,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 
 	/**
 	 * returns Collection of AllowedDomain object
-	 * 
+	 *
 	 * @api
 	 * @return Collection
 	 */
@@ -127,18 +127,18 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 		return $this->Collection(
 			'\OpenCloud\LoadBalancer\AllowedDomain', NULL, $this);
 	}
-	
+
 	/**
 	 * single protocol (should never be called directly)
 	 *
-	 * Convenience method to be used by the ProtocolList Collection. 
+	 * Convenience method to be used by the ProtocolList Collection.
 	 *
 	 * @return LoadBalancerService\Protocol
 	 */
 	public function Protocol($data=NULL) {
 		return new Protocol($this, $data);
 	}
-	
+
 	/**
 	 * a list of Protocol objects
 	 *
@@ -160,7 +160,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	public function Algorithm($data=NULL) {
 		return new Algorithm($this, $data);
 	}
-	
+
 	/**
 	 * a list of Algorithm objects
 	 *

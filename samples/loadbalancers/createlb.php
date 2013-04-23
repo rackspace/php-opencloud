@@ -5,7 +5,7 @@
  */
 $start = time();
 
-require_once(dirname(__FILE__) . '/../bootstrap.php');
+require_once "php-opencloud.php";
 
 /**
  * Relies upon environment variable settings — these are the same environment

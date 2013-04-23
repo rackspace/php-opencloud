@@ -1,12 +1,7 @@
 <?php
-
-/*
-$currentPath = dirname(__FILE__);
-
-require_once $currentPath . '/../Autoload.php';
-
-$classLoader = new SplClassLoader('OpenCloud', $currentPath . '/../lib');
-$classLoader->register();
-*/
+/**
+ * This auto-loads the autoloader, auto-loading the php-opencloud
+ * namespaces
+ */
 
 require_once dirname(__FILE__) . '/../lib/php-opencloud.php';

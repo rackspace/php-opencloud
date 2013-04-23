@@ -9,7 +9,7 @@
  */
 $start = time();
 
-require_once(dirname(__FILE__) . '/../bootstrap.php');
+require_once "php-opencloud.php";
 
 define('INSTANCENAME', 'SmokeTestInstance');
 define('SERVERNAME', 'SmokeTestServer');

@@ -7,7 +7,7 @@
 // that file manually is a big pain, so I made this to automatically
 // generate it for my mail server.
 
-require_once('php-opencloud.php');
+require_once "php-opencloud.php";
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);

@@ -3,8 +3,11 @@ RELEASE NOTES
 
 ### Current branch: master
 
-### Next release:
+### Next release (1.5):
 * Issue #38 - added support for Cloud Files TEMP_URL feature
+* Revised structure around namespaces
+* new entrypoint: php-opencloud.php (rackspace.php and openstack.php are still
+  available for backwards compatibility)
 
 ### 02/21/2013 Version 1.4
 * Added __DIR__ to all internal `require()` calls. [Issue #40]

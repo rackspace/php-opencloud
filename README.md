@@ -3,17 +3,18 @@
 PHP SDK for OpenStack/Rackspace APIs
 
 > **IMPORTANT NOTE**: With release 1.3, all of the file extensions have been
-  changed from `.inc` to `.php`. This means that any existing code must be 
+  changed from `.inc` to `.php`. This means that any existing code must be
   edited to use this new version.
 
-> **ANOTHER IMPORTANT NOTE**: the working branch (soon to be master) has been
-  reorganized and all file locations have changed.
+> **ANOTHER IMPORTANT NOTE**: the working branch (soon to be release 1.5) has
+  been substantially reorganized around namespaces and *all* of the file
+  locations/names have been changed.
 
 See the
 [COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
 file for license and copyright information.
 
-Now running continuous integration at 
+Now running continuous integration at
 [travis-ci.org](https://travis-ci.org/rackspace/php-opencloud)
 
 For other SDKs, see http://developer.rackspace.com
@@ -36,10 +37,10 @@ SDK (and not developers working *with* the SDK).
 Downloading
 -----------
 
-Visit https://github.com/rackspace/php-opencloud/tags to see tagged releases 
+Visit https://github.com/rackspace/php-opencloud/tags to see tagged releases
 that you can download.
 
-You can download the master branch using the 
+You can download the master branch using the
 GitHub "ZIP" button, above. However, this has the latest code and may not
 be as stable as the tagged branches.
 
@@ -77,10 +78,10 @@ the `lib/` directory should be installed in a location that is accessible. If yo
 
     // Define the path to the library
     $libPath = '/path/to/php-opencloud';
-    
+
     // Include the autoloader
     require_once $libraryPath . '/Autoload.php';
-    
+
     // Register the root OpenCloud namespace
     $classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
     $classLoader->register();

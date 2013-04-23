@@ -130,7 +130,7 @@ if (!defined('RAXSDK_SSL_VERIFYPEER'))
 date_default_timezone_set(RAXSDK_TIMEZONE);
 
 /* these should not be overridden */
-define('RAXSDK_VERSION', '1.4');
+define('RAXSDK_VERSION', '1.5');
 define('RAXSDK_USER_AGENT', 'php-opencloud/'.RAXSDK_VERSION.' (Rackspace)');
 define('RAXSDK_ERROR', 'Error:');
 define('RAXSDK_FATAL', 'FATAL ERROR:');

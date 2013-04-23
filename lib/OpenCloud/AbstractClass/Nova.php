@@ -23,7 +23,7 @@ use OpenCloud\Base\Lang;
  * for sharing common code between those other classes.
  */
 abstract class Nova extends Service {
-	
+
 	private $_url;
 
 	/**
@@ -54,25 +54,6 @@ abstract class Nova extends Service {
 		);
 		$this->_url = \OpenCloud\Base\Lang::noslash(parent::Url());
 	} // function __construct()
-
-	/**
-	 * Returns the selected endpoint URL of this Service
-	 *
-	 * @param string $resource - a child resource. For example,
-	 *      passing 'servers' would return .../servers. Should *not* be
-	 *    prefixed with a slash (/).
-	 * @param array $args (optional) an array of key-value pairs for query
-	 *      strings to append to the URL
-	 * @returns string - the requested URL
-	 */
-	public function Url($resource='', $args=array()) {
-	    $baseurl = $this->_url;
-	    if ($resource != '')
-	        $baseurl = \OpenCloud\Base\Lang::noslash($baseurl).'/'.$resource;
-	    if (!empty($args))
-	        $baseurl .= '?'.$this->MakeQueryString($args);
-		return $baseurl;
-	}
 
 	/**
 	 * Returns a flavor from the service

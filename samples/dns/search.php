@@ -5,7 +5,7 @@
 // This script searches for domains that don't have MX records,
 // then it adds them
 
-require_once(dirname(__FILE__) . '/../bootstrap.php');
+require_once "php-opencloud.php";
 
 define('AUTHURL', RACKSPACE_US);
 define('USERNAME', $_ENV['OS_USERNAME']);

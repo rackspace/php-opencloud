@@ -14,7 +14,7 @@
  * password. 
  */
 
-require_once('bootstrap.php');
+require_once "php-opencloud.php";
 
 // my credentials
 define('AUTHURL', '{your authorization URL}');

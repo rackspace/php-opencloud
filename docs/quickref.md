@@ -23,19 +23,10 @@ two different connection services provided: OpenStack and Rackspace
 (hopefully, there will be more in the future, and developers are
 encouraged to contribute theirs).
 
-To use an OpenStack service, use this namespace:
+To use the **php-opencloud** library, use this `require()` statement in your
+script:
 
-    use OpenCloud\OpenStack;
-
-To use the Rackspace public cloud, use:
-
-    use OpenCloud\Rackspace;
-    
-If you're not using an autoloader/dependency package system (such as Composer), you will need to register the root OpenCloud namespace:
-
-    require 'Autoload.php';
-    $classLoader = new SplClassLoader('OpenCloud', 'path/to/Rackspace/lib');
-    $classLoader->register();
+	require '/path/to/php-opencloud.php';
 
 Once you've referenced the desired connection class, you can proceed
 to establish the connection. For OpenStack clouds, provide the
@@ -58,8 +49,14 @@ API key and tenant ID instead:
 		'https://example.com/v2/identity',
 		array(
 			'username' => 'your username',
-			'apiKey' => 'your API key'
+			'apiKey' => 'your API key',
+			'tenantName' => 'your tenant name'
 		));
+
+Note that the `Rackspace` class will also permit `username`/`password`
+authentication as well, but the `apiKey` method is preferred.
+The `tenantName` argument is optional; if not provided, your access
+may be restricted because of ACLs on the account.
 
 The connection object can be re-used at will (so long as you're
 communicating with the same endpoint) and must be passed to other
