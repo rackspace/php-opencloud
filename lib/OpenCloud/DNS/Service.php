@@ -37,25 +37,6 @@ class Service extends \OpenCloud\AbstractClass\Service {
 	} // function __construct()
 
 	/**
-	 * Returns the selected endpoint URL of this Service
-	 *
-	 * @param string $resource - a child resource. For example,
-	 *      passing 'servers' would return .../servers. Should *not* be
-	 *    prefixed with a slash (/).
-	 * @param array $args (optional) an array of key-value pairs for query
-	 *      strings to append to the URL
-	 * @returns string - the requested URL
-	 */
-	public function Url($resource='', array $args=array()) {
-	    $baseurl = parent::Url();
-	    if ($resource != '')
-	        $baseurl = Lang::noslash($baseurl).'/'.$resource;
-	    if (!empty($args))
-	        $baseurl .= '?'.$this->MakeQueryString($args);
-		return $baseurl;
-	}
-
-	/**
 	 * returns a DNS::Domain object
 	 *
 	 * @api

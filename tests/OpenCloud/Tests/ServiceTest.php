@@ -49,11 +49,12 @@ class ServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testUrl2() {
 		$this->assertEquals(
-			'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID?a=1&b=2',
-			$this->service->Url(array('a'=>1,'b'=>2)));
+			'https://dfw.servers.api.rackspacecloud.com/' .
+				'v2/TENANT-ID/sub?a=1&b=2',
+			$this->service->Url('sub', array('a'=>1,'b'=>2)));
 	}
 	public function testRequest() {
-		// this returns 404 because the Connection::Request() function 
+		// this returns 404 because the Connection::Request() function
 		// is stubbed out
 		$resp = $this->service->Request('http://example.com');
 		$this->assertEquals(404, $resp->HttpStatus());

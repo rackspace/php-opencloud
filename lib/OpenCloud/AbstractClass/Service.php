@@ -69,8 +69,12 @@ abstract class Service extends \OpenCloud\Base\Base {
 	 */
 	public function Url($resource='', array $param = array())
 	{
-		return $this->service_url .
-			(count($param) ? ('?'.$this->MakeQueryString($param)) : '');
+	    $baseurl = $this->service_url;
+	    if ($resource != '')
+	        $baseurl = Lang::noslash($baseurl).'/'.$resource;
+	    if (!empty($param))
+	        $baseurl .= '?'.$this->MakeQueryString($param);
+		return $baseurl;
 	}
 
 	/**

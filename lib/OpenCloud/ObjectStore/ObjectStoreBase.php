@@ -30,15 +30,6 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
     const MAX_OBJECT_SIZE 			= SWIFT_MAX_OBJECT_SIZE;
 
     /**
-     * Returns the URL of the service, selected from the connection's
-     * serviceCatalog
-     */
-	public function Url(array $param = array()) 
-	{
-		return \OpenCloud\Base\Lang::noslash(parent::Url($param));
-	}
-
-    /**
      * Creates a Container object associated with the ObjectStore
      *
      * This is a factory method and should generally be used instead of
@@ -48,7 +39,7 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
      *      or an object from which to set values
      * @return ObjectStore\Container
      */
-	public function Container($cdata = NULL) 
+	public function Container($cdata = NULL)
 	{
 		return new Container($this, $cdata);
 	}
@@ -63,7 +54,7 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
      *      service to filter the results
      * @return ObjectStore\ContainerList
      */
-	public function ContainerList(array $filter = array()) 
+	public function ContainerList(array $filter = array())
 	{
 		$filter['format'] = 'json';
 		return $this->Collection(
