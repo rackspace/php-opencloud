@@ -63,12 +63,14 @@ abstract class Service extends \OpenCloud\Base\Base {
 	/**
 	 * Returns the URL for the Service
 	 *
+	 * @param string $resource optional sub-resource
 	 * @param array $query optional k/v pairs for query strings
 	 * @return string
 	 */
-	public function Url(array $param = array()) 
+	public function Url($resource='', array $param = array())
 	{
-		return $this->service_url . (count($param) ? ('?'.$this->MakeQueryString($param)) : '');
+		return $this->service_url .
+			(count($param) ? ('?'.$this->MakeQueryString($param)) : '');
 	}
 
 	/**
@@ -113,7 +115,7 @@ abstract class Service extends \OpenCloud\Base\Base {
 	 * @param string $body An optional body for POST/PUT requests
 	 * @return \OpenCloud\HttpResult
 	 */
-	public function Request($url,$method='GET',$headers=array(),$body=NULL) 
+	public function Request($url,$method='GET',$headers=array(),$body=NULL)
 	{
 		$headers['X-Auth-Token'] = $this->conn->Token();
 		if ($tenant = $this->conn->Tenant())

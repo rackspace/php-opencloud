@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace Base;
+namespace OpenCloud;
 
 /**
  * This file contains only configuration data such as constants.
@@ -185,10 +185,10 @@ define('RAX_PRIVATE','11111111-1111-1111-1111-111111111111');
 			return $str;
 		}
 	}
-	
+
 	if (!function_exists('_'))
 		define_gettext();
-	
+
 	/**
 	 * removes trailing slash(es) from a URL string
 	 *
@@ -200,7 +200,7 @@ define('RAX_PRIVATE','11111111-1111-1111-1111-111111111111');
 			$str = substr($str, 0, strlen($str)-1);
 		return $str;
 	}
-	
+
 	/**
 	 * Turns debugging on or off
 	 */

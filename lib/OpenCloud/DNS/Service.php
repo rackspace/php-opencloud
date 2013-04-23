@@ -46,7 +46,7 @@ class Service extends \OpenCloud\AbstractClass\Service {
 	 *      strings to append to the URL
 	 * @returns string - the requested URL
 	 */
-	public function Url($resource='', $args=array()) {
+	public function Url($resource='', array $args=array()) {
 	    $baseurl = parent::Url();
 	    if ($resource != '')
 	        $baseurl = Lang::noslash($baseurl).'/'.$resource;

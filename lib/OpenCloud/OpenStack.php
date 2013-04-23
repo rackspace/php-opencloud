@@ -9,10 +9,10 @@
  * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
- 
+
 namespace OpenCloud;
 
-require_once 'Base/Globals.php';
+require_once dirname(__FILE__).'/Globals.php';
 
 /**
  * The OpenStack class represents a relationship (or "connection")
@@ -265,7 +265,7 @@ class OpenStack extends Base\Base {
 
 			if (isset($this->secret['tenantName']))
 			{
-				$credentials['auth']['tenantName'] = 
+				$credentials['auth']['tenantName'] =
 					$this->secret['tenantName'];
 			}
 
@@ -703,9 +703,9 @@ class OpenStack extends Base\Base {
         // debug message
         $this->debug('Factory for class [%s] [%s/%s/%s]',
             $class, $name, $region, $urltype);
-        
-        if (strpos($class, '\OpenCloud\\') === 0) $class = str_replace('\OpenCloud\\', '', $class); 
-        
+
+        if (strpos($class, '\OpenCloud\\') === 0) $class = str_replace('\OpenCloud\\', '', $class);
+
         // check for defaults
         if (!isset($name))
             $name = $this->defaults[$class]['name'];

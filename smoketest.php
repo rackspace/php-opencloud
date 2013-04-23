@@ -11,11 +11,6 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-require_once 'Autoload.php';
-
-$classLoader = new SplClassLoader('OpenCloud', dirname(__FILE__) . '/lib');
-$classLoader->register();
- 
 $start = time();
 
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
@@ -31,6 +26,8 @@ define('VOLUMESIZE', 103);
 define('LBNAME', 'SmokeTestLoadBalancer');
 define('CACHEFILE', '/tmp/smoketest.credentials');
 define('RAXSDK_STRICT_PROPERTY_CHECKS', false);
+
+require_once 'lib/php-opencloud.php';
 
 /**
  * Relies upon environment variable settings — these are the same environment
@@ -375,7 +372,7 @@ if ($USE_SERVERS) {
 	try {
 		$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
 	} catch (Exception $e) {}
-	
+
 	step('List Networks');
 	$netlist = $cloudservers->NetworkList();
 	$netlist->Sort('label');

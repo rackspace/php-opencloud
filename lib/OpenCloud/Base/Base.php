@@ -12,8 +12,6 @@
 
 namespace OpenCloud\Base;
 
-require_once 'Globals.php';
-
 /**
  * The Base class is the root class for all other objects used or defined by
  * this SDK.
@@ -26,32 +24,32 @@ require_once 'Globals.php';
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 abstract class Base {
-	
+
 	private $http_headers = array();
 	private $_errors = array();
-	
+
 	/**
 	 * Debug object.
-	 * 
+	 *
 	 * @var \OpenCloud\Base\Debug
 	 * @access private
 	 */
 	private $debug;
-		
+
 	/**
 	 * __construct function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
 	public function __construct()
 	{
 		$this->setDebug();
-	}		
-	
+	}
+
 	/**
 	 * setDebug function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -59,10 +57,10 @@ abstract class Base {
 	{
 		$this->debug = new Debug;
 	}
-	
+
 	/**
 	 * getDebug function.
-	 * 
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -73,7 +71,7 @@ abstract class Base {
 		}
 		return $this->debug;
 	}
-	
+
 	// debug() - display a debug message
 	/**
 	 * Displays a debug message if $RAXSDK_DEBUG is TRUE
@@ -146,7 +144,7 @@ abstract class Base {
 	 * @throws \OpenCloud\AttributeError if strict checks are on and
 	 *      the property prefix is not in the list of prefixes.
 	 */
-	public function SetProperty($property, $value, array $prefixes = array()) 
+	public function SetProperty($property, $value, array $prefixes = array())
 	{
 		// if strict checks are off, go ahead and set it
         if (!RAXSDK_STRICT_PROPERTY_CHECKS) {
@@ -234,7 +232,7 @@ abstract class Base {
 	 *
 	 * This can be stubbed out for unit testing and avoid making live calls.
 	 */
-	public function GetHttpRequestObject($url, $method='GET', $options = array()) 
+	public function GetHttpRequestObject($url, $method='GET', $options = array())
 	{
 		return new Request\Curl($url, $method, $options);
 	}

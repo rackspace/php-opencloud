@@ -2,7 +2,7 @@
 /**
  * (c)2012 Rackspace Hosting. See COPYING for license details
  *
- * This sample script deletes all cloud servers, snapshots, 
+ * This sample script deletes all cloud servers, snapshots,
  * cloud networks, cloud files containers, load balancers, DNS
  * entries, and database instances associated with your account.
  * Be careful using this script unless you want to purge all items
@@ -10,7 +10,7 @@
  */
 $start = time();
 
-require_once('bootstrap.php');
+require_once('php-opencloud.php');
 
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
 	define('RAXSDK_SSL_VERIFYHOST', 0);
