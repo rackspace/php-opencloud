@@ -28,14 +28,14 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <p>Getting started with <strong>php-opencloud</strong> is easy. Move the files in the <code>lib/</code> directory to 
+          <p>Getting started with <strong>php-opencloud</strong> is easy. Move the files in the <code>lib/</code> directory to
 a location accessible from your script, then include either <code>openstack.php</code> or
 <code>rackspace.php</code> (depending upon which system you're using).</p>
 
 <p>Example:</p>
 
 <pre><code>&lt;?php
-require_once('/path/to/lib/rackspace.php');
+require_once('/path/to/lib/php-opencloud.php');
 // authenticate
 $cloud = new Rackspace(array('username'=&gt;$USERNAME,'password'=&gt;$PASSWORD));
 // connect to a service
@@ -70,10 +70,10 @@ SDK (and not developers working <em>with</em> the SDK).</p>
 
 <h2>Downloading</h2>
 
-<p>Visit <a href="https://github.com/rackspace/php-opencloud/tags">https://github.com/rackspace/php-opencloud/tags</a> to see tagged releases 
+<p>Visit <a href="https://github.com/rackspace/php-opencloud/tags">https://github.com/rackspace/php-opencloud/tags</a> to see tagged releases
 that you can download.</p>
 
-<p>You can download the master branch using the 
+<p>You can download the master branch using the
 GitHub "ZIP" button, above. However, this has the latest code and may not
 be as stable as the tagged branches.</p>
 
