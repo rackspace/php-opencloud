@@ -192,7 +192,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testVolumeAttachment() {
 		$this->assertEquals(
-			'OpenCloud\Compute\Attachment',
+			'OpenCloud\Compute\VolumeAttachment',
 			get_class($this->server->VolumeAttachment()));
 	}
 	public function testVolumeAttachmentList() {

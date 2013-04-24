@@ -419,7 +419,7 @@ class Server extends \OpenCloud\AbstractClass\PersistentObject {
 	 *
 	 */
 	public function VolumeAttachment($id=NULL) {
-		return new Attachment($this, $id);
+		return new VolumeAttachment($this, $id);
 	}
 
 	/**
@@ -430,7 +430,7 @@ class Server extends \OpenCloud\AbstractClass\PersistentObject {
 	 */
 	public function VolumeAttachmentList() {
 		return $this->Service()->Collection(
-		    '\OpenCloud\Compute\Attachment',
+		    '\OpenCloud\Compute\VolumeAttachment',
 		    NULL,
 		    $this);
 	}

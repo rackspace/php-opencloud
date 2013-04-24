@@ -14,7 +14,7 @@ namespace OpenCloud\Tests;
 require_once('StubConnection.php');
 require_once('StubService.php');
 
-class publicVolumeAttachment extends \OpenCloud\Compute\Attachment {
+class publicVolumeAttachment extends \OpenCloud\Compute\VolumeAttachment {
     public function CreateJson() { return parent::CreateJson(); }
 }
 
@@ -25,15 +25,15 @@ class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
     public function __construct() {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $compute = $conn->Compute(NULL, 'DFW');
-        
+
         $debug = new \OpenCloud\Base\Debug;
         $debug->setState(true);
-        
+
         $this->att = new publicVolumeAttachment(
             new \OpenCloud\Compute\Server($compute, 'XXX'),
             'FOO'
         );
-        
+
         $debug->setState(FALSE);
     }
     /**

@@ -16,19 +16,19 @@ use OpenCloud\Base\Lang;
 
 /**
  * The VolumeAttachment class represents a volume that is attached
- * to a server. 
+ * to a server.
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Attachment extends \OpenCloud\AbstractClass\PersistentObject {
+class VolumeAttachment extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
 		$device,
 		$serverId,
 		$volumeId;
-	
+
 	public static
 		$json_name = 'volumeAttachment',
 		$url_resource = 'os-volume_attachments';
@@ -59,7 +59,7 @@ class Attachment extends \OpenCloud\AbstractClass\PersistentObject {
 	public function Update($params=array()) {
 		throw new \OpenCloud\Base\Exceptions\UpdateError(Lang::translate('Updates are not permitted'));
 	}
-	
+
 	/**
 	 * returns the Parent (server) of the volume attachment
 	 *
@@ -67,8 +67,8 @@ class Attachment extends \OpenCloud\AbstractClass\PersistentObject {
 	 *
 	 * @return Server
 	 */
-	public function Parent() { 
-		return $this->_server; 
+	public function Parent() {
+		return $this->_server;
 	}
 
 	/**
