@@ -25,6 +25,7 @@ define('VOLUMENAME', 'SmokeTestVolume');
 define('VOLUMESIZE', 103);
 define('LBNAME', 'SmokeTestLoadBalancer');
 define('CACHEFILE', '/tmp/smoketest.credentials');
+define('TESTDOMAIN', 'raxdrg.info');
 define('RAXSDK_STRICT_PROPERTY_CHECKS', false);
 
 require_once 'lib/php-opencloud.php';
@@ -122,12 +123,10 @@ else { // load cached credentials
 step('Connect to Cloud DNS');
 $dns = $rackspace->DNS();
 
-$domainName = 'test' . rand(1,9999) . '.com';
-
-step('Try to add a domain raxdrg.info');
+step('Try to add a domain %s', TESTDOMAIN);
 $domain = $dns->Domain();
 $aresp = $domain->Create(array(
-	'name' => $domainName,
+	'name' => TESTDOMAIN,
 	'emailAddress' => 'sdk-support@rackspace.com',
 	'ttl' => 3600));
 $aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
@@ -137,13 +136,13 @@ if ($aresp->Status() == 'ERROR') {
 		$aresp->error->code, $aresp->error->message, $aresp->error->details);
 }
 
-step("Adding a CNAME record $domainName");
-$dlist = $dns->DomainList(array('name'=>$domainName));
+step("Adding a CNAME record www.%s", TESTDOMAIN);
+$dlist = $dns->DomainList(array('name'=>TESTDOMAIN));
 $domain = $dlist->Next();
 
 $record = $domain->Record();
 $aresp = $record->Create(array(
-	'type' => 'CNAME', 'ttl' => 600, 'name' => $domainName,
+	'type' => 'CNAME', 'ttl' => 600, 'name' => 'www.'.TESTDOMAIN,
 	'data' => 'developer.rackspace.com'));
 $aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
 if ($aresp->Status() == 'ERROR') {
