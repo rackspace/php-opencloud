@@ -26,6 +26,14 @@ class Collection extends \OpenCloud\Base\Base {
 	/**
 	 * A Collection is an array of objects
 	 *
+	 * Some assumptions:
+	 * * The `Collection` class assumes that there exists on its service
+	 *   a factory method with the same name of the class. For example, if
+	 *   you create a Collection of class `Foobar`, it will attempt to call
+	 *   the method `parent::Foobar()` to create instances of that class.
+	 * * It assumes that the factory method can take an array of values, and
+	 *   it passes that to the method.
+	 *
 	 * @param Service $service - the service associated with the collection
 	 * @param string $itemclass - the Class of each item in the collection
 	 *		(assumed to be the name of the factory method)
