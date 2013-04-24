@@ -4,4 +4,5 @@
  * namespaces
  */
 
+define('RAXSDK_STRICT_PROPERTY_CHECKS', TRUE);
 require_once dirname(__FILE__) . '/../lib/php-opencloud.php';
