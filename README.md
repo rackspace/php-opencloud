@@ -70,7 +70,7 @@ We are not able to test and validate every possible combination of PHP
 versions and supporting libraries, but here's our recommended minimum
 version list:
 
-* PHP 5.3
+* PHP 5.3 (note: Travis validates against 5.4 and 5.5 as well)
 * CURL extensions to PHP
 
 ### Installation
