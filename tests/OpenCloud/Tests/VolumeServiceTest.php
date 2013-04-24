@@ -54,7 +54,7 @@ class VolumeServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testVolumeType() {
 		$this->assertEquals(
-			'OpenCloud\Volume\Type',
+			'OpenCloud\Volume\VolumeType',
 			get_class($this->service->VolumeType()));
 	}
 	/**

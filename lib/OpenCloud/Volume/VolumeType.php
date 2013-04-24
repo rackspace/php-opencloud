@@ -18,13 +18,13 @@ namespace OpenCloud\Volume;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Type extends \OpenCloud\AbstractClass\PersistentObject {
+class VolumeType extends \OpenCloud\AbstractClass\PersistentObject {
 
 	public
 		$id,
 		$name,
 		$extra_specs;
-		
+
 	protected static
 		$json_name = 'volume_type',
 		$url_resource = 'types';

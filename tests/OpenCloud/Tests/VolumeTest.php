@@ -8,7 +8,7 @@
  * @version 1.0.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
- 
+
 namespace OpenCloud\Tests;
 
 require_once('StubConnection.php');
@@ -54,7 +54,7 @@ class VolumeTest extends \PHPUnit_Framework_TestCase
             $this->vol->ResourceName());
     }
     public function testCreateJson() {
-        $type = new \OpenCloud\Volume\Type(
+        $type = new \OpenCloud\Volume\VolumeType(
             new \OpenCloud\Volume\Service(
                 new StubConnection('http://', 'S'),
                 'cloudBlockStorage', 'DFW', 'publicURL')

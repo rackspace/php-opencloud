@@ -54,7 +54,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @return VolumeService\Volume
 	 */
 	public function VolumeType($id=NULL) {
-		return new Type($this, $id);
+		return new VolumeType($this, $id);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @return Collection
 	 */
 	public function VolumeTypeList($filter=array()) {
-		return $this->Collection('\OpenCloud\Volume\Type');
+		return $this->Collection('\OpenCloud\Volume\VolumeType');
 	}
 
 	/**

@@ -22,7 +22,7 @@ class VolumeTypeTest extends \PHPUnit_Framework_TestCase
         $serv = new \OpenCloud\Volume\Service(
             $conn, 'cloudBlockStorage', 'DFW', 'publicURL'
         );
-        $this->vt = new \OpenCloud\Volume\Type($serv);
+        $this->vt = new \OpenCloud\Volume\VolumeType($serv);
     }
     /**
      * Tests
