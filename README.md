@@ -90,6 +90,12 @@ the `lib/` directory should be installed in a location that is accessible. If yo
 
 Once the OpenCloud namespace is registered, you will be able to access all functionality by referencing the class's namespace (in full PSR-0 compliance). For more information about namespaces, check out [PHP's documentation](http://php.net/manual/en/language.namespaces.php).
 
+Contributing
+------------
+If you'd like to contribute to **php-opencloud**, see the
+[HACKING.md](https://github.com/rackspace/php-opencloud/blob/master/HACKING.md)
+file in the root directory.
+
 Further Reading
 ---------------
 The file
