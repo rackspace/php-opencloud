@@ -54,6 +54,8 @@ For general feedback and support requests, send an email to:
 
 sdk-support@rackspace.com
 
+You can also find assistance via IRC on #rackspace at freenode.net.
+
 Getting Started with OpenStack/Rackspace
 ----------------------------------------
 To sign up for a Rackspace Cloud account, go to
