@@ -79,7 +79,7 @@ In the .zip or .tar file in which you received the library, everything under
 the `lib/` directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to register the OpenCloud namespace for your app to use:
 
     // Define the path to the library
-    $libPath = '/path/to/php-opencloud';
+    $libraryPath = '/path/to/php-opencloud';
 
     // Include the autoloader
     require_once $libraryPath . '/Autoload.php';
