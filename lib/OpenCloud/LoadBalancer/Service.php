@@ -85,7 +85,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @return LoadBalancerService\LoadBalancer
 	 */
 	public function BillableLoadBalancer($id=NULL) {
-		return new Billable($this, $id);
+		return new BillableLoadBalancer($this, $id);
 	}
 
 	/**
@@ -100,7 +100,7 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 */
 	public function BillableLoadBalancerList($detail=TRUE, $filter=array()) {
 		return $this->Collection(
-			'\OpenCloud\LoadBalancer\Billable',
+			'\OpenCloud\LoadBalancer\BillableLoadBalancer',
 			NULL,
 			NULL,
 			$filter);

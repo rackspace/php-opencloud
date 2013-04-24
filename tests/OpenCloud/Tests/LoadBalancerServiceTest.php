@@ -27,7 +27,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 			'DFW',
 			'publicURL'
 		);
-		
+
 	}
 	/**
 	 * Tests
@@ -61,7 +61,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testBillableLoadBalancer() {
 		$this->assertEquals(
-			'OpenCloud\LoadBalancer\Billable',
+			'OpenCloud\LoadBalancer\BillableLoadBalancer',
 			get_class($this->service->BillableLoadBalancer()));
 	}
 	public function testLoadBillableBalancerList() {
