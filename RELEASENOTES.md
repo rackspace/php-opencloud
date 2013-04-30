@@ -3,6 +3,9 @@ RELEASE NOTES
 
 ### Current branch: master
 
+### Next Release
+* 
+
 ### 04/30/2013 Version 1.5.4
 * Issue #38 - added support for Cloud Files TEMP_URL feature
 * Revised structure around namespaces
