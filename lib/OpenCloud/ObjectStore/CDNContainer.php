@@ -71,7 +71,8 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
 	public function Url() {
 		if (!$this->name)
 			throw new \OpenCloud\Base\Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
-		return Lang::noslash($this->Service()->Url()).'/'.rawurlencode($this->name);
+		return Lang::noslash($this->Service()->Url(
+			rawurlencode($this->name)));
 	}
 
 	/**
@@ -235,23 +236,24 @@ class CDNContainer extends \OpenCloud\AbstractClass\ObjectStore {
 	 *
 	 * @return void
 	 */
-	protected function Refresh() 
+	protected function Refresh()
 	{
 		$response = $this->Service()->Request($this->Url(), 'HEAD', array('Accept'=>'*/*'));
-		
+
         // validate the response code
         if ($this->name != 'TEST') {
-        if ($response->HttpStatus() == 404)
-            throw new \OpenCloud\Base\Exceptions\ContainerNotFoundError(sprintf(
-                Lang::translate('Container [%s] not found'), $this->name));
+			if ($response->HttpStatus() == 404)
+				throw new \OpenCloud\Base\Exceptions\ContainerNotFoundError(sprintf(
+					Lang::translate('Container [%s] (%s) not found'),
+						$this->name, $this->Url()));
 
-        if ($response->HttpStatus() >= 300)
-            throw new \OpenCloud\Base\Exceptions\HttpError(
-                sprintf(
-                    Lang::translate('Error retrieving Container, status [%d]'.
-                    ' response [%s]'),
-                    $response->HttpStatus(),
-                    $response->HttpBody()));
+			if ($response->HttpStatus() >= 300)
+				throw new \OpenCloud\Base\Exceptions\HttpError(
+					sprintf(
+						Lang::translate('Error retrieving Container, status [%d]'.
+						' response [%s]'),
+						$response->HttpStatus(),
+						$response->HttpBody()));
 	    }
         // parse the returned object
         $this->GetMetadata($response);

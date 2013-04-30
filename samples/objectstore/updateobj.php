@@ -33,7 +33,7 @@ $connection = new \OpenCloud\Rackspace(AUTHURL,
 		   'apiKey' => APIKEY));
 
 // set the callback function
-$connection->SetUploadProgressCallback('OpenCloud\UploadProgress');
+$connection->SetUploadProgressCallback('UploadProgress');
 
 // create a Cloud Files (ObjectStore) connection
 $ostore = $connection->ObjectStore(/* uses defaults from above */);
@@ -56,7 +56,7 @@ $obj->Create(array('name'=>'SampleObject', 'content_type'=>'text/plain'),
 
 printf("Reading object...\n");
 $obj = $cont->DataObject('SampleObject');
-print_r($obj);
+//print_r($obj);
 $obj->content_type = 'text/html';
 $obj->UpdateMetadata(array());
 

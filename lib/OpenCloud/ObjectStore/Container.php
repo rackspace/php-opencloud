@@ -237,7 +237,7 @@ class Container extends CDNContainer {
                     $this->Service()->CDN(),
                     $this->name
                 );
-            } catch (ContainerNotFoundError $e) {
+            } catch (\OpenCloud\Base\Exceptions\ContainerNotFoundError $e) {
                 $this->_cdn = new CDNContainer($cdn);
                 $this->_cdn->name = $this->name;
             }

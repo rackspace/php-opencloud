@@ -59,7 +59,7 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
 		$filter['format'] = 'json';
 		return $this->Collection(
 		    '\OpenCloud\ObjectStore\Container',
-			$this->Url().'?'.$this->MakeQueryString($filter)
+			$this->Url(NULL, $filter)
 		);
 	}
 
