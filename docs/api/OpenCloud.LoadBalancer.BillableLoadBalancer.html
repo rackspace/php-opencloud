@@ -49,30 +49,19 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>OpenCloud/LoadBalancer/LoadBalancer.php</h1>
+<h1>OpenCloud/LoadBalancer/BillableLoadBalancer.php</h1>
 <div class="file_menu">
 <a href="#classes">Classes</a> |</div>
-<div class="properties">
-<h1>Properties</h1>
-<label class="property-key">author</label><div class="property-value"></div>
-<label class="property-key">copyright</label><div class="property-value"></div>
-<label class="property-key">package</label><div class="property-value"></div>
-<label class="property-key">version</label><div class="property-value"></div>
-</div>
-<h2>Description</h2>Defines a load balancer object<br><br><a name="classes"></a><h2>Classes</h2>
-<div id="LoadBalancer" class="class">
-<h3>LoadBalancer</h3>
+<a name="classes"></a><h2>Classes</h2>
+<div id="BillableLoadBalancer" class="class">
+<h3>BillableLoadBalancer</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject">\OpenCloud\AbstractClass\PersistentObject</a>
+<a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer">\OpenCloud\LoadBalancer\LoadBalancer</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
-<label class="property-key">api</label><div class="property-value">
-<a title=""></a>
-             
-        </div>
 <label class="property-key">author</label><div class="property-value">
 <a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
@@ -83,69 +72,69 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>The LoadBalancer class represents a single load balancer</em><br><p>NOTE: see BillableLoadBalancer, a subclass, defined at the end of this file.</p><br><div id="methods_LoadBalancer">
+<em>used to get a list of billable load balancers for a specific date range</em><br><p>NOTE: see BillableLoadBalancer, a subclass, defined at the end of this file.</p><br><div id="methods_BillableLoadBalancer">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#LoadBalancer::Access()">Access</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::AccessList()">AccessList</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Action()">Action</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::AddNode()">AddNode</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::AddNodes()">AddNodes</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::AddVirtualIp()">AddVirtualIp</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::CheckExtension()">CheckExtension</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::ConnectionLogging()">ConnectionLogging</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::ConnectionThrottle()">ConnectionThrottle</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::ContentCaching()">ContentCaching</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Create()">Create</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::CreateJson()">CreateJson</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::CreateUrl()">CreateUrl</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Delete()">Delete</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::ErrorPage()">ErrorPage</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::FindLink()">FindLink</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::HealthMonitor()">HealthMonitor</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Id()">Id</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::JsonCollectionElement()">JsonCollectionElement</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::JsonCollectionName()">JsonCollectionName</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::JsonName()">JsonName</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Metadata()">Metadata</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::MetadataList()">MetadataList</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Name()">Name</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::NoCreate()">NoCreate</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::NoDelete()">NoDelete</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::NoUpdate()">NoUpdate</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Node()">Node</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::NodeEvent()">NodeEvent</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::NodeEventList()">NodeEventList</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::NodeList()">NodeList</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Parent()">Parent</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::PrimaryKeyField()">PrimaryKeyField</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Refresh()">Refresh</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Region()">Region</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::ResourceName()">ResourceName</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::SSLTermination()">SSLTermination</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Service()">Service</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::SessionPersistence()">SessionPersistence</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Stats()">Stats</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Status()">Status</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Update()">Update</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::UpdateJson()">UpdateJson</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Url()">Url</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::Usage()">Usage</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::VirtualIp()">VirtualIp</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::VirtualIpList()">VirtualIpList</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::WaitFor()">WaitFor</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::__set()">__set</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::debug()">debug</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::getDebug()">getDebug</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::setDebug()">setDebug</a>,
-      <a style="font-style: italic;" href="#LoadBalancer::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#BillableLoadBalancer::Access()">Access</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::AccessList()">AccessList</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Action()">Action</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::AddNode()">AddNode</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::AddNodes()">AddNodes</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::AddVirtualIp()">AddVirtualIp</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::CheckExtension()">CheckExtension</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::ConnectionLogging()">ConnectionLogging</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::ConnectionThrottle()">ConnectionThrottle</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::ContentCaching()">ContentCaching</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Create()">Create</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::CreateJson()">CreateJson</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::CreateUrl()">CreateUrl</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Delete()">Delete</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::ErrorPage()">ErrorPage</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::FindLink()">FindLink</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::HealthMonitor()">HealthMonitor</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Id()">Id</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::JsonCollectionElement()">JsonCollectionElement</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::JsonCollectionName()">JsonCollectionName</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::JsonName()">JsonName</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Metadata()">Metadata</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::MetadataList()">MetadataList</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Name()">Name</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::NoCreate()">NoCreate</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::NoDelete()">NoDelete</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::NoUpdate()">NoUpdate</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Node()">Node</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::NodeEvent()">NodeEvent</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::NodeEventList()">NodeEventList</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::NodeList()">NodeList</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Parent()">Parent</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::PrimaryKeyField()">PrimaryKeyField</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Refresh()">Refresh</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Region()">Region</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::ResourceName()">ResourceName</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::SSLTermination()">SSLTermination</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Service()">Service</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::SessionPersistence()">SessionPersistence</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Stats()">Stats</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Status()">Status</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Update()">Update</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::UpdateJson()">UpdateJson</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Url()">Url</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::Usage()">Usage</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::VirtualIp()">VirtualIp</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::VirtualIpList()">VirtualIpList</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::WaitFor()">WaitFor</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::__set()">__set</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::debug()">debug</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::getDebug()">getDebug</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::setDebug()">setDebug</a>,
+      <a style="font-style: italic;" href="#BillableLoadBalancer::to_string()">to_string</a>,
       <div class="method">
-<a id="LoadBalancer::Access()"></a><h3>Access<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Access()"></a><h3>Access<span class="nb-faded-text">(
           
              
             $data
@@ -182,9 +171,20 @@
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Access()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Access()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::AccessList()"></a><h3>AccessList<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::AccessList()"></a><h3>AccessList<span class="nb-faded-text">(
           
           )
         </span>
@@ -202,9 +202,20 @@
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::AccessList()"><small>\OpenCloud\LoadBalancer\LoadBalancer::AccessList()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Action()"></a><h3>Action<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Action()"></a><h3>Action<span class="nb-faded-text">(
           
              
             $object,
@@ -270,11 +281,15 @@ error-checking in one place</li>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Action()"><small>\OpenCloud\AbstractClass\PersistentObject::Action()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Action()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Action()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::AddNode()"></a><h3>AddNode<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::AddNode()"></a><h3>AddNode<span class="nb-faded-text">(
           string
              
             $addr,
@@ -377,11 +392,15 @@ method call.</li>
 <td>throws</td>
 <td>if value is not valid</td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::AddNode()"><small>\OpenCloud\LoadBalancer\LoadBalancer::AddNode()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::AddNodes()"></a><h3>AddNodes<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::AddNodes()"></a><h3>AddNodes<span class="nb-faded-text">(
           
           )
         </span>
@@ -408,14 +427,20 @@ a set of Nodes needs to be added after the fact.</p></small><br><h4>Return value
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>api</td>
 <td></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::AddNodes()"><small>\OpenCloud\LoadBalancer\LoadBalancer::AddNodes()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::AddVirtualIp()"></a><h3>AddVirtualIp<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::AddVirtualIp()"></a><h3>AddVirtualIp<span class="nb-faded-text">(
           
              
             $type
@@ -474,14 +499,20 @@ IP address.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>api</td>
 <td></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::AddVirtualIp()"><small>\OpenCloud\LoadBalancer\LoadBalancer::AddVirtualIp()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -546,11 +577,15 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CheckAttributePrefix()"><small>\OpenCloud\AbstractClass\PersistentObject::CheckAttributePrefix()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::CheckAttributePrefix()"><small>\OpenCloud\LoadBalancer\LoadBalancer::CheckAttributePrefix()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
           
              
             $alias,
@@ -602,11 +637,15 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CheckExtension()"><small>\OpenCloud\AbstractClass\PersistentObject::CheckExtension()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::CheckExtension()"><small>\OpenCloud\LoadBalancer\LoadBalancer::CheckExtension()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -650,11 +689,15 @@ exception thrown.</p>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CheckJsonError()"><small>\OpenCloud\AbstractClass\PersistentObject::CheckJsonError()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::CheckJsonError()"><small>\OpenCloud\LoadBalancer\LoadBalancer::CheckJsonError()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::ConnectionLogging()"></a><h3>ConnectionLogging<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::ConnectionLogging()"></a><h3>ConnectionLogging<span class="nb-faded-text">(
           
           )
         </span>
@@ -672,9 +715,20 @@ exception thrown.</p>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::ConnectionLogging()"><small>\OpenCloud\LoadBalancer\LoadBalancer::ConnectionLogging()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::ConnectionThrottle()"></a><h3>ConnectionThrottle<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::ConnectionThrottle()"></a><h3>ConnectionThrottle<span class="nb-faded-text">(
           
           )
         </span>
@@ -692,9 +746,20 @@ exception thrown.</p>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::ConnectionThrottle()"><small>\OpenCloud\LoadBalancer\LoadBalancer::ConnectionThrottle()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::ContentCaching()"></a><h3>ContentCaching<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::ContentCaching()"></a><h3>ContentCaching<span class="nb-faded-text">(
           
           )
         </span>
@@ -712,9 +777,20 @@ exception thrown.</p>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::ContentCaching()"><small>\OpenCloud\LoadBalancer\LoadBalancer::ContentCaching()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Create()"></a><h3>Create<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Create()"></a><h3>Create<span class="nb-faded-text">(
           array
              
             $params
@@ -758,24 +834,14 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
+<tbody><tr>
 <td>throws</td>
 <td>if HTTP status is not Success</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Create()"><small>\OpenCloud\AbstractClass\PersistentObject::Create()</small></a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
           
           )
         </span>
@@ -800,14 +866,20 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>throws</td>
 <td>if not overridden</td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::CreateJson()"><small>\OpenCloud\LoadBalancer\LoadBalancer::CreateJson()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
           
           )
         </span>
@@ -832,14 +904,20 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CreateUrl()"><small>\OpenCloud\AbstractClass\PersistentObject::CreateUrl()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::CreateUrl()"><small>\OpenCloud\LoadBalancer\LoadBalancer::CreateUrl()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Delete()"></a><h3>Delete<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Delete()"></a><h3>Delete<span class="nb-faded-text">(
           
           )
         </span>
@@ -864,24 +942,14 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
+<tbody><tr>
 <td>throws</td>
 <td>if HTTP status is not Success</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Delete()"><small>\OpenCloud\AbstractClass\PersistentObject::Delete()</small></a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::ErrorPage()"></a><h3>ErrorPage<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::ErrorPage()"></a><h3>ErrorPage<span class="nb-faded-text">(
           
           )
         </span>
@@ -906,14 +974,20 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>api</td>
 <td></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::ErrorPage()"><small>\OpenCloud\LoadBalancer\LoadBalancer::ErrorPage()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
           string
              
             $type
@@ -961,14 +1035,20 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::FindLink()"><small>\OpenCloud\AbstractClass\PersistentObject::FindLink()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::FindLink()"><small>\OpenCloud\LoadBalancer\LoadBalancer::FindLink()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -1042,11 +1122,15 @@ exception thrown.</p>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::GetHttpRequestObject()"><small>\OpenCloud\AbstractClass\PersistentObject::GetHttpRequestObject()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::GetHttpRequestObject()"><small>\OpenCloud\LoadBalancer\LoadBalancer::GetHttpRequestObject()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::HealthMonitor()"></a><h3>HealthMonitor<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::HealthMonitor()"></a><h3>HealthMonitor<span class="nb-faded-text">(
           
           )
         </span>
@@ -1071,14 +1155,20 @@ exception thrown.</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>api</td>
 <td></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::HealthMonitor()"><small>\OpenCloud\LoadBalancer\LoadBalancer::HealthMonitor()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Id()"></a><h3>Id<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Id()"></a><h3>Id<span class="nb-faded-text">(
           
           )
         </span>
@@ -1115,11 +1205,15 @@ security.</p></small><br><h4>Return value</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Id()"><small>\OpenCloud\AbstractClass\PersistentObject::Id()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Id()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Id()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
           
           )
         </span>
@@ -1148,14 +1242,20 @@ provides for an element level name:</p>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::JsonCollectionElement()"><small>\OpenCloud\AbstractClass\PersistentObject::JsonCollectionElement()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::JsonCollectionElement()"><small>\OpenCloud\LoadBalancer\LoadBalancer::JsonCollectionElement()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
           
           )
         </span>
@@ -1185,14 +1285,20 @@ attribute.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::JsonCollectionName()"><small>\OpenCloud\AbstractClass\PersistentObject::JsonCollectionName()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::JsonCollectionName()"><small>\OpenCloud\LoadBalancer\LoadBalancer::JsonCollectionName()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
           
           )
         </span>
@@ -1230,11 +1336,15 @@ these examples).</p></small><br><h4>Return value</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::JsonName()"><small>\OpenCloud\AbstractClass\PersistentObject::JsonName()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::JsonName()"><small>\OpenCloud\LoadBalancer\LoadBalancer::JsonName()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -1287,11 +1397,15 @@ these examples).</p></small><br><h4>Return value</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::MakeQueryString()"><small>\OpenCloud\AbstractClass\PersistentObject::MakeQueryString()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::MakeQueryString()"><small>\OpenCloud\LoadBalancer\LoadBalancer::MakeQueryString()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Metadata()"></a><h3>Metadata<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Metadata()"></a><h3>Metadata<span class="nb-faded-text">(
           
              
             $data
@@ -1328,9 +1442,20 @@ these examples).</p></small><br><h4>Return value</h4>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Metadata()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Metadata()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::MetadataList()"></a><h3>MetadataList<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::MetadataList()"></a><h3>MetadataList<span class="nb-faded-text">(
           
           )
         </span>
@@ -1348,9 +1473,20 @@ these examples).</p></small><br><h4>Return value</h4>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::MetadataList()"><small>\OpenCloud\LoadBalancer\LoadBalancer::MetadataList()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Name()"></a><h3>Name<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Name()"></a><h3>Name<span class="nb-faded-text">(
           
           )
         </span>
@@ -1389,11 +1525,15 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Name()"><small>\OpenCloud\AbstractClass\PersistentObject::Name()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Name()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Name()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::NoCreate()"></a><h3>NoCreate<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::NoCreate()"></a><h3>NoCreate<span class="nb-faded-text">(
           
           )
         </span>
@@ -1427,11 +1567,15 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::NoCreate()"><small>\OpenCloud\AbstractClass\PersistentObject::NoCreate()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::NoCreate()"><small>\OpenCloud\LoadBalancer\LoadBalancer::NoCreate()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::NoDelete()"></a><h3>NoDelete<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::NoDelete()"></a><h3>NoDelete<span class="nb-faded-text">(
           
           )
         </span>
@@ -1465,11 +1609,15 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::NoDelete()"><small>\OpenCloud\AbstractClass\PersistentObject::NoDelete()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::NoDelete()"><small>\OpenCloud\LoadBalancer\LoadBalancer::NoDelete()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::NoUpdate()"></a><h3>NoUpdate<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::NoUpdate()"></a><h3>NoUpdate<span class="nb-faded-text">(
           
           )
         </span>
@@ -1503,11 +1651,15 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::NoUpdate()"><small>\OpenCloud\AbstractClass\PersistentObject::NoUpdate()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::NoUpdate()"><small>\OpenCloud\LoadBalancer\LoadBalancer::NoUpdate()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Node()"></a><h3>Node<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Node()"></a><h3>Node<span class="nb-faded-text">(
           
              
             $id
@@ -1545,9 +1697,20 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Node()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Node()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::NodeEvent()"></a><h3>NodeEvent<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::NodeEvent()"></a><h3>NodeEvent<span class="nb-faded-text">(
           
           )
         </span>
@@ -1566,9 +1729,20 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::NodeEvent()"><small>\OpenCloud\LoadBalancer\LoadBalancer::NodeEvent()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::NodeEventList()"></a><h3>NodeEventList<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::NodeEventList()"></a><h3>NodeEventList<span class="nb-faded-text">(
           
           )
         </span>
@@ -1587,9 +1761,20 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::NodeEventList()"><small>\OpenCloud\LoadBalancer\LoadBalancer::NodeEventList()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::NodeList()"></a><h3>NodeList<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::NodeList()"></a><h3>NodeList<span class="nb-faded-text">(
           
           )
         </span>
@@ -1608,9 +1793,20 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::NodeList()"><small>\OpenCloud\LoadBalancer\LoadBalancer::NodeList()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Parent()"></a><h3>Parent<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Parent()"></a><h3>Parent<span class="nb-faded-text">(
           
           )
         </span>
@@ -1636,14 +1832,20 @@ service.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Parent()"><small>\OpenCloud\AbstractClass\PersistentObject::Parent()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Parent()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Parent()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
           
           )
         </span>
@@ -1669,14 +1871,20 @@ service.</p></small><br><h4>Return value</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::PrimaryKeyField()"><small>\OpenCloud\AbstractClass\PersistentObject::PrimaryKeyField()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::PrimaryKeyField()"><small>\OpenCloud\LoadBalancer\LoadBalancer::PrimaryKeyField()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
           
              
             $id
@@ -1730,11 +1938,15 @@ changing states)</em><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Refresh()"><small>\OpenCloud\AbstractClass\PersistentObject::Refresh()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Refresh()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Refresh()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Region()"></a><h3>Region<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Region()"></a><h3>Region<span class="nb-faded-text">(
           
           )
         </span>
@@ -1768,11 +1980,15 @@ changing states)</em><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Region()"><small>\OpenCloud\AbstractClass\PersistentObject::Region()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Region()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Region()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
           
           )
         </span>
@@ -1808,11 +2024,15 @@ in child classes</em><br><small><p>For example, a server is <code>/servers/</cod
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::ResourceName()"><small>\OpenCloud\AbstractClass\PersistentObject::ResourceName()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::ResourceName()"><small>\OpenCloud\LoadBalancer\LoadBalancer::ResourceName()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::SSLTermination()"></a><h3>SSLTermination<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::SSLTermination()"></a><h3>SSLTermination<span class="nb-faded-text">(
           
           )
         </span>
@@ -1830,9 +2050,20 @@ in child classes</em><br><small><p>For example, a server is <code>/servers/</cod
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::SSLTermination()"><small>\OpenCloud\LoadBalancer\LoadBalancer::SSLTermination()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Service()"></a><h3>Service<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Service()"></a><h3>Service<span class="nb-faded-text">(
           
           )
         </span>
@@ -1857,14 +2088,20 @@ in child classes</em><br><small><p>For example, a server is <code>/servers/</cod
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Service()"><small>\OpenCloud\AbstractClass\PersistentObject::Service()</small></a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Service()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Service()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::SessionPersistence()"></a><h3>SessionPersistence<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::SessionPersistence()"></a><h3>SessionPersistence<span class="nb-faded-text">(
           
           )
         </span>
@@ -1882,9 +2119,20 @@ in child classes</em><br><small><p>For example, a server is <code>/servers/</cod
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::SessionPersistence()"><small>\OpenCloud\LoadBalancer\LoadBalancer::SessionPersistence()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -1964,11 +2212,15 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::SetProperty()"><small>\OpenCloud\AbstractClass\PersistentObject::SetProperty()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::SetProperty()"><small>\OpenCloud\LoadBalancer\LoadBalancer::SetProperty()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Stats()"></a><h3>Stats<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Stats()"></a><h3>Stats<span class="nb-faded-text">(
           
           )
         </span>
@@ -1993,14 +2245,20 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>api</td>
 <td></td>
-</tr></tbody>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Stats()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Stats()</small></a></td>
+</tr>
+</tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Status()"></a><h3>Status<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Status()"></a><h3>Status<span class="nb-faded-text">(
           
           )
         </span>
@@ -2034,11 +2292,15 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Status()"><small>\OpenCloud\AbstractClass\PersistentObject::Status()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Status()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Status()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Update()"></a><h3>Update<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Update()"></a><h3>Update<span class="nb-faded-text">(
           array
              
             $params
@@ -2082,24 +2344,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
+<tbody><tr>
 <td>throws</td>
 <td>if HTTP status is not Success</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Update()"><small>\OpenCloud\AbstractClass\PersistentObject::Update()</small></a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
           
              
             $params
@@ -2152,11 +2404,15 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::UpdateJson()"><small>\OpenCloud\AbstractClass\PersistentObject::UpdateJson()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::UpdateJson()"><small>\OpenCloud\LoadBalancer\LoadBalancer::UpdateJson()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Url()"></a><h3>Url<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Url()"></a><h3>Url<span class="nb-faded-text">(
           string
              
             $subresource
@@ -2223,11 +2479,15 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Url()"><small>\OpenCloud\AbstractClass\PersistentObject::Url()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Url()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Url()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::Usage()"></a><h3>Usage<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::Usage()"></a><h3>Usage<span class="nb-faded-text">(
           
           )
         </span>
@@ -2245,9 +2505,20 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::Usage()"><small>\OpenCloud\LoadBalancer\LoadBalancer::Usage()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::VirtualIp()"></a><h3>VirtualIp<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::VirtualIp()"></a><h3>VirtualIp<span class="nb-faded-text">(
           
              
             $data
@@ -2285,9 +2556,20 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::VirtualIp()"><small>\OpenCloud\LoadBalancer\LoadBalancer::VirtualIp()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::VirtualIpList()"></a><h3>VirtualIpList<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::VirtualIpList()"></a><h3>VirtualIpList<span class="nb-faded-text">(
           
           )
         </span>
@@ -2306,9 +2588,20 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>n/a</td>
 </tr></tbody>
 </table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::VirtualIpList()"><small>\OpenCloud\LoadBalancer\LoadBalancer::VirtualIpList()</small></a></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="LoadBalancer::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
           string
              
             $terminal
@@ -2404,11 +2697,15 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::WaitFor()"><small>\OpenCloud\AbstractClass\PersistentObject::WaitFor()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::WaitFor()"><small>\OpenCloud\LoadBalancer\LoadBalancer::WaitFor()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::__construct()"></a><h3>__construct<span class="nb-faded-text">(
           mixed
              
             $parentobj,
@@ -2473,11 +2770,15 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::__construct()"><small>\OpenCloud\AbstractClass\PersistentObject::__construct()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::__construct()"><small>\OpenCloud\LoadBalancer\LoadBalancer::__construct()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::__set()"></a><h3>__set<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::__set()"></a><h3>__set<span class="nb-faded-text">(
           string
              
             $name,
@@ -2543,11 +2844,15 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::__set()"><small>\OpenCloud\AbstractClass\PersistentObject::__set()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::__set()"><small>\OpenCloud\LoadBalancer\LoadBalancer::__set()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -2667,11 +2972,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::debug()"><small>\OpenCloud\AbstractClass\PersistentObject::debug()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::debug()"><small>\OpenCloud\LoadBalancer\LoadBalancer::debug()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::getDebug()"></a><h3>getDebug<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::getDebug()"></a><h3>getDebug<span class="nb-faded-text">(
           
           )
         </span>
@@ -2709,11 +3018,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::getDebug()"><small>\OpenCloud\AbstractClass\PersistentObject::getDebug()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::getDebug()"><small>\OpenCloud\LoadBalancer\LoadBalancer::getDebug()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
           
           )
         </span>
@@ -2751,11 +3064,15 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::setDebug()"><small>\OpenCloud\AbstractClass\PersistentObject::setDebug()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::setDebug()"><small>\OpenCloud\LoadBalancer\LoadBalancer::setDebug()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="LoadBalancer::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="BillableLoadBalancer::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           mixed
              
             $x,
@@ -2807,40 +3124,44 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::to_string()"><small>\OpenCloud\AbstractClass\PersistentObject::to_string()</small></a></td>
 </tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer::to_string()"><small>\OpenCloud\LoadBalancer\LoadBalancer::to_string()</small></a></td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="properties_LoadBalancer">
+<div id="properties_BillableLoadBalancer">
 <h4>Properties</h4>
-<a href="#LoadBalancer::%24_create_keys">$_create_keys</a>,
-      <a href="#LoadBalancer::%24_errors">$_errors</a>,
-      <a href="#LoadBalancer::%24_parent">$_parent</a>,
-      <a href="#LoadBalancer::%24accessList">$accessList</a>,
-      <a href="#LoadBalancer::%24algorithm">$algorithm</a>,
-      <a href="#LoadBalancer::%24connectionLogging">$connectionLogging</a>,
-      <a href="#LoadBalancer::%24connectionThrottle">$connectionThrottle</a>,
-      <a href="#LoadBalancer::%24created">$created</a>,
-      <a href="#LoadBalancer::%24debug">$debug</a>,
-      <a href="#LoadBalancer::%24healthMonitor">$healthMonitor</a>,
-      <a href="#LoadBalancer::%24http_headers">$http_headers</a>,
-      <a href="#LoadBalancer::%24id">$id</a>,
-      <a href="#LoadBalancer::%24json_name">$json_name</a>,
-      <a href="#LoadBalancer::%24metadata">$metadata</a>,
-      <a href="#LoadBalancer::%24name">$name</a>,
-      <a href="#LoadBalancer::%24nodeCount">$nodeCount</a>,
-      <a href="#LoadBalancer::%24nodes">$nodes</a>,
-      <a href="#LoadBalancer::%24port">$port</a>,
-      <a href="#LoadBalancer::%24protocol">$protocol</a>,
-      <a href="#LoadBalancer::%24sessionPersistence">$sessionPersistence</a>,
-      <a href="#LoadBalancer::%24sourceAddresses">$sourceAddresses</a>,
-      <a href="#LoadBalancer::%24status">$status</a>,
-      <a href="#LoadBalancer::%24timeout">$timeout</a>,
-      <a href="#LoadBalancer::%24updated">$updated</a>,
-      <a href="#LoadBalancer::%24url_resource">$url_resource</a>,
-      <a href="#LoadBalancer::%24virtualIps">$virtualIps</a>,
+<a href="#BillableLoadBalancer::%24_create_keys">$_create_keys</a>,
+      <a href="#BillableLoadBalancer::%24_errors">$_errors</a>,
+      <a href="#BillableLoadBalancer::%24_parent">$_parent</a>,
+      <a href="#BillableLoadBalancer::%24accessList">$accessList</a>,
+      <a href="#BillableLoadBalancer::%24algorithm">$algorithm</a>,
+      <a href="#BillableLoadBalancer::%24connectionLogging">$connectionLogging</a>,
+      <a href="#BillableLoadBalancer::%24connectionThrottle">$connectionThrottle</a>,
+      <a href="#BillableLoadBalancer::%24created">$created</a>,
+      <a href="#BillableLoadBalancer::%24debug">$debug</a>,
+      <a href="#BillableLoadBalancer::%24healthMonitor">$healthMonitor</a>,
+      <a href="#BillableLoadBalancer::%24http_headers">$http_headers</a>,
+      <a href="#BillableLoadBalancer::%24id">$id</a>,
+      <a href="#BillableLoadBalancer::%24json_name">$json_name</a>,
+      <a href="#BillableLoadBalancer::%24metadata">$metadata</a>,
+      <a href="#BillableLoadBalancer::%24name">$name</a>,
+      <a href="#BillableLoadBalancer::%24nodeCount">$nodeCount</a>,
+      <a href="#BillableLoadBalancer::%24nodes">$nodes</a>,
+      <a href="#BillableLoadBalancer::%24port">$port</a>,
+      <a href="#BillableLoadBalancer::%24protocol">$protocol</a>,
+      <a href="#BillableLoadBalancer::%24sessionPersistence">$sessionPersistence</a>,
+      <a href="#BillableLoadBalancer::%24sourceAddresses">$sourceAddresses</a>,
+      <a href="#BillableLoadBalancer::%24status">$status</a>,
+      <a href="#BillableLoadBalancer::%24timeout">$timeout</a>,
+      <a href="#BillableLoadBalancer::%24updated">$updated</a>,
+      <a href="#BillableLoadBalancer::%24url_resource">$url_resource</a>,
+      <a href="#BillableLoadBalancer::%24virtualIps">$virtualIps</a>,
       <div class="method">
-<a id="LoadBalancer::$_create_keys"></a><h3>
+<a id="BillableLoadBalancer::$_create_keys"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_create_keys
@@ -2849,7 +3170,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$_errors"></a><h3>
+<a id="BillableLoadBalancer::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -2858,7 +3179,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$_parent"></a><h3>
+<a id="BillableLoadBalancer::$_parent"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_parent
@@ -2867,7 +3188,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$accessList"></a><h3>
+<a id="BillableLoadBalancer::$accessList"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$accessList
@@ -2876,7 +3197,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$algorithm"></a><h3>
+<a id="BillableLoadBalancer::$algorithm"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$algorithm
@@ -2885,7 +3206,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$connectionLogging"></a><h3>
+<a id="BillableLoadBalancer::$connectionLogging"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$connectionLogging
@@ -2894,7 +3215,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$connectionThrottle"></a><h3>
+<a id="BillableLoadBalancer::$connectionThrottle"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$connectionThrottle
@@ -2903,7 +3224,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$created"></a><h3>
+<a id="BillableLoadBalancer::$created"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$created
@@ -2912,7 +3233,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$debug"></a><h3>
+<a id="BillableLoadBalancer::$debug"></a><h3>
 <span class="nb-faded-text">\OpenCloud\Base\Debug 
           private 
           </span>$debug
@@ -2921,7 +3242,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em>Debug object.</em><br><small></small><br><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$healthMonitor"></a><h3>
+<a id="BillableLoadBalancer::$healthMonitor"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$healthMonitor
@@ -2930,7 +3251,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$http_headers"></a><h3>
+<a id="BillableLoadBalancer::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
@@ -2939,7 +3260,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$id"></a><h3>
+<a id="BillableLoadBalancer::$id"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$id
@@ -2948,7 +3269,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$json_name"></a><h3>
+<a id="BillableLoadBalancer::$json_name"></a><h3>
 <span class="nb-faded-text"> 
           protected 
           static </span>$json_name
@@ -2957,7 +3278,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$metadata"></a><h3>
+<a id="BillableLoadBalancer::$metadata"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$metadata
@@ -2966,7 +3287,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$name"></a><h3>
+<a id="BillableLoadBalancer::$name"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$name
@@ -2975,7 +3296,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$nodeCount"></a><h3>
+<a id="BillableLoadBalancer::$nodeCount"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$nodeCount
@@ -2984,7 +3305,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$nodes"></a><h3>
+<a id="BillableLoadBalancer::$nodes"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$nodes
@@ -2993,7 +3314,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$port"></a><h3>
+<a id="BillableLoadBalancer::$port"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$port
@@ -3002,7 +3323,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$protocol"></a><h3>
+<a id="BillableLoadBalancer::$protocol"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$protocol
@@ -3011,7 +3332,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$sessionPersistence"></a><h3>
+<a id="BillableLoadBalancer::$sessionPersistence"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$sessionPersistence
@@ -3020,7 +3341,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$sourceAddresses"></a><h3>
+<a id="BillableLoadBalancer::$sourceAddresses"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$sourceAddresses
@@ -3029,7 +3350,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$status"></a><h3>
+<a id="BillableLoadBalancer::$status"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$status
@@ -3038,7 +3359,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$timeout"></a><h3>
+<a id="BillableLoadBalancer::$timeout"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$timeout
@@ -3047,7 +3368,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$updated"></a><h3>
+<a id="BillableLoadBalancer::$updated"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$updated
@@ -3056,16 +3377,16 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$url_resource"></a><h3>
+<a id="BillableLoadBalancer::$url_resource"></a><h3>
 <span class="nb-faded-text"> 
           protected 
           static </span>$url_resource
           =
-          'loadbalancers'</h3>
+          'loadbalancers/billable'</h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="LoadBalancer::$virtualIps"></a><h3>
+<a id="BillableLoadBalancer::$virtualIps"></a><h3>
 <span class="nb-faded-text"> 
           public 
           </span>$virtualIps

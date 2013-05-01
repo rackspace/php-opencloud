@@ -179,7 +179,7 @@ class loader.</description>
       <error line="10" code="50015">Argument $includePath is missing from the Docblock of __construct()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/AbstractClass/Collection.php" hash="6a7df2ccb8a8d3c4a4e23e75e85fbc54" package="Default">
+  <file path="OpenCloud/AbstractClass/Collection.php" hash="c17837f59d7978c4eaa5036424a19c88" package="Default">
     <class final="false" abstract="false" namespace="OpenCloud\AbstractClass" line="14" package="Default">
       <extends>\OpenCloud\Base\Base</extends>
       <name>Collection</name>
@@ -223,12 +223,18 @@ multiple objects in a container, or multiple servers in a service.&lt;/p&gt;</lo
         <name>$next_page_url</name>
         <default></default>
       </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="34" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="42" package="Default">
         <name>__construct</name>
         <full_name>__construct</full_name>
         <docblock line="26">
           <description>A Collection is an array of objects</description>
-          <long-description></long-description>
+          <long-description>&lt;p&gt;Some assumptions:
+* The &lt;code&gt;Collection&lt;/code&gt; class assumes that there exists on its service
+  a factory method with the same name of the class. For example, if
+  you create a Collection of class &lt;code&gt;Foobar&lt;/code&gt;, it will attempt to call
+  the method &lt;code&gt;parent::Foobar()&lt;/code&gt; to create instances of that class.
+* It assumes that the factory method can take an array of values, and
+  it passes that to the method.&lt;/p&gt;</long-description>
           <tag line="26" name="param" description="- the service associated with the collection" type="\OpenCloud\AbstractClass\Service" variable="$service">
             <type by_reference="false">\OpenCloud\AbstractClass\Service</type>
           </tag>
@@ -239,110 +245,110 @@ multiple objects in a container, or multiple servers in a service.&lt;/p&gt;</lo
             <type by_reference="false">array</type>
           </tag>
         </docblock>
-        <argument line="34">
+        <argument line="42">
           <name>$service</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="34">
+        <argument line="42">
           <name>$itemclass</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="34">
+        <argument line="42">
           <name>$arr</name>
           <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="56" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="64" package="Default">
         <name>Service</name>
         <full_name>Service</full_name>
-        <docblock line="51">
+        <docblock line="59">
           <description>Retrieves the service associated with the Collection</description>
           <long-description></long-description>
-          <tag line="51" name="return" description="" type="\OpenCloud\AbstractClass\Service">
+          <tag line="59" name="return" description="" type="\OpenCloud\AbstractClass\Service">
             <type by_reference="false">\OpenCloud\AbstractClass\Service</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="66" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="74" package="Default">
         <name>Reset</name>
         <full_name>Reset</full_name>
-        <docblock line="60">
+        <docblock line="68">
           <description>Resets the pointer to the beginning, but does NOT return the first item</description>
           <long-description></long-description>
-          <tag line="60" name="api" description=""/>
-          <tag line="60" name="return" description="" type="void">
+          <tag line="68" name="api" description=""/>
+          <tag line="68" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="79" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="87" package="Default">
         <name>First</name>
         <full_name>First</full_name>
-        <docblock line="70">
+        <docblock line="78">
           <description>Resets the collection pointer back to the first item in the page
 and returns it</description>
           <long-description>&lt;p&gt;This is useful if you're only interested in the first item in the page.&lt;/p&gt;</long-description>
-          <tag line="70" name="api" description=""/>
-          <tag line="70" name="return" description="the first item in the set" type="\OpenCloud\AbstractClass\Base">
+          <tag line="78" name="api" description=""/>
+          <tag line="78" name="return" description="the first item in the set" type="\OpenCloud\AbstractClass\Base">
             <type by_reference="false">\OpenCloud\AbstractClass\Base</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="90" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="98" package="Default">
         <name>Next</name>
         <full_name>Next</full_name>
-        <docblock line="84">
+        <docblock line="92">
           <description>Returns the next item in the page</description>
           <long-description></long-description>
-          <tag line="84" name="api" description=""/>
-          <tag line="84" name="return" description="the next item or FALSE if at the end of the page" type="\OpenCloud\AbstractClass\Base">
+          <tag line="92" name="api" description=""/>
+          <tag line="92" name="return" description="the next item or FALSE if at the end of the page" type="\OpenCloud\AbstractClass\Base">
             <type by_reference="false">\OpenCloud\AbstractClass\Base</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="107" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="115" package="Default">
         <name>Size</name>
         <full_name>Size</full_name>
-        <docblock line="97">
+        <docblock line="105">
           <description>Returns the number of items in the page</description>
           <long-description>&lt;p&gt;For most services, this is the total number of items. If the Collection
 is paginated, however, this only returns the count of items in the
 current page of data.&lt;/p&gt;</long-description>
-          <tag line="97" name="api" description=""/>
-          <tag line="97" name="return" description="The number of items in the set" type="integer">
+          <tag line="105" name="api" description=""/>
+          <tag line="105" name="return" description="The number of items in the set" type="integer">
             <type by_reference="false">integer</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="122" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="130" package="Default">
         <name>Sort</name>
         <full_name>Sort</full_name>
-        <docblock line="111">
+        <docblock line="119">
           <description>sorts the collection on a specified key</description>
           <long-description>&lt;p&gt;Note: only top-level keys can be used as the sort key. Note that this
 only sorts the data in the current page of the Collection (for
 multi-page data).&lt;/p&gt;</long-description>
-          <tag line="111" name="api" description=""/>
-          <tag line="111" name="param" description="the name of the field to use as the sort key" type="string" variable="$keyname">
+          <tag line="119" name="api" description=""/>
+          <tag line="119" name="param" description="the name of the field to use as the sort key" type="string" variable="$keyname">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="111" name="return" description="" type="void">
+          <tag line="119" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="122">
+        <argument line="130">
           <name>$keyname</name>
           <default>'id'</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="161" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="169" package="Default">
         <name>Select</name>
         <full_name>Select</full_name>
-        <docblock line="127">
+        <docblock line="135">
           <description>selects only specified items from the Collection</description>
           <long-description>&lt;p&gt;This provides a simple form of filtering on Collections. For each item
 in the collection, it calls the callback function, passing it the item.
@@ -366,25 +372,25 @@ $services-&gt;Select(function($item){ return $item-&gt;region=='ORD';});
 the collection. For example, if you use &lt;code&gt;Select()&lt;/code&gt; to find items with
 the ID &gt; 10, then use it again to find items that are &amp;lt;= 10, it will
 return an empty list.&lt;/p&gt;</long-description>
-          <tag line="127" name="api" description=""/>
-          <tag line="127" name="param" description="a callback function that is passed each item&#10;&#9;in turn. Note that `Select()` performs an explicit test for&#10;&#9;`FALSE`, so functions like `strpos()` need to be cast into a&#10;&#9;boolean value (and not just return the integer)." type="callable" variable="$testfunc">
+          <tag line="135" name="api" description=""/>
+          <tag line="135" name="param" description="a callback function that is passed each item&#10;&#9;in turn. Note that `Select()` performs an explicit test for&#10;&#9;`FALSE`, so functions like `strpos()` need to be cast into a&#10;&#9;boolean value (and not just return the integer)." type="callable" variable="$testfunc">
             <type by_reference="false">callable</type>
           </tag>
-          <tag line="127" name="returns" description="void"/>
-          <tag line="127" name="throws" description="if callback doesn't return a boolean value" type="\OpenCloud\AbstractClass\DomainError">
+          <tag line="135" name="returns" description="void"/>
+          <tag line="135" name="throws" description="if callback doesn't return a boolean value" type="\OpenCloud\AbstractClass\DomainError">
             <type by_reference="false">\OpenCloud\AbstractClass\DomainError</type>
           </tag>
         </docblock>
-        <argument line="161">
+        <argument line="169">
           <name>$testfunc</name>
           <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="190" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="198" package="Default">
         <name>NextPage</name>
         <full_name>NextPage</full_name>
-        <docblock line="173">
+        <docblock line="181">
           <description>returns the Collection object for the next page of results, or
 FALSE if there are no more pages</description>
           <long-description>&lt;p&gt;Generally, the structure for a multi-page collection will look like
@@ -397,16 +403,16 @@ do {
     |
 } while ($coll = $coll-&amp;gt;NextPage());
 &lt;/code&gt;&lt;/pre&gt;</long-description>
-          <tag line="173" name="api" description=""/>
-          <tag line="173" name="return" description="if there are more pages of results, otherwise FALSE" type="\OpenCloud\AbstractClass\Collection">
+          <tag line="181" name="api" description=""/>
+          <tag line="181" name="return" description="if there are more pages of results, otherwise FALSE" type="\OpenCloud\AbstractClass\Collection">
             <type by_reference="false">\OpenCloud\AbstractClass\Collection</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="215" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\AbstractClass" line="223" package="Default">
         <name>SetNextPageCallback</name>
         <full_name>SetNextPageCallback</full_name>
-        <docblock line="200">
+        <docblock line="208">
           <description>for paginated collection, sets the callback function and URL for
 the next page</description>
           <long-description>&lt;p&gt;The callback function should have the signature:&lt;/p&gt;
@@ -415,40 +421,40 @@ the next page</description>
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;and the &lt;code&gt;$url&lt;/code&gt; should be the URL of the next page of results&lt;/p&gt;</long-description>
-          <tag line="200" name="param" description="the name of the function (or array of&#10;&#9;object, function name)" type="callable" variable="$callback">
+          <tag line="208" name="param" description="the name of the function (or array of&#10;&#9;object, function name)" type="callable" variable="$callback">
             <type by_reference="false">callable</type>
           </tag>
-          <tag line="200" name="param" description="the URL of the next page of results" type="string" variable="$url">
+          <tag line="208" name="param" description="the URL of the next page of results" type="string" variable="$url">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="200" name="return" description="" type="void">
+          <tag line="208" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
-        <argument line="215">
+        <argument line="223">
           <name>$callback</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="215">
+        <argument line="223">
           <name>$url</name>
           <default></default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\AbstractClass" line="225" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\AbstractClass" line="233" package="Default">
         <name>sortCompare</name>
         <full_name>sortCompare</full_name>
-        <docblock line="222">
+        <docblock line="230">
           <description>Compares two values of sort keys</description>
           <long-description></long-description>
         </docblock>
-        <argument line="225">
+        <argument line="233">
           <name>$a</name>
           <default></default>
           <type/>
         </argument>
-        <argument line="225">
+        <argument line="233">
           <name>$b</name>
           <default></default>
           <type/>
@@ -465,8 +471,8 @@ the next page</description>
       <error line="22" code="50018">No DocBlock was found for property $next_page_class</error>
       <error line="23" code="50018">No DocBlock was found for property $next_page_callback</error>
       <error line="24" code="50018">No DocBlock was found for property $next_page_url</error>
-      <error line="222" code="50015">Argument $a is missing from the Docblock of sortCompare()</error>
-      <error line="222" code="50015">Argument $b is missing from the Docblock of sortCompare()</error>
+      <error line="230" code="50015">Argument $a is missing from the Docblock of sortCompare()</error>
+      <error line="230" code="50015">Argument $b is missing from the Docblock of sortCompare()</error>
     </parse_markers>
   </file>
   <file path="OpenCloud/AbstractClass/Nova.php" hash="77e7362f6aa66c1ab0011812ae4437e4" package="phpOpenCloud">
@@ -1703,6 +1709,301 @@ URL and retrieves the resource.&lt;/p&gt;</long-description>
       <error line="37" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $conn in __construct()</error>
       <error line="63" code="50014">Name of argument $param does not match with the DocBlock's name $query in Url()</error>
       <notice line="63" code="50013">Parameter $query could not be found in Url()</notice>
+    </parse_markers>
+  </file>
+  <file path="OpenCloud/Autoscale/Service.php" hash="b51f8e106805b94f7c8ca4ab0af1898c" package="phpOpenCloud">
+    <docblock line="2">
+      <description>Rackspace's Cloud Load Balancers</description>
+      <long-description></long-description>
+      <tag line="2" name="copyright" description="2012-2013 Rackspace Hosting, Inc.&#10;See COPYING for licensing information"/>
+      <tag line="2" name="package" description="phpOpenCloud"/>
+      <tag line="2" name="version" description="1.0"/>
+      <tag line="2" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="OpenCloud\Autoscale" line="20" package="Default">
+      <extends>\OpenCloud\AbstractClass\Service</extends>
+      <name>Service</name>
+      <full_name>\OpenCloud\Autoscale\Service</full_name>
+      <docblock line="15">
+        <description>The Rackspace Cloud Load Balancers</description>
+        <long-description></long-description>
+        <tag line="15" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
+      </docblock>
+      <constant namespace="OpenCloud\Autoscale" line="23" package="Default">
+        <name>SERVICE_TYPE</name>
+        <full_name>SERVICE_TYPE</full_name>
+        <value>'rax:load-balancer'</value>
+      </constant>
+      <constant namespace="OpenCloud\Autoscale" line="24" package="Default">
+        <name>SERVICE_OBJECT_CLASS</name>
+        <full_name>SERVICE_OBJECT_CLASS</full_name>
+        <value>'LoadBalancer'</value>
+      </constant>
+      <constant namespace="OpenCloud\Autoscale" line="25" package="Default">
+        <name>URL_RESOURCE</name>
+        <full_name>URL_RESOURCE</full_name>
+        <value>'loadbalancers'</value>
+      </constant>
+      <constant namespace="OpenCloud\Autoscale" line="26" package="Default">
+        <name>JSON_ELEMENT</name>
+        <full_name>JSON_ELEMENT</full_name>
+        <value>'loadBalancers'</value>
+      </constant>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="39" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="28">
+          <description>Creates a new LoadBalancerService connection</description>
+          <long-description>&lt;p&gt;This is not normally called directly, but via the factory method on the
+OpenStack or Rackspace connection object.&lt;/p&gt;</long-description>
+          <tag line="28" name="param" description="the connection on which to create the service" type="\OpenCloud\Autoscale\OpenStack" variable="$conn">
+            <type by_reference="false">\OpenCloud\Autoscale\OpenStack</type>
+          </tag>
+          <tag line="28" name="param" description="the name of the service (e.g., &quot;cloudDatabases&quot;)" type="string" variable="$name">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="28" name="param" description="the region of the service (e.g., &quot;DFW&quot; or &quot;LON&quot;)" type="string" variable="$region">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="28" name="param" description="the type of URL (normally &quot;publicURL&quot;)" type="string" variable="$urltype">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="39">
+          <name>$conn</name>
+          <default></default>
+          <type>\OpenCloud\OpenStack</type>
+        </argument>
+        <argument line="39">
+          <name>$name</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="39">
+          <name>$region</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="39">
+          <name>$urltype</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="51" package="Default">
+        <name>Url</name>
+        <full_name>Url</full_name>
+        <docblock line="44">
+          <description>Returns the URL of this service, or optionally that of
+an instance</description>
+          <long-description></long-description>
+          <tag line="44" name="param" description="the resource required" type="string" variable="$resource">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="44" name="param" description="extra arguments to pass to the URL as query strings" type="array" variable="$args">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="51">
+          <name>$resource</name>
+          <default>self::URL_RESOURCE</default>
+          <type/>
+        </argument>
+        <argument line="51">
+          <name>$args</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="62" package="Default">
+        <name>LoadBalancer</name>
+        <full_name>LoadBalancer</full_name>
+        <docblock line="55">
+          <description>creates a new LoadBalancer object</description>
+          <long-description></long-description>
+          <tag line="55" name="api" description=""/>
+          <tag line="55" name="param" description="the identifier of the load balancer" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="55" name="return" description="" type="\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer">
+            <type by_reference="false">\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer</type>
+          </tag>
+        </docblock>
+        <argument line="62">
+          <name>$id</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="76" package="Default">
+        <name>LoadBalancerList</name>
+        <full_name>LoadBalancerList</full_name>
+        <docblock line="66">
+          <description>returns a Collection of LoadBalancer objects</description>
+          <long-description></long-description>
+          <tag line="66" name="api" description=""/>
+          <tag line="66" name="param" description="if TRUE (the default), then all details are&#10;     returned; otherwise, the minimal set (ID, name) are retrieved" type="boolean" variable="$detail">
+            <type by_reference="false">boolean</type>
+          </tag>
+          <tag line="66" name="param" description="if provided, a set of key/value pairs that are&#10;&#9;&#9;set as query string parameters to the query" type="array" variable="$filter">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="66" name="return" description="" type="\OpenCloud\Collection">
+            <type by_reference="false">\OpenCloud\Collection</type>
+          </tag>
+        </docblock>
+        <argument line="76">
+          <name>$detail</name>
+          <default>TRUE</default>
+          <type/>
+        </argument>
+        <argument line="76">
+          <name>$filter</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="87" package="Default">
+        <name>BillableLoadBalancer</name>
+        <full_name>BillableLoadBalancer</full_name>
+        <docblock line="80">
+          <description>creates a new BillableLoadBalancer object (read-only)</description>
+          <long-description></long-description>
+          <tag line="80" name="api" description=""/>
+          <tag line="80" name="param" description="the identifier of the load balancer" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="80" name="return" description="" type="\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer">
+            <type by_reference="false">\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer</type>
+          </tag>
+        </docblock>
+        <argument line="87">
+          <name>$id</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="101" package="Default">
+        <name>BillableLoadBalancerList</name>
+        <full_name>BillableLoadBalancerList</full_name>
+        <docblock line="91">
+          <description>returns a Collection of BillableLoadBalancer objects</description>
+          <long-description></long-description>
+          <tag line="91" name="api" description=""/>
+          <tag line="91" name="param" description="if TRUE (the default), then all details are&#10;     returned; otherwise, the minimal set (ID, name) are retrieved" type="boolean" variable="$detail">
+            <type by_reference="false">boolean</type>
+          </tag>
+          <tag line="91" name="param" description="if provided, a set of key/value pairs that are&#10;&#9;&#9;set as query string parameters to the query" type="array" variable="$filter">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="91" name="return" description="" type="\OpenCloud\Collection">
+            <type by_reference="false">\OpenCloud\Collection</type>
+          </tag>
+        </docblock>
+        <argument line="101">
+          <name>$detail</name>
+          <default>TRUE</default>
+          <type/>
+        </argument>
+        <argument line="101">
+          <name>$filter</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="116" package="Default">
+        <name>AllowedDomain</name>
+        <full_name>AllowedDomain</full_name>
+        <docblock line="109">
+          <description>returns allowed domain</description>
+          <long-description></long-description>
+          <tag line="109" name="api" description=""/>
+          <tag line="109" name="param" description="either an array of values or NULL" type="mixed" variable="$data">
+            <type by_reference="false">mixed</type>
+          </tag>
+          <tag line="109" name="return" description="" type="\OpenCloud\Autoscale\LoadBalancerService\AllowedDomain">
+            <type by_reference="false">\OpenCloud\Autoscale\LoadBalancerService\AllowedDomain</type>
+          </tag>
+        </docblock>
+        <argument line="116">
+          <name>$data</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="126" package="Default">
+        <name>AllowedDomainList</name>
+        <full_name>AllowedDomainList</full_name>
+        <docblock line="120">
+          <description>returns Collection of AllowedDomain object</description>
+          <long-description></long-description>
+          <tag line="120" name="api" description=""/>
+          <tag line="120" name="return" description="" type="\OpenCloud\Autoscale\Collection">
+            <type by_reference="false">\OpenCloud\Autoscale\Collection</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="138" package="Default">
+        <name>Protocol</name>
+        <full_name>Protocol</full_name>
+        <docblock line="131">
+          <description>single protocol (should never be called directly)</description>
+          <long-description>&lt;p&gt;Convenience method to be used by the ProtocolList Collection.&lt;/p&gt;</long-description>
+          <tag line="131" name="return" description="" type="\OpenCloud\Autoscale\LoadBalancerService\Protocol">
+            <type by_reference="false">\OpenCloud\Autoscale\LoadBalancerService\Protocol</type>
+          </tag>
+        </docblock>
+        <argument line="138">
+          <name>$data</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="148" package="Default">
+        <name>ProtocolList</name>
+        <full_name>ProtocolList</full_name>
+        <docblock line="142">
+          <description>a list of Protocol objects</description>
+          <long-description></long-description>
+          <tag line="142" name="api" description=""/>
+          <tag line="142" name="return" description="" type="\OpenCloud\Autoscale\Collection">
+            <type by_reference="false">\OpenCloud\Autoscale\Collection</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="160" package="Default">
+        <name>Algorithm</name>
+        <full_name>Algorithm</full_name>
+        <docblock line="153">
+          <description>single algorithm (should never be called directly)</description>
+          <long-description>&lt;p&gt;convenience method used by the Collection factory&lt;/p&gt;</long-description>
+          <tag line="153" name="return" description="" type="\OpenCloud\Autoscale\LoadBalancerService\Algorithm">
+            <type by_reference="false">\OpenCloud\Autoscale\LoadBalancerService\Algorithm</type>
+          </tag>
+        </docblock>
+        <argument line="160">
+          <name>$data</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Autoscale" line="170" package="Default">
+        <name>AlgorithmList</name>
+        <full_name>AlgorithmList</full_name>
+        <docblock line="164">
+          <description>a list of Algorithm objects</description>
+          <long-description></long-description>
+          <tag line="164" name="api" description=""/>
+          <tag line="164" name="return" description="" type="\OpenCloud\Autoscale\Collection">
+            <type by_reference="false">\OpenCloud\Autoscale\Collection</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="28" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $conn in __construct()</error>
+      <error line="131" code="50015">Argument $data is missing from the Docblock of Protocol()</error>
+      <error line="153" code="50015">Argument $data is missing from the Docblock of Algorithm()</error>
     </parse_markers>
   </file>
   <file path="OpenCloud/Base/Base.php" hash="8a4c88d9a98636cd66a474d3aad4dfdf" package="phpOpenCloud">
@@ -3870,142 +4171,6 @@ headers, and any response body necessary.</description>
       <error line="8" code="50010">No DocBlock was found for method __construct()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/Compute/Attachment.php" hash="72eeda6d0b3033db89c2cdd5ee19b70a" package="phpOpenCloud">
-    <docblock line="2">
-      <description>Defines a volume attachment object</description>
-      <long-description></long-description>
-      <tag line="2" name="copyright" description="2012-2013 Rackspace Hosting, Inc.&#10;See COPYING for licensing information"/>
-      <tag line="2" name="package" description="phpOpenCloud"/>
-      <tag line="2" name="version" description="1.1"/>
-      <tag line="2" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
-    </docblock>
-    <class final="false" abstract="false" namespace="OpenCloud\Compute" line="24" package="Default">
-      <extends>\OpenCloud\AbstractClass\PersistentObject</extends>
-      <name>Attachment</name>
-      <full_name>\OpenCloud\Compute\Attachment</full_name>
-      <docblock line="17">
-        <description>The VolumeAttachment class represents a volume that is attached
-to a server.</description>
-        <long-description></long-description>
-        <tag line="17" name="api" description=""/>
-        <tag line="17" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
-      </docblock>
-      <property final="false" static="false" visibility="public" line="27" namespace="OpenCloud\Compute" package="Default">
-        <name>$id</name>
-        <default></default>
-      </property>
-      <property final="false" static="false" visibility="public" line="28" namespace="OpenCloud\Compute" package="Default">
-        <name>$device</name>
-        <default></default>
-      </property>
-      <property final="false" static="false" visibility="public" line="29" namespace="OpenCloud\Compute" package="Default">
-        <name>$serverId</name>
-        <default></default>
-      </property>
-      <property final="false" static="false" visibility="public" line="30" namespace="OpenCloud\Compute" package="Default">
-        <name>$volumeId</name>
-        <default></default>
-      </property>
-      <property final="false" static="true" visibility="public" line="33" namespace="OpenCloud\Compute" package="Default">
-        <name>$json_name</name>
-        <default>'volumeAttachment'</default>
-      </property>
-      <property final="false" static="true" visibility="public" line="34" namespace="OpenCloud\Compute" package="Default">
-        <name>$url_resource</name>
-        <default>'os-volume_attachments'</default>
-      </property>
-      <property final="false" static="false" visibility="private" line="37" namespace="OpenCloud\Compute" package="Default">
-        <name>$_server</name>
-        <default></default>
-      </property>
-      <property final="false" static="false" visibility="private" line="38" namespace="OpenCloud\Compute" package="Default">
-        <name>$_create_keys</name>
-        <default>array('volumeId', 'device')</default>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="49" package="Default">
-        <name>__construct</name>
-        <full_name>__construct</full_name>
-        <docblock line="43">
-          <description>creates the object</description>
-          <long-description>&lt;p&gt;This overrides the default constructor so that we can save off the
-server to which this attachment is associated.&lt;/p&gt;</long-description>
-        </docblock>
-        <argument line="49">
-          <name>$server</name>
-          <default></default>
-          <type>\OpenCloud\Compute\Server</type>
-        </argument>
-        <argument line="49">
-          <name>$id</name>
-          <default>NULL</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="59" package="Default">
-        <name>Update</name>
-        <full_name>Update</full_name>
-        <docblock line="54">
-          <description>updates are not permitted</description>
-          <long-description></long-description>
-          <tag line="54" name="throws" description="always" type="\OpenCloud\Compute\OpenCloud\UpdateError">
-            <type by_reference="false">\OpenCloud\Compute\OpenCloud\UpdateError</type>
-          </tag>
-        </docblock>
-        <argument line="59">
-          <name>$params</name>
-          <default>array()</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="70" package="Default">
-        <name>Parent</name>
-        <full_name>Parent</full_name>
-        <docblock line="63">
-          <description>returns the Parent (server) of the volume attachment</description>
-          <long-description>&lt;p&gt;This is a subresource of the server, not of the service.&lt;/p&gt;</long-description>
-          <tag line="63" name="return" description="" type="\OpenCloud\Compute\Server">
-            <type by_reference="false">\OpenCloud\Compute\Server</type>
-          </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="82" package="Default">
-        <name>Name</name>
-        <full_name>Name</full_name>
-        <docblock line="74">
-          <description>returns a readable name for the attachment</description>
-          <long-description>&lt;p&gt;Since there is no 'name' attribute, we'll hardcode something&lt;/p&gt;</long-description>
-          <tag line="74" name="api" description=""/>
-          <tag line="74" name="return" description="" type="string">
-            <type by_reference="false">string</type>
-          </tag>
-        </docblock>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="97" package="Default">
-        <name>CreateJson</name>
-        <full_name>CreateJson</full_name>
-        <docblock line="92">
-          <description>returns the JSON object for Create()</description>
-          <long-description></long-description>
-          <tag line="92" name="return" description="" type="\OpenCloud\Compute\stdClass">
-            <type by_reference="false">\OpenCloud\Compute\stdClass</type>
-          </tag>
-        </docblock>
-      </method>
-    </class>
-    <parse_markers>
-      <error line="27" code="50018">No DocBlock was found for property $id</error>
-      <error line="28" code="50018">No DocBlock was found for property $device</error>
-      <error line="29" code="50018">No DocBlock was found for property $serverId</error>
-      <error line="30" code="50018">No DocBlock was found for property $volumeId</error>
-      <error line="33" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="34" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="37" code="50018">No DocBlock was found for property $_server</error>
-      <error line="38" code="50018">No DocBlock was found for property $_create_keys</error>
-      <error line="43" code="50015">Argument $server is missing from the Docblock of __construct()</error>
-      <error line="43" code="50015">Argument $id is missing from the Docblock of __construct()</error>
-      <error line="54" code="50015">Argument $params is missing from the Docblock of Update()</error>
-    </parse_markers>
-  </file>
   <file path="OpenCloud/Compute/Flavor.php" hash="1aa89c96b188a57fbb0bc49df657fd22" package="phpOpenCloud">
     <docblock line="2">
       <description>A flavor object, which defines RAM, disk, and other settings for a virtual
@@ -4353,7 +4518,7 @@ networks. These are not really networks, but they show up in lists.&lt;/p&gt;</l
       <error line="60" code="50015">Argument $params is missing from the Docblock of Update()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/Compute/Server.php" hash="b67c55d5ecb90eb390eda267d00128ac" package="phpOpenCloud">
+  <file path="OpenCloud/Compute/Server.php" hash="d007e747120a9dc2b5eeb445ed458b37" package="phpOpenCloud">
     <docblock line="2">
       <description>Defines an OpenStack Compute virtual server</description>
       <long-description></long-description>
@@ -5377,6 +5542,142 @@ an ImageList object directly.&lt;/p&gt;</long-description>
       <error line="48" code="50014">Name of argument $urltype does not match with the DocBlock's name $serviceName in __construct()</error>
       <error line="158" code="50014">Name of argument $filter does not match with the DocBlock's name $filters in NetworkList()</error>
       <notice line="158" code="50013">Parameter $filters could not be found in NetworkList()</notice>
+    </parse_markers>
+  </file>
+  <file path="OpenCloud/Compute/VolumeAttachment.php" hash="0b191699d4854c30b73ffa0f8856f3ac" package="phpOpenCloud">
+    <docblock line="2">
+      <description>Defines a volume attachment object</description>
+      <long-description></long-description>
+      <tag line="2" name="copyright" description="2012-2013 Rackspace Hosting, Inc.&#10;See COPYING for licensing information"/>
+      <tag line="2" name="package" description="phpOpenCloud"/>
+      <tag line="2" name="version" description="1.1"/>
+      <tag line="2" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="OpenCloud\Compute" line="24" package="Default">
+      <extends>\OpenCloud\AbstractClass\PersistentObject</extends>
+      <name>VolumeAttachment</name>
+      <full_name>\OpenCloud\Compute\VolumeAttachment</full_name>
+      <docblock line="17">
+        <description>The VolumeAttachment class represents a volume that is attached
+to a server.</description>
+        <long-description></long-description>
+        <tag line="17" name="api" description=""/>
+        <tag line="17" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="27" namespace="OpenCloud\Compute" package="Default">
+        <name>$id</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="28" namespace="OpenCloud\Compute" package="Default">
+        <name>$device</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="29" namespace="OpenCloud\Compute" package="Default">
+        <name>$serverId</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="30" namespace="OpenCloud\Compute" package="Default">
+        <name>$volumeId</name>
+        <default></default>
+      </property>
+      <property final="false" static="true" visibility="public" line="33" namespace="OpenCloud\Compute" package="Default">
+        <name>$json_name</name>
+        <default>'volumeAttachment'</default>
+      </property>
+      <property final="false" static="true" visibility="public" line="34" namespace="OpenCloud\Compute" package="Default">
+        <name>$url_resource</name>
+        <default>'os-volume_attachments'</default>
+      </property>
+      <property final="false" static="false" visibility="private" line="37" namespace="OpenCloud\Compute" package="Default">
+        <name>$_server</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="private" line="38" namespace="OpenCloud\Compute" package="Default">
+        <name>$_create_keys</name>
+        <default>array('volumeId', 'device')</default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="49" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="43">
+          <description>creates the object</description>
+          <long-description>&lt;p&gt;This overrides the default constructor so that we can save off the
+server to which this attachment is associated.&lt;/p&gt;</long-description>
+        </docblock>
+        <argument line="49">
+          <name>$server</name>
+          <default></default>
+          <type>\OpenCloud\Compute\Server</type>
+        </argument>
+        <argument line="49">
+          <name>$id</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="59" package="Default">
+        <name>Update</name>
+        <full_name>Update</full_name>
+        <docblock line="54">
+          <description>updates are not permitted</description>
+          <long-description></long-description>
+          <tag line="54" name="throws" description="always" type="\OpenCloud\Compute\OpenCloud\UpdateError">
+            <type by_reference="false">\OpenCloud\Compute\OpenCloud\UpdateError</type>
+          </tag>
+        </docblock>
+        <argument line="59">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="70" package="Default">
+        <name>Parent</name>
+        <full_name>Parent</full_name>
+        <docblock line="63">
+          <description>returns the Parent (server) of the volume attachment</description>
+          <long-description>&lt;p&gt;This is a subresource of the server, not of the service.&lt;/p&gt;</long-description>
+          <tag line="63" name="return" description="" type="\OpenCloud\Compute\Server">
+            <type by_reference="false">\OpenCloud\Compute\Server</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Compute" line="82" package="Default">
+        <name>Name</name>
+        <full_name>Name</full_name>
+        <docblock line="74">
+          <description>returns a readable name for the attachment</description>
+          <long-description>&lt;p&gt;Since there is no 'name' attribute, we'll hardcode something&lt;/p&gt;</long-description>
+          <tag line="74" name="api" description=""/>
+          <tag line="74" name="return" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\Compute" line="97" package="Default">
+        <name>CreateJson</name>
+        <full_name>CreateJson</full_name>
+        <docblock line="92">
+          <description>returns the JSON object for Create()</description>
+          <long-description></long-description>
+          <tag line="92" name="return" description="" type="\OpenCloud\Compute\stdClass">
+            <type by_reference="false">\OpenCloud\Compute\stdClass</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="27" code="50018">No DocBlock was found for property $id</error>
+      <error line="28" code="50018">No DocBlock was found for property $device</error>
+      <error line="29" code="50018">No DocBlock was found for property $serverId</error>
+      <error line="30" code="50018">No DocBlock was found for property $volumeId</error>
+      <error line="33" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="34" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="37" code="50018">No DocBlock was found for property $_server</error>
+      <error line="38" code="50018">No DocBlock was found for property $_create_keys</error>
+      <error line="43" code="50015">Argument $server is missing from the Docblock of __construct()</error>
+      <error line="43" code="50015">Argument $id is missing from the Docblock of __construct()</error>
+      <error line="54" code="50015">Argument $params is missing from the Docblock of Update()</error>
     </parse_markers>
   </file>
   <file path="OpenCloud/Database/Database.php" hash="568aa805fe9c6b256889257beebf4203" package="phpOpenCloud">
@@ -7468,7 +7769,7 @@ the DNS service itself.&lt;/p&gt;</long-description>
       <error line="21" code="50015">Argument $info is missing from the Docblock of __construct()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/Globals.php" hash="84954ed1d8e3df235e3726dde6781952" package="phpOpenCloud">
+  <file path="OpenCloud/Globals.php" hash="03c909077b3a3b779662b6e6f231ddf2" package="phpOpenCloud">
     <docblock line="2">
       <description>Defines global constants and functions</description>
       <long-description></long-description>
@@ -7485,7 +7786,7 @@ the DNS service itself.&lt;/p&gt;</long-description>
     <constant namespace="global" line="56" package="phpOpenCloud">
       <name>RAXSDK_STRICT_PROPERTY_CHECKS</name>
       <full_name>\RAXSDK_STRICT_PROPERTY_CHECKS</full_name>
-      <value>true</value>
+      <value>FALSE</value>
     </constant>
     <constant namespace="global" line="58" package="phpOpenCloud">
       <name>RAXSDK_COMPUTE_NAME</name>
@@ -7630,7 +7931,7 @@ the DNS service itself.&lt;/p&gt;</long-description>
     <constant namespace="global" line="133" package="phpOpenCloud">
       <name>RAXSDK_VERSION</name>
       <full_name>\RAXSDK_VERSION</full_name>
-      <value>'1.5'</value>
+      <value>'1.5.4'</value>
     </constant>
     <constant namespace="global" line="134" package="phpOpenCloud">
       <name>RAXSDK_USER_AGENT</name>
@@ -7895,11 +8196,11 @@ since it matches the pattern of the other LB subresources.&lt;/p&gt;</long-descr
       <error line="24" code="50010">No DocBlock was found for method Delete()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/LoadBalancer/Billable.php" hash="81d3241f2b51845c0c091bb75b64e075" package="Default">
+  <file path="OpenCloud/LoadBalancer/BillableLoadBalancer.php" hash="4b47893cd20f9fce816a5125201adee5" package="Default">
     <class final="false" abstract="false" namespace="OpenCloud\LoadBalancer" line="8" package="Default">
       <extends>\OpenCloud\LoadBalancer\LoadBalancer</extends>
-      <name>Billable</name>
-      <full_name>\OpenCloud\LoadBalancer\Billable</full_name>
+      <name>BillableLoadBalancer</name>
+      <full_name>\OpenCloud\LoadBalancer\BillableLoadBalancer</full_name>
       <docblock line="5">
         <description>used to get a list of billable load balancers for a specific date range</description>
         <long-description></long-description>
@@ -7932,7 +8233,7 @@ since it matches the pattern of the other LB subresources.&lt;/p&gt;</long-descr
       </method>
     </class>
     <parse_markers>
-      <error line="0" code="50007">No page-level DocBlock was found in file OpenCloud/LoadBalancer/Billable.php</error>
+      <error line="0" code="50007">No page-level DocBlock was found in file OpenCloud/LoadBalancer/BillableLoadBalancer.php</error>
       <error line="10" code="50018">No DocBlock was found for property $url_resource</error>
       <error line="11" code="50010">No DocBlock was found for method Create()</error>
       <error line="12" code="50010">No DocBlock was found for method Update()</error>
@@ -9622,7 +9923,7 @@ this subresource allows the user to add or update them one at a time.&lt;/p&gt;<
       <error line="25" code="50010">No DocBlock was found for method Update()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/LoadBalancer/Service.php" hash="78cb206bfc90a8d36f3ff9faac80359e" package="phpOpenCloud">
+  <file path="OpenCloud/LoadBalancer/Service.php" hash="043698cbe39c94b3f62a84aba902fe05" package="phpOpenCloud">
     <docblock line="2">
       <description>Rackspace's Cloud Load Balancers</description>
       <long-description></long-description>
@@ -9917,7 +10218,7 @@ an instance</description>
       <error line="153" code="50015">Argument $data is missing from the Docblock of Algorithm()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/ObjectStore/CDNContainer.php" hash="3a0a9aa0325c9acbb0667bbed97c5d3b" package="phpOpenCloud">
+  <file path="OpenCloud/ObjectStore/CDNContainer.php" hash="d2a2494246a1e7c17e02d7eebea6e69e" package="phpOpenCloud">
     <docblock line="2">
       <description>Containers for OpenStack Object Storage (Swift) and Rackspace Cloud Files</description>
       <long-description></long-description>
@@ -9999,134 +10300,134 @@ array or an object, then its values are used to set this object.&lt;/p&gt;</long
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="84" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="85" package="Default">
         <name>Create</name>
         <full_name>Create</full_name>
-        <docblock line="77">
+        <docblock line="78">
           <description>Creates a new container with the specified attributes</description>
           <long-description></long-description>
-          <tag line="77" name="param" description="array of parameters" type="array" variable="$params">
+          <tag line="78" name="param" description="array of parameters" type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="77" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="78" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="77" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerCreateError">
+          <tag line="78" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerCreateError">
             <type by_reference="false">\OpenCloud\ObjectStore\ContainerCreateError</type>
           </tag>
         </docblock>
-        <argument line="84">
+        <argument line="85">
           <name>$params</name>
           <default>array()</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="122" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="123" package="Default">
         <name>Update</name>
         <full_name>Update</full_name>
-        <docblock line="116">
+        <docblock line="117">
           <description>Updates the metadata for a container</description>
           <long-description></long-description>
-          <tag line="116" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="117" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="116" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerCreateError">
+          <tag line="117" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerCreateError">
             <type by_reference="false">\OpenCloud\ObjectStore\ContainerCreateError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="149" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="150" package="Default">
         <name>Delete</name>
         <full_name>Delete</full_name>
-        <docblock line="143">
+        <docblock line="144">
           <description>Deletes the specified container</description>
           <long-description></long-description>
-          <tag line="143" name="return" description="TRUE on success; FALSE on failure" type="boolean">
+          <tag line="144" name="return" description="TRUE on success; FALSE on failure" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="143" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerDeleteError">
+          <tag line="144" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerDeleteError">
             <type by_reference="false">\OpenCloud\ObjectStore\ContainerDeleteError</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="199" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="200" package="Default">
         <name>ObjectList</name>
         <full_name>ObjectList</full_name>
-        <docblock line="177">
+        <docblock line="178">
           <description>Creates a Collection of objects in the container</description>
           <long-description></long-description>
-          <tag line="177" name="param" description="associative array of parameter values.&#10;* account/tenant&#9;- The unique identifier of the account/tenant.&#10;* container- The unique identifier of the container.&#10;* limit (Optional) - The number limit of results.&#10;* marker (Optional) - Value of the marker, that the object names&#10;     greater in value than are returned.&#10;* end_marker (Optional) - Value of the marker, that the object names&#10;     less in value than are returned.&#10;* prefix (Optional) - Value of the prefix, which the returned object&#10;     names begin with.&#10;* format (Optional) - Value of the serialized response format, either&#10;     json or xml.&#10;* delimiter (Optional) - Value of the delimiter, that all the object&#10;     names nested in the container are returned." type="array" variable="$params">
+          <tag line="178" name="param" description="associative array of parameter values.&#10;* account/tenant&#9;- The unique identifier of the account/tenant.&#10;* container- The unique identifier of the container.&#10;* limit (Optional) - The number limit of results.&#10;* marker (Optional) - Value of the marker, that the object names&#10;     greater in value than are returned.&#10;* end_marker (Optional) - Value of the marker, that the object names&#10;     less in value than are returned.&#10;* prefix (Optional) - Value of the prefix, which the returned object&#10;     names begin with.&#10;* format (Optional) - Value of the serialized response format, either&#10;     json or xml.&#10;* delimiter (Optional) - Value of the delimiter, that all the object&#10;     names nested in the container are returned." type="array" variable="$params">
             <type by_reference="false">array</type>
           </tag>
-          <tag line="177" name="link" description="for a list of possible parameter&#10;     names and values" link="http://api.openstack.org"/>
-          <tag line="177" name="return" description="" type="\OpenCloud\ObjectStore\OpenCloud\Collection">
+          <tag line="178" name="link" description="for a list of possible parameter&#10;     names and values" link="http://api.openstack.org"/>
+          <tag line="178" name="return" description="" type="\OpenCloud\ObjectStore\OpenCloud\Collection">
             <type by_reference="false">\OpenCloud\ObjectStore\OpenCloud\Collection</type>
           </tag>
-          <tag line="177" name="throws" description="" type="\OpenCloud\ObjectStore\ObjFetchError">
+          <tag line="178" name="throws" description="" type="\OpenCloud\ObjectStore\ObjFetchError">
             <type by_reference="false">\OpenCloud\ObjectStore\ObjFetchError</type>
           </tag>
         </docblock>
-        <argument line="199">
+        <argument line="200">
           <name>$params</name>
           <default>array()</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="220" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="221" package="Default">
         <name>DataObject</name>
         <full_name>DataObject</full_name>
-        <docblock line="214">
+        <docblock line="215">
           <description>Returns a new DataObject associated with this container</description>
           <long-description></long-description>
-          <tag line="214" name="param" description="if supplied, the name of the object to return" type="string" variable="$name">
+          <tag line="215" name="param" description="if supplied, the name of the object to return" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="214" name="return" description="" type="\OpenCloud\ObjectStore\DataObject">
+          <tag line="215" name="return" description="" type="\OpenCloud\ObjectStore\DataObject">
             <type by_reference="false">\OpenCloud\ObjectStore\DataObject</type>
           </tag>
         </docblock>
-        <argument line="220">
+        <argument line="221">
           <name>$name</name>
           <default>NULL</default>
           <type/>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="227" package="Default">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\ObjectStore" line="228" package="Default">
         <name>Service</name>
         <full_name>Service</full_name>
-        <docblock line="224">
+        <docblock line="225">
           <description>Returns the Service associated with the Container</description>
           <long-description></long-description>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\ObjectStore" line="238" package="Default">
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="OpenCloud\ObjectStore" line="239" package="Default">
         <name>Refresh</name>
         <full_name>Refresh</full_name>
-        <docblock line="233">
+        <docblock line="234">
           <description>Loads the object from the service</description>
           <long-description></long-description>
-          <tag line="233" name="return" description="" type="void">
+          <tag line="234" name="return" description="" type="void">
             <type by_reference="false">void</type>
           </tag>
         </docblock>
       </method>
-      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="267" package="Default">
+      <method final="false" abstract="false" static="false" visibility="private" namespace="OpenCloud\ObjectStore" line="269" package="Default">
         <name>is_valid_name</name>
         <full_name>is_valid_name</full_name>
-        <docblock line="260">
+        <docblock line="262">
           <description>Validates that the container name is acceptable</description>
           <long-description></long-description>
-          <tag line="260" name="param" description="the container name to validate" type="string" variable="$name">
+          <tag line="262" name="param" description="the container name to validate" type="string" variable="$name">
             <type by_reference="false">string</type>
           </tag>
-          <tag line="260" name="return" description="TRUE if ok; throws an exception if not" type="boolean">
+          <tag line="262" name="return" description="TRUE if ok; throws an exception if not" type="boolean">
             <type by_reference="false">boolean</type>
           </tag>
-          <tag line="260" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerNameError">
+          <tag line="262" name="throws" description="" type="\OpenCloud\ObjectStore\ContainerNameError">
             <type by_reference="false">\OpenCloud\ObjectStore\ContainerNameError</type>
           </tag>
         </docblock>
-        <argument line="267">
+        <argument line="269">
           <name>$name</name>
           <default></default>
           <type/>
@@ -10143,7 +10444,7 @@ array or an object, then its values are used to set this object.&lt;/p&gt;</long
       <error line="34" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $service in __construct()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/ObjectStore/Container.php" hash="b662d01663267b3f7d9baed91ce04107" package="phpOpenCloud">
+  <file path="OpenCloud/ObjectStore/Container.php" hash="37f0f1b0f015d4f6d52c0e4c0293e4f0" package="phpOpenCloud">
     <docblock line="2">
       <description>Containers for OpenStack Object Storage (Swift) and Rackspace Cloud Files</description>
       <long-description></long-description>
@@ -10875,7 +11176,7 @@ mime_content_type function.&lt;/p&gt;</long-description>
       <error line="279" code="50016">The type hint of the argument is incorrect for the type definition of the @param tag with argument $target in Copy()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/ObjectStore/ObjectStoreBase.php" hash="18f914d8e6d7825295a16b5bebc19ccd" package="phpOpenCloud">
+  <file path="OpenCloud/ObjectStore/ObjectStoreBase.php" hash="06ed7be3fd47b22ebcb04e8a3a09b23b" package="phpOpenCloud">
     <docblock line="2">
       <description>The Object Storage service</description>
       <long-description></long-description>
@@ -12031,7 +12332,7 @@ $conn = new Rackspace(
       <error line="93" code="50015">Argument $urltype is missing from the Docblock of DNS()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/Volume/Service.php" hash="0bf5496f799b21f68b6c4e810fc63e81" package="phpOpenCloud">
+  <file path="OpenCloud/Volume/Service.php" hash="51d8bd604686c27b5b5e83486de81aea" package="phpOpenCloud">
     <docblock line="2">
       <description>The OpenStack Cinder (Volume) service</description>
       <long-description></long-description>
@@ -12334,99 +12635,6 @@ $conn = new Rackspace(
       <error line="43" code="50015">Argument $params is missing from the Docblock of Update()</error>
     </parse_markers>
   </file>
-  <file path="OpenCloud/Volume/Type.php" hash="2ab51160373b609cfb5f6786f653d937" package="phpOpenCloud">
-    <docblock line="2">
-      <description>Defines a block storage volume type</description>
-      <long-description></long-description>
-      <tag line="2" name="copyright" description="2012-2013 Rackspace Hosting, Inc.&#10;See COPYING for licensing information"/>
-      <tag line="2" name="package" description="phpOpenCloud"/>
-      <tag line="2" name="version" description="1.0"/>
-      <tag line="2" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
-    </docblock>
-    <class final="false" abstract="false" namespace="OpenCloud\Volume" line="21" package="Default">
-      <extends>\OpenCloud\AbstractClass\PersistentObject</extends>
-      <name>Type</name>
-      <full_name>\OpenCloud\Volume\Type</full_name>
-      <docblock line="15">
-        <description>The VolumeType class represents a single block storage volume type</description>
-        <long-description></long-description>
-        <tag line="15" name="api" description=""/>
-        <tag line="15" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
-      </docblock>
-      <property final="false" static="false" visibility="public" line="24" namespace="OpenCloud\Volume" package="Default">
-        <name>$id</name>
-        <default></default>
-      </property>
-      <property final="false" static="false" visibility="public" line="25" namespace="OpenCloud\Volume" package="Default">
-        <name>$name</name>
-        <default></default>
-      </property>
-      <property final="false" static="false" visibility="public" line="26" namespace="OpenCloud\Volume" package="Default">
-        <name>$extra_specs</name>
-        <default></default>
-      </property>
-      <property final="false" static="true" visibility="protected" line="29" namespace="OpenCloud\Volume" package="Default">
-        <name>$json_name</name>
-        <default>'volume_type'</default>
-      </property>
-      <property final="false" static="true" visibility="protected" line="30" namespace="OpenCloud\Volume" package="Default">
-        <name>$url_resource</name>
-        <default>'types'</default>
-      </property>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Volume" line="37" package="Default">
-        <name>Create</name>
-        <full_name>Create</full_name>
-        <docblock line="32">
-          <description>Creates are not permitted</description>
-          <long-description></long-description>
-          <tag line="32" name="throws" description="always" type="\OpenCloud\Volume\OpenCloud\CreateError">
-            <type by_reference="false">\OpenCloud\Volume\OpenCloud\CreateError</type>
-          </tag>
-        </docblock>
-        <argument line="37">
-          <name>$params</name>
-          <default>array()</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Volume" line="47" package="Default">
-        <name>Update</name>
-        <full_name>Update</full_name>
-        <docblock line="42">
-          <description>updates are not permitted</description>
-          <long-description></long-description>
-          <tag line="42" name="throws" description="always" type="\OpenCloud\Volume\OpenCloud\UpdateError">
-            <type by_reference="false">\OpenCloud\Volume\OpenCloud\UpdateError</type>
-          </tag>
-        </docblock>
-        <argument line="47">
-          <name>$params</name>
-          <default>array()</default>
-          <type/>
-        </argument>
-      </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Volume" line="57" package="Default">
-        <name>Delete</name>
-        <full_name>Delete</full_name>
-        <docblock line="52">
-          <description>deletes are not permitted</description>
-          <long-description></long-description>
-          <tag line="52" name="throws" description="" type="\OpenCloud\Volume\OpenCloud\DeleteError">
-            <type by_reference="false">\OpenCloud\Volume\OpenCloud\DeleteError</type>
-          </tag>
-        </docblock>
-      </method>
-    </class>
-    <parse_markers>
-      <error line="24" code="50018">No DocBlock was found for property $id</error>
-      <error line="25" code="50018">No DocBlock was found for property $name</error>
-      <error line="26" code="50018">No DocBlock was found for property $extra_specs</error>
-      <error line="29" code="50018">No DocBlock was found for property $json_name</error>
-      <error line="30" code="50018">No DocBlock was found for property $url_resource</error>
-      <error line="32" code="50015">Argument $params is missing from the Docblock of Create()</error>
-      <error line="42" code="50015">Argument $params is missing from the Docblock of Update()</error>
-    </parse_markers>
-  </file>
   <file path="OpenCloud/Volume/Volume.php" hash="bb3d580e9aefa5608c4d9eab1039f622" package="phpOpenCloud">
     <docblock line="2">
       <description>Defines a block storage volume</description>
@@ -12560,6 +12768,99 @@ $conn = new Rackspace(
       <error line="50" code="50015">Argument $params is missing from the Docblock of Update()</error>
     </parse_markers>
   </file>
+  <file path="OpenCloud/Volume/VolumeType.php" hash="3048d9622e47915017295aca2e2c1827" package="phpOpenCloud">
+    <docblock line="2">
+      <description>Defines a block storage volume type</description>
+      <long-description></long-description>
+      <tag line="2" name="copyright" description="2012-2013 Rackspace Hosting, Inc.&#10;See COPYING for licensing information"/>
+      <tag line="2" name="package" description="phpOpenCloud"/>
+      <tag line="2" name="version" description="1.0"/>
+      <tag line="2" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
+    </docblock>
+    <class final="false" abstract="false" namespace="OpenCloud\Volume" line="21" package="Default">
+      <extends>\OpenCloud\AbstractClass\PersistentObject</extends>
+      <name>VolumeType</name>
+      <full_name>\OpenCloud\Volume\VolumeType</full_name>
+      <docblock line="15">
+        <description>The VolumeType class represents a single block storage volume type</description>
+        <long-description></long-description>
+        <tag line="15" name="api" description=""/>
+        <tag line="15" name="author" description="Glen Campbell &lt;glen.campbell@rackspace.com&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="24" namespace="OpenCloud\Volume" package="Default">
+        <name>$id</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="25" namespace="OpenCloud\Volume" package="Default">
+        <name>$name</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="public" line="26" namespace="OpenCloud\Volume" package="Default">
+        <name>$extra_specs</name>
+        <default></default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="29" namespace="OpenCloud\Volume" package="Default">
+        <name>$json_name</name>
+        <default>'volume_type'</default>
+      </property>
+      <property final="false" static="true" visibility="protected" line="30" namespace="OpenCloud\Volume" package="Default">
+        <name>$url_resource</name>
+        <default>'types'</default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Volume" line="37" package="Default">
+        <name>Create</name>
+        <full_name>Create</full_name>
+        <docblock line="32">
+          <description>Creates are not permitted</description>
+          <long-description></long-description>
+          <tag line="32" name="throws" description="always" type="\OpenCloud\Volume\OpenCloud\CreateError">
+            <type by_reference="false">\OpenCloud\Volume\OpenCloud\CreateError</type>
+          </tag>
+        </docblock>
+        <argument line="37">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Volume" line="47" package="Default">
+        <name>Update</name>
+        <full_name>Update</full_name>
+        <docblock line="42">
+          <description>updates are not permitted</description>
+          <long-description></long-description>
+          <tag line="42" name="throws" description="always" type="\OpenCloud\Volume\OpenCloud\UpdateError">
+            <type by_reference="false">\OpenCloud\Volume\OpenCloud\UpdateError</type>
+          </tag>
+        </docblock>
+        <argument line="47">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="OpenCloud\Volume" line="57" package="Default">
+        <name>Delete</name>
+        <full_name>Delete</full_name>
+        <docblock line="52">
+          <description>deletes are not permitted</description>
+          <long-description></long-description>
+          <tag line="52" name="throws" description="" type="\OpenCloud\Volume\OpenCloud\DeleteError">
+            <type by_reference="false">\OpenCloud\Volume\OpenCloud\DeleteError</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="24" code="50018">No DocBlock was found for property $id</error>
+      <error line="25" code="50018">No DocBlock was found for property $name</error>
+      <error line="26" code="50018">No DocBlock was found for property $extra_specs</error>
+      <error line="29" code="50018">No DocBlock was found for property $json_name</error>
+      <error line="30" code="50018">No DocBlock was found for property $url_resource</error>
+      <error line="32" code="50015">Argument $params is missing from the Docblock of Create()</error>
+      <error line="42" code="50015">Argument $params is missing from the Docblock of Update()</error>
+    </parse_markers>
+  </file>
   <file path="openstack.php" hash="99cdaf7daf0e8625f1ed23ecf6fd9b27" package="Default">
     <include line="5" type="Require Once" package="Default">
       <name/>
@@ -12603,6 +12904,7 @@ $conn = new Rackspace(
   <package name="phpOpenCloud" full_name="phpOpenCloud"/>
   <namespace name="OpenCloud" full_name="OpenCloud">
     <namespace name="AbstractClass" full_name="OpenCloud\AbstractClass"/>
+    <namespace name="Autoscale" full_name="OpenCloud\Autoscale"/>
     <namespace name="Base" full_name="OpenCloud\Base">
       <namespace name="Exceptions" full_name="OpenCloud\Base\Exceptions"/>
       <namespace name="Request" full_name="OpenCloud\Base\Request">
