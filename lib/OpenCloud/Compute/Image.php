@@ -12,6 +12,8 @@
 
 namespace OpenCloud\Compute;
 
+use OpenCloud\AbstractClass\PersistentObject;
+
 /**
  * The Image class represents a stored machine image returned by the
  * Compute service.
@@ -21,26 +23,32 @@ namespace OpenCloud\Compute;
  * not available to Rackspace customers, so we're using the /images
  * resource on the servers API endpoint.
  */
-class Image extends \OpenCloud\AbstractClass\PersistentObject {
+class Image extends PersistentObject 
+{
 
-    public
-		$status,
-		$updated,
-		$links,
-		$minDisk,
-		$id,
-		$name,
-		$created,
-		$progress,
-		$minRam,
-		$metadata,
-		$server;
+    public $status;
+    public $updated;
+    public $links;
+    public $minDisk;
+    public $id;
+    public $name;
+    public $created;
+    public $progress;
+    public $minRam;
+    public $metadata;
+    public $server;
 
-	protected static
-		$json_name = 'image',
-		$url_resource = 'images';
+    protected static $json_name = 'image';
+    protected static $url_resource = 'images';
 
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
+    public function Create($params = array()) 
+    { 
+        $this->NoCreate(); 
+    }
 
-} // class Image
+    public function Update($params = array()) 
+    { 
+        $this->NoUpdate(); 
+    }
+
+}

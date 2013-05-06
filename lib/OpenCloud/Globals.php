@@ -126,9 +126,6 @@ if (!defined('RAXSDK_SSL_VERIFYPEER'))
  */
 //define('RAXSDK_CACERTPEM', __DIR__ . DIRECTORY_SEPARATOR . 'cacert.pem');
 
-// set the default timezone
-date_default_timezone_set(RAXSDK_TIMEZONE);
-
 /* these should not be overridden */
 define('RAXSDK_VERSION', '1.5.4');
 define('RAXSDK_USER_AGENT', 'php-opencloud/'.RAXSDK_VERSION.' (Rackspace)');
@@ -172,6 +169,21 @@ define('RAX_PUBLIC','00000000-0000-0000-0000-000000000000');
  */
 define('RAX_PRIVATE','11111111-1111-1111-1111-111111111111');
 
+/********** TIMEZONE MAGIC **********/
+
+/**
+ * This is called if there is an error getting the default timezone;
+ * that means that the default timezone isn't set.
+ */
+function __raxsdk_timezone_set($errno, $errstr) {
+	if ($errno==2)
+		date_default_timezone_set(RAXSDK_TIMEZONE);
+	else
+		die(sprintf("Unknown error %d: %s\n", $errno, $errstr));
+}
+set_error_handler('\OpenCloud\__raxsdk_timezone_set');
+@date_default_timezone_get();
+restore_error_handler();
 
 /********** SOME GLOBAL FUNCTIONS **********/
 

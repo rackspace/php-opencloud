@@ -8,28 +8,29 @@ namespace OpenCloud\DNS;
  * different than a top-level domain, and the parent is a domain instead of
  * the DNS service itself.
  */
-class Subdomain extends Domain {
+class Subdomain extends Domain 
+{
 
-	protected static
-		$json_name = FALSE,
-		$json_collection_name = 'domains',
-		$url_resource = 'subdomains';
+    protected static $json_name = false;
+    protected static $json_collection_name = 'domains';
+    protected static $url_resource = 'subdomains';
 
-	private
-		$_parent;
+    private $_parent;
 
-	/**
-	 */
-	public function __construct(Domain $parent, $info=array()) {
-		$this->_parent = $parent;
-		return parent::__construct($parent->Service(), $info);
-	}
+    /**
+     */
+    public function __construct(Domain $parent, $info = array()) 
+    {
+        $this->_parent = $parent;
+        return parent::__construct($parent->Service(), $info);
+    }
 
-	/**
-	 * returns the parent domain object
-	 */
-	public function Parent() {
-		return $this->_parent;
-	}
+    /**
+     * returns the parent domain object
+     */
+    public function Parent() 
+    {
+        return $this->_parent;
+    }
 
-} // class Subdomain
+}

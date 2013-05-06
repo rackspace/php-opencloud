@@ -12,89 +12,100 @@
 
 namespace OpenCloud\Volume;
 
+use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Base\Lang;
+use OpenCloud\Base\Exceptions;
+
 /**
  * The Volume class represents a single block storage volume
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Volume extends \OpenCloud\AbstractClass\PersistentObject {
+class Volume extends PersistentObject 
+{
 
-	public
-		$id,
-		$status,
-		$display_name,
-		$display_description,
-		$size,
-		$volume_type,
-		$metadata = array(),
-		$availability_zone,
-		$snapshot_id,
-		$attachments = array(),
-		$created_at;
-	
-	protected static
-		$json_name = 'volume',
-		$url_resource = 'volumes';
+    public $id;
+    public $status;
+    public $display_name;
+    public $display_description;
+    public $size;
+    public $volume_type;
+    public $metadata = array();
+    public $availability_zone;
+    public $snapshot_id;
+    public $attachments = array();
+    public $created_at;
+    
+    protected static $json_name = 'volume';
+    protected static $url_resource = 'volumes';
 
-	private
-		$_create_keys = array(
-		    'snapshot_id',
-			'display_name',
-			'display_description',
-			'size',
-			'volume_type',
-			'availability_zone'
-		);
+    private $_create_keys = array(
+        'snapshot_id',
+        'display_name',
+        'display_description',
+        'size',
+        'volume_type',
+        'availability_zone'
+    );
 
-	/**
-	 * Always throws an error; updates are not permitted
-	 *
-	 * @throws OpenCloud\UpdateError always
-	 */
-	public function Update($params=array()) {
-		throw new \OpenCloud\Base\Exceptions\UpdateError(
-			\OpenCloud\Base\Lang::translate('Block storage volumes cannot be updated'));
-	}
+    /**
+     * Always throws an error; updates are not permitted
+     *
+     * @throws OpenCloud\UpdateError always
+     */
+    public function Update($params = array()) 
+    {
+        throw new Exceptions\UpdateError(
+            Lang::translate('Block storage volumes cannot be updated')
+        );
+    }
 
-	/**
-	 * returns the name of the volume
-	 *
-	 * @api
-	 * @return string
-	 */
-	public function Name() {
-		return $this->display_name;
-	}
+    /**
+     * returns the name of the volume
+     *
+     * @api
+     * @return string
+     */
+    public function Name() 
+    {
+        return $this->display_name;
+    }
 
-	/********** PROTECTED METHODS **********/
+    /********** PROTECTED METHODS **********/
 
-	/**
-	 * Creates the JSON object for the Create() method
-	 *
-	 * @return stdClass
-	 */
-	protected function CreateJson() {
-		$element = $this->JsonName();
-		$obj = new \stdClass();
-		$obj->$element = new \stdClass();
-		foreach ($this->_create_keys as $name) {
-			if ($this->$name) {
-			    switch($name) {
-			    case 'volume_type':
-			        $obj->$element->$name = $this->volume_type->Name();
-			        break;
-			    default:
-				    $obj->$element->$name = $this->$name;
-				}
-			}
-		}
-		if (is_array($this->metadata) && count($this->metadata)) {
-			$obj->$element->metadata = new \stdClass();
-			foreach($this->metadata as $key => $value)
-				$obj->$element->metadata->$key = $value;
-		}
-		return $obj;
-	}
+    /**
+     * Creates the JSON object for the Create() method
+     *
+     * @return stdClass
+     */
+    protected function CreateJson() 
+    {
+        $element = $this->JsonName();
+        $object = new \stdClass();
+        $object->$element = new \stdClass();
 
-} // class Volume
+        foreach ($this->_create_keys as $name) {
+            if ($this->$name) {
+                switch($name) {
+                    case 'volume_type':
+                        $object->$element->$name = $this->volume_type->Name();
+                        break;
+                    default:
+                        $object->$element->$name = $this->$name;
+                        break;
+                }
+            }
+        }
+
+        if (is_array($this->metadata) && count($this->metadata)) {
+            $object->$element->metadata = new \stdClass();
+            foreach($this->metadata as $key => $value) {
+                $object->$element->metadata->$key = $value;
+            }
+        }
+
+        return $object;
+    }
+
+}

@@ -49,7 +49,7 @@
 <li><a href="parse_markers.html">Errors</a></li>
 </ul>
 <div id="content_container"><div xmlns="" id="content">
-<h1>OpenCloud/Volume/Type.php</h1>
+<h1>OpenCloud/Autoscale/Service.php</h1>
 <div class="file_menu">
 <a href="#classes">Classes</a> |</div>
 <div class="properties">
@@ -59,20 +59,16 @@
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
 </div>
-<h2>Description</h2>Defines a block storage volume type<br><br><a name="classes"></a><h2>Classes</h2>
-<div id="Type" class="class">
-<h3>Type</h3>
+<h2>Description</h2>Rackspace's Cloud Load Balancers<br><br><a name="classes"></a><h2>Classes</h2>
+<div id="Service" class="class">
+<h3>Service</h3>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject">\OpenCloud\AbstractClass\PersistentObject</a>
+<a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService">\OpenCloud\AbstractClass\Service</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
-<label class="property-key">api</label><div class="property-value">
-<a title=""></a>
-             
-        </div>
 <label class="property-key">author</label><div class="property-value">
 <a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
              
@@ -83,101 +79,55 @@
       </div>
 </div>
 <h4>Description</h4>
-<em>The VolumeType class represents a single block storage volume type</em><br><p>This class abstracts much of the common functionality between Nova
-servers, Swift containers and objects, DBAAS instances, Cinder volumes,
-and various other objects that (a) have a URL, (b) can be created, updated,
-deleted, or retrieved, and (c) use a standard JSON format with a top-level
-element followed by a child object with attributes.</p>
-
-<p>In general, you can create a persistent object class by subclassing this
-class and defining some protected, static variables:</p>
-
-<ul>
-<li><code>url_resource</code> - the sub-resource value in the URL of the parent. For
-example, if the parent URL is <code>http://something/parent</code>, then setting
-this value to <code>'another'</code> would result in a URL for the persistent
-object of <code>http://something/parent/another</code>.</li>
-<li><code>json_name</code> - the top-level JSON object name. For example, if the
-persistent object is represented by <code>{"foo": {"attr":value, ...}}</code>, then
-set <code>json_name = 'foo'</code>.</li>
-<li><code>json_collection_name</code> - optional; this value is the name of a collection
-of the persistent objects. If not provided, it defaults to <code>json_name</code>
-with an appended <code>'s'</code> (e.g., if <code>json_name</code> is <code>"foo"</code>, then
-<code>json_collection_name</code> would be <code>"foos"</code> by default). Set this value if
-the collection name doesn't follow this pattern.</li>
-<li><code>json_collection_element</code> - the common pattern for a collection is:
-<code>{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}</code>
-That is, each element of the array is an anonymous object containing the
-object's attributes. In (very) rare instances, the objects in the array
-are named, and <code>json_collection_element</code> contains the name of the
-collection objects. For example, in this:
-<code>{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}</code>, then
-<code>json_collection_element</code> would be set to <code>'allowedDomain'</code>.</li>
-</ul>
-
-<p>The PersistentObject class supports the standard <code>Create()</code>, <code>Update()</code>,
-and <code>Delete()</code> methods; if these are not needed (i.e., not supported by
-the service, the subclass should redefine these to call the
-<code>NoCreate</code>, <code>NoUpdate</code>, or <code>NoDelete</code> methods, which will trigger an
-appropriate exception. For example, if an object cannot be created:</p>
-
-<p>function Create($parm=array()) { $this->NoCreate(); }</p>
-
-<p>This will cause any call to the <code>Create()</code> method to fail with an
-exception.</p><br><div id="methods_Type">
+<em>The Rackspace Cloud Load Balancers</em><br><p>Because Service is an abstract class, it cannot be called directly. Provider
+services such as Rackspace Cloud Servers or OpenStack Swift are each
+subclassed from Service.</p><br><div id="methods_Service">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#Type::Action()">Action</a>,
-      <a style="font-style: italic;" href="#Type::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#Type::CheckExtension()">CheckExtension</a>,
-      <a style="font-style: italic;" href="#Type::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#Type::Create()">Create</a>,
-      <a style="font-style: italic;" href="#Type::CreateJson()">CreateJson</a>,
-      <a style="font-style: italic;" href="#Type::CreateUrl()">CreateUrl</a>,
-      <a style="font-style: italic;" href="#Type::Delete()">Delete</a>,
-      <a style="font-style: italic;" href="#Type::FindLink()">FindLink</a>,
-      <a style="font-style: italic;" href="#Type::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#Type::Id()">Id</a>,
-      <a style="font-style: italic;" href="#Type::JsonCollectionElement()">JsonCollectionElement</a>,
-      <a style="font-style: italic;" href="#Type::JsonCollectionName()">JsonCollectionName</a>,
-      <a style="font-style: italic;" href="#Type::JsonName()">JsonName</a>,
-      <a style="font-style: italic;" href="#Type::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#Type::Name()">Name</a>,
-      <a style="font-style: italic;" href="#Type::NoCreate()">NoCreate</a>,
-      <a style="font-style: italic;" href="#Type::NoDelete()">NoDelete</a>,
-      <a style="font-style: italic;" href="#Type::NoUpdate()">NoUpdate</a>,
-      <a style="font-style: italic;" href="#Type::Parent()">Parent</a>,
-      <a style="font-style: italic;" href="#Type::PrimaryKeyField()">PrimaryKeyField</a>,
-      <a style="font-style: italic;" href="#Type::Refresh()">Refresh</a>,
-      <a style="font-style: italic;" href="#Type::Region()">Region</a>,
-      <a style="font-style: italic;" href="#Type::ResourceName()">ResourceName</a>,
-      <a style="font-style: italic;" href="#Type::Service()">Service</a>,
-      <a style="font-style: italic;" href="#Type::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#Type::Status()">Status</a>,
-      <a style="font-style: italic;" href="#Type::Update()">Update</a>,
-      <a style="font-style: italic;" href="#Type::UpdateJson()">UpdateJson</a>,
-      <a style="font-style: italic;" href="#Type::Url()">Url</a>,
-      <a style="font-style: italic;" href="#Type::WaitFor()">WaitFor</a>,
-      <a style="font-style: italic;" href="#Type::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#Type::__set()">__set</a>,
-      <a style="font-style: italic;" href="#Type::debug()">debug</a>,
-      <a style="font-style: italic;" href="#Type::getDebug()">getDebug</a>,
-      <a style="font-style: italic;" href="#Type::setDebug()">setDebug</a>,
-      <a style="font-style: italic;" href="#Type::to_string()">to_string</a>,
+<a style="font-style: italic;" href="#Service::Algorithm()">Algorithm</a>,
+      <a style="font-style: italic;" href="#Service::AlgorithmList()">AlgorithmList</a>,
+      <a style="font-style: italic;" href="#Service::AllowedDomain()">AllowedDomain</a>,
+      <a style="font-style: italic;" href="#Service::AllowedDomainList()">AllowedDomainList</a>,
+      <a style="font-style: italic;" href="#Service::BillableLoadBalancer()">BillableLoadBalancer</a>,
+      <a style="font-style: italic;" href="#Service::BillableLoadBalancerList()">BillableLoadBalancerList</a>,
+      <a style="font-style: italic;" href="#Service::CheckAttributePrefix()">CheckAttributePrefix</a>,
+      <a style="font-style: italic;" href="#Service::CheckJsonError()">CheckJsonError</a>,
+      <a style="font-style: italic;" href="#Service::Collection()">Collection</a>,
+      <a style="font-style: italic;" href="#Service::Extensions()">Extensions</a>,
+      <a style="font-style: italic;" href="#Service::GetHttpRequestObject()">GetHttpRequestObject</a>,
+      <a style="font-style: italic;" href="#Service::GetMetaUrl()">GetMetaUrl</a>,
+      <a style="font-style: italic;" href="#Service::Limits()">Limits</a>,
+      <a style="font-style: italic;" href="#Service::LoadBalancer()">LoadBalancer</a>,
+      <a style="font-style: italic;" href="#Service::LoadBalancerList()">LoadBalancerList</a>,
+      <a style="font-style: italic;" href="#Service::MakeQueryString()">MakeQueryString</a>,
+      <a style="font-style: italic;" href="#Service::Name()">Name</a>,
+      <a style="font-style: italic;" href="#Service::Protocol()">Protocol</a>,
+      <a style="font-style: italic;" href="#Service::ProtocolList()">ProtocolList</a>,
+      <a style="font-style: italic;" href="#Service::Region()">Region</a>,
+      <a style="font-style: italic;" href="#Service::Request()">Request</a>,
+      <a style="font-style: italic;" href="#Service::SetProperty()">SetProperty</a>,
+      <a style="font-style: italic;" href="#Service::Url()">Url</a>,
+      <a style="font-style: italic;" href="#Service::__construct()">__construct</a>,
+      <a style="font-style: italic;" href="#Service::__set()">__set</a>,
+      <a style="font-style: italic;" href="#Service::debug()">debug</a>,
+      <a style="font-style: italic;" href="#Service::getDebug()">getDebug</a>,
+      <a style="font-style: italic;" href="#Service::get_endpoint()">get_endpoint</a>,
+      <a style="font-style: italic;" href="#Service::namespaces()">namespaces</a>,
+      <a style="font-style: italic;" href="#Service::setDebug()">setDebug</a>,
+      <a style="font-style: italic;" href="#Service::to_string()">to_string</a>,
       <div class="method">
-<a id="Type::Action()"></a><h3>Action<span class="nb-faded-text">(
+<a id="Service::Algorithm()"></a><h3>Algorithm<span class="nb-faded-text">(
           
              
-            $object,
+            $data
+            = NULL,
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\Autoscale\LoadBalancerService\Algorithm</span>
 </h3>
 <h4>Description</h4>
-<em>Sends the json string to the /action resource</em><br><small><p>This is used for many purposes, such as rebooting the server,
-setting the root password, creating images, etc.
-Since it can only be used on a live server, it checks for a valid ID.</p></small><br><h4>Arguments</h4>
+<em>single algorithm (should never be called directly)</em><br><small><p>convenience method used by the Collection factory</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -186,14 +136,10 @@ Since it can only be used on a live server, it checks for a valid ID.</p></small
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$object</td>
+<td>$data</td>
 <td style="white-space: normal;">n/a</td>
-<td><ul>
-<li>this will be encoded as json, and we handle all the JSON
-error-checking in one place</li>
-</ul>
-</td>
 <td></td>
+<td>NULL</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
@@ -203,8 +149,29 @@ error-checking in one place</li>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\Autoscale\LoadBalancerService\Algorithm</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::AlgorithmList()"></a><h3>AlgorithmList<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Autoscale\Collection</span>
+</h3>
+<h4>Description</h4>
+<em>a list of Algorithm objects</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Autoscale\Collection</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -213,28 +180,215 @@ error-checking in one place</li>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if server ID is not defined</td>
-</tr>
-<tr>
-<td>throws</td>
-<td>on other errors</td>
-</tr>
-<tr>
-<td>returns</td>
-<td>boolean; TRUE if successful, FALSE otherwise</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Action()"><small>\OpenCloud\AbstractClass\PersistentObject::Action()</small></a></td>
-</tr>
-</tbody>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
+<a id="Service::AllowedDomain()"></a><h3>AllowedDomain<span class="nb-faded-text">(
+          mixed
+             
+            $data
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Autoscale\LoadBalancerService\AllowedDomain</span>
+</h3>
+<h4>Description</h4>
+<em>returns allowed domain</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$data</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>either an array of values or NULL</p></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Autoscale\LoadBalancerService\AllowedDomain</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::AllowedDomainList()"></a><h3>AllowedDomainList<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Autoscale\Collection</span>
+</h3>
+<h4>Description</h4>
+<em>returns Collection of AllowedDomain object</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Autoscale\Collection</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::BillableLoadBalancer()"></a><h3>BillableLoadBalancer<span class="nb-faded-text">(
+          string
+             
+            $id
+            = NULL,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer</span>
+</h3>
+<h4>Description</h4>
+<em>creates a new BillableLoadBalancer object (read-only)</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">string</td>
+<td><p>the identifier of the load balancer</p></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::BillableLoadBalancerList()"></a><h3>BillableLoadBalancerList<span class="nb-faded-text">(
+          boolean
+             
+            $detail
+            = TRUE,
+          array
+             
+            $filter
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Collection</span>
+</h3>
+<h4>Description</h4>
+<em>returns a Collection of BillableLoadBalancer objects</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$detail</td>
+<td style="white-space: normal;">boolean</td>
+<td><p>if TRUE (the default), then all details are
+     returned; otherwise, the minimal set (ID, name) are retrieved</p>
+</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>$filter</td>
+<td style="white-space: normal;">array</td>
+<td><p>if provided, a set of key/value pairs that are
+        set as query string parameters to the query</p>
+</td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Collection</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
           string
              
             $property,
@@ -297,69 +451,13 @@ in the specified $prefixes array</em><br><small><p>This is to support extension 
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CheckAttributePrefix()"><small>\OpenCloud\AbstractClass\PersistentObject::CheckAttributePrefix()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::CheckAttributePrefix()"><small>\OpenCloud\AbstractClass\Service::CheckAttributePrefix()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
-          
-             
-            $alias,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>checks for `$alias` in extensions and throws an error if not present</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$alias</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CheckExtension()"><small>\OpenCloud\AbstractClass\PersistentObject::CheckExtension()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
+<a id="Service::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
           
           )
         </span>
@@ -401,25 +499,36 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CheckJsonError()"><small>\OpenCloud\AbstractClass\PersistentObject::CheckJsonError()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::CheckJsonError()"><small>\OpenCloud\AbstractClass\Service::CheckJsonError()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::Create()"></a><h3>Create<span class="nb-faded-text">(
+<a id="Service::Collection()"></a><h3>Collection<span class="nb-faded-text">(
+          string
+             
+            $class,
+          string
+             
+            $url
+            = NULL,
+          mixed
+             
+            $parent
+            = NULL,
           array
              
-            $params
+            $parm
             = array(),
           
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\AbstractClass\HttpResponse</span>
+        <span class="nb-faded-text">\OpenCloud\Collection</span>
 </h3>
 <h4>Description</h4>
-<em>Creates are not permitted</em><br><h4>Arguments</h4>
+<em>returns a collection of objects</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -427,12 +536,36 @@ exception thrown.</p>
 <th>Description</th>
 <th>Default</th>
 </tr></thead>
-<tbody><tr>
-<td>$params</td>
+<tbody>
+<tr>
+<td>$class</td>
+<td style="white-space: normal;">string</td>
+<td><p>the class of objects to fetch</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">string</td>
+<td><p>(optional) the URL to retrieve</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$parent</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>(optional) the parent service/object</p>
+</td>
+<td>NULL</td>
+</tr>
+<tr>
+<td>$parm</td>
 <td style="white-space: normal;">array</td>
-<td><p>array of values to set when creating the object</p></td>
+<td><p>(optional) array of key/value pairs to use as
+    query strings</p>
+</td>
 <td>array()</td>
-</tr></tbody>
+</tr>
+</tbody>
 </table>
 <h4>Return value</h4>
 <table>
@@ -441,7 +574,7 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\AbstractClass\HttpResponse</td>
+<td>\OpenCloud\Collection</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -452,29 +585,29 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>throws</td>
-<td>always</td>
+<td>inherited_from</td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::Collection()"><small>\OpenCloud\AbstractClass\Service::Collection()</small></a></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
+<a id="Service::Extensions()"></a><h3>Extensions<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">array</span>
 </h3>
 <h4>Description</h4>
-<em>Returns an object for the Create() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
+<em>Returns the /extensions for the service</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>array</td>
+<td>of objects</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -485,137 +618,18 @@ exception thrown.</p>
 </tr></thead>
 <tbody>
 <tr>
-<td>throws</td>
-<td>if not overridden</td>
+<td>api</td>
+<td></td>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CreateJson()"><small>\OpenCloud\AbstractClass\PersistentObject::CreateJson()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::Extensions()"><small>\OpenCloud\AbstractClass\Service::Extensions()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the URL used for Create</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::CreateUrl()"><small>\OpenCloud\AbstractClass\PersistentObject::CreateUrl()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::Delete()"></a><h3>Delete<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\AbstractClass\HttpResponse</span>
-</h3>
-<h4>Description</h4>
-<em>deletes are not permitted</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\AbstractClass\HttpResponse</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
-          string
-             
-            $type
-            = 'self',
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Since each server can have multiple links, this returns the desired one</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$type</td>
-<td style="white-space: normal;">string</td>
-<td><ul>
-<li>'self' is most common; use 'bookmark' for
- the version-independent one</li>
-</ul>
-</td>
-<td>'self'</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td>the URL from the links block</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::FindLink()"><small>\OpenCloud\AbstractClass\PersistentObject::FindLink()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
+<a id="Service::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
           
              
             $url,
@@ -687,32 +701,81 @@ exception thrown.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::GetHttpRequestObject()"><small>\OpenCloud\AbstractClass\PersistentObject::GetHttpRequestObject()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::GetHttpRequestObject()"><small>\OpenCloud\AbstractClass\Service::GetHttpRequestObject()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::Id()"></a><h3>Id<span class="nb-faded-text">(
+<a id="Service::GetMetaUrl()"></a><h3>GetMetaUrl<span class="nb-faded-text">(
+          string
+             
+            $resource,
           
           )
         </span>
         :
-        <span class="nb-faded-text">string</span>
+        <span class="nb-faded-text">\stdClass</span>
 </h3>
 <h4>Description</h4>
-<em>returns the object's identifier</em><br><small><p>Can be overridden by a child class if the identifier is not in the
-<code>$id</code> property. Use of this function permits the <code>$id</code> attribute to
-be protected or private to prevent unauthorized overwriting for
-security.</p></small><br><h4>Return value</h4>
+<em>Constructs a specified URL from the subresource</em><br><small><p>Given a subresource (e.g., "extensions"), this constructs the proper
+URL and retrieves the resource.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$resource</td>
+<td style="white-space: normal;">string</td>
+<td><p>The resource requested; should NOT have slashes
+     at the beginning or end</p></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>string</td>
-<td></td>
+<td>\stdClass</td>
+<td>object</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::GetMetaUrl()"><small>\OpenCloud\AbstractClass\Service::GetMetaUrl()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::Limits()"></a><h3>Limits<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns the /limits for the service</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td>of limits</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -728,32 +791,47 @@ security.</p></small><br><h4>Return value</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Id()"><small>\OpenCloud\AbstractClass\PersistentObject::Id()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::Limits()"><small>\OpenCloud\AbstractClass\Service::Limits()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
+<a id="Service::LoadBalancer()"></a><h3>LoadBalancer<span class="nb-faded-text">(
+          string
+             
+            $id
+            = NULL,
           
           )
         </span>
         :
-        <span class="nb-faded-text">string</span>
+        <span class="nb-faded-text">\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer</span>
 </h3>
 <h4>Description</h4>
-<em>returns the JSON name for each element in a collection</em><br><small><p>Usually, elements in a collection are anonymous; this function, however,
-provides for an element level name:</p>
-
-<pre><code>`{ "collection" : [ { "element" : ... } ] }`
-</code></pre></small><br><h4>Return value</h4>
+<em>creates a new LoadBalancer object</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$id</td>
+<td style="white-space: normal;">string</td>
+<td><p>the identifier of the load balancer</p></td>
+<td>NULL</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>string</td>
+<td>\OpenCloud\Autoscale\LoadBalancerService\LoadBalancer</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -764,92 +842,80 @@ provides for an element level name:</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::JsonCollectionElement()"><small>\OpenCloud\AbstractClass\PersistentObject::JsonCollectionElement()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the collection JSON element name</em><br><small><p>When an object is returned in a collection, it usually has a top-level
-object that is an array holding child objects of the object types.
-This static function returns the name of the top-level element. Usually,
-that top-level element is simply the JSON name of the resource.'s';
-however, it can be overridden by specifying the $json_collection_name
-attribute.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
+<td>api</td>
 <td></td>
 </tr></tbody>
 </table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::JsonCollectionName()"><small>\OpenCloud\AbstractClass\PersistentObject::JsonCollectionName()</small></a></td>
-</tr></tbody>
-</table>
 </div>
 <div class="method">
-<a id="Type::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
+<a id="Service::LoadBalancerList()"></a><h3>LoadBalancerList<span class="nb-faded-text">(
+          boolean
+             
+            $detail
+            = TRUE,
+          array
+             
+            $filter
+            = array(),
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\Collection</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the top-level document identifier for the returned response
-JSON document; must be overridden in child classes</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
-Instance document is <code>{"instance": ...}</code> - this function must return
-the top level document name (either "server" or "instance", in
-these examples).</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
+<em>returns a Collection of LoadBalancer objects</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
+<th>Default</th>
 </tr></thead>
 <tbody>
 <tr>
-<td>throws</td>
-<td>if not overridden</td>
+<td>$detail</td>
+<td style="white-space: normal;">boolean</td>
+<td><p>if TRUE (the default), then all details are
+     returned; otherwise, the minimal set (ID, name) are retrieved</p>
+</td>
+<td>TRUE</td>
 </tr>
 <tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::JsonName()"><small>\OpenCloud\AbstractClass\PersistentObject::JsonName()</small></a></td>
+<td>$filter</td>
+<td style="white-space: normal;">array</td>
+<td><p>if provided, a set of key/value pairs that are
+        set as query string parameters to the query</p>
+</td>
+<td>array()</td>
 </tr>
 </tbody>
 </table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Collection</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>api</td>
+<td></td>
+</tr></tbody>
+</table>
 </div>
 <div class="method">
-<a id="Type::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
+<a id="Service::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
           array
              
             $arr,
@@ -900,13 +966,13 @@ these examples).</p></small><br><h4>Return value</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::MakeQueryString()"><small>\OpenCloud\AbstractClass\PersistentObject::MakeQueryString()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::MakeQueryString()"><small>\OpenCloud\AbstractClass\Service::MakeQueryString()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::Name()"></a><h3>Name<span class="nb-faded-text">(
+<a id="Service::Name()"></a><h3>Name<span class="nb-faded-text">(
           
           )
         </span>
@@ -914,8 +980,7 @@ these examples).</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the displayable name of the object</em><br><small><p>Can be overridden by child objects; <em>must</em> be overridden by child
-objects if the object does not have a <code>name</code> attribute defined.</p></small><br><h4>Return value</h4>
+<em>returns the serviceName associated with the service</em><br><small><p>This is used by DNS for PTR record lookups</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -938,211 +1003,26 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
 <td></td>
 </tr>
 <tr>
-<td>throws</td>
-<td>if attribute 'name' is not defined</td>
-</tr>
-<tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Name()"><small>\OpenCloud\AbstractClass\PersistentObject::Name()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::Name()"><small>\OpenCloud\AbstractClass\Service::Name()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::NoCreate()"></a><h3>NoCreate<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>throws a CreateError for subclasses that don't support Create</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::NoCreate()"><small>\OpenCloud\AbstractClass\PersistentObject::NoCreate()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::NoDelete()"></a><h3>NoDelete<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>throws a DeleteError for subclasses that don't support Delete</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::NoDelete()"><small>\OpenCloud\AbstractClass\PersistentObject::NoDelete()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::NoUpdate()"></a><h3>NoUpdate<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>throws a UpdateError for subclasses that don't support Update</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::NoUpdate()"><small>\OpenCloud\AbstractClass\PersistentObject::NoUpdate()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::Parent()"></a><h3>Parent<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>returns the parent object of this object</em><br><small><p>This is a synonym for Service(), since the object is usually a
-service.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Parent()"><small>\OpenCloud\AbstractClass\PersistentObject::Parent()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the primary key field for the object</em><br><small><p>The primary key is usually 'id', but this function is provided so that
-(in rare cases where it is not 'id'), it can be overridden.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::PrimaryKeyField()"><small>\OpenCloud\AbstractClass\PersistentObject::PrimaryKeyField()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
+<a id="Service::Protocol()"></a><h3>Protocol<span class="nb-faded-text">(
           
              
-            $id
+            $data
             = NULL,
           
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">\OpenCloud\Autoscale\LoadBalancerService\Protocol</span>
 </h3>
 <h4>Description</h4>
-<em>Refreshes the object from the origin (useful when the server is
-changing states)</em><br><h4>Arguments</h4>
+<em>single protocol (should never be called directly)</em><br><small><p>Convenience method to be used by the ProtocolList Collection.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1151,7 +1031,7 @@ changing states)</em><br><h4>Arguments</h4>
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$id</td>
+<td>$data</td>
 <td style="white-space: normal;">n/a</td>
 <td></td>
 <td>NULL</td>
@@ -1164,7 +1044,28 @@ changing states)</em><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
+<td>\OpenCloud\Autoscale\LoadBalancerService\Protocol</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::ProtocolList()"></a><h3>ProtocolList<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">\OpenCloud\Autoscale\Collection</span>
+</h3>
+<h4>Description</h4>
+<em>a list of Protocol objects</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>\OpenCloud\Autoscale\Collection</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -1174,36 +1075,30 @@ changing states)</em><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
+<tbody><tr>
+<td>api</td>
 <td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Refresh()"><small>\OpenCloud\AbstractClass\PersistentObject::Refresh()</small></a></td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::Region()"></a><h3>Region<span class="nb-faded-text">(
+<a id="Service::Region()"></a><h3>Region<span class="nb-faded-text">(
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>returns the region associated with the object</em><br><small><p>navigates to the parent service to determine the region.</p></small><br><h4>Return value</h4>
+<em>returns the Region associated with the service</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>string</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1219,69 +1114,84 @@ changing states)</em><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Region()"><small>\OpenCloud\AbstractClass\PersistentObject::Region()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::Region()"><small>\OpenCloud\AbstractClass\Service::Region()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
+<a id="Service::Request()"></a><h3>Request<span class="nb-faded-text">(
+          string
+             
+            $url,
+          string
+             
+            $method
+            = 'GET',
+          array
+             
+            $headers
+            = array(),
+          string
+             
+            $body
+            = NULL,
           
           )
         </span>
         :
-        <span class="nb-faded-text">n/a</span>
+        <span class="nb-faded-text">\OpenCloud\HttpResult</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the resource name for the URL of the object; must be overridden
-in child classes</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
-<code>/instances/</code>. Must be overridden in child classes.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
+<em>Performs an authenticated request</em><br><small><p>This method handles the addition of authentication headers to each
+request. It always adds the X-Auth-Token: header and will add the
+X-Auth-Project-Id: header if there is a tenant defined on the
+connection.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
+<th>Type</th>
 <th>Description</th>
+<th>Default</th>
 </tr></thead>
 <tbody>
 <tr>
-<td>throws</td>
+<td>$url</td>
+<td style="white-space: normal;">string</td>
+<td><p>The URL of the request</p></td>
 <td></td>
 </tr>
 <tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::ResourceName()"><small>\OpenCloud\AbstractClass\PersistentObject::ResourceName()</small></a></td>
+<td>$method</td>
+<td style="white-space: normal;">string</td>
+<td><p>The HTTP method (defaults to "GET")</p>
+</td>
+<td>'GET'</td>
+</tr>
+<tr>
+<td>$headers</td>
+<td style="white-space: normal;">array</td>
+<td><p>An associative array of headers</p></td>
+<td>array()</td>
+</tr>
+<tr>
+<td>$body</td>
+<td style="white-space: normal;">string</td>
+<td><p>An optional body for POST/PUT requests</p>
+</td>
+<td>NULL</td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="method">
-<a id="Type::Service()"></a><h3>Service<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the Service/parent object associated with this object</em><br><h4>Return value</h4>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
+<td>\OpenCloud\HttpResult</td>
+<td></td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -1292,12 +1202,12 @@ in child classes</em><br><small><p>For example, a server is <code>/servers/</cod
 </tr></thead>
 <tbody><tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Service()"><small>\OpenCloud\AbstractClass\PersistentObject::Service()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::Request()"><small>\OpenCloud\AbstractClass\Service::Request()</small></a></td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
+<a id="Service::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
           string
              
             $property,
@@ -1375,166 +1285,20 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::SetProperty()"><small>\OpenCloud\AbstractClass\PersistentObject::SetProperty()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::SetProperty()"><small>\OpenCloud\AbstractClass\Service::SetProperty()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::Status()"></a><h3>Status<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the object's status or `N/A` if not available</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Status()"><small>\OpenCloud\AbstractClass\PersistentObject::Status()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::Update()"></a><h3>Update<span class="nb-faded-text">(
-          array
-             
-            $params
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\AbstractClass\HttpResponse</span>
-</h3>
-<h4>Description</h4>
-<em>updates are not permitted</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">array</td>
-<td><p>array of values to set when updating the object</p></td>
-<td>array()</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\AbstractClass\HttpResponse</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>always</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::UpdateJson()"></a><h3>UpdateJson<span class="nb-faded-text">(
-          
-             
-            $params
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns an object for the Update() method JSON</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$params</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>array()</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if not overridden</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::UpdateJson()"><small>\OpenCloud\AbstractClass\PersistentObject::UpdateJson()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::Url()"></a><h3>Url<span class="nb-faded-text">(
+<a id="Service::Url()"></a><h3>Url<span class="nb-faded-text">(
           string
              
-            $subresource
-            = NULL,
+            $resource
+            = self::URL_RESOURCE,
           array
              
-            $qstr
+            $args
             = array(),
           
           )
@@ -1543,7 +1307,10 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">string</span>
 </h3>
 <h4>Description</h4>
-<em>Returns the default URL of the object</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<em>Returns the URL of this service, or optionally that of
+an instance</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
+base level, it simply throws an exception to enforce the idea that
+subclasses need to define this method.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1553,17 +1320,15 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$subresource</td>
+<td>$resource</td>
 <td style="white-space: normal;">string</td>
-<td><p>optional sub-resource string</p>
-</td>
-<td>NULL</td>
+<td><p>the resource required</p></td>
+<td>self::URL_RESOURCE</td>
 </tr>
 <tr>
-<td>$qstr</td>
+<td>$args</td>
 <td style="white-space: normal;">array</td>
-<td><p>optional k/v pairs for query strings</p>
-</td>
+<td><p>extra arguments to pass to the URL as query strings</p></td>
 <td>array()</td>
 </tr>
 </tbody>
@@ -1585,192 +1350,89 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Name</th>
 <th>Description</th>
 </tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if URL is not defined</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::Url()"><small>\OpenCloud\AbstractClass\PersistentObject::Url()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
-          string
-             
-            $terminal
-            = 'ACTIVE',
-          integer
-             
-            $timeout
-            = RAXSDK_SERVER_MAXTIMEOUT,
-          callable
-             
-            $callback
-            = NULL,
-          
-             
-            $sleep
-            = RAXSDK_POLL_INTERVAL,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Waits for the server/instance status to change</em><br><small><p>This function repeatedly polls the system for a change in server
-status. Once the status reaches the <code>$terminal</code> value (or 'ERROR'),
-then the function returns.</p>
-
-<p>The polling interval is set by the constant RAXSDK_POLL_INTERVAL.</p>
-
-<p>The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
-seconds elapse.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$terminal</td>
-<td style="white-space: normal;">string</td>
-<td><p>the terminal state to wait for</p></td>
-<td>'ACTIVE'</td>
-</tr>
-<tr>
-<td>$timeout</td>
-<td style="white-space: normal;">integer</td>
-<td><p>the max time (in seconds) to wait</p>
-</td>
-<td>RAXSDK_SERVER_MAXTIMEOUT</td>
-</tr>
-<tr>
-<td>$callback</td>
-<td style="white-space: normal;">callable</td>
-<td><p>a callback function that is invoked with
-     each repetition of the polling sequence. This can be used, for
-     example, to update a status display or to permit other operations
-     to continue</p></td>
-<td>NULL</td>
-</tr>
-<tr>
-<td>$sleep</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>RAXSDK_POLL_INTERVAL</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
 <tbody><tr>
-<td>void</td>
+<td>throws</td>
 <td></td>
 </tr></tbody>
 </table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::WaitFor()"><small>\OpenCloud\AbstractClass\PersistentObject::WaitFor()</small></a></td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="method">
-<a id="Type::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          mixed
+<a id="Service::__construct()"></a><h3>__construct<span class="nb-faded-text">(
+          \OpenCloud\Autoscale\OpenStack
              
-            $parentobj,
-          mixed
-             
-            $info
-            = NULL,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Retrieves the instance from persistent storage</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$parentobj</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>the parent object of the current object</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$info</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>the ID or array/object of data</p>
-</td>
-<td>NULL</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if $info has an invalid data type</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::__construct()"><small>\OpenCloud\AbstractClass\PersistentObject::__construct()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Type::__set()"></a><h3>__set<span class="nb-faded-text">(
+            $conn,
           string
              
             $name,
+          string
+             
+            $region,
+          string
+             
+            $urltype,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Creates a new LoadBalancerService connection</em><br><small><p>This is not normally called directly, but via the factory method on the
+OpenStack or Rackspace connection object.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$conn</td>
+<td style="white-space: normal;">\OpenCloud\Autoscale\OpenStack</td>
+<td><p>the connection on which to create the service</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>the name of the service (e.g., "cloudDatabases")</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$region</td>
+<td style="white-space: normal;">string</td>
+<td><p>the region of the service (e.g., "DFW" or "LON")</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$urltype</td>
+<td style="white-space: normal;">string</td>
+<td><p>the type of URL (normally "publicURL")</p>
+</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::__set()"></a><h3>__set<span class="nb-faded-text">(
+          string
+             
+            $property,
           mixed
              
             $value,
@@ -1781,8 +1443,9 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>Validates properties that have a namespace: prefix</em><br><small><p>If the property prefix: appears in the list of supported extension
-namespaces, then the property is applied to the object. Otherwise,
+<em>Sets extended attributes on an object and validates them</em><br><small><p>This function is provided to ensure that attributes cannot
+arbitrarily added to an object. If this function is called, it
+means that the attribute is not defined on the object, and thus
 an exception is thrown.</p></small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
@@ -1793,16 +1456,15 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$name</td>
+<td>$property</td>
 <td style="white-space: normal;">string</td>
-<td><p>the name of the property</p></td>
+<td><p>the name of the attribute</p></td>
 <td></td>
 </tr>
 <tr>
 <td>$value</td>
 <td style="white-space: normal;">mixed</td>
-<td><p>the property's value</p>
-</td>
+<td><p>the value of the attribute</p></td>
 <td></td>
 </tr>
 </tbody>
@@ -1826,18 +1488,18 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>throws</td>
-<td></td>
+<td>inherited_from</td>
+<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::__set()"><small>\OpenCloud\Base\Base::__set()</small></a></td>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::__set()"><small>\OpenCloud\AbstractClass\PersistentObject::__set()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::__set()"><small>\OpenCloud\AbstractClass\Service::__set()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::debug()"></a><h3>debug<span class="nb-faded-text">(
+<a id="Service::debug()"></a><h3>debug<span class="nb-faded-text">(
           string
              
             $msg,
@@ -1955,13 +1617,13 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::debug()"><small>\OpenCloud\AbstractClass\PersistentObject::debug()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::debug()"><small>\OpenCloud\AbstractClass\Service::debug()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::getDebug()"></a><h3>getDebug<span class="nb-faded-text">(
+<a id="Service::getDebug()"></a><h3>getDebug<span class="nb-faded-text">(
           
           )
         </span>
@@ -1997,13 +1659,132 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::getDebug()"><small>\OpenCloud\AbstractClass\PersistentObject::getDebug()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::getDebug()"><small>\OpenCloud\AbstractClass\Service::getDebug()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
+<a id="Service::get_endpoint()"></a><h3>get_endpoint<span class="nb-faded-text">(
+          string
+             
+            $type,
+          string
+             
+            $name,
+          string
+             
+            $region,
+          string
+             
+            $urltype
+            = 'publicURL',
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">string</span>
+</h3>
+<h4>Description</h4>
+<em>Given a service type, name, and region, return the url</em><br><small><p>This function ensures that services are represented by an entry in the
+service catalog, and NOT by an arbitrarily-constructed URL.</p>
+
+<p>Note that it will always return the first match found in the
+service catalog (there <em>should</em> be only one, but you never know...)</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$type</td>
+<td style="white-space: normal;">string</td>
+<td><p>The OpenStack service type ("compute" or
+     "object-store", for example</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">string</td>
+<td><p>The name of the service in the service catlog</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$region</td>
+<td style="white-space: normal;">string</td>
+<td><p>The region of the service</p></td>
+<td></td>
+</tr>
+<tr>
+<td>$urltype</td>
+<td style="white-space: normal;">string</td>
+<td><p>The URL type; defaults to "publicURL"</p>
+</td>
+<td>'publicURL'</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>string</td>
+<td>The URL of the service</td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::get_endpoint()"><small>\OpenCloud\AbstractClass\Service::get_endpoint()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::namespaces()"></a><h3>namespaces<span class="nb-faded-text">(
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">array</span>
+</h3>
+<h4>Description</h4>
+<em>Returns a list of supported namespaces</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>array</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::namespaces()"><small>\OpenCloud\AbstractClass\Service::namespaces()</small></a></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
           
           )
         </span>
@@ -2039,13 +1820,13 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::setDebug()"><small>\OpenCloud\AbstractClass\PersistentObject::setDebug()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::setDebug()"><small>\OpenCloud\AbstractClass\Service::setDebug()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="method">
-<a id="Type::to_string()"></a><h3>to_string<span class="nb-faded-text">(
+<a id="Service::to_string()"></a><h3>to_string<span class="nb-faded-text">(
           mixed
              
             $x,
@@ -2095,25 +1876,25 @@ with "Debug:" and the class name, to the standard output device.</p>
 </tr>
 <tr>
 <td>inherited_from</td>
-<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::to_string()"><small>\OpenCloud\AbstractClass\PersistentObject::to_string()</small></a></td>
+<td><a href="OpenCloud.AbstractClass.Service.html#%5COpenCloud%5CAbstractClass%5CService::to_string()"><small>\OpenCloud\AbstractClass\Service::to_string()</small></a></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="properties_Type">
+<div id="properties_Service">
 <h4>Properties</h4>
-<a href="#Type::%24_errors">$_errors</a>,
-      <a href="#Type::%24_parent">$_parent</a>,
-      <a href="#Type::%24debug">$debug</a>,
-      <a href="#Type::%24extra_specs">$extra_specs</a>,
-      <a href="#Type::%24http_headers">$http_headers</a>,
-      <a href="#Type::%24id">$id</a>,
-      <a href="#Type::%24json_name">$json_name</a>,
-      <a href="#Type::%24name">$name</a>,
-      <a href="#Type::%24url_resource">$url_resource</a>,
+<a href="#Service::%24_errors">$_errors</a>,
+      <a href="#Service::%24_namespaces">$_namespaces</a>,
+      <a href="#Service::%24conn">$conn</a>,
+      <a href="#Service::%24debug">$debug</a>,
+      <a href="#Service::%24http_headers">$http_headers</a>,
+      <a href="#Service::%24service_name">$service_name</a>,
+      <a href="#Service::%24service_region">$service_region</a>,
+      <a href="#Service::%24service_type">$service_type</a>,
+      <a href="#Service::%24service_url">$service_url</a>,
       <div class="method">
-<a id="Type::$_errors"></a><h3>
+<a id="Service::$_errors"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$_errors
@@ -2122,16 +1903,25 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="Type::$_parent"></a><h3>
+<a id="Service::$_namespaces"></a><h3>
+<span class="nb-faded-text"> 
+          protected 
+          </span>$_namespaces
+          =
+          array()</h3>
+<em></em><br>
+</div>
+<div class="method">
+<a id="Service::$conn"></a><h3>
 <span class="nb-faded-text"> 
           private 
-          </span>$_parent
+          </span>$conn
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="Type::$debug"></a><h3>
+<a id="Service::$debug"></a><h3>
 <span class="nb-faded-text">\OpenCloud\Base\Debug 
           private 
           </span>$debug
@@ -2140,16 +1930,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em>Debug object.</em><br><small></small><br><br>
 </div>
 <div class="method">
-<a id="Type::$extra_specs"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$extra_specs
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Type::$http_headers"></a><h3>
+<a id="Service::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
           </span>$http_headers
@@ -2158,40 +1939,75 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="Type::$id"></a><h3>
+<a id="Service::$service_name"></a><h3>
 <span class="nb-faded-text"> 
-          public 
-          </span>$id
+          private 
+          </span>$service_name
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="Type::$json_name"></a><h3>
+<a id="Service::$service_region"></a><h3>
 <span class="nb-faded-text"> 
-          protected 
-          static </span>$json_name
-          =
-          'volume_type'</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Type::$name"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$name
+          private 
+          </span>$service_region
           =
           </h3>
 <em></em><br>
 </div>
 <div class="method">
-<a id="Type::$url_resource"></a><h3>
+<a id="Service::$service_type"></a><h3>
 <span class="nb-faded-text"> 
-          protected 
-          static </span>$url_resource
+          private 
+          </span>$service_type
           =
-          'types'</h3>
+          </h3>
 <em></em><br>
+</div>
+<div class="method">
+<a id="Service::$service_url"></a><h3>
+<span class="nb-faded-text"> 
+          private 
+          </span>$service_url
+          =
+          </h3>
+<em></em><br>
+</div>
+</div>
+<div id="constants_Service">
+<h4>Constants</h4>
+<a id="Service::JSON_ELEMENT"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>JSON_ELEMENT<span class="nb-faded-text">
+         = 'loadBalancers'</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="Service::SERVICE_OBJECT_CLASS"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>SERVICE_OBJECT_CLASS<span class="nb-faded-text">
+         = 'LoadBalancer'</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="Service::SERVICE_TYPE"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>SERVICE_TYPE<span class="nb-faded-text">
+         = 'rax:load-balancer'</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="Service::URL_RESOURCE"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>URL_RESOURCE<span class="nb-faded-text">
+         = 'loadbalancers'</span>
+</h3>
+<em></em><br><br>
 </div>
 </div>
 <div style="clear: both"></div>
@@ -2273,6 +2089,9 @@ retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="OpenCloud.AbstractClass.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
 </ul>
+</li>
+<li class="closed">
+<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Rackspace Cloud Load Balancers</small></span></li></ul>
 </li>
 <li class="closed">
 <span class="folder">Base</span><ul>
@@ -2404,8 +2223,6 @@ headers, and any response body necessary.</small></span></li>
 </li>
 <li class="closed">
 <span class="folder">Compute</span><ul>
-<li><span class="class"><a href="OpenCloud.Compute.Attachment.html#Attachment">Attachment</a><br><small>The VolumeAttachment class represents a volume that is attached
-to a server.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Compute.Flavor.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service</small></span></li>
 <li><span class="class"><a href="OpenCloud.Compute.Image.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
 Compute service.</small></span></li>
@@ -2413,6 +2230,8 @@ Compute service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Compute.Server.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li><span class="class"><a href="OpenCloud.Compute.Service.html#Service">Service</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Compute.VolumeAttachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
+to a server.</small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -2445,7 +2264,7 @@ database-as-a-service product.</small></span></li>
 <span class="folder">LoadBalancer</span><ul>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Algorithm.html#Algorithm">Algorithm</a><br><small>sub-resource to manage algorithms (read-only)</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.AllowedDomain.html#AllowedDomain">AllowedDomain</a><br><small>sub-resource to manage allowed domains</small></span></li>
-<li><span class="class"><a href="OpenCloud.LoadBalancer.Billable.html#Billable">Billable</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
+<li><span class="class"><a href="OpenCloud.LoadBalancer.BillableLoadBalancer.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Protocol.html#Protocol">Protocol</a><br><small>sub-resource to manage protocols (read-only)</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Service.html#Service">Service</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
@@ -2491,8 +2310,8 @@ objects</small></span></li>
 <span class="folder">Volume</span><ul>
 <li><span class="class"><a href="OpenCloud.Volume.Service.html#Service">Service</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Volume.Snapshot.html#Snapshot">Snapshot</a><br><small>The Snapshot class represents a single block storage snapshot</small></span></li>
-<li><span class="class"><a href="OpenCloud.Volume.Type.html#Type">Type</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
 <li><span class="class"><a href="OpenCloud.Volume.Volume.html#Volume">Volume</a><br><small>The Volume class represents a single block storage volume</small></span></li>
+<li><span class="class"><a href="OpenCloud.Volume.VolumeType.html#VolumeType">VolumeType</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
 </ul>
 </li>
 </ul>

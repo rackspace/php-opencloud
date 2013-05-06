@@ -25,7 +25,7 @@ define('VOLUMENAME', 'SmokeTestVolume');
 define('VOLUMESIZE', 103);
 define('LBNAME', 'SmokeTestLoadBalancer');
 define('CACHEFILE', '/tmp/smoketest.credentials');
-define('TESTDOMAIN', 'raxdrg.info');
+define('TESTDOMAIN', 'fipplefippleraxdrg.info');
 define('RAXSDK_STRICT_PROPERTY_CHECKS', false);
 
 require_once 'lib/php-opencloud.php';
