@@ -141,8 +141,8 @@ class Server extends PersistentObject
         $response = $this->Service()->Request($this->Service()->Url(), 'POST', array(), $create);
 
         if (!is_object($response)) {
-            throw new Exceptions\HttpError(
-                sprintf(Lang::translate('Invalid response for Server::%s() request'),
+            throw new Exceptions\HttpError(sprintf(
+                Lang::translate('Invalid response for Server::%s() request'),
                 $rebuild ? 'Rebuild' : 'Create'
             ));
         }
@@ -150,8 +150,8 @@ class Server extends PersistentObject
         $json = $response->HttpBody();
 
         if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\ServerCreateError(
-                sprintf(Lang::translate('Problem creating server with [%s], status [%d] response [%s]'),
+            throw new Exceptions\ServerCreateError(sprintf(
+                Lang::translate('Problem creating server with [%s], status [%d] response [%s]'),
                 $create,
                 $response->HttpStatus(),
                 $response->HttpBody()
@@ -328,9 +328,10 @@ class Server extends PersistentObject
         if ($this->CheckJsonError()) {
             return false;
         } elseif (!isset($newobj->adminPass)) {
-            throw new Exceptions\ServerActionError(
-                sprintf(Lang::translate('Rescue() method failed unexpectedly, status [%s] response [%s]'),
-                $resp->HttpStatus(), $resp->HttpBody()
+            throw new Exceptions\ServerActionError(sprintf(
+                Lang::translate('Rescue() method failed unexpectedly, status [%s] response [%s]'),
+                $resp->HttpStatus(), 
+                $resp->HttpBody()
             ));
         } else {
             return $newobj->adminPass;
@@ -393,8 +394,8 @@ class Server extends PersistentObject
         $response = $this->Service()->Request($url);
 
         if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\ServerIpsError(
-                sprintf(Lang::translate('Error in Server::ips(), status [%d], response [%s]'),
+            throw new Exceptions\ServerIpsError(sprintf(
+                Lang::translate('Error in Server::ips(), status [%d], response [%s]'),
                 $response->HttpStatus(), 
                 $response->HttpBody()
             ));
@@ -519,8 +520,8 @@ class Server extends PersistentObject
             $obj->$element->networks = array();
             foreach ($this->networks as $net) {
                 if (get_class($net) != 'OpenCloud\Compute\Network') {
-                    throw new Exceptions\InvalidParameterError(
-                        sprintf(Lang::translate('"networks" parameter must be an array of Compute\Network objects; [%s] found'),
+                    throw new Exceptions\InvalidParameterError(sprintf(
+                        Lang::translate('"networks" parameter must be an array of Compute\Network objects; [%s] found'),
                         get_class($net)
                     ));
                 }

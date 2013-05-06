@@ -15,6 +15,7 @@ namespace OpenCloud\Database;
 use OpenCloud\AbstractClass\Collection;
 use OpenCloud\AbstractClass\PersistentObject;
 use OpenCloud\Base\Lang;
+use OpenCloud\Base\Exceptions;
 use OpenCloud\Compute\Flavor;
 
 /**
@@ -121,8 +122,8 @@ class Instance extends PersistentObject
 
         // check response
         if ($response->HttpStatus() > 202) {
-            throw new Exceptions\InstanceError(
-                sprintf(Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
+            throw new Exceptions\InstanceError(sprintf(
+                Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
                 $this->name, 
                 $response->HttpStatus(), 
                 $response->HttpBody()
@@ -155,8 +156,8 @@ class Instance extends PersistentObject
 
         // check response
         if ($response->HttpStatus() > 202) {
-            throw new Exceptions\InstanceError(
-                sprintf(Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
+            throw new Exceptions\InstanceError(sprintf(
+                Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
                 $this->name, 
                 $response->HttpStatus(), 
                 $response->HttpBody()
@@ -211,8 +212,8 @@ class Instance extends PersistentObject
 
         // check response status
         if ($response->HttpStatus() > 200) {
-            throw new Exceptions\DatabaseListError(
-                sprintf(Lang::translate('Error listing databases for instance [%s], status [%d] response [%s]'),
+            throw new Exceptions\DatabaseListError(sprintf(
+                Lang::translate('Error listing databases for instance [%s], status [%d] response [%s]'),
                 $this->name, 
                 $response->HttpStatus(), 
                 $response->HttpBody()
@@ -243,8 +244,8 @@ class Instance extends PersistentObject
 
         // check response status
         if ($response->HttpStatus() > 200) {
-            throw new Exceptions\UserListError(
-                sprintf(Lang::translate('Error listing users for instance [%s], status [%d] response [%s]'),
+            throw new Exceptions\UserListError(sprintf(
+                Lang::translate('Error listing users for instance [%s], status [%d] response [%s]'),
                 $this->name, 
                 $response->HttpStatus(), 
                 $response->HttpBody()
@@ -276,7 +277,7 @@ class Instance extends PersistentObject
             throw new Exceptions\InstanceFlavorError(Lang::translate('a flavor must be specified'));
         }
 
-        if (!is_object($this->flavor))
+        if (!is_object($this->flavor)) {
             throw new Exceptions\InstanceFlavorError(Lang::translate('the [flavor] attribute must be a Flavor object'));
         }
 

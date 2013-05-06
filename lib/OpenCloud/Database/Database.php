@@ -127,8 +127,8 @@ class Database extends Base
 
         // check the response code
         if ($response->HttpStatus() != 202) {
-        	throw new Exceptions\DatabaseCreateError(
-                sprintf(Lang::translate('Error creating database [%s], status [%d] response [%s]'),
+        	throw new Exceptions\DatabaseCreateError(sprintf(
+                Lang::translate('Error creating database [%s], status [%d] response [%s]'),
         		$this->name, 
                 $response->HttpStatus(), 
                 $response->HttpBody()
@@ -163,8 +163,8 @@ class Database extends Base
     {
     	$resp = $this->Service()->Request($this->Url(), 'DELETE');
     	if ($resp->HttpStatus() != 202) {
-    		throw new Exceptions\DatabaseDeleteError(
-                sprintf(Lang::translate('Error deleting database [%s], status [%d] response [%s]'),
+    		throw new Exceptions\DatabaseDeleteError(sprintf(
+                Lang::translate('Error deleting database [%s], status [%d] response [%s]'),
     			$this->name,
     			$resp->HttpStatus(),
     			$resp->HttpBody()

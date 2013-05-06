@@ -74,6 +74,7 @@ class User extends Base
             throw new Exceptions\UserNameError(
                 Lang::translate('User parameter must be an object, array, or string')
             );
+        }
     }
 
     /**
@@ -162,9 +163,9 @@ class User extends Base
 
 		// check the response
 		if ($response->HttpStatus() > 202) {
-			throw new Exceptions\UserCreateError(
-                sprintf(Lang::translate('Error creating user [%s], status [%d] response [%s]'),
-				$this->name, 
+			throw new Exceptions\UserCreateError(sprintf(
+                Lang::translate('Error creating user [%s], status [%d] response [%s]'),
+			    $this->name, 
                 $response->HttpStatus(), 
                 $response->HttpBody()
             ));
@@ -196,38 +197,39 @@ class User extends Base
 	 */
 	public function Delete() 
     {
-		$response = $this->Service()->Request(
-			$this->Url(),
-			'DELETE'
-		);
+		$response = $this->Service()->Request($this->Url(), 'DELETE');
 
 		// check status code
-		if ($response->HttpStatus() > 202)
-			throw new \OpenCloud\Base\Exceptions\UserDeleteError(sprintf(
-				\OpenCloud\Base\Lang::translate('Error deleting user [%s], status [%d] response [%s]',
-					$this->name, $response->HttpStatus(), $response->HttpBody())));
+		if ($response->HttpStatus() > 202) {
+			throw new Exceptions\UserDeleteError(sprintf(
+                Lang::translate('Error deleting user [%s], status [%d] response [%s]',
+				$this->name, 
+                $response->HttpStatus(), 
+                $response->HttpBody())
+            ));
+        }
 
 		return $response;
 	}
 
-	/********** PRIVATE METHODS **********/
-
 	/**
 	 * Creates the JSON object for the Create method
 	 */
-	private function CreateJson() {
-		// build the object
-		$obj = new \stdClass();
-		$obj->users = array();
-		$obj->users[0] = new \stdClass();
-		$obj->users[0]->name = $this->name;
-		$obj->users[0]->password = $this->password;
-		$obj->users[0]->databases = array();
-		foreach($this->databases as $dbname) {
-			$db = new \stdClass();
-			$db->name = $dbname;
-			$obj->users[0]->databases[] = $db;
+	private function CreateJson() 
+    {
+		$object = new \stdClass();
+		$object->users = array();
+		$object->users[0] = new \stdClass();
+		$object->users[0]->name = $this->name;
+		$object->users[0]->password = $this->password;
+		$object->users[0]->databases = array();
+
+		foreach($this->databases as $dbName) {
+			$database = new \stdClass();
+			$database->name = $dbName;
+			$object->users[0]->databases[] = $database;
 		}
-		return $obj;
+
+		return $object;
 	}
 }

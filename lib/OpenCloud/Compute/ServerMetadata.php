@@ -55,8 +55,8 @@ class ServerMetadata extends Metadata
 
             // check the response
             if ($response->HttpStatus() >= 300) {
-                throw new Exceptions\MetadataError(
-                    sprintf(Lang::translate('Unable to retrieve metadata [%s], response [%s]'),
+                throw new Exceptions\MetadataError(sprintf(
+                    Lang::translate('Unable to retrieve metadata [%s], response [%s]'),
                     $this->Url(), 
                     $response->HttpBody()
                 ));
@@ -116,8 +116,8 @@ class ServerMetadata extends Metadata
 
         // check the response
         if ($response->HttpStatus() >= 300) {
-            throw new \OpenCloud\Base\Exceptions\MetadataCreateError(
-                sprintf(Lang::translate('Error setting metadata on [%s], response [%s]'),
+            throw new \OpenCloud\Base\Exceptions\MetadataCreateError(sprintf(
+                Lang::translate('Error setting metadata on [%s], response [%s]'),
                 $this->Url(), 
                 $response->HttpBody()
             ));
@@ -143,8 +143,8 @@ class ServerMetadata extends Metadata
 
         // check the response
         if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\MetadataUpdateError(
-                sprintf(Lang::translate('Error updating metadata on [%s], response [%s]'),
+            throw new Exceptions\MetadataUpdateError(sprintf(
+                Lang::translate('Error updating metadata on [%s], response [%s]'),
                 $this->Url(), 
                 $response->HttpBody()
             ));
@@ -169,8 +169,8 @@ class ServerMetadata extends Metadata
 
         // check the response
         if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\MetadataDeleteError(
-                sprintf(Lang::translate('Error deleting metadata on [%s], response [%s]'),
+            throw new Exceptions\MetadataDeleteError(sprintf(
+                Lang::translate('Error deleting metadata on [%s], response [%s]'),
                 $this->Url(), 
                 $response->HttpBody()
             ));
@@ -201,8 +201,8 @@ class ServerMetadata extends Metadata
         // if a key was supplied when creating the object, then we can't set
         // any other values
         if ($this->_key && $key != $this->_key) {
-            throw new Exceptions\MetadataKeyError(
-                sprintf(Lang::translate('You cannot set extra values on [%s]'),
+            throw new Exceptions\MetadataKeyError(sprintf(
+                Lang::translate('You cannot set extra values on [%s]'),
                 $this->Url()
             ));
         }
