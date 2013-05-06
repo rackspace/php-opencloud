@@ -189,10 +189,10 @@ class Curl extends Base implements HttpRequestInterface {
 		        (curl_errno($this->handle)!=0));
 
 		// log retries error
-		if ($this->retries && curl_errno($this->handle))
+		if ($this->retries && curl_errno($this->handle)) {
 		    throw new \OpenCloud\Base\Exceptions\HttpRetryError(
-		        sprintf(\OpenCloud\Base\Lang::translate('No more retries available, last error [%d]'),
-		            curl_errno($this->handle)));
+		        sprintf(\OpenCloud\Base\Lang::translate('No more retries available, last error [%d]'), curl_errno($this->handle)));
+		}
 
 		// check for CURL errors
         switch(curl_errno($this->handle)) {

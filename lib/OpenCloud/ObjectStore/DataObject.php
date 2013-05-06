@@ -92,6 +92,11 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 
 	}
 
+	private function isRealFile($filename)
+	{
+		return $filename != '/dev/null' && $filename != 'NUL';
+	}
+
 	/**
 	 * Creates (or updates; both the same) an instance of the object
 	 *
@@ -124,7 +129,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
 			}
 			$this->content_length = $filesize;
 
-			if (empty($this->content_type))
+			if (empty($this->content_type) && $this->isRealFile($filename))
 				$this->_guess_content_type($filename);
 			/*
 			$this->write($fp, $size, $verify);

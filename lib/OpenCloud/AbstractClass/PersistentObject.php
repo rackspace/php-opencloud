@@ -12,7 +12,9 @@
 
 namespace OpenCloud\AbstractClass;
 
+use OpenCloud\Base\Base;
 use OpenCloud\Base\Lang;
+
 
 /**
  * represents an object that has the ability to be
@@ -61,10 +63,12 @@ use OpenCloud\Base\Lang;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class PersistentObject extends \OpenCloud\Base\Base {
+abstract class PersistentObject extends Base
+{
 
+	// usually overridden as part of the child class
 	protected
-		$id;		// usually overridden as part of the child class
+		$id;
 	private
 		$_parent;
 

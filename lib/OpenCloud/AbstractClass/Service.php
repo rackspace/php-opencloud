@@ -13,6 +13,11 @@
 namespace OpenCloud\AbstractClass;
 
 use OpenCloud\Base\Lang;
+use OpenCloud\OpenStack;
+use OpenCloud\Base\Exceptions\CollectionError;
+use OpenCloud\Base\Exceptions\DomainError;
+use OpenCloud\Base\Exceptions\EndpointError;
+use OpenCloud\Base\Exceptions\HttpError;
 
 /**
  * This class defines a "service"—a relationship between a specific OpenStack
@@ -26,241 +31,268 @@ use OpenCloud\Base\Lang;
  */
 abstract class Service extends \OpenCloud\Base\Base {
 
-	protected $_namespaces = array();
+    protected $_namespaces = array();
 
-	private $conn;
-	private $service_type;
-	private $service_name;
-	private $service_region;
-	private $service_url;
+    private $conn;
+    private $service_type;
+    private $service_name;
+    private $service_region;    
+    private $service_url;
 
-	/**
-	 * Creates a service on the specified connection
-	 *
-	 * Usage: `$x = new Service($conn, $type, $name, $region, $urltype);`
-	 * The service's URL is defined in the OpenStack's serviceCatalog; it
-	 * uses the $type, $name, $region, and $urltype to find the proper URL
-	 * and set it. If it cannot find a URL in the service catalog that matches
-	 * the criteria, then an exception is thrown.
-	 *
-	 * @param OpenStack $conn - a Connection object
-	 * @param string $type - the service type (e.g., "compute")
-	 * @param string $name - the service name (e.g., "cloudServersOpenStack")
-	 * @param string $region - the region (e.g., "ORD")
-	 * @param string $urltype - the specified URL from the catalog
-	 *      (e.g., "publicURL")
-	 */
-	public function __construct(
-		\OpenCloud\OpenStack $conn, $type, $name, $region, $urltype=RAXSDK_URL_PUBLIC) {
-		$this->conn = $conn;
-		$this->service_type = $type;
-		$this->service_name = $name;
-		$this->service_region = $region;
-		$this->service_url = $this->get_endpoint(
-		        $type, $name, $region, $urltype);
-	} // public function __construct()
+    /**
+     * Creates a service on the specified connection
+     *
+     * Usage: `$x = new Service($conn, $type, $name, $region, $urltype);`
+     * The service's URL is defined in the OpenStack's serviceCatalog; it
+     * uses the $type, $name, $region, and $urltype to find the proper URL
+     * and set it. If it cannot find a URL in the service catalog that matches
+     * the criteria, then an exception is thrown.
+     *
+     * @param OpenStack $conn - a Connection object
+     * @param string $type - the service type (e.g., "compute")
+     * @param string $name - the service name (e.g., "cloudServersOpenStack")
+     * @param string $region - the region (e.g., "ORD")
+     * @param string $urltype - the specified URL from the catalog
+     *      (e.g., "publicURL")
+     */
+    public function __construct(
+        OpenStack $conn, 
+        $type, 
+        $name, 
+        $region, 
+        $urltype = RAXSDK_URL_PUBLIC
+    ) {
+        $this->conn = $conn;
+        $this->service_type = $type;
+        $this->service_name = $name;
+        $this->service_region = $region;
+        $this->service_url = $this->get_endpoint($type, $name, $region, $urltype);
+    }
 
-	/**
-	 * Returns the URL for the Service
-	 *
-	 * @param string $resource optional sub-resource
-	 * @param array $query optional k/v pairs for query strings
-	 * @return string
-	 */
-	public function Url($resource='', array $param = array())
-	{
-	    $baseurl = $this->service_url;
-	    if ($resource != '')
-	        $baseurl = Lang::noslash($baseurl).'/'.$resource;
-	    if (!empty($param))
-	        $baseurl .= '?'.$this->MakeQueryString($param);
-		return $baseurl;
-	}
+    /**
+     * Returns the URL for the Service
+     *
+     * @param string $resource optional sub-resource
+     * @param array $query optional k/v pairs for query strings
+     * @return string
+     */
+    public function Url($resource = '', array $param = array())
+    {
+        $baseurl = $this->service_url;
+        
+        if ($resource) {
+            $baseurl = Lang::noslash($baseurl).'/'.$resource;
+        }
+        
+        if (!empty($param)) {
+            $baseurl .= '?'.$this->MakeQueryString($param);
+        }
 
-	/**
-	 * Returns the /extensions for the service
-	 *
-	 * @api
-	 * @return array of objects
-	 */
-	public function Extensions() {
-		$ext = $this->GetMetaUrl('extensions');
-		if (is_object($ext) && isset($ext->extensions))
-			return $ext->extensions;
-		else
-			return array();
-	} // public function Extensions()
+        return $baseurl;
+    }
 
-	/**
-	 * Returns the /limits for the service
-	 *
-	 * @api
-	 * @return array of limits
-	 */
-	public function Limits() {
-		$lim = $this->GetMetaUrl('limits');
-		if (is_object($lim))
-			return $lim->limits;
-		else
-			return array();
-	} // public function Limits()
+    /**
+     * Returns the /extensions for the service
+     *
+     * @api
+     * @return array of objects
+     */
+    public function Extensions() 
+    {
+        $ext = $this->GetMetaUrl('extensions');
 
-	/**
-	 * Performs an authenticated request
-	 *
-	 * This method handles the addition of authentication headers to each
-	 * request. It always adds the X-Auth-Token: header and will add the
-	 * X-Auth-Project-Id: header if there is a tenant defined on the
-	 * connection.
-	 *
-	 * @param string $url The URL of the request
-	 * @param string $method The HTTP method (defaults to "GET")
-	 * @param array $headers An associative array of headers
-	 * @param string $body An optional body for POST/PUT requests
-	 * @return \OpenCloud\HttpResult
-	 */
-	public function Request($url,$method='GET',$headers=array(),$body=NULL)
-	{
-		$headers['X-Auth-Token'] = $this->conn->Token();
-		if ($tenant = $this->conn->Tenant())
-			$headers['X-Auth-Project-Id'] = $tenant;
-		return $this->conn->Request($url, $method, $headers, $body);
-	} // function Request()
+        if (is_object($ext) && isset($ext->extensions)) {
+            return $ext->extensions;
+        } else {
+            return array();
+        }
+    }
 
-	/**
-	 * returns a collection of objects
-	 *
-	 * @param string $class the class of objects to fetch
-	 * @param string $url (optional) the URL to retrieve
-	 * @param mixed $parent (optional) the parent service/object
-	 * @param array $parm (optional) array of key/value pairs to use as
-	 *		query strings
-	 * @return \OpenCloud\Collection
-	 */
-	public function Collection($class, $url=NULL, $parent=NULL, $parm=array()) {
-	    // set the element name
-	    $collection = $class::JsonCollectionName();
-	    $element = $class::JsonCollectionElement();
-	    //$jsonname = $class::JsonName();
+    /**
+     * Returns the /limits for the service
+     *
+     * @api
+     * @return array of limits
+     */
+    public function Limits() 
+    {
+        $lim = $this->GetMetaUrl('limits');
+        
+        if (is_object($lim)) {
+            return $lim->limits;
+        } else {
+            return array();
+        }
+    }
 
-	    // save the parent
-		if (!isset($parent))
-			$parent = $this;
+    /**
+     * Performs an authenticated request
+     *
+     * This method handles the addition of authentication headers to each
+     * request. It always adds the X-Auth-Token: header and will add the
+     * X-Auth-Project-Id: header if there is a tenant defined on the
+     * connection.
+     *
+     * @param string $url The URL of the request
+     * @param string $method The HTTP method (defaults to "GET")
+     * @param array $headers An associative array of headers
+     * @param string $body An optional body for POST/PUT requests
+     * @return \OpenCloud\HttpResult
+     */
+    public function Request($url, $method = 'GET', array $headers = array() ,$body = null)
+    {
+        $headers['X-Auth-Token'] = $this->conn->Token();
+        
+        if ($tenant = $this->conn->Tenant()) {
+            $headers['X-Auth-Project-Id'] = $tenant;
+        }
 
-		// determine the URL
-		if (!$url)
-		    $url = $parent->Url($class::ResourceName());
+        return $this->conn->Request($url, $method, $headers, $body);
+    }
 
-		// add query string parameters
-		if (count($parm))
-			$url .= '?' . $this->MakeQueryString($parm);
+    /**
+     * returns a collection of objects
+     *
+     * @param string $class the class of objects to fetch
+     * @param string $url (optional) the URL to retrieve
+     * @param mixed $parent (optional) the parent service/object
+     * @param array $parm (optional) array of key/value pairs to use as
+     *      query strings
+     * @return \OpenCloud\Collection
+     */
+    public function Collection($class, $url = null, $parent = null, array $parm = array()) 
+    {
+        // set the element name
+        $collection = $class::JsonCollectionName();
+        $element = $class::JsonCollectionElement();
 
-		// save debug info
-		$this->debug('%s:Collection(%s, %s, %s)',
-			get_class($this), $url, $class, $collection);
+        // save the parent
+        if (!isset($parent)) {
+            $parent = $this;
+        }
 
-		// fetch the list
-		$response = $this->Request($url);
-		$this->debug('response %d [%s]',
-			$response->HttpStatus(), $response->HttpBody());
+        // determine the URL
+        if (!$url) {
+            $url = $parent->Url($class::ResourceName());
+        }
 
-		// check return code
-		if ($response->HttpStatus() > 204)
-			throw new \OpenCloud\Base\Exceptions\CollectionError(sprintf(
-				Lang::translate('Unable to retrieve [%s] list from [%s], '.
-				  'status [%d] response [%s]'),
-				$class,
-				$url,
-				$response->HttpStatus(),
-				$response->HttpBody()));
+        // add query string parameters
+        if (count($parm)) {
+            $url .= '?' . $this->MakeQueryString($parm);
+        }
 
-		// handle empty response
-		if (strlen($response->HttpBody()) == 0)
-			return new Collection($parent, $class, array());
+        // save debug info
+        $this->debug('%s:Collection(%s, %s, %s)', get_class($this), $url, $class, $collection);
 
-		// parse the return
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
+        // fetch the list
+        $response = $this->Request($url);
+        $this->debug('response %d [%s]', $response->HttpStatus(), $response->HttpBody());
 
-		// see if there is a "next" link
-		if (isset($obj->links)) {
-			if (is_array($obj->links)) {
-				foreach($obj->links as $link) {
-					if (isset($link->rel) && ($link->rel=='next')) {
-						if (isset($link->href))
-							$next_page_url = $link->href;
-						else
-							throw new \OpenCloud\Base\Exceptions\DomainError(
-								Lang::translate('unexpected [links] found with no [href]'));
-					}
-				}
-			}
-		}
+        // check return code
+        if ($response->HttpStatus() > 204) {
+            throw new CollectionError(sprintf(
+                Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
+                $class,
+                $url,
+                $response->HttpStatus(),
+                $response->HttpBody()
+            ));
+        }
 
-		// and say goodbye
-		if (!$collection)
-			$coll_obj = new Collection($parent, $class, $obj);
-		elseif (isset($obj->$collection)) {
-			if (!$element)
-				$coll_obj = new Collection($parent, $class, $obj->$collection);
-			else { // handle element levels
-				$arr = array();
-				foreach($obj->$collection as $index => $item)
-					$arr[] = $item->$element;
-				$coll_obj = new Collection($parent, $class, $arr);
-			}
-		}
-		else
-			$coll_obj = new Collection($parent, $class, array());
+        // handle empty response
+        if (strlen($response->HttpBody()) == 0) {
+            return new Collection($parent, $class, array());
+        }
 
-		// if there's a $next_page_url, then we need to establish a
-		// callback method
-		if (isset($next_page_url)) {
-			$coll_obj->SetNextPageCallback(
-				array($this, 'Collection'),
-				$next_page_url);
-		}
+        // parse the return
+        $obj = json_decode($response->HttpBody());
+        if ($this->CheckJsonError()) {
+            return false;
+        }
 
-		return $coll_obj;
-	}
+        // see if there is a "next" link
+        if (isset($obj->links)) {
+            if (is_array($obj->links)) {
+                foreach($obj->links as $link) {
+                    if (isset($link->rel) && ($link->rel=='next')) {
+                        if (isset($link->href)) {
+                            $next_page_url = $link->href;
+                        } else {
+                            throw new DomainError(Lang::translate('unexpected [links] found with no [href]'));
+                        }
+                    }
+                }
+            }
+        }
 
-	/**
-	 * returns the Region associated with the service
-	 *
-	 * @api
-	 * @return string
-	 */
-	public function Region() {
-		return $this->service_region;
-	}
+        // and say goodbye
+        if (!$collection) {
+            $coll_obj = new Collection($parent, $class, $obj);
+        } elseif (isset($obj->$collection)) {
+            if (!$element) {
+                $coll_obj = new Collection($parent, $class, $obj->$collection);
+            } else { 
+                // handle element levels
+                $arr = array();
+                foreach($obj->$collection as $index => $item) {
+                    $arr[] = $item->$element;
+                }
+                $coll_obj = new Collection($parent, $class, $arr);
+            }
+        } else {
+            $coll_obj = new Collection($parent, $class, array());
+        }
 
-	/**
-	 * returns the serviceName associated with the service
-	 *
-	 * This is used by DNS for PTR record lookups
-	 *
-	 * @api
-	 * @return string
-	 */
-	public function Name() {
-		return $this->service_name;
-	}
+        // if there's a $next_page_url, then we need to establish a
+        // callback method
+        if (isset($next_page_url)) {
+            $coll_obj->SetNextPageCallback(array($this, 'Collection'), $next_page_url);
+        }
 
-	/**
-	 * Returns a list of supported namespaces
-	 *
-	 * @return array
-	 */
-	public function namespaces() {
-		if (!isset($this->_namespaces))
-			return array();
-		if (is_array($this->_namespaces))
-		    return $this->_namespaces;
-		return array();
-	}
+        return $coll_obj;
+    }
 
-	/********** PRIVATE METHODS **********/
+    /**
+     * returns the Region associated with the service
+     *
+     * @api
+     * @return string
+     */
+    public function Region() 
+    {
+        return $this->service_region;
+    }
+
+    /**
+     * returns the serviceName associated with the service
+     *
+     * This is used by DNS for PTR record lookups
+     *
+     * @api
+     * @return string
+     */
+    public function Name() 
+    {
+        return $this->service_name;
+    }
+
+    /**
+     * Returns a list of supported namespaces
+     *
+     * @return array
+     */
+    public function namespaces() 
+    {
+        if (!isset($this->_namespaces)) {
+            return array();
+        }
+
+        if (is_array($this->_namespaces)) {
+            return $this->_namespaces;
+        }
+
+        return array();
+    }
 
     /**
      * Given a service type, name, and region, return the url
@@ -278,26 +310,22 @@ abstract class Service extends \OpenCloud\Base\Base {
      * @param string $urltype The URL type; defaults to "publicURL"
      * @return string The URL of the service
      */
-    private function get_endpoint($type, $name, $region, $urltype='publicURL') {
+    private function get_endpoint($type, $name, $region, $urltype = 'publicURL') 
+    {
         $found = 0;
         $catalog = $this->conn->serviceCatalog();
 
         // search each service to find The One
         foreach($catalog as $service) {
-        	// first, compare the type ("compute") and name ("openstack")
-            if ((!strcasecmp($service->type, $type)) &&
-                 (!strcasecmp($service->name, $name))) {
+            // first, compare the type ("compute") and name ("openstack")
+            if (!strcasecmp($service->type, $type) && !strcasecmp($service->name, $name)) {
                 // found the service, now we need to find the region
                 foreach($service->endpoints as $endpoint) {
-					// regionless service
-                    if (!isset($endpoint->region) &&
-                    	 isset($endpoint->$urltype)) {
-                    	++$found;
-                    	return $endpoint->$urltype;
-                    }
-                    // compare the regions
-                    elseif ((!strcasecmp($endpoint->region, $region)) &&
-                         isset($endpoint->$urltype)) {
+                    // regionless service
+                    if (!isset($endpoint->region) && isset($endpoint->$urltype)) {
+                        ++$found;
+                        return $endpoint->$urltype;
+                    } elseif (!strcasecmp($endpoint->region, $region) && isset($endpoint->$urltype)) {
                         // now we have a match! Yay!
                         ++$found;
                         return $endpoint->$urltype;
@@ -307,56 +335,67 @@ abstract class Service extends \OpenCloud\Base\Base {
         }
 
         // error if not found
-        if (!$found)
-            throw new \OpenCloud\Base\Exceptions\EndpointError(
-                sprintf(Lang::translate('No endpoints for service type [%s], name [%s], '.
-                  'region [%s] and urlType [%s]'),
+        if (!$found) {
+            throw new EndpointError(
+                sprintf(Lang::translate('No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]'),
                 $type,
                 $name,
                 $region,
-                $urltype)
-           );
-    } // function get_endpoint()
+                $urltype
+            ));
+        }
+    }
 
-	/**
-	 * Constructs a specified URL from the subresource
-	 *
-	 * Given a subresource (e.g., "extensions"), this constructs the proper
-	 * URL and retrieves the resource.
-	 *
-	 * @param string $resource The resource requested; should NOT have slashes
-	 *      at the beginning or end
-	 * @return \stdClass object
-	 */
-	private function GetMetaUrl($resource) {
-		$urlbase = $this->get_endpoint(
-			$this->service_type,
-			$this->service_name,
-			$this->service_region,
-			RAXSDK_URL_PUBLIC
-		);
-		if ($urlbase == '')
-			return array();
-		$ext_url = \OpenCloud\Base\Lang::noslash($urlbase) .
-						'/' .
-						$resource;
-		$response = $this->Request($ext_url);
+    /**
+     * Constructs a specified URL from the subresource
+     *
+     * Given a subresource (e.g., "extensions"), this constructs the proper
+     * URL and retrieves the resource.
+     *
+     * @param string $resource The resource requested; should NOT have slashes
+     *      at the beginning or end
+     * @return \stdClass object
+     */
+    private function GetMetaUrl($resource) 
+    {
+        $urlbase = $this->get_endpoint(
+            $this->service_type,
+            $this->service_name,
+            $this->service_region,
+            RAXSDK_URL_PUBLIC
+        );
 
-		// check for NOT FOUND response
-		if ($response->HttpStatus() == 404)
-		    return array();
+        if ($urlbase == '') {
+            return array();
+        }
 
-		// check for error status
-		if ($response->HttpStatus() >= 300)
-		    throw new \OpenCloud\Base\Exceptions\HttpError(sprintf(
-		        Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
-		        $urlbase, $response->HttpStatus(), $response->HttpBody()));
+        $ext_url = Lang::noslash($urlbase) . '/' . $resource;
 
-		// we're good; proceed
-		$obj = json_decode($response->HttpBody());
-		if ($this->CheckJsonError())
-			return FALSE;
-		return $obj;
-	}
+        $response = $this->Request($ext_url);
 
-} // class Service
+        // check for NOT FOUND response
+        if ($response->HttpStatus() == 404) {
+            return array();
+        }
+
+        // check for error status
+        if ($response->HttpStatus() >= 300) {
+            throw new HttpError(sprintf(
+                Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
+                $urlbase, 
+                $response->HttpStatus(), 
+                $response->HttpBody()
+            ));
+        }
+
+        // we're good; proceed
+        $obj = json_decode($response->HttpBody());
+       
+        if ($this->CheckJsonError()) {
+            return false;
+        }
+
+        return $obj;
+    }
+
+}
