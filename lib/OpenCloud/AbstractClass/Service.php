@@ -14,10 +14,7 @@ namespace OpenCloud\AbstractClass;
 
 use OpenCloud\Base\Lang;
 use OpenCloud\OpenStack;
-use OpenCloud\Base\Exceptions\CollectionError;
-use OpenCloud\Base\Exceptions\DomainError;
-use OpenCloud\Base\Exceptions\EndpointError;
-use OpenCloud\Base\Exceptions\HttpError;
+use OpenCloud\Base\Exceptions;
 
 /**
  * This class defines a "service"—a relationship between a specific OpenStack
@@ -29,15 +26,16 @@ use OpenCloud\Base\Exceptions\HttpError;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class Service extends \OpenCloud\Base\Base {
-
-    protected $_namespaces = array();
+abstract class Service extends \OpenCloud\Base\Base 
+{
 
     private $conn;
     private $service_type;
     private $service_name;
     private $service_region;    
     private $service_url;
+    
+    protected $_namespaces = array();
 
     /**
      * Creates a service on the specified connection
@@ -190,7 +188,7 @@ abstract class Service extends \OpenCloud\Base\Base {
 
         // check return code
         if ($response->HttpStatus() > 204) {
-            throw new CollectionError(sprintf(
+            throw new Exceptions\CollectionError(sprintf(
                 Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
                 $class,
                 $url,
@@ -218,7 +216,7 @@ abstract class Service extends \OpenCloud\Base\Base {
                         if (isset($link->href)) {
                             $next_page_url = $link->href;
                         } else {
-                            throw new DomainError(Lang::translate('unexpected [links] found with no [href]'));
+                            throw new Exceptions\DomainError(Lang::translate('unexpected [links] found with no [href]'));
                         }
                     }
                 }
@@ -336,7 +334,7 @@ abstract class Service extends \OpenCloud\Base\Base {
 
         // error if not found
         if (!$found) {
-            throw new EndpointError(
+            throw new Exceptions\EndpointError(
                 sprintf(Lang::translate('No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]'),
                 $type,
                 $name,
@@ -380,7 +378,7 @@ abstract class Service extends \OpenCloud\Base\Base {
 
         // check for error status
         if ($response->HttpStatus() >= 300) {
-            throw new HttpError(sprintf(
+            throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
                 $urlbase, 
                 $response->HttpStatus(), 
