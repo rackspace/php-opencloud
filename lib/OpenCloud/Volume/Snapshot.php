@@ -12,70 +12,79 @@
 
 namespace OpenCloud\Volume;
 
+use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Base\Lang;
+use OpenCloud\Base\Exceptions;
+
 /**
  * The Snapshot class represents a single block storage snapshot
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Snapshot extends \OpenCloud\AbstractClass\PersistentObject {
+class Snapshot extends PersistentObject 
+{
 
-	public
-		$id,
-		$display_name,
-		$display_description,
-		$volume_id,
-		$status,
-		$size,
-		$created_at;
+    public $id;
+    public $display_name;
+    public $display_description;
+    public $volume_id;
+    public $status;
+    public $size;
+    public $created_at;
 
-	protected
-		$force=FALSE;
+    protected $force = false;
 
-	protected static
-		$json_name = 'snapshot',
-		$url_resource = 'snapshots';
+    protected static $json_name = 'snapshot';
+    protected static $url_resource = 'snapshots';
 
-	private
-		$_create_keys=array('display_name','display_description',
-							'volume_id','force');
+    private $_create_keys = array(
+        'display_name',
+        'display_description',
+        'volume_id',
+        'force'
+    );
 
-	/**
-	 * updates are not permitted
-	 *
-	 * @throws OpenCloud\UpdateError always
-	 */
-	public function Update($params=array()) {
-		throw new \OpenCloud\Base\Exceptions\UpdateError(
-			\OpenCloud\Base\Lang::translate('VolumeType cannot be updated'));
-	}
+    /**
+     * updates are not permitted
+     *
+     * @throws OpenCloud\UpdateError always
+     */
+    public function Update($params = array()) 
+    {
+        throw new Exceptions\UpdateError(
+            Lang::translate('VolumeType cannot be updated')
+        );
+    }
 
-	/**
-	 * returns the display_name attribute
-	 *
-	 * @api
-	 * @return string
-	 */
-	public function Name() {
-	    return $this->display_name;
-	}
+    /**
+     * returns the display_name attribute
+     *
+     * @api
+     * @return string
+     */
+    public function Name() 
+    {
+        return $this->display_name;
+    }
 
-	/********** PROTECTED METHODS **********/
+    /**
+     * returns the object for the Create() method's JSON
+     *
+     * @return stdClass
+     */
+    protected function CreateJson() 
+    {
+        $object = new \stdClass();
 
-	/**
-	 * returns the object for the Create() method's JSON
-	 *
-	 * @return stdClass
-	 */
-	protected function CreateJson() {
-		$obj = new \stdClass();
+        $elem = $this->JsonName();
+        $object->$elem = new \stdClass();
+        
+        foreach($this->_create_keys as $key) {
+            $object->$elem->$key = $this->$key;
+        }
 
-		$elem = $this->JsonName();
-		$obj->$elem = new \stdClass();
-		foreach($this->_create_keys as $key)
-            $obj->$elem->$key = $this->$key;
-
-		return $obj;
-	}
+        return $object;
+    }
 
 }

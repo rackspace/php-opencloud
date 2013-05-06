@@ -15,7 +15,7 @@ class ConnectionThrottle extends SubResource
     public $maxConnectionRate;
     public $rateInterval;
 
-    protected static $json_name = "connectionThrottle",
+    protected static $json_name = "connectionThrottle";
     protected static $url_resource = "connectionthrottle";
 
     protected $_create_keys = array(

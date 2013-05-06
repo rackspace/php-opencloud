@@ -12,13 +12,24 @@
 
 namespace OpenCloud\Volume;
 
-class Service extends \OpenCloud\AbstractClass\Nova {
+use OpenCloud\AbstractClass\Nova;
+use OpenCloud\OpenStack;
+use OpenCloud\Base\Lang;
+use OpenCloud\Base\Exceptions;
+
+class Service extends Nova 
+{
 
 	/**
 	 * creates the VolumeService object
 	 */
-	public function __construct(\OpenCloud\OpenStack $conn, $name, $region, $urltype) {
-		parent::__construct($conn, 'volume', $name, $region, $urltype);
+	public function __construct(
+		OpenStack $connection, 
+		$name, 
+		$region, 
+		$urltype
+	) {
+		parent::__construct($connection, 'volume', $name, $region, $urltype);
 	}
 
 	/**
@@ -28,7 +39,8 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param string $id the Volume ID
 	 * @return VolumeService\Volume
 	 */
-	public function Volume($id=NULL) {
+	public function Volume($id = null) 
+	{
 		return new Volume($this, $id);
 	}
 
@@ -40,9 +52,9 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param array $filters array of filter key/value pairs
 	 * @return Collection
 	 */
-	public function VolumeList($details=TRUE, $filter=array()) {
-		$url = $this->Url(Volume::ResourceName()) .
-				($details ? '/detail' : '');
+	public function VolumeList($details = true, $filter = array()) 
+	{
+		$url = $this->Url(Volume::ResourceName()) . ($details ? '/detail' : '');
 		return $this->Collection('\OpenCloud\Volume\Volume', $url);
 	}
 
@@ -53,7 +65,8 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param string $id the VolumeType ID
 	 * @return VolumeService\Volume
 	 */
-	public function VolumeType($id=NULL) {
+	public function VolumeType($id = null) 
+	{
 		return new VolumeType($this, $id);
 	}
 
@@ -64,7 +77,8 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param array $filters array of filter key/value pairs
 	 * @return Collection
 	 */
-	public function VolumeTypeList($filter=array()) {
+	public function VolumeTypeList($filter = array()) 
+	{
 		return $this->Collection('\OpenCloud\Volume\VolumeType');
 	}
 
@@ -73,7 +87,8 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 *
 	 * @return Snapshot
 	 */
-	public function Snapshot($id=NULL) {
+	public function Snapshot($id = null) 
+	{
 		return new Snapshot($this, $id);
 	}
 
@@ -85,7 +100,8 @@ class Service extends \OpenCloud\AbstractClass\Nova {
 	 * @param array $filters array of filter key/value pairs
 	 * @return Collection
 	 */
-	public function SnapshotList($filter=array()) {
+	public function SnapshotList($filter = array()) 
+	{
 		return $this->Collection('\OpenCloud\Volume\Snapshot');
 	}
 

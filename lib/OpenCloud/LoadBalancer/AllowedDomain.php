@@ -2,6 +2,8 @@
 
 namespace OpenCloud\LoadBalancer;
 
+use OpenCloud\AbstractClass\PersistentObject;
+
 /**
  * sub-resource to manage allowed domains
  *
@@ -11,15 +13,28 @@ namespace OpenCloud\LoadBalancer;
  *
  * @api
  */
-class AllowedDomain extends \OpenCloud\AbstractClass\PersistentObject {
-	public
-		$name;
-	protected static
-		$json_name = 'allowedDomain',
-		$json_collection_name = 'allowedDomains',
-		$json_collection_element = 'allowedDomain',
-		$url_resource = 'loadbalancers/alloweddomains';
-	public function Create($params=array()) { $this->NoCreate(); }
-	public function Update($params=array()) { $this->NoUpdate(); }
-	public function Delete() { $this->NoDelete(); }
+class AllowedDomain extends PersistentObject 
+{
+
+    public $name;
+    protected static $json_name = 'allowedDomain';
+    protected static$json_collection_name = 'allowedDomains';
+    protected static$json_collection_element = 'allowedDomain';
+    protected static$url_resource = 'loadbalancers/alloweddomains';
+
+    public function Create($params = array()) 
+    { 
+        $this->NoCreate(); 
+    }
+
+    public function Update($params = array()) 
+    { 
+        $this->NoUpdate(); 
+    }
+
+    public function Delete() 
+    { 
+        $this->NoDelete(); 
+    }
+
 }

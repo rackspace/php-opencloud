@@ -34,9 +34,10 @@ namespace OpenCloud;
  *      ));
  * </code>
  */
-class Rackspace extends OpenStack {
+class Rackspace extends OpenStack 
+{
 
-	//this is the JSON string for our new credentials
+    //this is the JSON string for our new credentials
 const APIKEYTEMPLATE = <<<ENDCRED
 { "auth": { "RAX-KSKEY:apiKeyCredentials": { "username": "%s",
           "apiKey": "%s"
@@ -45,22 +46,25 @@ const APIKEYTEMPLATE = <<<ENDCRED
 }
 ENDCRED;
 
-	/**
-	 * Generates Rackspace API key credentials
-	 *
-	 * @return string
-	 */
-    public function Credentials() {
-    	$sec = $this->Secret();
-    	if (isset($sec['username']) &&
-    		isset($sec['apiKey']))
-			return sprintf(
-				self::APIKEYTEMPLATE,
-				$sec['username'],
-				$sec['apiKey']
-		   );
-		else
-			return parent::Credentials();
+    /**
+     * Generates Rackspace API key credentials
+     *
+     * @return string
+     */
+    public function Credentials() 
+    {
+        $sec = $this->Secret();
+        if (isset($sec['username']) 
+            && isset($sec['apiKey'])
+        ) {
+            return sprintf(
+                self::APIKEYTEMPLATE,
+                $sec['username'],
+                $sec['apiKey']
+           );
+        } else {
+            return parent::Credentials();
+        }
     }
 
     /**
@@ -72,7 +76,8 @@ ENDCRED;
      * @param string $region the region (e.g., 'DFW')
      * @param string $urltype the type of URL (e.g., 'publicURL');
      */
-    public function DbService($name=NULL, $region=NULL, $urltype=NULL) {
+    public function DbService($name = null, $region = null, $urltype = null) 
+    {
         return $this->Service('Database', $name, $region, $urltype);
     }
 
@@ -86,7 +91,8 @@ ENDCRED;
      * @param string $region the region (e.g., 'DFW')
      * @param string $urltype the type of URL (e.g., 'publicURL');
      */
-    public function LoadBalancerService($name=NULL,$region=NULL,$urltype=NULL) {
+    public function LoadBalancerService($name = null, $region = null, $urltype = null) 
+    {
         return $this->Service('LoadBalancer', $name, $region, $urltype);
     }
     
@@ -96,8 +102,9 @@ ENDCRED;
      * This is a factory method that is currently Rackspace-only
      * (not available via the OpenStack class)
      */
-    public function DNS($name=NULL, $region=NULL, $urltype=NULL) {
-    	return $this->Service('DNS', $name, $region, $urltype);
+    public function DNS($name = null, $region = null, $urltype = null) 
+    {
+        return $this->Service('DNS', $name, $region, $urltype);
     }
 
-} // end class Rackspace
+}
