@@ -569,6 +569,7 @@ class DataObject extends \OpenCloud\AbstractClass\ObjectStore {
                 break;
             case 'Content-Length':
                 $this->content_length = $value;
+                $this->bytes = $value;
                 break;
             default:
                 $this->extra_headers[$header] = $value;

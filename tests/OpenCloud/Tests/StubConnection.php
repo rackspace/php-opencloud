@@ -31,6 +31,9 @@ ENDRESPONSE;
 	}
 	public function Request($url, $method="GET", $headers=array(), $body=NULL) {
 		$resp = new \OpenCloud\Base\Request\Response\Blank;
+		$resp->headers = array(
+			'Content-Length' => '999'
+		);
 		if ($method == 'POST') {
 			$resp->status = 200;
 			if (strpos($url, '/action')) {

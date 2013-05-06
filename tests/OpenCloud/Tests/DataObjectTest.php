@@ -22,7 +22,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		$container;
 
 	public function __construct() {
-	
+
 		$conn = new StubConnection('http://example.com', 'SECRET');
 		$this->service = new StubService(
 			$conn,
@@ -175,6 +175,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	public function testFetch() {
 	    $obj = new \OpenCloud\ObjectStore\DataObject($this->container, 'FOO');
 	    $this->assertEquals('FOO', $obj->name);
+	    //$this->assertEquals(999, $obj->bytes);
 	}
 	/**
 	 * @expectedException \OpenCloud\Base\Exceptions\CdnNotAvailableError
