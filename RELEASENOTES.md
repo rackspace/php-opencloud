@@ -3,7 +3,7 @@ RELEASE NOTES
 
 ### Current branch: master
 
-### Next Release
+### 1.5.5
 * PSR-2 implementation (code formatting)
 * issue #95 - attempt to fix default timezone to satisfy folks
 
