@@ -2,6 +2,10 @@
 
 namespace OpenCloud\ObjectStore;
 
+use OpenCloud\OpenStack;
+use OpenCloud\Base\Exceptions;
+use OpenCloud\Base\Lang;
+
 /**
  * This is the CDN related to the ObjectStore
  *
@@ -13,7 +17,8 @@ namespace OpenCloud\ObjectStore;
  * @param string $serviceRegion the name of the service region to use
  * @param string $urltype the type of URL to use (usually "publicURL")
  */
-class ObjectStoreCDN extends ObjectStoreBase {
+class ObjectStoreCDN extends ObjectStoreBase 
+{
 
     /**
      * Creates a new ObjectStoreCDN object
@@ -26,28 +31,30 @@ class ObjectStoreCDN extends ObjectStoreBase {
      * @param string $serviceRegion the service's region
      * @param string $urlType the type of URL (normally 'publicURL')
      */
-	public function __construct(
-		\OpenCloud\OpenStack $conn,
-		$serviceName=RAXSDK_OBJSTORE_NAME,
-		$serviceRegion=RAXSDK_OBJSTORE_REGION,
-		$urltype=RAXSDK_OBJSTORE_URLTYPE) {
+    public function __construct(
+        OpenStack $connection,
+        $serviceName = RAXSDK_OBJSTORE_NAME,
+        $serviceRegion = RAXSDK_OBJSTORE_REGION,
+        $urltype = RAXSDK_OBJSTORE_URLTYPE
+    ) {
 
-		// call the parent contructor
-		parent::__construct(
-			$conn,
-			'rax:object-cdn',
-			$serviceName,
-			$serviceRegion,
-			$urltype
-		);
-	}
+        // call the parent contructor
+        parent::__construct(
+            $connection,
+            'rax:object-cdn',
+            $serviceName,
+            $serviceRegion,
+            $urltype
+        );
+    }
 
-	/**
-	 * Helps catch errors if someone calls the method on the
-	 * wrong object
-	 */
-	public function CDN() {
-	    throw new \OpenCloud\Base\Exceptions\CdnError(
-	        \OpenCloud\Base\Lang::translate('Invalid method call; no CDN() on the CDN object'));
-	}
+    /**
+     * Helps catch errors if someone calls the method on the
+     * wrong object
+     */
+    public function CDN() 
+    {
+        throw new Exceptions\CdnError(Lang::translate('Invalid method call; no CDN() on the CDN object'));
+    }
+
 }

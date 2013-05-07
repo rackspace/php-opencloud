@@ -2,19 +2,31 @@
 
 namespace OpenCloud\Base\Request\Response;
 
-class Blank extends Http {
-	public
-		$errno,
-		$error,
-		$info,
-		$body,
-		$headers=array(),
-		$status=200,
-		$rawdata;
-	public function __construct($values=array()) {
-		foreach($values as $name => $value)
-			$this->$name = $value;
-	}
-	public function HttpBody() { return $this->body; }
-	public function HttpStatus() { return $this->status; }
+class Blank extends Http 
+{
+    public $errno;
+    public $error;
+    public $info;
+    public $body;
+    public $headers = array();
+    public $status = 200;
+    public $rawdata;
+
+    public function __construct(array $values = array()) 
+    {
+        foreach($values as $name => $value) {
+            $this->$name = $value;
+        }
+    }
+
+    public function HttpBody() 
+    { 
+        return $this->body; 
+    }
+
+    public function HttpStatus() 
+    { 
+        return $this->status; 
+    }
+    
 }

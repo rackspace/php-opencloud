@@ -7,24 +7,30 @@ namespace OpenCloud\LoadBalancer\Resources;
  *
  * @api
  */
-class ConnectionThrottle extends SubResource {
-	public
-		$minConnections,
-		$maxConnections,
-		$maxConnectionRate,
-		$rateInterval;
-    protected static
-    	$json_name = "connectionThrottle",
-    	$url_resource = "connectionthrottle";
-    protected
-    	$_create_keys = array(
-    		'minConnections',
-    		'maxConnections',
-    		'maxConnectionRate',
-    		'rateInterval'
-    	);
+class ConnectionThrottle extends SubResource 
+{
+    
+    public $minConnections;
+    public $maxConnections;
+    public $maxConnectionRate;
+    public $rateInterval;
+
+    protected static $json_name = "connectionThrottle";
+    protected static $url_resource = "connectionthrottle";
+
+    protected $_create_keys = array(
+        'minConnections',
+        'maxConnections',
+        'maxConnectionRate',
+        'rateInterval'
+    );
+
     /**
      * create uses PUT like Update
      */
-	public function Create($parm=array()) { $this->Update($parm); }
+    public function Create($params = array()) 
+    { 
+        $this->Update($params); 
+    }
+
 }

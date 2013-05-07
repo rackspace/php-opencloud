@@ -13,8 +13,9 @@
 namespace OpenCloud\ObjectStore;
 
 use OpenCloud\Base\Lang;
+use OpenCloud\AbstractClass\Service as AbstractService;
 
-define('SWIFT_MAX_OBJECT_SIZE', 5*1024*1024*1024+1);
+define('SWIFT_MAX_OBJECT_SIZE', 5 * 1024 * 1024 * 1024 + 1);
 
 /**
  * A base class for common code shared between the ObjectStore and
@@ -23,11 +24,12 @@ define('SWIFT_MAX_OBJECT_SIZE', 5*1024*1024*1024+1);
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
+class ObjectStoreBase extends AbstractService
+{
 
-    const MAX_CONTAINER_NAME_LEN 	= 256;
-    const MAX_OBJECT_NAME_LEN 		= 1024;
-    const MAX_OBJECT_SIZE 			= SWIFT_MAX_OBJECT_SIZE;
+    const MAX_CONTAINER_NAME_LEN    = 256;
+    const MAX_OBJECT_NAME_LEN       = 1024;
+    const MAX_OBJECT_SIZE           = SWIFT_MAX_OBJECT_SIZE;
 
     /**
      * Creates a Container object associated with the ObjectStore
@@ -39,10 +41,10 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
      *      or an object from which to set values
      * @return ObjectStore\Container
      */
-	public function Container($cdata = NULL)
-	{
-		return new Container($this, $cdata);
-	}
+    public function Container($cdata = null)
+    {
+        return new Container($this, $cdata);
+    }
 
     /**
      * Returns a Collection of Container objects
@@ -54,13 +56,13 @@ class ObjectStoreBase extends \OpenCloud\AbstractClass\Service {
      *      service to filter the results
      * @return ObjectStore\ContainerList
      */
-	public function ContainerList(array $filter = array())
-	{
-		$filter['format'] = 'json';
-		return $this->Collection(
-		    '\OpenCloud\ObjectStore\Container',
-			$this->Url(NULL, $filter)
-		);
-	}
+    public function ContainerList(array $filter = array())
+    {
+        $filter['format'] = 'json';
+        return $this->Collection(
+            '\OpenCloud\ObjectStore\Container',
+            $this->Url(null, $filter)
+        );
+    }
 
 }

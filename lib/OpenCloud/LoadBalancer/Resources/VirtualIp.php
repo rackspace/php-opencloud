@@ -10,17 +10,23 @@ namespace OpenCloud\LoadBalancer\Resources;
  *
  * @api
  */
-class VirtualIp extends SubResource {
-	public
-		$id,
-		$address,
-		$type,
-		$ipVersion;
-	protected static
-		$json_collection_name = 'virtualIps',
-		$json_name = FALSE,
-		$url_resource = 'virtualips';
-	protected
-		$_create_keys = array('type', 'ipVersion');
-	public function Update($params=array()) { $this->NoUpdate(); }
+class VirtualIp extends SubResource 
+{
+
+    public $id;
+    public $address;
+    public $type;
+    public $ipVersion;
+
+    protected static $json_collection_name = 'virtualIps';
+    protected static $json_name = FALSE;
+    protected static $url_resource = 'virtualips';
+    
+    protected $_create_keys = array('type', 'ipVersion');
+    
+    public function Update($params = array()) 
+    { 
+        $this->NoUpdate(); 
+    }
+
 }

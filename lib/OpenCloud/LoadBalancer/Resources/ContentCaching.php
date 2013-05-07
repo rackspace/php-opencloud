@@ -7,14 +7,22 @@ namespace OpenCloud\LoadBalancer\Resources;
  *
  * @api
  */
-class ContentCaching extends SubResource {
-	public
-		$enabled;
-    protected static
-    	$json_name = "contentCaching",
-    	$url_resource = "contentcaching";
-    protected
-    	$_create_keys = array( 'enabled' );
-	public function Create($parm=array()) { $this->Update($parm); }
-	public function Delete() { $this->NoDelete(); }
+class ContentCaching extends SubResource 
+{
+
+	public $enabled;
+    protected static $json_name = "contentCaching";
+    protected static $url_resource = "contentcaching";
+    protected $_create_keys = array( 'enabled' );
+
+	public function Create($params = array()) 
+    { 
+        $this->Update($parm); 
+    }
+
+	public function Delete() 
+    { 
+        $this->NoDelete(); 
+    }
+
 }

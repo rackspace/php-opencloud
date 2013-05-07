@@ -12,26 +12,29 @@
 
 namespace OpenCloud\Database;
 
+use OpenCloud\Base\Base;
+use OpenCloud\Base\Exceptions;
+use OpenCloud\Base\Lang;
+
 /**
  * This class represents a User in the Rackspace "Red Dwarf"
  * database-as-a-service product.
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class User extends \OpenCloud\Base\Base {
+class User extends Base 
+{
 
     /**
      * @var string $name the user name
      * @var string $password the user's password
      * @var array $databases a list of database names assigned to the user
      */
-    public
-        $name,
-        $password,
-        $databases=array();
+    public $name;
+    public $password;
+    public $databases = array();
 
-    private
-        $_instance;
+    private $_instance;
 
     /**
      * Creates a new database object
@@ -53,18 +56,25 @@ class User extends \OpenCloud\Base\Base {
      * @return void
      * @throws UserNameError if `$info` is not a string, object, or array
      */
-    public function __construct(Instance $instance, $info=NULL, $db=array()) {
+    public function __construct(Instance $instance, $info = null, $db = array()) 
+    {
         $this->_instance = $instance;
-        if (!empty($db))
+
+        if (!empty($db)) {
             $this->databases = $db;
-        if (is_object($info) || is_array($info))
-            foreach($info as $property => $value)
+        }
+
+        if (is_object($info) || is_array($info)) {
+            foreach($info as $property => $value) {
                 $this->$property = $value;
-        elseif (is_string($info))
+            }
+        } elseif (is_string($info)) {
             $this->name = $info;
-        elseif (isset($info))
-            throw new \OpenCloud\Base\Exceptions\UserNameError(
-                \OpenCloud\Base\Lang::translate('User parameter must be an object, array, or string'));
+        } elseif (isset($info)) {
+            throw new Exceptions\UserNameError(
+                Lang::translate('User parameter must be an object, array, or string')
+            );
+        }
     }
 
     /**
@@ -73,12 +83,14 @@ class User extends \OpenCloud\Base\Base {
      * @return string
      * @throws UserNameError if the user name is not set
      */
-    public function Url() {
-        if (!isset($this->name))
-            throw new \OpenCloud\Base\Exceptions\UserNameError(
-                \OpenCloud\Base\Lang::translate('The user does not have a Url yet'));
-        return stripslashes($this->Instance()->Url('users'))
-                .'/'.$this->name;
+    public function Url() 
+    {
+        if (!isset($this->name)) {
+            throw new Exceptions\UserNameError(
+                Lang::translate('The user does not have a Url yet')
+            );
+        }
+        return stripslashes($this->Instance()->Url('users')) . '/' . $this->name;
     }
 
     /**
@@ -86,7 +98,8 @@ class User extends \OpenCloud\Base\Base {
      *
      * @return Instance
      */
-    public function Instance() {
+    public function Instance() 
+    {
         return $this->_instance;
     }
 
@@ -95,7 +108,8 @@ class User extends \OpenCloud\Base\Base {
      *
      * @return \OpenCloud\DbService
      */
-    public function Service() {
+    public function Service() 
+    {
     	return $this->Instance()->Service();
     }
 
@@ -106,7 +120,8 @@ class User extends \OpenCloud\Base\Base {
 	 * @param string $dbname the database name to be added
 	 * @return void
 	 */
-	public function AddDatabase($dbname) {
+	public function AddDatabase($dbname) 
+    {
 		$this->databases[] = $dbname;
 	}
 
@@ -119,27 +134,42 @@ class User extends \OpenCloud\Base\Base {
 	 * @throws UserNameError if the user's name is not defined
 	 * @throws UserCreateError if the HTTP status is not Success
 	 */
-	public function Create($params=array()) {
-		foreach($params as $name => $value)
+	public function Create($params = array()) 
+    {
+		foreach($params as $name => $value) {
 			$this->$name = $value;
-		if (!isset($this->name))
-			throw new \OpenCloud\Base\Exceptions\UserNameError(
-			    \OpenCloud\Base\Lang::translate('Cannot create a database user without a name'));
+        }
+
+		if (!isset($this->name)) {
+			throw new Exceptions\UserNameError(
+                Lang::translate('Cannot create a database user without a name')
+            );
+        }
+
 		$json = json_encode($this->CreateJson());
+
 		$this->debug('Create() JSON[%s]', $json);
-		if ($this->CheckJsonError())
-			return FALSE;
+
+		if ($this->CheckJsonError()) {
+			return false;
+        }
+
 		$url = $this->Instance()->Url('users');
+
 		// send the request
 		$response = $this->Service()->Request($url, 'POST', array(), $json);
-		$this->debug('Create() response [%d] - [%s]',
-			$response->HttpStatus(), $response->HttpBody());
+
+		$this->debug('Create() response [%d] - [%s]', $response->HttpStatus(), $response->HttpBody());
 
 		// check the response
-		if ($response->HttpStatus() > 202)
-			throw new \OpenCloud\Base\Exceptions\UserCreateError(sprintf(
-				\OpenCloud\Base\Lang::translate('Error creating user [%s], status [%d] response [%s]'),
-				$this->name, $response->HttpStatus(), $response->HttpBody()));
+		if ($response->HttpStatus() > 202) {
+			throw new Exceptions\UserCreateError(sprintf(
+                Lang::translate('Error creating user [%s], status [%d] response [%s]'),
+			    $this->name, 
+                $response->HttpStatus(), 
+                $response->HttpBody()
+            ));
+        }
 
 		return $response;
 	}
@@ -151,9 +181,11 @@ class User extends \OpenCloud\Base\Base {
 	 * @throws UserUpdateError always; updates are not currently permitted by
 	 *		this service.
 	 */
-	public function Update($params=array()) {
-		throw new \OpenCloud\Base\Exceptions\UserUpdateError(
-		    \OpenCloud\Base\Lang::translate('You cannot update a database user at this time'));
+	public function Update($params = array()) 
+    {
+		throw new Exceptions\UserUpdateError(
+		    Lang::translate('You cannot update a database user at this time')
+        );
 	}
 
 	/**
@@ -163,39 +195,41 @@ class User extends \OpenCloud\Base\Base {
 	 * @return \OpenCloud\HttpResponse
 	 * @throws UserDeleteError if HTTP response is not Success
 	 */
-	public function Delete() {
-		$response = $this->Service()->Request(
-			$this->Url(),
-			'DELETE'
-		);
+	public function Delete() 
+    {
+		$response = $this->Service()->Request($this->Url(), 'DELETE');
 
 		// check status code
-		if ($response->HttpStatus() > 202)
-			throw new \OpenCloud\Base\Exceptions\UserDeleteError(sprintf(
-				\OpenCloud\Base\Lang::translate('Error deleting user [%s], status [%d] response [%s]',
-					$this->name, $response->HttpStatus(), $response->HttpBody())));
+		if ($response->HttpStatus() > 202) {
+			throw new Exceptions\UserDeleteError(sprintf(
+                Lang::translate('Error deleting user [%s], status [%d] response [%s]',
+				$this->name, 
+                $response->HttpStatus(), 
+                $response->HttpBody())
+            ));
+        }
 
 		return $response;
 	}
 
-	/********** PRIVATE METHODS **********/
-
 	/**
 	 * Creates the JSON object for the Create method
 	 */
-	private function CreateJson() {
-		// build the object
-		$obj = new \stdClass();
-		$obj->users = array();
-		$obj->users[0] = new \stdClass();
-		$obj->users[0]->name = $this->name;
-		$obj->users[0]->password = $this->password;
-		$obj->users[0]->databases = array();
-		foreach($this->databases as $dbname) {
-			$db = new \stdClass();
-			$db->name = $dbname;
-			$obj->users[0]->databases[] = $db;
+	private function CreateJson() 
+    {
+		$object = new \stdClass();
+		$object->users = array();
+		$object->users[0] = new \stdClass();
+		$object->users[0]->name = $this->name;
+		$object->users[0]->password = $this->password;
+		$object->users[0]->databases = array();
+
+		foreach($this->databases as $dbName) {
+			$database = new \stdClass();
+			$database->name = $dbName;
+			$object->users[0]->databases[] = $database;
 		}
-		return $obj;
+
+		return $object;
 	}
 }

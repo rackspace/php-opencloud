@@ -31,7 +31,12 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 {
 	private $my; // my Connection
 
-	public function __construct() {
+	private $nullFile;
+
+	public function __construct() 
+	{
+		$this->nullFile = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'NUL' : '/dev/null';
+
 		$this->my = new StubConnection(TEST_DOMAIN,
 			array('username'=>'Foo', 'password'=>'Bar'));
 	}
@@ -144,7 +149,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 		$this->my->SetDownloadProgressCallback('bar');
 	}
 	public function test_read_cb() {
-		$fp = fopen('/dev/null', 'r');
+		$fp = fopen($this->nullFile, 'r');
 		$this->assertEquals(
 			'',
 			$this->my->_read_cb(NULL, $fp, 1024));
@@ -154,7 +159,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 	 * @expectedException \OpenCloud\Base\Exceptions\HttpUrlError
 	 */
 	public function test_write_cb() {
-		$ch = curl_init('file:/dev/null');
+		$ch = curl_init('file:' . $this->nullFile);
 		$len = $this->my->_write_cb($ch, 'FOOBAR');
 		$this->assertEquals(6, $len);
 	}

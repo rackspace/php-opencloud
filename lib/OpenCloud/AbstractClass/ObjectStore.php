@@ -13,6 +13,12 @@
 
 namespace OpenCloud\AbstractClass;
 
+use OpenCloud\Base\Base;
+use OpenCloud\Base\Lang;
+use OpenCloud\Base\Metadata;
+use OpenCloud\Base\Exceptions\NameError;
+use OpenCloud\Base\Exceptions\MetadataPrefixError;
+
 /**
  * Intermediate (abstract) class to implement shared
  * features of all object-storage classes
@@ -22,113 +28,124 @@ namespace OpenCloud\AbstractClass;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class ObjectStore extends \OpenCloud\Base\Base {
+abstract class ObjectStore extends Base 
+{
 
-	const
-		ACCOUNT_META_PREFIX = 'X-Account-',
-		CONTAINER_META_PREFIX = 'X-Container-Meta-',
-		OBJECT_META_PREFIX = 'X-Object-Meta-',
-		CDNCONTAINER_META_PREFIX = 'X-Cdn-';
+    const ACCOUNT_META_PREFIX = 'X-Account-';
+    const CONTAINER_META_PREFIX = 'X-Container-Meta-';
+    const OBJECT_META_PREFIX = 'X-Object-Meta-';
+    const CDNCONTAINER_META_PREFIX = 'X-Cdn-';
 
-	public
-		$metadata;
+    public $metadata;
 
-	/**
-	 * Initializes the metadata component
-	 */
-	public function __construct() {
-	    $this->metadata = new \OpenCloud\Base\Metadata;
-	}
+    /**
+     * Initializes the metadata component
+     */
+    public function __construct() 
+    {
+        $this->metadata = new Metadata;
+    }
 
-	/**
-	 * Given an HttpResponse object, converts the appropriate headers
-	 * to metadata
-	 *
-	 * @param \OpenCloud\HttpResponse
-	 * @return void
-	 */
-	public function GetMetadata($response) {
-	    $this->metadata = new \OpenCloud\Base\Metadata;
-	    $prefix = $this->Prefix();
-	    $this->metadata->SetArray($response->Headers(), $prefix);
-	}
+    /**
+     * Given an HttpResponse object, converts the appropriate headers
+     * to metadata
+     *
+     * @param \OpenCloud\HttpResponse
+     * @return void
+     */
+    public function GetMetadata($response) 
+    {
+        $this->metadata = new Metadata;
+        $prefix = $this->Prefix();
+        $this->metadata->SetArray($response->Headers(), $prefix);
+    }
 
-	/**
-	 * If object has metadata, returns an associative array of headers
-	 *
-	 * For example, if a DataObject has a metadata item named 'FOO',
-	 * then this would return array('X-Object-Meta-FOO'=>$value);
-	 *
-	 * @return array;
-	 */
-	public function MetadataHeaders() {
-	    $headers = array();
-	    $prefix = $this->Prefix();
+    /**
+     * If object has metadata, returns an associative array of headers
+     *
+     * For example, if a DataObject has a metadata item named 'FOO',
+     * then this would return array('X-Object-Meta-FOO'=>$value);
+     *
+     * @return array;
+     */
+    public function MetadataHeaders() 
+    {
+        $headers = array();
 
-	    // only build if we have metadata
-	    if (is_object($this->metadata)) {
-	        foreach($this->metadata as $key => $value)
-	            $headers[$prefix.$key] = $value;
-	    }
+        $prefix = $this->Prefix();
 
-	    return $headers;
-	}
+        // only build if we have metadata
+        if (is_object($this->metadata)) {
+            foreach($this->metadata as $key => $value) {
+                $headers[$prefix.$key] = $value;
+            }
+        }
 
-	/**
-	 * Returns the displayable name of the object
-	 *
-	 * Can be overridden by child objects; *must* be overridden by child
-	 * objects if the object does not have a `name` attribute defined.
-	 *
-	 * @api
-	 * @throws NameError if attribute 'name' is not defined
-	 */
-	public function Name() {
-		if (property_exists($this, 'name'))
-			return $this->name;
-		else
-			throw new \OpenCloud\Base\Exceptions\NameError(sprintf(
-				\OpenCloud\Base\Lang::translate('name attribute does not exist for [%s]'),
-				get_class($this)));
-	}
+        return $headers;
+    }
 
-	public static function JsonName() {
-	    return NULL;
-	}
+    /**
+     * Returns the displayable name of the object
+     *
+     * Can be overridden by child objects; *must* be overridden by child
+     * objects if the object does not have a `name` attribute defined.
+     *
+     * @api
+     * @throws NameError if attribute 'name' is not defined
+     */
+    public function Name() 
+    {
+        if (property_exists($this, 'name')) {
+            return $this->name;
+        } else {
+            throw new NameError(sprintf(Lang::translate('name attribute does not exist for [%s]'), get_class($this)));
+        }
+    }
 
-	public static function JsonCollectionName() {
-	    return NULL;
-	}
+    public static function JsonName() 
+    {
+        return null;
+    }
 
-	public static function JsonCollectionElement() {
-	    return NULL;
-	}
+    public static function JsonCollectionName() 
+    {
+        return null;
+    }
 
-	/********** PRIVATE METHODS **********/
+    public static function JsonCollectionElement() 
+    {
+        return null;
+    }
 
-	/**
-	 * Returns the proper prefix for the specified type of object
-	 *
-	 * @param string $type The type of object; derived from `get_class()` if not
-	 *		specified.
-	 */
-	private function Prefix($type=NULL) {
-		if (!isset($type)) {
-			$parts = preg_split('/\\\/', get_class($this));
-			$type = $parts[count($parts)-1];
-		}
-		switch($type) {
-		case 'Account':
-			return self::ACCOUNT_META_PREFIX;
-		case 'CDNContainer':
-		    return self::CDNCONTAINER_META_PREFIX;
-		case 'Container':
-			return self::CONTAINER_META_PREFIX;
-		case 'DataObject':
-			return self::OBJECT_META_PREFIX;
-		default:
-			throw new \OpenCloud\Base\Exceptions\MetadataPrefixError(sprintf(
-				\OpenCloud\Base\Lang::translate('Unrecognized metadata type [%s]'), $type));
-		}
-	}
+    /**
+     * Returns the proper prefix for the specified type of object
+     *
+     * @param string $type The type of object; derived from `get_class()` if not
+     *      specified.
+     */
+    private function Prefix($type = null) 
+    {
+        if (!isset($type)) {
+            $parts = preg_split('/\\\/', get_class($this));
+            $type = $parts[count($parts)-1];
+        }
+        
+        switch($type) {
+            case 'Account':
+                return self::ACCOUNT_META_PREFIX;
+                break;
+            case 'CDNContainer':
+                return self::CDNCONTAINER_META_PREFIX;
+                break;
+            case 'Container':
+                return self::CONTAINER_META_PREFIX;
+                break;
+            case 'DataObject':
+                return self::OBJECT_META_PREFIX;
+                break;
+            default:
+                throw new MetadataPrefixError(sprintf(Lang::translate('Unrecognized metadata type [%s]'), $type));
+                break;
+        }
+    }
 }

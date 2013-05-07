@@ -48,10 +48,15 @@ class MyStubRequest extends Curl {
 
 class HttpResponseTest extends \PHPUnit_Framework_TestCase
 {
-    private
-        $response;
-    public function __construct() {
-        $request = new MyStubRequest('file:/dev/null');
+    private $response;
+
+    private $nullFile;
+
+    public function __construct() 
+    {
+        $this->nullFile = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'NUL' : '/dev/null';
+
+        $request = new MyStubRequest('file:' . $this->nullFile);
         $this->response = new Http(
             $request,
             TESTDATA);
@@ -60,7 +65,7 @@ class HttpResponseTest extends \PHPUnit_Framework_TestCase
      * Tests
      */
     public function test__construct() {
-    	$req = new Curl('file:/dev/null');
+    	$req = new Curl('file:' . $this->nullFile);
     	$req->SetOption(CURLOPT_RETURNTRANSFER, TRUE);
     	$req->SetConnectTimeout(20);
     	$req->SetHttpTimeout(20);
