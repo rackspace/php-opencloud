@@ -346,15 +346,15 @@ exception thrown.</p>
           string
              
             $name
-            = NULL,
+            = null,
           string
              
             $region
-            = NULL,
+            = null,
           string
              
             $urltype
-            = NULL,
+            = null,
           
           )
         </span>
@@ -375,20 +375,20 @@ exception thrown.</p>
 <td>$name</td>
 <td style="white-space: normal;">string</td>
 <td><p>the name of the Compute service to attach to</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$region</td>
 <td style="white-space: normal;">string</td>
 <td><p>the name of the region to use</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><p>the URL type (normally "publicURL")</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -605,9 +605,9 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
 </div>
 <div class="method">
 <a id="OpenStack::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
-          array
+          
              
-            $arr,
+            $array,
           
           )
         </span>
@@ -624,10 +624,9 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$arr</td>
-<td style="white-space: normal;">array</td>
-<td><p>array of key/value pairs</p>
-</td>
+<td>$array</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -659,15 +658,15 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
           string
              
             $name
-            = NULL,
+            = null,
           string
              
             $region
-            = NULL,
+            = null,
           string
              
             $urltype
-            = NULL,
+            = null,
           
           )
         </span>
@@ -688,20 +687,20 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
 <td>$name</td>
 <td style="white-space: normal;">string</td>
 <td><p>the name of the Object Storage service to attach to</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$region</td>
 <td style="white-space: normal;">string</td>
 <td><p>the name of the region to use</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><p>the URL type (normally "publicURL")</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -744,7 +743,7 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
           string
              
             $data
-            = NULL,
+            = null,
           
           )
         </span>
@@ -789,10 +788,10 @@ exceptions for the request.</p></small><br><h4>Arguments</h4>
 <td>$data</td>
 <td style="white-space: normal;">string</td>
 <td><p>data - either a string or a resource (file pointer) to
-    use as the
-    request body (for PUT or POST)</p>
+     use as the
+     request body (for PUT or POST)</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -854,15 +853,15 @@ exceptions for the request.</p></small><br><h4>Arguments</h4>
           string
              
             $name
-            = NULL,
+            = null,
           string
              
             $region
-            = NULL,
+            = null,
           string
              
             $urltype
-            = NULL,
+            = null,
           
           )
         </span>
@@ -889,20 +888,20 @@ exceptions for the request.</p></small><br><h4>Arguments</h4>
 <td>$name</td>
 <td style="white-space: normal;">string</td>
 <td><p>the name of the Compute service to attach to</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$region</td>
 <td style="white-space: normal;">string</td>
 <td><p>the name of the region to use</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><p>the URL type (normally "publicURL")</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -1020,15 +1019,15 @@ exceptions for the request.</p></small><br><h4>Arguments</h4>
           string
              
             $name
-            = NULL,
+            = null,
           string
              
             $region
-            = NULL,
+            = null,
           string
              
             $urltype
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1059,21 +1058,21 @@ creating new service objects.</p></small><br><h4>Arguments</h4>
 <td style="white-space: normal;">string</td>
 <td><p>the service name; e.g., 'cloudServersOpenStack'</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$region</td>
 <td style="white-space: normal;">string</td>
 <td><p>the region name; e.g., 'LON'</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><p>the type of URL to use; e.g., 'internalURL'</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -1132,7 +1131,7 @@ data that is being downloaded on this call.</p></small><br><h4>Arguments</h4>
 <td>$callback</td>
 <td style="white-space: normal;">callable</td>
 <td><p>the name of a global callback function, or an
-    array($object, $functionname)</p>
+     array($object, $functionname)</p>
 </td>
 <td></td>
 </tr></tbody>
@@ -1237,11 +1236,11 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           integer
              
             $t_conn
-            = NULL,
+            = null,
           integer
              
             $t_overlimit
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1274,7 +1273,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
      that the OpenStack object will wait to establish an HTTP
      connection). Value is in seconds.</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$t_overlimit</td>
@@ -1283,7 +1282,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
      that the OpenStack object will wait to retry on an overlimit
      condition). Value is in seconds.</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -1336,7 +1335,7 @@ data that is being uploaded on this call.</p></small><br><h4>Arguments</h4>
 <td>$callback</td>
 <td style="white-space: normal;">callable</td>
 <td><p>the name of a global callback function, or an
-    array($object, $functionname)</p>
+     array($object, $functionname)</p>
 </td>
 <td></td>
 </tr></tbody>
@@ -1462,15 +1461,15 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
           string
              
             $name
-            = NULL,
+            = null,
           string
              
             $region
-            = NULL,
+            = null,
           string
              
             $urltype
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1492,21 +1491,21 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <td style="white-space: normal;">string</td>
 <td><p>the name of the service (e.g., 'cloudBlockStorage')</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$region</td>
 <td style="white-space: normal;">string</td>
 <td><p>the region (e.g., 'DFW')</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$urltype</td>
 <td style="white-space: normal;">string</td>
 <td><p>the type of URL (e.g., 'publicURL');</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -1786,23 +1785,23 @@ directly.</p></small><br><h4>Arguments</h4>
           mixed
              
             $p1
-            = NULL,
+            = null,
           mixed
              
             $p2
-            = NULL,
+            = null,
           mixed
              
             $p3
-            = NULL,
+            = null,
           mixed
              
             $p4
-            = NULL,
+            = null,
           mixed
              
             $p5
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1837,35 +1836,35 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p2</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p3</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p4</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p5</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -2062,7 +2061,11 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$_file_descriptors
           =
           array()</h3>
-<em></em><br>
+<em>Tracks file descriptors used by streaming downloads</em><br><small>&lt;p&gt;This will permit multiple simultaneous streaming downloads; the
+key is the URL of the object, and the value is its file descriptor.&lt;/p&gt;
+
+&lt;p&gt;To prevent memory overflows, each array element is deleted when
+the end of the file is reached.&lt;/p&gt;</small><br><br>
 </div>
 <div class="method">
 <a id="OpenStack::$_user_read_progress_callback_func"></a><h3>
@@ -2107,7 +2110,7 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$curl_options
           =
           array()</h3>
-<em></em><br>
+<em>array of options to pass to the CURL request object</em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="OpenStack::$debug"></a><h3>
@@ -2125,7 +2128,15 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$defaults
           =
           array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'Database' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE), 'Volume' =&gt; array('name' =&gt; RAXSDK_VOLUME_NAME, 'region' =&gt; RAXSDK_VOLUME_REGION, 'urltype' =&gt; RAXSDK_VOLUME_URLTYPE), 'LoadBalancer' =&gt; array('name' =&gt; RAXSDK_LBSERVICE_NAME, 'region' =&gt; RAXSDK_LBSERVICE_REGION, 'urltype' =&gt; RAXSDK_LBSERVICE_URLTYPE), 'DNS' =&gt; array('name' =&gt; RAXSDK_DNS_NAME, 'region' =&gt; RAXSDK_DNS_REGION, 'urltype' =&gt; RAXSDK_DNS_URLTYPE))</h3>
-<em></em><br>
+<em>This associative array holds default values used to identify each
+service (and to select it from the Service Catalog).</em><br><small>&lt;p&gt;Use the
+Compute::SetDefaults() method to change the default values, or
+define the global constants (for example, RAXSDK_COMPUTE_NAME)
+BEFORE loading the OpenCloud library:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define('RAXSDK_COMPUTE_NAME', 'cloudServersOpenStack');
+include('openstack.php');
+&lt;/code&gt;&lt;/pre&gt;</small><br><br>
 </div>
 <div class="method">
 <a id="OpenStack::$expiration"></a><h3>
@@ -2143,7 +2154,7 @@ with "Debug:" and the class name, to the standard output device.</p>
           </span>$export_items
           =
           array('token', 'expiration', 'tenant', 'catalog')</h3>
-<em></em><br>
+<em>list of attributes to export/import</em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="OpenStack::$http_headers"></a><h3>
@@ -2303,9 +2314,6 @@ retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="OpenCloud.AbstractClass.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
 </ul>
-</li>
-<li class="closed">
-<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Rackspace Cloud Load Balancers</small></span></li></ul>
 </li>
 <li class="closed">
 <span class="folder">Base</span><ul>

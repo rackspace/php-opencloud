@@ -9,9 +9,15 @@ namespace OpenCloud\Base\Request;
  */
 interface HttpRequestInterface
 {
+    
     public function SetOption($name, $value);
+
     public function setheaders($arr);
+
     public function SetHeader($header, $value);
+
     public function Execute();
+
     public function close();
+
 }

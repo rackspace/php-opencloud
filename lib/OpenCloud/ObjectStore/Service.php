@@ -2,6 +2,8 @@
 
 namespace OpenCloud\ObjectStore;
 
+use OpenCloud\OpenStack;
+use OpenCloud\Base\Exceptions;
 use OpenCloud\Base\Lang;
 
 /**
@@ -25,14 +27,15 @@ use OpenCloud\Base\Lang;
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-class Service extends ObjectStoreBase {
-	
+class Service extends ObjectStoreBase 
+{
+    
     /**
      * This holds the associated CDN object (for Rackspace public cloud)
      * or is NULL otherwise. The existence of an object here is
      * indicative that the CDN service is available.
      */
-	private $cdn;
+    private $cdn;
 
     /**
      * creates a new ObjectStore object
@@ -42,62 +45,73 @@ class Service extends ObjectStoreBase {
      * @param string $serviceRegion the name of the service region to use
      * @param string $urltype the type of URL to use (usually "publicURL")
      */
-	public function __construct(
-		\OpenCloud\OpenStack $conn,
-		$serviceName=RAXSDK_OBJSTORE_NAME,
-		$serviceRegion=RAXSDK_OBJSTORE_REGION,
-		$urltype=RAXSDK_OBJSTORE_URLTYPE) {
-		$this->debug(Lang::translate('initializing ObjectStore...'));
+    public function __construct(
+        OpenStack $connection,
+        $serviceName=RAXSDK_OBJSTORE_NAME,
+        $serviceRegion=RAXSDK_OBJSTORE_REGION,
+        $urltype=RAXSDK_OBJSTORE_URLTYPE
+    ) {
+        $this->debug(Lang::translate('initializing ObjectStore...'));
 
-		// call the parent contructor
-		parent::__construct(
-			$conn,
-			'object-store',
-			$serviceName,
-			$serviceRegion,
-			$urltype
-		);
+        // call the parent contructor
+        parent::__construct(
+            $connection,
+            'object-store',
+            $serviceName,
+            $serviceRegion,
+            $urltype
+        );
 
-		// establish the CDN container, if available
-		try {
+        // establish the CDN container, if available
+        try {
             $this->cdn = new ObjectStoreCDN(
-                $conn,
-                $serviceName.'CDN', // will work for Rackspace
+                $connection,
+                $serviceName . 'CDN', // will work for Rackspace
                 $serviceRegion,
                 $urltype
             );
-		} catch (\OpenCloud\Base\Exceptions\EndpointError $e) {
-		    /**
-		     * if we have an endpoint error, then
-		     * the CDN functionality is not available
-		     * In this case, we silently ignore  it.
-		     */
-		    $this->cdn = NULL;
-		}
-	} // function __construct()
+        } catch (Exceptions\EndpointError $e) {
+            /**
+             * if we have an endpoint error, then
+             * the CDN functionality is not available
+             * In this case, we silently ignore  it.
+             */
+            $this->cdn = null;
+        }
+    }
 
-	/**
-	 * sets the shared secret value for the TEMP_URL
-	 *
-	 * @param string $secret the shared secret
-	 * @return HttpResponse
-	 */
-	public function SetTempUrlSecret($secret) {
-		$resp = $this->Request($this->Url(), 'POST',
-			array('X-Account-Meta-Temp-Url-Key' => $secret));
-		if ($resp->HttpStatus() > 204)
-			throw new \OpenCloud\Base\Exceptions\HttpError(sprintf(
-				Lang::translate('Error in request, status [%d] for URL [%s] [%s]'),
-				$resp->HttpStatus(),
-				$this->Url(),
-				$resp->HttpBody()));
-		return $resp;
-	}
+    /**
+     * sets the shared secret value for the TEMP_URL
+     *
+     * @param string $secret the shared secret
+     * @return HttpResponse
+     */
+    public function SetTempUrlSecret($secret) 
+    {
+        $response = $this->Request(
+            $this->Url(), 
+            'POST',
+            array('X-Account-Meta-Temp-Url-Key' => $secret)
+        );
+
+        if ($response->HttpStatus() > 204) {
+            throw new Exceptions\HttpError(sprintf(
+                Lang::translate('Error in request, status [%d] for URL [%s] [%s]'),
+                $response->HttpStatus(),
+                $this->Url(),
+                $response->HttpBody()
+            ));
+        }
+
+        return $response;
+    }
 
     /**
      * returns the CDN object
      */
-    public function CDN() {
+    public function CDN() 
+    {
         return $this->cdn;
     }
+
 }

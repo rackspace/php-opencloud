@@ -710,8 +710,7 @@ security.</p></small><br><h4>Return value</h4>
 <em>returns the JSON name for each element in a collection</em><br><small><p>Usually, elements in a collection are anonymous; this function, however,
 provides for an element level name:</p>
 
-<pre><code>`{ "collection" : [ { "element" : ... } ] }`
-</code></pre></small><br><h4>Return value</h4>
+<p><code>{ "collection" : [ { "element" : ... } ] }</code></p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -815,9 +814,9 @@ these examples).</p></small><br><h4>Return value</h4>
 </div>
 <div class="method">
 <a id="Node::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
-          array
+          
              
-            $arr,
+            $array,
           
           )
         </span>
@@ -834,10 +833,9 @@ these examples).</p></small><br><h4>Return value</h4>
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$arr</td>
-<td style="white-space: normal;">array</td>
-<td><p>array of key/value pairs</p>
-</td>
+<td>$array</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -875,7 +873,7 @@ these examples).</p></small><br><h4>Return value</h4>
           
              
             $data
-            = NULL,
+            = null,
           
           )
         </span>
@@ -895,7 +893,7 @@ these examples).</p></small><br><h4>Return value</h4>
 <td>$data</td>
 <td style="white-space: normal;">n/a</td>
 <td></td>
-<td>NULL</td>
+<td>null</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
@@ -1107,7 +1105,7 @@ objects if the object does not have a <code>name</code> attribute defined.</p></
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\LoadBalancer\Resources\LoadBalancer</span>
+        <span class="nb-faded-text">\OpenCloud\LoadBalancer\LoadBalancer</span>
 </h3>
 <h4>Description</h4>
 <em>returns the parent LoadBalancer object</em><br><small><p>This is a synonym for Service(), since the object is usually a
@@ -1118,7 +1116,7 @@ service.</p></small><br><h4>Return value</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\LoadBalancer\Resources\LoadBalancer</td>
+<td>\OpenCloud\LoadBalancer\LoadBalancer</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -1161,7 +1159,7 @@ service.</p></small><br><h4>Return value</h4>
           
              
             $id
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1182,7 +1180,7 @@ changing states)</em><br><h4>Arguments</h4>
 <td>$id</td>
 <td style="white-space: normal;">n/a</td>
 <td></td>
-<td>NULL</td>
+<td>null</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
@@ -1570,9 +1568,9 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
              
             $subresource
             = NULL,
-          array
+          
              
-            $qstr
+            $queryString
             = array(),
           
           )
@@ -1598,10 +1596,9 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>NULL</td>
 </tr>
 <tr>
-<td>$qstr</td>
-<td style="white-space: normal;">array</td>
-<td><p>optional k/v pairs for query strings</p>
-</td>
+<td>$queryString</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td>array()</td>
 </tr>
 </tbody>
@@ -1737,13 +1734,13 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="Node::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          \OpenCloud\LoadBalancer\Resources\LoadBalancer
+          <a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer">\OpenCloud\LoadBalancer\LoadBalancer</a>
              
             $lb,
           mixed
              
             $info
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1762,7 +1759,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>$lb</td>
-<td style="white-space: normal;">\OpenCloud\LoadBalancer\Resources\LoadBalancer</td>
+<td style="white-space: normal;"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#%5COpenCloud%5CLoadBalancer%5CLoadBalancer">\OpenCloud\LoadBalancer\LoadBalancer</a></td>
 <td><p>the parent LB object</p></td>
 <td></td>
 </tr>
@@ -1770,7 +1767,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <td>$info</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>either an ID or an array of values</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -1881,23 +1878,23 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
           mixed
              
             $p1
-            = NULL,
+            = null,
           mixed
              
             $p2
-            = NULL,
+            = null,
           mixed
              
             $p3
-            = NULL,
+            = null,
           mixed
              
             $p4
-            = NULL,
+            = null,
           mixed
              
             $p5
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1932,35 +1929,35 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p2</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p3</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p4</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p5</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -2380,9 +2377,6 @@ retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="OpenCloud.AbstractClass.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
 </ul>
-</li>
-<li class="closed">
-<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Rackspace Cloud Load Balancers</small></span></li></ul>
 </li>
 <li class="closed">
 <span class="folder">Base</span><ul>

@@ -12,51 +12,60 @@
 
 namespace OpenCloud\Volume;
 
+use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Base\Lang;
+use OpenCloud\Base\Exceptions;
+
 /**
  * The VolumeType class represents a single block storage volume type
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class VolumeType extends \OpenCloud\AbstractClass\PersistentObject {
+class VolumeType extends PersistentObject 
+{
 
-	public
-		$id,
-		$name,
-		$extra_specs;
+    public $id;
+    public $name;
+    public $extra_specs;
 
-	protected static
-		$json_name = 'volume_type',
-		$url_resource = 'types';
+    protected static $json_name = 'volume_type';
+    protected static $url_resource = 'types';
 
-	/**
-	 * Creates are not permitted
-	 *
-	 * @throws OpenCloud\CreateError always
-	 */
-	public function Create($params=array()) {
-		throw new \OpenCloud\Base\Exceptions\CreateError(
-			\OpenCloud\Base\Lang::translate('VolumeType cannot be created'));
-	}
+    /**
+     * Creates are not permitted
+     *
+     * @throws OpenCloud\CreateError always
+     */
+    public function Create($params = array()) 
+    {
+        throw new Exceptions\CreateError(
+            Lang::translate('VolumeType cannot be created')
+        );
+    }
 
-	/**
-	 * updates are not permitted
-	 *
-	 * @throws OpenCloud\UpdateError always
-	 */
-	public function Update($params=array()) {
-		throw new \OpenCloud\Base\Exceptions\UpdateError(
-			\OpenCloud\Base\Lang::translate('VolumeType cannot be updated'));
-	}
+    /**
+     * updates are not permitted
+     *
+     * @throws OpenCloud\UpdateError always
+     */
+    public function Update($params = array()) 
+    {
+        throw new Exceptions\UpdateError(
+            Lang::translate('VolumeType cannot be updated')
+        );
+    }
 
-	/**
-	 * deletes are not permitted
-	 *
-	 * @throws OpenCloud\DeleteError
-	 */
-	public function Delete() {
-		throw new \OpenCloud\Base\Exceptions\DeleteError(
-			\OpenCloud\Base\Lang::translate('VolumeType cannot be deleted'));
-	}
+    /**
+     * deletes are not permitted
+     *
+     * @throws OpenCloud\DeleteError
+     */
+    public function Delete() 
+    {
+        throw new Exceptions\DeleteError(
+            Lang::translate('VolumeType cannot be deleted')
+        );
+    }
 
 }

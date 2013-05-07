@@ -7,14 +7,22 @@ namespace OpenCloud\LoadBalancer\Resources;
  *
  * @api
  */
-class ConnectionLogging extends SubResource {
-	public
-		$enabled;
-    protected static
-    	$json_name = "connectionLogging",
-    	$url_resource = "connectionlogging";
-    protected
-    	$_create_keys = array( 'enabled' );
-	public function Create($params=array()) { $this->Update($params); }
-	public function Delete() { $this->NoDelete(); }
+class ConnectionLogging extends SubResource 
+{
+
+	public $enabled;
+    protected static $json_name = "connectionLogging";
+    protected static $url_resource = "connectionlogging";
+    protected $_create_keys = array('enabled');
+
+	public function Create($params = array()) 
+    { 
+        $this->Update($params); 
+    }
+
+	public function Delete() 
+    { 
+        $this->NoDelete(); 
+    }
+
 }

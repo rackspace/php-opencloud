@@ -2,10 +2,11 @@
 
 namespace OpenCloud\Base;
 
-class Lang {
+class Lang 
+{
 	
-	public static function translate($word = null) {
-	
+	public static function translate($word = null) 
+	{
 		return $word;
 	}
 	

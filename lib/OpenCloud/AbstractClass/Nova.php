@@ -1,4 +1,5 @@
 <?php
+
 /**
  * An abstract class that defines shared components for products that use
  * OpenStack Nova
@@ -13,7 +14,9 @@
 
 namespace OpenCloud\AbstractClass;
 
+use OpenCloud\OpenStack;
 use OpenCloud\Base\Lang;
+use OpenCloud\Compute\Flavor;
 
 /**
  * Nova is an abstraction layer for the OpenStack compute service.
@@ -22,7 +25,8 @@ use OpenCloud\Base\Lang;
  * as well as Rackspace's Cloud Databases. This class is, in essence, a vehicle
  * for sharing common code between those other classes.
  */
-abstract class Nova extends Service {
+abstract class Nova extends Service 
+{
 
 	private $_url;
 
@@ -42,8 +46,13 @@ abstract class Nova extends Service {
 	 * @param string $serviceName - identifies the name of the service in the
 	 *      catalog
 	 */
-	public function __construct(\OpenCloud\OpenStack $conn,
-	        $serviceType, $serviceName, $serviceRegion, $urltype) {
+	public function __construct(
+		OpenStack $conn,
+	    $serviceType, 
+	    $serviceName, 
+	    $serviceRegion, 
+	    $urltype
+	) {
 		$this->debug(Lang::translate('initializing Nova...'));
 		parent::__construct(
 			$conn,
@@ -52,8 +61,8 @@ abstract class Nova extends Service {
 			$serviceRegion,
 			$urltype
 		);
-		$this->_url = \OpenCloud\Base\Lang::noslash(parent::Url());
-	} // function __construct()
+		$this->_url = Lang::noslash(parent::Url());
+	}
 
 	/**
 	 * Returns a flavor from the service
@@ -66,9 +75,10 @@ abstract class Nova extends Service {
 	 *      retrieved
 	 * @return Compute\Flavor object
 	 */
-	public function Flavor($id=NULL) {
-	    return new \OpenCloud\Compute\Flavor($this, $id);
-	} // flavor()
+	public function Flavor($id = null) 
+	{
+	    return new Flavor($this, $id);
+	}
 
 	/**
 	 * Returns a list of Flavor objects
@@ -84,12 +94,13 @@ abstract class Nova extends Service {
 	 *      strings
 	 * @return Collection (or FALSE on an error)
 	 */
-	public function FlavorList($details=TRUE, $filter=array()) {
-	    if ($details)
-	        $url = $this->Url(\OpenCloud\Compute\Flavor::ResourceName().'/detail',
-	                    $filter);
-	    else
-	        $url = $this->Url(\OpenCloud\Compute\Flavor::ResourceName(), $filter);
+	public function FlavorList($details = true, array $filter = array()) 
+	{
+	    if ($details) {
+	        $url = $this->Url(Flavor::ResourceName().'/detail', $filter);
+	    } else {
+	        $url = $this->Url(Flavor::ResourceName(), $filter);
+	    }
 	    return $this->Collection('\OpenCloud\Compute\Flavor', $url);
 	}
 
@@ -107,20 +118,21 @@ abstract class Nova extends Service {
      * @param string $body - optional body for POST or PUT requests
      * @return \Rackspace\HttpResult object
      */
-	public function Request($url, $method='GET', $headers=array(), $body=NULL) {
+	public function Request($url, $method = 'GET', array $headers = array(), $body = null) 
+	{
 		$headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
 		return parent::Request($url, $method, $headers, $body);
 	}
 
-	/********** PRIVATE METHODS **********/
-
 	/**
 	 * Loads the available namespaces from the /extensions resource
 	 */
-	protected function load_namespaces() {
+	protected function load_namespaces() 
+	{
 	    $ext = $this->Extensions();
-	    foreach($ext as $obj)
+	    foreach($ext as $obj) {
 	        $this->_namespaces[] = $obj->alias;
+	    }
 	}
 
-} // class Compute
+}

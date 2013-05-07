@@ -16,10 +16,10 @@ require_once('StubService.php');
 
 class DataObjectTest extends \PHPUnit_Framework_TestCase
 {
-	private
-	    $dataobject,
-		$service,
-		$container;
+	private $dataobject;
+	private $service;
+	private $container;
+	private $nullFile;
 
 	public function __construct() {
 
@@ -37,6 +37,8 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		$this->dataobject =
 			new \OpenCloud\ObjectStore\DataObject(
 			    $this->container, 'DATA-OBJECT');
+
+		$this->nullFile = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'NUL' : '/dev/null';
 	}
 
 	/**
@@ -71,9 +73,10 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		    get_class($obj->Create($arr)));
 		$this->assertEquals('DOOFUS', $obj->name);
 		$obj = new \OpenCloud\ObjectStore\DataObject($this->container);
+		
 		$this->assertEquals(
 		    'OpenCloud\Base\Request\Response\Blank',
-		    get_class($obj->Create(array('name'=>'FOOBAR'), '/dev/null')));
+		    get_class($obj->Create(array('name'=>'FOOBAR'), $this->nullFile)));
 	}
 	/**
 	 * @expectedException \OpenCloud\Base\Exceptions\UnknownParameterError
@@ -83,17 +86,19 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 		// "type" is deprecated; this causes the exception
 		$obj->Create(array('name'=>'X','type'=>'error'));
 	}
+
 	public function testCreateContentType() {
 		$arr = array('name'=>'MOOFUS', 'content_type'=>'application/x-arbitrary-mime-type');
 		$obj = new \OpenCloud\ObjectStore\DataObject($this->container);
 		$obj->Create($arr, __FILE__);
 		$this->assertEquals('application/x-arbitrary-mime-type', $obj->content_type);
 	}
-	public function testCreateWithHeaders() {
-		$arr = array('name'=>'HOOFUS',
-		             'extra_headers'=>array('Access-Control-Allow-Origin'=>'http://example.com'));
+
+	public function testCreateWithHeaders() 
+	{
+		$arr = array('name'=>'HOOFUS', 'extra_headers'=>array('Access-Control-Allow-Origin'=>'http://example.com'));
 		$obj = new \OpenCloud\ObjectStore\DataObject($this->container);
-		$obj->Create($arr, __FILE__);
+		$obj->Create($arr, $this->nullFile);
 		$this->assertEquals('http://example.com', $obj->extra_headers['Access-Control-Allow-Origin']);
 
 		//$obj2 = new \OpenCloud\ObjectStore\DataObject($this->container, 'HOOFUS');
@@ -156,7 +161,7 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	        $this->dataobject->SaveToString());
 	}
 	public function testSaveToFilename() {
-	    $this->dataobject->SaveToFilename('/dev/null');
+	    $this->dataobject->SaveToFilename($this->nullFile);
 	}
 	public function testgetETag() {
 	    $this->assertEquals(

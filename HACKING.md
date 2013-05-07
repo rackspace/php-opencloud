@@ -19,6 +19,9 @@ efforts. Here are a few general guidelines to follow.
    a `quickref.md` (quick reference) and `userguide/` (user guide) under the
    `docs/` directory.
 
-Thanks again!
+Note to self:
 
-Glen Campbell
+	git tag -s <tagname>
+	git push origin <tagname>
+
+(I always forget these commands)

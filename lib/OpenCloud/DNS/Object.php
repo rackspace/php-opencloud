@@ -12,95 +12,112 @@
 
 namespace OpenCloud\DNS;
 
+use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Base\Lang;
+use OpenCloud\Base\Exceptions;
+
 /**
  * The DnsObject class is an extension of the PersistentObject class that
  * permits the asynchronous responses used by Cloud DNS
  *
  */
-abstract class Object extends \OpenCloud\AbstractClass\PersistentObject {
+abstract class Object extends PersistentObject 
+{
 
-	/**
-	 * Create() returns an asynchronous response
-	 *
-	 * @param array $params array of key/value pairs
-	 * @return AsyncResponse
-	 */
-	public function Create($params=array()) {
-		$resp = parent::Create($params);
-		return new AsyncResponse($this->Service(), $resp->HttpBody());
-	}
+    /**
+     * Create() returns an asynchronous response
+     *
+     * @param array $params array of key/value pairs
+     * @return AsyncResponse
+     */
+    public function Create($params = array()) 
+    {
+        $resp = parent::Create($params);
+        return new AsyncResponse($this->Service(), $resp->HttpBody());
+    }
 
-	/**
-	 * Update() returns an asynchronous response
-	 *
-	 * @param array $params array of key/value pairs
-	 * @return AsyncResponse
-	 */
-	public function Update($params=array()) {
-		$resp = parent::Update($params);
-		return new AsyncResponse($this->Service(), $resp->HttpBody());
-	}
+    /**
+     * Update() returns an asynchronous response
+     *
+     * @param array $params array of key/value pairs
+     * @return AsyncResponse
+     */
+    public function Update($params = array()) 
+    {
+        $resp = parent::Update($params);
+        return new AsyncResponse($this->Service(), $resp->HttpBody());
+    }
 
-	/**
-	 * Delete() returns an asynchronous response
-	 *
-	 * @param array $params array of key/value pairs
-	 * @return AsyncResponse
-	 */
-	public function Delete() {
-		$resp = parent::Delete();
-		return new AsyncResponse($this->Service(), $resp->HttpBody());
-	}
+    /**
+     * Delete() returns an asynchronous response
+     *
+     * @param array $params array of key/value pairs
+     * @return AsyncResponse
+     */
+    public function Delete() 
+    {
+        $resp = parent::Delete();
+        return new AsyncResponse($this->Service(), $resp->HttpBody());
+    }
 
-	/**
-	 * returns the create keys
-	 */
-	public function CreateKeys() {
-		return $this->_create_keys;
-	}
+    /**
+     * returns the create keys
+     */
+    public function CreateKeys() 
+    {
+        return $this->_create_keys;
+    }
 
-	/* ---------- PROTECTED METHODS ---------- */
+    /**
+     * creates the JSON for create
+     *
+     * @return stdClass
+     */
+    protected function CreateJson() 
+    {
+        if (!isset($this->_create_keys)) {
+            throw new Exceptions\CreateError(
+                Lang::translate('Missing [_create_keys]')
+            );
+        }
 
-	/**
-	 * creates the JSON for create
-	 *
-	 * @return stdClass
-	 */
-	protected function CreateJson() {
-		$obj = new \stdClass;
-		if (!isset($this->_create_keys))
-			throw new \OpenCloud\Base\Exceptions\CreateError(\OpenCloud\Base\Lang::translate('Missing [_create_keys]'));
-		$top = self::JsonCollectionName();
-		$obj->{$top} = array();
-		$obj->{$top}[] = $this->GetJson($this->_create_keys);
-		return $obj;
-	}
+        $object = new \stdClass;
+        $object->{self::JsonCollectionName()} = array(
+            $this->GetJson($this->_create_keys)
+        );
+        return $object;
+    }
 
-	/**
-	 * creates the JSON for update
-	 *
-	 * @return stdClass
-	 */
-	protected function UpdateJson($params=array()) {
-		if (!isset($this->_update_keys))
-			throw new \OpenCloud\Base\Exceptions\UpdateError(\OpenCloud\Base\Lang::translate('Missing [_update_keys]'));
-		return $this->GetJson($this->_update_keys);
-	}
+    /**
+     * creates the JSON for update
+     *
+     * @return stdClass
+     */
+    protected function UpdateJson($params = array()) 
+    {
+        if (!isset($this->_update_keys)) {
+            throw new Exceptions\UpdateError(
+                Lang::translate('Missing [_update_keys]')
+            );
+        }
+        return $this->GetJson($this->_update_keys);
+    }
 
-	/* ---------- PRIVATE METHODS ---------- */
+    /**
+     * returns JSON based on $keys
+     *
+     * @param array $keys list of items to include
+     * @return stdClass
+     */
+    private function GetJson($keys) 
+    {
+        $object = new \stdClass;
+        foreach($keys as $item) {
+            if ($this->$item) {
+                $object->$item = $this->$item;
+            }
+        }
+        return $object;
+    }
 
-	/**
-	 * returns JSON based on $keys
-	 *
-	 * @param array $keys list of items to include
-	 * @return stdClass
-	 */
-	private function GetJson($keys) {
-		$obj = new \stdClass;
-		foreach($keys as $item)
-			if ($this->$item)
-				$obj->$item = $this->$item;
-		return $obj;
-	}
-
-} // class DnsObject
+}

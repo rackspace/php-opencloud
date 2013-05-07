@@ -3,6 +3,10 @@ RELEASE NOTES
 
 ### Current branch: master
 
+### 1.5.5
+* PSR-2 implementation (code formatting)
+* issue #95 - attempt to fix default timezone to satisfy folks
+
 ### 04/30/2013 Version 1.5.4
 * Issue #38 - added support for Cloud Files TEMP_URL feature
 * Revised structure around namespaces
