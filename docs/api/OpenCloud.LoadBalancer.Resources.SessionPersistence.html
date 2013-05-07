@@ -768,8 +768,7 @@ security.</p></small><br><h4>Return value</h4>
 <em>returns the JSON name for each element in a collection</em><br><small><p>Usually, elements in a collection are anonymous; this function, however,
 provides for an element level name:</p>
 
-<pre><code>`{ "collection" : [ { "element" : ... } ] }`
-</code></pre></small><br><h4>Return value</h4>
+<p><code>{ "collection" : [ { "element" : ... } ] }</code></p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -889,9 +888,9 @@ these examples).</p></small><br><h4>Return value</h4>
 </div>
 <div class="method">
 <a id="SessionPersistence::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
-          array
+          
              
-            $arr,
+            $array,
           
           )
         </span>
@@ -908,10 +907,9 @@ these examples).</p></small><br><h4>Return value</h4>
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$arr</td>
-<td style="white-space: normal;">array</td>
-<td><p>array of key/value pairs</p>
-</td>
+<td>$array</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td></td>
 </tr></tbody>
 </table>
@@ -1194,7 +1192,7 @@ service.</p></small><br><h4>Return value</h4>
           
              
             $id
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1215,7 +1213,7 @@ changing states)</em><br><h4>Arguments</h4>
 <td>$id</td>
 <td style="white-space: normal;">n/a</td>
 <td></td>
-<td>NULL</td>
+<td>null</td>
 </tr></tbody>
 </table>
 <h4>Return value</h4>
@@ -1632,7 +1630,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           string
              
             $subresource
-            = NULL,
+            = null,
           array
              
             $qstr
@@ -1657,13 +1655,13 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <td>$subresource</td>
 <td style="white-space: normal;">string</td>
 <td><p>the subresource of the parent</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$qstr</td>
 <td style="white-space: normal;">array</td>
 <td><p>an array of key/value pairs to be converted to
-query string parameters for the subresource</p>
+ query string parameters for the subresource</p>
 </td>
 <td>array()</td>
 </tr>
@@ -1808,13 +1806,13 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="SessionPersistence::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          mixed
+          
              
-            $obj,
+            $object,
           mixed
              
             $value
-            = NULL,
+            = null,
           
           )
         </span>
@@ -1832,16 +1830,16 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 </tr></thead>
 <tbody>
 <tr>
-<td>$obj</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>the parent object</p></td>
+<td>$object</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>$value</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>the ID or array of values for the object</p></td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -1956,23 +1954,23 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
           mixed
              
             $p1
-            = NULL,
+            = null,
           mixed
              
             $p2
-            = NULL,
+            = null,
           mixed
              
             $p3
-            = NULL,
+            = null,
           mixed
              
             $p4
-            = NULL,
+            = null,
           mixed
              
             $p5
-            = NULL,
+            = null,
           
           )
         </span>
@@ -2007,35 +2005,35 @@ with "Debug:" and the class name, to the standard output device.</p>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p2</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p3</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p4</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 <tr>
 <td>$p5</td>
 <td style="white-space: normal;">mixed</td>
 <td><p>Optional argument to be passed to sprintf()</p>
 </td>
-<td>NULL</td>
+<td>null</td>
 </tr>
 </tbody>
 </table>
@@ -2411,9 +2409,6 @@ retrieved, created, updated, and deleted.</small></span></li>
 <li><span class="class"><a href="OpenCloud.AbstractClass.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
 </ul>
-</li>
-<li class="closed">
-<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Rackspace Cloud Load Balancers</small></span></li></ul>
 </li>
 <li class="closed">
 <span class="folder">Base</span><ul>
