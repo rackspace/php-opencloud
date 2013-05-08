@@ -52,14 +52,10 @@ In the .ZIP or .tar file in which you received the library, everything under
 the `lib/` directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to register the OpenCloud namespace for your app to use:
 
     // Define the path to the library
-    $libPath = '/path/to/php-opencloud';
-    
+    $libPath = '/path/to/php-opencloud/lib';
+
     // Include the autoloader
-    require_once $libraryPath . '/Autoload.php';
-    
-    // Register the root OpenCloud namespace
-    $classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
-    $classLoader->register();
+    require_once $libPath . '/php-opencloud.php';
 
 Once the OpenCloud namespace is registered, you will be able to access all functionality by referencing the class's namespace (in full PSR-0 compliance). For more information about namespaces, check out [PHP's documentation](http://php.net/manual/en/language.namespaces.php).
 
@@ -94,11 +90,11 @@ Other Available Documentation
 
 The *php-opencloud API Reference* is auto-generated documentation on the entire
 php-opencloud library. Because it is auto-generated, it is kept in sync with the
-actual underlying source code (unlike this document, which must be manually 
-edited). 
+actual underlying source code (unlike this document, which must be manually
+edited).
 [@TODO provide links to internal and online versions]
 
-The *php-opencloud Quick Reference* is a simplified reference, providing API 
+The *php-opencloud Quick Reference* is a simplified reference, providing API
 descriptions and syntax for the core features of the library. It is found in
 various formats:
 
