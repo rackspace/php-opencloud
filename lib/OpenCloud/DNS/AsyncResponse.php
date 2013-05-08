@@ -19,17 +19,18 @@ use OpenCloud\AbstractClass\Service as AbstractService;
  * The AsyncResponse class encapsulates the data returned by a Cloud DNS
  * asynchronous response.
  */
-class AsyncResponse extends PersistentObject 
+class AsyncResponse extends PersistentObject
 {
 
     public $jobId;
-    public $callbackUrl;    
+    public $callbackUrl;
     public $status;
     public $requestUrl;
     public $verb;
     public $request;
     public $response;
     public $error;
+    public $domains;
 
     protected static $json_name = false;
 
@@ -40,7 +41,7 @@ class AsyncResponse extends PersistentObject
      * @param \OpenCloud\Service $service the calling service
      * @param string $json the json response from the initial request
      */
-    public function __construct(AbstractService $service, $json = null) 
+    public function __construct(AbstractService $service, $json = null)
     {
         if (!$json) {
             return;
@@ -61,7 +62,7 @@ class AsyncResponse extends PersistentObject
      *
      * @return string
      */
-    public function Url($subresource = null, $qstr = array()) 
+    public function Url($subresource = null, $qstr = array())
     {
         return $this->callbackUrl . '?showDetails=True';
     }
@@ -71,7 +72,7 @@ class AsyncResponse extends PersistentObject
      *
      * @return string
      */
-    public function Name() 
+    public function Name()
     {
         return $this->jobId;
     }
@@ -79,24 +80,24 @@ class AsyncResponse extends PersistentObject
     /**
      * overrides for methods
      */
-    public function Create($parm = array()) 
-    { 
-        return $this->NoCreate(); 
+    public function Create($parm = array())
+    {
+        return $this->NoCreate();
     }
 
-    public function Update($parm = array()) 
-    { 
-        return $this->NoUpdate(); 
+    public function Update($parm = array())
+    {
+        return $this->NoUpdate();
     }
 
-    public function Delete() 
-    { 
-        return $this->NoDelete(); 
+    public function Delete()
+    {
+        return $this->NoDelete();
     }
 
-    public function PrimaryKeyField() 
-    { 
-        return 'jobId'; 
+    public function PrimaryKeyField()
+    {
+        return 'jobId';
     }
 
 }

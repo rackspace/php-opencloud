@@ -21,7 +21,7 @@ namespace OpenCloud\DNS;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Domain extends Object 
+class Domain extends Object
 {
 
     public $id;
@@ -38,9 +38,9 @@ class Domain extends Object
     protected static $url_resource = 'domains';
 
     protected $_create_keys = array(
-        'name', 
-        'emailAddress', 
-        'ttl', 
+        'name',
+        'emailAddress',
+        'ttl',
         'comment'
     );
 
@@ -61,7 +61,7 @@ class Domain extends Object
      *
      * @return Record
      */
-    public function Record($info = null) 
+    public function Record($info = null)
     {
         return new Record($this, $info);
     }
@@ -72,7 +72,7 @@ class Domain extends Object
      * @param array $filter query-string parameters
      * @return \OpenCloud\Collection
      */
-    public function RecordList($filter = array()) 
+    public function RecordList($filter = array())
     {
         return $this->Parent()->Collection('\OpenCloud\DNS\Record', null, $this, $filter);
     }
@@ -81,7 +81,7 @@ class Domain extends Object
      * returns a Subdomain object (child of current domain)
      *
      */
-    public function Subdomain($info = array()) 
+    public function Subdomain($info = array())
     {
         return new Subdomain($this, $info);
     }
@@ -95,7 +95,7 @@ class Domain extends Object
      * @param array $filter key/value pairs for query string parameters
      * return \OpenCloud\Collection
      */
-    public function SubdomainList($filter = array()) 
+    public function SubdomainList($filter = array())
     {
         return $this->Parent()->Collection('\OpenCloud\DNS\Subdomain', null, $this);
     }
@@ -107,7 +107,7 @@ class Domain extends Object
      * @param Record $rec the record to add
      * @return integer the number of records
      */
-    public function AddRecord(Record $record) 
+    public function AddRecord(Record $record)
     {
         $this->records[] = $record;
         return count($this->records);
@@ -120,7 +120,7 @@ class Domain extends Object
      * @param Subdomain $subd the subdomain to add
      * @return integer the number of subdomains
      */
-    public function AddSubdomain(Subdomain $subdomain) 
+    public function AddSubdomain(Subdomain $subdomain)
     {
         $this->subdomains[] = $subdomain;
         return count($this->subdomains);
@@ -132,7 +132,7 @@ class Domain extends Object
      * @param string $since the date or time
      * @return DNS\Changes
      */
-    public function Changes($since = null) 
+    public function Changes($since = null)
     {
         if (isset($since)) {
             $url = $this->Url('changes', array('since' => $since));
@@ -149,9 +149,42 @@ class Domain extends Object
      *
      * @return AsyncResponse
      */
-    public function Export() 
+    public function Export()
     {
         $url = $this->Url('export');
+        return $this->Service()->AsyncRequest($url);
+    }
+
+    /**
+     * clones the domain to the specified target domain
+     *
+     * @param string $newdomain the new domain to create from this domain
+     * @param boolean $sub to clone subdomains as well
+     * @param boolean $comments Replace occurrences of the reference domain
+     *  name with the new domain name in comments
+     * @param boolean $email Replace occurrences of the reference domain
+     *  name with the new domain name in email addresses on the cloned
+     *  (new) domain.
+     * @param boolean $records Replace occurrences of the reference domain
+     *  name with the new domain name in data fields (of records) on the
+     *  cloned (new) domain. Does not affect NS records.
+     * @return AsyncResponse
+     */
+    public function CloneDomain(
+            $newdomain,
+            $sub=TRUE,
+            $comments=TRUE,
+            $email=TRUE,
+            $records=TRUE)
+    {
+        $param = array(
+            'cloneName' => $newdomain,
+            'cloneSubdomains' => $sub,
+            'modifyComment' => $comments,
+            'modifyEmailAddress' => $email,
+            'modifyRecordData' => $records
+        );
+        $url = $this->Url('clone', $param);
         return $this->Service()->AsyncRequest($url);
     }
 
@@ -161,7 +194,7 @@ class Domain extends Object
      * @api
      * @return \stdClass
      */
-    protected function CreateJson() 
+    protected function CreateJson()
     {
         $object = parent::CreateJson();
 

@@ -110,4 +110,11 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 			'OpenCloud\DNS\AsyncResponse',
 			get_class($this->domain->Export()));
 	}
+	public function testCloneDomain() {
+	    $asr = $this->domain->CloneDomain('newdomain.io');
+	    //print_r($asr);
+	    $this->assertEquals(
+	        'OpenCloud\DNS\AsyncResponse',
+	        get_class($asr));
+	}
 }
