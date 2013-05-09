@@ -30,9 +30,9 @@ class Service extends AbstractService
      * @param string $urltype the type of URL
      */
     public function __construct(
-        OpenStack $connection, 
-        $serviceName, 
-        $serviceRegion, 
+        OpenStack $connection,
+        $serviceName,
+        $serviceRegion,
         $urltype
     ) {
         $this->debug(Lang::translate('initializing DNS...'));
@@ -52,7 +52,7 @@ class Service extends AbstractService
      * @param mixed $info either the ID, an object, or array of parameters
      * @return DNS\Domain
      */
-    public function Domain($info = null) 
+    public function Domain($info = null)
     {
         return new Domain($this, $info);
     }
@@ -64,7 +64,7 @@ class Service extends AbstractService
      * @param array $filter key/value pairs to use as query strings
      * @return \OpenCloud\Collection
      */
-    public function DomainList($filter = array()) 
+    public function DomainList($filter = array())
     {
         $url = $this->Url(Domain::ResourceName(), $filter);
         return $this->Collection('\OpenCloud\DNS\Domain', $url);
@@ -76,7 +76,7 @@ class Service extends AbstractService
      * @param mixed $info ID, array, or object containing record data
      * @return Record
      */
-    public function PtrRecord($info = null) 
+    public function PtrRecord($info = null)
     {
         return new PtrRecord($this, $info);
     }
@@ -88,7 +88,7 @@ class Service extends AbstractService
      *      retrieve the PTR records
      * @return Collection
      */
-    public function PtrRecordList(Server $server)  
+    public function PtrRecordList(Server $server)
     {
         $service_name = $server->Service()->Name();
         $url = $this->Url('rdns/' . $service_name) . '?' . $this->MakeQueryString(array('href' => $server->Url()));
@@ -106,7 +106,11 @@ class Service extends AbstractService
      * @param string $body the body of the request (for PUT and POST)
      * @return \OpenCloud\HttpResponse
      */
-    public function Request($url, $method = 'GET', $headers = array(), $body = null) 
+    public function Request(
+    	$url,
+    	$method = 'GET',
+    	array $headers = array(),
+    	$body = null)
     {
         $headers['Accept'] = RAXSDK_CONTENT_TYPE_JSON;
         $headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
@@ -127,7 +131,7 @@ class Service extends AbstractService
      * @param string $body the body of the request (for PUT and POST)
      * @return DNS\AsyncResponse
      */
-    public function AsyncRequest($url, $method = 'GET', $headers = array(), $body = null) 
+    public function AsyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
         // perform the initial request
         $resp = $this->Request($url, $method, $headers, $body);
@@ -136,9 +140,9 @@ class Service extends AbstractService
         if ($resp->HttpStatus() > 204) {
             throw new Exceptions\AsyncHttpError(sprintf(
                 Lang::translate('Unexpected HTTP status for async request: URL [%s] method [%s] status [%s] response [%s]'),
-                $url, 
-                $method, 
-                $resp->HttpStatus(), 
+                $url,
+                $method,
+                $resp->HttpStatus(),
                 $resp->HttpBody()
             ));
         }
@@ -162,7 +166,7 @@ class Service extends AbstractService
      * @param string $data the BIND_9 formatted data to import
      * @return DNS\AsyncResponse
      */
-    public function Import($data) 
+    public function Import($data)
     {
         // determine the URL
         $url = $this->Url('domains/import');
@@ -190,10 +194,10 @@ class Service extends AbstractService
      * returns a list of limits
      *
      */
-    public function Limits($type = null) 
+    public function Limits($type = null)
     {
         $url = $this->url('limits');
-        
+
         if ($type !== null) {
             $url .= '/' . $type;
         }
@@ -208,7 +212,7 @@ class Service extends AbstractService
      *
      * @return array
      */
-    public function LimitTypes() 
+    public function LimitTypes()
     {
         $object = $this->SimpleRequest($this->Url('limits/types'));
         return $object->limitTypes;
@@ -219,7 +223,7 @@ class Service extends AbstractService
      *
      * @param string $url the URL to GET
      */
-    public function SimpleRequest($url) 
+    public function SimpleRequest($url)
     {
         // perform the request
         $response = $this->Request($url);
@@ -237,9 +241,9 @@ class Service extends AbstractService
         // decode the JSON
         $json = $response->HttpBody();
         $this->debug(Lang::translate('Limit Types JSON [%s]'), $json);
-       
+
         $object = json_decode($json);
-        
+
         if ($this->CheckJsonError()) {
             return false;
         }
