@@ -26,7 +26,7 @@ encouraged to contribute theirs).
 To use the **php-opencloud** library, use this `require()` statement in your
 script:
 
-	require '/path/to/php-opencloud.php';
+	require '/path/to/lib/php-opencloud.php';
 
 Once you've referenced the desired connection class, you can proceed
 to establish the connection. For OpenStack clouds, provide the

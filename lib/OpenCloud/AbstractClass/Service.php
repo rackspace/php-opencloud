@@ -26,15 +26,15 @@ use OpenCloud\Base\Exceptions;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class Service extends \OpenCloud\Base\Base 
+abstract class Service extends \OpenCloud\Base\Base
 {
 
     private $conn;
     private $service_type;
     private $service_name;
-    private $service_region;    
+    private $service_region;
     private $service_url;
-    
+
     protected $_namespaces = array();
 
     /**
@@ -54,10 +54,10 @@ abstract class Service extends \OpenCloud\Base\Base
      *      (e.g., "publicURL")
      */
     public function __construct(
-        OpenStack $conn, 
-        $type, 
-        $name, 
-        $region, 
+        OpenStack $conn,
+        $type,
+        $name,
+        $region,
         $urltype = RAXSDK_URL_PUBLIC
     ) {
         $this->conn = $conn;
@@ -77,11 +77,11 @@ abstract class Service extends \OpenCloud\Base\Base
     public function Url($resource = '', array $param = array())
     {
         $baseurl = $this->service_url;
-        
+
         if ($resource) {
             $baseurl = Lang::noslash($baseurl).'/'.$resource;
         }
-        
+
         if (!empty($param)) {
             $baseurl .= '?'.$this->MakeQueryString($param);
         }
@@ -95,7 +95,7 @@ abstract class Service extends \OpenCloud\Base\Base
      * @api
      * @return array of objects
      */
-    public function Extensions() 
+    public function Extensions()
     {
         $ext = $this->GetMetaUrl('extensions');
 
@@ -112,10 +112,10 @@ abstract class Service extends \OpenCloud\Base\Base
      * @api
      * @return array of limits
      */
-    public function Limits() 
+    public function Limits()
     {
         $lim = $this->GetMetaUrl('limits');
-        
+
         if (is_object($lim)) {
             return $lim->limits;
         } else {
@@ -137,10 +137,14 @@ abstract class Service extends \OpenCloud\Base\Base
      * @param string $body An optional body for POST/PUT requests
      * @return \OpenCloud\HttpResult
      */
-    public function Request($url, $method = 'GET', array $headers = array() ,$body = null)
+    public function Request(
+    	$url,
+    	$method = 'GET',
+    	array $headers = array(),
+    	$body = null)
     {
         $headers['X-Auth-Token'] = $this->conn->Token();
-        
+
         if ($tenant = $this->conn->Tenant()) {
             $headers['X-Auth-Project-Id'] = $tenant;
         }
@@ -158,7 +162,7 @@ abstract class Service extends \OpenCloud\Base\Base
      *      query strings
      * @return \OpenCloud\Collection
      */
-    public function Collection($class, $url = null, $parent = null, array $parm = array()) 
+    public function Collection($class, $url = null, $parent = null, array $parm = array())
     {
         // set the element name
         $collection = $class::JsonCollectionName();
@@ -229,7 +233,7 @@ abstract class Service extends \OpenCloud\Base\Base
         } elseif (isset($obj->$collection)) {
             if (!$element) {
                 $coll_obj = new Collection($parent, $class, $obj->$collection);
-            } else { 
+            } else {
                 // handle element levels
                 $arr = array();
                 foreach($obj->$collection as $index => $item) {
@@ -256,7 +260,7 @@ abstract class Service extends \OpenCloud\Base\Base
      * @api
      * @return string
      */
-    public function Region() 
+    public function Region()
     {
         return $this->service_region;
     }
@@ -269,7 +273,7 @@ abstract class Service extends \OpenCloud\Base\Base
      * @api
      * @return string
      */
-    public function Name() 
+    public function Name()
     {
         return $this->service_name;
     }
@@ -279,7 +283,7 @@ abstract class Service extends \OpenCloud\Base\Base
      *
      * @return array
      */
-    public function namespaces() 
+    public function namespaces()
     {
         if (!isset($this->_namespaces)) {
             return array();
@@ -308,7 +312,7 @@ abstract class Service extends \OpenCloud\Base\Base
      * @param string $urltype The URL type; defaults to "publicURL"
      * @return string The URL of the service
      */
-    private function get_endpoint($type, $name, $region, $urltype = 'publicURL') 
+    private function get_endpoint($type, $name, $region, $urltype = 'publicURL')
     {
         $found = 0;
         $catalog = $this->conn->serviceCatalog();
@@ -354,7 +358,7 @@ abstract class Service extends \OpenCloud\Base\Base
      *      at the beginning or end
      * @return \stdClass object
      */
-    private function GetMetaUrl($resource) 
+    private function GetMetaUrl($resource)
     {
         $urlbase = $this->get_endpoint(
             $this->service_type,
@@ -380,15 +384,15 @@ abstract class Service extends \OpenCloud\Base\Base
         if ($response->HttpStatus() >= 300) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
-                $urlbase, 
-                $response->HttpStatus(), 
+                $urlbase,
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
 
         // we're good; proceed
         $obj = json_decode($response->HttpBody());
-       
+
         if ($this->CheckJsonError()) {
             return false;
         }
