@@ -185,7 +185,7 @@ class Domain extends Object
             'modifyRecordData' => $records
         );
         $url = $this->Url('clone', $param);
-        return $this->Service()->AsyncRequest($url);
+        return $this->Service()->AsyncRequest($url, 'POST');
     }
 
     /**
