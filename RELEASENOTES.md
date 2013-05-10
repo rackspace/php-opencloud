@@ -3,8 +3,8 @@ RELEASE NOTES
 
 ### Current branch: master
 
-### Version NEXT
-*
+### 05/10/2013 Version 1.5.6
+* Support for DNS\Domain::CloneDomain() feature
 
 ### 05/07/2013 Version 1.5.5
 * PSR-2 implementation (code formatting)
