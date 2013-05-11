@@ -32,9 +32,7 @@ define('TESTDOMAIN', 'sdfgdsfdsfgdfs.info');
 define('RAXSDK_STRICT_PROPERTY_CHECKS', false);
 
 require_once 'lib/php-opencloud.php';
-$_ENV['NOVA_URL'] = RACKSPACE_UK;
-$_ENV['OS_USERNAME'] = 'jamiehannaford';
-$_ENV['NOVA_API_KEY'] = '76f27e8c724c4b9f3511380dfaafde8e';
+
 /**
  * Relies upon environment variable settings — these are the same environment
  * variables that are used by python-novaclient. Just make sure that they're
