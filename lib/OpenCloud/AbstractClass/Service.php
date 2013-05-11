@@ -12,6 +12,7 @@
 
 namespace OpenCloud\AbstractClass;
 
+use OpenCloud\Base\Base;
 use OpenCloud\Base\Lang;
 use OpenCloud\OpenStack;
 use OpenCloud\Base\Exceptions;
@@ -26,7 +27,8 @@ use OpenCloud\Base\Exceptions;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class Service extends \OpenCloud\Base\Base
+
+abstract class Service extends Base
 {
 
     private $conn;

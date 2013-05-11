@@ -35,23 +35,25 @@ abstract class Base
     private $_errors = array();
 
     /**
-     * Debug object.
+     * Debug status.
      *
-     * @var \OpenCloud\Base\Debug
+     * @var bool
      * @access private
      */
-    private $debug;
+    private $debugStatus = false;
 
     /**
-     * __construct function.
+     * Sets the style for outputting debug messages.
      *
-     * @access public
-     * @return void
+     * Echoing messages   == true
+     * Returning messages == false
+     * 
+     * (default value: true)
+     * 
+     * @var bool
+     * @access private
      */
-    public function __construct()
-    {
-        $this->setDebug();
-    }
+    private $debugOutputStyle = true;
 
     /**
      * setDebug function.
@@ -59,9 +61,9 @@ abstract class Base
      * @access public
      * @return void
      */
-    public function setDebug()
+    public function setDebug($status)
     {
-        $this->debug = new Debug;
+        $this->debugStatus = $status;
     }
 
     /**
@@ -72,10 +74,30 @@ abstract class Base
      */
     public function getDebug()
     {
-        if (null === $this->debug) {
-            $this->setDebug();
-        }
-        return $this->debug;
+        return $this->debugStatus;
+    }
+
+    /**
+     * Sets the debug output style.
+     * 
+     * @access public
+     * @param mixed $state
+     * @return void
+     */
+    public function setDebugOutputStyle($state)
+    {
+        $this->debugOutputStyle = $state;
+    }
+    
+    /**
+     * Gets the debug output style.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getDebugOutputStyle()
+    {
+        return $this->debugOutputStyle;
     }
 
     /**
@@ -99,11 +121,10 @@ abstract class Base
      *
      * @TODO - change this method name to something more descriptive/accurate
      */
-    public function debug($msg, $p1 = null, $p2 = null, $p3 = null, $p4 = null, $p5 = null) 
+    public function debug() 
     {
-        // don't display the message unless the debug flag is set
-        if ($this->getDebug()->isEnabled()) {
-            printf("Debug:(%s)$msg\n", get_class($this), $p1, $p2, $p3, $p4, $p5);
+        if ($this->getDebug() === true || RAXSDK_DEBUG === true) {
+            return Debug::logMessage($this, func_get_args());
         }
     }
 

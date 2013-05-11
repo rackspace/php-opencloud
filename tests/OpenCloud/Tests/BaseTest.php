@@ -51,10 +51,10 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testDebug() 
 	{
-        $this->my->getDebug()->setState(true);
+        $this->my->setDebug(true);
         $this->my->debug("HELLO, WORLD!");
 	    $this->expectOutputRegex('/ELLO/');
-	    $this->my->getDebug()->setState(false);
+	    $this->my->setDebug(false);
 	}
 	/**
 	 * @expectedException OpenCloud\Base\Exceptions\URLError

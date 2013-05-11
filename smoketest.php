@@ -11,6 +11,9 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
+
+$_ENV['OS_REGION_NAME'] = 'LON';
+
 $start = time();
 
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
@@ -25,11 +28,13 @@ define('VOLUMENAME', 'SmokeTestVolume');
 define('VOLUMESIZE', 103);
 define('LBNAME', 'SmokeTestLoadBalancer');
 define('CACHEFILE', '/tmp/smoketest.credentials');
-define('TESTDOMAIN', 'fipplefippleraxdrg.info');
+define('TESTDOMAIN', 'sdfgdsfdsfgdfs.info');
 define('RAXSDK_STRICT_PROPERTY_CHECKS', false);
 
 require_once 'lib/php-opencloud.php';
-
+$_ENV['NOVA_URL'] = RACKSPACE_UK;
+$_ENV['OS_USERNAME'] = 'jamiehannaford';
+$_ENV['NOVA_API_KEY'] = '76f27e8c724c4b9f3511380dfaafde8e';
 /**
  * Relies upon environment variable settings — these are the same environment
  * variables that are used by python-novaclient. Just make sure that they're
@@ -38,8 +43,6 @@ require_once 'lib/php-opencloud.php';
 define('AUTHURL', $_ENV['NOVA_URL']);
 define('USERNAME', $_ENV['OS_USERNAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
-
-$debug = new \OpenCloud\Base\Debug;
 
 /**
  * numbers each step
@@ -60,7 +63,7 @@ if ($argc > 1) {
 		case '-D':
 		case '--debug':
 			printf("Debug ON\n");
-			$debug->setDebug(TRUE);
+			define(RAXSDK_DEBUG, true);
 			break;
 		case '-H':
 		case '--help':
@@ -246,7 +249,6 @@ $met->Create();
 step('Add a public IPv6 address');
 //setDebug(TRUE);
 $lb->AddVirtualIp('PUBLIC', 6);
-$debug->setDebug(FALSE);
 
 // allowed domains
 $adlist = $lbservice->AllowedDomainList();
