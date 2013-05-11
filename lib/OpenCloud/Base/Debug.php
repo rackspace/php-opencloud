@@ -32,14 +32,21 @@ class Debug
         unset($arguments[0]);
         
         // Format message and output
-        $message = vsprintf($format, $arguments);
+        if (empty($arguments)) {
+            $message = $format;
+        } else {
+            $message = vsprintf($format, $arguments);
+        }
+        
+        $message .= "\r\n";
+        
         return self::outputString($class, $message);
     }
     
     private static function outputString(Base $class, $message)
     {
         // Format according to a generic style
-        $string = trim(sprintf(self::FORMAT, self::PREFIX, get_class($class), $message));
+        $string = sprintf(self::FORMAT, self::PREFIX, get_class($class), $message);
         
         // Either echo or return message
         if ($class->getDebugOutputStyle()) {

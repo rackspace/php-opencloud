@@ -5,6 +5,7 @@ namespace OpenCloud\Tests;
 use OpenCloud\ObjectStore\Service;
 use OpenCloud\Base\Request\Response\Blank as BlankRequest;
 use OpenCloud\Base\Debug;
+use OpenCloud\OpenStack;
 
 require_once('StubConnection.php');
 
@@ -30,6 +31,7 @@ class DebugTest extends \PHPUnit_Framework_TestCase
 {
 
 	private $mockService;
+	private $connection;
 	
 	private $debugPrefix;
 	private $debugMessage = 'Test output message with parameters: %d %s %d';
@@ -41,10 +43,10 @@ class DebugTest extends \PHPUnit_Framework_TestCase
 	
 	public function __construct() 
 	{
-		$connection = new StubConnection('http://example.com', 'SECRET');
+		$this->connection = new StubConnection('http://example.com', 'SECRET');
 		
 		$this->mockService = new MockService(
-			$connection,
+			$this->connection,
 			'cloudFiles',
 			'DFW',
 			'publicURL'
@@ -87,7 +89,7 @@ class DebugTest extends \PHPUnit_Framework_TestCase
 	    
     	$this->assertEquals(
     	   $this->debugPrefix . 'Test output message with parameters: 1000 STRING 1',
-    	   $this->genericDebugCall()
+    	   trim($this->genericDebugCall())
     	);
 	}
 	

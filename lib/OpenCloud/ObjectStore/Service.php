@@ -47,9 +47,9 @@ class Service extends ObjectStoreBase
      */
     public function __construct(
         OpenStack $connection,
-        $serviceName=RAXSDK_OBJSTORE_NAME,
-        $serviceRegion=RAXSDK_OBJSTORE_REGION,
-        $urltype=RAXSDK_OBJSTORE_URLTYPE
+        $serviceName = RAXSDK_OBJSTORE_NAME,
+        $serviceRegion = RAXSDK_OBJSTORE_REGION,
+        $urltype = RAXSDK_OBJSTORE_URLTYPE
     ) {
         $this->debug(Lang::translate('initializing ObjectStore...'));
 

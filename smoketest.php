@@ -44,8 +44,6 @@ define('AUTHURL', $_ENV['NOVA_URL']);
 define('USERNAME', $_ENV['OS_USERNAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
-$debug = new \OpenCloud\Base\Debug;
-
 /**
  * numbers each step
  */
@@ -65,7 +63,7 @@ if ($argc > 1) {
 		case '-D':
 		case '--debug':
 			printf("Debug ON\n");
-			$debug->setDebug(TRUE);
+			define(RAXSDK_DEBUG, true);
 			break;
 		case '-H':
 		case '--help':
@@ -251,7 +249,6 @@ $met->Create();
 step('Add a public IPv6 address');
 //setDebug(TRUE);
 $lb->AddVirtualIp('PUBLIC', 6);
-$debug->setDebug(FALSE);
 
 // allowed domains
 $adlist = $lbservice->AllowedDomainList();

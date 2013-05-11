@@ -123,7 +123,7 @@ abstract class Base
      */
     public function debug() 
     {
-        if ($this->getDebug() === true) {
+        if ($this->getDebug() === true || RAXSDK_DEBUG === true) {
             return Debug::logMessage($this, func_get_args());
         }
     }
