@@ -11,9 +11,6 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-
-$_ENV['OS_REGION_NAME'] = 'LON';
-
 $start = time();
 
 if (strpos($_ENV['NOVA_URL'], 'staging.identity.api.rackspacecloud')) {
