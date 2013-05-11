@@ -96,7 +96,7 @@ class DebugTest extends \PHPUnit_Framework_TestCase
 	public function testEchoOutputStyle()
 	{
     	$this->mockService->setDebug(true);
-    
+
     	// Set output style to echo and test for string output
     	$this->genericDebugCall();
     	$this->expectOutputRegex('/DEBUG/');
