@@ -3,7 +3,7 @@
 The Rackspace Cloud SDK for PHP is a Software Development Kit
 intended to help PHP developers more easily build applications
 that access OpenStack and Rackspace clouds (both public and private
-cloud offerings). 
+cloud offerings).
 
 This SDK includes the following components:
 
@@ -21,7 +21,7 @@ To get the most reach release (stable) version of the code:
 <img src="img/tags.png">
 
 1. Click on the Tags link
-2. Choose the most recent version, then click on either the `zip` 
+2. Choose the most recent version, then click on either the `zip`
    or the `.tar.gz` button beneath it.
 3. Find the downloaded file and uncompress it into the location
    of your choice. Make a note of the directory path; you will need
@@ -36,39 +36,40 @@ to enter and edit this code. Here is the complete program:
 
     <?php
     require('/path/to/lib/php-opencloud.php');
-    
+
     define('IMAGE_UBUNTU', '9922a7c7-5a42-4a56-bc6a-93f857ae2346');
     define('FLAVOR_1GB', '3');
-    
+
     // establish our credentials
     $connection = new \OpenCloud\Rackspace(
         RACKSPACE_US,
         array( 'username' => 'USERNAME',
     	       'password' => 'PASSWORD'));
-    
+
     // now, connect to the compute service
     $compute = $connection->Compute('cloudServersOpenStack', 'ORD');
-    
+
     // first, find the image
     $image = $compute->Image(IMAGE_UBUNTU);
-    
+
     // get a flavor object
     $flavor = $compute->Flavor(FLAVOR_1GB);
-    
+
     // create the server
-    $server = $compute->Server();		// get a blank server
-    $server->name = 'My New Server';	// set the name
-    $resp = $server->Create(array(		// use image & flavor
-    	'image' => $image,
-    	'flavor' => $flavor));
-    
-	// check for errors
-    if ($resp->HttpStatus() > 204)
-    	die("Error building server. Response is ".$resp->HttpBody());
-    
-    // display the root password
-    printf("The server is building. Root password is [%s]\n",
-    	$server->adminPass);
+    for ($i=0; $i<2; $i++) {
+		$server = $compute->Server();		// get a blank server
+		$resp = $server->Create(array(
+			'name' => sprintf('server-%d', $i),
+			'image' => $image,
+			'flavor' => $flavor));
+		// check for errors
+		if ($resp->HttpStatus() > 204)
+			die("Error building server. Response is ".$resp->HttpBody());
+		// display the root password
+		printf("Server [%s] is building. Root password is [%s]\n",
+			$server->Name(), $server->adminPass);
+    }
+
 
 ## Understanding the program
 
@@ -76,7 +77,7 @@ to enter and edit this code. Here is the complete program:
     require('/path/to/lib/php-opencloud.php');
 
 The `<?php` is required for any PHP program (since PHP is usually embedded
-within HTML). 
+within HTML).
 The `require()` statement includes the **php-opencloud** library. You will
 need to edit this so that the path is the actual directory path to the
 `php-opencloud.php` file (which is under the `lib/` directory you just
@@ -119,32 +120,28 @@ returns a new connection to a service with each invocation.
     $flavor = $compute->Flavor(FLAVOR_1GB);
 
 These are two more factory methods that return an `Image` object and
-a `Flavor` object, respectively. 
+a `Flavor` object, respectively.
 
     // create the server
-    $server = $compute->Server();		// get a blank server
-    $server->name = 'My New Server';	// set the name
-    $resp = $server->Create(array(		// use image & flavor
-    	'image' => $image,
-    	'flavor' => $flavor));
+    for ($i=0; $i<2; $i++) {
+		$server = $compute->Server();		// get a blank server
+		$resp = $server->Create(array(
+			'name' => sprintf('server-%d', $i),
+			'image' => $image,
+			'flavor' => $flavor));
+		// check for errors
+		if ($resp->HttpStatus() > 204)
+			die("Error building server. Response is ".$resp->HttpBody());
+		// display the root password
+		printf("Server [%s] is building. Root password is [%s]\n",
+			$server->Name(), $server->adminPass);
+    }
 
-This actually creates the server. It starts by creating a new,
+This actually creates the servers. It starts by creating a new,
 empty server object from the `$compute` service by using the
 `Server()` method.
-Next, it sets the `name` parameter.
 Finally, it calls the `Create()` method on the `Server` object.
-This takes an parameter that is an array of properties.
-(Note: you could, if you choose, set `name` as part of the array
-of properties. In this case, it is show separately to show the
-alternatives.)
-
-Finally, the program does some error checking and displays the 
-admin (root) password.
-
-	// check for errors
-    if ($resp->HttpStatus() > 204)
-    	die("Error building server. Response is ".$resp->HttpBody());
-    // display the root password
-    printf("The server is building. Root password is [%s]\n",
-    	$server->adminPass);
+This takes an parameter that is an array of properties. `name`,
+`image`, and `flavor` are the required properties for creating
+a new server.
 
