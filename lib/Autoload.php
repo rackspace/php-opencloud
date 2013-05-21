@@ -102,6 +102,19 @@ class SplClassLoader
     }
 
     /**
+     * Fix for certain versions of PHP that have trouble with
+     * namespaces with leading separators.
+     * 
+     * @access private
+     * @param mixed $className
+     * @return void
+     */
+    private function makeBackwardsCompatible($className)
+    {
+        return (phpversion() < '5.3.3') ? ltrim($className, $this->_namespaceSeparator) : $className;
+    }
+
+    /**
      * Loads the given class or interface.
      *
      * @param string $className The name of the class to load.
@@ -109,7 +122,11 @@ class SplClassLoader
      */
     public function loadClass($className)
     {
-        if (null === $this->_namespace || $this->_namespace.$this->_namespaceSeparator === substr($className, 0, strlen($this->_namespace.$this->_namespaceSeparator))) {
+        $className = $this->makeBackwardsCompatible($className);
+        
+        if (null === $this->_namespace 
+            || $this->_namespace . $this->_namespaceSeparator === substr($className, 0, strlen($this->_namespace . $this->_namespaceSeparator))
+        ) {
             $fileName = '';
             $namespace = '';
             if (false !== ($lastNsPos = strripos($className, $this->_namespaceSeparator))) {
