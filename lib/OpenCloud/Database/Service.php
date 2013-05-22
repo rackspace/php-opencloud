@@ -20,7 +20,7 @@ use OpenCloud\OpenStack;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Service extends Nova 
+class Service extends Nova
 {
 
     /**
@@ -34,7 +34,7 @@ class Service extends Nova
      * @param string $region the region of the service (e.g., "DFW" or "LON")
      * @param string $urltype the type of URL (normally "publicURL")
      */
-    public function __construct(OpenStack $conn, $name, $region, $urltype) 
+    public function __construct(OpenStack $conn, $name, $region, $urltype)
     {
         parent::__construct($conn, 'rax:database', $name, $region, $urltype);
     }
@@ -46,7 +46,7 @@ class Service extends Nova
      * @param string $resource the resource required
      * @param array $args extra arguments to pass to the URL as query strings
      */
-    public function Url($resource = 'instances', array $args = array()) 
+    public function Url($resource = 'instances', array $args = array())
     {
         return parent::Url($resource, $args);
     }
@@ -60,7 +60,7 @@ class Service extends Nova
      * @api
      * @return \OpenCloud\Compute\FlavorList
      */
-    public function FlavorList($details = false, $filter = array()) 
+    public function FlavorList($details = false, array $filter = array())
     {
         return parent::FlavorList(false);
     }
@@ -72,7 +72,7 @@ class Service extends Nova
      * @param string $id the ID of the instance to retrieve
      * @return DbService\Instance
      */
-    public function Instance($id = null) 
+    public function Instance($id = null)
     {
         return new Instance($this, $id);
     }
@@ -85,7 +85,7 @@ class Service extends Nova
      *      query strings
      * @return Collection
      */
-    public function InstanceList($params = array()) 
+    public function InstanceList($params = array())
     {
         return $this->Collection('\OpenCloud\Database\Instance', null, null, $params);
     }
