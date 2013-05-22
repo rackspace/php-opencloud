@@ -2,6 +2,7 @@ RELEASE NOTES
 -------------
 
 ### Current branch: master
+* #102 - Etag support on create
 
 ### 05/10/2013 Version 1.5.6
 * Support for DNS\Domain::CloneDomain() feature
