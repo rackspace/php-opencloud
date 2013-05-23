@@ -1,8 +1,10 @@
 RELEASE NOTES
 -------------
 
-### Current branch: master
+### 05/23/2013 Version 1.5.7
 * #102 - Etag support on create
+* #104 - function signature mismatch
+* #105 - CDN object not associated with container
 
 ### 05/10/2013 Version 1.5.6
 * Support for DNS\Domain::CloneDomain() feature

@@ -17,14 +17,14 @@ $connection = new \OpenCloud\Rackspace(AUTHURL,
 // now, connect to the ObjectStore service
 $objstore = $connection->ObjectStore('cloudFiles', 'DFW');
 
-// get our containers
-$conlist = $objstore->ContainerList();
+// get our CDN containers
+$conlist = $objstore->ContainerList(array('enabled_only'=>TRUE));
 while($container = $conlist->Next()) {
-    printf("\n%s\n", $container->name);
+    printf("\n(CDN) %s\n", $container->name);
     $objlist = $container->ObjectList();
     while($o = $objlist->Next()) {
-		printf(" * %s\n   size: %d type: %s modified: %s\n",
-			$o->name, $o->bytes, $o->content_type, $o->last_modified);
+		printf(" * %s\n   URL: %s\n",
+			$o->name, $o->PublicURL());
     }
 }
 

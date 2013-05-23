@@ -22,7 +22,7 @@ use OpenCloud\Base\Exceptions;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class CDNContainer extends ObjectStore 
+class CDNContainer extends ObjectStore
 {
 
     public $name;
@@ -43,7 +43,7 @@ class CDNContainer extends ObjectStore
      * @param OpenCloud\ObjectStore $service - the ObjectStore service
      * @param mixed $cdata - if supplied, the name of the object
      */
-    public function __construct(AbstractService $service, $cdata = NULL) 
+    public function __construct(AbstractService $service, $cdata = NULL)
     {
         $this->debug(Lang::translate('Initializing Container...'));
 
@@ -60,6 +60,7 @@ class CDNContainer extends ObjectStore
                     $this->$name = $value;
                 }
             }
+            $this->Refresh();
         } elseif ($cdata) {
             // or, if it's a string, retrieve the object with that name
             $this->debug(Lang::translate('Getting container [%s]'), $cdata);
@@ -74,7 +75,7 @@ class CDNContainer extends ObjectStore
      * @return string
      * @throws NoNameError
      */
-    public function Url() 
+    public function Url()
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
@@ -89,7 +90,7 @@ class CDNContainer extends ObjectStore
      * @return boolean TRUE on success; FALSE on failure
      * @throws ContainerCreateError
      */
-    public function Create($params = array()) 
+    public function Create($params = array())
     {
         foreach ($params as $name => $value) {
             switch($name) {
@@ -128,7 +129,7 @@ class CDNContainer extends ObjectStore
      * @return boolean TRUE on success; FALSE on failure
      * @throws ContainerCreateError
      */
-    public function Update() 
+    public function Update()
     {
         $headers = $this->MetadataHeaders();
         $response = $this->Service()->Request($this->Url(), 'POST', $headers);
@@ -152,14 +153,14 @@ class CDNContainer extends ObjectStore
      * @return boolean TRUE on success; FALSE on failure
      * @throws ContainerDeleteError
      */
-    public function Delete() 
+    public function Delete()
     {
         $response = $this->Service()->Request($this->Url(), 'DELETE');
 
         // validate the response code
         if ($response->HttpStatus() == 404) {
             throw new Exceptions\ContainerNotFoundError(sprintf(
-                Lang::translate('Container [%s] not found'), 
+                Lang::translate('Container [%s] not found'),
                 $this->name
             ));
         }
@@ -206,7 +207,7 @@ class CDNContainer extends ObjectStore
      * @return OpenCloud\Collection
      * @throws ObjFetchError
      */
-    public function ObjectList($params = array()) 
+    public function ObjectList($params = array())
     {
         // construct a query string out of the parameters
         $params['format'] = 'json';
@@ -227,7 +228,7 @@ class CDNContainer extends ObjectStore
      * @param string $name if supplied, the name of the object to return
      * @return DataObject
      */
-    public function DataObject($name = null) 
+    public function DataObject($name = null)
     {
         return new DataObject($this, $name);
     }
@@ -235,7 +236,7 @@ class CDNContainer extends ObjectStore
     /**
      * Returns the Service associated with the Container
      */
-    public function Service() 
+    public function Service()
     {
         return $this->service;
     }
@@ -256,7 +257,7 @@ class CDNContainer extends ObjectStore
             if ($response->HttpStatus() == 404) {
                 throw new Exceptions\ContainerNotFoundError(sprintf(
                     Lang::translate('Container [%s] (%s) not found'),
-                    $this->name, 
+                    $this->name,
                     $this->Url()
                 ));
             }
@@ -281,7 +282,7 @@ class CDNContainer extends ObjectStore
      * @return boolean TRUE if ok; throws an exception if not
      * @throws ContainerNameError
      */
-    private function is_valid_name($name) 
+    private function is_valid_name($name)
     {
         if (!$name) {
             throw new Exceptions\ContainerNameError(Lang::translate('Container name cannot be blank'));

@@ -20,7 +20,7 @@ use OpenCloud\Base\Lang;
  *
  * This is the main entry point; CDN containers should only be used internally.
  */
-class Container extends CDNContainer 
+class Container extends CDNContainer
 {
 
     // holds the related CDN container (if any)
@@ -35,7 +35,7 @@ class Container extends CDNContainer
      * @throws CDNNotAvailableError if CDN services are not available
      * @return CDNContainer
      */
-    public function EnableCDN($ttl = null) 
+    public function EnableCDN($ttl = null)
     {
         $url = $this->Service()->CDN()->Url() . '/' . $this->name;
 
@@ -59,7 +59,7 @@ class Container extends CDNContainer
         if ($response->HttpStatus() > 202) {
             throw new Exceptions\CdnHttpError(sprintf(
                 Lang::translate('HTTP error publishing to CDN, status [%d] response [%s]'),
-                $response->HttpStatus(), 
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
@@ -78,7 +78,7 @@ class Container extends CDNContainer
      *
      * @api
      */
-    public function PublishToCDN($ttl = NULL) 
+    public function PublishToCDN($ttl = NULL)
     {
         return $this->EnableCDN($ttl);
     }
@@ -92,7 +92,7 @@ class Container extends CDNContainer
      * @api
      * @return void
      */
-    public function DisableCDN() 
+    public function DisableCDN()
     {
         $headers['X-Log-Retention'] = 'False';
         $headers['X-CDN-Enabled'] = 'False';
@@ -104,7 +104,7 @@ class Container extends CDNContainer
         if ($response->HttpStatus() != 201) {
             throw new Exceptions\CdnHttpError(sprintf(
                 Lang::translate('HTTP error disabling CDN, status [%d] response [%s]'),
-                $response->HttpStatus(), 
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
@@ -118,7 +118,7 @@ class Container extends CDNContainer
      * @param string $index the index page (starting page) of the website
      * @return \OpenCloud\HttpResponse
      */
-    public function CreateStaticSite($index) 
+    public function CreateStaticSite($index)
     {
         $headers = array('X-Container-Meta-Web-Index'=>$index);
         $response = $this->Service()->Request($this->Url(), 'POST', $headers);
@@ -127,8 +127,8 @@ class Container extends CDNContainer
         if ($response->HttpStatus() > 204) {
             throw new Exceptions\ContainerError(sprintf(
                 Lang::translate('Error creating static website for [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
+                $this->name,
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
@@ -144,7 +144,7 @@ class Container extends CDNContainer
      * @param string $name the name of the error page
      * @return \OpenCloud\HttpResponse
      */
-    public function StaticSiteErrorPage($name) 
+    public function StaticSiteErrorPage($name)
     {
         $headers = array('X-Container-Meta-Web-Error'=>$name);
         $response = $this->Service()->Request($this->Url(), 'POST', $headers);
@@ -153,8 +153,8 @@ class Container extends CDNContainer
         if ($response->HttpStatus() > 204) {
             throw new Exceptions\ContainerError(sprintf(
                 Lang::translate('Error creating static site error page for [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
+                $this->name,
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
@@ -165,7 +165,7 @@ class Container extends CDNContainer
     /**
      * Returns the CDN service associated with this container.
      */
-    public function CDN() 
+    public function CDN()
     {
         if (!$cdn = $this->_cdn) {
             throw new Exceptions\CdnNotAvailableError(Lang::translate('CDN service is not available'));
@@ -183,7 +183,7 @@ class Container extends CDNContainer
      * @api
      * @return string
      */
-    public function CDNURL() 
+    public function CDNURL()
     {
         return $this->CDN()->Url();
     }
@@ -192,7 +192,7 @@ class Container extends CDNContainer
      * Returns the Public URL of the container (on the CDN network)
      *
      */
-    public function PublicURL() 
+    public function PublicURL()
     {
         return $this->CDNURI();
     }
@@ -229,7 +229,7 @@ class Container extends CDNContainer
      * @api
      * @return string
      */
-    public function CDNURI() 
+    public function CDNURI()
     {
         return $this->CDNinfo('Uri');
     }
@@ -240,7 +240,7 @@ class Container extends CDNContainer
      * @api
      * @return string
      */
-    public function SSLURI() 
+    public function SSLURI()
     {
         return $this->CDNinfo('Ssl-Uri');
     }
@@ -251,7 +251,7 @@ class Container extends CDNContainer
      * @api
      * @return string
      */
-    public function StreamingURI() 
+    public function StreamingURI()
     {
         return $this->CDNinfo('Streaming-Uri');
     }
@@ -259,17 +259,16 @@ class Container extends CDNContainer
     /**
      * Refreshes, then associates the CDN container
      */
-    protected function Refresh() 
+    protected function Refresh()
     {
         parent::Refresh();
 
         // find the CDN object
         $cdn = $this->Service()->CDN();
-
         if ($cdn !== null) {
             try {
                 $this->_cdn = new CDNContainer(
-                    $this->Service()->CDN(),
+                    $cdn,
                     $this->name
                 );
             } catch (Exceptions\ContainerNotFoundError $e) {
@@ -278,5 +277,5 @@ class Container extends CDNContainer
             }
         }
     }
-    
+
 }
