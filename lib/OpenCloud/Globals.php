@@ -127,7 +127,7 @@ if (!defined('RAXSDK_SSL_VERIFYPEER'))
 //define('RAXSDK_CACERTPEM', __DIR__ . DIRECTORY_SEPARATOR . 'cacert.pem');
 
 /* these should not be overridden */
-define('RAXSDK_VERSION', '1.5.6');
+define('RAXSDK_VERSION', '1.5.7');
 define('RAXSDK_USER_AGENT', 'php-opencloud/'.RAXSDK_VERSION.' (Rackspace)');
 define('RAXSDK_ERROR', 'Error:');
 define('RAXSDK_FATAL', 'FATAL ERROR:');
