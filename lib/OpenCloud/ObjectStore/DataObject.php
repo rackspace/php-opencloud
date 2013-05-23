@@ -375,14 +375,15 @@ class DataObject extends ObjectStore
                 break;
             default:
                 throw new Exceptions\TempUrlMethodError(sprintf(
-                    Lang::translate('Bad method [%s] for TempUrl; only GET or PUT supported'),
+                    Lang::translate(
+                    'Bad method [%s] for TempUrl; only GET or PUT supported'),
                     $method
                 ));
         }
 
         // construct the URL
         $url = $this->Url();
-        $path = parse_url($url, PHP_URL_PATH);
+        $path = urldecode(parse_url($url, PHP_URL_PATH));
 
         $hmac_body = "$method\n$expiry_time\n$path";
         $hash = hash_hmac('sha1', $hmac_body, $secret);
