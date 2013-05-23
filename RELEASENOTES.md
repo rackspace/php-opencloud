@@ -1,6 +1,9 @@
 RELEASE NOTES
 -------------
 
+### next version
+* #106 - problem with urlencoded paths for TEMP_URL feature
+
 ### 05/23/2013 Version 1.5.7
 * #102 - Etag support on create
 * #104 - function signature mismatch
