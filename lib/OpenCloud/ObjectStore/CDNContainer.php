@@ -186,55 +186,6 @@ class CDNContainer extends ObjectStore
     }
 
     /**
-     * Creates a Collection of objects in the container
-     *
-     * @param array $params associative array of parameter values.
-     * * account/tenant - The unique identifier of the account/tenant.
-     * * container- The unique identifier of the container.
-     * * limit (Optional) - The number limit of results.
-     * * marker (Optional) - Value of the marker, that the object names
-     *      greater in value than are returned.
-     * * end_marker (Optional) - Value of the marker, that the object names
-     *      less in value than are returned.
-     * * prefix (Optional) - Value of the prefix, which the returned object
-     *      names begin with.
-     * * format (Optional) - Value of the serialized response format, either
-     *      json or xml.
-     * * delimiter (Optional) - Value of the delimiter, that all the object
-     *      names nested in the container are returned.
-     * @link http://api.openstack.org for a list of possible parameter
-     *      names and values
-     * @return OpenCloud\Collection
-     * @throws ObjFetchError
-     */
-    public function ObjectList($params = array())
-    {
-        // construct a query string out of the parameters
-        $params['format'] = 'json';
-        $qstring = $this->MakeQueryString($params);
-
-        // append the query string to the URL
-        $url = $this->Url();
-        if (strlen($qstring) > 0) {
-            $url .= '?' . $qstring;
-        }
-
-        return $this->Service()->Collection(
-        	'\OpenCloud\ObjectStore\DataObject', $url, $this);
-    }
-
-    /**
-     * Returns a new DataObject associated with this container
-     *
-     * @param string $name if supplied, the name of the object to return
-     * @return DataObject
-     */
-    public function DataObject($name = null)
-    {
-        return new DataObject($this, $name);
-    }
-
-    /**
      * Returns the Service associated with the Container
      */
     public function Service()

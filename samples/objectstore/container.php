@@ -39,10 +39,6 @@ print("Only CDN-enabled containers:\n");
 $cdnlist = $objstore->CDN()->ContainerList(array('enabled_only'=>'true'));
 while($cdncontainer = $cdnlist->Next()) {
     printf("* %s (CDN)\n", $cdncontainer->name);
-    $olist = $cdncontainer->ObjectList();
-    while($o = $olist->Next()) {
-    	printf("\t%s, %s\n", $o->name, $o->PublicURL());
-    }
 }
 
 // delete the container
