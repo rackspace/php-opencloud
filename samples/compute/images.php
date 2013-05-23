@@ -26,9 +26,10 @@ while($image = $imlist->Next()) {
 
 // list the server images
 print("\n\nServer images only:\n");
-$ilist = $compute->ImageList(TRUE, array('type'=>'SERVER'));
+$ilist = $compute->ImageList(TRUE, array('type'=>'SNAPSHOT'));
 while($image = $ilist->Next()) {
     printf("\t%s - %s\n", $image->id, $image->name);
+	printf("\tServer ID: %s\n", $image->server->id);
 }
 
 // list images named "CentOS 6.3"
