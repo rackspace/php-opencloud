@@ -17,7 +17,7 @@ use OpenCloud\Base\Lang;
  * @param string $serviceRegion the name of the service region to use
  * @param string $urltype the type of URL to use (usually "publicURL")
  */
-class ObjectStoreCDN extends ObjectStoreBase 
+class ObjectStoreCDN extends ObjectStoreBase
 {
 
     /**
@@ -52,9 +52,10 @@ class ObjectStoreCDN extends ObjectStoreBase
      * Helps catch errors if someone calls the method on the
      * wrong object
      */
-    public function CDN() 
+    public function CDN()
     {
-        throw new Exceptions\CdnError(Lang::translate('Invalid method call; no CDN() on the CDN object'));
+        throw new Exceptions\CdnError(
+        	Lang::translate('Invalid method call; no CDN() on the CDN object'));
     }
 
 }

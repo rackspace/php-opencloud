@@ -19,7 +19,7 @@ use OpenCloud\Base\Exceptions\HttpError;
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Curl extends Base implements HttpRequestInterface 
+class Curl extends Base implements HttpRequestInterface
 {
 
     private $url;
@@ -38,7 +38,7 @@ class Curl extends Base implements HttpRequestInterface
      * @param string $method the HTTP method (default "GET")
      * @param array $options optional hashed array of options => value pairs
      */
-    public function __construct($url, $method = 'GET', array $options = array()) 
+    public function __construct($url, $method = 'GET', array $options = array())
     {
         $this->url = $url;
         $this->method = $method;
@@ -100,7 +100,7 @@ class Curl extends Base implements HttpRequestInterface
      * @param const $name - a CURL named constant; e.g. CURLOPT_TIMEOUT
      * @param mixed $value - the value for the option
      */
-    public function SetOption($name, $value) 
+    public function SetOption($name, $value)
     {
         return curl_setopt($this->handle, $name, $value);
     }
@@ -115,7 +115,7 @@ class Curl extends Base implements HttpRequestInterface
      * @param integer $value The connection timeout in seconds.
      *      Use 0 to wait indefinitely (NOT recommended)
      */
-    public function SetConnectTimeout($value) 
+    public function SetConnectTimeout($value)
     {
         $this->SetOption(CURLOPT_CONNECTTIMEOUT, $value);
     }
@@ -130,7 +130,7 @@ class Curl extends Base implements HttpRequestInterface
      * @param integer $value - the number of seconds to wait before timing out
      *      the HTTP request.
      */
-    public function SetHttpTimeout($value) 
+    public function SetHttpTimeout($value)
     {
         $this->SetOption(CURLOPT_TIMEOUT, $value);
     }
@@ -141,7 +141,7 @@ class Curl extends Base implements HttpRequestInterface
      * If you set this to a non-zero value, then it will repeat the request
      * up to that number.
      */
-    public function SetRetries($value) 
+    public function SetRetries($value)
     {
         $this->retries = $value;
     }
@@ -154,7 +154,7 @@ class Curl extends Base implements HttpRequestInterface
      *
      * @param array $arr an associative array of headers
      */
-    public function setheaders($array) 
+    public function setheaders($array)
     {
         if (!is_array($array)) {
             throw new HttpException(Lang::translate('Value passed to CurlRequest::setheaders() must be array'));
@@ -174,7 +174,7 @@ class Curl extends Base implements HttpRequestInterface
      * @param string $name The name of the header
      * @param mixed $value The value of the header
      */
-    public function SetHeader($name, $value) 
+    public function SetHeader($name, $value)
     {
         $this->headers[$name] = $value;
     }
@@ -189,7 +189,7 @@ class Curl extends Base implements HttpRequestInterface
      * @return OpenCloud\HttpResponse
      * @throws OpenCloud\HttpError
      */
-    public function Execute() 
+    public function Execute()
     {
         // set all the headers
         $headarr = array();
@@ -202,9 +202,8 @@ class Curl extends Base implements HttpRequestInterface
 
         // set up to retry if necessary
         $try_counter = 0;
-        
-        do {
 
+        do {
             $data = curl_exec($this->handle);
             if (curl_errno($this->handle) && ($try_counter<$this->retries)) {
                 $this->debug(Lang::translate('Curl error [%d]; retrying [%s]'), curl_errno($this->handle), $this->url);
@@ -225,7 +224,7 @@ class Curl extends Base implements HttpRequestInterface
             case 3:
                 throw new HttpUrlError(sprintf(Lang::translate('Malformed URL [%s]'), $this->url));
                 break;
-            case 28:    
+            case 28:
                 // timeout
                 throw new HttpTimeoutError(Lang::translate('Operation timed out; check RAXSDK_TIMEOUT value'));
                 break;
@@ -246,7 +245,7 @@ class Curl extends Base implements HttpRequestInterface
     /**
      * returns an array of information about the request
      */
-    public function info() 
+    public function info()
     {
         return curl_getinfo($this->handle);
     }
@@ -254,7 +253,7 @@ class Curl extends Base implements HttpRequestInterface
     /**
      * returns the most recent CURL error number
      */
-    public function errno() 
+    public function errno()
     {
         return curl_errno($this->handle);
     }
@@ -262,7 +261,7 @@ class Curl extends Base implements HttpRequestInterface
     /**
      * returns the most recent CURL error string
      */
-    public function error() 
+    public function error()
     {
         return curl_error($this->handle);
     }
@@ -270,7 +269,7 @@ class Curl extends Base implements HttpRequestInterface
     /**
      * Closes the HTTP request
      */
-    public function close() 
+    public function close()
     {
         return curl_close($this->handle);
     }
@@ -278,7 +277,7 @@ class Curl extends Base implements HttpRequestInterface
     /**
      * Returns the headers as an array
      */
-    public function ReturnHeaders() 
+    public function ReturnHeaders()
     {
         return $this->returnheaders;
     }
@@ -289,7 +288,7 @@ class Curl extends Base implements HttpRequestInterface
      * @param mixed $ch a CURL handle
      * @param string $header the header string in its entirety
      */
-    public function _get_header_cb($ch, $header) 
+    public function _get_header_cb($ch, $header)
     {
         $this->returnheaders[] = $header;
         return strlen($header);

@@ -36,7 +36,7 @@ while($cdncontainer = $cdnlist->Next()) {
     printf("* %s (CDN)\n", $cdncontainer->name);
 }
 print("Only CDN-enabled containers:\n");
-$cdnlist = $objstore->CDN()->ContainerList();
+$cdnlist = $objstore->CDN()->ContainerList(array('enabled_only'=>'true'));
 while($cdncontainer = $cdnlist->Next()) {
     printf("* %s (CDN)\n", $cdncontainer->name);
     $olist = $cdncontainer->ObjectList();

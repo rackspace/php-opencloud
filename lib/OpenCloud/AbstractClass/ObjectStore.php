@@ -28,7 +28,7 @@ use OpenCloud\Base\Exceptions\MetadataPrefixError;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class ObjectStore extends Base 
+abstract class ObjectStore extends Base
 {
 
     const ACCOUNT_META_PREFIX = 'X-Account-';
@@ -41,7 +41,7 @@ abstract class ObjectStore extends Base
     /**
      * Initializes the metadata component
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->metadata = new Metadata;
     }
@@ -53,7 +53,7 @@ abstract class ObjectStore extends Base
      * @param \OpenCloud\HttpResponse
      * @return void
      */
-    public function GetMetadata($response) 
+    public function GetMetadata($response)
     {
         $this->metadata = new Metadata;
         $prefix = $this->Prefix();
@@ -68,7 +68,7 @@ abstract class ObjectStore extends Base
      *
      * @return array;
      */
-    public function MetadataHeaders() 
+    public function MetadataHeaders()
     {
         $headers = array();
 
@@ -93,7 +93,7 @@ abstract class ObjectStore extends Base
      * @api
      * @throws NameError if attribute 'name' is not defined
      */
-    public function Name() 
+    public function Name()
     {
         if (property_exists($this, 'name')) {
             return $this->name;
@@ -102,17 +102,17 @@ abstract class ObjectStore extends Base
         }
     }
 
-    public static function JsonName() 
+    public static function JsonName()
     {
         return null;
     }
 
-    public static function JsonCollectionName() 
+    public static function JsonCollectionName()
     {
         return null;
     }
 
-    public static function JsonCollectionElement() 
+    public static function JsonCollectionElement()
     {
         return null;
     }
@@ -123,13 +123,13 @@ abstract class ObjectStore extends Base
      * @param string $type The type of object; derived from `get_class()` if not
      *      specified.
      */
-    private function Prefix($type = null) 
+    private function Prefix($type = null)
     {
         if (!isset($type)) {
             $parts = preg_split('/\\\/', get_class($this));
             $type = $parts[count($parts)-1];
         }
-        
+
         switch($type) {
             case 'Account':
                 return self::ACCOUNT_META_PREFIX;
@@ -144,7 +144,9 @@ abstract class ObjectStore extends Base
                 return self::OBJECT_META_PREFIX;
                 break;
             default:
-                throw new MetadataPrefixError(sprintf(Lang::translate('Unrecognized metadata type [%s]'), $type));
+                throw new MetadataPrefixError(
+                	sprintf(Lang::translate(
+                		'Unrecognized metadata type [%s]'), $type));
                 break;
         }
     }

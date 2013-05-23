@@ -60,7 +60,7 @@ class ObjectStoreBase extends AbstractService
     {
         $filter['format'] = 'json';
         return $this->Collection(
-            '\OpenCloud\ObjectStore\Container',
+        	'\OpenCloud\ObjectStore\Container',
             $this->Url(null, $filter)
         );
     }

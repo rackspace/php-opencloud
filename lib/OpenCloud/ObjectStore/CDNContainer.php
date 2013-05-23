@@ -219,7 +219,8 @@ class CDNContainer extends ObjectStore
             $url .= '?' . $qstring;
         }
 
-        return $this->Service()->Collection('\OpenCloud\ObjectStore\DataObject', $url, $this);
+        return $this->Service()->Collection(
+        	'\OpenCloud\ObjectStore\DataObject', $url, $this);
     }
 
     /**
@@ -250,7 +251,8 @@ class CDNContainer extends ObjectStore
      */
     protected function Refresh()
     {
-        $response = $this->Service()->Request($this->Url(), 'HEAD', array('Accept' => '*/*'));
+        $response = $this->Service()->Request(
+        	$this->Url(), 'HEAD', array('Accept' => '*/*'));
 
         // validate the response code
         if ($this->name != 'TEST') {
@@ -285,19 +287,23 @@ class CDNContainer extends ObjectStore
     private function is_valid_name($name)
     {
         if (!$name) {
-            throw new Exceptions\ContainerNameError(Lang::translate('Container name cannot be blank'));
+            throw new Exceptions\ContainerNameError(
+            	Lang::translate('Container name cannot be blank'));
         }
 
         if ($name == '0') {
-            throw new Exceptions\ContainerNameError(Lang::translate('"0" is not a valid container name'));
+            throw new Exceptions\ContainerNameError(
+            	Lang::translate('"0" is not a valid container name'));
         }
 
         if (strpos($name, '/') !== false) {
-            throw new Exceptions\ContainerNameError(Lang::translate('Container name cannot contain "/"'));
+            throw new Exceptions\ContainerNameError(
+            	Lang::translate('Container name cannot contain "/"'));
         }
 
         if (strlen($name) > Service::MAX_CONTAINER_NAME_LEN) {
-            throw new Exceptions\ContainerNameError(Lang::translate('Container name is too long'));
+            throw new Exceptions\ContainerNameError(
+            	Lang::translate('Container name is too long'));
         }
 
         return true;

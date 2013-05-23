@@ -168,7 +168,8 @@ class Container extends CDNContainer
     public function CDN()
     {
         if (!$cdn = $this->_cdn) {
-            throw new Exceptions\CdnNotAvailableError(Lang::translate('CDN service is not available'));
+            throw new Exceptions\CdnNotAvailableError(
+            	Lang::translate('CDN service is not available'));
         }
         return $cdn;
     }
@@ -205,6 +206,9 @@ class Container extends CDNContainer
      */
     public function CDNinfo($prop = null)
     {
+		if (get_class($this->Service())=='OpenCloud\ObjectStore\ObjectStoreCDN')
+			return $this->metadata;
+
         // return NULL if the CDN container is not enabled
         if (!isset($this->CDN()->metadata->Enabled)
             || !$this->CDN()->metadata->Enabled
@@ -264,7 +268,10 @@ class Container extends CDNContainer
         parent::Refresh();
 
         // find the CDN object
-        $cdn = $this->Service()->CDN();
+		if (get_class($this->Service()) ==
+										'OpenCloud\ObjectStore\ObjectStoreCDN')
+			return;
+		$cdn = $this->Service()->CDN();
         if ($cdn !== null) {
             try {
                 $this->_cdn = new CDNContainer(

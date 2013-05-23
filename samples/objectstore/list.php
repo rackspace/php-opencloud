@@ -18,13 +18,27 @@ $connection = new \OpenCloud\Rackspace(AUTHURL,
 $objstore = $connection->ObjectStore('cloudFiles', 'DFW');
 
 // get our CDN containers
-$conlist = $objstore->ContainerList(array('enabled_only'=>TRUE));
-while($container = $conlist->Next()) {
-    printf("\n(CDN) %s\n", $container->name);
+$cdnlist = $objstore->CDN()->ContainerList(array('enabled_only'=>TRUE));
+
+// loop through containers
+while($cdncontainer = $cdnlist->Next()) {
+    printf("\n(CDN) %s\n", $cdncontainer->Name());
+    // get the original container
+    try {
+		$container = $objstore->Container($cdncontainer->Name());
+	} catch (OpenCloud\Base\Exceptions\ContainerNotFoundError $e) {
+		// This handles a weird edge case where a CDN container may not
+		// have a corresponding private container. This can happen if the
+		// CDN TTL is set very high and the original container is deleted.
+		print "Container not found\n";
+		continue;
+	}
+    // get all the objects
     $objlist = $container->ObjectList();
+    // loop through objects
     while($o = $objlist->Next()) {
-		printf(" * %s\n   URL: %s\n",
-			$o->name, $o->PublicURL());
+    	printf("   %s\n", $o->Name());
+    	printf("   %s\n", $o->PublicUrl());
     }
 }
 

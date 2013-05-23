@@ -24,7 +24,7 @@ use OpenCloud\AbstractClass\ObjectStore;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class DataObject extends ObjectStore 
+class DataObject extends ObjectStore
 {
 
     public $name;               // the object name
@@ -39,7 +39,7 @@ class DataObject extends ObjectStore
     private $data;           // the actual data
     private $etag;           // the ETag
     private $container;      // the container used by this object
-    
+
     // this array translates header values (returned by requests) into properties
     private $header_translate = array(
         'Etag'          => 'hash',
@@ -88,7 +88,7 @@ class DataObject extends ObjectStore
      * @return string
      * @throws NoNameError
      */
-    public function Url() 
+    public function Url()
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
@@ -113,7 +113,7 @@ class DataObject extends ObjectStore
      * @return boolean
      * @throws CreateUpdateError
      */
-    public function Create($params = array(), $filename = null) 
+    public function Create($params = array(), $filename = null)
     {
         // set/validate the parameters
         $this->SetParams($params);
@@ -126,7 +126,7 @@ class DataObject extends ObjectStore
 
             if (!$fp = @fopen($filename, 'r')) {
                 throw new Exceptions\IOError(sprintf(
-                    Lang::translate('Could not open file [%s] for reading'), 
+                    Lang::translate('Could not open file [%s] for reading'),
                     $filename
                 ));
             }
@@ -134,7 +134,7 @@ class DataObject extends ObjectStore
             clearstatcache(TRUE, $filename);
 
             $filesize = (float) sprintf("%u", filesize($filename));
-            
+
             if ($filesize > Service::MAX_OBJECT_SIZE) {
                 throw new Exceptions\ObjectError("File size exceeds maximum object size.");
             }
@@ -229,7 +229,7 @@ class DataObject extends ObjectStore
      * @param string $filename if provided, the object is loaded from the file
      * @return boolean
      */
-    public function Update($params = array(), $filename = '') 
+    public function Update($params = array(), $filename = '')
     {
         return $this->Create($params, $filename);
     }
@@ -244,7 +244,7 @@ class DataObject extends ObjectStore
      *      'name' and 'type' of the object
      * @return boolean
      */
-    public function UpdateMetadata($params = array()) 
+    public function UpdateMetadata($params = array())
     {
         $this->SetParams($params);
 
@@ -282,7 +282,7 @@ class DataObject extends ObjectStore
      * @return HttpResponse if successful; FALSE if not
      * @throws DeleteError
      */
-    public function Delete($params = array()) 
+    public function Delete($params = array())
     {
         $this->SetParams($params);
 
@@ -310,10 +310,10 @@ class DataObject extends ObjectStore
      *
      * @param DataObject $target the target of the COPY command
      */
-    public function Copy(Dataobject $target) 
+    public function Copy(Dataobject $target)
     {
         $uri = sprintf('/%s/%s', $target->Container()->Name(), $target->Name());
-        
+
         $this->debug('Copying object to [%s]', $uri);
 
         $response = $this->Service()->Request(
@@ -326,8 +326,8 @@ class DataObject extends ObjectStore
         if ($response->HttpStatus() > 202) {
             throw new Exceptions\ObjectCopyError(sprintf(
                 Lang::translate('Error copying object [%s], status [%d] response [%s]'),
-                $this->Url(), 
-                $response->HttpStatus(), 
+                $this->Url(),
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
@@ -340,7 +340,7 @@ class DataObject extends ObjectStore
      *
      * @return Container
      */
-    public function Container() 
+    public function Container()
     {
         return $this->container;
     }
@@ -363,7 +363,7 @@ class DataObject extends ObjectStore
      * @param string $method either GET or PUT
      * @return string the temporary URL
      */
-    public function TempUrl($secret, $expires, $method) 
+    public function TempUrl($secret, $expires, $method)
     {
         $method = strtoupper($method);
         $expiry_time = time() + $expires;
@@ -383,12 +383,12 @@ class DataObject extends ObjectStore
         // construct the URL
         $url = $this->Url();
         $path = parse_url($url, PHP_URL_PATH);
-       
+
         $hmac_body = "$method\n$expiry_time\n$path";
         $hash = hash_hmac('sha1', $hmac_body, $secret);
-       
+
         $this->debug('URL [%s] SIG [%s] HASH [%s]', $url, $hmac_body, $hash);
-        
+
         $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
 
         // debug that stuff
@@ -406,7 +406,7 @@ class DataObject extends ObjectStore
      * @param string $data
      * @return void
      */
-    public function SetData($data) 
+    public function SetData($data)
     {
         $this->data = (string) $data;
     }
@@ -416,7 +416,7 @@ class DataObject extends ObjectStore
      *
      * @return string the entire object
      */
-    public function SaveToString() 
+    public function SaveToString()
     {
         $result = $this->Service()->Request($this->Url());
         return $result->HttpBody();
@@ -450,7 +450,7 @@ class DataObject extends ObjectStore
     {
         if (!$fp = @fopen($filename, "wb")) {
             throw new Exceptions\IOError(sprintf(
-                Lang::translate('Could not open file [%s] for writing'), 
+                Lang::translate('Could not open file [%s] for writing'),
                 $filename
             ));
         }
@@ -490,7 +490,7 @@ class DataObject extends ObjectStore
      * @throws CdnError if the container is not CDN-enabled
      * @throws CdnHttpError if there is an HTTP error in the transaction
      */
-    public function PurgeCDN($email) 
+    public function PurgeCDN($email)
     {
         if (!$cdn = $this->Container()->CDNURL()) {
             throw new Exceptions\CdnError(Lang::translate('Container is not CDN-enabled'));
@@ -519,7 +519,7 @@ class DataObject extends ObjectStore
      *
      * @return string
      */
-    public function CDNURL() 
+    public function CDNURL()
     {
         return $this->Container()->CDNURL().'/'.$this->name;
     }
@@ -532,7 +532,7 @@ class DataObject extends ObjectStore
      *      default URL.
      * @return string
      */
-    public function PublicURL($type = null) 
+    public function PublicURL($type = null)
     {
         if (!$prefix = $this->Container()->CDNURI()) {
             return null;
@@ -555,7 +555,7 @@ class DataObject extends ObjectStore
      * @return void
      * @throws UnknownParameterError
      */
-    private function SetParams($params) 
+    private function SetParams($params)
     {
         foreach($params as $item => $value) {
             switch($item) {
@@ -564,7 +564,8 @@ class DataObject extends ObjectStore
                     break;
                 case 'type':
                     throw new Exceptions\UnknownParameterError(
-                        Lang::translate('Parameter [type] is deprecated; use "content_type"')
+                        Lang::translate(
+                        'Parameter [type] is deprecated; use "content_type"')
                     );
                 case 'content_type':
                     $this->content_type = $value;
@@ -577,9 +578,10 @@ class DataObject extends ObjectStore
                     break;
                 default:
                     throw new Exceptions\UnknownParameterError(sprintf(
-                        Lang::translate('Unrecognized parameter [%s] for object [%s]'),
-                        $item,
-                        $this->Url()
+                        Lang::translate(
+                        	'Unrecognized parameter [%s] for object [%s]'),
+							$item,
+							$this->Url()
                     ));
             }
         }
@@ -591,7 +593,7 @@ class DataObject extends ObjectStore
      * @return void
      * @throws NoNameError, ObjFetchError
      */
-    private function Fetch() 
+    private function Fetch()
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Cannot retrieve an unnamed object'));
@@ -602,7 +604,7 @@ class DataObject extends ObjectStore
         // check for errors
         if ($response->HttpStatus() >= 300) {
             throw new Exceptions\ObjFetchError(sprintf(
-                Lang::translate('Problem retrieving object [%s]'), 
+                Lang::translate('Problem retrieving object [%s]'),
                 $this->Url()
             ));
             return false;
@@ -638,7 +640,7 @@ class DataObject extends ObjectStore
      * It's actually the object's container's service, so this method will
      * simplify things a bit.
      */
-    private function Service() 
+    private function Service()
     {
         return $this->container->Service();
     }
@@ -665,7 +667,7 @@ class DataObject extends ObjectStore
      * @return boolean <kbd>TRUE</kbd> if successful
      * @throws BadContentTypeException
      */
-    private function _guess_content_type($handle) 
+    private function _guess_content_type($handle)
     {
         if ($this->content_type) {
             return;
@@ -684,7 +686,7 @@ class DataObject extends ObjectStore
                 /**
                  * PHP 5.3 fileinfo display extra information like
                  * charset so we remove everything after the ; since
-                 * we are not into that stuff 
+                 * we are not into that stuff
                  */
                 if ($ct) {
                     if ($extra_content_type_info = strpos($ct, "; ")) {
@@ -700,8 +702,8 @@ class DataObject extends ObjectStore
             }
         }
 
-        if (!$this->content_type 
-            && (string) is_file($handle) 
+        if (!$this->content_type
+            && (string) is_file($handle)
             && function_exists("mime_content_type")
         ) {
             $this->content_type = @mime_content_type($handle);
