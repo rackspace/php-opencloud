@@ -71,8 +71,16 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(TRUE, $resp->HttpStatus());
 		$this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
 	}
-	public function testRebuild() {
+	/**
+	 * @expectedException OpenCloud\Base\Exceptions\RebuildError
+	 */
+	public function testRebuild1() {
 		$resp = $this->server->Rebuild();
+		$this->assertEquals(TRUE, $resp->HttpStatus());
+		$this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
+	}
+	public function testRebuild2() {
+		$resp = $this->server->Rebuild(array('adminPass'=>'FOOBAR'));
 		$this->assertEquals(TRUE, $resp->HttpStatus());
 		$this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
 	}
