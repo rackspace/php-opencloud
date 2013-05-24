@@ -425,8 +425,7 @@ if ($USE_SERVERS) {
 	step('Rebuild the server');
 	$server->Rebuild(array(
 		'adminPass'=>$ADMINPASSWORD,
-		'image'=>$centos,
-		'flavor'=>$flavorlist->First()+1
+		'image'=>$centos
 	));
 
 	step('Wait for Server rebuild');

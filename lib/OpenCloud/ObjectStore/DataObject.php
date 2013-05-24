@@ -390,7 +390,8 @@ class DataObject extends ObjectStore
 
         $this->debug('URL [%s] SIG [%s] HASH [%s]', $url, $hmac_body, $hash);
 
-        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
+        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d',
+        	$url, $hash, $expiry_time);
 
         // debug that stuff
         $this->debug('TempUrl generated [%s]', $temp_url);

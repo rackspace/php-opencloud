@@ -113,15 +113,13 @@ class Server extends PersistentObject
      * @api
      * @param array $params - an associative array of key/value pairs of
      *      attributes to set on the new server
-     * @param boolean $rebuild - if TRUE, performs a rebuild of an existing
-     *      server
      * @return HttpResponse - this will include the administrative password
      *      in the body
      * @throws \OpenCloud\HttpError
      * @throws ServerCreateError
      * @throws UnknownError
      */
-    public function Create($params = array(), $rebuild = false)
+    public function Create($params = array())
     {
         // reset values
         $this->id = null;
@@ -137,16 +135,15 @@ class Server extends PersistentObject
 
         $this->debug(Lang::translate('Server::Create() [%s]'), $this->name);
 
-        $create = $this->CreateJson( $rebuild ? 'rebuild' : 'server' );
-if ($rebuild) print("\n\n$create\n\n");
+        $create = $this->CreateJson();
+
         $response = $this->Service()->Request(
         	$this->Service()->Url(), 'POST', array(), $create);
 
         if (!is_object($response)) {
-            throw new Exceptions\HttpError(sprintf(
-                Lang::translate('Invalid response for Server::%s() request'),
-                $rebuild ? 'Rebuild' : 'Create'
-            ));
+            throw new Exceptions\HttpError(
+                Lang::translate('Invalid response for Server::Create() request')
+            );
         }
 
         $json = $response->HttpBody();
@@ -184,7 +181,14 @@ if ($rebuild) print("\n\n$create\n\n");
     	if (!isset($params['adminPass']))
     		throw new Exceptions\RebuildError(
     			Lang::Translate('adminPass required when rebuilding server'));
-        return $this->Create($params, true);
+    	if (!isset($params['image']))
+    		throw new Exceptions\RebuildError(
+    			Lang::Translate('image required when rebuilding server'));
+    	$obj = new \stdClass();
+    	$obj->rebuild = new \stdClass();
+    	$obj->rebuild->imageRef = $params['image']->Id();
+    	$obj->rebuild->adminPass = $params['adminPass'];
+        return $this->Action($obj);
     }
 
     /**
@@ -510,45 +514,42 @@ if ($rebuild) print("\n\n$create\n\n");
      *      create {rebuild ...} by changing this parameter
      * @return json
      */
-    protected function CreateJson($element = 'server')
+    protected function CreateJson()
     {
         // create a blank object
         $obj = new \stdClass();
 
         // set a bunch of properties
-        $obj->$element = new \stdClass();
-        $obj->$element->name = $this->name;
-        $obj->$element->imageRef = $this->imageRef;
-        $obj->$element->flavorRef = $this->flavorRef;
-        $obj->$element->metadata = $this->metadata;
+        $obj->server = new \stdClass();
 
-        // handle adminPass for rebuild
-        if ($element == 'rebuild')
-        	$obj->$element->adminPass = $this->adminPass;
-
-        if (is_array($this->networks) && count($this->networks)) {
-            $obj->$element->networks = array();
-            foreach ($this->networks as $net) {
-                if (get_class($net) != 'OpenCloud\Compute\Network') {
-                    throw new Exceptions\InvalidParameterError(sprintf(
-                        Lang::translate('"networks" parameter must be an array of Compute\Network objects; [%s] found'),
-                        get_class($net)
-                    ));
-                }
-                $netobj = new \stdClass();
-                $netobj->uuid = $net->id;
-                $obj->$element->networks[] = $netobj;
-            }
-        }
+		$obj->server->imageRef = $this->imageRef;
+		$obj->server->name = $this->name;
+		$obj->server->flavorRef = $this->flavorRef;
+		$obj->server->metadata = $this->metadata;
+		if (is_array($this->networks) && count($this->networks)) {
+			$obj->server->networks = array();
+			foreach ($this->networks as $net) {
+				if (get_class($net) != 'OpenCloud\Compute\Network') {
+					throw new Exceptions\InvalidParameterError(sprintf(
+						Lang::translate('"networks" parameter must be an '.
+						'array of Compute\Network objects; [%s] found'),
+						get_class($net)
+					));
+				}
+				$netobj = new \stdClass();
+				$netobj->uuid = $net->id;
+				$obj->server->networks[] = $netobj;
+			}
+		}
 
         // handle personality files
         if (count($this->personality)) {
-            $obj->$element->personality = array();
+            $obj->server->personality = array();
             foreach ($this->personality as $path => $data) {
                 $fileobj = new \stdClass();
                 $fileobj->path = $path;
                 $fileobj->contents = $data;
-                $obj->$element->personality[] = $fileobj;
+                $obj->server->personality[] = $fileobj;
             }
         }
 
