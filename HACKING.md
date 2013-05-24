@@ -19,6 +19,9 @@ efforts. Here are a few general guidelines to follow.
    a `quickref.md` (quick reference) and `userguide/` (user guide) under the
    `docs/` directory.
 
+If you submit code, please add your name and email address to the
+CONTRIBUTORS file.
+
 Note to self:
 
 	git tag -s <tagname>
