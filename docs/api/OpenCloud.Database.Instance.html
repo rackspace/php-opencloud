@@ -170,7 +170,9 @@ exception.</p><br><div id="methods_Instance">
       <a style="font-style: italic;" href="#Instance::__set()">__set</a>,
       <a style="font-style: italic;" href="#Instance::debug()">debug</a>,
       <a style="font-style: italic;" href="#Instance::getDebug()">getDebug</a>,
+      <a style="font-style: italic;" href="#Instance::getDebugOutputStyle()">getDebugOutputStyle</a>,
       <a style="font-style: italic;" href="#Instance::setDebug()">setDebug</a>,
+      <a style="font-style: italic;" href="#Instance::setDebugOutputStyle()">setDebugOutputStyle</a>,
       <a style="font-style: italic;" href="#Instance::to_string()">to_string</a>,
       <div class="method">
 <a id="Instance::Action()"></a><h3>Action<span class="nb-faded-text">(
@@ -2206,7 +2208,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
 <em>Creates a new instance object</em><br><small><p>This could use the default constructor, but we want to make sure that
@@ -2241,8 +2243,8 @@ the volume attribute is an object.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
-<td></td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -2329,29 +2331,6 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="Instance::debug()"></a><h3>debug<span class="nb-faded-text">(
-          string
-             
-            $msg,
-          mixed
-             
-            $p1
-            = null,
-          mixed
-             
-            $p2
-            = null,
-          mixed
-             
-            $p3
-            = null,
-          mixed
-             
-            $p4
-            = null,
-          mixed
-             
-            $p5
-            = null,
           
           )
         </span>
@@ -2364,61 +2343,7 @@ up to five optional parameters. It prints the debug message, prefixed
 with "Debug:" and the class name, to the standard output device.</p>
 
 <p>Example:
-  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$msg</td>
-<td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in
-     sprintf() format.</p>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$p1</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p2</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p3</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p4</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p5</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
+  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -2494,7 +2419,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 </table>
 </div>
 <div class="method">
-<a id="Instance::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
+<a id="Instance::getDebugOutputStyle()"></a><h3>getDebugOutputStyle<span class="nb-faded-text">(
           
           )
         </span>
@@ -2502,7 +2427,67 @@ with "Debug:" and the class name, to the standard output device.</p>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>setDebug function.</em><br><h4>Return value</h4>
+<em>Gets the debug output style.</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access</td>
+<td>public</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::getDebugOutputStyle()"><small>\OpenCloud\Base\Base::getDebugOutputStyle()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::getDebugOutputStyle()"><small>\OpenCloud\AbstractClass\PersistentObject::getDebugOutputStyle()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Instance::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
+          
+             
+            $status,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>setDebug function.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$status</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -2531,6 +2516,66 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::setDebug()"><small>\OpenCloud\AbstractClass\PersistentObject::setDebug()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="Instance::setDebugOutputStyle()"></a><h3>setDebugOutputStyle<span class="nb-faded-text">(
+          mixed
+             
+            $state,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Sets the debug output style.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$state</td>
+<td style="white-space: normal;">mixed</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access</td>
+<td>public</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::setDebugOutputStyle()"><small>\OpenCloud\Base\Base::setDebugOutputStyle()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.AbstractClass.PersistentObject.html#%5COpenCloud%5CAbstractClass%5CPersistentObject::setDebugOutputStyle()"><small>\OpenCloud\AbstractClass\PersistentObject::setDebugOutputStyle()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -2599,7 +2644,8 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#Instance::%24_parent">$_parent</a>,
       <a href="#Instance::%24_users">$_users</a>,
       <a href="#Instance::%24created">$created</a>,
-      <a href="#Instance::%24debug">$debug</a>,
+      <a href="#Instance::%24debugOutputStyle">$debugOutputStyle</a>,
+      <a href="#Instance::%24debugStatus">$debugStatus</a>,
       <a href="#Instance::%24flavor">$flavor</a>,
       <a href="#Instance::%24hostname">$hostname</a>,
       <a href="#Instance::%24http_headers">$http_headers</a>,
@@ -2657,13 +2703,25 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="Instance::$debug"></a><h3>
-<span class="nb-faded-text">\OpenCloud\Base\Debug 
+<a id="Instance::$debugOutputStyle"></a><h3>
+<span class="nb-faded-text">bool 
           private 
-          </span>$debug
+          </span>$debugOutputStyle
           =
-          </h3>
-<em>Debug object.</em><br><small></small><br><br>
+          true</h3>
+<em>Sets the style for outputting debug messages.</em><br><small>&lt;p&gt;Echoing messages   == true
+Returning messages == false&lt;/p&gt;
+
+&lt;p&gt;(default value: true)&lt;/p&gt;</small><br><br>
+</div>
+<div class="method">
+<a id="Instance::$debugStatus"></a><h3>
+<span class="nb-faded-text">bool 
+          private 
+          </span>$debugStatus
+          =
+          false</h3>
+<em>Debug status.</em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="Instance::$flavor"></a><h3>

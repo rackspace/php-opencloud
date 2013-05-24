@@ -74,6 +74,7 @@
       <a style="font-style: italic;" href="#SplClassLoader::getIncludePath()">getIncludePath</a>,
       <a style="font-style: italic;" href="#SplClassLoader::getNamespaceSeparator()">getNamespaceSeparator</a>,
       <a style="font-style: italic;" href="#SplClassLoader::loadClass()">loadClass</a>,
+      <a style="font-style: italic;" href="#SplClassLoader::makeBackwardsCompatible()">makeBackwardsCompatible</a>,
       <a style="font-style: italic;" href="#SplClassLoader::register()">register</a>,
       <a style="font-style: italic;" href="#SplClassLoader::setFileExtension()">setFileExtension</a>,
       <a style="font-style: italic;" href="#SplClassLoader::setIncludePath()">setIncludePath</a>,
@@ -234,6 +235,57 @@ this class loader.</em><br><h4>Return value</h4>
 <tbody><tr>
 <td>void</td>
 <td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="SplClassLoader::makeBackwardsCompatible()"></a><h3>makeBackwardsCompatible<span class="nb-faded-text">(
+          mixed
+             
+            $className,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Fix for certain versions of PHP that have trouble with
+namespaces with leading separators.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$className</td>
+<td style="white-space: normal;">mixed</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>access</td>
+<td>private</td>
 </tr></tbody>
 </table>
 </div>

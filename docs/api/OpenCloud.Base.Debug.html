@@ -69,10 +69,51 @@
 <h4>Description</h4>
 <strong><em>No description is available</em></strong><div id="methods_Debug">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#Debug::isEnabled()">isEnabled</a>,
+<a style="font-style: italic;" href="#Debug::investigate()">investigate</a>,
+      <a style="font-style: italic;" href="#Debug::isEnabled()">isEnabled</a>,
+      <a style="font-style: italic;" href="#Debug::logMessage()">logMessage</a>,
+      <a style="font-style: italic;" href="#Debug::outputString()">outputString</a>,
       <a style="font-style: italic;" href="#Debug::setDebug()">setDebug</a>,
       <a style="font-style: italic;" href="#Debug::setState()">setState</a>,
       <div class="method">
+<a id="Debug::investigate()"></a><h3>investigate<span class="nb-faded-text">(
+          
+             
+            $class,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$class</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Debug::isEnabled()"></a><h3>isEnabled<span class="nb-faded-text">(
           
           )
@@ -80,6 +121,105 @@
         :
         <span class="nb-faded-text">n/a</span>
 </h3>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Debug::logMessage()"></a><h3>logMessage<span class="nb-faded-text">(
+          
+             
+            $class,
+          
+             
+            $arguments
+            = array(),
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$class</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$arguments</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>array()</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Debug::outputString()"></a><h3>outputString<span class="nb-faded-text">(
+          
+             
+            $class,
+          
+             
+            $message,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$class</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$message</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h4>Return value</h4>
 <table>
 <thead><tr>
@@ -181,6 +321,25 @@
           =
           false</h3>
 <em></em><br>
+</div>
+</div>
+<div id="constants_Debug">
+<h4>Constants</h4>
+<a id="Debug::FORMAT"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>FORMAT<span class="nb-faded-text">
+         = "%s : (%s) : %s\r\n"</span>
+</h3>
+<em></em><br><br>
+</div>
+<a id="Debug::PREFIX"></a><div class="constant">
+<h3>
+<span class="nb-faded-text"> 
+        </span>PREFIX<span class="nb-faded-text">
+         = 'DEBUG'</span>
+</h3>
+<em></em><br><br>
 </div>
 </div>
 <div style="clear: both"></div>

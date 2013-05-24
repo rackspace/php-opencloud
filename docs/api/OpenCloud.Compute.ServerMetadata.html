@@ -101,7 +101,9 @@ items.</p><br><div id="methods_ServerMetadata">
       <a style="font-style: italic;" href="#ServerMetadata::__set()">__set</a>,
       <a style="font-style: italic;" href="#ServerMetadata::debug()">debug</a>,
       <a style="font-style: italic;" href="#ServerMetadata::getDebug()">getDebug</a>,
+      <a style="font-style: italic;" href="#ServerMetadata::getDebugOutputStyle()">getDebugOutputStyle</a>,
       <a style="font-style: italic;" href="#ServerMetadata::setDebug()">setDebug</a>,
+      <a style="font-style: italic;" href="#ServerMetadata::setDebugOutputStyle()">setDebugOutputStyle</a>,
       <a style="font-style: italic;" href="#ServerMetadata::to_string()">to_string</a>,
       <div class="method">
 <a id="ServerMetadata::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
@@ -752,7 +754,7 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
 <em>Contructs a Metadata object associated with a Server or Image object</em><br><h4>Arguments</h4>
@@ -786,8 +788,8 @@ subclasses need to define this method.</p></small><br><h4>Return value</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
-<td></td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>
@@ -869,29 +871,6 @@ an exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="ServerMetadata::debug()"></a><h3>debug<span class="nb-faded-text">(
-          string
-             
-            $msg,
-          mixed
-             
-            $p1
-            = null,
-          mixed
-             
-            $p2
-            = null,
-          mixed
-             
-            $p3
-            = null,
-          mixed
-             
-            $p4
-            = null,
-          mixed
-             
-            $p5
-            = null,
           
           )
         </span>
@@ -904,61 +883,7 @@ up to five optional parameters. It prints the debug message, prefixed
 with "Debug:" and the class name, to the standard output device.</p>
 
 <p>Example:
-  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$msg</td>
-<td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in
-     sprintf() format.</p>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$p1</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p2</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p3</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p4</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p5</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
+  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1034,7 +959,7 @@ with "Debug:" and the class name, to the standard output device.</p>
 </table>
 </div>
 <div class="method">
-<a id="ServerMetadata::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
+<a id="ServerMetadata::getDebugOutputStyle()"></a><h3>getDebugOutputStyle<span class="nb-faded-text">(
           
           )
         </span>
@@ -1042,7 +967,67 @@ with "Debug:" and the class name, to the standard output device.</p>
         <span class="nb-faded-text">void</span>
 </h3>
 <h4>Description</h4>
-<em>setDebug function.</em><br><h4>Return value</h4>
+<em>Gets the debug output style.</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access</td>
+<td>public</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::getDebugOutputStyle()"><small>\OpenCloud\Base\Base::getDebugOutputStyle()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.Base.Metadata.html#%5COpenCloud%5CBase%5CMetadata::getDebugOutputStyle()"><small>\OpenCloud\Base\Metadata::getDebugOutputStyle()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="ServerMetadata::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
+          
+             
+            $status,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>setDebug function.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$status</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1071,6 +1056,66 @@ with "Debug:" and the class name, to the standard output device.</p>
 <tr>
 <td>inherited_from</td>
 <td><a href="OpenCloud.Base.Metadata.html#%5COpenCloud%5CBase%5CMetadata::setDebug()"><small>\OpenCloud\Base\Metadata::setDebug()</small></a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="method">
+<a id="ServerMetadata::setDebugOutputStyle()"></a><h3>setDebugOutputStyle<span class="nb-faded-text">(
+          mixed
+             
+            $state,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Sets the debug output style.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$state</td>
+<td style="white-space: normal;">mixed</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>access</td>
+<td>public</td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::setDebugOutputStyle()"><small>\OpenCloud\Base\Base::setDebugOutputStyle()</small></a></td>
+</tr>
+<tr>
+<td>inherited_from</td>
+<td><a href="OpenCloud.Base.Metadata.html#%5COpenCloud%5CBase%5CMetadata::setDebugOutputStyle()"><small>\OpenCloud\Base\Metadata::setDebugOutputStyle()</small></a></td>
 </tr>
 </tbody>
 </table>
@@ -1139,7 +1184,8 @@ with "Debug:" and the class name, to the standard output device.</p>
       <a href="#ServerMetadata::%24_keylist">$_keylist</a>,
       <a href="#ServerMetadata::%24_parent">$_parent</a>,
       <a href="#ServerMetadata::%24_url">$_url</a>,
-      <a href="#ServerMetadata::%24debug">$debug</a>,
+      <a href="#ServerMetadata::%24debugOutputStyle">$debugOutputStyle</a>,
+      <a href="#ServerMetadata::%24debugStatus">$debugStatus</a>,
       <a href="#ServerMetadata::%24http_headers">$http_headers</a>,
       <div class="method">
 <a id="ServerMetadata::$_errors"></a><h3>
@@ -1187,13 +1233,25 @@ with "Debug:" and the class name, to the standard output device.</p>
 <em></em><br>
 </div>
 <div class="method">
-<a id="ServerMetadata::$debug"></a><h3>
-<span class="nb-faded-text">\OpenCloud\Base\Debug 
+<a id="ServerMetadata::$debugOutputStyle"></a><h3>
+<span class="nb-faded-text">bool 
           private 
-          </span>$debug
+          </span>$debugOutputStyle
           =
-          </h3>
-<em>Debug object.</em><br><small></small><br><br>
+          true</h3>
+<em>Sets the style for outputting debug messages.</em><br><small>&lt;p&gt;Echoing messages   == true
+Returning messages == false&lt;/p&gt;
+
+&lt;p&gt;(default value: true)&lt;/p&gt;</small><br><br>
+</div>
+<div class="method">
+<a id="ServerMetadata::$debugStatus"></a><h3>
+<span class="nb-faded-text">bool 
+          private 
+          </span>$debugStatus
+          =
+          false</h3>
+<em>Debug status.</em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="ServerMetadata::$http_headers"></a><h3>
