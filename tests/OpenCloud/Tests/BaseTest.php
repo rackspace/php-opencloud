@@ -11,14 +11,14 @@
  
 namespace OpenCloud\Tests;
 
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Debug;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Debug;
 
 /**
  * Can't test Base directly, since it is an abstract class, so we instantiate it
  */
 
-class MyBase extends \OpenCloud\Base\Base 
+class MyBase extends \OpenCloud\Common\Base 
 {    
     public $foo; // to test SetProperty
     
@@ -57,7 +57,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	    $this->my->setDebug(false);
 	}
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\URLError
+	 * @expectedException OpenCloud\Common\Exceptions\URLError
 	 */
 	public function testUrl() {
 		$this->my->Url();
@@ -65,12 +65,12 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	public function testGetHttpRequestObject() {
 	    $request = $this->my->GetHttpRequestObject('file:/dev/null');
 	    $this->assertEquals(
-	        'OpenCloud\Base\Request\Curl',
+	        'OpenCloud\Common\Request\Curl',
 	        get_class($request));
 	}
 	public function test__set() 
 	{
-		//$this->setExpectedException('OpenCloud\Base\Exceptions\AttributeError');
+		//$this->setExpectedException('OpenCloud\Common\Exceptions\AttributeError');
 		//$this->expectOutputRegEx('/Unrecognized attribute/');
 	}
 	public function testMakeQueryString() {
@@ -88,7 +88,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	        $this->my->MakeQueryString(array('A'=>1,'B'=>TRUE)));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\JsonError
+	 * @expectedException \OpenCloud\Common\Exceptions\JsonError
 	 */
 	public function testCheckJsonError() {
 	    $json = '{"one":"two"}';
@@ -100,7 +100,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testSetProperty() {
 	    if (RAXSDK_STRICT_PROPERTY_CHECKS) {
-			$this->setExpectedException('OpenCloud\Base\Exceptions\AttributeError');
+			$this->setExpectedException('OpenCloud\Common\Exceptions\AttributeError');
 		}
 		$this->my->foo = 'bar';
 	    $this->assertEquals('bar', $this->my->foo);

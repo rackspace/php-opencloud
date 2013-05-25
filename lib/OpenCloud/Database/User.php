@@ -12,9 +12,9 @@
 
 namespace OpenCloud\Database;
 
-use OpenCloud\Base\Base;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\Base;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
 
 /**
  * This class represents a User in the Rackspace "Red Dwarf"

@@ -16,7 +16,7 @@ require_once('StubConnection.php');
 /**
  * Since Service is an abstract class, we'll wrap it so we can test it
  */
-class MyService extends \OpenCloud\AbstractClass\Service {
+class MyService extends \OpenCloud\Common\Service {
 	public function Request($url,$method='GET',$headers=array(),$body=NULL) {
 		return parent::Request($url,$method,$headers,$body);
 	}

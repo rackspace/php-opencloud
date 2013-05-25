@@ -12,9 +12,9 @@
 
 namespace OpenCloud\DNS;
 
-use OpenCloud\AbstractClass\Service as AbstractService;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 use OpenCloud\OpenStack;
 use OpenCloud\Compute\Server;
 

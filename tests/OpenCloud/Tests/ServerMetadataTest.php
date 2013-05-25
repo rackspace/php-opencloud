@@ -56,7 +56,7 @@ class ServerMetadataTest extends \PHPUnit_Framework_TestCase
 			$m2->Url());
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\MetadataKeyError
+	 * @expectedException \OpenCloud\Common\Exceptions\MetadataKeyError
 	 */
 	public function test___set() {
 		$this->metadata->property = 'value';

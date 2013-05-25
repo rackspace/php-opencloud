@@ -12,12 +12,12 @@
 
 namespace OpenCloud;
 
-require_once dirname(__FILE__).'/Globals.php';
+require_once __DIR__ . '/Globals.php';
 
-use OpenCloud\Base\Base;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\Base\ServiceCatalogItem;
+use OpenCloud\Common\Base;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\ServiceCatalogItem;
 
 /**
  * The OpenStack class represents a relationship (or "connection")
@@ -273,7 +273,7 @@ class OpenStack extends Base
      */
     public function ServiceList() 
     {
-        return new AbstractClass\Collection(
+        return new Common\Collection(
             $this, 
             'ServiceCatalogItem', 
             $this->ServiceCatalog()

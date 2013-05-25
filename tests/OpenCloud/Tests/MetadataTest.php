@@ -18,7 +18,7 @@ class MetadataTest extends \PHPUnit_Framework_TestCase
 	private
 		$metadata;
 	public function __construct() {
-		$this->metadata = new \OpenCloud\Base\Metadata;
+		$this->metadata = new \OpenCloud\Common\Metadata;
 	}
 	/**
 	 * Tests

@@ -41,7 +41,7 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 			get_class($this->instance));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\InstanceUpdateError
+	 * @expectedException \OpenCloud\Common\Exceptions\InstanceUpdateError
 	 */
 	public function testUpdate() {
 		$this->instance->Update();
@@ -90,12 +90,12 @@ class InstanceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testDatabaseList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->instance->DatabaseList()));
 	}
 	public function testUserList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->instance->UserList()));
 	}
 	public function testCreateJson() {

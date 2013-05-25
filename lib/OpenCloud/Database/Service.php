@@ -12,7 +12,7 @@
 
 namespace OpenCloud\Database;
 
-use OpenCloud\AbstractClass\Nova;
+use OpenCloud\Common\Nova;
 use OpenCloud\OpenStack;
 
 /**

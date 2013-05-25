@@ -12,7 +12,7 @@
 namespace OpenCloud\Tests;
 
 // stub class, since ObjStoreBase is abstract
-class MyObjStoreBase extends \OpenCloud\AbstractClass\ObjectStore {
+class MyObjStoreBase extends \OpenCloud\Common\ObjectStore {
 	public $name='FOOBAR';
 }
 
@@ -29,14 +29,14 @@ class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
     public function test__construct() {
         $this->obj = new MyObjStoreBase();
         $this->assertEquals(
-            'OpenCloud\Base\Metadata',
+            'OpenCloud\Common\Metadata',
             get_class($this->obj->metadata));
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\MetadataPrefixError
+     * @expectedException \OpenCloud\Common\Exceptions\MetadataPrefixError
      */
     public function testGetMetadata() {
-        $blank = new \OpenCloud\Base\Request\Response\Blank;
+        $blank = new \OpenCloud\Common\Request\Response\Blank;
         $blank->headers = array(
             'X-Meta-Something'=>'FOO',
             'X-Meta-Else'=>'BAR'
@@ -44,7 +44,7 @@ class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
         $this->obj->GetMetadata($blank);
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\MetadataPrefixError
+     * @expectedException \OpenCloud\Common\Exceptions\MetadataPrefixError
      */
     public function testMetadataHeaders() {
     	$this->obj->metadata = new \stdClass();

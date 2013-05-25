@@ -191,7 +191,7 @@ restore_error_handler();
 /********** SOME GLOBAL FUNCTIONS **********/
 
 	/**
-	 * \OpenCloud\Base\Lang::translate() - this function should be used to wrap all static strings. In the future,
+	 * \OpenCloud\Common\Lang::translate() - this function should be used to wrap all static strings. In the future,
 	 * this may provide us with a hook for providing different language
 	 * translations.
 	 */

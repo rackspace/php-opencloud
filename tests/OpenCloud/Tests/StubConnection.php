@@ -30,7 +30,7 @@ ENDRESPONSE;
 				array('username'=>'X', 'password'=>'Y'), $options);
 	}
 	public function Request($url, $method="GET", $headers=array(), $body=NULL) {
-		$resp = new \OpenCloud\Base\Request\Response\Blank;
+		$resp = new \OpenCloud\Common\Request\Response\Blank;
 		$resp->headers = array(
 			'Content-Length' => '999'
 		);
@@ -262,7 +262,7 @@ ENDVOL;
  * stub classes for testing the request() method (which is overridden in the
  * StubConnection class used for testing everything else).
  */
-class StubRequest extends \OpenCloud\Base\Request\Curl {
+class StubRequest extends \OpenCloud\Common\Request\Curl {
     public
         $url;
     public function __construct($url, $method='GET') {
@@ -274,11 +274,11 @@ class StubRequest extends \OpenCloud\Base\Request\Curl {
         case '401':
         case '403':
         case '413':
-            return new \OpenCloud\Base\Request\Response\Blank(array(
+            return new \OpenCloud\Common\Request\Response\Blank(array(
                 'status' => $this->url+0
            ));
         default:
-            return new \OpenCloud\Base\Request\Response\Blank(array(
+            return new \OpenCloud\Common\Request\Response\Blank(array(
                 'status' => 200
            ));
         }

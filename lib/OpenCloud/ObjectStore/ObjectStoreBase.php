@@ -12,8 +12,8 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\Base\Lang;
-use OpenCloud\AbstractClass\Service as AbstractService;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Service as AbstractService;
 
 define('SWIFT_MAX_OBJECT_SIZE', 5 * 1024 * 1024 * 1024 + 1);
 

@@ -18,7 +18,7 @@ class StubObjectStore extends \OpenCloud\ObjectStore\Service
 {
     public function Request($url, $method='GET', $headers=array(), $data=NULL)
 	{
-        return new \OpenCloud\Base\Request\Response\Blank;
+        return new \OpenCloud\Common\Request\Response\Blank;
     }
 }
 
@@ -28,7 +28,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	private $container;
 
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\ContainerNotFoundError
+	 * @expectedException OpenCloud\Common\Exceptions\ContainerNotFoundError
 	 */
 	public function __construct()
 	{
@@ -56,7 +56,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		    'TEST',
 		    $this->getContainer()->name);
 		$this->assertEquals(
-		    'OpenCloud\Base\Metadata',
+		    'OpenCloud\Common\Metadata',
 		    get_class($this->getContainer()->metadata));
 	}
 
@@ -85,7 +85,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\ContainerNameError
+	 * @expectedException OpenCloud\Common\Exceptions\ContainerNameError
 	 */
 	public function testCreate0()
 	{
@@ -109,7 +109,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	{
 		$olist = $this->getContainer()->ObjectList();
 		$this->assertEquals(
-		    'OpenCloud\AbstractClass\Collection',
+		    'OpenCloud\Common\Collection',
 		    get_class($olist));
 	}
 
@@ -134,7 +134,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\CdnTtlError
+	 * @expectedException OpenCloud\Common\Exceptions\CdnTtlError
 	 */
 	public function testEnableCDN2()
 	{
@@ -142,7 +142,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\CdnTtlError
+	 * @expectedException OpenCloud\Common\Exceptions\CdnTtlError
 	 */
 	public function testPubishToCDN2()
 	{
@@ -150,7 +150,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	}
 
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\CdnHttpError
+	 * @expectedException OpenCloud\Common\Exceptions\CdnHttpError
 	 */
 	public function testDisableCDN()
 	{
@@ -195,14 +195,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	public function testCreateStaticSite()
 	{
 		$this->assertEquals(
-			'OpenCloud\Base\Request\Response\Blank',
+			'OpenCloud\Common\Request\Response\Blank',
 			get_class($this->getContainer()->CreateStaticSite('index.html')));
 	}
 
 	public function testStaticSiteErrorPage()
 	{
 		$this->assertEquals(
-			'OpenCloud\Base\Request\Response\Blank',
+			'OpenCloud\Common\Request\Response\Blank',
 			get_class($this->getContainer()->StaticSiteErrorPage('error.html')));
 	}
 

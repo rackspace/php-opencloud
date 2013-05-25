@@ -12,9 +12,9 @@
 
 namespace OpenCloud\Compute;
 
-use OpenCloud\AbstractClass\PersistentObject;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 
 /**
  * The Network class represents a single virtual network

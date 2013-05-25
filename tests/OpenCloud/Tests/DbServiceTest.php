@@ -47,7 +47,7 @@ class DbServiceTest extends \PHPUnit_Framework_TestCase {
 	}
 	public function testFlavorList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->dbaas->FlavorList()));
 	}
 	public function testDbInstance() {
@@ -57,7 +57,7 @@ class DbServiceTest extends \PHPUnit_Framework_TestCase {
 	public function testDbInstanceList() {
 		$list = $this->dbaas->InstanceList();
 		$this->assertEquals(
-		    'OpenCloud\AbstractClass\Collection',
+		    'OpenCloud\Common\Collection',
 		    get_class($list));
 	}
 }

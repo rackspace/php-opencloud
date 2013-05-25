@@ -12,8 +12,8 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\Base\Exceptions;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
 
 /**
  * A regular container with a (potentially) CDN container

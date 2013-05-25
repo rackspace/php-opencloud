@@ -12,10 +12,10 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\AbstractClass\ObjectStore;
-use OpenCloud\AbstractClass\Service as AbstractService;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\ObjectStore;
+use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 
 /**
  * A simple container for the CDN Service
@@ -136,7 +136,7 @@ class CDNContainer extends ObjectStore
 
         // check return code
         if ($response->HttpStatus() > 204) {
-            throw new \OpenCloud\Base\Exceptions\ContainerCreateError(sprintf(
+            throw new \OpenCloud\Common\Exceptions\ContainerCreateError(sprintf(
                 Lang::translate('Problem updating container [%s] status [%d] response [%s]'),
                 $this->Url(),
                 $response->HttpStatus(),

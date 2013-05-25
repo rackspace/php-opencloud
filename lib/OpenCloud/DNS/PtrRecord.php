@@ -12,8 +12,8 @@
 
 namespace OpenCloud\DNS;
 
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 
 /**
  * PTR records are used for reverse DNS

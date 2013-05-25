@@ -32,7 +32,7 @@ class ComputeTest extends \PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\UnsupportedVersionError
+	 * @expectedException \OpenCloud\Common\Exceptions\UnsupportedVersionError
 	 */
 	public function test__construct() {
 		$compute = new \OpenCloud\Compute\Service(
@@ -58,18 +58,18 @@ class ComputeTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testServerList() {
 		$list = $this->compute->ServerList();
-		$this->assertEquals('OpenCloud\AbstractClass\Collection', get_class($list));
+		$this->assertEquals('OpenCloud\Common\Collection', get_class($list));
 	}
 	public function testImage() {
 	    $im = $this->compute->Image(); // blank
 	    $this->assertEquals('OpenCloud\Compute\Image', get_class($im));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
+	 * @expectedException \OpenCloud\Common\Exceptions\CollectionError
 	 */
 	public function testImageList() {
 	    $list = $this->compute->ImageList();
-	    $this->assertEquals('OpenCloud\AbstractClass\Collection', get_class($list)); // 404
+	    $this->assertEquals('OpenCloud\Common\Collection', get_class($list)); // 404
 	}
 	public function testNetwork() {
 		$this->assertEquals(
@@ -78,7 +78,7 @@ class ComputeTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testNetworkList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->compute->NetworkList()));
 	}
 	public function testNamespaces() {

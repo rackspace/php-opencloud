@@ -56,7 +56,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\DomainError
+	 * @expectedException \OpenCloud\Common\Exceptions\DomainError
 	 */
 	public function testAddNode() {
 		$lb = $this->service->LoadBalancer();
@@ -74,7 +74,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb->AddNodes();
 	}
 	/**
-	 * @ expectedException \OpenCloud\Base\Exceptions\DomainError
+	 * @ expectedException \OpenCloud\Common\Exceptions\DomainError
 	 */
 	public function testAddVirtualIp() {
 		$lb = $this->service->LoadBalancer();
@@ -103,7 +103,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 			'OpenCloud\LoadBalancer\Resources\Metadata',
 			get_class($lb->Node('456')->Metadata()));
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($lb->Node('456')->MetadataList()));
 		$this->assertEquals(
 			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/'.
@@ -114,7 +114,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($lb->NodeList()));
 	}
 	public function testNodeEvent() {
@@ -130,7 +130,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($lb->NodeEventList()));
 	}
 	public function testVirtualIp() {
@@ -146,7 +146,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($lb->VirtualIpList()));
 	}
 	public function testSessionPersistence() {
@@ -208,7 +208,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($lb->AccessList()));
 	}
 	public function testConnectionThrottle() {
@@ -260,7 +260,7 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 		$lb = $this->service->LoadBalancer();
 		$lb->Create();
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($lb->MetadataList()));
 	}
 	public function testCreateJson() {
