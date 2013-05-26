@@ -1,142 +1,281 @@
 <?php
 
-class SplClassLoader
+// Copyright (c) 2004-2013 Fabien Potencier
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is furnished
+// to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+class ClassLoader 
 {
-    private $_fileExtension = '.php';
-    private $_namespace;
-    private $_includePath;
-    private $_namespaceSeparator = '\\';
+    private $namespaces = array();
+    private $prefixes = array();
+    private $namespaceFallbacks = array();
+    private $prefixFallbacks = array();
+    private $useIncludePath = false;
 
     /**
-     * Creates a new <tt>SplClassLoader</tt> that loads classes of the
-     * specified namespace.
+     * Turns on searching the include for class files. Allows easy loading
+     * of installed PEAR packages
      *
-     * @param string $ns The namespace to use.
+     * @param Boolean $useIncludePath
      */
-    public function __construct($ns = null, $includePath = null)
+    public function useIncludePath($useIncludePath)
     {
-        $this->_namespace = $ns;
-        $this->_includePath = $includePath;
+        $this->useIncludePath = $useIncludePath;
     }
 
     /**
-     * Sets the namespace separator used by classes in the namespace of
-     * this class loader.
+     * Can be used to check if the autoloader uses the include path to check
+     * for classes.
      *
-     * @param string $sep The separator to use.
+     * @return Boolean
      */
-    public function setNamespaceSeparator($sep)
+    public function getUseIncludePath()
     {
-        $this->_namespaceSeparator = $sep;
+        return $this->useIncludePath;
     }
 
     /**
-     * Gets the namespace seperator used by classes in the namespace of
-     * this class loader.
+     * Gets the configured namespaces.
      *
-     * @return void
+     * @return array A hash with namespaces as keys and directories as values
      */
-    public function getNamespaceSeparator()
+    public function getNamespaces()
     {
-        return $this->_namespaceSeparator;
+        return $this->namespaces;
     }
 
     /**
-     * Sets the base include path for all class files in the namespace of
-     * this class loader.
+     * Gets the configured class prefixes.
      *
-     * @param string $includePath
+     * @return array A hash with class prefixes as keys and directories as values
      */
-    public function setIncludePath($includePath)
+    public function getPrefixes()
     {
-        $this->_includePath = $includePath;
+        return $this->prefixes;
     }
 
     /**
-     * Gets the base include path for all class files in the namespace of
-     * this class loader.
+     * Gets the directory(ies) to use as a fallback for namespaces.
      *
-     * @return string $includePath
+     * @return array An array of directories
      */
-    public function getIncludePath()
+    public function getNamespaceFallbacks()
     {
-        return $this->_includePath;
+        return $this->namespaceFallbacks;
     }
 
     /**
-     * Sets the file extension of class files in the namespace of this
-     * class loader.
+     * Gets the directory(ies) to use as a fallback for class prefixes.
      *
-     * @param string $fileExtension
+     * @return array An array of directories
      */
-    public function setFileExtension($fileExtension)
+    public function getPrefixFallbacks()
     {
-        $this->_fileExtension = $fileExtension;
+        return $this->prefixFallbacks;
     }
 
     /**
-     * Gets the file extension of class files in the namespace of this
-     * class loader.
+     * Registers the directory to use as a fallback for namespaces.
      *
-     * @return string $fileExtension
+     * @param array $dirs An array of directories
+     *
+     * @api
      */
-    public function getFileExtension()
+    public function registerNamespaceFallbacks(array $dirs)
     {
-        return $this->_fileExtension;
+        $this->namespaceFallbacks = $dirs;
     }
 
     /**
-     * Installs this class loader on the SPL autoload stack.
+     * Registers a directory to use as a fallback for namespaces.
+     *
+     * @param string $dir A directory
      */
-    public function register()
+    public function registerNamespaceFallback($dir)
     {
-        spl_autoload_register(array($this, 'loadClass'));
+        $this->namespaceFallbacks[] = $dir;
     }
 
     /**
-     * Uninstalls this class loader from the SPL autoloader stack.
+     * Registers directories to use as a fallback for class prefixes.
+     *
+     * @param array $dirs An array of directories
+     *
+     * @api
      */
-    public function unregister()
+    public function registerPrefixFallbacks(array $dirs)
     {
-        spl_autoload_unregister(array($this, 'loadClass'));
+        $this->prefixFallbacks = $dirs;
     }
 
     /**
-     * Fix for certain versions of PHP that have trouble with
-     * namespaces with leading separators.
-     * 
-     * @access private
-     * @param mixed $className
-     * @return void
+     * Registers a directory to use as a fallback for class prefixes.
+     *
+     * @param string $dir A directory
      */
-    private function makeBackwardsCompatible($className)
+    public function registerPrefixFallback($dir)
     {
-        return (phpversion() < '5.3.3') ? ltrim($className, $this->_namespaceSeparator) : $className;
+        $this->prefixFallbacks[] = $dir;
+    }
+
+    /**
+     * Registers an array of namespaces
+     *
+     * @param array $namespaces An array of namespaces (namespaces as keys and locations as values)
+     *
+     * @api
+     */
+    public function registerNamespaces(array $namespaces)
+    {
+        foreach ($namespaces as $namespace => $locations) {
+            $this->namespaces[$namespace] = (array) $locations;
+        }
+    }
+
+    /**
+     * Registers a namespace.
+     *
+     * @param string       $namespace The namespace
+     * @param array|string $paths     The location(s) of the namespace
+     *
+     * @api
+     */
+    public function registerNamespace($namespace, $paths)
+    {
+        $this->namespaces[$namespace] = (array) $paths;
+    }
+
+    /**
+     * Registers an array of classes using the PEAR naming convention.
+     *
+     * @param array $classes An array of classes (prefixes as keys and locations as values)
+     *
+     * @api
+     */
+    public function registerPrefixes(array $classes)
+    {
+        foreach ($classes as $prefix => $locations) {
+            $this->prefixes[$prefix] = (array) $locations;
+        }
+    }
+
+    /**
+     * Registers a set of classes using the PEAR naming convention.
+     *
+     * @param string       $prefix The classes prefix
+     * @param array|string $paths  The location(s) of the classes
+     *
+     * @api
+     */
+    public function registerPrefix($prefix, $paths)
+    {
+        $this->prefixes[$prefix] = (array) $paths;
+    }
+
+    /**
+     * Registers this instance as an autoloader.
+     *
+     * @param Boolean $prepend Whether to prepend the autoloader or not
+     *
+     * @api
+     */
+    public function register($prepend = false)
+    {
+        spl_autoload_register(array($this, 'loadClass'), true, $prepend);
     }
 
     /**
      * Loads the given class or interface.
      *
-     * @param string $className The name of the class to load.
-     * @return void
+     * @param string $class The name of the class
+     *
+     * @return Boolean|null True, if loaded
      */
-    public function loadClass($className)
+    public function loadClass($class)
     {
-        $className = $this->makeBackwardsCompatible($className);
-        
-        if (null === $this->_namespace 
-            || $this->_namespace . $this->_namespaceSeparator === substr($className, 0, strlen($this->_namespace . $this->_namespaceSeparator))
-        ) {
-            $fileName = '';
-            $namespace = '';
-            if (false !== ($lastNsPos = strripos($className, $this->_namespaceSeparator))) {
-                $namespace = substr($className, 0, $lastNsPos);
-                $className = substr($className, $lastNsPos + 1);
-                $fileName = str_replace($this->_namespaceSeparator, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
-            }
-            $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . $this->_fileExtension;
+        if ($file = $this->findFile($class)) {
+            require $file;
 
-            require ($this->_includePath !== null ? $this->_includePath . DIRECTORY_SEPARATOR : '') . $fileName;
+            return true;
         }
     }
+
+    /**
+     * Finds the path to the file where the class is defined.
+     *
+     * @param string $class The name of the class
+     *
+     * @return string|null The path, if found
+     */
+    public function findFile($class)
+    {
+        if (false !== $pos = strrpos($class, '\\')) {
+            // namespaced class name
+            $namespace = substr($class, 0, $pos);
+            $className = substr($class, $pos + 1);
+            $normalizedClass = str_replace('\\', DIRECTORY_SEPARATOR, $namespace).DIRECTORY_SEPARATOR.str_replace('_', DIRECTORY_SEPARATOR, $className).'.php';
+            foreach ($this->namespaces as $ns => $dirs) {
+                if (0 !== strpos($namespace, $ns)) {
+                    continue;
+                }
+
+                foreach ($dirs as $dir) {
+                    $file = $dir.DIRECTORY_SEPARATOR.$normalizedClass;
+                    if (is_file($file)) {
+                        return $file;
+                    }
+                }
+            }
+
+            foreach ($this->namespaceFallbacks as $dir) {
+                $file = $dir.DIRECTORY_SEPARATOR.$normalizedClass;
+                if (is_file($file)) {
+                    return $file;
+                }
+            }
+
+        } else {
+            // PEAR-like class name
+            $normalizedClass = str_replace('_', DIRECTORY_SEPARATOR, $class).'.php';
+            foreach ($this->prefixes as $prefix => $dirs) {
+                if (0 !== strpos($class, $prefix)) {
+                    continue;
+                }
+
+                foreach ($dirs as $dir) {
+                    $file = $dir.DIRECTORY_SEPARATOR.$normalizedClass;
+                    if (is_file($file)) {
+                        return $file;
+                    }
+                }
+            }
+
+            foreach ($this->prefixFallbacks as $dir) {
+                $file = $dir.DIRECTORY_SEPARATOR.$normalizedClass;
+                if (is_file($file)) {
+                    return $file;
+                }
+            }
+        }
+
+        if ($this->useIncludePath && $file = stream_resolve_include_path($normalizedClass)) {
+            return $file;
+        }
+    }    
 }

@@ -110,8 +110,8 @@ class Service extends AbstractService
     	$url,
     	$method = 'GET',
     	array $headers = array(),
-    	$body = null)
-    {
+    	$body = null
+    ) {
         $headers['Accept'] = RAXSDK_CONTENT_TYPE_JSON;
         $headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
         return parent::Request($url, $method, $headers, $body);

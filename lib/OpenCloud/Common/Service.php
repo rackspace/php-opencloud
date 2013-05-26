@@ -31,7 +31,7 @@ use OpenCloud\Common\Exceptions;
 abstract class Service extends Base
 {
 
-    private $conn;
+    protected $conn;
     private $service_type;
     private $service_name;
     private $service_region;
@@ -143,8 +143,8 @@ abstract class Service extends Base
     	$url,
     	$method = 'GET',
     	array $headers = array(),
-    	$body = null)
-    {
+    	$body = null
+    ) {
         $headers['X-Auth-Token'] = $this->conn->Token();
 
         if ($tenant = $this->conn->Tenant()) {

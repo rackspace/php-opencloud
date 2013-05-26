@@ -1,10 +1,9 @@
 <?php
-// (c)2012 Rackspace Hosting
-// See COPYING for licensing information
 
 namespace OpenCloud\Tests;
 
-if (!defined('TESTDIR')) define('TESTDIR', dirname(__FILE__));
+use OpenCloud\OpenStack;
+use OpenCloud\Common\Request\Response\Blank;
 
 /**
  * This is a stub Connection class that bypasses the actual connections
@@ -16,42 +15,56 @@ if (!defined('TESTDIR')) define('TESTDIR', dirname(__FILE__));
  *
  * Be careful where you put things.
  */
-class StubConnection extends \OpenCloud\OpenStack
+class StubConnection extends OpenStack
 {
-	public
-		$async_response = <<<ENDRESPONSE
+
+	private $testDir;
+
+	public $async_response = <<<ENDRESPONSE
 {"status":"RUNNING","verb":"GET","jobId":"852a1e4a-45b4-409b-9d46-2d6d641b27cf","callbackUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/status/852a1e4a-45b4-409b-9d46-2d6d641b27cf","requestUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/domains/3612932/export"}
 ENDRESPONSE;
-	public function __construct($url, $secret, $options=array()) {
-		if (is_array($secret))
+
+	public function __construct($url, $secret, $options = array()) 
+	{
+		$this->testDir = __DIR__;
+
+		if (is_array($secret)) {
 			return parent::__construct($url, $secret, $options);
-		else
-			return parent::__construct($url,
-				array('username'=>'X', 'password'=>'Y'), $options);
+		} else {
+			return parent::__construct(
+				$url,
+				array(
+					'username' => 'X', 
+					'password' => 'Y'
+				), 
+				$options
+			);
+		}
 	}
-	public function Request($url, $method="GET", $headers=array(), $body=NULL) {
-		$resp = new \OpenCloud\Common\Request\Response\Blank;
+
+	public function Request($url, $method = "GET", $headers = array(), $body = null) 
+	{
+		$resp = new Blank;
 		$resp->headers = array(
 			'Content-Length' => '999'
 		);
+
 		if ($method == 'POST') {
 			$resp->status = 200;
 			if (strpos($url, '/action')) {
-			    if ('{"rescue' == substr($body, 0, 8))
-			        $resp->body =
-			            file_get_contents(TESTDIR.'/server-create.json');
-			    else
+			    if ('{"rescue' == substr($body, 0, 8)) {
+			        $resp->body = file_get_contents($this->testDir.'/server-create.json');
+			    } else {
     				$resp->body = '';
-			}
-			elseif (strpos($url, '/token'))
-				$resp->body = file_get_contents(TESTDIR.'/connection.json');
-			elseif (preg_match('/root$/', $url))
+    			}
+			} elseif (strpos($url, '/token')) {
+				$resp->body = file_get_contents($this->testDir.'/connection.json');
+			} elseif (preg_match('/root$/', $url)) {
 				$resp->body = '{"user":{"name":"root","password":"foo"}}';
-			elseif (strpos($url, '/databases')) {
+			} elseif (strpos($url, '/databases')) {
 				$resp->body = '{to be filled in}';
 				$resp->status = 202;
-			}
-			elseif (strpos($url, '/loadbalancers')) {
+			} elseif (strpos($url, '/loadbalancers')) {
 				$resp->body = <<<ENDLB
 {"loadBalancer":{
   "id":"123",
@@ -65,7 +78,7 @@ ENDLB;
 {"network":{"id":"1","cidr":"192.168.0.0/24","label":"foo"}}
 ENDNW;
 			elseif (strpos($url, '/instances'))
-				$resp->body = file_get_contents(TESTDIR.'/dbinstance-create.json');
+				$resp->body = file_get_contents($this->testDir.'/dbinstance-create.json');
 			elseif (strpos($url, '/import')) { // domain import
 				$resp->body = $this->async_response;
 				$resp->status = 202;
@@ -79,7 +92,7 @@ ENDNW;
 				$resp->status = 202;
 			}
 			elseif (strpos($url, '/servers')) {
-				$resp->body = file_get_contents(TESTDIR.'/server-create.json');
+				$resp->body = file_get_contents($this->testDir.'/server-create.json');
 			}
 			else
 				die("No stub data for URL $url\n");
@@ -211,19 +224,19 @@ ENDRDNS;
 			$resp->status = 200;
 		}
 		elseif (strpos($url, '/extensions')) {
-		    $resp->body = file_get_contents(TESTDIR.'/extensions.json');
+		    $resp->body = file_get_contents($this->testDir.'/extensions.json');
 		    $resp->status = 200;
 		}
 		elseif (preg_match('/flavors\/[0-9a-f-]+$/', $url)) {
-			$resp->body = file_get_contents(TESTDIR.'/flavor.json');
+			$resp->body = file_get_contents($this->testDir.'/flavor.json');
 			$resp->status = 200;
 		}
 		elseif (strpos($url, '/flavors')) {
-			$resp->body = file_get_contents(TESTDIR.'/flavors.json');
+			$resp->body = file_get_contents($this->testDir.'/flavors.json');
 			$resp->status = 200;
 		}
 		elseif (strpos($url, '/instances/')) {
-			$resp->body = file_get_contents(TESTDIR.'/dbinstance.json');
+			$resp->body = file_get_contents($this->testDir.'/dbinstance.json');
 			$resp->status = 200;
 		}
 		elseif (strpos($url, '/instances')) {
@@ -237,7 +250,7 @@ ENDVOL;
 			$resp->status = 200;
 		}
 		elseif (strpos($url, '/servers/')) {
-			$resp->body = file_get_contents(TESTDIR.'/server.json');
+			$resp->body = file_get_contents($this->testDir.'/server.json');
 			$resp->status = 200;
 		}
 		elseif (strpos($url, 'EMPTY')) {
@@ -257,30 +270,4 @@ ENDVOL;
 
 		return $resp;
 	}
-}
-/**
- * stub classes for testing the request() method (which is overridden in the
- * StubConnection class used for testing everything else).
- */
-class StubRequest extends \OpenCloud\Common\Request\Curl {
-    public
-        $url;
-    public function __construct($url, $method='GET') {
-        $this->url = $url;
-        parent::__construct($url, $method);
-    }
-    public function Execute() {
-        switch($this->url) {
-        case '401':
-        case '403':
-        case '413':
-            return new \OpenCloud\Common\Request\Response\Blank(array(
-                'status' => $this->url+0
-           ));
-        default:
-            return new \OpenCloud\Common\Request\Response\Blank(array(
-                'status' => 200
-           ));
-        }
-    }
 }

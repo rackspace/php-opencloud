@@ -12,11 +12,6 @@
 
 namespace OpenCloud\Common;
 
-use OpenCloud\Common\Base;
-use OpenCloud\Common\Lang;
-use OpenCloud\Common\Metadata;
-use OpenCloud\Common\Exceptions;
-
 /**
  * represents an object that has the ability to be
  * retrieved, created, updated, and deleted.
@@ -30,19 +25,22 @@ use OpenCloud\Common\Exceptions;
  * In general, you can create a persistent object class by subclassing this
  * class and defining some protected, static variables:
  *
- * * `url_resource` - the sub-resource value in the URL of the parent. For
+ * - $url_resource - the sub-resource value in the URL of the parent. For
  *   example, if the parent URL is `http://something/parent`, then setting
  *   this value to `'another'` would result in a URL for the persistent
  *   object of `http://something/parent/another`.
- * * `json_name` - the top-level JSON object name. For example, if the
+ *
+ * - $json_name - the top-level JSON object name. For example, if the
  *   persistent object is represented by `{"foo": {"attr":value, ...}}`, then
  *   set `json_name = 'foo'`.
- * * `json_collection_name` - optional; this value is the name of a collection
+ *
+ * - $json_collection_name - optional; this value is the name of a collection
  *   of the persistent objects. If not provided, it defaults to `json_name`
  *   with an appended `'s'` (e.g., if `json_name` is `"foo"`, then
  *   `json_collection_name` would be `"foos"` by default). Set this value if
  *   the collection name doesn't follow this pattern.
- * * `json_collection_element` - the common pattern for a collection is:
+ *
+ * - $json_collection_element - the common pattern for a collection is:
  *   `{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}`
  *   That is, each element of the array is an anonymous object containing the
  *   object's attributes. In (very) rare instances, the objects in the array
@@ -171,7 +169,8 @@ abstract class PersistentObject extends Base
      * @return HttpResponse
      * @throws VolumeCreateError if HTTP status is not Success
      */
-    public function Update($params = array()) {
+    public function Update($params = array()) 
+    {
         // set parameters
         foreach($params as $key => $value) {
             $this->$key = $value;
@@ -183,7 +182,7 @@ abstract class PersistentObject extends Base
         // construct the JSON
         $obj = $this->UpdateJson($params);
         $json = json_encode($obj);
-        
+
         if ($this->CheckJsonError()) {
             return false;
         }
@@ -191,7 +190,12 @@ abstract class PersistentObject extends Base
         $this->debug('%s::Update JSON [%s]', get_class($this), $json);
 
         // send the request
-        $response = $this->Service()->Request($this->Url(), 'PUT', array(), $json);
+        $response = $this->Service()->Request(
+            $this->Url(), 
+            'PUT', 
+            array(), 
+            $json
+        );
 
         // check the return code
         if ($response->HttpStatus() > 204) {
@@ -377,11 +381,12 @@ abstract class PersistentObject extends Base
         $primaryKey = $this->PrimaryKeyField();
 
         if ($id === null) {
-            $id = $this->$primaryKey;
-        }
-
-        if (!$id) {
-            throw new Exceptions\IdRequiredError(sprintf(Lang::translate('%s has no ID; cannot be refreshed'), get_class()));
+            if (!$id = $this->$primaryKey) {
+                throw new Exceptions\IdRequiredError(sprintf(
+                    Lang::translate('%s has no ID; cannot be refreshed'), 
+                    get_class()
+                ));
+            }
         }
 
         // retrieve it
@@ -462,7 +467,10 @@ abstract class PersistentObject extends Base
         if (property_exists($this, 'name')) {
             return $this->name;
         } else {
-            throw new Exceptions\NameError(sprintf(Lang::translate('Name attribute does not exist for [%s]'), get_class($this)));
+            throw new Exceptions\NameError(sprintf(
+                Lang::translate('Name attribute does not exist for [%s]'), 
+                get_class($this)
+            ));
         }
     }
 
@@ -536,11 +544,17 @@ abstract class PersistentObject extends Base
         $primaryKey = $this->PrimaryKeyField();
 
         if (!$this->$primaryKey) {
-            throw new Exceptions\IdRequiredError(sprintf(Lang::translate('%s is not defined'), get_class($this)));
+            throw new Exceptions\IdRequiredError(sprintf(
+                Lang::translate('%s is not defined'), 
+                get_class($this)
+            ));
         }
 
         if (!is_object($object)) {
-            throw new Exceptions\ServerActionError(sprintf(Lang::translate('%s::Action() requires an object as its parameter'), get_class($this)));
+            throw new Exceptions\ServerActionError(sprintf(
+                Lang::translate('%s::Action() requires an object as its parameter'), 
+                get_class($this)
+            ));
         }
 
         // convert the object to json
@@ -561,12 +575,20 @@ abstract class PersistentObject extends Base
         $response = $this->Service()->Request($url, 'POST', array(), $json);
 
         if (!is_object($response)) {
-            throw new Exceptions\HttpError(sprintf(Lang::translate('Invalid response for %s::Action() request'), get_class($this)));
+            throw new Exceptions\HttpError(sprintf(
+                Lang::translate('Invalid response for %s::Action() request'), 
+                get_class($this)
+            ));
         }
 
         // check for errors
         if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\ServerActionError(sprintf(Lang::translate('%s::Action() [%s] failed; response [%s]'), get_class($this), $url, $response->HttpBody()));
+            throw new Exceptions\ServerActionError(sprintf(
+                Lang::translate('%s::Action() [%s] failed; response [%s]'), 
+                get_class($this), 
+                $url, 
+                $response->HttpBody()
+            ));
         }
 
         return $response;
@@ -634,7 +656,10 @@ abstract class PersistentObject extends Base
             return static::$json_name;
         }
 
-        throw new Exceptions\DocumentError(sprintf(Lang::translate('No JSON object defined for class [%s] in JsonName()'), get_class()));
+        throw new Exceptions\DocumentError(sprintf(
+            Lang::translate('No JSON object defined for class [%s] in JsonName()'), 
+            get_class()
+        ));
     }
 
     /**
@@ -673,7 +698,7 @@ abstract class PersistentObject extends Base
         if (isset(static::$json_collection_element)) {
             return static::$json_collection_element;
         } else {
-            return NULL;
+            return null;
         }
     }
 
@@ -692,7 +717,10 @@ abstract class PersistentObject extends Base
             return static::$url_resource;
         }
 
-        throw new Exceptions\UrlError(sprintf(Lang::translate('No URL resource defined for class [%s] in ResourceName()'), get_class()));
+        throw new Exceptions\UrlError(sprintf(
+            Lang::translate('No URL resource defined for class [%s] in ResourceName()'), 
+            get_class()
+        ));
     }
 
     /**
@@ -704,7 +732,10 @@ abstract class PersistentObject extends Base
      */
     protected function CreateJson() 
     {
-        throw new Exceptions\CreateError(sprintf(Lang::translate('[%s] CreateJson() must be overridden'), get_class($this)));
+        throw new Exceptions\CreateError(sprintf(
+            Lang::translate('[%s] CreateJson() must be overridden'), 
+            get_class($this)
+        ));
     }
 
     /**
@@ -716,7 +747,10 @@ abstract class PersistentObject extends Base
      */
     protected function UpdateJson($params = array()) 
     {
-        throw new Exceptions\UpdateError(sprintf(Lang::translate('[%s] UpdateJson() must be overridden'), get_class($this)));
+        throw new Exceptions\UpdateError(sprintf(
+            Lang::translate('[%s] UpdateJson() must be overridden'), 
+            get_class($this)
+        ));
     }
 
     /**
@@ -726,7 +760,10 @@ abstract class PersistentObject extends Base
      */
     protected function NoCreate() 
     {
-        throw new Exceptions\CreateError(sprintf(Lang::translate('[%s] does not support Create()'), get_class()));
+        throw new Exceptions\CreateError(sprintf(
+            Lang::translate('[%s] does not support Create()'), 
+            get_class()
+        ));
     }
 
     /**
@@ -736,7 +773,10 @@ abstract class PersistentObject extends Base
      */
     protected function NoDelete() 
     {
-        throw new Exceptions\DeleteError(sprintf(Lang::translate('[%s] does not support Delete()'), get_class()));
+        throw new Exceptions\DeleteError(sprintf(
+            Lang::translate('[%s] does not support Delete()'), 
+            get_class()
+        ));
     }
 
     /**
@@ -746,7 +786,10 @@ abstract class PersistentObject extends Base
      */
     protected function NoUpdate() 
     {
-        throw new Exceptions\UpdateError(sprintf(Lang::translate('[%s] does not support Update()'), get_class()));
+        throw new Exceptions\UpdateError(sprintf(
+            Lang::translate('[%s] does not support Update()'), 
+            get_class()
+        ));
     }
 
 }

@@ -8,5 +8,8 @@
 require_once(__DIR__ . '/Autoload.php');
 require_once(__DIR__ . '/OpenCloud/Globals.php');
 
-$classLoader = new SplClassLoader('OpenCloud', __DIR__);
+$classLoader = new ClassLoader;
+$classLoader->registerNamespaces(array(
+	'OpenCloud' => array(__DIR__, __DIR__ . '/../tests')
+));
 $classLoader->register();
