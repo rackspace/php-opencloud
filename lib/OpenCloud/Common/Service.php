@@ -190,6 +190,7 @@ abstract class Service extends Base
 
         // fetch the list
         $response = $this->Request($url);
+
         $this->debug('response %d [%s]', $response->HttpStatus(), $response->HttpBody());
 
         // check return code

@@ -66,7 +66,6 @@ abstract class PersistentObject extends Base
 {
 
     protected $id;
-
     private $_parent;
 
     /**
@@ -98,6 +97,11 @@ abstract class PersistentObject extends Base
         } elseif ($info !== null) {
             throw new Exceptions\InvalidArgumentError(sprintf(Lang::translate('Argument for [%s] must be string or object'), get_class()));
         }
+    }
+
+    public function setParent($parent)
+    {
+        $this->_parent = $parent;
     }
 
     /**

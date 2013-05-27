@@ -10,6 +10,8 @@ class AccountTest extends PHPUnit_Framework_TestCase
     
     public function __construct()
     {
+        $this->connection = new FakeConnection('example.com', 'SECRET');
+
         $this->service = new Service(
             $this->connection,
             'cloudMonitoring',
@@ -36,16 +38,19 @@ class AccountTest extends PHPUnit_Framework_TestCase
 
     public function testAccountPUT()
     {
+        // Update
         $resource = $this->service->resource('account');
-        $before = get_object_vars($resource);
         $resource->Update(array(
             'metadata' => array(
-                'test-key' => 'Lorem ipsum'
+                'key' => 'Lorem ipsum'
             )
         ));
-        $before = $resource->metadata;
+        
+        // Retrieve back again
         $resource->get();
-        $this->assertEquals((object) $before, (object) $resource->metadata);
+
+        // Test
+        $this->assertObjectHasAttribute('key', $resource->metadata);
     }
 
 }

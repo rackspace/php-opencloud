@@ -87,4 +87,9 @@ class Service extends AbstractService
         return $this->conn->Request($url, $method, $headers, $body);
     }
 
+    public function CheckType()
+    {
+        return new Resource\CheckType($this);
+    }
+
 }

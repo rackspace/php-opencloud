@@ -5,6 +5,8 @@ namespace OpenCloud\Tests;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Request\Response\Blank;
 
+define('TESTDIR', __DIR__);
+
 /**
  * This is a stub Connection class that bypasses the actual connections
  *
