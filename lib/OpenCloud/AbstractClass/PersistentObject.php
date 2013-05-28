@@ -315,17 +315,17 @@ abstract class PersistentObject extends Base
 
         // save stats
         $startTime = time();
-        $startStatus = $this->status;
+        $startStatus = $this->Status();
 
         while (true) {
             $this->Refresh($this->$primaryKey);
             if ($callback) {
                 call_user_func($callback, $this);
             }
-            if ($this->status == 'ERROR') {
+            if ($this->Status() == 'ERROR') {
                 return;
             }
-            if ($this->status == $terminal) {
+            if ($this->Status() == $terminal) {
                 return;
             }
             if (time() - $startTime > $timeout) {
