@@ -149,13 +149,19 @@ abstract class PersistentObject extends Base
             ));
         }
 
-        // set values from response
-        $retobj = json_decode($response->HttpBody());
-        if (!$this->CheckJsonError()) {
-            $top = $this->JsonName();
-            if (isset($retobj->$top)) {
-                foreach($retobj->$top as $key => $value) {
-                    $this->$key = $value;
+        $headers = $response->Headers();
+        if ($response->HttpStatus() == "201" && array_key_exists('Location', $headers)) {
+            // follow Location header
+            $this->Refresh(NULL, $headers['Location']);
+        } else {
+            // set values from response
+            $retobj = json_decode($response->HttpBody());
+            if (!$this->CheckJsonError()) {
+                $top = $this->JsonName();
+                if (isset($retobj->$top)) {
+                    foreach($retobj->$top as $key => $value) {
+                        $this->$key = $value;
+                    }
                 }
             }
         }
@@ -372,21 +378,24 @@ abstract class PersistentObject extends Base
      * @return void
      * @throws IdRequiredError
      */
-    public function Refresh($id = null) 
+    public function Refresh($id = null, $url = null)
     {
         $primaryKey = $this->PrimaryKeyField();
 
-        if ($id === null) {
-            $id = $this->$primaryKey;
-        }
+        if (!$url) {
+            if ($id === null) {
+                $id = $this->$primaryKey;
+            }
 
-        if (!$id) {
-            throw new Exceptions\IdRequiredError(sprintf(Lang::translate('%s has no ID; cannot be refreshed'), get_class()));
-        }
+            if (!$id) {
+                throw new Exceptions\IdRequiredError(sprintf(Lang::translate('%s has no ID; cannot be refreshed'), get_class()));
+            }
 
-        // retrieve it
-        $this->debug(Lang::translate('%s id [%s]'), get_class($this), $id);
-        $this->$primaryKey = $id;
+            // retrieve it
+            $this->debug(Lang::translate('%s id [%s]'), get_class($this), $id);
+            $this->$primaryKey = $id;
+            $url = $this->Url();
+        }
 
         // reset status, if available
         if (property_exists($this, 'status')) {
@@ -394,15 +403,15 @@ abstract class PersistentObject extends Base
         }
 
         // perform a GET on the URL
-        $response = $this->Service()->Request($this->Url());
+        $response = $this->Service()->Request($url);
 
         // check status codes
         if ($response->HttpStatus() == 404) {
             throw new Exceptions\InstanceNotFound(
                 sprintf(Lang::translate('%s [%s] not found [%s]'),
-                get_class($this), 
-                $this->$primaryKey, 
-                $this->Url()
+                get_class($this),
+                $this->$primaryKey,
+                $url
             ));
         }
 
@@ -420,7 +429,7 @@ abstract class PersistentObject extends Base
             throw new Exceptions\EmptyResponseError(
                 sprintf(Lang::translate('%s::Refresh() unexpected empty response, URL [%s]'),
                 get_class($this),
-                $this->Url()
+                $url
             ));
         }
 
