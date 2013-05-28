@@ -60,7 +60,7 @@ class CDNContainer extends ObjectStore
                     $this->$name = $value;
                 }
             }
-            $this->Refresh();
+            //$this->Refresh();
         } elseif ($cdata) {
             // or, if it's a string, retrieve the object with that name
             $this->debug(Lang::translate('Getting container [%s]'), $cdata);
