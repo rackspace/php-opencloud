@@ -8,6 +8,7 @@
  * @package phpOpenCloud
  * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @author Stephen Sugden <openstack@stephensugden.com>
  */
 
 namespace OpenCloud\Orchestration;

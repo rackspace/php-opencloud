@@ -8,6 +8,7 @@
  * @package phpOpenCloud
  * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @author Stephen Sugden <openstack@stephensugden.com>
  */
 
 namespace OpenCloud\Orchestration;
@@ -16,7 +17,8 @@ use OpenCloud\AbstractClass\PersistentObject;
 use OpenCloud\Exceptions\CreateError;
 
 /**
- * The Stack class represents a CloudFormation template and Params.
+ * The Stack class requires a CloudFormation template and may contain additional
+ * parameters for that template.
  *
  * A Stack is always associated with an (Orchestration) Service.
  *
