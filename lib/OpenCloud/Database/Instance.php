@@ -203,18 +203,33 @@ class Instance extends PersistentObject
     /**
      * Returns a Collection of all databases in the instance
      *
+     * @param string $class (optional) the class of objects to fetch
+     * @param string $url (optional) the URL to retrieve
+     * @param mixed $parent (optional) the parent service/object
      * @return Collection
      * @throws DatabaseListError if HTTP status is not Success
      */
-    public function DatabaseList() 
+    public function DatabaseList($class = null, $url = null, $parent = null) 
     {
-        $response = $this->Service()->Request($this->Url('databases'));
+        if (!$class) {
+            $class = '\OpenCloud\DbService\Database';
+        }
+        
+        if (!$parent) {
+            $parent = $this;
+        }
+        
+        if (!$url) {
+            $url = $parent->Url('databases');
+        }
+    	
+        $response = $parent->Service()->Request($url);
 
         // check response status
         if ($response->HttpStatus() > 200) {
             throw new Exceptions\DatabaseListError(sprintf(
                 Lang::translate('Error listing databases for instance [%s], status [%d] response [%s]'),
-                $this->name, 
+                $parent->name, 
                 $response->HttpStatus(), 
                 $response->HttpBody()
             ));
@@ -225,9 +240,33 @@ class Instance extends PersistentObject
 
         if (!$this->CheckJsonError()) {
             if (!isset($obj->databases)) {
-                return new Collection($this, '\OpenCloud\DbService\Database', array());
+                return new Collection($parent, $class, array());
             }
-            return new Collection($this, '\OpenCloud\DbService\Database', $obj->databases);
+            
+            // see if there is a "next" link
+            if (isset($obj->links)) {
+                if (is_array($obj->links)) {
+                    foreach($obj->links as $link) {
+                        if (isset($link->rel) && ($link->rel=='next')) {
+                            if (isset($link->href)) {
+                                $next_page_url = $link->href;
+                            } else {
+                                throw new Exceptions\DomainError(Lang::translate('unexpected [links] found with no [href]'));
+                            }
+                        }
+                    }
+                }
+            }
+            
+            $coll_obj = new Collection($parent, $class, $obj->databases);
+            
+            // if there's a $next_page_url, then we need to establish a
+            // callback method
+            if (isset($next_page_url)) {
+                $coll_obj->SetNextPageCallback(array($parent, 'DatabaseList'), $next_page_url);
+            }
+            
+            return $coll_obj;
         }
         return false;
     }
