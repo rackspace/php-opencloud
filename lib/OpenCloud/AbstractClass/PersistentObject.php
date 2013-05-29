@@ -134,7 +134,7 @@ abstract class PersistentObject extends Base
         $response = $this->Service()->Request(
             $this->CreateUrl(),
             'POST',
-            array(),
+            array('Content-Type' => 'application/json'),
             $json
         );
 
