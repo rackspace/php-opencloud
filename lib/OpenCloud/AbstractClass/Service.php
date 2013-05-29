@@ -70,6 +70,15 @@ abstract class Service extends Base
     }
 
     /**
+    * Returns the connection used to create the Service.
+    *
+    * @return OpenCloud\OpenStack
+    */
+    public function Connection() {
+        return $this->conn;
+    }
+
+    /**
      * Returns the URL for the Service
      *
      * @param string $resource optional sub-resource
