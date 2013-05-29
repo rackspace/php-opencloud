@@ -3,6 +3,8 @@ RELEASE NOTES
 
 ### next version
 * #106 - problem with urlencoded paths for TEMP_URL feature
+* #111 - slowness in listing swift containers
+* OMG ADDED HEAT (Orchestration) SUPPORT!
 
 ### 05/23/2013 Version 1.5.7
 * #102 - Etag support on create
