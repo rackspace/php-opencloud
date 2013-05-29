@@ -521,10 +521,6 @@ exception thrown.</p>
              
             $params
             = array(),
-          boolean
-             
-            $rebuild
-            = false,
           
           )
         </span>
@@ -540,8 +536,7 @@ exception thrown.</p>
 <th>Description</th>
 <th>Default</th>
 </tr></thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>$params</td>
 <td style="white-space: normal;">array</td>
 <td><ul>
@@ -550,18 +545,7 @@ exception thrown.</p>
 </ul>
 </td>
 <td>array()</td>
-</tr>
-<tr>
-<td>$rebuild</td>
-<td style="white-space: normal;">boolean</td>
-<td><ul>
-<li>if TRUE, performs a rebuild of an existing
- server</li>
-</ul>
-</td>
-<td>false</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 <h4>Return value</h4>
 <table>
@@ -665,10 +649,6 @@ exception thrown.</p>
 </div>
 <div class="method">
 <a id="Server::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
-          string
-             
-            $element
-            = 'server',
           
           )
         </span>
@@ -676,24 +656,7 @@ exception thrown.</p>
         <span class="nb-faded-text">\OpenCloud\Compute\json</span>
 </h3>
 <h4>Description</h4>
-<em>Creates the JSON for creating a new server</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$element</td>
-<td style="white-space: normal;">string</td>
-<td><p>creates {server ...} by default, but can also
-     create {rebuild ...} by changing this parameter</p>
-</td>
-<td>'server'</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
+<em>Creates the JSON for creating a new server</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -3506,6 +3469,7 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Base.Exceptions.ObjFetchError.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Base.Exceptions.ObjectCopyError.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Base.Exceptions.ObjectError.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Base.Exceptions.RebuildError.html#RebuildError">RebuildError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Base.Exceptions.RecordTypeError.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
