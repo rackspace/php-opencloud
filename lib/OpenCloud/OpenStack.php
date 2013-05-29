@@ -117,6 +117,11 @@ class OpenStack extends Base
             'name'      => RAXSDK_DNS_NAME,
             'region'    => RAXSDK_DNS_REGION,
             'urltype'   => RAXSDK_DNS_URLTYPE
+        ),
+        'Orchestration' => array(
+            'name'      => RAXSDK_ORCHESTRATION_NAME,
+            'region'    => RAXSDK_ORCHESTRATION_REGION,
+            'urltype'   => RAXSDK_ORCHESTRATION_URLTYPE
         )
     );
 
@@ -751,11 +756,25 @@ class OpenStack extends Base
      * @param string $name the name of the Compute service to attach to
      * @param string $region the name of the region to use
      * @param string $urltype the URL type (normally "publicURL")
-     * @return ObjectStore
+     * @return Compute
      */
     public function Compute($name = null, $region = null, $urltype = null) 
     {
         return $this->Service('Compute', $name, $region, $urltype);
+    }
+
+    /**
+     * Creates a new Orchestration (heat) service object
+     *
+     * @api
+     * @param string $name the name of the Compute service to attach to
+     * @param string $region the name of the region to use
+     * @param string $urltype the URL type (normally "publicURL")
+     * @return Orchestration\Service
+     */
+    public function Orchestration($name = null, $region = null, $urltype = null) 
+    {
+        return $this->Service('Orchestration', $name, $region, $urltype);
     }
 
     /**
