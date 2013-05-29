@@ -78,7 +78,7 @@ abstract class PersistentObject extends Base
      * @param mixed $info the ID or array/object of data
      * @throws InvalidArgumentError if $info has an invalid data type
      */
-    public function __construct($parentObject, $info = null) 
+    public function __construct($parentObject, $info = null)
     {
         $this->_parent = $parentObject;
 
@@ -110,7 +110,7 @@ abstract class PersistentObject extends Base
      * @return HttpResponse
      * @throws VolumeCreateError if HTTP status is not Success
      */
-    public function Create($params = array()) 
+    public function Create($params = array())
     {
         // set parameters
         foreach($params as $key => $value) {
@@ -123,7 +123,7 @@ abstract class PersistentObject extends Base
         // construct the JSON
         $object = $this->CreateJson();
         $json = json_encode($object);
-        
+
         if ($this->CheckJsonError()) {
             return false;
         }
@@ -188,7 +188,7 @@ abstract class PersistentObject extends Base
         // construct the JSON
         $obj = $this->UpdateJson($params);
         $json = json_encode($obj);
-        
+
         if ($this->CheckJsonError()) {
             return false;
         }
@@ -219,7 +219,7 @@ abstract class PersistentObject extends Base
      * @return HttpResponse
      * @throws DeleteError if HTTP status is not Success
      */
-    public function Delete() 
+    public function Delete()
     {
         $this->debug('%s::Delete()', get_class($this));
 
@@ -250,7 +250,7 @@ abstract class PersistentObject extends Base
      * @return string
      * @throws UrlError if URL is not defined
      */
-    public function Url($subresource = NULL, $queryString = array()) 
+    public function Url($subresource = NULL, $queryString = array())
     {
         // find the primary key attribute name
         $primaryKey = $this->PrimaryKeyField();
@@ -305,7 +305,7 @@ abstract class PersistentObject extends Base
      */
     public function WaitFor(
         $terminal = 'ACTIVE',
-        $timeout = RAXSDK_SERVER_MAXTIMEOUT, 
+        $timeout = RAXSDK_SERVER_MAXTIMEOUT,
         $callback = NULL,
         $sleep = RAXSDK_POLL_INTERVAL
     ) {
@@ -337,7 +337,7 @@ abstract class PersistentObject extends Base
     /**
      * Returns the Service/parent object associated with this object
      */
-    public function Service() 
+    public function Service()
     {
         return $this->_parent;
     }
@@ -348,7 +348,7 @@ abstract class PersistentObject extends Base
      * This is a synonym for Service(), since the object is usually a
      * service.
      */
-    public function Parent() 
+    public function Parent()
     {
         return $this->Service();
     }
@@ -365,7 +365,7 @@ abstract class PersistentObject extends Base
      * @return void
      * @throws AttributeError
      */
-    public function __set($name, $value) 
+    public function __set($name, $value)
     {
         $this->SetProperty($name, $value, $this->Service()->namespaces());
     }
@@ -465,7 +465,7 @@ abstract class PersistentObject extends Base
      * @return string
      * @throws NameError if attribute 'name' is not defined
      */
-    public function Name() 
+    public function Name()
     {
         if (property_exists($this, 'name')) {
             return $this->name;
@@ -480,7 +480,7 @@ abstract class PersistentObject extends Base
      * @api
      * @return string
      */
-    public function Status() 
+    public function Status()
     {
         return (isset($this->status)) ? $this->status : 'N/A';
     }
@@ -496,7 +496,7 @@ abstract class PersistentObject extends Base
      * @api
      * @return string
      */
-    public function Id() 
+    public function Id()
     {
         return $this->id;
     }
@@ -506,7 +506,7 @@ abstract class PersistentObject extends Base
      *
      * @throws UnsupportedExtensionError
      */
-    public function CheckExtension($alias) 
+    public function CheckExtension($alias)
     {
         if (!in_array($alias, $this->Service()->namespaces())) {
             throw new Exceptions\UnsupportedExtensionError(sprintf(Lang::translate('Extension [%s] is not installed'), $alias));
@@ -521,7 +521,7 @@ abstract class PersistentObject extends Base
      *
      * @api
      */
-    public function Region() 
+    public function Region()
     {
         return $this->Service()->Region();
     }
@@ -554,7 +554,7 @@ abstract class PersistentObject extends Base
         // convert the object to json
         $json = json_encode($object);
         $this->debug('JSON [%s]', $json);
-        
+
         if ($this->CheckJsonError()) {
             return false;
         }
@@ -587,7 +587,7 @@ abstract class PersistentObject extends Base
      *      the version-independent one
      * @return string the URL from the links block
      */
-    protected function FindLink($type = 'self') 
+    protected function FindLink($type = 'self')
     {
         if (!isset($this->links) || !$this->links) {
             return false;
@@ -607,7 +607,7 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    protected function CreateUrl() 
+    protected function CreateUrl()
     {
         return $this->Parent()->Url($this->ResourceName());
     }
@@ -620,7 +620,7 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    protected function PrimaryKeyField() 
+    protected function PrimaryKeyField()
     {
         return 'id';
     }
@@ -636,7 +636,7 @@ abstract class PersistentObject extends Base
      *
      * @throws DocumentError if not overridden
      */
-    public static function JsonName() 
+    public static function JsonName()
     {
         if (isset(static::$json_name)) {
             return static::$json_name;
@@ -657,7 +657,7 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    public static function JsonCollectionName() 
+    public static function JsonCollectionName()
     {
         if (isset(static::$json_collection_name)) {
             return static::$json_collection_name;
@@ -676,7 +676,7 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    public static function JsonCollectionElement() 
+    public static function JsonCollectionElement()
     {
         if (isset(static::$json_collection_element)) {
             return static::$json_collection_element;
@@ -694,7 +694,7 @@ abstract class PersistentObject extends Base
      *
      * @throws UrlError
      */
-    public static function ResourceName() 
+    public static function ResourceName()
     {
         if (isset(static::$url_resource)) {
             return static::$url_resource;
@@ -710,7 +710,7 @@ abstract class PersistentObject extends Base
      *
      * @throws CreateError if not overridden
      */
-    protected function CreateJson() 
+    protected function CreateJson()
     {
         throw new Exceptions\CreateError(sprintf(Lang::translate('[%s] CreateJson() must be overridden'), get_class($this)));
     }
@@ -722,7 +722,7 @@ abstract class PersistentObject extends Base
      *
      * @throws UpdateError if not overridden
      */
-    protected function UpdateJson($params = array()) 
+    protected function UpdateJson($params = array())
     {
         throw new Exceptions\UpdateError(sprintf(Lang::translate('[%s] UpdateJson() must be overridden'), get_class($this)));
     }
@@ -732,7 +732,7 @@ abstract class PersistentObject extends Base
      *
      * @throws CreateError
      */
-    protected function NoCreate() 
+    protected function NoCreate()
     {
         throw new Exceptions\CreateError(sprintf(Lang::translate('[%s] does not support Create()'), get_class()));
     }
@@ -742,7 +742,7 @@ abstract class PersistentObject extends Base
      *
      * @throws DeleteError
      */
-    protected function NoDelete() 
+    protected function NoDelete()
     {
         throw new Exceptions\DeleteError(sprintf(Lang::translate('[%s] does not support Delete()'), get_class()));
     }
@@ -752,7 +752,7 @@ abstract class PersistentObject extends Base
      *
      * @throws UpdateError
      */
-    protected function NoUpdate() 
+    protected function NoUpdate()
     {
         throw new Exceptions\UpdateError(sprintf(Lang::translate('[%s] does not support Update()'), get_class()));
     }
