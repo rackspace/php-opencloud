@@ -2,7 +2,6 @@
     "name": "rackspace/php-opencloud",
     "description": "Rackspace open cloud php library",
     "keywords": ["opencloud", "cloudfiles"],
-    "version": "1.5.7",
     "type": "library",
     "license": "MIT",
     "authors": [
