@@ -56,7 +56,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testLoadBalancerList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->service->LoadBalancerList()));
 	}
 	public function testBillableLoadBalancer() {
@@ -66,7 +66,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testLoadBillableBalancerList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->service->BillableLoadBalancerList()));
 	}
 	public function testAllowedDomain() {
@@ -76,7 +76,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testAllowedDomainList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->service->AllowedDomainList()));
 	}
 	public function testProtocol() {
@@ -86,7 +86,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testProtocolList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->service->ProtocolList()));
 	}
 	public function testAlgorithm() {
@@ -96,7 +96,7 @@ class LoadBalancerServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testAlgorithmList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->service->AlgorithmList()));
 	}
 }

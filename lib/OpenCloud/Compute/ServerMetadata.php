@@ -13,9 +13,9 @@
 
 namespace OpenCloud\Compute;
 
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Metadata;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Metadata;
+use OpenCloud\Common\Exceptions;
 
 /**
  * This class handles server metadata
@@ -116,7 +116,7 @@ class ServerMetadata extends Metadata
 
         // check the response
         if ($response->HttpStatus() >= 300) {
-            throw new \OpenCloud\Base\Exceptions\MetadataCreateError(sprintf(
+            throw new \OpenCloud\Common\Exceptions\MetadataCreateError(sprintf(
                 Lang::translate('Error setting metadata on [%s], response [%s]'),
                 $this->Url(), 
                 $response->HttpBody()

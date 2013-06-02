@@ -12,9 +12,9 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\AbstractClass\ObjectStore;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\ObjectStore;
 
 /**
  * A DataObject is an object in the ObjectStore

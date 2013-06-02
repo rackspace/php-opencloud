@@ -49,7 +49,7 @@ class VolumeServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testVolumeList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->service->VolumeList()));
 	}
 	public function testVolumeType() {
@@ -58,7 +58,7 @@ class VolumeServiceTest extends \PHPUnit_Framework_TestCase
 			get_class($this->service->VolumeType()));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
+	 * @expectedException \OpenCloud\Common\Exceptions\CollectionError
 	 */
 	public function testVolumeTypeList() {
 		$this->assertEquals(
@@ -71,7 +71,7 @@ class VolumeServiceTest extends \PHPUnit_Framework_TestCase
 			get_class($this->service->Snapshot()));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
+	 * @expectedException \OpenCloud\Common\Exceptions\CollectionError
 	 */
 	public function testSnapshotList() {
 		$this->assertEquals(
@@ -80,7 +80,7 @@ class VolumeServiceTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testRequest() {
 		$this->assertEquals(
-			'OpenCloud\Base\Request\Response\Blank',
+			'OpenCloud\Common\Request\Response\Blank',
 			get_class($this->service->Request('http://me.com')));
 	}
 }

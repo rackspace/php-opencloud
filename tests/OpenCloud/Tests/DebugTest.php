@@ -3,8 +3,8 @@
 namespace OpenCloud\Tests;
 
 use OpenCloud\ObjectStore\Service;
-use OpenCloud\Base\Request\Response\Blank as BlankRequest;
-use OpenCloud\Base\Debug;
+use OpenCloud\Common\Request\Response\Blank as BlankRequest;
+use OpenCloud\Common\Debug;
 use OpenCloud\OpenStack;
 
 require_once('StubConnection.php');

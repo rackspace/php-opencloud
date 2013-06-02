@@ -12,7 +12,7 @@
 
 namespace OpenCloud\LoadBalancer;
 
-use OpenCloud\AbstractClass\Nova;
+use OpenCloud\Common\Nova;
 use OpenCloud\OpenStack;
 
 /**

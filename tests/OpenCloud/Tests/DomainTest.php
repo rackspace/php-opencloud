@@ -69,7 +69,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testRecordList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->domain->RecordList()));
 	}
 	public function testSubdomain() {
@@ -79,7 +79,7 @@ class DomainTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testSubdomainList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->domain->SubdomainList()));
 	}
 	public function testAddRecord() {

@@ -14,7 +14,7 @@
 
 namespace OpenCloud\Compute;
 
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * The Flavor class represents a flavor defined by the Compute service

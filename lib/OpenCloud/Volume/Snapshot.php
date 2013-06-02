@@ -12,9 +12,9 @@
 
 namespace OpenCloud\Volume;
 
-use OpenCloud\AbstractClass\PersistentObject;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 
 /**
  * The Snapshot class represents a single block storage snapshot

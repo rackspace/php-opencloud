@@ -12,9 +12,9 @@
 
 namespace OpenCloud\Compute;
 
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * The VolumeAttachment class represents a volume that is attached

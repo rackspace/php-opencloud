@@ -12,10 +12,10 @@
 
 namespace OpenCloud\Database;
 
-use OpenCloud\AbstractClass\Collection;
-use OpenCloud\AbstractClass\PersistentObject;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\Collection;
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 use OpenCloud\Compute\Flavor;
 
 /**

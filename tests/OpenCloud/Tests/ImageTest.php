@@ -29,7 +29,7 @@ class ImageTest extends \PHPUnit_Framework_TestCase
 	 */
 
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\InstanceNotFound
+	 * @expectedException \OpenCloud\Common\Exceptions\InstanceNotFound
 	 */
 	public function test___construct() {
 		$image = new \OpenCloud\Compute\Image($this->compute, 'XXXXXX');
@@ -37,29 +37,29 @@ class ImageTest extends \PHPUnit_Framework_TestCase
     public function test_good_image() {
 		$image = new \OpenCloud\Compute\Image($this->compute);
 		$this->assertEquals(NULL, $image->status);
-		$this->assertEquals('OpenCloud\Base\Metadata', get_class($image->metadata));
+		$this->assertEquals('OpenCloud\Common\Metadata', get_class($image->metadata));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\JsonError
+	 * @expectedException \OpenCloud\Common\Exceptions\JsonError
 	 */
     public function test_bad_json() {
 		$image = new \OpenCloud\Compute\Image($this->compute, 'BADJSON');
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\EmptyResponseError
+     * @expectedException \OpenCloud\Common\Exceptions\EmptyResponseError
      */
     public function test_empty_json() {
 		$image = new \OpenCloud\Compute\Image($this->compute, 'EMPTY');
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\CreateError
+     * @expectedException \OpenCloud\Common\Exceptions\CreateError
      */
     public function testCreate() {
     	$image = $this->compute->Image();
     	$image->Create();
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\UpdateError
+     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */
     public function testUpdate() {
     	$image = $this->compute->Image();

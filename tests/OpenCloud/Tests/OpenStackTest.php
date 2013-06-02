@@ -50,7 +50,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 	        get_class($this->my));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\DomainError
+	 * @expectedException \OpenCloud\Common\Exceptions\DomainError
 	 */
 	public function test__options() {
 		$test = new StubConnection(TEST_DOMAIN,
@@ -102,7 +102,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\HttpUnauthorizedError
+	 * @expectedException \OpenCloud\Common\Exceptions\HttpUnauthorizedError
 	 */
 	public function test_request_2() {
 	    $conn = new TestingConnection('http://example.com',
@@ -111,7 +111,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\HttpForbiddenError
+	 * @expectedException \OpenCloud\Common\Exceptions\HttpForbiddenError
 	 */
 	public function test_request_3() {
 	    $conn = new TestingConnection('http://example.com',
@@ -120,7 +120,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals(200, $response->HttpStatus());
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\HttpOverLimitError
+	 * @expectedException \OpenCloud\Common\Exceptions\HttpOverLimitError
 	 */
 	public function test_request_4() {
 	    $conn = new TestingConnection('http://example.com',
@@ -156,7 +156,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 		fclose($fp);
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\HttpUrlError
+	 * @expectedException \OpenCloud\Common\Exceptions\HttpUrlError
 	 */
 	public function test_write_cb() {
 		$ch = curl_init('file:' . $this->nullFile);
@@ -200,13 +200,13 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals('OpenCloud\Compute\Service', get_class($comp));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\ServiceValueError
+	 * @expectedException \OpenCloud\Common\Exceptions\ServiceValueError
 	 */
 	public function testCompute2() {
 	    $comp = $this->my->Compute();
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\EndpointError
+	 * @expectedException \OpenCloud\Common\Exceptions\EndpointError
 	 */
 	public function testComputeFail() {
 	    $comp = $this->my->Compute(
@@ -226,7 +226,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 		$list = $this->my->ServiceList();
 		while($item = $list->Next())
 			$this->assertEquals(
-				'OpenCloud\Base\ServiceCatalogItem',
+				'OpenCloud\Common\ServiceCatalogItem',
 				get_class($item));
 	}
 }

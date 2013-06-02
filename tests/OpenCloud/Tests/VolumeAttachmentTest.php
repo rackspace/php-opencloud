@@ -26,7 +26,7 @@ class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
         $conn = new StubConnection('http://example.com', 'SECRET');
         $compute = $conn->Compute(NULL, 'DFW');
 
-        $debug = new \OpenCloud\Base\Debug;
+        $debug = new \OpenCloud\Common\Debug;
         $debug->setState(true);
 
         $this->att = new publicVolumeAttachment(
@@ -51,7 +51,7 @@ class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
             $this->att->volumeId);
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\UpdateError
+     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */
     public function testUpdate() {
         $this->att->Update();
