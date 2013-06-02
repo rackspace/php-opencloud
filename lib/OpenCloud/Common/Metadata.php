@@ -66,6 +66,9 @@ class Metadata extends Base
      */
     public function SetArray($values, $prefix = null) 
     {
+        if (empty($values)) {
+            return false;
+        }
         foreach ($values as $key => $value) {
             if ($prefix) {
                 if (strpos($key, $prefix) === 0) {

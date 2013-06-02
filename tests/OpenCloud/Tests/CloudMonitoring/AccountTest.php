@@ -8,6 +8,8 @@ use OpenCloud\CloudMonitoring\Service;
 class AccountTest extends PHPUnit_Framework_TestCase
 {
     
+    const ACCOUNT_ID = 'someId';
+    
     public function __construct()
     {
         $this->connection = new FakeConnection('example.com', 'SECRET');
@@ -31,15 +33,16 @@ class AccountTest extends PHPUnit_Framework_TestCase
         $resource = $this->service->resource('account');
         $before = get_object_vars($resource);
         $resource->get();
-        foreach ($resource as $var => $val) {
-            $this->assertTrue($val != $before[$var]);
-        }
+        
+        $this->assertEquals('aValue', $resource->metadata->key);
+        $this->assertEquals('token12345', $resource->webhook_token);
     }
 
     public function testAccountPUT()
     {
         // Update
         $resource = $this->service->resource('account');
+        $resource->get();
         $resource->Update(array(
             'metadata' => array(
                 'key' => 'Lorem ipsum'

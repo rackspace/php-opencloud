@@ -40,7 +40,7 @@ class EntityTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\EntityException
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
     public function testEntityCreateFailIfNoLabel()
     {

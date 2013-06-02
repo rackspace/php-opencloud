@@ -2,6 +2,6 @@
 
 namespace OpenCloud\CloudMonitoring\Exception;
 
-class ServiceException extends CloudMonitoringException
+class MetricException extends CloudMonitoringException
 {
 }

@@ -21,7 +21,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
 
         $parentEntity = $this->service->resource('entity', array('id' => 'enAAAAA'));
         $this->resource = $this->service->resource('check');
-        $this->resource->setEntity($parentEntity);
+        $this->resource->setParent($parentEntity);
 	}
 
 	public function testCheckClass()
@@ -40,7 +40,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
 	}
 
     /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\CheckException
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
 	public function testCreateFailsWithoutRequiredParams()
 	{
@@ -53,7 +53,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
 		$this->resource->label = 'Example label';
 		$this->resource->disabled = false;
 
-		$response = $this->resource->test()->HttpBody();
+		$response = $this->resource->test(array(), false)->HttpBody();
 		
 		$this->assertNotNull($response);
 
@@ -67,7 +67,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
 		$this->resource->label = 'Example label';
 		$this->resource->disabled = false;
 
-		$response = json_decode($this->resource->test(true)->HttpBody());
+		$response = json_decode($this->resource->test(array(), true)->HttpBody());
 		$this->assertObjectHasAttribute('debug_info', $response[0]);
 	}
 

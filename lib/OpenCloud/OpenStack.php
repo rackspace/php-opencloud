@@ -388,6 +388,7 @@ class OpenStack extends Base
      */
     public function Request($url, $method = 'GET', $headers = array(), $data = null) 
     {
+        //var_dump($url, $method, $headers, $data);die;
         $this->debug(Lang::translate('Resource [%s] method [%s] body [%s]'), $url, $method, $data);
 
         // get the request object

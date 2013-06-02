@@ -2,6 +2,6 @@
 
 namespace OpenCloud\CloudMonitoring\Exception;
 
-class EntityException extends \Exception
+class EntityException extends CloudMonitoringException
 {
 }

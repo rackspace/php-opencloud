@@ -4,59 +4,45 @@ namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\Common\PersistentObject;
 
-class Account extends PersistentObject
+/**
+ * Account class.
+ * 
+ * @extends AbstractResource
+ * @implements ResourceInterface
+ */
+class Account extends AbstractResource implements ResourceInterface
 {
 
-    public $id;
     public $metadata;
     public $webhook_token;
 
     protected static $json_name = 'account';
     protected static $url_resource = 'account';
 
-    protected $_create_keys = array(
+    protected static $requiredKeys = array(
         'id',
         'metadata',
         'webhook_token'
     );
 
-    public function Name()
-    {
-        return 'Account';
-    }
-
-    public function Url()
+    public function baseUrl()
     {
         return $this->Parent()->Url($this->ResourceName());
     }
-
-    public function get()
+    
+    public function updateUrl()
     {
-        $response = $this->Service()->Request($this->Url(), 'GET');
-        if ($json = $response->HttpBody()) {
-
-            $resp = json_decode($json);
-
-            if ($this->CheckJsonError()) {
-                throw new \Exception(sprintf(
-                    Lang::translate('JSON parse error on %s refresh'), 
-                    get_class($this)
-                ));
-            }
-
-            foreach($resp as $item => $value) {
-                $this->$item = $value;
-            }
-        }
+        return $this->Url();
     }
-
-    protected function UpdateJson($params = array()) 
+    
+    public function Create()
     {
-        $object = new \stdClass();
-        foreach ($params as $key => $val) {
-            $object->$key = $val;
-        }
-        return $object;
+        $this->NoCreate();
     }
-
+    
+    public function Delete()
+    {
+        $this->NoDelete();
+    }
+    
 }

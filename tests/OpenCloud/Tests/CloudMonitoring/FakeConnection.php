@@ -63,7 +63,7 @@ class FakeConnection extends OpenStack
 		foreach ($array as $key => $item) {
 			$value = str_replace('{d}', '(\d)+', $key);
 			$value = str_replace('{s}', '(\s)+', $value);
-			$value = str_replace('{w}', '(\w)+', $value);
+			$value = str_replace('{w}', '(\w|\-|\.)+', $value);
 			$value = str_replace('/', '\/', $value);
 			$new[$value] = $item;
 		}

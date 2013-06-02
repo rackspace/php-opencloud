@@ -20,12 +20,18 @@ return array(
     'entities/{w}/alarms' => 'Alarm/list',
     'entities/{w}/alarms/{w}' => 'Alarm/get',
         
-    'entities/{w}/alarms/alarmId/notification_history' => 'NotificationHistory/limits',
-    'entities/{w}/alarms/alarmId/notification_history/{w}' => 'NotificationHistory/get',
-    'entities/{w}/alarms/alarmId/notification_history/{w}/uuid' => 'NotificationHistory/get_history_item',
-        
+    'entities/{w}/alarms/{w}/notification_history' => 'NotificationHistory/list',
+    'entities/{w}/alarms/{w}/notification_history/{w}' => 'NotificationHistory/get',
+    'entities/{w}/alarms/{w}/notification_history/{w}/{w}' => 'NotificationHistory/get_history_item',
+    
+    'monitoring_zones' => 'Zone/list',
+    'monitoring_zones/{w}' => 'Zone/get',
+    
     'notifications' => 'Notification/list',
     'notifications/{w}' => 'Notification/get',
+       
+    'notification_plans' => 'NotificationPlan/list',
+    'notification_plans/{w}' => 'NotificationPlan/get',
         
     'notification_types' => 'NotificationType/list',
     'notification_types/{w}' => 'NotificationType/get',
@@ -44,8 +50,10 @@ return array(
     'agents/{w}' => 'Agent/get',
     'agents/{w}/connections' => 'Agent/connections_list',
     'agents/{w}/connections/{w}' => 'Agent/connections_get',
+    
     'agent_tokens' => 'Agent/tokens_list',
     'agent_tokens/{w}' => 'Agent/tokens_get',
+    
     'entities/{w}/agent/check_types/{w}/targets' => 'Agent/targets_list',
         
     'agents/{w}/host_info/cpus' => 'Agent/host_cpu',

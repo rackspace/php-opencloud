@@ -11,7 +11,7 @@ namespace OpenCloud\Common;
  * @since 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Collection extends \OpenCloud\Common\Base 
+class Collection extends Base 
 {
 
     private $service;
@@ -41,10 +41,15 @@ class Collection extends \OpenCloud\Common\Base
      */
     public function __construct($service, $itemclass, $arr) 
     {
+
         $this->service = $service;
 
-        $this->debug('Collection:service=%s, class=%s, array=%s', 
-            get_class($service), $itemclass, print_r($arr, TRUE));
+        $this->debug(
+            'Collection:service=%s, class=%s, array=%s', 
+            get_class($service), 
+            $itemclass, 
+            print_r($arr, TRUE)
+        );
 
         $this->next_page_class = $itemclass;
 
@@ -57,12 +62,18 @@ class Collection extends \OpenCloud\Common\Base
         }
 
         if (!is_array($arr)) {
-            throw new \OpenCloud\Common\Exceptions\CollectionError(
-                \OpenCloud\Common\Lang::translate('Cannot create a Collection without an array'));
+            throw new Exceptions\CollectionError(
+                Lang::translate('Cannot create a Collection without an array')
+            );
         }
 
         // save the array of items
-        $this->itemlist=$arr;
+        $this->itemlist = $arr;
+    }
+
+    public function getItemList()
+    {
+        return $this->itemlist;
     }
 
     /**
@@ -113,7 +124,11 @@ class Collection extends \OpenCloud\Common\Base
             return false;
         }
 
-        return $this->Service()->{$this->itemclass}($this->itemlist[$this->pointer++]);
+        if (method_exists($this->Service(), $this->itemclass)) {
+            return $this->Service()->{$this->itemclass}($this->itemlist[$this->pointer++]);
+        } elseif (method_exists($this->Service(), 'resource')) {
+            return $this->Service()->resource($this->itemclass, $this->itemlist[$this->pointer++]);
+        }
     }
 
     /**
@@ -187,8 +202,9 @@ class Collection extends \OpenCloud\Common\Base
         foreach ($this->itemlist as $index => $item) {
             $test = call_user_func($testfunc, $item);
             if (!is_bool($test)) {
-                throw new \OpenCloud\Common\Exceptions\DomainError(
-                    \OpenCloud\Common\Lang::translate('Callback function for Collection::Select() did not return boolean'));
+                throw new Exceptions\DomainError(
+                    Lang::translate('Callback function for Collection::Select() did not return boolean')
+                );
             }
             if ($test === false) {
                 unset($this->itemlist[$index]);
@@ -243,6 +259,15 @@ class Collection extends \OpenCloud\Common\Base
     {
         $this->next_page_callback = $callback;
         $this->next_page_url = $url;
+    }
+
+    public function getAllItems()
+    {
+        $items = array();
+        foreach ($this->itemlist as $item) {
+            $items[] = $this->Service()->{$this->itemclass}($item);
+        }
+        return $items;
     }
 
     /********** PRIVATE METHODS **********/

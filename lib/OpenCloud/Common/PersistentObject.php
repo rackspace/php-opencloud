@@ -115,8 +115,10 @@ abstract class PersistentObject extends Base
     public function Create($params = array()) 
     {
         // set parameters
-        foreach($params as $key => $value) {
-            $this->$key = $value;
+        if (!empty($params)) {
+            foreach($params as $key => $value) {
+                $this->$key = $value;
+            }
         }
 
         // debug
@@ -513,7 +515,10 @@ abstract class PersistentObject extends Base
     public function CheckExtension($alias) 
     {
         if (!in_array($alias, $this->Service()->namespaces())) {
-            throw new Exceptions\UnsupportedExtensionError(sprintf(Lang::translate('Extension [%s] is not installed'), $alias));
+            throw new Exceptions\UnsupportedExtensionError(sprintf(
+                Lang::translate('Extension [%s] is not installed'), 
+                $alias
+            ));
         }
         return true;
     }
