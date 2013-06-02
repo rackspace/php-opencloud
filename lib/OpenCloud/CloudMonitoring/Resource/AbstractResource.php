@@ -259,7 +259,7 @@ abstract class AbstractResource extends PersistentObject
      * @access protected
      * @return void
      */
-    protected function UpdateJson() 
+    protected function UpdateJson($params = array()) 
     {
         foreach (static::$requiredKeys as $requiredKey) {
             if (!isset($this->$requiredKey)) {

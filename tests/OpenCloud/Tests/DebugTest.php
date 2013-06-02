@@ -17,7 +17,7 @@ require_once('StubConnection.php');
 class MockService extends Service 
 {
 	
-	public function Request($url, $method = 'GET', $headers = array(), $body = null) 
+	public function Request($url, $method = 'GET', array $headers = array(), $body = null) 
 	{
 		return new BlankRequest;
 	}

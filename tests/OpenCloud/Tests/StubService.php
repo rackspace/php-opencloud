@@ -18,7 +18,7 @@ ENDRESPONSE
  */
 class StubService extends \OpenCloud\Common\Service {
 
-	public function Request( $url, $method='GET', $headers=array(), $body=Null ) {
+	public function Request( $url, $method='GET', array $headers=array(), $body=Null ) {
 		//return parent::Request( $url, $method, $headers, $body );
 		if (preg_match('/extensions$/', $url))
 			$body = file_get_contents(TESTDIR.'/extensions.json');

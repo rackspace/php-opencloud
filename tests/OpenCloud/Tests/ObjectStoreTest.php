@@ -19,7 +19,7 @@ require_once('StubConnection.php');
 class MyObjectStore extends \OpenCloud\ObjectStore\Service 
 {
 	
-	public function Request($url, $method = 'GET', $headers = array(), $body = NULL) 
+	public function Request($url, $method = 'GET', array $headers = array(), $body = NULL) 
 	{
 		return new \OpenCloud\Common\Request\Response\Blank;
 	}

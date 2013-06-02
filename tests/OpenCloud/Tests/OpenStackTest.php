@@ -21,7 +21,7 @@ if (!defined('TEST_DOMAIN')) define('TEST_DOMAIN', 'http://local.test');
  */
 class TestingConnection extends \OpenCloud\OpenStack 
 {
-    public function GetHttpRequestObject($url, $method='GET', $options = array())  
+    public function GetHttpRequestObject($url, $method = 'GET', array $options = array())  
     {
         return new StubRequest($url, $method);
     }

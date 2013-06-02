@@ -22,7 +22,7 @@ class MyBase extends \OpenCloud\Common\Base
 {    
     public $foo; // to test SetProperty
     
-    public function GetHttpRequestObject($url, $method='GET', $options = array()) 
+    public function GetHttpRequestObject($url, $method='GET', array $options = array()) 
     {
         return parent::GetHttpRequestObject($url, $method);
     }

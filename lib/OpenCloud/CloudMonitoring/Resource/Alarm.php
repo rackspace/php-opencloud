@@ -48,15 +48,15 @@ class Alarm extends AbstractResource implements ResourceInterface
         return $this->baseUrl();
     }
     
-    public function test(array $options = array())
+    public function test($params = array(), $debug = false)
     {
-        if (!isset($options['criteria'])) {
+        if (!isset($params['criteria'])) {
             throw new Exception\AlarmException(
                 'Please specify a "criteria" value'
             );
         }
         
-        if (!isset($options['check_data']) || !is_array($options['check_data'])) {
+        if (!isset($params['check_data']) || !is_array($params['check_data'])) {
             throw new Exception\AlarmException(
                 'Please specify a "check data" array'
             );
@@ -64,7 +64,7 @@ class Alarm extends AbstractResource implements ResourceInterface
         
         $url = $this->Parent()->Url() . '/' . $this->Parent()->id . '/test-alarm';
         
-        return $this->Request($url, 'POST', array(), json_encode((object) $options));
+        return $this->Request($url, 'POST', array(), json_encode((object) $params));
     }	
 	
 }

@@ -35,7 +35,7 @@ class Account extends AbstractResource implements ResourceInterface
         return $this->Url();
     }
     
-    public function Create()
+    public function Create($params = array())
     {
         $this->NoCreate();
     }
