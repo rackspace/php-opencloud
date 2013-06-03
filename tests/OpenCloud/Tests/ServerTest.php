@@ -80,7 +80,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
 	}
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\RebuildError
+	 * @expectedException OpenCloud\Common\Exceptions\RebuildError
 	 */
 	public function testRebuild2() {
 		$resp = $this->server->Rebuild(array('adminPass'=>'FOOBAR'));
