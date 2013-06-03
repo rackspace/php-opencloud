@@ -26,7 +26,7 @@ while($cdncontainer = $cdnlist->Next()) {
     // get the original container
     try {
 		$container = $objstore->Container($cdncontainer->Name());
-	} catch (OpenCloud\Base\Exceptions\ContainerNotFoundError $e) {
+	} catch (OpenCloud\Common\Exceptions\ContainerNotFoundError $e) {
 		// This handles a weird edge case where a CDN container may not
 		// have a corresponding private container. This can happen if the
 		// CDN TTL is set very high and the original container is deleted.

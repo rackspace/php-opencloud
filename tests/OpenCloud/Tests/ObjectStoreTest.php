@@ -19,9 +19,9 @@ require_once('StubConnection.php');
 class MyObjectStore extends \OpenCloud\ObjectStore\Service 
 {
 	
-	public function Request($url, $method = 'GET', $headers = array(), $body = NULL) 
+	public function Request($url, $method = 'GET', array $headers = array(), $body = NULL) 
 	{
-		return new \OpenCloud\Base\Request\Response\Blank;
+		return new \OpenCloud\Common\Request\Response\Blank;
 	}
 	
 }
@@ -62,7 +62,7 @@ class ObjectStoreTest extends \PHPUnit_Framework_TestCase
 	public function testContainerList() {
 		$clist = $this->ostore->ContainerList();
 		$this->assertEquals(
-		    'OpenCloud\AbstractClass\Collection',
+		    'OpenCloud\Common\Collection',
 		    get_class($clist));
 	}
 	public function testSetTempUrlSecret() {
@@ -77,7 +77,7 @@ class ObjectStoreTest extends \PHPUnit_Framework_TestCase
 	        get_class($this->ostore->CDN()));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CdnError
+	 * @expectedException \OpenCloud\Common\Exceptions\CdnError
 	 */
 	public function testCDNCDN() {
 	    $this->assertEquals(

@@ -61,7 +61,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 	        $this->server->ip(6));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\InvalidIpTypeError
+	 * @expectedException \OpenCloud\Common\Exceptions\InvalidIpTypeError
 	 */
 	public function test_ip_bad() {
 	    $this->assertEquals('FOO', $this->server->ip(5));
@@ -72,7 +72,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
 	}
 	/**
-	 * @expectedException OpenCloud\Base\Exceptions\RebuildError
+	 * @expectedException OpenCloud\Common\Exceptions\RebuildError
 	 */
 	public function testRebuild1() {
 		$resp = $this->server->Rebuild();
@@ -152,7 +152,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals(TRUE, is_object($this->server->ips('public')));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\AttributeError
+	 * @expectedException \OpenCloud\Common\Exceptions\AttributeError
 	 */
 	public function test__set() {
 	    $prop = 'rax-bandwidth:foobar';
@@ -174,7 +174,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 			$s->Url());
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\ServerActionError
+	 * @expectedException \OpenCloud\Common\Exceptions\ServerActionError
 	 */
 	public function testRescue() {
 	    $password = $this->server->Rescue();
@@ -185,7 +185,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 	    $blank->Rescue(); // should trigger the exception
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\ServerActionError
+	 * @expectedException \OpenCloud\Common\Exceptions\ServerActionError
 	 */
 	public function testUnrescue() {
 	    $resp = $this->server->Unrescue();
@@ -216,7 +216,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testVolumeAttachmentList() {
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->server->VolumeAttachmentList()));
 	}
 	public function testCreate_personality() {

@@ -12,7 +12,7 @@
 
 namespace OpenCloud\Tests;
 
-use OpenCloud\AbstractClass\Collection;
+use OpenCloud\Common\Collection;
 
 class Gertrude {
 	public function foobar($item) {
@@ -50,7 +50,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	 * Tests
 	 */
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\CollectionError
+	 * @expectedException \OpenCloud\Common\Exceptions\CollectionError
 	 */
 	public function test___construct() {
 		$this->assertEquals('one', $this->my->First()->id);
@@ -89,7 +89,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 	    $this->my->Sort('val');
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\DomainError
+	 * @expectedException \OpenCloud\Common\Exceptions\DomainError
 	 */
 	public function testSelect() {
 		$coll = $this->my; // don't modify the global collection

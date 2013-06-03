@@ -49,11 +49,11 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	public function testCreate() {
 		$resp = $this->db->Create(array('name'=>'FOOBAR'));
 		$this->assertEquals(
-			'OpenCloud\Base\Request\Response\Blank',
+			'OpenCloud\Common\Request\Response\Blank',
 			get_class($resp));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\DatabaseUpdateError
+	 * @expectedException \OpenCloud\Common\Exceptions\DatabaseUpdateError
 	 */
 	public function testUpdate() {
 		$this->db->Update();
@@ -61,7 +61,7 @@ class DatabaseTest extends \PHPUnit_Framework_TestCase
 	public function testDelete() {
 		$this->db->name = 'FOOBAR';
 		$this->assertEquals(
-			'OpenCloud\Base\Request\Response\Blank',
+			'OpenCloud\Common\Request\Response\Blank',
 			get_class($this->db->Delete()));
 	}
 }

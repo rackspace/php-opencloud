@@ -20,8 +20,8 @@ men were created equal.
 ENDTESTDATA
 );
 
-use OpenCloud\Base\Request\Curl;
-use OpenCloud\Base\Request\Response\Http;
+use OpenCloud\Common\Request\Curl;
+use OpenCloud\Common\Request\Response\Http;
 
 // stub for request
 class MyStubRequest extends Curl {

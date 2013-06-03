@@ -3,8 +3,8 @@
 namespace OpenCloud\ObjectStore;
 
 use OpenCloud\OpenStack;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
 
 /**
  * This is the CDN related to the ObjectStore

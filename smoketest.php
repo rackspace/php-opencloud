@@ -301,7 +301,7 @@ if ($list->Size()) {
 		try {
 			$ssl = $lb->SSLTermination();
 			info('  SSL terminated');
-		} catch (\OpenCloud\Base\Exceptions\InstanceNotFound $e) {
+		} catch (\OpenCloud\Common\Exceptions\InstanceNotFound $e) {
 			info('  No SSL termination');
 		}
 

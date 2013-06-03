@@ -2,7 +2,7 @@
 
 namespace OpenCloud\LoadBalancer;
 
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * sub-resource to manage protocols (read-only)

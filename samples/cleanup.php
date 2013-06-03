@@ -78,7 +78,7 @@ while($network = $list->Next()) {
 	info('Deleting: %s %s', $network->id, $network->label);
 	try {
 		$network->Delete();
-	} catch (OpenCloud\Base\Exceptions\DeleteError $e) {
+	} catch (OpenCloud\Common\Exceptions\DeleteError $e) {
 		info('---Cannot delete');
 	}
 }
@@ -125,7 +125,7 @@ while($lb = $list->Next()) {
 	info('Deleting [%s] %s', $lb->id, $lb->Name());
 	try {
 		$lb->Delete();
-	} catch (OpenCloud\Base\Exceptions\DeleteError $e) {
+	} catch (OpenCloud\Common\Exceptions\DeleteError $e) {
 		info('---Cannot delete');
 	}
 }

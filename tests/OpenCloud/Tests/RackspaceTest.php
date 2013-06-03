@@ -16,7 +16,7 @@ namespace OpenCloud\Tests;
  */
 class MyRackspace extends \OpenCloud\Rackspace {
     public function Request($url,$method='GET',$headers=array(),$data=NULL) {
-    	return new \OpenCloud\Base\Request\Response\Blank(array(
+    	return new \OpenCloud\Common\Request\Response\Blank(array(
     		'body'=>file_get_contents(TESTDIR.'/connection.json')));
     }
 }

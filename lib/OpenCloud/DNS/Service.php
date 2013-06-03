@@ -12,9 +12,9 @@
 
 namespace OpenCloud\DNS;
 
-use OpenCloud\AbstractClass\Service as AbstractService;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 use OpenCloud\OpenStack;
 use OpenCloud\Compute\Server;
 
@@ -110,8 +110,8 @@ class Service extends AbstractService
     	$url,
     	$method = 'GET',
     	array $headers = array(),
-    	$body = null)
-    {
+    	$body = null
+    ) {
         $headers['Accept'] = RAXSDK_CONTENT_TYPE_JSON;
         $headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
         return parent::Request($url, $method, $headers, $body);

@@ -12,10 +12,10 @@
 
 namespace OpenCloud\Compute;
 
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\PersistentObject;
 use OpenCloud\Volume\Volume;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
 
 /**
  * The Server class represents a single server node.
