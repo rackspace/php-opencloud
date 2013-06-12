@@ -37,7 +37,7 @@ class Container extends CDNContainer
      */
     public function EnableCDN($ttl = null)
     {
-        $url = $this->Service()->CDN()->Url() . '/' . $this->name;
+        $url = $this->Service()->CDN()->Url() . '/' . rawurlencode($this->name);
 
         $headers = $this->MetadataHeaders();
 
