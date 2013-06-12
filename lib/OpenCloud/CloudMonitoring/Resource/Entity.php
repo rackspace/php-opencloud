@@ -11,7 +11,7 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Entity extends AbstractResource
 {
-	
+	public $id;
 	public $label;
 	public $agent_id;
 	public $ip_addresses;

@@ -12,6 +12,7 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Alarm extends AbstractResource implements ResourceInterface
 {
+    public $id;
 	public $check_id;
 	public $notification_plan_id;
 	public $criteria;

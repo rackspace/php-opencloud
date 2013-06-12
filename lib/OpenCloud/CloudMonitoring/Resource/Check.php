@@ -13,6 +13,7 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Check extends AbstractResource implements ResourceInterface
 {
+    public $id;
 	public $type;
 	public $details;
 	public $disabled;
