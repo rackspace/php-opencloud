@@ -73,9 +73,10 @@ class CDNContainer extends ObjectStore
      * Returns the URL of the container
      *
      * @return string
+	 * @param string $subresource not used; required for compatibility
      * @throws NoNameError
      */
-    public function Url()
+    public function Url($subresource='')
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
