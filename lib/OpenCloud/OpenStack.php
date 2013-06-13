@@ -50,7 +50,7 @@ use OpenCloud\Common\ServiceCatalogItem;
  * @author Glen Campbell <glen.campbell@rackspace.com>
  * @version 1.0
  */
-class OpenStack extends Base 
+class OpenStack extends Base
 {
 
     /**
@@ -148,9 +148,9 @@ class OpenStack extends Base
      * list of attributes to export/import
      */
     private $export_items = array(
-        'token', 
-        'expiration', 
-        'tenant', 
+        'token',
+        'expiration',
+        'tenant',
         'catalog'
     );
 
@@ -171,7 +171,7 @@ class OpenStack extends Base
      * * password
      * @param array $options - CURL options to pass to the HttpRequest object
      */
-    public function __construct($url, $secret, $options = array()) 
+    public function __construct($url, $secret, $options = array())
     {
         $this->debug(Lang::translate('initializing'));
         $this->url = $url;
@@ -197,11 +197,12 @@ class OpenStack extends Base
      * Returns the URL of this object
      *
      * @api
+     * @param string $subresource specified subresource
      * @return string
      */
-    public function Url() 
+    public function Url($subresource='tokens')
     {
-        return Lang::noslash($this->url) . '/tokens';
+        return Lang::noslash($this->url) . '/' . $subresource;
     }
 
     /**
@@ -209,7 +210,7 @@ class OpenStack extends Base
      *
      * @return array
      */
-    public function Secret() 
+    public function Secret()
     {
         return $this->secret;
     }
@@ -220,7 +221,7 @@ class OpenStack extends Base
      * @api
      * @return string
      */
-    public function Token() 
+    public function Token()
     {
         if (time() > ($this->expiration - RAXSDK_FUDGE)) {
             $this->Authenticate();
@@ -235,7 +236,7 @@ class OpenStack extends Base
      * @api
      * @return string
      */
-    public function Expiration() 
+    public function Expiration()
     {
         if (time() > ($this->expiration - RAXSDK_FUDGE)) {
             $this->Authenticate();
@@ -249,7 +250,7 @@ class OpenStack extends Base
      * @api
      * @return string
      */
-    public function Tenant() 
+    public function Tenant()
     {
         if (time() > ($this->expiration-RAXSDK_FUDGE)) {
             $this->Authenticate();
@@ -262,7 +263,7 @@ class OpenStack extends Base
      *
      * @return \stdClass
      */
-    public function ServiceCatalog() 
+    public function ServiceCatalog()
     {
         if (time() > ($this->expiration-RAXSDK_FUDGE)) {
             $this->Authenticate();
@@ -276,11 +277,11 @@ class OpenStack extends Base
      * Note that these are informational (read-only) and are not actually
      * 'Service'-class objects.
      */
-    public function ServiceList() 
+    public function ServiceList()
     {
         return new Common\Collection(
-            $this, 
-            'ServiceCatalogItem', 
+            $this,
+            'ServiceCatalogItem',
             $this->ServiceCatalog()
         );
     }
@@ -291,13 +292,13 @@ class OpenStack extends Base
      *
      * @return string
      */
-    public function Credentials() 
+    public function Credentials()
     {
         if (isset($this->secret['username'])
             && isset($this->secret['password'])
         ) {
-            $credentials = array( 
-                'auth' => array( 
+            $credentials = array(
+                'auth' => array(
                     'passwordCredentials' => array(
                         'username' => $this->secret['username'],
                         'password'=>$this->secret['password']
@@ -324,7 +325,7 @@ class OpenStack extends Base
      * @return void
      * @throws AuthenticationError
      */
-    public function Authenticate() 
+    public function Authenticate()
     {
         // try to auth
         $response = $this->Request(
@@ -340,7 +341,7 @@ class OpenStack extends Base
         if ($response->HttpStatus() >= 400) {
             throw new Exceptions\AuthenticationError(sprintf(
                 Lang::translate('Authentication failure, status [%d], response [%s]'),
-                $response->HttpStatus(), 
+                $response->HttpStatus(),
                 $json
             ));
         }
@@ -391,7 +392,7 @@ class OpenStack extends Base
      * @return HttpResponse object
      * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
      */
-    public function Request($url, $method = 'GET', $headers = array(), $data = null) 
+    public function Request($url, $method = 'GET', $headers = array(), $data = null)
     {
         //var_dump($url, $method, $headers, $data);die;
         $this->debug(Lang::translate('Resource [%s] method [%s] body [%s]'), $url, $method, $data);
@@ -407,7 +408,7 @@ class OpenStack extends Base
         $http->SetOption(CURLOPT_USERAGENT, $this->useragent);
 
         // data can be either a resource or a string
-        if (is_resource($data)) {   
+        if (is_resource($data)) {
             // loading from or writing to a file
             // set the appropriate callback functions
             switch($method) {
@@ -482,21 +483,21 @@ class OpenStack extends Base
             case 401:
                 throw new Exceptions\HttpUnauthorizedError(sprintf(
                     Lang::translate('401 Unauthorized for [%s] [%s]'),
-                    $url, 
+                    $url,
                     $response->HttpBody()
                 ));
                 break;
             case 403:
                 throw new Exceptions\HttpForbiddenError(sprintf(
                     Lang::translate('403 Forbidden for [%s] [%s]'),
-                    $url, 
+                    $url,
                     $response->HttpBody()
                 ));
                 break;
             case 413:   // limit
                 throw new Exceptions\HttpOverLimitError(sprintf(
                     Lang::translate('413 Over limit for [%s] [%s]'),
-                    $url, 
+                    $url,
                     $response->HttpBody()
                 ));
                 break;
@@ -525,7 +526,7 @@ class OpenStack extends Base
      * @param string $agent an arbitrary user-agent string; e.g. "My Cloud App"
      * @return void
      */
-    public function AppendUserAgent($agent) 
+    public function AppendUserAgent($agent)
     {
         $this->useragent .= ';'.$agent;
     }
@@ -547,8 +548,8 @@ class OpenStack extends Base
      */
     public function SetDefaults(
         $service,
-        $name = null, 
-        $region = null, 
+        $name = null,
+        $region = null,
         $urltype = null
     ) {
 
@@ -586,7 +587,7 @@ class OpenStack extends Base
      *      condition). Value is in seconds.
      * @return void
      */
-    public function SetTimeouts($t_http, $t_conn = null, $t_overlimit = null) 
+    public function SetTimeouts($t_http, $t_conn = null, $t_overlimit = null)
     {
         $this->http_timeout = $t_http;
 
@@ -610,7 +611,7 @@ class OpenStack extends Base
      *      array($object, $functionname)
      * @return void
      */
-    public function SetUploadProgressCallback($callback) 
+    public function SetUploadProgressCallback($callback)
     {
         $this->_user_write_progress_callback_func = $callback;
     }
@@ -626,7 +627,7 @@ class OpenStack extends Base
      *      array($object, $functionname)
      * @return void
      */
-    public function SetDownloadProgressCallback($callback) 
+    public function SetDownloadProgressCallback($callback)
     {
         $this->_user_read_progress_callback_func = $callback;
     }
@@ -697,7 +698,7 @@ class OpenStack extends Base
      *
      * @return array
      */
-    public function ExportCredentials() 
+    public function ExportCredentials()
     {
         $arr = array();
 
@@ -715,7 +716,7 @@ class OpenStack extends Base
      *
      * @return void
      */
-    public function ImportCredentials($values) 
+    public function ImportCredentials($values)
     {
         if (!is_array($values)) {
             throw new Exceptions\DomainError(
@@ -745,7 +746,7 @@ class OpenStack extends Base
      * @param string $urltype the URL type (normally "publicURL")
      * @return ObjectStore
      */
-    public function ObjectStore($name = null, $region = null, $urltype = null) 
+    public function ObjectStore($name = null, $region = null, $urltype = null)
     {
         return $this->Service('ObjectStore', $name, $region, $urltype);
     }
@@ -759,7 +760,7 @@ class OpenStack extends Base
      * @param string $urltype the URL type (normally "publicURL")
      * @return Compute
      */
-    public function Compute($name = null, $region = null, $urltype = null) 
+    public function Compute($name = null, $region = null, $urltype = null)
     {
         return $this->Service('Compute', $name, $region, $urltype);
     }
@@ -773,7 +774,7 @@ class OpenStack extends Base
      * @param string $urltype the URL type (normally "publicURL")
      * @return Orchestration\Service
      */
-    public function Orchestration($name = null, $region = null, $urltype = null) 
+    public function Orchestration($name = null, $region = null, $urltype = null)
     {
         return $this->Service('Orchestration', $name, $region, $urltype);
     }
@@ -787,7 +788,7 @@ class OpenStack extends Base
      * @param string $region the region (e.g., 'DFW')
      * @param string $urltype the type of URL (e.g., 'publicURL');
      */
-    public function VolumeService($name = null, $region = null, $urltype = null) 
+    public function VolumeService($name = null, $region = null, $urltype = null)
     {
         return $this->Service('Volume', $name, $region, $urltype);
     }
@@ -804,7 +805,7 @@ class OpenStack extends Base
      * @return Service (or subclass such as Compute, ObjectStore)
      * @throws ServiceValueError
      */
-    public function Service($class, $name = null, $region = null, $urltype = null) 
+    public function Service($class, $name = null, $region = null, $urltype = null)
     {
         // debug message
         $this->debug('Factory for class [%s] [%s/%s/%s]', $class, $name, $region, $urltype);
@@ -825,7 +826,7 @@ class OpenStack extends Base
         if (!isset($urltype)) {
             $urltype = $this->defaults[$class]['urltype'];
         }
-        
+
         // report errors
         if (!$name) {
             throw new Exceptions\ServiceValueError(
@@ -861,7 +862,7 @@ class OpenStack extends Base
      *
      * This is a helper function used to list service catalog items easily
      */
-    public function ServiceCatalogItem($info = array()) 
+    public function ServiceCatalogItem($info = array())
     {
         return new ServiceCatalogItem($info);
     }
