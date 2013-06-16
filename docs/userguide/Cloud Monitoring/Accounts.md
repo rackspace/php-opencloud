@@ -20,10 +20,11 @@ $account = $monitoringService->resource('account');
 
 ### Get account
 
-$account->get();
+```$account->get();
 
 ### Update account
 
+```
 $account->update(array(
 	'metadata' 		=> array(
 		'key1' => 'val1',
@@ -31,3 +32,4 @@ $account->update(array(
 	),
 	'webhook_token' => 'fooBar'
 ));
+```
