@@ -50,7 +50,7 @@ label|A friendly label for a check.|Optional|String between 1 and 255 characters
 metadata|Arbitrary key/value pairs.|Optional|Array
 period|The period in seconds for a check. The value must be greater than the minimum period set on your account.|Optional|Integer (30..1800)
 timeout|The timeout in seconds for a check. This has to be less than the period.|Optional|Integer (2..1800)
-Attributes used for remote checks
+Attributes used for remote checks|||
 monitoring_zones_poll|List of monitoring zones to poll from. Note: This argument is only required for remote (non-agent) checks|Optional|Array
 target_alias|A key in the entity's 'ip_addresses' hash used to resolve this check to an IP address. This parameter is mutually exclusive with target_hostname.|Optional|String between 1 and 64 characters long
 target_hostname|The hostname this check should target. This parameter is mutually exclusive with target_alias.|Optional|Valid FQDN, IPv4 or IPv6 address. String between 1 and 256 characters long.
