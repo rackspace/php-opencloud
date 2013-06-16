@@ -124,7 +124,7 @@ Each check within the Rackspace Cloud Monitoring has a designated check type. Th
 
 **Note:** Users cannot create, update or delete check types.
 
-Check types for commonly encountered web protocols, such as HTTP (remote.http), IMAP (remote.imap-banner) , SMTP (remote.stmp), and DNS (remote.dns) are provided. Monitoring commonly encountered infrastructure servers like MySQL (remote.mysql-banner) and PostgreSQL (remote.postgresql-banner) are also available. Monitoring custom server uptime can be accomplished with the remote.tcp banner check to check for a protocol-defined banner at the beginning of a connection. Gathering metrics from server software to create alerts against can be accomplished using the remote.http check type and the 'extract' attribute to define the format.
+Check types for commonly encountered web protocols, such as HTTP (```remote.http```), IMAP (```remote.imap-banner```) , SMTP (```remote.stmp```), and DNS (```remote.dns```) are provided. Monitoring commonly encountered infrastructure servers like MySQL (remote.mysql-banner) and PostgreSQL (remote.postgresql-banner) are also available. Monitoring custom server uptime can be accomplished with the remote.tcp banner check to check for a protocol-defined banner at the beginning of a connection. Gathering metrics from server software to create alerts against can be accomplished using the remote.http check type and the 'extract' attribute to define the format.
 
 In addition to the standard Cloud Monitoring check types, you can also use agent check types if the Monitoring Agent is installed on the server you are monitoring.
 
