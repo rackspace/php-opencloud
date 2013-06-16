@@ -27,6 +27,11 @@ class Service extends AbstractService
     private $resources = array(
         'Account',
         'Agent',
+        'AgentConnection',
+        'AgentHost',
+        'AgentHostInfo',
+        'AgentTarget',
+        'AgentToken',
         'Alarm',
         'Changelog',
         'Check',
@@ -36,6 +41,8 @@ class Service extends AbstractService
         'Notification',
         'NotificationHistory',
         'NotificationPlan',
+        'NotificationType',
+        'View',
         'Zone'
     );
 
@@ -81,7 +88,6 @@ class Service extends AbstractService
      */
     public function resource($resourceName, $info = null)
     {
-    
         $className = __NAMESPACE__ . '\\Resource\\' . ucfirst($resourceName);
 
         if (!class_exists($className)) {

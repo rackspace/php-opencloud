@@ -182,7 +182,11 @@ abstract class Base
             $this->$property = $value;
         } else {
             // if that fails, then throw the exception
-            throw new AttributeError(sprintf(Lang::translate('Unrecognized attribute [%s] for [%s]'), $property, get_class($this)));
+            throw new AttributeError(sprintf(
+                Lang::translate('Unrecognized attribute [%s] for [%s]'), 
+                $property, 
+                get_class($this)
+            ));
         }
     }
 
