@@ -5,13 +5,18 @@ An account contains attributes describing a customer's account. This description
 ### Setup
 
 ```
+require_once 'path/to/lib/php-opencloud.php';
+
 use OpenCloud\OpenStack;
 use OpenCloud\CloudMonitoring\Service;
 
-$connection = new OpenStack(array(
-	'username' => 'foo',
-	'password' => 'bar'
-));
+$connection = new OpenStack(
+	RACKSPACE_US, // Set to whatever
+	array(
+		'username' => 'foo',
+		'password' => 'bar'
+	)
+);
 
 $monitoringService = new Service($connection);
 

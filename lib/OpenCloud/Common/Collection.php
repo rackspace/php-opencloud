@@ -76,6 +76,11 @@ class Collection extends Base
         return $this->itemlist;
     }
 
+    public function count()
+    {
+        return count($this->itemList);
+    }
+
     /**
      * Retrieves the service associated with the Collection
      *
