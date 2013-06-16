@@ -17,12 +17,12 @@ When you query by points, the API selects the resolution that will return you th
 
 **Note:** Because the API performs calculations to determine the points returned for a particular resolution, the number of points returned may differ from the specific number of points you request.
 
-Consider that you want to query data for a 48-hour time range between the timestamps `from=1354647221000` and `to=1358794421000` (**specified in Unix time, based on the number of milliseconds that have elapsed since January 1, 1970**). The following table shows the number of points that the API returns for a given resolution.
+Consider that you want to query data for a 48-hour time range between the timestamps `from=1354647221000` and `to=1358794421000` ( **specified in Unix time, based on the number of milliseconds that have elapsed since January 1, 1970** ). The following table shows the number of points that the API returns for a given resolution.
 
 #### Specifying resolution to retrieve data in 48 hour period
 
 You specify resolution...|API returns points...
-===|===
+---|---
 FULL|5760
 MIN5|576
 MIN20|144
@@ -33,7 +33,7 @@ MIN1440|2
 #### Specifying number of points to retrieve data in 48 hour period
 
 You specify points in the range...|API calculates resolution
-===|===
+---|---
 3168-∞|FULL
 360-3167|MIN5
 96-359|MIN20
@@ -46,7 +46,7 @@ You specify points in the range...|API calculates resolution
 Cloud Monitoring expires data points according to the following schedule:
 
 Resolution|Expiration
-===|===
+---|---
 FULL|2 days
 MIN5|7 days
 MIN20|15 days
