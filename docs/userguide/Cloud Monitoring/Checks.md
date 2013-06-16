@@ -12,7 +12,7 @@ The check, as created, will not trigger alert messages until you create an alarm
 
 ### Setup
 
-```
+```php
 require_once 'path/to/lib/php-opencloud.php';
 
 use OpenCloud\OpenStack;
@@ -31,7 +31,7 @@ $monitoringService = new Service($connection);
 
 Please be aware that Checks are sub-resources of Entities, so you will need to associate a Check to its parent Entity before exploiting its functionality.
 
-```
+```php
 $entity = $monitoringService-resource('entity');
 $entity->get('enAAAA'); // Get by ID
 
@@ -57,7 +57,7 @@ target_hostname|The hostname this check should target. This parameter is mutuall
 target_resolver|Determines how to resolve the check target.|Optional|One of (IPv4, IPv6)
 
 ### Create a check (and test its parameters)
-```
+```php
 $params = array(
 	'type'   => 'remote.http',
 	'details' => array(
@@ -86,24 +86,26 @@ echo $response->status;    // Status code
 $check->create($params);
 ```
 ### Test existing check
-```
+```php
 // Set the ID of an existing check
 $check->id = 'chAAAA';
+
 $response = $check->testExisting(true);
 
 echo $response->debug_info;
 ```
 
 ### List checks
-```
+```php
 $checkList = $check->listAll();
+
 while ($check = $checkList->Next()) {
 	echo $check->id . PHP_EOL;
 }
 ```
 
 ### Get, update and delete check
-```
+```php
 $check->id = 'newCheckId';
 
 // Get data
@@ -157,6 +159,7 @@ supported_platforms|Platforms on which an agent check type is supported. This is
 ### List all possible check types
 ```php
 $list = $checkType->listAll();
+
 while ($checkType = $list->Next()) {
 	echo "{$checkType->id} ({$checkType->type})" . PHP_EOL;
 }

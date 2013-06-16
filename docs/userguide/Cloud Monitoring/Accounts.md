@@ -4,7 +4,7 @@ An account contains attributes describing a customer's account. This description
 
 ### Setup
 
-```
+```php
 require_once 'path/to/lib/php-opencloud.php';
 
 use OpenCloud\OpenStack;
@@ -25,13 +25,13 @@ $account = $monitoringService->resource('account');
 
 ### Get account
 
-```
+```php
 $account->get();
 ```
 
 ### Update account
 
-```
+```php
 $account->update(array(
 	'metadata' 		=> array(
 		'key1' => 'val1',

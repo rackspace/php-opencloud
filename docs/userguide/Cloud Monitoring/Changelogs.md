@@ -4,7 +4,7 @@ The monitoring service records changelogs for alarm statuses. Changelogs are acc
 
 ### Setup
 
-```
+```php
 require_once 'path/to/lib/php-opencloud.php';
 
 use OpenCloud\OpenStack;
@@ -24,7 +24,7 @@ $changelog = $monitoringService->resource('changelog');
 ```
 
 ### List changelogs
-```
+```php
 $changelogList = $changelog->listAll();
 while ($changelog = $changelogList->Next()) {
 	// Do whatever

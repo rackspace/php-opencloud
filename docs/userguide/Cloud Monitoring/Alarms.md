@@ -4,7 +4,7 @@ Alarms bind alerting rules, entities, and notification plans into a logical unit
 
 ### Setup
 
-```
+```php
 require_once 'path/to/lib/php-opencloud.php';
 
 use OpenCloud\OpenStack;
@@ -23,7 +23,7 @@ $monitoringService = new Service($connection);
 
 Please be aware that Alarms are sub-resources of Entities, so you will need to associate an Alarm to its parent Entity before exploiting its functionality.
 
-```
+```php
 $entity = $monitoringService-resource('entity');
 $entity->get('enAAAA'); // Get by ID
 
@@ -43,7 +43,7 @@ label|A friendly label for an alarm.|Optional|String between 1 and 255 character
 metadata|Arbitrary key/value pairs.|Optional|Multidimensional array
 
 ### Create alarm
-```
+```php
 $alarm->create(array(
 	'check_id' => 'chAAAA',
 	'criteria' => 'if (metric["duration"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);',
@@ -52,15 +52,16 @@ $alarm->create(array(
 ```
 
 ### List alarms
-```
+```php
 $alarmList = $alarm->listAll();
+
 while ($alarm = $alarmList->Next()) {
 	echo $alarm->id . PHP_EOL;
 }
 ```
 
 ### Get, update and delete alarm
-```
+```php
 $alarm->id = 'newAlarmId';
 
 // Get data

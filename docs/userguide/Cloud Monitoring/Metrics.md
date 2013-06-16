@@ -1,7 +1,5 @@
 # Metrics
 
-### Summary
-
 When Monitoring checks run, they generate metrics. These metrics are stored as full resolution data points in the Cloud Monitoring system. Full resolution data points are periodically rolled up (condensed) into coarser data points.
 
 Depending on your needs, you can use the metrics API to fetch individual data points (fine-grained) or rolled up data points (coarse-grained) over a period of time.
@@ -19,7 +17,7 @@ When you query by points, the API selects the resolution that will return you th
 
 **Note:** Because the API performs calculations to determine the points returned for a particular resolution, the number of points returned may differ from the specific number of points you request.
 
-Consider that you want to query data for a 48-hour time range between the timestamps from=1354647221000 and to=1358794421000 (specified in Unix time, based on the number of milliseconds that have elapsed since January 1, 1970). The following table shows the number of points that the API returns for a given resolution.
+Consider that you want to query data for a 48-hour time range between the timestamps `from=1354647221000` and `to=1358794421000` (**specified in Unix time, based on the number of milliseconds that have elapsed since January 1, 1970**). The following table shows the number of points that the API returns for a given resolution.
 
 #### Specifying resolution to retrieve data in 48 hour period
 
@@ -58,7 +56,7 @@ MIN1440|365 days
 
 ### Setup
 
-```
+```php
 require_once 'path/to/lib/php-opencloud.php';
 
 use OpenCloud\OpenStack;
@@ -77,7 +75,7 @@ $monitoringService = new Service($connection);
 
 Please be aware that Metrics are sub-resources of Entities **and** Checks, so you will need to associate a Metric to its parent Check (with its own parent Entity) before exploiting its functionality.
 
-```
+```php
 // Find grandparent object (i.e. an Entity)
 $entity = $monitoringService->resource('entity');
 $entity->get('enAAAA'); // Get by ID
@@ -92,15 +90,16 @@ $metrics->setParent($check); // Associate
 ```
 
 ### List all metrics
-```
+```php
 $list = $metrics->listAll();
+
 while ($metric = $list->Next()) {
 	echo $metric->name . PHP_EOL;
 }
 ```
 
 ### Fetch data points
-```
+```php
 $response = $metrics->fetchDataPoints('mzdfw.available', array(
 	'resolution' => 'FULL',
 	'from'       => 1369756378450,

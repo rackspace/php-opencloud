@@ -12,7 +12,7 @@ When you create a new entity in the monitoring system, you specify the follow pa
 
 ### Setup
 
-```
+```php
 require_once 'path/to/lib/php-opencloud.php';
 
 use OpenCloud\OpenStack;
@@ -36,12 +36,12 @@ $entity = $monitoringService-resource('entity');
 Name|Description|Required?|Data type
 ---|---|---|---
 label|Defines a name for the entity.|Required|String between 1 and 255 characters long
-agent_id|Agent to which this entity is bound to.|Optional|String matching the regex /^[-\.\w]{1,255}$/
+agent_id|Agent to which this entity is bound to.|Optional|String matching the regex ```/^[-\.\w]{1,255}$/```
 ip_addresses|Hash of IP addresses that can be referenced by checks on this entity.|Optional|Array
 metadata|Arbitrary key/value pairs that are passed during the alerting phase.|Optional|Array
 
 ### Create entity
-```
+```php
 $entity->create(array(
 	'label' => 'Brand New Entity',
     'ip_addresses' => array(
@@ -61,7 +61,7 @@ $entity->create(array(
 
 
 ### Get, update and delete entity
-```
+```php
 $entity->id = 'enAAAA';
 
 // Get data

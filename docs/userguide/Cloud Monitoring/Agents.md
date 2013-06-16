@@ -6,7 +6,7 @@ For more information about this feature, including a brief overview of its core 
 
 ### Setup
 
-```
+```php
 require_once 'path/to/lib/php-opencloud.php';
 
 use OpenCloud\OpenStack;
@@ -26,28 +26,30 @@ $agent = $monitoringService->resource('agent');
 ```
 
 ### List agents
-```
+```php
 $agentList = $agent->listAll();
+
 while ($agent = $agentList->Next()) {
 	// Do whatever...
 	echo $agent->id;
 }
-
 ```
 
 ### Get agent
 
-```
+```php
 // Set ID first
 $agent->id = 'someId';
 $agent->get();
+
 echo $agent->last_connected;
 ```
 
 ### List connections
 
-```
+```php
 $connectionList = $agent->getConnections();
+
 while ($connection = $connectionList->Next()) {
 	// Do whatever...
 	echo $connection->guid;
@@ -56,7 +58,7 @@ while ($connection = $connectionList->Next()) {
 ```
 
 ### Get connection
-```
+```php
 $connection = $agent->getConnection('cntl4qsIbA');
 echo $connection->agent_ip;
 ```
@@ -66,19 +68,20 @@ echo $connection->agent_ip;
 Agent tokens are used to authenticate Monitoring agents to the Monitoring Service. Multiple agents can share a single token.
 
 ### Setup
-```
+```php
 $agentToken = $monitoringService->resource('agentToken');
 ```
 ### Create agent token
-```
+```php
 $agentToken->create(array(
 	'label' => 'Foobar'
 ));
 ```
 
 ### List agent tokens
-```
+```php
 $tokenList = $agentToken->listAll();
+
 while ($token = $tokenList->Next()) {
 	// Do whatever...
 	echo $token->token;
@@ -87,7 +90,7 @@ while ($token = $tokenList->Next()) {
 ```
 
 ### Get, update, delete agent token
-```
+```php
 $agentToken->id = 'someId';
 
 // Get
@@ -107,11 +110,11 @@ $token->delete();
 An agent can gather host information, such as process lists, network configuration, and memory usage, on demand. You can use the host-information API requests to gather this information for use in dashboards or other utilities.
 
 ### Setup
-```
+```php
 $agentHost = $monitoringService->resource('agentHost');
 ```
 ### Get info/metrics
-```
+```php
 $cpuInfo 				= $agentHost->info('cpus');
 $diskInfo				= $agentHost->info('disks');
 $filesystemInfo 		= $agentHost->info('filesystems'); 
@@ -142,11 +145,11 @@ while ($filesystem = $filesystemInfo->Next()) {
 Each agent check type gathers data for a related set of target devices on the server where the agent is installed. For example, agent.network gathers data for network devices. The actual list of target devices is specific to the configuration of the host server. By focusing on specific targets, you can efficiently narrow the metric data that the agent gathers.
 
 ### Setup
-```
+```php
 $agentTarget = $monitoringService->resource('agentTarget');
 ```
 ### List agent targets
-```
+```php
 $targets = $agentTarget->listAll();
 
 // List all of them
