@@ -20,7 +20,7 @@ $account = $monitoringService->resource('account');
 
 ### Get account
 
-```$account->get();
+```$account->get();```
 
 ### Update account
 
