@@ -61,7 +61,7 @@ $met->Create();
 step('Add a public IPv6 address');
 //setDebug(TRUE);
 $lb->AddVirtualIp('PUBLIC', 6);
-setDebug(FALSE);
+//setDebug(FALSE);
 
 step('DONE');
 exit;

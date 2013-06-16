@@ -60,7 +60,7 @@ class CDNContainer extends ObjectStore
                     $this->$name = $value;
                 }
             }
-            $this->Refresh();
+            //$this->Refresh();
         } elseif ($cdata) {
             // or, if it's a string, retrieve the object with that name
             $this->debug(Lang::translate('Getting container [%s]'), $cdata);
@@ -73,9 +73,10 @@ class CDNContainer extends ObjectStore
      * Returns the URL of the container
      *
      * @return string
+	 * @param string $subresource not used; required for compatibility
      * @throws NoNameError
      */
-    public function Url()
+    public function Url($subresource='')
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
