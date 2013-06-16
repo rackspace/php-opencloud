@@ -124,7 +124,7 @@ Each check within the Rackspace Cloud Monitoring has a designated check type. Th
 
 **Note:** Users cannot create, update or delete check types.
 
-Check types for commonly encountered web protocols, such as HTTP (```remote.http```), IMAP (```remote.imap-banner```) , SMTP (```remote.stmp```), and DNS (```remote.dns```) are provided. Monitoring commonly encountered infrastructure servers like MySQL (remote.mysql-banner) and PostgreSQL (remote.postgresql-banner) are also available. Monitoring custom server uptime can be accomplished with the remote.tcp banner check to check for a protocol-defined banner at the beginning of a connection. Gathering metrics from server software to create alerts against can be accomplished using the remote.http check type and the 'extract' attribute to define the format.
+Check types for commonly encountered web protocols, such as HTTP (```remote.http```), IMAP (```remote.imap-banner```) , SMTP (```remote.stmp```), and DNS (```remote.dns```) are provided. Monitoring commonly encountered infrastructure servers like MySQL (```remote.mysql-banner```) and PostgreSQL (```remote.postgresql-banner```) are also available. Monitoring custom server uptime can be accomplished with the remote.tcp banner check to check for a protocol-defined banner at the beginning of a connection. Gathering metrics from server software to create alerts against can be accomplished using the remote.http check type and the 'extract' attribute to define the format.
 
 In addition to the standard Cloud Monitoring check types, you can also use agent check types if the Monitoring Agent is installed on the server you are monitoring.
 
@@ -136,13 +136,13 @@ Checks generate metrics that alarms will alert based upon. The metrics generated
 
 If you've already set up a main Check object, and want to access functionality for this Check's particular Check Type, you can access its property:
 
-```
+```php
 $checkType = $check->type;
 ```
 
 This will be encapsulated in its own object. Alternatively, you can instantiate a fresh resource object:
 
-```
+```php
 $checkType = $monitoringService->resource('checkType');
 ```
 
@@ -155,7 +155,7 @@ fields|Check type fields.|Array
 supported_platforms|Platforms on which an agent check type is supported. This is advisory information only - the check may still work on other platforms, or report that check execution failed at runtime|Array
 
 ### List all possible check types
-```
+```php
 $list = $checkType->listAll();
 while ($checkType = $list->Next()) {
 	echo "{$checkType->id} ({$checkType->type})" . PHP_EOL;
