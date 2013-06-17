@@ -22,7 +22,7 @@ use OpenCloud\Common\Lang;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class User extends Base 
+class User extends Base
 {
 
     /**
@@ -56,7 +56,7 @@ class User extends Base
      * @return void
      * @throws UserNameError if `$info` is not a string, object, or array
      */
-    public function __construct(Instance $instance, $info = null, $db = array()) 
+    public function __construct(Instance $instance, $info = null, $db = array())
     {
         $this->_instance = $instance;
 
@@ -80,17 +80,19 @@ class User extends Base
     /**
      * Returns the Url of the User
      *
+     * @param string $subresource Not used
      * @return string
      * @throws UserNameError if the user name is not set
      */
-    public function Url() 
+    public function Url($subresource = '')
     {
         if (!isset($this->name)) {
             throw new Exceptions\UserNameError(
                 Lang::translate('The user does not have a Url yet')
             );
         }
-        return stripslashes($this->Instance()->Url('users')) . '/' . $this->name;
+        return stripslashes($this->Instance()->Url('users')) . '/' .
+        			$this->name;
     }
 
     /**
@@ -98,7 +100,7 @@ class User extends Base
      *
      * @return Instance
      */
-    public function Instance() 
+    public function Instance()
     {
         return $this->_instance;
     }
@@ -108,7 +110,7 @@ class User extends Base
      *
      * @return \OpenCloud\DbService
      */
-    public function Service() 
+    public function Service()
     {
     	return $this->Instance()->Service();
     }
@@ -120,7 +122,7 @@ class User extends Base
 	 * @param string $dbname the database name to be added
 	 * @return void
 	 */
-	public function AddDatabase($dbname) 
+	public function AddDatabase($dbname)
     {
 		$this->databases[] = $dbname;
 	}
@@ -134,7 +136,7 @@ class User extends Base
 	 * @throws UserNameError if the user's name is not defined
 	 * @throws UserCreateError if the HTTP status is not Success
 	 */
-	public function Create($params = array()) 
+	public function Create($params = array())
     {
 		foreach($params as $name => $value) {
 			$this->$name = $value;
@@ -165,8 +167,8 @@ class User extends Base
 		if ($response->HttpStatus() > 202) {
 			throw new Exceptions\UserCreateError(sprintf(
                 Lang::translate('Error creating user [%s], status [%d] response [%s]'),
-			    $this->name, 
-                $response->HttpStatus(), 
+			    $this->name,
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
@@ -181,7 +183,7 @@ class User extends Base
 	 * @throws UserUpdateError always; updates are not currently permitted by
 	 *		this service.
 	 */
-	public function Update($params = array()) 
+	public function Update($params = array())
     {
 		throw new Exceptions\UserUpdateError(
 		    Lang::translate('You cannot update a database user at this time')
@@ -195,7 +197,7 @@ class User extends Base
 	 * @return \OpenCloud\HttpResponse
 	 * @throws UserDeleteError if HTTP response is not Success
 	 */
-	public function Delete() 
+	public function Delete()
     {
 		$response = $this->Service()->Request($this->Url(), 'DELETE');
 
@@ -203,8 +205,8 @@ class User extends Base
 		if ($response->HttpStatus() > 202) {
 			throw new Exceptions\UserDeleteError(sprintf(
                 Lang::translate('Error deleting user [%s], status [%d] response [%s]',
-				$this->name, 
-                $response->HttpStatus(), 
+				$this->name,
+                $response->HttpStatus(),
                 $response->HttpBody())
             ));
         }
@@ -215,7 +217,7 @@ class User extends Base
 	/**
 	 * Creates the JSON object for the Create method
 	 */
-	private function CreateJson() 
+	private function CreateJson()
     {
 		$object = new \stdClass();
 		$object->users = array();

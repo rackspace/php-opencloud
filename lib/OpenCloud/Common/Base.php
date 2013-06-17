@@ -28,7 +28,7 @@ use OpenCloud\Common\Exceptions\UrlError;
  * @since 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class Base 
+abstract class Base
 {
 
     private $http_headers = array();
@@ -47,9 +47,9 @@ abstract class Base
      *
      * Echoing messages   == true
      * Returning messages == false
-     * 
+     *
      * (default value: true)
-     * 
+     *
      * @var bool
      * @access private
      */
@@ -79,7 +79,7 @@ abstract class Base
 
     /**
      * Sets the debug output style.
-     * 
+     *
      * @access public
      * @param mixed $state
      * @return void
@@ -88,10 +88,10 @@ abstract class Base
     {
         $this->debugOutputStyle = $state;
     }
-    
+
     /**
      * Gets the debug output style.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -121,7 +121,7 @@ abstract class Base
      *
      * @TODO - change this method name to something more descriptive/accurate
      */
-    public function debug() 
+    public function debug()
     {
         if ($this->getDebug() === true || RAXSDK_DEBUG === true) {
             return Debug::logMessage($this, func_get_args());
@@ -137,7 +137,7 @@ abstract class Base
      *
      * @throws UrlError
      */
-    public function Url($subresource = '') 
+    public function Url($subresource = '')
     {
         throw new UrlError(Lang::translate('URL method must be overridden in class definition'));
     }
@@ -154,7 +154,7 @@ abstract class Base
      * @param mixed $value the value of the attribute
      * @return void
      */
-    public function __set($property, $value) 
+    public function __set($property, $value)
     {
         $this->SetProperty($property, $value);
     }
@@ -183,8 +183,8 @@ abstract class Base
         } else {
             // if that fails, then throw the exception
             throw new AttributeError(sprintf(
-                Lang::translate('Unrecognized attribute [%s] for [%s]'), 
-                $property, 
+                Lang::translate('Unrecognized attribute [%s] for [%s]'),
+                $property,
                 get_class($this)
             ));
         }
@@ -198,7 +198,7 @@ abstract class Base
      * @param array $arr array of key/value pairs
      * @return string
      */
-    public function MakeQueryString($array) 
+    public function MakeQueryString($array)
     {
         $queryString = '';
 
@@ -206,7 +206,8 @@ abstract class Base
             if ($queryString) {
                 $queryString .= '&';
             }
-            $queryString .= urlencode($key) . '=' . urlencode($this->to_string($value));
+            $queryString .= urlencode($key) . '=' .
+            	urlencode($this->to_string($value));
         }
 
         return $queryString;
@@ -226,7 +227,7 @@ abstract class Base
      * @return boolean TRUE if an error occurred, FALSE if none
      * @throws JsonError
      */
-    public function CheckJsonError() 
+    public function CheckJsonError()
     {
         switch(json_last_error()) {
             case JSON_ERROR_NONE:
@@ -275,10 +276,10 @@ abstract class Base
      * @param array $prefixes a list of prefixes
      * @return boolean TRUE if valid; FALSE if not
      */
-    private function CheckAttributePrefix($property, array $prefixes = array()) 
+    private function CheckAttributePrefix($property, array $prefixes = array())
     {
         $prefix = strstr($property, ':', true);
-        
+
         if (in_array($prefix, $prefixes)) {
             return true;
         } else {
@@ -292,7 +293,7 @@ abstract class Base
      * @param mixed $x a value to convert
      * @return string
      */
-    private function to_string($x) 
+    private function to_string($x)
     {
         if (is_bool($x) && $x) {
             return 'True';

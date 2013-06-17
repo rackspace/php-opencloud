@@ -85,10 +85,11 @@ class DataObject extends ObjectStore
      * If the object is new and doesn't have a name, then an exception is
      * thrown.
      *
+     * @param string $subresource Not used
      * @return string
      * @throws NoNameError
      */
-    public function Url()
+    public function Url($subresource = '')
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
