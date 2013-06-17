@@ -876,6 +876,10 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 </div>
 <div class="method">
 <a id="CDNContainer::Url()"></a><h3>Url<span class="nb-faded-text">(
+          string
+             
+            $subresource
+            = '',
           
           )
         </span>
@@ -885,7 +889,22 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <h4>Description</h4>
 <em>Returns the URL of the container</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
 base level, it simply throws an exception to enforce the idea that
-subclasses need to define this method.</p></small><br><h4>Return value</h4>
+subclasses need to define this method.</p></small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$subresource</td>
+<td style="white-space: normal;">string</td>
+<td><p>not used; required for compatibility</p></td>
+<td>''</td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -1638,6 +1657,10 @@ API key and tenant requirements.</small></span></li>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Agent.html#Agent">Agent</a><br><small>Agent class.</small></span></li>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentConnection.html#AgentConnection">AgentConnection</a><br><small>AgentConnection class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHost.html#AgentHost">AgentHost</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHostInfo.html#AgentHostInfo">AgentHostInfo</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentTarget.html#AgentTarget">AgentTarget</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentToken.html#AgentToken">AgentToken</a><br><small>Agent class.</small></span></li>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Alarm.html#Alarm">Alarm</a><br><small>Alarm class.</small></span></li>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Changelog.html#Changelog">Changelog</a><br><small>Changelog class.</small></span></li>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Check.html#Check">Check</a><br><small>Check class.</small></span></li>
@@ -1911,6 +1934,7 @@ parameters for that template.</small></span></li>
 <span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree">
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentToken.html#AgentToken">AgentToken</a><br><small>Agent class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Alarm.html#Alarm">Alarm</a><br><small>Alarm class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Check.html#Check">Check</a><br><small>Check class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Entity.html#Entity">Entity</a><br><small>Entity class.</small></span></li>
