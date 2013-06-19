@@ -2,6 +2,8 @@
 =============
 PHP SDK for OpenStack/Rackspace APIs
 
+[![Travis CI](https://secure.travis-ci.org/rackspace/php-opencloud.png)](https://travis-ci.org/rackspace/php-opencloud) [![Total Downloads](https://poser.pugx.org/rackspace/php-opencloud/downloads.png)](https://packagist.org/packages/rackspace/php-opencloud)
+
 > **IMPORTANT NOTE**: With release 1.3, all of the file extensions have been
   changed from `.inc` to `.php`. This means that any existing code must be
   edited to use this new version.
@@ -13,9 +15,6 @@ PHP SDK for OpenStack/Rackspace APIs
 See the
 [COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
 file for license and copyright information.
-
-Now running continuous integration at
-[travis-ci.org](https://travis-ci.org/rackspace/php-opencloud)
 
 For other SDKs, see http://developer.rackspace.com
 
