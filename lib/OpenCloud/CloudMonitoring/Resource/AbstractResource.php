@@ -124,7 +124,7 @@ abstract class AbstractResource extends PersistentObject
      * @param string $subresource (default: '')
      * @return void
      */
-    public function Url($subresource = '')
+    public function Url($subresource = '', $query=array())
     {
         $url = $this->baseUrl();
         
@@ -132,7 +132,7 @@ abstract class AbstractResource extends PersistentObject
             $url .= "/$subresource";
         } 
         
-        return $url;
+        return $url.$this->MakeQueryString($query);
     }
     
     /**
