@@ -201,10 +201,10 @@ class CDNContainer extends ObjectStore
      *
      * @return void
      */
-    protected function Refresh()
+    public function Refresh($name=NULL, $url=NULL)
     {
         $response = $this->Service()->Request(
-        	$this->Url(), 'HEAD', array('Accept' => '*/*'));
+        	$this->Url($name), 'HEAD', array('Accept' => '*/*'));
 
         // validate the response code
         if ($this->name != 'TEST') {
@@ -224,6 +224,18 @@ class CDNContainer extends ObjectStore
                 ));
             }
         }
+
+		// check for headers (not metadata)
+		foreach($response->Headers() as $header => $value) {
+			switch($header) {
+			case 'X-Container-Object-Count':
+				$this->count = $value;
+				break;
+			case 'X-Container-Bytes-Used':
+				$this->bytes = $value;
+				break;
+			}
+		}
 
         // parse the returned object
         $this->GetMetadata($response);

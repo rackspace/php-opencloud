@@ -312,10 +312,9 @@ class Container extends CDNContainer
     /**
      * Refreshes, then associates the CDN container
      */
-    protected function Refresh()
+    public function Refresh($id=NULL, $url=NULL)
     {
-        parent::Refresh();
-
+        parent::Refresh($id, $url);
         // find the CDN object
 		if (get_class($this->Service()) ==
 										'OpenCloud\ObjectStore\ObjectStoreCDN')

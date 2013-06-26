@@ -17,6 +17,16 @@ $connection = new \OpenCloud\Rackspace(AUTHURL,
 // now, connect to the ObjectStore service
 $objstore = $connection->ObjectStore('cloudFiles', 'DFW');
 
+printf("\n\nREGULAR CONTAINERS\n\n");
+
+$conlist = $objstore->ContainerList();
+while($con = $conlist->Next()) {
+	printf("  %s (%d objects, %d bytes)\n", 
+		$con->Name(), $con->count, $con->bytes);
+}
+
+printf("\n\nCDN CONTAINERS\n\n");
+
 // get our CDN containers
 $cdnlist = $objstore->CDN()->ContainerList(array('enabled_only'=>TRUE));
 
@@ -30,9 +40,12 @@ while($cdncontainer = $cdnlist->Next()) {
 		// This handles a weird edge case where a CDN container may not
 		// have a corresponding private container. This can happen if the
 		// CDN TTL is set very high and the original container is deleted.
-		print "Container not found\n";
+		print "Related private container not found\n";
 		continue;
 	}
+	printf("%d object%s, %d byte%s\n", 
+		$container->count, $container->count==1?'':'s', 
+		$container->bytes, $container->bytes==1?'':'s');
     // get all the objects
     $objlist = $container->ObjectList();
     // loop through objects

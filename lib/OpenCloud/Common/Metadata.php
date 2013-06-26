@@ -73,7 +73,8 @@ class Metadata extends Base
             if ($prefix) {
                 if (strpos($key, $prefix) === 0) {
                     $name = substr($key, strlen($prefix));
-                    $this->debug(Lang::translate('Setting [%s] to [%s]'), $name, $value);
+                    $this->debug(Lang::translate('Setting [%s] to [%s]'), 
+                    	$name, $value);
                     $this->$name = $value;
                 }
             } else {
