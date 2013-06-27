@@ -41,9 +41,7 @@
             jQuery(".tabs").tabs();
             applySearchHash();
           });
-        </script><div id="maincontainer"><div id="header"><h1>
-                phpDocumentor
-              <img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
+        </script><div id="maincontainer"><div id="header"><h1><img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
 <li><a href="graph.html">Class diagram</a></li>
 <li><a href="markers.html">TODO / Markers</a></li>
 <li><a href="parse_markers.html">Errors</a></li>
@@ -65,341 +63,26 @@
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord">\OpenCloud\DNS\Record</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
-<label class="property-key">author</label><div class="property-value">
-<a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
-             
-        </div>
 <label class="property-key">Abstract</label><div class="property-value">No 
       </div>
 <label class="property-key">Final</label><div class="property-value">No 
       </div>
 </div>
 <h4>Description</h4>
-<em>PTR records are used for reverse DNS</em><br><p>The PtrRecord object is nearly identical with the Record object. However,
-the PtrRecord is a child of the service, and not a child of a Domain.</p><br><div id="methods_PtrRecord">
+<em>PTR records are used for reverse DNS</em><br>The PtrRecord object is nearly identical with the Record object. However,
+the PtrRecord is a child of the service, and not a child of a Domain.<br><div id="methods_PtrRecord">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#PtrRecord::Action()">Action</a>,
-      <a style="font-style: italic;" href="#PtrRecord::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#PtrRecord::CheckExtension()">CheckExtension</a>,
-      <a style="font-style: italic;" href="#PtrRecord::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Create()">Create</a>,
+<a style="font-style: italic;" href="#PtrRecord::Create()">Create</a>,
       <a style="font-style: italic;" href="#PtrRecord::CreateJson()">CreateJson</a>,
-      <a style="font-style: italic;" href="#PtrRecord::CreateKeys()">CreateKeys</a>,
-      <a style="font-style: italic;" href="#PtrRecord::CreateUrl()">CreateUrl</a>,
       <a style="font-style: italic;" href="#PtrRecord::Delete()">Delete</a>,
-      <a style="font-style: italic;" href="#PtrRecord::FindLink()">FindLink</a>,
-      <a style="font-style: italic;" href="#PtrRecord::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#PtrRecord::GetJson()">GetJson</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Id()">Id</a>,
-      <a style="font-style: italic;" href="#PtrRecord::JsonCollectionElement()">JsonCollectionElement</a>,
-      <a style="font-style: italic;" href="#PtrRecord::JsonCollectionName()">JsonCollectionName</a>,
-      <a style="font-style: italic;" href="#PtrRecord::JsonName()">JsonName</a>,
-      <a style="font-style: italic;" href="#PtrRecord::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Name()">Name</a>,
-      <a style="font-style: italic;" href="#PtrRecord::NoCreate()">NoCreate</a>,
-      <a style="font-style: italic;" href="#PtrRecord::NoDelete()">NoDelete</a>,
-      <a style="font-style: italic;" href="#PtrRecord::NoUpdate()">NoUpdate</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Parent()">Parent</a>,
-      <a style="font-style: italic;" href="#PtrRecord::PrimaryKeyField()">PrimaryKeyField</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Refresh()">Refresh</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Region()">Region</a>,
-      <a style="font-style: italic;" href="#PtrRecord::ResourceName()">ResourceName</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Service()">Service</a>,
-      <a style="font-style: italic;" href="#PtrRecord::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#PtrRecord::Status()">Status</a>,
       <a style="font-style: italic;" href="#PtrRecord::Update()">Update</a>,
       <a style="font-style: italic;" href="#PtrRecord::UpdateJson()">UpdateJson</a>,
       <a style="font-style: italic;" href="#PtrRecord::Url()">Url</a>,
-      <a style="font-style: italic;" href="#PtrRecord::WaitFor()">WaitFor</a>,
       <a style="font-style: italic;" href="#PtrRecord::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#PtrRecord::__set()">__set</a>,
-      <a style="font-style: italic;" href="#PtrRecord::debug()">debug</a>,
-      <a style="font-style: italic;" href="#PtrRecord::getDebug()">getDebug</a>,
-      <a style="font-style: italic;" href="#PtrRecord::getDebugOutputStyle()">getDebugOutputStyle</a>,
-      <a style="font-style: italic;" href="#PtrRecord::setDebug()">setDebug</a>,
-      <a style="font-style: italic;" href="#PtrRecord::setDebugOutputStyle()">setDebugOutputStyle</a>,
-      <a style="font-style: italic;" href="#PtrRecord::setParent()">setParent</a>,
-      <a style="font-style: italic;" href="#PtrRecord::to_string()">to_string</a>,
       <div class="method">
-<a id="PtrRecord::Action()"></a><h3>Action<span class="nb-faded-text">(
-          
-             
-            $object,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Sends the json string to the /action resource</em><br><small><p>This is used for many purposes, such as rebooting the server,
-setting the root password, creating images, etc.
-Since it can only be used on a live server, it checks for a valid ID.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$object</td>
-<td style="white-space: normal;">n/a</td>
-<td><ul>
-<li>this will be encoded as json, and we handle all the JSON
-error-checking in one place</li>
-</ul>
-</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if server ID is not defined</td>
-</tr>
-<tr>
-<td>throws</td>
-<td>on other errors</td>
-</tr>
-<tr>
-<td>returns</td>
-<td>boolean; TRUE if successful, FALSE otherwise</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::Action()"><small>\OpenCloud\Common\PersistentObject::Action()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::Action()"><small>\OpenCloud\DNS\Object::Action()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Action()"><small>\OpenCloud\DNS\Record::Action()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
-          string
-             
-            $property,
-          array
-             
-            $prefixes
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">boolean</span>
-</h3>
-<h4>Description</h4>
-<em>Checks the attribute $property and only permits it if the prefix is
-in the specified $prefixes array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$property</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the attribute</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$prefixes</td>
-<td style="white-space: normal;">array</td>
-<td><p>a list of prefixes</p></td>
-<td>array()</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>boolean</td>
-<td>TRUE if valid; FALSE if not</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::CheckAttributePrefix()"><small>\OpenCloud\Common\Base::CheckAttributePrefix()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::CheckAttributePrefix()"><small>\OpenCloud\Common\PersistentObject::CheckAttributePrefix()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::CheckAttributePrefix()"><small>\OpenCloud\DNS\Object::CheckAttributePrefix()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::CheckAttributePrefix()"><small>\OpenCloud\DNS\Record::CheckAttributePrefix()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::CheckExtension()"></a><h3>CheckExtension<span class="nb-faded-text">(
-          
-             
-            $alias,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>checks for `$alias` in extensions and throws an error if not present</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$alias</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::CheckExtension()"><small>\OpenCloud\Common\PersistentObject::CheckExtension()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::CheckExtension()"><small>\OpenCloud\DNS\Object::CheckExtension()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::CheckExtension()"><small>\OpenCloud\DNS\Record::CheckExtension()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">boolean</span>
-</h3>
-<h4>Description</h4>
-<em>Checks the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
-This ensures that nasty JSON errors are detected and the proper
-exception thrown.</p>
-
-<p>Example:
-  <code>$obj = json_decode($string);</code>
-  <code>if (check_json_error()) do something ...</code></p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>boolean</td>
-<td>TRUE if an error occurred, FALSE if none</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::CheckJsonError()"><small>\OpenCloud\Common\Base::CheckJsonError()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::CheckJsonError()"><small>\OpenCloud\Common\PersistentObject::CheckJsonError()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::CheckJsonError()"><small>\OpenCloud\DNS\Object::CheckJsonError()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::CheckJsonError()"><small>\OpenCloud\DNS\Record::CheckJsonError()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
 <a id="PtrRecord::Create()"></a><h3>Create<span class="nb-faded-text">(
           
              
@@ -409,10 +92,10 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DNS\AsyncResponse</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>DNS PTR Create() method requires a server</em><br><small><p>Generally called as <code>Create(array('server'=&gt;$server))</code></p></small><br><h4>Arguments</h4>
+<em>DNS PTR Create() method requires a server</em><br><small>Generally called as `Create(array('server'=>$server))`</small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -434,19 +117,8 @@ exception thrown.</p>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\DNS\AsyncResponse</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if HTTP status is not Success</td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 </div>
@@ -456,42 +128,10 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DNS\stdClass</span>
-</h3>
-<h4>Description</h4>
-<em>Specialized JSON for DNS PTR creates and updates</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\DNS\stdClass</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if not overridden</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::CreateKeys()"></a><h3>CreateKeys<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>returns the create keys</em><br><h4>Return value</h4>
+<em>Specialized JSON for DNS PTR creates and updates</em><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -501,65 +141,6 @@ exception thrown.</p>
 <td>n/a</td>
 <td>n/a</td>
 </tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::CreateKeys()"><small>\OpenCloud\DNS\Object::CreateKeys()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::CreateKeys()"><small>\OpenCloud\DNS\Record::CreateKeys()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::CreateUrl()"></a><h3>CreateUrl<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the URL used for Create</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::CreateUrl()"><small>\OpenCloud\Common\PersistentObject::CreateUrl()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::CreateUrl()"><small>\OpenCloud\DNS\Object::CreateUrl()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::CreateUrl()"><small>\OpenCloud\DNS\Record::CreateUrl()</small></a></td>
-</tr>
-</tbody>
 </table>
 </div>
 <div class="method">
@@ -568,148 +149,11 @@ exception thrown.</p>
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DNS\AsyncResponse</span>
-</h3>
-<h4>Description</h4>
-<em>DNS PTR Delete() method requires a server</em><br><small><p>Note that delete will remove ALL PTR records associated with the device
-unless you pass in the parameter ip={ip address}</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\DNS\AsyncResponse</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if HTTP status is not Success</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::FindLink()"></a><h3>FindLink<span class="nb-faded-text">(
-          string
-             
-            $type
-            = 'self',
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Since each server can have multiple links, this returns the desired one</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$type</td>
-<td style="white-space: normal;">string</td>
-<td><ul>
-<li>'self' is most common; use 'bookmark' for
- the version-independent one</li>
-</ul>
-</td>
-<td>'self'</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td>the URL from the links block</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::FindLink()"><small>\OpenCloud\Common\PersistentObject::FindLink()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::FindLink()"><small>\OpenCloud\DNS\Object::FindLink()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::FindLink()"><small>\OpenCloud\DNS\Record::FindLink()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
-          
-             
-            $url,
-          
-             
-            $method
-            = 'GET',
-          
-             
-            $options
-            = array(),
-          
-          )
-        </span>
-        :
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Returns a class that implements the HttpRequest interface.</em><br><small><p>This can be stubbed out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$url</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>$method</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>'GET'</td>
-</tr>
-<tr>
-<td>$options</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>array()</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
+<em>DNS PTR Delete() method requires a server</em><br><small>Note that delete will remove ALL PTR records associated with the device
+unless you pass in the parameter ip={ip address}</small><br><h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -719,959 +163,6 @@ unless you pass in the parameter ip={ip address}</p></small><br><h4>Return value
 <td>n/a</td>
 <td>n/a</td>
 </tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Common\Base::GetHttpRequestObject()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::GetHttpRequestObject()"><small>\OpenCloud\Common\PersistentObject::GetHttpRequestObject()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::GetHttpRequestObject()"><small>\OpenCloud\DNS\Object::GetHttpRequestObject()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::GetHttpRequestObject()"><small>\OpenCloud\DNS\Record::GetHttpRequestObject()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::GetJson()"></a><h3>GetJson<span class="nb-faded-text">(
-          array
-             
-            $keys,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\DNS\stdClass</span>
-</h3>
-<h4>Description</h4>
-<em>returns JSON based on $keys</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$keys</td>
-<td style="white-space: normal;">array</td>
-<td><p>list of items to include</p></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\DNS\stdClass</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::GetJson()"><small>\OpenCloud\DNS\Object::GetJson()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::GetJson()"><small>\OpenCloud\DNS\Record::GetJson()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::Id()"></a><h3>Id<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the object's identifier</em><br><small><p>Can be overridden by a child class if the identifier is not in the
-<code>$id</code> property. Use of this function permits the <code>$id</code> attribute to
-be protected or private to prevent unauthorized overwriting for
-security.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::Id()"><small>\OpenCloud\Common\PersistentObject::Id()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::Id()"><small>\OpenCloud\DNS\Object::Id()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Id()"><small>\OpenCloud\DNS\Record::Id()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::JsonCollectionElement()"></a><h3>JsonCollectionElement<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the JSON name for each element in a collection</em><br><small><p>Usually, elements in a collection are anonymous; this function, however,
-provides for an element level name:</p>
-
-<p><code>{ "collection" : [ { "element" : ... } ] }</code></p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::JsonCollectionElement()"><small>\OpenCloud\Common\PersistentObject::JsonCollectionElement()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::JsonCollectionElement()"><small>\OpenCloud\DNS\Object::JsonCollectionElement()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::JsonCollectionElement()"><small>\OpenCloud\DNS\Record::JsonCollectionElement()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::JsonCollectionName()"></a><h3>JsonCollectionName<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the collection JSON element name</em><br><small><p>When an object is returned in a collection, it usually has a top-level
-object that is an array holding child objects of the object types.
-This static function returns the name of the top-level element. Usually,
-that top-level element is simply the JSON name of the resource.'s';
-however, it can be overridden by specifying the $json_collection_name
-attribute.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::JsonCollectionName()"><small>\OpenCloud\Common\PersistentObject::JsonCollectionName()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::JsonCollectionName()"><small>\OpenCloud\DNS\Object::JsonCollectionName()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::JsonCollectionName()"><small>\OpenCloud\DNS\Record::JsonCollectionName()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::JsonName()"></a><h3>JsonName<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the top-level document identifier for the returned response
-JSON document; must be overridden in child classes</em><br><small><p>For example, a server document is (JSON) <code>{"server": ...}</code> and an
-Instance document is <code>{"instance": ...}</code> - this function must return
-the top level document name (either "server" or "instance", in
-these examples).</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if not overridden</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::JsonName()"><small>\OpenCloud\Common\PersistentObject::JsonName()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::JsonName()"><small>\OpenCloud\DNS\Object::JsonName()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::JsonName()"><small>\OpenCloud\DNS\Record::JsonName()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
-          
-             
-            $array,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$array</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::MakeQueryString()"><small>\OpenCloud\Common\Base::MakeQueryString()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::MakeQueryString()"><small>\OpenCloud\Common\PersistentObject::MakeQueryString()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::MakeQueryString()"><small>\OpenCloud\DNS\Object::MakeQueryString()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::MakeQueryString()"><small>\OpenCloud\DNS\Record::MakeQueryString()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::Name()"></a><h3>Name<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the displayable name of the object</em><br><small><p>Can be overridden by child objects; <em>must</em> be overridden by child
-objects if the object does not have a <code>name</code> attribute defined.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td>if attribute 'name' is not defined</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::Name()"><small>\OpenCloud\Common\PersistentObject::Name()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::Name()"><small>\OpenCloud\DNS\Object::Name()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Name()"><small>\OpenCloud\DNS\Record::Name()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::NoCreate()"></a><h3>NoCreate<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>throws a CreateError for subclasses that don't support Create</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::NoCreate()"><small>\OpenCloud\Common\PersistentObject::NoCreate()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::NoCreate()"><small>\OpenCloud\DNS\Object::NoCreate()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::NoCreate()"><small>\OpenCloud\DNS\Record::NoCreate()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::NoDelete()"></a><h3>NoDelete<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>throws a DeleteError for subclasses that don't support Delete</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::NoDelete()"><small>\OpenCloud\Common\PersistentObject::NoDelete()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::NoDelete()"><small>\OpenCloud\DNS\Object::NoDelete()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::NoDelete()"><small>\OpenCloud\DNS\Record::NoDelete()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::NoUpdate()"></a><h3>NoUpdate<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>throws a UpdateError for subclasses that don't support Update</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::NoUpdate()"><small>\OpenCloud\Common\PersistentObject::NoUpdate()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::NoUpdate()"><small>\OpenCloud\DNS\Object::NoUpdate()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::NoUpdate()"><small>\OpenCloud\DNS\Record::NoUpdate()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::Parent()"></a><h3>Parent<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\DNS\Domain</span>
-</h3>
-<h4>Description</h4>
-<em>returns the parent domain</em><br><small><p>This is a synonym for Service(), since the object is usually a
-service.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\DNS\Domain</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Parent()"><small>\OpenCloud\DNS\Record::Parent()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::PrimaryKeyField()"></a><h3>PrimaryKeyField<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the primary key field for the object</em><br><small><p>The primary key is usually 'id', but this function is provided so that
-(in rare cases where it is not 'id'), it can be overridden.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::PrimaryKeyField()"><small>\OpenCloud\Common\PersistentObject::PrimaryKeyField()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::PrimaryKeyField()"><small>\OpenCloud\DNS\Object::PrimaryKeyField()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::PrimaryKeyField()"><small>\OpenCloud\DNS\Record::PrimaryKeyField()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::Refresh()"></a><h3>Refresh<span class="nb-faded-text">(
-          
-             
-            $id
-            = null,
-          
-             
-            $url
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Refreshes the object from the origin (useful when the server is
-changing states)</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$id</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>null</td>
-</tr>
-<tr>
-<td>$url</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::Refresh()"><small>\OpenCloud\Common\PersistentObject::Refresh()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::Refresh()"><small>\OpenCloud\DNS\Object::Refresh()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Refresh()"><small>\OpenCloud\DNS\Record::Refresh()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::Region()"></a><h3>Region<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>returns the region associated with the object</em><br><small><p>navigates to the parent service to determine the region.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::Region()"><small>\OpenCloud\Common\PersistentObject::Region()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::Region()"><small>\OpenCloud\DNS\Object::Region()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Region()"><small>\OpenCloud\DNS\Record::Region()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::ResourceName()"></a><h3>ResourceName<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the resource name for the URL of the object; must be overridden
-in child classes</em><br><small><p>For example, a server is <code>/servers/</code>, a database instance is
-<code>/instances/</code>. Must be overridden in child classes.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::ResourceName()"><small>\OpenCloud\Common\PersistentObject::ResourceName()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::ResourceName()"><small>\OpenCloud\DNS\Object::ResourceName()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::ResourceName()"><small>\OpenCloud\DNS\Record::ResourceName()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::Service()"></a><h3>Service<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the Service/parent object associated with this object</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::Service()"><small>\OpenCloud\Common\PersistentObject::Service()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::Service()"><small>\OpenCloud\DNS\Object::Service()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Service()"><small>\OpenCloud\DNS\Record::Service()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
-          string
-             
-            $property,
-          mixed
-             
-            $value,
-          array
-             
-            $prefixes
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Sets an extended (unrecognized) property on the current object</em><br><small><p>If RAXSDK_STRICT_PROPERTY_CHECKS is TRUE, then the prefix of the
-property name must appear in the $prefixes array, or else an
-exception is thrown.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$property</td>
-<td style="white-space: normal;">string</td>
-<td><p>the property name</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$value</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>the value of the property</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$prefixes</td>
-<td style="white-space: normal;">array</td>
-<td><p>optional list of supported prefixes</p></td>
-<td>array()</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if strict checks are on and
-     the property prefix is not in the list of prefixes.</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::SetProperty()"><small>\OpenCloud\Common\Base::SetProperty()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::SetProperty()"><small>\OpenCloud\Common\PersistentObject::SetProperty()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::SetProperty()"><small>\OpenCloud\DNS\Object::SetProperty()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::SetProperty()"><small>\OpenCloud\DNS\Record::SetProperty()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::Status()"></a><h3>Status<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>returns the object's status or `N/A` if not available</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::Status()"><small>\OpenCloud\Common\PersistentObject::Status()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::Status()"><small>\OpenCloud\DNS\Object::Status()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::Status()"><small>\OpenCloud\DNS\Record::Status()</small></a></td>
-</tr>
-</tbody>
 </table>
 </div>
 <div class="method">
@@ -1684,7 +175,7 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DNS\AsyncResponse</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
 <em>DNS PTR Update() method requires a server</em><br><h4>Arguments</h4>
@@ -1709,19 +200,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\DNS\AsyncResponse</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if HTTP status is not Success</td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 </div>
@@ -1735,10 +215,10 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">\OpenCloud\DNS\stdClass</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>The Update() JSON requires a record ID</em><br><small><p>Must be overridden in a child class.</p></small><br><h4>Arguments</h4>
+<em>The Update() JSON requires a record ID</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1760,25 +240,14 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>\OpenCloud\DNS\stdClass</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if not overridden</td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 </div>
 <div class="method">
 <a id="PtrRecord::Url()"></a><h3>Url<span class="nb-faded-text">(
-          string
+          
              
             $subresource
             = null,
@@ -1790,10 +259,10 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">string</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>specialized DNS PTR URL requires server service name and href</em><br><small><p>This may have to be overridden in subclasses.</p></small><br><h4>Arguments</h4>
+<em>specialized DNS PTR URL requires server service name and href</em><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -1804,9 +273,8 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>$subresource</td>
-<td style="white-space: normal;">string</td>
-<td><p>optional sub-resource string</p>
-</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td>null</td>
 </tr>
 <tr>
@@ -1824,136 +292,17 @@ exception is thrown.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>string</td>
-<td></td>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if URL is not defined</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::WaitFor()"></a><h3>WaitFor<span class="nb-faded-text">(
-          string
-             
-            $terminal
-            = 'ACTIVE',
-          integer
-             
-            $timeout
-            = RAXSDK_SERVER_MAXTIMEOUT,
-          callable
-             
-            $callback
-            = NULL,
-          
-             
-            $sleep
-            = RAXSDK_POLL_INTERVAL,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Waits for the server/instance status to change</em><br><small><p>This function repeatedly polls the system for a change in server
-status. Once the status reaches the <code>$terminal</code> value (or 'ERROR'),
-then the function returns.</p>
-
-<p>The polling interval is set by the constant RAXSDK_POLL_INTERVAL.</p>
-
-<p>The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
-seconds elapse.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$terminal</td>
-<td style="white-space: normal;">string</td>
-<td><p>the terminal state to wait for</p></td>
-<td>'ACTIVE'</td>
-</tr>
-<tr>
-<td>$timeout</td>
-<td style="white-space: normal;">integer</td>
-<td><p>the max time (in seconds) to wait</p>
-</td>
-<td>RAXSDK_SERVER_MAXTIMEOUT</td>
-</tr>
-<tr>
-<td>$callback</td>
-<td style="white-space: normal;">callable</td>
-<td><p>a callback function that is invoked with
-     each repetition of the polling sequence. This can be used, for
-     example, to update a status display or to permit other operations
-     to continue</p></td>
-<td>NULL</td>
-</tr>
-<tr>
-<td>$sleep</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>RAXSDK_POLL_INTERVAL</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::WaitFor()"><small>\OpenCloud\Common\PersistentObject::WaitFor()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::WaitFor()"><small>\OpenCloud\DNS\Object::WaitFor()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::WaitFor()"><small>\OpenCloud\DNS\Record::WaitFor()</small></a></td>
-</tr>
-</tbody>
 </table>
 </div>
 <div class="method">
 <a id="PtrRecord::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          mixed
+          
              
             $parent,
-          mixed
+          
              
             $info
             = null,
@@ -1961,7 +310,7 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
           )
         </span>
         :
-        <span class="nb-faded-text">void</span>
+        <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
 <em>constructur ensures that the record type is PTR</em><br><h4>Arguments</h4>
@@ -1975,16 +324,14 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <tbody>
 <tr>
 <td>$parent</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>either the domain object or the DNS object (for PTR)</p>
-</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td></td>
 </tr>
 <tr>
 <td>$info</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>ID or array/object of data for the object</p>
-</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
 <td>null</td>
 </tr>
 </tbody>
@@ -1996,649 +343,28 @@ seconds elapse.</p></small><br><h4>Arguments</h4>
 <th>Description</th>
 </tr></thead>
 <tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>throws</td>
-<td>if $info has an invalid data type</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::__set()"></a><h3>__set<span class="nb-faded-text">(
-          string
-             
-            $name,
-          mixed
-             
-            $value,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Validates properties that have a namespace: prefix</em><br><small><p>If the property prefix: appears in the list of supported extension
-namespaces, then the property is applied to the object. Otherwise,
-an exception is thrown.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the property</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$value</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>the property's value</p>
-</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::__set()"><small>\OpenCloud\Common\PersistentObject::__set()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::__set()"><small>\OpenCloud\DNS\Object::__set()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::__set()"><small>\OpenCloud\DNS\Record::__set()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::debug()"></a><h3>debug<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Displays a debug message if $RAXSDK_DEBUG is TRUE</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
-up to five optional parameters. It prints the debug message, prefixed
-with "Debug:" and the class name, to the standard output device.</p>
-
-<p>Example:
-  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>TODO</td>
-<td>- change this method name to something more descriptive/accurate</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::debug()"><small>\OpenCloud\Common\Base::debug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::debug()"><small>\OpenCloud\Common\PersistentObject::debug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::debug()"><small>\OpenCloud\DNS\Object::debug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::debug()"><small>\OpenCloud\DNS\Record::debug()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::getDebug()"></a><h3>getDebug<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>getDebug function.</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>access</td>
-<td>public</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::getDebug()"><small>\OpenCloud\Common\Base::getDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::getDebug()"><small>\OpenCloud\Common\PersistentObject::getDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::getDebug()"><small>\OpenCloud\DNS\Object::getDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::getDebug()"><small>\OpenCloud\DNS\Record::getDebug()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::getDebugOutputStyle()"></a><h3>getDebugOutputStyle<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Gets the debug output style.</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>access</td>
-<td>public</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::getDebugOutputStyle()"><small>\OpenCloud\Common\Base::getDebugOutputStyle()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::getDebugOutputStyle()"><small>\OpenCloud\Common\PersistentObject::getDebugOutputStyle()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::getDebugOutputStyle()"><small>\OpenCloud\DNS\Object::getDebugOutputStyle()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::getDebugOutputStyle()"><small>\OpenCloud\DNS\Record::getDebugOutputStyle()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
-          
-             
-            $status,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>setDebug function.</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$status</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>access</td>
-<td>public</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::setDebug()"><small>\OpenCloud\Common\Base::setDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::setDebug()"><small>\OpenCloud\Common\PersistentObject::setDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::setDebug()"><small>\OpenCloud\DNS\Object::setDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::setDebug()"><small>\OpenCloud\DNS\Record::setDebug()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::setDebugOutputStyle()"></a><h3>setDebugOutputStyle<span class="nb-faded-text">(
-          mixed
-             
-            $state,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Sets the debug output style.</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$state</td>
-<td style="white-space: normal;">mixed</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>access</td>
-<td>public</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::setDebugOutputStyle()"><small>\OpenCloud\Common\Base::setDebugOutputStyle()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::setDebugOutputStyle()"><small>\OpenCloud\Common\PersistentObject::setDebugOutputStyle()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::setDebugOutputStyle()"><small>\OpenCloud\DNS\Object::setDebugOutputStyle()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::setDebugOutputStyle()"><small>\OpenCloud\DNS\Record::setDebugOutputStyle()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::setParent()"></a><h3>setParent<span class="nb-faded-text">(
-          
-             
-            $parent,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$parent</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
 <td>n/a</td>
 <td>n/a</td>
 </tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::setParent()"><small>\OpenCloud\Common\PersistentObject::setParent()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::setParent()"><small>\OpenCloud\DNS\Object::setParent()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::setParent()"><small>\OpenCloud\DNS\Record::setParent()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="PtrRecord::to_string()"></a><h3>to_string<span class="nb-faded-text">(
-          mixed
-             
-            $x,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Converts a value to an HTTP-displayable string form</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$x</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>a value to convert</p></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.Base.html#%5COpenCloud%5CCommon%5CBase::to_string()"><small>\OpenCloud\Common\Base::to_string()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Common.PersistentObject.html#%5COpenCloud%5CCommon%5CPersistentObject::to_string()"><small>\OpenCloud\Common\PersistentObject::to_string()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Object.html#%5COpenCloud%5CDNS%5CObject::to_string()"><small>\OpenCloud\DNS\Object::to_string()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.DNS.Record.html#%5COpenCloud%5CDNS%5CRecord::to_string()"><small>\OpenCloud\DNS\Record::to_string()</small></a></td>
-</tr>
-</tbody>
 </table>
 </div>
 </div>
 <div id="properties_PtrRecord">
 <h4>Properties</h4>
-<a href="#PtrRecord::%24_create_keys">$_create_keys</a>,
-      <a href="#PtrRecord::%24_errors">$_errors</a>,
-      <a href="#PtrRecord::%24_parent">$_parent</a>,
-      <a href="#PtrRecord::%24_update_keys">$_update_keys</a>,
-      <a href="#PtrRecord::%24comment">$comment</a>,
-      <a href="#PtrRecord::%24created">$created</a>,
-      <a href="#PtrRecord::%24data">$data</a>,
-      <a href="#PtrRecord::%24debugOutputStyle">$debugOutputStyle</a>,
-      <a href="#PtrRecord::%24debugStatus">$debugStatus</a>,
-      <a href="#PtrRecord::%24http_headers">$http_headers</a>,
-      <a href="#PtrRecord::%24id">$id</a>,
-      <a href="#PtrRecord::%24json_collection_name">$json_collection_name</a>,
+<a href="#PtrRecord::%24json_collection_name">$json_collection_name</a>,
       <a href="#PtrRecord::%24json_name">$json_name</a>,
       <a href="#PtrRecord::%24link_href">$link_href</a>,
       <a href="#PtrRecord::%24link_rel">$link_rel</a>,
-      <a href="#PtrRecord::%24name">$name</a>,
-      <a href="#PtrRecord::%24priority">$priority</a>,
       <a href="#PtrRecord::%24server">$server</a>,
-      <a href="#PtrRecord::%24ttl">$ttl</a>,
-      <a href="#PtrRecord::%24type">$type</a>,
-      <a href="#PtrRecord::%24updated">$updated</a>,
       <a href="#PtrRecord::%24url_resource">$url_resource</a>,
       <div class="method">
-<a id="PtrRecord::$_create_keys"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$_create_keys
-          =
-          array('type', 'name', 'ttl', 'data', 'priority', 'comment')</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$_errors"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_errors
-          =
-          array()</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$_parent"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$_parent
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$_update_keys"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$_update_keys
-          =
-          array('name', 'ttl', 'data', 'priority', 'comment')</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$comment"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$comment
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$created"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$created
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$data"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$data
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$debugOutputStyle"></a><h3>
-<span class="nb-faded-text">bool 
-          private 
-          </span>$debugOutputStyle
-          =
-          true</h3>
-<em>Sets the style for outputting debug messages.</em><br><small>&lt;p&gt;Echoing messages   == true
-Returning messages == false&lt;/p&gt;
-
-&lt;p&gt;(default value: true)&lt;/p&gt;</small><br><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$debugStatus"></a><h3>
-<span class="nb-faded-text">bool 
-          private 
-          </span>$debugStatus
-          =
-          false</h3>
-<em>Debug status.</em><br><small></small><br><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$http_headers"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$http_headers
-          =
-          array()</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$id"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$id
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
 <a id="PtrRecord::$json_collection_name"></a><h3>
 <span class="nb-faded-text"> 
           protected 
           static </span>$json_collection_name
           =
           'records'</h3>
-<em></em><br>
+<em></em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="PtrRecord::$json_name"></a><h3>
@@ -2647,7 +373,7 @@ Returning messages == false&lt;/p&gt;
           static </span>$json_name
           =
           false</h3>
-<em></em><br>
+<em></em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="PtrRecord::$link_href"></a><h3>
@@ -2656,7 +382,7 @@ Returning messages == false&lt;/p&gt;
           </span>$link_href
           =
           </h3>
-<em></em><br>
+<em></em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="PtrRecord::$link_rel"></a><h3>
@@ -2665,25 +391,7 @@ Returning messages == false&lt;/p&gt;
           </span>$link_rel
           =
           </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$name"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$name
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$priority"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$priority
-          =
-          </h3>
-<em></em><br>
+<em></em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="PtrRecord::$server"></a><h3>
@@ -2692,34 +400,7 @@ Returning messages == false&lt;/p&gt;
           </span>$server
           =
           </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$ttl"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$ttl
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$type"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$type
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="PtrRecord::$updated"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$updated
-          =
-          </h3>
-<em></em><br>
+<em></em><br><small></small><br><br>
 </div>
 <div class="method">
 <a id="PtrRecord::$url_resource"></a><h3>
@@ -2728,69 +409,14 @@ Returning messages == false&lt;/p&gt;
           static </span>$url_resource
           =
           'rdns'</h3>
-<em></em><br>
+<em></em><br><small></small><br><br>
 </div>
 </div>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
-      $(function() {
-
-        var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
-        var is_local = /file:\/\//.test(document.location.href);
-        if (is_chrome && is_local)
-        {
-          // search is disabled on chrome with local files due to http://code.google.com/p/chromium/issues/detail?id=40787
-          return;
-        }
-
-        $("#search_box").show();
-        var search_index = {};
-        $.ajax({
-          url: "search_index.xml",
-          dataType: ($.browser.msie) ? "text" : "xml",
-          error: function(data) {
-            alert('An error occurred using the search data');
-          },
-          success: function( data ) {
-            var xml;
-            if (typeof data == "string") {
-              xml = new ActiveXObject("Microsoft.XMLDOM");
-              xml.async = false;
-              xml.loadXML(data);
-            } else {
-              xml = data;
-            }
-
-            search_index = $("node", xml).map(function() {
-              type = $("type", this).text();
-              return {
-                value: $("value", this).text(),
-                label: '<img src="images/icons/'+type+'.png" align="absmiddle">'+$("value", this).text(),
-                id: $("id", this).text(),
-              };
-            }).get();
-
-            $("#search_box").autocomplete({
-              source: search_index,
-              select: function(event, ui) {
-                // redirect to the documentation
-                if ((parent) && (parent.content))
-                {
-                  parent.content.document.location = ''+ui.item.id;
-                }
-                else
-                {
-                  jQuery(document).location = ''+ui.item.id;
-                }
-                applySearchHash();
-              }
-            });
-          }
-        });
-      });
-    </script><input id="search_box"></input><div class="section">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0b6
+</a>.</small></div><div id="index"><div class="padder"><input id="search_box"></input><div class="section">
 <h1>Namespaces</h1>
 <ul id="namespaces-" class="filetree">
 <li class="closed">
@@ -2967,7 +593,10 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 </li>
 <li class="closed">
 <span class="folder">Request</span><ul>
-<li><span class="class"><a href="OpenCloud.Common.Request.Curl.html#Curl">Curl</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Request.Curl.html#Curl">Curl</a><br><small>The CurlRequest class is a simple wrapper to CURL functions. Not only does
+this permit stubbing of the interface as described under the HttpRequest
+interface, it could potentially allow us to replace the interface methods
+with other function calls in the future.</small></span></li>
 <li><span class="interface"><a href="OpenCloud.Common.Request.HttpRequestInterface.html#HttpRequestInterface">HttpRequestInterface</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
 those methods to be stubbed out for unit testing, thus allowing us to
 test without actually making live calls.</small></span></li>
@@ -3008,7 +637,9 @@ permits the asynchronous responses used by Cloud DNS</small></span></li>
 <li><span class="class"><a href="OpenCloud.DNS.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
 <li><span class="class"><a href="OpenCloud.DNS.Subdomain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
-a parent domain.</small></span></li>
+a parent domain. In terms of the code involved, the JSON is slightly
+different than a top-level domain, and the parent is a domain instead of
+the DNS service itself.</small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -3043,13 +674,15 @@ balancer.</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Node.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.NodeEvent.html#NodeEvent">NodeEvent</a><br><small>a single node event, usually called as part of a Collection</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Readonly.html#Readonly">Readonly</a><br><small>This defines a read-only SubResource - one that cannot be created, updated,
-or deleted.</small></span></li>
+or deleted. Many subresources are like this, and this simplifies their
+class definitions.</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SSLTermination.html#SSLTermination">SSLTermination</a><br><small>sub-resource to manage SSL termination</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SessionPersistence.html#SessionPersistence">SessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Stats.html#Stats">Stats</a><br><small>Stats returns statistics about the load balancer</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SubResource.html#SubResource">SubResource</a><br><small>SubResource is an abstract class that handles subresources of a
 LoadBalancer object; for example, the
-`/loadbalancers/{id}/errorpage`.</small></span></li>
+`/loadbalancers/{id}/errorpage`. Since most of the subresources are
+handled in a similar manner, this consolidates the functions.</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Usage.html#Usage">Usage</a><br><small>used to get usage data for a load balancer</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.VirtualIp.html#VirtualIp">VirtualIp</a><br><small>VirtualIp represents a single virtual IP (usually returned in a Collection)</small></span></li>
 </ul>
@@ -3087,26 +720,259 @@ parameters for that template.</small></span></li>
 </ul>
 </li>
 <li class="closed">
-<span class="folder">global</span><ul><li><span class="class"><a href="Autoload.html#ClassLoader">ClassLoader</a><br><small></small></span></li></ul>
+<span class="folder">global</span><ul></ul>
 </li>
 </ul>
 </div><div class="section">
 <h1>Packages</h1>
 <ul id="packages-" class="filetree">
 <li class="closed">
-<span class="folder">Default</span><ul id="packages_Default" class="filetree"></ul>
+<span class="folder">Default</span><ul id="packages_" class="filetree">
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Access.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Agent.html#Agent">Agent</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentConnection.html#AgentConnection">AgentConnection</a><br><small>AgentConnection class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.AgentException.html#AgentException">AgentException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHost.html#AgentHost">AgentHost</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHostInfo.html#AgentHostInfo">AgentHostInfo</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentTarget.html#AgentTarget">AgentTarget</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentToken.html#AgentToken">AgentToken</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Alarm.html#Alarm">Alarm</a><br><small>Alarm class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.AlarmException.html#AlarmException">AlarmException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Algorithm.html#Algorithm">Algorithm</a><br><small>sub-resource to manage algorithms (read-only)</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.AllowedDomain.html#AllowedDomain">AllowedDomain</a><br><small>sub-resource to manage allowed domains</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncError.html#AsyncError">AsyncError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncHttpError.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.AsyncResponse.html#AsyncResponse">AsyncResponse</a><br><small>The AsyncResponse class encapsulates the data returned by a Cloud DNS
+asynchronous response.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncTimeoutError.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AttributeError.html#AttributeError">AttributeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AuthenticationError.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Base.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
+this SDK.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.BaseException.html#BaseException">BaseException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.BillableLoadBalancer.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Response.Blank.html#Blank">Blank</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.CDNContainer.html#CDNContainer">CDNContainer</a><br><small>A simple container for the CDN Service</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnError.html#CdnError">CdnError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnHttpError.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnNotAvailableError.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnTtlError.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Changelog.html#Changelog">Changelog</a><br><small>Changelog class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Check.html#Check">Check</a><br><small>Check class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.CheckException.html#CheckException">CheckException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.CheckType.html#CheckType">CheckType</a><br><small>CheckType class.</small></span></li>
+<li class="closed"><span class="class"><a href="Autoload.html#ClassLoader">ClassLoader</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.CloudMonitoringException.html#CloudMonitoringException">CloudMonitoringException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Collection.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CollectionError.html#CollectionError">CollectionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ConnectionLogging.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ConnectionThrottle.html#ConnectionThrottle">ConnectionThrottle</a><br><small>sub-resource to manage connection throttling</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.Container.html#Container">Container</a><br><small>A regular container with a (potentially) CDN container</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerCreateError.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerDeleteError.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerError.html#ContainerError">ContainerError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNameError.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNotEmptyError.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNotFoundError.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ContentCaching.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CreateError.html#CreateError">CreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CreateUpdateError.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CredentialError.html#CredentialError">CredentialError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Curl.html#Curl">Curl</a><br><small>The CurlRequest class is a simple wrapper to CURL functions. Not only does
+this permit stubbing of the interface as described under the HttpRequest
+interface, it could potentially allow us to replace the interface methods
+with other function calls in the future.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.DataObject.html#DataObject">DataObject</a><br><small>A DataObject is an object in the ObjectStore</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.Database.html#Database">Database</a><br><small>This class represents a Database in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseCreateError.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseDeleteError.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseListError.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseNameError.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseUpdateError.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Debug.html#Debug">Debug</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DeleteError.html#DeleteError">DeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DocumentError.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DomainError.html#DomainError">DomainError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.EmptyResponseError.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.EndpointError.html#EndpointError">EndpointError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Entity.html#Entity">Entity</a><br><small>Entity class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.EntityException.html#EntityException">EntityException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ErrorPage.html#ErrorPage">ErrorPage</a><br><small>The /loadbalancer/{id}/errorpage manages the error page for the load
+balancer.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Flavor.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.FlavorError.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.HealthMonitor.html#HealthMonitor">HealthMonitor</a><br><small>sub-resource to manage health monitor info</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Response.Http.html#Http">Http</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpError.html#HttpError">HttpError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpForbiddenError.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpOverLimitError.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.Common.Request.HttpRequestInterface.html#HttpRequestInterface">HttpRequestInterface</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
+those methods to be stubbed out for unit testing, thus allowing us to
+test without actually making live calls.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpRetryError.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpTimeoutError.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpUnauthorizedError.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpUrlError.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.IOError.html#IOError">IOError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.IdRequiredError.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Image.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
+Compute service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ImageError.html#ImageError">ImageError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.Instance.html#Instance">Instance</a><br><small>Instance represents an instance of DbService, similar to a Server in a
+Compute service</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceCreateError.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceDeleteError.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceError.html#InstanceError">InstanceError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceFlavorError.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceNotFound.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceUpdateError.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidArgumentError.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidIdTypeError.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidIpTypeError.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Metadata.html#Metadata">Metadata</a><br><small>sub-resource to manage Metadata</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataJsonError.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataKeyError.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataPrefixError.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataUpdateError.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Metric.html#Metric">Metric</a><br><small>Metric class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.MetricException.html#MetricException">MetricException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MisMatchedChecksumError.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MissingValueError.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NameError.html#NameError">NameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Network.html#Network">Network</a><br><small>The Network class represents a single virtual network</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkCreateError.html#NetworkCreateError">NetworkCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkDeleteError.html#NetworkDeleteError">NetworkDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkError.html#NetworkError">NetworkError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkUpdateError.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkUrlError.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NoContentTypeError.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NoNameError.html#NoNameError">NoNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Node.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.NodeEvent.html#NodeEvent">NodeEvent</a><br><small>a single node event, usually called as part of a Collection</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Notification.html#Notification">Notification</a><br><small>Notification class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationHistory.html#NotificationHistory">NotificationHistory</a><br><small>NotificationHistory class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.NotificationHistoryException.html#NotificationHistoryException">NotificationHistoryException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationPlan.html#NotificationPlan">NotificationPlan</a><br><small>Abstract AbstractResource class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.NotificationPlanException.html#NotificationPlanException">NotificationPlanException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationType.html#NotificationType">NotificationType</a><br><small>NotificationType class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Nova.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ObjFetchError.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Object.html#Object">Object</a><br><small>The DnsObject class is an extension of the PersistentObject class that
+permits the asynchronous responses used by Cloud DNS</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ObjectCopyError.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ObjectError.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.ObjectStore.html#ObjectStore">ObjectStore</a><br><small>Intermediate (abstract) class to implement shared
+features of all object-storage classes</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.ObjectStoreBase.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and
+ObjectStoreCDN
+objects</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.ObjectStoreCDN.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.OpenStack.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
+between a user and a service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Protocol.html#Protocol">Protocol</a><br><small>sub-resource to manage protocols (read-only)</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.PtrRecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
+API key and tenant requirements.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Readonly.html#Readonly">Readonly</a><br><small>This defines a read-only SubResource - one that cannot be created, updated,
+or deleted. Many subresources are like this, and this simplifies their
+class definitions.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.ReadOnlyResource.html#ReadonlyResource">ReadonlyResource</a><br><small>ReadonlyResource class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.RebuildError.html#RebuildError">RebuildError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.RecordTypeError.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Orchestration.Resource.html#Resource">Resource</a><br><small></small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.CloudMonitoring.Resource.ResourceInterface.html#ResourceInterface">ResourceInterface</a><br><small>ResourceInterface interface.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SSLTermination.html#SSLTermination">SSLTermination</a><br><small>sub-resource to manage SSL termination</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Server.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Service.html#Service">Service</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.Service.html#Service">Service</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Service.html#Service">Service</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.Service.html#Service">Service</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Orchestration.Service.html#Service">Service</a><br><small>The Orchestration class represents the OpenStack Heat service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.Service.html#Service">Service</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.ServiceCatalogItem.html#ServiceCatalogItem">ServiceCatalogItem</a><br><small>Holds information on a single service from the Service Catalog</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.ServiceException.html#ServiceException">ServiceException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServiceValueError.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SessionPersistence.html#SessionPersistence">SessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.Snapshot.html#Snapshot">Snapshot</a><br><small>The Snapshot class represents a single block storage snapshot</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.SnapshotError.html#SnapshotError">SnapshotError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Orchestration.Stack.html#Stack">Stack</a><br><small>The Stack class requires a CloudFormation template and may contain additional
+parameters for that template.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Stats.html#Stats">Stats</a><br><small>Stats returns statistics about the load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SubResource.html#SubResource">SubResource</a><br><small>SubResource is an abstract class that handles subresources of a
+LoadBalancer object; for example, the
+`/loadbalancers/{id}/errorpage`. Since most of the subresources are
+handled in a similar manner, this consolidates the functions.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Subdomain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
+a parent domain. In terms of the code involved, the JSON is slightly
+different than a top-level domain, and the parent is a domain instead of
+the DNS service itself.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.TempUrlMethodError.html#TempUrlMethodError">TempUrlMethodError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.TestException.html#TestException">TestException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownError.html#UnknownError">UnknownError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownParameterError.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnrecognizedServiceError.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedExtensionError.html#UnsupportedExtensionError">UnsupportedExtensionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedFeatureExtension.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedVersionError.html#UnsupportedVersionError">UnsupportedVersionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UpdateError.html#UpdateError">UpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UrlError.html#UrlError">UrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Usage.html#Usage">Usage</a><br><small>used to get usage data for a load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.User.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserCreateError.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserDeleteError.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserListError.html#UserListError">UserListError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserNameError.html#UserNameError">UserNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.View.html#View">View</a><br><small>View class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.VirtualIp.html#VirtualIp">VirtualIp</a><br><small>VirtualIp represents a single virtual IP (usually returned in a Collection)</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.Volume.html#Volume">Volume</a><br><small>The Volume class represents a single block storage volume</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.VolumeAttachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
+to a server.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.VolumeType.html#VolumeType">VolumeType</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Zone.html#Zone">Zone</a><br><small>Zone class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.ZoneException.html#ZoneException">ZoneException</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">global</span><ul id="packages_global" class="filetree"></ul>
 </li>
 <li class="closed">
 <span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree">
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentToken.html#AgentToken">AgentToken</a><br><small>Agent class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Alarm.html#Alarm">Alarm</a><br><small>Alarm class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Check.html#Check">Check</a><br><small>Check class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Entity.html#Entity">Entity</a><br><small>Entity class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Notification.html#Notification">Notification</a><br><small>Notification class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationPlan.html#NotificationPlan">NotificationPlan</a><br><small>Abstract AbstractResource class.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.ReadOnlyResource.html#ReadonlyResource">ReadonlyResource</a><br><small>ReadonlyResource class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
 </ul>
 </li>
