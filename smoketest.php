@@ -380,8 +380,12 @@ if ($USE_SERVERS) {
 
 	step('Volume Types');
 	$list = $cbs->VolumeTypeList();
+	$savedId = NULL;
 	while($vtype = $list->Next()) {
 		info('%s - %s', $vtype->id, $vtype->name);
+		// save the ID for later
+		if (!$savedId)
+			$savedId = $vtype->id;
 	}
 
 	step('Create a new Volume');
@@ -390,7 +394,7 @@ if ($USE_SERVERS) {
 		'display_name' => VOLUMENAME,
 		'display_description' => 'A sample volume for testing',
 		'size' => VOLUMESIZE,
-		'volume_type' => $cbs->VolumeType(2)
+		'volume_type' => $cbs->VolumeType($savedId)
 	));
 	$volume = $cbs->Volume($volume->id);
 
