@@ -32,6 +32,7 @@ class Snapshot extends PersistentObject
     public $status;
     public $size;
     public $created_at;
+    public $metadata;
 
     protected $force = false;
 
