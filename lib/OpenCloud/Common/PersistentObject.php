@@ -65,6 +65,7 @@ namespace OpenCloud\Common;
 abstract class PersistentObject extends Base
 {
 
+	public $metadata = NULL;
     protected $id;
     private $_parent;
 
