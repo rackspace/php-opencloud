@@ -21,6 +21,15 @@ use OpenCloud\Common\Exceptions;
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ *
+ * @property string $id the identifier (usually a GUID)
+ * @property string $display_name the name of the snapshot
+ * @property string $display_description the description
+ * @property string $volume_id the ID of the associated volume (GUID)
+ * @property string $status a regular status value 
+ * @property integer $size the size of the snapshot
+ * @property datetime $created_at the date/time the snapshot was created
+ * @property object $metadata metadata associated with the snapshot
  */
 class Snapshot extends PersistentObject 
 {
