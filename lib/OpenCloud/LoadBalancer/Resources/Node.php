@@ -2,7 +2,7 @@
 
 namespace OpenCloud\LoadBalancer\Resources;
 
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\PersistentObject;
 use OpenCloud\LoadBalancer\LoadBalancer;
 
 /**

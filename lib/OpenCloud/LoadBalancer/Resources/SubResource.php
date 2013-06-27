@@ -2,8 +2,8 @@
 
 namespace OpenCloud\LoadBalancer\Resources;
 
-use OpenCloud\AbstractClass\PersistentObject;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Lang;
 
 /**
  * SubResource is an abstract class that handles subresources of a

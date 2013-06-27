@@ -12,9 +12,9 @@
 
 namespace OpenCloud\Database;
 
-use OpenCloud\Base\Base;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\Base;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
 
 /**
  * This class represents a Database in the Rackspace "Red Dwarf"
@@ -22,7 +22,7 @@ use OpenCloud\Base\Lang;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Database extends Base 
+class Database extends Base
 {
 
     public $name;
@@ -47,7 +47,7 @@ class Database extends Base
      * @return void
      * @throws DatabaseNameError if `$info` is not a string, object, or array
      */
-    public function __construct(Instance $instance, $info = null) 
+    public function __construct(Instance $instance, $info = null)
     {
         $this->_instance = $instance;
 
@@ -68,16 +68,18 @@ class Database extends Base
      * Returns the Url of the Database
      *
      * @api
+     * @param string $subresource Not used
      * @return string
      */
-    public function Url() 
+    public function Url($subresource = '')
     {
         if (!isset($this->name)) {
             throw new Exceptions\DatabaseNameError(
                 Lang::translate('The database does not have a Url yet')
             );
         }
-        return stripslashes($this->Instance()->Url('databases')) . '/' .$this->name;
+        return stripslashes($this->Instance()->Url('databases')) . '/' .
+        		$this->name;
     }
 
     /**
@@ -85,7 +87,7 @@ class Database extends Base
      *
      * @return Instance
      */
-    public function Instance() 
+    public function Instance()
     {
         return $this->_instance;
     }
@@ -95,7 +97,7 @@ class Database extends Base
      *
      * @return \OpenCloud\DbService
      */
-    public function Service() 
+    public function Service()
     {
     	return $this->Instance()->Service();
     }
@@ -107,7 +109,7 @@ class Database extends Base
      * @param array $params array of attributes to set prior to Create
      * @return \OpenCloud\HttpResponse
      */
-    public function Create($params = array()) 
+    public function Create($params = array())
     {
         // target the /databases subresource
         $url = $this->Instance()->Url('databases');
@@ -117,7 +119,7 @@ class Database extends Base
         }
 
         $json = json_encode($this->CreateJson($params));
-        
+
         if ($this->CheckJsonError()) {
         	return false;
         }
@@ -129,8 +131,8 @@ class Database extends Base
         if ($response->HttpStatus() != 202) {
         	throw new Exceptions\DatabaseCreateError(sprintf(
                 Lang::translate('Error creating database [%s], status [%d] response [%s]'),
-        		$this->name, 
-                $response->HttpStatus(), 
+        		$this->name,
+                $response->HttpStatus(),
                 $response->HttpBody()
             ));
         }
@@ -146,7 +148,7 @@ class Database extends Base
      * @throws DatabaseUpdateError always; updates are not permitted
      * @return void
      */
-    public function Update($params = array()) 
+    public function Update($params = array())
     {
     	throw new Exceptions\DatabaseUpdateError(
             Lang::translate('Updates are not currently permitted on Database objects')
@@ -159,7 +161,7 @@ class Database extends Base
      * @api
      * @return \OpenCloud\HttpResponseb
      */
-    public function Delete() 
+    public function Delete()
     {
     	$resp = $this->Service()->Request($this->Url(), 'DELETE');
     	if ($resp->HttpStatus() != 202) {
@@ -176,7 +178,7 @@ class Database extends Base
     /**
      * Returns the JSON object for creating the database
      */
-    private function CreateJson($params = array()) 
+    private function CreateJson($params = array())
     {
         $obj = new \stdClass();
         $obj->databases = array();

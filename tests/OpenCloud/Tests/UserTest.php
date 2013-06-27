@@ -78,7 +78,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 			$this->user->password);
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\UserUpdateError
+	 * @expectedException \OpenCloud\Common\Exceptions\UserUpdateError
 	 */
 	public function testUpdate() {
 		$this->user->Update();

@@ -12,10 +12,10 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\AbstractClass\ObjectStore;
-use OpenCloud\AbstractClass\Service as AbstractService;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\ObjectStore;
+use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 
 /**
  * A simple container for the CDN Service
@@ -60,7 +60,7 @@ class CDNContainer extends ObjectStore
                     $this->$name = $value;
                 }
             }
-            $this->Refresh();
+            //$this->Refresh();
         } elseif ($cdata) {
             // or, if it's a string, retrieve the object with that name
             $this->debug(Lang::translate('Getting container [%s]'), $cdata);
@@ -73,9 +73,10 @@ class CDNContainer extends ObjectStore
      * Returns the URL of the container
      *
      * @return string
+	 * @param string $subresource not used; required for compatibility
      * @throws NoNameError
      */
-    public function Url()
+    public function Url($subresource='')
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
@@ -136,7 +137,7 @@ class CDNContainer extends ObjectStore
 
         // check return code
         if ($response->HttpStatus() > 204) {
-            throw new \OpenCloud\Base\Exceptions\ContainerCreateError(sprintf(
+            throw new \OpenCloud\Common\Exceptions\ContainerCreateError(sprintf(
                 Lang::translate('Problem updating container [%s] status [%d] response [%s]'),
                 $this->Url(),
                 $response->HttpStatus(),
@@ -200,10 +201,10 @@ class CDNContainer extends ObjectStore
      *
      * @return void
      */
-    protected function Refresh()
+    public function Refresh($name=NULL, $url=NULL)
     {
         $response = $this->Service()->Request(
-        	$this->Url(), 'HEAD', array('Accept' => '*/*'));
+        	$this->Url($name), 'HEAD', array('Accept' => '*/*'));
 
         // validate the response code
         if ($this->name != 'TEST') {
@@ -223,6 +224,18 @@ class CDNContainer extends ObjectStore
                 ));
             }
         }
+
+		// check for headers (not metadata)
+		foreach($response->Headers() as $header => $value) {
+			switch($header) {
+			case 'X-Container-Object-Count':
+				$this->count = $value;
+				break;
+			case 'X-Container-Bytes-Used':
+				$this->bytes = $value;
+				break;
+			}
+		}
 
         // parse the returned object
         $this->GetMetadata($response);

@@ -28,19 +28,19 @@ class VolumeTypeTest extends \PHPUnit_Framework_TestCase
      * Tests
      */
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\CreateError
+     * @expectedException \OpenCloud\Common\Exceptions\CreateError
      */
     public function testCreate() {
         $this->vt->Create();
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\UpdateError
+     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */
     public function testUpdate() {
         $this->vt->Update();
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\DeleteError
+     * @expectedException \OpenCloud\Common\Exceptions\DeleteError
      */
     public function testDelete() {
         $this->vt->Delete();

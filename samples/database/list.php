@@ -25,6 +25,10 @@ do {
 	printf("Page #%d of results...\n", ++$pageno);
 	while($instance = $inlist->Next()) {
 		printf("Instance: %s (%s)\n", $instance->id, $instance->Name());
+		// get the instance for details
+		$detail = $dbservice->Instance($instance->Id());
+		printf("Volume size: %d Used: %f\n",
+		    $detail->volume->size, $detail->volume->used);
 		$dblist = $instance->DatabaseList();
 		while($db = $dblist->Next()) {
 			printf("  Database: %s\n", $db->name);

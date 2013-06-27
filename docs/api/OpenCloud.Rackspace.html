@@ -41,9 +41,7 @@
             jQuery(".tabs").tabs();
             applySearchHash();
           });
-        </script><div id="maincontainer"><div id="header"><h1>
-                phpDocumentor
-              <img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
+        </script><div id="maincontainer"><div id="header"><h1><img src="images/top-stopper.png"></img></h1></div><ul xmlns="" id="menu">
 <li><a href="graph.html">Class diagram</a></li>
 <li><a href="markers.html">TODO / Markers</a></li>
 <li><a href="parse_markers.html">Errors</a></li>
@@ -66,18 +64,9 @@ than the pure OpenStack class)<br><br><a name="classes"></a><h2>Classes</h2>
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">Extends</label><div class="property-value">
-<a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack">\OpenCloud\OpenStack</a>
          </div>
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
-<label class="property-key">author</label><div class="property-value">
-<a title="" href="mailto:glen.campbell@rackspace.com">Glen Campbell</a>
-             
-        </div>
-<label class="property-key">version</label><div class="property-value">
-<a title="">1.0</a>
-             
-        </div>
 <label class="property-key">Abstract</label><div class="property-value">No 
       </div>
 <label class="property-key">Final</label><div class="property-value">No 
@@ -85,14 +74,14 @@ than the pure OpenStack class)<br><br><a name="classes"></a><h2>Classes</h2>
 </div>
 <h4>Description</h4>
 <em>Rackspace extends the OpenStack class with support for Rackspace's
-API key and tenant requirements.</em><br><p>The only difference between Rackspace and OpenStack is that the
+API key and tenant requirements.</em><br>The only difference between Rackspace and OpenStack is that the
 Rackspace class generates credentials using the username
 and API key, as required by the Rackspace authentication
-service.</p>
+service.
 
-<p>Example:</p>
-
-<pre><code>$username = 'FRED';
+Example:
+<code>
+$username = 'FRED';
 $apiKey = '0900af093093788912388fc09dde090ffee09';
 $conn = new Rackspace(
      'https://identity.api.rackspacecloud.com/v2.0/',
@@ -100,345 +89,13 @@ $conn = new Rackspace(
          'username' => $username,
          'apiKey' => $apiKey
      ));
-</code></pre><br><div id="methods_Rackspace">
+</code><br><div id="methods_Rackspace">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#Rackspace::AppendUserAgent()">AppendUserAgent</a>,
-      <a style="font-style: italic;" href="#Rackspace::Authenticate()">Authenticate</a>,
-      <a style="font-style: italic;" href="#Rackspace::CheckAttributePrefix()">CheckAttributePrefix</a>,
-      <a style="font-style: italic;" href="#Rackspace::CheckJsonError()">CheckJsonError</a>,
-      <a style="font-style: italic;" href="#Rackspace::Compute()">Compute</a>,
-      <a style="font-style: italic;" href="#Rackspace::Credentials()">Credentials</a>,
+<a style="font-style: italic;" href="#Rackspace::Credentials()">Credentials</a>,
       <a style="font-style: italic;" href="#Rackspace::DNS()">DNS</a>,
       <a style="font-style: italic;" href="#Rackspace::DbService()">DbService</a>,
-      <a style="font-style: italic;" href="#Rackspace::Expiration()">Expiration</a>,
-      <a style="font-style: italic;" href="#Rackspace::ExportCredentials()">ExportCredentials</a>,
-      <a style="font-style: italic;" href="#Rackspace::GetHttpRequestObject()">GetHttpRequestObject</a>,
-      <a style="font-style: italic;" href="#Rackspace::ImportCredentials()">ImportCredentials</a>,
       <a style="font-style: italic;" href="#Rackspace::LoadBalancerService()">LoadBalancerService</a>,
-      <a style="font-style: italic;" href="#Rackspace::MakeQueryString()">MakeQueryString</a>,
-      <a style="font-style: italic;" href="#Rackspace::ObjectStore()">ObjectStore</a>,
-      <a style="font-style: italic;" href="#Rackspace::Request()">Request</a>,
-      <a style="font-style: italic;" href="#Rackspace::Secret()">Secret</a>,
-      <a style="font-style: italic;" href="#Rackspace::Service()">Service</a>,
-      <a style="font-style: italic;" href="#Rackspace::ServiceCatalog()">ServiceCatalog</a>,
-      <a style="font-style: italic;" href="#Rackspace::ServiceCatalogItem()">ServiceCatalogItem</a>,
-      <a style="font-style: italic;" href="#Rackspace::ServiceList()">ServiceList</a>,
-      <a style="font-style: italic;" href="#Rackspace::SetDefaults()">SetDefaults</a>,
-      <a style="font-style: italic;" href="#Rackspace::SetDownloadProgressCallback()">SetDownloadProgressCallback</a>,
-      <a style="font-style: italic;" href="#Rackspace::SetProperty()">SetProperty</a>,
-      <a style="font-style: italic;" href="#Rackspace::SetTimeouts()">SetTimeouts</a>,
-      <a style="font-style: italic;" href="#Rackspace::SetUploadProgressCallback()">SetUploadProgressCallback</a>,
-      <a style="font-style: italic;" href="#Rackspace::Tenant()">Tenant</a>,
-      <a style="font-style: italic;" href="#Rackspace::Token()">Token</a>,
-      <a style="font-style: italic;" href="#Rackspace::Url()">Url</a>,
-      <a style="font-style: italic;" href="#Rackspace::VolumeService()">VolumeService</a>,
-      <a style="font-style: italic;" href="#Rackspace::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#Rackspace::__set()">__set</a>,
-      <a style="font-style: italic;" href="#Rackspace::_read_cb()">_read_cb</a>,
-      <a style="font-style: italic;" href="#Rackspace::_write_cb()">_write_cb</a>,
-      <a style="font-style: italic;" href="#Rackspace::debug()">debug</a>,
-      <a style="font-style: italic;" href="#Rackspace::getDebug()">getDebug</a>,
-      <a style="font-style: italic;" href="#Rackspace::setDebug()">setDebug</a>,
-      <a style="font-style: italic;" href="#Rackspace::to_string()">to_string</a>,
       <div class="method">
-<a id="Rackspace::AppendUserAgent()"></a><h3>AppendUserAgent<span class="nb-faded-text">(
-          string
-             
-            $agent,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Allows the user to append a user agent string</em><br><small><p>Programs that are using these bindings are encouraged to add their
-user agent to the one supplied by this SDK. This will permit cloud
-providers to track users so that they can provide better service.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$agent</td>
-<td style="white-space: normal;">string</td>
-<td><p>an arbitrary user-agent string; e.g. "My Cloud App"</p>
-</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::AppendUserAgent()"><small>\OpenCloud\OpenStack::AppendUserAgent()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Authenticate()"></a><h3>Authenticate<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Authenticates using the supplied credentials</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Authenticate()"><small>\OpenCloud\OpenStack::Authenticate()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
-          string
-             
-            $property,
-          array
-             
-            $prefixes
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">boolean</span>
-</h3>
-<h4>Description</h4>
-<em>Checks the attribute $property and only permits it if the prefix is
-in the specified $prefixes array</em><br><small><p>This is to support extension namespaces in some services.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$property</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the attribute</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$prefixes</td>
-<td style="white-space: normal;">array</td>
-<td><p>a list of prefixes</p></td>
-<td>array()</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>boolean</td>
-<td>TRUE if valid; FALSE if not</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::CheckAttributePrefix()"><small>\OpenCloud\Base\Base::CheckAttributePrefix()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::CheckAttributePrefix()"><small>\OpenCloud\OpenStack::CheckAttributePrefix()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::CheckJsonError()"></a><h3>CheckJsonError<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">boolean</span>
-</h3>
-<h4>Description</h4>
-<em>Checks the most recent JSON operation for errors</em><br><small><p>This function should be called after any <code>json_*()</code> function call.
-This ensures that nasty JSON errors are detected and the proper
-exception thrown.</p>
-
-<p>Example:
-  <code>$obj = json_decode($string);</code>
-  <code>if (check_json_error()) do something ...</code></p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>boolean</td>
-<td>TRUE if an error occurred, FALSE if none</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::CheckJsonError()"><small>\OpenCloud\Base\Base::CheckJsonError()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::CheckJsonError()"><small>\OpenCloud\OpenStack::CheckJsonError()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Compute()"></a><h3>Compute<span class="nb-faded-text">(
-          string
-             
-            $name
-            = null,
-          string
-             
-            $region
-            = null,
-          string
-             
-            $urltype
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\ObjectStore</span>
-</h3>
-<h4>Description</h4>
-<em>Creates a new Compute object (Nova/Cloud Servers)</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the Compute service to attach to</p></td>
-<td>null</td>
-</tr>
-<tr>
-<td>$region</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the region to use</p></td>
-<td>null</td>
-</tr>
-<tr>
-<td>$urltype</td>
-<td style="white-space: normal;">string</td>
-<td><p>the URL type (normally "publicURL")</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\ObjectStore</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Compute()"><small>\OpenCloud\OpenStack::Compute()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
 <a id="Rackspace::Credentials()"></a><h3>Credentials<span class="nb-faded-text">(
           
           )
@@ -480,8 +137,8 @@ exception thrown.</p>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>creates a new DNS service object</em><br><small><p>This is a factory method that is currently Rackspace-only
-(not available via the OpenStack class)</p></small><br><h4>Arguments</h4>
+<em>creates a new DNS service object</em><br><small>This is a factory method that is currently Rackspace-only
+(not available via the OpenStack class)</small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -543,7 +200,7 @@ exception thrown.</p>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new DbService (Database as a Service) object</em><br><small><p>This is a factory method that is Rackspace-only (NOT part of OpenStack).</p></small><br><h4>Arguments</h4>
+<em>Creates a new DbService (Database as a Service) object</em><br><small>This is a factory method that is Rackspace-only (NOT part of OpenStack).</small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -588,206 +245,6 @@ exception thrown.</p>
 </table>
 </div>
 <div class="method">
-<a id="Rackspace::Expiration()"></a><h3>Expiration<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the cached expiration time;
-if it has expired, then it re-authenticates</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Expiration()"><small>\OpenCloud\OpenStack::Expiration()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::ExportCredentials()"></a><h3>ExportCredentials<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">array</span>
-</h3>
-<h4>Description</h4>
-<em>exports saved token, expiration, tenant, and service catalog as an array</em><br><small><p>This could be stored in a cache (APC or disk file) and reloaded using
-ImportCredentials()</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>array</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::ExportCredentials()"><small>\OpenCloud\OpenStack::ExportCredentials()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::GetHttpRequestObject()"></a><h3>GetHttpRequestObject<span class="nb-faded-text">(
-          
-             
-            $url,
-          
-             
-            $method
-            = 'GET',
-          
-             
-            $options
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns a class that implements the HttpRequest interface.</em><br><small><p>This can be stubbed out for unit testing and avoid making live calls.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$url</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>$method</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>'GET'</td>
-</tr>
-<tr>
-<td>$options</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>array()</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::GetHttpRequestObject()"><small>\OpenCloud\Base\Base::GetHttpRequestObject()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::GetHttpRequestObject()"><small>\OpenCloud\OpenStack::GetHttpRequestObject()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::ImportCredentials()"></a><h3>ImportCredentials<span class="nb-faded-text">(
-          
-             
-            $values,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>imports credentials from an array</em><br><small><p>Takes the same values as ExportCredentials() and reuses them.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$values</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::ImportCredentials()"><small>\OpenCloud\OpenStack::ImportCredentials()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
 <a id="Rackspace::LoadBalancerService()"></a><h3>LoadBalancerService<span class="nb-faded-text">(
           string
              
@@ -808,7 +265,7 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
         <span class="nb-faded-text">n/a</span>
 </h3>
 <h4>Description</h4>
-<em>Creates a new LoadBalancerService object</em><br><small><p>This is a factory method that is Rackspace-only (NOT part of OpenStack).</p></small><br><h4>Arguments</h4>
+<em>Creates a new LoadBalancerService object</em><br><small>This is a factory method that is Rackspace-only (NOT part of OpenStack).</small><br><h4>Arguments</h4>
 <table>
 <thead><tr>
 <th>Name</th>
@@ -853,1823 +310,6 @@ ImportCredentials()</p></small><br><h4>Return value</h4>
 </tr></tbody>
 </table>
 </div>
-<div class="method">
-<a id="Rackspace::MakeQueryString()"></a><h3>MakeQueryString<span class="nb-faded-text">(
-          
-             
-            $array,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Converts an array of key/value pairs into a single query string</em><br><small><p>For example, array('A'=>1,'B'=>2) would become 'A=1&amp;B=2'.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$array</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::MakeQueryString()"><small>\OpenCloud\Base\Base::MakeQueryString()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::MakeQueryString()"><small>\OpenCloud\OpenStack::MakeQueryString()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::ObjectStore()"></a><h3>ObjectStore<span class="nb-faded-text">(
-          string
-             
-            $name
-            = null,
-          string
-             
-            $region
-            = null,
-          string
-             
-            $urltype
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\ObjectStore</span>
-</h3>
-<h4>Description</h4>
-<em>Creates a new ObjectStore object (Swift/Cloud Files)</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the Object Storage service to attach to</p></td>
-<td>null</td>
-</tr>
-<tr>
-<td>$region</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the region to use</p></td>
-<td>null</td>
-</tr>
-<tr>
-<td>$urltype</td>
-<td style="white-space: normal;">string</td>
-<td><p>the URL type (normally "publicURL")</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\ObjectStore</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::ObjectStore()"><small>\OpenCloud\OpenStack::ObjectStore()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Request()"></a><h3>Request<span class="nb-faded-text">(
-          string
-             
-            $url,
-          string
-             
-            $method
-            = 'GET',
-          array
-             
-            $headers
-            = array(),
-          string
-             
-            $data
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\HttpResponse</span>
-</h3>
-<h4>Description</h4>
-<em>Performs a single HTTP request</em><br><small><p>The request() method is one of the most frequently-used in the entire
-library. It performs an HTTP request using the specified URL, method,
-and with the supplied headers and body. It handles error and
-exceptions for the request.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$url</td>
-<td style="white-space: normal;">string</td>
-<td><p>url - the URL of the request</p>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$method</td>
-<td style="white-space: normal;">string</td>
-<td><p>method - the HTTP method (defaults to GET)</p>
-</td>
-<td>'GET'</td>
-</tr>
-<tr>
-<td>$headers</td>
-<td style="white-space: normal;">array</td>
-<td><p>headers - an associative array of headers</p>
-</td>
-<td>array()</td>
-</tr>
-<tr>
-<td>$data</td>
-<td style="white-space: normal;">string</td>
-<td><p>data - either a string or a resource (file pointer) to
-     use as the
-     request body (for PUT or POST)</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\HttpResponse</td>
-<td>object</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td>HttpUnauthorizedError, HttpForbiddenError</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Request()"><small>\OpenCloud\OpenStack::Request()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Secret()"></a><h3>Secret<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">array</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the stored secret</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>array</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Secret()"><small>\OpenCloud\OpenStack::Secret()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Service()"></a><h3>Service<span class="nb-faded-text">(
-          string
-             
-            $class,
-          string
-             
-            $name
-            = null,
-          string
-             
-            $region
-            = null,
-          string
-             
-            $urltype
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\Service</span>
-</h3>
-<h4>Description</h4>
-<em>Generic Service factory method</em><br><small><p>Contains code reused by the other service factory methods.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$class</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the Service class to produce</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the Compute service to attach to</p></td>
-<td>null</td>
-</tr>
-<tr>
-<td>$region</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the region to use</p></td>
-<td>null</td>
-</tr>
-<tr>
-<td>$urltype</td>
-<td style="white-space: normal;">string</td>
-<td><p>the URL type (normally "publicURL")</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\Service</td>
-<td>(or subclass such as Compute, ObjectStore)</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Service()"><small>\OpenCloud\OpenStack::Service()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::ServiceCatalog()"></a><h3>ServiceCatalog<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\stdClass</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the service catalog object from the auth service</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\stdClass</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::ServiceCatalog()"><small>\OpenCloud\OpenStack::ServiceCatalog()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::ServiceCatalogItem()"></a><h3>ServiceCatalogItem<span class="nb-faded-text">(
-          
-             
-            $info
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>returns a service catalog item</em><br><small><p>This is a helper function used to list service catalog items easily</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$info</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>array()</td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::ServiceCatalogItem()"><small>\OpenCloud\OpenStack::ServiceCatalogItem()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::ServiceList()"></a><h3>ServiceList<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Returns a Collection of objects with information on services</em><br><small><p>Note that these are informational (read-only) and are not actually
-'Service'-class objects.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::ServiceList()"><small>\OpenCloud\OpenStack::ServiceList()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::SetDefaults()"></a><h3>SetDefaults<span class="nb-faded-text">(
-          string
-             
-            $service,
-          string
-             
-            $name
-            = null,
-          string
-             
-            $region
-            = null,
-          string
-             
-            $urltype
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Sets default values for name, region, URL type for a service</em><br><small><p>Once these are set (and they can also be set by defining global
-constants), then you do not need to specify these values when
-creating new service objects.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$service</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of a supported service; e.g. 'Compute'</p>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>the service name; e.g., 'cloudServersOpenStack'</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$region</td>
-<td style="white-space: normal;">string</td>
-<td><p>the region name; e.g., 'LON'</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$urltype</td>
-<td style="white-space: normal;">string</td>
-<td><p>the type of URL to use; e.g., 'internalURL'</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::SetDefaults()"><small>\OpenCloud\OpenStack::SetDefaults()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::SetDownloadProgressCallback()"></a><h3>SetDownloadProgressCallback<span class="nb-faded-text">(
-          callable
-             
-            $callback,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Allows the user to define a function for tracking downloads</em><br><small><p>This can be used to implement a progress bar or similar function. The
-callback function is called with a single parameter, the length of the
-data that is being downloaded on this call.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$callback</td>
-<td style="white-space: normal;">callable</td>
-<td><p>the name of a global callback function, or an
-     array($object, $functionname)</p>
-</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::SetDownloadProgressCallback()"><small>\OpenCloud\OpenStack::SetDownloadProgressCallback()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::SetProperty()"></a><h3>SetProperty<span class="nb-faded-text">(
-          string
-             
-            $property,
-          mixed
-             
-            $value,
-          array
-             
-            $prefixes
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Sets an extended (unrecognized) property on the current object</em><br><small><p>If RAXSDK_STRICT_PROPERTY_CHECKS is TRUE, then the prefix of the
-property name must appear in the $prefixes array, or else an
-exception is thrown.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$property</td>
-<td style="white-space: normal;">string</td>
-<td><p>the property name</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$value</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>the value of the property</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$prefixes</td>
-<td style="white-space: normal;">array</td>
-<td><p>optional list of supported prefixes</p></td>
-<td>array()</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>throws</td>
-<td>if strict checks are on and
-     the property prefix is not in the list of prefixes.</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::SetProperty()"><small>\OpenCloud\Base\Base::SetProperty()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::SetProperty()"><small>\OpenCloud\OpenStack::SetProperty()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::SetTimeouts()"></a><h3>SetTimeouts<span class="nb-faded-text">(
-          integer
-             
-            $t_http,
-          integer
-             
-            $t_conn
-            = null,
-          integer
-             
-            $t_overlimit
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Sets the timeouts for the current connection</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$t_http</td>
-<td style="white-space: normal;">integer</td>
-<td><p>the HTTP timeout value (the max period that
-     the OpenStack object will wait for any HTTP request to complete).
-     Value is in seconds.</p>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$t_conn</td>
-<td style="white-space: normal;">integer</td>
-<td><p>the Connect timeout value (the max period
-     that the OpenStack object will wait to establish an HTTP
-     connection). Value is in seconds.</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$t_overlimit</td>
-<td style="white-space: normal;">integer</td>
-<td><p>the overlimit timeout value (the max period
-     that the OpenStack object will wait to retry on an overlimit
-     condition). Value is in seconds.</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::SetTimeouts()"><small>\OpenCloud\OpenStack::SetTimeouts()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::SetUploadProgressCallback()"></a><h3>SetUploadProgressCallback<span class="nb-faded-text">(
-          callable
-             
-            $callback,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Allows the user to define a function for tracking uploads</em><br><small><p>This can be used to implement a progress bar or similar function. The
-callback function is called with a single parameter, the length of the
-data that is being uploaded on this call.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$callback</td>
-<td style="white-space: normal;">callable</td>
-<td><p>the name of a global callback function, or an
-     array($object, $functionname)</p>
-</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::SetUploadProgressCallback()"><small>\OpenCloud\OpenStack::SetUploadProgressCallback()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Tenant()"></a><h3>Tenant<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the tenant ID, re-authenticating if necessary</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Tenant()"><small>\OpenCloud\OpenStack::Tenant()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Token()"></a><h3>Token<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the cached token; if it has expired, then it re-authenticates</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Token()"><small>\OpenCloud\OpenStack::Token()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::Url()"></a><h3>Url<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Returns the URL of this object</em><br><small><p>The assumption is that nearly all objects will have a URL; at this
-base level, it simply throws an exception to enforce the idea that
-subclasses need to define this method.</p></small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>api</td>
-<td></td>
-</tr>
-<tr>
-<td>throws</td>
-<td></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::Url()"><small>\OpenCloud\OpenStack::Url()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::VolumeService()"></a><h3>VolumeService<span class="nb-faded-text">(
-          string
-             
-            $name
-            = null,
-          string
-             
-            $region
-            = null,
-          string
-             
-            $urltype
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>Creates a new VolumeService (cinder) service object</em><br><small><p>This is a factory method that is Rackspace-only (NOT part of OpenStack).</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$name</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the service (e.g., 'cloudBlockStorage')</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$region</td>
-<td style="white-space: normal;">string</td>
-<td><p>the region (e.g., 'DFW')</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$urltype</td>
-<td style="white-space: normal;">string</td>
-<td><p>the type of URL (e.g., 'publicURL');</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::VolumeService()"><small>\OpenCloud\OpenStack::VolumeService()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          string
-             
-            $url,
-          array
-             
-            $secret,
-          array
-             
-            $options
-            = array(),
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Creates a new OpenStack object</em><br><small><p>The OpenStack object needs two bits of information: the URL to
-authenticate against, and a "secret", which is an associative array
-of name/value pairs. Usually, the secret will be a username and a
-password, but other values may be required by different authentication
-systems. For example, OpenStack Keystone requires a username and
-password, but Rackspace uses a username, tenant ID, and API key.
-(See OpenCloud\Rackspace for that.)</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$url</td>
-<td style="white-space: normal;">string</td>
-<td><ul>
-<li>the authentication endpoint URL</li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$secret</td>
-<td style="white-space: normal;">array</td>
-<td><ul>
-<li>an associative array of auth information:</li>
-<li>username</li>
-<li>password</li>
-</ul>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$options</td>
-<td style="white-space: normal;">array</td>
-<td><ul>
-<li>CURL options to pass to the HttpRequest object</li>
-</ul>
-</td>
-<td>array()</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::__construct()"><small>\OpenCloud\OpenStack::__construct()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::__set()"></a><h3>__set<span class="nb-faded-text">(
-          string
-             
-            $property,
-          mixed
-             
-            $value,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Sets extended attributes on an object and validates them</em><br><small><p>This function is provided to ensure that attributes cannot
-arbitrarily added to an object. If this function is called, it
-means that the attribute is not defined on the object, and thus
-an exception is thrown.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$property</td>
-<td style="white-space: normal;">string</td>
-<td><p>the name of the attribute</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$value</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>the value of the attribute</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::__set()"><small>\OpenCloud\Base\Base::__set()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::__set()"><small>\OpenCloud\OpenStack::__set()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::_read_cb()"></a><h3>_read_cb<span class="nb-faded-text">(
-          resource
-             
-            $ch,
-          resource
-             
-            $fd,
-          integer
-             
-            $length,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Callback function to handle reads for file uploads</em><br><small><p>Internal function for handling file uploads. Note that, although this
-function's visibility is public, this is only because it must be called
-from the HttpRequest interface. This should NOT be called by users
-directly.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$ch</td>
-<td style="white-space: normal;">resource</td>
-<td><p>a CURL handle</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$fd</td>
-<td style="white-space: normal;">resource</td>
-<td><p>a file descriptor</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$length</td>
-<td style="white-space: normal;">integer</td>
-<td><p>the amount of data to read</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td>the data read</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::_read_cb()"><small>\OpenCloud\OpenStack::_read_cb()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::_write_cb()"></a><h3>_write_cb<span class="nb-faded-text">(
-          resource
-             
-            $ch,
-          string
-             
-            $data,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">integer</span>
-</h3>
-<h4>Description</h4>
-<em>Callback function to handle writes for file downloads</em><br><small><p>Internal function for handling file downloads. Note that, although this
-function's visibility is public, this is only because it must be called
-via the HttpRequest interface. This should NOT be called by users
-directly.</p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$ch</td>
-<td style="white-space: normal;">resource</td>
-<td><p>a CURL handle</p></td>
-<td></td>
-</tr>
-<tr>
-<td>$data</td>
-<td style="white-space: normal;">string</td>
-<td><p>the data to be written to a file</p></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>integer</td>
-<td>the number of bytes written</td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::_write_cb()"><small>\OpenCloud\OpenStack::_write_cb()</small></a></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::debug()"></a><h3>debug<span class="nb-faded-text">(
-          string
-             
-            $msg,
-          mixed
-             
-            $p1
-            = null,
-          mixed
-             
-            $p2
-            = null,
-          mixed
-             
-            $p3
-            = null,
-          mixed
-             
-            $p4
-            = null,
-          mixed
-             
-            $p5
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Displays a debug message if $RAXSDK_DEBUG is TRUE</em><br><small><p>The primary parameter is a string in sprintf() format, and it can accept
-up to five optional parameters. It prints the debug message, prefixed
-with "Debug:" and the class name, to the standard output device.</p>
-
-<p>Example:
-  <code>$this-&gt;debug('Starting execution of %s', get_class($this))</code></p></small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$msg</td>
-<td style="white-space: normal;">string</td>
-<td><p>The message string (required); can be in
-     sprintf() format.</p>
-</td>
-<td></td>
-</tr>
-<tr>
-<td>$p1</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p2</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p3</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p4</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-<tr>
-<td>$p5</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>Optional argument to be passed to sprintf()</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>TODO</td>
-<td>- change this method name to something more descriptive/accurate</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::debug()"><small>\OpenCloud\Base\Base::debug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::debug()"><small>\OpenCloud\OpenStack::debug()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::getDebug()"></a><h3>getDebug<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>getDebug function.</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>access</td>
-<td>public</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::getDebug()"><small>\OpenCloud\Base\Base::getDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::getDebug()"><small>\OpenCloud\OpenStack::getDebug()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>setDebug function.</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>access</td>
-<td>public</td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::setDebug()"><small>\OpenCloud\Base\Base::setDebug()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::setDebug()"><small>\OpenCloud\OpenStack::setDebug()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="method">
-<a id="Rackspace::to_string()"></a><h3>to_string<span class="nb-faded-text">(
-          mixed
-             
-            $x,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">string</span>
-</h3>
-<h4>Description</h4>
-<em>Converts a value to an HTTP-displayable string form</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$x</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>a value to convert</p></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>string</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.Base.Base.html#%5COpenCloud%5CBase%5CBase::to_string()"><small>\OpenCloud\Base\Base::to_string()</small></a></td>
-</tr>
-<tr>
-<td>inherited_from</td>
-<td><a href="OpenCloud.OpenStack.html#%5COpenCloud%5COpenStack::to_string()"><small>\OpenCloud\OpenStack::to_string()</small></a></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div id="properties_Rackspace">
-<h4>Properties</h4>
-<a href="#Rackspace::%24_errors">$_errors</a>,
-      <a href="#Rackspace::%24_file_descriptors">$_file_descriptors</a>,
-      <a href="#Rackspace::%24_user_read_progress_callback_func">$_user_read_progress_callback_func</a>,
-      <a href="#Rackspace::%24_user_write_progress_callback_func">$_user_write_progress_callback_func</a>,
-      <a href="#Rackspace::%24catalog">$catalog</a>,
-      <a href="#Rackspace::%24connect_timeout">$connect_timeout</a>,
-      <a href="#Rackspace::%24curl_options">$curl_options</a>,
-      <a href="#Rackspace::%24debug">$debug</a>,
-      <a href="#Rackspace::%24defaults">$defaults</a>,
-      <a href="#Rackspace::%24expiration">$expiration</a>,
-      <a href="#Rackspace::%24export_items">$export_items</a>,
-      <a href="#Rackspace::%24http_headers">$http_headers</a>,
-      <a href="#Rackspace::%24http_timeout">$http_timeout</a>,
-      <a href="#Rackspace::%24overlimit_timeout">$overlimit_timeout</a>,
-      <a href="#Rackspace::%24secret">$secret</a>,
-      <a href="#Rackspace::%24tenant">$tenant</a>,
-      <a href="#Rackspace::%24token">$token</a>,
-      <a href="#Rackspace::%24url">$url</a>,
-      <a href="#Rackspace::%24useragent">$useragent</a>,
-      <div class="method">
-<a id="Rackspace::$_errors"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_errors
-          =
-          array()</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$_file_descriptors"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_file_descriptors
-          =
-          array()</h3>
-<em>Tracks file descriptors used by streaming downloads</em><br><small>&lt;p&gt;This will permit multiple simultaneous streaming downloads; the
-key is the URL of the object, and the value is its file descriptor.&lt;/p&gt;
-
-&lt;p&gt;To prevent memory overflows, each array element is deleted when
-the end of the file is reached.&lt;/p&gt;</small><br><br>
-</div>
-<div class="method">
-<a id="Rackspace::$_user_read_progress_callback_func"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_user_read_progress_callback_func
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$_user_write_progress_callback_func"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_user_write_progress_callback_func
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$catalog"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$catalog
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$connect_timeout"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$connect_timeout
-          =
-          RAXSDK_CONNECTTIMEOUT</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$curl_options"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$curl_options
-          =
-          array()</h3>
-<em>array of options to pass to the CURL request object</em><br><small></small><br><br>
-</div>
-<div class="method">
-<a id="Rackspace::$debug"></a><h3>
-<span class="nb-faded-text">\OpenCloud\Base\Debug 
-          private 
-          </span>$debug
-          =
-          </h3>
-<em>Debug object.</em><br><small></small><br><br>
-</div>
-<div class="method">
-<a id="Rackspace::$defaults"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$defaults
-          =
-          array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'Database' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE), 'Volume' =&gt; array('name' =&gt; RAXSDK_VOLUME_NAME, 'region' =&gt; RAXSDK_VOLUME_REGION, 'urltype' =&gt; RAXSDK_VOLUME_URLTYPE), 'LoadBalancer' =&gt; array('name' =&gt; RAXSDK_LBSERVICE_NAME, 'region' =&gt; RAXSDK_LBSERVICE_REGION, 'urltype' =&gt; RAXSDK_LBSERVICE_URLTYPE), 'DNS' =&gt; array('name' =&gt; RAXSDK_DNS_NAME, 'region' =&gt; RAXSDK_DNS_REGION, 'urltype' =&gt; RAXSDK_DNS_URLTYPE))</h3>
-<em>This associative array holds default values used to identify each
-service (and to select it from the Service Catalog).</em><br><small>&lt;p&gt;Use the
-Compute::SetDefaults() method to change the default values, or
-define the global constants (for example, RAXSDK_COMPUTE_NAME)
-BEFORE loading the OpenCloud library:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;define('RAXSDK_COMPUTE_NAME', 'cloudServersOpenStack');
-include('openstack.php');
-&lt;/code&gt;&lt;/pre&gt;</small><br><br>
-</div>
-<div class="method">
-<a id="Rackspace::$expiration"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$expiration
-          =
-          0</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$export_items"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$export_items
-          =
-          array('token', 'expiration', 'tenant', 'catalog')</h3>
-<em>list of attributes to export/import</em><br><small></small><br><br>
-</div>
-<div class="method">
-<a id="Rackspace::$http_headers"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$http_headers
-          =
-          array()</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$http_timeout"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$http_timeout
-          =
-          RAXSDK_TIMEOUT</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$overlimit_timeout"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$overlimit_timeout
-          =
-          RAXSDK_OVERLIMIT_TIMEOUT</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$secret"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$secret
-          =
-          array()</h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$tenant"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$tenant
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$token"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$token
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$url"></a><h3>
-<span class="nb-faded-text"> 
-          protected 
-          </span>$url
-          =
-          </h3>
-<em></em><br>
-</div>
-<div class="method">
-<a id="Rackspace::$useragent"></a><h3>
-<span class="nb-faded-text"> 
-          public 
-          </span>$useragent
-          =
-          RAXSDK_USER_AGENT</h3>
-<em>This holds the HTTP User-Agent: used for all requests to the
-services.</em><br><small>&lt;p&gt;It is public so that, if necessary, it can be entirely
-overridden by the developer. However, it's strongly recomended
-that you use the OpenStack::AppendUserAgent() method to APPEND
-your own User Agent identifier to the end of this string; the
-user agent information can be very valuable to service providers
-to track who is using their service.&lt;/p&gt;</small><br><br>
-</div>
 </div>
 <div id="constants_Rackspace">
 <h4>Constants</h4>
@@ -2679,69 +319,14 @@ to track who is using their service.&lt;/p&gt;</small><br><br>
         </span>APIKEYTEMPLATE<span class="nb-faded-text">
          = </span>
 </h3>
-<em></em><br><br>
+<em></em><br><small></small><br><br>
 </div>
 </div>
 <div style="clear: both"></div>
 </div>
 </div>
-<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0a12</a>.</small></div><div id="index"><div class="padder"><script xmlns="" type="text/javascript">
-      $(function() {
-
-        var is_chrome = /chrome/.test( navigator.userAgent.toLowerCase() );
-        var is_local = /file:\/\//.test(document.location.href);
-        if (is_chrome && is_local)
-        {
-          // search is disabled on chrome with local files due to http://code.google.com/p/chromium/issues/detail?id=40787
-          return;
-        }
-
-        $("#search_box").show();
-        var search_index = {};
-        $.ajax({
-          url: "search_index.xml",
-          dataType: ($.browser.msie) ? "text" : "xml",
-          error: function(data) {
-            alert('An error occurred using the search data');
-          },
-          success: function( data ) {
-            var xml;
-            if (typeof data == "string") {
-              xml = new ActiveXObject("Microsoft.XMLDOM");
-              xml.async = false;
-              xml.loadXML(data);
-            } else {
-              xml = data;
-            }
-
-            search_index = $("node", xml).map(function() {
-              type = $("type", this).text();
-              return {
-                value: $("value", this).text(),
-                label: '<img src="images/icons/'+type+'.png" align="absmiddle">'+$("value", this).text(),
-                id: $("id", this).text(),
-              };
-            }).get();
-
-            $("#search_box").autocomplete({
-              source: search_index,
-              select: function(event, ui) {
-                // redirect to the documentation
-                if ((parent) && (parent.content))
-                {
-                  parent.content.document.location = ''+ui.item.id;
-                }
-                else
-                {
-                  jQuery(document).location = ''+ui.item.id;
-                }
-                applySearchHash();
-              }
-            });
-          }
-        });
-      });
-    </script><input id="search_box"></input><div class="section">
+<small xmlns="" class="footer">Documentation was generated by <a href="http://www.phpdoc.org">phpDocumentor 2.0.0b6
+</a>.</small></div><div id="index"><div class="padder"><input id="search_box"></input><div class="section">
 <h1>Namespaces</h1>
 <ul id="namespaces-" class="filetree">
 <li class="closed">
@@ -2751,138 +336,185 @@ between a user and a service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
 <li class="closed">
-<span class="folder">AbstractClass</span><ul>
-<li><span class="class"><a href="OpenCloud.AbstractClass.Collection.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
-<li><span class="class"><a href="OpenCloud.AbstractClass.Nova.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
-<li><span class="class"><a href="OpenCloud.AbstractClass.ObjectStore.html#ObjectStore">ObjectStore</a><br><small>Intermediate (abstract) class to implement shared
-features of all object-storage classes</small></span></li>
-<li><span class="class"><a href="OpenCloud.AbstractClass.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
-<li><span class="class"><a href="OpenCloud.AbstractClass.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
-and a provided service, represented by a URL in the service catalog.</small></span></li>
+<span class="folder">CloudMonitoring</span><ul>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
+<li class="closed">
+<span class="folder">Exception</span><ul>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.AgentException.html#AgentException">AgentException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.AlarmException.html#AlarmException">AlarmException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.CheckException.html#CheckException">CheckException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.CloudMonitoringException.html#CloudMonitoringException">CloudMonitoringException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.EntityException.html#EntityException">EntityException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.MetricException.html#MetricException">MetricException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.NotificationHistoryException.html#NotificationHistoryException">NotificationHistoryException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.NotificationPlanException.html#NotificationPlanException">NotificationPlanException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.ServiceException.html#ServiceException">ServiceException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.TestException.html#TestException">TestException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.ZoneException.html#ZoneException">ZoneException</a><br><small></small></span></li>
 </ul>
 </li>
 <li class="closed">
-<span class="folder">Base</span><ul>
-<li><span class="class"><a href="OpenCloud.Base.Base.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
+<span class="folder">Resource</span><ul>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Agent.html#Agent">Agent</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentConnection.html#AgentConnection">AgentConnection</a><br><small>AgentConnection class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHost.html#AgentHost">AgentHost</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHostInfo.html#AgentHostInfo">AgentHostInfo</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentTarget.html#AgentTarget">AgentTarget</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentToken.html#AgentToken">AgentToken</a><br><small>Agent class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Alarm.html#Alarm">Alarm</a><br><small>Alarm class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Changelog.html#Changelog">Changelog</a><br><small>Changelog class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Check.html#Check">Check</a><br><small>Check class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.CheckType.html#CheckType">CheckType</a><br><small>CheckType class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Entity.html#Entity">Entity</a><br><small>Entity class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Metric.html#Metric">Metric</a><br><small>Metric class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Notification.html#Notification">Notification</a><br><small>Notification class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationHistory.html#NotificationHistory">NotificationHistory</a><br><small>NotificationHistory class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationPlan.html#NotificationPlan">NotificationPlan</a><br><small>Abstract AbstractResource class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationType.html#NotificationType">NotificationType</a><br><small>NotificationType class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.ReadOnlyResource.html#ReadonlyResource">ReadonlyResource</a><br><small>ReadonlyResource class.</small></span></li>
+<li><span class="interface"><a href="OpenCloud.CloudMonitoring.Resource.ResourceInterface.html#ResourceInterface">ResourceInterface</a><br><small>ResourceInterface interface.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.View.html#View">View</a><br><small>View class.</small></span></li>
+<li><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Zone.html#Zone">Zone</a><br><small>Zone class.</small></span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">Common</span><ul>
+<li><span class="class"><a href="OpenCloud.Common.Base.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
 this SDK.</small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Debug.html#Debug">Debug</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Lang.html#Lang">Lang</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.ServiceCatalogItem.html#ServiceCatalogItem">ServiceCatalogItem</a><br><small>Holds information on a single service from the Service Catalog</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Collection.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Debug.html#Debug">Debug</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Nova.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.ObjectStore.html#ObjectStore">ObjectStore</a><br><small>Intermediate (abstract) class to implement shared
+features of all object-storage classes</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.ServiceCatalogItem.html#ServiceCatalogItem">ServiceCatalogItem</a><br><small>Holds information on a single service from the Service Catalog</small></span></li>
 <li class="closed">
 <span class="folder">Exceptions</span><ul>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.AsyncError.html#AsyncError">AsyncError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.AsyncHttpError.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.AsyncTimeoutError.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.AttributeError.html#AttributeError">AttributeError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.AuthenticationError.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CdnError.html#CdnError">CdnError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CdnHttpError.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CdnNotAvailableError.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CdnTtlError.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CollectionError.html#CollectionError">CollectionError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ContainerCreateError.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ContainerDeleteError.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ContainerError.html#ContainerError">ContainerError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ContainerNameError.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ContainerNotEmptyError.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ContainerNotFoundError.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CreateError.html#CreateError">CreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CreateUpdateError.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.CredentialError.html#CredentialError">CredentialError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DatabaseCreateError.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DatabaseDeleteError.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DatabaseListError.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DatabaseNameError.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DatabaseUpdateError.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DeleteError.html#DeleteError">DeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DocumentError.html#DocumentError">DocumentError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.DomainError.html#DomainError">DomainError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.EmptyResponseError.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.EndpointError.html#EndpointError">EndpointError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.FlavorError.html#FlavorError">FlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.HttpError.html#HttpError">HttpError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.HttpForbiddenError.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.HttpOverLimitError.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.HttpRetryError.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.HttpTimeoutError.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.HttpUnauthorizedError.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.HttpUrlError.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.IOError.html#IOError">IOError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.IdRequiredError.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ImageError.html#ImageError">ImageError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InstanceCreateError.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InstanceDeleteError.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InstanceError.html#InstanceError">InstanceError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InstanceFlavorError.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InstanceNotFound.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InstanceUpdateError.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InvalidArgumentError.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InvalidIdTypeError.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InvalidIpTypeError.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MetadataJsonError.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MetadataKeyError.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MetadataPrefixError.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MetadataUpdateError.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MisMatchedChecksumError.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.MissingValueError.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NameError.html#NameError">NameError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NetworkCreateError.html#NetworkCreateError">NetworkCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NetworkDeleteError.html#NetworkDeleteError">NetworkDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NetworkError.html#NetworkError">NetworkError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NetworkUpdateError.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NetworkUrlError.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NoContentTypeError.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.NoNameError.html#NoNameError">NoNameError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ObjFetchError.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ObjectCopyError.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ObjectError.html#ObjectError">ObjectError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.RecordTypeError.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.ServiceValueError.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.SnapshotError.html#SnapshotError">SnapshotError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.TempUrlMethodError.html#TempUrlMethodError">TempUrlMethodError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UnknownError.html#UnknownError">UnknownError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UnknownParameterError.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UnrecognizedServiceError.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UnsupportedExtensionError.html#UnsupportedExtensionError">UnsupportedExtensionError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UnsupportedFeatureExtension.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UnsupportedVersionError.html#UnsupportedVersionError">UnsupportedVersionError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UpdateError.html#UpdateError">UpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UrlError.html#UrlError">UrlError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UserCreateError.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UserDeleteError.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UserListError.html#UserListError">UserListError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UserNameError.html#UserNameError">UserNameError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncError.html#AsyncError">AsyncError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncHttpError.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncTimeoutError.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.AttributeError.html#AttributeError">AttributeError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.AuthenticationError.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.BaseException.html#BaseException">BaseException</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CdnError.html#CdnError">CdnError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CdnHttpError.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CdnNotAvailableError.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CdnTtlError.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CollectionError.html#CollectionError">CollectionError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerCreateError.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerDeleteError.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerError.html#ContainerError">ContainerError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNameError.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNotEmptyError.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNotFoundError.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CreateError.html#CreateError">CreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CreateUpdateError.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.CredentialError.html#CredentialError">CredentialError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseCreateError.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseDeleteError.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseListError.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseNameError.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseUpdateError.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DeleteError.html#DeleteError">DeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DocumentError.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.DomainError.html#DomainError">DomainError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.EmptyResponseError.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.EndpointError.html#EndpointError">EndpointError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.FlavorError.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.HttpError.html#HttpError">HttpError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.HttpForbiddenError.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.HttpOverLimitError.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.HttpRetryError.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.HttpTimeoutError.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.HttpUnauthorizedError.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.HttpUrlError.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.IOError.html#IOError">IOError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.IdRequiredError.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ImageError.html#ImageError">ImageError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceCreateError.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceDeleteError.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceError.html#InstanceError">InstanceError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceFlavorError.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceNotFound.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceUpdateError.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidArgumentError.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidIdTypeError.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidIpTypeError.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataJsonError.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataKeyError.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataPrefixError.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataUpdateError.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MisMatchedChecksumError.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.MissingValueError.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NameError.html#NameError">NameError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkCreateError.html#NetworkCreateError">NetworkCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkDeleteError.html#NetworkDeleteError">NetworkDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkError.html#NetworkError">NetworkError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkUpdateError.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkUrlError.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NoContentTypeError.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.NoNameError.html#NoNameError">NoNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ObjFetchError.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ObjectCopyError.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ObjectError.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.RebuildError.html#RebuildError">RebuildError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.RecordTypeError.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServiceValueError.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.SnapshotError.html#SnapshotError">SnapshotError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.TempUrlMethodError.html#TempUrlMethodError">TempUrlMethodError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownError.html#UnknownError">UnknownError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownParameterError.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UnrecognizedServiceError.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedExtensionError.html#UnsupportedExtensionError">UnsupportedExtensionError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedFeatureExtension.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedVersionError.html#UnsupportedVersionError">UnsupportedVersionError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UpdateError.html#UpdateError">UpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UrlError.html#UrlError">UrlError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UserCreateError.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UserDeleteError.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UserListError.html#UserListError">UserListError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UserNameError.html#UserNameError">UserNameError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
 </ul>
 </li>
 <li class="closed">
 <span class="folder">Request</span><ul>
-<li><span class="class"><a href="OpenCloud.Base.Request.Curl.html#Curl">Curl</a><br><small>The CurlRequest class is a simple wrapper to CURL functions.</small></span></li>
-<li><span class="interface"><a href="OpenCloud.Base.Request.HttpRequestInterface.html#HttpRequestInterface">HttpRequestInterface</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
+<li><span class="class"><a href="OpenCloud.Common.Request.Curl.html#Curl">Curl</a><br><small>The CurlRequest class is a simple wrapper to CURL functions. Not only does
+this permit stubbing of the interface as described under the HttpRequest
+interface, it could potentially allow us to replace the interface methods
+with other function calls in the future.</small></span></li>
+<li><span class="interface"><a href="OpenCloud.Common.Request.HttpRequestInterface.html#HttpRequestInterface">HttpRequestInterface</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
 those methods to be stubbed out for unit testing, thus allowing us to
 test without actually making live calls.</small></span></li>
 <li class="closed">
 <span class="folder">Response</span><ul>
-<li><span class="class"><a href="OpenCloud.Base.Request.Response.Blank.html#Blank">Blank</a><br><small>The HttpResponse returns an object with status information, separated
+<li><span class="class"><a href="OpenCloud.Common.Request.Response.Blank.html#Blank">Blank</a><br><small>The HttpResponse returns an object with status information, separated
 headers, and any response body necessary.</small></span></li>
-<li><span class="class"><a href="OpenCloud.Base.Request.Response.Http.html#Http">Http</a><br><small>The HttpResponse returns an object with status information, separated
+<li><span class="class"><a href="OpenCloud.Common.Request.Response.Http.html#Http">Http</a><br><small>The HttpResponse returns an object with status information, separated
 headers, and any response body necessary.</small></span></li>
 </ul>
 </li>
@@ -2915,7 +547,9 @@ permits the asynchronous responses used by Cloud DNS</small></span></li>
 <li><span class="class"><a href="OpenCloud.DNS.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
 <li><span class="class"><a href="OpenCloud.DNS.Subdomain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
-a parent domain.</small></span></li>
+a parent domain. In terms of the code involved, the JSON is slightly
+different than a top-level domain, and the parent is a domain instead of
+the DNS service itself.</small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -2950,13 +584,15 @@ balancer.</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Node.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.NodeEvent.html#NodeEvent">NodeEvent</a><br><small>a single node event, usually called as part of a Collection</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Readonly.html#Readonly">Readonly</a><br><small>This defines a read-only SubResource - one that cannot be created, updated,
-or deleted.</small></span></li>
+or deleted. Many subresources are like this, and this simplifies their
+class definitions.</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SSLTermination.html#SSLTermination">SSLTermination</a><br><small>sub-resource to manage SSL termination</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SessionPersistence.html#SessionPersistence">SessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Stats.html#Stats">Stats</a><br><small>Stats returns statistics about the load balancer</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SubResource.html#SubResource">SubResource</a><br><small>SubResource is an abstract class that handles subresources of a
 LoadBalancer object; for example, the
-`/loadbalancers/{id}/errorpage`.</small></span></li>
+`/loadbalancers/{id}/errorpage`. Since most of the subresources are
+handled in a similar manner, this consolidates the functions.</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Usage.html#Usage">Usage</a><br><small>used to get usage data for a load balancer</small></span></li>
 <li><span class="class"><a href="OpenCloud.LoadBalancer.Resources.VirtualIp.html#VirtualIp">VirtualIp</a><br><small>VirtualIp represents a single virtual IP (usually returned in a Collection)</small></span></li>
 </ul>
@@ -2976,6 +612,14 @@ objects</small></span></li>
 </ul>
 </li>
 <li class="closed">
+<span class="folder">Orchestration</span><ul>
+<li><span class="class"><a href="OpenCloud.Orchestration.Resource.html#Resource">Resource</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Orchestration.Service.html#Service">Service</a><br><small>The Orchestration class represents the OpenStack Heat service.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Orchestration.Stack.html#Stack">Stack</a><br><small>The Stack class requires a CloudFormation template and may contain additional
+parameters for that template.</small></span></li>
+</ul>
+</li>
+<li class="closed">
 <span class="folder">Volume</span><ul>
 <li><span class="class"><a href="OpenCloud.Volume.Service.html#Service">Service</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Volume.Snapshot.html#Snapshot">Snapshot</a><br><small>The Snapshot class represents a single block storage snapshot</small></span></li>
@@ -2986,17 +630,261 @@ objects</small></span></li>
 </ul>
 </li>
 <li class="closed">
-<span class="folder">global</span><ul><li><span class="class"><a href="Autoload.html#SplClassLoader">SplClassLoader</a><br><small></small></span></li></ul>
+<span class="folder">global</span><ul></ul>
 </li>
 </ul>
 </div><div class="section">
 <h1>Packages</h1>
 <ul id="packages-" class="filetree">
 <li class="closed">
-<span class="folder">Default</span><ul id="packages_Default" class="filetree"></ul>
+<span class="folder">Default</span><ul id="packages_" class="filetree">
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Access.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Agent.html#Agent">Agent</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentConnection.html#AgentConnection">AgentConnection</a><br><small>AgentConnection class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.AgentException.html#AgentException">AgentException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHost.html#AgentHost">AgentHost</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentHostInfo.html#AgentHostInfo">AgentHostInfo</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentTarget.html#AgentTarget">AgentTarget</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AgentToken.html#AgentToken">AgentToken</a><br><small>Agent class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Alarm.html#Alarm">Alarm</a><br><small>Alarm class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.AlarmException.html#AlarmException">AlarmException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Algorithm.html#Algorithm">Algorithm</a><br><small>sub-resource to manage algorithms (read-only)</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.AllowedDomain.html#AllowedDomain">AllowedDomain</a><br><small>sub-resource to manage allowed domains</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncError.html#AsyncError">AsyncError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncHttpError.html#AsyncHttpError">AsyncHttpError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.AsyncResponse.html#AsyncResponse">AsyncResponse</a><br><small>The AsyncResponse class encapsulates the data returned by a Cloud DNS
+asynchronous response.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncTimeoutError.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AttributeError.html#AttributeError">AttributeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AuthenticationError.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Base.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
+this SDK.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.BaseException.html#BaseException">BaseException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.BillableLoadBalancer.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Response.Blank.html#Blank">Blank</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.CDNContainer.html#CDNContainer">CDNContainer</a><br><small>A simple container for the CDN Service</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnError.html#CdnError">CdnError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnHttpError.html#CdnHttpError">CdnHttpError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnNotAvailableError.html#CdnNotAvailableError">CdnNotAvailableError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CdnTtlError.html#CdnTtlError">CdnTtlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Changelog.html#Changelog">Changelog</a><br><small>Changelog class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Check.html#Check">Check</a><br><small>Check class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.CheckException.html#CheckException">CheckException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.CheckType.html#CheckType">CheckType</a><br><small>CheckType class.</small></span></li>
+<li class="closed"><span class="class"><a href="Autoload.html#ClassLoader">ClassLoader</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.CloudMonitoringException.html#CloudMonitoringException">CloudMonitoringException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Collection.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CollectionError.html#CollectionError">CollectionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ConnectionLogging.html#ConnectionLogging">ConnectionLogging</a><br><small>sub-resource to manage connection logging</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ConnectionThrottle.html#ConnectionThrottle">ConnectionThrottle</a><br><small>sub-resource to manage connection throttling</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.Container.html#Container">Container</a><br><small>A regular container with a (potentially) CDN container</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerCreateError.html#ContainerCreateError">ContainerCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerDeleteError.html#ContainerDeleteError">ContainerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerError.html#ContainerError">ContainerError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNameError.html#ContainerNameError">ContainerNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNotEmptyError.html#ContainerNotEmptyError">ContainerNotEmptyError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ContainerNotFoundError.html#ContainerNotFoundError">ContainerNotFoundError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ContentCaching.html#ContentCaching">ContentCaching</a><br><small>sub-resource to manage content caching</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CreateError.html#CreateError">CreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CreateUpdateError.html#CreateUpdateError">CreateUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.CredentialError.html#CredentialError">CredentialError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Curl.html#Curl">Curl</a><br><small>The CurlRequest class is a simple wrapper to CURL functions. Not only does
+this permit stubbing of the interface as described under the HttpRequest
+interface, it could potentially allow us to replace the interface methods
+with other function calls in the future.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.DataObject.html#DataObject">DataObject</a><br><small>A DataObject is an object in the ObjectStore</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.Database.html#Database">Database</a><br><small>This class represents a Database in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseCreateError.html#DatabaseCreateError">DatabaseCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseDeleteError.html#DatabaseDeleteError">DatabaseDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseListError.html#DatabaseListError">DatabaseListError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseNameError.html#DatabaseNameError">DatabaseNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DatabaseUpdateError.html#DatabaseUpdateError">DatabaseUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Debug.html#Debug">Debug</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DeleteError.html#DeleteError">DeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DocumentError.html#DocumentError">DocumentError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Domain.html#Domain">Domain</a><br><small>The Domain class represents a single domain</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.DomainError.html#DomainError">DomainError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.EmptyResponseError.html#EmptyResponseError">EmptyResponseError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.EndpointError.html#EndpointError">EndpointError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Entity.html#Entity">Entity</a><br><small>Entity class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.EntityException.html#EntityException">EntityException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.ErrorPage.html#ErrorPage">ErrorPage</a><br><small>The /loadbalancer/{id}/errorpage manages the error page for the load
+balancer.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Flavor.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.FlavorError.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.HealthMonitor.html#HealthMonitor">HealthMonitor</a><br><small>sub-resource to manage health monitor info</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Response.Http.html#Http">Http</a><br><small>The HttpResponse returns an object with status information, separated
+headers, and any response body necessary.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpError.html#HttpError">HttpError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpForbiddenError.html#HttpForbiddenError">HttpForbiddenError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpOverLimitError.html#HttpOverLimitError">HttpOverLimitError</a><br><small></small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.Common.Request.HttpRequestInterface.html#HttpRequestInterface">HttpRequestInterface</a><br><small>The HttpRequest interface defines methods for wrapping CURL; this allows
+those methods to be stubbed out for unit testing, thus allowing us to
+test without actually making live calls.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpRetryError.html#HttpRetryError">HttpRetryError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpTimeoutError.html#HttpTimeoutError">HttpTimeoutError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpUnauthorizedError.html#HttpUnauthorizedError">HttpUnauthorizedError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.HttpUrlError.html#HttpUrlError">HttpUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.IOError.html#IOError">IOError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.IdRequiredError.html#IdRequiredError">IdRequiredError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Image.html#Image">Image</a><br><small>The Image class represents a stored machine image returned by the
+Compute service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ImageError.html#ImageError">ImageError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.Instance.html#Instance">Instance</a><br><small>Instance represents an instance of DbService, similar to a Server in a
+Compute service</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceCreateError.html#InstanceCreateError">InstanceCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceDeleteError.html#InstanceDeleteError">InstanceDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceError.html#InstanceError">InstanceError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceFlavorError.html#InstanceFlavorError">InstanceFlavorError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceNotFound.html#InstanceNotFound">InstanceNotFound</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InstanceUpdateError.html#InstanceUpdateError">InstanceUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidArgumentError.html#InvalidArgumentError">InvalidArgumentError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidIdTypeError.html#InvalidIdTypeError">InvalidIdTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidIpTypeError.html#InvalidIpTypeError">InvalidIpTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Metadata.html#Metadata">Metadata</a><br><small>sub-resource to manage Metadata</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataJsonError.html#MetadataJsonError">MetadataJsonError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataKeyError.html#MetadataKeyError">MetadataKeyError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataPrefixError.html#MetadataPrefixError">MetadataPrefixError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataUpdateError.html#MetadataUpdateError">MetadataUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Metric.html#Metric">Metric</a><br><small>Metric class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.MetricException.html#MetricException">MetricException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MisMatchedChecksumError.html#MisMatchedChecksumError">MisMatchedChecksumError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MissingValueError.html#MissingValueError">MissingValueError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NameError.html#NameError">NameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Network.html#Network">Network</a><br><small>The Network class represents a single virtual network</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkCreateError.html#NetworkCreateError">NetworkCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkDeleteError.html#NetworkDeleteError">NetworkDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkError.html#NetworkError">NetworkError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkUpdateError.html#NetworkUpdateError">NetworkUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NetworkUrlError.html#NetworkUrlError">NetworkUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NoContentTypeError.html#NoContentTypeError">NoContentTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.NoNameError.html#NoNameError">NoNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Node.html#Node">Node</a><br><small>information on a single node in the load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.NodeEvent.html#NodeEvent">NodeEvent</a><br><small>a single node event, usually called as part of a Collection</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Notification.html#Notification">Notification</a><br><small>Notification class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationHistory.html#NotificationHistory">NotificationHistory</a><br><small>NotificationHistory class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.NotificationHistoryException.html#NotificationHistoryException">NotificationHistoryException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationPlan.html#NotificationPlan">NotificationPlan</a><br><small>Abstract AbstractResource class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.NotificationPlanException.html#NotificationPlanException">NotificationPlanException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.NotificationType.html#NotificationType">NotificationType</a><br><small>NotificationType class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Nova.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ObjFetchError.html#ObjFetchError">ObjFetchError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Object.html#Object">Object</a><br><small>The DnsObject class is an extension of the PersistentObject class that
+permits the asynchronous responses used by Cloud DNS</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ObjectCopyError.html#ObjectCopyError">ObjectCopyError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ObjectError.html#ObjectError">ObjectError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.ObjectStore.html#ObjectStore">ObjectStore</a><br><small>Intermediate (abstract) class to implement shared
+features of all object-storage classes</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.ObjectStoreBase.html#ObjectStoreBase">ObjectStoreBase</a><br><small>A base class for common code shared between the ObjectStore and
+ObjectStoreCDN
+objects</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.ObjectStoreCDN.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.OpenStack.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
+between a user and a service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>represents an object that has the ability to be
+retrieved, created, updated, and deleted.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Protocol.html#Protocol">Protocol</a><br><small>sub-resource to manage protocols (read-only)</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.PtrRecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
+API key and tenant requirements.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Readonly.html#Readonly">Readonly</a><br><small>This defines a read-only SubResource - one that cannot be created, updated,
+or deleted. Many subresources are like this, and this simplifies their
+class definitions.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.ReadOnlyResource.html#ReadonlyResource">ReadonlyResource</a><br><small>ReadonlyResource class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.RebuildError.html#RebuildError">RebuildError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Record.html#Record">Record</a><br><small>The Record class represents a single domain record</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.RecordTypeError.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Orchestration.Resource.html#Resource">Resource</a><br><small></small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.CloudMonitoring.Resource.ResourceInterface.html#ResourceInterface">ResourceInterface</a><br><small>ResourceInterface interface.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SSLTermination.html#SSLTermination">SSLTermination</a><br><small>sub-resource to manage SSL termination</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Server.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.Service.html#Service">Service</a><br><small>The Compute class represents the OpenStack Nova service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.Service.html#Service">Service</a><br><small>The Rackspace Database As A Service (aka "Red Dwarf")</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
+and a provided service, represented by a URL in the service catalog.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Service.html#Service">Service</a><br><small>The Rackspace Cloud Load Balancers</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.Service.html#Service">Service</a><br><small>ObjectStore - this defines the object-store (Cloud Files) service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Orchestration.Service.html#Service">Service</a><br><small>The Orchestration class represents the OpenStack Heat service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.Service.html#Service">Service</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.ServiceCatalogItem.html#ServiceCatalogItem">ServiceCatalogItem</a><br><small>Holds information on a single service from the Service Catalog</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.ServiceException.html#ServiceException">ServiceException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServiceValueError.html#ServiceValueError">ServiceValueError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SessionPersistence.html#SessionPersistence">SessionPersistence</a><br><small>sub-resource to manage session persistence setting</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.Snapshot.html#Snapshot">Snapshot</a><br><small>The Snapshot class represents a single block storage snapshot</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.SnapshotError.html#SnapshotError">SnapshotError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Orchestration.Stack.html#Stack">Stack</a><br><small>The Stack class requires a CloudFormation template and may contain additional
+parameters for that template.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Stats.html#Stats">Stats</a><br><small>Stats returns statistics about the load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SubResource.html#SubResource">SubResource</a><br><small>SubResource is an abstract class that handles subresources of a
+LoadBalancer object; for example, the
+`/loadbalancers/{id}/errorpage`. Since most of the subresources are
+handled in a similar manner, this consolidates the functions.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.DNS.Subdomain.html#Subdomain">Subdomain</a><br><small>The Subdomain is basically another domain, albeit one that is a child of
+a parent domain. In terms of the code involved, the JSON is slightly
+different than a top-level domain, and the parent is a domain instead of
+the DNS service itself.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.TempUrlMethodError.html#TempUrlMethodError">TempUrlMethodError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.TestException.html#TestException">TestException</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownError.html#UnknownError">UnknownError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownParameterError.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnrecognizedServiceError.html#UnrecognizedServiceError">UnrecognizedServiceError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedExtensionError.html#UnsupportedExtensionError">UnsupportedExtensionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedFeatureExtension.html#UnsupportedFeatureExtension">UnsupportedFeatureExtension</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnsupportedVersionError.html#UnsupportedVersionError">UnsupportedVersionError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UpdateError.html#UpdateError">UpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UrlError.html#UrlError">UrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Usage.html#Usage">Usage</a><br><small>used to get usage data for a load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Database.User.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
+database-as-a-service product.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserCreateError.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserDeleteError.html#UserDeleteError">UserDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserListError.html#UserListError">UserListError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserNameError.html#UserNameError">UserNameError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.View.html#View">View</a><br><small>View class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.VirtualIp.html#VirtualIp">VirtualIp</a><br><small>VirtualIp represents a single virtual IP (usually returned in a Collection)</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.Volume.html#Volume">Volume</a><br><small>The Volume class represents a single block storage volume</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Compute.VolumeAttachment.html#VolumeAttachment">VolumeAttachment</a><br><small>The VolumeAttachment class represents a volume that is attached
+to a server.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Volume.VolumeType.html#VolumeType">VolumeType</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Zone.html#Zone">Zone</a><br><small>Zone class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.ZoneException.html#ZoneException">ZoneException</a><br><small></small></span></li>
+</ul>
 </li>
 <li class="closed">
-<span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree"></ul>
+<span class="folder">global</span><ul id="packages_global" class="filetree"></ul>
+</li>
+<li class="closed">
+<span class="folder">phpOpenCloud</span><ul id="packages_phpOpenCloud" class="filetree">
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
+</ul>
 </li>
 </ul>
 </div>

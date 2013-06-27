@@ -12,8 +12,8 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\Base\Exceptions;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
 
 /**
  * A regular container with a (potentially) CDN container
@@ -312,10 +312,9 @@ class Container extends CDNContainer
     /**
      * Refreshes, then associates the CDN container
      */
-    protected function Refresh()
+    public function Refresh($id=NULL, $url=NULL)
     {
-        parent::Refresh();
-
+        parent::Refresh($id, $url);
         // find the CDN object
 		if (get_class($this->Service()) ==
 										'OpenCloud\ObjectStore\ObjectStoreCDN')

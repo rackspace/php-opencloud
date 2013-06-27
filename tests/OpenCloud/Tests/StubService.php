@@ -16,16 +16,16 @@ ENDRESPONSE
  * Since Service is an abstract class, we'll build a wrapper class so that
  * we can test it.
  */
-class StubService extends \OpenCloud\AbstractClass\Service {
+class StubService extends \OpenCloud\Common\Service {
 
-	public function Request( $url, $method='GET', $headers=array(), $body=Null ) {
+	public function Request( $url, $method='GET', array $headers=array(), $body=Null ) {
 		//return parent::Request( $url, $method, $headers, $body );
 		if (preg_match('/extensions$/', $url))
 			$body = file_get_contents(TESTDIR.'/extensions.json');
 		else if (preg_match('/limits$/', $url))
 			$body = file_get_contents(TESTDIR.'/limits.json');
 		else $body = SERVICE_RESPONSE;
-		return new \OpenCloud\Base\Request\Response\Blank(
+		return new \OpenCloud\Common\Request\Response\Blank(
 			array('body'=>$body));
 	}
 	public function Container() {

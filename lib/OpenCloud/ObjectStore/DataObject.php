@@ -12,9 +12,9 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
-use OpenCloud\AbstractClass\ObjectStore;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\ObjectStore;
 
 /**
  * A DataObject is an object in the ObjectStore
@@ -85,10 +85,11 @@ class DataObject extends ObjectStore
      * If the object is new and doesn't have a name, then an exception is
      * thrown.
      *
+     * @param string $subresource Not used
      * @return string
      * @throws NoNameError
      */
-    public function Url()
+    public function Url($subresource = '')
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
@@ -375,21 +376,23 @@ class DataObject extends ObjectStore
                 break;
             default:
                 throw new Exceptions\TempUrlMethodError(sprintf(
-                    Lang::translate('Bad method [%s] for TempUrl; only GET or PUT supported'),
+                    Lang::translate(
+                    'Bad method [%s] for TempUrl; only GET or PUT supported'),
                     $method
                 ));
         }
 
         // construct the URL
         $url = $this->Url();
-        $path = parse_url($url, PHP_URL_PATH);
+        $path = urldecode(parse_url($url, PHP_URL_PATH));
 
         $hmac_body = "$method\n$expiry_time\n$path";
         $hash = hash_hmac('sha1', $hmac_body, $secret);
 
         $this->debug('URL [%s] SIG [%s] HASH [%s]', $url, $hmac_body, $hash);
 
-        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
+        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d',
+        	$url, $hash, $expiry_time);
 
         // debug that stuff
         $this->debug('TempUrl generated [%s]', $temp_url);

@@ -16,7 +16,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
     private
         $http;
     public function __construct() {
-        $this->http = new \OpenCloud\Base\Request\Curl('php://memory');
+        $this->http = new \OpenCloud\Common\Request\Curl('php://memory');
     }
     /**
      * Tests
@@ -49,7 +49,7 @@ class CurlRequestTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals(TRUE, TRUE);
     }
     /**
-     * @expectedException \OpenCloud\Base\Exceptions\HttpError
+     * @expectedException \OpenCloud\Common\Exceptions\HttpError
      */
 	public function testExecute() {
 	    $obj = $this->http->Execute();

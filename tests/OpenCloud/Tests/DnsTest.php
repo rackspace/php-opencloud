@@ -50,14 +50,14 @@ class DnsTest extends \PHPUnit_Framework_TestCase
 	public function testDomainList() {
 		$list = $this->dns->DomainList();
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($list));
 		$this->assertGreaterThan(
 			2,
 			strlen($list->Next()->Name()));
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\AsyncHttpError
+	 * @expectedException \OpenCloud\Common\Exceptions\AsyncHttpError
 	 */
 	public function testAsyncRequest() {
 	    $resp = $this->dns->AsyncRequest('FOOBAR');
@@ -73,7 +73,7 @@ class DnsTest extends \PHPUnit_Framework_TestCase
 				'cloudServersOpenStack', 'DFW', 'publicURL'));
 		$server->id = '42';
 		$this->assertEquals(
-			'OpenCloud\AbstractClass\Collection',
+			'OpenCloud\Common\Collection',
 			get_class($this->dns->PtrRecordList($server)));
 	}
 	public function testRecord() {

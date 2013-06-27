@@ -12,15 +12,24 @@
 
 namespace OpenCloud\Volume;
 
-use OpenCloud\AbstractClass\PersistentObject;
-use OpenCloud\Base\Lang;
-use OpenCloud\Base\Exceptions;
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Exceptions;
 
 /**
  * The Snapshot class represents a single block storage snapshot
  *
  * @api
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ *
+ * @property string $id the identifier (usually a GUID)
+ * @property string $display_name the name of the snapshot
+ * @property string $display_description the description
+ * @property string $volume_id the ID of the associated volume (GUID)
+ * @property string $status a regular status value 
+ * @property integer $size the size of the snapshot
+ * @property datetime $created_at the date/time the snapshot was created
+ * @property object $metadata metadata associated with the snapshot
  */
 class Snapshot extends PersistentObject 
 {
@@ -32,6 +41,7 @@ class Snapshot extends PersistentObject
     public $status;
     public $size;
     public $created_at;
+    public $metadata;
 
     protected $force = false;
 

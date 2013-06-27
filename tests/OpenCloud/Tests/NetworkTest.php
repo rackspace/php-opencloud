@@ -50,7 +50,7 @@ class NetworkTest extends \PHPUnit_Framework_TestCase {
 			$net->label);
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\NetworkUpdateError
+	 * @expectedException \OpenCloud\Common\Exceptions\NetworkUpdateError
 	 */
 	public function testUpdate() {
 		$this->net->Update();

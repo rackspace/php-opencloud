@@ -26,7 +26,7 @@ define('MYREGION', $_ENV['OS_REGION_NAME']);
  * variables that are used by python-novaclient. Just make sure that they're
  * set to the right values before running this test.
  */
-define('AUTHURL', $_ENV['NOVA_URL']);
+define('AUTHURL', RACKSPACE_US);
 // hard-coded to prevent inadvertently deleting stuff in my other account
 define('USERNAME', 'raxglenc');
 define('TENANT', $_ENV['OS_TENANT_NAME']);
@@ -51,10 +51,11 @@ define('TIMEFORMAT', 'r');
 
 print "This script deletes things created in other sample code scripts\n";
 printf("Region [%s]\n", MYREGION);
-printf("Endpoint [%s]\n", $_ENV['NOVA_URL']);
+printf("Endpoint [%s]\n", AUTHURL);
 
 step('Authenticate');
-$rackspace = new \OpenCloud\Rackspace(AUTHURL,
+$rackspace = new \OpenCloud\Rackspace(
+	AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 
@@ -78,7 +79,7 @@ while($network = $list->Next()) {
 	info('Deleting: %s %s', $network->id, $network->label);
 	try {
 		$network->Delete();
-	} catch (OpenCloud\Base\Exceptions\DeleteError $e) {
+	} catch (OpenCloud\Common\Exceptions\DeleteError $e) {
 		info('---Cannot delete');
 	}
 }
@@ -125,7 +126,7 @@ while($lb = $list->Next()) {
 	info('Deleting [%s] %s', $lb->id, $lb->Name());
 	try {
 		$lb->Delete();
-	} catch (OpenCloud\Base\Exceptions\DeleteError $e) {
+	} catch (OpenCloud\Common\Exceptions\DeleteError $e) {
 		info('---Cannot delete');
 	}
 }

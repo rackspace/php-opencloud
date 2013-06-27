@@ -40,7 +40,7 @@ class PtrRecordTest extends \PHPUnit_Framework_TestCase
 			$this->record->type);
 	}
 	/**
-	 * @expectedException \OpenCloud\Base\Exceptions\RecordTypeError
+	 * @expectedException \OpenCloud\Common\Exceptions\RecordTypeError
 	 */
 	public function test__construct2() {
 		// not allowed to change the record type from PTR

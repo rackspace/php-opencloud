@@ -12,7 +12,7 @@
 
 namespace OpenCloud\Compute;
 
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * The Image class represents a stored machine image returned by the
