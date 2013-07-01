@@ -75,17 +75,10 @@ version list:
 ### Installation
 
 In the .zip or .tar file in which you received the library, everything under
-the `lib/` directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to register the OpenCloud namespace for your app to use:
-
-    // Define the path to the library
-    $libraryPath = '/path/to/php-opencloud';
+the `lib/` directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to reference the php-opencloud file (which registers the library namespaces):
 
     // Include the autoloader
-    require_once $libraryPath . '/Autoload.php';
-
-    // Register the root OpenCloud namespace
-    $classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
-    $classLoader->register();
+    require_once '/path/to/lib/php-opencloud.php';
 
 Once the OpenCloud namespace is registered, you will be able to access all functionality by referencing the class's namespace (in full PSR-0 compliance). For more information about namespaces, check out [PHP's documentation](http://php.net/manual/en/language.namespaces.php).
 
