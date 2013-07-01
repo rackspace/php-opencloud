@@ -210,7 +210,7 @@ class ClassLoader
      */
     private function makeBackwardsCompatible($className)
     {
-        return (phpversion() < '5.3.3') ? ltrim($className, $this->_namespaceSeparator) : $className;
+        return (phpversion() < '5.3.3') ? ltrim($className, '\\') : $className;
     }
 
     /**
