@@ -41,6 +41,8 @@ $rackspace = new \OpenCloud\Rackspace(AUTHURL,
 
 step('Listing Services');
 $list = $rackspace->ServiceList();
+
+#print_r($rackspace->ServiceCatalog());
 $list->Sort('name');
 while($service = $list->Next()) {
 	info('Name: %s Type: %s', $service->name, $service->type);
