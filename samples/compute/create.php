@@ -53,7 +53,18 @@ while (!$found && $flavor = $flist->Next()) {
 
 // let's create the server
 $server = $compute->Server();
-$server->name = 'My New Server';
+$server->name = 'MyNewServer';
+// add a personality file
+$server->AddFile('/etc/rc.d/rc.local',<<<ENDSCRIPT
+#!/bin/sh
+# added by personality file
+touch /var/lock/subsys/local
+date >/var/log/mysetup.log
+
+ENDSCRIPT
+);
+
+// create it
 print("Creating server...");
 $server->Create(array(
 		'image' => $myimage,
