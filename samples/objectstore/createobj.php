@@ -10,6 +10,7 @@
 
 define('RAXSDK_OBJSTORE_NAME','cloudFiles');
 define('RAXSDK_OBJSTORE_REGION','DFW');
+define('RAXSDK_OBJSTORE_URLTYPE', 'publicURL');
 
 require_once "php-opencloud.php";
 
