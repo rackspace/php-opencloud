@@ -30,6 +30,7 @@ class Resource extends PersistentObject
     protected $resource_status;
     protected $resource_status_reason;
     protected $resource_type;
+    protected $resource_metadata;
     protected $updated_time;
 
     protected static $url_resource = 'resources';
@@ -65,7 +66,25 @@ class Resource extends PersistentObject
         return $this->resource_status;
     }
 
-    public function get()
+    /**
+     * @return object decoded metadata
+     */
+    public function metadata()
+    {
+        if (!is_null($this->resource_metadata)) {
+            return $this->resource_metadata;
+        }
+        $url = $this->url() . '/metadata';
+        $response = $this->service()->request($url, 'GET', array('Accept' => 'application/json'));
+
+        if ($json = $response->httpBody()) {
+            return $this->resource_metadata = @json_decode($json)->metadata;
+        } else {
+            return array();
+        }
+    }
+
+    public function get() 
     {
         $service = $this->getParent()->getService();
 
