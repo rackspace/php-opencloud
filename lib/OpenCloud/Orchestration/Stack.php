@@ -190,12 +190,35 @@ class Stack extends PersistentObject
         return $resource;
     }
 
-    public function resources() 
+    public function resources()
     {
         return $this->getService()->collection(
             'OpenCloud\Orchestration\Resource', 
             $this->url('resources'), 
             $this
         );
+    }
+
+    public function output($name)
+    {
+        $outputs = $this->outputs();
+        if (is_array($outputs) && array_key_exists($name, $outputs)) {
+            return $outputs[$name];
+        }
+    }
+
+    public function outputs()
+    {
+        if (isset($this->_outputs)) {
+            return $this->_outputs;
+        }
+        if (!is_array($this->outputs)) {
+            return;
+        }
+        $this->_outputs = array();
+        foreach($this->outputs as $output) {
+            $this->_outputs[$output->output_key] = $output->output_value;
+        }
+        return $this->_outputs;
     }
 }
