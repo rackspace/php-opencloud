@@ -81,21 +81,19 @@ class Resource extends PersistentObject
 
     public function get() 
     {
-        $service = $this->parent()->service();
- 
         switch ($this->resource_type) {
-            case 'AWS::EC2::Instance':
-                $objSvc = 'Compute';
-                $method = 'Server';
-                $name = 'nova';
-                break;
-            default:
-                throw new Exception(sprintf(
-                    'Unknown resource type: %s', 
-                    $this->resource_type
-                ));
+        case 'AWS::EC2::Instance':
+            $objSvc = 'Compute';
+            $method = 'Server';
+            $name = 'nova';
+            break;
+        default:
+            throw new \Exception("Unknown resource type {$this->resource_type}");
         }
         
-        return $service->connection()->$objSvc($name, $service->region())->$method($this->id());
+        $service    = $this->parent()->service();
+        $connection = $service->connection();
+ 
+        return $connection->$objSvc($name, $service->region())->$method($this->id());
     }
 }
