@@ -175,4 +175,15 @@ class Stack extends PersistentResource
         return $object;
     }
 
+    public function output($key)
+    {
+        if (!isset($this->output) || !is_array($this->outputs)) {
+            return;
+        }
+        foreach ($this->outputs as $output) {
+            if ($output->output_key === $key) {
+                return $output->output_value;
+            }
+        }
+    }
 }
