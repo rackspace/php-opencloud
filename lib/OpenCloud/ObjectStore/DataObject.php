@@ -161,6 +161,11 @@ class DataObject extends ObjectStore
 
         }
 
+        // flag missing Content-Type
+        if (empty($this->content_type)) {
+            $this->content_type = 'application/octet-stream';
+        }
+
         // Only allow supported archive types
         // http://docs.rackspace.com/files/api/v1/cf-devguide/content/Extract_Archive-d1e2338.html
         $extractArchiveUrlArg = '';
@@ -170,12 +175,8 @@ class DataObject extends ObjectStore
             } else {
                 $extractArchiveUrlArg = "?extract-archive=" . $extractArchive;
                 $this->etag = null;
+                $this->content_type = '';
             }
-        }
-
-        // flag missing Content-Type
-        if (empty($this->content_type)) {
-            $this->content_type = 'application/octet-stream';
         }
 
         // set the headers
