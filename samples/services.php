@@ -39,6 +39,32 @@ $rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
 		   'apiKey' => APIKEY ));
 
+// parse command-line arguments
+if ($argc > 1) {
+	foreach($argv as $arg) {
+		switch($arg) {
+		case '-C':
+		case '--catalog':
+			print_r($rackspace->ServiceCatalog());
+			break;
+		case '-H':
+		case '--help':
+			printf(<<<ENDHELP
+Switches:
+
+    -C --catalog    Display service catalog
+    -H --help       Display help message
+
+ENDHELP
+			);
+			exit;
+		default:
+
+		}
+	}
+}
+
+
 step('Listing Services');
 $list = $rackspace->ServiceList();
 
