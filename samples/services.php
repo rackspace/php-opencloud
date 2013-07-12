@@ -72,10 +72,11 @@ $list = $rackspace->ServiceList();
 $list->Sort('name');
 while($service = $list->Next()) {
 	info('Name: %s Type: %s', $service->name, $service->type);
-	foreach($service->endpoints as $endpoint)
-		info('  %s (%s)',
-			substr($endpoint->publicURL,0,30).'...',
+	foreach($service->endpoints as $endpoint) {
+		info('  %-60s (%s)',
+			substr($endpoint->publicURL,0,60),
 			isset($endpoint->region) ? $endpoint->region : 'N/A');
+	}
 }
 
 step('Only list services in DFW');
