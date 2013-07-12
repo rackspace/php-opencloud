@@ -1,7 +1,6 @@
 <?php
-
 /**
- * (c)2012 Rackspace Hosting. See COPYING for license details
+ * (c)2012 Rackspace Hosting. See LICENSE for license details
  *
  * The purpose of this smoketest is simply to ensure that the core
  * functionality of the library is present. It is not an exhaustive

@@ -496,6 +496,7 @@ class Server extends PersistentObject
      * To upload a local file, use `file_get_contents('name')` for the `$data`
      * value.
      *
+     * @api
      * @param string $path the file path (up to 255 characters)
      * @param string $data the file contents (max size set by provider)
      * @return void
@@ -507,6 +508,9 @@ class Server extends PersistentObject
         $this->personality[$path] = base64_encode($data);
     }
 
+	/**
+	 * returns a console connection
+	 */
     public function Console($type='novnc') {
         $info = new \stdClass();
         $info->type = $type;

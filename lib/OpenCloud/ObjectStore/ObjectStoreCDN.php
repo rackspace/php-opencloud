@@ -35,7 +35,7 @@ class ObjectStoreCDN extends ObjectStoreBase
         OpenStack $connection,
         $serviceName = RAXSDK_OBJSTORE_NAME,
         $serviceRegion = RAXSDK_OBJSTORE_REGION,
-        $urltype = RAXSDK_OBJSTORE_URLTYPE
+        $urltype = RAXSDK_URL_PUBLIC
     ) {
 
         // call the parent contructor
