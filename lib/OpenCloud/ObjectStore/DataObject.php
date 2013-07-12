@@ -493,7 +493,7 @@ class DataObject extends ObjectStore
     public function SaveToStream($resource)
     {
         if (!is_resource($resource)) {
-            throw new \Exceptions(
+            throw new \Exceptions\ObjectError(
                 Lang::translate("Resource argument not a valid PHP resource."
              ));
         }
