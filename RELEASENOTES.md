@@ -1,8 +1,10 @@
 RELEASE NOTES
 -------------
 
-### next version
+### 1.5.9
 * fixed release notes
+* save file to stream
+* minor fixes
 
 ## 06/27/2013 Version 1.5.8
 * #106 - problem with urlencoded paths for TEMP_URL feature
