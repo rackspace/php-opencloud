@@ -468,6 +468,50 @@ class DataObject extends ObjectStore
     }
 
     /**
+     * Saves the object's to a stream filename
+     *
+     * Given a local filename, the Object's data will be written to the stream
+     *
+     * Example:
+     * <code>
+     * # ... authentication/connection/container code excluded
+     * # ... see previous examples
+     *
+     * # If I want to write the README to a temporary memory string I
+     * # do :
+     * #
+     * $my_docs = $conn->get_container("documents");
+     * $doc = $my_docs->DataObject(array("name"=>"README"));
+     *
+     * $fp = fopen('php://temp', 'r+');
+     * $doc->SaveToStream($fp);
+     * fclose($fp);
+     * </code>
+     *
+     * @param string $filename name of local file to write data to
+     * @return boolean <kbd>TRUE</kbd> if successful
+     * @throws IOException error opening file
+     * @throws InvalidResponseException unexpected response
+     */
+    public function SaveToStream($resource)
+    {
+        if (!is_resource($resource)) {
+            throw new \Exceptions\ObjectError(
+                Lang::translate("Resource argument not a valid PHP resource."
+             ));
+        }
+
+        $result = $this->Service()->Request(
+            $this->Url(),
+            'GET',
+            array(),
+            $resource
+        );
+        return $result;
+    }
+
+
+    /**
      * Returns the object's MD5 checksum
      *
      * Accessor method for reading Object's private ETag attribute.
