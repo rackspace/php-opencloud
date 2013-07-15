@@ -27,5 +27,5 @@ while(TRUE) {
 		date('r'),
 		$arr['token'],
 		$arr['expiration']-time());
-	sleep(5);
+	sleep(60);
 }
