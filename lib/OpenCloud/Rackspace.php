@@ -107,4 +107,15 @@ ENDCRED;
         return $this->Service('DNS', $name, $region, $urltype);
     }
 
+    /**
+     * creates a new Autoscale service object
+     *
+     * This is a factory method that is currently Rackspace-only
+     * (not available via the OpenStack class)
+     */
+    public function Autoscale($name = null, $region = null, $urltype = null) 
+    {
+        return $this->Service('Autoscale', $name, $region, $urltype);
+    }
+
 }

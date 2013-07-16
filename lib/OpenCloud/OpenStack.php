@@ -122,6 +122,11 @@ class OpenStack extends Base
             'name'      => RAXSDK_ORCHESTRATION_NAME,
             'region'    => RAXSDK_ORCHESTRATION_REGION,
             'urltype'   => RAXSDK_ORCHESTRATION_URLTYPE
+        ),
+        'Autoscale' => array(
+        	'name'		=> RAXSDK_AUTOSCALE_NAME,
+        	'region'	=> RAXSDK_AUTOSCALE_REGION,
+        	'urltype'	=> RAXSDK_AUTOSCALE_URLTYPE
         )
     );
 
