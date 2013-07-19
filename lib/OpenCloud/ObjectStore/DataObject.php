@@ -161,11 +161,6 @@ class DataObject extends ObjectStore
 
         }
 
-        // flag missing Content-Type
-        if (empty($this->content_type)) {
-            $this->content_type = 'application/octet-stream';
-        }
-
         // set the headers
         $headers = $this->MetadataHeaders();
 
@@ -173,7 +168,10 @@ class DataObject extends ObjectStore
             $headers['ETag'] = $this->etag;
         }
 
-        $headers['Content-Type'] = $this->content_type;
+		// Content-Type is no longer required; if not specified, it will
+		// attempt to guess based on the file extension.
+		if (isset($this->content_type))
+        	$headers['Content-Type'] = $this->content_type;
         $headers['Content-Length'] = $this->content_length;
 
         // copy any extra headers
