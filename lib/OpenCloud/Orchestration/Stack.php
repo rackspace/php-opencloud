@@ -14,7 +14,7 @@
 
 namespace OpenCloud\Orchestration;
 
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\PersistentObject;
 use OpenCloud\Exceptions\CreateError;
 
 /**
