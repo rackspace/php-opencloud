@@ -114,7 +114,7 @@ class DataObject extends ObjectStore
      * @return boolean
      * @throws CreateUpdateError
      */
-    public function Create($params = array(), $filename = null)
+    public function Create($params = array(), $filename = null, $extractArchive = null)
     {
         // set/validate the parameters
         $this->SetParams($params);
@@ -161,6 +161,19 @@ class DataObject extends ObjectStore
 
         }
 
+        // Only allow supported archive types
+        // http://docs.rackspace.com/files/api/v1/cf-devguide/content/Extract_Archive-d1e2338.html
+        $extractArchiveUrlArg = '';
+        if ($extractArchive) {
+            if ($extractArchive !== "tar.gz" && $extractArchive !== "tar.bz2") {
+                throw new Exceptions\ObjectError("Extract Archive only supports tar.gz and tar.bz2");
+            } else {
+                $extractArchiveUrlArg = "?extract-archive=" . $extractArchive;
+                $this->etag = null;
+                $this->content_type = '';
+            }
+        }
+
         // set the headers
         $headers = $this->MetadataHeaders();
 
@@ -183,7 +196,7 @@ class DataObject extends ObjectStore
 
         // perform the request
         $response = $this->Service()->Request(
-            $this->Url(),
+            $this->Url() . $extractArchiveUrlArg,
             'PUT',
             $headers,
             $fp ? $fp : $this->data
@@ -193,7 +206,7 @@ class DataObject extends ObjectStore
         if (($stat = $response->HttpStatus()) >= 300) {
             throw new Exceptions\CreateUpdateError(sprintf(
                 Lang::translate('Problem saving/updating object [%s] HTTP status [%s] response [%s]'),
-                $this->Url(),
+                $this->Url() . $extractArchiveUrlArg,
                 $stat,
                 $response->HttpBody()
             ));
