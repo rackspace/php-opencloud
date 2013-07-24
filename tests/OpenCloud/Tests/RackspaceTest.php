@@ -63,4 +63,10 @@ class RackspaceTest extends \PHPUnit_Framework_TestCase
 			'OpenCloud\DNS\Service',
 			get_class($dns));
 	}
+	public function testCloudMonitoring() {
+		$dns = $this->conn->CloudMonitoring();
+		$this->assertEquals(
+			'OpenCloud\CloudMonitoring\Service',
+			get_class($dns));
+	}
 }

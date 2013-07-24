@@ -122,6 +122,11 @@ class OpenStack extends Base
             'name'      => RAXSDK_ORCHESTRATION_NAME,
             'region'    => RAXSDK_ORCHESTRATION_REGION,
             'urltype'   => RAXSDK_ORCHESTRATION_URLTYPE
+        ),
+        'CloudMonitoring' => array(
+            'name'      => RAXSDK_MONITORING_NAME,
+            'region'    => RAXSDK_MONITORING_REGION,
+            'urltype'   => RAXSDK_MONITORING_URLTYPE
         )
     );
 

@@ -60,6 +60,12 @@ if (!defined('RAXSDK_COMPUTE_REGION'))
     define('RAXSDK_COMPUTE_REGION', NULL);
 if (!defined('RAXSDK_COMPUTE_URLTYPE'))
     define('RAXSDK_COMPUTE_URLTYPE', 'publicURL');
+if (!defined('RAXSDK_MONITORING_NAME'))
+    define('RAXSDK_MONITORING_NAME', 'cloudMonitoring');
+if (!defined('RAXSDK_MONITORING_REGION'))
+    define('RAXSDK_MONITORING_REGION', '{ignore}');
+if (!defined('RAXSDK_MONITORING_URLTYPE'))
+    define('RAXSDK_MONITORING_URLTYPE', 'publicURL');
 if (!defined('RAXSDK_ORCHESTRATION_NAME'))
     define('RAXSDK_ORCHESTRATION_NAME', 'cloudOrchestration');
 if (!defined('RAXSDK_ORCHESTRATION_REGION'))
@@ -93,7 +99,7 @@ if (!defined('RAXSDK_LBSERVICE_URLTYPE'))
 if (!defined('RAXSDK_DNS_NAME'))
     define('RAXSDK_DNS_NAME', 'cloudDNS');
 if (!defined('RAXSDK_DNS_REGION'))
-    define('RAXSDK_DNS_REGION', '{IGNORE}'); // DNS is regionless
+    define('RAXSDK_DNS_REGION', '{ignore}'); // DNS is regionless
 if (!defined('RAXSDK_DNS_URLTYPE'))
     define('RAXSDK_DNS_URLTYPE', 'publicURL');
 if (!defined('RAXSDK_DNS_ASYNC_TIMEOUT'))
