@@ -134,6 +134,16 @@
         ],
         "name": "cloudDNS",
         "type": "rax:dns"
+      },
+      {
+        "endpoints": [
+          {
+            "tenantId": "TENANT-ID",
+            "publicURL": "https:\/\/autoscale.api.rackspacecloud.com\/v1.0\/TENANT-ID"
+          }
+        ],
+        "name": "autoscale",
+        "type": "rax:autoscale"
       }
     ],
     "user": {
