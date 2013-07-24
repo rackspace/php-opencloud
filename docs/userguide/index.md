@@ -40,6 +40,13 @@ available through the Rackspace Cloud Control panel.
 PHP 5.3 is required. This library uses PHP namespaces, which were introduced
 with version 5.3, so it will not work with earlier versions.
 
+Note that, if you see a message like this:
+
+	Unexpected character in input: ‘\’ (ASCII=92) state=1
+
+you're probably running on PHP 5.2 or earlier. This is because the namespace 
+functions use the backslash characters.
+
 It uses the [CURL library](http://us.php.net/manual/en/book.curl.php)
 to communicate over HTTP to the various services.
 Since this is included with nearly all PHP installations, that should not be
