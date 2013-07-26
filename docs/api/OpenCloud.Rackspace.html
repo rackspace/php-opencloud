@@ -91,11 +91,139 @@ $conn = new Rackspace(
      ));
 </code><br><div id="methods_Rackspace">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#Rackspace::Credentials()">Credentials</a>,
+<a style="font-style: italic;" href="#Rackspace::Autoscale()">Autoscale</a>,
+      <a style="font-style: italic;" href="#Rackspace::CloudMonitoring()">CloudMonitoring</a>,
+      <a style="font-style: italic;" href="#Rackspace::Credentials()">Credentials</a>,
       <a style="font-style: italic;" href="#Rackspace::DNS()">DNS</a>,
       <a style="font-style: italic;" href="#Rackspace::DbService()">DbService</a>,
       <a style="font-style: italic;" href="#Rackspace::LoadBalancerService()">LoadBalancerService</a>,
       <div class="method">
+<a id="Rackspace::Autoscale()"></a><h3>Autoscale<span class="nb-faded-text">(
+          
+             
+            $name
+            = null,
+          
+             
+            $region
+            = null,
+          
+             
+            $urltype
+            = null,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>creates a new Autoscale service object</em><br><small>This is a factory method that is currently Rackspace-only
+(not available via the OpenStack class)</small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+<tr>
+<td>$region</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+<tr>
+<td>$urltype</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Rackspace::CloudMonitoring()"></a><h3>CloudMonitoring<span class="nb-faded-text">(
+          
+             
+            $name
+            = null,
+          
+             
+            $region
+            = null,
+          
+             
+            $urltype
+            = null,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>creates a new CloudMonitoring service object</em><br><small>This is a factory method that is currently Rackspace-only
+(not available via the OpenStack class)</small><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$name</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+<tr>
+<td>$region</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+<tr>
+<td>$urltype</td>
+<td style="white-space: normal;">n/a</td>
+<td></td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
 <a id="Rackspace::Credentials()"></a><h3>Credentials<span class="nb-faded-text">(
           
           )
@@ -335,6 +463,9 @@ $conn = new Rackspace(
 between a user and a service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
+<li class="closed">
+<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li></ul>
+</li>
 <li class="closed">
 <span class="folder">CloudMonitoring</span><ul>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
@@ -819,6 +950,7 @@ class definitions.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
