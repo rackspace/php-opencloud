@@ -58,7 +58,7 @@ These are the available methods (examples are below):
 #### Large objects
 
 It is not uncommon for objects stored in the object storage service
-to me much large that the available memory on the server. For
+to be much larger than the available memory on the server. For
 example, the server may only have a few gigabytes of memory, but a
 stored video file may be 100GB in size.  Thus, the objects' data
 is typically read from (or written to) files in the local filesystem.
