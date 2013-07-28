@@ -44,7 +44,7 @@ abstract class SubResource extends PersistentObject
         if (isset($this->id)) {
             $this->Refresh();
         } else {
-            $this->Refresh('<no-id>');
+            $this->Refresh(null, $this->Parent()->Url($this->ResourceName()));
         }
     }
 
@@ -57,9 +57,16 @@ abstract class SubResource extends PersistentObject
      *  query string parameters for the subresource
      * @return string
      */
-    public function Url($subresource = null, $qstr = array()) 
+    public function Url($subresource = null, $qstr = array())
     {
-        return $this->Parent()->Url($this->ResourceName());
+        $url = $this->Parent()->Url($this->ResourceName());
+
+        $primaryKey = $this->PrimaryKeyField();
+        if ($this->$primaryKey) {
+            $url .= '/' . $this->$primaryKey;
+        }
+
+        return $url;
     }
 
     /**
