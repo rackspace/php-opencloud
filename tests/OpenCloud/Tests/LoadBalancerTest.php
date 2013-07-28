@@ -32,6 +32,9 @@ class MySubResource extends \OpenCloud\LoadBalancer\Resources\SubResource {
 		return parent::UpdateJson($params);
 	}
 }
+class MyAccess extends \OpenCloud\LoadBalancer\Resources\Access {
+    public function CreateJson() { return parent::CreateJson(); }
+}
 
 class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 {
@@ -203,6 +206,13 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 				'loadbalancers/123/accesslist',
 			$lb->Access()->Url()
 		);
+
+        $access = new MyAccess($lb, array('type' => 'DENY', 'address' => '127.0.0.1'));
+        $json = json_encode($access->CreateJson());
+        $this->assertEquals(
+            '{"accessList":[{"type":"DENY","address":"127.0.0.1"}]}',
+            $json
+        );
 	}
 	public function testAccessList() {
 		$lb = $this->service->LoadBalancer();
