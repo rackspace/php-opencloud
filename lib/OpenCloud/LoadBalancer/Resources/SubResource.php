@@ -15,7 +15,7 @@ use OpenCloud\Common\Lang;
  * * `$url_resource` - the actual name of the url component
  * * `$json_name` - the name of the JSON object holding the data
  * * `$json_collection_name` - if the collection is not simply
- *   `$json_name . 's'`, this defines the collectio name.
+ *   `$json_name . 's'`, this defines the collection name.
  * * `$json_collection_element` - if the object in a collection is not
  *   anonymous, this defines the name of the element holding the object.
  * Of these, only the `$json_name` and `$url_resource` are required.
@@ -41,11 +41,7 @@ abstract class SubResource extends PersistentObject
          * Note that, since these sub-resources do not have an ID, we must
          * fake out the `Refresh` method.
          */
-        if (isset($this->id)) {
-            $this->Refresh();
-        } else {
-            $this->Refresh(null, $this->Parent()->Url($this->ResourceName()));
-        }
+        $this->Refresh(null, $this->Parent()->Url($this->ResourceName()));
     }
 
     /**
