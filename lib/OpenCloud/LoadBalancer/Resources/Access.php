@@ -27,4 +27,22 @@ class Access extends SubResource
         $this->NoUpdate(); 
     }
 
+    /**
+     * returns the JSON document's object for creating the subresource
+     *
+     * The value `$_create_keys` should be an array of names of data items
+     * that can be used in the creation of the object.
+     *
+     * @return \stdClass;
+     */
+    protected function CreateJson()
+    {
+        $object = new \stdClass();
+        $rule = new \stdClass();
+        foreach ($this->_create_keys as $item) {
+            $rule->$item = $this->$item;
+        }
+        $object->{$this->JsonName()} = array($rule);
+        return $object;
+    }
 }
