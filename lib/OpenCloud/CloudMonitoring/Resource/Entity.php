@@ -17,7 +17,7 @@ class Entity extends AbstractResource
 	public $ip_addresses;
 	public $metadata;
 
-    protected static $json_name = 'entities';
+    protected static $json_name = false;
     protected static $url_resource = 'entities';
     protected static $json_collection_name = 'values';
 

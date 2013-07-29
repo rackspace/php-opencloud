@@ -134,6 +134,8 @@ class Collection extends Base
         } elseif (method_exists($this->Service(), 'resource')) {
             return $this->Service()->resource($this->itemclass, $this->itemlist[$this->pointer++]);
         }
+        
+        return false;
     }
 
     /**

@@ -11,7 +11,7 @@ class NotificationPlan extends AbstractResource implements ResourceInterface
 	public $ok_state;
 	public $warning_state;
 	
-    protected static $json_name = 'notification_plans';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'notification_plans';
 

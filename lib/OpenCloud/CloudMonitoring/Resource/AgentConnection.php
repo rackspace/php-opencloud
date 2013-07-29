@@ -20,7 +20,7 @@ class AgentConnection extends ReadOnlyResource implements ResourceInterface
     public $bundle_version;
     public $agent_ip;
 
-    protected static $json_name = 'agents';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'agents';
 

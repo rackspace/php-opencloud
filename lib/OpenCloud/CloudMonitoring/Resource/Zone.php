@@ -13,7 +13,7 @@ class Zone extends ReadOnlyResource implements ResourceInterface
 	public $label;
 	public $source_ips;
 
-    protected static $json_name = 'monitoring_zones';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'monitoring_zones';
 

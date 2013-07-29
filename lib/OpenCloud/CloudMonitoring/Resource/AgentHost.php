@@ -17,7 +17,7 @@ class AgentHost extends ReadOnlyResource implements ResourceInterface
     public $token;
     public $label;
     
-    protected static $json_name = 'host_info';
+    protected static $json_name = false;
     protected static $json_collection_name = 'info';
     protected static $url_resource = 'host_info';
 

@@ -8,6 +8,7 @@
  * @package phpOpenCloud
  * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @author Jamie Hannaford <jamie.hannaford@rackspace.co.uk>
  */
 
 namespace OpenCloud\Common;
@@ -83,10 +84,26 @@ abstract class PersistentObject extends Base
             $this->metadata = new Metadata;
         }
 
+        $this->populate($info);
+    }
+    
+    /**
+     * Populates the current object based on an unknown data type.
+     * 
+     * @param  array|object|string|integer $info
+     * @throws Exceptions\InvalidArgumentError
+     */
+    public function populate($info)
+    {
         if (is_string($info) || is_integer($info)) {
+            
+            // If the data type represents an ID, the primary key is set
+            // and we retrieve the full resource from the API
             $this->{$this->PrimaryKeyField()} = (string) $info;
             $this->Refresh($info);
+            
         } elseif (is_object($info) || is_array($info)) {
+            
             foreach($info as $key => $value) {
                 if ($key == 'metadata') {
                     $this->$key->SetArray($value);
@@ -94,8 +111,14 @@ abstract class PersistentObject extends Base
                     $this->$key = $value;
                 }
             }
+            
         } elseif ($info !== null) {
-            throw new Exceptions\InvalidArgumentError(sprintf(Lang::translate('Argument for [%s] must be string or object'), get_class()));
+            
+            throw new Exceptions\InvalidArgumentError(sprintf(
+                Lang::translate('Argument for [%s] must be string or object'), 
+                get_class()
+            ));
+            
         }
     }
 
@@ -399,7 +422,8 @@ abstract class PersistentObject extends Base
             if (!$id) {
                 throw new Exceptions\IdRequiredError(sprintf(
                     Lang::translate('%s has no ID; cannot be refreshed'),
-                    get_class()));
+                    get_class())
+                );
             }
 
             // retrieve it
@@ -446,21 +470,26 @@ abstract class PersistentObject extends Base
 
         // we're ok, reload the response
         if ($json = $response->HttpBody()) {
+            
             $this->debug('Refresh() JSON [%s]', $json);
-            $resp = json_decode($json);
+            
+            $response = json_decode($json);
 
             if ($this->CheckJsonError()) {
-                throw new Exceptions\ServerJsonError(sprintf(Lang::translate('JSON parse error on %s refresh'), get_class($this)));
+                throw new Exceptions\ServerJsonError(sprintf(
+                    Lang::translate('JSON parse error on %s refresh'), 
+                    get_class($this)
+                ));
             }
 
             $top = $this->JsonName();
 
             if ($top === false) {
-                foreach($resp as $item => $value) {
+                foreach($response as $item => $value) {
                     $this->$item = $value;
                 }
-            } elseif (isset($resp->$top)) {
-                foreach($resp->$top as $item => $value) {
+            } elseif (isset($response->$top)) {
+                foreach($response->$top as $item => $value) {
                     $this->$item = $value;
                 }
             }

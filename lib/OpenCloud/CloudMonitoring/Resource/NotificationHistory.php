@@ -20,7 +20,7 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
     public $notification_results;
     public $previous_state;
     
-    protected static $json_name = 'notification_history';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'notification_history';
 

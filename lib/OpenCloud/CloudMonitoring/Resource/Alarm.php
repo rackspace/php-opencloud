@@ -20,7 +20,7 @@ class Alarm extends AbstractResource implements ResourceInterface
 	public $label;
 	public $metadata;
 	
-    protected static $json_name = 'alarms';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'alarms';
     
