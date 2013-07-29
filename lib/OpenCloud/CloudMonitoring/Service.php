@@ -46,26 +46,22 @@ class Service extends AbstractService
         'Zone'
     );
 
-	/**
-	 * Main service constructor.
-	 * 
-	 * @access public
-	 * @param OpenStack $connection
-	 * @param mixed $serviceName
-	 * @param mixed $serviceRegion
-	 * @param mixed $urlType
-	 * @return void
-	 */
-	public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType) 
-	{
-		parent::__construct(
-            $connection,
-            'rax:monitor',
-            $serviceName,
-            $serviceRegion,
-            $urlType
+    /**
+     * Main service constructor.
+     * 
+     * @access public
+     * @param OpenStack $connection
+     * @param mixed $serviceName
+     * @param mixed $serviceRegion
+     * @param mixed $urlType
+     * @return void
+     */
+    public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType)
+    {
+        parent::__construct(
+            $connection, 'rax:monitor', $serviceName, $serviceRegion, $urlType
         );
-	}
+    }
 
     /**
      * getResources function.
@@ -92,15 +88,12 @@ class Service extends AbstractService
 
         if (!class_exists($className)) {
             throw new Exception\ServiceException(sprintf(
-                '%s resource does not exist, please try one of the following: %s',
-                $resourceName,
-                implode(', ', $this->getResources())
+                    '%s resource does not exist, please try one of the following: %s', $resourceName, implode(', ', $this->getResources())
             ));
         }
-        
+
         return new $className($this, $info);
     }
-    
 
     /**
      * Request function.
@@ -129,6 +122,11 @@ class Service extends AbstractService
         }
 
         return $this->conn->Request($url, $method, $headers, $body);
+    }
+    
+    public function getConn()
+    {
+        return $this->conn;
     }
 
 }

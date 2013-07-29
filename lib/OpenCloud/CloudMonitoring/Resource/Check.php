@@ -26,7 +26,7 @@ class Check extends AbstractResource implements ResourceInterface
 	public $target_hostname;
 	public $target_resolver;
 
-    protected static $json_name = 'checks';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'checks';
 

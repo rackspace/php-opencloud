@@ -17,7 +17,7 @@ class View extends ReadOnlyResource implements ResourceInterface
     
     public $dataOnly = false;
     
-    protected static $json_name = 'views/overview';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'views/overview';
     

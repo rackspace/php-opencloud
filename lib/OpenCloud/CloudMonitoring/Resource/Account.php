@@ -16,7 +16,7 @@ class Account extends AbstractResource implements ResourceInterface
     public $metadata;
     public $webhook_token;
 
-    protected static $json_name = 'account';
+    protected static $json_name = false;
     protected static $url_resource = 'account';
 
     protected static $requiredKeys = array(

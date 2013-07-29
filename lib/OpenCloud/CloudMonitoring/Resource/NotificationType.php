@@ -14,7 +14,7 @@ class NotificationType extends ReadOnlyResource implements ResourceInterface
     public $address;
     public $fields;
     
-    protected static $json_name = 'notification_types';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'notification_types';
     

@@ -17,7 +17,7 @@ class AgentToken extends AbstractResource implements ResourceInterface
     public $token;
     public $label;
     
-    protected static $json_name = 'agent_tokens';
+    protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'agent_tokens';
     

@@ -15,7 +15,7 @@ class CheckType extends ReadOnlyResource implements ResourceInterface
 	public $fields;
 	public $supported_platforms;
 
-    protected static $json_name = 'check_types';
+    protected static $json_name = false;
     protected static $url_resource = 'check_types';
     protected static $json_collection_name = 'values';
 
