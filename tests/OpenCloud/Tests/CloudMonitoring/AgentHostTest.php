@@ -22,7 +22,7 @@ class AgentHostTest extends PHPUnit_Framework_TestCase
         
         // Set up parent resource
         $agent = $this->service->resource('Agent');
-        $agent->get(self::AGENT_ID);
+        $agent->refresh(self::AGENT_ID);
 
         // Get main resource
         $this->resource = $this->service->resource('AgentHost');

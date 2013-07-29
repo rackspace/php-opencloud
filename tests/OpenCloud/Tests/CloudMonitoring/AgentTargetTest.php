@@ -22,7 +22,7 @@ class AgentTargetTest extends PHPUnit_Framework_TestCase
         
         // Set up parent resource
         $agent = $this->service->resource('Entity');
-        $agent->get(self::ENTITY_ID);
+        $agent->populate(self::ENTITY_ID);
 
         // Get main resource
         $this->resource = $this->service->resource('AgentTarget');

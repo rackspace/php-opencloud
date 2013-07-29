@@ -40,7 +40,7 @@ class CheckTypeTest extends PHPUnit_Framework_TestCase
 
     public function testGetCheckType()
     {
-        $this->resource->get('remote.dns');
+        $this->resource->populate('remote.dns');
 
         $this->assertEquals('remote.dns', $this->resource->id);
         $this->assertEquals('remote', $this->resource->type);

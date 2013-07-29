@@ -65,7 +65,7 @@ class NotificationTypeTest extends PHPUnit_Framework_TestCase
     
     public function testGet()
     {
-        $this->resource->get(self::NT_ID);
+        $this->resource->refresh(self::NT_ID);
         
         $this->assertEquals('url', $this->resource->fields[0]->name);
         $this->assertFalse($this->resource->fields[0]->optional);

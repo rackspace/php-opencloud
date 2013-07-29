@@ -67,7 +67,7 @@ class AgentTest extends PHPUnit_Framework_TestCase
     
     public function testGet()
     {
-        $this->resource->get(self::AGENT_ID);
+        $this->resource->refresh(self::AGENT_ID);
         
         $this->assertEquals($this->resource->id, self::AGENT_ID);
         $this->assertEquals($this->resource->last_connected, 1334685407);

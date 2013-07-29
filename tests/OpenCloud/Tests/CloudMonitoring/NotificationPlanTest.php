@@ -66,7 +66,7 @@ class NotificationPlanTest extends PHPUnit_Framework_TestCase
     
     public function testGet()
     {
-        $this->resource->get(self::NP_ID);
+        $this->resource->refresh(self::NP_ID);
         $this->assertEquals('Notification Plan 1', $this->resource->label);
     }
     

@@ -24,7 +24,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
         
         // Parent object (i.e. entity)
         $entityResource = $this->service->resource('Entity');
-        $entityResource->Refresh(self::ENTITY_ID);
+        $entityResource->refresh(self::ENTITY_ID);
         
         $this->resource = $this->service->resource('Alarm');
         $this->resource->setParent($entityResource);
@@ -99,7 +99,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
     
     public function testGetAlarm()
     {
-        $this->resource->get(self::ALARM_ID);
+        $this->resource->refresh(self::ALARM_ID);
         
         $this->assertEquals($this->resource->id, self::ALARM_ID);
         $this->assertEquals($this->resource->Parent()->id, self::ENTITY_ID);
