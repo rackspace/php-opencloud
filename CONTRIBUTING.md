@@ -1,5 +1,5 @@
-Hacking php-opencloud
----------------------
+Contributing to php-opencloud
+-----------------------------
 
 Welcome! If you'd like to work on php-opencloud, we appreciate your
 efforts. Here are a few general guidelines to follow.
@@ -21,6 +21,8 @@ efforts. Here are a few general guidelines to follow.
 
 If you submit code, please add your name and email address to the
 CONTRIBUTORS file.
+
+## Tagging releases
 
 Note to self:
 
