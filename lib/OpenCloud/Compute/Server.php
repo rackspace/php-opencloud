@@ -528,7 +528,7 @@ class Server extends PersistentObject
      *      create {rebuild ...} by changing this parameter
      * @return json
      */
-    protected function CreateJson(array $params=array())
+    protected function CreateJson($params=NULL)
     {
         // create a blank object
         $obj = new \stdClass();
@@ -536,8 +536,9 @@ class Server extends PersistentObject
         // set a bunch of properties
         $obj->server = new \stdClass();
 
-		foreach ($params as $key => $ignore)
-			$obj->server->$key = $this->$key;
+		if (is_array($params))
+			foreach ($params as $key => $ignore)
+				$obj->server->$key = $this->$key;
 		$obj->server->imageRef = $this->imageRef;
 		$obj->server->name = $this->name;
 		$obj->server->flavorRef = $this->flavorRef;
