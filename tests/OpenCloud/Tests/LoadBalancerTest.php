@@ -272,18 +272,25 @@ class LoadBalancerTest extends \PHPUnit_Framework_TestCase
 	}
 	public function testSubResource() {
 		$this->lb->id = '42';
-		$sub = new MySubResource($this->lb, '42');
-		$this->assertEquals(
-			'OpenCloud\Tests\MySubResource',
-			get_class($sub));
+
+        $newSub = new MySubResource($this->lb);
+        $this->assertEquals(
+            'OpenCloud\Tests\MySubResource',
+            get_class($newSub));
+        $this->assertEquals(
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/'.
+            'TENANT-ID/loadbalancers/42/ignore',
+            $newSub->Url('foo', array('one'=>1)));
+
+		$sub = new MySubResource($this->lb, '27');
 		$this->assertEquals(
 			'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/'.
-			'TENANT-ID/loadbalancers/42/ignore',
+			'TENANT-ID/loadbalancers/42/ignore/27',
 			$sub->Url('foo', array('one'=>1)));
 		$obj = $sub->UpdateJson();
 		$json = json_encode($obj);
 		$this->assertEquals(
-			'{"ignore":{"id":"42"}}',
+			'{"ignore":{"id":"27"}}',
 			$json);
 		$this->assertEquals(
 			$this->lb,
