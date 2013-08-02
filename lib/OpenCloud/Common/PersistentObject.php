@@ -89,7 +89,7 @@ abstract class PersistentObject extends Base
         if (property_exists($this, 'metadata')) {
             $this->metadata = new Metadata;
         }
-
+        
         $this->populate($info);
     }
     
@@ -118,6 +118,7 @@ abstract class PersistentObject extends Base
     public function setService(Service $service)
     {
         $this->service = $service;
+        return $this;
     }
     
     /**
@@ -154,6 +155,7 @@ abstract class PersistentObject extends Base
     public function setParent(PersistentObject $parent)
     {
         $this->parent = $parent;
+        return $this;
     }
     
     /**
@@ -192,7 +194,7 @@ abstract class PersistentObject extends Base
             // If the data type represents an ID, the primary key is set
             // and we retrieve the full resource from the API
             $this->{$this->PrimaryKeyField()} = (string) $info;
-            $this->Refresh($info);
+            $this->refresh($info);
             
         } elseif (is_object($info) || is_array($info)) {
             
@@ -471,13 +473,13 @@ abstract class PersistentObject extends Base
      * @return string
      * @throws UrlError if URL is not defined
      */
-    public function url($subresource = NULL, $queryString = array())
+    public function url($subresource = null, $queryString = array())
     {
         // find the primary key attribute name
-        $primaryKey = $this->PrimaryKeyField();
+        $primaryKey = $this->primaryKeyField();
 
         // first, see if we have a [self] link
-        $url = $this->FindLink('self');
+        $url = $this->findLink('self');
 
         /**
          * Next, check to see if we have an ID
@@ -592,8 +594,8 @@ abstract class PersistentObject extends Base
         }
 
         // perform a GET on the URL
-        $response = $this->Service()->Request($url);
-
+        $response = $this->getService()->Request($url);
+        
         // check status codes
         if ($response->HttpStatus() == 404) {
             throw new Exceptions\InstanceNotFound(

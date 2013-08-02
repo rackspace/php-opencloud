@@ -23,28 +23,12 @@ use OpenCloud\Common\Lang;
 abstract class SubResource extends PersistentObject 
 {
     
-    private $parent;    // holds the parent load balancer
-
-    /**
-     * constructs the SubResource's object
-     *
-     * @param mixed $obj the parent object
-     * @param mixed $value the ID or array of values for the object
-     */
-    public function __construct($object, $value = null) 
+    public function initialRefresh()
     {
-        $this->parent = $object;
-
-        parent::__construct($object->Service(), $value);
-
-        /**
-         * Note that, since these sub-resources do not have an ID, we must
-         * fake out the `Refresh` method.
-         */
         if (isset($this->id)) {
-            $this->Refresh();
+            $this->refresh();
         } else {
-            $this->Refresh('<no-id>');
+            $this->refresh(null, $this->getParent()->url($this->resourceName()));
         }
     }
 
@@ -59,7 +43,7 @@ abstract class SubResource extends PersistentObject
      */
     public function Url($subresource = null, $qstr = array()) 
     {
-        return $this->Parent()->Url($this->ResourceName());
+        return $this->getParent()->Url($this->ResourceName());
     }
 
     /**
@@ -96,17 +80,6 @@ abstract class SubResource extends PersistentObject
     protected function UpdateJson($params = array()) 
     {
         return $this->CreateJson();
-    }
-
-    /**
-     * returns the Parent object (usually a LoadBalancer, but sometimes another
-     * SubResource)
-     *
-     * @return mixed
-     */
-    public function Parent() 
-    {
-        return $this->parent;
     }
 
     /**

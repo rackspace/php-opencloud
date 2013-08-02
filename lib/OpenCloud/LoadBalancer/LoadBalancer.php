@@ -235,7 +235,9 @@ class LoadBalancer extends PersistentObject
      */
     public function Node($id = null) 
     {
-        return new Resources\Node($this, $id);
+        $resource = new Resources\Node($this->getService());
+        $resource->setParent($this)->populate($id);
+        return $resource;
     }
 
     /**
@@ -251,7 +253,9 @@ class LoadBalancer extends PersistentObject
      */
     public function NodeEvent() 
     {
-        return new Resources\NodeEvent($this);
+        $resource = new Resources\NodeEvent($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
@@ -267,7 +271,10 @@ class LoadBalancer extends PersistentObject
      */
     public function VirtualIp($data = null) 
     {
-        return new Resources\VirtualIp($this, $data);
+        $resource = new Resources\VirtualIp($this->getService(), $data);
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
+        
     }
 
     /**
@@ -282,7 +289,9 @@ class LoadBalancer extends PersistentObject
      */
     public function SessionPersistence() 
     {
-        return new Resources\SessionPersistence($this);
+        $resource = new Resources\SessionPersistence($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
@@ -293,7 +302,9 @@ class LoadBalancer extends PersistentObject
      */
     public function ErrorPage() 
     {
-        return new Resources\ErrorPage($this);
+        $resource = new Resources\ErrorPage($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
@@ -304,7 +315,9 @@ class LoadBalancer extends PersistentObject
      */
     public function HealthMonitor() 
     {
-        return new Resources\HealthMonitor($this);
+        $resource = new Resources\HealthMonitor($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
@@ -317,21 +330,27 @@ class LoadBalancer extends PersistentObject
      */
     public function Stats() 
     {
-        return new Resources\Stats($this);
+        $resource = new Resources\Stats($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
      */
     public function Usage() 
     {
-        return new Resources\Usage($this);
+        $resource = new Resources\Usage($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
      */
     public function Access($data = null) 
     {
-        return new Resources\Access($this, $data);
+        $resource = new Resources\Access($this->getService(), $data);
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
@@ -345,35 +364,45 @@ class LoadBalancer extends PersistentObject
      */
     public function ConnectionThrottle() 
     {
-        return new Resources\ConnectionThrottle($this);
+        $resource = new Resources\ConnectionThrottle($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
      */
     public function ConnectionLogging() 
     {
-        return new Resources\ConnectionLogging($this);
+        $resource = new Resources\ConnectionLogging($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
      */
     public function ContentCaching() 
     {
-        return new Resources\ContentCaching($this);
+        $resource = new Resources\ContentCaching($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
      */
     public function SSLTermination() 
     {
-        return new Resources\SSLTermination($this);
+        $resource = new Resources\SSLTermination($this->getService());
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
      */
     public function Metadata($data = null) 
     {
-        return new Resources\Metadata($this, $data);
+        $resource = new Resources\Metadata($this->getService(), $data);
+        $resource->setParent($this)->initialRefresh();
+        return $resource;
     }
 
     /**
