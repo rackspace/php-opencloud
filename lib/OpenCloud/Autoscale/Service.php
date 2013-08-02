@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The Rackspace Autoscale (Otter) service
  *
@@ -6,19 +7,19 @@
  * See COPYING for licensing information
  *
  * @package phpOpenCloud
- * @version 1.0
+ * @version 1.5.9
  * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Stephen Sugden <openstack@stephensugden.com>
+ * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Autoscale;
 
 use OpenCloud\Common\Service as AbstractService;
-use OpenCloud\Base\Lang;
+use OpenCloud\Common\Lang;
 use OpenCloud\OpenStack;
 
 /**
- * The Autoscale class represents the OpenStack Heat service.
+ * The Autoscale class represents the OpenStack Otter service.
  *
  * It is constructed from a OpenStack object and requires a service name,
  * region, and URL type to select the proper endpoint from the service
@@ -26,7 +27,21 @@ use OpenCloud\OpenStack;
  * these to make it easier to use:
  *
  */
-class Service extends AbstractService {
+class Service extends AbstractService
+{
+    
+    /**
+     * Autoscale resources.
+     * 
+     * @var     array
+     * @access  private
+     */
+    public $resources = array(
+        'Group',
+        'GroupConfiguration',
+        'LaunchConfiguration',
+        'ScalingPolicy'
+    );
 
     /**
      * Called when creating a new Autoscale service object
@@ -45,19 +60,28 @@ class Service extends AbstractService {
      *      catalog
      */
     public function __construct(
-        OpenStack $conn,
-        $serviceName,
-        $serviceRegion,
-        $urltype
+        OpenStack $conn, 
+        $serviceName, 
+        $serviceRegion, 
+        $urltype, 
+        $customEndpoint = null
     ) {
-        $this->debug(_('initializing Autoscale...'));
+        $this->debug(Lang::translate('Initializing Autoscale...'));
         parent::__construct(
-            $conn,
-            'rax:autoscale',
-            $serviceName,
-            $serviceRegion,
-            $urltype
+            $conn, 'rax:autoscale', $serviceName, $serviceRegion, $urltype, $customEndpoint
         );
     }
+    
+    public function group($info = null)
+    {
+        return $this->resource('Group', $info);
+    }
+    
+    public function groupList()
+    {
+        return $this->resourceList('Group');
+    }
+    
+    
 
 }

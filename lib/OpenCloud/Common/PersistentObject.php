@@ -105,10 +105,42 @@ abstract class PersistentObject extends Base
         } elseif (is_object($info) || is_array($info)) {
             
             foreach($info as $key => $value) {
-                if ($key == 'metadata') {
-                    $this->$key->SetArray($value);
+                
+                if ($key == 'metadata' || $key == 'meta') {
+                    
+                    if (empty($this->metadata) || !$this->metadata instanceof Metadata) {
+                        $this->metadata = new Metadata;
+                    }
+                    
+                    // Metadata
+                    $this->$key->setArray($value);
+                    
+                } elseif (!empty($this->associatedResources[$key])) {
+                    
+                    // Associated resource
+                    try {
+                        $resource = $this->service()->resource($this->associatedResources[$key], $value);
+                        $resource->setParent($this);
+                        $this->$key = $resource;
+                    } catch (Exception\ServiceException $e) {
+                        
+                        continue;
+                    }
+                    
+                } elseif (!empty($this->associatedCollections[$key])) {
+                    
+                    // Associated collection
+                    try {
+                        $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this);
+                    } catch (Exception\ServiceException $e) {
+                        continue;
+                    }
+                    
                 } else {
+                    
+                    // Normal key/value pair
                     $this->$key = $value;
+                    
                 }
             }
             
@@ -431,7 +463,7 @@ abstract class PersistentObject extends Base
             $this->$primaryKey = $id;
             $url = $this->Url();
         }
-
+        
         // reset status, if available
         if (property_exists($this, 'status')) {
             $this->status = null;
@@ -470,7 +502,7 @@ abstract class PersistentObject extends Base
 
         // we're ok, reload the response
         if ($json = $response->HttpBody()) {
-            
+
             $this->debug('Refresh() JSON [%s]', $json);
             
             $response = json_decode($json);
@@ -483,16 +515,15 @@ abstract class PersistentObject extends Base
             }
 
             $top = $this->JsonName();
-
-            if ($top === false) {
-                foreach($response as $item => $value) {
-                    $this->$item = $value;
-                }
-            } elseif (isset($response->$top)) {
-                foreach($response->$top as $item => $value) {
-                    $this->$item = $value;
-                }
+            
+            if ($top && isset($response->$top)) {
+                $content = $response->$top;
+            } else {
+                $content = $response;
             }
+
+            $this->populate($content);
+
         }
     }
 

@@ -62,6 +62,11 @@ class Http extends Base
     {
         return $this->body;
     }
+    
+    public function setBody($body)
+    {
+        $this->body = $body;
+    }
 
     /**
      * Returns an array of headers

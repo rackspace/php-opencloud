@@ -8,6 +8,7 @@
  * @package phpOpenCloud
  * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Common;
@@ -60,13 +61,14 @@ abstract class Service extends Base
         $type,
         $name,
         $region,
-        $urltype = RAXSDK_URL_PUBLIC
+        $urltype = RAXSDK_URL_PUBLIC,
+        $customServiceUrl = null
     ) {
         $this->conn = $conn;
         $this->service_type = $type;
         $this->service_name = $name;
         $this->service_region = $region;
-        $this->service_url = $this->get_endpoint($type, $name, $region, $urltype);
+        $this->service_url = $customServiceUrl ?: $this->get_endpoint($type, $name, $region, $urltype);
     }
 
     /**
@@ -74,7 +76,8 @@ abstract class Service extends Base
     *
     * @return OpenCloud\OpenStack
     */
-    public function Connection() {
+    public function Connection() 
+    {
         return $this->conn;
     }
 
@@ -154,6 +157,7 @@ abstract class Service extends Base
     	array $headers = array(),
     	$body = null
     ) {
+
         $headers['X-Auth-Token'] = $this->conn->Token();
 
         if ($tenant = $this->conn->Tenant()) {
@@ -188,7 +192,7 @@ abstract class Service extends Base
         if (!$url) {
             $url = $parent->Url($class::ResourceName());
         }
-
+        
         // add query string parameters
         if (count($parm)) {
             $url .= '?' . $this->MakeQueryString($parm);
@@ -212,7 +216,7 @@ abstract class Service extends Base
                 $response->HttpBody()
             ));
         }
-
+        
         // handle empty response
         if (strlen($response->HttpBody()) == 0) {
             return new Collection($parent, $class, array());
@@ -223,7 +227,7 @@ abstract class Service extends Base
         if ($this->CheckJsonError()) {
             return false;
         }
-
+        
         // see if there is a "next" link
         if (isset($obj->links)) {
             if (is_array($obj->links)) {
@@ -247,11 +251,14 @@ abstract class Service extends Base
                 $coll_obj = new Collection($parent, $class, $obj->$collection);
             } else {
                 // handle element levels
-                $arr = array();
-                foreach($obj->$collection as $index => $item) {
-                    $arr[] = $item->$element;
+                $array = array();
+                foreach($obj->$collection as $item) {
+                    $subValues = $item->$element;
+                    unset($item->$element);
+                    $array[] = array_merge((array)$item, (array)$subValues);
                 }
-                $coll_obj = new Collection($parent, $class, $arr);
+ 
+                $coll_obj = new Collection($parent, $class, $array);
             }
         } else {
             $coll_obj = new Collection($parent, $class, array());
@@ -330,7 +337,7 @@ abstract class Service extends Base
         $catalog = $this->conn->serviceCatalog();
 
         // search each service to find The One
-        foreach($catalog as $service) {
+        foreach ($catalog as $service) {
             // first, compare the type ("compute") and name ("openstack")
             if (!strcasecmp($service->type, $type) && !strcasecmp($service->name, $name)) {
                 // found the service, now we need to find the region
@@ -410,6 +417,80 @@ abstract class Service extends Base
         }
 
         return $obj;
+    }
+    
+    /**
+     * Get all associated resources for this service.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+    /**
+     * Internal method for accessing child namespace from parent scope.
+     * 
+     * @return type
+     */
+    protected function getCurrentNamespace()
+    {
+        $namespace = get_class($this);
+        return substr($namespace, 0, strrpos($namespace, '\\'));
+    }
+    
+    /**
+     * Resolves fully-qualified classname for associated local resource.
+     * 
+     * @param  string $resourceName
+     * @return string
+     */
+    protected function resolveResourceClass($resourceName)
+    {
+        $className = substr_count($resourceName, '\\') 
+            ? $resourceName 
+            : $this->getCurrentNamespace() . '\\Resource\\' . ucfirst($resourceName);
+        
+        if (!class_exists($className)) {
+            throw new Exceptions\UnrecognizedServiceError(sprintf(
+                '%s resource does not exist, please try one of the following: %s', 
+                $resourceName, 
+                implode(', ', $this->getResources())
+            ));
+        }
+        
+        return $className;
+    }
+    
+    /**
+     * Factory method for instantiating resource objects.
+     * 
+     * @access public
+     * @param  string $resourceName
+     * @param  mixed $info (default: null)
+     * @return object
+     */
+    public function resource($resourceName, $info = null)
+    {
+        $className = $this->resolveResourceClass($resourceName);
+
+        return new $className($this, $info);
+    }
+    
+    /**
+     * Factory method for instantiate a resource collection.
+     * 
+     * @param  string $resourceName
+     * @param  string|null $url
+     * @return Collection
+     */
+    public function resourceList($resourceName, $url = null, $service = null)
+    {
+        $className = $this->resolveResourceClass($resourceName);
+
+        return $this->collection($className, $url, $service);
     }
 
 }

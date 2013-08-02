@@ -41,7 +41,6 @@ class Collection extends Base
      */
     public function __construct($service, $itemclass, $arr) 
     {
-
         $this->service = $service;
 
         $this->debug(

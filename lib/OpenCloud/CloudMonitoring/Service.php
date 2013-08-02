@@ -12,7 +12,7 @@ use OpenCloud\Common\Service as AbstractService;
  *      See COPYING for licensing information
  * @package phpOpenCloud
  * @version 1.0
- * @author  Jamie Hannaford <jamie@limetree.org>
+ * @author  Jamie Hannaford <jamie.hannaford@rackspace.com>
  * @extends AbstractService
  */
 class Service extends AbstractService
@@ -21,7 +21,7 @@ class Service extends AbstractService
     /**
      * Cloud Monitoring resources.
      * 
-     * @var     mixed
+     * @var     array
      * @access  private
      */
     private $resources = array(
@@ -61,38 +61,6 @@ class Service extends AbstractService
         parent::__construct(
             $connection, 'rax:monitor', $serviceName, $serviceRegion, $urlType
         );
-    }
-
-    /**
-     * getResources function.
-     * 
-     * @access public
-     * @return void
-     */
-    public function getResources()
-    {
-        return $this->resources;
-    }
-
-    /**
-     * Factory method for instantiating resource objects.
-     * 
-     * @access public
-     * @param string $resourceName
-     * @param mixed $info (default: null)
-     * @return void
-     */
-    public function resource($resourceName, $info = null)
-    {
-        $className = __NAMESPACE__ . '\\Resource\\' . ucfirst($resourceName);
-
-        if (!class_exists($className)) {
-            throw new Exception\ServiceException(sprintf(
-                    '%s resource does not exist, please try one of the following: %s', $resourceName, implode(', ', $this->getResources())
-            ));
-        }
-
-        return new $className($this, $info);
     }
 
     /**

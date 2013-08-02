@@ -1,0 +1,15 @@
+{
+    "policy": {
+        "id": "{policyId}",
+        "links": [
+            {
+                "href": "{urlRoot}/v1.0/010101/groups/{groupId}/policy/{policyId}",
+                "rel": "self"
+            }
+        ],
+        "name": "scale up by one server",
+        "change": 1,
+        "cooldown": 150,
+        "type": "webhook"
+    }
+}

@@ -184,13 +184,14 @@ class OpenStack extends Base
     public function __construct($url, $secret, $options = array())
     {
     	// check for supported version
-    	$ver = explode('.', phpversion());
-    	$version = $ver[0]*10000 + $ver[1]*100 + $ver[2];
-    	if ($version < 50301)
-    		throw new Exceptions\UnsupportedVersionError(
-    			sprintf(Lang::translate('PHP version [%s] is not supported'),
-    				phpversion()));
-    	
+        $version = phpversion();
+    	if ($version < '5.3.1') {
+    		throw new Exceptions\UnsupportedVersionError(sprintf(
+                Lang::translate('PHP version [%s] is not supported'),
+                $version
+            ));
+        }
+        
     	// start processing
         $this->debug(Lang::translate('initializing'));
         $this->url = $url;
@@ -886,4 +887,17 @@ class OpenStack extends Base
         return new ServiceCatalogItem($info);
     }
 
+    /**
+     * List users.
+     */
+    public function listAllUsers()
+    {
+        
+    }
+    
+    public function getUser()
+    {
+        
+    }
+    
 }
