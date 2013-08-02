@@ -51,8 +51,6 @@ class FakeConnection extends OpenStack
 
 		$response->body = $this->$method($url);
         
-        
-        
 		return $response;
 	}
 

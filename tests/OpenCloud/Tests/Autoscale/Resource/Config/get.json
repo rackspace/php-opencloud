@@ -6,7 +6,7 @@
         "maxEntities": 100,
         "metadata": {
             "firstkey": "this is a string",
-            "secondkey": "1",
+            "secondkey": "1"
         }
     }
 }

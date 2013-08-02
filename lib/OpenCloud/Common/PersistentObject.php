@@ -171,9 +171,7 @@ abstract class PersistentObject extends Base
     {
         // set parameters
         if (!empty($params)) {
-            foreach($params as $key => $value) {
-                $this->$key = $value;
-            }
+            $this->populate($params);
         }
 
         // debug
@@ -238,8 +236,8 @@ abstract class PersistentObject extends Base
     public function Update($params = array())
     {
         // set parameters
-        foreach($params as $key => $value) {
-            $this->$key = $value;
+        if (!empty($params)) {
+            $this->populate($params);
         }
 
         // debug
@@ -670,6 +668,48 @@ abstract class PersistentObject extends Base
         }
 
         return $response;
+    }
+    
+    public function customAction($path, $method = 'GET', $body = null)
+    {
+        if (is_string($body) && (json_decode($body) === null)) {
+            throw new Exceptions\InvalidArgumentError(
+                'Please provide either a well-formed JSON string, or an object '
+                . 'for JSON serialization'
+            );
+        } else {
+            $body = json_encode($body);
+        }
+
+        // get the URL for the POST message
+        $url = $this->url($path);
+
+        // POST the message
+        $response = $this->service()->request($url, $method, array(), $body);
+
+        if (!is_object($response)) {
+            throw new Exceptions\HttpError(sprintf(
+                Lang::translate('Invalid response for %s::customAction() request'),
+                get_class($this)
+            ));
+        }
+
+        // check for errors
+        if ($response->HttpStatus() >= 300) {
+            throw new Exceptions\ServerActionError(sprintf(
+                Lang::translate('%s::customAction() [%s] failed; response [%s]'),
+                get_class($this),
+                $url,
+                $response->HttpBody()
+            ));
+        }
+
+        $object = json_decode($response->httpBody());
+        
+        if ($this->checkJsonError()) {
+            return false;
+        }
+        return $object;
     }
 
     /**

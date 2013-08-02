@@ -28,6 +28,12 @@ class Group extends PersistentObject
     public $launchConfiguration;
     public $scalingPolicies;
     
+    public $active;
+    public $activeCapacity;
+    public $pendingCapacity;
+    public $desiredCapacity;
+    public $paused;
+    
     protected static $json_name = 'group';
     protected static $url_resource = 'groups';
     protected static $json_collection_name = 'groups';
@@ -74,6 +80,22 @@ class Group extends PersistentObject
         }
         
         return $url;
+    }
+    
+    public function create($params = array())
+    {
+        if (is_string($params)) {
+            $params = json_encode($params);
+            $this->checkJsonError();
+        } elseif (!is_object($params) && !is_array($params)) {
+            throw new Exceptions\InvalidArgumentError(
+                'You must provide either a string or an array/object'
+            );
+        }
+        
+        $this->populate($params);
+        
+        parent::create();
     }
     
     protected function createJson() 
@@ -130,6 +152,37 @@ class Group extends PersistentObject
             return $object->group;
         }
         return false;
+    }
+    
+    public function getGroupConfig()
+    {
+        $config = new GroupConfiguration($this);
+        $config->setParent($this);
+        $config->setService($this->service());
+        return $config;
+    }
+    
+    public function getLaunchConfig()
+    {
+        $config = new LaunchConfiguration($this);
+        $config->setParent($this);
+        $config->setService($this->service());
+        return $config;
+    }
+    
+    public function getPolicies()
+    {
+        return $this->service()->resourceList('ScalingPolicy', null, $this);
+    }
+    
+    public function getPolicy($id)
+    {
+        $config = new ScalingPolicy($this);
+        $config->setParent($this);
+        $config->setService($this->service());
+        $config->populate($id);
+        
+        return $config;
     }
     
 }

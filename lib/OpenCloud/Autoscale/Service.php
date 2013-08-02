@@ -81,7 +81,5 @@ class Service extends AbstractService
     {
         return $this->resourceList('Group');
     }
-    
-    
 
 }

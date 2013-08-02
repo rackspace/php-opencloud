@@ -18,6 +18,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
     
     const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
     const GROUP_ID = '{groupId}';
+    const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
     
     private $service;
     
@@ -52,7 +53,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
         
         // Test collection association
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection',
+            self::COLLECTION_CLASS,
             $group->scalingPolicies
         );
         
@@ -60,6 +61,23 @@ class GroupTest extends PHPUnit_Framework_TestCase
         $first = $group->scalingPolicies->First();
         $this->assertEquals(150, $first->cooldown);
         $this->assertInstanceOf('OpenCloud\Autoscale\Resource\ScalingPolicy', $first);
+    }
+    
+    public function testGroups()
+    {
+        $groups = $this->service->groupList();
+        
+        // Test class
+        $this->assertInstanceOf(
+            self::COLLECTION_CLASS,
+            $groups
+        );
+        
+        $first = $groups->first();
+        $this->assertEquals('{groupId1}', $first->id);
+        
+        $second = $groups->next();
+        $this->assertFalse($second->paused);
     }
     
     public function testGroupState()
