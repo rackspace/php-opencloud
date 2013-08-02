@@ -37,23 +37,10 @@ abstract class Base
     /**
      * Debug status.
      *
-     * @var bool
+     * @var    LoggerInterface
      * @access private
      */
-    private $debugStatus = false;
-
-    /**
-     * Sets the style for outputting debug messages.
-     *
-     * Echoing messages   == true
-     * Returning messages == false
-     *
-     * (default value: true)
-     *
-     * @var bool
-     * @access private
-     */
-    private $debugOutputStyle = true;
+    private $logger;
 
     /**
      * setDebug function.
@@ -61,9 +48,9 @@ abstract class Base
      * @access public
      * @return void
      */
-    public function setDebug($status)
+    public function setLogger(Log\LoggerInterface $logger)
     {
-        $this->debugStatus = $status;
+        $this->logger = $logger;
     }
 
     /**
@@ -74,30 +61,10 @@ abstract class Base
      */
     public function getDebug()
     {
-        return $this->debugStatus;
-    }
-
-    /**
-     * Sets the debug output style.
-     *
-     * @access public
-     * @param mixed $state
-     * @return void
-     */
-    public function setDebugOutputStyle($state)
-    {
-        $this->debugOutputStyle = $state;
-    }
-
-    /**
-     * Gets the debug output style.
-     *
-     * @access public
-     * @return void
-     */
-    public function getDebugOutputStyle()
-    {
-        return $this->debugOutputStyle;
+        if (null === $this->logger) {
+            $this->setLogger(new Log\Logger);
+        }
+        return $this->logger;
     }
 
     /**
