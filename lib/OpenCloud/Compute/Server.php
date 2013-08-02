@@ -135,7 +135,7 @@ class Server extends PersistentObject
 
         $this->debug(Lang::translate('Server::Create() [%s]'), $this->name);
 
-        $create = $this->CreateJson();
+        $create = $this->CreateJson($params);
 
         $response = $this->Service()->Request(
         	$this->Service()->Url(), 'POST', array(), $create);
@@ -528,7 +528,7 @@ class Server extends PersistentObject
      *      create {rebuild ...} by changing this parameter
      * @return json
      */
-    protected function CreateJson()
+    protected function CreateJson($params=NULL)
     {
         // create a blank object
         $obj = new \stdClass();
@@ -536,6 +536,9 @@ class Server extends PersistentObject
         // set a bunch of properties
         $obj->server = new \stdClass();
 
+		if (is_array($params))
+			foreach ($params as $key => $ignore)
+				$obj->server->$key = $this->$key;
 		$obj->server->imageRef = $this->imageRef;
 		$obj->server->name = $this->name;
 		$obj->server->flavorRef = $this->flavorRef;
