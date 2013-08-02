@@ -8,83 +8,175 @@
  * @package phpOpenCloud
  * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Jamie Hannaford <jamie.hannaford@rackspace.co.uk>
+ * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Common;
 
 /**
- * represents an object that has the ability to be
- * retrieved, created, updated, and deleted.
+ * Represents an object that can be retrieved, created, updated and deleted.
  *
- * This class abstracts much of the common functionality between Nova
- * servers, Swift containers and objects, DBAAS instances, Cinder volumes,
- * and various other objects that (a) have a URL, (b) can be created, updated,
- * deleted, or retrieved, and (c) use a standard JSON format with a top-level
- * element followed by a child object with attributes.
+ * This class abstracts much of the common functionality between: 
+ *  
+ *  * Nova servers;
+ *  * Swift containers and objects;
+ *  * DBAAS instances;
+ *  * Cinder volumes;
+ *  * and various other objects that:
+ *    * have a URL;
+ *    * can be created, updated, deleted, or retrieved;
+ *    * use a standard JSON format with a top-level element followed by 
+ *      a child object with attributes.
  *
  * In general, you can create a persistent object class by subclassing this
  * class and defining some protected, static variables:
+ * 
+ *  * $url_resource - the sub-resource value in the URL of the parent. For
+ *    example, if the parent URL is `http://something/parent`, then setting this
+ *    value to "another" would result in a URL for the persistent object of 
+ *    `http://something/parent/another`.
  *
- * - $url_resource - the sub-resource value in the URL of the parent. For
- *   example, if the parent URL is `http://something/parent`, then setting
- *   this value to `'another'` would result in a URL for the persistent
- *   object of `http://something/parent/another`.
+ *  * $json_name - the top-level JSON object name. For example, if the
+ *    persistent object is represented by `{"foo": {"attr":value, ...}}`, then
+ *    set $json_name to "foo".
  *
- * - $json_name - the top-level JSON object name. For example, if the
- *   persistent object is represented by `{"foo": {"attr":value, ...}}`, then
- *   set `json_name = 'foo'`.
+ *  * $json_collection_name - optional; this value is the name of a collection
+ *    of the persistent objects. If not provided, it defaults to `json_name`
+ *    with an appended "s" (e.g., if `json_name` is "foo", then
+ *    `json_collection_name` would be "foos"). Set this value if the collection 
+ *    name doesn't follow this pattern.
  *
- * - $json_collection_name - optional; this value is the name of a collection
- *   of the persistent objects. If not provided, it defaults to `json_name`
- *   with an appended `'s'` (e.g., if `json_name` is `"foo"`, then
- *   `json_collection_name` would be `"foos"` by default). Set this value if
- *   the collection name doesn't follow this pattern.
+ *  * $json_collection_element - the common pattern for a collection is:
+ *    `{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}`
+ *    That is, each element of the array is a \stdClass object containing the
+ *    object's attributes. In rare instances, the objects in the array
+ *    are named, and `json_collection_element` contains the name of the
+ *    collection objects. For example, in this JSON response:
+ *    `{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}`,
+ *    `json_collection_element` would be set to "allowedDomain".
  *
- * - $json_collection_element - the common pattern for a collection is:
- *   `{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}`
- *   That is, each element of the array is an anonymous object containing the
- *   object's attributes. In (very) rare instances, the objects in the array
- *   are named, and `json_collection_element` contains the name of the
- *   collection objects. For example, in this:
- *   `{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}`, then
- *   `json_collection_element` would be set to `'allowedDomain'`.
+ * The PersistentObject class supports the standard CRUD methods; if these are 
+ * not needed (i.e. not supported by  the service), the subclass should redefine 
+ * these to call the `noCreate`, `noUpdate`, or `noDelete` methods, which will 
+ * trigger an appropriate exception. For example, if an object cannot be created:
  *
- * The PersistentObject class supports the standard `Create()`, `Update()`,
- * and `Delete()` methods; if these are not needed (i.e., not supported by
- * the service, the subclass should redefine these to call the
- * `NoCreate`, `NoUpdate`, or `NoDelete` methods, which will trigger an
- * appropriate exception. For example, if an object cannot be created:
- *
- *    function Create($parm=array()) { $this->NoCreate(); }
- *
- * This will cause any call to the `Create()` method to fail with an
- * exception.
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ *    function create($params = array()) 
+ *    { 
+ *       $this->noCreate(); 
+ *    }
  */
 abstract class PersistentObject extends Base
 {
-
-    protected $id;
-    private $_parent;
+      
+    private $service;
+    
+    private $parent;
+    
+    protected $id; 
 
     /**
      * Retrieves the instance from persistent storage
      *
-     * @param mixed $parentobj the parent object of the current object
-     * @param mixed $info the ID or array/object of data
-     * @throws InvalidArgumentError if $info has an invalid data type
+     * @param mixed $service The service object for this resource
+     * @param mixed $info    The ID or array/object of data
      */
-    public function __construct($parentObject, $info = null)
+    public function __construct($service = null, $info = null)
     {
-        $this->_parent = $parentObject;
-
+        if ($service instanceof Service) {
+            $this->setService($service);
+        }
+        
         if (property_exists($this, 'metadata')) {
             $this->metadata = new Metadata;
         }
 
         $this->populate($info);
+    }
+    
+    /**
+     * Validates properties that have a namespace: prefix
+     *
+     * If the property prefix: appears in the list of supported extension
+     * namespaces, then the property is applied to the object. Otherwise,
+     * an exception is thrown.
+     *
+     * @param string $name the name of the property
+     * @param mixed $value the property's value
+     * @return void
+     * @throws AttributeError
+     */
+    public function __set($name, $value)
+    {
+        $this->setProperty($name, $value, $this->getService()->namespaces());
+    }
+    
+    /**
+     * Sets the service associated with this resource object.
+     * 
+     * @param \OpenCloud\Common\Service $service
+     */
+    public function setService(Service $service)
+    {
+        $this->service = $service;
+    }
+    
+    /**
+     * Returns the service object for this resource; required for making
+     * requests, etc. because it has direct access to the Connection.
+     * 
+     * @return \OpenCloud\Common\Service
+     */
+    public function getService()
+    {
+        if (null === $this->service) {
+            throw new Exceptions\ServiceValueError(
+                'No service defined'
+            );
+        }
+        return $this->service;
+    }
+    
+    /**
+     * Legacy shortcut to getService
+     * 
+     * @return \OpenCloud\Common\Service
+     */
+    public function service()
+    {
+        return $this->getService();
+    }
+    
+    /**
+     * Set the parent object for this resource.
+     * 
+     * @param \OpenCloud\Common\PersistentObject $parent
+     */
+    public function setParent(PersistentObject $parent)
+    {
+        $this->parent = $parent;
+    }
+    
+    /**
+     * Returns the parent.
+     * 
+     * @return \OpenCloud\Common\PersistentObject
+     */
+    public function getParent()
+    {
+        if (null === $this->parent) {
+            $this->parent = $this->getService();
+        }
+        return $this->parent;
+    }
+    
+    /**
+     * Legacy shortcut to getParent
+     * 
+     * @return \OpenCloud\Common\PersistentObject
+     */
+    public function parent()
+    {
+        return $this->getParent();
     }
     
     /**
@@ -154,11 +246,11 @@ abstract class PersistentObject extends Base
         }
     }
 
-    public function setParent($parent)
-    {
-        $this->_parent = $parent;
-    }
-
+    
+    /**
+     * API OPERATIONS (CRUD & CUSTOM)
+     */
+    
     /**
      * Creates a new object
      *
@@ -167,7 +259,7 @@ abstract class PersistentObject extends Base
      * @return HttpResponse
      * @throws VolumeCreateError if HTTP status is not Success
      */
-    public function Create($params = array())
+    public function create($params = array())
     {
         // set parameters
         if (!empty($params)) {
@@ -188,7 +280,7 @@ abstract class PersistentObject extends Base
         $this->debug('%s::Create JSON [%s]', get_class($this), $json);
 
         // send the request
-        $response = $this->Service()->Request(
+        $response = $this->getService()->Request(
             $this->CreateUrl(),
             'POST',
             array('Content-Type' => 'application/json'),
@@ -206,18 +298,17 @@ abstract class PersistentObject extends Base
             ));
         }
 
-        if ($response->HttpStatus() == "201" && $location = $response->Header('Location')) {
+        if ($response->HttpStatus() == "201" && ($location = $response->Header('Location'))) {
             // follow Location header
-            $this->Refresh(NULL, $location);
+            $this->refresh(null, $location);
         } else {
             // set values from response
-            $retobj = json_decode($response->HttpBody());
-            if (!$this->CheckJsonError()) {
-                $top = $this->JsonName();
-                if (isset($retobj->$top)) {
-                    foreach($retobj->$top as $key => $value) {
-                        $this->$key = $value;
-                    }
+            $object = json_decode($response->httpBody());
+            
+            if (!$this->checkJsonError()) {
+                $top = $this->jsonName();
+                if (isset($object->$top)) {
+                    $this->populate($object->$top);
                 }
             }
         }
@@ -233,7 +324,7 @@ abstract class PersistentObject extends Base
      * @return HttpResponse
      * @throws VolumeCreateError if HTTP status is not Success
      */
-    public function Update($params = array())
+    public function update($params = array())
     {
         // set parameters
         if (!empty($params)) {
@@ -254,7 +345,7 @@ abstract class PersistentObject extends Base
         $this->debug('%s::Update JSON [%s]', get_class($this), $json);
 
         // send the request
-        $response = $this->Service()->Request(
+        $response = $this->getService()->Request(
             $this->Url(),
             'PUT',
             array(),
@@ -282,12 +373,12 @@ abstract class PersistentObject extends Base
      * @return HttpResponse
      * @throws DeleteError if HTTP status is not Success
      */
-    public function Delete()
+    public function delete()
     {
         $this->debug('%s::Delete()', get_class($this));
 
         // send the request
-        $response = $this->Service()->Request($this->Url(), 'DELETE');
+        $response = $this->getService()->Request($this->Url(), 'DELETE');
 
         // check the return code
         if ($response->HttpStatus() > 204) {
@@ -303,6 +394,73 @@ abstract class PersistentObject extends Base
         return $response;
     }
 
+     /**
+     * Returns an object for the Create() method JSON
+     * Must be overridden in a child class.
+     *
+     * @throws CreateError if not overridden
+     */
+    protected function createJson()
+    {
+        throw new Exceptions\CreateError(sprintf(
+            Lang::translate('[%s] CreateJson() must be overridden'),
+            get_class($this)
+        ));
+    }
+
+    /**
+     * Returns an object for the Update() method JSON
+     * Must be overridden in a child class.
+     *
+     * @throws UpdateError if not overridden
+     */
+    protected function updateJson($params = array())
+    {
+        throw new Exceptions\UpdateError(sprintf(
+            Lang::translate('[%s] UpdateJson() must be overridden'),
+            get_class($this)
+        ));
+    }
+
+    /**
+     * throws a CreateError for subclasses that don't support Create
+     *
+     * @throws CreateError
+     */
+    protected function noCreate()
+    {
+        throw new Exceptions\CreateError(sprintf(
+            Lang::translate('[%s] does not support Create()'),
+            get_class()
+        ));
+    }
+
+    /**
+     * throws a DeleteError for subclasses that don't support Delete
+     *
+     * @throws DeleteError
+     */
+    protected function noDelete()
+    {
+        throw new Exceptions\DeleteError(sprintf(
+            Lang::translate('[%s] does not support Delete()'),
+            get_class()
+        ));
+    }
+
+    /**
+     * throws a UpdateError for subclasses that don't support Update
+     *
+     * @throws UpdateError
+     */
+    protected function noUpdate()
+    {
+        throw new Exceptions\UpdateError(sprintf(
+            Lang::translate('[%s] does not support Update()'),
+            get_class()
+        ));
+    }
+    
     /**
      * Returns the default URL of the object
      *
@@ -313,7 +471,7 @@ abstract class PersistentObject extends Base
      * @return string
      * @throws UrlError if URL is not defined
      */
-    public function Url($subresource = NULL, $queryString = array())
+    public function url($subresource = NULL, $queryString = array())
     {
         // find the primary key attribute name
         $primaryKey = $this->PrimaryKeyField();
@@ -327,7 +485,7 @@ abstract class PersistentObject extends Base
          * object might not be a service.
          */
         if (!$url && $this->$primaryKey) {
-            $url = Lang::noslash($this->Parent()->Url($this->ResourceName())) . '/' . $this->$primaryKey;
+            $url = Lang::noslash($this->getParent()->Url($this->ResourceName())) . '/' . $this->$primaryKey;
         }
 
         // add the subresource
@@ -340,8 +498,10 @@ abstract class PersistentObject extends Base
         }
 
         // otherwise, we don't have a URL yet
-        throw new Exceptions\UrlError(sprintf(Lang::translate('%s does not have a URL yet'), get_class($this)));
-        return false;
+        throw new Exceptions\UrlError(sprintf(
+            Lang::translate('%s does not have a URL yet'), 
+            get_class($this)
+        ));
     }
 
     /**
@@ -366,7 +526,7 @@ abstract class PersistentObject extends Base
      * @return void
      *
      */
-    public function WaitFor(
+    public function waitFor(
         $terminal = 'ACTIVE',
         $timeout = RAXSDK_SERVER_MAXTIMEOUT,
         $callback = NULL,
@@ -398,49 +558,13 @@ abstract class PersistentObject extends Base
     }
 
     /**
-     * Returns the Service/parent object associated with this object
-     */
-    public function Service()
-    {
-        return $this->_parent;
-    }
-
-    /**
-     * returns the parent object of this object
-     *
-     * This is a synonym for Service(), since the object is usually a
-     * service.
-     */
-    public function Parent()
-    {
-        return $this->Service();
-    }
-
-    /**
-     * Validates properties that have a namespace: prefix
-     *
-     * If the property prefix: appears in the list of supported extension
-     * namespaces, then the property is applied to the object. Otherwise,
-     * an exception is thrown.
-     *
-     * @param string $name the name of the property
-     * @param mixed $value the property's value
-     * @return void
-     * @throws AttributeError
-     */
-    public function __set($name, $value)
-    {
-        $this->SetProperty($name, $value, $this->Service()->namespaces());
-    }
-
-    /**
      * Refreshes the object from the origin (useful when the server is
      * changing states)
      *
      * @return void
      * @throws IdRequiredError
      */
-    public function Refresh($id = null, $url = null)
+    public function refresh($id = null, $url = null)
     {
         $primaryKey = $this->PrimaryKeyField();
 
@@ -525,6 +649,11 @@ abstract class PersistentObject extends Base
         }
     }
 
+    
+    /**
+     * OBJECT INFORMATION
+     */
+    
     /**
      * Returns the displayable name of the object
      *
@@ -535,7 +664,7 @@ abstract class PersistentObject extends Base
      * @return string
      * @throws NameError if attribute 'name' is not defined
      */
-    public function Name()
+    public function name()
     {
         if (property_exists($this, 'name')) {
             return $this->name;
@@ -545,61 +674,6 @@ abstract class PersistentObject extends Base
                 get_class($this)
             ));
         }
-    }
-
-    /**
-     * returns the object's status or `N/A` if not available
-     *
-     * @api
-     * @return string
-     */
-    public function Status()
-    {
-        return (isset($this->status)) ? $this->status : 'N/A';
-    }
-
-    /**
-     * returns the object's identifier
-     *
-     * Can be overridden by a child class if the identifier is not in the
-     * `$id` property. Use of this function permits the `$id` attribute to
-     * be protected or private to prevent unauthorized overwriting for
-     * security.
-     *
-     * @api
-     * @return string
-     */
-    public function Id()
-    {
-        return $this->id;
-    }
-
-    /**
-     * checks for `$alias` in extensions and throws an error if not present
-     *
-     * @throws UnsupportedExtensionError
-     */
-    public function CheckExtension($alias)
-    {
-        if (!in_array($alias, $this->Service()->namespaces())) {
-            throw new Exceptions\UnsupportedExtensionError(sprintf(
-                Lang::translate('Extension [%s] is not installed'),
-                $alias
-            ));
-        }
-        return true;
-    }
-
-    /**
-     * returns the region associated with the object
-     *
-     * navigates to the parent service to determine the region.
-     *
-     * @api
-     */
-    public function Region()
-    {
-        return $this->Service()->Region();
     }
 
     /**
@@ -615,7 +689,7 @@ abstract class PersistentObject extends Base
      * @throws ServerActionError on other errors
      * @returns boolean; TRUE if successful, FALSE otherwise
      */
-    protected function Action($object)
+    protected function action($object)
     {
         $primaryKey = $this->PrimaryKeyField();
 
@@ -670,6 +744,17 @@ abstract class PersistentObject extends Base
         return $response;
     }
     
+    /**
+     * Execute a custom resource request.
+     * 
+     * @param string $path
+     * @param string $method
+     * @param string|array|object $body
+     * @return boolean
+     * @throws Exceptions\InvalidArgumentError
+     * @throws Exceptions\HttpError
+     * @throws Exceptions\ServerActionError
+     */
     public function customAction($path, $method = 'GET', $body = null)
     {
         if (is_string($body) && (json_decode($body) === null)) {
@@ -713,13 +798,69 @@ abstract class PersistentObject extends Base
     }
 
     /**
+     * returns the object's status or `N/A` if not available
+     *
+     * @api
+     * @return string
+     */
+    public function status()
+    {
+        return (isset($this->status)) ? $this->status : 'N/A';
+    }
+
+    /**
+     * returns the object's identifier
+     *
+     * Can be overridden by a child class if the identifier is not in the
+     * `$id` property. Use of this function permits the `$id` attribute to
+     * be protected or private to prevent unauthorized overwriting for
+     * security.
+     *
+     * @api
+     * @return string
+     */
+    public function id()
+    {
+        return $this->id;
+    }
+
+    /**
+     * checks for `$alias` in extensions and throws an error if not present
+     *
+     * @throws UnsupportedExtensionError
+     */
+    public function checkExtension($alias)
+    {
+        if (!in_array($alias, $this->getService()->namespaces())) {
+            throw new Exceptions\UnsupportedExtensionError(sprintf(
+                Lang::translate('Extension [%s] is not installed'),
+                $alias
+            ));
+        }
+        
+        return true;
+    }
+
+    /**
+     * returns the region associated with the object
+     *
+     * navigates to the parent service to determine the region.
+     *
+     * @api
+     */
+    public function region()
+    {
+        return $this->getService()->Region();
+    }
+    
+    /**
      * Since each server can have multiple links, this returns the desired one
      *
      * @param string $type - 'self' is most common; use 'bookmark' for
      *      the version-independent one
      * @return string the URL from the links block
      */
-    protected function FindLink($type = 'self')
+    protected function findLink($type = 'self')
     {
         if (!isset($this->links) || !$this->links) {
             return false;
@@ -739,9 +880,9 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    protected function CreateUrl()
+    protected function createUrl()
     {
-        return $this->Parent()->Url($this->ResourceName());
+        return $this->getParent()->Url($this->ResourceName());
     }
 
     /**
@@ -752,7 +893,7 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    protected function PrimaryKeyField()
+    protected function primaryKeyField()
     {
         return 'id';
     }
@@ -768,7 +909,7 @@ abstract class PersistentObject extends Base
      *
      * @throws DocumentError if not overridden
      */
-    public static function JsonName()
+    public static function jsonName()
     {
         if (isset(static::$json_name)) {
             return static::$json_name;
@@ -792,7 +933,7 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    public static function JsonCollectionName()
+    public static function jsonCollectionName()
     {
         if (isset(static::$json_collection_name)) {
             return static::$json_collection_name;
@@ -811,12 +952,10 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    public static function JsonCollectionElement()
+    public static function jsonCollectionElement()
     {
         if (isset(static::$json_collection_element)) {
             return static::$json_collection_element;
-        } else {
-            return null;
         }
     }
 
@@ -829,7 +968,7 @@ abstract class PersistentObject extends Base
      *
      * @throws UrlError
      */
-    public static function ResourceName()
+    public static function resourceName()
     {
         if (isset(static::$url_resource)) {
             return static::$url_resource;
@@ -837,75 +976,6 @@ abstract class PersistentObject extends Base
 
         throw new Exceptions\UrlError(sprintf(
             Lang::translate('No URL resource defined for class [%s] in ResourceName()'),
-            get_class()
-        ));
-    }
-
-    /**
-     * Returns an object for the Create() method JSON
-     *
-     * Must be overridden in a child class.
-     *
-     * @throws CreateError if not overridden
-     */
-    protected function CreateJson()
-    {
-        throw new Exceptions\CreateError(sprintf(
-            Lang::translate('[%s] CreateJson() must be overridden'),
-            get_class($this)
-        ));
-    }
-
-    /**
-     * Returns an object for the Update() method JSON
-     *
-     * Must be overridden in a child class.
-     *
-     * @throws UpdateError if not overridden
-     */
-    protected function UpdateJson($params = array())
-    {
-        throw new Exceptions\UpdateError(sprintf(
-            Lang::translate('[%s] UpdateJson() must be overridden'),
-            get_class($this)
-        ));
-    }
-
-    /**
-     * throws a CreateError for subclasses that don't support Create
-     *
-     * @throws CreateError
-     */
-    protected function NoCreate()
-    {
-        throw new Exceptions\CreateError(sprintf(
-            Lang::translate('[%s] does not support Create()'),
-            get_class()
-        ));
-    }
-
-    /**
-     * throws a DeleteError for subclasses that don't support Delete
-     *
-     * @throws DeleteError
-     */
-    protected function NoDelete()
-    {
-        throw new Exceptions\DeleteError(sprintf(
-            Lang::translate('[%s] does not support Delete()'),
-            get_class()
-        ));
-    }
-
-    /**
-     * throws a UpdateError for subclasses that don't support Update
-     *
-     * @throws UpdateError
-     */
-    protected function NoUpdate()
-    {
-        throw new Exceptions\UpdateError(sprintf(
-            Lang::translate('[%s] does not support Update()'),
             get_class()
         ));
     }

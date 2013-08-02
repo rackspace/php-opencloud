@@ -33,29 +33,6 @@ class ScalingPolicy extends PersistentObject
     protected static $url_resource = 'policies';
     protected static $json_collection_element = 'data';
     
-    protected $parent; 
-    protected $service;
-    
-    public function parent()
-    {
-        return $this->parent;
-    }
-    
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-    
-    public function setService($service)
-    {
-        $this->service = $service;
-    }
-    
-    public function service()
-    {
-        return $this->service;
-    }
-    
     public function url($subResource = null, $includeId = true)
     {
         $url = $this->parent()->url($this->resourceName());
@@ -78,7 +55,7 @@ class ScalingPolicy extends PersistentObject
     
     public function getWebhook()
     {
-        $config = new Webhook($this);
+        $config = new Webhook();
         $config->setParent($this);
         $config->setService($this->service()); 
         return $config;

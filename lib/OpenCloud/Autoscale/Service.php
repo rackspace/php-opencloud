@@ -1,11 +1,9 @@
 <?php
-
 /**
  * The Rackspace Autoscale (Otter) service
  *
  * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
- *
  * @package phpOpenCloud
  * @version 1.5.9
  * @author Glen Campbell <glen.campbell@rackspace.com>

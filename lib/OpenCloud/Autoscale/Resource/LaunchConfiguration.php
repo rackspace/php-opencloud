@@ -27,29 +27,6 @@ class LaunchConfiguration extends PersistentObject
     protected static $json_name = 'launchConfiguration';
     protected static $url_resource = 'launch';
     
-    protected $parent; 
-    protected $service;
-    
-    public function parent()
-    {
-        return $this->parent;
-    }
-    
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-    
-    public function setService($service)
-    {
-        $this->service = $service;
-    }
-    
-    public function service()
-    {
-        return $this->service;
-    }
-    
     public function url($subResource = null, $includeId = true)
     {
         $url = $this->parent()->url($this->resourceName());

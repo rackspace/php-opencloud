@@ -156,7 +156,7 @@ class Group extends PersistentObject
     
     public function getGroupConfig()
     {
-        $config = new GroupConfiguration($this);
+        $config = new GroupConfiguration();
         $config->setParent($this);
         $config->setService($this->service());
         return $config;
@@ -164,7 +164,7 @@ class Group extends PersistentObject
     
     public function getLaunchConfig()
     {
-        $config = new LaunchConfiguration($this);
+        $config = new LaunchConfiguration();
         $config->setParent($this);
         $config->setService($this->service());
         return $config;
@@ -177,7 +177,7 @@ class Group extends PersistentObject
     
     public function getPolicy($id)
     {
-        $config = new ScalingPolicy($this);
+        $config = new ScalingPolicy();
         $config->setParent($this);
         $config->setService($this->service());
         $config->populate($id);
