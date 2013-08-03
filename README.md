@@ -26,7 +26,7 @@ so that you can still use the SDK with a pure OpenStack instance
 (for example, see the `OpenStack` class (for OpenStack) and the
 `Rackspace` subclass).
 
-See the [Release Notes](https://github.com/rackspace/php-opencloud/blob/master/RELEASENOTES.md)
+See the [Release Notes](https://github.com/rackspace/php-opencloud/releases)
 for what has changed in the latest release(s).
 
 See the [php-opencloud wiki](https://github.com/rackspace/php-opencloud/wiki)
