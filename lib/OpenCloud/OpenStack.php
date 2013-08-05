@@ -886,18 +886,5 @@ class OpenStack extends Base
     {
         return new ServiceCatalogItem($info);
     }
-
-    /**
-     * List users.
-     */
-    public function listAllUsers()
-    {
-        
-    }
-    
-    public function getUser()
-    {
-        
-    }
     
 }

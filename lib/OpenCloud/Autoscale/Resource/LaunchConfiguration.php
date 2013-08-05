@@ -42,4 +42,16 @@ class LaunchConfiguration extends PersistentObject
         return $url;
     }
     
+    protected function updateJson($params = array())
+    {
+        $existing = array();
+        foreach (get_object_vars($this) as $key => $value) {
+            $existing[$key] = $value;
+        }
+        
+        unset($existing['id']);
+        
+        return $existing + $params;
+    }
+    
 }

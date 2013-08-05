@@ -27,6 +27,8 @@ class Group extends PersistentObject
     public $groupConfiguration;
     public $launchConfiguration;
     public $scalingPolicies;
+    public $name;
+    public $metadata;
     
     public $active;
     public $activeCapacity;
@@ -85,17 +87,17 @@ class Group extends PersistentObject
     public function create($params = array())
     {
         if (is_string($params)) {
-            $params = json_encode($params);
+            $params = json_decode($params);
             $this->checkJsonError();
         } elseif (!is_object($params) && !is_array($params)) {
             throw new Exceptions\InvalidArgumentError(
                 'You must provide either a string or an array/object'
             );
         }
-        
-        $this->populate($params);
-        
-        parent::create();
+
+        $this->populate($params, false);
+
+        return parent::create();
     }
     
     protected function createJson() 
@@ -107,7 +109,7 @@ class Group extends PersistentObject
                 $object->$key = $this->$key;
             }
         }
-
+        
         if (is_array($this->metadata) && count($this->metadata)) {
             $object->metadata = new \stdClass;
             foreach($this->metadata as $key => $value) {
@@ -156,18 +158,36 @@ class Group extends PersistentObject
     
     public function getGroupConfig()
     {
-        $config = new GroupConfiguration();
+        if ($this->groupConfiguration instanceof GroupConfiguration) {
+            return $this->groupConfiguration;
+        }
+        
+        $config = $this->getService()->resource('GroupConfiguration');
         $config->setParent($this);
-        $config->setService($this->service());
+        $config->refresh(null, $config->url());
         return $config;
     }
     
     public function getLaunchConfig()
     {
-        $config = new LaunchConfiguration();
+        if ($this->launchConfiguration instanceof LaunchConfiguration) {
+            return $this->launchConfiguration;
+        }
+        
+        $config = $this->getService()->resource('LaunchConfiguration');
         $config->setParent($this);
-        $config->setService($this->service());
+        $config->refresh(null, $config->url());
         return $config;
+    }
+    
+    public function pause()
+    {
+        return $this->customAction($this->url('pause', true), 'POST');
+    }
+    
+    public function resume()
+    {
+        return $this->customAction($this->url('resume', true), 'POST');
     }
     
     public function getPolicies()
@@ -175,13 +195,13 @@ class Group extends PersistentObject
         return $this->service()->resourceList('ScalingPolicy', null, $this);
     }
     
-    public function getPolicy($id)
+    public function getPolicy($id = null)
     {
-        $config = new ScalingPolicy();
+        $config = $this->getService()->resource('ScalingPolicy');
         $config->setParent($this);
-        $config->setService($this->service());
-        $config->populate($id);
-        
+        if ($id) {
+            $config->populate($id);
+        }
         return $config;
     }
     

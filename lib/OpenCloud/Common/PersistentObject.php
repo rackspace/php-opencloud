@@ -187,7 +187,7 @@ abstract class PersistentObject extends Base
      * @param  array|object|string|integer $info
      * @throws Exceptions\InvalidArgumentError
      */
-    public function populate($info)
+    public function populate($info, $setObjects = true)
     {
         if (is_string($info) || is_integer($info)) {
             
@@ -209,7 +209,7 @@ abstract class PersistentObject extends Base
                     // Metadata
                     $this->$key->setArray($value);
                     
-                } elseif (!empty($this->associatedResources[$key])) {
+                } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
                     
                     // Associated resource
                     try {
@@ -221,11 +221,13 @@ abstract class PersistentObject extends Base
                         continue;
                     }
                     
-                } elseif (!empty($this->associatedCollections[$key])) {
+                } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
                     
                     // Associated collection
                     try {
+                        
                         $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this);
+                        
                     } catch (Exception\ServiceException $e) {
                         continue;
                     }
@@ -265,16 +267,16 @@ abstract class PersistentObject extends Base
     {
         // set parameters
         if (!empty($params)) {
-            $this->populate($params);
+            $this->populate($params, false);
         }
 
         // debug
         $this->debug('%s::Create(%s)', get_class($this), $this->Name());
 
         // construct the JSON
-        $object = $this->CreateJson();
+        $object = $this->createJson();
         $json = json_encode($object);
-
+        
         if ($this->CheckJsonError()) {
             return false;
         }
@@ -282,15 +284,15 @@ abstract class PersistentObject extends Base
         $this->debug('%s::Create JSON [%s]', get_class($this), $json);
 
         // send the request
-        $response = $this->getService()->Request(
-            $this->CreateUrl(),
+        $response = $this->getService()->request(
+            $this->createUrl(),
             'POST',
             array('Content-Type' => 'application/json'),
             $json
         );
-
+        
         // check the return code
-        if ($response->HttpStatus() > 204) {
+        if ($response->httpStatus() > 204) {
             throw new Exceptions\CreateError(sprintf(
                 Lang::translate('Error creating [%s] [%s], status [%d] response [%s]'),
                 get_class($this),
@@ -334,13 +336,13 @@ abstract class PersistentObject extends Base
         }
 
         // debug
-        $this->debug('%s::Update(%s)', get_class($this), $this->Name());
+        $this->debug('%s::Update(%s)', get_class($this), $this->resourceName());
 
         // construct the JSON
-        $obj = $this->UpdateJson($params);
+        $obj = $this->updateJson($params);
         $json = json_encode($obj);
 
-        if ($this->CheckJsonError()) {
+        if ($this->checkJsonError()) {
             return false;
         }
 
@@ -348,7 +350,7 @@ abstract class PersistentObject extends Base
 
         // send the request
         $response = $this->getService()->Request(
-            $this->Url(),
+            $this->url(),
             'PUT',
             array(),
             $json
@@ -757,7 +759,7 @@ abstract class PersistentObject extends Base
      * @throws Exceptions\HttpError
      * @throws Exceptions\ServerActionError
      */
-    public function customAction($path, $method = 'GET', $body = null)
+    public function customAction($url, $method = 'GET', $body = null)
     {
         if (is_string($body) && (json_decode($body) === null)) {
             throw new Exceptions\InvalidArgumentError(
@@ -767,9 +769,6 @@ abstract class PersistentObject extends Base
         } else {
             $body = json_encode($body);
         }
-
-        // get the URL for the POST message
-        $url = $this->url($path);
 
         // POST the message
         $response = $this->service()->request($url, $method, array(), $body);

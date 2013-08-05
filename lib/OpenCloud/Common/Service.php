@@ -164,7 +164,7 @@ abstract class Service extends Base
             $headers['X-Auth-Project-Id'] = $tenant;
         }
 
-        return $this->conn->Request($url, $method, $headers, $body);
+        return $this->conn->request($url, $method, $headers, $body);
     }
 
     /**
@@ -263,7 +263,7 @@ abstract class Service extends Base
         } else {
             $coll_obj = new Collection($parent, $class, array());
         }
-
+        
         // if there's a $next_page_url, then we need to establish a
         // callback method
         if (isset($next_page_url)) {

@@ -28,6 +28,11 @@ class Webhook extends PersistentObject
     
     protected static $json_name = 'webhook';
     protected static $url_resource = 'webhooks';
+        
+    private $createKeys = array(
+        'name',
+        'metadata'
+    );
     
     public function url($subResource = null, $includeId = true)
     {
@@ -42,6 +47,77 @@ class Webhook extends PersistentObject
         }
         
         return $url;
+    }
+    
+    public function createJson()
+    {
+        $object = new \stdClass;
+
+        $object->name = $this->name;
+        $object->metadata = $this->metadata;
+       
+        return $object;
+    }
+    
+    public function create($params = array())
+    {
+        // debug
+        $this->debug('%s::Create(%s)', get_class($this), $this->Name());
+
+        // construct the JSON
+        $json = json_encode($params);
+
+        if ($this->checkJsonError()) {
+            return false;
+        }
+
+        $this->debug('%s::Create JSON [%s]', get_class($this), $json);
+
+        // send the request
+        $response = $this->getService()->request(
+            $this->createUrl(),
+            'POST',
+            array('Content-Type' => 'application/json'),
+            $json
+        );
+        
+        // check the return code
+        if ($response->httpStatus() > 204) {
+            throw new Exceptions\CreateError(sprintf(
+                Lang::translate('Error creating [%s] [%s], status [%d] response [%s]'),
+                get_class($this),
+                $this->name(),
+                $response->httpStatus(),
+                $response->httpBody()
+            ));
+        }
+
+        if ($response->HttpStatus() == "201" && ($location = $response->Header('Location'))) {
+            // follow Location header
+            $this->refresh(null, $location);
+        } else {
+            // set values from response
+            $object = json_decode($response->httpBody());
+            
+            if (!$this->checkJsonError()) {
+                $top = $this->jsonName();
+                if (isset($object->$top)) {
+                    $this->populate($object->$top);
+                }
+            }
+        }
+
+        return $response;
+    }
+    
+    protected function updateJson($params = array())
+    {
+        $existing = array();
+        foreach ($this->createKeys as $key) {
+            $existing[$key] = $this->$key;
+        }
+        
+        return $existing + $params;
     }
     
 }
