@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @copyright Copyright 2012-2013 Rackspace US, Inc. 
   See COPYING for licensing information.
@@ -19,6 +18,13 @@ use OpenCloud\Common\Exceptions\LoggingException;
  */
 class Logger extends AbstractLogger
 {   
+    /**
+     * Is this debug class enabled or not?
+     * 
+     * @var bool
+     */
+    private $enabled = true;
+    
     /**
      * These are the levels which will always be outputted - regardless of 
      * user-imposed settings.
@@ -159,9 +165,9 @@ class Logger extends AbstractLogger
      * @param string $message
      * @param string $context
      */
-    public function log($logLevel, $message, $context)
+    public function log($level, $message, array $context = array())
     {
-        if ($this->outputIsUrgent($logLevel) 
+        if ($this->outputIsUrgent($level) 
             || $this->getEnabled() === true 
             || RAXSDK_DEBUG === true
         ) {

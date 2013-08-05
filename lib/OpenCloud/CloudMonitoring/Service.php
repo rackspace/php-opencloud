@@ -12,7 +12,7 @@ use OpenCloud\Common\Service as AbstractService;
  *      See COPYING for licensing information
  * @package phpOpenCloud
  * @version 1.0
- * @author  Jamie Hannaford <jamie@limetree.org>
+ * @author  Jamie Hannaford <jamie.hannaford@rackspace.com>
  * @extends AbstractService
  */
 class Service extends AbstractService
@@ -88,7 +88,9 @@ class Service extends AbstractService
 
         if (!class_exists($className)) {
             throw new Exception\ServiceException(sprintf(
-                    '%s resource does not exist, please try one of the following: %s', $resourceName, implode(', ', $this->getResources())
+                '%s resource does not exist, please try one of the following: %s', 
+                $resourceName, 
+                implode(', ', $this->getResources())
             ));
         }
 
@@ -105,7 +107,7 @@ class Service extends AbstractService
      * @param   mixed $body (default: null)
      * @return  void
      */
-    public function Request(
+    public function request(
         $url, 
         $method = 'GET', 
         array $headers = array(), 
@@ -122,11 +124,6 @@ class Service extends AbstractService
         }
 
         return $this->conn->Request($url, $method, $headers, $body);
-    }
-    
-    public function getConn()
-    {
-        return $this->conn;
     }
 
 }
