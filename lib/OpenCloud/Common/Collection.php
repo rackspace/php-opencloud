@@ -78,7 +78,7 @@ class Collection extends Base
 
     public function count()
     {
-        return count($this->itemList);
+        return count($this->itemlist);
     }
 
     /**
