@@ -23,7 +23,7 @@ class Logger extends AbstractLogger
      * 
      * @var bool
      */
-    private $enabled = true;
+    private $enabled = false;
     
     /**
      * These are the levels which will always be outputted - regardless of 

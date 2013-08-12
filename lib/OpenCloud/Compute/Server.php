@@ -133,7 +133,9 @@ class Server extends PersistentObject
         $this->imageRef = $this->image->links[0]->href;
         $this->flavorRef = $this->flavor->links[0]->href;
 
-        $this->debug(Lang::translate('Server::Create() [%s]'), $this->name);
+        $this->getLogger()->info(Lang::translate('Server::Create() [{name}]'), array(
+            'name' => $this->name
+        ));
 
         $create = $this->CreateJson($params);
 

@@ -59,40 +59,12 @@ abstract class Base
      * @access public
      * @return void
      */
-    public function getDebug()
+    public function getLogger()
     {
         if (null === $this->logger) {
             $this->setLogger(new Log\Logger);
         }
         return $this->logger;
-    }
-
-    /**
-     * Displays a debug message if $RAXSDK_DEBUG is TRUE
-     *
-     * The primary parameter is a string in sprintf() format, and it can accept
-     * up to five optional parameters. It prints the debug message, prefixed
-     * with "Debug:" and the class name, to the standard output device.
-     *
-     * Example:
-     *   `$this->debug('Starting execution of %s', get_class($this))`
-     *
-     * @param string $msg The message string (required); can be in
-     *      sprintf() format.
-     * @param mixed $p1 Optional argument to be passed to sprintf()
-     * @param mixed $p2 Optional argument to be passed to sprintf()
-     * @param mixed $p3 Optional argument to be passed to sprintf()
-     * @param mixed $p4 Optional argument to be passed to sprintf()
-     * @param mixed $p5 Optional argument to be passed to sprintf()
-     * @return void
-     *
-     * @TODO - change this method name to something more descriptive/accurate
-     */
-    public function debug()
-    {
-        if ($this->getDebug() === true || RAXSDK_DEBUG === true) {
-            return Debug::logMessage($this, func_get_args());
-        }
     }
 
     /**

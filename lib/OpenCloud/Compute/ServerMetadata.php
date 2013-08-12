@@ -54,7 +54,7 @@ class ServerMetadata extends Metadata
             $response = $this->Parent()->Service()->Request($this->Url());
 
             // check the response
-            if ($response->HttpStatus() >= 300) {
+            if ($response->httpStatus() >= 300) {
                 throw new Exceptions\MetadataError(sprintf(
                     Lang::translate('Unable to retrieve metadata [%s], response [%s]'),
                     $this->Url(),
@@ -62,7 +62,13 @@ class ServerMetadata extends Metadata
                 ));
             }
 
-            $this->debug(Lang::translate('Metadata for [%s] is [%s]'), $this->Url(), $response->HttpBody());
+            $this->getLogger()->info(
+                Lang::translate('Metadata for [{url}] is [{body}]'), 
+                array(
+                    'url'  => $this->url(), 
+                    'body' => $response->httpBody()
+                )
+            );
 
             // parse and assign the server metadata
             $obj = json_decode($response->HttpBody());

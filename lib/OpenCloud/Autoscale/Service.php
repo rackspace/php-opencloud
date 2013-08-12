@@ -26,7 +26,8 @@ use OpenCloud\OpenStack;
  * these to make it easier to use:
  *
  */
-class Service extends AbstractService {
+class Service extends AbstractService 
+{
 
     /**
      * Called when creating a new Autoscale service object
@@ -50,7 +51,6 @@ class Service extends AbstractService {
         $serviceRegion,
         $urltype
     ) {
-        $this->debug(_('initializing Autoscale...'));
         parent::__construct(
             $conn,
             'rax:autoscale',
@@ -58,6 +58,8 @@ class Service extends AbstractService {
             $serviceRegion,
             $urltype
         );
+        
+        $this->getLogger()->info('Initializing Autoscale...');
     }
 
 }

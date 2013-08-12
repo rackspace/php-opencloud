@@ -45,7 +45,7 @@ class CDNContainer extends ObjectStore
      */
     public function __construct(AbstractService $service, $cdata = NULL)
     {
-        $this->debug(Lang::translate('Initializing Container...'));
+        $this->getLogger()->info('Initializing Container...');
 
         parent::__construct();
 
@@ -62,10 +62,12 @@ class CDNContainer extends ObjectStore
             }
             //$this->Refresh();
         } elseif ($cdata) {
-            // or, if it's a string, retrieve the object with that name
-            $this->debug(Lang::translate('Getting container [%s]'), $cdata);
+            // Or, if it's a string, retrieve the object with that name
+            $this->getLogger()->info('Getting container [{cdata}]', array(
+                'cdata' => $cdata
+            ));
             $this->name = $cdata;
-            $this->Refresh();
+            $this->refresh();
         }
     }
 
