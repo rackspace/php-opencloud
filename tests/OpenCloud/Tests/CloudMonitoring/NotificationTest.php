@@ -67,7 +67,7 @@ class NotificationTest extends PHPUnit_Framework_TestCase
     
     public function testExistingTest()
     {
-        $this->resource->get(self::NOTIFICATION_ID);
+        $this->resource->refresh(self::NOTIFICATION_ID);
 
         $response = json_decode($this->resource->testExisting()->HttpBody());
 
@@ -76,7 +76,7 @@ class NotificationTest extends PHPUnit_Framework_TestCase
     
     public function testGet()
     {
-        $this->resource->get(self::NOTIFICATION_ID);
+        $this->resource->refresh(self::NOTIFICATION_ID);
         
         $this->assertEquals('my webhook #1', $this->resource->label);
     }

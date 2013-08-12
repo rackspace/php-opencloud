@@ -10,7 +10,7 @@ use OpenCloud\Common\Collection;
 class NotificationHistoryTest extends PHPUnit_Framework_TestCase
 {
     
-    const ENTITY_ID = 'enAAAA';
+    const ENTITY_ID = 'enAAAAA';
     const ALARM_ID  = 'alAAAA';
     const CHECK_ID  = 'chAAAA';
     const NH_ID     = '646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26';
@@ -28,12 +28,12 @@ class NotificationHistoryTest extends PHPUnit_Framework_TestCase
         
         // Grandparent resource (i.e. entity)
         $entityResource = $this->service->resource('entity');
-        $entityResource->Refresh(self::ENTITY_ID);
+        $entityResource->refresh(self::ENTITY_ID);
         
         // Parent resource (i.e. alarm)
         $alarmResource = $this->service->resource('alarm');
         $alarmResource->setParent($entityResource);
-        $alarmResource->Refresh(self::ALARM_ID);
+        $alarmResource->refresh(self::ALARM_ID);
     
         // This resource
         $this->resource = $this->service->resource('NotificationHistory');

@@ -122,6 +122,16 @@ class OpenStack extends Base
             'name'      => RAXSDK_ORCHESTRATION_NAME,
             'region'    => RAXSDK_ORCHESTRATION_REGION,
             'urltype'   => RAXSDK_ORCHESTRATION_URLTYPE
+        ),
+        'CloudMonitoring' => array(
+            'name'      => RAXSDK_MONITORING_NAME,
+            'region'    => RAXSDK_MONITORING_REGION,
+            'urltype'   => RAXSDK_MONITORING_URLTYPE
+        ),
+        'Autoscale' => array(
+        	'name'		=> RAXSDK_AUTOSCALE_NAME,
+        	'region'	=> RAXSDK_AUTOSCALE_REGION,
+        	'urltype'	=> RAXSDK_AUTOSCALE_URLTYPE
         )
     );
 
@@ -173,6 +183,15 @@ class OpenStack extends Base
      */
     public function __construct($url, $secret, $options = array())
     {
+    	// check for supported version
+    	$ver = explode('.', phpversion());
+    	$version = $ver[0]*10000 + $ver[1]*100 + $ver[2];
+    	if ($version < 50301)
+    		throw new Exceptions\UnsupportedVersionError(
+    			sprintf(Lang::translate('PHP version [%s] is not supported'),
+    				phpversion()));
+    	
+    	// start processing
         $this->debug(Lang::translate('initializing'));
         $this->url = $url;
 

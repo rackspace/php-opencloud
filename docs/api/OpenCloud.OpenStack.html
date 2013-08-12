@@ -1554,7 +1554,7 @@ the end of the file is reached.</small><br><br>
           protected 
           </span>$defaults
           =
-          array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'Database' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE), 'Volume' =&gt; array('name' =&gt; RAXSDK_VOLUME_NAME, 'region' =&gt; RAXSDK_VOLUME_REGION, 'urltype' =&gt; RAXSDK_VOLUME_URLTYPE), 'LoadBalancer' =&gt; array('name' =&gt; RAXSDK_LBSERVICE_NAME, 'region' =&gt; RAXSDK_LBSERVICE_REGION, 'urltype' =&gt; RAXSDK_LBSERVICE_URLTYPE), 'DNS' =&gt; array('name' =&gt; RAXSDK_DNS_NAME, 'region' =&gt; RAXSDK_DNS_REGION, 'urltype' =&gt; RAXSDK_DNS_URLTYPE), 'Orchestration' =&gt; array('name' =&gt; RAXSDK_ORCHESTRATION_NAME, 'region' =&gt; RAXSDK_ORCHESTRATION_REGION, 'urltype' =&gt; RAXSDK_ORCHESTRATION_URLTYPE))</h3>
+          array('Compute' =&gt; array('name' =&gt; RAXSDK_COMPUTE_NAME, 'region' =&gt; RAXSDK_COMPUTE_REGION, 'urltype' =&gt; RAXSDK_COMPUTE_URLTYPE), 'ObjectStore' =&gt; array('name' =&gt; RAXSDK_OBJSTORE_NAME, 'region' =&gt; RAXSDK_OBJSTORE_REGION, 'urltype' =&gt; RAXSDK_OBJSTORE_URLTYPE), 'Database' =&gt; array('name' =&gt; RAXSDK_DATABASE_NAME, 'region' =&gt; RAXSDK_DATABASE_REGION, 'urltype' =&gt; RAXSDK_DATABASE_URLTYPE), 'Volume' =&gt; array('name' =&gt; RAXSDK_VOLUME_NAME, 'region' =&gt; RAXSDK_VOLUME_REGION, 'urltype' =&gt; RAXSDK_VOLUME_URLTYPE), 'LoadBalancer' =&gt; array('name' =&gt; RAXSDK_LBSERVICE_NAME, 'region' =&gt; RAXSDK_LBSERVICE_REGION, 'urltype' =&gt; RAXSDK_LBSERVICE_URLTYPE), 'DNS' =&gt; array('name' =&gt; RAXSDK_DNS_NAME, 'region' =&gt; RAXSDK_DNS_REGION, 'urltype' =&gt; RAXSDK_DNS_URLTYPE), 'Orchestration' =&gt; array('name' =&gt; RAXSDK_ORCHESTRATION_NAME, 'region' =&gt; RAXSDK_ORCHESTRATION_REGION, 'urltype' =&gt; RAXSDK_ORCHESTRATION_URLTYPE), 'CloudMonitoring' =&gt; array('name' =&gt; RAXSDK_MONITORING_NAME, 'region' =&gt; RAXSDK_MONITORING_REGION, 'urltype' =&gt; RAXSDK_MONITORING_URLTYPE), 'Autoscale' =&gt; array('name' =&gt; RAXSDK_AUTOSCALE_NAME, 'region' =&gt; RAXSDK_AUTOSCALE_REGION, 'urltype' =&gt; RAXSDK_AUTOSCALE_URLTYPE))</h3>
 <em>This associative array holds default values used to identify each
 service (and to select it from the Service Catalog). Use the
 Compute::SetDefaults() method to change the default values, or
@@ -1665,6 +1665,9 @@ to track who is using their service.</em><br><small></small><br><br>
 between a user and a service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
+<li class="closed">
+<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li></ul>
+</li>
 <li class="closed">
 <span class="folder">CloudMonitoring</span><ul>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
@@ -2149,6 +2152,7 @@ class definitions.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>

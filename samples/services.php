@@ -37,6 +37,7 @@ define('TIMEFORMAT', 'r');
 step('Authenticate');
 $rackspace = new \OpenCloud\Rackspace(AUTHURL,
 	array( 'username' => USERNAME,
+		   'tenantName' => TENANT,
 		   'apiKey' => APIKEY ));
 
 // parse command-line arguments

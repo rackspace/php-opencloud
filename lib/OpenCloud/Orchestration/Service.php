@@ -13,7 +13,7 @@
 
 namespace OpenCloud\Orchestration;
 
-use OpenCloud\AbstractClass\Service as AbstractService;
+use OpenCloud\Common\Service as AbstractService;
 use OpenCloud\Base\Lang;
 use OpenCloud\OpenStack;
 

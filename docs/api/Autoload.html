@@ -74,6 +74,7 @@
       <a style="font-style: italic;" href="#ClassLoader::getPrefixes()">getPrefixes</a>,
       <a style="font-style: italic;" href="#ClassLoader::getUseIncludePath()">getUseIncludePath</a>,
       <a style="font-style: italic;" href="#ClassLoader::loadClass()">loadClass</a>,
+      <a style="font-style: italic;" href="#ClassLoader::makeBackwardsCompatible()">makeBackwardsCompatible</a>,
       <a style="font-style: italic;" href="#ClassLoader::register()">register</a>,
       <a style="font-style: italic;" href="#ClassLoader::registerNamespace()">registerNamespace</a>,
       <a style="font-style: italic;" href="#ClassLoader::registerNamespaceFallback()">registerNamespaceFallback</a>,
@@ -265,6 +266,57 @@ for classes.</em><br><h4>Return value</h4>
 <tbody><tr>
 <td>Boolean|null</td>
 <td>True, if loaded</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="ClassLoader::makeBackwardsCompatible()"></a><h3>makeBackwardsCompatible<span class="nb-faded-text">(
+          mixed
+             
+            $className,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Fix for certain versions of PHP that have trouble with
+namespaces with leading separators.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$className</td>
+<td style="white-space: normal;">mixed</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>access</td>
+<td>private</td>
 </tr></tbody>
 </table>
 </div>
@@ -831,6 +883,9 @@ between a user and a service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
 <li class="closed">
+<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li></ul>
+</li>
+<li class="closed">
 <span class="folder">CloudMonitoring</span><ul>
 <li><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
 <li class="closed">
@@ -1314,6 +1369,7 @@ class definitions.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>

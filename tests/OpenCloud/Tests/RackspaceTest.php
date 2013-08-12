@@ -58,9 +58,21 @@ class RackspaceTest extends \PHPUnit_Framework_TestCase
 	        get_class($lbservice));
 	}
 	public function testDNS() {
-		$dns = $this->conn->DNS(NULL, 'DFW');
+		$service = $this->conn->DNS(NULL, 'DFW');
 		$this->assertEquals(
 			'OpenCloud\DNS\Service',
-			get_class($dns));
+			get_class($service));
+	}
+	public function testCloudMonitoring() {
+		$service = $this->conn->CloudMonitoring();
+		$this->assertEquals(
+			'OpenCloud\CloudMonitoring\Service',
+			get_class($service));
+	}
+	public function testAutoscale() {
+		$service = $this->conn->Autoscale(NULL, 'DFW');
+		$this->assertEquals(
+			'OpenCloud\Autoscale\Service',
+			get_class($service));
 	}
 }

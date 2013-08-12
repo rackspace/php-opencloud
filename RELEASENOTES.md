@@ -1,12 +1,22 @@
 RELEASE NOTES
 -------------
 
+### Current working branch:
+
+### 2013-08-01 Version 1.5.10
+
+* patch to support the diskConfig (Auto, Manual) or other attributes on 
+  Server::Create()
+* created CONTRIBUTING.md file to support Github feature
+
 ### 1.5.9
+
 * fixed release notes
 * save file to stream
 * minor fixes
 
 ## 06/27/2013 Version 1.5.8
+
 * #106 - problem with urlencoded paths for TEMP_URL feature
 * #111 - slowness in listing swift containers
 * OMG ADDED HEAT (Orchestration) SUPPORT! (Thanks, Stephen!)
@@ -14,18 +24,22 @@ RELEASE NOTES
 * numerous other bug fixes, updated docs
 
 ### 05/23/2013 Version 1.5.7
+
 * #102 - Etag support on create
 * #104 - function signature mismatch
 * #105 - CDN object not associated with container
 
 ### 05/10/2013 Version 1.5.6
+
 * Support for DNS\Domain::CloneDomain() feature
 
 ### 05/07/2013 Version 1.5.5
+
 * PSR-2 implementation (code formatting)
 * issue #95 - attempt to fix default timezone to satisfy folks
 
 ### 04/30/2013 Version 1.5.4
+
 * Issue #38 - added support for Cloud Files TEMP_URL feature
 * Revised structure around namespaces
 * new entrypoint: php-opencloud.php (rackspace.php and openstack.php are still
@@ -34,12 +48,14 @@ RELEASE NOTES
 * Added scripts/ver++.sh to increment version patch number
 
 ### 02/21/2013 Version 1.4
+
 * Added __DIR__ to all internal `require()` calls. [Issue #40]
 * Added support for Rackspace Cloud DNS (see the quick reference in docs/
   for the details)
 * Other bug fixes that I can't remember, but which are really good. Really.
 
 ### 02/10/2013 Version 1.3
+
 * **IMPORTANT**: The file extension for include files is not `.php` (instead of
   `.inc`). This came at the request of numerous individuals. However, it means
   that all of your scripts that use **php-opencloud** must be edited.
@@ -60,16 +76,19 @@ RELEASE NOTES
   `OpenStack` class to permit caching of tokens.
 
 ### 11/06/2012 Version 1.2
+
 * Adds full support for OpenStack Cinder/Rackspace Cloud Block Storage
 * Bug fixes
 * Refactoring to reduce code size
 
 ### 10/25/2012 Version 1.1
+
 * Fix for security issue #6
 * Includes Quick Reference material on Cinder/Cloud Block Storage, but
   no additional docs yet (they're in progress)
 
 ### 10/12/2012 Version 1.0 final
+
 * More refactoring to reduce the amount of duplicated code
 * Fix for issue #3
 * Added support for Cloud Block Storage (Nova Volumes) and
@@ -77,12 +96,13 @@ RELEASE NOTES
   no docs yet.
 
 ### 10/05/2012 Version 1.0 RC3
+
 * Some refactoring in classes that extend NovaInstance
 * Fixed bug where servers without networks did not receive default networks
   https://github.com/rackspace/php-opencloud/issues/2
 
 ### 09/28/2012 Version 1.0 (Build 39)
-Supported products:
+
 * OpenStack Swift (Rackspace Cloud Files)
 * OpenStack Nova (Rackspace Next Gen Cloud Servers)
 * Rackspace Cloud Networks

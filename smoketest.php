@@ -411,6 +411,7 @@ if ($USE_SERVERS) {
 	$server = $cloudservers->Server();
 	$server->Create(array(
 		'name'=>'FOOBAR',
+		'OS-DCF:diskConfig' => 'MANUAL',
 		'image'=>$centos,
 		'flavor'=>$flavorlist->First(),
 		'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))

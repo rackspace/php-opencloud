@@ -29,7 +29,7 @@ class FakeConnection extends OpenStack
 	}
 
 	public function Request($url, $method = "GET", $headers = array(), $body = null) 
-	{
+	{   
 		$this->url = trim($url, '/');
 		$response = new Blank;
 		$response->headers = array('Content-Length' => '999');
@@ -74,7 +74,8 @@ class FakeConnection extends OpenStack
 	{
 		foreach ($array as $key => $item) {
 			$pattern = "#{$key}$#";
-			if (preg_match($pattern, $this->url)) {
+            
+            if (preg_match($pattern, $this->url)) {
 				$path = __DIR__ . "/Resource/{$item}.json";
 				if (file_exists($path)) {
 					return file_get_contents($path);

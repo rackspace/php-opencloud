@@ -20,6 +20,9 @@ class AccountTest extends PHPUnit_Framework_TestCase
             'DFW',
             'publicURL'
         );
+        
+        $this->resource = $this->service->resource('account');
+        $this->resource->refresh();
     }
 
     public function testAccountClass()
@@ -30,30 +33,24 @@ class AccountTest extends PHPUnit_Framework_TestCase
 
     public function testAccountGET()
     {
-        $resource = $this->service->resource('account');
-        $before = get_object_vars($resource);
-        $resource->get();
-        
-        $this->assertEquals('aValue', $resource->metadata->key);
-        $this->assertEquals('token12345', $resource->webhook_token);
+        $this->assertEquals('aValue', $this->resource->metadata->key);
+        $this->assertEquals('token12345', $this->resource->webhook_token);
     }
 
     public function testAccountPUT()
     {
         // Update
-        $resource = $this->service->resource('account');
-        $resource->get();
-        $resource->Update(array(
+        $this->resource->update(array(
             'metadata' => array(
                 'key' => 'Lorem ipsum'
             )
         ));
         
         // Retrieve back again
-        $resource->get();
+        $this->resource->refresh();
 
         // Test
-        $this->assertObjectHasAttribute('key', $resource->metadata);
+        $this->assertObjectHasAttribute('key', $this->resource->metadata);
     }
 
 }

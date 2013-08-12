@@ -27,12 +27,12 @@ class MetricTest extends PHPUnit_Framework_TestCase
         
         // Grandparent object (i.e. entity)
         $entityResource = $this->service->resource('entity');
-        $entityResource->Refresh(self::ENTITY_ID);
+        $entityResource->refresh(self::ENTITY_ID);
         
         // Parent object (i.e. check)
         $checkResource = $this->service->resource('check');
         $checkResource->setParent($entityResource);
-        $checkResource->Refresh(self::CHECK_ID);
+        $checkResource->refresh(self::CHECK_ID);
         
         // Our metric object
         $this->resource = $this->service->resource('metric');

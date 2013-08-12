@@ -59,7 +59,7 @@ class ZoneTest extends PHPUnit_Framework_TestCase
     
     public function testGetClass()
     {
-        $this->resource->get('mzAAAAA');
+        $this->resource->refresh('mzAAAAA');
         
         $this->assertEquals('mzAAAAA', $this->resource->id);
     }

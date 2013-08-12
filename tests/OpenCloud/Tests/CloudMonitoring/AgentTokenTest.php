@@ -50,7 +50,7 @@ class AgentTokenTest extends PHPUnit_Framework_TestCase
     
     public function testGet()
     {
-        $this->resource->get(self::TOKEN_ID);
+        $this->resource->refresh(self::TOKEN_ID);
         
         $this->assertEquals($this->resource->id, self::TOKEN_ID);
         $this->assertEquals($this->resource->label, 'aLabel');
