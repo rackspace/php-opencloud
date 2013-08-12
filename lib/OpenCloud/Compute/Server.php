@@ -136,7 +136,7 @@ class Server extends PersistentObject
         $this->debug(Lang::translate('Server::Create() [%s]'), $this->name);
 
         $create = $this->CreateJson();
-
+        
         $response = $this->Service()->Request(
         	$this->Service()->Url(), 'POST', array(), $create);
 
