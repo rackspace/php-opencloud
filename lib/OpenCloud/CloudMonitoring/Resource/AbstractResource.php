@@ -221,7 +221,7 @@ abstract class AbstractResource extends PersistentObject
      * @param array $params (default: array())
      * @return void
      */
-    public function Update($params = array())
+    public function update($params = array())
     {
         // set parameters
         foreach ($params as $key => $value) {
@@ -229,7 +229,10 @@ abstract class AbstractResource extends PersistentObject
         }
 
         // debug
-        $this->debug('%s::Update(%s)', get_class($this), $this->Name());
+        $this->getLogger()->info('{class}::update({name})', array(
+            'class' => get_class($this), 
+            'name'  => $this->name()
+        ));
 
         // construct the JSON
         $obj = $this->UpdateJson($params);
@@ -239,7 +242,10 @@ abstract class AbstractResource extends PersistentObject
             return false;
         }
 
-        $this->debug('%s::Update JSON [%s]', get_class($this), $json);
+        $this->getLogger()->info('{class}::Update JSON [{json}]', array(
+            'class' => get_class($this), 
+            'json'  => $json
+        ));
 
         // send the request
         $response = $this->Service()->Request(
@@ -268,7 +274,7 @@ abstract class AbstractResource extends PersistentObject
      */
     public function Delete()
     {
-        $this->debug('%s::Delete()', get_class($this));
+        $this->getLogger()->info('{class}::delete()', array('class' => get_class($this)));
 
         // send the request
         $response = $this->Service()->Request($this->Url($this->id), 'DELETE');

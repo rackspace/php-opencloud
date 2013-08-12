@@ -67,7 +67,7 @@ class Service extends Nova
      */
     public function __construct(OpenStack $conn, $serviceName, $serviceRegion, $urltype) 
     {
-        $this->debug(Lang::translate('initializing Compute...'));
+        $this->getLogger()->info(Lang::translate('Initializing compute...'));
         
         parent::__construct(
             $conn,

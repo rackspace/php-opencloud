@@ -241,7 +241,6 @@ $met->value = 'Glen Campbell';
 $met->Create();
 
 step('Add a public IPv6 address');
-//setDebug(TRUE);
 $lb->AddVirtualIp('PUBLIC', 6);
 
 // allowed domains

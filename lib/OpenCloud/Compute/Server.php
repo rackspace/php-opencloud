@@ -124,18 +124,18 @@ class Server extends PersistentObject
         // reset values
         $this->id = null;
         $this->status = null;
-
-        foreach($params as $key => $value) {
-            $this->$key = $value;
-        }
+        
+        $this->populate($params);
 
         $this->metadata->sdk = RAXSDK_USER_AGENT;
         $this->imageRef = $this->image->links[0]->href;
         $this->flavorRef = $this->flavor->links[0]->href;
 
-        $this->debug(Lang::translate('Server::Create() [%s]'), $this->name);
+        $this->getLogger()->info(Lang::translate('Server::Create() [{name}]'), array(
+            'name' => $this->name
+        ));
 
-        $create = $this->CreateJson($params);
+        $create = $this->createJson($params);
 
         $response = $this->Service()->Request(
         	$this->Service()->Url(), 'POST', array(), $create);
@@ -535,14 +535,30 @@ class Server extends PersistentObject
 
         // set a bunch of properties
         $obj->server = new \stdClass();
-
-		if (is_array($params))
-			foreach ($params as $key => $ignore)
-				$obj->server->$key = $this->$key;
-		$obj->server->imageRef = $this->imageRef;
+        
+        $allowedKeys = array(
+            'flavorRef',
+            'name',
+            'imageRef',
+            'OS-DCF:diskConfig',
+            'metadata',
+            'personality'
+        );
+        
+		if (is_array($params)) {
+			foreach ($params as $key => $ignore) {
+                // Only stock object with relevant keys (let's save some network bandwidth)
+                if (in_array($key, $allowedKeys)) {
+                    $obj->server->$key = $this->$key;
+                }
+            }
+        }
+        
+        $obj->server->imageRef = $this->imageRef;
 		$obj->server->name = $this->name;
 		$obj->server->flavorRef = $this->flavorRef;
 		$obj->server->metadata = $this->metadata;
+        
 		if (is_array($this->networks) && count($this->networks)) {
 			$obj->server->networks = array();
 			foreach ($this->networks as $net) {
@@ -553,6 +569,12 @@ class Server extends PersistentObject
 						get_class($net)
 					));
 				}
+                if (!$net->id) {
+                    $this->getLogger()->warning(
+                        'When creating a server, make sure each network has a valid UUID'
+                    );
+                    continue;
+                }
 				$netobj = new \stdClass();
 				$netobj->uuid = $net->id;
 				$obj->server->networks[] = $netobj;

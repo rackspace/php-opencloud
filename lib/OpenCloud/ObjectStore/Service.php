@@ -51,7 +51,7 @@ class Service extends ObjectStoreBase
         $serviceRegion = RAXSDK_OBJSTORE_REGION,
         $urltype = RAXSDK_OBJSTORE_URLTYPE
     ) {
-        $this->debug(Lang::translate('initializing ObjectStore...'));
+        $this->getLogger()->info('Initializing ObjectStore...');
 
         // call the parent contructor
         parent::__construct(
