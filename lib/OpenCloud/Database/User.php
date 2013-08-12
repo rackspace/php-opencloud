@@ -91,8 +91,7 @@ class User extends Base
                 Lang::translate('The user does not have a Url yet')
             );
         }
-        return stripslashes($this->Instance()->Url('users')) . '/' .
-        			$this->name;
+        return stripslashes($this->instance()->url('users')) . '/' . $this->name;
     }
 
     /**
@@ -150,7 +149,7 @@ class User extends Base
 
 		$json = json_encode($this->CreateJson());
 
-		$this->debug('Create() JSON[%s]', $json);
+		$this->getLogger()->info('Create() JSON[{json}]', array('json' => $json));
 
 		if ($this->CheckJsonError()) {
 			return false;
@@ -161,7 +160,10 @@ class User extends Base
 		// send the request
 		$response = $this->Service()->Request($url, 'POST', array(), $json);
 
-		$this->debug('Create() response [%d] - [%s]', $response->HttpStatus(), $response->HttpBody());
+		$this->getLogger()->info('Create() response [{status}] - [{body}]', array(
+            'status' => $response->HttpStatus(), 
+            'body'   => $response->HttpBody()
+        ));
 
 		// check the response
 		if ($response->HttpStatus() > 202) {

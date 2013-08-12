@@ -25,36 +25,38 @@ use OpenCloud\Exceptions\CreateError;
  * @api
  * @author Stephen Sugden <openstack@stephensugden.com>
  */
-class Stack extends PersistentObject {
-    protected static
-        $json_name = "stack",
-        $url_resource = "stacks",
-        $required_properties = array('template', 'stack_name');
+class Stack extends PersistentObject 
+{
+    
+    protected static $json_name = "stack";
+    protected static $url_resource = "stacks";
+    protected static $required_properties = array('template', 'stack_name');
 
-    protected
-        $id,
-        $stack_name,
-        $parameters,
-        $template,
-        $disable_rollback,
-        $description,
-        $stack_status_reason,
-        $outputs,
-        $creation_time,
-        $links,
-        $capabilities,
-        $notification_topics,
-        $timeout_mins,
-        $stack_status,
-        $updated_time,
-        $template_description;
+    protected $id;
+    protected $stack_name;
+    protected $parameters;
+    protected $template;
+    protected $disable_rollback;
+    protected $description;
+    protected $stack_status_reason;
+    protected $outputs;
+    protected $creation_time;
+    protected $links;
+    protected $capabilities;
+    protected $notification_topics;
+    protected $timeout_mins;
+    protected $stack_status;
+    protected $updated_time;
+    protected $template_description;
 
-    public function __construct(Service $service, $info) {
+    public function __construct(Service $service, $info) 
+    {
         parent::__construct($service, $info);
     }
 
-    protected function CreateJson() {
-        $pk = $this->PrimaryKeyField();
+    protected function createJson() 
+    {
+        $pk = $this->primaryKeyField();
         if (isset($this->{$pk})) {
             throw new CreateError("Stack is already created: {$this->$pk}");
         }
@@ -65,8 +67,7 @@ class Stack extends PersistentObject {
 
         foreach (self::$required_properties as $property) {
             if (is_null($this->{$property})) {
-                $message = "Cannot create Stack with null $property";
-                throw new CreateError($message);
+                throw new CreateError(sprintf('Cannot create Stack with null %s', $property));
             }
             else {
                 $obj->$property = $this->$property;
@@ -78,19 +79,23 @@ class Stack extends PersistentObject {
         return $obj;
     }
 
-    public function Name() {
+    public function name() 
+    {
         return $this->stack_name;
     }
 
-    public function Status() {
+    public function status() 
+    {
         return $this->stack_status;
     }
 
-    public function Resource($id=NULL) {
+    public function resource($id = null) 
+    {
         return new Resource($this, $id);
     }
 
-    public function Resources() {
+    public function resources() 
+    {
         $svc = $this->Service();
         $url = $this->Url('resources');
         return $svc->Collection('\OpenCloud\Orchestration\Resource', $url, $this);

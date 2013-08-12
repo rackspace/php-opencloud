@@ -26,7 +26,8 @@ use OpenCloud\OpenStack;
  * these to make it easier to use:
  *
  */
-class Service extends AbstractService {
+class Service extends AbstractService 
+{
 
     /**
      * Called when creating a new Compute service object
@@ -50,7 +51,9 @@ class Service extends AbstractService {
         $serviceRegion,
         $urltype
     ) {
-        $this->debug(_('initializing Orchestration...'));
+        
+        $this->getLogger()->info('Initializing Orchestration...');
+        
         parent::__construct(
             $conn,
             'orchestration',
@@ -67,11 +70,13 @@ class Service extends AbstractService {
      * @param string $id - the stack with the ID is retrieved
      * @returns Stack object
      */
-    public function Stack($id = null) {
+    public function Stack($id = null) 
+    {
         return new Stack($this, $id);
     }
 
-    public function namespaces() {
+    public function namespaces() 
+    {
         return array();
     }
 }
