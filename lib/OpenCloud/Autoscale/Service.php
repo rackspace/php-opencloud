@@ -13,7 +13,6 @@
 namespace OpenCloud\Autoscale;
 
 use OpenCloud\Common\Service as AbstractService;
-use OpenCloud\Common\Lang;
 use OpenCloud\OpenStack;
 
 /**
@@ -64,10 +63,12 @@ class Service extends AbstractService
         $urltype, 
         $customEndpoint = null
     ) {
-        $this->debug(Lang::translate('Initializing Autoscale...'));
+
         parent::__construct(
             $conn, 'rax:autoscale', $serviceName, $serviceRegion, $urltype, $customEndpoint
         );
+        
+        $this->getLogger()->info('Initializing Autoscale...');
     }
     
     public function group($info = null)

@@ -193,7 +193,7 @@ class OpenStack extends Base
         }
         
     	// start processing
-        $this->debug(Lang::translate('initializing'));
+        $this->getLogger()->info(Lang::translate('Initializing'));
         $this->url = $url;
 
         if (!is_array($secret)) {
@@ -414,14 +414,20 @@ class OpenStack extends Base
      */
     public function Request($url, $method = 'GET', $headers = array(), $data = null)
     {
-        //var_dump($url, $method, $headers, $data);die;
-        $this->debug(Lang::translate('Resource [%s] method [%s] body [%s]'), $url, $method, $data);
+        $this->getLogger()->info('Resource [{url}] method [{method}] body [{body}]', array(
+            'url'    => $url, 
+            'method' => $method, 
+            'data'   => $data
+        ));
 
         // get the request object
         $http = $this->GetHttpRequestObject($url, $method, $this->curl_options);
 
         // set various options
-        $this->debug(Lang::translate('Headers: [%s]'), print_r($headers, true));
+        $this->getLogger()->info('Headers: [{headers}]', array(
+            'headers' => print_r($headers, true)
+        ));
+        
         $http->setheaders($headers);
         $http->SetHttpTimeout($this->http_timeout);
         $http->SetConnectTimeout($this->connect_timeout);
@@ -530,7 +536,9 @@ class OpenStack extends Base
         $http->close();
 
         // return the HttpResponse object
-        $this->debug(Lang::translate('HTTP STATUS [%s]'), $response->HttpStatus());
+        $this->getLogger()->info('HTTP STATUS [{code}]', array(
+            'code' => $response->httpStatus()
+        ));
 
         return $response;
     }
@@ -828,7 +836,12 @@ class OpenStack extends Base
     public function Service($class, $name = null, $region = null, $urltype = null)
     {
         // debug message
-        $this->debug('Factory for class [%s] [%s/%s/%s]', $class, $name, $region, $urltype);
+        $this->getLogger()->info('Factory for class [{class}] [{name}/{region}/{urlType}]', array(
+            'class'   => $class, 
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
 
         if (strpos($class, '\OpenCloud\\') === 0) {
             $class = str_replace('\OpenCloud\\', '', $class);

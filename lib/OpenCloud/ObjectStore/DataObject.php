@@ -34,7 +34,7 @@ class DataObject extends ObjectStore
     public $content_type;       // Content-Type:
     public $content_length;     // Content-Length:
     public $extra_headers;      // Other headers, eg. Access-Control-Allow-Origin:
-    public $send_etag = TRUE;   // Whether or not to calculate and send an etag on Create.
+    public $send_etag = true;   // Whether or not to calculate and send an etag on Create.
 
     private $data;           // the actual data
     private $etag;           // the ETag
@@ -59,7 +59,7 @@ class DataObject extends ObjectStore
      *      the service.
      * @return void
      */
-    public function __construct($container, $cdata = NULL)
+    public function __construct($container, $cdata = null)
     {
         parent::__construct();
 
@@ -75,7 +75,7 @@ class DataObject extends ObjectStore
             }
         } elseif (isset($cdata)) {
             $this->name = $cdata;
-            $this->Fetch();
+            $this->fetch();
         }
     }
 
@@ -150,7 +150,10 @@ class DataObject extends ObjectStore
                 $this->etag = md5_file($filename);
             }
 
-            $this->debug('Uploading %u bytes from %s', $filesize, $filename);
+            $this->getLogger()->info('Uploading {size} bytes from {name}', array(
+                'size' => $filesize, 
+                'name' => $filename
+            ));
         } else {
             // compute the length
             $this->content_length = strlen($this->data);
@@ -326,7 +329,7 @@ class DataObject extends ObjectStore
     {
         $uri = sprintf('/%s/%s', $target->Container()->Name(), $target->Name());
 
-        $this->debug('Copying object to [%s]', $uri);
+        $this->getLogger()->info('Copying object to [{uri}]', array('uri' => $uri));
 
         $response = $this->Service()->Request(
             $this->Url(),
@@ -400,13 +403,18 @@ class DataObject extends ObjectStore
         $hmac_body = "$method\n$expiry_time\n$path";
         $hash = hash_hmac('sha1', $hmac_body, $secret);
 
-        $this->debug('URL [%s] SIG [%s] HASH [%s]', $url, $hmac_body, $hash);
+        $this->getLogger()->info('URL [{url}]; SIG [{sig}]; HASH [{hash}]', array(
+            'url'  => $url, 
+            'sig'  => $hmac_body, 
+            'hash' => $hash
+        ));
 
-        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d',
-        	$url, $hash, $expiry_time);
+        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
 
         // debug that stuff
-        $this->debug('TempUrl generated [%s]', $temp_url);
+        $this->getLogger()->info('TempUrl generated [{url}]', array(
+            'url' => $temp_url
+        ));
 
         return $temp_url;
     }

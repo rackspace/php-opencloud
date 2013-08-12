@@ -53,6 +53,7 @@
 <div class="properties">
 <h1>Properties</h1>
 <label class="property-key">author</label><div class="property-value"></div>
+<label class="property-key">author</label><div class="property-value"></div>
 <label class="property-key">copyright</label><div class="property-value"></div>
 <label class="property-key">package</label><div class="property-value"></div>
 <label class="property-key">version</label><div class="property-value"></div>
@@ -149,6 +150,7 @@ exception.<br><div id="methods_PersistentObject">
       <a style="font-style: italic;" href="#PersistentObject::WaitFor()">WaitFor</a>,
       <a style="font-style: italic;" href="#PersistentObject::__construct()">__construct</a>,
       <a style="font-style: italic;" href="#PersistentObject::__set()">__set</a>,
+      <a style="font-style: italic;" href="#PersistentObject::populate()">populate</a>,
       <a style="font-style: italic;" href="#PersistentObject::setParent()">setParent</a>,
       <div class="method">
 <a id="PersistentObject::Action()"></a><h3>Action<span class="nb-faded-text">(
@@ -1320,6 +1322,56 @@ an exception is thrown.</small><br><h4>Arguments</h4>
 <tbody><tr>
 <td>void</td>
 <td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>throws</td>
+<td></td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="PersistentObject::populate()"></a><h3>populate<span class="nb-faded-text">(
+          array|object|string|integer
+             
+            $info,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">n/a</span>
+</h3>
+<h4>Description</h4>
+<em>Populates the current object based on an unknown data type.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody><tr>
+<td>$info</td>
+<td style="white-space: normal;">array|object|string|integer</td>
+<td></td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>n/a</td>
+<td>n/a</td>
 </tr></tbody>
 </table>
 <h4>Tags</h4>

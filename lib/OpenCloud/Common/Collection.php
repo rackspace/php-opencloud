@@ -43,11 +43,13 @@ class Collection extends Base
     {
         $this->service = $service;
 
-        $this->debug(
-            'Collection:service=%s, class=%s, array=%s', 
-            get_class($service), 
-            $itemclass, 
-            print_r($arr, TRUE)
+        $this->getLogger()->info(
+            'Collection:service={class}, class={itemClass}, array={array}', 
+            array(
+                'class'     => get_class($service), 
+                'itemClass' => $itemclass, 
+                'array'     => print_r($arr, true)
+            )
         );
 
         $this->next_page_class = $itemclass;

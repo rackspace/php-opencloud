@@ -199,32 +199,43 @@ abstract class Service extends Base
         }
 
         // save debug info
-        $this->debug('%s:Collection(%s, %s, %s)', get_class($this), $url, $class, $collection);
+        $this->getLogger()->info(
+            '{class}:Collection({url}, {collectionClass}, {collectionName})', 
+            array(
+                'class' => get_class($this), 
+                'url'   => $url, 
+                'collectionClass' => $class, 
+                'collectionName'  => $collection
+            )
+        );
 
         // fetch the list
         $response = $this->Request($url);
 
-        $this->debug('response %d [%s]', $response->HttpStatus(), $response->HttpBody());
+        $this->getLogger()->info('Response {status} [{body}]', array(
+            'status' => $response->httpStatus(), 
+            'body'   => $response->httpBody()
+        ));
 
         // check return code
-        if ($response->HttpStatus() > 204) {
+        if ($response->httpStatus() > 204) {
             throw new Exceptions\CollectionError(sprintf(
                 Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
                 $class,
                 $url,
-                $response->HttpStatus(),
-                $response->HttpBody()
+                $response->httpStatus(),
+                $response->httpBody()
             ));
         }
         
         // handle empty response
-        if (strlen($response->HttpBody()) == 0) {
+        if (strlen($response->httpBody()) == 0) {
             return new Collection($parent, $class, array());
         }
 
         // parse the return
-        $obj = json_decode($response->HttpBody());
-        if ($this->CheckJsonError()) {
+        $obj = json_decode($response->httpBody());
+        if ($this->checkJsonError()) {
             return false;
         }
         

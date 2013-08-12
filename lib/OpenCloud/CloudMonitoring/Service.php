@@ -64,6 +64,43 @@ class Service extends AbstractService
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * getResources function.
+     * 
+     * @access public
+     * @return void
+     */
+    public function getResources()
+    {
+        return $this->resources;
+    }
+
+    /**
+     * Factory method for instantiating resource objects.
+     * 
+     * @access public
+     * @param string $resourceName
+     * @param mixed $info (default: null)
+     * @return void
+     */
+    public function resource($resourceName, $info = null)
+    {
+        $className = __NAMESPACE__ . '\\Resource\\' . ucfirst($resourceName);
+
+        if (!class_exists($className)) {
+            throw new Exception\ServiceException(sprintf(
+                '%s resource does not exist, please try one of the following: %s', 
+                $resourceName, 
+                implode(', ', $this->getResources())
+            ));
+        }
+
+        return new $className($this, $info);
+    }
+
+    /**
+>>>>>>> working
      * Request function.
      * 
      * @access  public
@@ -73,7 +110,7 @@ class Service extends AbstractService
      * @param   mixed $body (default: null)
      * @return  void
      */
-    public function Request(
+    public function request(
         $url, 
         $method = 'GET', 
         array $headers = array(), 
@@ -90,11 +127,6 @@ class Service extends AbstractService
         }
 
         return $this->conn->Request($url, $method, $headers, $body);
-    }
-    
-    public function getConn()
-    {
-        return $this->conn;
     }
 
 }

@@ -40,11 +40,15 @@ class Http extends Base
 
         // debug caching
         if (isset($this->headers['Cache-Control'])) {
-            $this->debug('Cache-Control: %s', $this->headers['Cache-Control']);
+            $this->getLogger()->info('Cache-Control: {header}', array(
+                'headers' => $this->headers['Cache-Control']
+            ));
         }
 
         if (isset($this->headers['Expires'])) {
-            $this->debug('Expires: %s', $this->headers['Expires']);
+            $this->getLogger()->info('Expires: {header}', array(
+                'headers' => $this->headers['Expires']
+            ));
         }
 
         // set some other data

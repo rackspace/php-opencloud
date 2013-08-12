@@ -48,7 +48,10 @@ class Curl extends Base implements HttpRequestInterface
         $this->SetOption(CURLOPT_CUSTOMREQUEST, $method);
 
         foreach($options as $opt => $value) {
-            $this->debug(Lang::translate('Setting option %s=%s'), $opt, $value);
+            $this->getLogger()->info(Lang::translate('Setting option {key}={val}'), array(
+                'key' => $opt, 
+                'val' => $value
+            ));
             $this->SetOption($opt, $value);
         }
 
@@ -206,7 +209,10 @@ class Curl extends Base implements HttpRequestInterface
         do {
             $data = curl_exec($this->handle);
             if (curl_errno($this->handle) && ($try_counter<$this->retries)) {
-                $this->debug(Lang::translate('Curl error [%d]; retrying [%s]'), curl_errno($this->handle), $this->url);
+                $this->getLogger()->info(Lang::translate('Curl error [%d]; retrying [%s]'), array(
+                    'error' => curl_errno($this->handle), 
+                    'url'   => $this->url
+                ));
             }
 
         } while((++$try_counter<=$this->retries) && (curl_errno($this->handle)!=0));

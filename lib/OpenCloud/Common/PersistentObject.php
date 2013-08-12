@@ -271,7 +271,10 @@ abstract class PersistentObject extends Base
         }
 
         // debug
-        $this->debug('%s::Create(%s)', get_class($this), $this->Name());
+        $this->getLogger()->info('{class}::Create({name})', array(
+            'class' => get_class($this), 
+            'name'  => $this->Name()
+        ));
 
         // construct the JSON
         $object = $this->createJson();
@@ -281,7 +284,10 @@ abstract class PersistentObject extends Base
             return false;
         }
 
-        $this->debug('%s::Create JSON [%s]', get_class($this), $json);
+        $this->getLogger()->info('{class}::Create JSON [{json}]', array(
+            'class' => get_class($this), 
+            'json'  => $json
+        ));
 
         // send the request
         $response = $this->getService()->request(
@@ -336,7 +342,10 @@ abstract class PersistentObject extends Base
         }
 
         // debug
-        $this->debug('%s::Update(%s)', get_class($this), $this->resourceName());
+        $this->getLogger()->info('{class}::Update({name})', array(
+            'class' => get_class($this),
+            'name'  => $this->Name()   
+        ));
 
         // construct the JSON
         $obj = $this->updateJson($params);
@@ -346,7 +355,10 @@ abstract class PersistentObject extends Base
             return false;
         }
 
-        $this->debug('%s::Update JSON [%s]', get_class($this), $json);
+        $this->getLogger()->info('{class}::Update JSON [{json}]', array(
+            'class' => get_class($this), 
+            'json'  => $json
+        ));
 
         // send the request
         $response = $this->getService()->Request(
@@ -379,7 +391,7 @@ abstract class PersistentObject extends Base
      */
     public function delete()
     {
-        $this->debug('%s::Delete()', get_class($this));
+        $this->getLogger()->info('{class}::Delete()', array('class' => get_class($this)));
 
         // send the request
         $response = $this->getService()->Request($this->Url(), 'DELETE');
@@ -585,7 +597,11 @@ abstract class PersistentObject extends Base
             }
 
             // retrieve it
-            $this->debug(Lang::translate('%s id [%s]'), get_class($this), $id);
+            $this->getLogger()->info(Lang::translate('{class} id [{id}]'), array(
+                'class' => get_class($this), 
+                'id'    => $id
+            ));
+            
             $this->$primaryKey = $id;
             $url = $this->Url();
         }
@@ -628,8 +644,8 @@ abstract class PersistentObject extends Base
 
         // we're ok, reload the response
         if ($json = $response->HttpBody()) {
-
-            $this->debug('Refresh() JSON [%s]', $json);
+ 
+            $this->getLogger()->info('refresh() JSON [{json}]', array('json' => $json));
             
             $response = json_decode($json);
 
@@ -713,17 +729,20 @@ abstract class PersistentObject extends Base
 
         // convert the object to json
         $json = json_encode($object);
-        $this->debug('JSON [%s]', $json);
+        $this->getLogger()->info('JSON [{string}]', array('json' => $json));
 
         if ($this->CheckJsonError()) {
             return false;
         }
 
         // debug - save the request
-        $this->debug(Lang::translate('%s::Action [%s]'), get_class($this), $json);
+        $this->getLogger()->info(Lang::translate('{class}::action [{json}]'), array(
+            'class' => get_class($this), 
+            'json'  => $json
+        ));
 
         // get the URL for the POST message
-        $url = $this->Url('action');
+        $url = $this->url('action');
 
         // POST the message
         $response = $this->Service()->Request($url, 'POST', array(), $json);

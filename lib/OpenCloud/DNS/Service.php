@@ -35,7 +35,9 @@ class Service extends AbstractService
         $serviceRegion,
         $urltype
     ) {
-        $this->debug(Lang::translate('initializing DNS...'));
+        
+        $this->getLogger()->info('Initializing DNS...');
+        
         parent::__construct(
             $connection,
             'rax:dns',
@@ -148,7 +150,9 @@ class Service extends AbstractService
         }
 
         // debug
-        $this->debug('AsyncResponse [%s]', $resp->HttpBody());
+        $this->getLogger()->info('AsyncResponse [{body}]', array(
+            'body' => $resp->httpBody()
+        ));
 
         // return an AsyncResponse object
         return new AsyncResponse($this, $resp->HttpBody());
@@ -184,10 +188,10 @@ class Service extends AbstractService
         $json = json_encode($object);
 
         // debug it
-        $this->debug('Importing [%s]', $json);
+        $this->getLogger()->info('Importing [{json}]', array('json' => $json));
 
         // perform the request
-        return $this->AsyncRequest($url, 'POST', array(), $json);
+        return $this->asyncRequest($url, 'POST', array(), $json);
     }
 
     /**
@@ -219,16 +223,16 @@ class Service extends AbstractService
     }
 
     /**
-     * performs a simple request and returns the JSON as an object
+     * Performs a simple request and returns the JSON as an object
      *
      * @param string $url the URL to GET
      */
     public function SimpleRequest($url)
     {
-        // perform the request
+        // Perform the request
         $response = $this->Request($url);
 
-        // check for errors
+        // Check for errors
         if ($response->HttpStatus() > 202) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Unexpected status [%s] for URL [%s], body [%s]'),
@@ -238,13 +242,13 @@ class Service extends AbstractService
             ));
         }
 
-        // decode the JSON
-        $json = $response->HttpBody();
-        $this->debug(Lang::translate('Limit Types JSON [%s]'), $json);
+        // Decode the JSON
+        $json = $response->httpBody();
+        $this->getLogger()->info('Limit Types JSON [{json}]', array('json' => $json));
 
         $object = json_decode($json);
 
-        if ($this->CheckJsonError()) {
+        if ($this->checkJsonError()) {
             return false;
         }
 

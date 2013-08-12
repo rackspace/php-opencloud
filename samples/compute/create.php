@@ -67,6 +67,7 @@ ENDSCRIPT
 // create it
 print("Creating server...");
 $server->Create(array(
+		'OS-DCF:diskConfig' => 'MANUAL',
 		'image' => $myimage,
 		'flavor' => $myflavor));
 print("requested, now waiting...\n");

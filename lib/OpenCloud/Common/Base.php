@@ -31,23 +31,10 @@ abstract class Base
     /**
      * Debug status.
      *
-     * @var bool
+     * @var    LoggerInterface
      * @access private
      */
-    private $debugStatus = false;
-
-    /**
-     * Sets the style for outputting debug messages.
-     *
-     * Echoing messages   == true
-     * Returning messages == false
-     *
-     * (default value: true)
-     *
-     * @var bool
-     * @access private
-     */
-    private $debugOutputStyle = true;
+    private $logger;
 
     /**
      * setDebug function.
@@ -55,59 +42,22 @@ abstract class Base
      * @access public
      * @return void
      */
-    public function setDebug($status)
+    public function setLogger(Log\LoggerInterface $logger)
     {
-        $this->debugStatus = $status;
+        $this->logger = $logger;
     }
 
     /**
-     * getDebug function.
-     *
-     * @access public
-     * @return void
-     */
-    public function getDebug()
-    {
-        return $this->debugStatus;
-    }
-
-    /**
-     * Sets the debug output style.
-     *
-     * @access public
-     * @param mixed $state
-     * @return void
-     */
-    public function setDebugOutputStyle($state)
-    {
-        $this->debugOutputStyle = $state;
-    }
-
-    /**
-     * Gets the debug output style.
-     *
-     * @access public
-     * @return void
-     */
-    public function getDebugOutputStyle()
-    {
-        return $this->debugOutputStyle;
-    }
-
-    /**
-     * Outputs a debug message. It accepts an unlimited amount of arguments
-     * for use in the sprintf style. So, as a result, the first argument
-     * will need to be a string which outlines how the debug message is formatted.
-     * All subsequent arguments will stock the message with values based on 
-     * their allocated data type.
+     * Returns the Logger object.
      * 
-     * @return string
+     * @return Log\AbstractLogger
      */
-    public function debug()
+    public function getLogger()
     {
-        if ($this->getDebug() === true || RAXSDK_DEBUG === true) {
-            return Debug::logMessage($this, func_get_args());
+        if (null === $this->logger) {
+            $this->setLogger(new Log\Logger);
         }
+        return $this->logger;
     }
 
     /**

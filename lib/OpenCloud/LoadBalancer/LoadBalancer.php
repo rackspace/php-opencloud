@@ -220,7 +220,11 @@ class LoadBalancer extends PersistentObject
             $virtualIp->type = $type;
             $virtualIp->ipVersion = $object->version;
             $http = $virtualIp->Create();
-            $this->Debug('AddVirtualIp:response [%s]', $http->HttpBody());
+            
+            $this->getLogger()->info('AddVirtualIp:response [{body}]', array(
+                'body' => $http->httpBody()
+            ));
+            
             return $http;
         } else {
             // queue it
