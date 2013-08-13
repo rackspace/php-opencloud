@@ -256,11 +256,11 @@ class Server extends PersistentObject
      * Schedule daily image backups
      *
      * @api
-     * @param mixed $retenton - false (default) indicates you want
-     *      retrieve the image schedule. $retention <= 0 indicates you want to
-     *      delete the current schedule. $retention > 0 indicates
-     *      you want to schedule image backups and you would like
-     *      to retain $retention backups.
+     * @param mixed $retention - false (default) indicates you want to
+     *      retrieve the image schedule. $retention <= 0 indicates you
+     *      want to delete the current schedule. $retention > 0 indicates
+     *      you want to schedule image backups and you would like to
+     *      retain $retention backups.
      * @return mixed an object or FALSE on error
      * @throws ServerImageScheduleError if an error is encountered
      */
