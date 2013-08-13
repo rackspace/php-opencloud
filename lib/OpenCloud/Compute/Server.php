@@ -253,6 +253,52 @@ class Server extends PersistentObject
     }
 
     /**
+     * Schedule daily image backups
+     *
+     * @api
+     * @param mixed $retenton - false (default) indicates you want
+     *      retrieve the image schedule. $retention <= 0 indicates you want to
+     *      delete the current schedule. $retention > 0 indicates
+     *      you want to schedule image backups and you would like
+     *      to retain $retention backups.
+     * @return mixed an object or FALSE on error
+     * @throws ServerImageScheduleError if an error is encountered
+     */
+    public function ImageSchedule($retention=false){
+
+        $url = Lang::noslash($this->Url('rax-si-image-schedule'));
+
+        $response = null;
+
+        if ($retention === false) { //Get current retention
+            $response = $this->Service()->Request($url);
+        } elseif ($retention <= 0) { //Delete image schedule
+            $response = $this->Service()->Request($url,'DELETE');
+        } else { //Set image schedule
+            $obj = new \stdClass();
+            $obj->image_schedule = new \stdClass();
+            $obj->image_schedule->retention = $retention;
+            $response = $this->Service()->Request($url,'POST',array(),json_encode($obj));
+        }
+
+        if ($response->HttpStatus() >= 300) {
+            throw new Exceptions\ServerImageScheduleError(sprintf(
+                Lang::translate('Error in Server::ImageSchedule(), status [%d], response [%s]'),
+                $response->HttpStatus(),
+                $response->HttpBody()
+            ));
+            return false;
+        }
+
+        $obj = json_decode($response->HttpBody());
+        if ($obj != null && property_exists($obj,'image_schedule'))
+            return $obj->image_schedule;
+        else {
+            return new \stdClass();
+        }
+    }
+
+    /**
      * Initiates the resize of a server
      *
      * @api
