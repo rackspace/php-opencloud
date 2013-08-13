@@ -15,22 +15,4 @@ class Subdomain extends Domain
     protected static $json_collection_name = 'domains';
     protected static $url_resource = 'subdomains';
 
-    private $_parent;
-
-    /**
-     */
-    public function __construct(Domain $parent, $info = array()) 
-    {
-        $this->_parent = $parent;
-        return parent::__construct($parent->Service(), $info);
-    }
-
-    /**
-     * returns the parent domain object
-     */
-    public function Parent() 
-    {
-        return $this->_parent;
-    }
-
 }

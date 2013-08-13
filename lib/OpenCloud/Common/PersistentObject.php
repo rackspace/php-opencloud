@@ -288,7 +288,7 @@ abstract class PersistentObject extends Base
             'class' => get_class($this), 
             'json'  => $json
         ));
-
+ 
         // send the request
         $response = $this->getService()->request(
             $this->createUrl(),

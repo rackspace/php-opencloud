@@ -470,8 +470,9 @@ class Server extends PersistentObject
      */
     public function VolumeAttachment($id = null)
     {
-        $resource = new VolumeAttachment($this->getService(), $id);
+        $resource = new VolumeAttachment($this->getService());
         $resource->setParent($this);
+        $resource->populate($id);
         return $resource;
     }
 
