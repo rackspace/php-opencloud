@@ -53,7 +53,7 @@ class Group extends AbstractResource
     /**
      * {@inheritDoc}
      */
-    private $createKeys = array(
+    public $createKeys = array(
         'groupConfiguration',
         'launchConfiguration',
         'scalingPolicies'

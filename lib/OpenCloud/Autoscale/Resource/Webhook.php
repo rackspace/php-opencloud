@@ -25,8 +25,8 @@ class Webhook extends AbstractResource
     
     protected static $json_name = 'webhook';
     protected static $url_resource = 'webhooks';
-        
-    private $createKeys = array(
+    
+    public $createKeys = array(
         'name',
         'metadata'
     );
