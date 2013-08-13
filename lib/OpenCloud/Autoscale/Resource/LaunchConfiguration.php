@@ -1,24 +1,35 @@
 <?php
-
 /**
  * PHP OpenCloud library.
- *
- * @author    Jamie Hannaford <jamie@limetree.org>
- * @version   2.0.0
- * @copyright Copyright 2012-2013 Rackspace US, Inc.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Autoscale\Resource;
 
-use OpenCloud\Common\PersistentObject;
-
 /**
- * Description of LaunchConfiguration
+ * This configuration specifies what to do when we want to create a new server. 
+ * What image to boot, on what flavor, and which load balancer to connect it to.
  * 
- * @link 
+ * The Launch Configuration Contains:
+ * 
+ * - Launch Configuration Type (Only type currently supported is "launch_server")
+ * - Arguments:
+ *  - Server
+ *   - name
+ *   - flavor
+ *   - imageRef (This is the ID of the Cloud Server image you will boot)
+ *  - Load Balancer
+ *   - loadBalancerId
+ *   - port
+ * 
+ * @link https://github.com/rackerlabs/otter/blob/master/doc/getting_started.rst
+ * @link http://docs.autoscale.apiary.io/
  */
-class LaunchConfiguration extends PersistentObject
+class LaunchConfiguration extends AbstractResource
 {
     
     public $type;
@@ -27,31 +38,20 @@ class LaunchConfiguration extends PersistentObject
     protected static $json_name = 'launchConfiguration';
     protected static $url_resource = 'launch';
     
-    public function url($subResource = null, $includeId = true)
+    /**
+     * {@inheritDoc}
+     */
+    public function create($params = array())
     {
-        $url = $this->parent()->url($this->resourceName());
-        
-        if ($includeId && $this->id) {
-            $url .= '/' . $this->id;
-        }
-        
-        if ($subResource) {
-            $url .= '/' . $subResource;
-        }
-        
-        return $url;
+        $this->noCreate();
     }
     
-    protected function updateJson($params = array())
+    /**
+     * {@inheritDoc}
+     */
+    public function delete()
     {
-        $existing = array();
-        foreach (get_object_vars($this) as $key => $value) {
-            $existing[$key] = $value;
-        }
-        
-        unset($existing['id']);
-        
-        return $existing + $params;
+        $this->noDelete();
     }
     
 }

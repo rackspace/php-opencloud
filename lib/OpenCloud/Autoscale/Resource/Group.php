@@ -1,25 +1,35 @@
 <?php
-
 /**
  * PHP OpenCloud library.
- *
- * @author    Jamie Hannaford <jamie@limetree.org>
- * @version   2.0.0
- * @copyright Copyright 2012-2013 Rackspace US, Inc.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Autoscale\Resource;
 
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions;
 
 /**
- * Description of Group
+ * An autoscaling group is monitored by Rackspace Cloud Monitoring. When 
+ * Monitoring triggers an alarm for high utilization within the autoscaling 
+ * group, a webhook is triggered. The webhook stimulates the autoscale service 
+ * which consults a policy in accordance with the webhook. The policy determines 
+ * how many additional cloud servers should be added or removed in accordance 
+ * with the alarm.
  * 
- * @link 
+ * There are three components to Autoscale:
+ * 
+ * - The Scaling Group Configuration ($this->groupConfiguration)
+ * - The Scaling Group's Launch Configuration ($this->launchConfiguration)
+ * - The Scaling Group's Policies ($this->scalingPolicies)
+ * 
+ * @link https://github.com/rackerlabs/otter/blob/master/doc/getting_started.rst
+ * @link http://docs.autoscale.apiary.io/
  */
-class Group extends PersistentObject
+class Group extends AbstractResource
 {
     
     public $id;
@@ -41,9 +51,7 @@ class Group extends PersistentObject
     protected static $json_collection_name = 'groups';
     
     /**
-     * These are used to set the object used for JSON encode. 
-     * 
-     * @var array 
+     * {@inheritDoc}
      */
     private $createKeys = array(
         'groupConfiguration',
@@ -52,12 +60,7 @@ class Group extends PersistentObject
     );
     
     /**
-     * These resources are associated with this one. When this resource object  
-     * is populated, if a key is found matching one of these array keys, it is
-     * set as an instantiated resource object (rather than an arbitrary string
-     * or stdClass object).
-     * 
-     * @var array 
+     * {@inheritDoc}
      */
     public $associatedResources = array(
         'groupConfiguration'  => 'GroupConfiguration',
@@ -65,25 +68,16 @@ class Group extends PersistentObject
         
     );
     
+    /**
+     * {@inheritDoc}
+     */
     public $associatedCollections = array(
         'scalingPolicies' => 'ScalingPolicy'
     );
     
-    public function url($subResource = null, $includeId = true)
-    {
-        $url = $this->parent()->url($this->resourceName());
-        
-        if ($includeId && $this->id) {
-            $url .= '/' . $this->id;
-        }
-        
-        if ($subResource) {
-            $url .= '/' . $subResource;
-        }
-        
-        return $url;
-    }
-    
+    /**
+     * {@inheritDoc}
+     */
     public function create($params = array())
     {
         if (is_string($params)) {
@@ -100,31 +94,23 @@ class Group extends PersistentObject
         return parent::create();
     }
     
-    protected function createJson() 
+    /**
+     * {@inheritDoc}
+     */
+    public function update($params = array())
     {
-        $object = new \stdClass;
-
-        foreach ($this->createKeys as $key) {
-            if (!empty($this->$key)) {
-                $object->$key = $this->$key;
-            }
-        }
-        
-        if (is_array($this->metadata) && count($this->metadata)) {
-            $object->metadata = new \stdClass;
-            foreach($this->metadata as $key => $value) {
-                $object->metadata->$key = $value;
-            }
-        }
-
-        return $object;
+        $this->noUpdate();
     }
     
-    public function resource($name, $info)
-    {
-        return $this->service()->resource($name, $info);
-    }
-    
+    /**
+     * Get the current state of the scaling group, including the current set of 
+     * active entities, the number of pending entities, and the desired number 
+     * of entities.
+     * 
+     * @return object|boolean
+     * @throws Exceptions\HttpError
+     * @throws Exceptions\ServerActionError
+     */
     public function getState()
     {
         $url = $this->url('state', true);
@@ -153,9 +139,15 @@ class Group extends PersistentObject
         if (!empty($object->group)) {
             return $object->group;
         }
+        
         return false;
     }
     
+    /**
+     * Get the group configuration for this autoscale group.
+     * 
+     * @return GroupConfiguration
+     */
     public function getGroupConfig()
     {
         if ($this->groupConfiguration instanceof GroupConfiguration) {
@@ -164,10 +156,17 @@ class Group extends PersistentObject
         
         $config = $this->getService()->resource('GroupConfiguration');
         $config->setParent($this);
-        $config->refresh(null, $config->url());
+        if ($this->id) {
+            $config->refresh(null, $config->url());
+        }
         return $config;
     }
     
+    /**
+     * Get the launch configuration for this autoscale group.
+     * 
+     * @return LaunchConfiguration
+     */
     public function getLaunchConfig()
     {
         if ($this->launchConfiguration instanceof LaunchConfiguration) {
@@ -176,25 +175,44 @@ class Group extends PersistentObject
         
         $config = $this->getService()->resource('LaunchConfiguration');
         $config->setParent($this);
-        $config->refresh(null, $config->url());
+        if ($this->id) {
+            $config->refresh(null, $config->url());
+        }
         return $config;
     }
     
+    /**
+     * NB: NOT SUPPORTED YET.
+     */
     public function pause()
     {
         return $this->customAction($this->url('pause', true), 'POST');
     }
     
+    /**
+     * NB: NOT SUPPORTED YET.
+     */
     public function resume()
     {
         return $this->customAction($this->url('resume', true), 'POST');
     }
     
+    /**
+     * Get the scaling policies associated with this autoscale group.
+     * 
+     * @return Collection
+     */
     public function getPolicies()
     {
         return $this->service()->resourceList('ScalingPolicy', null, $this);
     }
     
+    /**
+     * Get a particular scaling policy for this autoscale group.
+     * 
+     * @param  object|int $id
+     * @return ScalingPolicy
+     */
     public function getPolicy($id = null)
     {
         $config = $this->getService()->resource('ScalingPolicy');

@@ -1,24 +1,26 @@
 <?php
-
 /**
  * PHP OpenCloud library.
- *
- * @author    Jamie Hannaford <jamie@limetree.org>
- * @version   2.0.0
- * @copyright Copyright 2012-2013 Rackspace US, Inc.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Autoscale\Resource;
 
-use OpenCloud\Common\PersistentObject;
-
 /**
- * Description of GroupConfiguration
+ * This specifies the basic elements of the group. The Group Configuration contains:
  * 
- * @link 
+ * - Group Name
+ * - Group Cooldown (how long a group has to wait before you can scale again in seconds)
+ * - Minimum and Maximum number of entities
+ * 
+ * @link https://github.com/rackerlabs/otter/blob/master/doc/getting_started.rst
+ * @link http://docs.autoscale.apiary.io/
  */
-class GroupConfiguration extends PersistentObject
+class GroupConfiguration extends AbstractResource
 {
     
     public $name;
@@ -29,39 +31,21 @@ class GroupConfiguration extends PersistentObject
     
     protected static $json_name = 'groupConfiguration';
     protected static $url_resource = 'config';
-    
-    public function url($subResource = null, $includeId = true)
+ 
+    /**
+     * {@inheritDoc}
+     */
+    public function create($params = array())
     {
-        $url = $this->parent()->url($this->resourceName());
-        
-        if ($includeId && $this->id) {
-            $url .= '/' . $this->id;
-        }
-        
-        if ($subResource) {
-            $url .= '/' . $subResource;
-        }
-        
-        return $url;
+        $this->noCreate();
     }
     
-    protected function createJson()
+    /**
+     * {@inheritDoc}
+     */
+    public function delete()
     {
-        $object = new \stdClass;
-        
-        //var_dump
-    }
-    
-    protected function updateJson($params = array())
-    {
-        $existing = array();
-        foreach (get_object_vars($this) as $key => $value) {
-            $existing[$key] = $value;
-        }
-        
-        unset($existing['id']);
-        
-        return $existing + $params;
+        $this->noDelete();
     }
     
 }

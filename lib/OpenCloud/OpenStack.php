@@ -485,19 +485,19 @@ class OpenStack extends Base
                      * then there's no problem, but we'll need to fix this if
                      * they change the code to match the docs.
                      */
-                    $retry_s = $object->overLimit->retryAfter;
-                    $retry_t = strtotime($retry_s);
-                    $sleep_interval = $retry_t - time();
-                    if ($sleep_interval <= $this->overlimit_timeout) {
-                        sleep($sleep_interval);
+                    $retryAfter    = $object->overLimit->retryAfter;
+                    $sleepInterval = strtotime($retryAfter) - time();
+                    
+                    if ($sleepInterval && $sleepInterval <= $this->overlimit_timeout) {
+                        sleep($sleepInterval);
                         $response = $http->Execute();
                     } else {
                         throw new Exceptions\HttpOverLimitError(sprintf(
                             Lang::translate('Over limit; next available request [%s][%s] is not for [%d] seconds at [%s]'),
                             $method,
                             $url,
-                            $sleep_interval,
-                            $retry_s
+                            $sleepInterval,
+                            $retryAfter
                         ));
                     }
                 }

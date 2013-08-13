@@ -76,10 +76,15 @@ class Collection extends Base
     {
         return $this->itemlist;
     }
-
+    
+    /**
+     * Count the number of items in this collection.
+     * 
+     * @return int
+     */
     public function count()
     {
-        return count($this->itemList);
+        return count($this->itemlist);
     }
 
     /**

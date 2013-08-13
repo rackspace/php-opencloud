@@ -1,13 +1,11 @@
 <?php
 /**
- * The Rackspace Autoscale (Otter) service
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- * @package phpOpenCloud
- * @version 1.5.9
- * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Autoscale;
@@ -17,12 +15,6 @@ use OpenCloud\OpenStack;
 
 /**
  * The Autoscale class represents the OpenStack Otter service.
- *
- * It is constructed from a OpenStack object and requires a service name,
- * region, and URL type to select the proper endpoint from the service
- * catalog. However, constants can be used to define default values for
- * these to make it easier to use:
- *
  */
 class Service extends AbstractService
 {
@@ -30,8 +22,8 @@ class Service extends AbstractService
     /**
      * Autoscale resources.
      * 
-     * @var     array
-     * @access  private
+     * @var    array
+     * @access private
      */
     public $resources = array(
         'Group',
@@ -71,11 +63,22 @@ class Service extends AbstractService
         $this->getLogger()->info('Initializing Autoscale...');
     }
     
+    /**
+     * Convenience method for getting an autoscale group.
+     * 
+     * @param  mixed $info
+     * @return AbstractResource
+     */
     public function group($info = null)
     {
         return $this->resource('Group', $info);
     }
     
+    /**
+     * Convenience method for getting a list of autoscale groups.
+     * 
+     * @return OpenCloud\Common\Collection
+     */
     public function groupList()
     {
         return $this->resourceList('Group');

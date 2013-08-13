@@ -663,7 +663,7 @@ abstract class PersistentObject extends Base
             } else {
                 $content = $response;
             }
-
+            
             $this->populate($content);
 
         }
