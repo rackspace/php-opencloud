@@ -37,10 +37,9 @@ abstract class Base
     private $logger;
 
     /**
-     * setDebug function.
-     *
-     * @access public
-     * @return void
+     * Sets the Logger object.
+     * 
+     * @param \OpenCloud\Common\Log\LoggerInterface $logger
      */
     public function setLogger(Log\LoggerInterface $logger)
     {
@@ -50,7 +49,7 @@ abstract class Base
     /**
      * Returns the Logger object.
      * 
-     * @return Log\AbstractLogger
+     * @return \OpenCloud\Common\Log\AbstractLogger
      */
     public function getLogger()
     {
@@ -69,7 +68,7 @@ abstract class Base
      *
      * @throws UrlError
      */
-    public function Url($subresource = '')
+    public function url($subresource = '')
     {
         throw new UrlError(Lang::translate(
             'URL method must be overridden in class definition'
@@ -84,6 +83,8 @@ abstract class Base
      * means that the attribute is not defined on the object, and thus
      * an exception is thrown.
      *
+     * @codeCoverageIgnore
+     * 
      * @param string $property the name of the attribute
      * @param mixed $value the value of the attribute
      * @return void
@@ -109,10 +110,9 @@ abstract class Base
     public function setProperty($property, $value, array $prefixes = array())
     {
         // if strict checks are off, go ahead and set it
-        if (!RAXSDK_STRICT_PROPERTY_CHECKS) {
-            $this->$property = $value;
-        } elseif ($this->CheckAttributePrefix($property, $prefixes)) {
-            // otherwise, check the prefix
+        if (!RAXSDK_STRICT_PROPERTY_CHECKS 
+            || $this->checkAttributePrefix($property, $prefixes)
+        ) {
             $this->$property = $value;
         } else {
             // if that fails, then throw the exception
@@ -132,7 +132,7 @@ abstract class Base
      * @param array $arr array of key/value pairs
      * @return string
      */
-    public function MakeQueryString($array)
+    public function makeQueryString($array)
     {
         $queryString = '';
 
@@ -140,8 +140,7 @@ abstract class Base
             if ($queryString) {
                 $queryString .= '&';
             }
-            $queryString .= urlencode($key) . '=' .
-            	urlencode($this->to_string($value));
+            $queryString .= urlencode($key) . '=' . urlencode($this->to_string($value));
         }
 
         return $queryString;
@@ -160,10 +159,12 @@ abstract class Base
      *
      * @return boolean TRUE if an error occurred, FALSE if none
      * @throws JsonError
+     * 
+     * @codeCoverageIgnore
      */
-    public function CheckJsonError()
+    public function checkJsonError()
     {
-        switch(json_last_error()) {
+        switch (json_last_error()) {
             case JSON_ERROR_NONE:
                 return false;
                 break;

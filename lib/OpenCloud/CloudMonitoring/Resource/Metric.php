@@ -26,12 +26,12 @@ class Metric extends ReadOnlyResource implements ResourceInterface
 
     public function baseUrl()
     {
-    	return $this->Parent()->Url($this->Parent()->id . '/'. $this->ResourceName());
+    	return $this->getParent()->url($this->getParent()->id . '/'. $this->resourceName());
     }
 
 	public function fetchDataPoints($metricName, array $options = array())
 	{
-		$url = $this->Url($metricName . '/plot');
+		$url = $this->url($metricName . '/plot');
 
 		$parts = array();
 
@@ -68,7 +68,7 @@ class Metric extends ReadOnlyResource implements ResourceInterface
 
 		if (isset($options['select'])) {
 			$allowedStats = array('average', 'variance', 'min', 'max');
-			if (!in_array($options['select'], $allowedResolutions)) {
+			if (!in_array($options['select'], $allowedStats)) {
 				throw new Exception\MetricException(sprintf(
 					'%s is an invalid stat type. Please use one of the following: %s',
 					$options['select'],
@@ -90,7 +90,7 @@ class Metric extends ReadOnlyResource implements ResourceInterface
 			$url .= "&$type=$val";
 		}
 
-		return $this->Service()->Collection(get_class(), $url);
+		return $this->getService()->collection(get_class(), $url);
 	}
 	
 }

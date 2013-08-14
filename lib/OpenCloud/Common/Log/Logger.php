@@ -44,7 +44,9 @@ class Logger extends AbstractLogger
      */
     private $options = array(
         'outputToFile' => false,
-        'logFile'      => null
+        'logFile'      => null,
+        'dateFormat'   => 'd/m/y H:I',
+        'delimeter'    => ' - '
     );
     
     /**
@@ -176,6 +178,18 @@ class Logger extends AbstractLogger
     }
     
     /**
+     * Used to format the line outputted in the log file.
+     * 
+     * @param  string $string
+     * @return string
+     */
+    private function formatFileLine($string)
+    {
+        $format = $this->getOption('dateFormat') . $this->getOption('delimeter');
+        return date($format) . $string;
+    }
+    
+    /**
      * Dispatch a log output message.
      * 
      * @param string $message
@@ -184,7 +198,7 @@ class Logger extends AbstractLogger
      */
     private function dispatch($message, $context)
     {
-        $output = $this->interpolate($message, $context);
+        $output = $this->interpolate($message, $context) . PHP_EOL;
         
         if ($this->getOption('outputToFile') === true) {
             $file = $this->getOption('logFile');
@@ -196,10 +210,9 @@ class Logger extends AbstractLogger
             }
             
             // Output to file
-            file_put_contents($file, $output);
+            file_put_contents($file, $this->formatFileLine($output));
         } else {
             
-            // STDOUT / php://output
             echo $output;
         }
     }

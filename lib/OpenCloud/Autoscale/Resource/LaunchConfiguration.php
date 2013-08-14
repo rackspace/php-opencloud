@@ -38,12 +38,17 @@ class LaunchConfiguration extends AbstractResource
     protected static $json_name = 'launchConfiguration';
     protected static $url_resource = 'launch';
     
+     public $createKeys = array(
+        'type',
+        'args'
+    );
+    
     /**
      * {@inheritDoc}
      */
     public function create($params = array())
     {
-        $this->noCreate();
+        return $this->noCreate();
     }
     
     /**
@@ -51,7 +56,7 @@ class LaunchConfiguration extends AbstractResource
      */
     public function delete()
     {
-        $this->noDelete();
+        return $this->noDelete();
     }
     
 }

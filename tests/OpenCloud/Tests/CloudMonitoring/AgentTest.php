@@ -94,6 +94,15 @@ class AgentTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('0b49b96d-24c9-45ca-c585-4040707f4880', $first->guid);
     }
     
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
+     */
+    public function testGetConnectionsFailsWithoutId()
+    {
+        $this->resource->id = null;
+        $this->resource->getConnections();
+    }
+    
     public function testGetConnection()
     {
         $this->resource->id = self::AGENT_ID;
@@ -105,6 +114,15 @@ class AgentTest extends PHPUnit_Framework_TestCase
         );
         
         $this->assertEquals('0.1.2.16', $connection->bundle_version);
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
+     */
+    public function testGetConnectionFailsWithoutId()
+    {
+        $this->resource->id = null;
+        $this->resource->getConnection(null);
     }
     
 }

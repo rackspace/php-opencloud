@@ -62,4 +62,12 @@ class ScalingPolicyTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $policy->change);
     }
     
+    public function testExecute()
+    {
+        $policy = $this->group->getPolicy(self::POLICY_ID);
+        $response = $policy->execute();
+        
+        $this->assertNotNull($response);
+    }
+    
 }

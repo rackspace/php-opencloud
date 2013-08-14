@@ -76,7 +76,7 @@ abstract class Service extends Base
     *
     * @return OpenCloud\OpenStack
     */
-    public function Connection() 
+    public function connection() 
     {
         return $this->conn;
     }
@@ -88,7 +88,7 @@ abstract class Service extends Base
      * @param array $query optional k/v pairs for query strings
      * @return string
      */
-    public function Url($resource = '', array $param = array())
+    public function url($resource = '', array $param = array())
     {
         $baseurl = $this->service_url;
 
@@ -109,15 +109,10 @@ abstract class Service extends Base
      * @api
      * @return array of objects
      */
-    public function Extensions()
+    public function extensions()
     {
-        $ext = $this->GetMetaUrl('extensions');
-
-        if (is_object($ext) && isset($ext->extensions)) {
-            return $ext->extensions;
-        } else {
-            return array();
-        }
+        $ext = $this->getMetaUrl('extensions');
+        return (is_object($ext) && isset($ext->extensions)) ? $ext->extensions : array();
     }
 
     /**
@@ -126,15 +121,10 @@ abstract class Service extends Base
      * @api
      * @return array of limits
      */
-    public function Limits()
+    public function limits()
     {
-        $lim = $this->GetMetaUrl('limits');
-
-        if (is_object($lim)) {
-            return $lim->limits;
-        } else {
-            return array();
-        }
+        $limits = $this->getMetaUrl('limits');
+        return (is_object($limits)) ? $limits->limits : array();
     }
 
     /**
@@ -151,7 +141,7 @@ abstract class Service extends Base
      * @param string $body An optional body for POST/PUT requests
      * @return \OpenCloud\HttpResult
      */
-    public function Request(
+    public function request(
     	$url,
     	$method = 'GET',
     	array $headers = array(),
@@ -177,7 +167,7 @@ abstract class Service extends Base
      *      query strings
      * @return \OpenCloud\Collection
      */
-    public function Collection($class, $url = null, $parent = null, array $parm = array())
+    public function collection($class, $url = null, $parent = null, array $parm = array())
     {
         // set the element name
         $collection = $class::JsonCollectionName();
@@ -290,7 +280,7 @@ abstract class Service extends Base
      * @api
      * @return string
      */
-    public function Region()
+    public function region()
     {
         return $this->service_region;
     }
@@ -303,7 +293,7 @@ abstract class Service extends Base
      * @api
      * @return string
      */
-    public function Name()
+    public function name()
     {
         return $this->service_name;
     }
@@ -388,7 +378,7 @@ abstract class Service extends Base
      *      at the beginning or end
      * @return \stdClass object
      */
-    private function GetMetaUrl($resource)
+    private function getMetaUrl($resource)
     {
         $urlbase = $this->get_endpoint(
             $this->service_type,
@@ -403,20 +393,20 @@ abstract class Service extends Base
 
         $ext_url = Lang::noslash($urlbase) . '/' . $resource;
 
-        $response = $this->Request($ext_url);
+        $response = $this->request($ext_url);
 
         // check for NOT FOUND response
-        if ($response->HttpStatus() == 404) {
+        if ($response->httpStatus() == 404) {
             return array();
         }
 
         // check for error status
-        if ($response->HttpStatus() >= 300) {
+        if ($response->httpStatus() >= 300) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
                 $urlbase,
-                $response->HttpStatus(),
-                $response->HttpBody()
+                $response->httpStatus(),
+                $response->httpBody()
             ));
         }
 
@@ -486,7 +476,6 @@ abstract class Service extends Base
     public function resource($resourceName, $info = null)
     {
         $className = $this->resolveResourceClass($resourceName);
-
         return new $className($this, $info);
     }
     
@@ -500,7 +489,6 @@ abstract class Service extends Base
     public function resourceList($resourceName, $url = null, $service = null)
     {
         $className = $this->resolveResourceClass($resourceName);
-
         return $this->collection($className, $url, $service);
     }
 

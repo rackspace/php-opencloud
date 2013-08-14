@@ -10,6 +10,7 @@ namespace OpenCloud\Common;
  *
  * @since 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 class Collection extends Base 
 {
@@ -39,7 +40,7 @@ class Collection extends Base
      *      (assumed to be the name of the factory method)
      * @param array $arr - the input array
      */
-    public function __construct($service, $itemclass, $arr) 
+    public function __construct($service, $itemclass, $array) 
     {
         $this->service = $service;
 
@@ -48,7 +49,7 @@ class Collection extends Base
             array(
                 'class'     => get_class($service), 
                 'itemClass' => $itemclass, 
-                'array'     => print_r($arr, true)
+                'array'     => print_r($array, true)
             )
         );
 
@@ -56,29 +57,48 @@ class Collection extends Base
 
         $p = strrpos($itemclass, '\\');
 
-        if ($p !== FALSE) {
-            $this->itemclass = substr($itemclass, $p+1);
+        if ($p !== false) {
+            $this->itemclass = substr($itemclass, $p + 1);
         } else {
             $this->itemclass = $itemclass;
         }
 
-        if (!is_array($arr)) {
+        if (!is_array($array)) {
             throw new Exceptions\CollectionError(
                 Lang::translate('Cannot create a Collection without an array')
             );
         }
 
         // save the array of items
-        $this->itemlist = $arr;
+        $this->setItemList($array);
     }
-
+    
+    /**
+     * Set the entire data array.
+     * 
+     * @param array $array
+     */
+    public function setItemList(array $array)
+    {
+        $this->itemlist = $array;
+    }
+    
+    /**
+     * Retrieve the entire data array.
+     * 
+     * @return array
+     */
     public function getItemList()
     {
         return $this->itemlist;
     }
     
     /**
-     * Count the number of items in this collection.
+     * Returns the number of items in the collection
+     *
+     * For most services, this is the total number of items. If the Collection
+     * is paginated, however, this only returns the count of items in the
+     * current page of data.
      * 
      * @return int
      */
@@ -86,13 +106,23 @@ class Collection extends Base
     {
         return count($this->itemlist);
     }
+    
+    /**
+     * Pseudonym for count()
+     * 
+     * @codeCoverageIgnore
+     */
+    public function size() 
+    {
+        return $this->count();
+    }
 
     /**
      * Retrieves the service associated with the Collection
      *
      * @return Service
      */
-    public function Service() 
+    public function service() 
     {
         return $this->service;
     }
@@ -103,7 +133,7 @@ class Collection extends Base
      * @api
      * @return void
      */
-    public function Reset() 
+    public function reset() 
     {
         $this->pointer = 0;
     }
@@ -119,8 +149,8 @@ class Collection extends Base
      */
     public function first() 
     {
-        $this->Reset();
-        return $this->Next();
+        $this->reset();
+        return $this->next();
     }
 
     /**
@@ -131,7 +161,7 @@ class Collection extends Base
      */
     public function next() 
     {
-        if ($this->pointer >= count($this->itemlist)) {
+        if ($this->pointer >= $this->count()) {
             return false;
         }
         
@@ -142,23 +172,9 @@ class Collection extends Base
         } elseif (method_exists($service, 'resource')) {
             return $service->resource($this->itemclass, $this->itemlist[$this->pointer++]);
         }
-        
+        // @codeCoverageIgnoreStart
         return false;
-    }
-
-    /**
-     * Returns the number of items in the page
-     *
-     * For most services, this is the total number of items. If the Collection
-     * is paginated, however, this only returns the count of items in the
-     * current page of data.
-     *
-     * @api
-     * @return integer The number of items in the set
-     */
-    public function Size() 
-    {
-        return count($this->itemlist);
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -172,7 +188,7 @@ class Collection extends Base
      * @param string $keyname the name of the field to use as the sort key
      * @return void
      */
-    public function Sort($keyname = 'id') 
+    public function sort($keyname = 'id') 
     {
         $this->sortkey = $keyname;
         usort($this->itemlist, array($this, 'sortCompare'));
@@ -212,9 +228,9 @@ class Collection extends Base
      * @returns void
      * @throws DomainError if callback doesn't return a boolean value
      */
-    public function Select($testfunc) 
+    public function select($testfunc) 
     {
-        foreach ($this->itemlist as $index => $item) {
+        foreach ($this->getItemList() as $index => $item) {
             $test = call_user_func($testfunc, $item);
             if (!is_bool($test)) {
                 throw new Exceptions\DomainError(
@@ -238,21 +254,24 @@ class Collection extends Base
      *      do {
      *          while($item = $coll->Next()) {
      *              // do something with the item
-     *          |
+     *          }
      *      } while ($coll = $coll->NextPage());
      *
      * @api
      * @return Collection if there are more pages of results, otherwise FALSE
      */
-    public function NextPage() 
+    public function nextPage() 
     {
         if (isset($this->next_page_url)) {
             return call_user_func(
                 $this->next_page_callback,
                 $this->next_page_class,
-                $this->next_page_url);
+                $this->next_page_url
+            );
         }
+        // @codeCoverageIgnoreStart
         return false;
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -270,22 +289,11 @@ class Collection extends Base
      * @param string $url the URL of the next page of results
      * @return void
      */
-    public function SetNextPageCallback($callback, $url) 
+    public function setNextPageCallback($callback, $url) 
     {
         $this->next_page_callback = $callback;
         $this->next_page_url = $url;
     }
-
-    public function getAllItems()
-    {
-        $items = array();
-        foreach ($this->itemlist as $item) {
-            $items[] = $this->Service()->{$this->itemclass}($item);
-        }
-        return $items;
-    }
-
-    /********** PRIVATE METHODS **********/
 
     /**
      * Compares two values of sort keys

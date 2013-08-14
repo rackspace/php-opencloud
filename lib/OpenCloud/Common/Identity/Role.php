@@ -13,8 +13,9 @@
  * Description of Role
  * 
  * @link 
+ * 
+ * @codeCoverageIgnore
  */
 class Role
 {
-    
 }

@@ -24,11 +24,19 @@ class ScalingPolicy extends AbstractResource
     public $change;
     public $cooldown;
     public $type;
+    public $metadata;
     
     protected static $json_name = 'policy';
     protected static $json_collection_name = 'policies';
     protected static $url_resource = 'policies';
     protected static $json_collection_element = 'data';
+    
+    public $createKeys = array(
+        'name',
+        'change',
+        'cooldown',
+        'type'
+    );
     
     public function getWebhookList()
     {

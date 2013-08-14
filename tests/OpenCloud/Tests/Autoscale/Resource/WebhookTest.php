@@ -54,4 +54,16 @@ class WebhookTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('alice', $first->name);
     }
     
+    public function testCreate()
+    {
+        $response = $this->policy->getWebhook()->create(array(
+           'name'     => 'alice',
+           'metadata' => array(
+               'notes' => 'foobar'
+           )
+        ));
+        
+        $this->assertNotNull($response);
+    }
+    
 }

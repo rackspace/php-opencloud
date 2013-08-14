@@ -67,14 +67,30 @@ class ZoneTest extends PHPUnit_Framework_TestCase
     public function testTraceroute()
     {
         $this->resource->id = 'mzAAAAA';
-        $response = $this->resource->traceroute(array(
-            'target' => 'http://test.com'
+        $object = $this->resource->traceroute(array(
+            'target' => 'http://test.com',
+            'target_resolver' => 'foo'
         ));
-        
-        $object = json_decode($response->HttpBody());
         
         $this->assertCount(27, $object->result);
         $this->assertEquals('173.194.78.139', $object->result[26]->ip);
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\ZoneException
+     */
+    public function testTracerouteFailsWithoutId()
+    {
+        $this->resource->traceroute(array());
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\ZoneException
+     */
+    public function testTracerouteFailsWithoutTarget()
+    {
+        $this->resource->id = 'mzAAAAA';
+        $this->resource->traceroute(array());
     }
 
 }

@@ -195,6 +195,8 @@ define('RAXSDK_DEBUG', false);
 /**
  * This is called if there is an error getting the default timezone;
  * that means that the default timezone isn't set.
+ * 
+ * @codeCoverageIgnore
  */
 function __raxsdk_timezone_set($errno, $errstr) {
 	if ($errno==2)
@@ -212,6 +214,8 @@ restore_error_handler();
 	 * \OpenCloud\Common\Lang::translate() - this function should be used to wrap all static strings. In the future,
 	 * this may provide us with a hook for providing different language
 	 * translations.
+     * 
+     * @codeCoverageIgnore
 	 */
 	function define_gettext() {
 		function translate($str) {
@@ -227,6 +231,8 @@ restore_error_handler();
 	 *
 	 * Mainly, this is just for appearance's sake. I really hate to see
 	 * URLs like .../servers//address, for some reason.
+     * 
+     * @codeCoverageIgnore
 	 */
 	function noslash($str) {
 		while ($str && (substr($str, -1) == '/'))
@@ -236,6 +242,8 @@ restore_error_handler();
 
 	/**
 	 * Turns debugging on or off
+     * 
+     * @codeCoverageIgnore
 	 */
 	function setDebug($state=TRUE) {
 	    global $RAXSDK_DEBUG;

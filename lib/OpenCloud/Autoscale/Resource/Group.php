@@ -90,7 +90,7 @@ class Group extends AbstractResource
         }
 
         $this->populate($params, false);
-
+        
         return parent::create();
     }
     
@@ -99,7 +99,7 @@ class Group extends AbstractResource
      */
     public function update($params = array())
     {
-        $this->noUpdate();
+        return $this->noUpdate();
     }
     
     /**
@@ -113,34 +113,9 @@ class Group extends AbstractResource
      */
     public function getState()
     {
-        $url = $this->url('state', true);
+        $object = $this->customAction($this->url('state', true));
         
-        $response = $this->service()->request($url, 'GET');
-
-        if (!is_object($response)) {
-            throw new Exceptions\HttpError(sprintf(
-                Lang::translate('Invalid response for %s::Action() request'),
-                get_class($this)
-            ));
-        }
-
-        // check for errors
-        if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\ServerActionError(sprintf(
-                Lang::translate('%s::Action() [%s] failed; response [%s]'),
-                get_class($this),
-                $url,
-                $response->HttpBody()
-            ));
-        }
-
-        $object = json_decode($response->httpBody());
-        
-        if (!empty($object->group)) {
-            return $object->group;
-        }
-        
-        return false;
+        return (!empty($object->group)) ? $object->group : false;
     }
     
     /**
@@ -183,6 +158,8 @@ class Group extends AbstractResource
     
     /**
      * NB: NOT SUPPORTED YET.
+     * 
+     * @codeCoverageIgnore
      */
     public function pause()
     {
@@ -191,6 +168,8 @@ class Group extends AbstractResource
     
     /**
      * NB: NOT SUPPORTED YET.
+     * 
+     * @codeCoverageIgnore
      */
     public function resume()
     {

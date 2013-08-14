@@ -60,7 +60,7 @@ class NotificationTest extends PHPUnit_Framework_TestCase
             )
         );
         
-        $response = json_decode($this->resource->test($params)->HttpBody());
+        $response = $this->resource->test($params);
 
         $this->assertEquals('success', $response->status);
     }
@@ -69,7 +69,7 @@ class NotificationTest extends PHPUnit_Framework_TestCase
     {
         $this->resource->refresh(self::NOTIFICATION_ID);
 
-        $response = json_decode($this->resource->testExisting()->HttpBody());
+        $response = $this->resource->testExisting();
 
         $this->assertEquals('success', $response->status);
     }

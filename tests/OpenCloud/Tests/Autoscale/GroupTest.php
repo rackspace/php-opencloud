@@ -89,4 +89,48 @@ class GroupTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(2, $state->activeCapacity);
     }
     
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\JsonError
+     */
+    public function testCreateFailsWithIncorrectJsonString()
+    {
+        $this->service->group()->create('somethingIncorrect');
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function testCreateFailsWithIncorrectParams()
+    {
+        $this->service->group()->create(false);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\UpdateError
+     */
+    public function testUpdateAlwaysFails()
+    {
+        $this->service->group(self::GROUP_ID)->update();
+    }
+    
+    public function testCreateAndUpdate()
+    {
+        $json = <<<EOT
+{"metadata":{"foo":"bar"},"groupConfiguration":{"name":"workers","cooldown":60,"minEntities":5,"maxEntities":25,"metadata":{"firstkey":"this is a string","secondkey":"1"}},"launchConfiguration":{"type":"launch_server","args":{"server":{"flavorRef":3,"name":"webhead","imageRef":"0d589460-f177-4b0f-81c1-8ab8903ac7d8","OS-DCF:diskConfig":"AUTO","metadata":{"mykey":"myvalue"},"personality":[{"path":"/root/.ssh/authorized_keys","contents":"ssh-rsa AAAAB3Nza...LiPk== user@example.net"}],"networks":[{"uuid":"11111111-1111-1111-1111-111111111111"}]},"loadBalancers":[{"loadBalancerId":2200,"port":8081}]}},"scalingPolicies":[{"name":"scale up by 10","change":10,"cooldown":5,"type":"webhook"},{"name":"scale down by 5.5 percent","changePercent":-5.5,"cooldown":6,"type":"webhook"},{"name":"set number of servers to 10","desiredCapacity":10,"cooldown":3,"type":"webhook"}]}
+EOT;
+       
+        $response = $this->service->group()->create($json);
+        
+        $this->assertNotNull($response);
+        
+        $config = $this->service->group(self::GROUP_ID)->getGroupConfig();
+        $config->update(array(
+            'name' => 'new_name',
+            'metadata' => array(
+                'foo' => 1,
+                'bar' => 2
+            )
+        ));
+    }
+    
 }

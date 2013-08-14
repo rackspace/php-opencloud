@@ -101,10 +101,64 @@ class MetricTest extends PHPUnit_Framework_TestCase
             'OpenCloud\\Common\\Collection',
             $this->resource->fetchDataPoints(self::METRIC_NAME, array(
             	'resolution' => 'FULL',
+                'select'     => 'average',
             	'from'       => 1369756378450,
             	'to'         => 1369760279018
             ))
         );
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     */
+    public function testFetchWithoutToFails()
+    {
+        $this->resource->fetchDataPoints(self::METRIC_NAME);
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     */
+    public function testFetchWithoutFromFails()
+    {
+        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+            'to' => 1369760279018
+        ));
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     */
+    public function testFetchWithoutTheRestFails()
+    {
+        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+            'to'     => 1369760279018,
+            'from'   => 1369756378450
+        ));
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     */
+    public function testFetchWithIncorrectSelectFails()
+    {
+        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+            'to'     => 1369760279018,
+            'from'   => 1369756378450,
+            'select' => 'foo'
+        ));
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     */
+    public function testFetchWithIncorrectResolutionFails()
+    {
+        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+            'to'         => 1369760279018,
+            'from'       => 1369756378450,
+            'resolution' => 'bar'
+        ));
     }
 
 }

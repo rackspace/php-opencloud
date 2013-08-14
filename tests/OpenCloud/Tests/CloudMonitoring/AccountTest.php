@@ -52,5 +52,34 @@ class AccountTest extends PHPUnit_Framework_TestCase
         // Test
         $this->assertObjectHasAttribute('key', $this->resource->metadata);
     }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     */
+    public function testCreateFails()
+    {
+        $this->resource->create();
+    }
 
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DeleteError
+     */
+    public function testDeleteFails()
+    {
+        $this->resource->delete();
+    }
+    
+    public function testGettingProperties()
+    {
+        $val1 = $this->resource->getProperty(array('foo' => 'bar'), 'foo');
+        
+        $object = new \stdClass;
+        $object->foo = 'bar';
+        $val2 = $this->resource->getProperty($object, 'foo');
+        
+        $this->assertEquals($val1, $val2);
+        
+        $this->assertFalse($this->resource->getProperty($object, 'baz'));
+    }
+    
 }

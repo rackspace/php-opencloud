@@ -2,10 +2,6 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
-use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\CloudMonitoring\Exception;
-
 /**
  * Check class.
  * 
@@ -54,17 +50,17 @@ class Check extends AbstractResource implements ResourceInterface
 
     public function baseUrl($subresource = '')
     {
-        return $this->Parent()->Url() . '/' . $this->Parent()->id . '/'. $this->ResourceName();
+        return $this->getParent()->Url() . '/' . $this->getParent()->id . '/'. $this->resourceName();
     }
 
-    public function CreateUrl()
+    public function createUrl()
     {
-        return $this->Url();
+        return $this->url();
     }
 
     public function testUrl($debug = false)
     {
-        $url = $this->Parent()->Url() . '/' . $this->Parent()->id . '/test-check'; 
+        $url = $this->getParent()->Url() . '/' . $this->getParent()->id . '/test-check'; 
         return ($debug !== true) ? $url : $url . '?debug=true';
     }
 

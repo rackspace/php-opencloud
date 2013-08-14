@@ -13,6 +13,8 @@
  * Description of Tenant
  * 
  * @link 
+ * 
+ * @codeCoverageIgnore
  */
 class Tenant
 {

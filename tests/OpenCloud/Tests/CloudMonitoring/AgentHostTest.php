@@ -100,5 +100,14 @@ class AgentHostTest extends PHPUnit_Framework_TestCase
             $this->assertObjectHasAttribute('netmask', $info);
         }
     }
-
+    
+ 
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
+     */
+    public function testInfoFailsWithIncorrectType()
+    {
+        $this->resource->info('foobar');
+    }
+    
 }

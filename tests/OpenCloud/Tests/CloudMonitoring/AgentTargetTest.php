@@ -63,5 +63,22 @@ class AgentTargetTest extends PHPUnit_Framework_TestCase
         $this->assertContains('/sys/kernel/debug', $targetArray);
         $this->assertContains('/var/lock', $targetArray);
     }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
+     */
+    public function testSettingIncorrectTypeFails()
+    {
+        $this->resource->setType('foobar');
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
+     */
+    public function testListAllWithNoTypeFails()
+    {
+        $this->resource->type = null;
+        $this->resource->listAll();
+    }
 
 }

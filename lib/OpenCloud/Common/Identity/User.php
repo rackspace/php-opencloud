@@ -12,6 +12,8 @@
  * Represents a sub-user in Keystone.
  *
  * @link http://docs.rackspace.com/auth/api/v2.0/auth-client-devguide/content/User_Calls.html
+ * 
+ * @codeCoverageIgnore
  */
 class User extends PersistentObject
 {

@@ -64,8 +64,6 @@ class Service extends AbstractService
     }
 
     /**
-<<<<<<< HEAD
-=======
      * getResources function.
      * 
      * @access public
@@ -97,36 +95,6 @@ class Service extends AbstractService
         }
 
         return new $className($this, $info);
-    }
-
-    /**
->>>>>>> working
-     * Request function.
-     * 
-     * @access  public
-     * @param   string $url
-     * @param   string $method (default: 'GET')
-     * @param   array $headers (default: array())
-     * @param   mixed $body (default: null)
-     * @return  void
-     */
-    public function request(
-        $url, 
-        $method = 'GET', 
-        array $headers = array(), 
-        $body = null
-    ) {
-        $headers['X-Auth-Token'] = $this->conn->Token();
-
-        if ($tenant = $this->conn->Tenant()) {
-            $headers['X-Auth-Project-Id'] = $tenant;
-        }
-
-        if (is_string($body)) {
-            $headers['Content-type'] = 'application/json';
-        }
-
-        return $this->conn->Request($url, $method, $headers, $body);
     }
 
 }

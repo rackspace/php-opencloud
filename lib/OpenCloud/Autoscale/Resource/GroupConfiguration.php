@@ -31,13 +31,20 @@ class GroupConfiguration extends AbstractResource
     
     protected static $json_name = 'groupConfiguration';
     protected static $url_resource = 'config';
- 
+    
+    public $createKeys = array(
+        'name',
+        'cooldown',
+        'minEntities',
+        'maxEntities'
+    );
+    
     /**
      * {@inheritDoc}
      */
     public function create($params = array())
     {
-        $this->noCreate();
+        return $this->noCreate();
     }
     
     /**
@@ -45,7 +52,7 @@ class GroupConfiguration extends AbstractResource
      */
     public function delete()
     {
-        $this->noDelete();
+        return $this->noDelete();
     }
     
 }

@@ -77,7 +77,7 @@ abstract class AbstractResource extends PersistentObject
      * @param string $subresource (default: '')
      * @return void
      */
-    public function Url($subresource = '', $query = array())
+    public function url($subresource = '', $query = array())
     {
         $url = $this->baseUrl();
 
@@ -94,7 +94,7 @@ abstract class AbstractResource extends PersistentObject
      * @access protected
      * @return void
      */
-    protected function CreateJson()
+    protected function createJson()
     {
         $object = new \stdClass;
 
@@ -121,7 +121,7 @@ abstract class AbstractResource extends PersistentObject
      * @access protected
      * @return void
      */
-    protected function UpdateJson($params = array())
+    protected function updateJson($params = array())
     {
         foreach (static::$requiredKeys as $requiredKey) {
             if (!isset($this->$requiredKey)) {
@@ -142,12 +142,12 @@ abstract class AbstractResource extends PersistentObject
      */
     public function listAll()
     {
-        return $this->Service()->Collection(get_class($this), $this->Url());
+        return $this->getService()->collection(get_class($this), $this->Url());
     }
 
     public function updateUrl()
     {
-        return $this->Url($this->id);
+        return $this->url($this->id);
     }
 
     /**
@@ -171,12 +171,10 @@ abstract class AbstractResource extends PersistentObject
         ));
 
         // construct the JSON
-        $obj = $this->UpdateJson($params);
+        $obj = $this->updateJson($params);
         $json = json_encode($obj);
 
-        if ($this->CheckJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
 
         $this->getLogger()->info('{class}::Update JSON [{json}]', array(
             'class' => get_class($this), 
@@ -188,7 +186,7 @@ abstract class AbstractResource extends PersistentObject
             $this->updateUrl(), 'PUT', array(), $json
         );
 
-        // check the return code
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 204) {
             throw new Exceptions\UpdateError(sprintf(
                 Lang::translate('Error updating [%s] with [%s], status [%d] response [%s]'), 
@@ -198,6 +196,7 @@ abstract class AbstractResource extends PersistentObject
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         return $response;
     }
@@ -205,17 +204,18 @@ abstract class AbstractResource extends PersistentObject
     /**
      * Delete object.
      * 
+     * @codeCoverageIgnore
      * @access public
      * @return void
      */
-    public function Delete()
+    public function delete()
     {
         $this->getLogger()->info('{class}::delete()', array('class' => get_class($this)));
 
         // send the request
-        $response = $this->Service()->Request($this->Url($this->id), 'DELETE');
+        $response = $this->getService()->request($this->url($this->id), 'DELETE');
 
-        // check the return code
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 204) {
             throw new Exceptions\DeleteError(sprintf(
                 Lang::translate('Error deleting [%s] [%s], status [%d] response [%s]'), 
@@ -225,6 +225,7 @@ abstract class AbstractResource extends PersistentObject
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         return $response;
     }
@@ -239,15 +240,10 @@ abstract class AbstractResource extends PersistentObject
      * @param mixed $body (default: null)
      * @return void
      */
-    protected function Request($url, $method = 'GET', array $headers = array(), $body = null)
+    protected function request($url, $method = 'GET', array $headers = array(), $body = null)
     {
-        $response = $this->Service()->Request($url, $method, $headers, $body);
-
-        if ($body = $response->HttpBody()) {
-            return json_decode($body);
-        }
-
-        return false;
+        $response = $this->getService()->request($url, $method, $headers, $body);
+        return ($body = $response->HttpBody()) ? json_decode($body) : false;
     }
 
     /**
@@ -261,35 +257,14 @@ abstract class AbstractResource extends PersistentObject
     public function test($params = array(), $debug = false)
     {
         if (!empty($params)) {
-            foreach ($params as $key => $value) {
-                $this->$key = $value;
-            }
+            $this->populate($params);
         }
 
-        $obj = $this->CreateJson();
-        $json = json_encode($obj);
-
-        if ($this->CheckJsonError()) {
-            return false;
-        }
+        $json = json_encode($this->createJson());
+        $this->checkJsonError();
 
         // send the request
-        $response = $this->Service()->Request(
-            $this->testUrl($debug), 'POST', array(), $json
-        );
-
-        // check the return code
-        if ($response->HttpStatus() > 204) {
-            throw new Exceptions\TestException(sprintf(
-                Lang::translate('Error updating [%s] with [%s], status [%d] response [%s]'), 
-                get_class($this), 
-                $json, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-
-        return $response;
+        return $this->customAction($this->testUrl($debug), 'POST', $json);
     }
 
     /**
@@ -301,42 +276,20 @@ abstract class AbstractResource extends PersistentObject
      */
     public function testExisting($debug = false)
     {
-        $obj = $this->UpdateJson();
-        $json = json_encode($obj);
+        $json = json_encode($this->updateJson());
+        $this->checkJsonError();
 
-        if ($this->CheckJsonError()) {
-            return false;
-        }
-
-        $url = $this->Url($this->id . '/test' . ($debug ? '?debug=true' : ''));
-
-        // send the request
-        $response = $this->Service()->Request(
-            $url, 'POST', array(), $json
-        );
-
-        // check the return code
-        if ($response->HttpStatus() > 204) {
-            throw new Exception\TestException(sprintf(
-                'Error testing [%s] with [%s], status [%d] response [%s]', 
-                get_class($this), 
-                $json, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-
-        return $response;
+        $url = $this->url($this->id . '/test' . ($debug ? '?debug=true' : ''));
+        return $this->customAction($url, 'POST', $json);
     }
 
     public function refresh($id = null, $url = null)
     {
         if (!$url) {
-            $url = $this->Url($id);
+            $url = $this->url($id);
         }
         
         parent::refresh($id, $url);
     }
    
-
 }

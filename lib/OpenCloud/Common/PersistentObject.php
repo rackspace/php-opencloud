@@ -216,37 +216,26 @@ abstract class PersistentObject extends Base
                         $resource = $this->service()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
                         $this->$key = $resource;
-                    } catch (Exception\ServiceException $e) {
-                        
-                        continue;
-                    }
+                    } catch (Exception\ServiceException $e) {}
                     
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
                     
                     // Associated collection
                     try {
-                        
-                        $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this);
-                        
-                    } catch (Exception\ServiceException $e) {
-                        continue;
-                    }
+                        $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this); 
+                    } catch (Exception\ServiceException $e) {}
                     
                 } else {
                     
                     // Normal key/value pair
-                    $this->$key = $value;
-                    
+                    $this->$key = $value; 
                 }
             }
-            
-        } elseif ($info !== null) {
-            
+        } elseif (null !== $info) {
             throw new Exceptions\InvalidArgumentError(sprintf(
                 Lang::translate('Argument for [%s] must be string or object'), 
                 get_class()
             ));
-            
         }
     }
 
@@ -280,9 +269,7 @@ abstract class PersistentObject extends Base
         $object = $this->createJson();
         $json = json_encode($object);
         
-        if ($this->CheckJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
 
         $this->getLogger()->info('{class}::Create JSON [{json}]', array(
             'class' => get_class($this), 
@@ -351,9 +338,7 @@ abstract class PersistentObject extends Base
         $obj = $this->updateJson($params);
         $json = json_encode($obj);
 
-        if ($this->checkJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
 
         $this->getLogger()->info('{class}::Update JSON [{json}]', array(
             'class' => get_class($this), 

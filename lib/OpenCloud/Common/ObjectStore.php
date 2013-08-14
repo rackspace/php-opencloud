@@ -14,7 +14,6 @@
 namespace OpenCloud\Common;
 
 use OpenCloud\Common\Base;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Exceptions\NameError;
 use OpenCloud\Common\Exceptions\MetadataPrefixError;
@@ -53,11 +52,10 @@ abstract class ObjectStore extends Base
      * @param \OpenCloud\HttpResponse
      * @return void
      */
-    public function GetMetadata($response)
+    public function getMetadata($response)
     {
         $this->metadata = new Metadata;
-        $prefix = $this->Prefix();
-        $this->metadata->SetArray($response->Headers(), $prefix);
+        $this->metadata->setArray($response->Headers(), $this->prefix());
     }
 
     /**
@@ -68,16 +66,14 @@ abstract class ObjectStore extends Base
      *
      * @return array;
      */
-    public function MetadataHeaders()
+    public function metadataHeaders()
     {
         $headers = array();
 
-        $prefix = $this->Prefix();
-
         // only build if we have metadata
         if (is_object($this->metadata)) {
-            foreach($this->metadata as $key => $value) {
-                $headers[$prefix.$key] = $value;
+            foreach ($this->metadata as $key => $value) {
+                $headers[$this->prefix() . $key] = $value;
             }
         }
 
@@ -93,26 +89,29 @@ abstract class ObjectStore extends Base
      * @api
      * @throws NameError if attribute 'name' is not defined
      */
-    public function Name()
+    public function name()
     {
         if (property_exists($this, 'name')) {
             return $this->name;
         } else {
-            throw new NameError(sprintf(Lang::translate('name attribute does not exist for [%s]'), get_class($this)));
+            throw new NameError(sprintf(
+                'Name attribute does not exist for [%s]', 
+                get_class($this)
+            ));
         }
     }
 
-    public static function JsonName()
+    public static function jsonName()
     {
         return null;
     }
 
-    public static function JsonCollectionName()
+    public static function jsonCollectionName()
     {
         return null;
     }
 
-    public static function JsonCollectionElement()
+    public static function jsonCollectionElement()
     {
         return null;
     }
@@ -122,8 +121,9 @@ abstract class ObjectStore extends Base
      *
      * @param string $type The type of object; derived from `get_class()` if not
      *      specified.
+     * @codeCoverageIgnore
      */
-    private function Prefix($type = null)
+    private function prefix($type = null)
     {
         if (!isset($type)) {
             $parts = preg_split('/\\\/', get_class($this));
@@ -133,21 +133,17 @@ abstract class ObjectStore extends Base
         switch($type) {
             case 'Account':
                 return self::ACCOUNT_META_PREFIX;
-                break;
             case 'CDNContainer':
                 return self::CDNCONTAINER_META_PREFIX;
-                break;
             case 'Container':
                 return self::CONTAINER_META_PREFIX;
-                break;
             case 'DataObject':
                 return self::OBJECT_META_PREFIX;
-                break;
             default:
-                throw new MetadataPrefixError(
-                	sprintf(Lang::translate(
-                		'Unrecognized metadata type [%s]'), $type));
-                break;
+                throw new MetadataPrefixError(sprintf(
+                    'Unrecognized metadata type [%s]', 
+                    $type
+                ));
         }
     }
 }

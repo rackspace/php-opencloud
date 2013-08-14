@@ -30,17 +30,7 @@ class View extends ReadOnlyResource implements ResourceInterface
     
     public function baseUrl()
     {
-        return $this->Service()->Url($this->ResourceName());
-    }
-    
-    public function setDataOnly($bool)
-    {
-        $this->dataOnly = $bool;   
-    }
-    
-    public function getDataOnly()
-    {
-        return $this->dataOnly;
+        return $this->getService()->url($this->resourceName());
     }
 
 }

@@ -78,9 +78,9 @@ abstract class AbstractResource extends PersistentObject
             }
         }
         
-        if (is_array($this->metadata) && count($this->metadata)) {
+        if (!empty($this->metadata)) {
             $object->metadata = new \stdClass;
-            foreach($this->metadata as $key => $value) {
+            foreach ($this->metadata as $key => $value) {
                 $object->metadata->$key = $value;
             }
         }
@@ -114,70 +114,6 @@ abstract class AbstractResource extends PersistentObject
     public function resource($name, $info)
     {
         return $this->getService()->resource($name, $info);
-    }
-    
-    /**
-     * Create a new resource remotely.
-     * 
-     * @param  array $params
-     * @return boolean
-     * @throws Exceptions\CreateError
-     */
-    public function create($params = array())
-    {
-        // Debug
-        $this->getLogger()->info('{class}::Create({name})', array(
-            'class' => get_class($this), 
-            'name'  => $this->Name()
-        ));
-        
-        // construct the JSON
-        $json = json_encode($params);
-
-        if ($this->checkJsonError()) {
-            return false;
-        }
-
-        $this->getLogger()->info('{class}::Create JSON [{json}]', array(
-            'class' => get_class($this), 
-            'name'  => $json
-        ));
-        
-        // send the request
-        $response = $this->getService()->request(
-            $this->createUrl(),
-            'POST',
-            array('Content-Type' => 'application/json'),
-            $json
-        );
-        
-        // check the return code
-        if ($response->httpStatus() > 204) {
-            throw new Exceptions\CreateError(sprintf(
-                Lang::translate('Error creating [%s] [%s], status [%d] response [%s]'),
-                get_class($this),
-                $this->name(),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-
-        if ($response->httpStatus() == "201" && ($location = $response->header('Location'))) {
-            // follow Location header
-            $this->refresh(null, $location);
-        } else {
-            // set values from response
-            $object = json_decode($response->httpBody());
-            
-            if (!$this->checkJsonError()) {
-                $top = $this->jsonName();
-                if (isset($object->$top)) {
-                    $this->populate($object->$top);
-                }
-            }
-        }
-
-        return $response;
     }
     
 }

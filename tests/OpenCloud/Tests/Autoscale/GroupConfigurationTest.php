@@ -69,17 +69,24 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
     
     public function testConfig()
     {
-        $config = $this->service->group(self::GROUP_ID)->getGroupConfig();
-        $config->refresh(null, $config->url());
+        $group = $this->service->group(self::GROUP_ID);
+        $group->groupConfiguration = null;
         
+        $config = $group->getGroupConfig();
+
         $this->assertEquals(60, $config->cooldown);
         $this->assertEquals('thisisastring', $config->metadata->firstkey);
     }
     
     public function testLaunchConfig()
     {
-        $config = $this->service->group(self::GROUP_ID)->getLaunchConfig();
-        $config->refresh(null, $config->url());
+        $group = $this->service->group(self::GROUP_ID);
+        $config1 = $group->getLaunchConfig();
+        
+        $group->launchConfiguration = null;
+        $config = $group->getLaunchConfig();
+        
+        $this->assertEquals($config1->type, $config->type);
         
         $this->assertEquals('launch_server', $config->type);
         
@@ -89,6 +96,38 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
             'ssh-rsaAAAAB3Nza...LiPk==user@example.net',
             $server->personality[0]->contents
         );
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     */
+    public function testGroupConfigCreateFails()
+    {
+        $this->service->group(self::GROUP_ID)->getGroupConfig()->create();
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DeleteError
+     */
+    public function testGroupConfigDeleteFails()
+    {
+        $this->service->group(self::GROUP_ID)->getGroupConfig()->delete();
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     */
+    public function testLaunchConfigCreateFails()
+    {
+        $this->service->group(self::GROUP_ID)->getLaunchConfig()->create();
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DeleteError
+     */
+    public function testLaunchConfigDeleteFails()
+    {
+        $this->service->group(self::GROUP_ID)->getLaunchConfig()->delete();
     }
     
 }
