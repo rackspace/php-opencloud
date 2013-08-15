@@ -257,11 +257,6 @@ class CDNContainer extends ObjectStore
             	Lang::translate('Container name cannot be blank'));
         }
 
-        if ($name == '0') {
-            throw new Exceptions\ContainerNameError(
-            	Lang::translate('"0" is not a valid container name'));
-        }
-
         if (strpos($name, '/') !== false) {
             throw new Exceptions\ContainerNameError(
             	Lang::translate('Container name cannot contain "/"'));
