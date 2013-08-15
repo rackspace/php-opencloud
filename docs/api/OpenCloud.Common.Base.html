@@ -92,11 +92,8 @@ and it has no publicly-visible properties.<br><div id="methods_Base">
       <a style="font-style: italic;" href="#Base::SetProperty()">SetProperty</a>,
       <a style="font-style: italic;" href="#Base::Url()">Url</a>,
       <a style="font-style: italic;" href="#Base::__set()">__set</a>,
-      <a style="font-style: italic;" href="#Base::debug()">debug</a>,
-      <a style="font-style: italic;" href="#Base::getDebug()">getDebug</a>,
-      <a style="font-style: italic;" href="#Base::getDebugOutputStyle()">getDebugOutputStyle</a>,
-      <a style="font-style: italic;" href="#Base::setDebug()">setDebug</a>,
-      <a style="font-style: italic;" href="#Base::setDebugOutputStyle()">setDebugOutputStyle</a>,
+      <a style="font-style: italic;" href="#Base::getLogger()">getLogger</a>,
+      <a style="font-style: italic;" href="#Base::setLogger()">setLogger</a>,
       <a style="font-style: italic;" href="#Base::to_string()">to_string</a>,
       <div class="method">
 <a id="Base::CheckAttributePrefix()"></a><h3>CheckAttributePrefix<span class="nb-faded-text">(
@@ -469,44 +466,7 @@ an exception is thrown.</small><br><h4>Arguments</h4>
 </table>
 </div>
 <div class="method">
-<a id="Base::debug()"></a><h3>debug<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Displays a debug message if $RAXSDK_DEBUG is TRUE</em><br><small>The primary parameter is a string in sprintf() format, and it can accept
-up to five optional parameters. It prints the debug message, prefixed
-with "Debug:" and the class name, to the standard output device.
-
-Example:
-  `$this->debug('Starting execution of %s', get_class($this))`</small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>TODO</td>
-<td>- change this method name to something more descriptive/accurate</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Base::getDebug()"></a><h3>getDebug<span class="nb-faded-text">(
+<a id="Base::getLogger()"></a><h3>getLogger<span class="nb-faded-text">(
           
           )
         </span>
@@ -538,42 +498,10 @@ Example:
 </table>
 </div>
 <div class="method">
-<a id="Base::getDebugOutputStyle()"></a><h3>getDebugOutputStyle<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Gets the debug output style.</em><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>access</td>
-<td>public</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Base::setDebug()"></a><h3>setDebug<span class="nb-faded-text">(
+<a id="Base::setLogger()"></a><h3>setLogger<span class="nb-faded-text">(
           
              
-            $status,
+            $logger,
           
           )
         </span>
@@ -590,58 +518,8 @@ Example:
 <th>Default</th>
 </tr></thead>
 <tbody><tr>
-<td>$status</td>
+<td>$logger</td>
 <td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>access</td>
-<td>public</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="Base::setDebugOutputStyle()"></a><h3>setDebugOutputStyle<span class="nb-faded-text">(
-          mixed
-             
-            $state,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Sets the debug output style.</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody><tr>
-<td>$state</td>
-<td style="white-space: normal;">mixed</td>
 <td></td>
 <td></td>
 </tr></tbody>
@@ -712,9 +590,8 @@ Example:
 <div id="properties_Base">
 <h4>Properties</h4>
 <a href="#Base::%24_errors">$_errors</a>,
-      <a href="#Base::%24debugOutputStyle">$debugOutputStyle</a>,
-      <a href="#Base::%24debugStatus">$debugStatus</a>,
       <a href="#Base::%24http_headers">$http_headers</a>,
+      <a href="#Base::%24logger">$logger</a>,
       <div class="method">
 <a id="Base::$_errors"></a><h3>
 <span class="nb-faded-text"> 
@@ -725,27 +602,6 @@ Example:
 <em></em><br><small></small><br><br>
 </div>
 <div class="method">
-<a id="Base::$debugOutputStyle"></a><h3>
-<span class="nb-faded-text">bool 
-          private 
-          </span>$debugOutputStyle
-          =
-          true</h3>
-<em>Sets the style for outputting debug messages.</em><br><small>Echoing messages   == true
-Returning messages == false
-
-(default value: true)</small><br><br>
-</div>
-<div class="method">
-<a id="Base::$debugStatus"></a><h3>
-<span class="nb-faded-text">bool 
-          private 
-          </span>$debugStatus
-          =
-          false</h3>
-<em>Debug status.</em><br><small></small><br><br>
-</div>
-<div class="method">
 <a id="Base::$http_headers"></a><h3>
 <span class="nb-faded-text"> 
           private 
@@ -753,6 +609,15 @@ Returning messages == false
           =
           array()</h3>
 <em></em><br><small></small><br><br>
+</div>
+<div class="method">
+<a id="Base::$logger"></a><h3>
+<span class="nb-faded-text">\OpenCloud\Common\LoggerInterface 
+          private 
+          </span>$logger
+          =
+          </h3>
+<em>Debug status.</em><br><small></small><br><br>
 </div>
 </div>
 <div style="clear: both"></div>
@@ -888,6 +753,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
@@ -913,6 +779,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
@@ -935,6 +802,14 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">Log</span><ul>
+<li><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -1074,6 +949,7 @@ parameters for that template.</small></span></li>
 <ul id="packages-" class="filetree">
 <li class="closed">
 <span class="folder">Default</span><ul id="packages_" class="filetree">
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Access.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
@@ -1186,6 +1062,10 @@ Compute service</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Metadata.html#Metadata">Metadata</a><br><small>sub-resource to manage Metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
@@ -1250,6 +1130,7 @@ class definitions.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
