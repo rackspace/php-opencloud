@@ -321,6 +321,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
@@ -346,6 +347,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
@@ -368,6 +370,14 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">Log</span><ul>
+<li><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -507,6 +517,7 @@ parameters for that template.</small></span></li>
 <ul id="packages-" class="filetree">
 <li class="closed">
 <span class="folder">Default</span><ul id="packages_" class="filetree">
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Access.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
@@ -619,6 +630,10 @@ Compute service</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Metadata.html#Metadata">Metadata</a><br><small>sub-resource to manage Metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
@@ -683,6 +698,7 @@ class definitions.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>

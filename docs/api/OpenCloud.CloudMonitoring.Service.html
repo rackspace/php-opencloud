@@ -60,7 +60,7 @@
 <label class="property-key">Implements</label><div class="property-value"> 
       </div>
 <label class="property-key">author</label><div class="property-value">
-<a title="" href="mailto:jamie@limetree.org">Jamie Hannaford</a>
+<a title="" href="mailto:jamie.hannaford@rackspace.com">Jamie Hannaford</a>
              
         </div>
 <label class="property-key">copyright</label><div class="property-value">
@@ -90,97 +90,11 @@
 services such as Rackspace Cloud Servers or OpenStack Swift are each
 subclassed from Service.<br><div id="methods_Service">
 <h4>Methods</h4>
-<a style="font-style: italic;" href="#Service::Request()">Request</a>,
-      <a style="font-style: italic;" href="#Service::__construct()">__construct</a>,
-      <a style="font-style: italic;" href="#Service::getConn()">getConn</a>,
+<a style="font-style: italic;" href="#Service::__construct()">__construct</a>,
       <a style="font-style: italic;" href="#Service::getResources()">getResources</a>,
+      <a style="font-style: italic;" href="#Service::request()">request</a>,
       <a style="font-style: italic;" href="#Service::resource()">resource</a>,
       <div class="method">
-<a id="Service::Request()"></a><h3>Request<span class="nb-faded-text">(
-          string
-             
-            $url,
-          string
-             
-            $method
-            = 'GET',
-          array
-             
-            $headers
-            = array(),
-          mixed
-             
-            $body
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">void</span>
-</h3>
-<h4>Description</h4>
-<em>Request function.</em><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$url</td>
-<td style="white-space: normal;">string</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>$method</td>
-<td style="white-space: normal;">string</td>
-<td><p>(default: 'GET')</p>
-</td>
-<td>'GET'</td>
-</tr>
-<tr>
-<td>$headers</td>
-<td style="white-space: normal;">array</td>
-<td><p>(default: array())</p>
-</td>
-<td>array()</td>
-</tr>
-<tr>
-<td>$body</td>
-<td style="white-space: normal;">mixed</td>
-<td><p>(default: null)</p>
-</td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>void</td>
-<td></td>
-</tr></tbody>
-</table>
-<h4>Tags</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>access</td>
-<td>public</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
 <a id="Service::__construct()"></a><h3>__construct<span class="nb-faded-text">(
           \OpenCloud\OpenStack
              
@@ -260,26 +174,6 @@ subclassed from Service.<br><div id="methods_Service">
 </table>
 </div>
 <div class="method">
-<a id="Service::getConn()"></a><h3>getConn<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
 <a id="Service::getResources()"></a><h3>getResources<span class="nb-faded-text">(
           
           )
@@ -289,6 +183,91 @@ subclassed from Service.<br><div id="methods_Service">
 </h3>
 <h4>Description</h4>
 <em>getResources function.</em><br><h4>Return value</h4>
+<table>
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>void</td>
+<td></td>
+</tr></tbody>
+</table>
+<h4>Tags</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Description</th>
+</tr></thead>
+<tbody><tr>
+<td>access</td>
+<td>public</td>
+</tr></tbody>
+</table>
+</div>
+<div class="method">
+<a id="Service::request()"></a><h3>request<span class="nb-faded-text">(
+          string
+             
+            $url,
+          string
+             
+            $method
+            = 'GET',
+          array
+             
+            $headers
+            = array(),
+          mixed
+             
+            $body
+            = null,
+          
+          )
+        </span>
+        :
+        <span class="nb-faded-text">void</span>
+</h3>
+<h4>Description</h4>
+<em>Request function.</em><br><h4>Arguments</h4>
+<table>
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>$url</td>
+<td style="white-space: normal;">string</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$method</td>
+<td style="white-space: normal;">string</td>
+<td><p>(default: 'GET')</p>
+</td>
+<td>'GET'</td>
+</tr>
+<tr>
+<td>$headers</td>
+<td style="white-space: normal;">array</td>
+<td><p>(default: array())</p>
+</td>
+<td>array()</td>
+</tr>
+<tr>
+<td>$body</td>
+<td style="white-space: normal;">mixed</td>
+<td><p>(default: null)</p>
+</td>
+<td>null</td>
+</tr>
+</tbody>
+</table>
+<h4>Return value</h4>
 <table>
 <thead><tr>
 <th>Type</th>
@@ -521,6 +500,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
@@ -546,6 +526,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
@@ -568,6 +549,14 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">Log</span><ul>
+<li><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -707,6 +696,7 @@ parameters for that template.</small></span></li>
 <ul id="packages-" class="filetree">
 <li class="closed">
 <span class="folder">Default</span><ul id="packages_" class="filetree">
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Access.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
@@ -819,6 +809,10 @@ Compute service</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Metadata.html#Metadata">Metadata</a><br><small>sub-resource to manage Metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
@@ -883,6 +877,7 @@ class definitions.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
