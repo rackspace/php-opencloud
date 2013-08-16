@@ -61,7 +61,7 @@ class CDNContainer extends ObjectStore
                 }
             }
             //$this->Refresh();
-        } elseif ($cdata) {
+        } elseif (strlen($cdata) > 0) {
             // Or, if it's a string, retrieve the object with that name
             $this->getLogger()->info('Getting container [{cdata}]', array(
                 'cdata' => $cdata
