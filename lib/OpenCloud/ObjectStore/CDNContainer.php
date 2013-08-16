@@ -61,7 +61,7 @@ class CDNContainer extends ObjectStore
                 }
             }
             //$this->Refresh();
-        } elseif ($cdata) {
+        } elseif (strlen($cdata) > 0) {
             // Or, if it's a string, retrieve the object with that name
             $this->getLogger()->info('Getting container [{cdata}]', array(
                 'cdata' => $cdata
@@ -80,8 +80,9 @@ class CDNContainer extends ObjectStore
      */
     public function Url($subresource='')
     {
-        if (!$this->name) {
-            throw new Exceptions\NoNameError(Lang::translate('Container does not have an identifier'));
+        if (strlen($this->name) == 0) {
+            throw new Exceptions\NoNameError(
+            	Lang::translate('Container does not have an identifier'));
         }
         return Lang::noslash($this->Service()->Url(rawurlencode($this->name)));
     }
@@ -252,7 +253,7 @@ class CDNContainer extends ObjectStore
      */
     private function is_valid_name($name)
     {
-        if (!$name) {
+        if (strlen($name) == 0) {
             throw new Exceptions\ContainerNameError(
             	Lang::translate('Container name cannot be blank'));
         }
