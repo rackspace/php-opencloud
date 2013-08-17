@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit Tests
  *
@@ -14,57 +15,34 @@ namespace OpenCloud\Tests;
 require_once('StubConnection.php');
 require_once('StubService.php');
 
-class publicVolumeAttachment extends \OpenCloud\Compute\VolumeAttachment {
-    public function CreateJson() { return parent::CreateJson(); }
-}
+use OpenCloud\Compute\Server;
+use OpenCloud\Compute\VolumeAttachment;
 
 class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
 {
-    private
-        $att;
-    public function __construct() {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $compute = $conn->Compute(NULL, 'DFW');
 
-        $debug = new \OpenCloud\Common\Debug;
-        $debug->setState(true);
+    private $attachment;
 
-        $this->att = new publicVolumeAttachment(
-            new \OpenCloud\Compute\Server($compute, 'XXX'),
-            'FOO'
-        );
+    public function __construct()
+    {
+        $connection = new StubConnection('http://example.com', 'SECRET');
+        $service = $connection->compute(null, 'DFW');
 
-        $debug->setState(FALSE);
+        $server = new Server($service, 'XXX');
+        $this->attachment = $server->VolumeAttachment('FOO');
     }
-    /**
-     * Tests
-     */
-    public function test__construct() {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $compute = $conn->Compute(NULL, 'DFW');
-        $this->att = new publicVolumeAttachment(
-            new \OpenCloud\Compute\Server($compute, 'XXX'),
-            'FOO'
-        );
-        $this->assertEquals(
-            'FOO',
-            $this->att->volumeId);
-    }
+
     /**
      * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */
-    public function testUpdate() {
-        $this->att->Update();
+    public function testUpdate()
+    {
+        $this->attachment->Update();
     }
-    public function testName() {
-        $this->assertEquals(
-            'Attachment [FOO]',
-            $this->att->Name());
+
+    public function testName()
+    {
+        $this->assertEquals('Attachment [FOO]', $this->attachment->Name());
     }
-    public function testCreateJson() {
-        $obj = $this->att->CreateJson();
-        $this->assertEquals(
-            'FOO',
-            $obj->volumeAttachment->volumeId);
-    }
+
 }

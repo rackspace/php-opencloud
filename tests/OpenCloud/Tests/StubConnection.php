@@ -96,8 +96,9 @@ ENDNW;
 			elseif (strpos($url, '/servers')) {
 				$resp->body = file_get_contents($this->testDir.'/server-create.json');
 			}
-			else
+			else {
 				die("No stub data for URL $url\n");
+            }
 		}
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;

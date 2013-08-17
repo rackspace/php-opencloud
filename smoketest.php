@@ -122,11 +122,14 @@ $dns = $rackspace->DNS();
 
 step('Try to add a domain %s', TESTDOMAIN);
 $domain = $dns->Domain();
-$aresp = $domain->Create(array(
-	'name' => TESTDOMAIN,
+$aresp  = $domain->create(array(
+	'name'         => TESTDOMAIN,
 	'emailAddress' => 'sdk-support@rackspace.com',
-	'ttl' => 3600));
-$aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
+	'ttl'          => 3600
+));
+
+$aresp->waitFor('COMPLETED', 300, 'dotter', 1);
+
 if ($aresp->Status() == 'ERROR') {
 	info('Error condition (this may be valid if the domain exists');
 	info('[%d] %s - %s',
@@ -137,11 +140,16 @@ step("Adding a CNAME record www.%s", TESTDOMAIN);
 $dlist = $dns->DomainList(array('name'=>TESTDOMAIN));
 $domain = $dlist->Next();
 
-$record = $domain->Record();
-$aresp = $record->Create(array(
-	'type' => 'CNAME', 'ttl' => 600, 'name' => 'www.'.TESTDOMAIN,
-	'data' => 'developer.rackspace.com'));
+$record = $domain->record();
+$aresp = $record->create(array(
+	'type' => 'CNAME', 
+    'ttl'  => 600, 
+    'name' => 'www.'.TESTDOMAIN,
+	'data' => 'developer.rackspace.com'
+));
+
 $aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
+
 if ($aresp->Status() == 'ERROR') {
 	info('Error status:');
 	info('[%d] $s - %s', $aresp->error->code, $aresp->error->message,

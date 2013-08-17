@@ -34,20 +34,7 @@ class VolumeAttachment extends PersistentObject
     public static $json_name = 'volumeAttachment';
     public static $url_resource = 'os-volume_attachments';
 
-    private $_server;
     private $_create_keys = array('volumeId', 'device');
-
-    /**
-     * creates the object
-     *
-     * This overrides the default constructor so that we can save off the
-     * server to which this attachment is associated.
-     */
-    public function __construct(Server $server, $id = null) 
-    {
-        $this->_server = $server;
-        return parent::__construct($server->Service(), $id);
-    }
 
     /**
      * updates are not permitted
@@ -57,18 +44,6 @@ class VolumeAttachment extends PersistentObject
     public function Update($params = array()) 
     {
         throw new Exceptions\UpdateError(Lang::translate('Updates are not permitted'));
-    }
-
-    /**
-     * returns the Parent (server) of the volume attachment
-     *
-     * This is a subresource of the server, not of the service.
-     *
-     * @return Server
-     */
-    public function Parent() 
-    {
-        return $this->_server;
     }
 
     /**

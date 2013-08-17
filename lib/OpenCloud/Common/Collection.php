@@ -41,7 +41,6 @@ class Collection extends Base
      */
     public function __construct($service, $itemclass, $arr) 
     {
-
         $this->service = $service;
 
         $this->getLogger()->info(
@@ -77,7 +76,12 @@ class Collection extends Base
     {
         return $this->itemlist;
     }
-
+    
+    /**
+     * Count the number of items in this collection.
+     * 
+     * @return int
+     */
     public function count()
     {
         return count($this->itemlist);
@@ -113,7 +117,7 @@ class Collection extends Base
      * @api
      * @return Base the first item in the set
      */
-    public function First() 
+    public function first() 
     {
         $this->Reset();
         return $this->Next();
@@ -125,16 +129,18 @@ class Collection extends Base
      * @api
      * @return Base the next item or FALSE if at the end of the page
      */
-    public function Next() 
+    public function next() 
     {
         if ($this->pointer >= count($this->itemlist)) {
             return false;
         }
-
-        if (method_exists($this->Service(), $this->itemclass)) {
-            return $this->Service()->{$this->itemclass}($this->itemlist[$this->pointer++]);
-        } elseif (method_exists($this->Service(), 'resource')) {
-            return $this->Service()->resource($this->itemclass, $this->itemlist[$this->pointer++]);
+        
+        $service = $this->service();
+        
+        if (method_exists($service, $this->itemclass)) {
+            return $service->{$this->itemclass}($this->itemlist[$this->pointer++]);
+        } elseif (method_exists($service, 'resource')) {
+            return $service->resource($this->itemclass, $this->itemlist[$this->pointer++]);
         }
         
         return false;
