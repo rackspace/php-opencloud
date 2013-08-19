@@ -1,14 +1,11 @@
 <?php
 /**
- * An abstraction that defines a cloud service
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Common;
@@ -19,7 +16,7 @@ use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
 
 /**
- * This class defines a "service"—a relationship between a specific OpenStack
+ * This class defines a cloud service; a relationship between a specific OpenStack
  * and a provided service, represented by a URL in the service catalog.
  *
  * Because Service is an abstract class, it cannot be called directly. Provider
@@ -64,23 +61,33 @@ abstract class Service extends Base
         $urltype = RAXSDK_URL_PUBLIC,
         $customServiceUrl = null
     ) {
-        $this->conn = $conn;
+        $this->setConnection($conn);
         $this->service_type = $type;
         $this->service_name = $name;
         $this->service_region = $region;
-        $this->service_url = $customServiceUrl ?: $this->get_endpoint($type, $name, $region, $urltype);
+        $this->service_url = $customServiceUrl ?: $this->getEndpoint($type, $name, $region, $urltype);
     }
-
+    
     /**
-    * Returns the connection used to create the Service.
-    *
-    * @return OpenCloud\OpenStack
-    */
-    public function connection() 
+     * Set this service's connection.
+     * 
+     * @param type $connection
+     */
+    public function setConnection($connection)
+    {
+        $this->conn = $connection;
+    }
+    
+    /**
+     * Get this service's connection.
+     * 
+     * @return type
+     */
+    public function getConnection()
     {
         return $this->conn;
     }
-
+    
     /**
      * Returns the URL for the Service
      *
@@ -163,51 +170,44 @@ abstract class Service extends Base
      * @param string $class the class of objects to fetch
      * @param string $url (optional) the URL to retrieve
      * @param mixed $parent (optional) the parent service/object
-     * @param array $parm (optional) array of key/value pairs to use as
-     *      query strings
      * @return \OpenCloud\Collection
      */
-    public function collection($class, $url = null, $parent = null, array $parm = array())
+    public function collection($class, $url = null, $parent = null)
     {
-        // set the element name
-        $collection = $class::JsonCollectionName();
-        $element = $class::JsonCollectionElement();
+        // Set the element names
+        $collectionName = $class::JsonCollectionName();
+        $elementName    = $class::JsonCollectionElement();
 
-        // save the parent
-        if (!isset($parent)) {
+        // Set the parent if empty
+        if (!$parent) {
             $parent = $this;
         }
 
-        // determine the URL
+        // Set the URL if empty
         if (!$url) {
-            $url = $parent->Url($class::ResourceName());
-        }
-        
-        // add query string parameters
-        if (count($parm)) {
-            $url .= '?' . $this->MakeQueryString($parm);
+            $url = $parent->url($class::ResourceName());
         }
 
-        // save debug info
+        // Save debug info
         $this->getLogger()->info(
             '{class}:Collection({url}, {collectionClass}, {collectionName})', 
             array(
                 'class' => get_class($this), 
                 'url'   => $url, 
                 'collectionClass' => $class, 
-                'collectionName'  => $collection
+                'collectionName'  => $collectionName
             )
         );
 
-        // fetch the list
-        $response = $this->Request($url);
+        // Fetch the list
+        $response = $this->request($url);
 
         $this->getLogger()->info('Response {status} [{body}]', array(
             'status' => $response->httpStatus(), 
             'body'   => $response->httpBody()
         ));
 
-        // check return code
+        // Check return code
         if ($response->httpStatus() > 204) {
             throw new Exceptions\CollectionError(sprintf(
                 Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
@@ -218,60 +218,68 @@ abstract class Service extends Base
             ));
         }
         
-        // handle empty response
-        if (strlen($response->httpBody()) == 0) {
+        // Handle empty response
+        if (empty($response->httpBody())) {
             return new Collection($parent, $class, array());
         }
 
-        // parse the return
-        $obj = json_decode($response->httpBody());
-        if ($this->checkJsonError()) {
-            return false;
-        }
+        // Parse the return
+        $object = json_decode($response->httpBody());
         
-        // see if there is a "next" link
-        if (isset($obj->links)) {
-            if (is_array($obj->links)) {
-                foreach($obj->links as $link) {
-                    if (isset($link->rel) && ($link->rel=='next')) {
-                        if (isset($link->href)) {
-                            $next_page_url = $link->href;
-                        } else {
-                            throw new Exceptions\DomainError(Lang::translate('unexpected [links] found with no [href]'));
-                        }
+        $this->checkJsonError();
+        
+        // See if there's a "next" link
+        // Note: not sure if the current API offers links as top-level structures;
+        //       might have to refactor to allow $nextPageUrl as method argument
+        // @codeCoverageIgnoreStart
+        if (isset($object->links) && is_array($object->links)) {
+            foreach($object->links as $link) {
+                if (isset($link->rel) && $link->rel == 'next') {
+                    if (isset($link->href)) {
+                        $nextPageUrl = $link->href;
+                    } else {
+                        $this->getLogger()->warning(
+                            'Unexpected [links] found with no [href]'
+                        );
                     }
                 }
             }
         }
+        // @codeCoverageIgnoreEnd
+        
+        // How should we populate the collection?
+        $data = array();
 
-        // and say goodbye
-        if (!$collection) {
-            $coll_obj = new Collection($parent, $class, $obj);
-        } elseif (isset($obj->$collection)) {
-            if (!$element) {
-                $coll_obj = new Collection($parent, $class, $obj->$collection);
+        if (!$collectionName) {
+            // No element name, just a plain object
+            // @codeCoverageIgnoreStart
+            $data = $object;
+            // @codeCoverageIgnoreEnd
+        } elseif (isset($object->$collectionName)) {
+            if (!$elementName) {
+                // The object has a top-level collection name only
+                $data = $object->$collectionName;
             } else {
-                // handle element levels
-                $array = array();
-                foreach($obj->$collection as $item) {
-                    $subValues = $item->$element;
-                    unset($item->$element);
-                    $array[] = array_merge((array)$item, (array)$subValues);
+                // The object has element levels which need to be iterated over
+                $data = array();
+                foreach($object->$collectionName as $item) {
+                    $subValues = $item->$elementName;
+                    unset($item->$elementName);
+                    $data[] = array_merge((array)$item, (array)$subValues);
                 }
- 
-                $coll_obj = new Collection($parent, $class, $array);
             }
-        } else {
-            $coll_obj = new Collection($parent, $class, array());
         }
         
-        // if there's a $next_page_url, then we need to establish a
-        // callback method
-        if (isset($next_page_url)) {
-            $coll_obj->SetNextPageCallback(array($this, 'Collection'), $next_page_url);
+        $collectionObject = new Collection($parent, $class, $data);
+        
+        // if there's a $nextPageUrl, then we need to establish a callback
+        // @codeCoverageIgnoreStart
+        if (!empty($nextPageUrl)) {
+            $collectionObject->setNextPageCallback(array($this, 'Collection'), $nextPageUrl);
         }
+        // @codeCoverageIgnoreEnd
 
-        return $coll_obj;
+        return $collectionObject;
     }
 
     /**
@@ -305,15 +313,7 @@ abstract class Service extends Base
      */
     public function namespaces()
     {
-        if (!isset($this->_namespaces)) {
-            return array();
-        }
-
-        if (is_array($this->_namespaces)) {
-            return $this->_namespaces;
-        }
-
-        return array();
+        return (isset($this->_namespaces) && is_array($this->_namespaces)) ? $this->_namespaces : array();
     }
 
     /**
@@ -332,40 +332,39 @@ abstract class Service extends Base
      * @param string $urltype The URL type; defaults to "publicURL"
      * @return string The URL of the service
      */
-    private function get_endpoint($type, $name, $region, $urltype = 'publicURL')
+    private function getEndpoint($type, $name, $region, $urltype = 'publicURL')
     {
-        $found = 0;
-        $catalog = $this->conn->serviceCatalog();
+        $catalog = $this->getConnection()->serviceCatalog();
 
-        // search each service to find The One
+        // Search each service to find The One
         foreach ($catalog as $service) {
-            // first, compare the type ("compute") and name ("openstack")
+            // Find the service by comparing the type ("compute") and name ("openstack")
             if (!strcasecmp($service->type, $type) && !strcasecmp($service->name, $name)) {
-                // found the service, now we need to find the region
                 foreach($service->endpoints as $endpoint) {
-                    // regionless service
-                    if (!isset($endpoint->region) && isset($endpoint->$urltype)) {
-                        ++$found;
-                        return $endpoint->$urltype;
-                    } elseif (!strcasecmp($endpoint->region, $region) && isset($endpoint->$urltype)) {
-                        // now we have a match! Yay!
-                        ++$found;
-                        return $endpoint->$urltype;
+                    // Only set the URL if:
+                    // a. It is a regionless service (i.e. no region key set)
+                    // b. The region matches the one we want
+                    if (isset($endpoint->$urltype) && 
+                        (!isset($endpoint->region) || !strcasecmp($endpoint->region, $region))
+                    ) {
+                        $url = $endpoint->$urltype;
                     }
                 }
             }
         }
 
         // error if not found
-        if (!$found) {
-            throw new Exceptions\EndpointError(
-                sprintf(Lang::translate('No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]'),
+        if (empty($url)) {
+            throw new Exceptions\EndpointError(sprintf(
+                'No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]',
                 $type,
                 $name,
                 $region,
                 $urltype
             ));
         }
+        
+        return $url;
     }
 
     /**
@@ -380,44 +379,39 @@ abstract class Service extends Base
      */
     private function getMetaUrl($resource)
     {
-        $urlbase = $this->get_endpoint(
+        $urlBase = $this->getEndpoint(
             $this->service_type,
             $this->service_name,
             $this->service_region,
             RAXSDK_URL_PUBLIC
         );
 
-        if ($urlbase == '') {
-            return array();
-        }
+        $url = Lang::noslash($urlBase) . '/' . $resource;
 
-        $ext_url = Lang::noslash($urlbase) . '/' . $resource;
-
-        $response = $this->request($ext_url);
+        $response = $this->request($url);
 
         // check for NOT FOUND response
         if ($response->httpStatus() == 404) {
             return array();
         }
 
-        // check for error status
+        // @codeCoverageIgnoreStart
         if ($response->httpStatus() >= 300) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
-                $urlbase,
+                $urlBase,
                 $response->httpStatus(),
                 $response->httpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         // we're good; proceed
-        $obj = json_decode($response->HttpBody());
+        $object = json_decode($response->httpBody());
 
-        if ($this->CheckJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
 
-        return $obj;
+        return $object;
     }
     
     /**

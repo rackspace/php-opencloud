@@ -11,13 +11,35 @@
 namespace OpenCloud\Tests\Autoscale;
 
 use PHPUnit_Framework_TestCase;
+use OpenCloud\Autoscale\Service;
 
 class ServiceTest extends PHPUnit_Framework_TestCase 
 {
     
-    public function testCheckClass()
+    private $service;
+    
+    public function __construct()
     {
+        $connection = new FakeConnection(
+            'http://example.com', 
+            'SECRET'
+        );
+
+        $this->service = new Service($connection, 'autoscale', 'DFW', 'publicURL');
         
+    }
+    
+    public function testResources()
+    {
+        $this->assertNotEmpty($this->service->getResources());
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\UnrecognizedServiceError
+     */
+    public function testFindingResourceNamespaceFailsIfNotExists()
+    {
+        $this->service->resource('FooBar');
     }
     
 }

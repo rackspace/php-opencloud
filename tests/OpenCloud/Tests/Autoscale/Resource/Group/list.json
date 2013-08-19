@@ -20,6 +20,10 @@
                 {
                     "href": "{urlRoot}/v1.0/010101/groups/{groupId2}",
                     "rel": "self"
+                },
+                {
+                    "href": "{urlRoot}/v1.0/010101/groups/{groupId3}",
+                    "rel": "next"
                 }
             ],
             "active": [],

@@ -166,8 +166,7 @@ abstract class Base
     {
         switch (json_last_error()) {
             case JSON_ERROR_NONE:
-                return false;
-                break;
+                return;
             case JSON_ERROR_DEPTH:
                 $jsonError = 'JSON error: The maximum stack depth has been exceeded';
                 break;
@@ -191,8 +190,6 @@ abstract class Base
         if (isset($jsonError)) {
             throw new JsonError(Lang::translate($jsonError));
         }
-
-        return true;
     }
 
     /**

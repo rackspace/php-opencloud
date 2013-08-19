@@ -285,6 +285,7 @@ abstract class PersistentObject extends Base
         );
         
         // check the return code
+        // @codeCoverageIgnoreStart
         if ($response->httpStatus() > 204) {
             throw new Exceptions\CreateError(sprintf(
                 Lang::translate('Error creating [%s] [%s], status [%d] response [%s]'),
@@ -309,6 +310,7 @@ abstract class PersistentObject extends Base
                 }
             }
         }
+        // @codeCoverageIgnoreEnd
 
         return $response;
     }
@@ -354,6 +356,7 @@ abstract class PersistentObject extends Base
         );
 
         // check the return code
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 204) {
             throw new Exceptions\UpdateError(sprintf(
                 Lang::translate('Error updating [%s] with [%s], status [%d] response [%s]'),
@@ -363,6 +366,7 @@ abstract class PersistentObject extends Base
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         return $response;
     }
@@ -382,6 +386,7 @@ abstract class PersistentObject extends Base
         $response = $this->getService()->Request($this->Url(), 'DELETE');
 
         // check the return code
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 204) {
             throw new Exceptions\DeleteError(sprintf(
                 Lang::translate('Error deleting [%s] [%s], status [%d] response [%s]'),
@@ -391,6 +396,7 @@ abstract class PersistentObject extends Base
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         return $response;
     }
@@ -525,7 +531,6 @@ abstract class PersistentObject extends Base
      *      example, to update a status display or to permit other operations
      *      to continue
      * @return void
-     *
      */
     public function waitFor(
         $terminal = 'ACTIVE',
@@ -538,25 +543,25 @@ abstract class PersistentObject extends Base
 
         // save stats
         $startTime = time();
-        $startStatus = $this->Status();
-
+        
+        $states = array('ERROR', $terminal);
+        
         while (true) {
-            $this->Refresh($this->$primaryKey);
+            
+            $this->refresh($this->$primaryKey);
+            
             if ($callback) {
                 call_user_func($callback, $this);
             }
-            if ($this->Status() == 'ERROR') {
+            
+            if (in_array($this->status(), $states) || (time() - $startTime) > $timeout) {
                 return;
             }
-            if ($this->Status() == $terminal) {
-                return;
-            }
-            if (time() - $startTime > $timeout) {
-                return;
-            }
+            // @codeCoverageIgnoreStart
             sleep($sleep);
         }
     }
+    // @codeCoverageIgnoreEnd
 
     /**
      * Refreshes the object from the origin (useful when the server is
@@ -600,6 +605,7 @@ abstract class PersistentObject extends Base
         $response = $this->getService()->Request($url);
         
         // check status codes
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() == 404) {
             throw new Exceptions\InstanceNotFound(
                 sprintf(Lang::translate('%s [%s] not found [%s]'),
@@ -652,6 +658,7 @@ abstract class PersistentObject extends Base
             $this->populate($content);
 
         }
+        // @codeCoverageIgnoreEnd
     }
 
     
@@ -716,9 +723,7 @@ abstract class PersistentObject extends Base
         $json = json_encode($object);
         $this->getLogger()->info('JSON [{string}]', array('json' => $json));
 
-        if ($this->CheckJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
 
         // debug - save the request
         $this->getLogger()->info(Lang::translate('{class}::action [{json}]'), array(
@@ -732,13 +737,14 @@ abstract class PersistentObject extends Base
         // POST the message
         $response = $this->Service()->Request($url, 'POST', array(), $json);
 
+        // @codeCoverageIgnoreStart
         if (!is_object($response)) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Invalid response for %s::Action() request'),
                 get_class($this)
             ));
         }
-
+        
         // check for errors
         if ($response->HttpStatus() >= 300) {
             throw new Exceptions\ServerActionError(sprintf(
@@ -748,6 +754,7 @@ abstract class PersistentObject extends Base
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreStart
 
         return $response;
     }
@@ -785,6 +792,7 @@ abstract class PersistentObject extends Base
         }
 
         // check for errors
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() >= 300) {
             throw new Exceptions\ServerActionError(sprintf(
                 Lang::translate('%s::customAction() [%s] failed; response [%s]'),
@@ -793,12 +801,12 @@ abstract class PersistentObject extends Base
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         $object = json_decode($response->httpBody());
         
-        if ($this->checkJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
+        
         return $object;
     }
 
@@ -865,9 +873,9 @@ abstract class PersistentObject extends Base
      *      the version-independent one
      * @return string the URL from the links block
      */
-    protected function findLink($type = 'self')
+    public function findLink($type = 'self')
     {
-        if (!isset($this->links) || !$this->links) {
+        if (empty($this->links)) {
             return false;
         }
 

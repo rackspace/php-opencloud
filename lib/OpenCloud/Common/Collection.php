@@ -55,10 +55,8 @@ class Collection extends Base
 
         $this->next_page_class = $itemclass;
 
-        $p = strrpos($itemclass, '\\');
-
-        if ($p !== false) {
-            $this->itemclass = substr($itemclass, $p + 1);
+        if (false !== ($classNamePos = strrpos($itemclass, '\\'))) {
+            $this->itemclass = substr($itemclass, $classNamePos + 1);
         } else {
             $this->itemclass = $itemclass;
         }
