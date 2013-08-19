@@ -3,7 +3,6 @@
 namespace OpenCloud\LoadBalancer\Resources;
 
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\LoadBalancer\LoadBalancer;
 
 /**
  * information on a single node in the load balancer
@@ -26,7 +25,6 @@ class Node extends PersistentObject
     protected static $json_collection_name = 'nodes';
     protected static $url_resource = 'nodes';
     
-    private $_lb;
     private $_create_keys = array(
         'address',
         'port',
@@ -34,29 +32,6 @@ class Node extends PersistentObject
         'type',
         'weight'
     );
-
-    /**
-     * builds a new Node object
-     *
-     * @param LoadBalancer $lb the parent LB object
-     * @param mixed $info either an ID or an array of values
-     * @returns void
-     */
-    public function __construct(LoadBalancer $lb, $info = null) 
-    {
-        $this->_lb = $lb;
-        parent::__construct($lb->Service(), $info);
-    }
-
-    /**
-     * returns the parent LoadBalancer object
-     *
-     * @return LoadBalancer
-     */
-    public function Parent() 
-    {
-        return $this->_lb;
-    }
 
     /**
      * returns the Node name

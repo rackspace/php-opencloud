@@ -1,13 +1,11 @@
 <?php
 /**
- * The root class for all other classes in this library
- *
  * @copyright 2012-2013 Rackspace Hosting, Inc.
  * See COPYING for licensing information
- *
  * @package phpOpenCloud
  * @version 1.0
  * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Common;
@@ -18,15 +16,11 @@ use OpenCloud\Common\Exceptions\JsonError;
 use OpenCloud\Common\Exceptions\UrlError;
 
 /**
- * The Base class is the root class for all other objects used or defined by
- * this SDK.
+ * The root class for all other objects used or defined by this SDK.
  *
  * It contains common code for error handling as well as service functions that
  * are useful. Because it is an abstract class, it cannot be called directly,
  * and it has no publicly-visible properties.
- *
- * @since 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 abstract class Base
 {
@@ -54,10 +48,9 @@ abstract class Base
     }
 
     /**
-     * getDebug function.
-     *
-     * @access public
-     * @return void
+     * Returns the Logger object.
+     * 
+     * @return Log\AbstractLogger
      */
     public function getLogger()
     {
@@ -78,7 +71,9 @@ abstract class Base
      */
     public function Url($subresource = '')
     {
-        throw new UrlError(Lang::translate('URL method must be overridden in class definition'));
+        throw new UrlError(Lang::translate(
+            'URL method must be overridden in class definition'
+        ));
     }
 
     /**
@@ -95,7 +90,7 @@ abstract class Base
      */
     public function __set($property, $value)
     {
-        $this->SetProperty($property, $value);
+        $this->setProperty($property, $value);
     }
 
     /**
@@ -111,7 +106,7 @@ abstract class Base
      * @throws \OpenCloud\AttributeError if strict checks are on and
      *      the property prefix is not in the list of prefixes.
      */
-    public function SetProperty($property, $value, array $prefixes = array())
+    public function setProperty($property, $value, array $prefixes = array())
     {
         // if strict checks are off, go ahead and set it
         if (!RAXSDK_STRICT_PROPERTY_CHECKS) {
@@ -173,23 +168,27 @@ abstract class Base
                 return false;
                 break;
             case JSON_ERROR_DEPTH:
-                throw new JsonError(Lang::translate('JSON error: The maximum stack depth has been exceeded'));
+                $jsonError = 'JSON error: The maximum stack depth has been exceeded';
                 break;
             case JSON_ERROR_STATE_MISMATCH:
-                throw new JsonError(Lang::translate('JSON error: Invalid or malformed JSON'));
+                $jsonError = 'JSON error: Invalid or malformed JSON';
                 break;
             case JSON_ERROR_CTRL_CHAR:
-                throw new JsonError(Lang::translate('JSON error: Control character error, possibly incorrectly encoded'));
+                $jsonError = 'JSON error: Control character error, possibly incorrectly encoded';
                 break;
             case JSON_ERROR_SYNTAX:
-                throw new JsonError(Lang::translate('JSON error: Syntax error'));
+                $jsonError = 'JSON error: Syntax error';
                 break;
             case JSON_ERROR_UTF8:
-                throw new JsonError(Lang::translate('JSON error: Malformed UTF-8 characters, possibly incorrectly encoded'));
+                $jsonError = 'JSON error: Malformed UTF-8 characters, possibly incorrectly encoded';
                 break;
             default:
-                throw new JsonError(Lang::translate('Unexpected JSON error'));
+                $jsonError = 'Unexpected JSON error';
                 break;
+        }
+        
+        if (isset($jsonError)) {
+            throw new JsonError(Lang::translate($jsonError));
         }
 
         return true;
@@ -200,7 +199,7 @@ abstract class Base
      *
      * This can be stubbed out for unit testing and avoid making live calls.
      */
-    public function GetHttpRequestObject($url, $method = 'GET', array $options = array())
+    public function getHttpRequestObject($url, $method = 'GET', array $options = array())
     {
         return new Request\Curl($url, $method, $options);
     }
@@ -215,7 +214,7 @@ abstract class Base
      * @param array $prefixes a list of prefixes
      * @return boolean TRUE if valid; FALSE if not
      */
-    private function CheckAttributePrefix($property, array $prefixes = array())
+    private function checkAttributePrefix($property, array $prefixes = array())
     {
         $prefix = strstr($property, ':', true);
 
