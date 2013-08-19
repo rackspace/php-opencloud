@@ -383,7 +383,7 @@ abstract class PersistentObject extends Base
         $this->getLogger()->info('{class}::Delete()', array('class' => get_class($this)));
 
         // send the request
-        $response = $this->getService()->Request($this->Url(), 'DELETE');
+        $response = $this->getService()->request($this->url(), 'DELETE');
 
         // check the return code
         // @codeCoverageIgnoreStart
@@ -499,7 +499,7 @@ abstract class PersistentObject extends Base
         if ($url) {
             $url .= $subresource ? "/$subresource" : '';
             if (count($queryString)) {
-                $url .= '?' . $this->MakeQueryString($queryString);
+                $url .= '?' . $this->makeQueryString($queryString);
             }
             return $url;
         }
@@ -593,7 +593,7 @@ abstract class PersistentObject extends Base
             ));
             
             $this->$primaryKey = $id;
-            $url = $this->Url();
+            $url = $this->url();
         }
         
         // reset status, if available
@@ -703,7 +703,7 @@ abstract class PersistentObject extends Base
      */
     protected function action($object)
     {
-        $primaryKey = $this->PrimaryKeyField();
+        $primaryKey = $this->primaryKeyField();
 
         if (!$this->$primaryKey) {
             throw new Exceptions\IdRequiredError(sprintf(
@@ -735,7 +735,7 @@ abstract class PersistentObject extends Base
         $url = $this->url('action');
 
         // POST the message
-        $response = $this->Service()->Request($url, 'POST', array(), $json);
+        $response = $this->getService()->request($url, 'POST', array(), $json);
 
         // @codeCoverageIgnoreStart
         if (!is_object($response)) {

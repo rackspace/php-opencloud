@@ -1,13 +1,12 @@
 <?php
 /**
- * Defines an OpenStack Compute virtual server
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Compute;
@@ -23,9 +22,6 @@ use OpenCloud\Common\Lang;
  * A Server is always associated with a (Compute) Service. This implementation
  * supports extension attributes OS-DCF:diskConfig, RAX-SERVER:bandwidth,
  * rax-bandwidth:bandwith
- *
- * @api
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 class Server extends PersistentObject
 {
@@ -108,65 +104,22 @@ class Server extends PersistentObject
     }
 
     /**
-     * Creates a new server from the data existing in the object
-     *
-     * @api
-     * @param array $params - an associative array of key/value pairs of
-     *      attributes to set on the new server
-     * @return HttpResponse - this will include the administrative password
-     *      in the body
-     * @throws \OpenCloud\HttpError
-     * @throws ServerCreateError
-     * @throws UnknownError
+     * {@inheritDoc}
      */
-    public function Create($params = array())
+    public function create($params = array())
     {
-        // reset values
-        $this->id = null;
+        $this->id     = null;
         $this->status = null;
         
-        $this->populate($params);
-
-        $this->metadata->sdk = RAXSDK_USER_AGENT;
-        $this->imageRef = $this->image->links[0]->href;
-        $this->flavorRef = $this->flavor->links[0]->href;
-
-        $this->getLogger()->info(Lang::translate('Server::Create() [{name}]'), array(
-            'name' => $this->name
-        ));
-
-        $create = $this->createJson($params);
-
-        $response = $this->Service()->Request(
-        	$this->Service()->Url(), 'POST', array(), $create);
-
-        if (!is_object($response)) {
-            throw new Exceptions\HttpError(
-                Lang::translate('Invalid response for Server::Create() request')
-            );
-        }
-
-        $json = $response->HttpBody();
-
-        if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\ServerCreateError(sprintf(
-                Lang::translate('Problem creating server with [%s], status [%d] response [%s]'),
-                $create,
-                $response->HttpStatus(),
-                $response->HttpBody()
-            ));
-        } elseif (!$json) {
-            throw new Exceptions\UnknownError(Lang::translate('Unexpected error in Server::Create()'));
-        } else {
-            $info = json_decode($json);
-            if ($this->CheckJsonError()) {
-                return false;
-            }
-            foreach($info->server as $item => $value) {
-                $this->$item = $value;
-            }
-        }
-        return $response;
+        return parent::create($params);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function createUrl()
+    {
+        return $this->getService()->url();
     }
 
     /**
@@ -176,14 +129,20 @@ class Server extends PersistentObject
      * @param array $params - an associative array of key/value pairs of
      *      attributes to set on the new server
      */
-    public function Rebuild($params = array())
+    public function rebuild($params = array())
     {
-    	if (!isset($params['adminPass']))
+    	if (!isset($params['adminPass'])) {
     		throw new Exceptions\RebuildError(
-    			Lang::Translate('adminPass required when rebuilding server'));
-    	if (!isset($params['image']))
+    			Lang::Translate('adminPass required when rebuilding server')
+            );
+        }
+        
+        if (!isset($params['image'])) {
     		throw new Exceptions\RebuildError(
-    			Lang::Translate('image required when rebuilding server'));
+    			Lang::Translate('image required when rebuilding server')
+            );
+        }
+        
     	$obj = new \stdClass();
     	$obj->rebuild = new \stdClass();
     	$obj->rebuild->imageRef = $params['image']->Id();
@@ -205,7 +164,7 @@ class Server extends PersistentObject
      *      indicate the type of reboot
      * @return boolean TRUE on success; FALSE on failure
      */
-    public function Reboot($type = RAXSDK_SOFT_REBOOT)
+    public function reboot($type = RAXSDK_SOFT_REBOOT)
     {
         // create object and json
         $obj = new \stdClass();
@@ -222,34 +181,31 @@ class Server extends PersistentObject
      * @param array $metadata Optional metadata to be stored on the image
      * @return boolean TRUE on success; FALSE on failure
      */
-    public function CreateImage($name, $metadata = array())
+    public function createImage($name, $metadata = array())
     {
-        if (!strlen($name)) {
+        if (empty($name)) {
             throw new Exceptions\ImageError(
-            	Lang::translate('Image name is required to create an image'));
+            	Lang::translate('Image name is required to create an image')
+            );
         }
 
         // construct a createImage object for jsonization
-        $obj = new \stdClass();
-        $obj->createImage = new \stdClass();
+        $obj = new \stdClass;
+        $obj->createImage = new \stdClass;
         $obj->createImage->name = $name;
-        $obj->createImage->metadata = new \stdClass();
+        $obj->createImage->metadata = new \stdClass;
 
-        foreach($metadata as $name => $value) {
+        foreach ($metadata as $name => $value) {
             $obj->createImage->metadata->$name = $value;
         }
 
-        $resp = $this->Action($obj);
-
-        if ($resp === false) {
+        $response = $this->action($obj);
+        
+        if (!$response || !($location = $response->header('Location'))) {
             return false;
         }
 
-        if (!$location = $resp->Header('Location')) {
-            return false;
-        }
-
-        return new Image($this->Service(), basename($location));
+        return new Image($this->getService(), basename($location));
     }
 
     /**
@@ -284,22 +240,23 @@ class Server extends PersistentObject
             
             $response = $this->getService()->request($url, 'POST', array(), json_encode($object));
         }
-
+        
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() >= 300) {
             throw new Exceptions\ServerImageScheduleError(sprintf(
                 Lang::translate('Error in Server::ImageSchedule(), status [%d], response [%s]'),
                 $response->HttpStatus(),
                 $response->HttpBody()
             ));
-            return false;
         }
+        // @codeCoverageIgnoreEnd
 
         $object = json_decode($response->HttpBody());
         
         if ($object && property_exists($object, 'image_schedule'))
             return $object->image_schedule;
         else {
-            return new \stdClass();
+            return new \stdClass;
         }
     }
 
@@ -310,7 +267,7 @@ class Server extends PersistentObject
      * @param Flavor $flavorRef a Flavor object indicating the new server size
      * @return boolean TRUE on success; FALSE on failure
      */
-    public function Resize(Flavor $flavorRef)
+    public function resize(Flavor $flavorRef)
     {
         // construct a resize object for jsonization
         $obj = new \stdClass();
@@ -325,7 +282,7 @@ class Server extends PersistentObject
      * @api
      * @return boolean TRUE on success; FALSE on failure
      */
-    public function ResizeConfirm()
+    public function resizeConfirm()
     {
         $obj = new \stdClass();
         $obj->confirmResize = null;
@@ -340,7 +297,7 @@ class Server extends PersistentObject
      * @api
      * @return boolean TRUE on success; FALSE on failure
      */
-    public function ResizeRevert()
+    public function resizeRevert()
     {
         $obj = new \stdClass();
         $obj->revertResize = null;
@@ -354,7 +311,7 @@ class Server extends PersistentObject
      * @param string $newpasswd The new root password for the server
      * @return boolean TRUE on success; FALSE on failure
      */
-    public function SetPassword($newpasswd)
+    public function setPassword($newpasswd)
     {
         // construct an object to hold the password
         $obj = new \stdClass();
@@ -372,28 +329,33 @@ class Server extends PersistentObject
      * @throws ServerActionError if the server has no ID (i.e., has not
      *      been created yet)
      */
-    public function Rescue()
+    public function rescue()
     {
-        $this->CheckExtension('os-rescue');
+        $this->checkExtension('os-rescue');
 
-        if (!isset($this->id)) {
-            throw new Exceptions\ServerActionError(Lang::translate('Server has no ID; cannot Rescue()'));
+        if (empty($this->id)) {
+            throw new Exceptions\ServerActionError(
+                Lang::translate('Server has no ID; cannot Rescue()')
+            );
         }
 
-        $obj = new \stdClass();
+        $obj = new \stdClass;
         $obj->rescue = "none";
 
-        $resp = $this->Action($obj);
-        $newobj = json_decode($resp->HttpBody());
+        $resp = $this->action($obj);
+        $newobj = json_decode($resp->httpBody());
 
-        if ($this->CheckJsonError()) {
-            return false;
-        } elseif (!isset($newobj->adminPass)) {
+        $this->checkJsonError();
+        
+        // @codeCoverageIgnoreStart
+        if (!isset($newobj->adminPass)) {
             throw new Exceptions\ServerActionError(sprintf(
                 Lang::translate('Rescue() method failed unexpectedly, status [%s] response [%s]'),
-                $resp->HttpStatus(),
-                $resp->HttpBody()
+                $resp->httpStatus(),
+                $resp->httpBody()
             ));
+        // @codeCoverageIgnoreEnd
+            
         } else {
             return $newobj->adminPass;
         }
@@ -408,7 +370,7 @@ class Server extends PersistentObject
      * @throws ServerActionError if the server has no ID (i.e., has not
      *      been created yet)
      */
-    public function Unrescue()
+    public function unrescue()
     {
         $this->CheckExtension('os-rescue');
 
@@ -434,7 +396,7 @@ class Server extends PersistentObject
      * @return OpenCloud\Compute\Metadata object
      * @throws MetadataError
      */
-    public function Metadata($key = null)
+    public function metadata($key = null)
     {
         return new ServerMetadata($this, $key);
     }
@@ -453,7 +415,8 @@ class Server extends PersistentObject
         $url = Lang::noslash($this->Url('ips/'.$network));
 
         $response = $this->Service()->Request($url);
-
+        
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() >= 300) {
             throw new Exceptions\ServerIpsError(sprintf(
                 Lang::translate('Error in Server::ips(), status [%d], response [%s]'),
@@ -461,18 +424,19 @@ class Server extends PersistentObject
                 $response->HttpBody()
             ));
         }
-
-        $obj = json_decode($response->HttpBody());
-
-        if ($this->CheckJsonError()) {
-            return new \stdClass();
-        } elseif (isset($obj->addresses)) {
-            return $obj->addresses;
-        } elseif (isset($obj->network)) {
-            return $obj->network;
+        
+        $object = json_decode($response->httpBody());
+        
+        $this->checkJsonError();
+ 
+        if (isset($object->addresses)) {
+            return $object->addresses;
+        } elseif (isset($object->network)) {
+            return $object->network;
         } else {
-            return new \stdClass();
+            return new \stdClass;
         }
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -489,7 +453,7 @@ class Server extends PersistentObject
      *      to `/dev/xvhdb`).
      * @param string $device the device to which to attach it
      */
-    public function AttachVolume(Volume $volume, $device = 'auto')
+    public function attachVolume(Volume $volume, $device = 'auto')
     {
         $this->CheckExtension('os-volumes');
 
@@ -509,7 +473,7 @@ class Server extends PersistentObject
      * @param OpenCloud\VolumeService\Volume $vol the volume to remove
      * @throws VolumeError
      */
-    public function DetachVolume(Volume $volume)
+    public function detachVolume(Volume $volume)
     {
         $this->CheckExtension('os-volumes');
         return $this->VolumeAttachment($volume->id)->Delete();
@@ -519,7 +483,7 @@ class Server extends PersistentObject
      * returns a VolumeAttachment object
      *
      */
-    public function VolumeAttachment($id = null)
+    public function volumeAttachment($id = null)
     {
         $resource = new VolumeAttachment($this->getService());
         $resource->setParent($this);
@@ -533,9 +497,9 @@ class Server extends PersistentObject
      * @api
      * @return Collection
      */
-    public function VolumeAttachmentList()
+    public function volumeAttachmentList()
     {
-        return $this->Service()->Collection(
+        return $this->getService()->collection(
             '\OpenCloud\Compute\VolumeAttachment',
             NULL,
             $this
@@ -556,22 +520,26 @@ class Server extends PersistentObject
      * @return void
      * @throws PersonalityError if server already exists (has an ID)
      */
-    public function AddFile($path, $data)
+    public function addFile($path, $data)
     {
         // set the value
         $this->personality[$path] = base64_encode($data);
     }
 
 	/**
-	 * returns a console connection
+	 * Returns a console connection
+     * Note: Where is this documented?
+     * 
+     * @codeCoverageIgnore
 	 */
-    public function Console($type='novnc') {
-        $info = new \stdClass();
+    public function console($type = 'novnc') 
+    {
+        $info = new \stdClass;
         $info->type = $type;
-        $msg = new \stdClass();
-        $action = strpos('spice', $type) !== false ? 'os-getSPICEConsole' : 'os-getVNCConsole';
+        $msg = new \stdClass;
+        $action = (strpos('spice', $type) !== false) ? 'os-getSPICEConsole' : 'os-getVNCConsole';
         $msg->$action = $info;
-        return json_decode($this->Action($msg)->HttpBody())->console;
+        return json_decode($this->action($msg)->httpBody())->console;
     }
 
 
@@ -582,79 +550,64 @@ class Server extends PersistentObject
      *      create {rebuild ...} by changing this parameter
      * @return json
      */
-    protected function CreateJson($params=NULL)
+    protected function createJson()
     {
-        // create a blank object
-        $obj = new \stdClass();
-
-        // set a bunch of properties
-        $obj->server = new \stdClass();
-        
-        $allowedKeys = array(
-            'flavorRef',
-            'name',
-            'imageRef',
-            'OS-DCF:diskConfig',
-            'metadata',
-            'personality'
-        );
-        
-		if (is_array($params)) {
-			foreach ($params as $key => $ignore) {
-                // Only stock object with relevant keys (let's save some network bandwidth)
-                if (in_array($key, $allowedKeys)) {
-                    $obj->server->$key = $this->$key;
-                }
-            }
+        // Convert some values
+        $this->metadata->sdk = RAXSDK_USER_AGENT;
+        if (!empty($this->image)) {
+            $this->imageRef = $this->image->links[0]->href;
+        }
+        if (!empty($this->flavor)) {
+            $this->flavorRef = $this->flavor->links[0]->href;
         }
         
-        $obj->server->imageRef = $this->imageRef;
-		$obj->server->name = $this->name;
-		$obj->server->flavorRef = $this->flavorRef;
-		$obj->server->metadata = $this->metadata;
+        // Base object
+        $server = (object) array(
+            'name'        => $this->name,
+            'imageRef'    => $this->imageRef,
+            'flavorRef'   => $this->flavorRef,
+            'metadata'    => $this->metadata,
+            'networks'    => array(),
+            'personality' => array()
+        );
         
+        // Networks
 		if (is_array($this->networks) && count($this->networks)) {
-			$obj->server->networks = array();
-			foreach ($this->networks as $net) {
-				if (get_class($net) != 'OpenCloud\Compute\Network') {
+			foreach ($this->networks as $network) {
+				if (!is_object($network) || !$network instanceof Network || empty($network->id)) {
 					throw new Exceptions\InvalidParameterError(sprintf(
-						Lang::translate('"networks" parameter must be an '.
-						'array of Compute\Network objects; [%s] found'),
-						get_class($net)
+						'When creating a server, the "networks" key must be an ' .
+						'array of OpenCloud\Compute\Network objects with valid ' .
+                        'IDs; variable passed in was: [%s]',
+						print_r($network, true)
 					));
 				}
-                if (!$net->id) {
-                    $this->getLogger()->warning(
-                        'When creating a server, make sure each network has a valid UUID'
-                    );
-                    continue;
-                }
-				$netobj = new \stdClass();
-				$netobj->uuid = $net->id;
-				$obj->server->networks[] = $netobj;
+                // Stock networks array
+				$server->networks[] = (object) array('id' => $network->id);
 			}
 		}
 
-        // handle personality files
-        if (count($this->personality)) {
-            $obj->server->personality = array();
+        // Personality files
+        if (!empty($this->personality)) {
             foreach ($this->personality as $path => $data) {
-                $fileobj = new \stdClass();
-                $fileobj->path = $path;
-                $fileobj->contents = $data;
-                $obj->server->personality[] = $fileobj;
+                // Stock personality array
+                $server->personality[] = (object) array(
+                    'path'     => $path,
+                    'contents' => $data
+                );
             }
         }
-
-        return json_encode($obj);
+        
+        $object = (object) array('server' => $server);
+        return json_encode($object);
     }
 
     /**
-     * creates the JSON for updating a server
+     * Creates the JSON for updating a server
      *
      * @return json
      */
-    protected function UpdateJson($params = array())
+    protected function updateJson($params = array())
     {
         $object = new \stdClass();
         $object->server = new \stdClass();

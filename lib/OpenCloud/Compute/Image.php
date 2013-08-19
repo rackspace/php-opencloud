@@ -45,7 +45,7 @@ class Image extends PersistentObject
      */
     public function create($params = array()) 
     { 
-        return $this->NoCreate(); 
+        return $this->noCreate(); 
     }
 
     /**
@@ -53,7 +53,7 @@ class Image extends PersistentObject
      */
     public function update($params = array()) 
     { 
-        return $this->NoUpdate(); 
+        return $this->noUpdate(); 
     }
 
 }

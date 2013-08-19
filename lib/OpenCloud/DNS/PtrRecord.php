@@ -1,13 +1,12 @@
 <?php
 /**
- * Defines a DNS PTR record
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\DNS;
@@ -20,7 +19,6 @@ use OpenCloud\Common\Exceptions;
  *
  * The PtrRecord object is nearly identical with the Record object. However,
  * the PtrRecord is a child of the service, and not a child of a Domain.
- *
  */
 class PtrRecord extends Record 
 {
@@ -52,14 +50,10 @@ class PtrRecord extends Record
     /**
      * specialized DNS PTR URL requires server service name and href
      */
-    public function Url($subresource = null, $params = array()) 
+    public function url($subresource = null, $params = array()) 
     {
-        if (isset($subresource)) {
-            $url = $this->Parent()->Url($subresource, $params);
-        } else {
-            $url = $this->Parent()->Url(self::$url_resource, $params);
-        }
-        return $url;
+        $subresource = $subresource ?: self::$url_resource;
+        return $this->getParent()->url($subresource, $params);
     }
 
     /**
@@ -67,27 +61,23 @@ class PtrRecord extends Record
      *
      * Generally called as `Create(array('server'=>$server))`
      */
-    public function Create($param = array()) 
+    public function create($params = array()) 
     {
-        foreach($param as $key => $value) {
-            $this->$key = $value;
-        }
-        $this->link_rel = $this->server->Service()->Name();
-        $this->link_href = $this->server->Url();
-        return parent::Create($param);
+        $this->populate($params, false);
+        $this->link_rel = $this->server->Service()->name();
+        $this->link_href = $this->server->url();
+        return parent::create();
     }
 
     /**
      * DNS PTR Update() method requires a server
      */
-    public function Update($param = array()) 
+    public function update($params = array()) 
     {
-        foreach($param as $key => $value) {
-            $this->$key = $value;
-        }
+        $this->populate($params, false);
         $this->link_rel = $this->server->Service()->Name();
         $this->link_href = $this->server->Url();
-        return parent::Update($param);
+        return parent::update();
     }
 
     /**
@@ -97,48 +87,46 @@ class PtrRecord extends Record
      * unless you pass in the parameter ip={ip address}
      *
      */
-    public function Delete() 
+    public function delete() 
     {
         $this->link_rel = $this->server->Service()->Name();
         $this->link_href = $this->server->Url();
-
-        $url = $this->Url('rdns/'.$this->link_rel, array('href'=>$this->link_href));
-
-        if (isset($this->data)) {
-            $url .= '&ip='.$this->data;
+        
+        $params = array('href' => $this->link_href);
+        if (!empty($this->data)) {
+            $params['ip'] = $this->data;
         }
+        
+        $url = $this->url('rdns/' . $this->link_rel, $params);
 
         // perform the request
-        $resp = $this->Service()->Request($url, 'DELETE');
+        $response = $this->getService()->request($url, 'DELETE');
 
         // return the AsyncResponse object
-        return new AsyncResponse($this->Service(), $resp->HttpBody());
+        return new AsyncResponse($this->getService(), $response->HttpBody());
     }
 
     /**
      * Specialized JSON for DNS PTR creates and updates
      */
-    protected function CreateJson() 
+    protected function createJson() 
     {
-        $object = new \stdClass;
-        $object->recordsList = parent::CreateJson();
-
-        // add links from server
-        $object->link = new \stdClass;
-        $object->link->href = $this->link_href;
-        $object->link->rel  = $this->link_rel;
-        return $object;
+        return (object) array(
+            'recordsList' => parent::createJson(),
+            'link' => array(
+                'href' => $this->link_href,
+                'rel'  => $this->link_rel
+            )
+        );
     }
 
     /**
      * The Update() JSON requires a record ID
      */
-    protected function UpdateJson($params = array()) 
+    protected function updateJson($params = array()) 
     {
-        foreach ($params as $key => $value) {
-            $this->$key = $value;
-        }
-        $object = $this->CreateJson();
+        $this->populate($params, false);
+        $object = $this->createJson();
         $object->recordsList->records[0]->id = $this->id;
         return $object;
     }

@@ -1,13 +1,12 @@
 <?php
 /**
- * Defines a virtual network
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Compute;
@@ -18,9 +17,6 @@ use OpenCloud\Common\Exceptions;
 
 /**
  * The Network class represents a single virtual network
- *
- * @api
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 class Network extends PersistentObject 
 {
@@ -52,17 +48,16 @@ class Network extends PersistentObject
             case RAX_PUBLIC:
                 $this->label = 'public';
                 $this->cidr = 'NA';
-                return;
                 break;
             case RAX_PRIVATE:
                 $this->label = 'private';
                 $this->cidr = 'NA';
-                return;
                 break;
             default:
                 return parent::__construct($service, $id);
-                break;
         }
+        
+        return;
     }
 
     /**
@@ -87,11 +82,9 @@ class Network extends PersistentObject
         switch ($this->id) {
             case RAX_PUBLIC:
             case RAX_PRIVATE:
-                throw new Exceptions\DeleteError(Lang::translate('Network may not be deleted'));
-                break;
+                throw new Exceptions\DeleteError('Network may not be deleted');
             default:
                 return parent::Delete();
-                break;
         }
     }
     

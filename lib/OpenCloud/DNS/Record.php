@@ -1,13 +1,12 @@
 <?php
 /**
- * Defines a DNS record
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\DNS;
@@ -16,9 +15,6 @@ namespace OpenCloud\DNS;
  * The Record class represents a single domain record
  *
  * This is also used for PTR records.
- *
- * @api
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 class Record extends Object 
 {
@@ -37,15 +33,17 @@ class Record extends Object
     protected static $json_collection_name = 'records';
     protected static $url_resource = 'records';
 
-    protected $_parent;
-    protected $_update_keys = array(
+    protected $parent;
+    
+    protected $updateKeys = array(
         'name',
         'ttl',
         'data',
         'priority',
         'comment'
     );
-    protected $_create_keys = array(
+    
+    protected $createKeys = array(
         'type',
         'name',
         'ttl',
@@ -63,11 +61,12 @@ class Record extends Object
      */
     public function __construct($parent, $info = null) 
     {
-        $this->_parent = $parent;
-        if (get_class($parent) == 'OpenCloud\DNS\Service') {
+        $this->parent = $parent;
+        
+        if ($parent instanceof Service) {
             parent::__construct($parent, $info);
         } else {
-            parent::__construct($parent->Service(), $info);
+            parent::__construct($parent->getService(), $info);
         }
     }
 
@@ -78,7 +77,7 @@ class Record extends Object
      */
     public function Parent() 
     {
-        return $this->_parent;
+        return $this->parent;
     }
 
 }

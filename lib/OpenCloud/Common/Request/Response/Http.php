@@ -18,8 +18,8 @@ class Http extends Base
     private $errno;
     private $error;
     private $info = array();
-    private $body;
-    private $headers = array();
+    protected $body;
+    protected $headers = array();
 
     /**
      * The constructor parses everything necessary
@@ -82,7 +82,7 @@ class Http extends Base
      *
      * @return associative array('header'=>value)
      */
-    public function Headers() 
+    public function headers() 
     {
         return $this->headers;
     }
@@ -92,9 +92,9 @@ class Http extends Base
      *
      * @return string with the value of the requested header, or NULL
      */
-    public function Header($name) 
+    public function header($name) 
     {
-        return isset($this->headers[$name]) ? $this->headers[$name] : NULL;
+        return isset($this->headers[$name]) ? $this->headers[$name] : null;
     }
 
     /**
@@ -132,7 +132,7 @@ class Http extends Base
      *
      * @return integer
      */
-    public function HttpStatus() 
+    public function httpStatus() 
     {
         return $this->info['http_code'];
     }

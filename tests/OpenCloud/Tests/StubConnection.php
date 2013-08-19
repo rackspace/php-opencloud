@@ -55,8 +55,12 @@ ENDRESPONSE;
 			$resp->status = 200;
 			if (strpos($url, '/action')) {
 			    if ('{"rescue' == substr($body, 0, 8)) {
-			        $resp->body = file_get_contents($this->testDir.'/server-create.json');
-			    } else {
+			        $resp->body = '{"adminPass": "m7UKdGiKFpqM"}';
+			    } elseif(preg_match('#EPIC-IMAGE#', $body)) {
+                    $resp->body = '';
+                    $resp->status = 202;
+                    $resp->headers['Location'] = 'fooBar';
+                } else {
     				$resp->body = '';
     			}
 			} elseif (strpos($url, '/token')) {
@@ -100,13 +104,16 @@ ENDNW;
 				die("No stub data for URL $url\n");
             }
 		}
+        
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
 		}
+        
 		elseif (($method=='PUT') && strpos($url, '/domains')) {
 			$resp->body = $this->async_response;
 			$resp->status = 202;
 		}
+        
 		elseif (strpos($url, '/os-volume_attachments/')) {
 			$resp->body = <<<ENDATT
 {"volumeAttachment":{"volumeId":"FOO"}}
@@ -268,6 +275,11 @@ ENDVOL;
 			$resp->body = $this->async_response;
 			$resp->status = 200;
 		}
+        elseif (strpos($url, '/images/detail')) {
+                $resp->body = <<<EOT
+{"images":[{"OS-DCF:diskConfig":"AUTO","created":"2012-10-13T16:53:56Z","id":"a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","links":[{"href":"https://dfw.servers.api.rackspacecloud.com/v2/658405/images/a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","rel":"self"},{"href":"https://dfw.servers.api.rackspacecloud.com/658405/images/a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","rel":"bookmark"},{"href":"https://dfw.servers.api.rackspacecloud.com/658405/images/a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","rel":"alternate","type":"application/vnd.openstack.image"}],"metadata":{"arch":"x86-64","auto_disk_config":"True","com.rackspace__1__build_core":"1","com.rackspace__1__build_managed":"0","com.rackspace__1__build_rackconnect":"1","com.rackspace__1__options":"0","com.rackspace__1__visible_core":"1","com.rackspace__1__visible_managed":"0","com.rackspace__1__visible_rackconnect":"1","image_type":"base","org.openstack__1__architecture":"x64","org.openstack__1__os_distro":"org.centos","org.openstack__1__os_version":"6.0","os_distro":"centos","os_type":"linux","os_version":"6.0","rax_managed":"false","rax_options":"0"},"minDisk":10,"minRam":256,"name":"CentOS 6.0","progress":100,"status":"ACTIVE","updated":"2012-10-13T16:54:55Z"}]}
+EOT;
+            }
 		else
 			$resp->status = 404;
 

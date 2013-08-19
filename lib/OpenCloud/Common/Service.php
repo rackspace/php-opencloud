@@ -206,7 +206,7 @@ abstract class Service extends Base
             'status' => $response->httpStatus(), 
             'body'   => $response->httpBody()
         ));
-
+        
         // Check return code
         if ($response->httpStatus() > 204) {
             throw new Exceptions\CollectionError(sprintf(

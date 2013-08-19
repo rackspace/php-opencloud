@@ -10,15 +10,13 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\Compute;
 
-require_once('StubConnection.php');
-require_once('StubService.php');
-
+use PHPUnit_Framework_TestCase;
+use OpenCloud\Tests\StubConnection;
 use OpenCloud\Compute\Server;
-use OpenCloud\Compute\VolumeAttachment;
 
-class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
+class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
 {
 
     private $attachment;
@@ -29,7 +27,7 @@ class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
         $service = $connection->compute(null, 'DFW');
 
         $server = new Server($service, 'XXX');
-        $this->attachment = $server->VolumeAttachment('FOO');
+        $this->attachment = $server->volumeAttachment('FOO');
     }
 
     /**
@@ -37,12 +35,18 @@ class VolumeAttachmentTest extends \PHPUnit_Framework_TestCase
      */
     public function testUpdate()
     {
-        $this->attachment->Update();
+        $this->attachment->update();
     }
 
     public function testName()
     {
         $this->assertEquals('Attachment [FOO]', $this->attachment->Name());
+    }
+    
+    public function testCreate()
+    {
+        $this->attachment->device = 'foo';
+        $this->attachment->create();
     }
 
 }
