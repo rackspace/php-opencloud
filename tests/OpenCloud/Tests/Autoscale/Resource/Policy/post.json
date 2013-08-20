@@ -1,0 +1,30 @@
+{
+    "policies": [
+        {
+            "id": "{policyId1}",
+            "links": [
+                {
+                    "href": "{urlRoot}/v1.0/010101/groups/{groupId}/policy/{policyId1}",
+                    "rel": "self"
+                }
+            ],
+            "name": "scale up by one server",
+            "change": 1,
+            "cooldown": 150,
+            "type": "webhook"
+        },
+        {
+            "id": "{policyId2}",
+            "links": [
+                {
+                    "href": "{urlRoot}/v1.0/010101/groups/{groupId}/policy/{policyId2}",
+                    "rel": "self"
+                }
+            ],
+            "name": "scale down by 5.5 percent",
+            "changePercent": -5.5,
+            "cooldown": 6,
+            "type": "webhook"
+        }
+    ]
+}

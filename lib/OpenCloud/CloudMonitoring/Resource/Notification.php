@@ -29,14 +29,9 @@ class Notification extends AbstractResource implements ResourceInterface
         'details'
     );
     
-    public function populate($data)
-    {
-        parent::populate($data);
-        
-        if ($type = $this->getProperty($data, 'type')) {
-            $this->type = $this->service()->resource('NotificationType', $type);
-        }
-    }
+    protected $associatedResources = array(
+        'NotificationType' => 'NotificationType'
+    );
     
     public function baseUrl()
     {

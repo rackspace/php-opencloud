@@ -1,0 +1,35 @@
+{
+    "group": {
+        "id": "{groupId}",
+        "links": [
+            {
+                "href": "{urlRoot}/v1.0/010101/groups/{groupId}",
+                "rel": "self"
+            }
+        ],
+        "active": [
+            {
+                "id": "{instanceId1}",
+                "links": [
+                    {
+                        "href": "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/{instanceId1}",
+                        "rel": "self"
+                    }
+                ]
+            },
+            {
+                "id": "{instanceId2}",
+                "links": [
+                    {
+                        "href": "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/{instanceId2}",
+                        "rel": "self"
+                    }
+                ]
+            }
+        ],
+        "activeCapacity": 2,
+        "pendingCapacity": 2,
+        "desiredCapacity": 4,
+        "paused": false
+    }
+}

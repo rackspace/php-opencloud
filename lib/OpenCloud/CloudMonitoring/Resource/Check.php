@@ -48,14 +48,9 @@ class Check extends AbstractResource implements ResourceInterface
         'type'
     );
     
-    public function populate($data)
-    {
-        parent::populate($data);
-        
-        if ($type = $this->getProperty($data, 'type')) {
-            $this->type = $this->Service()->resource('CheckType', $type);
-        }
-    }
+    protected $associatedResources = array(
+        'CheckType' => 'CheckType'
+    );
 
     public function baseUrl($subresource = '')
     {

@@ -85,6 +85,7 @@ abstract class Object extends PersistentObject
         $object->{self::JsonCollectionName()} = array(
             $this->GetJson($this->_create_keys)
         );
+        
         return $object;
     }
 

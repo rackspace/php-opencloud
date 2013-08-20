@@ -1,0 +1,17 @@
+{
+    "webhook": {
+        "id":"{webhookId}",
+        "name": "webhook name",
+        "metadata": {},
+        "links": [
+            {
+                "href": ".../{groupId1}/policies/{policyId1}/webhooks/{webhookId}/",
+                "rel": "self"
+            },
+            {
+                "href": ".../execute/1/{capabilityHash2}",
+                "rel": "capability"
+            }
+        ]
+    }
+}

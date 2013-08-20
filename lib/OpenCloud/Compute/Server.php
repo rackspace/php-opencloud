@@ -264,21 +264,25 @@ class Server extends PersistentObject
      * @return mixed an object or FALSE on error
      * @throws ServerImageScheduleError if an error is encountered
      */
-    public function ImageSchedule($retention=false){
-
-        $url = Lang::noslash($this->Url('rax-si-image-schedule'));
+    public function imageSchedule($retention = false)
+    {
+        $url = Lang::noslash($this->url('rax-si-image-schedule'));
 
         $response = null;
 
-        if ($retention === false) { //Get current retention
-            $response = $this->Service()->Request($url);
-        } elseif ($retention <= 0) { //Delete image schedule
-            $response = $this->Service()->Request($url,'DELETE');
-        } else { //Set image schedule
-            $obj = new \stdClass();
-            $obj->image_schedule = new \stdClass();
-            $obj->image_schedule->retention = $retention;
-            $response = $this->Service()->Request($url,'POST',array(),json_encode($obj));
+        if ($retention === false) { 
+            // Get current retention
+            $response = $this->getService()->request($url);
+        } elseif ($retention <= 0) { 
+            // Delete image schedule
+            $response = $this->getService()->request($url, 'DELETE');
+        } else { 
+            // Set image schedule
+            $object = new \stdClass();
+            $object->image_schedule = new \stdClass();
+            $object->image_schedule->retention = $retention;
+            
+            $response = $this->getService()->request($url, 'POST', array(), json_encode($object));
         }
 
         if ($response->HttpStatus() >= 300) {
@@ -290,9 +294,10 @@ class Server extends PersistentObject
             return false;
         }
 
-        $obj = json_decode($response->HttpBody());
-        if ($obj != null && property_exists($obj,'image_schedule'))
-            return $obj->image_schedule;
+        $object = json_decode($response->HttpBody());
+        
+        if ($object && property_exists($object, 'image_schedule'))
+            return $object->image_schedule;
         else {
             return new \stdClass();
         }
@@ -516,7 +521,10 @@ class Server extends PersistentObject
      */
     public function VolumeAttachment($id = null)
     {
-        return new VolumeAttachment($this, $id);
+        $resource = new VolumeAttachment($this->getService());
+        $resource->setParent($this);
+        $resource->populate($id);
+        return $resource;
     }
 
     /**
