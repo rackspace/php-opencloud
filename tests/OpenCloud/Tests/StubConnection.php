@@ -93,6 +93,10 @@ ENDNW;
 				$resp->body = $this->async_response;
 				$resp->status = 202;
 			}
+            elseif (preg_match('/servers\/[0-9a-z\-]+\/rax-si-image-schedule/',$url)) {
+                $resp->body = file_get_contents($this->testDir.'/imageschedule-create.json');
+                $resp->status = 204;
+            }
 			elseif (strpos($url, '/servers')) {
 				$resp->body = file_get_contents($this->testDir.'/server-create.json');
 			}
@@ -102,6 +106,9 @@ ENDNW;
 		}
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
+            if (preg_match('/servers\/[0-9a-z\-]+\/rax-si-image-schedule/', $url)) {
+                $resp->status = 204;
+            }
 		}
 		elseif (($method=='PUT') && strpos($url, '/domains')) {
 			$resp->body = $this->async_response;
@@ -252,6 +259,10 @@ ENDRDNS;
 ENDVOL;
 			$resp->status = 200;
 		}
+        elseif (preg_match('/servers\/[0-9a-z\-]+\/rax-si-image-schedule/',$url)){
+            $resp->body = file_get_contents($this->testDir.'/imageschedule.json');
+            $resp->status = 204;
+        }
 		elseif (strpos($url, '/servers/')) {
 			$resp->body = file_get_contents($this->testDir.'/server.json');
 			$resp->status = 200;

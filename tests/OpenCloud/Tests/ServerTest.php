@@ -230,4 +230,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 			'/tmp/hello.txt',
 			$obj->server->personality[0]->path);
 	}
+    public function testImageSchedule() {
+        $s = $this->server;
+        $this->assertEquals(7,$s->ImageSchedule('7')->retention);
+        $this->assertEquals(7,$s->ImageSchedule()->retention);
+        $this->assertEquals(0,count((array)$s->ImageSchedule(0)));
+    }
 }
