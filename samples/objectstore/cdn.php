@@ -29,6 +29,7 @@ $cdnversion = $container->PublishToCDN();
 printf("Container: %s\n", $container->name);
 printf("      URL: %s\n", $container->Url());
 printf("  CDN URL: %s\n", $container->CDNUrl());
+printf("  IOS URL: %s\n", $container->CDNinfo('Ios-Uri'));
 
 // load this file into the CDN container
 print("Creating a CDN object\n");
@@ -36,6 +37,7 @@ $object = $container->DataObject();
 $object->Create(array('name'=>'FOOBAR'), __FILE__);
 printf("  The CDN URL of the object is %s\n", $object->CDNUrl());
 printf("The PublicURL of the object is %s\n", $object->PublicURL());
+printf("  The IOS URL of the object is %s\n", $object->Container()->CDNinfo('Ios-Uri'));
 
 // get our containers
 print("Containers:\n");
