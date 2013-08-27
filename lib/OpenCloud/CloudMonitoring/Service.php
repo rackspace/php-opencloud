@@ -21,7 +21,7 @@ class Service extends AbstractService
     /**
      * Cloud Monitoring resources.
      * 
-     * @var     mixed
+     * @var     array
      * @access  private
      */
     private $resources = array(
@@ -64,6 +64,8 @@ class Service extends AbstractService
     }
 
     /**
+<<<<<<< HEAD
+=======
      * getResources function.
      * 
      * @access public
@@ -98,6 +100,7 @@ class Service extends AbstractService
     }
 
     /**
+>>>>>>> working
      * Request function.
      * 
      * @access  public

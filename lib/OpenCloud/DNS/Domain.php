@@ -63,7 +63,10 @@ class Domain extends Object
      */
     public function Record($info = null)
     {
-        return new Record($this, $info);
+        $resource = new Record($this->getService());
+        $resource->setParent($this);
+        $resource->populate($info);
+        return $resource;
     }
 
     /**
@@ -83,7 +86,10 @@ class Domain extends Object
      */
     public function Subdomain($info = array())
     {
-        return new Subdomain($this, $info);
+        $resource = new Subdomain($this->getService());
+        $resource->setParent($this);
+        $resource->populate($info);
+        return $resource;
     }
 
     /**

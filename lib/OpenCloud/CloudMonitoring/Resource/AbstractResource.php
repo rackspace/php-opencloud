@@ -20,22 +20,6 @@ abstract class AbstractResource extends PersistentObject
 {
 
     /**
-     * Service object
-     * 
-     * @var mixed
-     * @access public
-     */
-    public $service;
-
-    /**
-     * Parent object
-     * 
-     * @var mixed
-     * @access public
-     */
-    public $parent;
-
-    /**
      * Unique identifier
      * 
      * @var mixed
@@ -85,19 +69,7 @@ abstract class AbstractResource extends PersistentObject
 
         return false;
     }
-
-    /**
-     * Set parent object.
-     * 
-     * @access public
-     * @param mixed $parent
-     * @return void
-     */
-    public function setParent($parent)
-    {
-        $this->parent = $parent;
-    }
-
+    
     /**
      * Url function.
      * 
@@ -114,42 +86,6 @@ abstract class AbstractResource extends PersistentObject
         }
 
         return $url . $this->MakeQueryString($query);
-    }
-
-    /**
-     * Retrieve parent object.
-     * 
-     * @access public
-     * @return void
-     */
-    public function Parent()
-    {
-        if (null === $this->parent) {
-            $this->parent = $this->Service();
-        }
-        return $this->parent;
-    }
-
-    /**
-     * Set main service object.
-     * 
-     * @access public
-     * @param mixed $service
-     * @return void
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-    }
-
-    public function Service()
-    {
-        if (null === $this->service) {
-            throw new Exception\CloudMonitoringException(
-            'No service defined'
-            );
-        }
-        return $this->service;
     }
 
     /**

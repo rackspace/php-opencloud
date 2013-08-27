@@ -91,7 +91,10 @@ class Stack extends PersistentObject
 
     public function resource($id = null) 
     {
-        return new Resource($this, $id);
+        $resource = new Resource($this->getService());
+        $resource->setParent($this);
+        $resource->populate($id);
+        return $resource;
     }
 
     public function resources() 
