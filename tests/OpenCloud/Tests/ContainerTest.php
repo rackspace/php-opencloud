@@ -193,6 +193,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	        $this->getContainer()->StreamingURI());
 	}
 
+	public function testIosStreamingURI()
+	{
+	    $this->assertEquals(
+	        NULL,
+	        $this->getContainer()->IosStreamingURI());
+	}
+
 	public function testCreateStaticSite()
 	{
 		$this->assertEquals(
