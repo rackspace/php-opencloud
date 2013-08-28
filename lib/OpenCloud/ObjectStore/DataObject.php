@@ -594,8 +594,9 @@ class DataObject extends ObjectStore
      * Returns the object's Public CDN URL, if available
      *
      * @api
-     * @param string $type can be 'streaming', 'ssl', or anything else for the
-     *      default URL.
+     * @param string $type can be 'streaming', 'ssl', 'ios-streaming', 
+     *		or anything else for the
+     *      default URL. For example, `$object->PublicURL('ios-streaming')`
      * @return string
      */
     public function PublicURL($type = null)
@@ -609,6 +610,9 @@ class DataObject extends ObjectStore
                 return $this->Container()->SSLURI().'/'.$this->name;
             case 'STREAMING':
                 return $this->Container()->StreamingURI().'/'.$this->name;
+            case 'IOS':
+            case 'IOS-STREAMING':
+            	return $this->Container()->IosStreamingURI().'/'.$this->name;
             default:
                 return $prefix.'/'.$this->name;
         }
