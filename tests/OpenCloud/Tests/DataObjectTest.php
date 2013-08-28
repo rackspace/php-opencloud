@@ -203,5 +203,8 @@ class DataObjectTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals(
 	        'foo',
 	        $this->dataobject->PublicURL());
+	    $this->assertEquals(
+	    	'foozzz',
+	    	$this->dataobject->PublicURL('ios-streaming'));
 	}
 }

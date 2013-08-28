@@ -728,6 +728,11 @@ class OpenStack extends Base
      */
     public function ExportCredentials()
     {
+    
+    	// Authenticate
+    	$this->Authenticate();
+    	
+    	// array to hold the exported credentials
         $arr = array();
 
         foreach($this->export_items as $item) {

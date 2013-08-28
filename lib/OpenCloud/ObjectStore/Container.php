@@ -261,6 +261,18 @@ class Container extends CDNContainer
     }
 
     /**
+     * Returns the IOS streaming URI for the container
+     *
+     * @api
+     * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/iOS-Streaming-d1f3725.html
+     * @return string
+     */
+    public function IosStreamingURI()
+    {
+        return $this->CDNinfo('Ios-Uri');
+    }
+
+    /**
      * Creates a Collection of objects in the container
      *
      * @param array $params associative array of parameter values.

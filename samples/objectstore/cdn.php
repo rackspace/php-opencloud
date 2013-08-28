@@ -37,7 +37,8 @@ $object = $container->DataObject();
 $object->Create(array('name'=>'FOOBAR'), __FILE__);
 printf("  The CDN URL of the object is %s\n", $object->CDNUrl());
 printf("The PublicURL of the object is %s\n", $object->PublicURL());
-printf("  The IOS URL of the object is %s\n", $object->Container()->CDNinfo('Ios-Uri'));
+printf("  The IOS URL of the object is %s\n", 
+	$object->PublicURL('ios-streaming'));
 
 // get our containers
 print("Containers:\n");
