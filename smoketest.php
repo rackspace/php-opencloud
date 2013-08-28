@@ -178,7 +178,7 @@ $cloudfiles = $rackspace->ObjectStore('cloudFiles', MYREGION);
 
 step('Create Container');
 $container = $cloudfiles->Container();
-$container->Create(array('name' => 'SmokeTestContainer'));
+$container->Create(array('name' => '0'));
 
 step('Create Object from this file');
 $object = $container->DataObject();

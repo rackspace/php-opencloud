@@ -84,12 +84,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 		    $this->getContainer()->Url());
 	}
 
-	/**
-	 * @expectedException OpenCloud\Common\Exceptions\ContainerNameError
-	 */
 	public function testCreate0()
 	{
+		// '0' should be a valid container name
 		$con = $this->getContainer()->Create(array('name'=>'0'));
+		$this->assertEquals(
+			TRUE,
+			$con);
 	}
 
 	public function testUpdate()
@@ -190,6 +191,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
 	    $this->assertEquals(
 	        NULL,
 	        $this->getContainer()->StreamingURI());
+	}
+
+	public function testIosStreamingURI()
+	{
+	    $this->assertEquals(
+	        NULL,
+	        $this->getContainer()->IosStreamingURI());
 	}
 
 	public function testCreateStaticSite()

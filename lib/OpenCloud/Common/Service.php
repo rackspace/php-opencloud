@@ -99,7 +99,8 @@ abstract class Service extends Base
     {
         $baseurl = $this->service_url;
 
-        if ($resource) {
+		// use strlen instead of boolean test because '0' is a valid name
+        if (strlen($resource) > 0) {
             $baseurl = Lang::noslash($baseurl).'/'.$resource;
         }
 
@@ -190,12 +191,12 @@ abstract class Service extends Base
 
         // Save debug info
         $this->getLogger()->info(
-            '{class}:Collection({url}, {collectionClass}, {collectionName})', 
+            '{class}:Collection({url}, {collectionClass}, {collectionName})',
             array(
-                'class' => get_class($this), 
-                'url'   => $url, 
-                'collectionClass' => $class, 
-                'collectionName'  => $collectionName
+                'class' => get_class($this),
+                'url'   => $url,
+                'collectionClass' => $class,
+                'collectionName'  => $collection
             )
         );
 
@@ -203,7 +204,7 @@ abstract class Service extends Base
         $response = $this->request($url);
 
         $this->getLogger()->info('Response {status} [{body}]', array(
-            'status' => $response->httpStatus(), 
+            'status' => $response->httpStatus(),
             'body'   => $response->httpBody()
         ));
         
