@@ -75,7 +75,12 @@ if (!defined('RAXSDK_ORCHESTRATION_REGION'))
     define('RAXSDK_ORCHESTRATION_REGION', NULL);
 if (!defined('RAXSDK_ORCHESTRATION_URLTYPE'))
     define('RAXSDK_ORCHESTRATION_URLTYPE', 'publicURL');
-
+if (!defined('RAXSDK_NETWORK_NAME'))
+    define('RAXSDK_NETWORK_NAME', 'cloudNetworking');
+if (!defined('RAXSDK_NETWORK_REGION'))
+    define('RAXSDK_NETWORK_REGION', NULL);
+if (!defined('RAXSDK_NETWORK_URLTYPE'))
+    define('RAXSDK_NETWORK_URLTYPE', 'publicURL');
 if (!defined('RAXSDK_OBJSTORE_NAME'))
     define('RAXSDK_OBJSTORE_NAME', 'cloudFiles');
 if (!defined('RAXSDK_OBJSTORE_REGION'))
