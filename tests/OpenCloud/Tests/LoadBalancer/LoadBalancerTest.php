@@ -9,12 +9,11 @@
 
 namespace OpenCloud\Tests;
 
-require_once('StubConnection.php');
-
 use PHPUnit_Framework_TestCase;
 use OpenCloud\LoadBalancer\Resources\SubResource;
-use OpenCloud\LoadBalancer\LoadBalancer;
+use OpenCloud\LoadBalancer\Resources\LoadBalancer;
 use OpenCloud\LoadBalancer\Service;
+use OpenCloud\Tests\StubConnection;
 
 class MySubResource extends SubResource
 {
@@ -22,7 +21,7 @@ class MySubResource extends SubResource
     public static $json_name = 'ignore';
     public static $url_resource = 'ignore';
     
-    protected $_create_keys = array('id');
+    protected $createKeys = array('id');
 
     public function CreateJson()
     {
@@ -58,7 +57,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     public function testAddNode()
     {
         $lb = $this->service->LoadBalancer();
-        $lb->AddNode('1.1.1.1', 80);
+        $lb->addNode('1.1.1.1', 80);
         
         $this->assertEquals('1.1.1.1', $lb->nodes[0]->address);
         
@@ -69,9 +68,11 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     public function testAddNodes()
     {
         $lb = $this->service->LoadBalancer();
-        $lb->Create();
+        //$lb->Create();
         $lb->AddNode('1.1.1.1', 80);
+        $lb->Create();
         $lb->AddNodes();
+        
     }
 
     /**
@@ -95,7 +96,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\LoadBalancer', 
+            'OpenCloud\LoadBalancer\Resources\LoadBalancer', 
             $lb->Node('345')->Parent()
         );
         
@@ -320,6 +321,50 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->loadBalancer, $sub->getParent());
         
         $this->assertEquals('OpenCloud\Tests\MySubResource-42', $sub->Name());
+    }
+    
+    public function testAddingNodeWithType()
+    {
+        $this->loadBalancer->addNode('localhost', 8080, 'ENABLED', 'PRIMARY', 10);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DomainError
+     */
+    public function testAddingNodeFailsWithoutCorrectType()
+    {
+        $this->loadBalancer->addNode('localhost', 8080, 'ENABLED', 'foo');
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DomainError
+     */
+    public function testAddingNodeFailsWithoutCorrectWeight()
+    {
+        $this->loadBalancer->addNode('localhost', 8080, 'ENABLED', 'PRIMARY', 'baz');
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\MissingValueError
+     */
+    public function testAddingNodesFailsWithoutAnythingPreviouslySet()
+    {
+        $this->loadBalancer->addNodes();
+    }
+    
+    public function testAddingVirtualIp()
+    {
+        $this->loadBalancer->id = 2000;
+        $this->loadBalancer->addVirtualIp(123, 4);
+        $this->loadBalancer->addVirtualIp('PUBLIC', 6);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DomainError
+     */
+    public function testAddingVirtualIpFailsWithIncorrectIpType()
+    {
+        $this->loadBalancer->addVirtualIp(123, 5);
     }
 
 }

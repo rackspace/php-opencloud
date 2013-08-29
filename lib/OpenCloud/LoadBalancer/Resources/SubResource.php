@@ -1,12 +1,12 @@
 <?php
 /**
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\LoadBalancer\Resources;
@@ -32,12 +32,18 @@ use OpenCloud\Common\Lang;
 abstract class SubResource extends PersistentObject 
 {
     
+    /**
+     * This method needs attention.
+     * 
+     * @codeCoverageIgnore
+     */
     public function initialRefresh()
     {
         if (isset($this->id)) {
             $this->refresh();
         } else {
-            $this->refresh(null, $this->getParent()->url($this->resourceName()));
+            $entity = (method_exists($this->getParent(), 'url')) ? $this->getParent() : $this->getService();
+            $this->refresh(null, $entity->url($this->resourceName()));
         }
     }
 
@@ -50,9 +56,9 @@ abstract class SubResource extends PersistentObject
      *  query string parameters for the subresource
      * @return string
      */
-    public function Url($subresource = null, $qstr = array()) 
+    public function url($subresource = null, $qstr = array()) 
     {
-        return $this->getParent()->Url($this->ResourceName());
+        return $this->getParent()->url($this->ResourceName());
     }
 
     /**
@@ -65,18 +71,16 @@ abstract class SubResource extends PersistentObject
      */
     protected function CreateJson() 
     {
-        $object = new \stdClass();
-        $top = $this->JsonName();
-        if ($top) {
-            $object->$top = new \stdClass();
-            foreach ($this->_create_keys as $item) {
-                $object->$top->$item = $this->$item;
-            }
-        } else {
-            foreach ($this->_create_keys as $item) {
-                $object->$item = $this->$item;
-            }
+        $object = new \stdClass;
+
+        foreach ($this->createKeys as $item) {
+            $object->$item = $this->$item;
         }
+        
+        if ($top = $this->jsonName()) {
+            $object = (object) array($top => $object);
+        }
+        
         return $object;
     }
 
@@ -86,9 +90,9 @@ abstract class SubResource extends PersistentObject
      * For these subresources, the update JSON is the same as the Create JSON
      * @return \stdClass
      */
-    protected function UpdateJson($params = array()) 
+    protected function updateJson($params = array()) 
     {
-        return $this->CreateJson();
+        return $this->createJson();
     }
 
     /**
@@ -99,12 +103,12 @@ abstract class SubResource extends PersistentObject
      * @api
      * @return string
      */
-    public function Name() 
+    public function name() 
     {
         return sprintf(
             Lang::translate('%s-%s'),
             get_class($this), 
-            $this->Parent()->Id()
+            $this->getParent()->id()
         );
     }
 }

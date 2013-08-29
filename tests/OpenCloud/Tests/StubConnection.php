@@ -51,6 +51,7 @@ ENDRESPONSE;
             'Content-Length' => '999'
         );
 
+
 		if ($method == 'POST') {
 			$resp->status = 200;
 			if (strpos($url, '/action')) {
@@ -72,7 +73,6 @@ ENDRESPONSE;
 				$resp->status = 202;
 			} elseif (strpos($url, '/loadbalancers')) {
 				$resp->body = <<<ENDLB
-
 {"loadBalancer":{
   "id":"123",
   "name":"NONAME"
@@ -108,20 +108,19 @@ ENDNW;
             else {
                 die("No stub data for URL $url\n");
             }
-        }
-        elseif ($method == 'DELETE') {
-            $resp->status = 202;
-            if (preg_match('/servers\/[0-9a-z\-]+\/rax-si-image-schedule/', $url)) {
-                $resp->status = 204;
-            }
-        }
-        elseif (($method=='PUT') && strpos($url, '/domains')) {
-            $resp->body = $this->async_response;
-            $resp->status = 202;
-        }
-        elseif (strpos($url, '/os-volume_attachments/')) {
-            $resp->body = <<<ENDATT
-
+		}
+        
+		elseif ($method == 'DELETE') {
+			$resp->status = 202;
+		}
+        
+		elseif (($method=='PUT') && strpos($url, '/domains')) {
+			$resp->body = $this->async_response;
+			$resp->status = 202;
+		}
+        
+		elseif (strpos($url, '/os-volume_attachments/')) {
+			$resp->body = <<<ENDATT
 {"volumeAttachment":{"volumeId":"FOO"}}
 ENDATT;
             $resp->status = 200;
@@ -180,6 +179,10 @@ ENDLBSTATS;
                 $resp->body = '{}';
             elseif (strpos($url, '/metadata'))
                 $resp->body = '{}';
+            elseif (strpos($url, '/2000'))
+                $resp->body = <<<EOT
+{"loadBalancer":{"id":2000,"name":"sample-loadbalancer","protocol":"HTTP","port":80,"algorithm":"RANDOM","status":"ACTIVE","timeout":30,"connectionLogging":{"enabled":true},"virtualIps":[{"id":1000,"address":"206.10.10.210","type":"PUBLIC","ipVersion":"IPV4"}],"nodes":[{"id":1041,"address":"10.1.1.1","port":80,"condition":"ENABLED","status":"ONLINE"},{"id":1411,"address":"10.1.1.2","port":80,"condition":"ENABLED","status":"ONLINE"}],"sessionPersistence":{"persistenceType":"HTTP_COOKIE"},"connectionThrottle":{"minConnections":10,"maxConnections":100,"maxConnectionRate":50,"rateInterval":60},"cluster":{"name":"c1.dfw1"},"created":{"time":"2010-11-30T03:23:42Z"},"updated":{"time":"2010-11-30T03:23:44Z"},"sourceAddresses":{"ipv6Public":"2001:4801:79f1:1::1/64","ipv4Servicenet":"10.0.0.0","ipv4Public":"10.12.99.28"}}}
+EOT;
             else
                 die("NEED TO DEFINE RESPONSE FOR $url\n");
         }
@@ -285,6 +288,11 @@ ENDVOL;
         elseif (strpos($url, '/rdns')) {
             $resp->body = $this->async_response;
             $resp->status = 200;
+        }
+        elseif (strpos($url, '/images/detail')) {
+                $resp->body = <<<EOT
+{"images":[{"OS-DCF:diskConfig":"AUTO","created":"2012-10-13T16:53:56Z","id":"a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","links":[{"href":"https://dfw.servers.api.rackspacecloud.com/v2/658405/images/a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","rel":"self"},{"href":"https://dfw.servers.api.rackspacecloud.com/658405/images/a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","rel":"bookmark"},{"href":"https://dfw.servers.api.rackspacecloud.com/658405/images/a3a2c42f-575f-4381-9c6d-fcd3b7d07d17","rel":"alternate","type":"application/vnd.openstack.image"}],"metadata":{"arch":"x86-64","auto_disk_config":"True","com.rackspace__1__build_core":"1","com.rackspace__1__build_managed":"0","com.rackspace__1__build_rackconnect":"1","com.rackspace__1__options":"0","com.rackspace__1__visible_core":"1","com.rackspace__1__visible_managed":"0","com.rackspace__1__visible_rackconnect":"1","image_type":"base","org.openstack__1__architecture":"x64","org.openstack__1__os_distro":"org.centos","org.openstack__1__os_version":"6.0","os_distro":"centos","os_type":"linux","os_version":"6.0","rax_managed":"false","rax_options":"0"},"minDisk":10,"minRam":256,"name":"CentOS 6.0","progress":100,"status":"ACTIVE","updated":"2012-10-13T16:54:55Z"}]}
+EOT;
         }
         else
             $resp->status = 404;

@@ -492,7 +492,7 @@ abstract class PersistentObject extends Base
          * object might not be a service.
          */
         if (!$url && $this->$primaryKey) {
-            $url = Lang::noslash($this->getParent()->Url($this->ResourceName())) . '/' . $this->$primaryKey;
+            $url = Lang::noslash($this->getParent()->url($this->resourceName())) . '/' . $this->$primaryKey;
         }
 
         // add the subresource

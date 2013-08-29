@@ -196,7 +196,7 @@ abstract class Service extends Base
                 'class' => get_class($this),
                 'url'   => $url,
                 'collectionClass' => $class,
-                'collectionName'  => $collection
+                'collectionName'  => $collectionName
             )
         );
 
