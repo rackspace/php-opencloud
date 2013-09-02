@@ -161,7 +161,7 @@ abstract class Service extends Base
         if ($tenant = $this->conn->Tenant()) {
             $headers['X-Auth-Project-Id'] = $tenant;
         }
-
+        
         return $this->conn->request($url, $method, $headers, $body);
     }
 
@@ -175,6 +175,7 @@ abstract class Service extends Base
      */
     public function collection($class, $url = null, $parent = null)
     {
+        
         // Set the element names
         $collectionName = $class::JsonCollectionName();
         $elementName    = $class::JsonCollectionElement();
@@ -202,7 +203,7 @@ abstract class Service extends Base
 
         // Fetch the list
         $response = $this->request($url);
-
+        
         $this->getLogger()->info('Response {status} [{body}]', array(
             'status' => $response->httpStatus(),
             'body'   => $response->httpBody()
@@ -226,7 +227,6 @@ abstract class Service extends Base
 
         // Parse the return
         $object = json_decode($response->httpBody());
-        
         $this->checkJsonError();
         
         // See if there's a "next" link

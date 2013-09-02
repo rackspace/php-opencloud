@@ -354,7 +354,7 @@ class Container extends CDNContainer
         if (strlen($queryString) > 0) {
             $url .= '?' . $queryString;
         }
-
+        
         return $this->getService()->collection(
         	'OpenCloud\ObjectStore\Resource\DataObject', $url, $this
         );
@@ -376,13 +376,13 @@ class Container extends CDNContainer
      */
     public function refresh($id = null, $url = null)
     {
-        parent::Refresh($id, $url);
+        parent::refresh($id, $url);
         
         // @codeCoverageIgnoreStart
 		if ($this->getService() instanceof CDNService) {
 			return;
         }
-        // @codeCoverageIgnoreEnd
+        
         
         if (null !== ($cdn = $this->getService()->CDN())) {
             try {
@@ -395,6 +395,7 @@ class Container extends CDNContainer
                 $this->cdn->name = $this->name;
             }
         }
+        // @codeCoverageIgnoreEnd
     }
 
 }

@@ -30,6 +30,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 {
 	private $service;
 	private $container;
+    private $otherContainer;
 
 	/**
 	 * @expectedException OpenCloud\Common\Exceptions\ContainerNotFoundError
@@ -43,6 +44,13 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 			'DFW',
 			'publicURL'
 		);
+        
+        $this->otherContainer = new Container(new Service(
+			new StubConnection('http://example.com', 'SECRET'),
+			'cloudFiles',
+			'DFW',
+			'publicURL'
+		), 'TEST');
 	}
 
 	public function getContainer()
@@ -165,12 +173,9 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	    $this->getContainer()->publishToCDN('FOOBAR');
 	}
 
-	/**
-	 * @expectedException OpenCloud\Common\Exceptions\CdnHttpError
-	 */
 	public function testDisableCDN()
 	{
-	    $this->getContainer()->disableCDN();
+	    $this->assertTrue($this->otherContainer->disableCDN());
 	}
 
 	public function testCDNURL()
@@ -183,27 +188,42 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testCDNinfo()
 	{
-	    $this->assertNull($this->getContainer()->CDNinfo());
+	    $this->assertInstanceOf(
+            'OpenCloud\Common\Metadata',
+            $this->getContainer()->CDNinfo()
+        );
 	}
 
 	public function testCDNURI()
 	{
-	    $this->assertNull($this->getContainer()->CDNURI());
+	    $this->assertEquals(
+            'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com',
+            $this->getContainer()->CDNURI()
+        );
 	}
 
 	public function testSSLURI()
 	{
-	    $this->assertNull($this->getContainer()->SSLURI());
+	    $this->assertEquals(
+            'https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.cf0.rackcdn.com',
+            $this->getContainer()->SSLURI()
+        );
 	}
 
 	public function testStreamingURI()
 	{
-	    $this->assertNull($this->getContainer()->streamingURI());
+	    $this->assertEquals(
+            'http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.stream.cf0.rackcdn.com',
+            $this->getContainer()->streamingURI()
+        );
 	}
 
 	public function testIosStreamingURI()
 	{
-	    $this->assertNull($this->getContainer()->iosStreamingURI());
+	    $this->assertEquals(
+            'http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.ios.cf0.rackcdn.com',
+            $this->getContainer()->iosStreamingURI()
+        );
 	}
 
 	public function testCreateStaticSite()
@@ -224,7 +244,10 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testPublicUrl()
 	{
-	    $this->assertEmpty($this->getContainer()->publicUrl());
+	    $this->assertEquals(
+            'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com',
+            $this->getContainer()->publicUrl()
+        );
 	}
     
     public function testCDNConstruct()
@@ -276,4 +299,28 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 EOT;
         $this->getContainer()->isValidName($name);
     }
+    
+    public function testPseudoDirectories()
+    {
+        $files = $this->otherContainer->objectList(array(
+           'delimiter' => '/',
+           'prefix'    => 'files/'
+        ));
+        
+        while ($file = $files->next()) {
+            $this->assertTrue($file->isDirectory());
+        }
+    }
+    
+    public function testContainerNotFoundFailsGracefully()
+    {
+        $new = new Container(new Service(
+			new StubConnection('http://example.com', 'SECRET'),
+			'cloudFiles',
+			'DFW',
+			'publicURL'
+		), 'foobar');
+        $new->refresh('FOOBAR');
+    }
+    
 }

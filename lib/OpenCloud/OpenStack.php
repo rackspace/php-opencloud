@@ -1,13 +1,12 @@
 <?php
 /**
- * The OpenStack connection/cloud class
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud;
@@ -46,9 +45,6 @@ use OpenCloud\Common\ServiceCatalogItem;
  *  // if we want to access a different service, we can:
  *  $dallas = $connection->Compute('cloudServersOpenStack', 'DFW');
  * </code>
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
- * @version 1.0
  */
 class OpenStack extends Base
 {
@@ -61,6 +57,8 @@ class OpenStack extends Base
      * your own User Agent identifier to the end of this string; the
      * user agent information can be very valuable to service providers
      * to track who is using their service.
+     * 
+     * @var string 
      */
     public $useragent = RAXSDK_USER_AGENT;
 
@@ -147,17 +145,17 @@ class OpenStack extends Base
      * To prevent memory overflows, each array element is deleted when
      * the end of the file is reached.
      */
-    private $_file_descriptors = array();
+    private $fileDescriptors = array();
 
     /**
      * array of options to pass to the CURL request object
      */
-    private $curl_options=array();
+    private $curlOptions = array();
 
     /**
      * list of attributes to export/import
      */
-    private $export_items = array(
+    private $exportItems = array(
         'token',
         'expiration',
         'tenant',
@@ -210,7 +208,7 @@ class OpenStack extends Base
             );
         }
 
-        $this->curl_options = $options;
+        $this->curlOptions = $options;
     }
 
     /**
@@ -220,7 +218,7 @@ class OpenStack extends Base
      * @param string $subresource specified subresource
      * @return string
      */
-    public function Url($subresource='tokens')
+    public function url($subresource='tokens')
     {
         return Lang::noslash($this->url) . '/' . $subresource;
     }
@@ -230,7 +228,7 @@ class OpenStack extends Base
      *
      * @return array
      */
-    public function Secret()
+    public function secret()
     {
         return $this->secret;
     }
@@ -241,10 +239,10 @@ class OpenStack extends Base
      * @api
      * @return string
      */
-    public function Token()
+    public function token()
     {
         if (time() > ($this->expiration - RAXSDK_FUDGE)) {
-            $this->Authenticate();
+            $this->authenticate();
         }
         return $this->token;
     }
@@ -256,10 +254,10 @@ class OpenStack extends Base
      * @api
      * @return string
      */
-    public function Expiration()
+    public function expiration()
     {
         if (time() > ($this->expiration - RAXSDK_FUDGE)) {
-            $this->Authenticate();
+            $this->authenticate();
         }
         return $this->expiration;
     }
@@ -270,10 +268,10 @@ class OpenStack extends Base
      * @api
      * @return string
      */
-    public function Tenant()
+    public function tenant()
     {
-        if (time() > ($this->expiration-RAXSDK_FUDGE)) {
-            $this->Authenticate();
+        if (time() > ($this->expiration - RAXSDK_FUDGE)) {
+            $this->authenticate();
         }
         return $this->tenant;
     }
@@ -421,7 +419,7 @@ class OpenStack extends Base
         ));
 
         // get the request object
-        $http = $this->GetHttpRequestObject($url, $method, $this->curl_options);
+        $http = $this->GetHttpRequestObject($url, $method, $this->curlOptions);
 
         // set various options
         $this->getLogger()->info('Headers: [{headers}]', array(
@@ -440,7 +438,7 @@ class OpenStack extends Base
             switch($method) {
                 case 'GET':
                     // need to save the file descriptor
-                    $this->_file_descriptors[$url] = $data;
+                    $this->fileDescriptors[$url] = $data;
                     // set the CURL options
                     $http->SetOption(CURLOPT_FILE, $data);
                     $http->SetOption(CURLOPT_WRITEFUNCTION, array($this, '_write_cb'));
@@ -448,7 +446,7 @@ class OpenStack extends Base
                 case 'PUT':
                 case 'POST':
                     // need to save the file descriptor
-                    $this->_file_descriptors[$url] = $data;
+                    $this->fileDescriptors[$url] = $data;
                     if (!isset($headers['Content-Length'])) {
                         throw new Exceptions\HttpError(
                             Lang::translate('The Content-Length: header must be specified for file uploads')
@@ -655,7 +653,7 @@ class OpenStack extends Base
      *      array($object, $functionname)
      * @return void
      */
-    public function SetDownloadProgressCallback($callback)
+    public function setDownloadProgressCallback($callback)
     {
         $this->_user_read_progress_callback_func = $callback;
     }
@@ -699,13 +697,13 @@ class OpenStack extends Base
     {
         $url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 
-        if (!isset($this->_file_descriptors[$url])) {
+        if (!isset($this->fileDescriptors[$url])) {
             throw new Exceptions\HttpUrlError(sprintf(
                 Lang::translate('Cannot find file descriptor for URL [%s]'), $url)
             );
         }
 
-        $fp = $this->_file_descriptors[$url];
+        $fp = $this->fileDescriptors[$url];
         $dlen = strlen($data);
         fwrite($fp, $data, $dlen);
 
@@ -735,7 +733,7 @@ class OpenStack extends Base
     	// array to hold the exported credentials
         $arr = array();
 
-        foreach($this->export_items as $item) {
+        foreach($this->exportItems as $item) {
             $arr[$item] = $this->$item;
         }
 
@@ -757,7 +755,7 @@ class OpenStack extends Base
             );
         }
 
-        foreach($this->export_items as $item) {
+        foreach($this->exportItems as $item) {
             $this->$item = $values[$item];
         }
     }

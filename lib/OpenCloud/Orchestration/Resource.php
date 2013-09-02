@@ -14,11 +14,12 @@ namespace OpenCloud\Orchestration;
 
 use OpenCloud\AbstractClass\PersistentObject;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Resource extends PersistentObject 
 {
-    protected static $url_resource = 'resources';
-    protected static $json_name = 'resource';
-
+    
     protected $links;
     protected $logical_resource_id;
     protected $physical_resource_id;
@@ -26,6 +27,9 @@ class Resource extends PersistentObject
     protected $resource_status_reason;
     protected $resource_type;
     protected $updated_time;
+    
+    protected static $url_resource = 'resources';
+    protected static $json_name = 'resource';
 
     public function create($info = null) 
     {
@@ -68,11 +72,12 @@ class Resource extends PersistentObject
                 $name = 'nova';
                 break;
             default:
-                throw new Exception(sprintf('Unknown resource type %s', 
+                throw new Exception(sprintf(
+                    'Unknown resource type: %s', 
                     $this->resource_type
                 ));
         }
         
-        return $service->connection()->$objSvc($name, $service->Region())->$method($this->Id());
+        return $service->connection()->$objSvc($name, $service->region())->$method($this->id());
     }
 }

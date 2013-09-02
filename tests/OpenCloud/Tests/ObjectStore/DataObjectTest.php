@@ -13,6 +13,7 @@
 namespace OpenCloud\Tests\ObjectStore;
 
 use PHPUnit_Framework_TestCase;
+use OpenCloud\ObjectStore\Service;
 use OpenCloud\ObjectStore\Resource\Container;
 use OpenCloud\ObjectStore\Resource\DataObject;
 use OpenCloud\Tests\StubConnection;
@@ -25,10 +26,13 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     private $service;
     private $container;
     private $nullFile;
+    private $conn;
+    
+    private $nonCDNContainer;
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
+        $this->conn = $conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new StubService(
             $conn, 'object-store', 'cloudFiles', 'DFW', 'publicURL'
         );
@@ -36,6 +40,12 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
         $this->dataobject = new DataObject($this->container, 'DATA-OBJECT');
 
         $this->nullFile = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'NUL' : '/dev/null';
+        
+        $this->nonCDNContainer = new Container(
+            $this->conn->ObjectStore('cloudFiles', 'DFW', 'publicURL'),
+            'NON-CDN'
+        );
+        $this->nonCDNObject = new DataObject($this->nonCDNContainer, 'OBJECT');
     }
 
     /**
@@ -91,9 +101,19 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     public function testCreateWithHeaders()
     {
         $arr = array('name' => 'HOOFUS', 'extra_headers' => array('Access-Control-Allow-Origin' => 'http://example.com'));
-        $obj = new DataObject($this->container);
-        $obj->create($arr, $this->nullFile);
+        $obj = $this->nonCDNObject;
+        $obj->create($arr, $this->nullFile, 'tar.gz');
         $this->assertEquals('http://example.com', $obj->extra_headers['Access-Control-Allow-Origin']);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\ObjectError
+     */
+    public function testCreateFailsWithIncorrectExtractArchive()
+    {
+        $arr = array('name' => 'MOOFUS', 'content_type' => 'application/x-arbitrary-mime-type');
+        $obj = new DataObject($this->container);
+        $obj->create($arr, __FILE__, 'wrong.tar.gz');
     }
 
     public function testUpdate()
@@ -172,7 +192,30 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     {
         $this->dataobject->saveToFilename($this->nullFile);
     }
+    
+    /**
+     * @expectedException \OpenCloud\Common\Exceptions\IOError
+     */
+    public function testSaveToFilenameFailsWithoutPath()
+    {
+        $this->dataobject->saveToFilename('/foo');
+    }
 
+    /**
+     * @expectedException \OpenCloud\Common\Exceptions\ObjectError
+     */
+    public function testSaveToStreamFailsWithoutResource()
+    {
+        $this->dataobject->saveToStream('foo');
+    }
+    
+    public function testSaveToStream()
+    {
+        $fp = fopen('php://temp', 'r+');
+        $this->dataobject->saveToStream($fp);
+        fclose($fp);
+    }
+    
     public function testgetETag()
     {
         $this->assertNull($this->dataobject->getETag());
@@ -182,6 +225,15 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     {
         $obj = new DataObject($this->container, 'FOO');
         $this->assertEquals('FOO', $obj->name);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\NoNameError
+     */
+    public function testFetchFailsWithoutName()
+    {
+        $obj = new DataObject($this->container);
+        $obj->refresh();
     }
 
     /**
@@ -199,6 +251,11 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     {
         $this->dataobject->PurgeCDN('glen@glenc.co');
     }
+    
+    public function testPurgeFailsWithNonCDNContainer()
+    {
+        $this->nonCDNObject->purgeCDN('foo@bar.com');
+    }
 
     /**
      * @expectedException OpenCloud\Common\Exceptions\CdnNotAvailableError
@@ -208,5 +265,48 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $this->dataobject->PublicURL());
         $this->assertEquals('foozzz', $this->dataobject->PublicURL('ios-streaming'));
     }
-
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\IOError
+     */
+    public function testCreateFailsWithoutCorrectPath()
+    {
+        $this->dataobject->create(array('name' => 'FOOBAR'), __DIR__ . '/foo');
+    }
+    
+    public function testMIMECheck()
+    {
+        $this->dataobject->content_type = null;
+        $this->dataobject->create(array('name' => 'FOOBAR', 'foo' => 'bar'), __DIR__ . '/Files/example.json');
+        
+        $this->assertObjectNotHasAttribute('foo', $this->dataobject);
+    }
+    
+    public function testUrls()
+    {
+        $container = new Container(
+            $this->conn->ObjectStore('cloudFiles', 'DFW', 'publicURL'),
+            'TEST'
+        );
+        $files = $container->objectList();
+        $file = $files->first();
+        
+        $this->assertNotNull($file->publicURL());
+        $this->assertNotNull($file->publicURL('STREAMING'));
+        $this->assertNotNull($file->publicURL('SSL'));
+        $this->assertNotNull($file->publicURL('IOS-STREAMING'));
+        
+        $files = $this->nonCDNContainer->objectList();
+        $file = $files->first();
+        $this->assertNull($file->publicURL());
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\NoNameError
+     */
+    public function testUrlFailsWithoutName()
+    {
+        $this->nonCDNObject->name = null;
+        $this->nonCDNObject->url();
+    }
 }

@@ -11,9 +11,11 @@
 
 namespace OpenCloud\ObjectStore\Resource;
 
+use finfo as FileInfo;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\ObjectStore\AbstractService;
+use OpenCloud\Common\Request\Response\Http;
 
 /**
  * Objects are the basic storage entities in Cloud Files. They represent the 
@@ -115,8 +117,10 @@ class DataObject extends AbstractStorageObject
      * @var array 
      */
     private $headerTranslate = array(
-        'Etag'          => 'hash',
-        'Last-Modified' => 'last_modified'
+        'Etag'           => 'hash',
+        'ETag'           => 'hash',
+        'Last-Modified'  => 'last_modified',
+        'Content-Length' => array('bytes', 'content_length'),
     );
     
     /**
@@ -160,26 +164,13 @@ class DataObject extends AbstractStorageObject
         parent::__construct();
 
         $this->container = $container;
-
-        if (is_object($cdata)) {
-            
-            foreach($cdata as $property => $value) {
-                if ($property == 'metadata') {
-                    $this->metadata->SetArray($value);
-                } else {
-                    $this->$property = $value;
-                }
-            }
-            
-            // For pseudo-directories, we need to ensure the name is set
-            if (!empty($cdata->subdir)) {
-                $this->name = $cdata->subdir;
-                $this->directory = true;
-            }
-            
-        } elseif (isset($cdata)) {
-            $this->name = $cdata;
-            $this->fetch();
+   
+        // For pseudo-directories, we need to ensure the name is set
+        if (!empty($cdata->subdir)) {
+            $this->name = $cdata->subdir;
+            $this->directory = true;
+        } else {
+            $this->populate($cdata);
         }
     }
     
@@ -194,6 +185,16 @@ class DataObject extends AbstractStorageObject
     }
     
     /**
+     * Allow other objects to know what the primary key is.
+     * 
+     * @return string
+     */
+    public function primaryKeyField()
+    {
+        return 'name';
+    }
+    
+    /**
      * Is this a real file?
      * 
      * @param  string $filename
@@ -202,6 +203,26 @@ class DataObject extends AbstractStorageObject
     private function isRealFile($filename)
     {
         return $filename != '/dev/null' && $filename != 'NUL';
+    }
+    
+    /**
+     * Set this file's content type.
+     * 
+     * @param string $contentType
+     */
+    public function setContentType($contentType)
+    {
+        $this->content_type = $contentType;
+    }
+    
+    /**
+     * Return the content type.
+     * 
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->content_type;
     }
 
     /**
@@ -262,14 +283,16 @@ class DataObject extends AbstractStorageObject
             $filesize = (float) filesize($filename);
             
             // Check it's below a reasonable size, and set
+            // @codeCoverageIgnoreStart
             if ($filesize > AbstractService::MAX_OBJECT_SIZE) {
                 throw new Exceptions\ObjectError("File size exceeds maximum object size.");
             }
+            // @codeCoverageIgnoreEnd
             $this->content_length = $filesize;
             
             // Guess the content type if necessary
-            if (empty($this->content_type) && $this->isRealFile($filename)) {
-                $this->guessContentType($filename);
+            if (empty($this->getContentType()) && $this->isRealFile($filename)) {
+                $this->setContentType($this->inferContentType($filename));
             }
             
             // Send ETag checksum if necessary
@@ -290,7 +313,6 @@ class DataObject extends AbstractStorageObject
             if ($this->send_etag) {
                 $this->etag = md5($this->data);
             }
-
         }
 
         // Only allow supported archive types
@@ -299,11 +321,13 @@ class DataObject extends AbstractStorageObject
         
         if ($extractArchive) {
             if ($extractArchive !== "tar.gz" && $extractArchive !== "tar.bz2") {
-                throw new Exceptions\ObjectError("Extract Archive only supports tar.gz and tar.bz2");
+                throw new Exceptions\ObjectError(
+                    "Extract Archive only supports tar.gz and tar.bz2"
+                );
             } else {
                 $extractArchiveUrlArg = "?extract-archive=" . $extractArchive;
                 $this->etag = null;
-                $this->content_type = '';
+                $this->setContentType('');
             }
         }
 
@@ -316,8 +340,8 @@ class DataObject extends AbstractStorageObject
 
 		// Content-Type is no longer required; if not specified, it will
 		// attempt to guess based on the file extension.
-		if (!empty($this->content_type)) {
-        	$headers['Content-Type'] = $this->content_type;
+		if (!empty($this->getContentType())) {
+        	$headers['Content-Type'] = $this->getContentType();
         }
         
         $headers['Content-Length'] = $this->content_length;
@@ -336,6 +360,7 @@ class DataObject extends AbstractStorageObject
         );
 
         // check the status
+        // @codeCoverageIgnoreStart
         if (($status = $response->httpStatus()) >= 300) {
             throw new Exceptions\CreateUpdateError(sprintf(
                 Lang::translate('Problem saving/updating object [%s] HTTP status [%s] response [%s]'),
@@ -344,13 +369,10 @@ class DataObject extends AbstractStorageObject
                 $response->httpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         // set values from response
-        foreach ($response->headers() as $key => $value) {
-            if (isset($this->headerTranslate[$key])) {
-                $this->{$this->headerTranslate[$key]} = $value;
-            }
-        }
+        $this->saveResponseHeaders($response);
 
         // close the file handle
         if ($fp) {
@@ -394,7 +416,7 @@ class DataObject extends AbstractStorageObject
 
         // set the headers
         $headers = $this->metadataHeaders();
-        $headers['Content-Type'] = $this->content_type;
+        $headers['Content-Type'] = $this->getContentType();
 
         $response = $this->getService()->request(
             $this->url(),
@@ -403,6 +425,7 @@ class DataObject extends AbstractStorageObject
         );
 
         // check the status
+        // @codeCoverageIgnoreStart
         if (($stat = $response->httpStatus()) >= 204) {
             throw new Exceptions\UpdateError(sprintf(
                 Lang::translate('Problem updating object [%s] HTTP status [%s] response [%s]'),
@@ -411,6 +434,7 @@ class DataObject extends AbstractStorageObject
                 $response->httpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
         
         return $response;
     }
@@ -433,6 +457,7 @@ class DataObject extends AbstractStorageObject
         $response = $this->getService()->request($this->url(), 'DELETE');
 
         // check the status
+        // @codeCoverageIgnoreStart
         if (($stat = $response->httpStatus()) >= 300) {
             throw new Exceptions\DeleteError(sprintf(
                 Lang::translate('Problem deleting object [%s] HTTP status [%s] response [%s]'),
@@ -441,6 +466,7 @@ class DataObject extends AbstractStorageObject
                 $response->httpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
         
         return $response;
     }
@@ -467,6 +493,7 @@ class DataObject extends AbstractStorageObject
         );
 
         // check response code
+        // @codeCoverageIgnoreStart
         if ($response->httpStatus() > 202) {
             throw new Exceptions\ObjectCopyError(sprintf(
                 Lang::translate('Error copying object [%s], status [%d] response [%s]'),
@@ -475,6 +502,7 @@ class DataObject extends AbstractStorageObject
                 $response->httpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         return $response;
     }
@@ -674,15 +702,18 @@ class DataObject extends AbstractStorageObject
      */
     public function purgeCDN($email)
     {
+        // @codeCoverageIgnoreStart
         if (!$cdn = $this->Container()->CDNURL()) {
             throw new Exceptions\CdnError(Lang::translate('Container is not CDN-enabled'));
         }
+        // @codeCoverageIgnoreEnd
 
         $url = $cdn . '/' . $this->name;
         $headers['X-Purge-Email'] = $email;
         $response = $this->getService()->request($url, 'DELETE', $headers);
 
         // check the status
+        // @codeCoverageIgnoreStart
         if ($response->httpStatus() > 204) {
             throw new Exceptions\CdnHttpError(sprintf(
                 Lang::translate('Error purging object, status [%d] response [%s]'),
@@ -690,6 +721,9 @@ class DataObject extends AbstractStorageObject
                 $response->httpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
+        
+        return true;
     }
 
     /**
@@ -774,37 +808,57 @@ class DataObject extends AbstractStorageObject
         $response = $this->getService()->request($this->url(), 'HEAD', array('Accept' => '*/*'));
 
         // check for errors
+        // @codeCoverageIgnoreStart
         if ($response->httpStatus() >= 300) {
             throw new Exceptions\ObjFetchError(sprintf(
                 Lang::translate('Problem retrieving object [%s]'),
                 $this->url()
             ));
         }
-
-        if (!isset($this->extra_headers)) {
-            $this->extra_headers = array();
-        }
+        // @codeCoverageIgnoreEnd
 
         // set headers as metadata?
-        foreach($response->headers() as $header => $value) {
-            switch($header) {
-                case 'Content-Type':
-                    $this->content_type = $value;
-                    break;
-                case 'Content-Length':
-                    $this->content_length = $value;
-                    $this->bytes = $value;
-                    break;
-                default:
-                    $this->extra_headers[$header] = $value;
-                    break;
-            }
-        }
+        $this->saveResponseHeaders($response);
 
         // parse the metadata
         $this->getMetadata($response);
     }
+    
+    /**
+     * Extracts the headers from the response, and saves them as object 
+     * attributes. Additional name conversions are done where necessary.
+     * 
+     * @param Http $response
+     */
+    private function saveResponseHeaders(Http $response, $fillExtraIfNotFound = true)
+    {
+        foreach ($response->headers() as $header => $value) {
+            if (isset($this->headerTranslate[$header])) {
+                // This header needs to be translated
+                $property = $this->headerTranslate[$header];
+                // Are there multiple properties that need to be set?
+                if (is_array($property)) {
+                    foreach ($property as $subProperty) {
+                        $this->$subProperty = $value;
+                    }
+                } else {
+                    $this->$property = $value;
+                }
+            } elseif ($fillExtraIfNotFound === true) {
+                // Otherwise, stock extra headers 
+                $this->extra_headers[$header] = $value;
+            }
+        }
+    }
 
+    /**
+     * Compatability.
+     */
+    public function refresh()
+    {
+        return $this->fetch();
+    }
+    
     /**
      * Returns the service associated with this object
      *
@@ -837,59 +891,51 @@ class DataObject extends AbstractStorageObject
      * @param string $handle name of file or buffer to guess the type from
      * @return boolean <kbd>TRUE</kbd> if successful
      * @throws BadContentTypeException
+     * @codeCoverageIgnore
      */
-    private function guessContentType($handle)
+    private function inferContentType($handle)
     {
-        if ($this->content_type) {
-            return;
+        if ($contentType = $this->getContentType()) {
+            return $contentType;
         }
-
+        
+        $contentType = false;
+        
+        $filePath = (is_string($handle)) ? $handle : (string) $handle;
+        
         if (function_exists("finfo_open")) {
             
-            $local_magic = dirname(__FILE__) . "/share/magic";
-
-            if ($finfo = @finfo_open(FILEINFO_MIME, $local_magic) ?: @finfo_open(FILEINFO_MIME)) {
+            $magicPath = dirname(__FILE__) . "/share/magic"; 
+            $finfo = new FileInfo(FILEINFO_MIME, file_exists($magicPath) ? $magicPath : null);
+            
+            if ($finfo) {
                 
-                if (is_file((string) $handle)) {
-                    $contentType = @finfo_file($finfo, $handle);
-                } else {
-                    $contentType = @finfo_buffer($finfo, $handle);
-                }
+                $contentType = is_file($filePath) 
+                    ? $finfo->file($handle) 
+                    : $finfo->buffer($handle);
 
                 /**
-                 * PHP 5.3 fileinfo display extra information like
-                 * charset so we remove everything after the ; since
-                 * we are not into that stuff
-                 */
-                if ($contentType) {
-                    
-                    if ($extraInfo = strpos($contentType, "; ")) {
-                        $contentType = substr($contentType, 0, $extraInfo);
-                    }
-
-                    if ($contentType != 'application/octet-stream') {
-                        $this->content_type = $contentType;
-                    }
+                 * PHP 5.3 fileinfo display extra information like charset so we 
+                 * remove everything after the ; since we are not into that stuff
+                 */  
+                if (null !== ($extraInfo = strpos($contentType, "; "))) {
+                    $contentType = substr($contentType, 0, $extraInfo);
                 }
+            }
+            
+            //unset($finfo);
+        }
 
-                @finfo_close($finfo);
+        if (!$contentType) {
+            // Try different native function instead
+            if (is_file((string) $handle) && function_exists("mime_content_type")) {
+                $contentType = mime_content_type($handle);
+            } else {
+                $this->getLogger()->error('Content-Type cannot be found');
             }
         }
 
-        if (!$this->content_type
-            && (string) is_file($handle)
-            && function_exists("mime_content_type")
-        ) {
-            $this->content_type = @mime_content_type($handle);
-        }
-
-        if (!$this->content_type) {
-            throw new Exceptions\NoContentTypeError(
-                Lang::translate('Required Content-Type not set')
-            );
-        }
-
-        return true;
+        return $contentType;
     }
 
 }
