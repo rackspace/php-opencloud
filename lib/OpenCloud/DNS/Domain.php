@@ -225,7 +225,7 @@ class Domain extends Object
             }
             $object->domains[0]->subdomains = $subdomainsObject;
         }
-
+        
         return $object;
     }
 

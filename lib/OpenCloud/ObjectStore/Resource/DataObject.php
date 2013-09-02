@@ -1,50 +1,146 @@
 <?php
 /**
- * A core object in the Object Storage service (Swift).
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\ObjectStore;
+namespace OpenCloud\ObjectStore\Resource;
 
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\ObjectStore;
+use OpenCloud\ObjectStore\AbstractService;
 
 /**
- * A DataObject is an object in the ObjectStore
- *
- * This class uses the name DataObject because "Object" is too generic and conflicts with
- * certain PHP keywords.
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * Objects are the basic storage entities in Cloud Files. They represent the 
+ * files and their optional metadata you upload to the system. When you upload 
+ * objects to Cloud Files, the data is stored as-is (without compression or 
+ * encryption) and consists of a location (container), the object's name, and 
+ * any metadata you assign consisting of key/value pairs.
  */
-class DataObject extends ObjectStore
+class DataObject extends AbstractStorageObject
 {
+    /**
+     * Object name. The only restriction on object names is that they must be 
+     * less than 1024 bytes in length after URL encoding.
+     * 
+     * @var string 
+     */
+    public $name;
+    
+    /**
+     * Hash value of the object.
+     * 
+     * @var string 
+     */
+    public $hash;
+    
+    /**
+     * Size of object in bytes.
+     * 
+     * @var string 
+     */
+    public $bytes;
+    
+    /**
+     * Date of last modification.
+     * 
+     * @var string 
+     */
+    public $last_modified;
+    
+    /**
+     * Object's content type.
+     * 
+     * @var string 
+     */
+    public $content_type;
+    
+    /**
+     * Object's content length.
+     * 
+     * @var string
+     */
+    public $content_length;
+    
+    /**
+     * Other headers set for this object (e.g. Access-Control-Allow-Origin)
+     * 
+     * @var array 
+     */
+    public $extra_headers = array();
+    
+    /**
+     * Whether or not to calculate and send an ETag on create.
+     * 
+     * @var bool 
+     */
+    public $send_etag = true;
 
-    public $name;               // the object name
-    public $hash;               // hash value of object
-    public $bytes;              // size of object in bytes
-    public $last_modified;      // date of last modification
-    public $content_type;       // Content-Type:
-    public $content_length;     // Content-Length:
-    public $extra_headers;      // Other headers, eg. Access-Control-Allow-Origin:
-    public $send_etag = true;   // Whether or not to calculate and send an etag on Create.
+    /**
+     * The data contained by the object.
+     * 
+     * @var string 
+     */
+    private $data;
+    
+    /**
+     * The ETag value.
+     * 
+     * @var string 
+     */
+    private $etag;
+    
+    /**
+     * The parent container of this object.
+     * 
+     * @var CDNContainer 
+     */
+    private $container;
 
-    private $data;           // the actual data
-    private $etag;           // the ETag
-    private $container;      // the container used by this object
-
-    // this array translates header values (returned by requests) into properties
-    private $header_translate = array(
+    /**
+     * Is this data object a pseudo directory?
+     * 
+     * @var bool 
+     */
+    private $directory = false;
+    
+    /**
+     * Used to translate header values (returned by requests) into properties.
+     * 
+     * @var array 
+     */
+    private $headerTranslate = array(
         'Etag'          => 'hash',
         'Last-Modified' => 'last_modified'
     );
+    
+    /**
+     * These properties can be freely set by the user for CRUD operations.
+     * 
+     * @var array 
+     */
+    private $allowedProperties = array(
+        'name',
+        'content_type',
+        'extra_headers',
+        'send_etag'
+    );
+    
+    /**
+     * Option for clearing the status cache when objects are uploaded to API.
+     * By default, it is set to FALSE for performance; but if you have files
+     * that are rapidly and very often updated, you might want to clear the status
+     * cache so PHP reads the files directly, instead of relying on the cache.
+     * 
+     * @link http://php.net/manual/en/function.clearstatcache.php
+     * @var  bool 
+     */
+    public $clearStatusCache = false;
 
     /**
      * A DataObject is related to a container and has a name
@@ -66,6 +162,7 @@ class DataObject extends ObjectStore
         $this->container = $container;
 
         if (is_object($cdata)) {
+            
             foreach($cdata as $property => $value) {
                 if ($property == 'metadata') {
                     $this->metadata->SetArray($value);
@@ -73,10 +170,38 @@ class DataObject extends ObjectStore
                     $this->$property = $value;
                 }
             }
+            
+            // For pseudo-directories, we need to ensure the name is set
+            if (!empty($cdata->subdir)) {
+                $this->name = $cdata->subdir;
+                $this->directory = true;
+            }
+            
         } elseif (isset($cdata)) {
             $this->name = $cdata;
             $this->fetch();
         }
+    }
+    
+    /**
+     * Is this data object a pseudo-directory?
+     * 
+     * @return bool
+     */
+    public function isDirectory()
+    {
+        return $this->directory;
+    }
+    
+    /**
+     * Is this a real file?
+     * 
+     * @param  string $filename
+     * @return bool
+     */
+    private function isRealFile($filename)
+    {
+        return $filename != '/dev/null' && $filename != 'NUL';
     }
 
     /**
@@ -89,18 +214,15 @@ class DataObject extends ObjectStore
      * @return string
      * @throws NoNameError
      */
-    public function Url($subresource = '')
+    public function url($subresource = '')
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
         }
 
-        return Lang::noslash($this->container->Url()) . '/' . str_replace('%2F', '/', rawurlencode($this->name));
-    }
-
-    private function isRealFile($filename)
-    {
-        return $filename != '/dev/null' && $filename != 'NUL';
+        return Lang::noslash(
+            $this->container->url()) . '/' . str_replace('%2F', '/', rawurlencode($this->name)
+        );
     }
 
     /**
@@ -114,13 +236,13 @@ class DataObject extends ObjectStore
      * @return boolean
      * @throws CreateUpdateError
      */
-    public function Create($params = array(), $filename = null, $extractArchive = null)
+    public function create($params = array(), $filename = null, $extractArchive = null)
     {
-        // set/validate the parameters
-        $this->SetParams($params);
+        // Set and validate params
+        $this->setParams($params);
 
         // assume no file upload
-        $fp = FALSE;
+        $fp = false;
 
         // if the filename is provided, process it
         if ($filename) {
@@ -132,28 +254,35 @@ class DataObject extends ObjectStore
                 ));
             }
 
-            clearstatcache(TRUE, $filename);
+            // @todo Maybe, for performance, we could set the "clear status cache"
+            // feature to false by default - but allow users to set to true if required
+            clearstatcache($this->clearStatusCache === true, $filename);
 
-            $filesize = (float) sprintf("%u", filesize($filename));
-
-            if ($filesize > Service::MAX_OBJECT_SIZE) {
+            // Cast filesize as a floating point
+            $filesize = (float) filesize($filename);
+            
+            // Check it's below a reasonable size, and set
+            if ($filesize > AbstractService::MAX_OBJECT_SIZE) {
                 throw new Exceptions\ObjectError("File size exceeds maximum object size.");
             }
-
             $this->content_length = $filesize;
-
+            
+            // Guess the content type if necessary
             if (empty($this->content_type) && $this->isRealFile($filename)) {
-                $this->_guess_content_type($filename);
+                $this->guessContentType($filename);
             }
-
+            
+            // Send ETag checksum if necessary
             if ($this->send_etag) {
                 $this->etag = md5_file($filename);
             }
 
+            // Announce to the world
             $this->getLogger()->info('Uploading {size} bytes from {name}', array(
                 'size' => $filesize, 
                 'name' => $filename
             ));
+            
         } else {
             // compute the length
             $this->content_length = strlen($this->data);
@@ -167,6 +296,7 @@ class DataObject extends ObjectStore
         // Only allow supported archive types
         // http://docs.rackspace.com/files/api/v1/cf-devguide/content/Extract_Archive-d1e2338.html
         $extractArchiveUrlArg = '';
+        
         if ($extractArchive) {
             if ($extractArchive !== "tar.gz" && $extractArchive !== "tar.bz2") {
                 throw new Exceptions\ObjectError("Extract Archive only supports tar.gz and tar.bz2");
@@ -177,49 +307,48 @@ class DataObject extends ObjectStore
             }
         }
 
-        // set the headers
-        $headers = $this->MetadataHeaders();
-
-        if (isset($this->etag)) {
+        // Set headers
+        $headers = $this->metadataHeaders();
+        
+        if (!empty($this->etag)) {
             $headers['ETag'] = $this->etag;
         }
 
 		// Content-Type is no longer required; if not specified, it will
 		// attempt to guess based on the file extension.
-		if (isset($this->content_type))
+		if (!empty($this->content_type)) {
         	$headers['Content-Type'] = $this->content_type;
+        }
+        
         $headers['Content-Length'] = $this->content_length;
 
-        // copy any extra headers
+        // Merge in extra headers
         if (!empty($this->extra_headers)) {
-            foreach ($this->extra_headers as $header=>$value) {
-                $headers[$header] = $value;
-            }
+            $headers = $this->extra_headers + $headers;
         }
 
         // perform the request
-        $response = $this->Service()->Request(
-            $this->Url() . $extractArchiveUrlArg,
+        $response = $this->getService()->request(
+            $this->url() . $extractArchiveUrlArg,
             'PUT',
             $headers,
             $fp ? $fp : $this->data
         );
 
         // check the status
-        if (($stat = $response->HttpStatus()) >= 300) {
+        if (($status = $response->httpStatus()) >= 300) {
             throw new Exceptions\CreateUpdateError(sprintf(
                 Lang::translate('Problem saving/updating object [%s] HTTP status [%s] response [%s]'),
-                $this->Url() . $extractArchiveUrlArg,
-                $stat,
-                $response->HttpBody()
+                $this->url() . $extractArchiveUrlArg,
+                $status,
+                $response->httpBody()
             ));
-            return false;
         }
 
         // set values from response
-        foreach ($response->Headers() as $key => $value) {
-            if (isset($this->header_translate[$key])) {
-                $this->{$this->header_translate[$key]} = $value;
+        foreach ($response->headers() as $key => $value) {
+            if (isset($this->headerTranslate[$key])) {
+                $this->{$this->headerTranslate[$key]} = $value;
             }
         }
 
@@ -244,9 +373,9 @@ class DataObject extends ObjectStore
      * @param string $filename if provided, the object is loaded from the file
      * @return boolean
      */
-    public function Update($params = array(), $filename = '')
+    public function update($params = array(), $filename = '')
     {
-        return $this->Create($params, $filename);
+        return $this->create($params, $filename);
     }
 
     /**
@@ -259,30 +388,30 @@ class DataObject extends ObjectStore
      *      'name' and 'type' of the object
      * @return boolean
      */
-    public function UpdateMetadata($params = array())
+    public function updateMetadata($params = array())
     {
-        $this->SetParams($params);
+        $this->setParams($params);
 
         // set the headers
-        $headers = $this->MetadataHeaders();
+        $headers = $this->metadataHeaders();
         $headers['Content-Type'] = $this->content_type;
 
-        $response = $this->Service()->Request(
-            $this->Url(),
+        $response = $this->getService()->request(
+            $this->url(),
             'POST',
             $headers
         );
 
         // check the status
-        if (($stat = $response->HttpStatus()) >= 204) {
+        if (($stat = $response->httpStatus()) >= 204) {
             throw new Exceptions\UpdateError(sprintf(
                 Lang::translate('Problem updating object [%s] HTTP status [%s] response [%s]'),
-                $this->Url(),
+                $this->url(),
                 $stat,
-                $response->HttpBody()
+                $response->httpBody()
             ));
-            return false;
         }
+        
         return $response;
     }
 
@@ -297,22 +426,22 @@ class DataObject extends ObjectStore
      * @return HttpResponse if successful; FALSE if not
      * @throws DeleteError
      */
-    public function Delete($params = array())
+    public function delete($params = array())
     {
-        $this->SetParams($params);
+        $this->setParams($params);
 
-        $response = $this->Service()->Request($this->Url(), 'DELETE');
+        $response = $this->getService()->request($this->url(), 'DELETE');
 
         // check the status
-        if (($stat = $response->HttpStatus()) >= 300) {
+        if (($stat = $response->httpStatus()) >= 300) {
             throw new Exceptions\DeleteError(sprintf(
                 Lang::translate('Problem deleting object [%s] HTTP status [%s] response [%s]'),
-                $this->Url(),
+                $this->url(),
                 $stat,
-                $response->HttpBody()
+                $response->httpBody()
             ));
-            return false;
         }
+        
         return $response;
     }
 
@@ -325,25 +454,25 @@ class DataObject extends ObjectStore
      *
      * @param DataObject $target the target of the COPY command
      */
-    public function Copy(Dataobject $target)
+    public function copy(DataObject $target)
     {
-        $uri = sprintf('/%s/%s', $target->Container()->Name(), $target->Name());
+        $uri = sprintf('/%s/%s', $target->container()->name(), $target->name());
 
         $this->getLogger()->info('Copying object to [{uri}]', array('uri' => $uri));
 
-        $response = $this->Service()->Request(
-            $this->Url(),
+        $response = $this->getService()->request(
+            $this->url(),
             'COPY',
             array('Destination' => $uri)
         );
 
         // check response code
-        if ($response->HttpStatus() > 202) {
+        if ($response->httpStatus() > 202) {
             throw new Exceptions\ObjectCopyError(sprintf(
                 Lang::translate('Error copying object [%s], status [%d] response [%s]'),
-                $this->Url(),
-                $response->HttpStatus(),
-                $response->HttpBody()
+                $this->url(),
+                $response->httpStatus(),
+                $response->httpBody()
             ));
         }
 
@@ -355,7 +484,7 @@ class DataObject extends ObjectStore
      *
      * @return Container
      */
-    public function Container()
+    public function container()
     {
         return $this->container;
     }
@@ -378,26 +507,22 @@ class DataObject extends ObjectStore
      * @param string $method either GET or PUT
      * @return string the temporary URL
      */
-    public function TempUrl($secret, $expires, $method)
+    public function tempUrl($secret, $expires, $method)
     {
         $method = strtoupper($method);
         $expiry_time = time() + $expires;
 
         // check for proper method
-        switch ($method) {
-            case 'GET':
-            case 'PUT':
-                break;
-            default:
-                throw new Exceptions\TempUrlMethodError(sprintf(
-                    Lang::translate(
-                    'Bad method [%s] for TempUrl; only GET or PUT supported'),
-                    $method
-                ));
+        if ($method != 'GET' && $method != 'PUT') {
+            throw new Exceptions\TempUrlMethodError(sprintf(
+                Lang::translate(
+                'Bad method [%s] for TempUrl; only GET or PUT supported'),
+                $method
+            ));
         }
 
         // construct the URL
-        $url = $this->Url();
+        $url  = $this->url();
         $path = urldecode(parse_url($url, PHP_URL_PATH));
 
         $hmac_body = "$method\n$expiry_time\n$path";
@@ -428,7 +553,7 @@ class DataObject extends ObjectStore
      * @param string $data
      * @return void
      */
-    public function SetData($data)
+    public function setData($data)
     {
         $this->data = (string) $data;
     }
@@ -438,10 +563,9 @@ class DataObject extends ObjectStore
      *
      * @return string the entire object
      */
-    public function SaveToString()
+    public function saveToString()
     {
-        $result = $this->Service()->Request($this->Url());
-        return $result->HttpBody();
+        return $this->getService()->request($this->url())->httpBody();
     }
 
     /**
@@ -468,7 +592,7 @@ class DataObject extends ObjectStore
      * @throws IOException error opening file
      * @throws InvalidResponseException unexpected response
      */
-    public function SaveToFilename($filename)
+    public function saveToFilename($filename)
     {
         if (!$fp = @fopen($filename, "wb")) {
             throw new Exceptions\IOError(sprintf(
@@ -476,13 +600,11 @@ class DataObject extends ObjectStore
                 $filename
             ));
         }
-        $result = $this->Service()->Request(
-            $this->Url(),
-            'GET',
-            array(),
-            $fp
-        );
+        
+        $result = $this->getService()->request($this->url(), 'GET', array(), $fp);
+        
         fclose($fp);
+        
         return $result;
     }
 
@@ -512,21 +634,15 @@ class DataObject extends ObjectStore
      * @throws IOException error opening file
      * @throws InvalidResponseException unexpected response
      */
-    public function SaveToStream($resource)
+    public function saveToStream($resource)
     {
         if (!is_resource($resource)) {
-            throw new \Exceptions\ObjectError(
+            throw new Exceptions\ObjectError(
                 Lang::translate("Resource argument not a valid PHP resource."
-             ));
+            ));
         }
 
-        $result = $this->Service()->Request(
-            $this->Url(),
-            'GET',
-            array(),
-            $resource
-        );
-        return $result;
+        return $this->getService()->request($this->url(), 'GET', array(), $resource);
     }
 
 
@@ -556,7 +672,7 @@ class DataObject extends ObjectStore
      * @throws CdnError if the container is not CDN-enabled
      * @throws CdnHttpError if there is an HTTP error in the transaction
      */
-    public function PurgeCDN($email)
+    public function purgeCDN($email)
     {
         if (!$cdn = $this->Container()->CDNURL()) {
             throw new Exceptions\CdnError(Lang::translate('Container is not CDN-enabled'));
@@ -564,14 +680,14 @@ class DataObject extends ObjectStore
 
         $url = $cdn . '/' . $this->name;
         $headers['X-Purge-Email'] = $email;
-        $response = $this->Service()->Request($url, 'DELETE', $headers);
+        $response = $this->getService()->request($url, 'DELETE', $headers);
 
         // check the status
-        if ($response->HttpStatus() > 204) {
+        if ($response->httpStatus() > 204) {
             throw new Exceptions\CdnHttpError(sprintf(
                 Lang::translate('Error purging object, status [%d] response [%s]'),
-                $response->HttpStatus(),
-                $response->HttpBody()
+                $response->httpStatus(),
+                $response->httpBody()
             ));
         }
     }
@@ -587,7 +703,7 @@ class DataObject extends ObjectStore
      */
     public function CDNURL()
     {
-        return $this->Container()->CDNURL().'/'.$this->name;
+        return $this->container()->CDNURL() . '/' . $this->name;
     }
 
     /**
@@ -599,62 +715,48 @@ class DataObject extends ObjectStore
      *      default URL. For example, `$object->PublicURL('ios-streaming')`
      * @return string
      */
-    public function PublicURL($type = null)
+    public function publicURL($type = null)
     {
-        if (!$prefix = $this->Container()->CDNURI()) {
+        if (!$prefix = $this->container()->CDNURI()) {
             return null;
         }
 
         switch(strtoupper($type)) {
             case 'SSL':
-                return $this->Container()->SSLURI().'/'.$this->name;
+                $url = $this->container()->SSLURI().'/'.$this->name;
+                break;
             case 'STREAMING':
-                return $this->Container()->StreamingURI().'/'.$this->name;
+                $url = $this->container()->streamingURI().'/'.$this->name;
+                break;
             case 'IOS':
             case 'IOS-STREAMING':
-            	return $this->Container()->IosStreamingURI().'/'.$this->name;
+            	$url = $this->container()->iosStreamingURI().'/'.$this->name;
+                break;
             default:
-                return $prefix.'/'.$this->name;
+                $url = $prefix.'/'.$this->name;
+                break;
         }
+        
+        return $url;
     }
 
     /**
-     * Sets parameters from an array; validates them
+     * Sets parameters from an array and validates them.
      *
-     * @param array $params associative array of parameters
+     * @param  array $params  Associative array of parameters
      * @return void
-     * @throws UnknownParameterError
      */
-    private function SetParams($params)
+    private function setParams(array $params = array())
     {
-        foreach($params as $item => $value) {
-            switch($item) {
-                case 'name':
-                    $this->name = $value;
-                    break;
-                case 'type':
-                    throw new Exceptions\UnknownParameterError(
-                        Lang::translate(
-                        'Parameter [type] is deprecated; use "content_type"')
-                    );
-                case 'content_type':
-                    $this->content_type = $value;
-                    break;
-                case 'extra_headers':
-                    $this->extra_headers = $value;
-                    break;
-                case 'send_etag':
-                    $this->send_etag = $value;
-                    break;
-                default:
-                    throw new Exceptions\UnknownParameterError(sprintf(
-                        Lang::translate(
-                        	'Unrecognized parameter [%s] for object [%s]'),
-							$item,
-							$this->Url()
-                    ));
-            }
+        // Inspect the user's array for any unapproved keys, and unset if necessary
+        foreach (array_diff(array_keys($params), $this->allowedProperties) as $key) {
+            $this->getLogger()->warning('You cannot use the {keyName} key when creating an object', array(
+                'keyName' => $key
+            ));
+            unset($params[$key]);
         }
+        
+        $this->populate($params);
     }
 
     /**
@@ -663,21 +765,20 @@ class DataObject extends ObjectStore
      * @return void
      * @throws NoNameError, ObjFetchError
      */
-    private function Fetch()
+    private function fetch()
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Cannot retrieve an unnamed object'));
         }
 
-        $response = $this->Service()->Request($this->Url(), 'HEAD', array('Accept'=>'*/*'));
+        $response = $this->getService()->request($this->url(), 'HEAD', array('Accept' => '*/*'));
 
         // check for errors
-        if ($response->HttpStatus() >= 300) {
+        if ($response->httpStatus() >= 300) {
             throw new Exceptions\ObjFetchError(sprintf(
                 Lang::translate('Problem retrieving object [%s]'),
-                $this->Url()
+                $this->url()
             ));
-            return false;
         }
 
         if (!isset($this->extra_headers)) {
@@ -685,23 +786,23 @@ class DataObject extends ObjectStore
         }
 
         // set headers as metadata?
-        foreach($response->Headers() as $header => $value) {
+        foreach($response->headers() as $header => $value) {
             switch($header) {
-            case 'Content-Type':
-                $this->content_type = $value;
-                break;
-            case 'Content-Length':
-                $this->content_length = $value;
-                $this->bytes = $value;
-                break;
-            default:
-                $this->extra_headers[$header] = $value;
-                break;
+                case 'Content-Type':
+                    $this->content_type = $value;
+                    break;
+                case 'Content-Length':
+                    $this->content_length = $value;
+                    $this->bytes = $value;
+                    break;
+                default:
+                    $this->extra_headers[$header] = $value;
+                    break;
             }
         }
 
         // parse the metadata
-        $this->GetMetadata($response);
+        $this->getMetadata($response);
     }
 
     /**
@@ -710,9 +811,9 @@ class DataObject extends ObjectStore
      * It's actually the object's container's service, so this method will
      * simplify things a bit.
      */
-    private function Service()
+    private function getService()
     {
-        return $this->container->Service();
+        return $this->container->getService();
     }
 
     /**
@@ -737,20 +838,22 @@ class DataObject extends ObjectStore
      * @return boolean <kbd>TRUE</kbd> if successful
      * @throws BadContentTypeException
      */
-    private function _guess_content_type($handle)
+    private function guessContentType($handle)
     {
         if ($this->content_type) {
             return;
         }
 
         if (function_exists("finfo_open")) {
+            
             $local_magic = dirname(__FILE__) . "/share/magic";
 
             if ($finfo = @finfo_open(FILEINFO_MIME, $local_magic) ?: @finfo_open(FILEINFO_MIME)) {
+                
                 if (is_file((string) $handle)) {
-                    $ct = @finfo_file($finfo, $handle);
+                    $contentType = @finfo_file($finfo, $handle);
                 } else {
-                    $ct = @finfo_buffer($finfo, $handle);
+                    $contentType = @finfo_buffer($finfo, $handle);
                 }
 
                 /**
@@ -758,14 +861,15 @@ class DataObject extends ObjectStore
                  * charset so we remove everything after the ; since
                  * we are not into that stuff
                  */
-                if ($ct) {
-                    if ($extra_content_type_info = strpos($ct, "; ")) {
-                        $ct = substr($ct, 0, $extra_content_type_info);
+                if ($contentType) {
+                    
+                    if ($extraInfo = strpos($contentType, "; ")) {
+                        $contentType = substr($contentType, 0, $extraInfo);
                     }
-                }
 
-                if ($ct && $ct != 'application/octet-stream') {
-                    $this->content_type = $ct;
+                    if ($contentType != 'application/octet-stream') {
+                        $this->content_type = $contentType;
+                    }
                 }
 
                 @finfo_close($finfo);
@@ -780,10 +884,12 @@ class DataObject extends ObjectStore
         }
 
         if (!$this->content_type) {
-            throw new Exceptions\NoContentTypeError(Lang::translate('Required Content-Type not set'));
+            throw new Exceptions\NoContentTypeError(
+                Lang::translate('Required Content-Type not set')
+            );
         }
 
-        return TRUE;
+        return true;
     }
 
 }

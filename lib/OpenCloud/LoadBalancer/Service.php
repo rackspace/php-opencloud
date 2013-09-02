@@ -9,7 +9,6 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-
 namespace OpenCloud\LoadBalancer;
 
 use OpenCloud\Common\Nova;

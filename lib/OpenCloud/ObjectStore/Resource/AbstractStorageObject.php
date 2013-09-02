@@ -1,40 +1,40 @@
 <?php
 /**
- * An abstract class that defines shared code among all Object Storage
- * components
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Common;
+namespace OpenCloud\ObjectStore\Resource;
 
 use OpenCloud\Common\Base;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Exceptions\NameError;
 use OpenCloud\Common\Exceptions\MetadataPrefixError;
+use OpenCloud\Common\Request\Response\Http;
 
 /**
- * Intermediate (abstract) class to implement shared
- * features of all object-storage classes
- *
- * This class implements metadata-handling and other features that are common to
- * the object storage components.
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * Abstract base class which implements shared functionality of ObjectStore 
+ * resources. Provides support, for example, for metadata-handling and other 
+ * features that are common to the ObjectStore components.
  */
-abstract class ObjectStore extends Base
+abstract class AbstractStorageObject extends Base
 {
 
-    const ACCOUNT_META_PREFIX = 'X-Account-';
-    const CONTAINER_META_PREFIX = 'X-Container-Meta-';
-    const OBJECT_META_PREFIX = 'X-Object-Meta-';
+    const ACCOUNT_META_PREFIX      = 'X-Account-';
+    const CONTAINER_META_PREFIX    = 'X-Container-Meta-';
+    const OBJECT_META_PREFIX       = 'X-Object-Meta-';
     const CDNCONTAINER_META_PREFIX = 'X-Cdn-';
-
+    
+    /**
+     * Metadata belonging to a resource.
+     * 
+     * @var OpenCloud\Common\Metadata 
+     */
     public $metadata;
 
     /**
@@ -46,25 +46,25 @@ abstract class ObjectStore extends Base
     }
 
     /**
-     * Given an HttpResponse object, converts the appropriate headers
+     * Given an Http response object, converts the appropriate headers
      * to metadata
      *
-     * @param \OpenCloud\HttpResponse
+     * @param  OpenCloud\Common\Request\Response\Http
      * @return void
      */
-    public function getMetadata($response)
+    public function getMetadata(Http $response)
     {
         $this->metadata = new Metadata;
-        $this->metadata->setArray($response->Headers(), $this->prefix());
+        $this->metadata->setArray($response->headers(), $this->prefix());
     }
 
     /**
-     * If object has metadata, returns an associative array of headers
+     * If object has metadata, return an associative array of headers.
      *
      * For example, if a DataObject has a metadata item named 'FOO',
      * then this would return array('X-Object-Meta-FOO'=>$value);
      *
-     * @return array;
+     * @return array
      */
     public function metadataHeaders()
     {
@@ -100,17 +100,32 @@ abstract class ObjectStore extends Base
             ));
         }
     }
-
+    
+    /**
+     * Override parent method.
+     * 
+     * @return null
+     */
     public static function jsonName()
     {
         return null;
     }
-
+    
+    /**
+     * Override parent method.
+     * 
+     * @return null
+     */
     public static function jsonCollectionName()
     {
         return null;
     }
-
+    
+    /**
+     * Override parent method.
+     * 
+     * @return null
+     */
     public static function jsonCollectionElement()
     {
         return null;
@@ -125,25 +140,31 @@ abstract class ObjectStore extends Base
      */
     private function prefix($type = null)
     {
-        if (!isset($type)) {
+        if ($type === null) {
             $parts = preg_split('/\\\/', get_class($this));
-            $type = $parts[count($parts)-1];
+            $type  = $parts[count($parts)-1];
         }
 
         switch($type) {
             case 'Account':
-                return self::ACCOUNT_META_PREFIX;
+                $prefix = self::ACCOUNT_META_PREFIX;
+                break;
             case 'CDNContainer':
-                return self::CDNCONTAINER_META_PREFIX;
+                $prefix = self::CDNCONTAINER_META_PREFIX;
+                break;
             case 'Container':
-                return self::CONTAINER_META_PREFIX;
+                $prefix = self::CONTAINER_META_PREFIX;
+                break;
             case 'DataObject':
-                return self::OBJECT_META_PREFIX;
+                $prefix = self::OBJECT_META_PREFIX;
+                break;
             default:
                 throw new MetadataPrefixError(sprintf(
                     'Unrecognized metadata type [%s]', 
                     $type
                 ));
         }
+        
+        return $prefix;
     }
 }

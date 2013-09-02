@@ -10,13 +10,12 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
-
-require_once('StubConnection.php');
+namespace OpenCloud\Tests\ObjectStore;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\ObjectStore\Service;
 use OpenCloud\Common\Request\Response\Blank;
+use OpenCloud\ObjectStore\Service;
+use OpenCloud\Tests\StubConnection;
 
 /**
  * Stub wrapper class so that we can override the request() method
@@ -24,7 +23,7 @@ use OpenCloud\Common\Request\Response\Blank;
 class MyObjectStore extends Service
 {
 
-    public function request($url, $method = 'GET', array $headers = array(), $body = NULL)
+    public function request($url, $method = 'GET', array $headers = array(), $body = null)
     {
         return new Blank;
     }
@@ -44,16 +43,10 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
-        $this->assertEquals(TRUE, is_object($this->ostore));
-        $this->assertEquals(
-            'OpenCloud\Tests\MyObjectStore', 
-            get_class($this->ostore)
-        );
+        $this->assertTrue(is_object($this->ostore));
+        $this->assertInstanceOf('OpenCloud\Tests\ObjectStore\MyObjectStore', $this->ostore);
     }
 
     public function testUrl()
@@ -67,36 +60,32 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
     public function testContainer()
     {
         $obj = $this->ostore->Container();
-        $this->assertEquals('OpenCloud\ObjectStore\Container', get_class($obj));
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\Container', $obj);
     }
 
     public function testContainerList()
     {
         $clist = $this->ostore->ContainerList();
-        $this->assertEquals(
-            'OpenCloud\Common\Collection', get_class($clist));
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $clist);
     }
 
     public function testSetTempUrlSecret()
     {
-        $resp = $this->ostore->SetTempUrlSecret('foobar');
-        $this->assertEquals(
-            200, $resp->HttpStatus());
+        $resp = $this->ostore->setTempUrlSecret('foobar');
+        $this->assertEquals(200, $resp->httpStatus());
     }
 
     public function testCDN()
     {
-        $this->assertEquals(
-            'OpenCloud\ObjectStore\ObjectStoreCDN', get_class($this->ostore->CDN()));
+        $this->assertInstanceOf('OpenCloud\ObjectStore\CDNService', $this->ostore->CDN());
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\CdnError
+     * @expectedException OpenCloud\Common\Exceptions\CdnError
      */
     public function testCDNCDN()
     {
-        $this->assertEquals(
-            FALSE, get_class($this->ostore->CDN()->CDN()));
+        $this->assertFalse(get_class($this->ostore->CDN()->CDN()));
     }
 
 }

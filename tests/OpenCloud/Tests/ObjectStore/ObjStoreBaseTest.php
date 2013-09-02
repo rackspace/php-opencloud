@@ -10,21 +10,23 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\ObjectStore;
 
-use OpenCloud\Common\ObjectStore;
+use PHPUnit_Framework_TestCase;
+use OpenCloud\ObjectStore\Resource\AbstractStorageObject;
+use OpenCloud\Common\Request\Response\Blank;
 
 // stub class, since ObjStoreBase is abstract
-class MyObjStoreBase extends ObjectStore
+class MyObjStoreBase extends AbstractStorageObject
 {
     public $name = 'FOOBAR';
 }
 
-class MyNamelessObjectStore extends ObjectStore
+class MyNamelessObjectStore extends AbstractStorageObject
 {
 }
 
-class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
+class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
 {
 
     private $obj;
@@ -42,8 +44,7 @@ class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
     public function test__construct()
     {
         $this->obj = new MyObjStoreBase();
-        $this->assertEquals(
-            'OpenCloud\Common\Metadata', get_class($this->obj->metadata));
+        $this->assertInstanceOf('OpenCloud\Common\Metadata', $this->obj->metadata);
     }
 
     /**
@@ -51,12 +52,12 @@ class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetMetadata()
     {
-        $blank = new \OpenCloud\Common\Request\Response\Blank;
+        $blank = new Blank;
         $blank->headers = array(
             'X-Meta-Something' => 'FOO',
             'X-Meta-Else' => 'BAR'
         );
-        $this->obj->GetMetadata($blank);
+        $this->obj->getMetadata($blank);
     }
 
     /**
@@ -67,7 +68,7 @@ class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
         $this->obj->metadata = new \stdClass();
         $this->obj->metadata->foo = 'BAR';
         $this->obj->metadata->baz = 'BAR';
-        $arr = $this->obj->MetadataHeaders();
+        $arr = $this->obj->metadataHeaders();
         $this->assertEquals('', $arr['foo']);
     }
 
@@ -86,20 +87,17 @@ class ObjStoreBaseTest extends \PHPUnit_Framework_TestCase
 
     public function testJsonName()
     {
-        $this->assertEquals(
-            NULL, $this->obj->JsonName());
+        $this->assertNull($this->obj->JsonName());
     }
 
     public function testJsonCollectionName()
     {
-        $this->assertEquals(
-            NULL, $this->obj->JsonCollectionName());
+        $this->assertNull($this->obj->JsonCollectionName());
     }
 
     public function testJsonCollectionElement()
     {
-        $this->assertEquals(
-            NULL, $this->obj->JsonCollectionElement());
+        $this->assertNull($this->obj->JsonCollectionElement());
     }
 
 }

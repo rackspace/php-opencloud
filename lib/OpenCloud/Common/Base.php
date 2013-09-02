@@ -75,6 +75,64 @@ abstract class Base
         ));
     }
 
+/**
+     * Populates the current object based on an unknown data type.
+     * 
+     * @param  array|object|string|integer $info
+     * @throws Exceptions\InvalidArgumentError
+     */
+    public function populate($info, $setObjects = true)
+    {
+        if (is_string($info) || is_integer($info)) {
+            
+            // If the data type represents an ID, the primary key is set
+            // and we retrieve the full resource from the API
+            $this->{$this->primaryKeyField()} = (string) $info;
+            $this->refresh($info);
+            
+        } elseif (is_object($info) || is_array($info)) {
+            
+            foreach($info as $key => $value) {
+                
+                if ($key == 'metadata' || $key == 'meta') {
+                    
+                    if (empty($this->metadata) || !$this->metadata instanceof Metadata) {
+                        $this->metadata = new Metadata;
+                    }
+                    
+                    // Metadata
+                    $this->$key->setArray($value);
+                    
+                } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
+                    
+                    // Associated resource
+                    try {
+                        $resource = $this->service()->resource($this->associatedResources[$key], $value);
+                        $resource->setParent($this);
+                        $this->$key = $resource;
+                    } catch (Exception\ServiceException $e) {}
+                    
+                } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
+                    
+                    // Associated collection
+                    try {
+                        $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this); 
+                    } catch (Exception\ServiceException $e) {}
+                    
+                } else {
+                    
+                    // Normal key/value pair
+                    $this->$key = $value; 
+                }
+            }
+        } elseif (null !== $info) {
+            throw new Exceptions\InvalidArgumentError(sprintf(
+                Lang::translate('Argument for [%s] must be string or object'), 
+                get_class()
+            ));
+        }
+    }
+    
     /**
      * Sets extended attributes on an object and validates them
      *
