@@ -27,8 +27,8 @@ class AllowedDomain extends ReadOnly
     public $name;
     
     protected static $json_name = 'allowedDomain';
-    protected static$json_collection_name = 'allowedDomains';
-    protected static$json_collection_element = 'allowedDomain';
-    protected static$url_resource = 'loadbalancers/alloweddomains';
-
+    protected static $json_collection_name = 'allowedDomains';
+    protected static $json_collection_element = 'allowedDomain';
+    protected static $url_resource = 'loadbalancers/alloweddomains';
+    
 }

@@ -105,10 +105,8 @@ abstract class SubResource extends PersistentObject
      */
     public function name() 
     {
-        return sprintf(
-            Lang::translate('%s-%s'),
-            get_class($this), 
-            $this->getParent()->id()
-        );
+        return method_exists($this->getParent(), 'id') 
+            ? sprintf('%s-%s', get_class($this), $this->getParent()->id())
+            : parent::name();
     }
 }

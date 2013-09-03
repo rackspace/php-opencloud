@@ -212,7 +212,6 @@ abstract class PersistentObject extends Base
         // construct the JSON
         $object = $this->createJson();
         $json = json_encode($object);
-        
         $this->checkJsonError();
 
         $this->getLogger()->info('{class}::Create JSON [{json}]', array(

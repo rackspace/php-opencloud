@@ -104,12 +104,9 @@ class Service extends Nova
      */
     public function billableLoadBalancerList($detail = true, $filter = array()) 
     {
-        return $this->Collection(
-            'OpenCloud\LoadBalancer\Resources\BillableLoadBalancer',
-            null,
-            null,
-            $filter
-        );
+        $class = 'OpenCloud\LoadBalancer\Resources\BillableLoadBalancer';
+        $url = $this->url($class::ResourceName(), $filter);
+        return $this->collection($class, $url);
     }
 
     /**

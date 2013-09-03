@@ -583,22 +583,23 @@ class OpenStack extends Base
     }
    
     /**
-     * Checks the expiration of the current token; if found expired, it will
-     * optionally re-authenticate.
-     * 
-     * @param bool $reauthenticate
+     * Re-authenticates session if expired.
      */
-    public function checkExpiration($reauthenticate = true)
+    public function checkExpiration()
     {
-        if (time() > ($this->getExpiration() - RAXSDK_FUDGE)) {
-            if ($reauthenticate === true) {
-                $this->authenticate();
-                $result = true;
-            } else {
-                $result = false;
-            }
+        if ($this->hasExpired()) {
+            $this->authenticate();
         }
-        return $result;
+    }
+    
+    /**
+     * Checks whether token has expired.
+     * 
+     * @return bool
+     */
+    public function hasExpired()
+    {
+        return time() > ($this->getExpiration() - RAXSDK_FUDGE);
     }
     
     /**
@@ -821,7 +822,7 @@ class OpenStack extends Base
                 Lang::translate('Unrecognized data type for PUT/POST body, must be string or resource')
             );
         }
-
+        
         // perform the HTTP request; returns an HttpResult object
         $response = $http->execute();
 

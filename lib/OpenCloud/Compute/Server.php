@@ -554,11 +554,12 @@ class Server extends PersistentObject
     {
         // Convert some values
         $this->metadata->sdk = RAXSDK_USER_AGENT;
-        if (!empty($this->image)) {
-            $this->imageRef = $this->image->links[0]->href;
+        
+        if (!empty($this->image) && $this->image instanceof Image) {
+            $this->imageRef = $this->image->id;
         }
-        if (!empty($this->flavor)) {
-            $this->flavorRef = $this->flavor->links[0]->href;
+        if (!empty($this->flavor) && $this->flavor instanceof Flavor) {
+            $this->flavorRef = $this->flavor->id;
         }
         
         // Base object
@@ -574,16 +575,22 @@ class Server extends PersistentObject
         // Networks
 		if (is_array($this->networks) && count($this->networks)) {
 			foreach ($this->networks as $network) {
-				if (!is_object($network) || !$network instanceof Network || empty($network->id)) {
+				if (!$network instanceof Network) {
 					throw new Exceptions\InvalidParameterError(sprintf(
 						'When creating a server, the "networks" key must be an ' .
 						'array of OpenCloud\Compute\Network objects with valid ' .
-                        'IDs; variable passed in was: [%s]',
-						print_r($network, true)
+                        'IDs; variable passed in was a [%s]',
+						gettype($network)
 					));
 				}
+                if (empty($network->id)) {
+                    $this->getLogger()->warning('When creating a server, the ' 
+                        . 'network objects passed in must have an ID'
+                    );
+                    continue;
+                }
                 // Stock networks array
-				$server->networks[] = (object) array('id' => $network->id);
+				$server->networks[] = (object) array('uuid' => $network->id);
 			}
 		}
 
@@ -598,8 +605,7 @@ class Server extends PersistentObject
             }
         }
         
-        $object = (object) array('server' => $server);
-        return json_encode($object);
+        return (object) array('server' => $server);
     }
 
     /**

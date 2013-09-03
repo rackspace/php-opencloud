@@ -61,7 +61,6 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('OpenCloud\Tests\StubConnection', $this->my);
         $this->assertEquals(self::TEST_DOMAIN, $this->my->getUrl());
-        $this->assertFalse($this->my->checkExpiration(false));
     }
 
     /**

@@ -371,9 +371,7 @@ if ($USE_SERVERS) {
 
 	step('Create Network');
 	$network = $cloudservers->Network();
-	try {
-		$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
-	} catch (Exception $e) {}
+	//$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
 
 	step('List Networks');
 	$netlist = $cloudservers->NetworkList();
@@ -416,13 +414,21 @@ if ($USE_SERVERS) {
 
 	step('Create Server');
 	$server = $cloudservers->Server();
-	$server->Create(array(
-		'name'=>'FOOBAR',
-		'OS-DCF:diskConfig' => 'MANUAL',
-		'image'=>$centos,
-		'flavor'=>$flavorlist->First(),
-		'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))
-	));
+
+    $server->addFile('/var/test1', 'TEST 1');
+    $server->addFile('/var/test2', 'TEST 2');
+
+    $server->create(array(
+        'name'     => 'SMOKETEST',
+        'image'    => $centos,
+        'flavor'   => $flavorlist->First(),
+        'networks' => array(
+            $cloudservers->Network(RAX_PUBLIC), 
+            $cloudservers->Network(RAX_PRIVATE)
+        ),
+        "OS-DCF:diskConfig" => "AUTO"
+    ));
+    
 	$ADMINPASSWORD = $server->adminPass;
 
 	step('Wait for Server create');
@@ -508,7 +514,7 @@ $instance->name = INSTANCENAME;
 $instance->flavor = $dbaas->Flavor(1);
 $instance->volume->size = 1;
 $instance->Create();
-$instance->WaitFor('ACTIVE', 300, 'dotter');
+$instance->WaitFor('ACTIVE', 600, 'dotter');
 
 step('Is the root user enabled?');
 if ($instance->IsRootEnabled())

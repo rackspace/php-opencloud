@@ -171,11 +171,10 @@ abstract class Service extends Base
      * @param string $class the class of objects to fetch
      * @param string $url (optional) the URL to retrieve
      * @param mixed $parent (optional) the parent service/object
-     * @return \OpenCloud\Collection
+     * @return OpenCloud\Common\Collection
      */
     public function collection($class, $url = null, $parent = null)
     {
-        
         // Set the element names
         $collectionName = $class::JsonCollectionName();
         $elementName    = $class::JsonCollectionElement();

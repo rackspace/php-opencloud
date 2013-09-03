@@ -163,7 +163,7 @@ class User extends PersistentObject
 		}
 
 		return (object) array(
-            'users' => (object) array($user)
+            'users' => array($user)
         );
 	}
 }
