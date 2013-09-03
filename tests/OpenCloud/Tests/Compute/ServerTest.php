@@ -288,7 +288,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $new = new PublicServer($this->service);
         $new->addFile('/tmp/hello.txt', 'Hello, world!');
-        $obj = json_decode($new->CreateJson());
+        $obj = $new->CreateJson();
         
         $this->assertTrue(is_array($obj->server->personality));
         $this->assertEquals(
