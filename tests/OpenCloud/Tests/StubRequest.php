@@ -21,19 +21,19 @@ class StubRequest extends Curl
         parent::__construct($url, $method);
     }
 
-    public function Execute() 
+    public function execute() 
     {
         switch($this->url) {
-        case '401':
-        case '403':
-        case '413':
-            return new Blank(array(
-                'status' => $this->url + 0
-           ));
-        default:
-            return new Blank(array(
-                'status' => 200
-           ));
+            case '401':
+            case '403':
+            case '413':
+                return new Blank(array(
+                    'status' => $this->url + 0
+               ));
+            default:
+                return new Blank(array(
+                    'status' => 200
+               ));
         }
     }
 

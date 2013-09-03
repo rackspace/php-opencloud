@@ -68,7 +68,13 @@ ENDRESPONSE;
     				$resp->body = '';
     			}
 			} elseif (strpos($url, '/token')) {
-				$resp->body = file_get_contents($this->testDir.'/connection.json');
+                // Bad auth
+                if (preg_match('/badPassword/', $body)) {
+                    $resp->status = 400;
+                } else {
+                    // Good auth
+                    $resp->body = file_get_contents($this->testDir . '/connection.json');
+                }
 			} elseif (preg_match('/root$/', $url)) {
 				$resp->body = '{"user":{"name":"root","password":"foo"}}';
 			} elseif (strpos($url, '/databases')) {

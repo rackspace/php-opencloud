@@ -50,13 +50,12 @@ class OpenStack extends Base
 {
 
     /**
-     * This holds the HTTP User-Agent: used for all requests to the
-     * services. It is public so that, if necessary, it can be entirely
-     * overridden by the developer. However, it's strongly recomended
-     * that you use the OpenStack::AppendUserAgent() method to APPEND
-     * your own User Agent identifier to the end of this string; the
-     * user agent information can be very valuable to service providers
-     * to track who is using their service.
+     * This holds the HTTP User-Agent: used for all requests to the services. It 
+     * is public so that, if necessary, it can be entirely overridden by the 
+     * developer. However, it's strongly recomended that you use the 
+     * appendUserAgent() method to APPEND your own User Agent identifier to the 
+     * end of this string; the user agent information can be very valuable to 
+     * service providers to track who is using their service.
      * 
      * @var string 
      */
@@ -68,10 +67,9 @@ class OpenStack extends Base
     protected $expiration = 0;
     protected $tenant;
     protected $catalog;
-
-    protected $connect_timeout = RAXSDK_CONNECTTIMEOUT;
-    protected $http_timeout = RAXSDK_TIMEOUT;
-    protected $overlimit_timeout = RAXSDK_OVERLIMIT_TIMEOUT;
+    protected $connectTimeout = RAXSDK_CONNECTTIMEOUT;
+    protected $httpTimeout = RAXSDK_TIMEOUT;
+    protected $overlimitTimeout = RAXSDK_OVERLIMIT_TIMEOUT;
 
     /**
      * This associative array holds default values used to identify each
@@ -179,9 +177,10 @@ class OpenStack extends Base
      * * password
      * @param array $options - CURL options to pass to the HttpRequest object
      */
-    public function __construct($url, $secret, $options = array())
+    public function __construct($url, array $secret, array $options = array())
     {
     	// check for supported version
+        // @codeCoverageIgnoreStart
         $version = phpversion();
     	if ($version < '5.3.1') {
     		throw new Exceptions\UnsupportedVersionError(sprintf(
@@ -189,28 +188,378 @@ class OpenStack extends Base
                 $version
             ));
         }
+        // @codeCoverageIgnoreEnd
         
-    	// start processing
-        $this->getLogger()->info(Lang::translate('Initializing'));
-        $this->url = $url;
-
-        if (!is_array($secret)) {
-            throw new Exceptions\DomainError(
-                Lang::translate('[secret] must be an array')
-            );
-        }
-
-        $this->secret = $secret;
-
-        if (!is_array($options)) {
-            throw new Exceptions\DomainError(
-                Lang::translate('[options] must be an array')
-            );
-        }
-
-        $this->curlOptions = $options;
+    	// Start processing
+        $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
+        
+        // Set properties
+        $this->setUrl($url);
+        $this->setSecret($secret);
+        $this->setCurlOptions($options);
     }
+    
+    /**
+     * Set user agent.
+     * 
+     * @param  string $useragent
+     * @return OpenCloud\OpenStack
+     */
+    public function setUserAgent($useragent)
+    {
+        $this->useragent = $useragent;
+        
+        return $this;
+    }
+    
+    /**
+     * Allows the user to append a user agent string
+     *
+     * Programs that are using these bindings are encouraged to add their
+     * user agent to the one supplied by this SDK. This will permit cloud
+     * providers to track users so that they can provide better service.
+     *
+     * @param string $agent an arbitrary user-agent string; e.g. "My Cloud App"
+     * @return OpenCloud\OpenStack
+     */
+    public function appendUserAgent($useragent)
+    {
+        $this->useragent .= ';' . $useragent;
+        
+        return $this;
+    }
+    
+    /**
+     * Get user agent.
+     * 
+     * @return string
+     */
+    public function getUserAgent()
+    {
+        return $this->useragent;
+    }
+    
+    /**
+     * Sets the URL which the client will access.
+     * 
+     * @param string $url
+     * @return OpenCloud\OpenStack
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the URL.
+     * 
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+    
+    /**
+     * Set the secret for the client.
+     * 
+     * @param  array $secret
+     * @return OpenCloud\OpenStack
+     */
+    public function setSecret(array $secret = array())
+    {
+        $this->secret = $secret;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the secret.
+     * 
+     * @return array
+     */
+    public function getSecret()
+    {
+        return $this->secret;
+    }
+    
+    /**
+     * Set the token for this client.
+     * 
+     * @param  string $token
+     * @return OpenCloud\OpenStack
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the token for this client.
+     * 
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+    
+    /**
+     * Set the expiration for this token.
+     * 
+     * @param  int $expiration
+     * @return OpenCloud\OpenStack
+     */
+    public function setExpiration($expiration)
+    {
+        $this->expiration = $expiration;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the expiration time.
+     * 
+     * @return int
+     */
+    public function getExpiration()
+    {
+        return $this->expiration;
+    }
+    
+    /**
+     * Set the tenant for this client.
+     * 
+     * @param  string $tenant
+     * @return OpenCloud\OpenStack
+     */
+    public function setTenant($tenant)
+    {
+        $this->tenant = $tenant;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the tenant for this client.
+     * 
+     * @return string
+     */
+    public function getTenant()
+    {
+        return $this->tenant;
+    }
+    
+    /**
+     * Set the service catalog.
+     * 
+     * @param  mixed $catalog
+     * @return OpenCloud\OpenStack
+     */
+    public function setCatalog($catalog)
+    {
+        $this->catalog = $catalog;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the service catalog.
+     * 
+     * @return array
+     */
+    public function getCatalog()
+    {
+        return $this->catalog;
+    }
+    
+    /**
+     * Set (all) the cURL options.
+     * 
+     * @param  array $options
+     * @return OpenCloud\OpenStack
+     */
+    public function setCurlOptions(array $options)
+    {
+        $this->curlOptions = $options;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the cURL options.
+     * 
+     * @return array
+     */
+    public function getCurlOptions()
+    {
+        return $this->curlOptions;
+    }
+    
+    /**
+     * Set a specific file descriptor (associated with a URL)
+     * 
+     * @param  string $key
+     * @param  resource $value
+     * @return OpenCloud\OpenStack
+     */
+    public function setFileDescriptor($key, $value)
+    {
+        $this->descriptors[$key] = $value;
+        
+        return $this;
+    }
+    
+    /**
+     * Get a specific file descriptor (associated with a URL)
+     * 
+     * @param  string $key
+     * @return resource|false
+     */
+    public function getFileDescriptor($key)
+    {
+        return (!isset($this->descriptors[$key])) ? false : $this->descriptors[$key];
+    }
+    
+    /**
+     * Get the items to be exported.
+     * 
+     * @return array
+     */
+    public function getExportItems()
+    {
+        return $this->exportItems;
+    }
+    
+    /**
+     * Sets the connect timeout.
+     * 
+     * @param  int $timeout
+     * @return OpenCloud\OpenStack
+     */
+    public function setConnectTimeout($timeout)
+    {
+        $this->connectTimeout = $timeout;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the connect timeout.
+     * 
+     * @return int
+     */
+    public function getConnectTimeout()
+    {
+        return $this->connectTimeout;
+    }
+    
+    /**
+     * Set the HTTP timeout.
+     * 
+     * @param  int $timeout
+     * @return OpenCloud\OpenStack
+     */
+    public function setHttpTimeout($timeout)
+    {
+        $this->httpTimeout = $timeout;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the HTTP timeout.
+     * 
+     * @return int
+     */
+    public function getHttpTimeout()
+    {
+        return $this->httpTimeout;
+    }
+    
+    /**
+     * Set the overlimit timeout.
+     * 
+     * @param  int $timeout
+     * @return OpenCloud\OpenStack
+     */
+    public function setOverlimitTimeout($timeout)
+    {
+        $this->overlimitTimeout = $timeout;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the overlimit timeout.
+     * 
+     * @return int
+     */
+    public function getOverlimitTimeout()
+    {
+        return $this->overlimitTimeout;
+    }
+    
+    /**
+     * Sets default values (an array) for a service. Each array must contain a
+     * "name", "region" and "urltype" key.
+     * 
+     * @param string $service
+     * @param array $value
+     * @return OpenCloud\OpenStack
+     */
+    public function setDefault($service, array $value = array())
+    {
+        if (isset($value['name']) && isset($value['region']) && isset($value['urltype'])) {
+            $this->defaults[$service] = $value;
+        }
+        
+        return $this;
+    }
+    
+    /**
+     * Get a specific default value for a service. If none exist, return FALSE.
+     * 
+     * @param  string $service
+     * @return array|false
+     */
+    public function getDefault($service)
+    {
+        return (!isset($this->defaults[$service])) ? false : $this->defaults[$service];
+    }
+    
+/**
+     * Sets the timeouts for the current connection
+     *
+     * @api
+     * @param integer $t_http the HTTP timeout value (the max period that
+     *      the OpenStack object will wait for any HTTP request to complete).
+     *      Value is in seconds.
+     * @param integer $t_conn the Connect timeout value (the max period
+     *      that the OpenStack object will wait to establish an HTTP
+     *      connection). Value is in seconds.
+     * @param integer $t_overlimit the overlimit timeout value (the max period
+     *      that the OpenStack object will wait to retry on an overlimit
+     *      condition). Value is in seconds.
+     * @return void
+     */
+    public function setTimeouts($httpTimeout, $connectTimeout = null, $overlimitTimeout = null)
+    {
+        $this->setHttpTimeout($httpTimeout);
 
+        if (isset($connectTimeout)) {
+            $this->setConnectTimeout($connectTimeout);
+        }
+
+        if (isset($overlimitTimeout)) {
+            $this->setOverlimitTimeout($overlimitTimeout);
+        }
+    }
+    
     /**
      * Returns the URL of this object
      *
@@ -230,9 +579,28 @@ class OpenStack extends Base
      */
     public function secret()
     {
-        return $this->secret;
+        return $this->getSecret();
     }
-
+   
+    /**
+     * Checks the expiration of the current token; if found expired, it will
+     * optionally re-authenticate.
+     * 
+     * @param bool $reauthenticate
+     */
+    public function checkExpiration($reauthenticate = true)
+    {
+        if (time() > ($this->getExpiration() - RAXSDK_FUDGE)) {
+            if ($reauthenticate === true) {
+                $this->authenticate();
+                $result = true;
+            } else {
+                $result = false;
+            }
+        }
+        return $result;
+    }
+    
     /**
      * Returns the cached token; if it has expired, then it re-authenticates
      *
@@ -241,10 +609,9 @@ class OpenStack extends Base
      */
     public function token()
     {
-        if (time() > ($this->expiration - RAXSDK_FUDGE)) {
-            $this->authenticate();
-        }
-        return $this->token;
+        $this->checkExpiration();
+        
+        return $this->getToken();
     }
 
     /**
@@ -256,10 +623,9 @@ class OpenStack extends Base
      */
     public function expiration()
     {
-        if (time() > ($this->expiration - RAXSDK_FUDGE)) {
-            $this->authenticate();
-        }
-        return $this->expiration;
+        $this->checkExpiration();
+        
+        return $this->getExpiration();
     }
 
     /**
@@ -270,10 +636,9 @@ class OpenStack extends Base
      */
     public function tenant()
     {
-        if (time() > ($this->expiration - RAXSDK_FUDGE)) {
-            $this->authenticate();
-        }
-        return $this->tenant;
+        $this->checkExpiration();
+        
+        return $this->getTenant();
     }
 
     /**
@@ -281,12 +646,11 @@ class OpenStack extends Base
      *
      * @return \stdClass
      */
-    public function ServiceCatalog()
+    public function serviceCatalog()
     {
-        if (time() > ($this->expiration-RAXSDK_FUDGE)) {
-            $this->Authenticate();
-        }
-        return $this->catalog;
+        $this->checkExpiration();
+        
+        return $this->getCatalog();
     }
 
     /**
@@ -295,13 +659,9 @@ class OpenStack extends Base
      * Note that these are informational (read-only) and are not actually
      * 'Service'-class objects.
      */
-    public function ServiceList()
+    public function serviceList()
     {
-        return new Common\Collection(
-            $this,
-            'ServiceCatalogItem',
-            $this->ServiceCatalog()
-        );
+        return new Common\Collection($this, 'ServiceCatalogItem', $this->serviceCatalog());
     }
 
     /**
@@ -310,16 +670,15 @@ class OpenStack extends Base
      *
      * @return string
      */
-    public function Credentials()
+    public function credentials()
     {
-        if (isset($this->secret['username'])
-            && isset($this->secret['password'])
-        ) {
+        if (isset($this->secret['username']) && isset($this->secret['password'])) {
+            
             $credentials = array(
                 'auth' => array(
                     'passwordCredentials' => array(
                         'username' => $this->secret['username'],
-                        'password'=>$this->secret['password']
+                        'password' => $this->secret['password']
                     )
                 )
             );
@@ -329,6 +688,7 @@ class OpenStack extends Base
             }
 
             return json_encode($credentials);
+            
         } else {
             throw new Exceptions\CredentialError(
                Lang::translate('Unrecognized credential secret')
@@ -343,36 +703,35 @@ class OpenStack extends Base
      * @return void
      * @throws AuthenticationError
      */
-    public function Authenticate()
+    public function authenticate()
     {
         // try to auth
-        $response = $this->Request(
-            $this->Url(),
+        $response = $this->request(
+            $this->url(),
             'POST',
             array('Content-Type'=>'application/json'),
-            $this->Credentials()
+            $this->credentials()
         );
 
-        $json = $response->HttpBody();
+        $json = $response->httpBody();
 
         // check for errors
         if ($response->HttpStatus() >= 400) {
             throw new Exceptions\AuthenticationError(sprintf(
                 Lang::translate('Authentication failure, status [%d], response [%s]'),
-                $response->HttpStatus(),
+                $response->httpStatus(),
                 $json
             ));
         }
 
-        // save the token information as well as the ServiceCatalog
-        $response = json_decode($json);
-
-        if ($this->CheckJsonError()) {
-            return false;
-        }
-
-        $this->token = $response->access->token->id;
-        $this->expiration = strtotime($response->access->token->expires);
+        // Decode and check
+        $object = json_decode($json);
+        $this->checkJsonError();
+        
+        // Save the token information as well as the ServiceCatalog
+        $this->setToken($object->access->token->id);
+        $this->setExpiration(strtotime($object->access->token->expires));
+        $this->setCatalog($object->access->serviceCatalog);
 
         /**
          * In some cases, the tenant name/id is not returned
@@ -380,16 +739,9 @@ class OpenStack extends Base
          * we set it. This occurs with pure Keystone, but not
          * with the Rackspace auth.
          */
-        if (isset($response->access->token->tenant)) {
-            $this->tenant = $response->access->token->tenant->id;
+        if (isset($object->access->token->tenant)) {
+            $this->setTenant($object->access->token->tenant->id);
         }
-
-        /**
-         * Note the different capitalization; I'm trying to use CamelCase
-         * consistently in these bindings, but the actual serviceCatalog is
-         * how OpenStack returns it.
-         */
-        $this->catalog = $response->access->serviceCatalog;
     }
 
     /**
@@ -405,12 +757,11 @@ class OpenStack extends Base
      * @param string method - the HTTP method (defaults to GET)
      * @param array headers - an associative array of headers
      * @param string data - either a string or a resource (file pointer) to
-     *      use as the
-     *      request body (for PUT or POST)
+     *      use as the request body (for PUT or POST)
      * @return HttpResponse object
      * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
      */
-    public function Request($url, $method = 'GET', $headers = array(), $data = null)
+    public function request($url, $method = 'GET', $headers = array(), $data = null)
     {
         $this->getLogger()->info('Resource [{url}] method [{method}] body [{body}]', array(
             'url'    => $url, 
@@ -419,7 +770,7 @@ class OpenStack extends Base
         ));
 
         // get the request object
-        $http = $this->GetHttpRequestObject($url, $method, $this->curlOptions);
+        $http = $this->getHttpRequestObject($url, $method, $this->getCurlOptions());
 
         // set various options
         $this->getLogger()->info('Headers: [{headers}]', array(
@@ -427,42 +778,44 @@ class OpenStack extends Base
         ));
         
         $http->setheaders($headers);
-        $http->SetHttpTimeout($this->http_timeout);
-        $http->SetConnectTimeout($this->connect_timeout);
-        $http->SetOption(CURLOPT_USERAGENT, $this->useragent);
+        $http->setHttpTimeout($this->getHttpTimeout());
+        $http->setConnectTimeout($this->getConnectTimeout());
+        $http->setOption(CURLOPT_USERAGENT, $this->getUserAgent());
 
         // data can be either a resource or a string
         if (is_resource($data)) {
             // loading from or writing to a file
             // set the appropriate callback functions
             switch($method) {
+                // @codeCoverageIgnoreStart
                 case 'GET':
                     // need to save the file descriptor
-                    $this->fileDescriptors[$url] = $data;
+                    $this->setFileDescriptor($url, $data);
                     // set the CURL options
-                    $http->SetOption(CURLOPT_FILE, $data);
-                    $http->SetOption(CURLOPT_WRITEFUNCTION, array($this, '_write_cb'));
+                    $http->setOption(CURLOPT_FILE, $data);
+                    $http->setOption(CURLOPT_WRITEFUNCTION, array($this, '_write_cb'));
                     break;
+                // @codeCoverageIgnoreEnd
                 case 'PUT':
                 case 'POST':
                     // need to save the file descriptor
-                    $this->fileDescriptors[$url] = $data;
+                    $this->setFileDescriptor($url, $data);
                     if (!isset($headers['Content-Length'])) {
                         throw new Exceptions\HttpError(
                             Lang::translate('The Content-Length: header must be specified for file uploads')
                         );
                     }
-                    $http->SetOption(CURLOPT_UPLOAD, TRUE);
-                    $http->SetOption(CURLOPT_INFILE, $data);
-                    $http->SetOption(CURLOPT_INFILESIZE, $headers['Content-Length']);
-                    $http->SetOption(CURLOPT_READFUNCTION, array($this, '_read_cb'));
+                    $http->setOption(CURLOPT_UPLOAD, TRUE);
+                    $http->setOption(CURLOPT_INFILE, $data);
+                    $http->setOption(CURLOPT_INFILESIZE, $headers['Content-Length']);
+                    $http->setOption(CURLOPT_READFUNCTION, array($this, '_read_cb'));
                     break;
                 default:
                     // do nothing
                     break;
             }
         } elseif (is_string($data)) {
-            $http->SetOption(CURLOPT_POSTFIELDS, $data);
+            $http->setOption(CURLOPT_POSTFIELDS, $data);
         } elseif (isset($data)) {
             throw new Exceptions\HttpError(
                 Lang::translate('Unrecognized data type for PUT/POST body, must be string or resource')
@@ -470,40 +823,43 @@ class OpenStack extends Base
         }
 
         // perform the HTTP request; returns an HttpResult object
-        $response = $http->Execute();
+        $response = $http->execute();
 
         // handle and retry on overlimit errors
-        if ($response->HttpStatus() == 413) {
-            $object = json_decode($response->HttpBody());
-            if (!$this->CheckJsonError()) {
-                if (isset($object->overLimit)) {
-                    /**
-                     * @TODO(glen) - The documentation says "retryAt", but
-                     * the field returned is "retryAfter". If the doc changes,
-                     * then there's no problem, but we'll need to fix this if
-                     * they change the code to match the docs.
-                     */
-                    $retryAfter    = $object->overLimit->retryAfter;
-                    $sleepInterval = strtotime($retryAfter) - time();
-                    
-                    if ($sleepInterval && $sleepInterval <= $this->overlimit_timeout) {
-                        sleep($sleepInterval);
-                        $response = $http->Execute();
-                    } else {
-                        throw new Exceptions\HttpOverLimitError(sprintf(
-                            Lang::translate('Over limit; next available request [%s][%s] is not for [%d] seconds at [%s]'),
-                            $method,
-                            $url,
-                            $sleepInterval,
-                            $retryAfter
-                        ));
-                    }
+        if ($response->httpStatus() == 413) {
+            
+            $object = json_decode($response->httpBody());
+            $this->checkJsonError();
+            
+            // @codeCoverageIgnoreStart
+            if (isset($object->overLimit)) {
+                /**
+                 * @TODO(glen) - The documentation says "retryAt", but
+                 * the field returned is "retryAfter". If the doc changes,
+                 * then there's no problem, but we'll need to fix this if
+                 * they change the code to match the docs.
+                 */
+                $retryAfter    = $object->overLimit->retryAfter;
+                $sleepInterval = strtotime($retryAfter) - time();
+
+                if ($sleepInterval && $sleepInterval <= $this->getOverlimitTimeout()) {
+                    sleep($sleepInterval);
+                    $response = $http->Execute();
+                } else {
+                    throw new Exceptions\HttpOverLimitError(sprintf(
+                        Lang::translate('Over limit; next available request [%s][%s] is not for [%d] seconds at [%s]'),
+                        $method,
+                        $url,
+                        $sleepInterval,
+                        $retryAfter
+                    ));
                 }
             }
+            // @codeCoverageIgnoreEnd
         }
 
         // do some common error checking
-        switch($response->HttpStatus()) {
+        switch ($response->httpStatus()) {
             case 401:
                 throw new Exceptions\HttpUnauthorizedError(sprintf(
                     Lang::translate('401 Unauthorized for [%s] [%s]'),
@@ -542,22 +898,6 @@ class OpenStack extends Base
     }
 
     /**
-     * Allows the user to append a user agent string
-     *
-     * Programs that are using these bindings are encouraged to add their
-     * user agent to the one supplied by this SDK. This will permit cloud
-     * providers to track users so that they can provide better service.
-     *
-     * @api
-     * @param string $agent an arbitrary user-agent string; e.g. "My Cloud App"
-     * @return void
-     */
-    public function AppendUserAgent($agent)
-    {
-        $this->useragent .= ';'.$agent;
-    }
-
-    /**
      * Sets default values for name, region, URL type for a service
      *
      * Once these are set (and they can also be set by defining global
@@ -572,7 +912,7 @@ class OpenStack extends Base
      * @return void
      * @throws UnrecognizedServiceError
      */
-    public function SetDefaults(
+    public function setDefaults(
         $service,
         $name = null,
         $region = null,
@@ -599,34 +939,6 @@ class OpenStack extends Base
     }
 
     /**
-     * Sets the timeouts for the current connection
-     *
-     * @api
-     * @param integer $t_http the HTTP timeout value (the max period that
-     *      the OpenStack object will wait for any HTTP request to complete).
-     *      Value is in seconds.
-     * @param integer $t_conn the Connect timeout value (the max period
-     *      that the OpenStack object will wait to establish an HTTP
-     *      connection). Value is in seconds.
-     * @param integer $t_overlimit the overlimit timeout value (the max period
-     *      that the OpenStack object will wait to retry on an overlimit
-     *      condition). Value is in seconds.
-     * @return void
-     */
-    public function SetTimeouts($t_http, $t_conn = null, $t_overlimit = null)
-    {
-        $this->http_timeout = $t_http;
-
-        if (isset($t_conn)) {
-            $this->connect_timeout = $t_conn;
-        }
-
-        if (isset($t_overlimit)) {
-            $this->overlimit_timeout = $t_overlimit;
-        }
-    }
-
-    /**
      * Allows the user to define a function for tracking uploads
      *
      * This can be used to implement a progress bar or similar function. The
@@ -637,7 +949,7 @@ class OpenStack extends Base
      *      array($object, $functionname)
      * @return void
      */
-    public function SetUploadProgressCallback($callback)
+    public function setUploadProgressCallback($callback)
     {
         $this->_user_write_progress_callback_func = $callback;
     }
@@ -670,6 +982,7 @@ class OpenStack extends Base
      * @param resource $fd a file descriptor
      * @param integer $length the amount of data to read
      * @return string the data read
+     * @codeCoverageIgnore
      */
     public function _read_cb($ch, $fd, $length)
     {
@@ -692,18 +1005,18 @@ class OpenStack extends Base
      * @param resource $ch a CURL handle
      * @param string $data the data to be written to a file
      * @return integer the number of bytes written
+     * @codeCoverageIgnore
      */
     public function _write_cb($ch, $data)
     {
         $url = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
 
-        if (!isset($this->fileDescriptors[$url])) {
+        if (false === ($fp = $this->getFileDescriptor($url))) {
             throw new Exceptions\HttpUrlError(sprintf(
                 Lang::translate('Cannot find file descriptor for URL [%s]'), $url)
             );
         }
 
-        $fp = $this->fileDescriptors[$url];
         $dlen = strlen($data);
         fwrite($fp, $data, $dlen);
 
@@ -724,20 +1037,17 @@ class OpenStack extends Base
      *
      * @return array
      */
-    public function ExportCredentials()
+    public function exportCredentials()
     {
-    
-    	// Authenticate
-    	$this->Authenticate();
+    	$this->authenticate();
     	
-    	// array to hold the exported credentials
-        $arr = array();
-
-        foreach($this->exportItems as $item) {
-            $arr[$item] = $this->$item;
+        $array = array();
+        
+        foreach ($this->getExportItems() as $key) {
+            $array[$key] = $this->$key;
         }
-
-        return $arr;
+        
+        return $array;
     }
 
     /**
@@ -747,22 +1057,15 @@ class OpenStack extends Base
      *
      * @return void
      */
-    public function ImportCredentials($values)
+    public function importCredentials(array $values)
     {
-        if (!is_array($values)) {
-            throw new Exceptions\DomainError(
-                Lang::translate('ImportCredentials() requires an array')
-            );
-        }
-
-        foreach($this->exportItems as $item) {
+        foreach ($this->getExportItems() as $item) {
             $this->$item = $values[$item];
         }
     }
 
-    /********** FACTORY METHODS **********/
-
-    /**
+    /********** FACTORY METHODS **********
+     * 
      * These methods are provided to permit easy creation of services
      * (for example, Nova or Swift) from a connection object. As new
      * services are supported, factory methods should be provided here.
@@ -777,9 +1080,9 @@ class OpenStack extends Base
      * @param string $urltype the URL type (normally "publicURL")
      * @return ObjectStore
      */
-    public function ObjectStore($name = null, $region = null, $urltype = null)
+    public function objectStore($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('ObjectStore', $name, $region, $urltype);
+        return $this->service('ObjectStore', $name, $region, $urltype);
     }
 
     /**
@@ -791,9 +1094,9 @@ class OpenStack extends Base
      * @param string $urltype the URL type (normally "publicURL")
      * @return Compute
      */
-    public function Compute($name = null, $region = null, $urltype = null)
+    public function compute($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('Compute', $name, $region, $urltype);
+        return $this->service('Compute', $name, $region, $urltype);
     }
 
     /**
@@ -804,10 +1107,11 @@ class OpenStack extends Base
      * @param string $region the name of the region to use
      * @param string $urltype the URL type (normally "publicURL")
      * @return Orchestration\Service
+     * @codeCoverageIgnore
      */
-    public function Orchestration($name = null, $region = null, $urltype = null)
+    public function orchestration($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('Orchestration', $name, $region, $urltype);
+        return $this->service('Orchestration', $name, $region, $urltype);
     }
 
     /**
@@ -819,9 +1123,9 @@ class OpenStack extends Base
      * @param string $region the region (e.g., 'DFW')
      * @param string $urltype the type of URL (e.g., 'publicURL');
      */
-    public function VolumeService($name = null, $region = null, $urltype = null)
+    public function volumeService($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('Volume', $name, $region, $urltype);
+        return $this->service('Volume', $name, $region, $urltype);
     }
 
     /**
@@ -836,7 +1140,7 @@ class OpenStack extends Base
      * @return Service (or subclass such as Compute, ObjectStore)
      * @throws ServiceValueError
      */
-    public function Service($class, $name = null, $region = null, $urltype = null)
+    public function service($class, $name = null, $region = null, $urltype = null)
     {
         // debug message
         $this->getLogger()->info('Factory for class [{class}] [{name}/{region}/{urlType}]', array(
@@ -846,51 +1150,38 @@ class OpenStack extends Base
             'urlType' => $urltype
         ));
 
-        if (strpos($class, '\OpenCloud\\') === 0) {
-            $class = str_replace('\OpenCloud\\', '', $class);
-        }
+        // Strips off base namespace 
+        $class = preg_replace('#\\\?OpenCloud\\\#', '', $class);
 
         // check for defaults
-        if (!isset($name)) {
-            $name = $this->defaults[$class]['name'];
-        }
-
-        if (!isset($region)) {
-            $region = $this->defaults[$class]['region'];
-        }
-
-        if (!isset($urltype)) {
-            $urltype = $this->defaults[$class]['urltype'];
-        }
+        $default = $this->getDefault($class);
 
         // report errors
-        if (!$name) {
-            throw new Exceptions\ServiceValueError(
-                Lang::translate('No value for '.$class.' name')
-            );
+        if (!$name = $name ?: $default['name']) {
+            throw new Exceptions\ServiceValueError(sprintf(
+                Lang::translate('No value for %s name'),
+                $class
+            ));
         }
 
-        if (!$region) {
-            throw new Exceptions\ServiceValueError(
-                Lang::translate('No value for '.$class.' region')
-            );
+        if (!$region = $region ?: $default['region']) {
+            throw new Exceptions\ServiceValueError(sprintf(
+                Lang::translate('No value for %s region'),
+                $class
+            ));
         }
 
-        if (!$urltype) {
-            throw new Exceptions\ServiceValueError(
-                Lang::translate('No value for '.$class.' URL type')
-            );
+        if (!$urltype = $urltype ?: $default['urltype']) {
+            throw new Exceptions\ServiceValueError(sprintf(
+                Lang::translate('No value for %s URL type'),
+                $class
+            ));
         }
 
         // return the object
-        $fullclass = '\OpenCloud\\' . $class . '\\Service';
+        $fullclass = 'OpenCloud\\' . $class . '\\Service';
 
-        return new $fullclass(
-            $this,
-            $name,
-            $region,
-            $urltype
-        );
+        return new $fullclass($this, $name, $region, $urltype);
     }
 
     /**
@@ -898,7 +1189,7 @@ class OpenStack extends Base
      *
      * This is a helper function used to list service catalog items easily
      */
-    public function ServiceCatalogItem($info = array())
+    public function serviceCatalogItem($info = array())
     {
         return new ServiceCatalogItem($info);
     }
