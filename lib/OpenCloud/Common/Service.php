@@ -220,7 +220,7 @@ abstract class Service extends Base
         }
         
         // Handle empty response
-        if (empty($response->httpBody())) {
+        if (strlen($response->httpBody()) == 0) {
             return new Collection($parent, $class, array());
         }
 
