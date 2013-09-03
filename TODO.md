@@ -1,4 +1,6 @@
-# Todo list for PHP OpenCloud:
+# Todo list for PHP OpenCloud
+
+If you want to help out with new features for OpenCloud, feel free! You can get an overview of how to contribute by reading our [guide to contributing](https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md). We've listed a few features below that would be nice to incorporate for future releases.
 
 ## Minor features
 
@@ -18,3 +20,9 @@ hack something quickly. From what it looks like, we'd use a HTTP proxy to captur
 the requests and then produce recordings (like VCR in Ruby). We could write 
 something in Golang. It's critical that we think about sensitive information.
 
+- _DataObject refactoring_: main for performance (issue #147), but also other issues which 
+need to be addressed like content guessing (#143) and bulk delete (#139).
+
+- _KeyStone identity_: we need to refactor how identity is handled in main OpenStack.php file.
+I'd like to see a lot of the current client attributes abstracted out and made into their own 
+object files.
