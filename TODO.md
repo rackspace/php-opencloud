@@ -5,6 +5,7 @@ If you want to help out with new features for OpenCloud, feel free! You can get 
 ## Minor features
 
 - Add keypair support for Server create
+- Reformat smoketest.php for greater clarity, and make it more OO for code reuse.
 
 ## Major features
 
