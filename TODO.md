@@ -6,6 +6,9 @@ If you want to help out with new features for OpenCloud, feel free! You can get 
 
 - Add keypair support for Server create
 - Reformat smoketest.php for greater clarity, and make it more OO for code reuse.
+- _Documentation_: update QuickReference so that it's clearer and more succinct; go over code samples to avoid
+duplicate examples; make sure documentation is completely up-to-date and useful. Not just from a low-level 
+code point of view, but also help to explain some of the bigger concepts taken for granted.
 
 ## Major features
 
