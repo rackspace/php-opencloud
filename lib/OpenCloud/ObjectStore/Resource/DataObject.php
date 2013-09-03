@@ -291,7 +291,7 @@ class DataObject extends AbstractStorageObject
             $this->content_length = $filesize;
             
             // Guess the content type if necessary
-            if (empty($this->getContentType()) && $this->isRealFile($filename)) {
+            if (!$this->getContentType() && $this->isRealFile($filename)) {
                 $this->setContentType($this->inferContentType($filename));
             }
             
@@ -340,7 +340,7 @@ class DataObject extends AbstractStorageObject
 
 		// Content-Type is no longer required; if not specified, it will
 		// attempt to guess based on the file extension.
-		if (!empty($this->getContentType())) {
+		if (!$this->getContentType()) {
         	$headers['Content-Type'] = $this->getContentType();
         }
         
