@@ -412,16 +412,10 @@ class DataObject extends AbstractStorageObject
      */
     public function updateMetadata($params = array())
     {
-        $this->setParams($params);
-
         // set the headers
         $headers = $this->metadataHeaders();
         $headers['Content-Type'] = $this->getContentType();
-
-        // Merge in extra headers
-        if (!empty($this->extra_headers)) {
-            $headers = $this->extra_headers + $headers;
-        }
+        $headers = $params + $headers;
 
         $response = $this->getService()->request(
             $this->url(),
