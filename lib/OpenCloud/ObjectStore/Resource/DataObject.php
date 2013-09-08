@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.6.0
@@ -18,103 +18,103 @@ use OpenCloud\ObjectStore\AbstractService;
 use OpenCloud\Common\Request\Response\Http;
 
 /**
- * Objects are the basic storage entities in Cloud Files. They represent the 
- * files and their optional metadata you upload to the system. When you upload 
- * objects to Cloud Files, the data is stored as-is (without compression or 
- * encryption) and consists of a location (container), the object's name, and 
+ * Objects are the basic storage entities in Cloud Files. They represent the
+ * files and their optional metadata you upload to the system. When you upload
+ * objects to Cloud Files, the data is stored as-is (without compression or
+ * encryption) and consists of a location (container), the object's name, and
  * any metadata you assign consisting of key/value pairs.
  */
 class DataObject extends AbstractStorageObject
 {
     /**
-     * Object name. The only restriction on object names is that they must be 
+     * Object name. The only restriction on object names is that they must be
      * less than 1024 bytes in length after URL encoding.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $name;
-    
+
     /**
      * Hash value of the object.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $hash;
-    
+
     /**
      * Size of object in bytes.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $bytes;
-    
+
     /**
      * Date of last modification.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $last_modified;
-    
+
     /**
      * Object's content type.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $content_type;
-    
+
     /**
      * Object's content length.
-     * 
+     *
      * @var string
      */
     public $content_length;
-    
+
     /**
      * Other headers set for this object (e.g. Access-Control-Allow-Origin)
-     * 
-     * @var array 
+     *
+     * @var array
      */
     public $extra_headers = array();
-    
+
     /**
      * Whether or not to calculate and send an ETag on create.
-     * 
-     * @var bool 
+     *
+     * @var bool
      */
     public $send_etag = true;
 
     /**
      * The data contained by the object.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     private $data;
-    
+
     /**
      * The ETag value.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     private $etag;
-    
+
     /**
      * The parent container of this object.
-     * 
-     * @var CDNContainer 
+     *
+     * @var CDNContainer
      */
     private $container;
 
     /**
      * Is this data object a pseudo directory?
-     * 
-     * @var bool 
+     *
+     * @var bool
      */
     private $directory = false;
-    
+
     /**
      * Used to translate header values (returned by requests) into properties.
-     * 
-     * @var array 
+     *
+     * @var array
      */
     private $headerTranslate = array(
         'Etag'           => 'hash',
@@ -122,11 +122,11 @@ class DataObject extends AbstractStorageObject
         'Last-Modified'  => 'last_modified',
         'Content-Length' => array('bytes', 'content_length'),
     );
-    
+
     /**
      * These properties can be freely set by the user for CRUD operations.
-     * 
-     * @var array 
+     *
+     * @var array
      */
     private $allowedProperties = array(
         'name',
@@ -134,15 +134,15 @@ class DataObject extends AbstractStorageObject
         'extra_headers',
         'send_etag'
     );
-    
+
     /**
      * Option for clearing the status cache when objects are uploaded to API.
      * By default, it is set to FALSE for performance; but if you have files
      * that are rapidly and very often updated, you might want to clear the status
      * cache so PHP reads the files directly, instead of relying on the cache.
-     * 
+     *
      * @link http://php.net/manual/en/function.clearstatcache.php
-     * @var  bool 
+     * @var  bool
      */
     public $clearStatusCache = false;
 
@@ -164,7 +164,7 @@ class DataObject extends AbstractStorageObject
         parent::__construct();
 
         $this->container = $container;
-   
+
         // For pseudo-directories, we need to ensure the name is set
         if (!empty($cdata->subdir)) {
             $this->name = $cdata->subdir;
@@ -173,30 +173,30 @@ class DataObject extends AbstractStorageObject
             $this->populate($cdata);
         }
     }
-    
+
     /**
      * Is this data object a pseudo-directory?
-     * 
+     *
      * @return bool
      */
     public function isDirectory()
     {
         return $this->directory;
     }
-    
+
     /**
      * Allow other objects to know what the primary key is.
-     * 
+     *
      * @return string
      */
     public function primaryKeyField()
     {
         return 'name';
     }
-    
+
     /**
      * Is this a real file?
-     * 
+     *
      * @param  string $filename
      * @return bool
      */
@@ -204,20 +204,20 @@ class DataObject extends AbstractStorageObject
     {
         return $filename != '/dev/null' && $filename != 'NUL';
     }
-    
+
     /**
      * Set this file's content type.
-     * 
+     *
      * @param string $contentType
      */
     public function setContentType($contentType)
     {
         $this->content_type = $contentType;
     }
-    
+
     /**
      * Return the content type.
-     * 
+     *
      * @return string
      */
     public function getContentType()
@@ -281,7 +281,7 @@ class DataObject extends AbstractStorageObject
 
             // Cast filesize as a floating point
             $filesize = (float) filesize($filename);
-            
+
             // Check it's below a reasonable size, and set
             // @codeCoverageIgnoreStart
             if ($filesize > AbstractService::MAX_OBJECT_SIZE) {
@@ -289,12 +289,12 @@ class DataObject extends AbstractStorageObject
             }
             // @codeCoverageIgnoreEnd
             $this->content_length = $filesize;
-            
+
             // Guess the content type if necessary
             if (!$this->getContentType() && $this->isRealFile($filename)) {
                 $this->setContentType($this->inferContentType($filename));
             }
-            
+
             // Send ETag checksum if necessary
             if ($this->send_etag) {
                 $this->etag = md5_file($filename);
@@ -302,10 +302,10 @@ class DataObject extends AbstractStorageObject
 
             // Announce to the world
             $this->getLogger()->info('Uploading {size} bytes from {name}', array(
-                'size' => $filesize, 
+                'size' => $filesize,
                 'name' => $filename
             ));
-            
+
         } else {
             // compute the length
             $this->content_length = strlen($this->data);
@@ -318,7 +318,7 @@ class DataObject extends AbstractStorageObject
         // Only allow supported archive types
         // http://docs.rackspace.com/files/api/v1/cf-devguide/content/Extract_Archive-d1e2338.html
         $extractArchiveUrlArg = '';
-        
+
         if ($extractArchive) {
             if ($extractArchive !== "tar.gz" && $extractArchive !== "tar.bz2") {
                 throw new Exceptions\ObjectError(
@@ -333,7 +333,7 @@ class DataObject extends AbstractStorageObject
 
         // Set headers
         $headers = $this->metadataHeaders();
-        
+
         if (!empty($this->etag)) {
             $headers['ETag'] = $this->etag;
         }
@@ -343,7 +343,7 @@ class DataObject extends AbstractStorageObject
 		if (!$this->getContentType()) {
         	$headers['Content-Type'] = $this->getContentType();
         }
-        
+
         $headers['Content-Length'] = $this->content_length;
 
         // Merge in extra headers
@@ -412,11 +412,10 @@ class DataObject extends AbstractStorageObject
      */
     public function updateMetadata($params = array())
     {
-        $this->setParams($params);
-
         // set the headers
         $headers = $this->metadataHeaders();
         $headers['Content-Type'] = $this->getContentType();
+        $headers = $params + $headers;
 
         $response = $this->getService()->request(
             $this->url(),
@@ -435,7 +434,7 @@ class DataObject extends AbstractStorageObject
             ));
         }
         // @codeCoverageIgnoreEnd
-        
+
         return $response;
     }
 
@@ -467,7 +466,7 @@ class DataObject extends AbstractStorageObject
             ));
         }
         // @codeCoverageIgnoreEnd
-        
+
         return $response;
     }
 
@@ -557,8 +556,8 @@ class DataObject extends AbstractStorageObject
         $hash = hash_hmac('sha1', $hmac_body, $secret);
 
         $this->getLogger()->info('URL [{url}]; SIG [{sig}]; HASH [{hash}]', array(
-            'url'  => $url, 
-            'sig'  => $hmac_body, 
+            'url'  => $url,
+            'sig'  => $hmac_body,
             'hash' => $hash
         ));
 
@@ -628,11 +627,11 @@ class DataObject extends AbstractStorageObject
                 $filename
             ));
         }
-        
+
         $result = $this->getService()->request($this->url(), 'GET', array(), $fp);
-        
+
         fclose($fp);
-        
+
         return $result;
     }
 
@@ -722,7 +721,7 @@ class DataObject extends AbstractStorageObject
             ));
         }
         // @codeCoverageIgnoreEnd
-        
+
         return true;
     }
 
@@ -744,7 +743,7 @@ class DataObject extends AbstractStorageObject
      * Returns the object's Public CDN URL, if available
      *
      * @api
-     * @param string $type can be 'streaming', 'ssl', 'ios-streaming', 
+     * @param string $type can be 'streaming', 'ssl', 'ios-streaming',
      *		or anything else for the
      *      default URL. For example, `$object->PublicURL('ios-streaming')`
      * @return string
@@ -770,7 +769,7 @@ class DataObject extends AbstractStorageObject
                 $url = $prefix.'/'.$this->name;
                 break;
         }
-        
+
         return $url;
     }
 
@@ -789,7 +788,7 @@ class DataObject extends AbstractStorageObject
             ));
             unset($params[$key]);
         }
-        
+
         $this->populate($params);
     }
 
@@ -823,11 +822,11 @@ class DataObject extends AbstractStorageObject
         // parse the metadata
         $this->getMetadata($response);
     }
-    
+
     /**
-     * Extracts the headers from the response, and saves them as object 
+     * Extracts the headers from the response, and saves them as object
      * attributes. Additional name conversions are done where necessary.
-     * 
+     *
      * @param Http $response
      */
     private function saveResponseHeaders(Http $response, $fillExtraIfNotFound = true)
@@ -845,7 +844,7 @@ class DataObject extends AbstractStorageObject
                     $this->$property = $value;
                 }
             } elseif ($fillExtraIfNotFound === true) {
-                // Otherwise, stock extra headers 
+                // Otherwise, stock extra headers
                 $this->extra_headers[$header] = $value;
             }
         }
@@ -858,7 +857,7 @@ class DataObject extends AbstractStorageObject
     {
         return $this->fetch();
     }
-    
+
     /**
      * Returns the service associated with this object
      *
@@ -898,31 +897,31 @@ class DataObject extends AbstractStorageObject
         if ($contentType = $this->getContentType()) {
             return $contentType;
         }
-        
+
         $contentType = false;
-        
+
         $filePath = (is_string($handle)) ? $handle : (string) $handle;
-        
+
         if (function_exists("finfo_open")) {
-            
-            $magicPath = dirname(__FILE__) . "/share/magic"; 
+
+            $magicPath = dirname(__FILE__) . "/share/magic";
             $finfo = new FileInfo(FILEINFO_MIME, file_exists($magicPath) ? $magicPath : null);
-            
+
             if ($finfo) {
-                
-                $contentType = is_file($filePath) 
-                    ? $finfo->file($handle) 
+
+                $contentType = is_file($filePath)
+                    ? $finfo->file($handle)
                     : $finfo->buffer($handle);
 
                 /**
-                 * PHP 5.3 fileinfo display extra information like charset so we 
+                 * PHP 5.3 fileinfo display extra information like charset so we
                  * remove everything after the ; since we are not into that stuff
-                 */  
+                 */
                 if (null !== ($extraInfo = strpos($contentType, "; "))) {
                     $contentType = substr($contentType, 0, $extraInfo);
                 }
             }
-            
+
             //unset($finfo);
         }
 
