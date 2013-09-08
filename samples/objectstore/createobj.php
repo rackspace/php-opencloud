@@ -20,7 +20,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('TEMP_URL_SECRET', 'April is the cruellest month, breeding lilacs...');
-
+define('OBJNAME', 'SampleObject');
 define('CONTAINER_NAME', 'A Container Name With Spaces');
 
 // progress callback function
@@ -54,8 +54,10 @@ printf("Creating object...\n");
 $obj = $cont->DataObject();
 // read this file!
 $obj->Create(
-	array('name' => 'SampleObject', 'content_type' => 'text/plain'),
+	array('name' => OBJNAME, 'content_type' => 'text/plain'),
 	__FILE__);
+$obj->metadata->something = 'This is a metadata value';
+$obj->UpdateMetadata();
 printf("\nObject hash is %s\n", $obj->hash);
 printf("Object URL is %s\n", $obj->Url());
 $temp = $obj->TempUrl(TEMP_URL_SECRET, 600, 'GET');
@@ -67,9 +69,16 @@ $target = $cont->DataObject();
 $target->name = $obj->Name().'-COPY';
 $obj->Copy($target);
 
+// re-retrieve the object
+$obj = $cont->DataObject(OBJNAME);
+printf("Testing metadata:\n");
+print_r($obj->metadata);
+
 // list all the objects in the container
 printf("Listing:\n");
 $list = $cont->ObjectList();
-while($o = $list->Next())
+while($o = $list->Next()) {
 	printf("Object: %s size: %d type: %s\n",
 	    $o->name, $o->bytes, $o->content_type);
+	print_r($o->metadata);
+}
