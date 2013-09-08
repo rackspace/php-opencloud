@@ -27,22 +27,22 @@ class Account extends AbstractResource implements ResourceInterface
 
     public function baseUrl()
     {
-        return $this->Parent()->Url($this->ResourceName());
+        return $this->getParent()->Url($this->ResourceName());
     }
     
     public function updateUrl()
     {
-        return $this->Url();
+        return $this->url();
     }
     
-    public function Create($params = array())
+    public function create($params = array())
     {
-        $this->NoCreate();
+        return $this->noCreate();
     }
     
-    public function Delete()
+    public function delete()
     {
-        $this->NoDelete();
+        return $this->noDelete();
     }
     
 }

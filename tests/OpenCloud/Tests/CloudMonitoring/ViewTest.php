@@ -67,4 +67,14 @@ class ViewTest extends PHPUnit_Framework_TestCase
         );
     }
     
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\ServiceException
+     */
+    public function testServiceResource()
+    {
+        $this->assertNotEmpty($this->service->getResources());
+        
+        $this->service->resource('FooBar');
+    }
+    
 }

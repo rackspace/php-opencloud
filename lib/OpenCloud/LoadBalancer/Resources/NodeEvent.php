@@ -1,11 +1,19 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\LoadBalancer\Resources;
 
 /**
- * a single node event, usually called as part of a Collection
- *
- * This is a read-only subresource.
+ * This class will retrieve a list of events associated with the activity 
+ * between the node and the load balancer. The events report errors found with the node.
  */
 class NodeEvent extends Readonly 
 {

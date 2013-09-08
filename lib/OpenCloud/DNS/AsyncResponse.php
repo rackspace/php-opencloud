@@ -1,13 +1,12 @@
 <?php
 /**
- * The Rackspace Cloud DNS service asynchronous response object
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\DNS;
@@ -47,12 +46,10 @@ class AsyncResponse extends PersistentObject
             return;
         }
 
-        $obj = json_decode($json);
-        if ($this->CheckJsonError()) {
-            return;
-        }
+        $object = json_decode($json);
+        $this->checkJsonError();
 
-        parent::__construct($service, $obj);
+        parent::__construct($service, $object);
     }
 
     /**
@@ -62,7 +59,7 @@ class AsyncResponse extends PersistentObject
      *
      * @return string
      */
-    public function Url($subresource = null, $qstr = array())
+    public function url($subresource = null, $qstr = array())
     {
         return $this->callbackUrl . '?showDetails=True';
     }
@@ -72,7 +69,7 @@ class AsyncResponse extends PersistentObject
      *
      * @return string
      */
-    public function Name()
+    public function name()
     {
         return $this->jobId;
     }
@@ -80,22 +77,22 @@ class AsyncResponse extends PersistentObject
     /**
      * overrides for methods
      */
-    public function Create($parm = array())
+    public function create($params = array())
     {
-        return $this->NoCreate();
+        return $this->noCreate();
     }
 
-    public function Update($parm = array())
+    public function update($params = array())
     {
-        return $this->NoUpdate();
+        return $this->noUpdate();
     }
 
-    public function Delete()
+    public function delete()
     {
-        return $this->NoDelete();
+        return $this->noDelete();
     }
 
-    public function PrimaryKeyField()
+    public function primaryKeyField()
     {
         return 'jobId';
     }

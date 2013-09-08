@@ -1,13 +1,12 @@
 <?php
 /**
- * The OpenStack Compute (Nova) service
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Compute;
@@ -67,7 +66,7 @@ class Service extends Nova
      */
     public function __construct(OpenStack $conn, $serviceName, $serviceRegion, $urltype) 
     {
-        $this->debug(Lang::translate('initializing Compute...'));
+        $this->getLogger()->info(Lang::translate('Initializing compute...'));
         
         parent::__construct(
             $conn,
@@ -88,6 +87,7 @@ class Service extends Nova
         }
 
         $this->load_namespaces();
+        $this->_namespaces[] = 'OS-FLV-DISABLED';
     }
 
     /**
@@ -100,7 +100,7 @@ class Service extends Nova
      *      strings to append to the URL
      * @returns string - the requested URL
      */
-    public function Url($resource = 'servers', array $args = array()) 
+    public function url($resource = 'servers', array $args = array()) 
     {
         return parent::Url($resource, $args);
     }
@@ -116,7 +116,7 @@ class Service extends Nova
      * @param string $id - if specified, the server with the ID is retrieved
      * @returns Compute\Server object
      */
-    public function Server($id = NULL) 
+    public function server($id = null) 
     {
         return new Server($this, $id);
     }
@@ -137,23 +137,10 @@ class Service extends Nova
      *    servers list for filtering
      * @returns Collection
      */
-    public function ServerList($details=TRUE, $filter=array()) 
+    public function serverList($details = true, array $filter = array()) 
     {
-        if (!is_bool($details)) {
-            throw new Exceptions\InvalidArgumentException(Lang::translate('First argument for Compute::ServerList() must be boolean'));
-        }
-
-        if (!is_array($filter)) {
-            throw new Exceptions\InvalidArgumentException(Lang::translate('Second argument for Compute::ServerList() must be array'));
-        }
-
-        if ($details) {
-            $url = $this->Url(Server::ResourceName() . '/detail', $filter);
-        } else {
-            $url = $this->Url(Server::ResourceName(), $filter);
-        }
-
-        return $this->Collection('\OpenCloud\Compute\Server', $url);
+        $url = $this->url(Server::resourceName() . (($details) ? '/detail' : ''), $filter);
+        return $this->collection('OpenCloud\Compute\Server', $url);
     }
 
     /**
@@ -163,7 +150,7 @@ class Service extends Nova
      * @param string $id the network ID
      * @return Compute\Network
      */
-    public function Network($id = null) 
+    public function network($id = null) 
     {
         return new Network($this, $id);
     }
@@ -175,9 +162,9 @@ class Service extends Nova
      * @param array $filters array of filter key/value pairs
      * @return Collection
      */
-    public function NetworkList($filter = array()) 
+    public function networkList($filter = array()) 
     {
-        return $this->Collection('\OpenCloud\Compute\Network');
+        return $this->collection('OpenCloud\Compute\Network');
     }
 
     /**
@@ -190,7 +177,7 @@ class Service extends Nova
      * @param string $id - if supplied, returns the image with the specified ID.
      * @return Compute\Image object
      */
-    public function Image($id = null) 
+    public function image($id = null) 
     {
         return new Image($this, $id);
     }
@@ -212,20 +199,10 @@ class Service extends Nova
      *      for current filters available.
      * @return Collection
      */
-    public function ImageList($details = true, $filter = array()) 
+    public function imageList($details = true, array $filter = array()) 
     {
-        // validate arguments
-        if (!is_bool($details)) {
-            throw new Exceptions\InvalidParameterError(Lang::translate('Invalid argument for Compute::ImageList(); boolean required'));
-        }
-
-        if ($details) {
-            $url = $this->Url('images/detail', $filter);
-        } else {
-            $url = $this->Url('images', $filter);
-        }
-
-        return $this->Collection('\OpenCloud\Compute\Image', $url);
+        $url = $this->url('images' . (($details) ? '/detail' : ''), $filter);
+        return $this->collection('OpenCloud\Compute\Image', $url);
     }
 
 }

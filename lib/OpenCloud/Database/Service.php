@@ -1,13 +1,12 @@
 <?php
 /**
- * Rackspace's Cloud Databases (database as a service)
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Database;
@@ -17,8 +16,6 @@ use OpenCloud\OpenStack;
 
 /**
  * The Rackspace Database As A Service (aka "Red Dwarf")
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 class Service extends Nova
 {
@@ -46,9 +43,9 @@ class Service extends Nova
      * @param string $resource the resource required
      * @param array $args extra arguments to pass to the URL as query strings
      */
-    public function Url($resource = 'instances', array $args = array())
+    public function url($resource = 'instances', array $args = array())
     {
-        return parent::Url($resource, $args);
+        return parent::url($resource, $args);
     }
 
     /**
@@ -60,9 +57,9 @@ class Service extends Nova
      * @api
      * @return \OpenCloud\Compute\FlavorList
      */
-    public function FlavorList($details = false, array $filter = array())
+    public function flavorList($details = false, array $filter = array())
     {
-        return parent::FlavorList(false);
+        return parent::flavorList(false);
     }
 
     /**
@@ -72,7 +69,7 @@ class Service extends Nova
      * @param string $id the ID of the instance to retrieve
      * @return DbService\Instance
      */
-    public function Instance($id = null)
+    public function instance($id = null)
     {
         return new Instance($this, $id);
     }
@@ -85,8 +82,8 @@ class Service extends Nova
      *      query strings
      * @return Collection
      */
-    public function InstanceList($params = array())
+    public function instanceList($params = array())
     {
-        return $this->Collection('\OpenCloud\Database\Instance', null, null, $params);
+        return $this->collection('OpenCloud\Database\Instance', null, null, $params);
     }
 }

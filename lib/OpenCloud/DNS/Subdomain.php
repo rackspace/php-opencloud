@@ -1,4 +1,13 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\DNS;
 
@@ -14,23 +23,5 @@ class Subdomain extends Domain
     protected static $json_name = false;
     protected static $json_collection_name = 'domains';
     protected static $url_resource = 'subdomains';
-
-    private $_parent;
-
-    /**
-     */
-    public function __construct(Domain $parent, $info = array()) 
-    {
-        $this->_parent = $parent;
-        return parent::__construct($parent->Service(), $info);
-    }
-
-    /**
-     * returns the parent domain object
-     */
-    public function Parent() 
-    {
-        return $this->_parent;
-    }
 
 }

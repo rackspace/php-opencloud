@@ -1,4 +1,4 @@
 .idea/
+local-tests/
 build/
 .DS_Store
-local-tests/

@@ -1,13 +1,12 @@
 <?php
 /**
- * A Cloud Databases instance (similar to a Compute Server)
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Database;
@@ -21,8 +20,6 @@ use OpenCloud\Compute\Flavor;
 /**
  * Instance represents an instance of DbService, similar to a Server in a
  * Compute service
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 class Instance extends PersistentObject 
 {
@@ -67,11 +64,9 @@ class Instance extends PersistentObject
      *
      * @throws InstanceUpdateError always
      */
-    public function Update($params = array()) 
+    public function update($params = array()) 
     {
-        throw new Exceptions\InstanceUpdateError(
-            Lang::translate('Updates are not currently supported by Cloud Databases')
-        );
+        return $this->noUpdate();
     }
 
     /**
@@ -80,9 +75,9 @@ class Instance extends PersistentObject
      * @api
      * @returns \OpenCloud\HttpResponse
      */
-    public function Restart() 
+    public function restart() 
     {
-        return $this->Action($this->RestartJson());
+        return $this->action($this->restartJson());
     }
 
     /**
@@ -92,9 +87,9 @@ class Instance extends PersistentObject
      * @param \OpenCloud\Compute\Flavor $flavor a flavor object
      * @returns \OpenCloud\HttpResponse
      */
-    public function Resize(Flavor $flavor) 
+    public function resize(Flavor $flavor) 
     {
-        return $this->Action($this->ResizeJson($flavor));
+        return $this->action($this->resizeJson($flavor));
     }
 
     /**
@@ -104,9 +99,9 @@ class Instance extends PersistentObject
      * @param integer $newvolumesize the size of the new volume, in gigabytes
      * @return \OpenCloud\HttpResponse
      */
-    public function ResizeVolume($newvolumesize) 
+    public function resizeVolume($newvolumesize) 
     {
-        return $this->Action($this->ResizeVolumeJson($newvolumesize));
+        return $this->action($this->resizeVolumeJson($newvolumesize));
     }
 
     /**
@@ -116,11 +111,11 @@ class Instance extends PersistentObject
      * @return User the root user, including name and password
      * @throws InstanceError if HTTP response is not Success
      */
-    public function EnableRootUser() 
+    public function enableRootUser() 
     {
-        $response = $this->Service()->Request($this->Url('root'), 'POST');
+        $response = $this->getService()->request($this->url('root'), 'POST');
 
-        // check response
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 202) {
             throw new Exceptions\InstanceError(sprintf(
                 Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
@@ -129,18 +124,13 @@ class Instance extends PersistentObject
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
-        $obj = json_decode($response->HttpBody());
+        $object = json_decode($response->HttpBody());
         
-        if ($this->CheckJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
 
-        if (isset($obj->user)) {
-            return new User($this, $obj->user);
-        } else {
-            return false;
-        }
+        return (!empty($object->user)) ? new User($this, $object->user) : false;
     }
 
     /**
@@ -150,11 +140,11 @@ class Instance extends PersistentObject
      * @return boolean TRUE if the root user is enabled; FALSE otherwise
      * @throws InstanceError if HTTP status is not Success
      */
-    public function IsRootEnabled() 
+    public function isRootEnabled() 
     {
-        $response = $this->Service()->Request($this->Url('root'), 'GET');
+        $response = $this->getService()->Request($this->Url('root'), 'GET');
 
-        // check response
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 202) {
             throw new Exceptions\InstanceError(sprintf(
                 Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
@@ -163,18 +153,13 @@ class Instance extends PersistentObject
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
+        
+        $object = json_decode($response->httpBody());
 
-        $obj = json_decode($response->HttpBody());
+        $this->checkJsonError();
 
-        if ($this->CheckJsonError()) {
-            return false;
-        }
-
-        if (isset($obj->rootEnabled) && $obj->rootEnabled) {
-            return true;
-        } else {
-            return false;
-        }
+        return !empty($object->rootEnabled);
     }
 
     /**
@@ -183,7 +168,7 @@ class Instance extends PersistentObject
      * @param string $name the database name
      * @return Database
      */
-    public function Database($name = '') 
+    public function database($name = '') 
     {
         return new Database($this, $name);
     }
@@ -195,7 +180,7 @@ class Instance extends PersistentObject
      * @param array $databases a simple array of database names
      * @return User
      */
-    public function User($name = '', $databases = array()) 
+    public function user($name = '', $databases = array()) 
     {
         return new User($this, $name, $databases);
     }
@@ -206,11 +191,11 @@ class Instance extends PersistentObject
      * @return Collection
      * @throws DatabaseListError if HTTP status is not Success
      */
-    public function DatabaseList() 
+    public function databaseList() 
     {
-        $response = $this->Service()->Request($this->Url('databases'));
+        $response = $this->getService()->request($this->Url('databases'));
 
-        // check response status
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 200) {
             throw new Exceptions\DatabaseListError(sprintf(
                 Lang::translate('Error listing databases for instance [%s], status [%d] response [%s]'),
@@ -219,17 +204,14 @@ class Instance extends PersistentObject
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
+        
+        $object = json_decode($response->httpBody());
 
-        // parse the response
-        $obj = json_decode($response->HttpBody());
+        $this->checkJsonError();
 
-        if (!$this->CheckJsonError()) {
-            if (!isset($obj->databases)) {
-                return new Collection($this, '\OpenCloud\DbService\Database', array());
-            }
-            return new Collection($this, '\OpenCloud\DbService\Database', $obj->databases);
-        }
-        return false;
+        $data = (!empty($object->databases)) ? $object->databases : array();
+        return new Collection($this, 'OpenCloud\DbService\Database', $data);
     }
 
     /**
@@ -238,11 +220,11 @@ class Instance extends PersistentObject
      * @return Collection
      * @throws UserListError if HTTP status is not Success
      */
-    public function UserList() 
+    public function userList() 
     {
-        $response = $this->Service()->Request($this->Url('users'));
+        $response = $this->getService()->Request($this->Url('users'));
 
-        // check response status
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 200) {
             throw new Exceptions\UserListError(sprintf(
                 Lang::translate('Error listing users for instance [%s], status [%d] response [%s]'),
@@ -251,16 +233,14 @@ class Instance extends PersistentObject
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
+        
+        $object = json_decode($response->HttpBody());
+        
+        $this->checkJsonError();
 
-        // parse the response
-        $obj = json_decode($response->HttpBody());
-        if (!$this->CheckJsonError()) {
-            if (!isset($obj->users)) {
-                return new Collection($this, '\OpenCloud\DbService\User', array());
-            }
-            return new Collection($this, '\OpenCloud\DbService\User', $obj->users);
-        }
-        return false;
+        $data = (!empty($object->users)) ? $object->users : array();
+        return new Collection($this, 'OpenCloud\DbService\User', $data);
     }
 
     /**
@@ -268,65 +248,57 @@ class Instance extends PersistentObject
      *
      * @return \stdClass
      */
-    protected function CreateJson() 
+    protected function createJson() 
     {
-        $object = new \stdClass();
-        $object->instance = new \stdClass();
-
-        if (!isset($this->flavor)) {
-            throw new Exceptions\InstanceFlavorError(Lang::translate('a flavor must be specified'));
+        if (empty($this->flavor) || !is_object($this->flavor)) {
+            throw new Exceptions\InstanceFlavorError(
+                Lang::translate('The `flavor` attribute is required and must be a Flavor object')
+            );
         }
-
-        if (!is_object($this->flavor)) {
-            throw new Exceptions\InstanceFlavorError(Lang::translate('the [flavor] attribute must be a Flavor object'));
-        }
-
-        $object->instance->flavorRef = $this->flavor->links[0]->href;
-
-        // name
+        
         if (!isset($this->name)) {
-            throw new Exceptions\InstanceError(Lang::translate('Instance name is required'));
+            throw new Exceptions\InstanceError(
+                Lang::translate('Instance name is required')
+            );
         }
-
-        $object->instance->name = $this->name;
-
-        // volume
-        $object->instance->volume = $this->volume;
-
-        return $object;
+        
+        return (object) array(
+            'instance' => (object) array(
+                'flavorRef' => $this->flavor->links[0]->href,
+                'name'      => $this->name,
+                'volume'    => $this->volume
+            )
+        );
     }
 
     /**
      * Generates the JSON object for Restart
      */
-    private function RestartJson() 
+    private function restartJson() 
     {
-        $object = new \stdClass();
-        $object->restart = new \stdClass();
-        return $object;
+        return (object) array('restart' => new \stdClass);
     }
 
     /**
      * Generates the JSON object for Resize
      */
-    private function ResizeJson($flavorRef) 
+    private function resizeJson($flavorRef) 
     {
-        $object = new \stdClass();
-        $object->resize = new \stdClass();
-        $object->resize->flavorRef = $flavorRef;
-        return $object;
+        return (object) array(
+            'resize' => (object) array('flavorRef' => $flavorRef)
+        );
     }
 
     /**
      * Generates the JSON object for ResizeVolume
      */
-    private function ResizeVolumeJson($size) 
+    private function resizeVolumeJson($size) 
     {
-        $object = new \stdClass();
-        $object->resize = new \stdClass();
-        $object->resize->volume = new \stdClass();
-        $object->resize->volume->size = $size;
-        return $object;
+        return (object) array(
+            'resize' => (object) array(
+                'volume' => (object) array('size' => $size)
+            )
+        );
     }
 
 }

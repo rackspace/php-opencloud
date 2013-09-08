@@ -23,7 +23,7 @@ class Changelog extends ReadOnlyResource
     
     public function baseUrl()
     {
-        return $this->Service()->Url($this->ResourceName());
+        return $this->getService()->url($this->resourceName());
     }
 
 }

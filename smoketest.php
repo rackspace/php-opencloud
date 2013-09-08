@@ -122,11 +122,14 @@ $dns = $rackspace->DNS();
 
 step('Try to add a domain %s', TESTDOMAIN);
 $domain = $dns->Domain();
-$aresp = $domain->Create(array(
-	'name' => TESTDOMAIN,
+$aresp  = $domain->create(array(
+	'name'         => TESTDOMAIN,
 	'emailAddress' => 'sdk-support@rackspace.com',
-	'ttl' => 3600));
-$aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
+	'ttl'          => 3600
+));
+
+$aresp->waitFor('COMPLETED', 300, 'dotter', 1);
+
 if ($aresp->Status() == 'ERROR') {
 	info('Error condition (this may be valid if the domain exists');
 	info('[%d] %s - %s',
@@ -137,11 +140,16 @@ step("Adding a CNAME record www.%s", TESTDOMAIN);
 $dlist = $dns->DomainList(array('name'=>TESTDOMAIN));
 $domain = $dlist->Next();
 
-$record = $domain->Record();
-$aresp = $record->Create(array(
-	'type' => 'CNAME', 'ttl' => 600, 'name' => 'www.'.TESTDOMAIN,
-	'data' => 'developer.rackspace.com'));
+$record = $domain->record();
+$aresp = $record->create(array(
+	'type' => 'CNAME', 
+    'ttl'  => 600, 
+    'name' => 'www.'.TESTDOMAIN,
+	'data' => 'developer.rackspace.com'
+));
+
 $aresp->WaitFor('COMPLETED', 300, 'dotter', 1);
+
 if ($aresp->Status() == 'ERROR') {
 	info('Error status:');
 	info('[%d] $s - %s', $aresp->error->code, $aresp->error->message,
@@ -170,7 +178,7 @@ $cloudfiles = $rackspace->ObjectStore('cloudFiles', MYREGION);
 
 step('Create Container');
 $container = $cloudfiles->Container();
-$container->Create(array('name' => 'SmokeTestContainer'));
+$container->Create(array('name' => '0'));
 
 step('Create Object from this file');
 $object = $container->DataObject();
@@ -241,7 +249,6 @@ $met->value = 'Glen Campbell';
 $met->Create();
 
 step('Add a public IPv6 address');
-//setDebug(TRUE);
 $lb->AddVirtualIp('PUBLIC', 6);
 
 // allowed domains
@@ -364,9 +371,7 @@ if ($USE_SERVERS) {
 
 	step('Create Network');
 	$network = $cloudservers->Network();
-	try {
-		$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
-	} catch (Exception $e) {}
+	//$network->Create(array('label'=>NETWORKNAME, 'cidr'=>'192.168.0.0/24'));
 
 	step('List Networks');
 	$netlist = $cloudservers->NetworkList();
@@ -409,13 +414,21 @@ if ($USE_SERVERS) {
 
 	step('Create Server');
 	$server = $cloudservers->Server();
-	$server->Create(array(
-		'name'=>'FOOBAR',
-		'OS-DCF:diskConfig' => 'MANUAL',
-		'image'=>$centos,
-		'flavor'=>$flavorlist->First(),
-		'networks'=>array($network, $cloudservers->Network(RAX_PUBLIC))
-	));
+
+    $server->addFile('/var/test1', 'TEST 1');
+    $server->addFile('/var/test2', 'TEST 2');
+
+    $server->create(array(
+        'name'     => 'SMOKETEST',
+        'image'    => $centos,
+        'flavor'   => $flavorlist->First(),
+        'networks' => array(
+            $cloudservers->Network(RAX_PUBLIC), 
+            $cloudservers->Network(RAX_PRIVATE)
+        ),
+        "OS-DCF:diskConfig" => "AUTO"
+    ));
+    
 	$ADMINPASSWORD = $server->adminPass;
 
 	step('Wait for Server create');
@@ -501,7 +514,7 @@ $instance->name = INSTANCENAME;
 $instance->flavor = $dbaas->Flavor(1);
 $instance->volume->size = 1;
 $instance->Create();
-$instance->WaitFor('ACTIVE', 300, 'dotter');
+$instance->WaitFor('ACTIVE', 600, 'dotter');
 
 step('Is the root user enabled?');
 if ($instance->IsRootEnabled())

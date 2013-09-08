@@ -81,55 +81,58 @@
 </div>
 <h4>Description</h4>
 <em>The VolumeAttachment class represents a volume that is attached
-to a server.</em><br>This class abstracts much of the common functionality between Nova
-servers, Swift containers and objects, DBAAS instances, Cinder volumes,
-and various other objects that (a) have a URL, (b) can be created, updated,
-deleted, or retrieved, and (c) use a standard JSON format with a top-level
-element followed by a child object with attributes.
+to a server.</em><br>This class abstracts much of the common functionality between:
+
+ * Nova servers;
+ * Swift containers and objects;
+ * DBAAS instances;
+ * Cinder volumes;
+ * and various other objects that:
+   * have a URL;
+   * can be created, updated, deleted, or retrieved;
+   * use a standard JSON format with a top-level element followed by
+     a child object with attributes.
 
 In general, you can create a persistent object class by subclassing this
 class and defining some protected, static variables:
 
-- $url_resource - the sub-resource value in the URL of the parent. For
-  example, if the parent URL is `http://something/parent`, then setting
-  this value to `'another'` would result in a URL for the persistent
-  object of `http://something/parent/another`.
+ * $url_resource - the sub-resource value in the URL of the parent. For
+   example, if the parent URL is `http://something/parent`, then setting this
+   value to "another" would result in a URL for the persistent object of
+   `http://something/parent/another`.
 
-- $json_name - the top-level JSON object name. For example, if the
-  persistent object is represented by `{"foo": {"attr":value, ...}}`, then
-  set `json_name = 'foo'`.
+ * $json_name - the top-level JSON object name. For example, if the
+   persistent object is represented by `{"foo": {"attr":value, ...}}`, then
+   set $json_name to "foo".
 
-- $json_collection_name - optional; this value is the name of a collection
-  of the persistent objects. If not provided, it defaults to `json_name`
-  with an appended `'s'` (e.g., if `json_name` is `"foo"`, then
-  `json_collection_name` would be `"foos"` by default). Set this value if
-  the collection name doesn't follow this pattern.
+ * $json_collection_name - optional; this value is the name of a collection
+   of the persistent objects. If not provided, it defaults to `json_name`
+   with an appended "s" (e.g., if `json_name` is "foo", then
+   `json_collection_name` would be "foos"). Set this value if the collection
+   name doesn't follow this pattern.
 
-- $json_collection_element - the common pattern for a collection is:
-  `{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}`
-  That is, each element of the array is an anonymous object containing the
-  object's attributes. In (very) rare instances, the objects in the array
-  are named, and `json_collection_element` contains the name of the
-  collection objects. For example, in this:
-  `{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}`, then
-  `json_collection_element` would be set to `'allowedDomain'`.
+ * $json_collection_element - the common pattern for a collection is:
+   `{"collection": [{"attr":"value",...}, {"attr":"value",...}, ...]}`
+   That is, each element of the array is a \stdClass object containing the
+   object's attributes. In rare instances, the objects in the array
+   are named, and `json_collection_element` contains the name of the
+   collection objects. For example, in this JSON response:
+   `{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}`,
+   `json_collection_element` would be set to "allowedDomain".
 
-The PersistentObject class supports the standard `Create()`, `Update()`,
-and `Delete()` methods; if these are not needed (i.e., not supported by
-the service, the subclass should redefine these to call the
-`NoCreate`, `NoUpdate`, or `NoDelete` methods, which will trigger an
-appropriate exception. For example, if an object cannot be created:
+The PersistentObject class supports the standard CRUD methods; if these are
+not needed (i.e. not supported by  the service), the subclass should redefine
+these to call the `noCreate`, `noUpdate`, or `noDelete` methods, which will
+trigger an appropriate exception. For example, if an object cannot be created:
 
-   function Create($parm=array()) { $this->NoCreate(); }
-
-This will cause any call to the `Create()` method to fail with an
-exception.<br><div id="methods_VolumeAttachment">
+   function create($params = array())
+   {
+      $this->noCreate();
+   }<br><div id="methods_VolumeAttachment">
 <h4>Methods</h4>
 <a style="font-style: italic;" href="#VolumeAttachment::CreateJson()">CreateJson</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Name()">Name</a>,
-      <a style="font-style: italic;" href="#VolumeAttachment::Parent()">Parent</a>,
       <a style="font-style: italic;" href="#VolumeAttachment::Update()">Update</a>,
-      <a style="font-style: italic;" href="#VolumeAttachment::__construct()">__construct</a>,
       <div class="method">
 <a id="VolumeAttachment::CreateJson()"></a><h3>CreateJson<span class="nb-faded-text">(
           
@@ -179,27 +182,6 @@ exception.<br><div id="methods_VolumeAttachment">
 </tr></thead>
 <tbody><tr>
 <td>api</td>
-<td></td>
-</tr></tbody>
-</table>
-</div>
-<div class="method">
-<a id="VolumeAttachment::Parent()"></a><h3>Parent<span class="nb-faded-text">(
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">\OpenCloud\Compute\Server</span>
-</h3>
-<h4>Description</h4>
-<em>returns the Parent (server) of the volume attachment</em><br><small>This is a subresource of the server, not of the service.</small><br><h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>\OpenCloud\Compute\Server</td>
 <td></td>
 </tr></tbody>
 </table>
@@ -255,63 +237,10 @@ exception.<br><div id="methods_VolumeAttachment">
 </tr></tbody>
 </table>
 </div>
-<div class="method">
-<a id="VolumeAttachment::__construct()"></a><h3>__construct<span class="nb-faded-text">(
-          
-             
-            $server,
-          
-             
-            $id
-            = null,
-          
-          )
-        </span>
-        :
-        <span class="nb-faded-text">n/a</span>
-</h3>
-<h4>Description</h4>
-<em>creates the object</em><br><small>This overrides the default constructor so that we can save off the
-server to which this attachment is associated.</small><br><h4>Arguments</h4>
-<table>
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>$server</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>$id</td>
-<td style="white-space: normal;">n/a</td>
-<td></td>
-<td>null</td>
-</tr>
-</tbody>
-</table>
-<h4>Return value</h4>
-<table>
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tbody><tr>
-<td>n/a</td>
-<td>n/a</td>
-</tr></tbody>
-</table>
-</div>
 </div>
 <div id="properties_VolumeAttachment">
 <h4>Properties</h4>
 <a href="#VolumeAttachment::%24_create_keys">$_create_keys</a>,
-      <a href="#VolumeAttachment::%24_server">$_server</a>,
       <a href="#VolumeAttachment::%24device">$device</a>,
       <a href="#VolumeAttachment::%24id">$id</a>,
       <a href="#VolumeAttachment::%24json_name">$json_name</a>,
@@ -325,15 +254,6 @@ server to which this attachment is associated.</small><br><h4>Arguments</h4>
           </span>$_create_keys
           =
           array('volumeId', 'device')</h3>
-<em></em><br><small></small><br><br>
-</div>
-<div class="method">
-<a id="VolumeAttachment::$_server"></a><h3>
-<span class="nb-faded-text"> 
-          private 
-          </span>$_server
-          =
-          </h3>
 <em></em><br><small></small><br><br>
 </div>
 <div class="method">
@@ -405,7 +325,24 @@ between a user and a service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
 API key and tenant requirements.</small></span></li>
 <li class="closed">
-<span class="folder">Autoscale</span><ul><li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li></ul>
+<span class="folder">Autoscale</span><ul>
+<li><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Otter service.</small></span></li>
+<li class="closed">
+<span class="folder">Resource</span><ul>
+<li><span class="class"><a href="OpenCloud.Autoscale.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Contains generic, abstracted functionality for Autoscale resources.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Autoscale.Resource.Group.html#Group">Group</a><br><small>An autoscaling group is monitored by Rackspace Cloud Monitoring. When
+Monitoring triggers an alarm for high utilization within the autoscaling
+group, a webhook is triggered. The webhook stimulates the autoscale service
+which consults a policy in accordance with the webhook. The policy determines
+how many additional cloud servers should be added or removed in accordance
+with the alarm.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Autoscale.Resource.GroupConfiguration.html#GroupConfiguration">GroupConfiguration</a><br><small>This specifies the basic elements of the group. The Group Configuration contains:</small></span></li>
+<li><span class="class"><a href="OpenCloud.Autoscale.Resource.LaunchConfiguration.html#LaunchConfiguration">LaunchConfiguration</a><br><small>This configuration specifies what to do when we want to create a new server.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Autoscale.Resource.ScalingPolicy.html#ScalingPolicy">ScalingPolicy</a><br><small>Description of ScalingPolicy</small></span></li>
+<li><span class="class"><a href="OpenCloud.Autoscale.Resource.Webhook.html#Webhook">Webhook</a><br><small>Description of Webhook</small></span></li>
+</ul>
+</li>
+</ul>
 </li>
 <li class="closed">
 <span class="folder">CloudMonitoring</span><ul>
@@ -455,8 +392,7 @@ API key and tenant requirements.</small></span></li>
 </li>
 <li class="closed">
 <span class="folder">Common</span><ul>
-<li><span class="class"><a href="OpenCloud.Common.Base.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
-this SDK.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Base.html#Base">Base</a><br><small>The root class for all other objects used or defined by this SDK.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Collection.html#Collection">Collection</a><br><small>Provides an abstraction for working with ordered sets of objects</small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Debug.html#Debug">Debug</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
@@ -464,8 +400,7 @@ this SDK.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Nova.html#Nova">Nova</a><br><small>Nova is an abstraction layer for the OpenStack compute service.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.ObjectStore.html#ObjectStore">ObjectStore</a><br><small>Intermediate (abstract) class to implement shared
 features of all object-storage classes</small></span></li>
-<li><span class="class"><a href="OpenCloud.Common.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>Represents an object that can be retrieved, created, updated and deleted.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.ServiceCatalogItem.html#ServiceCatalogItem">ServiceCatalogItem</a><br><small>Holds information on a single service from the Service Catalog</small></span></li>
@@ -524,6 +459,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidParameterError.html#InvalidParameterError">InvalidParameterError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataDeleteError.html#MetadataDeleteError">MetadataDeleteError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataError.html#MetadataError">MetadataError</a><br><small></small></span></li>
@@ -549,6 +485,7 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
@@ -571,6 +508,14 @@ and a provided service, represented by a URL in the service catalog.</small></sp
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.UserUpdateError.html#UserUpdateError">UserUpdateError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
 <li><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="folder">Log</span><ul>
+<li><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
 </ul>
 </li>
 <li class="closed">
@@ -710,6 +655,8 @@ parameters for that template.</small></span></li>
 <ul id="packages-" class="filetree">
 <li class="closed">
 <span class="folder">Default</span><ul id="packages_" class="filetree">
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.AbstractLogger.html#AbstractLogger">AbstractLogger</a><br><small>This is a simple Logger implementation that other Loggers can inherit from.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Contains generic, abstracted functionality for Autoscale resources.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.AbstractResource.html#AbstractResource">AbstractResource</a><br><small>Abstract AbstractResource class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Access.html#Access">Access</a><br><small>sub-resource to manage access lists</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Account.html#Account">Account</a><br><small>Account class.</small></span></li>
@@ -731,8 +678,7 @@ asynchronous response.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AsyncTimeoutError.html#AsyncTimeoutError">AsyncTimeoutError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AttributeError.html#AttributeError">AttributeError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.AuthenticationError.html#AuthenticationError">AuthenticationError</a><br><small></small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.Common.Base.html#Base">Base</a><br><small>The Base class is the root class for all other objects used or defined by
-this SDK.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Base.html#Base">Base</a><br><small>The root class for all other objects used or defined by this SDK.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.BaseException.html#BaseException">BaseException</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.BillableLoadBalancer.html#BillableLoadBalancer">BillableLoadBalancer</a><br><small>used to get a list of billable load balancers for a specific date range</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Response.Blank.html#Blank">Blank</a><br><small>The HttpResponse returns an object with status information, separated
@@ -788,6 +734,13 @@ database-as-a-service product.</small></span></li>
 balancer.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.Flavor.html#Flavor">Flavor</a><br><small>The Flavor class represents a flavor defined by the Compute service</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.FlavorError.html#FlavorError">FlavorError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Resource.Group.html#Group">Group</a><br><small>An autoscaling group is monitored by Rackspace Cloud Monitoring. When
+Monitoring triggers an alarm for high utilization within the autoscaling
+group, a webhook is triggered. The webhook stimulates the autoscale service
+which consults a policy in accordance with the webhook. The policy determines
+how many additional cloud servers should be added or removed in accordance
+with the alarm.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Resource.GroupConfiguration.html#GroupConfiguration">GroupConfiguration</a><br><small>This specifies the basic elements of the group. The Group Configuration contains:</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.HealthMonitor.html#HealthMonitor">HealthMonitor</a><br><small>sub-resource to manage health monitor info</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Request.Response.Http.html#Http">Http</a><br><small>The HttpResponse returns an object with status information, separated
 headers, and any response body necessary.</small></span></li>
@@ -821,7 +774,12 @@ Compute service</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.InvalidRequestError.html#InvalidRequestError">InvalidRequestError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.JsonError.html#JsonError">JsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Lang.html#Lang">Lang</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Resource.LaunchConfiguration.html#LaunchConfiguration">LaunchConfiguration</a><br><small>This configuration specifies what to do when we want to create a new server.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.LoadBalancer.html#LoadBalancer">LoadBalancer</a><br><small>The LoadBalancer class represents a single load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.LogLevel.html#LogLevel">LogLevel</a><br><small>Describes log levels</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Log.Logger.html#Logger">Logger</a><br><small>Basic logger for OpenCloud which extends FIG&#39;s PSR-3 standard logger.</small></span></li>
+<li class="closed"><span class="interface"><a href="OpenCloud.Common.Log.LoggerInterface.html#LoggerInterface">LoggerInterface</a><br><small>Describes a logger instance</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.LoggingException.html#LoggingException">LoggingException</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Metadata.html#Metadata">Metadata</a><br><small>The Metadata class represents either Server or Image metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Metadata.html#Metadata">Metadata</a><br><small>sub-resource to manage Metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.MetadataCreateError.html#MetadataCreateError">MetadataCreateError</a><br><small></small></span></li>
@@ -866,8 +824,7 @@ objects</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.ObjectStore.ObjectStoreCDN.html#ObjectStoreCDN">ObjectStoreCDN</a><br><small>This is the CDN related to the ObjectStore</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.OpenStack.html#OpenStack">OpenStack</a><br><small>The OpenStack class represents a relationship (or "connection")
 between a user and a service.</small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.Common.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>represents an object that has the ability to be
-retrieved, created, updated, and deleted.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.PersistentObject.html#PersistentObject">PersistentObject</a><br><small>Represents an object that can be retrieved, created, updated and deleted.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Protocol.html#Protocol">Protocol</a><br><small>sub-resource to manage protocols (read-only)</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.DNS.PtrRecord.html#PtrRecord">PtrRecord</a><br><small>PTR records are used for reverse DNS</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Rackspace.html#Rackspace">Rackspace</a><br><small>Rackspace extends the OpenStack class with support for Rackspace&#39;s
@@ -881,17 +838,20 @@ class definitions.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.RecordTypeError.html#RecordTypeError">RecordTypeError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Orchestration.Resource.html#Resource">Resource</a><br><small></small></span></li>
 <li class="closed"><span class="interface"><a href="OpenCloud.CloudMonitoring.Resource.ResourceInterface.html#ResourceInterface">ResourceInterface</a><br><small>ResourceInterface interface.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Identity.Role.html#Role">Role</a><br><small>Description of Role</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.SSLTermination.html#SSLTermination">SSLTermination</a><br><small>sub-resource to manage SSL termination</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Resource.ScalingPolicy.html#ScalingPolicy">ScalingPolicy</a><br><small>Description of ScalingPolicy</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.Server.html#Server">Server</a><br><small>The Server class represents a single server node.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerActionError.html#ServerActionError">ServerActionError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerCreateError.html#ServerCreateError">ServerCreateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerDeleteError.html#ServerDeleteError">ServerDeleteError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerImageScheduleError.html#ServerImageScheduleError">ServerImageScheduleError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerIpsError.html#ServerIpsError">ServerIpsError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerJsonError.html#ServerJsonError">ServerJsonError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Compute.ServerMetadata.html#ServerMetadata">ServerMetadata</a><br><small>This class handles server metadata</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUpdateError.html#ServerUpdateError">ServerUpdateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.ServerUrlError.html#ServerUrlError">ServerUrlError</a><br><small></small></span></li>
-<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Heat service.</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Service.html#Service">Service</a><br><small>The Autoscale class represents the OpenStack Otter service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Service.html#Service">Service</a><br><small>The Rackspace Cloud Monitoring service.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Service.html#Service">Service</a><br><small>This class defines a "service"—a relationship between a specific OpenStack
 and a provided service, represented by a URL in the service catalog.</small></span></li>
@@ -921,6 +881,7 @@ a parent domain. In terms of the code involved, the JSON is slightly
 different than a top-level domain, and the parent is a domain instead of
 the DNS service itself.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.TempUrlMethodError.html#TempUrlMethodError">TempUrlMethodError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Identity.Tenant.html#Tenant">Tenant</a><br><small>Description of Tenant</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.TestException.html#TestException">TestException</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownError.html#UnknownError">UnknownError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UnknownParameterError.html#UnknownParameterError">UnknownParameterError</a><br><small></small></span></li>
@@ -931,6 +892,7 @@ the DNS service itself.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UpdateError.html#UpdateError">UpdateError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UrlError.html#UrlError">UrlError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.LoadBalancer.Resources.Usage.html#Usage">Usage</a><br><small>used to get usage data for a load balancer</small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Common.Identity.User.html#User">User</a><br><small>Represents a sub-user in Keystone.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Database.User.html#User">User</a><br><small>This class represents a User in the Rackspace "Red Dwarf"
 database-as-a-service product.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.UserCreateError.html#UserCreateError">UserCreateError</a><br><small></small></span></li>
@@ -946,6 +908,7 @@ to a server.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeError.html#VolumeError">VolumeError</a><br><small></small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Volume.VolumeType.html#VolumeType">VolumeType</a><br><small>The VolumeType class represents a single block storage volume type</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.Common.Exceptions.VolumeTypeError.html#VolumeTypeError">VolumeTypeError</a><br><small></small></span></li>
+<li class="closed"><span class="class"><a href="OpenCloud.Autoscale.Resource.Webhook.html#Webhook">Webhook</a><br><small>Description of Webhook</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Resource.Zone.html#Zone">Zone</a><br><small>Zone class.</small></span></li>
 <li class="closed"><span class="class"><a href="OpenCloud.CloudMonitoring.Exception.ZoneException.html#ZoneException">ZoneException</a><br><small></small></span></li>
 </ul>

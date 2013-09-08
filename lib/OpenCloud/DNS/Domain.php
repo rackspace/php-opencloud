@@ -1,13 +1,12 @@
 <?php
 /**
- * Defines a DNS domain
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\DNS;
@@ -17,9 +16,6 @@ namespace OpenCloud\DNS;
  *
  * Note that the `Subdomain` class is defined in this same file because of
  * mutual dependencies.
- *
- * @api
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 class Domain extends Object
 {
@@ -37,14 +33,14 @@ class Domain extends Object
     protected static $json_collection_name = 'domains';
     protected static $url_resource = 'domains';
 
-    protected $_create_keys = array(
+    protected $createKeys = array(
         'name',
         'emailAddress',
         'ttl',
         'comment'
     );
 
-    protected $_update_keys = array(
+    protected $updateKeys = array(
         'emailAddress',
         'ttl',
         'comment'
@@ -61,9 +57,12 @@ class Domain extends Object
      *
      * @return Record
      */
-    public function Record($info = null)
+    public function record($info = null)
     {
-        return new Record($this, $info);
+        $resource = new Record($this->getService());
+        $resource->setParent($this);
+        $resource->populate($info);
+        return $resource;
     }
 
     /**
@@ -72,18 +71,21 @@ class Domain extends Object
      * @param array $filter query-string parameters
      * @return \OpenCloud\Collection
      */
-    public function RecordList($filter = array())
+    public function recordList($filter = array())
     {
-        return $this->Parent()->Collection('\OpenCloud\DNS\Record', null, $this, $filter);
+        return $this->getParent()->collection('OpenCloud\DNS\Record', null, $this, $filter);
     }
 
     /**
      * returns a Subdomain object (child of current domain)
      *
      */
-    public function Subdomain($info = array())
+    public function subdomain($info = array())
     {
-        return new Subdomain($this, $info);
+        $resource = new Subdomain($this->getService());
+        $resource->setParent($this);
+        $resource->populate($info);
+        return $resource;
     }
 
     /**
@@ -95,9 +97,9 @@ class Domain extends Object
      * @param array $filter key/value pairs for query string parameters
      * return \OpenCloud\Collection
      */
-    public function SubdomainList($filter = array())
+    public function subdomainList($filter = array())
     {
-        return $this->Parent()->Collection('\OpenCloud\DNS\Subdomain', null, $this);
+        return $this->getParent()->collection('OpenCloud\DNS\Subdomain', null, $this);
     }
 
     /**
@@ -107,7 +109,7 @@ class Domain extends Object
      * @param Record $rec the record to add
      * @return integer the number of records
      */
-    public function AddRecord(Record $record)
+    public function addRecord(Record $record)
     {
         $this->records[] = $record;
         return count($this->records);
@@ -120,7 +122,7 @@ class Domain extends Object
      * @param Subdomain $subd the subdomain to add
      * @return integer the number of subdomains
      */
-    public function AddSubdomain(Subdomain $subdomain)
+    public function addSubdomain(Subdomain $subdomain)
     {
         $this->subdomains[] = $subdomain;
         return count($this->subdomains);
@@ -132,16 +134,10 @@ class Domain extends Object
      * @param string $since the date or time
      * @return DNS\Changes
      */
-    public function Changes($since = null)
-    {
-        if (isset($since)) {
-            $url = $this->Url('changes', array('since' => $since));
-        } else {
-            $url = $this->Url('changes');
-        }
-
-        // perform the request
-        return $this->Service()->SimpleRequest($url);
+    public function changes($since = null)
+    {   
+        $url = $this->url('changes', isset($since) ? array('since' => $since) : null);
+        return $this->getService()->simpleRequest($url);
     }
 
     /**
@@ -149,10 +145,9 @@ class Domain extends Object
      *
      * @return AsyncResponse
      */
-    public function Export()
+    public function export()
     {
-        $url = $this->Url('export');
-        return $this->Service()->AsyncRequest($url);
+        return $this->getService()->asyncRequest($this->url('export'));
     }
 
     /**
@@ -170,22 +165,21 @@ class Domain extends Object
      *  cloned (new) domain. Does not affect NS records.
      * @return AsyncResponse
      */
-    public function CloneDomain(
-            $newdomain,
-            $sub=TRUE,
-            $comments=TRUE,
-            $email=TRUE,
-            $records=TRUE)
-    {
-        $param = array(
-            'cloneName' => $newdomain,
-            'cloneSubdomains' => $sub,
-            'modifyComment' => $comments,
+    public function cloneDomain(
+        $newdomain,
+        $sub = true,
+        $comments = true,
+        $email = true,
+        $records = true
+    ) {
+        $url = $this->url('clone', array(
+            'cloneName'          => $newdomain,
+            'cloneSubdomains'    => $sub,
+            'modifyComment'      => $comments,
             'modifyEmailAddress' => $email,
-            'modifyRecordData' => $records
-        );
-        $url = $this->Url('clone', $param);
-        return $this->Service()->AsyncRequest($url, 'POST');
+            'modifyRecordData'   => $records
+        ));
+        return $this->getService()->asyncRequest($url, 'POST');
     }
 
     /**
@@ -194,17 +188,18 @@ class Domain extends Object
      * @api
      * @return \stdClass
      */
-    protected function CreateJson()
+    protected function createJson()
     {
-        $object = parent::CreateJson();
+        $object = parent::createJson();
 
         // add records, if any
-        if (count($this->records) > 0) {
-            $recordsObject = new \stdClass;
-            $recordsObject->records = array();
-            foreach($this->records as $record) {
+        if (count($this->records)) {
+            
+            $recordsObject = (object) array('records' => array());
+
+            foreach ($this->records as $record) {
                 $recordObject = new \stdClass;
-                foreach($record->CreateKeys() as $key) {
+                foreach($record->getCreateKeys() as $key) {
                     if (isset($record->$key)) {
                         $recordObject->$key = $record->$key;
                     }
@@ -215,12 +210,13 @@ class Domain extends Object
         }
 
         // add subdomains, if any
-        if (count($this->subdomains) > 0) {
-            $subdomainsObject = new \stdClass;
-            $subdomainsObject->domains = array();
+        if (count($this->subdomains)) {
+            
+            $subdomainsObject = (object) array('domains' => array());
+
             foreach($this->subdomains as $subdomain) {
                 $subdomainObject = new \stdClass;
-                foreach($subdomain->CreateKeys() as $key) {
+                foreach($subdomain->getCreateKeys() as $key) {
                     if (isset($subdomain->$key)) {
                         $subdomainObject->$key = $subdomain->$key;
                     }
@@ -229,7 +225,7 @@ class Domain extends Object
             }
             $object->domains[0]->subdomains = $subdomainsObject;
         }
-
+        
         return $object;
     }
 

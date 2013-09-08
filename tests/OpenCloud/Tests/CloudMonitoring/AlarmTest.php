@@ -108,4 +108,28 @@ class AlarmTest extends PHPUnit_Framework_TestCase
         echo $this->resource->criteria;
     }
     
+    public function testCreate()
+    {
+        $this->resource->create(array(
+            'check_id'             => 'foo',
+            'notification_plan_id' => 'bar'
+        ));
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\AlarmException
+     */
+    public function testTestWithoutCriteriaParamFails()
+    {
+        $this->resource->test();
+    }
+    
+    /**
+     * @expectedException OpenCloud\CloudMonitoring\Exception\AlarmException
+     */
+    public function testTestWithoutRequiredParamsFails()
+    {
+        $this->resource->test(array('criteria' => 'foobar'));
+    }
+    
 }

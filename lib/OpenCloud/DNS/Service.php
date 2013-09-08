@@ -1,13 +1,12 @@
 <?php
 /**
- * The Rackspace Cloud DNS service
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\DNS;
@@ -18,6 +17,9 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\OpenStack;
 use OpenCloud\Compute\Server;
 
+/**
+ * DNS Service.
+ */
 class Service extends AbstractService
 {
 
@@ -35,7 +37,9 @@ class Service extends AbstractService
         $serviceRegion,
         $urltype
     ) {
-        $this->debug(Lang::translate('initializing DNS...'));
+        
+        $this->getLogger()->info('Initializing DNS...');
+        
         parent::__construct(
             $connection,
             'rax:dns',
@@ -52,7 +56,7 @@ class Service extends AbstractService
      * @param mixed $info either the ID, an object, or array of parameters
      * @return DNS\Domain
      */
-    public function Domain($info = null)
+    public function domain($info = null)
     {
         return new Domain($this, $info);
     }
@@ -64,10 +68,10 @@ class Service extends AbstractService
      * @param array $filter key/value pairs to use as query strings
      * @return \OpenCloud\Collection
      */
-    public function DomainList($filter = array())
+    public function domainList($filter = array())
     {
-        $url = $this->Url(Domain::ResourceName(), $filter);
-        return $this->Collection('\OpenCloud\DNS\Domain', $url);
+        $url = $this->url(Domain::ResourceName(), $filter);
+        return $this->collection('OpenCloud\DNS\Domain', $url);
     }
 
     /**
@@ -76,7 +80,7 @@ class Service extends AbstractService
      * @param mixed $info ID, array, or object containing record data
      * @return Record
      */
-    public function PtrRecord($info = null)
+    public function ptrRecord($info = null)
     {
         return new PtrRecord($this, $info);
     }
@@ -88,11 +92,12 @@ class Service extends AbstractService
      *      retrieve the PTR records
      * @return Collection
      */
-    public function PtrRecordList(Server $server)
+    public function ptrRecordList(Server $server)
     {
-        $service_name = $server->Service()->Name();
-        $url = $this->Url('rdns/' . $service_name) . '?' . $this->MakeQueryString(array('href' => $server->Url()));
-        return $this->Collection('\OpenCloud\DNS\PtrRecord', $url);
+        $url = $this->url('rdns/' . $server->getService()->name(), array(
+            'href' => $server->url()
+        ));
+        return $this->collection('\OpenCloud\DNS\PtrRecord', $url);
     }
 
     /**
@@ -106,7 +111,7 @@ class Service extends AbstractService
      * @param string $body the body of the request (for PUT and POST)
      * @return \OpenCloud\HttpResponse
      */
-    public function Request(
+    public function request(
     	$url,
     	$method = 'GET',
     	array $headers = array(),
@@ -114,7 +119,7 @@ class Service extends AbstractService
     ) {
         $headers['Accept'] = RAXSDK_CONTENT_TYPE_JSON;
         $headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
-        return parent::Request($url, $method, $headers, $body);
+        return parent::request($url, $method, $headers, $body);
     }
 
     /**
@@ -131,12 +136,12 @@ class Service extends AbstractService
      * @param string $body the body of the request (for PUT and POST)
      * @return DNS\AsyncResponse
      */
-    public function AsyncRequest($url, $method = 'GET', $headers = array(), $body = null)
+    public function asyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
         // perform the initial request
-        $resp = $this->Request($url, $method, $headers, $body);
+        $resp = $this->request($url, $method, $headers, $body);
 
-        // check response status
+        // @codeCoverageIgnoreStart
         if ($resp->HttpStatus() > 204) {
             throw new Exceptions\AsyncHttpError(sprintf(
                 Lang::translate('Unexpected HTTP status for async request: URL [%s] method [%s] status [%s] response [%s]'),
@@ -146,12 +151,15 @@ class Service extends AbstractService
                 $resp->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         // debug
-        $this->debug('AsyncResponse [%s]', $resp->HttpBody());
+        $this->getLogger()->info('AsyncResponse [{body}]', array(
+            'body' => $resp->httpBody()
+        ));
 
         // return an AsyncResponse object
-        return new AsyncResponse($this, $resp->HttpBody());
+        return new AsyncResponse($this, $resp->httpBody());
     }
 
     /**
@@ -166,45 +174,39 @@ class Service extends AbstractService
      * @param string $data the BIND_9 formatted data to import
      * @return DNS\AsyncResponse
      */
-    public function Import($data)
+    public function import($data)
     {
         // determine the URL
-        $url = $this->Url('domains/import');
+        $url = $this->url('domains/import');
 
-        // create the JSON object
-        $object = new \stdClass;
-        $object->domains = array();
-
-        $domains = new \stdClass;
-        $domains->contents = $data;
-        $domains->contentType = 'BIND_9';
-        $object->domains[] = $domains;
+        $object = (object) array(
+            'domains' => array(
+                (object) array(
+                    'contents'    => $data,
+                    'contentType' => 'BIND_9'
+                )
+            )
+        );
 
         // encode it
         $json = json_encode($object);
 
         // debug it
-        $this->debug('Importing [%s]', $json);
+        $this->getLogger()->info('Importing [{json}]', array('json' => $json));
 
         // perform the request
-        return $this->AsyncRequest($url, 'POST', array(), $json);
+        return $this->asyncRequest($url, 'POST', array(), $json);
     }
 
     /**
      * returns a list of limits
      *
      */
-    public function Limits($type = null)
+    public function limits($type = null)
     {
-        $url = $this->url('limits');
-
-        if ($type !== null) {
-            $url .= '/' . $type;
-        }
-
-        // perform the request
-        $object = $this->SimpleRequest($url);
-        return ($type !== null) ? $object : $object->limits;
+        $url = $this->url('limits') . ($type ? "/$type" : '');
+        $object = $this->simpleRequest($url);
+        return ($type) ? $object : $object->limits;
     }
 
     /**
@@ -212,23 +214,24 @@ class Service extends AbstractService
      *
      * @return array
      */
-    public function LimitTypes()
+    public function limitTypes()
     {
-        $object = $this->SimpleRequest($this->Url('limits/types'));
+        $object = $this->simpleRequest($this->url('limits/types'));
         return $object->limitTypes;
     }
 
     /**
-     * performs a simple request and returns the JSON as an object
+     * Performs a simple request and returns the JSON as an object
      *
      * @param string $url the URL to GET
      */
-    public function SimpleRequest($url)
+    public function simpleRequest($url)
     {
-        // perform the request
-        $response = $this->Request($url);
+        // Perform the request
+        $response = $this->request($url);
 
-        // check for errors
+        // Check for errors
+        // @codeCoverageIgnoreStart
         if ($response->HttpStatus() > 202) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Unexpected status [%s] for URL [%s], body [%s]'),
@@ -237,16 +240,15 @@ class Service extends AbstractService
                 $response->HttpBody()
             ));
         }
+        // @codeCoverageIgnoreEnd
 
-        // decode the JSON
-        $json = $response->HttpBody();
-        $this->debug(Lang::translate('Limit Types JSON [%s]'), $json);
+        // Decode the JSON
+        $json = $response->httpBody();
+        $this->getLogger()->info('Limit Types JSON [{json}]', array('json' => $json));
 
         $object = json_decode($json);
 
-        if ($this->CheckJsonError()) {
-            return false;
-        }
+        $this->checkJsonError();
 
         return $object;
     }

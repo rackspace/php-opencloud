@@ -1,13 +1,12 @@
 <?php
 /**
- * An object that defines a virtual machine image
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Compute;
@@ -41,14 +40,20 @@ class Image extends PersistentObject
     protected static $json_name = 'image';
     protected static $url_resource = 'images';
 
-    public function Create($params = array()) 
+    /**
+     * {@inheritDoc}
+     */
+    public function create($params = array()) 
     { 
-        $this->NoCreate(); 
+        return $this->noCreate(); 
     }
 
-    public function Update($params = array()) 
+    /**
+     * {@inheritDoc}
+     */
+    public function update($params = array()) 
     { 
-        $this->NoUpdate(); 
+        return $this->noUpdate(); 
     }
 
 }

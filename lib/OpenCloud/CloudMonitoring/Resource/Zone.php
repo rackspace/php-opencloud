@@ -2,6 +2,8 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
+use OpenCloud\CloudMonitoring\Exception;
+
 /**
  * Zone class.
  * 
@@ -19,7 +21,7 @@ class Zone extends ReadOnlyResource implements ResourceInterface
 
     public function baseUrl($subresource = '')
     {
-    	return $this->Parent()->Url($this->ResourceName());
+    	return $this->getParent()->url($this->resourceName());
     }
 
     public function traceroute(array $options)
@@ -36,16 +38,17 @@ class Zone extends ReadOnlyResource implements ResourceInterface
             );
         }
         
-        $params = new \stdClass;
-        $params->target = $options['target'];
+        $params = (object) array('target' => $options['target']);
         
         if (isset($options['target_resolver'])) {
             $params->target_resolver = $options['target_resolver'];
         }
         
-        $url = $this->Url($this->id . '/traceroute');
-        $body = json_encode($params);        
-        return $this->Service()->Request($url, 'POST', array(), $body);
+        return $this->customAction(
+            $this->url($this->id . '/traceroute'), 
+            'POST', 
+            json_encode($params)
+        );
     }
     
 }

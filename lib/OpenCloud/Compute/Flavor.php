@@ -1,15 +1,12 @@
 <?php
-
 /**
- * A flavor object, which defines RAM, disk, and other settings for a virtual
- * machine.
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Compute;
@@ -38,20 +35,29 @@ class Flavor extends PersistentObject
 
     protected static $json_name = 'flavor';
     protected static $url_resource = 'flavors';
-
-    public function Create($params = array()) 
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function create($params = array()) 
     { 
-        return $this->NoCreate(); 
+        return $this->noCreate(); 
     }
     
-    public function Update($params = array()) 
+    /**
+     * {@inheritDoc}
+     */
+    public function update($params = array()) 
     { 
-        return $this->NoUpdate(); 
+        return $this->noUpdate(); 
     }
     
-    public function Delete() 
+    /**
+     * {@inheritDoc}
+     */
+    public function delete() 
     { 
-        return $this->NoDelete(); 
+        return $this->noDelete(); 
     }
 
 }

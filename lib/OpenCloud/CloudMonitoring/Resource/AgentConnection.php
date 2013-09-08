@@ -23,7 +23,10 @@ class AgentConnection extends ReadOnlyResource implements ResourceInterface
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'agents';
-
+    
+    /**
+     * @codeCoverageIgnore
+     */
     public function baseUrl()
     {
     }

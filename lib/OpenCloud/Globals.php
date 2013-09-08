@@ -145,7 +145,7 @@ if (!defined('RAXSDK_SSL_VERIFYPEER'))
 //define('RAXSDK_CACERTPEM', __DIR__ . DIRECTORY_SEPARATOR . 'cacert.pem');
 
 /* these should not be overridden */
-define('RAXSDK_VERSION', '1.5.9');
+define('RAXSDK_VERSION', '1.5.10');
 define('RAXSDK_USER_AGENT', 'php-opencloud/'.RAXSDK_VERSION.' (Rackspace)');
 define('RAXSDK_ERROR', 'Error:');
 define('RAXSDK_FATAL', 'FATAL ERROR:');
@@ -195,6 +195,8 @@ define('RAXSDK_DEBUG', false);
 /**
  * This is called if there is an error getting the default timezone;
  * that means that the default timezone isn't set.
+ * 
+ * @codeCoverageIgnore
  */
 function __raxsdk_timezone_set($errno, $errstr) {
 	if ($errno==2)
@@ -205,40 +207,4 @@ function __raxsdk_timezone_set($errno, $errstr) {
 set_error_handler('\OpenCloud\__raxsdk_timezone_set');
 @date_default_timezone_get();
 restore_error_handler();
-
-/********** SOME GLOBAL FUNCTIONS **********/
-
-	/**
-	 * \OpenCloud\Common\Lang::translate() - this function should be used to wrap all static strings. In the future,
-	 * this may provide us with a hook for providing different language
-	 * translations.
-	 */
-	function define_gettext() {
-		function translate($str) {
-			return $str;
-		}
-	}
-
-	if (!function_exists('_'))
-		define_gettext();
-
-	/**
-	 * removes trailing slash(es) from a URL string
-	 *
-	 * Mainly, this is just for appearance's sake. I really hate to see
-	 * URLs like .../servers//address, for some reason.
-	 */
-	function noslash($str) {
-		while ($str && (substr($str, -1) == '/'))
-			$str = substr($str, 0, strlen($str)-1);
-		return $str;
-	}
-
-	/**
-	 * Turns debugging on or off
-	 */
-	function setDebug($state=TRUE) {
-	    global $RAXSDK_DEBUG;
-	    $RAXSDK_DEBUG=$state;
-	}
 

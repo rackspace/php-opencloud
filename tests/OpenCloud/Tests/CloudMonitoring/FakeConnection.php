@@ -9,7 +9,9 @@ class FakeConnection extends OpenStack
 {
 	private $response;
 	private $testDir;
-
+    
+    public $realRequests = false;
+    
 	public function __construct($url, $secret, $options = array()) 
 	{
 		$this->testDir = __DIR__;
@@ -27,9 +29,13 @@ class FakeConnection extends OpenStack
 			);
 		}
 	}
-
+    
 	public function Request($url, $method = "GET", $headers = array(), $body = null) 
 	{   
+        if ($this->realRequests && !preg_match('#/tokens$#', $url)) {
+            return parent::Request($url, $method, $headers, $body);
+        }
+        
 		$this->url = trim($url, '/');
 		$response = new Blank;
 		$response->headers = array('Content-Length' => '999');
@@ -96,11 +102,6 @@ class FakeConnection extends OpenStack
 		$array = include 'Resource/PostResponses.php';
 		$array = $this->covertToRegex($array);
 		return $this->matchUrlToArray($array);
-	}
-
-	public function doDelete()
-	{
-
 	}
 
 }

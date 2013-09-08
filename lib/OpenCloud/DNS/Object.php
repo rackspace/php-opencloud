@@ -1,13 +1,12 @@
 <?php
 /**
- * The Rackspace Cloud DNS persistent object
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\DNS;
@@ -19,7 +18,6 @@ use OpenCloud\Common\Exceptions;
 /**
  * The DnsObject class is an extension of the PersistentObject class that
  * permits the asynchronous responses used by Cloud DNS
- *
  */
 abstract class Object extends PersistentObject 
 {
@@ -30,10 +28,9 @@ abstract class Object extends PersistentObject
      * @param array $params array of key/value pairs
      * @return AsyncResponse
      */
-    public function Create($params = array()) 
+    public function create($params = array()) 
     {
-        $resp = parent::Create($params);
-        return new AsyncResponse($this->Service(), $resp->HttpBody());
+        return new AsyncResponse($this->Service(), parent::create($params)->httpBody());
     }
 
     /**
@@ -42,10 +39,9 @@ abstract class Object extends PersistentObject
      * @param array $params array of key/value pairs
      * @return AsyncResponse
      */
-    public function Update($params = array()) 
+    public function update($params = array()) 
     {
-        $resp = parent::Update($params);
-        return new AsyncResponse($this->Service(), $resp->HttpBody());
+        return new AsyncResponse($this->Service(), parent::update($params)->httpBody());
     }
 
     /**
@@ -54,18 +50,9 @@ abstract class Object extends PersistentObject
      * @param array $params array of key/value pairs
      * @return AsyncResponse
      */
-    public function Delete() 
+    public function delete() 
     {
-        $resp = parent::Delete();
-        return new AsyncResponse($this->Service(), $resp->HttpBody());
-    }
-
-    /**
-     * returns the create keys
-     */
-    public function CreateKeys() 
-    {
-        return $this->_create_keys;
+        return new AsyncResponse($this->Service(), parent::delete()->httpBody());
     }
 
     /**
@@ -73,18 +60,19 @@ abstract class Object extends PersistentObject
      *
      * @return stdClass
      */
-    protected function CreateJson() 
+    protected function createJson() 
     {
-        if (!isset($this->_create_keys)) {
+        if (!$this->getCreateKeys()) {
             throw new Exceptions\CreateError(
-                Lang::translate('Missing [_create_keys]')
+                Lang::translate('Missing [createKeys]')
             );
         }
 
         $object = new \stdClass;
-        $object->{self::JsonCollectionName()} = array(
-            $this->GetJson($this->_create_keys)
+        $object->{self::jsonCollectionName()} = array(
+            $this->getJson($this->getCreateKeys())
         );
+        
         return $object;
     }
 
@@ -93,14 +81,14 @@ abstract class Object extends PersistentObject
      *
      * @return stdClass
      */
-    protected function UpdateJson($params = array()) 
+    protected function updateJson($params = array()) 
     {
-        if (!isset($this->_update_keys)) {
+        if (!$this->getUpdateKeys()) {
             throw new Exceptions\UpdateError(
-                Lang::translate('Missing [_update_keys]')
+                Lang::translate('Missing [updateKeys]')
             );
         }
-        return $this->GetJson($this->_update_keys);
+        return $this->getJson($this->getUpdateKeys());
     }
 
     /**
@@ -109,15 +97,35 @@ abstract class Object extends PersistentObject
      * @param array $keys list of items to include
      * @return stdClass
      */
-    private function GetJson($keys) 
+    private function getJson($keys) 
     {
         $object = new \stdClass;
         foreach($keys as $item) {
-            if ($this->$item) {
+            if (!empty($this->$item)) {
                 $object->$item = $this->$item;
             }
         }
         return $object;
     }
-
+    
+    /**
+     * Retrieve the keys which are required when the object is created.
+     * 
+     * @return array|false
+     */
+    public function getCreateKeys()
+    {
+        return (!empty($this->createKeys)) ? $this->createKeys : false;
+    }
+    
+    /**
+     * Retrieve the keys which are required when the object is updated.
+     *  
+     * @return array|false
+     */
+    public function getUpdateKeys()
+    {
+        return (!empty($this->updateKeys)) ? $this->updateKeys : false;
+    }
+    
 }

@@ -20,29 +20,17 @@ use OpenCloud\OpenStack;
 /**
  * The Orchestration class represents the OpenStack Heat service.
  *
- * It is constructed from a OpenStack object and requires a service name,
- * region, and URL type to select the proper endpoint from the service
- * catalog. However, constants can be used to define default values for
- * these to make it easier to use:
- *
+ * Heat is a service to orchestrate multiple composite cloud applications using 
+ * the AWS CloudFormation template format, through both an OpenStack-native ReST 
+ * API and a CloudFormation-compatible Query API.
+ * 
+ * @codeCoverageIgnore
  */
-class Service extends AbstractService {
+class Service extends AbstractService 
+{
 
     /**
-     * Called when creating a new Compute service object
-     *
-     * _NOTE_ that the order of parameters for this is *different* from the
-     * parent Service class. This is because the earlier parameters are the
-     * ones that most typically change, whereas the later ones are not
-     * modified as often.
-     *
-     * @param \OpenCloud\Identity $conn - a connection object
-     * @param string $serviceRegion - identifies the region of this Compute
-     *      service
-     * @param string $urltype - identifies the URL type ("publicURL",
-     *      "privateURL")
-     * @param string $serviceName - identifies the name of the service in the
-     *      catalog
+     * {@inheritDoc}
      */
     public function __construct(
         OpenStack $conn,
@@ -50,7 +38,9 @@ class Service extends AbstractService {
         $serviceRegion,
         $urltype
     ) {
-        $this->debug(_('initializing Orchestration...'));
+        
+        $this->getLogger()->info('Initializing Orchestration...');
+        
         parent::__construct(
             $conn,
             'orchestration',
@@ -67,11 +57,18 @@ class Service extends AbstractService {
      * @param string $id - the stack with the ID is retrieved
      * @returns Stack object
      */
-    public function Stack($id = null) {
+    public function stack($id = null) 
+    {
         return new Stack($this, $id);
     }
-
-    public function namespaces() {
+    
+    /**
+     * Return namespaces.
+     * 
+     * @return array
+     */
+    public function namespaces() 
+    {
         return array();
     }
 }

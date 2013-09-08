@@ -1,28 +1,47 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @version   1.6.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\LoadBalancer\Resources;
 
 /**
- * sub-resource to manage content caching
- *
- * @api
+ * When content caching is enabled, recently-accessed files are stored on the 
+ * load balancer for easy retrieval by web clients. Content caching improves the 
+ * performance of high traffic web sites by temporarily storing data that was 
+ * recently accessed. While it's cached, requests for that data will be served 
+ * by the load balancer, which in turn reduces load off the back end nodes. The 
+ * result is improved response times for those requests and less load on the web 
+ * server.
+ * 
+ * @todo Should this be a separate class, or a property of LoadBalancer?
  */
 class ContentCaching extends SubResource 
 {
-
+    /**
+     * @var bool 
+     */
 	public $enabled;
+    
     protected static $json_name = "contentCaching";
     protected static $url_resource = "contentcaching";
-    protected $_create_keys = array( 'enabled' );
+    
+    protected $createKeys = array('enabled');
 
-	public function Create($params = array()) 
+	public function create($params = array()) 
     { 
-        $this->Update($parm); 
+        return $this->update($params); 
     }
 
-	public function Delete() 
+	public function delete() 
     { 
-        $this->NoDelete(); 
+        return $this->noDelete(); 
     }
 
 }
