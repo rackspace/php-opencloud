@@ -13,7 +13,9 @@ namespace OpenCloud\Queues\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\Common\Exceptions\CreateError;
 use OpenCloud\Queues\Exception;
+use OpenCloud\Common\Metadata;
 
 /**
  * A queue holds messages. Ideally, a queue is created per work type. For example, 
@@ -22,11 +24,6 @@ use OpenCloud\Queues\Exception;
  */
 class Queue extends PersistentObject
 {
-    /**
-     * @var string 
-     */
-    public $id;
-    
     /**
      * The name given to the queue. The name MUST NOT exceed 64 bytes in length, 
      * and is limited to US-ASCII letters, digits, underscores, and hyphens.
@@ -42,20 +39,33 @@ class Queue extends PersistentObject
      */
     protected $metadata;
     
+    /**
+     * Populated when the service's listQueues() method is called. Provides a 
+     * convenient link for a particular Queue.
+     * 
+     * @var string 
+     */
+    protected $href;
+    
     protected static $url_resource = 'queues';
     protected static $json_collection_name = 'queues';
     
     public $createKeys = array('name');
-    
-    public function getId()
-    {
-        return $this->id;
-    }
-    
+        
     public function setName($name)
     {
         $this->name = $name;
         return $this;
+    }
+    
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    public function getHref()
+    {
+        return $this->href;
     }
     
     /**
@@ -70,13 +80,13 @@ class Queue extends PersistentObject
     public function setMetadata($data, $query = true)
     {
         // Check for either objects, arrays or Metadata objects
-        if (is_array($data) || is_object($data)) {
+        if ($data instanceof Metadata) {
+            $metadata = $data;
+        } elseif (is_array($data) || is_object($data)) {
             $metadata = new Metadata();
             $metadata->setArray($data);
-        } elseif ($data instanceof Metadata) {
-            $metadata = $data;
         } else {
-            throw new InvalidArgumentError(sprint(
+            throw new InvalidArgumentError(sprintf(
                 'You must specify either an array/object of parameters, or an '
                 . 'instance of Metadata. You provided: %s',
                 print_r($data, true)
@@ -92,7 +102,7 @@ class Queue extends PersistentObject
             // Get metadata properties as JSON-encoded object
             $json = json_encode((object) get_object_vars($metadata));
             $url  = $this->url('metadata');
-            $response = $this->getService()->request($url, 'POST', array(), $json);
+            $response = $this->getService()->request($url, 'PUT', array(), $json);
             
             // Catch errors
             if ($response->httpStatus() != 204) {
@@ -118,7 +128,7 @@ class Queue extends PersistentObject
     public function getMetadata($query = true)
     {
         if ($query === true) {
-            
+
             $response = $this->getService()->request($this->url('metadata'));
             
             if ($response->httpStatus() != 200) {
@@ -129,7 +139,7 @@ class Queue extends PersistentObject
             
             $data = json_decode($response->httpBody());
             $this->checkJsonError();
-            
+  
             $metadata = new Metadata();
             $metadata->setArray($data);
             $this->setMetadata($metadata, true);
@@ -138,6 +148,53 @@ class Queue extends PersistentObject
         
         return $this->metadata;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function create($params = array())
+    {
+        // set parameters
+        if (!empty($params)) {
+            $this->populate($params, false);
+        }
+
+        // debug
+        $this->getLogger()->info('{class}::Create({name})', array(
+            'class' => get_class($this), 
+            'name'  => $this->Name()
+        ));
+
+        // construct the JSON
+        $object = $this->createJson();
+        $json = json_encode($object);
+        $this->checkJsonError();
+
+        $this->getLogger()->info('{class}::Create JSON [{json}]', array(
+            'class' => get_class($this), 
+            'json'  => $json
+        ));
+
+        // send the request
+        $response = $this->getService()->request(
+            $this->url(),
+            'PUT',
+            array('Content-Type' => 'application/json'),
+            $json
+        );
+        
+        if ($response->httpStatus() != 201) {
+            throw new CreateError(sprintf(
+                'Error creating [%s] [%s], status [%d] response [%s]',
+                get_class($this),
+                $this->getName(),
+                $response->httpStatus(),
+                $response->httpBody()
+            ));
+        }
+        
+        $this->href = $response->header('Location');
+    } 
     
     /**
      * {@inheritDoc}
@@ -163,7 +220,7 @@ class Queue extends PersistentObject
     /**
      * {@inheritDoc}
      */
-    public function update()
+    public function update($params = array())
     {
         return $this->noUpdate();
     }
@@ -176,8 +233,8 @@ class Queue extends PersistentObject
      */
     public function getStats()
     {
-        $body = $this->customAction('stats');
-        return $body->messages;
+        $body = $this->customAction($this->url('stats'));
+        return (!isset($body->messages)) ? false : $body->messages;
     }
     
     
@@ -195,6 +252,14 @@ class Queue extends PersistentObject
     public function getMessage($id = null)
     {
         return $this->getService()->resource('Message', $id)->setParent($this);
+    }
+    
+    /**
+     * Collection method.
+     */
+    public function message($id = null)
+    {
+        return $this->getMessage($id);
     }
     
     /**
@@ -231,7 +296,7 @@ class Queue extends PersistentObject
             $options['ids'] = implode(',', $options['ids']);
         }
         
-        $url = $this->url(null, $options);
+        $url = $this->url('messages', $options);
         return $this->getService()->resourceList('Message', $url, $this);
     }
     
@@ -315,7 +380,9 @@ class Queue extends PersistentObject
      */
     public function getClaim($id = null)
     {
-        return $this->getService()->resource('Claim', $id)->setParent($this);
+        $resource = $this->getService()->resource('Claim');
+        $resource->setParent($this)->populate($id);
+        return $resource;
     }
     
 }

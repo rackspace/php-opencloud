@@ -10,6 +10,7 @@
 
 namespace OpenCloud\Queues;
 
+use OpenCloud\OpenStack;
 use OpenCloud\Common\Service as AbstractService;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 
@@ -62,10 +63,10 @@ class Service extends AbstractService
      * @param mixed $urlType
      * @return void
      */
-    public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType)
+    public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType = null)
     {
         parent::__construct(
-            $connection, 'rax:monitor', $serviceName, $serviceRegion, $urlType
+            $connection, 'rax:queues', $serviceName, $serviceRegion, $urlType
         );
     }
     
@@ -110,9 +111,9 @@ class Service extends AbstractService
      */
     public function hasQueue($name)
     {
-        if (empty($name)) {
+        if (!$name || !is_string($name)) {
             throw new InvalidArgumentError(sprintf(
-                'You must provide a queue name (a string). You provided: %s',
+                'You must provide a queue name as a valid string. You provided: %s',
                 print_r($name, true)
             ));
         }

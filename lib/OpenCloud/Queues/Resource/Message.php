@@ -11,6 +11,7 @@
 
 namespace OpenCloud\Queues\Resource;
 
+use OpenCloud\Common\PersistentObject;
 use OpenCloud\Queues\Exception\DeleteMessageException;
 
 /**
@@ -97,15 +98,8 @@ class Message extends PersistentObject
      */
     public function setTtl($ttl)
     {
-        if ($id = $this->getId()) {
-            $this->getLogger()->warning(
-                'Attempting to change a read-only value (TTL) on a message '
-                . 'which already exists (ID = {id})',
-                array('id' => $id)
-            );
-        } else {
-            $this->ttl = $ttl;
-        }
+        $this->ttl = $ttl;
+        return $this;
     }
     
     /**
@@ -134,6 +128,8 @@ class Message extends PersistentObject
         } else {
             $this->body = $body;
         }
+        
+        return $this;
     }
     
     /**
@@ -160,7 +156,7 @@ class Message extends PersistentObject
     /**
      * {@inheritDoc}
      */
-    public function update()
+    public function update($params = array())
     {
         return $this->noUpdate();
     }
@@ -199,6 +195,11 @@ class Message extends PersistentObject
         }
         
         return true;
+    }
+    
+    public function name()
+    {
+        return $this->getId();
     }
     
 }

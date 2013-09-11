@@ -332,10 +332,14 @@ abstract class Service extends Base
      * @param string $urltype The URL type; defaults to "publicURL"
      * @return string The URL of the service
      */
-    private function getEndpoint($type, $name, $region, $urltype = 'publicURL')
+    private function getEndpoint($type, $name, $region, $urltype = null)
     {
         $catalog = $this->getConnection()->serviceCatalog();
-
+        
+        if (empty($urltype)) {
+            $urltype = RAXSDK_URL_PUBLIC;
+        }
+        
         // Search each service to find The One
         foreach ($catalog as $service) {
             // Find the service by comparing the type ("compute") and name ("openstack")

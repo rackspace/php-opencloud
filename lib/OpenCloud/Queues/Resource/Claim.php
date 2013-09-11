@@ -22,7 +22,7 @@ class Claim extends PersistentObject
     /**
      * @var string 
      */
-    protected $id;
+    public $id;
     
     /**
      * @var int 
@@ -56,13 +56,40 @@ class Claim extends PersistentObject
      */
     protected $grace;
     
+    protected $href;
+    
     protected static $url_resource = 'claims';
     protected static $json_name = '';
+    
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    public function getAge()
+    {
+        return $this->age;
+    }
+    
+    public function getGrace()
+    {
+        return $this->grace;
+    }
+    
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+    
+    public function getTtl()
+    {
+        return $this->ttl;
+    }
     
     /**
      * {@inheritDoc}
      */
-    public function create()
+    public function create($params = array())
     {
         return $this->noCreate();
     }
@@ -74,13 +101,13 @@ class Claim extends PersistentObject
      * the claim (which may be different from the original TTL). The server will 
      * then reset the age of the claim and apply the new TTL.
      */
-    public function update()
+    public function update($params = array())
     {
         $object = (object) array(
             'grace' => $this->getGrace(), 
             'ttl'   => $this->getTtl()
         );
-        
+
         $json = json_encode($object);
         $this->checkJsonError();
 

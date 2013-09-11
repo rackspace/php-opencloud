@@ -166,14 +166,17 @@ abstract class Base
      *      the property prefix is not in the list of prefixes.
      */
     public function setProperty($property, $value, array $prefixes = array())
-    {
-        // if strict checks are off, go ahead and set it
-        if (!RAXSDK_STRICT_PROPERTY_CHECKS 
-            || $this->checkAttributePrefix($property, $prefixes)
-        ) {
+    {  
+        $setter = 'set' . ucfirst($property);
+        if (method_exists($this, $setter)) {
+            // Does an explicitly defined setter method exist?
+            return call_user_func($setter, $value);
+        } elseif (!RAXSDK_STRICT_PROPERTY_CHECKS || $this->checkAttributePrefix($property, $prefixes)) {
+            // If not, we have to attempt to set the property directly.
+            // If strict checks are off, go ahead and set it
             $this->$property = $value;
         } else {
-            // if that fails, then throw the exception
+            // If that fails, then throw the exception
             throw new AttributeError(sprintf(
                 Lang::translate('Unrecognized attribute [%s] for [%s]'),
                 $property,

@@ -194,11 +194,11 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\IOError
+     * @expectedException OpenCloud\Common\Exceptions\IOError
      */
     public function testSaveToFilenameFailsWithoutPath()
     {
-        $this->dataobject->saveToFilename('/foo');
+        $this->dataobject->saveToFilename('/foo/bar');
     }
 
     /**
