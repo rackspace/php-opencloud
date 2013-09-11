@@ -75,7 +75,7 @@ authentication methods outlined above.
 where `{name}` is the service name (e.g., "cloudFiles"),
 `{region}` is the region identifier (e.g., "DFW" or "LON"), and
 `{urltype}` is the URL type (normally `'publicURL'` by default, but
-can be changed if you're working with an internal staging instance).
+can be changed if you're working with an internal staging instance e.g. `'internalURL'`).
 
 You can simplify this by setting the defaults:
 
