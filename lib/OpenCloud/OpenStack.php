@@ -765,11 +765,22 @@ class OpenStack extends Base
     public function request($urls, $method = 'GET', $headers = array(), $data = null)
     {
         if(is_array($urls)) {
+            $exception = null;
             foreach ($urls as $url) {
                 /* logic around redundancy / failover goes here */
-                $response = $this->requestOne($url, $method, $headers, $data);
-                return $response;
+                try {
+                    $response = $this->requestOne($url, $method, $headers, $data);
+                    return $response;
+                } catch (\Exception $e) {
+                    if(strpos($e->getMessage(), "[name lookup timed out]")) {
+                        //continue... got a better way to check for a cloudfiles region being down because this don't work.. i have to add and delete routes to fake it
+                        $exception = $e;
+                    } else {
+                        throw $e;
+                    }
+                }
             }
+            throw $exception;
         } else {
             return $this->requestOne($urls, $method, $headers, $data);
         }
