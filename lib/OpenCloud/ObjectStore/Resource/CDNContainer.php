@@ -119,7 +119,12 @@ class CDNContainer extends AbstractStorageObject
             );
         }
         
-        return Lang::noslash($this->getService()->url(rawurlencode($this->name)));
+        $urls = $this->getService()->url(rawurlencode($this->name));
+        foreach ($urls as $url) {
+            $url = Lang::noslash($url);
+        }
+        
+        return $urls;
     }
 
     /**

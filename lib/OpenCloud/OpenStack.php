@@ -754,7 +754,7 @@ class OpenStack extends Base
      * exceptions for the request.
      *
      * @api
-     * @param string url - the URL of the request
+     * @param array urls - the URL of the request
      * @param string method - the HTTP method (defaults to GET)
      * @param array headers - an associative array of headers
      * @param string data - either a string or a resource (file pointer) to
@@ -762,7 +762,15 @@ class OpenStack extends Base
      * @return HttpResponse object
      * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
      */
-    public function request($url, $method = 'GET', $headers = array(), $data = null)
+    public function request($urls, $method = 'GET', $headers = array(), $data = null)
+    {
+        if(is_array($urls)) {
+            $urls = $urls[0];
+        }
+        return $this->requestOne($urls, $method, $headers, $data);
+    }
+    
+    private function requestOne($url, $method = 'GET', $headers = array(), $data = null)
     {
         $this->getLogger()->info('Resource [{url}] method [{method}] body [{body}]', array(
             'url'    => $url, 
@@ -908,7 +916,7 @@ class OpenStack extends Base
      * @api
      * @param string $service the name of a supported service; e.g. 'Compute'
      * @param string $name the service name; e.g., 'cloudServersOpenStack'
-     * @param string $region the region name; e.g., 'LON'
+     * @param array $regions the region name; e.g., 'LON'
      * @param string $urltype the type of URL to use; e.g., 'internalURL'
      * @return void
      * @throws UnrecognizedServiceError
@@ -916,7 +924,7 @@ class OpenStack extends Base
     public function setDefaults(
         $service,
         $name = null,
-        $region = null,
+        $regions = null,
         $urltype = null
     ) {
 
@@ -930,8 +938,8 @@ class OpenStack extends Base
             $this->defaults[$service]['name'] = $name;
         }
 
-        if (isset($region)) {
-            $this->defaults[$service]['region'] = $region;
+        if (isset($regions)) {
+            $this->defaults[$service]['regions'] = $regions;
         }
 
         if (isset($urltype)) {
@@ -1136,18 +1144,18 @@ class OpenStack extends Base
      *
      * @param string $class the name of the Service class to produce
      * @param string $name the name of the Compute service to attach to
-     * @param string $region the name of the region to use
+     * @param array $regions the name of the region to use
      * @param string $urltype the URL type (normally "publicURL")
      * @return Service (or subclass such as Compute, ObjectStore)
      * @throws ServiceValueError
      */
-    public function service($class, $name = null, $region = null, $urltype = null)
+    public function service($class, $name = null, $regions = null, $urltype = null)
     {
         // debug message
         $this->getLogger()->info('Factory for class [{class}] [{name}/{region}/{urlType}]', array(
             'class'   => $class, 
             'name'    => $name, 
-            'region'  => $region, 
+            'regions'  => $regions, 
             'urlType' => $urltype
         ));
 
@@ -1165,7 +1173,7 @@ class OpenStack extends Base
             ));
         }
 
-        if (!$region = $region ?: $default['region']) {
+        if (!$regions = $regions ?: $default['regions']) {
             throw new Exceptions\ServiceValueError(sprintf(
                 Lang::translate('No value for %s region'),
                 $class
@@ -1182,7 +1190,7 @@ class OpenStack extends Base
         // return the object
         $fullclass = 'OpenCloud\\' . $class . '\\Service';
 
-        return new $fullclass($this, $name, $region, $urltype);
+        return new $fullclass($this, $name, $regions, $urltype);
     }
 
     /**

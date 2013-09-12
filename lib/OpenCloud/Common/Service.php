@@ -33,7 +33,7 @@ abstract class Service extends Base
     private $service_type;
     private $service_name;
     private $service_region;
-    private $service_url;
+    private $service_urls;
 
     protected $_namespaces = array();
 
@@ -49,7 +49,7 @@ abstract class Service extends Base
      * @param OpenStack $conn - a Connection object
      * @param string $type - the service type (e.g., "compute")
      * @param string $name - the service name (e.g., "cloudServersOpenStack")
-     * @param string $region - the region (e.g., "ORD")
+     * @param array $regions - the regions (e.g., "ORD")
      * @param string $urltype - the specified URL from the catalog
      *      (e.g., "publicURL")
      */
@@ -57,15 +57,15 @@ abstract class Service extends Base
         OpenStack $conn,
         $type,
         $name,
-        $region,
+        $regions,
         $urltype = RAXSDK_URL_PUBLIC,
         $customServiceUrl = null
     ) {
         $this->setConnection($conn);
         $this->service_type = $type;
         $this->service_name = $name;
-        $this->service_region = $region;
-        $this->service_url = $customServiceUrl ?: $this->getEndpoint($type, $name, $region, $urltype);
+        $this->service_regions = $regions;
+        $this->service_urls = $customServiceUrl ?: $this->getEndpoint($type, $name, $regions, $urltype);
     }
     
     /**
@@ -97,18 +97,20 @@ abstract class Service extends Base
      */
     public function url($resource = '', array $param = array())
     {
-        $baseurl = $this->service_url;
+        $baseurls = $this->service_urls;
 
-		// use strlen instead of boolean test because '0' is a valid name
-        if (strlen($resource) > 0) {
-            $baseurl = Lang::noslash($baseurl).'/'.$resource;
+        foreach ($baseurls as $baseurl) {
+                    // use strlen instead of boolean test because '0' is a valid name
+            if (strlen($resource) > 0) {
+                $baseurl = Lang::noslash($baseurl).'/'.$resource;
+            }
+
+            if (!empty($param)) {
+                $baseurl .= '?'.$this->MakeQueryString($param);
+            }
         }
 
-        if (!empty($param)) {
-            $baseurl .= '?'.$this->MakeQueryString($param);
-        }
-
-        return $baseurl;
+        return $baseurls;
     }
 
     /**
@@ -162,7 +164,7 @@ abstract class Service extends Base
             $headers['X-Auth-Project-Id'] = $tenant;
         }
         
-        return $this->conn->request($url, $method, $headers, $body);
+        return $this->conn->request($url[0], $method, $headers, $body);
     }
 
     /**
@@ -328,11 +330,11 @@ abstract class Service extends Base
      * @param string $type The OpenStack service type ("compute" or
      *      "object-store", for example
      * @param string $name The name of the service in the service catlog
-     * @param string $region The region of the service
+     * @param array $regions The regions of the service
      * @param string $urltype The URL type; defaults to "publicURL"
      * @return string The URL of the service
      */
-    private function getEndpoint($type, $name, $region, $urltype = 'publicURL')
+    private function getEndpoint($type, $name, $regions, $urltype = 'publicURL')
     {
         $catalog = $this->getConnection()->serviceCatalog();
 
@@ -341,13 +343,15 @@ abstract class Service extends Base
             // Find the service by comparing the type ("compute") and name ("openstack")
             if (!strcasecmp($service->type, $type) && !strcasecmp($service->name, $name)) {
                 foreach($service->endpoints as $endpoint) {
-                    // Only set the URL if:
-                    // a. It is a regionless service (i.e. no region key set)
-                    // b. The region matches the one we want
-                    if (isset($endpoint->$urltype) && 
-                        (!isset($endpoint->region) || !strcasecmp($endpoint->region, $region))
-                    ) {
-                        $url = $endpoint->$urltype;
+                    foreach($regions as $region) {
+                        // Only set the URL if:
+                        // a. It is a regionless service (i.e. no region key set)
+                        // b. The region matches the one we want
+                        if (isset($endpoint->$urltype) && 
+                            (!isset($endpoint->region) || !strcasecmp($endpoint->region, $region))
+                        ) {
+                            $url[] = $endpoint->$urltype;
+                        }
                     }
                 }
             }
