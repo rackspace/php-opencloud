@@ -242,12 +242,14 @@ class DataObject extends AbstractStorageObject
         }
         
         $urls = $this->container->url();
+        $processedUrls = array();
         foreach ($urls as $url) {
             $url = Lang::noslash($url) . '/' . 
                     str_replace('%2F', '/', rawurlencode($this->name));
+            $processedUrls[] = $url;
         }
 
-        return $urls;
+        return $processedUrls;
     }
 
     /**
