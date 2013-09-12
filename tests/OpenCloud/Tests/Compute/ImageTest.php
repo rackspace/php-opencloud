@@ -10,10 +10,9 @@
  * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\Compute;
 
-require_once('StubConnection.php');
-
+use OpenCloud\Tests\StubConnection;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Compute\Image;
 use OpenCloud\Compute\Service;

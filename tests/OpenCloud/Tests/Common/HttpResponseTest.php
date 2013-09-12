@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\Common;
 
 define('TESTDATA', <<<ENDTESTDATA
 Four score and seven years ago, our
