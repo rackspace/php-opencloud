@@ -9,12 +9,38 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
+namespace OpenCloud\Smoke\Unit;
+
 /**
  * Description of Autoscale
  * 
  * @link 
  */
-class Autoscale
+class Autoscale extends AbstractUnit implements UnitInterface
 {
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function setup()
+    {
+        
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function main()
+    {
+        
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function teardown()
+    {
+        
+    }
     
 }

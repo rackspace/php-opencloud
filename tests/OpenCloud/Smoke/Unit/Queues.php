@@ -9,12 +9,36 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
+namespace OpenCloud\Smoke\Unit;
+
 /**
  * Description of Queues
  * 
  * @link 
  */
-class Queues
+class Queues extends AbstractUnit implements UnitInterface
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function setup()
+    {
+        
+    }
     
+    /**
+     * {@inheritDoc}
+     */
+    public function main()
+    {
+        
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function teardown()
+    {
+        
+    }
 }

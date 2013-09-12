@@ -12,33 +12,28 @@
 namespace OpenCloud\Smoke\Unit;
 
 /**
- * Description of Compute
+ * Description of AbstractUnit
  * 
  * @link 
  */
-class Compute extends AbstractUnit implements UnitInterface
+abstract class AbstractUnit
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function setup()
-    {
-        
-    }
     
     /**
-     * {@inheritDoc}
+     * Factory method for instantiating the unit object, and executing its 
+     * main algorithm.
+     * 
+     * @return UnitInterface
      */
-    public function main()
+    public static function factory()
     {
+        $unit = new static();
         
+        $unit->startup();
+        $unit->main();
+        $unit->teardown();
+        
+        return true;
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    public function teardown()
-    {
-        
-    }
 }
