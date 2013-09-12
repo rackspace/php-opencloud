@@ -379,7 +379,7 @@ class Container extends CDNContainer
         parent::refresh($id, $url);
         
         // @codeCoverageIgnoreStart
-		if ($this->getService() instanceof CDNService) {
+		if ($this->getService() instanceof CDNService || $this instanceof CDNContainer) {
 			return;
         }
         

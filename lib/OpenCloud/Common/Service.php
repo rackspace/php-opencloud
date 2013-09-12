@@ -32,7 +32,7 @@ abstract class Service extends Base
     protected $conn;
     private $service_type;
     private $service_name;
-    private $service_region;
+    private $service_regions;
     private $service_urls;
 
     protected $_namespaces = array();
@@ -292,7 +292,7 @@ abstract class Service extends Base
      */
     public function region()
     {
-        return $this->service_region;
+        return $this->service_regions;
     }
 
     /**
@@ -386,7 +386,7 @@ abstract class Service extends Base
         $urlBase = $this->getEndpoint(
             $this->service_type,
             $this->service_name,
-            $this->service_region,
+            $this->service_regions,
             RAXSDK_URL_PUBLIC
         );
 
