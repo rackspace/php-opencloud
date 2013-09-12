@@ -11,7 +11,6 @@
 namespace OpenCloud\Tests\Orchestration;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\Common\Exceptions\ServiceValueError;
 use OpenCloud\Tests\StubConnection;
 
 class ServiceTest extends PHPUnit_Framework_TestCase 
