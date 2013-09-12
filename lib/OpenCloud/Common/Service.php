@@ -98,7 +98,7 @@ abstract class Service extends Base
     public function url($resource = '', array $param = array())
     {
         $baseurls = $this->service_urls;
-
+        $urls = array();
         foreach ($baseurls as $baseurl) {
                     // use strlen instead of boolean test because '0' is a valid name
             if (strlen($resource) > 0) {
@@ -108,9 +108,10 @@ abstract class Service extends Base
             if (!empty($param)) {
                 $baseurl .= '?'.$this->MakeQueryString($param);
             }
+            $urls[] = $baseurl;
         }
 
-        return $baseurls;
+        return $urls;
     }
 
     /**
@@ -164,18 +165,18 @@ abstract class Service extends Base
             $headers['X-Auth-Project-Id'] = $tenant;
         }
         
-        return $this->conn->request($url[0], $method, $headers, $body);
+        return $this->conn->request($url, $method, $headers, $body);
     }
 
     /**
      * returns a collection of objects
      *
      * @param string $class the class of objects to fetch
-     * @param string $url (optional) the URL to retrieve
+     * @param array $urls (optional) the URL to retrieve
      * @param mixed $parent (optional) the parent service/object
      * @return OpenCloud\Common\Collection
      */
-    public function collection($class, $url = null, $parent = null)
+    public function collection($class, $urls = null, $parent = null)
     {
         // Set the element names
         $collectionName = $class::JsonCollectionName();
@@ -187,8 +188,8 @@ abstract class Service extends Base
         }
 
         // Set the URL if empty
-        if (!$url) {
-            $url = $parent->url($class::ResourceName());
+        if (!$urls) {
+            $urls = $parent->url($class::ResourceName());
         }
 
         // Save debug info
@@ -196,14 +197,14 @@ abstract class Service extends Base
             '{class}:Collection({url}, {collectionClass}, {collectionName})',
             array(
                 'class' => get_class($this),
-                'url'   => $url,
+                'urls'   => $urls,
                 'collectionClass' => $class,
                 'collectionName'  => $collectionName
             )
         );
 
         // Fetch the list
-        $response = $this->request($url);
+        $response = $this->request($urls);
         
         $this->getLogger()->info('Response {status} [{body}]', array(
             'status' => $response->httpStatus(),
@@ -215,7 +216,7 @@ abstract class Service extends Base
             throw new Exceptions\CollectionError(sprintf(
                 Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
                 $class,
-                $url,
+                $urls,
                 $response->httpStatus(),
                 $response->httpBody()
             ));

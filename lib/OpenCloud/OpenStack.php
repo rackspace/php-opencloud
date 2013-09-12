@@ -765,9 +765,14 @@ class OpenStack extends Base
     public function request($urls, $method = 'GET', $headers = array(), $data = null)
     {
         if(is_array($urls)) {
-            $urls = $urls[0];
+            foreach ($urls as $url) {
+                /* logic around redundancy / failover goes here */
+                $response = $this->requestOne($url, $method, $headers, $data);
+                return $response;
+            }
+        } else {
+            return $this->requestOne($urls, $method, $headers, $data);
         }
-        return $this->requestOne($urls, $method, $headers, $data);
     }
     
     private function requestOne($url, $method = 'GET', $headers = array(), $data = null)

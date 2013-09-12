@@ -350,13 +350,17 @@ class Container extends CDNContainer
         $queryString = $this->makeQueryString($params);
 
         // append the query string to the URL
-        $url = $this->url();
-        if (strlen($queryString) > 0) {
-            $url .= '?' . $queryString;
+        $urls = $this->url();
+        $urlsAndParams = array();
+        foreach ($urls as $url) {
+            if (strlen($queryString) > 0) {
+                $url .= '?' . $queryString;
+            }
+            $urlsAndParams[] = $url;
         }
         
         return $this->getService()->collection(
-        	'OpenCloud\ObjectStore\Resource\DataObject', $url, $this
+        	'OpenCloud\ObjectStore\Resource\DataObject', $urlsAndParams, $this
         );
     }
 
@@ -379,7 +383,7 @@ class Container extends CDNContainer
         parent::refresh($id, $url);
         
         // @codeCoverageIgnoreStart
-		if ($this->getService() instanceof CDNService || $this instanceof CDNContainer) {
+		if ($this->getService() instanceof CDNService /*|| $this instanceof CDNContainer*/) {
 			return;
         }
         
