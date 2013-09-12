@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\Compute;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Compute\Server;

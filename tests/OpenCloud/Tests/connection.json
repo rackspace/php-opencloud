@@ -144,6 +144,18 @@
         ],
         "name": "autoscale",
         "type": "rax:autoscale"
+      },
+      {
+        "endpoints": [
+            {
+                "internalURL": "https://snet-ord.queues.api.rackspacecloud.com/v1/TENANT-ID", 
+                "publicURL": "https://ord.queues.api.rackspacecloud.com/v1/TENANT-ID", 
+                "region": "ORD", 
+                "tenantId": "TENANT-ID"
+            }
+        ], 
+        "name": "cloudQueues", 
+        "type": "rax:queues"
       }
     ],
     "user": {

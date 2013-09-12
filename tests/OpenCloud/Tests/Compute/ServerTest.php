@@ -316,7 +316,8 @@ class ServerTest extends \PHPUnit_Framework_TestCase
             'image'    => $imageList->first(),
             'flavor'   => $flavorList->first(),
             'networks' => array(
-                $this->service->network(RAX_PUBLIC)
+                $this->service->network(RAX_PUBLIC),
+                $this->service->network()
             )
         ));
     }

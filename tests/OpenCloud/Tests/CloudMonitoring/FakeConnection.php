@@ -79,8 +79,7 @@ class FakeConnection extends OpenStack
 	private function matchUrlToArray($array)
 	{
 		foreach ($array as $key => $item) {
-			$pattern = "#{$key}$#";
-            
+			$pattern = "#{$key}$#"; 
             if (preg_match($pattern, $this->url)) {
 				$path = __DIR__ . "/Resource/{$item}.json";
 				if (file_exists($path)) {
