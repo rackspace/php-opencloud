@@ -23,7 +23,19 @@ class MyBase extends Base
 {
 
     public $foo; // to test SetProperty
-
+    
+    protected $bar;
+    
+    public function setBar($bar)
+    {
+        $this->bar = $bar . '!!!';
+    }
+    
+    public function getBar()
+    {
+        return $this->bar;
+    }
+    
     public function getHttpRequestObject($url, $method = 'GET', array $options = array())
     {
         return parent::GetHttpRequestObject($url, $method);
@@ -82,12 +94,6 @@ class BaseTest extends PHPUnit_Framework_TestCase
             'OpenCloud\Common\Request\Curl', get_class($request));
     }
 
-    public function test__set()
-    {
-        //$this->setExpectedException('OpenCloud\Common\Exceptions\AttributeError');
-        //$this->expectOutputRegEx('/Unrecognized attribute/');
-    }
-
     public function testMakeQueryString()
     {
         $this->assertEquals(
@@ -101,27 +107,21 @@ class BaseTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\JsonError
+     * @expectedException OpenCloud\Common\Exceptions\JsonError
      */
     public function testCheckJsonError()
     {
-        $json = '{"one":"two"}';
-        $obj = json_decode($json);
-        $this->assertEquals(FALSE, $this->my->CheckJsonError());
-        $json = '{"one":"two"';
-        $obj = json_decode($json);
-        $this->assertEquals(TRUE, $this->my->CheckJsonError());
+        $obj = json_decode('{"one":"two"}');
+        $this->my->CheckJsonError();
+        
+        $obj = json_decode('{"one":"two"');
+        $this->my->CheckJsonError();
     }
 
     public function testSetProperty()
     {
-        if (RAXSDK_STRICT_PROPERTY_CHECKS) {
-            $this->setExpectedException('OpenCloud\Common\Exceptions\AttributeError');
-        }
-        $this->my->foo = 'bar';
-        $this->assertEquals('bar', $this->my->foo);
-        $this->my->SetProperty('one', 'two');
-        $this->assertEquals('two', $this->my->one);
+        $this->my->setProperty('bar', 'hello');
+        $this->assertEquals('hello!!!', $this->my->getBar());
     }
 
 }

@@ -54,6 +54,15 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $message->setTtl(100)->setBody('foo')->create();  
     }
     
+    public function test_Collection()
+    {
+        $messages = $this->queue->listMessages();
+        while ($message = $messages->next()) {
+            $this->assertInstanceOf('OpenCloud\Queues\Resource\Message', $message);
+            break;
+        }
+    }
+    
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
