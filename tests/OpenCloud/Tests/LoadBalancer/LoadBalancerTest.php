@@ -7,7 +7,7 @@
  * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\LoadBalancer;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\LoadBalancer\Resources\SubResource;
@@ -306,7 +306,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         $sub = new MySubResource($this->service, '42');
         $sub->setParent($this->loadBalancer);
         
-        $this->assertEquals('OpenCloud\Tests\MySubResource', get_class($sub));
+        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource', get_class($sub));
         
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/42/ignore', 
@@ -320,7 +320,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals($this->loadBalancer, $sub->getParent());
         
-        $this->assertEquals('OpenCloud\Tests\MySubResource-42', $sub->Name());
+        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource-42', $sub->Name());
     }
     
     public function testAddingNodeWithType()

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Unit Tests
  *
@@ -11,68 +12,97 @@
 
 namespace OpenCloud\Tests;
 
+use PHPUnit_Framework_TestCase;
+use OpenCloud\Rackspace;
+use OpenCloud\Common\Request\Response\Blank;
+
 /**
  * Stub for Rackspace to Override the ->Request() method
  */
-class MyRackspace extends \OpenCloud\Rackspace {
-    public function Request($url,$method='GET',$headers=array(),$data=NULL) {
-    	return new \OpenCloud\Common\Request\Response\Blank(array(
-    		'body'=>file_get_contents(TESTDIR.'/connection.json')));
+class MyRackspace extends Rackspace
+{
+
+    public function Request($url, $method = 'GET', $headers = array(), $data = NULL)
+    {
+        return new Blank(array(
+            'body' => file_get_contents(TESTDIR . '/connection.json')
+        ));
     }
+
 }
 
-class RackspaceTest extends \PHPUnit_Framework_TestCase
+class RackspaceTest extends PHPUnit_Framework_TestCase
 {
-	private
-		$conn;
-	public function __construct() {
-		$this->conn = new MyRackspace('http://example.com',
-			array('username'=>'FOO', 'password'=>'BAR'));
-	}
 
-	/**
-	 * Tests
-	 */
-	public function testCredentials() {
-		$this->conn = new MyRackspace(
-			'http://example.com',
-			array('username'=>'FOO', 'password'=>'BAR'));
-		$this->assertRegExp(
-			'/"username":"FOO"/',
-			$this->conn->Credentials());
-		$this->conn = new MyRackspace(
-			'http://example.com',
-			array('username'=>'FOO','apiKey'=>'KEY'));
-		$this->assertRegExp(
-			'/RAX-KSKEY:apiKeyCredentials/',
-			$this->conn->Credentials());
-	}
-	public function testDbService() {
-		$dbaas = $this->conn->DbService(NULL, 'DFW');
-		$this->assertEquals('OpenCloud\Database\Service', get_class($dbaas));
-	}
-	public function testLoadBalancerService() {
-	    $lbservice = $this->conn->LoadBalancerService(NULL, 'DFW');
-	    $this->assertEquals(
-	        'OpenCloud\LoadBalancer\Service',
-	        get_class($lbservice));
-	}
-	public function testDNS() {
-		$service = $this->conn->DNS(NULL, 'DFW');
-		$this->assertEquals(
-			'OpenCloud\DNS\Service',
-			get_class($service));
-	}
-	public function testCloudMonitoring() {
-		$service = $this->conn->CloudMonitoring();
-		$this->assertEquals(
-			'OpenCloud\CloudMonitoring\Service',
-			get_class($service));
-	}
-	public function testAutoscale() {
-		$service = $this->conn->Autoscale(NULL, 'DFW');
-		$this->assertEquals(
-			'OpenCloud\Autoscale\Service',
-			get_class($service));
-	}
+    private $conn;
+
+    public function __construct()
+    {
+        $this->conn = new MyRackspace('http://example.com', array(
+            'username' => 'FOO', 
+            'apiKey'   => 'BAR'
+        ));
+    }
+
+    /**
+     * Tests
+     */
+    public function testCredentials()
+    {
+        $this->assertRegExp('/"username": "FOO"/', $this->conn->Credentials());
+        
+        $this->assertRegExp(
+            '/RAX-KSKEY:apiKeyCredentials/', 
+            $this->conn->Credentials()
+        );
+    }
+
+    public function testDbService()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\Database\Service', 
+            $this->conn->dbService(null, 'DFW')
+        );
+    }
+
+    public function testLoadBalancerService()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\LoadBalancer\Service', 
+            $this->conn->loadBalancerService(null, 'DFW')
+        );
+    }
+
+    public function testDNS()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\DNS\Service', 
+            $this->conn->DNS(null, 'DFW')
+        );
+    }
+
+    public function testCloudMonitoring()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\CloudMonitoring\Service', 
+            $this->conn->cloudMonitoring()
+        );
+    }
+
+    public function testAutoscale()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\Autoscale\Service', 
+            $this->conn->autoscale(null, 'DFW')
+        );
+    }
+    
+    public function testQueues()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\Queues\Service', 
+            $this->conn->queues(null, 'ORD')
+        );
+    }
+
 }

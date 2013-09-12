@@ -8,6 +8,7 @@ use OpenCloud\Common\Exceptions\HttpRetryError;
 use OpenCloud\Common\Exceptions\HttpUrlError;
 use OpenCloud\Common\Exceptions\HttpTimeoutError;
 use OpenCloud\Common\Exceptions\HttpError;
+use OpenCloud\Common\Exceptions\RuntimeException;
 
 /**
  * The CurlRequest class is a simple wrapper to CURL functions. Not only does
@@ -39,6 +40,12 @@ class Curl extends Base implements HttpRequestInterface
      */
     public function __construct($url, $method = 'GET', array $options = array())
     {
+        // @codeCoverageIgnoreStart
+        if (!function_exists('curl_version')) {
+            throw new RuntimeException('You must have cURL installed to use PHP OpenCloud');
+        }
+        // @codeCoverageIgnoreEnd
+        
         $this->url = $url;
         $this->method = $method;
         $this->handle = curl_init($url);

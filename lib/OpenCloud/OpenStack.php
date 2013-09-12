@@ -128,6 +128,11 @@ class OpenStack extends Base
         	'name'		=> RAXSDK_AUTOSCALE_NAME,
         	'region'	=> RAXSDK_AUTOSCALE_REGION,
         	'urltype'	=> RAXSDK_AUTOSCALE_URLTYPE
+        ),
+        'Queues' => array(
+            'name'		=> RAXSDK_QUEUES_NAME,
+        	'region'	=> RAXSDK_QUEUES_REGION,
+        	'urltype'	=> RAXSDK_QUEUES_URLTYPE
         )
     );
 

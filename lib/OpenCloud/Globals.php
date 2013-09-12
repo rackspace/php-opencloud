@@ -54,60 +54,77 @@ if (!defined('RAXSDK_TIMEZONE'))
     define('RAXSDK_TIMEZONE', 'America/Chicago');
 if (!defined('RAXSDK_STRICT_PROPERTY_CHECKS'))
     define('RAXSDK_STRICT_PROPERTY_CHECKS', FALSE);
+
 if (!defined('RAXSDK_COMPUTE_NAME'))
     define('RAXSDK_COMPUTE_NAME', 'cloudServersOpenStack');
 if (!defined('RAXSDK_COMPUTE_REGION'))
     define('RAXSDK_COMPUTE_REGION', NULL);
 if (!defined('RAXSDK_COMPUTE_URLTYPE'))
     define('RAXSDK_COMPUTE_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_MONITORING_NAME'))
     define('RAXSDK_MONITORING_NAME', 'cloudMonitoring');
 if (!defined('RAXSDK_MONITORING_REGION'))
     define('RAXSDK_MONITORING_REGION', '{ignore}');
 if (!defined('RAXSDK_MONITORING_URLTYPE'))
     define('RAXSDK_MONITORING_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_ORCHESTRATION_NAME'))
     define('RAXSDK_ORCHESTRATION_NAME', 'cloudOrchestration');
 if (!defined('RAXSDK_ORCHESTRATION_REGION'))
     define('RAXSDK_ORCHESTRATION_REGION', NULL);
 if (!defined('RAXSDK_ORCHESTRATION_URLTYPE'))
     define('RAXSDK_ORCHESTRATION_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_OBJSTORE_NAME'))
     define('RAXSDK_OBJSTORE_NAME', 'cloudFiles');
 if (!defined('RAXSDK_OBJSTORE_REGION'))
     define('RAXSDK_OBJSTORE_REGION', NULL);
 if (!defined('RAXSDK_OBJSTORE_URLTYPE'))
     define('RAXSDK_OBJSTORE_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_DATABASE_NAME'))
     define('RAXSDK_DATABASE_NAME', 'cloudDatabases');
 if (!defined('RAXSDK_DATABASE_REGION'))
     define('RAXSDK_DATABASE_REGION', NULL);
 if (!defined('RAXSDK_DATABASE_URLTYPE'))
     define('RAXSDK_DATABASE_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_VOLUME_NAME'))
     define('RAXSDK_VOLUME_NAME', 'cloudBlockStorage');
 if (!defined('RAXSDK_VOLUME_REGION'))
     define('RAXSDK_VOLUME_REGION', NULL);
 if (!defined('RAXSDK_VOLUME_URLTYPE'))
     define('RAXSDK_VOLUME_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_LBSERVICE_NAME'))
     define('RAXSDK_LBSERVICE_NAME', 'cloudLoadBalancers');
 if (!defined('RAXSDK_LBSERVICE_REGION'))
     define('RAXSDK_LBSERVICE_REGION', NULL);
 if (!defined('RAXSDK_LBSERVICE_URLTYPE'))
     define('RAXSDK_LBSERVICE_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_DNS_NAME'))
     define('RAXSDK_DNS_NAME', 'cloudDNS');
 if (!defined('RAXSDK_DNS_REGION'))
     define('RAXSDK_DNS_REGION', '{ignore}'); // DNS is regionless
 if (!defined('RAXSDK_DNS_URLTYPE'))
     define('RAXSDK_DNS_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_AUTOSCALE_NAME'))
 	define('RAXSDK_AUTOSCALE_NAME', 'autoscale');
 if (!defined('RAXSDK_AUTOSCALE_REGION'))
 	define('RAXSDK_AUTOSCALE_REGION', NULL);
 if (!defined('RAXSDK_AUTOSCALE_URLTYPE'))
 	define('RAXSDK_AUTOSCALE_URLTYPE', 'publicURL');
+
+if (!defined('RAXSDK_QUEUES_NAME'))
+	define('RAXSDK_QUEUES_NAME', 'cloudQueues');
+if (!defined('RAXSDK_QUEUES_REGION'))
+	define('RAXSDK_QUEUES_REGION', NULL);
+if (!defined('RAXSDK_QUEUES_URLTYPE'))
+	define('RAXSDK_QUEUES_URLTYPE', 'publicURL');
+
 if (!defined('RAXSDK_DNS_ASYNC_TIMEOUT'))
 	define('RAXSDK_DNS_ASYNC_TIMEOUT', 60);
 if (!defined('RAXSDK_DNS_ASYNC_INTERVAL'))
@@ -145,7 +162,7 @@ if (!defined('RAXSDK_SSL_VERIFYPEER'))
 //define('RAXSDK_CACERTPEM', __DIR__ . DIRECTORY_SEPARATOR . 'cacert.pem');
 
 /* these should not be overridden */
-define('RAXSDK_VERSION', '1.5.10');
+define('RAXSDK_VERSION', '1.6.0');
 define('RAXSDK_USER_AGENT', 'php-opencloud/'.RAXSDK_VERSION.' (Rackspace)');
 define('RAXSDK_ERROR', 'Error:');
 define('RAXSDK_FATAL', 'FATAL ERROR:');
