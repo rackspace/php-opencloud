@@ -21,6 +21,8 @@ use OpenCloud\Queues\Exception\DeleteMessageException;
  */
 class Message extends PersistentObject
 {
+    public $flattenResponse = true;
+    
     /**
      * @var string 
      */
@@ -31,7 +33,7 @@ class Message extends PersistentObject
      * 
      * @var int 
      */
-    protected $age;
+    private $age;
     
     /**
      * Defines how long a message will be accessible. The message expires after 
@@ -39,7 +41,7 @@ class Message extends PersistentObject
      * 
      * @var int 
      */
-    protected $ttl;
+    private $ttl = 600;
     
     /**
      * The arbitrary document submitted along with the original request to post 
@@ -47,7 +49,7 @@ class Message extends PersistentObject
      * 
      * @var mixed 
      */
-    protected $body;
+    private $body;
     
     /**
      * An opaque relative URI that the client can use to uniquely identify a 
@@ -55,11 +57,17 @@ class Message extends PersistentObject
      * 
      * @var string 
      */
-    protected $href;
+    private $href;
     
     protected static $url_resource = 'messages';
     protected static $json_collection_name = 'messages';
     protected static $json_name = '';
+    
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
     
     /**
      * Get (read-only) ID.
@@ -71,6 +79,12 @@ class Message extends PersistentObject
         return $this->id;
     }
     
+    public function setAge($age)
+    {
+        $this->age = $age;
+        return $this;
+    }
+    
     /**
      * Get (read-only) age.
      * 
@@ -79,6 +93,15 @@ class Message extends PersistentObject
     public function getAge()
     {
         return $this->age;
+    }
+    
+    public function setHref($href)
+    {
+        $paths = explode('/', $href);
+        $this->id = end($paths);
+        $this->href = $href;
+        
+        return $this;
     }
     
     /**
@@ -119,16 +142,7 @@ class Message extends PersistentObject
      */
     public function setBody($body)
     {
-        if ($id = $this->getId()) {
-            $this->getLogger()->warning(
-                'Attempting to change a read-only value (Body) on a message '
-                . 'which already exists (ID = {id})',
-                array('id' => $id)
-            );
-        } else {
-            $this->body = $body;
-        }
-        
+        $this->body = $body;
         return $this;
     }
     
@@ -151,6 +165,17 @@ class Message extends PersistentObject
             'ttl'  => $this->getTtl(),
             'body' => $this->getBody()
         );
+    }
+    
+    /**
+     * To create messages, use the service's createMessages() method because it
+     * allows for batch creation.
+     * 
+     * {@inheritDoc}
+     */
+    public function create($params = array())
+    {
+        return $this->noCreate();
     }
     
     /**

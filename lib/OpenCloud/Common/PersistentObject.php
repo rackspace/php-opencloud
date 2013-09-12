@@ -110,6 +110,17 @@ abstract class PersistentObject extends Base
         $this->setProperty($name, $value, $this->getService()->namespaces());
     }
     
+    public function __get($name)
+    {
+        $getter = 'get' . ucfirst($name);
+        
+        if (method_exists($this, $getter)) {
+            return call_user_func(array($this, $getter), $name);
+        }
+        
+        return (!isset($this->$name)) ? null : $this->$name;
+    }
+    
     /**
      * Sets the service associated with this resource object.
      * 
@@ -181,9 +192,6 @@ abstract class PersistentObject extends Base
         return $this->getParent();
     }
     
-    
-
-    
     /**
      * API OPERATIONS (CRUD & CUSTOM)
      */
@@ -218,7 +226,7 @@ abstract class PersistentObject extends Base
             'class' => get_class($this), 
             'json'  => $json
         ));
- 
+
         // send the request
         $response = $this->getService()->request(
             $this->createUrl(),
@@ -582,28 +590,22 @@ abstract class PersistentObject extends Base
             $this->getLogger()->info('refresh() JSON [{json}]', array('json' => $json));
             
             $response = json_decode($json);
-
-            if ($this->CheckJsonError()) {
-                throw new Exceptions\ServerJsonError(sprintf(
-                    Lang::translate('JSON parse error on %s refresh'), 
-                    get_class($this)
-                ));
-            }
+            $this->checkJsonError();
 
             $top = $this->JsonName();
             
             if ($top && isset($response->$top)) {
                 $content = $response->$top;
-            } else {
+            } else { 
                 $content = $response;
             }
-            
+
             $this->populate($content);
 
         }
         // @codeCoverageIgnoreEnd
     }
-
+    
     
     /**
      * OBJECT INFORMATION

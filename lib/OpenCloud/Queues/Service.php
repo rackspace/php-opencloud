@@ -55,6 +55,26 @@ use OpenCloud\Common\Exceptions\InvalidArgumentError;
 class Service extends AbstractService
 {
     /**
+     * An arbitrary string used to differentiate your worker/subscriber. This is
+     * needed, for example, when you return back a list of messages and want to
+     * know the ones your worker is processing.
+     * 
+     * @var string 
+     */
+    private $clientId;
+    
+    public function setClientId($clientId)
+    {
+        $this->clientId = $clientId;
+        return $this;
+    }
+    
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+    
+    /**
      * Main service constructor.
      * 
      * @param OpenStack $connection
@@ -68,6 +88,22 @@ class Service extends AbstractService
         parent::__construct(
             $connection, 'rax:queues', $serviceName, $serviceRegion, $urlType
         );
+    } 
+    
+    /**
+     * Need to augment parent method to add feature-specific headers. 
+     * 
+     * {@inheritDoc}
+     */
+    public function request($url, $method = 'GET', array $headers = array(), $body = null)
+    {
+        if (preg_match('#https?:#', $url) === 0) {
+            $url = $this->service_url . preg_replace('#^/v\d(\.\d)?#', '', $url);
+        }
+        
+        $headers['Client-ID'] = $this->getClientId();
+        
+        return parent::request($url, $method, $headers, $body);
     }
     
     /**

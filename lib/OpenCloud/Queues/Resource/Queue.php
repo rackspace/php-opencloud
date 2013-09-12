@@ -30,14 +30,14 @@ class Queue extends PersistentObject
      * 
      * @var string
      */
-    protected $name;
+    private $name;
     
     /**
      * Miscellaneous, user-defined information about the queue.
      * 
      * @var array|Metadata 
      */
-    protected $metadata;
+    private $metadata;
     
     /**
      * Populated when the service's listQueues() method is called. Provides a 
@@ -45,7 +45,7 @@ class Queue extends PersistentObject
      * 
      * @var string 
      */
-    protected $href;
+    private $href;
     
     protected static $url_resource = 'queues';
     protected static $json_collection_name = 'queues';
@@ -54,6 +54,14 @@ class Queue extends PersistentObject
         
     public function setName($name)
     {
+        if (preg_match('#[^\w\d\-\_]+#', $name)) {
+            throw new Exception\QueueException(sprintf(
+                'Queues names are restricted to alphanumeric characters, '
+                . ' hyphens and underscores. You provided: %s',
+                print_r($name, true)
+            ));
+        }
+            
         $this->name = $name;
         return $this;
     }
@@ -97,7 +105,7 @@ class Queue extends PersistentObject
         $this->metadata = $metadata;
         
         // Is this a persistent change?
-        if ($query === true) {
+        if ($query === true && $this->getName()) {
             
             // Get metadata properties as JSON-encoded object
             $json = json_encode((object) get_object_vars($metadata));
@@ -158,7 +166,7 @@ class Queue extends PersistentObject
         if (!empty($params)) {
             $this->populate($params, false);
         }
-
+        
         // debug
         $this->getLogger()->info('{class}::Create({name})', array(
             'class' => get_class($this), 
@@ -251,7 +259,9 @@ class Queue extends PersistentObject
      */
     public function getMessage($id = null)
     {
-        return $this->getService()->resource('Message', $id)->setParent($this);
+        $resource = $this->getService()->resource('Message');
+        $resource->setParent($this)->populate($id);
+        return $resource;
     }
     
     /**
@@ -260,6 +270,33 @@ class Queue extends PersistentObject
     public function message($id = null)
     {
         return $this->getMessage($id);
+    }
+    
+    public function createMessages(array $messages)
+    {
+        $objects = array();
+        
+        foreach ($messages as $dataArray) {
+            $objects[] = $this->getMessage($dataArray)->createJson();
+        }
+        
+        $json = json_encode($objects);
+        $this->checkJsonError();
+        
+        $response = $this->getService()->request($this->url('messages'), 'POST', array(), $json);
+        
+        if ($response->httpStatus() != 201) {
+            throw new Exceptions\CreateError(sprintf(
+                Lang::translate('Error creating messages for [%s], status [%d] response [%s]'),
+                $this->getName(),
+                $response->httpStatus(),
+                $response->httpBody()
+            ));
+        }
+
+        if ($location = $response->Header('Location')) {
+            return $this->getService()->resourceList('Message', $location, $this);
+        }
     }
     
     /**
@@ -309,7 +346,7 @@ class Queue extends PersistentObject
      */
     public function deleteMessages(array $ids)
     {
-        $url = $this->url(null, array('ids' => implode(',', $ids)));
+        $url = $this->url('messages', array('ids' => implode(',', $ids)));
         $response = $this->getService()->request($url, 'DELETE');
         
         if ($response->httpStatus() != 204) {
