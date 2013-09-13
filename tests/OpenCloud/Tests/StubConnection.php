@@ -101,6 +101,37 @@ ENDRESPONSE;
                 $resp->status = 204;
             } elseif (strpos($url, '/servers')) {
                 $resp->body = file_get_contents($this->testDir.'/server-create.json');
+            } elseif (strpos($url, '/queues')) {
+            
+               if (preg_match('#/queues/foobar/messages$#', $url)) {                
+                    // post message
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/(\w|\-)+/messages$#', $url)) {
+                   // post message
+                   $resp->status = 201;
+                   $resp->body = file_get_contents(__DIR__ . '/Queues/Response/POST/post_message.json');
+                   if (!preg_match('#test-queue#', $url)) { 
+                    $resp->headers = array(
+                       'Location' => '/v1/queues/demoqueue/messages?ids=51db6f78c508f17ddc924357'
+                    );
+                   }
+               } elseif (preg_match('#/queues/foobar/claims(\?(\w|\&|\=)+)?$#', $url)) {
+                   $resp->status = 204;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/baz/claims(\?(\w|\&|\=)+)?$$#', $url)) {
+                   // post message
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/(\w|\-)+/claims(\?(\w|\&|\=)+)?$#', $url)) {
+                   // claim messages
+                   $resp->status = 201;
+                   $resp->body = file_get_contents(__DIR__ . '/Queues/Response/POST/claim_messages.json');
+               } else {
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               }
+                
             } else {
                 die("No stub data for URL $url\n");
             }
@@ -110,6 +141,14 @@ ENDRESPONSE;
         
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
+            
+            if (strpos($url, '/queues')) {
+                if (strpos($url, 'foobar')) {
+                    $resp->status = 404;
+                } else {
+                    $resp->status = 204;
+                }
+            }
 		}
         
         // PUT
@@ -128,6 +167,33 @@ ENDRESPONSE;
                     'Content-Length' => 0,
                     'Content-Type' => 'text/plain; charset=UTF-8'
                 );
+            } elseif (strpos($url, '/queues')) {
+                
+               if (preg_match('#/queues/baz$#', $url)) {
+                   
+                   $resp->status = 404;
+                   $resp->body = '{}';
+                   
+               } elseif (preg_match('#/queues/(\w|\-)+$#', $url)) {
+                   // create queue
+                   $resp->status = 201;
+                   $resp->body = '{}';
+                   
+                   if (!preg_match('#test-queue#', $url)) {
+                        $resp->headers = array(
+                            'Location' => 'foo'
+                        );
+                   }
+                   
+               } elseif (preg_match('#/queues/(\w|\-)+/metadata$#', $url)) {
+                   // Sets queue metadata
+                   $resp->status = 204;
+                   $resp->body = '{}';
+               } else {
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               }
+                
             } else {
                 
                 if (!empty($headers['X-CDN-Enabled'])) {
@@ -161,8 +227,23 @@ ENDRESPONSE;
                     'X-Trans-Id' => 'tx82a6752e00424edb9c46fa2573132e2c',
                     'Content-Length' => 0
                 );
-            }
+            } elseif (preg_match('#/queues/foobar$#', $url)) {  
+                $resp->status = 404;
+                $resp->body = '{}';
+            } elseif (preg_match('#/queues/(\w|\-)+$#', $url)) {
+                // Queue exists
+                $resp->body = '{}';
+                $resp->status = 204;
+            } 
             
+        }
+        
+        // PATCH
+        elseif ($method == 'PATCH') {
+            $resp->status = 204;
+            if (strpos($url, 'claims/foobar')) {
+                $resp->status = 404;
+            }
         }
         
         // GET
@@ -230,7 +311,7 @@ EOT;
 {"loadBalancers":[{"name":"one","id":1,"protocol":"HTTP","port":80}]}
 ENDLB;
                 $resp->status = 200;
-            } elseif (preg_match('/metadata$/', $url)) {
+            } elseif (preg_match('#servers/(\w|\-)+/metadata$#', $url)) {
                 $resp->body = '{"metadata":{"foo":"bar","a":"1"}}';
                 $resp->status = 200;
             } elseif (strpos($url, '/export')) { // domain export
@@ -266,9 +347,6 @@ ENDDOM;
                 $resp->body = <<<ENDRDNS
 {"records":[{"name":"foobar.raxdrg.info","id":"PTR-548486","type":"PTR","data":"2001:4800:7811:513:199e:7e1e:ff04:be3f","ttl":900,"updated":"2013-02-18T20:24:50.000+0000","created":"2013-02-18T20:24:50.000+0000"},{"name":"foobar.raxdrg.info","id":"PTR-548485","type":"PTR","data":"166.78.48.90","ttl":900,"updated":"2013-02-18T20:24:34.000+0000","created":"2013-02-18T20:24:34.000+0000"}]}
 ENDRDNS;
-                $resp->status = 200;
-            } elseif (strpos($url, '/metadata')) {
-                $resp->body = NULL;
                 $resp->status = 200;
             } elseif (strpos($url, '/extensions')) {
                 $resp->body = file_get_contents($this->testDir.'/extensions.json');
@@ -318,6 +396,48 @@ EOT;
             } elseif (strpos($url, 'delimiter')) {
                 $resp->body = '[{"subdir": "files/Pseudo1/"},{"subdir": "files/Pseudo2/"}]';
                 $resp->status = 200;
+            
+            } elseif (strpos($url, '/queues')) { 
+                
+                /*** CLOUD QUEUES ***/
+                
+                $resp->status = 200;
+                $file = null;
+                $status = null;
+
+                if (preg_match('#/queues(\?.+)?$#', $url)) {
+                    // List queues
+                    $file = 'list_queues';
+                } elseif (preg_match('#/queues/foobar/metadata$#', $url)) {
+                    
+                } elseif (preg_match('#/queues/(\w|\-)+/metadata$#', $url)) {
+                    // Queue metadata
+                    $file = 'queue_metadata';
+                } elseif (preg_match('#/queues/(\w|\-)+/stats$#', $url)) {
+                    // Queue stats
+                    $file = 'queue_stats';
+                } elseif (preg_match('#/queues/(\w|\-)+/messages\?marker\=1\&limit\=2?$#', $url)) {
+                    $file = 'queue_exists';
+                    $status = 204;
+                } elseif (preg_match('#/queues/(\w|\-)+/messages(\?.+)?$#', $url)) {
+                    // List messages
+                    $file = 'list_messages';
+                } elseif (preg_match('#/queues/(\w|\-)+/messages/(\w|\-)+(\?.+)?$#', $url)) {
+                    // Get message
+                    $file = 'get_message';
+                } elseif (preg_match('#/queues/(\w|\-)+/claims/(\w|\-)+$#', $url)) {
+                    // Get a claim
+                   $file = 'get_claim';
+                } 
+                
+                if (null !== $file) {
+                    $resp->status = $status ?: 200;
+                    $resp->body = file_get_contents(__DIR__ . '/Queues/Response/GET/' . $file . '.json');
+                } else {
+                    $resp->status = 404;
+                    $resp->body = '{}';
+                }
+                
             } else {
                 $resp->status = 404;
             }

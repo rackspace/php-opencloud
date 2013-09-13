@@ -90,4 +90,11 @@ class ServiceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('cloudServersOpenStack', $this->service->name());
     } 
     
+    public function test_UrlType_Defaults()
+    {
+        $service = new MyService(
+            $this->conn, 'compute', 'cloudServersOpenStack', 'DFW', ''
+        );
+    }
+    
 }
