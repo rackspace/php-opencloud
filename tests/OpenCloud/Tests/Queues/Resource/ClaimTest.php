@@ -11,7 +11,6 @@
 namespace OpenCloud\Tests\Queues\Resource;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\Queues\Resource\Message;
 use OpenCloud\Queues\Service;
 use OpenCloud\Tests\StubConnection;
 
@@ -36,6 +35,14 @@ class ClaimTest extends PHPUnit_Framework_TestCase
     public function test_Create_Fails()
     {
         $this->queue->getClaim()->create();
+    }
+    
+    public function test_Getting_Claim()
+    {
+        $claim = $this->queue->getClaim('foo');
+        $this->assertNotNull($claim->getId());
+        $this->assertNotNull($claim->getTtl());
+        $this->assertNotNull($claim->getHref());
     }
     
     public function test_Update()

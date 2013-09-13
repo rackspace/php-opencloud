@@ -92,7 +92,7 @@ class Collection extends Base
      * 
      * @param Service|PersistentObject $service
      */
-    private function setService(Base $service)
+    public function setService($service)
     {
         $this->service = $service;
         return $this;
@@ -103,7 +103,7 @@ class Collection extends Base
      *
      * @return Service
      */
-    private function getService() 
+    public function getService() 
     {
         return $this->service;
     }
@@ -179,6 +179,22 @@ class Collection extends Base
         $this->nextPageCallback = $callback;
         $this->nextPageUrl = $url;
         return $this;
+    }
+    
+    /**
+     * Get next page callback.
+     */
+    private function getNextPageCallback()
+    {
+        return $this->nextPageCallback;
+    }
+    
+    /**
+     * Get next page URL.
+     */
+    private function getNextPageUrl()
+    {
+        return $this->nextPageUrl;
     }
 
     /**
@@ -287,7 +303,7 @@ class Collection extends Base
     public function sort($keyname = 'id') 
     {
         $this->setSortKey($keyname);
-        usort($this->getItemList(), array($this, 'sortCompare'));
+        usort($this->itemList, array($this, 'sortCompare'));
     }
 
     /**
@@ -334,7 +350,7 @@ class Collection extends Base
                 );
             }
             if ($test === false) {
-                unset($this->itemlist[$index]);
+                unset($this->itemList[$index]);
             }
         }
     }

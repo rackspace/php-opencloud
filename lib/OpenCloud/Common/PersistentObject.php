@@ -592,14 +592,14 @@ abstract class PersistentObject extends Base
             $response = json_decode($json);
             $this->checkJsonError();
 
-            $top = $this->JsonName();
+            $top = $this->jsonName();
             
             if ($top && isset($response->$top)) {
                 $content = $response->$top;
             } else { 
                 $content = $response;
             }
-
+            
             $this->populate($content);
 
         }

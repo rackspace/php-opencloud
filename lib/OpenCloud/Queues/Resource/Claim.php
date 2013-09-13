@@ -27,17 +27,17 @@ class Claim extends PersistentObject
     /**
      * @var string 
      */
-    public $id;
+    protected $id;
     
     /**
      * @var int 
      */
-    protected $age;
+    private $age;
     
     /**
      * @var array An array of messages.
      */
-    protected $messages;
+    private $messages;
     
     /**
      * How long the server should wait before releasing the claim in seconds. 
@@ -46,7 +46,7 @@ class Claim extends PersistentObject
      * 
      * @var int 
      */
-    protected $ttl;
+    private $ttl;
     
     /**
      * The message grace period in seconds. The value of grace must be between 
@@ -59,9 +59,14 @@ class Claim extends PersistentObject
      * 
      * @var int 
      */
-    protected $grace;
+    private $grace;
     
-    protected $href;
+    /**
+     * Link.
+     * 
+     * @var string 
+     */
+    private $href;
     
     protected static $url_resource = 'claims';
     protected static $json_name = '';
@@ -77,7 +82,7 @@ class Claim extends PersistentObject
         return $this->id;
     }
     
-    public function setAge()
+    public function setAge($age)
     {
         $this->age = $age;
         return $this;        
@@ -86,12 +91,6 @@ class Claim extends PersistentObject
     public function getAge()
     {
         return $this->age;
-    }
-    
-    public function setGrace($grace)
-    {
-        $this->grace = $grace;
-        return $this;
     }
     
     public function getGrace()

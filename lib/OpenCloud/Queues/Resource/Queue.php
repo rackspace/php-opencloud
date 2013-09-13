@@ -122,11 +122,8 @@ class Queue extends PersistentObject
             
             // Catch errors
             if ($response->httpStatus() != 204) {
-                throw new Exception\QueueMetadataException(sprintf(
-                    'Unable to set metadata for this Queue'
-                ));
+                throw new Exception\QueueMetadataException(sprintf('Unable to set metadata for this Queue'));
             }
-            
         }
         
         return $this;
@@ -209,7 +206,7 @@ class Queue extends PersistentObject
             ));
         }
         
-        $this->href = $response->header('Location');
+        $this->setHref($response->header('Location'));
     } 
     
     /**
@@ -286,17 +283,19 @@ class Queue extends PersistentObject
         $response = $this->getService()->request($this->url('messages'), 'POST', array(), $json);
         
         if ($response->httpStatus() != 201) {
-            throw new Exceptions\CreateError(sprintf(
-                Lang::translate('Error creating messages for [%s], status [%d] response [%s]'),
+            throw new CreateError(sprintf(
+                'Error creating messages for [%s], status [%d] response [%s]',
                 $this->getName(),
                 $response->httpStatus(),
                 $response->httpBody()
             ));
         }
 
-        if ($location = $response->Header('Location')) {
+        if ($location = $response->header('Location')) {
             return $this->getService()->resourceList('Message', $location, $this);
         }
+        
+        return true;
     }
     
     /**
@@ -402,7 +401,7 @@ class Queue extends PersistentObject
         
         $url = $this->url('claims', array('limit' => $limit));
         $response = $this->getService()->request($url, 'POST', array(), $json);
-        
+
         if ($response->httpStatus() == 204) {
             return false;
         } elseif ($response->httpStatus() != 201) {

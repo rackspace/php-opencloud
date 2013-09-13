@@ -21,8 +21,7 @@ use OpenCloud\Queues\Exception\DeleteMessageException;
  */
 class Message extends PersistentObject
 {
-    public $flattenResponse = true;
-    
+
     /**
      * @var string 
      */
@@ -106,7 +105,7 @@ class Message extends PersistentObject
         // We have to extract the ID out of the Href. Nice...
         preg_match('#.+/([\w\d]+)\?claim_id\=.+$#', $href, $match);
         if (!empty($match)) {
-            $this->id = $match[1];
+            $this->setId($match[1]);
         }
 
         $this->href = $href;
@@ -229,11 +228,6 @@ class Message extends PersistentObject
         }
         
         return true;
-    }
-    
-    public function name()
-    {
-        return $this->getId();
     }
     
 }

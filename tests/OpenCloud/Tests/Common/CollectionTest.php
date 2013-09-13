@@ -30,7 +30,15 @@ class Gertrude
         }
         return $object;
     }
+    
+}
 
+class Ethel
+{
+    public function resource($name, $data)
+    {
+        return true;
+    }
 }
 
 class CollectionTest extends PHPUnit_Framework_TestCase
@@ -38,9 +46,6 @@ class CollectionTest extends PHPUnit_Framework_TestCase
 
     private $my;
 
-    /**
-     * create our private collection
-     */
     public function __construct()
     {
         $x = new Gertrude;
@@ -54,23 +59,9 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * Tests
-     */
-
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\CollectionError
-     */
-    public function test___construct()
+    public function test_Service()
     {
-        $this->assertEquals('one', $this->my->First()->id);
-        // this causes the expected exception
-        $coll = new Collection(new Gertrude, 'foobar', "This string is not an array");
-    }
-
-    public function testService()
-    {
-        $this->assertInstanceOf('OpenCloud\Tests\Common\Gertrude', $this->my->service());
+        $this->assertInstanceOf('OpenCloud\Tests\Common\Gertrude', $this->my->getService());
     }
 
     public function test_first_and_next()
@@ -79,22 +70,22 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->my->Next()->id, 'two');
         $this->assertEquals($this->my->Next()->id, 'three');
         $this->assertEquals($this->my->Next()->id, 'four');
-        $this->assertEquals($this->my->Next(), FALSE);
+        $this->assertFalse($this->my->Next());
     }
 
-    public function testReset()
+    public function test_Reset()
     {
         $first = $this->my->First();
         $this->my->Reset();
         $this->assertEquals($first, $this->my->Next());
     }
 
-    public function testSize()
+    public function test_Size()
     {
         $this->assertEquals(4, $this->my->Size());
     }
 
-    public function testSort()
+    public function test_Sort()
     {
         $this->my->Sort();
         $this->assertEquals('four', $this->my->First()->id);
@@ -102,46 +93,49 @@ class CollectionTest extends PHPUnit_Framework_TestCase
         $this->my->Sort('val');
     }
 
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\DomainError
-     */
-    public function testSelect()
+    public function test_Next()
     {
-        $coll = $this->my; // don't modify the global collection
-        $this->assertEquals(4, $coll->Size());
+        $collection = $this->my->setService(new \stdClass);
+        $this->assertFalse($collection->next());
         
-        $coll->Select(function($item) {
-            return strpos($item->id, 'o') !== FALSE;
+        $collection->setService(new Ethel);
+        $this->assertNotNull($collection->next());
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DomainError
+     */
+    public function test_Select()
+    {
+        $this->assertEquals(4, $this->my->Size());
+        
+        $this->my->Select(function($item) {
+            return strpos($item->id, 'o') !== false;
         });
         
-        $this->assertEquals(3, $coll->Size());
+        $this->assertEquals(3, $this->my->Size());
         
         // this should cause an error
-        $coll->Select(function() {
+        $this->my->select(function() {
             return 5;
         });
     }
 
-    public function testNextPage()
+    public function test_NextPage()
     {
-        $coll = $this->my;
-        $coll->setNextPageCallback(array($this, '_callback'), 'http://something');
+        $this->my->setNextPageCallback(array($this, '_callback'), 'http://something');
         
         $this->assertEquals(
 			'OpenCloud\Tests\Common\CollectionTest',
-			get_class($coll->NextPage()));
-		
-        $this->assertEmpty($coll->nextPage());
+			get_class($this->my->NextPage())
+        );
+        
+        $this->assertEmpty($this->my->nextPage());
     }
-
-    public function _callback($class, $url)
+    
+    public function _callback($a, $b)
     {
-        // stub function used by SetNextPageCallback
-    }
-
-    public function testSetNextPageCallback()
-    {
-        // not needed; exercised by testNextPage(), above
+        
     }
 
 }
