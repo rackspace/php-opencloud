@@ -134,9 +134,11 @@ class Service extends AbstractService
      * 
      * @return Queue
      */
-    public function getQueue()
+    public function getQueue($id = null)
     {
-        return $this->resource('Queue');
+        $resource = $this->resource('Queue');
+        $resource->populate($id);
+        return $resource;
     }
     
     /**

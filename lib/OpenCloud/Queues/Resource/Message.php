@@ -95,12 +95,21 @@ class Message extends PersistentObject
         return $this->age;
     }
     
+    /**
+     * Set href (and ID).
+     * 
+     * @param  string $href
+     * @return self
+     */
     public function setHref($href)
     {
-        $paths = explode('/', $href);
-        $this->id = end($paths);
+        // We have to extract the ID out of the Href. Nice...
+        preg_match('#.+/([\w\d]+)\?claim_id\=.+$#', $href, $match);
+        if (!empty($match)) {
+            $this->id = $match[1];
+        }
+
         $this->href = $href;
-        
         return $this;
     }
     

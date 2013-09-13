@@ -19,6 +19,11 @@ use OpenCloud\Common\Exceptions\UpdateError;
  */
 class Claim extends PersistentObject
 {
+    
+    const LIMIT_DEFAULT = 10;
+    const GRACE_DEFAULT = 43200;
+    const TTL_DEFAULT = 43200;
+    
     /**
      * @var string 
      */
@@ -61,9 +66,21 @@ class Claim extends PersistentObject
     protected static $url_resource = 'claims';
     protected static $json_name = '';
     
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function setAge()
+    {
+        $this->age = $age;
+        return $this;        
     }
     
     public function getAge()
@@ -71,9 +88,21 @@ class Claim extends PersistentObject
         return $this->age;
     }
     
+    public function setGrace($grace)
+    {
+        $this->grace = $grace;
+        return $this;
+    }
+    
     public function getGrace()
     {
         return $this->grace;
+    }
+    
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
+        return $this;
     }
     
     public function getMessages()
@@ -81,9 +110,29 @@ class Claim extends PersistentObject
         return $this->messages;
     }
     
+    public function setTtl($ttl)
+    {
+        $this->ttl = $ttl;
+        return $this;
+    }
+    
     public function getTtl()
     {
         return $this->ttl;
+    }
+    
+    public function setHref($href)
+    {
+        $paths = explode('/', $href);
+        $this->id = end($paths);
+        $this->href = $href;
+        
+        return $this;
+    }
+    
+    public function getHref()
+    {
+        return $this->href;
     }
     
     /**

@@ -16,6 +16,7 @@ use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Common\Exceptions\CreateError;
 use OpenCloud\Queues\Exception;
 use OpenCloud\Common\Metadata;
+use OpenCloud\Common\Collection;
 
 /**
  * A queue holds messages. Ideally, a queue is created per work type. For example, 
@@ -24,6 +25,7 @@ use OpenCloud\Common\Metadata;
  */
 class Queue extends PersistentObject
 {
+    
     /**
      * The name given to the queue. The name MUST NOT exceed 64 bytes in length, 
      * and is limited to US-ASCII letters, digits, underscores, and hyphens.
@@ -69,6 +71,12 @@ class Queue extends PersistentObject
     public function getName()
     {
         return $this->name;
+    }
+    
+    public function setHref($href)
+    {
+        $this->href = $href;
+        return $this;
     }
     
     public function getHref()
@@ -264,14 +272,6 @@ class Queue extends PersistentObject
         return $resource;
     }
     
-    /**
-     * Collection method.
-     */
-    public function message($id = null)
-    {
-        return $this->getMessage($id);
-    }
-    
     public function createMessages(array $messages)
     {
         $objects = array();
@@ -388,10 +388,20 @@ class Queue extends PersistentObject
      * 
      * @param int $limit
      */
-    public function claimMessages($limit = 10)
+    public function claimMessages(array $options = array())
     {
+        $limit = (isset($options['limit'])) ? $options['limit'] : Claim::LIMIT_DEFAULT;
+        $grace = (isset($options['grace'])) ? $options['grace'] : Claim::GRACE_DEFAULT;
+        $ttl = (isset($options['ttl'])) ? $options['ttl'] : Claim::TTL_DEFAULT;
+        
+        $object = (object) array(
+            'grace' => $grace,
+            'ttl'   => $ttl
+        );
+        $json = json_encode($object);
+        
         $url = $this->url('claims', array('limit' => $limit));
-        $response = $this->getService()->request($url, 'POST');
+        $response = $this->getService()->request($url, 'POST', array(), $json);
         
         if ($response->httpStatus() == 204) {
             return false;
@@ -405,7 +415,8 @@ class Queue extends PersistentObject
             ));
         }
         
-        return true;
+        $array = json_decode($response->httpBody());
+        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $array);
     }
     
     /**
