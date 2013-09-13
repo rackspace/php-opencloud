@@ -20,13 +20,20 @@ class Utils
 {
 
     /**
+     * The current step of the process.
+     * 
+     * @var int 
+     */
+    private static $count = 0;
+    
+    /**
      * Basic logging function.
      * 
      * @param string $string
      */
     public static function log($string)
     {
-        echo $string . PHP_EOL;
+        echo PHP_EOL . $string . PHP_EOL;
     }
     
     /**
@@ -59,14 +66,26 @@ Switches:
 
 To exclude/include multiple units, either repeat the switch:
             
-    php Runner.php -I autoscale -I compute
+    php Runner.php -Iautoscale --include="compute"
             
 Or pass in a string delimeted with commas:
             
-    php Runner.php -I autoscale,compute,queues
+    php Runner.php -Iautoscale,compute,queues
 
 EOF;
         return self::log($output);
+    }
+    
+    public static function step()
+    {
+        $args = func_get_args();
+        
+        // Override inputted string with count
+        $format = 'Step %s: ' . $args[0];
+        $args[0] = self::$count++;
+        
+        $string = vsprintf($format, $args);
+        return self::log($string);
     }
     
 }

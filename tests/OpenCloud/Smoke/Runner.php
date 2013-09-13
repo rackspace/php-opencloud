@@ -9,6 +9,10 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
+namespace OpenCloud\Smoke;
+
+use Exception;
+
 /**
  * The runner runs the smoke test, he's the boss. You determine which units should
  * be run in the command line.
@@ -31,6 +35,11 @@ class Runner
         'Queues',
         'Volume'
     );
+    
+    public static function run()
+    {
+        return new static();
+    }
     
     public function __construct()
     {
@@ -65,7 +74,7 @@ class Runner
                 case 'H':
                 case 'help':
                     Utils::help();
-                    break;
+                    exit;
                 case 'E':
                 case 'exclude':
                     $this->insertSpecification($value);
@@ -88,18 +97,20 @@ class Runner
     {
         $match = false;
         
+        $keys = (strpos($key, ',') !== false) ? explode(',', $key) : array($key);
+        $keysLower = array_map('strtolower', $keys);
+        
         foreach ($this->units as $unit) {
-            if (strcasecmp($unit, $key)) {
+            if (in_array(strtolower($unit), $keysLower)) {
                 if (true === $exclude) {
                     $this->excluded[] = $unit;
                 } else {
                     $this->included[] = $unit;
                 }
                 $match = true;
-                break;
             }
         }
-        
+ 
         if ($match !== true) {
             throw new Exception(sprintf(
                 'You cannot "%s" %s because it is not a defined test. Run the '
@@ -127,7 +138,7 @@ class Runner
     {
         foreach ($this->included as $unit) {
             
-            $class = __NAMESPACE__ . 'Unit' . NAMESPACE_SEPARATOR . $unit;
+            $class = __NAMESPACE__ . '\\Unit\\' . $unit;
             
             if (!class_exists($class)) {
                 throw new Exception(sprintf('%s class does not exist', $class));
@@ -137,10 +148,14 @@ class Runner
                 throw new Exception(sprintf('Factory method does not exist in %s', $class));
             }
             
-            Utils::logf('Executing %s unit');
+            Utils::logf('Executing %s', $class);
             
             $class::factory();
         }
     }
     
 }
+
+require __DIR__ . '/../../../lib/php-opencloud.php';
+
+Runner::run();
