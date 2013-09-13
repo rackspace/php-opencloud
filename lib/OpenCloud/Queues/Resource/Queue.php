@@ -16,6 +16,7 @@ use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Common\Exceptions\CreateError;
 use OpenCloud\Queues\Exception;
 use OpenCloud\Common\Metadata;
+use OpenCloud\Common\Collection;
 
 /**
  * A queue holds messages. Ideally, a queue is created per work type. For example, 
@@ -24,20 +25,21 @@ use OpenCloud\Common\Metadata;
  */
 class Queue extends PersistentObject
 {
+    
     /**
      * The name given to the queue. The name MUST NOT exceed 64 bytes in length, 
      * and is limited to US-ASCII letters, digits, underscores, and hyphens.
      * 
      * @var string
      */
-    protected $name;
+    private $name;
     
     /**
      * Miscellaneous, user-defined information about the queue.
      * 
      * @var array|Metadata 
      */
-    protected $metadata;
+    private $metadata;
     
     /**
      * Populated when the service's listQueues() method is called. Provides a 
@@ -45,7 +47,7 @@ class Queue extends PersistentObject
      * 
      * @var string 
      */
-    protected $href;
+    private $href;
     
     protected static $url_resource = 'queues';
     protected static $json_collection_name = 'queues';
@@ -54,6 +56,14 @@ class Queue extends PersistentObject
         
     public function setName($name)
     {
+        if (preg_match('#[^\w\d\-\_]+#', $name)) {
+            throw new Exception\QueueException(sprintf(
+                'Queues names are restricted to alphanumeric characters, '
+                . ' hyphens and underscores. You provided: %s',
+                print_r($name, true)
+            ));
+        }
+            
         $this->name = $name;
         return $this;
     }
@@ -61,6 +71,12 @@ class Queue extends PersistentObject
     public function getName()
     {
         return $this->name;
+    }
+    
+    public function setHref($href)
+    {
+        $this->href = $href;
+        return $this;
     }
     
     public function getHref()
@@ -97,7 +113,7 @@ class Queue extends PersistentObject
         $this->metadata = $metadata;
         
         // Is this a persistent change?
-        if ($query === true) {
+        if ($query === true && $this->getName()) {
             
             // Get metadata properties as JSON-encoded object
             $json = json_encode((object) get_object_vars($metadata));
@@ -106,11 +122,8 @@ class Queue extends PersistentObject
             
             // Catch errors
             if ($response->httpStatus() != 204) {
-                throw new Exception\QueueMetadataException(sprintf(
-                    'Unable to set metadata for this Queue'
-                ));
+                throw new Exception\QueueMetadataException(sprintf('Unable to set metadata for this Queue'));
             }
-            
         }
         
         return $this;
@@ -158,7 +171,7 @@ class Queue extends PersistentObject
         if (!empty($params)) {
             $this->populate($params, false);
         }
-
+        
         // debug
         $this->getLogger()->info('{class}::Create({name})', array(
             'class' => get_class($this), 
@@ -193,7 +206,7 @@ class Queue extends PersistentObject
             ));
         }
         
-        $this->href = $response->header('Location');
+        $this->setHref($response->header('Location'));
     } 
     
     /**
@@ -251,15 +264,38 @@ class Queue extends PersistentObject
      */
     public function getMessage($id = null)
     {
-        return $this->getService()->resource('Message', $id)->setParent($this);
+        $resource = $this->getService()->resource('Message');
+        $resource->setParent($this)->populate($id);
+        return $resource;
     }
     
-    /**
-     * Collection method.
-     */
-    public function message($id = null)
+    public function createMessages(array $messages)
     {
-        return $this->getMessage($id);
+        $objects = array();
+        
+        foreach ($messages as $dataArray) {
+            $objects[] = $this->getMessage($dataArray)->createJson();
+        }
+        
+        $json = json_encode($objects);
+        $this->checkJsonError();
+        
+        $response = $this->getService()->request($this->url('messages'), 'POST', array(), $json);
+        
+        if ($response->httpStatus() != 201) {
+            throw new CreateError(sprintf(
+                'Error creating messages for [%s], status [%d] response [%s]',
+                $this->getName(),
+                $response->httpStatus(),
+                $response->httpBody()
+            ));
+        }
+
+        if ($location = $response->header('Location')) {
+            return $this->getService()->resourceList('Message', $location, $this);
+        }
+        
+        return true;
     }
     
     /**
@@ -309,7 +345,7 @@ class Queue extends PersistentObject
      */
     public function deleteMessages(array $ids)
     {
-        $url = $this->url(null, array('ids' => implode(',', $ids)));
+        $url = $this->url('messages', array('ids' => implode(',', $ids)));
         $response = $this->getService()->request($url, 'DELETE');
         
         if ($response->httpStatus() != 204) {
@@ -351,11 +387,21 @@ class Queue extends PersistentObject
      * 
      * @param int $limit
      */
-    public function claimMessages($limit = 10)
+    public function claimMessages(array $options = array())
     {
-        $url = $this->url('claims', array('limit' => $limit));
-        $response = $this->getService()->request($url, 'POST');
+        $limit = (isset($options['limit'])) ? $options['limit'] : Claim::LIMIT_DEFAULT;
+        $grace = (isset($options['grace'])) ? $options['grace'] : Claim::GRACE_DEFAULT;
+        $ttl = (isset($options['ttl'])) ? $options['ttl'] : Claim::TTL_DEFAULT;
         
+        $object = (object) array(
+            'grace' => $grace,
+            'ttl'   => $ttl
+        );
+        $json = json_encode($object);
+        
+        $url = $this->url('claims', array('limit' => $limit));
+        $response = $this->getService()->request($url, 'POST', array(), $json);
+
         if ($response->httpStatus() == 204) {
             return false;
         } elseif ($response->httpStatus() != 201) {
@@ -368,7 +414,8 @@ class Queue extends PersistentObject
             ));
         }
         
-        return true;
+        $array = json_decode($response->httpBody());
+        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $array);
     }
     
     /**

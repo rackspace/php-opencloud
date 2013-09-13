@@ -103,12 +103,25 @@ ENDRESPONSE;
                 $resp->body = file_get_contents($this->testDir.'/server-create.json');
             } elseif (strpos($url, '/queues')) {
             
-               if (preg_match('#/queues/(\w|\-)+/messages$#', $url)) {
+               if (preg_match('#/queues/foobar/messages$#', $url)) {                
+                    // post message
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/(\w|\-)+/messages$#', $url)) {
                    // post message
                    $resp->status = 201;
                    $resp->body = file_get_contents(__DIR__ . '/Queues/Response/POST/post_message.json');
+                   if (!preg_match('#test-queue#', $url)) { 
+                    $resp->headers = array(
+                       'Location' => '/v1/queues/demoqueue/messages?ids=51db6f78c508f17ddc924357'
+                    );
+                   }
                } elseif (preg_match('#/queues/foobar/claims(\?(\w|\&|\=)+)?$#', $url)) {
                    $resp->status = 204;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/baz/claims(\?(\w|\&|\=)+)?$$#', $url)) {
+                   // post message
+                   $resp->status = 404;
                    $resp->body = '{}';
                } elseif (preg_match('#/queues/(\w|\-)+/claims(\?(\w|\&|\=)+)?$#', $url)) {
                    // claim messages
@@ -130,7 +143,7 @@ ENDRESPONSE;
 			$resp->status = 202;
             
             if (strpos($url, '/queues')) {
-                if (strpos($url, 'foo!!')) {
+                if (strpos($url, 'foobar')) {
                     $resp->status = 404;
                 } else {
                     $resp->status = 204;
@@ -155,14 +168,22 @@ ENDRESPONSE;
                     'Content-Type' => 'text/plain; charset=UTF-8'
                 );
             } elseif (strpos($url, '/queues')) {
-            
-               if (preg_match('#/queues/(\w|\-)+$#', $url)) {
+                
+               if (preg_match('#/queues/baz$#', $url)) {
+                   
+                   $resp->status = 404;
+                   $resp->body = '{}';
+                   
+               } elseif (preg_match('#/queues/(\w|\-)+$#', $url)) {
                    // create queue
                    $resp->status = 201;
                    $resp->body = '{}';
-                   $resp->headers = array(
-                       'Location' => 'foo'
-                   );
+                   
+                   if (!preg_match('#test-queue#', $url)) {
+                        $resp->headers = array(
+                            'Location' => 'foo'
+                        );
+                   }
                    
                } elseif (preg_match('#/queues/(\w|\-)+/metadata$#', $url)) {
                    // Sets queue metadata
@@ -387,6 +408,8 @@ EOT;
                 if (preg_match('#/queues(\?.+)?$#', $url)) {
                     // List queues
                     $file = 'list_queues';
+                } elseif (preg_match('#/queues/foobar/metadata$#', $url)) {
+                    
                 } elseif (preg_match('#/queues/(\w|\-)+/metadata$#', $url)) {
                     // Queue metadata
                     $file = 'queue_metadata';

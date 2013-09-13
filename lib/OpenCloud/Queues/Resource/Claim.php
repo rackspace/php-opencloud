@@ -19,20 +19,25 @@ use OpenCloud\Common\Exceptions\UpdateError;
  */
 class Claim extends PersistentObject
 {
+    
+    const LIMIT_DEFAULT = 10;
+    const GRACE_DEFAULT = 43200;
+    const TTL_DEFAULT = 43200;
+    
     /**
      * @var string 
      */
-    public $id;
+    protected $id;
     
     /**
      * @var int 
      */
-    protected $age;
+    private $age;
     
     /**
      * @var array An array of messages.
      */
-    protected $messages;
+    private $messages;
     
     /**
      * How long the server should wait before releasing the claim in seconds. 
@@ -41,7 +46,7 @@ class Claim extends PersistentObject
      * 
      * @var int 
      */
-    protected $ttl;
+    private $ttl;
     
     /**
      * The message grace period in seconds. The value of grace must be between 
@@ -54,16 +59,33 @@ class Claim extends PersistentObject
      * 
      * @var int 
      */
-    protected $grace;
+    private $grace;
     
-    protected $href;
+    /**
+     * Link.
+     * 
+     * @var string 
+     */
+    private $href;
     
     protected static $url_resource = 'claims';
     protected static $json_name = '';
     
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+    
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function setAge($age)
+    {
+        $this->age = $age;
+        return $this;        
     }
     
     public function getAge()
@@ -76,14 +98,40 @@ class Claim extends PersistentObject
         return $this->grace;
     }
     
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
+        return $this;
+    }
+    
     public function getMessages()
     {
         return $this->messages;
     }
     
+    public function setTtl($ttl)
+    {
+        $this->ttl = $ttl;
+        return $this;
+    }
+    
     public function getTtl()
     {
         return $this->ttl;
+    }
+    
+    public function setHref($href)
+    {
+        $paths = explode('/', $href);
+        $this->id = end($paths);
+        $this->href = $href;
+        
+        return $this;
+    }
+    
+    public function getHref()
+    {
+        return $this->href;
     }
     
     /**

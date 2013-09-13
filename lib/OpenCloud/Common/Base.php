@@ -96,8 +96,8 @@ abstract class Base
                 
                 if ($key == 'metadata' || $key == 'meta') {
                     
-                    if (empty($this->metadata) || !$this->metadata instanceof Metadata) {
-                        $this->metadata = new Metadata;
+                    if (empty($this->$key) || !$this->$key instanceof Metadata) {
+                        $this->$key = new Metadata;
                     }
                     
                     // Metadata
