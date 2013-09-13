@@ -78,7 +78,12 @@ class Container extends CDNContainer
      */
     public function enableCDN($ttl = null)
     {
-        $url = $this->getService()->CDN()->url() . '/' . rawurlencode($this->name);
+        $urls = $this->getService()->CDN()->url();
+        $urlArray = array();
+        foreach ($urls as $url) {
+            $url = $url . '/' . rawurlencode($this->name);
+            $urlArray[] = $url;
+        }
 
         $headers = $this->metadataHeaders();
 
@@ -99,7 +104,7 @@ class Container extends CDNContainer
         $headers['X-CDN-Enabled']   = 'True';
 
         // PUT to the CDN container
-        $response = $this->getService()->request($url, 'PUT', $headers);
+        $response = $this->getService()->request($urlArray, 'PUT', $headers);
 
         // check the response status
         // @codeCoverageIgnoreStart

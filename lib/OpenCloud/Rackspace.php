@@ -85,13 +85,13 @@ EOF;
      * Creates a new DNS service. Note: this is a Rackspace-only feature.
      * 
      * @param  string $name
-     * @param  string $region
+     * @param  array $regions
      * @param  string $urltype
      * @return OpenCloud\Queues\Service
      */
-    public function DNS($name = null, $region = null, $urltype = null)
+    public function DNS($name = null, $regions = null, $urltype = null)
     {
-        return $this->Service('DNS', $name, $region, $urltype);
+        return $this->Service('DNS', $name, $regions, $urltype);
     }
 
     /**

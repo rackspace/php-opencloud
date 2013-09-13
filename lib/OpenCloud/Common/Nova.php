@@ -28,7 +28,7 @@ use OpenCloud\Compute\Flavor;
 abstract class Nova extends Service 
 {
 
-	private $_url;
+	private $_urls;
 
 	/**
 	 * Called when creating a new Compute service object
@@ -39,7 +39,7 @@ abstract class Nova extends Service
 	 * modified as often.
 	 *
 	 * @param \OpenCloud\Identity $conn - a connection object
-	 * @param string $serviceRegion - identifies the region of this Compute
+	 * @param array $serviceRegions - identifies the regions of this Compute
 	 *      service
 	 * @param string $urltype - identifies the URL type ("publicURL",
 	 *      "privateURL")
@@ -50,18 +50,21 @@ abstract class Nova extends Service
 		OpenStack $conn,
 	    $serviceType, 
 	    $serviceName, 
-	    $serviceRegion, 
+	    $serviceRegions, 
 	    $urltype
 	) {
 		parent::__construct(
 			$conn,
 			$serviceType,
 			$serviceName,
-			$serviceRegion,
+			$serviceRegions,
 			$urltype
 		);
         
-		$this->_url = Lang::noslash(parent::Url());
+                $urls = parent::Url();
+                foreach($urls as $url) {
+                    $this->_urls[] = Lang::noslash($url);
+                }
         
         $this->getLogger()->info(Lang::translate('Initializing Nova...'));
 	}

@@ -28,13 +28,13 @@ class Service extends AbstractService
      *
      * @param \OpenCloud\OpenStack $conn connection object
      * @param string $serviceName the name of the service
-     * @param string $serviceRegion (not currently used; DNS is regionless)
+     * @param array $serviceRegions (not currently used; DNS is regionless)
      * @param string $urltype the type of URL
      */
     public function __construct(
         OpenStack $connection,
         $serviceName,
-        $serviceRegion,
+        $serviceRegions,
         $urltype
     ) {
         
@@ -44,7 +44,7 @@ class Service extends AbstractService
             $connection,
             'rax:dns',
             $serviceName,
-            $serviceRegion,
+            $serviceRegions,
             $urltype
         );
     }

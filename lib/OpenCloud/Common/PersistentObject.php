@@ -436,24 +436,35 @@ abstract class PersistentObject extends Base
 
         // first, see if we have a [self] link
         $url = $this->findLink('self');
-
+        $urlArray = array();
         /**
          * Next, check to see if we have an ID
          * Note that we use Parent() instead of Service(), since the parent
          * object might not be a service.
          */
         if (!$url && $this->$primaryKey) {
-            $url = Lang::noslash($this->getParent()->url($this->resourceName())) . '/' . $this->$primaryKey;
+            $urls = $this->getParent()->url($this->resourceName());
+            foreach ($urls as $url) {
+                $urlArray[] = Lang::noslash($url) . '/' . $this->$primaryKey;
+            }
+            //$url = Lang::noslash($this->getParent()->url($this->resourceName())) . '/' . $this->$primaryKey;
+        } else {
+            $urlArray[] = $url;
         }
 
         // add the subresource
-        if ($url) {
-            $url .= $subresource ? "/$subresource" : '';
-            if (count($queryString)) {
-                $url .= '?' . $this->makeQueryString($queryString);
+        $returningArray = array();
+        if (!empty($urlArray)) {
+            foreach($urlArray as $url) {
+                $url .= $subresource ? "/$subresource" : '';
+                if (count($queryString)) {
+                    $url .= '?' . $this->makeQueryString($queryString);
+                }
+                $returningArray[] = $url;
             }
-            return $url;
+            return $returningArray;
         }
+        
 
         // otherwise, we don't have a URL yet
         throw new Exceptions\UrlError(sprintf(

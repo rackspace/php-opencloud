@@ -33,12 +33,12 @@ class Service extends Nova
      *
      * @param OpenStack $conn the connection on which to create the service
      * @param string $name the name of the service (e.g., "cloudDatabases")
-     * @param string $region the region of the service (e.g., "DFW" or "LON")
+     * @param array $regions the regions of the service (e.g., "DFW" or "LON")
      * @param string $urltype the type of URL (normally "publicURL")
      */
-    public function __construct(OpenStack $conn, $name, $region, $urltype) 
+    public function __construct(OpenStack $conn, $name, $regions, $urltype) 
     {
-        parent::__construct($conn, self::SERVICE_TYPE, $name, $region, $urltype);
+        parent::__construct($conn, self::SERVICE_TYPE, $name, $regions, $urltype);
     }
 
     /**
