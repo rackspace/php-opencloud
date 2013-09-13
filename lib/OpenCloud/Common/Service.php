@@ -348,7 +348,7 @@ abstract class Service extends Base
             // Find the service by comparing the type ("compute") and name ("openstack")
             if (!strcasecmp($service->type, $type) && !strcasecmp($service->name, $name)) {
                 foreach($service->endpoints as $endpoint) {
-                    foreach($regions as $region) {
+                    foreach($this->service_regions as $region) {
                         // Only set the URL if:
                         // a. It is a regionless service (i.e. no region key set)
                         // b. The region matches the one we want

@@ -751,7 +751,7 @@ class OpenStack extends Base
     }
 
     /**
-     * Performs a single HTTP request
+     * Performs a single or many HTTP request
      *
      * The request() method is one of the most frequently-used in the entire
      * library. It performs an HTTP request using the specified URL, method,
@@ -770,27 +770,71 @@ class OpenStack extends Base
     public function request($urls, $method = 'GET', $headers = array(), $data = null)
     {
         if(is_array($urls)) {
-            $exception = null;
-            foreach ($urls as $url) {
-                /* logic around redundancy / failover goes here */
-                try {
-                    $response = $this->requestOne($url, $method, $headers, $data);
-                    return $response;
-                } catch (\Exception $e) {
-                    if(strpos($e->getMessage(), "[name lookup timed out]")) {
-                        //continue... got a better way to check for a cloudfiles region being down because this don't work.. i have to add and delete routes to fake it
-                        $exception = $e;
-                    } else {
-                        throw $e;
-                    }
-                }
-            }
-            throw $exception;
+            return $this->requestMany($urls, $method, $headers, $data);
         } else {
             return $this->requestOne($urls, $method, $headers, $data);
         }
     }
     
+    /**
+     * This method handles requsting from multiple regions. If the resource is not found in one region,
+     * it tries the other region. The copy from one region to another happens every 12 hours per region, offset by 6 hours.
+     * 
+     * e.g. DFW copies to ORD @ 00:00
+     *      ORD copies to DFW @ 06:00
+     *      DFW copies to ORD @ 12:00
+     *      ORD copies to DFW @ 18:00
+     * 
+     * @api
+     * @param array urls - the URLs of the request
+     * @param string method - the HTTP method (defaults to GET)
+     * @param array headers - an associative array of headers
+     * @param string data - either a string or a resource (file pointer) to
+     *      use as the request body (for PUT or POST)
+     * @return HttpResponse object
+     * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
+     */
+    private function requestMany($urls, $method, $headers, $data) {
+        $exception = null;
+        $response = null;
+        foreach ($urls as $url) {
+            try {
+                $response = $this->requestOne($url, $method, $headers, $data);
+                //if the file is not found go ahead and check other regions.
+                if ($response->httpStatus() != 404) {
+                    return $response;
+                }
+            } catch (\HttpOverLimitError $e) {
+                throw $e;
+            } catch (\HttpUnauthorizedError $e) {
+                throw $e;
+            } catch (\HttpForbiddenError $e) {
+                throw $e;
+            } catch (\HttpError $e) {
+                //continue... assume that the zone is down. 
+                $exception = $e;
+            }
+        }
+        //if we really got a 404, return it
+        if($response) {
+            return $response;
+        }
+        //else, throw the exception we got
+        throw $exception;
+    }
+    
+    
+    /**
+     * 
+     * @api
+     * @param array url - the URL of the request
+     * @param string method - the HTTP method (defaults to GET)
+     * @param array headers - an associative array of headers
+     * @param string data - either a string or a resource (file pointer) to
+     *      use as the request body (for PUT or POST)
+     * @return HttpResponse object
+     * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError, HttpError
+     */
     private function requestOne($url, $method = 'GET', $headers = array(), $data = null)
     {
         $this->getLogger()->info('Resource [{url}] method [{method}] body [{body}]', array(
