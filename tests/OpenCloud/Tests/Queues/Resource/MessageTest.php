@@ -41,17 +41,43 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $this->message->setBody('bar');
         
         $this->assertEquals('foo', $this->message->getId());
-        $this->assertEquals('FOO BAR', $this->message->getBody());
+        $this->assertEquals('bar', $this->message->getBody());
         
         $this->message->getHref();
         $this->message->getAge();
     }
     
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     */
     public function test_Creating_Message()
     {
         $message = new Message();
         $message->setService($this->service)->setParent($this->queue);
         $message->setTtl(100)->setBody('foo')->create();  
+    }
+    
+    public function test_Batch_Create()
+    {
+        $this->queue->createMessages(array(
+            array('body' => 'Do homework', 'ttl' => 3600)
+        ));
+        
+        $response = $this->queue->setName('test-queue')->createMessages(array(
+            array('body' => 'Do homework', 'ttl' => 3600)
+        ));
+        $this->assertTrue($response);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     */
+    public function test_Batch_Create_Fails_When_Queue_Not_Found()
+    {
+        $queue = $this->queue->setName('foobar');
+        $queue->createMessages(array(
+            array('body' => 'Do homework', 'ttl' => 3600)
+        ));
     }
     
     public function test_Collection()
@@ -82,7 +108,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
      */
     public function test_Delete_Fails_Without_Correct_Response()
     {
-        $this->message->id = 'foo!!';
+        $this->message->id = 'foobar';
         $this->message->delete();
     }
     

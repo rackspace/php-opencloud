@@ -33,7 +33,7 @@ abstract class Service extends Base
     private $service_type;
     private $service_name;
     private $service_region;
-    private $service_url;
+    protected $service_url;
 
     protected $_namespaces = array();
 
@@ -139,7 +139,7 @@ abstract class Service extends Base
      * Performs an authenticated request
      *
      * This method handles the addition of authentication headers to each
-     * request. It always adds the X-Auth-Token: header and will add the
+     * request. It always adds the X--Auth-Token: header and will add the
      * X-Auth-Project-Id: header if there is a tenant defined on the
      * connection.
      *
@@ -149,13 +149,8 @@ abstract class Service extends Base
      * @param string $body An optional body for POST/PUT requests
      * @return \OpenCloud\HttpResult
      */
-    public function request(
-    	$url,
-    	$method = 'GET',
-    	array $headers = array(),
-    	$body = null
-    ) {
-
+    public function request($url, $method = 'GET', array $headers = array(), $body = null)
+    {
         $headers['X-Auth-Token'] = $this->conn->Token();
 
         if ($tenant = $this->conn->Tenant()) {
@@ -218,7 +213,7 @@ abstract class Service extends Base
                 $response->httpBody()
             ));
         }
-        
+
         // Handle empty response
         if (strlen($response->httpBody()) == 0) {
             return new Collection($parent, $class, array());
@@ -250,8 +245,8 @@ abstract class Service extends Base
         // How should we populate the collection?
         $data = array();
 
-        if (!$collectionName) {
-            // No element name, just a plain object
+        if (!$collectionName || is_array($object)) {
+            // No element name, just a plain object/array
             // @codeCoverageIgnoreStart
             $data = $object;
             // @codeCoverageIgnoreEnd
