@@ -322,6 +322,25 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource-42', $sub->Name());
     }
+
+    public function testUpdate()
+    {
+
+        $lb = $this->service->LoadBalancer();
+        $lb->Create();
+
+        $resp = $lb->Update(array(
+            'algorithm' => 'ROUND_ROBIN',
+            'protocol' => 'HTTP',
+            'port' => '8080'
+        ));
+
+        $this->assertNotNull($resp->HttpStatus());
+
+        $this->assertEquals('ROUND_ROBIN',$lb->algorithm);
+        $this->assertEquals('HTTP',$lb->protocol);
+        $this->assertEquals('8080',$lb->port);
+    }
     
     public function testAddingNodeWithType()
     {
