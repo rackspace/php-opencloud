@@ -525,4 +525,30 @@ class LoadBalancer extends PersistentObject
         return $object;
     }
 
+    /**
+     * returns the JSON object for Update()
+     *
+     * @return stdClass
+     * @throws \OpenCloud\Common\Exceptions\InvalidParameterError
+     */
+    protected function updateJson($params = array())
+    {
+
+        $updatableFields = array('name','algorithm','protocol','port','timeout','halfClosed');
+
+        //Validate supplied fields
+        $fields = array_keys($params);
+        foreach($fields as $field){
+            if(!in_array($field,$updatableFields))
+                throw new Exceptions\InvalidParameterError("You cannot update $field.");
+        }
+
+        $object = new \stdClass();
+        $object->loadBalancer = new \stdClass();
+        foreach($params as $name => $value) {
+            $object->loadBalancer->$name = $this->$name;
+        }
+        return $object;
+    } 
+
 }
