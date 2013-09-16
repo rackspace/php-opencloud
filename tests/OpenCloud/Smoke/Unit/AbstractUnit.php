@@ -12,7 +12,11 @@
 namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\OpenStack;
+use OpenCloud\Rackspace;
 use OpenCloud\Common\Service;
+use OpenCloud\Smoke\Enum;
+use OpenCloud\Smoke\SmokeException;
+use OpenCloud\Smoke\Utils;
 
 /**
  * Description of AbstractUnit
@@ -21,6 +25,10 @@ use OpenCloud\Common\Service;
  */
 abstract class AbstractUnit
 {
+    private static $currentStep = 1;
+    
+    private static $steps = array();
+    
     /**
      * The credentials cache filename.
      * 
@@ -56,14 +64,15 @@ abstract class AbstractUnit
         $unit->initAuth();
         
         // Unit-specific implementations
-        $service = $unit->setupService();
-        $this->setService($service);
+        $unit->setService($unit->setupService());
         
         // Run execution...
         $unit->main();
+        
+        // Clean stuff up if necessary...
         $unit->teardown();
         
-        return true;
+        return $unit;
     }
     
     public function setConnection(OpenStack $connection)
@@ -72,7 +81,7 @@ abstract class AbstractUnit
         return $this;
     }
     
-    public function getCredentials()
+    public function getConnection()
     {
         return $this->connection;
     }
@@ -90,53 +99,59 @@ abstract class AbstractUnit
     
     protected function initAuth()
     {
-        Utils::step('Authenticate');
+        Utils::step('Authenticate'); 
         
         $secret = array(
-            'username' => Utils::getEnvVar('username'), 
-            'apiKey'   => Utils::getEnvVar('apiKey')
+            'username' => Utils::getEnvVar(Enum::ENV_USERNAME), 
+            'apiKey'   => Utils::getEnvVar(Enum::ENV_API_KEY)
         );
-        $region = Utils::getEnvVar('region');
 
+        $identityEndpoint = Utils::getIdentityEndpoint();
+        
         // Do connection stuff
-        $connection = new Rackspace($region, $secret);
+        $connection = new Rackspace($identityEndpoint, $secret);
         $connection->appendUserAgent(Enum::USER_AGENT);
         $this->setConnection($connection);
         
         // See if we can retrieve credentials
         $this->handleCredentials();
         
-        Utils::logf('Using region: %s', $region);
+        Utils::logf('Using identity endpoint: %s', $identityEndpoint);
+        Utils::logf('Using region: %s', Utils::getRegion());
     }
     
     public function handleCredentials()
     {
         $credentialsCacheFile = __DIR__ . '/../Resource/' . Enum::CREDS_FILENAME;
         
+        try {
+            $fp = fopen($credentialsCacheFile, 'r');
+        } catch (Exception $e) {}
+        
         // Does the credentials file already exist?
-        if (!$fp = fopen($credentialsCacheFile, 'r')) {
+        if (!$fp || !($size = filesize($credentialsCacheFile))) {
             
             // If not, can we create a new one?            
             if (!is_writable($credentialsCacheFile)
                 || false === ($fp = fopen($credentialsCacheFile, 'w'))
             ) {
-                throw new Exception(sprintf(
-                    'Credentials file [%s] needs to be writable',
+                throw new SmokeException(sprintf(
+                    'Credentials file [%s] cannot be written to',
                     $credentialsCacheFile
                 ));
             }
             
-            Utis::logf('Saving credentials to %s', $credentialsCacheFile);
+            Utils::logf('Saving credentials to %s', $credentialsCacheFile);
  
             // Save credentials
             fwrite($fp, serialize($this->getConnection()->exportCredentials()));
             
         } else { 
             
-            Utils::logf('Loading credentials from %s', CACHEFILE);
+            Utils::logf('Loading credentials from %s', $credentialsCacheFile);
             
             // Read from file
-            $string = fread($fp, filesize($credentialsCacheFile));
+            $string = fread($fp, $size);
             $this->getConnection()->importCredentials(unserialize($string)); 
         }
         
@@ -160,9 +175,79 @@ abstract class AbstractUnit
         };
     }
     
-    public function shoulDelete($string)
+    public function shouldDelete($string)
     {
-        return strpos($string, Enum::GLOBAL_PREFIX);
+        return stristr($string, Enum::GLOBAL_PREFIX) !== false;
+    }
+    
+    public function prepend($string)
+    {
+        return Enum::GLOBAL_PREFIX . $string;
+    }
+    
+    public static function step()
+    {
+        $args = func_get_args();
+        
+        // Override inputted string with count
+        $format = 'Step %s: ' . $args[0];
+        $args[0] = self::$count++;
+        $string = vsprintf($format, $args);
+        
+        // Set array if not set
+        if (!isset(static::$steps)) {
+            static::$steps = array();
+        }
+        
+        // Increment
+        static::$currentStep++;
+        
+        // Append message to array
+        static::$steps[self::$currentStep]['head'] = $string;
+        
+        // Sort out correct message
+        $message = sprintf("Step %n", end());
+        
+        if (isset(static::$totalSteps)) {
+            $message .= sprintf('/%n', static::$totalSteps);
+        }
+        
+        $message .= sprintf(': %s', $string);
+        
+        // Output
+        self::log($message);
+    }
+    
+    public function subStep()
+    {
+        $args = func_get_args();
+
+        if (isset(static::$steps[self::$currentStep])) {
+            
+            // Override inputted string with count
+            $format = 'Step %s: ' . $args[0];
+            $args[0] = self::$count++;
+            $string = vsprintf($format, $args);
+            
+            // If subSteps is not an array, create it
+            if (empty(static::$steps[self::$currentStep]['subSteps'])) {
+                static::$steps[self::$currentStep]['subSteps'] = array();
+            }
+            
+            // Construct output string
+            end(static::$steps[self::$currentStep]['subSteps']);
+            $key = key(static::$steps[self::$currentStep]['subSteps']);
+            $outputString = sprintf('   %n: %s', $key++, $string);
+            
+            // Append to array record
+            static::$steps[self::$currentStep]['subSteps'][$key] = $string;
+            
+            // Output
+            self::log($outputString);
+            
+        } else {
+            return self::step($args);
+        }
     }
     
 }

@@ -11,8 +11,6 @@
 
 namespace OpenCloud\Smoke;
 
-use Exception;
-
 /**
  * The runner runs the smoke test, he's the boss. You determine which units should
  * be run in the command line.
@@ -50,8 +48,8 @@ class Runner
         $this->handleArguments();
         $this->executeTemplate();
         
-        $duration = $start - microtime(true);
-        Utils::log('Finished all tests! Time taken: %s seconds', $duration);
+        $duration = microtime(true) - $start;
+        Utils::logf('Finished all tests! Time taken: %s seconds', $duration);
     }
     
     private function handleArguments()
@@ -112,7 +110,7 @@ class Runner
         }
  
         if ($match !== true) {
-            throw new Exception(sprintf(
+            throw new SmokeException(sprintf(
                 'You cannot "%s" %s because it is not a defined test. Run the '
                     . '-a or --all option to see all available units.',
                 ($exclude === true) ? 'exclude' : 'include',
@@ -141,11 +139,15 @@ class Runner
             $class = __NAMESPACE__ . '\\Unit\\' . $unit;
             
             if (!class_exists($class)) {
-                throw new Exception(sprintf('%s class does not exist', $class));
+                throw new SmokeException(sprintf(
+                    '%s class does not exist', $class
+                ));
             }
             
             if (!method_exists($class, 'factory')) {
-                throw new Exception(sprintf('Factory method does not exist in %s', $class));
+                throw new SmokeException(sprintf(
+                    'Factory method does not exist in %s', $class
+                ));
             }
             
             Utils::logf('Executing %s', $class);

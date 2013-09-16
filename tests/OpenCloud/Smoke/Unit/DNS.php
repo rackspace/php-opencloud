@@ -11,6 +11,9 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use OpenCloud\Smoke\Enum;
+use OpenCloud\Smoke\Utils;
+
 /**
  * Description of DNS
  * 
@@ -32,14 +35,12 @@ class DNS extends AbstractUnit implements UnitInterface
      */
     public function main()
     {
-        $domainName = 'domain-' . time() . '.com';
+        $domainName = Enum::GLOBAL_PREFIX . 'domain-' . time() . '.com';
         
         // Add a domain
-        
         Utils::step('Try to add a domain %s', $domainName);
         
         $domain = $this->getService()->domain();
-        
         $asyncResponse = $domain->create(array(
             'name'         => $domainName,
             'emailAddress' => 'sdk-support@rackspace.com',
@@ -48,9 +49,8 @@ class DNS extends AbstractUnit implements UnitInterface
         $asyncResponse->waitFor('COMPLETED', 300, $this->getWaiterCallback(), 1);
 
         if ($asyncResponse->Status() == 'ERROR') {
-            Utils::log('Error condition (this may be valid if the domain exists');
             Utils::logf(
-                '[%d] %s - %s',
+                'Error: [%d] %s - %s',
                 $asyncResponse->error->code, 
                 $asyncResponse->error->message, 
                 $asyncResponse->error->details
@@ -58,10 +58,9 @@ class DNS extends AbstractUnit implements UnitInterface
         }
         
         // Add a CNAME
-        
         Utils::step("Adding a CNAME record www.%s", $domainName);
         
-        $domains = $dns->domainList(array('name' => $domainName));
+        $domains = $this->getService()->domainList(array('name' => $domainName));
         $domain = $domains->next();
 
         $record = $domain->record();
@@ -71,23 +70,25 @@ class DNS extends AbstractUnit implements UnitInterface
             'name' => 'www.'. $domainName,
             'data' => 'developer.rackspace.com'
         ));
-        $asyncResponse->WaitFor('COMPLETED', 300, $this->getWaiterCallback(), 1);
+        $asyncResponse->waitFor('COMPLETED', 300, $this->getWaiterCallback(), 1);
 
         if ($asyncResponse->status() == 'ERROR') {
-            Utils::log(
-                'Error status: [%d] $s - %s', 
+            Utils::logf(
+                'Error: [%d] $s - %s', 
                 $asyncResponse->error->code, 
                 $asyncResponse->error->message,
                 $asyncResponse->error->details
             );
         }
 
+        // List everything
         Utils::step('List domains and records');
         
-        $domains = $dns->domainList();
-        while ($domain = $domains->Next()) {
+        $domains = $this->getService()->domainList(); 
+        $i = 0;
+        while (($domain = $domains->next()) && $i <= Enum::DISPLAY_ITER_LIMIT) {
             
-            Utils::log('%s [%s]', $domain->Name(), $domain->emailAddress);
+            Utils::logf('%s [%s]', $domain->name(), $domain->emailAddress);
             Utils::log('Domain Records:');
             
             $recordList = $domain->recordList();
@@ -101,6 +102,8 @@ class DNS extends AbstractUnit implements UnitInterface
                     $record->data
                 );
             }
+            
+            $i++;
         }
     }
     
@@ -109,8 +112,9 @@ class DNS extends AbstractUnit implements UnitInterface
      */
     public function teardown()
     {
-        while ($domain = $this->getService()->domainList()) {
-            if ($this->shoulDelete($domain->name)) {
+        $domains = $this->getService()->domainList();
+        while ($domain = $domains->next()) {
+            if ($this->shouldDelete($domain->name())) {
                 $domain->delete();
             }
         }

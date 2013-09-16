@@ -23,6 +23,20 @@ class Enum
     
     const CREDS_FILENAME = '.smoketestCredentials';
     
-    const GLOBAL_PREFIX = 'PHP_SmokeTest_';
+    const GLOBAL_PREFIX = 'PHPSmokeTest-';
+    
+    // Environment variable constants
+    const ENV_PREFIX   = 'PHP_OpenCloud_';
+    const ENV_USERNAME = 'USERNAME';
+    const ENV_API_KEY  = 'API_KEY';
+    const ENV_PASSWORD = 'PASSWORD';
+    const ENV_REGION   = 'REGION';
+    const ENV_IDENTITY_ENDPOINT = 'IDENTITY_ENDPOINT';
+    
+    // Defaults
+    const DEFAULT_REGION = 'DFW';
+    
+    // How many iterations do we want for resource lists? We don't have all day...
+    const DISPLAY_ITER_LIMIT = 10;
     
 }

@@ -11,6 +11,10 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use OpenCloud\Smoke\Utils;
+use OpenCloud\Smoke\Enum;
+use OpenCloud\Common\Exceptions\CdnNotAvailableError;
+
 /**
  * Description of ObjectStore
  * 
@@ -18,12 +22,15 @@ namespace OpenCloud\Smoke\Unit;
  */
 class ObjectStore extends AbstractUnit implements UnitInterface
 {
+    
+    const OBJECT_NAME = 'TestObject';
+    
     /**
      * {@inheritDoc}
      */
-    public function setup()
+    public function setupService()
     {
-        
+        return $this->getConnection()->objectStore('cloudFiles', Utils::getRegion());
     }
     
     /**
@@ -31,7 +38,61 @@ class ObjectStore extends AbstractUnit implements UnitInterface
      */
     public function main()
     {
+        Utils::log('Connect to Cloud Files');
         
+        // Container
+        Utils::log('Create Container');
+        $container = $this->getService()->container();
+        $container->create(array(
+            'name' => $this->prepend('0')
+        ));
+        
+        // Objects
+        Utils::log('Create Object from this file');
+        $object = $container->dataObject();
+        $object->create(array(
+                'name'         => $this->prepend(self::OBJECT_NAME),
+                'content_type' => 'text/plain'
+            ), 
+            __FILE__
+        );
+        
+        // CDN info
+        Utils::log('Publish Container to CDN');
+        $container->publishToCDN(600); // 600-second TTL
+        
+        Utils::logf('CDN URL:              %s', $container->CDNUrl());
+        Utils::logf('Public URL:           %s', $container->publicURL());
+        Utils::logf('Object Public URL:    %s', $object->publicURL());
+        Utils::logf('Object SSL URL:       %s', $object->publicURL('SSL'));
+        Utils::logf('Object Streaming URL: %s', $object->publicURL('Streaming'));
+        
+        // Can we access it?
+        Utils::log('Verify Object PublicURL (CDN)');
+        $url = $object->publicURL();
+        system("curl -s -I $url | grep HTTP");
+        
+        // Copy
+        Utils::log('Copy Object');
+        $target = $container->dataObject();
+        $target->name = $this->prepend(self::OBJECT_NAME . '_COPY');
+        $object->copy($target);
+        
+        // List containers
+        Utils::log('List all containers');
+        $containers = $this->getService()->containerList();
+        $i = 0;
+        while (($container = $containers->next()) && $i <= Enum::DISPLAY_ITER_LIMIT) {
+            Utils::logf('Container: %s', $container->name);
+            
+            // List this container's objects
+            $objects = $container->objectList();
+            while ($object = $objects->Next()) {
+                Utils::logf('Object: %s', $object->name);
+            }
+            
+            $i++;
+        }        
     }
     
     /**
@@ -39,6 +100,27 @@ class ObjectStore extends AbstractUnit implements UnitInterface
      */
     public function teardown()
     {
-        
+        $containers = $this->getService()->containerList(array(
+            'prefix' => Enum::GLOBAL_PREFIX
+        ));
+        while ($container = $containers->next()) {
+            // Disable CDN and delete object
+            Utils::log('Disable Container CDN');
+            try {
+                $container->disableCDN();
+            } catch (CdnNotAvailableError $e) {}
+            
+            Utils::log('Delete Object');
+            $objects = $container->objectList();
+            if ($objects->count()) {
+                while ($object = $objects->next()) {
+                    Utils::logf('Deleting: %s', $object->name);
+                    $object->delete();
+                }
+            }
+
+            Utils::logf('Delete Container: %s', $container->name);
+            $container->delete();
+        }
     }
 }
