@@ -531,7 +531,7 @@ class LoadBalancer extends PersistentObject
      * @return stdClass
      * @throws \OpenCloud\Common\Exceptions\InvalidParameterError
      */
-    protected function updateJson($params = array())
+    public function updateJson($params = array())
     {
 
         $updatableFields = array('name','algorithm','protocol','port','timeout','halfClosed');

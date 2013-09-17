@@ -574,7 +574,14 @@ class OpenStack extends Base
      */
     public function url($subresource='tokens')
     {
-        return Lang::noslash($this->url) . '/' . $subresource;
+        if(is_array($this->url)) {
+            $urls = array();
+            foreach($this->url as $oneUrl) {
+                $urls[] = Lang::noslash($oneUrl) . '/' . $subresource;
+            }
+        } else {
+            return Lang::noslash($this->url) . '/' . $subresource;
+        }
     }
 
     /**
