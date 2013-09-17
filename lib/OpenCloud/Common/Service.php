@@ -398,9 +398,12 @@ abstract class Service extends Base
             RAXSDK_URL_PUBLIC
         );
 
-        $url = Lang::noslash($urlBase) . '/' . $resource;
+        $urls = array();
+        foreach($urlBase as $url) {
+            $urls[] = Lang::noslash($urls) . '/' . $resource;
+        }
 
-        $response = $this->request($url);
+        $response = $this->request($urls);
 
         // check for NOT FOUND response
         if ($response->httpStatus() == 404) {
