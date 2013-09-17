@@ -37,7 +37,7 @@ class InstanceTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $conn, 'cloudDatabases', 'DFW', 'publicURL'
+            $conn, 'cloudDatabases', array('DFW'), 'publicURL'
         );
         $this->instance = new MyInstanceClass(
             $this->service, 'INSTANCE-ID'

@@ -27,7 +27,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $conn, 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
         $this->net = new Network($this->service, RAX_PUBLIC);
     }

@@ -86,52 +86,52 @@ class OpenStack extends Base
     protected $defaults = array(
         'Compute' => array(
             'name'      => RAXSDK_COMPUTE_NAME,
-            'region'    => RAXSDK_COMPUTE_REGION,
+            'regions'    => array(RAXSDK_COMPUTE_REGION),
             'urltype'   => RAXSDK_COMPUTE_URLTYPE
         ),
         'ObjectStore' => array(
             'name'      => RAXSDK_OBJSTORE_NAME,
-            'region'    => RAXSDK_OBJSTORE_REGION,
+            'regions'    => array(RAXSDK_OBJSTORE_REGION),
             'urltype'   => RAXSDK_OBJSTORE_URLTYPE
         ),
         'Database' => array(
             'name'      => RAXSDK_DATABASE_NAME,
-            'region'    => RAXSDK_DATABASE_REGION,
+            'regions'    => array(RAXSDK_DATABASE_REGION),
             'urltype'   => RAXSDK_DATABASE_URLTYPE
         ),
         'Volume' => array(
             'name'      => RAXSDK_VOLUME_NAME,
-            'region'    => RAXSDK_VOLUME_REGION,
+            'regions'    => array(RAXSDK_VOLUME_REGION),
             'urltype'   => RAXSDK_VOLUME_URLTYPE
         ),
         'LoadBalancer' => array(
             'name'      => RAXSDK_LBSERVICE_NAME,
-            'region'    => RAXSDK_LBSERVICE_REGION,
+            'regions'    => array(RAXSDK_LBSERVICE_REGION),
             'urltype'   => RAXSDK_LBSERVICE_URLTYPE
         ),
         'DNS' => array(
             'name'      => RAXSDK_DNS_NAME,
-            'region'    => RAXSDK_DNS_REGION,
+            'regions'    => array(RAXSDK_DNS_REGION),
             'urltype'   => RAXSDK_DNS_URLTYPE
         ),
         'Orchestration' => array(
             'name'      => RAXSDK_ORCHESTRATION_NAME,
-            'region'    => RAXSDK_ORCHESTRATION_REGION,
+            'regions'    => array(RAXSDK_ORCHESTRATION_REGION),
             'urltype'   => RAXSDK_ORCHESTRATION_URLTYPE
         ),
         'CloudMonitoring' => array(
             'name'      => RAXSDK_MONITORING_NAME,
-            'region'    => RAXSDK_MONITORING_REGION,
+            'regions'    => array(RAXSDK_MONITORING_REGION),
             'urltype'   => RAXSDK_MONITORING_URLTYPE
         ),
         'Autoscale' => array(
         	'name'		=> RAXSDK_AUTOSCALE_NAME,
-        	'region'	=> RAXSDK_AUTOSCALE_REGION,
+        	'regions'	=> array(RAXSDK_AUTOSCALE_REGION),
         	'urltype'	=> RAXSDK_AUTOSCALE_URLTYPE
         ),
         'Queues' => array(
             'name'		=> RAXSDK_QUEUES_NAME,
-        	'region'	=> RAXSDK_QUEUES_REGION,
+        	'regions'	=> array(RAXSDK_QUEUES_REGION),
         	'urltype'	=> RAXSDK_QUEUES_URLTYPE
         )
     );
@@ -1164,13 +1164,13 @@ class OpenStack extends Base
      *
      * @api
      * @param string $name the name of the Compute service to attach to
-     * @param string $region the name of the region to use
+     * @param array $regions the name of the region to use
      * @param string $urltype the URL type (normally "publicURL")
      * @return Compute
      */
-    public function compute($name = null, $region = null, $urltype = null)
+    public function compute($name = null, $regions = null, $urltype = null)
     {
-        return $this->service('Compute', $name, $region, $urltype);
+        return $this->service('Compute', $name, $regions, $urltype);
     }
 
     /**
@@ -1238,7 +1238,8 @@ class OpenStack extends Base
             ));
         }
 
-        if (!$regions = $regions ?: $default['regions']) {
+        $regions = $regions ?: $default['regions'];
+        if (!$regions || (is_array($regions) && (empty($regions) || is_null($regions[0])))) {
             throw new Exceptions\ServiceValueError(sprintf(
                 Lang::translate('No value for %s region'),
                 $class

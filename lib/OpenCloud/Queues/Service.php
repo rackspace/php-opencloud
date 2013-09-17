@@ -97,9 +97,13 @@ class Service extends AbstractService
      */
     public function request($url, $method = 'GET', array $headers = array(), $body = null)
     {
-        if (preg_match('#https?:#', $url) === 0) {
-            $url = $this->service_url . preg_replace('#^/v\d(\.\d)?#', '', $url);
+        foreach($url as &$oneUrl) {
+            if (preg_match('#https?:#', $oneUrl) === 0) {
+                $serviceUrl = $this->findMatchingUrlRegionFromServiceUrls($oneUrl);
+                $oneUrl = $serviceUrl . preg_replace('#^/v\d(\.\d)?#', '', $oneUrl);
+            }
         }
+        
         
         $headers['Client-ID'] = $this->getClientId();
         

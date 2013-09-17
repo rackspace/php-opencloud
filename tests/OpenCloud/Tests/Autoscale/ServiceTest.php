@@ -25,7 +25,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
             'SECRET'
         );
 
-        $this->service = new Service($connection, 'autoscale', 'DFW', 'publicURL');
+        $this->service = new Service($connection, 'autoscale', array('DFW'), 'publicURL');
         
     }
     

@@ -244,9 +244,12 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 
     public function testSetDefaults()
     {
-        $this->my->setDefaults('Compute', 'cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->my->setDefaults('Compute', 'cloudServersOpenStack', array('DFW'), 'publicURL');
         $comp = $this->my->Compute();
-        $this->assertRegExp('/dfw.servers/', $comp->Url());
+        $urls = $comp->Url();
+        foreach($urls as $url) {
+            $this->assertRegExp('/dfw.servers/', $url);
+        }
     }
     
     /**
@@ -314,7 +317,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     public function testObjectStore()
     {
         $objs = $this->my->ObjectStore(
-            'cloudFiles', 'DFW', 'publicURL'
+            'cloudFiles', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\ObjectStore\Service', $objs);
     }
@@ -322,7 +325,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     public function testCompute1()
     {
         $comp = $this->my->Compute(
-            'cloudServersOpenStack', 'DFW', 'publicURL'
+            'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\Compute\Service', $comp);
     }
@@ -359,14 +362,14 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     public function testComputeFail()
     {
         $comp = $this->my->Compute(
-            'FOOBAR', 'DFW', 'publicURL'
+            'FOOBAR', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\Compute\Service', $comp);
     }
 
     public function testVolumeService()
     {
-        $cbs = $this->my->VolumeService('cloudBlockStorage', 'DFW');
+        $cbs = $this->my->VolumeService('cloudBlockStorage', array('DFW'));
         $this->assertInstanceOf('OpenCloud\Volume\Service', $cbs);
     }
 

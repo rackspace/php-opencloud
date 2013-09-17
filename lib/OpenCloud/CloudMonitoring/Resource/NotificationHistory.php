@@ -26,7 +26,11 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 
     public function baseUrl()
     {
-        return $this->Parent()->Url($this->Parent()->id) . '/notification_history';
+        $urls = $this->Parent()->Url($this->Parent()->id);
+        foreach($urls as &$url) {
+            $url .= '/notification_history';
+        }
+        return $urls;
     }
 
     public function listChecks()

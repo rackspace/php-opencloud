@@ -41,14 +41,14 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		$this->service = new StubObjectStore(
 			$conn,
 			'cloudFiles',
-			'DFW',
+			array('DFW'),
 			'publicURL'
 		);
         
         $this->otherContainer = new Container(new Service(
 			new StubConnection('http://example.com', 'SECRET'),
 			'cloudFiles',
-			'DFW',
+			array('DFW'),
 			'publicURL'
 		), 'TEST');
 	}
@@ -73,26 +73,27 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testUrl()
 	{
-		$this->assertEquals(
-		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST',
-		    $this->getContainer()->Url()
-		);
+            $urls = $this->getContainer()->Url();
+            foreach($urls as $url) {
+                $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST');
+            }
 
 		$space_cont = new Container($this->service, 'Name With Spaces');
 
-		$this->assertEquals(
-	        'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/Name%20With%20Spaces',
-		    $space_cont->Url()
-		);
+            $spaceUrls = $space_cont->Url();
+            foreach($spaceUrls as $spaceUrl) {
+                $this->assertEquals($spaceUrl, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/Name%20With%20Spaces');
+            }
 	}
 
 	public function testCreate()
 	{
 		$con = $this->getContainer()->Create(array('name'=>'SECOND'));
 		$this->assertEquals(TRUE, $con);
-		$this->assertEquals(
-		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND',
-		    $this->getContainer()->Url());
+                $urls = $this->getContainer()->Url();
+                foreach($urls as $url) {
+                    $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND');
+                }
 	}
 
 	public function testCreate0()
@@ -180,10 +181,10 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testCDNURL()
 	{
-	    $this->assertEquals(
-	        'https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST',
-	        $this->getContainer()->CDNURL()
-        );
+            $urls = $this->getContainer()->CDNURL();
+            foreach($urls as $url) {
+                $this->assertEquals($url, 'https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST');
+            }
 	}
 
 	public function testCDNinfo()
@@ -317,7 +318,7 @@ EOT;
         $new = new Container(new Service(
 			new StubConnection('http://example.com', 'SECRET'),
 			'cloudFiles',
-			'DFW',
+			array('DFW'),
 			'publicURL'
 		), 'foobar');
         $new->refresh('FOOBAR');

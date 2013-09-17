@@ -26,7 +26,7 @@ class SubResourceTest extends PHPUnit_Framework_TestCase
     {
         $this->connection = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $this->connection, 'cloudLoadBalancers', 'DFW', 'publicURL'
+            $this->connection, 'cloudLoadBalancers', array('DFW'), 'publicURL'
         );
         $this->loadBalancer = new LoadBalancer($this->service);
         $this->loadBalancer->refresh('2000');

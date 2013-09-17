@@ -50,7 +50,11 @@ class Check extends AbstractResource implements ResourceInterface
 
     public function baseUrl($subresource = '')
     {
-        return $this->getParent()->Url() . '/' . $this->getParent()->id . '/'. $this->resourceName();
+        $urls = $this->getParent()->Url();
+        foreach($urls as &$url) {
+            $url .= '/' . $this->getParent()->id . '/' . $this->resourceName();
+        }
+        return $urls;
     }
 
     public function createUrl()
@@ -60,8 +64,14 @@ class Check extends AbstractResource implements ResourceInterface
 
     public function testUrl($debug = false)
     {
-        $url = $this->getParent()->Url() . '/' . $this->getParent()->id . '/test-check'; 
-        return ($debug !== true) ? $url : $url . '?debug=true';
+        $urls = $this->getParent()->Url();
+        foreach($urls as &$url) {
+            $url .= '/' . $this->getParent()->id . '/test-check'; 
+            if($debug) {
+                $url .= '?debug=true';
+            }
+        }
+        return $urls;
     }
 
 }

@@ -39,7 +39,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new MyService(
-            $this->conn, 'compute', 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $this->conn, 'compute', 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
     }
 
@@ -50,13 +50,13 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     {
         /* This also validates the private function get_endpoint() */
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID', $this->service->Url());
+            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID'), $this->service->Url());
     }
 
     public function testUrl2()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/sub?a=1&b=2', 
+            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/sub?a=1&b=2'), 
             $this->service->Url('sub', array('a' => 1, 'b' => 2))
         );
     }
@@ -82,7 +82,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testRegion()
     {
-        $this->assertEquals('DFW', $this->service->region());
+        $this->assertEquals(array('DFW'), $this->service->region());
     }
 
     public function testName()
@@ -93,7 +93,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function test_UrlType_Defaults()
     {
         $service = new MyService(
-            $this->conn, 'compute', 'cloudServersOpenStack', 'DFW', ''
+            $this->conn, 'compute', 'cloudServersOpenStack', array('DFW'), ''
         );
     }
     

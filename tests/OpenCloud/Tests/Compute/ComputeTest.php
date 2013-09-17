@@ -26,7 +26,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->compute = new Service(
-            $this->conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $this->conn, 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
     }
 
@@ -36,24 +36,26 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function test__construct()
     {
         $compute = new Service(
-            $this->conn, 'cloudServers', 'DFW', 'publicURL'
+            $this->conn, 'cloudServers', array('DFW'), 'publicURL'
         );
     }
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers', 
-            $this->compute->Url()
-        );
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/detail', 
-            $this->compute->Url('servers/detail')
-        );
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers?A=1&B=2', 
-            $this->compute->Url('servers', array('A' => 1, 'B' => 2))
-        );
+        $urls = $this->compute->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers');
+        }
+        
+        $urls = $this->compute->Url('servers/detail');
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/detail');
+        }
+        
+        $urls = $this->compute->Url('servers', array('A' => 1, 'B' => 2));
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers?A=1&B=2');
+        }
     }
 
     public function testServer()

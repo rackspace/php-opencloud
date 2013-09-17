@@ -77,13 +77,16 @@ class Service extends Nova
         );
 
         // check the URL version
-        $path = parse_url($this->Url(), PHP_URL_PATH);
+        $urls = $this->Url();
+        foreach($urls as $url) {
+            $path = parse_url($url, PHP_URL_PATH);
 
-        if (substr($path, 0, 3) == '/v1') {
-            throw new Exceptions\UnsupportedVersionError(sprintf(
-                Lang::translate('Sorry; API version /v1 is not supported [%s]'), 
-                $this->Url()
-            ));
+            if (substr($path, 0, 3) == '/v1') {
+                throw new Exceptions\UnsupportedVersionError(sprintf(
+                    Lang::translate('Sorry; API version /v1 is not supported [%s]'), 
+                    $this->Url()
+                ));
+            }
         }
 
         $this->load_namespaces();

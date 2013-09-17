@@ -35,7 +35,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $conn, 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
         $this->server = new Server($this->service, 'SERVER-ID');
     }
@@ -50,12 +50,17 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
-            '9bfd203a-0695-xxxx-yyyy-66c4194c967b', $this->server->Url());
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
-            '9bfd203a-0695-xxxx-yyyy-66c4194c967b/action', $this->server->Url('action'));
+        $urls = $this->server->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
+                '9bfd203a-0695-xxxx-yyyy-66c4194c967b');
+        }
+        
+        $urls = $this->server->Url('action');
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
+            '9bfd203a-0695-xxxx-yyyy-66c4194c967b/action');
+        }
     }
 
     public function test_ip()
@@ -216,10 +221,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     {
         $server = new Server($this->service);
         $server->id = 'Bad-ID';
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID', 
-            $server->Url()
-        );
+        $urls = $server->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID');
+        }
     }
 
     /**

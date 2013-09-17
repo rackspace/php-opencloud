@@ -19,7 +19,7 @@ class ChangelogTest extends PHPUnit_Framework_TestCase
         $this->service = new Service(
             $this->connection,
             'cloudMonitoring',
-            'LON',
+            array('LON'),
             'publicURL'
         );
         
@@ -37,7 +37,7 @@ class ChangelogTest extends PHPUnit_Framework_TestCase
     public function testResourceUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/changelogs/alarms',
+            array('https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/changelogs/alarms'),
             $this->resource->Url()
         );
     }

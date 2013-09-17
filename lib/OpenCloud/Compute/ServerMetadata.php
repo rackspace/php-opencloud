@@ -46,7 +46,11 @@ class ServerMetadata extends Metadata
 
         // set the URL according to whether or not we have a key
         if ($this->Parent()->id) {
-            $this->_url = $this->Parent()->Url() . '/metadata';
+            $urls = $this->Parent()->Url();
+            foreach($urls as &$url) {
+                $url .= '/metadata';
+            }
+            $this->_url = $urls;
             $this->_key = $key;
 
             // in either case, retrieve the data
@@ -97,7 +101,14 @@ class ServerMetadata extends Metadata
         }
 
         if ($this->_key) {
-            return $this->_url . '/' . $this->_key;
+            //careful, you don't want to overwrite the existing this->_url field
+            $this->_url;
+            $urlArray = array();
+            foreach($this->_url as $url) {
+                $url .= '/' . $this->_key;
+                $urlArray[] = $url;
+            }
+            return $urlArray;
         } else {
             return $this->_url;
         }

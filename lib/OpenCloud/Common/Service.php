@@ -59,13 +59,13 @@ abstract class Service extends Base
         $name,
         $regions,
         $urltype = RAXSDK_URL_PUBLIC,
-        $customServiceUrl = null
+        $customServiceUrls = null
     ) {
         $this->setConnection($conn);
         $this->service_type = $type;
         $this->service_name = $name;
         $this->service_regions = $regions;
-        $this->service_urls = $customServiceUrl ?: $this->getEndpoint($type, $name, $regions, $urltype);
+        $this->service_urls = $customServiceUrls ?: $this->getEndpoint($type, $name, $regions, $urltype);
     }
     
     /**
@@ -161,6 +161,14 @@ abstract class Service extends Base
         }
         
         return $this->conn->request($url, $method, $headers, $body);
+    }
+    
+    public function findMatchingUrlRegionFromServiceUrls($url) {
+        foreach($this->service_urls as $serviceUrl) {
+            if(substr($serviceUrl, 7, 3) == substr($url, 7, 3)) {
+                return $serviceUrl;
+            }
+        }
     }
 
     /**
@@ -330,7 +338,7 @@ abstract class Service extends Base
      * @param string $urltype The URL type; defaults to "publicURL"
      * @return string The URL of the service
      */
-    private function getEndpoint($type, $name, $region, $urltype = null)
+    private function getEndpoint($type, $name, $regions, $urltype = null)
     {
         $catalog = $this->getConnection()->serviceCatalog();
         

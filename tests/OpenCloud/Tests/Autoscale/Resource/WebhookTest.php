@@ -35,7 +35,7 @@ class WebhookTest extends PHPUnit_Framework_TestCase
             'SECRET'
         );
 
-        $service = new Service($connection, 'autoscale', 'DFW', 'publicURL', self::ENDPOINT); 
+        $service = new Service($connection, 'autoscale', array('DFW'), 'publicURL', array(self::ENDPOINT)); 
         $group   = $service->group(self::GROUP_ID);
         
         $this->policy = $group->getPolicy(self::POLICY_ID);

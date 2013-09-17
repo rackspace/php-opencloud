@@ -46,7 +46,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $this->connection = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $this->connection, 'cloudLoadBalancers', 'DFW', 'publicURL'
+            $this->connection, 'cloudLoadBalancers', array('DFW'), 'publicURL'
         );
         $this->loadBalancer = new LoadBalancer($this->service);
     }
@@ -90,10 +90,10 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         $lb = $this->service->LoadBalancer();
         $lb->Create();
         
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/321', 
-            $lb->Node('321')->Url()
-        );
+        $urls = $lb->Node('321')->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/321');
+        }
         
         $this->assertInstanceOf(
             'OpenCloud\LoadBalancer\Resources\LoadBalancer', 
@@ -115,10 +115,10 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
             $lb->Node('456')->MetadataList()
         );
         
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/456', 
-            $lb->Node('456')->Url()
-        );
+        $urls = $lb->Node('456')->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/456');
+        }
     }
 
     public function testNodeList()
@@ -132,10 +132,10 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/events', 
-            $lb->NodeEvent()->Url()
-        );
+        $urls = $lb->NodeEvent()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/events');
+        }
     }
 
     public function testNodeEventList()
@@ -149,10 +149,10 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/virtualips', 
-            $lb->VirtualIp()->Url()
-        );
+        $urls = $lb->VirtualIp()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/virtualips');
+        }
     }
 
     public function testVirtualIpList()
@@ -166,32 +166,32 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/sessionpersistence', 
-            $lb->SessionPersistence()->Url()
-        );
+        $urls = $lb->SessionPersistence()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/sessionpersistence');
+        }
     }
 
     public function testErrorPage()
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/errorpage', 
-            $lb->ErrorPage()->Url()
-        );
+        $urls = $lb->ErrorPage()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/errorpage');
+        }
     }
 
     public function testHealthMonitor()
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/healthmonitor', 
-            $lb->HealthMonitor()->Url()
-        );
+        $urls = $lb->HealthMonitor()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/healthmonitor');
+        }
     }
 
     public function testStats()
@@ -206,22 +206,22 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/usage', 
-            $lb->Usage()->Url()
-        );
+        $urls = $lb->Usage()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/usage');
+        }
     }
 
     public function testAccess()
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/accesslist', 
-            $lb->Access()->Url()
-        );
+        $urls = $lb->Access()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/accesslist');
+        }
     }
 
     public function testAccessList()
@@ -238,55 +238,55 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/connectionthrottle', 
-            $lb->ConnectionThrottle()->Url()
-        );
+        $urls = $lb->ConnectionThrottle()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/connectionthrottle');
+        }
     }
 
     public function testConnectionLogging()
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/connectionlogging', 
-            $lb->ConnectionLogging()->Url()
-        );
+        $urls = $lb->ConnectionLogging()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/connectionlogging');
+        }
     }
 
     public function testContentCaching()
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/contentcaching', 
-            $lb->ContentCaching()->Url()
-        );
+        $urls = $lb->ContentCaching()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/contentcaching');
+        }
     }
 
     public function testSSLTermination()
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/ssltermination', 
-            $lb->SSLTermination()->Url()
-        );
+        $urls = $lb->SSLTermination()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                                        'loadbalancers/123/ssltermination');
+        }
     }
 
     public function testMetadata()
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/metadata', 
-            $lb->Metadata()->Url()
-        );
+        $urls = $lb->Metadata()->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
+                    'loadbalancers/123/metadata');
+        }
     }
 
     public function testMetadataList()
@@ -308,10 +308,10 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource', get_class($sub));
         
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/42/ignore', 
-            $sub->Url('foo', array('one' => 1)
-        ));
+        $urls = $sub->Url('foo', array('one' => 1));
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/42/ignore');
+        }
         
         $obj = $sub->UpdateJson();
         $json = json_encode($obj);

@@ -91,7 +91,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new ComputeService(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $conn, 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
         $this->instance = new MyPersistentObject($this->service);
     }
@@ -128,11 +128,11 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     {
         $this->instance->id = '12';
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/' .
-            'TENANT-ID/instances/12', $this->instance->Url());
+            array('https://dfw.servers.api.rackspacecloud.com/v2/' .
+            'TENANT-ID/instances/12'), $this->instance->Url());
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/' .
-            'instances/12/foobar?foo=BAZ', $this->instance->Url('foobar', array('foo' => 'BAZ')));
+            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/' .
+            'instances/12/foobar?foo=BAZ'), $this->instance->Url('foobar', array('foo' => 'BAZ')));
     }
 
     public function testUrl2()
@@ -141,7 +141,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
         /* this tests for subresources and query strings */
         $qstr = array('a' => 1, 'b' => 2);
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12/pogo?a=1&b=2', 
+            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12/pogo?a=1&b=2'), 
             $this->instance->Url('pogo', $qstr)
         );
     }
@@ -286,14 +286,14 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     public function testCreateUrl()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances', 
+            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances'), 
             $this->instance->CreateUrl()
         );
     }
 
     public function testRegion()
     {
-        $this->assertEquals('DFW', $this->instance->Region());
+        $this->assertEquals(array('DFW'), $this->instance->Region());
     }
     
     

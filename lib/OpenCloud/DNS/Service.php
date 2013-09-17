@@ -204,7 +204,10 @@ class Service extends AbstractService
      */
     public function limits($type = null)
     {
-        $url = $this->url('limits') . ($type ? "/$type" : '');
+        $urls = $this->url('limits');
+        foreach($urls as &$url) {
+            $url .= ($type ? "/$type" : '');
+        }
         $object = $this->simpleRequest($url);
         return ($type) ? $object : $object->limits;
     }

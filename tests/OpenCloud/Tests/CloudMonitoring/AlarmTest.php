@@ -18,7 +18,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
         $this->service = new Service(
             $this->connection,
             'cloudMonitoring',
-            'DFW',
+            array('DFW'),
             'publicURL'
         );
         
@@ -49,7 +49,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/entities/'.self::ENTITY_ID.'/alarms',
+            array('https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/entities/'.self::ENTITY_ID.'/alarms'),
             $this->resource->Url()
         );
     }

@@ -34,7 +34,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->dns = new Service(
-            $this->conn, 'cloudDNS', 'N/A', 'publicURL'
+            $this->conn, 'cloudDNS', array('N/A'), 'publicURL'
         );
         $this->record = new PtrRecord($this->dns);
     }
@@ -61,15 +61,15 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID/rdns', 
-            $this->record->url()
-        );
+        $urls = $this->record->url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID/rdns');
+        }
     }
 
     public function testCreate()
     {
-        $server = $this->conn->compute(null, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->conn->compute(null, array('ORD'))->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\AsyncResponse', 
             $this->record->create(array('server' => $server))
@@ -78,7 +78,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
     public function testUpdate()
     {
-        $server = $this->conn->compute(null, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->conn->compute(null, array('ORD'))->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\AsyncResponse', 
             $this->record->update(array('server' => $server))
@@ -87,7 +87,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $server = $this->conn->compute(NULL, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->conn->compute(NULL, array('ORD'))->server(array('id' => 'foo'));
         $this->record->server = $server;
         $this->record->data   = 12345;
         $this->assertInstanceOf(

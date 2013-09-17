@@ -24,7 +24,7 @@ class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $connection = new StubConnection('http://example.com', 'SECRET');
-        $service = $connection->compute(null, 'DFW');
+        $service = $connection->compute(null, array('DFW'));
 
         $server = new Server($service, 'XXX');
         $this->attachment = $server->volumeAttachment('FOO');

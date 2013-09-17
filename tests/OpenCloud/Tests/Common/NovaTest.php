@@ -28,7 +28,7 @@ class NovaTest extends PHPUnit_Framework_TestCase
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->nova = new MyNova(
-            $this->conn, 'compute', 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $this->conn, 'compute', 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
     }
 
@@ -38,7 +38,7 @@ class NovaTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/foo', $this->nova->Url('foo'));
+            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/foo'), $this->nova->Url('foo'));
     }
 
     public function testFlavor()

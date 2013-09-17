@@ -26,7 +26,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $this->conn, 'cloudBlockStorage', 'DFW', 'publicURL'
+            $this->conn, 'cloudBlockStorage', array('DFW'), 'publicURL'
         );
     }
 
@@ -36,7 +36,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function test__construct()
     {
         $this->service = new Service(
-            $this->conn, 'cloudBlockStorage', 'DFW', 'publicURL'
+            $this->conn, 'cloudBlockStorage', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\Volume\Service', $this->service);
     }

@@ -28,7 +28,7 @@ class DomainTest extends PHPUnit_Framework_TestCase
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->dns = new Service(
-            $this->conn, 'cloudDNS', 'N/A', 'publicURL'
+            $this->conn, 'cloudDNS', array('N/A'), 'publicURL'
         );
         $this->domain = new Domain($this->dns);
         $this->domain->id = 'DOMAIN-ID';

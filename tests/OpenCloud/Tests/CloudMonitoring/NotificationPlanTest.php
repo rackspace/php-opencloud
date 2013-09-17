@@ -17,7 +17,7 @@ class NotificationPlanTest extends PHPUnit_Framework_TestCase
         $this->service = new Service(
             $this->connection,
             'cloudMonitoring',
-            'DFW',
+            array('DFW'),
             'publicURL'
         );
            
@@ -35,7 +35,7 @@ class NotificationPlanTest extends PHPUnit_Framework_TestCase
     public function testNPUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/notification_plans',
+            array('https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/notification_plans'),
             $this->resource->Url()
         );
     }

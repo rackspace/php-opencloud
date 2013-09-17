@@ -31,8 +31,15 @@ class FakeConnection extends OpenStack
 	}
     
 	public function Request($url, $method = "GET", $headers = array(), $body = null) 
-	{   
-		$this->url = trim($url, '/');
+	{
+            if(is_array($url)) {
+                foreach($url as &$oneUrl) {
+                    $oneUrl = trim($oneUrl, '/');
+                }
+                $this->url = $url;
+            } else {
+                $this->url = trim($url, '/');
+            }
 		$response = new Blank;
 		$response->headers = array('Content-Length' => '999');
 
@@ -76,15 +83,32 @@ class FakeConnection extends OpenStack
 	{
 		foreach ($array as $key => $item) {
 			$pattern = "#{$key}$#";
-            if (preg_match($pattern, $this->url)) {
-				$path = __DIR__ . "/Resource/{$item}.json";
-				if (file_exists($path)) {
-					$json = file_get_contents($path);
-                    return preg_replace('#\s+#', '', $json);
-				}
-			}
+                        if(is_array($this->url)) {
+                            foreach($this->url as $url) {
+                                $result = $this->compareUrlToRegex($pattern, $url, $item);
+                                if($result) {
+                                    return $result;
+                                }
+                            }
+                        } else {
+                            $result = $this->compareUrlToRegex($pattern, $this->url, $item);
+                            if($result) {
+                                return $result;
+                            }
+                        }
 		}
 	}
+        
+        private function compareUrlToRegex($pattern, $url, $item) {
+            if (preg_match($pattern, $url)) {
+                    $path = __DIR__ . "/Resource/{$item}.json";
+                    if (file_exists($path)) {
+                            $json = file_get_contents($path);
+                            return preg_replace('#\s+#', '', $json);
+                    }
+            }
+            return null;
+        }
 
 	public function doGet()
 	{

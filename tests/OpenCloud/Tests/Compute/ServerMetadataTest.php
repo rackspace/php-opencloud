@@ -29,7 +29,7 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $compute = new Service(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $conn, 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
         $this->server = new Server($compute, 'Identifier');
         $this->metadata = new ServerMetadata($this->server);
@@ -52,15 +52,16 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata', 
-            $this->metadata->Url()
-        );
+        $urls = $this->metadata->Url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata');
+        }
+        
         $m2 = new ServerMetadata($this->server, 'property');
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property', 
-            $m2->url()
-        );
+        $urls = $m2->url();
+        foreach($urls as $url) {
+            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property');
+        }
     }
 
     /**
