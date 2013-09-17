@@ -290,11 +290,6 @@ class DataObject extends AbstractStorageObject
             // @codeCoverageIgnoreEnd
             $this->content_length = $filesize;
 
-            // Guess the content type if necessary
-            if (!$this->getContentType() && $this->isRealFile($filename)) {
-                $this->setContentType($this->inferContentType($filename));
-            }
-
             // Send ETag checksum if necessary
             if ($this->send_etag) {
                 $this->etag = md5_file($filename);
@@ -336,12 +331,6 @@ class DataObject extends AbstractStorageObject
 
         if (!empty($this->etag)) {
             $headers['ETag'] = $this->etag;
-        }
-
-		// Content-Type is no longer required; if not specified, it will
-		// attempt to guess based on the file extension.
-		if (!$this->getContentType()) {
-        	$headers['Content-Type'] = $this->getContentType();
         }
 
         $headers['Content-Length'] = $this->content_length;
@@ -403,20 +392,25 @@ class DataObject extends AbstractStorageObject
     /**
      * UpdateMetadata() - updates headers
      *
-     * Updates metadata headers
+     * Updates metadata headers (and other headers). The usage will typically
+     * be:
+     *    $obj->metadata->some_key = 'some value';
+     *    $obj->updateMetadata(array('X-Delete-After:'=>60));
      *
      * @api
      * @param array $params an optional associative array that can contain the
-     *      'name' and 'type' of the object
+     *      key and value of additional headers (e.g., X-Delete-At:)
      * @return boolean
      */
-    public function updateMetadata($params = array())
+    public function updateMetadata($other_headers = array())
     {
         // set the headers
         $headers = $this->metadataHeaders();
-        $headers['Content-Type'] = $this->getContentType();
-        $headers = $params + $headers;
 
+        // add in the rest of the parameter headers
+        $headers = $other_headers + $headers;
+
+		// perform the update request
         $response = $this->getService()->request(
             $this->url(),
             'POST',
@@ -867,74 +861,6 @@ class DataObject extends AbstractStorageObject
     private function getService()
     {
         return $this->container->getService();
-    }
-
-    /**
-     * Performs an internal check to get the proper MIME type for an object
-     *
-     * This function would go over the available PHP methods to get
-     * the MIME type.
-     *
-     * By default it will try to use the PHP fileinfo library which is
-     * available from PHP 5.3 or as an PECL extension
-     * (http://pecl.php.net/package/Fileinfo).
-     *
-     * It will get the magic file by default from the system wide file
-     * which is usually available in /usr/share/magic on Unix or try
-     * to use the file specified in the source directory of the API
-     * (share directory).
-     *
-     * if fileinfo is not available it will try to use the internal
-     * mime_content_type function.
-     *
-     * @param string $handle name of file or buffer to guess the type from
-     * @return boolean <kbd>TRUE</kbd> if successful
-     * @throws BadContentTypeException
-     * @codeCoverageIgnore
-     */
-    private function inferContentType($handle)
-    {
-        if ($contentType = $this->getContentType()) {
-            return $contentType;
-        }
-
-        $contentType = false;
-
-        $filePath = (is_string($handle)) ? $handle : (string) $handle;
-
-        if (function_exists("finfo_open")) {
-
-            $magicPath = dirname(__FILE__) . "/share/magic";
-            $finfo = new FileInfo(FILEINFO_MIME, file_exists($magicPath) ? $magicPath : null);
-
-            if ($finfo) {
-
-                $contentType = is_file($filePath)
-                    ? $finfo->file($handle)
-                    : $finfo->buffer($handle);
-
-                /**
-                 * PHP 5.3 fileinfo display extra information like charset so we
-                 * remove everything after the ; since we are not into that stuff
-                 */
-                if (null !== ($extraInfo = strpos($contentType, "; "))) {
-                    $contentType = substr($contentType, 0, $extraInfo);
-                }
-            }
-
-            //unset($finfo);
-        }
-
-        if (!$contentType) {
-            // Try different native function instead
-            if (is_file((string) $handle) && function_exists("mime_content_type")) {
-                $contentType = mime_content_type($handle);
-            } else {
-                $this->getLogger()->error('Content-Type cannot be found');
-            }
-        }
-
-        return $contentType;
     }
 
 }

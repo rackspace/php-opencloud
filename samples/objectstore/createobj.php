@@ -20,7 +20,7 @@ define('TENANT', $_ENV['OS_TENANT_NAME']);
 define('APIKEY', $_ENV['NOVA_API_KEY']);
 
 define('TEMP_URL_SECRET', 'April is the cruellest month, breeding lilacs...');
-define('OBJNAME', 'SampleObject');
+define('OBJNAME', 'SampleObject.php');
 define('CONTAINER_NAME', 'A Container Name With Spaces');
 
 // progress callback function
@@ -53,8 +53,8 @@ $cont->Create(array('name'=>CONTAINER_NAME));
 printf("Creating object...\n");
 $obj = $cont->DataObject();
 // read this file!
-$obj->Create(
-	array('name' => OBJNAME, 'content_type' => 'text/plain'),
+$obj->create(
+	array('name' => OBJNAME),
 	__FILE__);
 $obj->metadata->something = 'This is a metadata value';
 $obj->UpdateMetadata();
