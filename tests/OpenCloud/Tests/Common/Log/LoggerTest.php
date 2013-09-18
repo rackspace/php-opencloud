@@ -48,7 +48,7 @@ class LoggerTest extends PHPUnit_Framework_TestCase
     
     public function testSettingOptions()
     {
-        $file = __DIR__ . '/testLogFile';
+        $file = __DIR__ . '/test.log';
         
         $this->logger->setOptions(array(
             'outputToFile' => true,
