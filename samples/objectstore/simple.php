@@ -19,7 +19,7 @@ $mycontainer->publishToCDN(3600);	// cache for one hour
 
 // create an object in that container named Hello
 $myobject = $mycontainer->dataObject();
-// read this file!
+// read the file hello.txt
 $myobject->create(
 	array('name' => 'Hello.txt'),
 	'./hello.txt');
@@ -27,6 +27,9 @@ $myobject->create(
 // list all the containers in the object
 $list = $mycontainer->objectList();
 while($o = $list->Next()) {
-	printf("Object: %s size: %d type: %s URL %s\n",
+	printf("Object: %s size: %d type: %s\n%s\n\n",
 	    $o->name, $o->bytes, $o->content_type, $o->publicUrl());
 }
+
+// cause an error
+$something = $mycontainer->dataObject('fooBar');
