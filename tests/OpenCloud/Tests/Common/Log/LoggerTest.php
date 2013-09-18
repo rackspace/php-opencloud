@@ -50,6 +50,8 @@ class LoggerTest extends PHPUnit_Framework_TestCase
     {
         $file = __DIR__ . '/test.log';
         
+        $fp = fopen($file, 'w');
+        
         $this->logger->setOptions(array(
             'outputToFile' => true,
             'logFile'      => $file,
@@ -60,6 +62,9 @@ class LoggerTest extends PHPUnit_Framework_TestCase
         
         $this->logger->emergency('This is an emergency!');
         $this->assertRegExp('#This is an emergency!#', file_get_contents($file));
+        
+        fclose($fp);
+        unlink($file);
     }
     
     /**
