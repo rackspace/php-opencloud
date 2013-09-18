@@ -12,7 +12,6 @@
 namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\Smoke\Enum;
-use OpenCloud\Smoke\Utils;
 
 /**
  * Description of DNS
@@ -38,7 +37,7 @@ class DNS extends AbstractUnit implements UnitInterface
         $domainName = Enum::GLOBAL_PREFIX . 'domain-' . time() . '.com';
         
         // Add a domain
-        Utils::step('Try to add a domain %s', $domainName);
+        $this->step('Try to add a domain %s', $domainName);
         
         $domain = $this->getService()->domain();
         $asyncResponse = $domain->create(array(
@@ -49,7 +48,7 @@ class DNS extends AbstractUnit implements UnitInterface
         $asyncResponse->waitFor('COMPLETED', 300, $this->getWaiterCallback(), 1);
 
         if ($asyncResponse->Status() == 'ERROR') {
-            Utils::logf(
+            $this->stepInfo(
                 'Error: [%d] %s - %s',
                 $asyncResponse->error->code, 
                 $asyncResponse->error->message, 
@@ -58,7 +57,7 @@ class DNS extends AbstractUnit implements UnitInterface
         }
         
         // Add a CNAME
-        Utils::step("Adding a CNAME record www.%s", $domainName);
+        $this->step("Adding a CNAME record www.%s", $domainName);
         
         $domains = $this->getService()->domainList(array('name' => $domainName));
         $domain = $domains->next();
@@ -73,7 +72,7 @@ class DNS extends AbstractUnit implements UnitInterface
         $asyncResponse->waitFor('COMPLETED', 300, $this->getWaiterCallback(), 1);
 
         if ($asyncResponse->status() == 'ERROR') {
-            Utils::logf(
+            $this->stepInfo(
                 'Error: [%d] $s - %s', 
                 $asyncResponse->error->code, 
                 $asyncResponse->error->message,
@@ -82,19 +81,19 @@ class DNS extends AbstractUnit implements UnitInterface
         }
 
         // List everything
-        Utils::step('List domains and records');
+        $this->step('List domains and records');
         
         $domains = $this->getService()->domainList(); 
         $i = 0;
         while (($domain = $domains->next()) && $i <= Enum::DISPLAY_ITER_LIMIT) {
             
-            Utils::logf('%s [%s]', $domain->name(), $domain->emailAddress);
-            Utils::log('Domain Records:');
+            $this->stepInfo('%s [%s]', $domain->name(), $domain->emailAddress);
+            $step = $this->stepInfo('Domain Records:');
             
             $recordList = $domain->recordList();
             
             while ($record = $recordList->next()) {
-                Utils::logf(
+                $step->stepInfo(
                     '- %s %d %s %s',
                     $record->type, 
                     $record->ttl, 

@@ -23,7 +23,7 @@ class Enum
     
     const CREDS_FILENAME = '.smoketestCredentials';
     
-    const GLOBAL_PREFIX = 'PHPSmokeTest-';
+    const GLOBAL_PREFIX = 'PHPSmokeTest';
     
     // Environment variable constants
     const ENV_PREFIX   = 'PHP_OpenCloud_';
@@ -38,5 +38,7 @@ class Enum
     
     // How many iterations do we want for resource lists? We don't have all day...
     const DISPLAY_ITER_LIMIT = 10;
+    
+    const DIVIDER = '-------------';
     
 }

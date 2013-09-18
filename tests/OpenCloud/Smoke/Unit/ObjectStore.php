@@ -38,17 +38,15 @@ class ObjectStore extends AbstractUnit implements UnitInterface
      */
     public function main()
     {
-        Utils::log('Connect to Cloud Files');
-        
         // Container
-        Utils::log('Create Container');
+        $this->step('Create Container');
         $container = $this->getService()->container();
         $container->create(array(
             'name' => $this->prepend('0')
         ));
         
         // Objects
-        Utils::log('Create Object from this file');
+        $this->step('Create Object from this file');
         $object = $container->dataObject();
         $object->create(array(
                 'name'         => $this->prepend(self::OBJECT_NAME),
@@ -58,37 +56,40 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         );
         
         // CDN info
-        Utils::log('Publish Container to CDN');
+        $this->step('Publish Container to CDN');
         $container->publishToCDN(600); // 600-second TTL
         
-        Utils::logf('CDN URL:              %s', $container->CDNUrl());
-        Utils::logf('Public URL:           %s', $container->publicURL());
-        Utils::logf('Object Public URL:    %s', $object->publicURL());
-        Utils::logf('Object SSL URL:       %s', $object->publicURL('SSL'));
-        Utils::logf('Object Streaming URL: %s', $object->publicURL('Streaming'));
+        $this->step('CDN info');
+        $this->stepInfo('CDN URL:              %s', $container->CDNUrl());
+        $this->stepInfo('Public URL:           %s', $container->publicURL());
+        $this->stepInfo('Object Public URL:    %s', $object->publicURL());
+        $this->stepInfo('Object SSL URL:       %s', $object->publicURL('SSL'));
+        $this->stepInfo('Object Streaming URL: %s', $object->publicURL('Streaming'));
         
         // Can we access it?
-        Utils::log('Verify Object PublicURL (CDN)');
+        $this->step('Verify Object PublicURL (CDN)');
         $url = $object->publicURL();
-        system("curl -s -I $url | grep HTTP");
+        $exec = exec("curl -s -I $url | grep HTTP");
+        $this->stepInfo($exec);
         
         // Copy
-        Utils::log('Copy Object');
+        $this->step('Copy Object');
         $target = $container->dataObject();
         $target->name = $this->prepend(self::OBJECT_NAME . '_COPY');
         $object->copy($target);
         
         // List containers
-        Utils::log('List all containers');
+        $this->step('List all containers');
         $containers = $this->getService()->containerList();
         $i = 0;
         while (($container = $containers->next()) && $i <= Enum::DISPLAY_ITER_LIMIT) {
-            Utils::logf('Container: %s', $container->name);
+            
+            $step = $this->stepInfo('Container: %s', $container->name);
             
             // List this container's objects
             $objects = $container->objectList();
             while ($object = $objects->Next()) {
-                Utils::logf('Object: %s', $object->name);
+                $step->stepInfo('Object: %s', $object->name);
             }
             
             $i++;
@@ -103,23 +104,26 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         $containers = $this->getService()->containerList(array(
             'prefix' => Enum::GLOBAL_PREFIX
         ));
+        
+        $this->step('Teardown');
+        
         while ($container = $containers->next()) {
             // Disable CDN and delete object
-            Utils::log('Disable Container CDN');
+            $this->stepInfo('Disable Container CDN');
             try {
                 $container->disableCDN();
             } catch (CdnNotAvailableError $e) {}
             
-            Utils::log('Delete Object');
+            $step = $this->stepInfo('Delete objects');
             $objects = $container->objectList();
             if ($objects->count()) {
                 while ($object = $objects->next()) {
-                    Utils::logf('Deleting: %s', $object->name);
+                    $step->stepInfo('Deleting: %s', $object->name);
                     $object->delete();
                 }
             }
 
-            Utils::logf('Delete Container: %s', $container->name);
+            $this->stepInfo('Delete Container: %s', $container->name);
             $container->delete();
         }
     }

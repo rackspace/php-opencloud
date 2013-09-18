@@ -11,6 +11,8 @@
 
 namespace OpenCloud\Smoke;
 
+use OpenCloud\Rackspace;
+
 /**
  * The runner runs the smoke test, he's the boss. You determine which units should
  * be run in the command line.
@@ -24,6 +26,7 @@ class Runner
      */
     private $units = array(
         'Autoscale',
+        'Compute',
         'CloudMonitoring',
         'DNS',
         'Database',
@@ -41,7 +44,7 @@ class Runner
     
     public function __construct()
     {
-        Utils::log('Welcome to the PHP OpenCloud SmokeTest!');
+        Utils::log('Welcome to the PHP OpenCloud SmokeTest!' . PHP_EOL);
         
         $start = microtime(true);
         
@@ -49,7 +52,26 @@ class Runner
         $this->executeTemplate();
         
         $duration = microtime(true) - $start;
-        Utils::logf('Finished all tests! Time taken: %s seconds', $duration);
+        Utils::logd();
+        Utils::logf('Finished all tests! Time taken: %s', $this->formatDuration($duration));
+    }
+    
+    private function formatDuration($duration)
+    {
+        $string = '';
+        
+        if (($minutes = floor($duration / 60)) > 0) {
+            $string .= "$minutes minute" . (($minutes > 1) ? 's' : '') . ' ';
+        }
+
+        if (($seconds = $duration % 60) > 0) {
+            if ($minutes > 0) {
+                $string .= "and ";
+            }
+            $string .= "$seconds seconds.";
+        }
+        
+        return $string;
     }
     
     private function handleArguments()
@@ -134,6 +156,8 @@ class Runner
     
     public function executeTemplate()
     {
+        $connection = $this->createConnection();
+        
         foreach ($this->included as $unit) {
             
             $class = __NAMESPACE__ . '\\Unit\\' . $unit;
@@ -150,14 +174,70 @@ class Runner
                 ));
             }
             
-            Utils::logf('Executing %s', $class);
+            Utils::logf(PHP_EOL . 'Executing %s', $class);
             
-            $class::factory();
+            $class::factory($connection, $this->included);
         }
     }
     
+    private function createConnection()
+    {
+        Utils::log('Authenticate'); 
+        
+        $secret = array(
+            'username' => Utils::getEnvVar(Enum::ENV_USERNAME), 
+            'apiKey'   => Utils::getEnvVar(Enum::ENV_API_KEY)
+        );
+
+        $identityEndpoint = Utils::getIdentityEndpoint();
+        
+        // Do connection stuff
+        $connection = new Rackspace($identityEndpoint, $secret);
+        $connection->appendUserAgent(Enum::USER_AGENT);
+
+        // See if we can retrieve credentials
+        $credentialsCacheFile = __DIR__ . '/Resource/' . Enum::CREDS_FILENAME;
+        
+        try {
+            $fp = fopen($credentialsCacheFile, 'r');
+        } catch (Exception $e) {}
+        
+        // Does the credentials file already exist?
+        if (!$fp || !($size = filesize($credentialsCacheFile))) {
+            
+            // If not, can we create a new one?            
+            if (!is_writable($credentialsCacheFile)
+                || false === ($fp = fopen($credentialsCacheFile, 'w'))
+            ) {
+                throw new SmokeException(sprintf(
+                    'Credentials file [%s] cannot be written to',
+                    $credentialsCacheFile
+                ));
+            }
+            
+            Utils::logf('   Saving credentials to %s', $credentialsCacheFile);
+ 
+            // Save credentials
+            fwrite($fp, serialize($connection->exportCredentials()));
+            
+        } else { 
+            
+            Utils::logf('   Loading credentials from %s', $credentialsCacheFile);
+            
+            // Read from file
+            $string = fread($fp, $size);
+            $connection->importCredentials(unserialize($string)); 
+        }
+        
+        fclose($fp);
+        
+        Utils::logf('   Using identity endpoint: %s', $identityEndpoint);
+        Utils::logf('   Using region: %s', Utils::getRegion());
+        
+        return $connection;
+    }
+        
 }
 
 require __DIR__ . '/../../../lib/php-opencloud.php';
-
 Runner::run();

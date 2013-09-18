@@ -46,6 +46,11 @@ class Utils
         $string = self::convertArgsToString(func_get_args());
         return self::log($string);
     }
+    
+    public static function logd()
+    {
+        return self::log(PHP_EOL . Enum::DIVIDER);
+    }
    
     /**
      * Outputs help.
