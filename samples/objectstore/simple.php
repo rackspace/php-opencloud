@@ -15,7 +15,7 @@ $mycontainer = $objectstore->Container();
 $mycontainer->create(array('name'=>'MyContainer'));
 
 // publish it to the CDN
-$mycontainer->publishToCDN();
+$mycontainer->publishToCDN(3600);	// cache for one hour
 
 // create an object in that container named Hello
 $myobject = $mycontainer->dataObject();
