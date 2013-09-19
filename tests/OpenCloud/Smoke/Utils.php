@@ -18,7 +18,7 @@ namespace OpenCloud\Smoke;
  */
 class Utils
 {
-
+    
     /**
      * Basic logging function.
      * 
@@ -29,18 +29,27 @@ class Utils
         echo $string . PHP_EOL;
     }
     
+    public static function convertArgsToString(array $args)
+    {
+        $format = $args[0];
+        unset($args[0]);
+        
+        return vsprintf($format, $args);
+    }
+    
     /**
      * A logging function similar to sprintf(). Accepts a format string as a 
      * first argument, and an array as a second argument to stock the format.
      */
     public static function logf()
     {
-        $args = func_get_args();
-        $format = $args[0];
-        unset($args[0]);
-        
-        $string = vsprintf($format, $args);
+        $string = self::convertArgsToString(func_get_args());
         return self::log($string);
+    }
+    
+    public static function logd()
+    {
+        return self::log(PHP_EOL . Enum::DIVIDER);
     }
    
     /**
@@ -59,14 +68,42 @@ Switches:
 
 To exclude/include multiple units, either repeat the switch:
             
-    php Runner.php -I autoscale -I compute
+    php Runner.php -Iautoscale --include="compute"
             
 Or pass in a string delimeted with commas:
             
-    php Runner.php -I autoscale,compute,queues
+    php Runner.php -Iautoscale,compute,queues
 
 EOF;
         return self::log($output);
+    }
+        
+    public static function getEnvVar($name, $prefix = Enum::ENV_PREFIX)
+    {
+        if (empty($_ENV)) {
+            throw new SmokeException(
+                'Your $_ENV superglobals are empty. Please check your php.ini file.'
+            );
+        }
+        return (!isset($_ENV[$prefix . $name])) ? false : $_ENV[$prefix . $name];
+    }
+    
+    public static function getRegion()
+    {
+        if (false !== ($region = self::getEnvVar(Enum::ENV_REGION))) {
+            return $region;
+        } else {
+            return Enum::DEFAULT_REGION;
+        }
+    }
+    
+    public static function getIdentityEndpoint()
+    {
+        if (false !== ($endpoint = self::getEnvVar(Enum::ENV_IDENTITY_ENDPOINT))) {
+            return $endpoint;
+        } else {
+            return RACKSPACE_US;
+        }
     }
     
 }
