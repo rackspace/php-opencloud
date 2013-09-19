@@ -742,7 +742,6 @@ class OpenStack extends Base
         $this->checkJsonError();
         
         printf($json . " the json \n");
-        printf($object . " hope this works\n");
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);
         $this->setExpiration(strtotime($object->access->token->expires));
