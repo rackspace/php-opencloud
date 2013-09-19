@@ -16,7 +16,7 @@ namespace OpenCloud\Common;
 
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Lang;
-use OpenCloud\Compute\Flavor;
+use OpenCloud\Compute\Resource\Flavor;
 
 /**
  * Nova is an abstraction layer for the OpenStack compute service.
@@ -80,7 +80,7 @@ abstract class Nova extends Service
 	 *      retrieved
 	 * @return Compute\Flavor object
 	 */
-	public function Flavor($id = null) 
+	public function flavor($id = null) 
 	{
 	    return new Flavor($this, $id);
 	}
@@ -99,14 +99,14 @@ abstract class Nova extends Service
 	 *      strings
 	 * @return Collection (or FALSE on an error)
 	 */
-	public function FlavorList($details = true, array $filter = array()) 
+	public function flavorList($details = true, array $filter = array()) 
 	{
 	    if ($details) {
 	        $url = $this->Url(Flavor::ResourceName().'/detail', $filter);
 	    } else {
 	        $url = $this->Url(Flavor::ResourceName(), $filter);
 	    }
-	    return $this->Collection('\OpenCloud\Compute\Flavor', $url);
+	    return $this->collection('OpenCloud\Compute\Resource\Flavor', $url);
 	}
 
     /**
@@ -123,7 +123,7 @@ abstract class Nova extends Service
      * @param string $body - optional body for POST or PUT requests
      * @return \Rackspace\HttpResult object
      */
-	public function Request($urls, $method = 'GET', array $headers = array(), $body = null) 
+	public function request($url, $method = 'GET', array $headers = array(), $body = null) 
 	{
 		$headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
 		return parent::Request($urls, $method, $headers, $body);

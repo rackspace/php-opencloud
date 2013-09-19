@@ -5,7 +5,7 @@ namespace OpenCloud\Tests\Volume;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
 use OpenCloud\Volume\Service;
-use OpenCloud\Volume\VolumeType;
+use OpenCloud\Volume\Resource\VolumeType;
 
 class VolumeTypeTest extends PHPUnit_Framework_TestCase
 {

@@ -15,8 +15,8 @@ namespace OpenCloud\Tests;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
 use OpenCloud\Database\Service;
-use OpenCloud\Database\Instance;
-use OpenCloud\Database\User;
+use OpenCloud\Database\Resource\Instance;
+use OpenCloud\Database\Resource\User;
 
 class UserTest extends PHPUnit_Framework_TestCase
 {
@@ -42,7 +42,7 @@ class UserTest extends PHPUnit_Framework_TestCase
     public function test__construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\User', new User($this->inst)
+            'OpenCloud\Database\Resource\User', new User($this->inst)
         );
         
         $u = new User($this->inst, 'glen', array('one', 'two'));
@@ -63,7 +63,7 @@ class UserTest extends PHPUnit_Framework_TestCase
     public function testInstance()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Instance', 
+            'OpenCloud\Database\Resource\Instance', 
             $this->user->getParent()
         );
     }

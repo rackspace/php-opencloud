@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\DNS;
+namespace OpenCloud\DNS\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Service as AbstractService;

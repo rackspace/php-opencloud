@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Compute;
+namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Metadata;
@@ -28,9 +28,9 @@ use OpenCloud\Common\Exceptions;
 class ServerMetadata extends Metadata
 {
 
-    private $_parent;   // the parent object
-    private $_key;      // the metadata item (if supplied)
-    private $_url;      // the URL of this particular metadata item or block
+    private $parent;   // the parent object
+    private $key;      // the metadata item (if supplied)
+    private $url;      // the URL of this particular metadata item or block
 
     /**
      * Contructs a Metadata object associated with a Server or Image object
@@ -42,19 +42,15 @@ class ServerMetadata extends Metadata
     public function __construct(Server $parent, $key = null)
     {
         // construct defaults
-        $this->_parent = $parent;
+        $this->setParent($parent);
 
         // set the URL according to whether or not we have a key
-        if ($this->Parent()->id) {
-            $urls = $this->Parent()->Url();
-            foreach($urls as &$url) {
-                $url .= '/metadata';
-            }
-            $this->_url = $urls;
-            $this->_key = $key;
+        if ($this->getParent()->id) {
+            $this->urls = $this->getParent()->url('metadata');
+            $this->key = $key;
 
             // in either case, retrieve the data
-            $response = $this->Parent()->Service()->Request($this->Url());
+            $response = $this->getParent()->getService()->request($this->url());
 
             // @codeCoverageIgnoreStart
             if ($response->httpStatus() >= 300) {
@@ -75,16 +71,26 @@ class ServerMetadata extends Metadata
             );
 
             // parse and assign the server metadata
-            $obj = json_decode($response->HttpBody());
-
-            if ((!$this->CheckJsonError()) && isset($obj->metadata)) {
-                foreach($obj->metadata as $k => $v) {
-                    $this->$k = $v;
-                }
+            $object = json_decode($response->HttpBody());
+            $this->checkJsonError();
+            
+            if (isset($object->metadata)) {
+                $this->populate($object->metadata);
             }
         }
     }
 
+    public function setParent(Server $parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+    
+    public function getParent()
+    {
+        return $this->parent;
+    }
+    
     /**
      * Returns the URL of the metadata (key or block)
      *
@@ -94,23 +100,22 @@ class ServerMetadata extends Metadata
      */
     public function url($subresource = '')
     {
-        if (!isset($this->_url)) {
+        if (!isset($this->url)) {
             throw new Exceptions\ServerUrlError(
                 'Metadata has no URL (new object)'
             );
         }
 
-        if ($this->_key) {
+        if ($this->key) {
             //careful, you don't want to overwrite the existing this->_url field
-            $this->_url;
             $urlArray = array();
-            foreach($this->_url as $url) {
+            foreach($this->url as $url) {
                 $url .= '/' . $this->_key;
                 $urlArray[] = $url;
             }
             return $urlArray;
         } else {
-            return $this->_url;
+            return $this->url;
         }
     }
 
@@ -127,11 +132,11 @@ class ServerMetadata extends Metadata
     public function create()
     {
         // perform the request
-        $response = $this->parent()->Service()->Request(
-            $this->Url(),
+        $response = $this->getParent()->getService()->request(
+            $this->url(),
             'PUT',
             array(),
-            $this->GetMetadataJson()
+            $this->getMetadataJson()
         );
 
         // @codeCoverageIgnoreStart
@@ -155,7 +160,7 @@ class ServerMetadata extends Metadata
     public function update()
     {
         // perform the request
-        $response = $this->parent()->getService()->Request(
+        $response = $this->getParent()->getService()->request(
             $this->url(),
             'POST',
             array(),
@@ -183,7 +188,7 @@ class ServerMetadata extends Metadata
     public function delete()
     {
         // perform the request
-        $response = $this->parent()->getService()->Request(
+        $response = $this->getParent()->getService()->request(
             $this->url(),
             'DELETE',
             array()
@@ -201,16 +206,6 @@ class ServerMetadata extends Metadata
     }
 
     /**
-     * Returns the parent Server object
-     *
-     * @return Server
-     */
-    public function parent()
-    {
-        return $this->_parent;
-    }
-
-    /**
      * Overrides the base setter method, since the metadata key can be
      * anything (no name-checking is required)
      *
@@ -223,7 +218,7 @@ class ServerMetadata extends Metadata
     {
         // if a key was supplied when creating the object, then we can't set
         // any other values
-        if ($this->_key && $key != $this->_key) {
+        if ($this->key && $key != $this->key) {
             throw new Exceptions\MetadataKeyError(sprintf(
                 Lang::translate('You cannot set extra values on [%s]'),
                 $this->Url()
@@ -250,7 +245,7 @@ class ServerMetadata extends Metadata
         );
 
         // different element if only a key is set
-        if ($name = $this->_key) {
+        if ($name = $this->key) {
             $object->meta->$name = $this->$name;
         } else {
             $object->metadata = new \stdClass();
@@ -260,7 +255,6 @@ class ServerMetadata extends Metadata
         }
 
         $json = json_encode($object);
-
         $this->checkJsonError();
         
         return $json;

@@ -14,8 +14,8 @@ namespace OpenCloud\Tests\Database;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
-use OpenCloud\Database\Database;
-use OpenCloud\Database\Instance;
+use OpenCloud\Database\Resource\Database;
+use OpenCloud\Database\Resource\Instance;
 use OpenCloud\Database\Service;
 
 class DatabaseTest extends PHPUnit_Framework_TestCase
@@ -38,7 +38,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\Database\Database', $this->db);
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Database', $this->db);
     }
 
     public function testUrl()
@@ -54,7 +54,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
     public function testInstance()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Instance', 
+            'OpenCloud\Database\Resource\Instance', 
             $this->db->instance()
         );
     }

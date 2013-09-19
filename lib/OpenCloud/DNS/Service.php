@@ -15,7 +15,7 @@ use OpenCloud\Common\Service as AbstractService;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\OpenStack;
-use OpenCloud\Compute\Server;
+use OpenCloud\Compute\Resource\Server;
 
 /**
  * DNS Service.
@@ -58,7 +58,7 @@ class Service extends AbstractService
      */
     public function domain($info = null)
     {
-        return new Domain($this, $info);
+        return new Resource\Domain($this, $info);
     }
 
     /**
@@ -70,8 +70,8 @@ class Service extends AbstractService
      */
     public function domainList($filter = array())
     {
-        $url = $this->url(Domain::ResourceName(), $filter);
-        return $this->collection('OpenCloud\DNS\Domain', $url);
+        $url = $this->url(Resource\Domain::ResourceName(), $filter);
+        return $this->collection('OpenCloud\DNS\Resource\Domain', $url);
     }
 
     /**
@@ -82,7 +82,7 @@ class Service extends AbstractService
      */
     public function ptrRecord($info = null)
     {
-        return new PtrRecord($this, $info);
+        return new Resource\PtrRecord($this, $info);
     }
 
     /**
@@ -97,7 +97,7 @@ class Service extends AbstractService
         $url = $this->url('rdns/' . $server->getService()->name(), array(
             'href' => $server->url()
         ));
-        return $this->collection('\OpenCloud\DNS\PtrRecord', $url);
+        return $this->collection('OpenCloud\DNS\Resource\PtrRecord', $url);
     }
 
     /**
@@ -159,7 +159,7 @@ class Service extends AbstractService
         ));
 
         // return an AsyncResponse object
-        return new AsyncResponse($this, $resp->httpBody());
+        return new Resource\AsyncResponse($this, $resp->httpBody());
     }
 
     /**

@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\DNS;
+namespace OpenCloud\DNS\Resource;
 
 /**
  * The Subdomain is basically another domain, albeit one that is a child of

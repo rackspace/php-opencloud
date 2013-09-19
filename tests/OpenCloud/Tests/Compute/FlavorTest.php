@@ -37,7 +37,7 @@ class FlavorTest extends PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Flavor', 
+            'OpenCloud\Compute\Resource\Flavor', 
             $this->resource
         );
     }

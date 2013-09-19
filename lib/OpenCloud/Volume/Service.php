@@ -37,9 +37,9 @@ class Service extends Nova
 	 * @param string $id the Volume ID
 	 * @return VolumeService\Volume
 	 */
-	public function Volume($id = null) 
+	public function volume($id = null) 
 	{
-		return new Volume($this, $id);
+		return new Resource\Volume($this, $id);
 	}
 
 	/**
@@ -50,13 +50,13 @@ class Service extends Nova
 	 * @param array $filters array of filter key/value pairs
 	 * @return Collection
 	 */
-	public function VolumeList($details = true, $filter = array()) 
+	public function volumeList($details = true, $filter = array()) 
 	{
-                $urls = $this->Url(Volume::ResourceName());
-                foreach($urls as &$url) {
-                    $url .= ($details ? '/detail' : '');
-                }
-		return $this->Collection('\OpenCloud\Volume\Volume', $url);
+        $urls = $this->url(Resource\Volume::ResourceName());
+        foreach($urls as &$url) {
+            $url .= ($details ? '/detail' : '');
+        }
+		return $this->collection('\OpenCloud\Volume\Resource\Volume', $url);
 	}
 
 	/**
@@ -66,9 +66,9 @@ class Service extends Nova
 	 * @param string $id the VolumeType ID
 	 * @return VolumeService\Volume
 	 */
-	public function VolumeType($id = null) 
+	public function volumeType($id = null) 
 	{
-		return new VolumeType($this, $id);
+		return new Resource\VolumeType($this, $id);
 	}
 
 	/**
@@ -78,9 +78,9 @@ class Service extends Nova
 	 * @param array $filters array of filter key/value pairs
 	 * @return Collection
 	 */
-	public function VolumeTypeList($filter = array()) 
+	public function volumeTypeList($filter = array()) 
 	{
-		return $this->Collection('\OpenCloud\Volume\VolumeType');
+		return $this->collection('\OpenCloud\Volume\Resource\VolumeType');
 	}
 
 	/**
@@ -88,9 +88,9 @@ class Service extends Nova
 	 *
 	 * @return Snapshot
 	 */
-	public function Snapshot($id = null) 
+	public function snapshot($id = null) 
 	{
-		return new Snapshot($this, $id);
+		return new Resource\Snapshot($this, $id);
 	}
 
 	/**
@@ -101,9 +101,9 @@ class Service extends Nova
 	 * @param array $filters array of filter key/value pairs
 	 * @return Collection
 	 */
-	public function SnapshotList($filter = array()) 
+	public function snapshotList($filter = array()) 
 	{
-		return $this->Collection('\OpenCloud\Volume\Snapshot');
+		return $this->collection('OpenCloud\Volume\Resource\Snapshot');
 	}
 
 }

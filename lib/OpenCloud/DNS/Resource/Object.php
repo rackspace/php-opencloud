@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\DNS;
+namespace OpenCloud\DNS\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
@@ -30,7 +30,7 @@ abstract class Object extends PersistentObject
      */
     public function create($params = array()) 
     {
-        return new AsyncResponse($this->Service(), parent::create($params)->httpBody());
+        return new AsyncResponse($this->getService(), parent::create($params)->httpBody());
     }
 
     /**
@@ -41,7 +41,7 @@ abstract class Object extends PersistentObject
      */
     public function update($params = array()) 
     {
-        return new AsyncResponse($this->Service(), parent::update($params)->httpBody());
+        return new AsyncResponse($this->getService(), parent::update($params)->httpBody());
     }
 
     /**
@@ -52,7 +52,7 @@ abstract class Object extends PersistentObject
      */
     public function delete() 
     {
-        return new AsyncResponse($this->Service(), parent::delete()->httpBody());
+        return new AsyncResponse($this->getService(), parent::delete()->httpBody());
     }
 
     /**
@@ -68,12 +68,11 @@ abstract class Object extends PersistentObject
             );
         }
 
-        $object = new \stdClass;
-        $object->{self::jsonCollectionName()} = array(
-            $this->getJson($this->getCreateKeys())
+        return (object) array(
+            self::jsonCollectionName() => array(
+                $this->getJson($this->getCreateKeys())
+            )
         );
-        
-        return $object;
     }
 
     /**

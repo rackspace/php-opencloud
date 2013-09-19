@@ -9,13 +9,14 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Database;
+namespace OpenCloud\Database\Resource;
 
 use OpenCloud\Common\Collection;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Compute\Flavor;
+use OpenCloud\Compute\Resource\Flavor;
+use OpenCloud\Database\Service;
 
 /**
  * Instance represents an instance of DbService, similar to a Server in a

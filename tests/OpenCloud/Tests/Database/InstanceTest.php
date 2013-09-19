@@ -13,18 +13,16 @@
 namespace OpenCloud\Tests;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\Database\Instance;
+use OpenCloud\Database\Resource\Instance;
 use OpenCloud\Database\Service;
 use OpenCloud\Tests\StubConnection;
 
 class MyInstanceClass extends Instance
 {
-
     public function createJson($parm = array())
     {
         return parent::CreateJson($parm);
     }
-
 }
 
 class InstanceTest extends PHPUnit_Framework_TestCase
@@ -78,7 +76,7 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 
     public function testEnableRootUser()
     {
-        $this->assertInstanceOf('OpenCloud\Database\User', $this->instance->enableRootUser());
+        $this->assertInstanceOf('OpenCloud\Database\Resource\User', $this->instance->enableRootUser());
     }
 
     public function testIsRootEnabled()
@@ -88,14 +86,14 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 
     public function testDatabase()
     {
-        $this->assertInstanceOf('OpenCloud\Database\Database', $this->instance->database('FOO'));
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Database', $this->instance->database('FOO'));
     }
 
     public function testUser()
     {
         // user with 2 databases
         $u = $this->instance->User('BAR', array('FOO', 'BAR'));
-        $this->assertInstanceOf('OpenCloud\Database\User', $u);
+        $this->assertInstanceOf('OpenCloud\Database\Resource\User', $u);
         // make sure it has 2 databases
         $this->assertEquals(2, count($u->databases));
     }

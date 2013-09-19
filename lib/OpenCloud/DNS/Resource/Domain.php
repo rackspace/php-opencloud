@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\DNS;
+namespace OpenCloud\DNS\Resource;
 
 /**
  * The Domain class represents a single domain
@@ -60,8 +60,7 @@ class Domain extends Object
     public function record($info = null)
     {
         $resource = new Record($this->getService());
-        $resource->setParent($this);
-        $resource->populate($info);
+        $resource->setParent($this)->populate($info);
         return $resource;
     }
 
@@ -73,7 +72,9 @@ class Domain extends Object
      */
     public function recordList($filter = array())
     {
-        return $this->getParent()->collection('OpenCloud\DNS\Record', null, $this, $filter);
+        return $this->getParent()->collection(
+            'OpenCloud\DNS\Resource\Record', null, $this, $filter
+        );
     }
 
     /**
@@ -83,8 +84,7 @@ class Domain extends Object
     public function subdomain($info = array())
     {
         $resource = new Subdomain($this->getService());
-        $resource->setParent($this);
-        $resource->populate($info);
+        $resource->setParent($this)->populate($info);
         return $resource;
     }
 
@@ -99,7 +99,9 @@ class Domain extends Object
      */
     public function subdomainList($filter = array())
     {
-        return $this->getParent()->collection('OpenCloud\DNS\Subdomain', null, $this);
+        return $this->getParent()->collection(
+            'OpenCloud\DNS\Resource\Subdomain', null, $this
+        );
     }
 
     /**

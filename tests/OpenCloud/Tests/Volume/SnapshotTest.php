@@ -15,7 +15,7 @@ namespace OpenCloud\Tests\Volume;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
 use OpenCloud\Volume\Service;
-use OpenCloud\Volume\Snapshot;
+use OpenCloud\Volume\Resource\Snapshot;
 
 class publicSnapshot extends Snapshot
 {

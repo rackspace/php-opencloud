@@ -14,7 +14,7 @@ namespace OpenCloud\Tests\Compute;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Compute\Service;
-use OpenCloud\Compute\Network;
+use OpenCloud\Compute\Resource\Network;
 use OpenCloud\Tests\StubConnection;
 
 class NetworkTest extends PHPUnit_Framework_TestCase
@@ -39,12 +39,12 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(RAX_PUBLIC, $this->net->id);
         $net = $this->service->Network();
-        $this->assertInstanceOf('OpenCloud\Compute\Network', $net);
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $net);
     }
 
     public function testCreate()
     {
-        $net = $this->service->Network();
+        $net = $this->service->network();
         $net->Create(array('label' => 'foo', 'cidr' => 'bar'));
         $this->assertEquals('foo', $net->label);
     }
