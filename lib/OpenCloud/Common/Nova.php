@@ -123,7 +123,7 @@ abstract class Nova extends Service
      * @param string $body - optional body for POST or PUT requests
      * @return \Rackspace\HttpResult object
      */
-	public function request($url, $method = 'GET', array $headers = array(), $body = null) 
+	public function request($urls, $method = 'GET', array $headers = array(), $body = null) 
 	{
 		$headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
 		return parent::Request($urls, $method, $headers, $body);
