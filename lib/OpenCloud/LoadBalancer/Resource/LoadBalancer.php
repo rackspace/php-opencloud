@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
@@ -34,11 +34,11 @@ class LoadBalancer extends PersistentObject
      * @var string 
      */
     public $name;
-    
+
     /**
-     * Port number for the service you are load balancing.
-     * 
-     * @var int 
+     * Port of the service which is being laod balanced.
+     *
+     * @var string
      */
     public $port;
     
@@ -52,16 +52,16 @@ class LoadBalancer extends PersistentObject
     /**
      * Type of virtual IP to add along with the creation of a load balancer.
      * 
-     * @var array 
+     * @var Collection
      */
-    public $virtualIps = array();
+    public $virtualIps;
     
     /**
      * Nodes to be added to the load balancer.
      * 
-     * @var array 
+     * @var Collection
      */
-    public $nodes = array();
+    public $nodes;
     
     /**
      * The access list management feature allows fine-grained network access 
@@ -74,14 +74,14 @@ class LoadBalancer extends PersistentObject
     /**
      * Algorithm that defines how traffic should be directed between back-end nodes.
      *
-     * @var string 
+     * @var Algorithm
      */
     public $algorithm;
     
     /**
      * Current connection logging configuration.
      * 
-     * @var string 
+     * @var ConnectionLogging
      */
     public $connectionLogging;
     
@@ -89,7 +89,7 @@ class LoadBalancer extends PersistentObject
      * Specifies limits on the number of connections per IP address to help 
      * mitigate malicious or abusive traffic to your applications.
      * 
-     * @var string 
+     * @var ConnectionThrottle
      */
     public $connectionThrottle;
     
@@ -97,9 +97,16 @@ class LoadBalancer extends PersistentObject
      * The type of health monitor check to perform to ensure that the service is 
      * performing properly.
      * 
-     * @var string 
+     * @var HealthMonitor
      */
     public $healthMonitor;
+
+    /**
+     * Forces multiple requests, of the same protocol, from clients to be
+     * directed to the same node.
+     *
+     * @var SessionPersistance
+     */
     public $sessionPersistence;
     
     /**
@@ -128,6 +135,18 @@ class LoadBalancer extends PersistentObject
     protected static $json_name = 'loadBalancer';
     protected static $url_resource = 'loadbalancers';
 
+    protected $associatedResources = array(
+        'connectionLogging' => 'ConnectionLogging',
+        'healthMonitor' => 'HealthMonitor',
+        'sessionPersistance' => 'SessionPersistance'
+    );
+
+    protected $associatedCollections = array(
+        'nodes' => 'Node',
+        'virtualIps' => 'VirtualIp',
+        'accessList' => 'Access'
+    );
+
     private $createKeys = array(
         'name',
         'port',
@@ -141,6 +160,14 @@ class LoadBalancer extends PersistentObject
         'healthMonitor',
         'sessionPersistence'
     );
+
+    public function __construct($service = null, $info = null){
+
+        parent::__construct($service,$info);
+
+        $this->nodes = new \OpenCloud\Common\Collection($this->getService(),'\OpenCloud\LoadBalancer\Resource\Node',array());
+        $this->virtualIps = new \OpenCloud\Common\Collection($this->getService(),'\OpenCloud\LoadBalancer\Resource\VirtualIp',array());
+    }
 
     /**
      * adds a node to the load balancer
@@ -213,33 +240,18 @@ class LoadBalancer extends PersistentObject
             }
         }
 
-        $this->nodes[] = $node;
-    }
+        if ($this->Id()) {
+            $http = $node->Create();
 
-    /**
-     * adds queued nodes to the load balancer
-     *
-     * In many cases, Nodes will be added to the Load Balancer when it is
-     * created (via the `Create()` method), but this method is provided when
-     * a set of Nodes needs to be added after the fact.
-     *
-     * @api
-     * @return HttpResponse
-     */
-    public function addNodes() 
-    {
-        if (count($this->nodes) < 1) {
-            throw new Exceptions\MissingValueError(
-                Lang::translate('Cannot add nodes; no nodes are defined')
-            );
+            $this->getLogger()->info('AddNode:response [{body}]', array(
+                'body' => $http->httpBody()
+            ));
+
+            return $http;
+        } else {
+            // queue it
+            $this->nodes->addItem($node);
         }
-
-        // iterate through all the nodes
-        foreach($this->nodes as $node) {
-            $resp = $node->Create();
-        }
-
-        return $resp;
     }
 
     /**
@@ -306,7 +318,7 @@ class LoadBalancer extends PersistentObject
             return $http;
         } else {
             // queue it
-            $this->virtualIps[] = $object;
+            $this->virtualIps->addItem($object);
         }
 
         return true;
@@ -327,7 +339,7 @@ class LoadBalancer extends PersistentObject
      */
     public function nodeList() 
     {
-        return $this->getParent()->Collection('\OpenCloud\LoadBalancer\Resources\Node', null, $this);
+        return $this->getParent()->Collection('\OpenCloud\LoadBalancer\Resource\Node', null, $this);
     }
 
     /**
@@ -345,7 +357,7 @@ class LoadBalancer extends PersistentObject
      */
     public function nodeEventList() 
     {
-        return $this->getParent()->Collection('\OpenCloud\LoadBalancer\Resources\NodeEvent', null, $this);
+        return $this->getParent()->Collection('\OpenCloud\LoadBalancer\Resource\NodeEvent', null, $this);
     }
 
     /**
@@ -364,7 +376,7 @@ class LoadBalancer extends PersistentObject
      */
     public function virtualIpList() 
     {
-        return $this->Service()->Collection('\OpenCloud\LoadBalancer\Resources\VirtualIp', null, $this);
+        return $this->Service()->Collection('\OpenCloud\LoadBalancer\Resource\VirtualIp', null, $this);
     }
 
     /**
@@ -439,7 +451,7 @@ class LoadBalancer extends PersistentObject
      */
     public function accessList() 
     {
-        return $this->getService()->Collection('OpenCloud\LoadBalancer\Resources\Access', null, $this);
+        return $this->getService()->Collection('OpenCloud\LoadBalancer\Resource\Access', null, $this);
     }
 
     /**
@@ -491,7 +503,7 @@ class LoadBalancer extends PersistentObject
      */
     public function metadataList() 
     {
-        return $this->getService()->Collection('\OpenCloud\LoadBalancer\Resources\Metadata', null, $this);
+        return $this->getService()->Collection('\OpenCloud\LoadBalancer\Resource\Metadata', null, $this);
     }
 
     /**
@@ -508,14 +520,23 @@ class LoadBalancer extends PersistentObject
         // set the properties
         foreach ($this->createKeys as $key) {
             if ($key == 'nodes') {
-                foreach ($this->$key as $node) {
+                while ($node = $this->nodes->Next()) {
                     $nodeObject = new \stdClass();
-                    foreach ($node as $nodeKey => $nodeValue) {
-                        if ($nodeValue !== null) {
-                            $nodeObject->$nodeKey = $nodeValue;
+                    foreach ($node as $property => $value) {
+                        if ($value !== null) {
+                            $nodeObject->$property = $value;
                         }
                     }
                     $object->$elem->nodes[] = $nodeObject;
+                }
+            } elseif($key == 'virtualIps'){
+                while ($virtualIp = $this->virtualIps->Next()){
+                    $virtualIpObject = new \stdClass();
+                    foreach ($virtualIp as $property => $value){
+                        if($value !== null)
+                            $virtualIpObject->$property = $value;
+                    }
+                    $object->$elem->virtualIps[] = $virtualIpObject;
                 }
             } elseif ($this->$key !== null) {
                 $object->$elem->$key = $this->$key;
@@ -550,5 +571,4 @@ class LoadBalancer extends PersistentObject
         }
         return $object;
     } 
-
 }

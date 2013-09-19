@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;

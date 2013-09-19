@@ -75,7 +75,7 @@ abstract class Base
         ));
     }
 
-/**
+    /**
      * Populates the current object based on an unknown data type.
      * 
      * @param  array|object|string|integer $info
@@ -83,6 +83,7 @@ abstract class Base
      */
     public function populate($info, $setObjects = true)
     {
+
         if (is_string($info) || is_integer($info)) {
             
             // If the data type represents an ID, the primary key is set
@@ -91,9 +92,9 @@ abstract class Base
             $this->refresh($info);
             
         } elseif (is_object($info) || is_array($info)) {
-            
+
             foreach($info as $key => $value) {
-                
+
                 if ($key == 'metadata' || $key == 'meta') {
                     
                     if (empty($this->$key) || !$this->$key instanceof Metadata) {
@@ -104,7 +105,7 @@ abstract class Base
                     $this->$key->setArray($value);
                     
                 } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
-                    
+
                     // Associated resource
                     try {
                         $resource = $this->service()->resource($this->associatedResources[$key], $value);

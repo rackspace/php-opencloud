@@ -59,20 +59,10 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         $lb = $this->service->LoadBalancer();
         $lb->addNode('1.1.1.1', 80);
         
-        $this->assertEquals('1.1.1.1', $lb->nodes[0]->address);
+        $this->assertEquals('1.1.1.1', $lb->nodes->getItem(0)->address);
         
         // this should trigger an error
         $lb->AddNode('1.1.1.2', 80, 'foobar');
-    }
-
-    public function testAddNodes()
-    {
-        $lb = $this->service->LoadBalancer();
-        //$lb->Create();
-        $lb->AddNode('1.1.1.1', 80);
-        $lb->Create();
-        $lb->AddNodes();
-        
     }
 
     /**
@@ -82,7 +72,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $lb = $this->service->LoadBalancer();
         $lb->AddVirtualIp('public');
-        $this->assertEquals('PUBLIC', $lb->virtualIps[0]->type);
+        $this->assertEquals('PUBLIC', $lb->virtualIps->getItem(0)->type);
     }
 
     public function testNode()
