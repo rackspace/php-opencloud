@@ -811,13 +811,16 @@ class OpenStack extends Base
                 if ($response->httpStatus() != 404) {
                     return $response;
                 }
-            } catch (\HttpOverLimitError $e) {
+            } catch (\OpenCloud\Common\Exceptions\HttpOverLimitError $e) {
                 throw $e;
-            } catch (\HttpUnauthorizedError $e) {
+            } catch (\OpenCloud\Common\Exceptions\HttpUnauthorizedError $e) {
                 throw $e;
-            } catch (\HttpForbiddenError $e) {
+            } catch (\OpenCloud\Common\Exceptions\HttpForbiddenError $e) {
                 throw $e;
-            } catch (\HttpError $e) {
+            } catch (\OpenCloud\Common\Exceptions\HttpTimeoutError $e) {
+                //continue, assume that the zone is down
+                $exception = $e;
+            } catch (\OpenCloud\Common\Exceptions\HttpError $e) {
                 //continue... assume that the zone is down. 
                 $exception = $e;
             }
@@ -844,6 +847,7 @@ class OpenStack extends Base
      */
     private function requestOne($url, $method = 'GET', $headers = array(), $data = null)
     {
+        error_log("dtm, you're requesting " . $url);
         $this->getLogger()->info('Resource [{url}] method [{method}] body [{body}]', array(
             'url'    => $url, 
             'method' => $method, 
