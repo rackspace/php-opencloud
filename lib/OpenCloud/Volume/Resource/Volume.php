@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Volume;
+namespace OpenCloud\Volume\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
@@ -40,7 +40,7 @@ class Volume extends PersistentObject
     protected static $json_name = 'volume';
     protected static $url_resource = 'volumes';
 
-    private $_create_keys = array(
+    private $createKeys = array(
         'snapshot_id',
         'display_name',
         'display_description',
@@ -54,7 +54,7 @@ class Volume extends PersistentObject
      *
      * @throws OpenCloud\UpdateError always
      */
-    public function Update($params = array()) 
+    public function update($params = array()) 
     {
         throw new Exceptions\UpdateError(
             Lang::translate('Block storage volumes cannot be updated')
@@ -67,7 +67,7 @@ class Volume extends PersistentObject
      * @api
      * @return string
      */
-    public function Name() 
+    public function name() 
     {
         return $this->display_name;
     }
@@ -79,13 +79,13 @@ class Volume extends PersistentObject
      *
      * @return stdClass
      */
-    protected function CreateJson() 
+    protected function createJson() 
     {
         $element = $this->JsonName();
         $object = new \stdClass();
         $object->$element = new \stdClass();
 
-        foreach ($this->_create_keys as $name) {
+        foreach ($this->createKeys as $name) {
             if ($this->$name) {
                 switch($name) {
                     case 'volume_type':

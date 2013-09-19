@@ -43,7 +43,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testVolume()
     {
-        $this->assertInstanceOf('OpenCloud\Volume\Volume', $this->service->Volume());
+        $this->assertInstanceOf('OpenCloud\Volume\Resource\Volume', $this->service->Volume());
     }
 
     public function testVolumeList()
@@ -53,7 +53,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testVolumeType()
     {
-        $this->assertInstanceOf('OpenCloud\Volume\VolumeType', $this->service->VolumeType());
+        $this->assertInstanceOf('OpenCloud\Volume\Resource\VolumeType', $this->service->VolumeType());
     }
 
     /**
@@ -66,7 +66,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testSnapshot()
     {
-        $this->assertInstanceOf('OpenCloud\Volume\Snapshot', $this->service->Snapshot());
+        $this->assertInstanceOf('OpenCloud\Volume\Resource\Snapshot', $this->service->Snapshot());
     }
 
     /**

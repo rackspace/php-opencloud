@@ -14,7 +14,7 @@ namespace OpenCloud\Tests\Compute;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
-use OpenCloud\Compute\Server;
+use OpenCloud\Compute\Resource\Server;
 
 class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
 {
@@ -31,7 +31,7 @@ class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
+     * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
     public function testUpdate()
     {

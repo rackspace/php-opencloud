@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Database;
+namespace OpenCloud\Database\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions;

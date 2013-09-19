@@ -553,7 +553,7 @@ abstract class PersistentObject extends Base
         }
 
         // perform a GET on the URL
-        $response = $this->getService()->Request($url);
+        $response = $this->getService()->request($url);
         
         // check status codes
         // @codeCoverageIgnoreStart

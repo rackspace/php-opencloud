@@ -88,7 +88,7 @@ class DataObject extends AbstractStorageObject
      * 
      * @var string 
      */
-    private $data;
+    public $data;
     
     /**
      * The ETag value.

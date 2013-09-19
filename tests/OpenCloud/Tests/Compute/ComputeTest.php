@@ -58,7 +58,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testServer()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Server', $this->compute->Server());
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Server', $this->compute->Server());
     }
 
     public function testServerList()
@@ -68,12 +68,12 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testImage()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Image', $this->compute->Image());
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Image', $this->compute->Image());
     }
 
     public function testNetwork()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Network', $this->compute->Network());
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $this->compute->Network());
     }
 
     public function testNetworkList()

@@ -9,11 +9,12 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Compute;
+namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Compute\Service;
 
 /**
  * The Network class represents a single virtual network
@@ -65,7 +66,7 @@ class Network extends PersistentObject
      *
      * @throws NetworkUpdateError always
      */
-    public function Update($params = array()) 
+    public function update($params = array()) 
     {
         throw new Exceptions\NetworkUpdateError(Lang::translate('Isolated networks cannot be updated'));
     }
@@ -77,7 +78,7 @@ class Network extends PersistentObject
      * @return \OpenCloud\HttpResponse
      * @throws NetworkDeleteError if HTTP status is not Success
      */
-    public function Delete() 
+    public function delete() 
     {
         switch ($this->id) {
             case RAX_PUBLIC:
@@ -94,7 +95,7 @@ class Network extends PersistentObject
      * @api
      * @return string
      */
-    public function Name() 
+    public function name() 
     {
         return $this->label;
     }
@@ -102,13 +103,14 @@ class Network extends PersistentObject
     /**
      * Creates the JSON object for the Create() method
      */
-    protected function CreateJson() 
+    protected function createJson() 
     {
-        $obj = new \stdClass();
-        $obj->network = new \stdClass();
-        $obj->network->cidr = $this->cidr;
-        $obj->network->label = $this->label;
-        return $obj;
+        return (object) array(
+            'network' => (object) array(
+                'cidr'  => $this->cidr,
+                'label' => $this->label
+            )
+        );
     }
 
 }
