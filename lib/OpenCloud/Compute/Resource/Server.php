@@ -18,41 +18,161 @@ use OpenCloud\Common\Lang;
 use OpenCloud\Compute\Service;
 
 /**
- * The Server class represents a single server node.
+ * A virtual machine (VM) instance in the Cloud Servers environment.
  *
- * A Server is always associated with a (Compute) Service. This implementation
- * supports extension attributes OS-DCF:diskConfig, RAX-SERVER:bandwidth,
- * rax-bandwidth:bandwith
+ * @note This implementation supports extension attributes OS-DCF:diskConfig, 
+ * RAX-SERVER:bandwidth, rax-bandwidth:bandwith.
  */
 class Server extends PersistentObject
 {
-    // Ideally these should have data types defined in docblocks
+    /**
+     * The server status. Supported types are: 
+     * 
+     * * ACTIVE: The server is active and ready to use.
+     * * BUILD: The server is being built.
+     * * DELETED: The server was deleted. The list servers API operation does 
+     *      not show servers with a status of DELETED. To list deleted servers, 
+     *      use the changes-since parameter.
+     * * ERROR: The requested operation failed and the server is in an error state.
+     * * HARD_REBOOT: The server is going through a hard reboot. This power 
+     *      cycles your server, which performs an immediate shutdown and restart.
+     * * MIGRATING: The server is being moved from one physical node to 
+     *      another physical node. Server migration is a Rackspace extension.
+     * * PASSWORD: The password for the server is being changed.
+     * * REBOOT: The server is going through a soft reboot. During a soft reboot, 
+     *      the operating system is signaled to restart, which allows for a 
+     *      graceful shutdown and restart of all processes.
+     * * REBUILD: The server is being rebuilt from an image.
+     * * RESCUE: The server is in rescue mode. Rescue mode is a Rackspace extension.
+     * * RESIZE: The server is being resized and is inactive until it completes.
+     * * REVERT_RESIZE: A resized or migrated server is being reverted to its 
+     *      previous size. The destination server is being cleaned up and the 
+     *      original source server is restarting. Server migration is a Rackspace extension.
+     * * SUSPENDED: The server is inactive, either by request or necessity.
+     * * UNKNOWN: The server is in an unknown state.
+     * * VERIFY_RESIZE: The server is waiting for the resize operation to be 
+     *      confirmed so that the original server can be removed.
+     * 
+     * @var string 
+     */
+    public $status;
+    
+    /**
+     * @var string The time stamp for the last update.
+     */
+    public $updated;
+    
+    /**
+     * The compute provisioning algorithm has an anti-affinity property that 
+     * attempts to spread customer VMs across hosts. Under certain situations, 
+     * VMs from the same customer might be placed on the same host. $hostId 
+     * represents the host your server runs on and can be used to determine this 
+     * scenario if it is relevant to your application.
+     * 
+     * @var string 
+     */
+    public $hostId;
+    
+    /**
+     * @var type Public and private IP addresses for this server.
+     */
+    public $addresses;
+    
+    /**
+     * @var array Server links.
+     */
+    public $links;
+    
+    /**
+     * The Image for this server.
+     * 
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
+     * @var type 
+     */
+    public $image;
+    
+    /**
+     * The Flavor for this server.
+     * 
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Flavors-d1e4188.html
+     * @var type 
+     */
+    public $flavor;
+    
+    /**
+     * @var type 
+     */
+    public $networks = array();
+    
+    /**
+     * @var string The server ID.
+     */
+    public $id;
+    
+    /**
+     * @var string The user ID.
+     */
+    public $user_id;
+    
+    /**
+     * @var string The server name.
+     */
+    public $name;
+    
+    /**
+     * @var string The time stamp for the creation date.
+     */
+    public $created;
+    
+    /**
+     * @var string The tenant ID.
+     */
+    public $tenant_id;
+    
+    /** 
+     * @var string The public IP version 4 access address.
+     */
+    public $accessIPv4;
+    
+    /**
+     * @var string The public IP version 6 access address.
+     */
+    public $accessIPv6;
+    
+    /**
+     * The build completion progress, as a percentage. Value is from 0 to 100.
 
-    public $status;             // Server status
-    public $updated;            // date and time of last update
-    public $hostId;             // the ID of the host holding the server instance
-    public $addresses;          // an object holding the server's network addresses
-    public $links;              // an object with server's permanent and bookmark links
-    public $image;              // the object object of the server
-    public $flavor;             // the flavor object of the server
-    public $networks = array(); // array of attached networks
-    public $id;                 // the server's ID
-    public $user_id;            // the user ID that created the server
-    public $name;               // the server's name
-    public $created;            // date and time the server was created
-    public $tenant_id;          // tenant/customer ID that created the server
-    public $accessIPv4;         // the IPv4 access address
-    public $accessIPv6;         // the IPv6 access address
-    public $progress;           // build progress, from 0 (%) to 100 (%)
-    public $adminPass;          // the root password returned from the Create() method
-    public $metadata;           // a Metadata object associated with the server
+     * @var int 
+     */
+    public $progress;
+    
+    /**
+     * @var string The root password (only populated on server creation).
+     */
+    public $adminPass;
+    
+    /**
+     * @var mixed Metadata key and value pairs.
+     */
+    public $metadata;
 
     protected static $json_name = 'server';
     protected static $url_resource = 'servers';
-
-    private $personality = array(); // uploaded file attachments
-    private $imageRef;              // image reference (for create)
-    private $flavorRef;             // flavor reference (for create)
+    
+    /**
+     * @var array Uploaded file attachments
+     */
+    private $personality = array();
+    
+    /**
+     * @var type Image reference (for create)
+     */
+    private $imageRef;
+    
+    /**
+     * @var type Flavor reference (for create)
+     */
+    private $flavorRef;
 
     /**
      * Creates a new Server object and associates it with a Compute service
@@ -356,7 +476,7 @@ class Server extends PersistentObject
     }
 
     /**
-     * Takes the server out of *rescue* mode
+     * Takes the server out of RESCUE mode
      *
      * @api
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html
@@ -377,7 +497,7 @@ class Server extends PersistentObject
     }
 
     /**
-     * Retrieves the metadata associated with a Server
+     * Retrieves the metadata associated with a Server.
      *
      * If a metadata item name is supplied, then only the single item is
      * returned. Otherwise, the default is to return all metadata associated
@@ -394,11 +514,11 @@ class Server extends PersistentObject
     }
 
     /**
-     * Returns the IP address block for the Server or for a specific network
+     * Returns the IP address block for the Server or for a specific network.
      *
      * @api
-     * @param string $network - if supplied, then only the IP(s) for
-     *      the specified network are returned. Otherwise, all IPs are returned.
+     * @param string $network - if supplied, then only the IP(s) for the
+     *       specified network are returned. Otherwise, all IPs are returned.
      * @return object
      * @throws ServerIpsError
      */
@@ -418,16 +538,17 @@ class Server extends PersistentObject
         }
         
         $object = json_decode($response->httpBody());
-        
         $this->checkJsonError();
- 
+
         if (isset($object->addresses)) {
-            return $object->addresses;
+            $returnObject = $object->addresses;
         } elseif (isset($object->network)) {
-            return $object->network;
+            $returnObject = $object->network;
         } else {
-            return new \stdClass;
+            $returnObject = (object) array();
         }
+        
+        return $object;
         // @codeCoverageIgnoreEnd
     }
 
@@ -435,11 +556,11 @@ class Server extends PersistentObject
      * Attaches a volume to a server
      *
      * Requires the os-volumes extension. This is a synonym for
-     * `VolumeAttachment::Create()`
+     * `VolumeAttachment::create()`
      *
      * @api
-     * @param OpenCloud\VolumeService\Volume $vol the volume to attach. If
-     *      `"auto"` is specified (the default), then the first available
+     * @param OpenCloud\Volume\Resource\Volume $volume The volume to attach. If
+     *      "auto" is specified (the default), then the first available
      *      device is used to mount the volume (for example, if the primary
      *      disk is on `/dev/xvhda`, then the new volume would be attached
      *      to `/dev/xvhdb`).
@@ -455,14 +576,12 @@ class Server extends PersistentObject
     }
 
     /**
-     * removes a volume attachment from a server
+     * Removes a volume attachment from a server
      *
      * Requires the os-volumes extension. This is a synonym for
-     * `VolumeAttachment::Delete()`
-     *
-     * @api
-     * @param OpenCloud\VolumeService\Volume $vol the volume to remove
-     * @throws VolumeError
+     * `VolumeAttachment::delete()`
+
+     * @param OpenCloud\Volume\Resource\Volume $volume The volume to remove
      */
     public function detachVolume(Volume $volume)
     {
@@ -471,7 +590,7 @@ class Server extends PersistentObject
     }
 
     /**
-     * returns a VolumeAttachment object
+     * Returns a VolumeAttachment object
      *
      */
     public function volumeAttachment($id = null)
@@ -482,9 +601,8 @@ class Server extends PersistentObject
     }
 
     /**
-     * returns a Collection of VolumeAttachment objects
-     *
-     * @api
+     * Returns a Collection of VolumeAttachment objects
+
      * @return Collection
      */
     public function volumeAttachmentList()
@@ -495,22 +613,16 @@ class Server extends PersistentObject
     }
 
     /**
-     * adds a "personality" file to be uploaded during Create() or Rebuild()
-     *
-     * The `$path` argument specifies where the file will be stored on the
-     * target server; the `$data` is the actual data values to be stored.
-     * To upload a local file, use `file_get_contents('name')` for the `$data`
-     * value.
+     * Adds a "personality" file to be uploaded during create() or rebuild()
      *
      * @api
-     * @param string $path the file path (up to 255 characters)
+     * @param string $path The path where the file will be stored on the
+     *      target server (up to 255 characters)
      * @param string $data the file contents (max size set by provider)
      * @return void
-     * @throws PersonalityError if server already exists (has an ID)
      */
     public function addFile($path, $data)
     {
-        // set the value
         $this->personality[$path] = base64_encode($data);
     }
 
@@ -522,21 +634,14 @@ class Server extends PersistentObject
 	 */
     public function console($type = 'novnc') 
     {
-        $info = new \stdClass;
-        $info->type = $type;
-        $msg = new \stdClass;
         $action = (strpos('spice', $type) !== false) ? 'os-getSPICEConsole' : 'os-getVNCConsole';
-        $msg->$action = $info;
-        return json_decode($this->action($msg)->httpBody())->console;
+        $object = (object) array($action => (object) array('type' => $type));
+        return json_decode($this->action($object)->httpBody())->console;
     }
 
 
     /**
-     * Creates the JSON for creating a new server
-     *
-     * @param string $element creates {server ...} by default, but can also
-     *      create {rebuild ...} by changing this parameter
-     * @return json
+     * {@inheritDoc}
      */
     protected function createJson()
     {
@@ -597,18 +702,11 @@ class Server extends PersistentObject
     }
 
     /**
-     * Creates the JSON for updating a server
-     *
-     * @return json
+     * {@inheritDoc}
      */
     protected function updateJson($params = array())
     {
-        $object = new \stdClass();
-        $object->server = new \stdClass();
-        foreach($params as $name => $value) {
-            $object->server->$name = $this->$name;
-        }
-        return $object;
+        return (object) array('server' => (object) $params);
     }
 
 }

@@ -52,7 +52,6 @@ ENDRESPONSE;
         );
 
         // POST
-        
 		if ($method == 'POST') {
             
 			$resp->status = 200;
@@ -101,6 +100,8 @@ ENDRESPONSE;
                 $resp->status = 204;
             } elseif (strpos($url, '/servers')) {
                 $resp->body = file_get_contents($this->testDir.'/server-create.json');
+            } elseif (strpos($url, '/os-keypairs')) {
+                $resp->body = file_get_contents(__DIR__ . '/Compute/Response/POST/keypair.json');
             } elseif (strpos($url, '/queues')) {
             
                if (preg_match('#/queues/foobar/messages$#', $url)) {                
@@ -395,8 +396,10 @@ EOT;
                 $resp->status = 200;
             } elseif (strpos($url, 'delimiter')) {
                 $resp->body = '[{"subdir": "files/Pseudo1/"},{"subdir": "files/Pseudo2/"}]';
-                $resp->status = 200;
-            
+                $resp->status = 200;  
+            } elseif (strpos($url, '/os-keypairs')) {
+                $resp->body = file_get_contents(__DIR__ . '/Compute/Response/GET/list.json');
+                $resp->status = 200; 
             } elseif (strpos($url, '/queues')) { 
                 
                 /*** CLOUD QUEUES ***/

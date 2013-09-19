@@ -121,6 +121,24 @@ abstract class PersistentObject extends Base
         return (!isset($this->$name)) ? null : $this->$name;
     }
     
+    public function __call($method, $args)
+    {
+        $prefix = substr($method, 0, 3);
+
+        // Get property - convert from camel case to underscore
+        $property = lcfirst(substr($method, 3));
+
+        // Do getter
+        if ($prefix == 'get') {
+            return $this->$property;
+        }
+
+        // Do setter
+        if ($prefix == 'set') {
+            $this->$property = $args[0];
+        }
+    }
+    
     /**
      * Sets the service associated with this resource object.
      * 
@@ -253,13 +271,13 @@ abstract class PersistentObject extends Base
         } else {
             // set values from response
             $object = json_decode($response->httpBody());
+            $this->checkJsonError();
             
-            if (!$this->checkJsonError()) {
-                $top = $this->jsonName();
-                if (isset($object->$top)) {
-                    $this->populate($object->$top);
-                }
+            $top = $this->jsonName();
+            if (isset($object->$top)) {
+                $this->populate($object->$top);
             }
+            
         }
         // @codeCoverageIgnoreEnd
 

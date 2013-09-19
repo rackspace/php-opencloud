@@ -181,7 +181,7 @@ abstract class Service extends Base
 
         // Set the URL if empty
         if (!$url) {
-            $url = $parent->url($class::ResourceName());
+            $url = $parent->url($class::resourceName());
         }
 
         // Save debug info

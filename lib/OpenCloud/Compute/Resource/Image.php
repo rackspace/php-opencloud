@@ -14,13 +14,14 @@ namespace OpenCloud\Compute\Resource;
 use OpenCloud\Common\PersistentObject;
 
 /**
- * The Image class represents a stored machine image returned by the
- * Compute service.
+ * A collection of files for a specific operating system (OS) that you use to 
+ * create or rebuild a server. Rackspace provides pre-built images. You can also 
+ * create custom images from servers that you have launched. Custom images can 
+ * be used for data backups or as "gold" images for additional servers.
  *
- * In the future, this may be abstracted to access
- * Glance (the OpenStack image store) directly, but it is currently
- * not available to Rackspace customers, so we're using the /images
- * resource on the servers API endpoint.
+ * @note In the future, this may be abstracted to access Glance (the OpenStack 
+ * image store) directly, but it is currently not available to Rackspace 
+ * customers, so we're using the /images resource on the servers API endpoint.
  */
 class Image extends PersistentObject 
 {

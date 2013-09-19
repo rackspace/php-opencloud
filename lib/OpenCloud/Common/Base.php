@@ -91,7 +91,7 @@ abstract class Base
             $this->refresh($info);
             
         } elseif (is_object($info) || is_array($info)) {
-            
+
             foreach($info as $key => $value) {
                 
                 if ($key == 'metadata' || $key == 'meta') {
@@ -119,11 +119,17 @@ abstract class Base
                         $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this); 
                     } catch (Exception\ServiceException $e) {}
                     
-                } else {
+                } elseif (!empty($this->aliases[$key])) {
+
+                    // Sometimes we might want to preserve camelCase
+                    $this->{$this->aliases[$key]} = $value;
                     
+                } else {
+
                     // Normal key/value pair
                     $this->$key = $value; 
                 }
+                
             }
         } elseif (null !== $info) {
             throw new Exceptions\InvalidArgumentError(sprintf(
@@ -168,26 +174,47 @@ abstract class Base
     public function setProperty($property, $value, array $prefixes = array())
     {  
         $setter = 'set' . ucfirst($property);
-        
+
         if (method_exists($this, $setter)) {
             // Does an explicitly defined setter method exist?
             return call_user_func(array($this, $setter), $value);
             
-        } elseif (!RAXSDK_STRICT_PROPERTY_CHECKS || $this->checkAttributePrefix($property, $prefixes)) {
-            // If not, we have to attempt to set the property directly.
-            // If strict checks are off, go ahead and set it
-            $this->$property = $value;
-            
         } else {
-            // If that fails, then throw the exception
-            throw new AttributeError(sprintf(
-                Lang::translate('Unrecognized attribute [%s] for [%s]'),
-                $property,
-                get_class($this)
-            ));
+            // We can set a property under three conditions:
+            // 1. If has already been defined
+            // 2. If RAXSDK_STRICT_PROPERTY_CHECKS is not TRUE
+            // 3. If the property name's prefix is in an approved list
+            if (false !== ($property = $this->propertyExists($property))
+                || RAXSDK_STRICT_PROPERTY_CHECKS !== true
+                || $this->checkAttributePrefix($property, $prefixes)
+            ) {
+                
+                $this->$property = $value;
+
+            } else {
+                // If that fails, then throw the exception
+                throw new AttributeError(sprintf(
+                    Lang::translate('Unrecognized attribute [%s] for [%s]'),
+                    $property,
+                    get_class($this)
+                ));
+            }
         }
     }
 
+    private function propertyExists($property)
+    {
+        if (!property_exists($this, $property)) {
+            // Convert to under_score and retry
+            $property = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $property));
+            if (!property_exists($this, $property)) {
+                $property = false;
+            }
+        }
+
+        return $property;
+    }
+    
     /**
      * Converts an array of key/value pairs into a single query string
      *

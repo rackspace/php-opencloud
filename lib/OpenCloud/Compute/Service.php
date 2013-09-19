@@ -205,4 +205,15 @@ class Service extends Nova
         return $this->collection('OpenCloud\Compute\Resource\Image', $url);
     }
 
+    
+    public function keypair($data = null)
+    {
+        return $this->resource('KeyPair', $data);
+    }
+    
+    public function listKeypairs()
+    {
+        return $this->resourceList('KeyPair', null, $this);
+    }
+    
 }

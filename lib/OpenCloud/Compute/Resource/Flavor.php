@@ -14,10 +14,8 @@ namespace OpenCloud\Compute\Resource;
 use OpenCloud\Common\PersistentObject;
 
 /**
- * The Flavor class represents a flavor defined by the Compute service
- *
- * At its simplest, a Flavor represents a combination of RAM, disk space,
- * and compute CPUs, though there are other extended attributes.
+ * A resource configuration for a server. Each flavor is a unique combination 
+ * of disk, memory, vCPUs, and network bandwidth.
  */
 class Flavor extends PersistentObject 
 {
