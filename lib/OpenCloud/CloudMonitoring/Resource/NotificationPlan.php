@@ -2,14 +2,12 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
-use OpenCloud\CloudMonitoring\Exception;
-
 class NotificationPlan extends AbstractResource implements ResourceInterface
 {
-	public $label;
-	public $critical_state;
-	public $ok_state;
-	public $warning_state;
+	private $label;
+	private $critical_state;
+	private $ok_state;
+	private $warning_state;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -26,9 +24,4 @@ class NotificationPlan extends AbstractResource implements ResourceInterface
         'warning_state'
     );
 
-    public function baseUrl()
-    {
-        return $this->Service()->Url($this->ResourceName());
-    }
-	
 }

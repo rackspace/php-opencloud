@@ -45,12 +45,13 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 			'publicURL'
 		);
         
-        $this->otherContainer = new Container(new Service(
+        $service = new Service(
 			new StubConnection('http://example.com', 'SECRET'),
 			'cloudFiles',
 			'DFW',
 			'publicURL'
-		), 'TEST');
+		);
+        $this->otherContainer = new Container($service, 'TEST');
 	}
 
 	public function getContainer()

@@ -12,13 +12,13 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Alarm extends AbstractResource implements ResourceInterface
 {
-    public $id;
-	public $check_id;
-	public $notification_plan_id;
-	public $criteria;
-	public $disabled;
-	public $label;
-	public $metadata;
+    private $id;
+	private $check_id;
+	private $notification_plan_id;
+	private $criteria;
+	private $disabled;
+	private $label;
+	private $metadata;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -41,7 +41,7 @@ class Alarm extends AbstractResource implements ResourceInterface
 
     public function baseUrl()
     {
-        return $this->getParent()->Url() . '/' . $this->getParent()->id . '/' . $this->resourceName();
+        return $this->getParent()->url() . '/' . $this->getParent()->getId() . '/' . $this->resourceName();
     }
     
     public function createUrl()
@@ -63,8 +63,7 @@ class Alarm extends AbstractResource implements ResourceInterface
             );
         }
         
-        $url = $this->getParent()->Url() . '/' . $this->getParent()->id . '/test-alarm';
-        
+        $url = $this->getParent()->url('test-alarm');
         return $this->request($url, 'POST', array(), json_encode((object) $params));
     }	
 	

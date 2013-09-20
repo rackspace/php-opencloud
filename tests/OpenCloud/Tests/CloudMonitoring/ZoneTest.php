@@ -53,20 +53,19 @@ class ZoneTest extends PHPUnit_Framework_TestCase
         $list = $this->resource->listAll();
         $first = $list->First();
         
-        $this->assertEquals('mzAAAAA', $first->id);
-        $this->assertEquals('US', $first->country_code);
+        $this->assertEquals('mzAAAAA', $first->getId());
+        $this->assertEquals('US', $first->getCountryCode());
     }
     
     public function testGetClass()
     {
         $this->resource->refresh('mzAAAAA');
-        
-        $this->assertEquals('mzAAAAA', $this->resource->id);
+        $this->assertEquals('mzAAAAA', $this->resource->getId());
     }
     
     public function testTraceroute()
     {
-        $this->resource->id = 'mzAAAAA';
+        $this->resource->setId('mzAAAAA');
         $object = $this->resource->traceroute(array(
             'target' => 'http://test.com',
             'target_resolver' => 'foo'
@@ -89,7 +88,7 @@ class ZoneTest extends PHPUnit_Framework_TestCase
      */
     public function testTracerouteFailsWithoutTarget()
     {
-        $this->resource->id = 'mzAAAAA';
+        $this->resource->setId('mzAAAAA');
         $this->resource->traceroute(array());
     }
 

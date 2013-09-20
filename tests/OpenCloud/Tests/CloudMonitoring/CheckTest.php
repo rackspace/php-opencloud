@@ -34,7 +34,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
 
     public function testParentClass()
     {
-        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Entity', $this->resource->Parent());
+        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Entity', $this->resource->parent());
     }
 
     /**
@@ -47,9 +47,9 @@ class CheckTest extends PHPUnit_Framework_TestCase
 
     public function testCheckTest()
     {
-        $this->resource->type = 'remote.http';
-        $this->resource->label = 'Example label';
-        $this->resource->disabled = false;
+        $this->resource->setType('remote.http');
+        $this->resource->setLabel('Example label');
+        $this->resource->setDisabled(false);
 
         $response = $this->resource->test(array(), false);
 
@@ -60,9 +60,9 @@ class CheckTest extends PHPUnit_Framework_TestCase
 
     public function testCheckTestWithDebug()
     {
-        $this->resource->type = 'remote.http';
-        $this->resource->label = 'Example label';
-        $this->resource->disabled = false;
+        $this->resource->setType('remote.http');
+        $this->resource->setLabel('Example label');
+        $this->resource->setDisabled(false);
 
         $response = $this->resource->test(array(), true);
         $this->assertObjectHasAttribute('debug_info', $response[0]);
@@ -70,8 +70,8 @@ class CheckTest extends PHPUnit_Framework_TestCase
 
     public function testExistingCheckTest()
     {
-        $this->resource->id = 'chAAAA';
-        $this->resource->type = 'remote.http';
+        $this->resource->setId('chAAAA');
+        $this->resource->setType('remote.http');
 
         $response = $this->resource->testExisting();
         $this->assertNotNull($response);
@@ -84,7 +84,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
     {
         $this->resource->refresh('chAAAA');
 
-        $this->assertEquals($this->resource->id, 'chAAAA');
+        $this->assertEquals($this->resource->getId(), 'chAAAA');
     }
     
     public function testCreate()
@@ -92,12 +92,6 @@ class CheckTest extends PHPUnit_Framework_TestCase
         $this->resource->create(array(
             'type' => $this->service->resource('CheckType', 'remote.http')
         ));
-    }
-    
-    public function testUpdateUrl()
-    {
-        $this->resource->id = 'chAAAA';
-        $this->assertEquals($this->resource->url($this->resource->id), $this->resource->updateUrl());
     }
 
 }

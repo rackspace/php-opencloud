@@ -116,14 +116,6 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
         $inst = new MyPersistentObject($this->service, FALSE);
     }
 
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\AttributeError
-     */
-    public function test__set()
-    {
-        $this->instance->FOOBAR = 'BAZ';
-    }
-
     public function testUrl()
     {
         $this->instance->id = '12';
@@ -183,7 +175,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
+     * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
     public function testUpdate()
     {
@@ -191,16 +183,17 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\UrlError
+     * @expectedException OpenCloud\Common\Exceptions\UrlError
      */
     public function testDelete()
     {
-        $this->instance->Delete();
+        $this->instance->delete();
     }
 
     public function testName()
     {
-        $this->assertEquals('', $this->instance->Name());
+        $this->instance->name = '';
+        $this->assertEquals('', $this->instance->name());
     }
 
     public function testStatus()

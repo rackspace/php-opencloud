@@ -11,7 +11,6 @@
 namespace OpenCloud\Common;
 
 use OpenCloud\Common\Lang;
-use OpenCloud\Common\Exceptions\AttributeError;
 use OpenCloud\Common\Exceptions\JsonError;
 use OpenCloud\Common\Exceptions\UrlError;
 
@@ -27,6 +26,8 @@ abstract class Base
 
     private $http_headers = array();
     private $_errors = array();
+    
+    private $properties = array();
 
     /**
      * Debug status.
@@ -36,6 +37,119 @@ abstract class Base
      */
     private $logger;
 
+    public function __call($method, $args)
+    {
+        $prefix = substr($method, 0, 3);
+
+        // Get property - convert from camel case to underscore
+        $property = lcfirst(substr($method, 3));
+
+        // Do getter
+        if ($prefix == 'get') {
+            return $this->getProperty($property);
+        }
+
+        // Do setter
+        if ($prefix == 'set') {
+            return $this->setProperty($property, $args[0]);
+        }
+    }
+    
+    /**
+     * Set value in data array.
+     * 
+     * @access public
+     * @param mixed $name
+     * @param mixed $value
+     * @return void
+     */
+    protected function setProperty($property, $value)
+    {
+        // We can set a property under two conditions:
+        // 1. If has already been defined
+        // 2. If the property name's prefix is in an approved list
+        if (false !== ($propertyVal = $this->propertyExists($property))) { 
+            
+            // Are we setting a public or private property?
+            if ($this->isAccessible($propertyVal)) {
+                $this->$propertyVal = $value;
+            } else {
+                $this->properties[$propertyVal] = $value;
+            }
+            return $this;
+
+        } else {
+            $this->getLogger()->warning(
+                'Attempted to set {property} with value {value}, but the'
+                . ' property has not been defined. Please define first.',
+                array(
+                    'property' => $property,
+                    'value'    => print_r($value, true)
+                )
+            );
+        }
+    }
+    
+    private function propertyExists($property, $allowRetry = true)
+    {
+        if (!property_exists($this, $property) && !$this->checkAttributePrefix($property)) {
+            // Convert to under_score and retry
+            if ($allowRetry) {
+                $retry = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $property));
+                return $this->propertyExists($retry, false);
+            } else {
+                $property = false;
+            }
+        }
+
+        return $property;
+    }
+    
+    private function isAccessible($property)
+    {
+        return array_key_exists($property, get_object_vars($this));
+    }
+    
+    /**
+     * Checks the attribute $property and only permits it if the prefix is
+     * in the specified $prefixes array
+     *
+     * This is to support extension namespaces in some services.
+     *
+     * @param string $property the name of the attribute
+     * @param array $prefixes a list of prefixes
+     * @return boolean TRUE if valid; FALSE if not
+     */
+    private function checkAttributePrefix($property)
+    {
+        if (!method_exists($this, 'getService')) {
+            return false;
+        }
+        $prefix = strstr($property, ':', true);
+        return in_array($prefix, $this->getService()->namespaces());
+    }
+    
+    /**
+     * Grab value out of data array.
+     * 
+     * @access public
+     * @param mixed $name
+     * @return void
+     */
+    protected function getProperty($property)
+    {
+        if (array_key_exists($property, $this->properties)) {
+            return $this->properties[$property];
+        } elseif (false !== ($propertyVal = $this->propertyExists($property))) {
+            $method = 'get' . ucfirst($property);
+            if ($this->isAccessible($propertyVal)) {
+                return $this->$propertyVal;
+            } elseif (method_exists($this, $method)) {
+                return call_user_func(array($this, $method));
+            }
+        }
+    }
+    
     /**
      * Sets the Logger object.
      * 
@@ -83,11 +197,10 @@ abstract class Base
      */
     public function populate($info, $setObjects = true)
     {
+
         if (is_string($info) || is_integer($info)) {
             
-            // If the data type represents an ID, the primary key is set
-            // and we retrieve the full resource from the API
-            $this->{$this->primaryKeyField()} = (string) $info;
+            $this->setProperty($this->primaryKeyField(), $info);
             $this->refresh($info);
             
         } elseif (is_object($info) || is_array($info)) {
@@ -96,12 +209,17 @@ abstract class Base
                 
                 if ($key == 'metadata' || $key == 'meta') {
                     
-                    if (empty($this->$key) || !$this->$key instanceof Metadata) {
-                        $this->$key = new Metadata;
+                    // Try retrieving existing value
+                    if (null === ($metadata = $this->getProperty($key))) {
+                        // If none exists, create new object
+                        $metadata = new Metadata; 
                     }
                     
-                    // Metadata
-                    $this->$key->setArray($value);
+                    // Set values for metadata
+                    $metadata->setArray($value);
+                    
+                    // Set object property
+                    $this->setProperty($key, $metadata);
                     
                 } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
                     
@@ -109,27 +227,29 @@ abstract class Base
                     try {
                         $resource = $this->service()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
-                        $this->$key = $resource;
+                        $this->setProperty($key, $resource);
                     } catch (Exception\ServiceException $e) {}
                     
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
                     
                     // Associated collection
                     try {
-                        $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this); 
+                        $this->setProperty($key, $this->getService()->resourceList(
+                            $this->associatedCollections[$key], null, $this
+                        )); 
                     } catch (Exception\ServiceException $e) {}
                     
                 } elseif (!empty($this->aliases[$key])) {
 
                     // Sometimes we might want to preserve camelCase
-                    $this->{$this->aliases[$key]} = $value;
+                    // or covert `rax-bandwidth:bandwidth` to `raxBandwidth`
+                    $this->setProperty($this->aliases[$key], $value);
                     
                 } else {
-
+                    
                     // Normal key/value pair
-                    $this->$key = $value; 
-                }
-                
+                    $this->setProperty($key, $value);
+                } 
             }
         } elseif (null !== $info) {
             throw new Exceptions\InvalidArgumentError(sprintf(
@@ -138,83 +258,7 @@ abstract class Base
             ));
         }
     }
-    
-    /**
-     * Sets extended attributes on an object and validates them
-     *
-     * This function is provided to ensure that attributes cannot
-     * arbitrarily added to an object. If this function is called, it
-     * means that the attribute is not defined on the object, and thus
-     * an exception is thrown.
-     * 
-     * @param string $property the name of the attribute
-     * @param mixed $value the value of the attribute
-     * @return void
-     * 
-     * @codeCoverageIgnore
-     */
-    public function __set($property, $value)
-    {
-        $this->setProperty($property, $value);
-    }
-
-    /**
-     * Sets an extended (unrecognized) property on the current object
-     *
-     * If RAXSDK_STRICT_PROPERTY_CHECKS is TRUE, then the prefix of the
-     * property name must appear in the $prefixes array, or else an
-     * exception is thrown.
-     *
-     * @param string $property the property name
-     * @param mixed $value the value of the property
-     * @param array $prefixes optional list of supported prefixes
-     * @throws \OpenCloud\AttributeError if strict checks are on and
-     *      the property prefix is not in the list of prefixes.
-     */
-    public function setProperty($property, $value, array $prefixes = array())
-    {  
-        $setter = 'set' . ucfirst($property);
-
-        if (method_exists($this, $setter)) {
-            // Does an explicitly defined setter method exist?
-            return call_user_func(array($this, $setter), $value);
-            
-        } else {
-            // We can set a property under three conditions:
-            // 1. If has already been defined
-            // 2. If RAXSDK_STRICT_PROPERTY_CHECKS is not TRUE
-            // 3. If the property name's prefix is in an approved list
-            if (false !== ($property = $this->propertyExists($property))
-                || RAXSDK_STRICT_PROPERTY_CHECKS !== true
-                || $this->checkAttributePrefix($property, $prefixes)
-            ) {
-                
-                $this->$property = $value;
-
-            } else {
-                // If that fails, then throw the exception
-                throw new AttributeError(sprintf(
-                    Lang::translate('Unrecognized attribute [%s] for [%s]'),
-                    $property,
-                    get_class($this)
-                ));
-            }
-        }
-    }
-
-    private function propertyExists($property)
-    {
-        if (!property_exists($this, $property)) {
-            // Convert to under_score and retry
-            $property = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $property));
-            if (!property_exists($this, $property)) {
-                $property = false;
-            }
-        }
-
-        return $property;
-    }
-    
+        
     /**
      * Converts an array of key/value pairs into a single query string
      *
@@ -294,27 +338,6 @@ abstract class Base
     }
 
     /**
-     * Checks the attribute $property and only permits it if the prefix is
-     * in the specified $prefixes array
-     *
-     * This is to support extension namespaces in some services.
-     *
-     * @param string $property the name of the attribute
-     * @param array $prefixes a list of prefixes
-     * @return boolean TRUE if valid; FALSE if not
-     */
-    private function checkAttributePrefix($property, array $prefixes = array())
-    {
-        $prefix = strstr($property, ':', true);
-
-        if (in_array($prefix, $prefixes)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Converts a value to an HTTP-displayable string form
      *
      * @param mixed $x a value to convert
@@ -329,6 +352,27 @@ abstract class Base
         } else {
             return (string) $x;
         }
+    }
+    
+    /**
+     * Retrieve property from array/object.
+     * 
+     * @access public
+     * @param mixed $haystack
+     * @param mixed $needle
+     * @return void
+     */
+    public function getKeyFromHaystack($haystack, $needle)
+    {
+        if (is_object($haystack) && isset($haystack->$needle)) {
+            return $haystack->$needle;
+        }
+
+        if (is_array($haystack) && isset($haystack[$needle])) {
+            return $haystack[$needle];
+        }
+
+        return false;
     }
 
 }

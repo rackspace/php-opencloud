@@ -45,7 +45,7 @@ class ViewTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFailWithNoParams()
     {
-        $this->resource->Create();
+        $this->resource->create();
     }
     
     public function testListAll()
@@ -57,13 +57,13 @@ class ViewTest extends PHPUnit_Framework_TestCase
         
         $list = $this->resource->listAll();
         
-        $first = $list->First();
+        $first = $list->first();
 
-        $this->assertEquals('enBBBBIPV4', $first->entity->id);
+        $this->assertEquals('enBBBBIPV4', $first->getEntity()->getId());
         
         $this->assertInstanceOf(
             'OpenCloud\\CloudMonitoring\\Resource\\Entity',
-            $first->entity        
+            $first->getEntity()        
         );
     }
     

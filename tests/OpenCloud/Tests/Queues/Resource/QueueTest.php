@@ -62,7 +62,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException OpenCloud\Queues\Exception\QueueException
+     * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
     public function test_Create_Fails_With_Incorrect_Name()
     {
@@ -119,6 +119,17 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function test_SetMetadata_Fails_Without_Correct_Data()
     {
         $this->queue->setMetadata('');
+    }
+    
+    /**
+     * @expectedException OpenCloud\Queues\Exception\QueueMetadataException
+     */
+    public function test_SetMetadata_Fails_Without_Correct_Response()
+    {
+        $queue = $this->queue->setName('foobar');
+        $queue->setMetadata(array(
+            'foo' => 'baz'
+        ));
     }
         
     public function test_Stats()

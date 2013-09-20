@@ -47,7 +47,7 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
         
         $this->assertInstanceOf(
             self::GROUP_CLASS,
-            $config->parent()
+            $config->getParent()
         );
     }
     
@@ -70,8 +70,8 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
     public function testConfig()
     {
         $group = $this->service->group(self::GROUP_ID);
-        $group->groupConfiguration = null;
-        
+        $group->setGroupConfiguration(null);
+
         $config = $group->getGroupConfig();
 
         $this->assertEquals(60, $config->cooldown);
@@ -83,14 +83,14 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
         $group = $this->service->group(self::GROUP_ID);
         $config1 = $group->getLaunchConfig();
         
-        $group->launchConfiguration = null;
+        $group->setLaunchConfiguration(null);
         $config = $group->getLaunchConfig();
         
-        $this->assertEquals($config1->type, $config->type);
+        $this->assertEquals($config1->getType(), $config->getType());
         
-        $this->assertEquals('launch_server', $config->type);
+        $this->assertEquals('launch_server', $config->getType());
         
-        $server = $config->args->server;
+        $server = $config->getArgs()->server;
         $this->assertEquals('0d589460-f177-4b0f-81c1-8ab8903ac7d8', $server->imageRef);
         $this->assertEquals(
             'ssh-rsaAAAAB3Nza...LiPk==user@example.net',

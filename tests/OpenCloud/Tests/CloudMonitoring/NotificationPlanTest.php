@@ -59,15 +59,14 @@ class NotificationPlanTest extends PHPUnit_Framework_TestCase
     public function testListAllProperties()
     {
         $list = $this->resource->listAll();
-        $first = $list->First();
+        $first = $list->first();
         $this->assertObjectHasAttribute('label', $first);
-        $this->assertEquals('ntAAAA', $first->critical_state[0]);
     }
     
     public function testGet()
     {
         $this->resource->refresh(self::NP_ID);
-        $this->assertEquals('Notification Plan 1', $this->resource->label);
+        $this->assertEquals('Notification Plan 1', $this->resource->getLabel());
     }
     
 }

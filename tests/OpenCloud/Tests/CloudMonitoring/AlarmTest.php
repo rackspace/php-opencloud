@@ -42,7 +42,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\\CloudMonitoring\\Resource\\Entity',
-            $this->resource->Parent()
+            $this->resource->parent()
         );
     }
     
@@ -50,7 +50,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/entities/'.self::ENTITY_ID.'/alarms',
-            $this->resource->Url()
+            $this->resource->url()
         );
     }
     
@@ -59,7 +59,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFailsWithNoParams()
     {
-        $this->resource->Create();
+        $this->resource->create();
     }
     
     /**
@@ -67,7 +67,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdateFailsWithNoParams()
     {
-        $this->resource->Update();
+        $this->resource->update();
     }
     
     public function testAlarmTesting()
@@ -80,9 +80,8 @@ class AlarmTest extends PHPUnit_Framework_TestCase
         // Data which needs to be tested
         $params['check_data'] = json_decode(file_get_contents(__DIR__ . '/Resource/Check/test_existing.json'));
         
-        
         $response = $this->resource->test($params);
-        
+
         $this->assertObjectHasAttribute('timestamp', $response[0]);
         $this->assertObjectHasAttribute('status', $response[0]);
         
@@ -101,11 +100,11 @@ class AlarmTest extends PHPUnit_Framework_TestCase
     {
         $this->resource->refresh(self::ALARM_ID);
         
-        $this->assertEquals($this->resource->id, self::ALARM_ID);
-        $this->assertEquals($this->resource->Parent()->id, self::ENTITY_ID);
+        $this->assertEquals($this->resource->getId(), self::ALARM_ID);
+        $this->assertEquals($this->resource->getParent()->getId(), self::ENTITY_ID);
         
         $this->expectOutputRegex('/return new AlarmStatus\(OK\)/');
-        echo $this->resource->criteria;
+        echo $this->resource->getCriteria();
     }
     
     public function testCreate()

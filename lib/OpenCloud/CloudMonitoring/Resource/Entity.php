@@ -2,8 +2,6 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
-use OpenCloud\CloudMonitoring\Exception;
-
 /**
  * Entity class.
  * 
@@ -11,11 +9,12 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Entity extends AbstractResource
 {
-	public $id;
-	public $label;
-	public $agent_id;
-	public $ip_addresses;
-	public $metadata;
+    
+	private $id;
+	private $label;
+	private $agent_id;
+	private $ip_addresses;
+	private $metadata;
 
     protected static $json_name = false;
     protected static $url_resource = 'entities';
@@ -31,10 +30,5 @@ class Entity extends AbstractResource
     protected static $requiredKeys = array(
         'label'
     );
-
-    public function baseUrl()
-    {
-        return $this->Parent()->Url($this->ResourceName());
-    }
 
 }

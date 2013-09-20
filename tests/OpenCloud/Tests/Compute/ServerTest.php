@@ -197,17 +197,6 @@ class ServerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_object($this->server->ips('public')));
     }
 
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\AttributeError
-     */
-    public function test__set()
-    {
-        $prop = 'rax-bandwidth:foobar';
-        $this->server->$prop = 'BAZ';
-        $this->assertEquals('BAZ', $this->server->$prop);
-        $this->server->foo = 'foobar'; // causes exception
-    }
-
     public function testService()
     {
         $this->assertInstanceOf(

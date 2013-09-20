@@ -32,19 +32,19 @@ use OpenCloud\Common\Exceptions;
 class Group extends AbstractResource
 {
     
-    public $id;
-    public $links;
-    public $groupConfiguration;
-    public $launchConfiguration;
-    public $scalingPolicies;
-    public $name;
-    public $metadata;
+    private $id;
+    private $links;
+    private $groupConfiguration;
+    private $launchConfiguration;
+    private $scalingPolicies;
+    private $name;
+    private $metadata;
     
-    public $active;
-    public $activeCapacity;
-    public $pendingCapacity;
-    public $desiredCapacity;
-    public $paused;
+    private $active;
+    private $activeCapacity;
+    private $pendingCapacity;
+    private $desiredCapacity;
+    private $paused;
     
     protected static $json_name = 'group';
     protected static $url_resource = 'groups';
@@ -74,26 +74,7 @@ class Group extends AbstractResource
     public $associatedCollections = array(
         'scalingPolicies' => 'ScalingPolicy'
     );
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function create($params = array())
-    {
-        if (is_string($params)) {
-            $params = json_decode($params);
-            $this->checkJsonError();
-        } elseif (!is_object($params) && !is_array($params)) {
-            throw new Exceptions\InvalidArgumentError(
-                'You must provide either a string or an array/object'
-            );
-        }
-
-        $this->populate($params, false);
         
-        return parent::create();
-    }
-    
     /**
      * {@inheritDoc}
      */
@@ -131,7 +112,7 @@ class Group extends AbstractResource
         
         $config = $this->getService()->resource('GroupConfiguration');
         $config->setParent($this);
-        if ($this->id) {
+        if ($this->getId()) {
             $config->refresh(null, $config->url());
         }
         return $config;
@@ -150,7 +131,7 @@ class Group extends AbstractResource
         
         $config = $this->getService()->resource('LaunchConfiguration');
         $config->setParent($this);
-        if ($this->id) {
+        if ($this->getId()) {
             $config->refresh(null, $config->url());
         }
         return $config;

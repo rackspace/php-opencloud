@@ -12,13 +12,13 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 {
-    public $timestamp;
-    public $notification_plan_id;
-    public $transaction_id;
-    public $status;
-    public $state;
-    public $notification_results;
-    public $previous_state;
+    private $timestamp;
+    private $notification_plan_id;
+    private $transaction_id;
+    private $status;
+    private $state;
+    private $notification_results;
+    private $previous_state;
     
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -26,29 +26,31 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 
     public function baseUrl()
     {
-        return $this->Parent()->Url($this->Parent()->id) . '/notification_history';
+        return $this->getParent()->url($this->getParent()->getId()) . '/notification_history';
     }
 
     public function listChecks()
     {
-        $response = $this->Service()->Request($this->Url());
+        $response = $this->getService()->request($this->url());
         return ($json = $response->httpBody()) ? json_decode($json) : false;
     }
     
     public function listHistory($checkId)
     {
-        return $this->Service()->Collection(get_class($this), $this->Url($checkId));
+        return $this->getService()->collection(get_class(), $this->url($checkId));
     }
 
     public function getSingleHistoryItem($checkId, $historyId)
     {
-        $response = $this->Service()->Request($this->Url($checkId . '/' . $historyId));
-        if ($json = $response->HttpBody()) {
+        $response = $this->getService()->request($this->url($checkId . '/' . $historyId));
+        
+        if ($json = $response->httpBody()) {
             $object = json_decode($json);
             foreach ($object as $key => $val) {
                 $this->$key = $val;
             }
         }
+        
         return false;
     }
 

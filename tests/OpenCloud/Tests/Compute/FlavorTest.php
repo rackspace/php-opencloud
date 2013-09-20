@@ -48,13 +48,10 @@ class FlavorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('NEW', $this->resource->id);
     }
 
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\AttributeError
-     */
     public function test__set2()
     {
         $this->resource->foo = 'BAR';
-        $this->assertEquals('BAR', $this->resource->foo);
+        $this->assertNull($this->resource->foo);
     }
 
     public function testService()

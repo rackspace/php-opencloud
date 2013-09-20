@@ -11,22 +11,18 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Zone extends ReadOnlyResource implements ResourceInterface
 {
-	public $country_code;
-	public $label;
-	public $source_ips;
+    private $id;
+	private $country_code;
+	private $label;
+	private $source_ips;
 
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'monitoring_zones';
 
-    public function baseUrl($subresource = '')
-    {
-    	return $this->getParent()->url($this->resourceName());
-    }
-
     public function traceroute(array $options)
     {
-        if (!$this->id) {
+        if (!$this->getId()) {
             throw new Exception\ZoneException(
                 'Please specify a zone ID'
             );    
@@ -45,7 +41,7 @@ class Zone extends ReadOnlyResource implements ResourceInterface
         }
         
         return $this->customAction(
-            $this->url($this->id . '/traceroute'), 
+            $this->url('traceroute'), 
             'POST', 
             json_encode($params)
         );

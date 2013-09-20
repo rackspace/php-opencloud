@@ -130,9 +130,8 @@ abstract class Nova extends Service
 	 * Loads the available namespaces from the /extensions resource
 	 */
 	protected function load_namespaces() 
-	{
-	    $ext = $this->Extensions();
-	    foreach($ext as $obj) {
+    {
+	    foreach($this->extensions() as $obj) {
 	        $this->_namespaces[] = $obj->alias;
 	    }
 	}

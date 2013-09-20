@@ -4,8 +4,6 @@ namespace OpenCloud\Tests\CloudMonitoring;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\CloudMonitoring\Service;
-use OpenCloud\CloudMonitoring\Exception;
-use OpenCloud\Common\Collection;
 
 class MetricTest extends PHPUnit_Framework_TestCase
 {
@@ -26,16 +24,16 @@ class MetricTest extends PHPUnit_Framework_TestCase
         );
         
         // Grandparent object (i.e. entity)
-        $entityResource = $this->service->resource('entity');
+        $entityResource = $this->service->resource('Entity');
         $entityResource->refresh(self::ENTITY_ID);
-        
+
         // Parent object (i.e. check)
-        $checkResource = $this->service->resource('check');
+        $checkResource = $this->service->resource('Check');
         $checkResource->setParent($entityResource);
         $checkResource->refresh(self::CHECK_ID);
         
         // Our metric object
-        $this->resource = $this->service->resource('metric');
+        $this->resource = $this->service->resource('Metric');
         $this->resource->setParent($checkResource);
     }
 

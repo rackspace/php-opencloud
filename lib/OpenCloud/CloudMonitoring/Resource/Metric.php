@@ -26,7 +26,7 @@ class Metric extends ReadOnlyResource implements ResourceInterface
 
     public function baseUrl()
     {
-    	return $this->getParent()->url($this->getParent()->id . '/'. $this->resourceName());
+    	return $this->getParent()->url($this->getParent()->getId() . '/'. $this->resourceName());
     }
 
 	public function fetchDataPoints($metricName, array $options = array())

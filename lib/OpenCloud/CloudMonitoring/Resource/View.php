@@ -9,11 +9,11 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class View extends ReadOnlyResource implements ResourceInterface
 {
-    public $timestamp;
-    public $entity;
-    public $alarms;
-    public $checks;
-    public $latest_alarm_states;
+    private $timestamp;
+    private $entity;
+    private $alarms;
+    private $checks;
+    private $latest_alarm_states;
     
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -28,9 +28,4 @@ class View extends ReadOnlyResource implements ResourceInterface
         'checks' => 'Check'
     );
     
-    public function baseUrl()
-    {
-        return $this->getService()->url($this->resourceName());
-    }
-
 }

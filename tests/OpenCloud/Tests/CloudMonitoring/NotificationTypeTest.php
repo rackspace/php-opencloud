@@ -59,16 +59,17 @@ class NotificationTypeTest extends PHPUnit_Framework_TestCase
         
         $first = $this->resource->listAll()->First();
         
-        $this->assertEquals('webhook', $first->id);
-        $this->assertEquals('An HTTP or HTTPS URL to POST to', $first->fields[0]->description);
+        $this->assertEquals('webhook', $first->getId());
+        $fields = $first->getFields();
+        $this->assertEquals('An HTTP or HTTPS URL to POST to', $fields[0]->description);
     }
     
     public function testGet()
     {
         $this->resource->refresh(self::NT_ID);
-        
-        $this->assertEquals('url', $this->resource->fields[0]->name);
-        $this->assertFalse($this->resource->fields[0]->optional);
+        $fields = $this->resource->getFields();
+        $this->assertEquals('url', $fields[0]->name);
+        $this->assertFalse($fields[0]->optional);
     }
     
 }

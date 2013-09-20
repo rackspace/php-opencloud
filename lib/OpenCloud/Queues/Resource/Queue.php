@@ -73,17 +73,6 @@ class Queue extends PersistentObject
         return $this->name;
     }
     
-    public function setHref($href)
-    {
-        $this->href = $href;
-        return $this;
-    }
-    
-    public function getHref()
-    {
-        return $this->href;
-    }
-    
     /**
      * Sets the metadata for this Queue. 
      * 
@@ -118,8 +107,9 @@ class Queue extends PersistentObject
             // Get metadata properties as JSON-encoded object
             $json = json_encode((object) get_object_vars($metadata));
             $url  = $this->url('metadata');
-            $response = $this->getService()->request($url, 'PUT', array(), $json);
             
+            $response = $this->getService()->request($url, 'PUT', array(), $json);
+
             // Catch errors
             if ($response->httpStatus() != 204) {
                 throw new Exception\QueueMetadataException(sprintf('Unable to set metadata for this Queue'));

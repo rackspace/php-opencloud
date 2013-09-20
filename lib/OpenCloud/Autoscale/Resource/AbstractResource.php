@@ -52,8 +52,8 @@ abstract class AbstractResource extends PersistentObject
     {
         $url = $this->parent()->url($this->resourceName());
         
-        if ($includeId && $this->id) {
-            $url .= '/' . $this->id;
+        if ($includeId && $this->getId()) {
+            $url .= '/' . $this->getId();
         }
         
         if ($subResource) {
@@ -114,6 +114,11 @@ abstract class AbstractResource extends PersistentObject
     public function resource($name, $info)
     {
         return $this->getService()->resource($name, $info);
+    }
+    
+    public function primaryKeyField()
+    {
+        return 'id';
     }
     
 }

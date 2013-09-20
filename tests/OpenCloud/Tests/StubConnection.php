@@ -103,7 +103,7 @@ ENDRESPONSE;
             } elseif (strpos($url, '/os-keypairs')) {
                 $resp->body = file_get_contents(__DIR__ . '/Compute/Response/POST/keypair.json');
             } elseif (strpos($url, '/queues')) {
-            
+
                if (preg_match('#/queues/foobar/messages$#', $url)) {                
                     // post message
                    $resp->status = 404;
@@ -186,6 +186,10 @@ ENDRESPONSE;
                         );
                    }
                    
+               } elseif (preg_match('#/queues/foobar/metadata$#', $url)) {                
+                    // post message
+                   $resp->status = 404;
+                   $resp->body = '{}';
                } elseif (preg_match('#/queues/(\w|\-)+/metadata$#', $url)) {
                    // Sets queue metadata
                    $resp->status = 204;

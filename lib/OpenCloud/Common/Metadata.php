@@ -22,7 +22,7 @@ class Metadata extends Base
 {
 
     // array holding the names of keys that were set
-    private $_keylist = array();    
+    private $metaProperties = array();    
 
     /**
      * This setter overrides the base one, since the metadata key can be
@@ -32,16 +32,19 @@ class Metadata extends Base
      * @param string $value
      * @return void
      */
-    public function __set($key, $value) 
+    public function __set($property, $value) 
     {
         // set the value and track the keys
-        if (!in_array($key, $this->_keylist)) {
-            $this->_keylist[] = $key;
-        }
-
-        $this->$key = $value;
+        $this->metaProperties[$property] = $value;
     }
 
+    public function __get($key)
+    {
+        if (array_key_exists($key, $this->metaProperties)) {
+            return $this->metaProperties[$key];
+        }
+    }
+    
     /**
      * Returns the list of keys defined
      *
@@ -49,7 +52,7 @@ class Metadata extends Base
      */
     public function Keylist() 
     {
-        return $this->_keylist;
+        return $this->metaProperties;
     }
 
     /**
@@ -71,21 +74,10 @@ class Metadata extends Base
         }
         
         foreach ($values as $key => $value) {
-            if ($prefix) {
-                if (strpos($key, $prefix) === 0) {
-                    $name = substr($key, strlen($prefix));
-                    $this->getLogger()->info(
-                        Lang::translate('Setting [{name}] to [{value}]'), 
-                    	array(
-                            'name'  => $name, 
-                            'value' => $value
-                        )
-                    );
-                    $this->$name = $value;
-                }
-            } else {
-                $this->$key = $value;
-            }
+            if ($prefix && strpos($key, $prefix) === 0) {
+                $key = substr($key, strlen($prefix));
+            } 
+            $this->metaProperties[$key] = $value;
         }
     }
 

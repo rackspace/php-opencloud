@@ -9,18 +9,18 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class Check extends AbstractResource implements ResourceInterface
 {
-    public $id;
-	public $type;
-	public $details;
-	public $disabled;
-	public $label;
-	public $metadata;
-	public $period;
-	public $timeout;
-	public $monitoring_zones_poll;
-	public $target_alias;
-	public $target_hostname;
-	public $target_resolver;
+    private $id;
+	private $type;
+	private $details;
+	private $disabled;
+	private $label;
+	private $metadata;
+	private $period;
+	private $timeout;
+	private $monitoring_zones_poll;
+	private $target_alias;
+	private $target_hostname;
+	private $target_resolver;
 
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -50,7 +50,7 @@ class Check extends AbstractResource implements ResourceInterface
 
     public function baseUrl($subresource = '')
     {
-        return $this->getParent()->Url() . '/' . $this->getParent()->id . '/'. $this->resourceName();
+        return $this->getParent()->Url() . '/' . $this->getParent()->getId() . '/'. $this->resourceName();
     }
 
     public function createUrl()
@@ -60,8 +60,11 @@ class Check extends AbstractResource implements ResourceInterface
 
     public function testUrl($debug = false)
     {
-        $url = $this->getParent()->Url() . '/' . $this->getParent()->id . '/test-check'; 
-        return ($debug !== true) ? $url : $url . '?debug=true';
+        $params = array();
+        if ($debug === true) {
+            $params['debug'] = 'true';
+        }
+        return $this->getParent()->url('test-check', $params); 
     }
 
 }

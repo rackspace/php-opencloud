@@ -63,7 +63,7 @@ class PtrRecord extends Record
      */
     public function create($params = array()) 
     {
-        $this->populate($params, false);
+        $this->populate($params);
         $this->link_rel = $this->server->getService()->name();
         $this->link_href = $this->server->url();
         return parent::create();
@@ -74,7 +74,7 @@ class PtrRecord extends Record
      */
     public function update($params = array()) 
     {
-        $this->populate($params, false);
+        $this->populate($params);
         $this->link_rel = $this->server->getService()->Name();
         $this->link_href = $this->server->Url();
         return parent::update();
@@ -125,7 +125,7 @@ class PtrRecord extends Record
      */
     protected function updateJson($params = array()) 
     {
-        $this->populate($params, false);
+        $this->populate($params);
         $object = $this->createJson();
         $object->recordsList->records[0]->id = $this->id;
         return $object;

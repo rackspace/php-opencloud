@@ -27,7 +27,7 @@ class Claim extends PersistentObject
     /**
      * @var string 
      */
-    protected $id;
+    private $id;
     
     /**
      * @var int 
@@ -70,56 +70,7 @@ class Claim extends PersistentObject
     
     protected static $url_resource = 'claims';
     protected static $json_name = '';
-    
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-    
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    public function setAge($age)
-    {
-        $this->age = $age;
-        return $this;        
-    }
-    
-    public function getAge()
-    {
-        return $this->age;
-    }
-    
-    public function getGrace()
-    {
-        return $this->grace;
-    }
-    
-    public function setMessages($messages)
-    {
-        $this->messages = $messages;
-        return $this;
-    }
-    
-    public function getMessages()
-    {
-        return $this->messages;
-    }
-    
-    public function setTtl($ttl)
-    {
-        $this->ttl = $ttl;
-        return $this;
-    }
-    
-    public function getTtl()
-    {
-        return $this->ttl;
-    }
-    
+        
     public function setHref($href)
     {
         $paths = explode('/', $href);
@@ -127,11 +78,6 @@ class Claim extends PersistentObject
         $this->href = $href;
         
         return $this;
-    }
-    
-    public function getHref()
-    {
-        return $this->href;
     }
     
     /**

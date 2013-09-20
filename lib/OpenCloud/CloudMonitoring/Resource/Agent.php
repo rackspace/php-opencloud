@@ -13,41 +13,36 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Agent extends ReadOnlyResource implements ResourceInterface
 {
-	
-	public $last_connected;
+	private $id;
+	private $last_connected;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'agents';
-    	
-	public function baseUrl()
-	{
-    	return $this->Service()->Url($this->ResourceName());
-	}
-	
+
 	public function getConnections()
 	{
-    	if (!$this->id) {
+    	if (!$this->getId()) {
         	throw new Exception\AgentException(
         	   'Please specify an "ID" value'
         	);
     	}
     	
-    	$url = $this->Url($this->id . '/connections');
-    	return $this->Service()->Collection(__NAMESPACE__ . '\\AgentConnection', $url);
+    	$url = $this->url('connections');
+    	return $this->getService()->resourceList('AgentConnection', $url);
 	}
 	
 	public function getConnection($connectionId)
 	{
-    	if (!$this->id) {
+    	if (!$this->getId()) {
         	throw new Exception\AgentException(
         	   'Please specify an "ID" value'
         	);
     	}
     	
-    	$url = $this->Url($this->id . '/connections/' . $connectionId);
-    	$response = $this->Request($url);
-    	return $this->Service()->resource('AgentConnection', $response);
+    	$url = $this->url('connections/' . $connectionId);
+    	$response = $this->customAction($url);
+    	return $this->getService()->resource('AgentConnection', $response);
 	}
 	
 }

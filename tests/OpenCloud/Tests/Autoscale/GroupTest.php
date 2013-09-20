@@ -42,23 +42,23 @@ class GroupTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('OpenCloud\Autoscale\Resource\Group', $group);
         
         // Test basic property
-        $this->assertEquals($group->id, self::GROUP_ID);
+        $this->assertEquals($group->getId(), self::GROUP_ID);
         
         // Test resource association
         $this->assertInstanceOf(
             'OpenCloud\Autoscale\Resource\GroupConfiguration', 
-            $group->groupConfiguration
+            $group->getGroupConfiguration()
         );
-        $this->assertEquals('workers', $group->groupConfiguration->name);
+        $this->assertEquals('workers', $group->getGroupConfiguration()->name);
         
         // Test collection association
         $this->assertInstanceOf(
             self::COLLECTION_CLASS,
-            $group->scalingPolicies
+            $group->getScalingPolicies()
         );
         
         // Test individual resources in collection
-        $first = $group->scalingPolicies->First();
+        $first = $group->getScalingPolicies()->First();
         $this->assertEquals(150, $first->cooldown);
         $this->assertInstanceOf('OpenCloud\Autoscale\Resource\ScalingPolicy', $first);
     }
@@ -74,10 +74,10 @@ class GroupTest extends PHPUnit_Framework_TestCase
         );
         
         $first = $groups->first();
-        $this->assertEquals('{groupId1}', $first->id);
+        $this->assertEquals('{groupId1}', $first->getId());
         
         $second = $groups->next();
-        $this->assertFalse($second->paused);
+        $this->assertFalse($second->getPaused());
     }
     
     public function testGroupState()
@@ -118,8 +118,10 @@ class GroupTest extends PHPUnit_Framework_TestCase
         $json = <<<EOT
 {"metadata":{"foo":"bar"},"groupConfiguration":{"name":"workers","cooldown":60,"minEntities":5,"maxEntities":25,"metadata":{"firstkey":"this is a string","secondkey":"1"}},"launchConfiguration":{"type":"launch_server","args":{"server":{"flavorRef":3,"name":"webhead","imageRef":"0d589460-f177-4b0f-81c1-8ab8903ac7d8","OS-DCF:diskConfig":"AUTO","metadata":{"mykey":"myvalue"},"personality":[{"path":"/root/.ssh/authorized_keys","contents":"ssh-rsa AAAAB3Nza...LiPk== user@example.net"}],"networks":[{"uuid":"11111111-1111-1111-1111-111111111111"}]},"loadBalancers":[{"loadBalancerId":2200,"port":8081}]}},"scalingPolicies":[{"name":"scale up by 10","change":10,"cooldown":5,"type":"webhook"},{"name":"scale down by 5.5 percent","changePercent":-5.5,"cooldown":6,"type":"webhook"},{"name":"set number of servers to 10","desiredCapacity":10,"cooldown":3,"type":"webhook"}]}
 EOT;
+        $object = json_decode($json);
+        $object->name = 'foobar';
        
-        $response = $this->service->group()->create($json);
+        $response = $this->service->group()->create($object);
         
         $this->assertNotNull($response);
         

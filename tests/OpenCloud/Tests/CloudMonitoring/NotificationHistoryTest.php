@@ -59,29 +59,28 @@ class NotificationHistoryTest extends PHPUnit_Framework_TestCase
     public function testListChecks()
     {
         $response = $this->resource->listChecks();
-        
-        $this->assertCount(2, $response->check_ids);
-        $this->assertEquals('chOne', $response->check_ids[0]);
+        $checkIds = $response->check_ids;
+        $this->assertCount(2, $checkIds);
+        $this->assertEquals('chOne', $checkIds[0]);
     }
     
     public function testListHistory()
     {
         $list = $this->resource->listHistory(self::CHECK_ID);
         
-        $first = $list->First();
+        $first = $list->first();
         
-        $this->assertEquals('sometransaction', $first->transaction_id);
-        $this->assertEquals('matched return statement on line 6', $first->status);
-        $this->assertEquals('ntOne', $first->notification_results[0]->notification_id);
+        $this->assertEquals('sometransaction', $first->getTransactionId());
+        $this->assertEquals('matched return statement on line 6', $first->getStatus());
     }
     
     public function testSingle()
     {
         $this->resource->getSingleHistoryItem(self::CHECK_ID, self::NH_ID);
         
-        $this->assertEquals(self::NH_ID, $this->resource->id);
-        $this->assertEquals(1320885544875, $this->resource->timestamp);
-        $this->assertEquals('WARNING', $this->resource->state);
+        $this->assertEquals(self::NH_ID, $this->resource->getId());
+        $this->assertEquals(1320885544875, $this->resource->getTimestamp());
+        $this->assertEquals('WARNING', $this->resource->getState());
         
     }
     

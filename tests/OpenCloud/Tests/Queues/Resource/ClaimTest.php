@@ -39,7 +39,7 @@ class ClaimTest extends PHPUnit_Framework_TestCase
     
     public function test_Getting_Claim()
     {
-        $claim = $this->queue->getClaim('foo');
+        $claim = $this->queue->getClaim('fooz');
         $this->assertNotNull($claim->getId());
         $this->assertNotNull($claim->getTtl());
         $this->assertNotNull($claim->getHref());
@@ -62,7 +62,7 @@ class ClaimTest extends PHPUnit_Framework_TestCase
      */
     public function test_Update_Fails()
     {
-        $this->claim->id = 'foobar';
+        $this->claim->setId('foobar');
         $this->claim->update();
     }
     

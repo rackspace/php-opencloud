@@ -10,9 +10,9 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class NotificationType extends ReadOnlyResource implements ResourceInterface
 {
-
-    public $address;
-    public $fields;
+    private $id;
+    private $address;
+    private $fields;
     
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -20,7 +20,7 @@ class NotificationType extends ReadOnlyResource implements ResourceInterface
     
     public function baseUrl()
     {
-        return $this->Service()->Url($this->ResourceName());
+        return $this->getService()->url($this->resourceName());
     }
 
 }

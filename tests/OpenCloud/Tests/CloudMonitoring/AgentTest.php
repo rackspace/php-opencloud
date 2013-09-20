@@ -37,7 +37,7 @@ class AgentTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/agents',
-            $this->resource->Url()
+            $this->resource->url()
         );
     }
     
@@ -46,7 +46,7 @@ class AgentTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFailsWithNoParams()
     {
-        $this->resource->Create();
+        $this->resource->create();
     }
     
     /**
@@ -54,7 +54,7 @@ class AgentTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdateFailsWithNoParams()
     {
-        $this->resource->Update();
+        $this->resource->update();
     }
     
     public function testCollection()
@@ -69,13 +69,13 @@ class AgentTest extends PHPUnit_Framework_TestCase
     {
         $this->resource->refresh(self::AGENT_ID);
         
-        $this->assertEquals($this->resource->id, self::AGENT_ID);
-        $this->assertEquals($this->resource->last_connected, 1334685407);
+        $this->assertEquals($this->resource->getId(), self::AGENT_ID);
+        $this->assertEquals($this->resource->getLastConnected(), 1334685407);
     }
     
     public function testGetConnections()
     {  
-        $this->resource->id = self::AGENT_ID;
+        $this->resource->setId(self::AGENT_ID);
         $list = $this->resource->getConnections();
         
         $this->assertInstanceOf(
@@ -83,15 +83,15 @@ class AgentTest extends PHPUnit_Framework_TestCase
             $list
         );
         
-        $first = $list->First();
+        $first = $list->first();
         
         $this->assertInstanceOf(
             'OpenCloud\\CloudMonitoring\\Resource\\AgentConnection',
             $first
         );
         
-        $this->assertEquals('cntl4qsIbA', $first->id);
-        $this->assertEquals('0b49b96d-24c9-45ca-c585-4040707f4880', $first->guid);
+        $this->assertEquals('cntl4qsIbA', $first->getId());
+        $this->assertEquals('0b49b96d-24c9-45ca-c585-4040707f4880', $first->getGuid());
     }
     
     /**
@@ -99,13 +99,13 @@ class AgentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetConnectionsFailsWithoutId()
     {
-        $this->resource->id = null;
+        $this->resource->setId(null);
         $this->resource->getConnections();
     }
     
     public function testGetConnection()
     {
-        $this->resource->id = self::AGENT_ID;
+        $this->resource->setId(self::AGENT_ID);
         $connection = $this->resource->getConnection(self::CONNECTION_ID);
         
         $this->assertInstanceOf(
@@ -113,7 +113,7 @@ class AgentTest extends PHPUnit_Framework_TestCase
             $connection
         );
         
-        $this->assertEquals('0.1.2.16', $connection->bundle_version);
+        $this->assertEquals('0.1.2.16', $connection->getBundleVersion());
     }
     
     /**
@@ -121,7 +121,7 @@ class AgentTest extends PHPUnit_Framework_TestCase
      */
     public function testGetConnectionFailsWithoutId()
     {
-        $this->resource->id = null;
+        $this->resource->setId(null);
         $this->resource->getConnection(null);
     }
     

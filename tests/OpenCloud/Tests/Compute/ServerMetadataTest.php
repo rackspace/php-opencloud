@@ -21,9 +21,8 @@ use OpenCloud\Tests\StubConnection;
 class ServerMetadataTest extends PHPUnit_Framework_TestCase
 {
 
-    private
-        $server,
-        $metadata;
+    private $server;
+    private $metadata;
 
     public function __construct()
     {

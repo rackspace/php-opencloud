@@ -10,9 +10,9 @@ namespace OpenCloud\CloudMonitoring\Resource;
 class Notification extends AbstractResource implements ResourceInterface
 {
     
-    public $label;
-    public $type;
-    public $details;
+    private $label;
+    private $type;
+    private $details;
     
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -32,15 +32,15 @@ class Notification extends AbstractResource implements ResourceInterface
     protected $associatedResources = array(
         'NotificationType' => 'NotificationType'
     );
-    
-    public function baseUrl()
-    {
-        return $this->Service()->Url($this->ResourceName());
-    }
-    
+        
     public function testUrl($debug = false)
     {
-        return $this->Service()->Url('test-notification');
+        return $this->getService()->url('test-notification');
+    }
+    
+    public function testExisting($debug = false)
+    {
+        return $this->customAction($this->testUrl($debug), 'POST');
     }
     
 }

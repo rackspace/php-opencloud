@@ -45,7 +45,7 @@ class ServerMetadata extends Metadata
         $this->setParent($parent);
 
         // set the URL according to whether or not we have a key
-        if ($this->getParent()->id) {
+        if ($this->getParent()->getId()) {
             
             $this->url = $this->getParent()->url('metadata');
             $this->key = $key;
@@ -74,7 +74,7 @@ class ServerMetadata extends Metadata
             // parse and assign the server metadata
             $object = json_decode($response->HttpBody());
             $this->checkJsonError();
-            
+
             if (isset($object->metadata)) {
                 $this->populate($object->metadata);
             }

@@ -37,7 +37,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $this->message->setTtl(100);
         $this->assertEquals(100, $this->message->getTtl());
         
-        $this->message->id = 'foo';
+        $this->message->setId('foo');
         $this->message->setBody('bar');
         
         $this->assertEquals('foo', $this->message->getId());
@@ -99,7 +99,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
     
     public function test_Delete()
     {
-        $this->message->id = 'foo';
+        $this->message->setId('foo');
         $this->message->delete();
     }
     
@@ -108,7 +108,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
      */
     public function test_Delete_Fails_Without_Correct_Response()
     {
-        $this->message->id = 'foobar';
+        $this->message->setId('foobar');
         $this->message->delete();
     }
     

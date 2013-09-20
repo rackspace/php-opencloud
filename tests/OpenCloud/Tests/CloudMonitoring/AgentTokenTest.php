@@ -36,7 +36,7 @@ class AgentTokenTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/agent_tokens',
-            $this->resource->Url()
+            $this->resource->url()
         );
     }
     
@@ -52,8 +52,8 @@ class AgentTokenTest extends PHPUnit_Framework_TestCase
     {
         $this->resource->refresh(self::TOKEN_ID);
         
-        $this->assertEquals($this->resource->id, self::TOKEN_ID);
-        $this->assertEquals($this->resource->label, 'aLabel');
+        $this->assertEquals($this->resource->getId(), self::TOKEN_ID);
+        $this->assertEquals($this->resource->getLabel(), 'aLabel');
     }
     
 }

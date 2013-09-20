@@ -42,7 +42,7 @@ class AgentTargetTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateFails()
     {
-        $this->resource->Create();
+        $this->resource->create();
     }
     
     /**
@@ -50,7 +50,7 @@ class AgentTargetTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdateFails()
     {
-        $this->resource->Update();
+        $this->resource->update();
     }
 
     public function testCollectionContent()
@@ -77,7 +77,7 @@ class AgentTargetTest extends PHPUnit_Framework_TestCase
      */
     public function testListAllWithNoTypeFails()
     {
-        $this->resource->type = null;
+        $this->resource->setType(null);
         $this->resource->listAll();
     }
 

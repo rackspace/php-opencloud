@@ -14,8 +14,8 @@ use OpenCloud\CloudMonitoring\Exception;
 class AgentToken extends AbstractResource implements ResourceInterface
 {
     
-    public $token;
-    public $label;
+    private $token;
+    private $label;
     
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -28,9 +28,4 @@ class AgentToken extends AbstractResource implements ResourceInterface
 
     protected static $requiredKeys = array();
 
-    public function baseUrl()
-    {
-        return $this->Service()->Url($this->ResourceName());
-    }
-    
 }

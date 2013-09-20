@@ -14,8 +14,8 @@ use OpenCloud\CloudMonitoring\Exception;
 class AgentHost extends ReadOnlyResource implements ResourceInterface
 {
     
-    public $token;
-    public $label;
+    private $token;
+    private $label;
     
     protected static $json_name = false;
     protected static $json_collection_name = 'info';
@@ -34,7 +34,7 @@ class AgentHost extends ReadOnlyResource implements ResourceInterface
 
     public function baseUrl()
     {
-        return $this->Parent()->Url($this->Parent()->id . '/' . $this->ResourceName());
+        return $this->getParent()->url($this->getParent()->getId() . '/' . $this->resourceName());
     }
 
     public function info($type)
@@ -46,7 +46,7 @@ class AgentHost extends ReadOnlyResource implements ResourceInterface
             ));
         }
 
-        return $this->Service()->Collection(__NAMESPACE__ . '\AgentHostInfo', $this->Url($type));
+        return $this->getService()->resourceList('AgentHostInfo', $this->url($type), $this);
     }    
     
 }

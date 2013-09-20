@@ -2,7 +2,6 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\CloudMonitoring\Exception;
 
 /**
@@ -14,7 +13,7 @@ use OpenCloud\CloudMonitoring\Exception;
 class AgentTarget extends ReadOnlyResource implements ResourceInterface
 {
     
-    public $type = 'agent.filesystem';
+    private $type = 'agent.filesystem';
     
     protected static $json_name = 'targets';
     protected static $json_collection_name = 'targets';
@@ -30,10 +29,10 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
         'agent.plugin'
     );
 
-    public function baseUrl()
+    public function url($subresource = null, $queryString = array())
     {
-        $resourceUrl = "agent/check_types/{$this->type}/{$this->ResourceName()}";
-        return $this->Parent()->Url($this->Parent()->id . '/' . $resourceUrl);
+        $resourceUrl = "agent/check_types/{$this->type}/{$this->resourceName()}";
+        return $this->getParent()->url($resourceUrl);
     }
 
     public function setType($type)
@@ -56,10 +55,11 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
             ));
         }
 
-        $response = json_decode($this->Service()->Request($this->Url())->HttpBody());
-        
-        if (isset($response->{self::$json_collection_name})) {
-            $response = $response->{self::$json_collection_name};
+        $response = $this->getService()->request($this->url());
+        $object = json_decode($response->httpBody());
+
+        if (isset($object->{self::$json_collection_name})) {
+            $response = $object->{self::$json_collection_name};
         }
 
         return $response;

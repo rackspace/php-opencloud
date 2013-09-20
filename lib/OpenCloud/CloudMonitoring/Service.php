@@ -25,7 +25,6 @@ class Service extends AbstractService
      * @access  private
      */
     private $resources = array(
-        'Account',
         'Agent',
         'AgentConnection',
         'AgentHost',
@@ -72,29 +71,6 @@ class Service extends AbstractService
     public function getResources()
     {
         return $this->resources;
-    }
-
-    /**
-     * Factory method for instantiating resource objects.
-     * 
-     * @access public
-     * @param string $resourceName
-     * @param mixed $info (default: null)
-     * @return void
-     */
-    public function resource($resourceName, $info = null)
-    {
-        $className = __NAMESPACE__ . '\\Resource\\' . ucfirst($resourceName);
-
-        if (!class_exists($className)) {
-            throw new Exception\ServiceException(sprintf(
-                '%s resource does not exist, please try one of the following: %s', 
-                $resourceName, 
-                implode(', ', $this->getResources())
-            ));
-        }
-
-        return new $className($this, $info);
     }
 
 }

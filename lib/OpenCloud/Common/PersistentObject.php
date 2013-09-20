@@ -71,8 +71,6 @@ abstract class PersistentObject extends Base
     private $service;
     
     private $parent;
-    
-    protected $id; 
 
     /**
      * Retrieves the instance from persistent storage
@@ -86,59 +84,9 @@ abstract class PersistentObject extends Base
             $this->setService($service);
         }
         
-        if (property_exists($this, 'metadata')) {
-            $this->metadata = new Metadata;
-        }
-        
         $this->populate($info);
     }
-    
-    /**
-     * Validates properties that have a namespace: prefix
-     *
-     * If the property prefix: appears in the list of supported extension
-     * namespaces, then the property is applied to the object. Otherwise,
-     * an exception is thrown.
-     *
-     * @param string $name the name of the property
-     * @param mixed $value the property's value
-     * @return void
-     * @throws AttributeError
-     */
-    public function __set($name, $value)
-    {
-        $this->setProperty($name, $value, $this->getService()->namespaces());
-    }
-    
-    public function __get($name)
-    {
-        $getter = 'get' . ucfirst($name);
-        
-        if (method_exists($this, $getter)) {
-            return call_user_func(array($this, $getter), $name);
-        }
-        
-        return (!isset($this->$name)) ? null : $this->$name;
-    }
-    
-    public function __call($method, $args)
-    {
-        $prefix = substr($method, 0, 3);
-
-        // Get property - convert from camel case to underscore
-        $property = lcfirst(substr($method, 3));
-
-        // Do getter
-        if ($prefix == 'get') {
-            return $this->$property;
-        }
-
-        // Do setter
-        if ($prefix == 'set') {
-            $this->$property = $args[0];
-        }
-    }
-    
+            
     /**
      * Sets the service associated with this resource object.
      * 
@@ -232,7 +180,7 @@ abstract class PersistentObject extends Base
         // debug
         $this->getLogger()->info('{class}::Create({name})', array(
             'class' => get_class($this), 
-            'name'  => $this->Name()
+            'name'  => $this->getProperty($this->primaryKeyField())
         ));
 
         // construct the JSON
@@ -259,7 +207,7 @@ abstract class PersistentObject extends Base
             throw new Exceptions\CreateError(sprintf(
                 Lang::translate('Error creating [%s] [%s], status [%d] response [%s]'),
                 get_class($this),
-                $this->Name(),
+                $this->getProperty($this->primaryKeyField()),
                 $response->HttpStatus(),
                 $response->HttpBody()
             ));
@@ -302,7 +250,7 @@ abstract class PersistentObject extends Base
         // debug
         $this->getLogger()->info('{class}::Update({name})', array(
             'class' => get_class($this),
-            'name'  => $this->Name()   
+            'name'  => $this->getProperty($this->primaryKeyField())
         ));
 
         // construct the JSON
@@ -310,11 +258,6 @@ abstract class PersistentObject extends Base
         $json = json_encode($obj);
 
         $this->checkJsonError();
-
-        $this->getLogger()->info('{class}::Update JSON [{json}]', array(
-            'class' => get_class($this), 
-            'json'  => $json
-        ));
 
         // send the request
         $response = $this->getService()->Request(
@@ -360,7 +303,7 @@ abstract class PersistentObject extends Base
             throw new Exceptions\DeleteError(sprintf(
                 Lang::translate('Error deleting [%s] [%s], status [%d] response [%s]'),
                 get_class(),
-                $this->Name(),
+                $this->getProperty($this->primaryKeyField()),
                 $response->HttpStatus(),
                 $response->HttpBody()
             ));
@@ -449,35 +392,30 @@ abstract class PersistentObject extends Base
      */
     public function url($subresource = null, $queryString = array())
     {
-        // find the primary key attribute name
-        $primaryKey = $this->primaryKeyField();
-
-        // first, see if we have a [self] link
-        $url = $this->findLink('self');
-
-        /**
-         * Next, check to see if we have an ID
-         * Note that we use Parent() instead of Service(), since the parent
-         * object might not be a service.
-         */
-        if (!$url && $this->$primaryKey) {
-            $url = Lang::noslash($this->getParent()->url($this->resourceName())) . '/' . $this->$primaryKey;
+        if (!$url = $this->findLink('self')) {
+            $url = Lang::noslash($this->getParent()->url($this->resourceName()));
+            if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {
+                $url .= '/' . $primaryKey;
+            }
         }
 
         // add the subresource
-        if ($url) {
-            $url .= $subresource ? "/$subresource" : '';
-            if (count($queryString)) {
-                $url .= '?' . $this->makeQueryString($queryString);
-            }
-            return $url;
+        if (!$url) {
+            throw new Exceptions\UrlError(sprintf(
+                Lang::translate('%s does not have a URL yet'), 
+                get_class($this)
+            ));
         }
-
-        // otherwise, we don't have a URL yet
-        throw new Exceptions\UrlError(sprintf(
-            Lang::translate('%s does not have a URL yet'), 
-            get_class($this)
-        ));
+        
+        if ($subresource) {
+            $url .= '/' . $subresource;
+        }
+        
+        if (count($queryString)) {
+            $url .= '?' . $this->makeQueryString($queryString);
+        }
+        
+        return $url;
     }
 
     /**
@@ -541,11 +479,13 @@ abstract class PersistentObject extends Base
      */
     public function refresh($id = null, $url = null)
     {
-        $primaryKey = $this->PrimaryKeyField();
-
+        $primaryKey = $this->primaryKeyField();
+        $primaryKeyVal = $this->getProperty($primaryKey);
+        
         if (!$url) {
+            
             if ($id === null) {
-                $id = $this->$primaryKey;
+                $id = $this->getProperty($primaryKey);
             }
 
             if (!$id) {
@@ -561,7 +501,9 @@ abstract class PersistentObject extends Base
                 'id'    => $id
             ));
             
-            $this->$primaryKey = $id;
+            if ($primaryKeyVal != $id) {
+                $this->setProperty($primaryKey, $id);
+            }
             $url = $this->url();
         }
         
@@ -572,14 +514,14 @@ abstract class PersistentObject extends Base
 
         // perform a GET on the URL
         $response = $this->getService()->request($url);
-        
+  
         // check status codes
         // @codeCoverageIgnoreStart
         if ($response->HttpStatus() == 404) {
             throw new Exceptions\InstanceNotFound(
                 sprintf(Lang::translate('%s [%s] not found [%s]'),
                 get_class($this),
-                $this->$primaryKey,
+                $primaryKeyVal,
                 $url
             ));
         }
@@ -603,7 +545,7 @@ abstract class PersistentObject extends Base
         }
 
         // we're ok, reload the response
-        if ($json = $response->HttpBody()) {
+        if ($json = $response->httpBody()) {
  
             $this->getLogger()->info('refresh() JSON [{json}]', array('json' => $json));
             
@@ -619,7 +561,6 @@ abstract class PersistentObject extends Base
             }
             
             $this->populate($content);
-
         }
         // @codeCoverageIgnoreEnd
     }
@@ -641,8 +582,8 @@ abstract class PersistentObject extends Base
      */
     public function name()
     {
-        if (property_exists($this, 'name')) {
-            return $this->name;
+        if (null !== ($name = $this->getProperty('name'))) {
+            return $name;
         } else {
             throw new Exceptions\NameError(sprintf(
                 Lang::translate('Name attribute does not exist for [%s]'),

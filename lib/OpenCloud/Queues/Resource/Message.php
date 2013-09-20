@@ -25,7 +25,7 @@ class Message extends PersistentObject
     /**
      * @var string 
      */
-    public $id;
+    private $id;
     
     /**
      * The number of seconds since ts, relative to the server's clock.
@@ -62,38 +62,6 @@ class Message extends PersistentObject
     protected static $json_collection_name = 'messages';
     protected static $json_name = '';
     
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-    
-    /**
-     * Get (read-only) ID.
-     * 
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    public function setAge($age)
-    {
-        $this->age = $age;
-        return $this;
-    }
-    
-    /**
-     * Get (read-only) age.
-     * 
-     * @return string
-     */
-    public function getAge()
-    {
-        return $this->age;
-    }
-    
     /**
      * Set href (and ID).
      * 
@@ -110,58 +78,6 @@ class Message extends PersistentObject
 
         $this->href = $href;
         return $this;
-    }
-    
-    /**
-     * Get (read-only) href value.
-     * 
-     * @return string
-     */
-    public function getHref()
-    {
-        return $this->href;
-    }
-    
-    /**
-     * Set the TTL when creating a new message.
-     * 
-     * @param string $ttl
-     */
-    public function setTtl($ttl)
-    {
-        $this->ttl = $ttl;
-        return $this;
-    }
-    
-    /**
-     * Get TTL.
-     * 
-     * @return string
-     */
-    public function getTtl()
-    {
-        return $this->ttl;
-    }
-    
-    /**
-     * Set the body when creating a new message.
-     * 
-     * @param string $body
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-        return $this;
-    }
-    
-    /**
-     * Get body.
-     * 
-     * @return string
-     */
-    public function getBody()
-    {
-        return $this->body;
     }
     
     /**

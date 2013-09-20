@@ -17,7 +17,8 @@ use OpenCloud\Tests\StubConnection;
 
 class MySubResource extends SubResource
 {
-
+    public $id;
+    
     public static $json_name = 'ignore';
     public static $url_resource = 'ignore';
     
