@@ -9,12 +9,13 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Compute;
+namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\Volume\Volume;
+use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
+use OpenCloud\Compute\Service;
 
 /**
  * The Server class represents a single server node.
@@ -75,7 +76,7 @@ class Server extends PersistentObject
         parent::__construct($service, $info);
 
         // the metadata item is an object, not an array
-        $this->metadata = $this->Metadata();
+        $this->metadata = $this->metadata();
     }
 
     /**
@@ -143,11 +144,14 @@ class Server extends PersistentObject
             );
         }
         
-    	$obj = new \stdClass();
-    	$obj->rebuild = new \stdClass();
-    	$obj->rebuild->imageRef = $params['image']->Id();
-    	$obj->rebuild->adminPass = $params['adminPass'];
-        return $this->Action($obj);
+        $object = (object) array(
+            'rebuild' => (object) array(
+                'imageRef'  => $params['image']->id(),
+                'adminPass' => $params['adminPass']
+            )
+        );
+        
+        return $this->action($object);
     }
 
     /**
@@ -166,11 +170,10 @@ class Server extends PersistentObject
      */
     public function reboot($type = RAXSDK_SOFT_REBOOT)
     {
-        // create object and json
-        $obj = new \stdClass();
-        $obj->reboot = new \stdClass();
-        $obj->reboot->type = strtoupper($type);
-        return $this->Action($obj);
+        $object = (object) array(
+            'reboot' => (object) array('type' => strtoupper($type))
+        );
+        return $this->action($object);
     }
 
     /**
@@ -190,16 +193,12 @@ class Server extends PersistentObject
         }
 
         // construct a createImage object for jsonization
-        $obj = new \stdClass;
-        $obj->createImage = new \stdClass;
-        $obj->createImage->name = $name;
-        $obj->createImage->metadata = new \stdClass;
+        $object = (object) array('createImage' => (object) array(
+            'name'     => $name, 
+            'metadata' => (object) $metadata
+        ));
 
-        foreach ($metadata as $name => $value) {
-            $obj->createImage->metadata->$name = $value;
-        }
-
-        $response = $this->action($obj);
+        $response = $this->action($object);
         
         if (!$response || !($location = $response->header('Location'))) {
             return false;
@@ -270,10 +269,10 @@ class Server extends PersistentObject
     public function resize(Flavor $flavorRef)
     {
         // construct a resize object for jsonization
-        $obj = new \stdClass();
-        $obj->resize = new \stdClass();
-        $obj->resize->flavorRef = $flavorRef->id;
-        return $this->Action($obj);
+        $object = (object) array(
+            'resize' => (object) array('flavorRef' => $flavorRef->id)
+        );
+        return $this->action($object);
     }
 
     /**
@@ -284,11 +283,10 @@ class Server extends PersistentObject
      */
     public function resizeConfirm()
     {
-        $obj = new \stdClass();
-        $obj->confirmResize = null;
-        $res = $this->Action($obj);
-        $this->Refresh($this->id);
-        return $res;
+        $object = (object) array('confirmResize' => null);
+        $response = $this->action($object);
+        $this->refresh($this->id);
+        return $response;
     }
 
     /**
@@ -299,9 +297,8 @@ class Server extends PersistentObject
      */
     public function resizeRevert()
     {
-        $obj = new \stdClass();
-        $obj->revertResize = null;
-        return $this->Action($obj);
+        $object = (object) array('revertResize' => null);
+        return $this->action($object);
     }
 
     /**
@@ -311,13 +308,12 @@ class Server extends PersistentObject
      * @param string $newpasswd The new root password for the server
      * @return boolean TRUE on success; FALSE on failure
      */
-    public function setPassword($newpasswd)
+    public function setPassword($newPassword)
     {
-        // construct an object to hold the password
-        $obj = new \stdClass();
-        $obj->changePassword = new \stdClass();
-        $obj->changePassword->adminPass = $newpasswd;
-        return $this->Action($obj);
+        $object = (object) array(
+            'changePassword' => (object) array('adminPass' => $newPassword)
+        );
+        return $this->action($object);
     }
 
     /**
@@ -339,25 +335,23 @@ class Server extends PersistentObject
             );
         }
 
-        $obj = new \stdClass;
-        $obj->rescue = "none";
+        $data = (object) array('rescue' => 'none');
 
-        $resp = $this->action($obj);
-        $newobj = json_decode($resp->httpBody());
-
+        $response = $this->action($data);
+        $object = json_decode($response->httpBody());
         $this->checkJsonError();
         
         // @codeCoverageIgnoreStart
-        if (!isset($newobj->adminPass)) {
+        if (!isset($object->adminPass)) {
             throw new Exceptions\ServerActionError(sprintf(
                 Lang::translate('Rescue() method failed unexpectedly, status [%s] response [%s]'),
-                $resp->httpStatus(),
-                $resp->httpBody()
+                $response->httpStatus(),
+                $response->httpBody()
             ));
         // @codeCoverageIgnoreEnd
             
         } else {
-            return $newobj->adminPass;
+            return $object->adminPass;
         }
     }
 
@@ -372,16 +366,14 @@ class Server extends PersistentObject
      */
     public function unrescue()
     {
-        $this->CheckExtension('os-rescue');
+        $this->checkExtension('os-rescue');
 
         if (!isset($this->id)) {
             throw new Exceptions\ServerActionError(Lang::translate('Server has no ID; cannot Unescue()'));
         }
 
-        $obj = new \stdClass();
-        $obj->unrescue = NULL;
-
-        return $this->Action($obj);
+        $object = (object) array('unrescue' => null);
+        return $this->action($object);
     }
 
     /**
@@ -414,7 +406,7 @@ class Server extends PersistentObject
     {
         $url = Lang::noslash($this->Url('ips/'.$network));
 
-        $response = $this->Service()->Request($url);
+        $response = $this->getService()->request($url);
         
         // @codeCoverageIgnoreStart
         if ($response->HttpStatus() >= 300) {
@@ -455,11 +447,10 @@ class Server extends PersistentObject
      */
     public function attachVolume(Volume $volume, $device = 'auto')
     {
-        $this->CheckExtension('os-volumes');
-
-        return $this->VolumeAttachment()->Create(array(
+        $this->checkExtension('os-volumes');
+        return $this->volumeAttachment()->create(array(
             'volumeId'  => $volume->id,
-            'device'    => ($device=='auto' ? NULL : $device)
+            'device'    => ($device == 'auto' ? null : $device)
         ));
     }
 
@@ -475,8 +466,8 @@ class Server extends PersistentObject
      */
     public function detachVolume(Volume $volume)
     {
-        $this->CheckExtension('os-volumes');
-        return $this->VolumeAttachment($volume->id)->Delete();
+        $this->checkExtension('os-volumes');
+        return $this->volumeAttachment($volume->id)->Delete();
     }
 
     /**
@@ -486,8 +477,7 @@ class Server extends PersistentObject
     public function volumeAttachment($id = null)
     {
         $resource = new VolumeAttachment($this->getService());
-        $resource->setParent($this);
-        $resource->populate($id);
+        $resource->setParent($this)->populate($id);
         return $resource;
     }
 
@@ -500,9 +490,7 @@ class Server extends PersistentObject
     public function volumeAttachmentList()
     {
         return $this->getService()->collection(
-            '\OpenCloud\Compute\VolumeAttachment',
-            NULL,
-            $this
+            'OpenCloud\Compute\Resource\VolumeAttachment', null, $this
         );
     }
 

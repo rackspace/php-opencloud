@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Compute;
+namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;

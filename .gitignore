@@ -3,3 +3,4 @@ local-tests/
 build/
 nbproject/
 .DS_Store
+*.log

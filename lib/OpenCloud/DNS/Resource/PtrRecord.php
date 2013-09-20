@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\DNS;
+namespace OpenCloud\DNS\Resource;
 
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
@@ -64,7 +64,7 @@ class PtrRecord extends Record
     public function create($params = array()) 
     {
         $this->populate($params, false);
-        $this->link_rel = $this->server->Service()->name();
+        $this->link_rel = $this->server->getService()->name();
         $this->link_href = $this->server->url();
         return parent::create();
     }
@@ -75,7 +75,7 @@ class PtrRecord extends Record
     public function update($params = array()) 
     {
         $this->populate($params, false);
-        $this->link_rel = $this->server->Service()->Name();
+        $this->link_rel = $this->server->getService()->Name();
         $this->link_href = $this->server->Url();
         return parent::update();
     }
@@ -89,7 +89,7 @@ class PtrRecord extends Record
      */
     public function delete() 
     {
-        $this->link_rel = $this->server->Service()->Name();
+        $this->link_rel = $this->server->getService()->Name();
         $this->link_href = $this->server->Url();
         
         $params = array('href' => $this->link_href);
@@ -103,7 +103,7 @@ class PtrRecord extends Record
         $response = $this->getService()->request($url, 'DELETE');
 
         // return the AsyncResponse object
-        return new AsyncResponse($this->getService(), $response->HttpBody());
+        return new AsyncResponse($this->getService(), $response->httpBody());
     }
 
     /**

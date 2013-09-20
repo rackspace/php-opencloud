@@ -9,7 +9,9 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\DNS;
+namespace OpenCloud\DNS\Resource;
+
+use OpenCloud\DNS\Service;
 
 /**
  * The Record class represents a single domain record
@@ -60,24 +62,13 @@ class Record extends Object
      * @return void
      */
     public function __construct($parent, $info = null) 
-    {
-        $this->parent = $parent;
-        
+    { 
         if ($parent instanceof Service) {
             parent::__construct($parent, $info);
         } else {
+            $this->setParent($parent);
             parent::__construct($parent->getService(), $info);
         }
-    }
-
-    /**
-     * returns the parent domain
-     *
-     * @return Domain
-     */
-    public function Parent() 
-    {
-        return $this->parent;
     }
 
 }

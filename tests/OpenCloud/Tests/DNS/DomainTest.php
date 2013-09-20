@@ -15,7 +15,7 @@ namespace OpenCloud\Tests\DNS;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
 use OpenCloud\DNS\Service;
-use OpenCloud\DNS\Domain;
+use OpenCloud\DNS\Resource\Domain;
 
 class DomainTest extends PHPUnit_Framework_TestCase
 {
@@ -39,7 +39,7 @@ class DomainTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Domain', $this->domain);
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->domain);
     }
 
     public function testCreate()
@@ -50,7 +50,7 @@ class DomainTest extends PHPUnit_Framework_TestCase
         $this->domain->addSubdomain(
             $this->domain->subdomain(array('name' => 'foo'))
         );
-        $this->assertInstanceOf('OpenCloud\DNS\AsyncResponse', $this->domain->Create());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $this->domain->Create());
     }
 
     public function testUpdate()
@@ -60,17 +60,17 @@ class DomainTest extends PHPUnit_Framework_TestCase
             'name'         => 'FOO',
             'emailAddress' => 'no-body@dontuseemail.com')
         );
-        $this->assertInstanceOf('OpenCloud\DNS\AsyncResponse', $resp);
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $resp);
     }
 
     public function testDelete()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\AsyncResponse', $this->domain->delete());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $this->domain->delete());
     }
 
     public function testRecord()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Record', $this->domain->record());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\Record', $this->domain->record());
     }
 
     public function testRecordList()
@@ -80,7 +80,7 @@ class DomainTest extends PHPUnit_Framework_TestCase
 
     public function testSubdomain()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Subdomain', $this->domain->subdomain());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\Subdomain', $this->domain->subdomain());
     }
 
     public function testSubdomainList()
@@ -97,7 +97,7 @@ class DomainTest extends PHPUnit_Framework_TestCase
     public function testAddSubdomain()
     {
         $sub = $this->domain->Subdomain();
-        $this->assertInstanceOf('OpenCloud\DNS\Subdomain', $sub);
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\Subdomain', $sub);
         $this->assertEquals(1, $this->domain->AddSubdomain($sub));
         $this->assertEquals($this->domain, $sub->Parent());
     }
@@ -109,13 +109,13 @@ class DomainTest extends PHPUnit_Framework_TestCase
 
     public function testExport()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\AsyncResponse', $this->domain->export());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $this->domain->export());
     }
 
     public function testCloneDomain()
     {
         $asr = $this->domain->cloneDomain('newdomain.io');
-        $this->assertInstanceOf('OpenCloud\DNS\AsyncResponse', $asr);
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $asr);
         
         $this->assertNotNull($asr->url());
         $this->assertNotNull($asr->name());

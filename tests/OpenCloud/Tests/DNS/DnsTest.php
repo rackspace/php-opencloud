@@ -48,7 +48,7 @@ class DnsTest extends PHPUnit_Framework_TestCase
 
     public function testDomain()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Domain', $this->dns->domain());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->dns->domain());
     }
 
     public function testDomainList()
@@ -69,14 +69,14 @@ class DnsTest extends PHPUnit_Framework_TestCase
     public function testImport()
     {
         $this->assertInstanceOf(
-            'OpenCloud\DNS\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->dns->Import('foo bar oops')
         );
     }
 
     public function testPtrRecordList()
     {
-        $server = new Compute\Server(
+        $server = new Compute\Resource\Server(
             new Compute\Service($this->conn, 'cloudServersOpenStack', 'DFW', 'publicURL')
         );
         $server->id = '42';
@@ -88,7 +88,7 @@ class DnsTest extends PHPUnit_Framework_TestCase
 
     public function testRecord()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\PtrRecord', $this->dns->PtrRecord());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\PtrRecord', $this->dns->PtrRecord());
     }
 
     public function testLimits()

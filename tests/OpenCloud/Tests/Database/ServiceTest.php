@@ -59,7 +59,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function testDbInstance()
     {
         $inst = $this->dbaas->Instance();
-        $this->assertInstanceOf('OpenCloud\Database\Instance', $inst);
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Instance', $inst);
     }
 
     public function testDbInstanceList()

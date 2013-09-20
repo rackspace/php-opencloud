@@ -11,19 +11,20 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use OpenCloud\Smoke\Utils;
+
 /**
  * Description of Volume
  * 
  * @link 
  */
 class Volume extends AbstractUnit implements UnitInterface
-{
+{    
     /**
      * {@inheritDoc}
      */
-    public function setup()
+    public function setupService()
     {
-        
     }
     
     /**
@@ -31,7 +32,6 @@ class Volume extends AbstractUnit implements UnitInterface
      */
     public function main()
     {
-        
     }
     
     /**
@@ -39,6 +39,5 @@ class Volume extends AbstractUnit implements UnitInterface
      */
     public function teardown()
     {
-        
     }
 }
