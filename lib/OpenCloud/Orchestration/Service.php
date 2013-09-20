@@ -59,7 +59,7 @@ class Service extends AbstractService
      */
     public function stack($id = null) 
     {
-        return new Stack($this, $id);
+        return new Resource\Stack($this, $id);
     }
     
     /**

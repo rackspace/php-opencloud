@@ -10,7 +10,7 @@
  * @author Stephen Sugden <openstack@stephensugden.com>
  */
 
-namespace OpenCloud\Orchestration;
+namespace OpenCloud\Orchestration\Resource;
 
 use OpenCloud\Common\PersistentObject;
 
@@ -31,6 +31,10 @@ class Resource extends PersistentObject
     
     protected static $url_resource = 'resources';
     protected static $json_name = 'resource';
+
+    protected static $resource_type_mapping = array(
+        'AWS::EC2::Instance' => array('Compute', 'nova', 'Server'),
+    );
 
     public function create($info = null) 
     {
@@ -70,7 +74,7 @@ class Resource extends PersistentObject
             return $this->resource_metadata;
         }
         $url = $this->url() . '/metadata';
-        $response = $this->service()->request($url, 'GET', array('Accept' => 'application/json'));
+        $response = $this->getService()->request($url, 'GET', array('Accept' => 'application/json'));
 
         if ($json = $response->httpBody()) {
             return $this->resource_metadata = @json_decode($json)->metadata;
@@ -79,21 +83,24 @@ class Resource extends PersistentObject
         }
     }
 
+    /**
+     * @return PersistentObject varies depending on the type of resource being fetched
+     */
     public function get() 
     {
-        switch ($this->resource_type) {
-        case 'AWS::EC2::Instance':
-            $objSvc = 'Compute';
-            $method = 'Server';
-            $name = 'nova';
-            break;
-        default:
+        if (!isset(static::$resource_type_mapping[$this->resource_type])) {
             throw new \Exception("Unknown resource type {$this->resource_type}");
         }
+
+        $orchService = $this->getService();
+        $connection  = $orchService->getConnection();
+        $region      = $orchService->region();
+
+        list($serviceType, $serviceName, $method) =
+        self::$resource_type_mapping[$this->resource_type];
         
-        $service    = $this->parent()->service();
-        $connection = $service->connection();
+        $resourceService = $connection->service($serviceType, $serviceName, $region);
  
-        return $connection->$objSvc($name, $service->region())->$method($this->id());
+        return $resourceService->$method($this->id());
     }
 }
