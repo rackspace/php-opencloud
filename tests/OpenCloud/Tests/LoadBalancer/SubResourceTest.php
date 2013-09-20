@@ -12,7 +12,7 @@ namespace OpenCloud\Tests\LoadBalancer;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
-use OpenCloud\LoadBalancer\Resources\LoadBalancer;
+use OpenCloud\LoadBalancer\Resource\LoadBalancer;
 use OpenCloud\LoadBalancer\Service;
 
 class SubResourceTest extends PHPUnit_Framework_TestCase 

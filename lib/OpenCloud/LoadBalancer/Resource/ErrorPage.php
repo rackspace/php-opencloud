@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 /**
  * An error page is the html file that is shown to the end user when an error 

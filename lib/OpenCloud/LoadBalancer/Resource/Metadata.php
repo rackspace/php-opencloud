@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 /**
  * Sub-resource to manage Metadata

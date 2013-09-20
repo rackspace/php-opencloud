@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 /**
  * This defines a read-only SubResource - one that cannot be created, updated,
