@@ -44,8 +44,9 @@ ENDRESPONSE;
         }
     }
 
-    public function request($url, $method = "GET", $headers = array(), $body = null) 
+    public function request($url, $method = "GET", $headers = array(), $body = null)
     {
+
         $resp = new Blank;
         $resp->headers = array(
             'Content-Length' => '999'
@@ -266,7 +267,19 @@ ENDRESPONSE;
                 $resp->body = '{"ignore":{}}';
             } elseif (strpos($url, '/loadbalancers/')) {
                 $resp->status = 200;
-                if (strpos($url, '/virtualips'))
+                if (preg_match('/\/2000\/nodes$/',$url))
+                    $resp->body = <<<EOT
+{"nodes":[{"id":1041,"address":"10.1.1.1","port":80,"condition":"ENABLED","status":"ONLINE"},{"id":1411,"address":"10.1.1.2","port":80,"condition":"ENABLED","status":"ONLINE"}]}
+EOT;
+                elseif (preg_match('/\/2000\/virtualIps$/',$url))
+                    $resp->body = <<<EOT
+{"virtualIps":[{"id":1000,"address":"206.10.10.210","type":"PUBLIC","ipVersion":"IPV4"}]}
+EOT;
+                elseif (preg_match('/\/2000$/',$url))
+                    $resp->body = <<<EOT
+{"loadBalancer":{"id":2000,"name":"sample-loadbalancer","protocol":"HTTP","port":80,"algorithm":"RANDOM","status":"ACTIVE","timeout":30,"connectionLogging":{"enabled":true},"virtualIps":[{"id":   1000,"address":"206.10.10.210","type":"PUBLIC","ipVersion":"IPV4"}],"nodes":[{"id":1041,"address":"10.1.1.1","port":80,"condition":"ENABLED","status":"ONLINE"},{"id":1411,"address":"10.1.1.2",    "port":80,"condition":"ENABLED","status":"ONLINE"}],"sessionPersistence":{"persistenceType":"HTTP_COOKIE"},"connectionThrottle":{"minConnections":10,"maxConnections":100,"maxConnectionRate":50,   "rateInterval":60},"cluster":{"name":"c1.dfw1"},"created":{"time":"2010-11-30T03:23:42Z"},"updated":{"time":"2010-11-30T03:23:44Z"},"sourceAddresses":{"ipv6Public":"2001:4801:79f1:1::1/64",       "ipv4Servicenet":"10.0.0.0","ipv4Public":"10.12.99.28"}}}
+EOT;
+                elseif (strpos($url, '/virtualips'))
                     $resp->body = '{}';
                 elseif (strpos($url, '/nodes'))
                     $resp->body = '{}';
@@ -298,10 +311,6 @@ ENDRESPONSE;
                     $resp->body = '{}';
                 elseif (strpos($url, '/metadata'))
                     $resp->body = '{}';
-                elseif (strpos($url, '/2000'))
-                    $resp->body = <<<EOT
-{"loadBalancer":{"id":2000,"name":"sample-loadbalancer","protocol":"HTTP","port":80,"algorithm":"RANDOM","status":"ACTIVE","timeout":30,"connectionLogging":{"enabled":true},"virtualIps":[{"id":1000,"address":"206.10.10.210","type":"PUBLIC","ipVersion":"IPV4"}],"nodes":[{"id":1041,"address":"10.1.1.1","port":80,"condition":"ENABLED","status":"ONLINE"},{"id":1411,"address":"10.1.1.2","port":80,"condition":"ENABLED","status":"ONLINE"}],"sessionPersistence":{"persistenceType":"HTTP_COOKIE"},"connectionThrottle":{"minConnections":10,"maxConnections":100,"maxConnectionRate":50,"rateInterval":60},"cluster":{"name":"c1.dfw1"},"created":{"time":"2010-11-30T03:23:42Z"},"updated":{"time":"2010-11-30T03:23:44Z"},"sourceAddresses":{"ipv6Public":"2001:4801:79f1:1::1/64","ipv4Servicenet":"10.0.0.0","ipv4Public":"10.12.99.28"}}}
-EOT;
                 else {
                     die("NEED TO DEFINE RESPONSE FOR $url\n");
                 }

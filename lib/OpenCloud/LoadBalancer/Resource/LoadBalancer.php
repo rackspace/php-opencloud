@@ -52,16 +52,16 @@ class LoadBalancer extends PersistentObject
     /**
      * Type of virtual IP to add along with the creation of a load balancer.
      * 
-     * @var Collection
+     * @var array|Collection
      */
-    public $virtualIps;
+    public $virtualIps = array();
     
     /**
      * Nodes to be added to the load balancer.
      * 
-     * @var Collection
+     * @var array|Collection
      */
-    public $nodes;
+    public $nodes = array();
     
     /**
      * The access list management feature allows fine-grained network access 
@@ -161,14 +161,6 @@ class LoadBalancer extends PersistentObject
         'sessionPersistence'
     );
 
-    public function __construct($service = null, $info = null){
-
-        parent::__construct($service,$info);
-
-        $this->nodes = new \OpenCloud\Common\Collection($this->getService(),'\OpenCloud\LoadBalancer\Resource\Node',array());
-        $this->virtualIps = new \OpenCloud\Common\Collection($this->getService(),'\OpenCloud\LoadBalancer\Resource\VirtualIp',array());
-    }
-
     /**
      * adds a node to the load balancer
      *
@@ -250,8 +242,20 @@ class LoadBalancer extends PersistentObject
             return $http;
         } else {
             // queue it
-            $this->nodes->addItem($node);
+            $this->nodes[] = $node;
         }
+    }
+
+    /**
+     * Remove a node from this load-balancer
+     *
+     * @api
+     * @param int $id id of the node
+     * @return mixed
+     */
+    public function removeNode($nodeId){
+
+        return $this->node($nodeId)->Delete();
     }
 
     /**
@@ -318,7 +322,7 @@ class LoadBalancer extends PersistentObject
             return $http;
         } else {
             // queue it
-            $this->virtualIps->addItem($object);
+            $this->virtualIps[] = $object;
         }
 
         return true;
@@ -520,7 +524,7 @@ class LoadBalancer extends PersistentObject
         // set the properties
         foreach ($this->createKeys as $key) {
             if ($key == 'nodes') {
-                while ($node = $this->nodes->Next()) {
+                foreach ($this->nodes as $node) {
                     $nodeObject = new \stdClass();
                     foreach ($node as $property => $value) {
                         if ($value !== null) {
@@ -530,7 +534,7 @@ class LoadBalancer extends PersistentObject
                     $object->$elem->nodes[] = $nodeObject;
                 }
             } elseif($key == 'virtualIps'){
-                while ($virtualIp = $this->virtualIps->Next()){
+                foreach ($this->virtualIps  as $virtualIp){
                     $virtualIpObject = new \stdClass();
                     foreach ($virtualIp as $property => $value){
                         if($value !== null)

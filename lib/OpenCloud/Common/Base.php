@@ -111,14 +111,14 @@ abstract class Base
                         $resource = $this->service()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
                         $this->$key = $resource;
-                    } catch (Exception\ServiceException $e) {}
+                    } catch (Exception\ServiceException $e) { }
                     
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
-                    
+
                     // Associated collection
                     try {
                         $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this); 
-                    } catch (Exception\ServiceException $e) {}
+                    } catch (Exception\ServiceException $e) { }
                     
                 } else {
                     
