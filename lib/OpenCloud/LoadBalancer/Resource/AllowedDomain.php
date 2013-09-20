@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 /**
  * The allowed domains are restrictions set for the allowed domain names used 
@@ -21,7 +21,7 @@ namespace OpenCloud\LoadBalancer\Resources;
  * and not of the load balancer object. It's included here for convenience,
  * since it matches the pattern of the other LB subresources.
  */
-class AllowedDomain extends ReadOnly 
+class AllowedDomain extends Readonly 
 {
 
     public $name;

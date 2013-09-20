@@ -9,12 +9,12 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 /**
  * Used to get a list of billable load balancers for a specific date range
  */
-class BillableLoadBalancer extends ReadOnly 
+class BillableLoadBalancer extends Readonly 
 {
 
     protected static $url_resource = 'loadbalancers/billable';

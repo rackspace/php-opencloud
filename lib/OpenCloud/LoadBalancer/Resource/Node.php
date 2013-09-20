@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\LoadBalancer\Resources;
+namespace OpenCloud\LoadBalancer\Resource;
 
 use OpenCloud\Common\PersistentObject;
 
@@ -159,7 +159,7 @@ class Node extends PersistentObject
      */
     public function metadataList() 
     {
-        return $this->getService()->collection('OpenCloud\LoadBalancer\Resources\Metadata', null, $this);
+        return $this->getService()->collection('OpenCloud\LoadBalancer\Resource\Metadata', null, $this);
     }
     
 }
