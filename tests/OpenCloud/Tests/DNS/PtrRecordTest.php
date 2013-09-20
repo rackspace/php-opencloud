@@ -15,8 +15,8 @@ namespace OpenCloud\Tests\DNS;
 use OpenCloud\Tests\StubConnection;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\DNS\Service;
-use OpenCloud\DNS\Object;
-use OpenCloud\DNS\PtrRecord;
+use OpenCloud\DNS\Resource\Object;
+use OpenCloud\DNS\Resource\PtrRecord;
 
 class CustomRecord extends Object
 {
@@ -71,7 +71,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
     {
         $server = $this->conn->compute(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
-            'OpenCloud\DNS\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->record->create(array('server' => $server))
         );
     }
@@ -80,7 +80,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
     {
         $server = $this->conn->compute(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
-            'OpenCloud\DNS\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->record->update(array('server' => $server))
         );
     }
@@ -91,7 +91,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
         $this->record->server = $server;
         $this->record->data   = 12345;
         $this->assertInstanceOf(
-            'OpenCloud\DNS\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->record->delete()
         );
     }

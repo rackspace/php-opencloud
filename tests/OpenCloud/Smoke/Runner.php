@@ -9,6 +9,10 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
+namespace OpenCloud\Smoke;
+
+use OpenCloud\Rackspace;
+
 /**
  * The runner runs the smoke test, he's the boss. You determine which units should
  * be run in the command line.
@@ -22,6 +26,7 @@ class Runner
      */
     private $units = array(
         'Autoscale',
+        'Compute',
         'CloudMonitoring',
         'DNS',
         'Database',
@@ -32,17 +37,41 @@ class Runner
         'Volume'
     );
     
+    public static function run()
+    {
+        return new static();
+    }
+    
     public function __construct()
     {
-        Utils::log('Welcome to the PHP OpenCloud SmokeTest!');
+        Utils::log('Welcome to the PHP OpenCloud SmokeTest!' . PHP_EOL);
         
         $start = microtime(true);
         
         $this->handleArguments();
         $this->executeTemplate();
         
-        $duration = $start - microtime(true);
-        Utils::log('Finished all tests! Time taken: %s seconds', $duration);
+        $duration = microtime(true) - $start;
+        Utils::logd();
+        Utils::logf('Finished all tests! Time taken: %s', $this->formatDuration($duration));
+    }
+    
+    private function formatDuration($duration)
+    {
+        $string = '';
+        
+        if (($minutes = floor($duration / 60)) > 0) {
+            $string .= "$minutes minute" . (($minutes > 1) ? 's' : '') . ' ';
+        }
+
+        if (($seconds = $duration % 60) > 0) {
+            if ($minutes > 0) {
+                $string .= "and ";
+            }
+            $string .= "$seconds seconds.";
+        }
+        
+        return $string;
     }
     
     private function handleArguments()
@@ -65,7 +94,7 @@ class Runner
                 case 'H':
                 case 'help':
                     Utils::help();
-                    break;
+                    exit;
                 case 'E':
                 case 'exclude':
                     $this->insertSpecification($value);
@@ -88,20 +117,22 @@ class Runner
     {
         $match = false;
         
+        $keys = (strpos($key, ',') !== false) ? explode(',', $key) : array($key);
+        $keysLower = array_map('strtolower', $keys);
+        
         foreach ($this->units as $unit) {
-            if (strcasecmp($unit, $key)) {
+            if (in_array(strtolower($unit), $keysLower)) {
                 if (true === $exclude) {
                     $this->excluded[] = $unit;
                 } else {
                     $this->included[] = $unit;
                 }
                 $match = true;
-                break;
             }
         }
-        
+ 
         if ($match !== true) {
-            throw new Exception(sprintf(
+            throw new SmokeException(sprintf(
                 'You cannot "%s" %s because it is not a defined test. Run the '
                     . '-a or --all option to see all available units.',
                 ($exclude === true) ? 'exclude' : 'include',
@@ -125,22 +156,88 @@ class Runner
     
     public function executeTemplate()
     {
+        $connection = $this->createConnection();
+        
         foreach ($this->included as $unit) {
             
-            $class = __NAMESPACE__ . 'Unit' . NAMESPACE_SEPARATOR . $unit;
+            $class = __NAMESPACE__ . '\\Unit\\' . $unit;
             
             if (!class_exists($class)) {
-                throw new Exception(sprintf('%s class does not exist', $class));
+                throw new SmokeException(sprintf(
+                    '%s class does not exist', $class
+                ));
             }
             
             if (!method_exists($class, 'factory')) {
-                throw new Exception(sprintf('Factory method does not exist in %s', $class));
+                throw new SmokeException(sprintf(
+                    'Factory method does not exist in %s', $class
+                ));
             }
             
-            Utils::logf('Executing %s unit');
+            Utils::logf(PHP_EOL . 'Executing %s', $class);
             
-            $class::factory();
+            $class::factory($connection, $this->included);
         }
     }
     
+    private function createConnection()
+    {
+        Utils::log('Authenticate'); 
+        
+        $secret = array(
+            'username' => Utils::getEnvVar(Enum::ENV_USERNAME), 
+            'apiKey'   => Utils::getEnvVar(Enum::ENV_API_KEY)
+        );
+
+        $identityEndpoint = Utils::getIdentityEndpoint();
+        
+        // Do connection stuff
+        $connection = new Rackspace($identityEndpoint, $secret);
+        $connection->appendUserAgent(Enum::USER_AGENT);
+
+        // See if we can retrieve credentials
+        $credentialsCacheFile = __DIR__ . '/Resource/' . Enum::CREDS_FILENAME;
+        
+        try {
+            $fp = fopen($credentialsCacheFile, 'r');
+        } catch (Exception $e) {}
+        
+        // Does the credentials file already exist?
+        if (!$fp || !($size = filesize($credentialsCacheFile))) {
+            
+            // If not, can we create a new one?            
+            if (!is_writable($credentialsCacheFile)
+                || false === ($fp = fopen($credentialsCacheFile, 'w'))
+            ) {
+                throw new SmokeException(sprintf(
+                    'Credentials file [%s] cannot be written to',
+                    $credentialsCacheFile
+                ));
+            }
+            
+            Utils::logf('   Saving credentials to %s', $credentialsCacheFile);
+ 
+            // Save credentials
+            fwrite($fp, serialize($connection->exportCredentials()));
+            
+        } else { 
+            
+            Utils::logf('   Loading credentials from %s', $credentialsCacheFile);
+            
+            // Read from file
+            $string = fread($fp, $size);
+            $connection->importCredentials(unserialize($string)); 
+        }
+        
+        fclose($fp);
+        
+        Utils::logf('   Using identity endpoint: %s', $identityEndpoint);
+        Utils::logf('   Using region: %s', Utils::getRegion());
+        
+        return $connection;
+    }
+        
 }
+
+require __DIR__ . '/../../../lib/php-opencloud.php';
+Runner::run();

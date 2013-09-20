@@ -257,6 +257,16 @@ class Collection extends Base
     {
         return (isset($this->itemList[$pointer])) ? $this->itemList[$pointer] : false;
     }
+
+    /**
+     * Add an item to this collection
+     *
+     * @param mixed $item
+     */
+    public function addItem($item)
+    {
+        $this->itemList[] = $item;
+    }
     
     /**
      * Returns the next item in the page

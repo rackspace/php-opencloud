@@ -43,7 +43,7 @@ class NovaTest extends PHPUnit_Framework_TestCase
 
     public function testFlavor()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Flavor', $this->nova->flavor());
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Flavor', $this->nova->flavor());
     }
 
     public function testFlavorList()

@@ -26,7 +26,7 @@ interface UnitInterface
     /**
      * Allows for the setting up of any required object variables.
      */
-    public function setup();
+    public function setupService();
     
     /**
      * Allows for the deletion of any persistent resources created during 

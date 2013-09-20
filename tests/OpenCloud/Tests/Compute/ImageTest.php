@@ -14,7 +14,7 @@ namespace OpenCloud\Tests\Compute;
 
 use OpenCloud\Tests\StubConnection;
 use PHPUnit_Framework_TestCase;
-use OpenCloud\Compute\Image;
+use OpenCloud\Compute\Resource\Image;
 use OpenCloud\Compute\Service;
 
 class ImageStub extends Image

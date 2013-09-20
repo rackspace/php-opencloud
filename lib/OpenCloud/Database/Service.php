@@ -71,7 +71,7 @@ class Service extends Nova
      */
     public function instance($id = null)
     {
-        return new Instance($this, $id);
+        return new Resource\Instance($this, $id);
     }
 
     /**
@@ -84,6 +84,6 @@ class Service extends Nova
      */
     public function instanceList($params = array())
     {
-        return $this->collection('OpenCloud\Database\Instance', null, null, $params);
+        return $this->collection('OpenCloud\Database\Resource\Instance', null, null, $params);
     }
 }

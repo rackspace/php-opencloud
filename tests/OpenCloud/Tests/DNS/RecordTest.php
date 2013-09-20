@@ -13,8 +13,8 @@
 namespace OpenCloud\Tests\DNS;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\DNS\Domain;
-use OpenCloud\DNS\Record;
+use OpenCloud\DNS\Resource\Domain;
+use OpenCloud\DNS\Resource\Record;
 use OpenCloud\DNS\Service;
 use OpenCloud\Tests\StubConnection;
 
@@ -43,7 +43,7 @@ class RecordTest extends PHPUnit_Framework_TestCase
             'data' => '1.2.3.4'
         ));
         $this->assertInstanceOf(
-            'OpenCloud\DNS\Record', 
+            'OpenCloud\DNS\Resource\Record', 
             $this->record
         );
     }
