@@ -447,6 +447,9 @@ EOT;
                     $resp->body = '{}';
                 }
 
+            } elseif(strpos($url, '/stacks/')) {
+                $resp->status = 200;
+                $resp->body = file_get_contents(__DIR__ . '/Orchestration/Response/GET/stack_with_name.json');
             } else {
                 $resp->status = 404;
             }
