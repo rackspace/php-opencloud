@@ -79,7 +79,11 @@ class Database extends PersistentObject
      */
     public function url($subresource = '', $params = array())
     {
-        return stripslashes($this->getParent()->url('databases')) . '/' . $this->getName();
+        $results = $this->getParent()->url('databases');
+        foreach($results as &$result) {
+            $result = stripslashes($result) . '/' . $this->getName();
+        }
+        return $results;
     }
 
     /**

@@ -110,7 +110,7 @@ class ServerMetadata extends Metadata
             //careful, you don't want to overwrite the existing this->_url field
             $urlArray = array();
             foreach($this->url as $url) {
-                $url .= '/' . $this->_key;
+                $url .= '/' . $this->key;
                 $urlArray[] = $url;
             }
             return $urlArray;
@@ -221,7 +221,7 @@ class ServerMetadata extends Metadata
         if ($this->key && $key != $this->key) {
             throw new Exceptions\MetadataKeyError(sprintf(
                 Lang::translate('You cannot set extra values on [%s]'),
-                $this->Url()
+                implode(", ", $this->Url())
             ));
         }
 

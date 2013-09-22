@@ -519,7 +519,7 @@ class OpenStack extends Base
      */
     public function setDefault($service, array $value = array())
     {
-        if (isset($value['name']) && isset($value['region']) && isset($value['urltype'])) {
+        if (isset($value['name']) && isset($value['regions']) && isset($value['urltype'])) {
             $this->defaults[$service] = $value;
         }
         
@@ -1180,7 +1180,7 @@ class OpenStack extends Base
      * @param string $urltype the URL type (normally "publicURL")
      * @return Compute
      */
-    public function compute($name = null, $regions = null, $urltype = null)
+    public function compute($name = null, $regions = array(), $urltype = null)
     {
         return $this->service('Compute', $name, $regions, $urltype);
     }
@@ -1226,22 +1226,22 @@ class OpenStack extends Base
      * @return Service (or subclass such as Compute, ObjectStore)
      * @throws ServiceValueError
      */
-    public function service($class, $name = null, $regions = null, $urltype = null)
+    public function service($class, $name = null, $regions = array(), $urltype = null)
     {
         // debug message
-        $this->getLogger()->info('Factory for class [{class}] [{name}/{region}/{urlType}]', array(
+        $this->getLogger()->info('Factory for class [{class}] [{name}/{regions}/{urlType}]', array(
             'class'   => $class, 
             'name'    => $name, 
-            'regions'  => $regions, 
+            'regions'  => implode(", ", $regions), 
             'urlType' => $urltype
         ));
-
+        
         // Strips off base namespace 
         $class = preg_replace('#\\\?OpenCloud\\\#', '', $class);
 
         // check for defaults
         $default = $this->getDefault($class);
-
+        
         // report errors
         if (!$name = $name ?: $default['name']) {
             throw new Exceptions\ServiceValueError(sprintf(
@@ -1267,7 +1267,7 @@ class OpenStack extends Base
 
         // return the object
         $fullclass = 'OpenCloud\\' . $class . '\\Service';
-
+        
         return new $fullclass($this, $name, $regions, $urltype);
     }
 

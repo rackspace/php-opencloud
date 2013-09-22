@@ -141,6 +141,8 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testCreateImage()
     {
         $resp = $this->server->createImage('EPIC-IMAGE', array('foo' => 'bar'));
+        printf("res\n");
+        printf("resp $resp \n");
         $this->assertFalse($resp);
     }
     

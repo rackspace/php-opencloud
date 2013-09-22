@@ -219,7 +219,7 @@ abstract class Service extends Base
             throw new Exceptions\CollectionError(sprintf(
                 Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
                 $class,
-                $urls,
+                implode(", ", $urls),
                 $response->httpStatus(),
                 $response->httpBody()
             ));
@@ -371,7 +371,7 @@ abstract class Service extends Base
                 'No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]',
                 $type,
                 $name,
-                $region,
+                implode(", ", $regions),
                 $urltype
             ));
         }
@@ -400,7 +400,7 @@ abstract class Service extends Base
 
         $urls = array();
         foreach($urlBase as $url) {
-            $urls[] = Lang::noslash($urls) . '/' . $resource;
+            $urls[] = Lang::noslash($url) . '/' . $resource;
         }
 
         $response = $this->request($urls);

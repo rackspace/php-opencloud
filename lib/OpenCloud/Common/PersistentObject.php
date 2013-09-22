@@ -573,7 +573,7 @@ abstract class PersistentObject extends Base
                 sprintf(Lang::translate('%s [%s] not found [%s]'),
                 get_class($this),
                 $this->$primaryKey,
-                $url
+                implode(", ", $url)
             ));
         }
 
@@ -591,7 +591,7 @@ abstract class PersistentObject extends Base
             throw new Exceptions\EmptyResponseError(
                 sprintf(Lang::translate('%s::Refresh() unexpected empty response, URL [%s]'),
                 get_class($this),
-                $url
+                implode(", ", $url)
             ));
         }
 
@@ -689,10 +689,10 @@ abstract class PersistentObject extends Base
 
         // get the URL for the POST message
         $url = $this->url('action');
-
+        
         // POST the message
         $response = $this->getService()->request($url, 'POST', array(), $json);
-
+        
         // @codeCoverageIgnoreStart
         if (!is_object($response)) {
             throw new Exceptions\HttpError(sprintf(
@@ -706,12 +706,11 @@ abstract class PersistentObject extends Base
             throw new Exceptions\ServerActionError(sprintf(
                 Lang::translate('%s::Action() [%s] failed; response [%s]'),
                 get_class($this),
-                $url,
+                implode(", ", $url),
                 $response->HttpBody()
             ));
         }
         // @codeCoverageIgnoreStart
-
         return $response;
     }
     

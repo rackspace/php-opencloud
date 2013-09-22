@@ -343,7 +343,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
      */
     public function testFailWithoutServiceName()
     {
-        $this->my->setDefault('NewService', array('region' => 'DFW', 'name' => '', 'urltype' => ''));
+        $this->my->setDefault('NewService', array('regions' => array('DFW'), 'name' => '', 'urltype' => ''));
         $this->my->service('NewService');
     }
     
@@ -352,7 +352,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
      */
     public function testFailWithoutServiceUrlType()
     {
-        $this->my->setDefault('NewService', array('region' => 'DFW', 'name' => '', 'urltype' => ''));
+        $this->my->setDefault('NewService', array('regions' => array('DFW'), 'name' => '', 'urltype' => ''));
         $this->my->service('NewService', 'name');
     }
 

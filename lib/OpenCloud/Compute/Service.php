@@ -84,7 +84,7 @@ class Service extends Nova
             if (substr($path, 0, 3) == '/v1') {
                 throw new Exceptions\UnsupportedVersionError(sprintf(
                     Lang::translate('Sorry; API version /v1 is not supported [%s]'), 
-                    $this->Url()
+                    implode(", ", $this->Url())
                 ));
             }
         }
