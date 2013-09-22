@@ -52,7 +52,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function testLoadBalancer()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\LoadBalancer', 
+            'OpenCloud\LoadBalancer\Resource\LoadBalancer', 
             $this->service->loadBalancer()
         );
     }
@@ -68,7 +68,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function testBillableLoadBalancer()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\BillableLoadBalancer', 
+            'OpenCloud\LoadBalancer\Resource\BillableLoadBalancer', 
             $this->service->billableLoadBalancer()
         );
     }
@@ -84,7 +84,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function testAllowedDomain()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\AllowedDomain', 
+            'OpenCloud\LoadBalancer\Resource\AllowedDomain', 
             $this->service->allowedDomain()
         );
     }
@@ -100,7 +100,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function testProtocol()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\Protocol', 
+            'OpenCloud\LoadBalancer\Resource\Protocol', 
             $this->service->protocol()
         );
     }
@@ -116,7 +116,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function testAlgorithm()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\Algorithm', 
+            'OpenCloud\LoadBalancer\Resource\Algorithm', 
             $this->service->algorithm()
         );
     }

@@ -62,7 +62,7 @@ class Service extends Nova
      */
     public function loadBalancer($id = null) 
     {
-        return new Resources\LoadBalancer($this, $id);
+        return new Resource\LoadBalancer($this, $id);
     }
 
     /**
@@ -77,7 +77,7 @@ class Service extends Nova
      */
     public function loadBalancerList($detail = true, $filter = array()) 
     {
-        return $this->collection('OpenCloud\LoadBalancer\Resources\LoadBalancer');
+        return $this->collection('OpenCloud\LoadBalancer\Resource\LoadBalancer');
     }
 
     /**
@@ -89,7 +89,7 @@ class Service extends Nova
      */
     public function billableLoadBalancer($id = null) 
     {
-        return new Resources\BillableLoadBalancer($this, $id);
+        return new Resource\BillableLoadBalancer($this, $id);
     }
 
     /**
@@ -104,7 +104,7 @@ class Service extends Nova
      */
     public function billableLoadBalancerList($detail = true, $filter = array()) 
     {
-        $class = 'OpenCloud\LoadBalancer\Resources\BillableLoadBalancer';
+        $class = 'OpenCloud\LoadBalancer\Resource\BillableLoadBalancer';
         $url = $this->url($class::ResourceName(), $filter);
         return $this->collection($class, $url);
     }
@@ -118,7 +118,7 @@ class Service extends Nova
      */
     public function allowedDomain($data = null) 
     {
-        return new Resources\AllowedDomain($this, $data);
+        return new Resource\AllowedDomain($this, $data);
     }
 
     /**
@@ -129,7 +129,7 @@ class Service extends Nova
      */
     public function allowedDomainList() 
     {
-        return $this->collection('OpenCloud\LoadBalancer\Resources\AllowedDomain', null, $this);
+        return $this->collection('OpenCloud\LoadBalancer\Resource\AllowedDomain', null, $this);
     }
 
     /**
@@ -141,7 +141,7 @@ class Service extends Nova
      */
     public function protocol($data = null) 
     {
-        return new Resources\Protocol($this, $data);
+        return new Resource\Protocol($this, $data);
     }
 
     /**
@@ -152,7 +152,7 @@ class Service extends Nova
      */
     public function protocolList() 
     {
-        return $this->collection('OpenCloud\LoadBalancer\Resources\Protocol', null, $this);
+        return $this->collection('OpenCloud\LoadBalancer\Resource\Protocol', null, $this);
     }
 
     /**
@@ -164,7 +164,7 @@ class Service extends Nova
      */
     public function algorithm($data = null) 
     {
-        return new Resources\Algorithm($this, $data);
+        return new Resource\Algorithm($this, $data);
     }
 
     /**
@@ -175,7 +175,7 @@ class Service extends Nova
      */
     public function algorithmList() 
     {
-        return $this->collection('OpenCloud\LoadBalancer\Resources\Algorithm', null, $this);
+        return $this->collection('OpenCloud\LoadBalancer\Resource\Algorithm', null, $this);
     }
 
 }
