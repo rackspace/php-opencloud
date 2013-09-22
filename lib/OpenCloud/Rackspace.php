@@ -102,7 +102,7 @@ EOF;
      * @param  string $urltype
      * @return OpenCloud\Queues\Service
      */
-    public function cloudMonitoring($name = null, $region = null, $urltype = null)
+    public function cloudMonitoring($name = null, $region = array(), $urltype = null)
     {
         return $this->Service('CloudMonitoring', $name, $region, $urltype);
     }

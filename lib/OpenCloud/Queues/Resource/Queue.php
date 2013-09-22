@@ -292,7 +292,11 @@ class Queue extends PersistentObject
         }
 
         if ($location = $response->header('Location')) {
-            return $this->getService()->resourceList('Message', $location, $this);
+            if(is_array($location)) {
+                return $this->getService()->resourceList('Message', $location, $this);
+            } else {
+                return $this->getService()->resourceList('Message', array($location), $this);
+            }
         }
         
         return true;

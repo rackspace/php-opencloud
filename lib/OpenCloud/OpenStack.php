@@ -848,7 +848,6 @@ class OpenStack extends Base
      */
     private function requestOne($url, $method = 'GET', $headers = array(), $data = null)
     {
-        error_log("dtm, you're requesting " . $url);
         $this->getLogger()->info('Resource [{url}] method [{method}] body [{body}]', array(
             'url'    => $url, 
             'method' => $method, 

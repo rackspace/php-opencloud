@@ -18,8 +18,9 @@ ENDRESPONSE
  */
 class StubService extends \OpenCloud\Common\Service {
 
-	public function Request( $url, $method='GET', array $headers=array(), $body=Null ) {
+	public function Request( $urls, $method='GET', array $headers=array(), $body=Null ) {
 		//return parent::Request( $url, $method, $headers, $body );
+            foreach($urls as $url) {
 		if (preg_match('/extensions$/', $url))
 			$body = file_get_contents(TESTDIR.'/extensions.json');
 		else if (preg_match('/limits$/', $url))
@@ -27,6 +28,7 @@ class StubService extends \OpenCloud\Common\Service {
 		else $body = SERVICE_RESPONSE;
 		return new \OpenCloud\Common\Request\Response\Blank(
 			array('body'=>$body));
+            }
 	}
 	public function Container() {
 		return new \OpenCloud\ObjectStore\Container($this);

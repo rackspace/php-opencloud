@@ -99,8 +99,10 @@ class Service extends AbstractService
     {
         foreach($url as &$oneUrl) {
             if (preg_match('#https?:#', $oneUrl) === 0) {
-                $serviceUrl = $this->findMatchingUrlRegionFromServiceUrls($oneUrl);
-                $oneUrl = $serviceUrl . preg_replace('#^/v\d(\.\d)?#', '', $oneUrl);
+                //$serviceUrl = $this->findMatchingUrlRegionFromServiceUrls($oneUrl);
+                foreach($this->service_urls as $serviceUrl) {
+                    $oneUrl = $serviceUrl . preg_replace('#^/v\d(\.\d)?#', '', $oneUrl);
+                }
             }
         }
         
