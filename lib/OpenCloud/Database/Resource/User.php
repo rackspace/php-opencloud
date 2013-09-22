@@ -91,7 +91,11 @@ class User extends PersistentObject
      */
     public function url($subresource = '', $params = array())
     {
-        return stripslashes($this->getParent()->url('users')) . '/' . $this->getName();
+        $urls = $this->getParent()->url('users');
+        foreach($urls as &$url) {
+            $url = stripslashes($url) . '/' . $this->getName();
+        }
+        return $urls;
     }
 
 	/**

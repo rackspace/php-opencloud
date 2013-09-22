@@ -159,13 +159,16 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 
     public function testTempUrl1()
     {
-        $this->assertEquals(
-            0, 
-            strpos(
-                'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT?temp_url_sig', 
-                $this->dataobject->TempUrl('secret', 60, 'GET')
-            )
-        );
+        $values = $this->dataobject->tempUrl('secret', 60, 'GET'); 
+        foreach($values as $value) {
+            $this->assertEquals(
+                0, 
+                strpos(
+                    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT?temp_url_sig', 
+                    $value
+                )
+            );
+        }
     }
 
     /**

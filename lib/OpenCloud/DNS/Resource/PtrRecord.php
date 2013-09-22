@@ -92,15 +92,19 @@ class PtrRecord extends Record
         $this->link_rel = $this->server->getService()->Name();
         $this->link_href = $this->server->Url();
         
-        $params = array('href' => $this->link_href);
-        if (!empty($this->data)) {
-            $params['ip'] = $this->data;
-        }
-        
-        $url = $this->url('rdns/' . $this->link_rel, $params);
+        $urls = array();
+        foreach($this->link_href as $link) {
+            $params = array('href' => $link);
+            if (!empty($this->data)) {
+                $params['ip'] = $this->data;
+            }
 
+            $urls[] = $this->url('rdns/' . $link, $params);
+        }
+        $return = array();
+        array_walk_recursive($urls, function($a) use (&$return) { $return[] = $a; });
         // perform the request
-        $response = $this->getService()->request($url, 'DELETE');
+        $response = $this->getService()->request($return, 'DELETE');
 
         // return the AsyncResponse object
         return new AsyncResponse($this->getService(), $response->httpBody());

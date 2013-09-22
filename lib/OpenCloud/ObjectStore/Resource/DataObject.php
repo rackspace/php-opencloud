@@ -560,26 +560,29 @@ class DataObject extends AbstractStorageObject
         }
 
         // construct the URL
-        $url  = $this->url();
-        $path = urldecode(parse_url($url, PHP_URL_PATH));
+        $urls  = $this->url();
+        $temp_urls = array();
+        foreach($urls as $url) {
+            $path = urldecode(parse_url($url, PHP_URL_PATH));
 
-        $hmac_body = "$method\n$expiry_time\n$path";
-        $hash = hash_hmac('sha1', $hmac_body, $secret);
+            $hmac_body = "$method\n$expiry_time\n$path";
+            $hash = hash_hmac('sha1', $hmac_body, $secret);
 
-        $this->getLogger()->info('URL [{url}]; SIG [{sig}]; HASH [{hash}]', array(
-            'url'  => $url, 
-            'sig'  => $hmac_body, 
-            'hash' => $hash
-        ));
+            $this->getLogger()->info('URL [{url}]; SIG [{sig}]; HASH [{hash}]', array(
+                'url'  => $url, 
+                'sig'  => $hmac_body, 
+                'hash' => $hash
+            ));
 
-        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
+            $temp_urls[] = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
 
-        // debug that stuff
-        $this->getLogger()->info('TempUrl generated [{url}]', array(
-            'url' => $temp_url
-        ));
+            // debug that stuff
+            $this->getLogger()->info('TempUrl generated [{url}]', array(
+                'url' => $temp_urls[count($temp_urls) - 1]
+            ));
+        }
 
-        return $temp_url;
+        return $temp_urls;
     }
 
     /**
@@ -718,7 +721,10 @@ class DataObject extends AbstractStorageObject
         }
         // @codeCoverageIgnoreEnd
 
-        $url = $cdn . '/' . $this->name;
+        $url = array();
+        foreach($cdn as $c) {
+            $url[] = $c . '/' . $this->name;
+        }
         $headers['X-Purge-Email'] = $email;
         $response = $this->getService()->request($url, 'DELETE', $headers);
 

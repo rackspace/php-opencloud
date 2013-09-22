@@ -84,11 +84,16 @@ class Metric extends ReadOnlyResource implements ResourceInterface
 			));
 		}
 
-		$url .= "?to={$parts['to']}";
+                foreach($url as &$u) {
+                    $u .= "?to={$parts['to']}";
+                }
+		
 		unset($parts['to']);
-		foreach ($parts as $type => $val) {
-			$url .= "&$type=$val";
-		}
+                foreach($url as &$u) {
+                    foreach ($parts as $type => $val) {
+                            $u .= "&$type=$val";
+                    }
+                }
 
 		return $this->getService()->collection(get_class(), $url);
 	}
