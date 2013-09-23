@@ -13,7 +13,6 @@ namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\Smoke\Enum;
 use OpenCloud\Smoke\Utils;
-use OpenCloud\Smoke\Step;
 use OpenCloud\Common\Exceptions\InstanceNotFound;
 
 /**
