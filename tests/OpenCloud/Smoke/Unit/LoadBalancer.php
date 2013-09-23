@@ -13,8 +13,8 @@ namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\Smoke\Enum;
 use OpenCloud\Smoke\Utils;
-use OpenCloud\Smoke\Step;
 use OpenCloud\Common\Exceptions\InstanceNotFound;
+use OpenCloud\Common\Exceptions\DeleteError;
 
 /**
  * Description of LoadBalancer
@@ -189,7 +189,9 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         $loadBalancers = $this->getService()->loadBalancerList();
         while ($loadBalancer = $loadBalancers->next()) {
             if ($this->shouldDelete($loadBalancer->name())) {
-                $loadBalancer->delete();
+                try {
+                    $loadBalancer->delete();
+                } catch (DeleteError $e) {}
             }
         }
     }

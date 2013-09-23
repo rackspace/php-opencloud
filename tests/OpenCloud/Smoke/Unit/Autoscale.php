@@ -22,7 +22,7 @@ class Autoscale extends AbstractUnit implements UnitInterface
     /**
      * {@inheritDoc}
      */
-    public function setup()
+    public function setupService()
     {
         
     }

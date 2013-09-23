@@ -505,14 +505,16 @@ class LoadBalancer extends PersistentObject
         $elem = $this->JsonName();
         $object->$elem = new \stdClass();
 
+        $nodeKeys = $this->node()->createKeys;
+        
         // set the properties
         foreach ($this->createKeys as $key) {
             if ($key == 'nodes') {
                 foreach ($this->$key as $node) {
                     $nodeObject = new \stdClass();
-                    foreach ($node as $nodeKey => $nodeValue) {
-                        if ($nodeValue !== null) {
-                            $nodeObject->$nodeKey = $nodeValue;
+                    foreach ($nodeKeys as $nodeKey) {
+                        if (!empty($node->$nodeKey)) {
+                            $nodeObject->$nodeKey = $node->$nodeKey;
                         }
                     }
                     $object->$elem->nodes[] = $nodeObject;

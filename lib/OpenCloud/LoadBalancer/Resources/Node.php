@@ -104,7 +104,7 @@ class Node extends PersistentObject
     protected static $json_collection_name = 'nodes';
     protected static $url_resource = 'nodes';
     
-    private $createKeys = array(
+    public $createKeys = array(
         'address',
         'port',
         'condition',

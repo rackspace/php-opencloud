@@ -60,10 +60,13 @@ abstract class AbstractUnit
     {
         $unit = new static();
         
-        // Unit-specific implementations
         $unit->setConnection($connection)
-            ->setService($unit->setupService())
             ->setIncludedUnits($includedUnits);
+        
+        if (!$service = $unit->setupService()) {
+            return false;
+        }
+        $unit->setService($service);
         
         // Run execution...
         $unit->main();
