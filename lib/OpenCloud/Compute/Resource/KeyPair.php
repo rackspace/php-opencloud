@@ -13,6 +13,7 @@ namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Compute\Exception\KeyPairException;
+use OpenCloud\Common\Exceptions\InvalidArgumentError;
 
 /**
  * Description of KeyPair
@@ -22,11 +23,11 @@ use OpenCloud\Compute\Exception\KeyPairException;
 class KeyPair extends PersistentObject
 {
     
-    protected $name;
-    protected $fingerprint;
-    protected $privateKey;
-    protected $publicKey;
-    protected $userId;
+    private $name;
+    private $fingerprint;
+    private $privateKey;
+    private $publicKey;
+    private $userId;
     
     public $aliases = array(
         'private_key' => 'privateKey',
@@ -36,6 +37,26 @@ class KeyPair extends PersistentObject
     
     protected static $url_resource = 'os-keypairs';
     protected static $json_name    = 'keypair';
+    protected static $json_collection_element = 'keypair';
+    
+    public function setName($name)
+    {
+        if (preg_match('#[^\w\d\s-_]#', $name) || strlen($name) > 255) {
+            throw new InvalidArgumentError(sprintf(
+                'The key name may not exceed 255 characters. It can contain the'
+                . ' following characters: alphanumeric, spaces, dashes and'
+                . ' underscores. You provided [%s].',
+                $name
+            ));
+        }
+        $this->name = $name;
+        return $this;
+    }
+    
+    public function getName()
+    {
+        return $this->name;
+    }
     
     /**
      * {@inheritDoc}
@@ -48,7 +69,7 @@ class KeyPair extends PersistentObject
         if (null !== ($key = $this->getPublicKey())) {
             $object->public_key = $key; 
         }
-        return $object;
+        return (object) array('keypair' => $object);
     }
     
     /**
@@ -57,7 +78,7 @@ class KeyPair extends PersistentObject
     public function create($params = array())
     {
         $this->setPublicKey(null);
-        return parent::create();
+        return parent::create($params);
     }
     
     /**

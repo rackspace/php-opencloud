@@ -80,7 +80,37 @@ class ServerTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($resp->HttpStatus());
         $this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
     }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
+     */
+    public function test_Create_Fails_Without_KeyPair_Name()
+    {
+        $this->server->create(array(
+            'keypair' => array('name' => null)
+        ));
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
+     */
+    public function test_Create_Fails_Without_KeyPair_PublicKey()
+    {
+        $this->server->create(array(
+            'keypair' => array('name' => 'foo')
+        ));
+    }
 
+    public function test_Create_With_KeyPair()
+    {
+        $this->server->create(array(
+            'keypair' => array(
+                'name'      => 'foo',
+                'publicKey' => 'bar'
+            )
+        ));
+    }
+    
     /**
      * @expectedException OpenCloud\Common\Exceptions\RebuildError
      */

@@ -264,7 +264,7 @@ abstract class Service extends Base
                 }
             }
         }
-        
+
         $collectionObject = new Collection($parent, $class, $data);
         
         // if there's a $nextPageUrl, then we need to establish a callback

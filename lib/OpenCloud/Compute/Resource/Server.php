@@ -159,6 +159,8 @@ class Server extends PersistentObject
     protected static $json_name = 'server';
     protected static $url_resource = 'servers';
     
+    public $keypair;
+    
     /**
      * @var array Uploaded file attachments
      */
@@ -696,6 +698,26 @@ class Server extends PersistentObject
                     'contents' => $data
                 );
             }
+        }
+        
+        // Keypairs
+        if (!empty($this->keypair)) {
+            if (empty($this->keypair['name'])) {
+                throw new Exceptions\InvalidParameterError(sprintf(
+                    'If you want to specify a keypair, you need to specify the'
+                        . " keypair's name"
+                ));
+            }
+            if (empty($this->keypair['publicKey'])) {
+                throw new Exceptions\InvalidParameterError(sprintf(
+                    'If you want to specify a keypair, you need to specify the'
+                        . " keypair's publicKey value."
+                ));
+            }
+            $server->keypair = (object) array(
+                'name'       => $this->keypair['name'],
+                'public_key' => $this->keypair['publicKey']
+            );
         }
         
         return (object) array('server' => $server);
