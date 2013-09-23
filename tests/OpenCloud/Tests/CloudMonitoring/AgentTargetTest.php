@@ -56,7 +56,8 @@ class AgentTargetTest extends PHPUnit_Framework_TestCase
     public function testCollectionContent()
     {
         $this->resource->setType('agent.filesystem');
-
+        $this->assertEquals('agent.filesystem', $this->resource->getType());
+        
         $targetArray = $this->resource->listAll();
 
         $this->assertContains('/', $targetArray);
@@ -72,13 +73,4 @@ class AgentTargetTest extends PHPUnit_Framework_TestCase
         $this->resource->setType('foobar');
     }
     
-    /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
-     */
-    public function testListAllWithNoTypeFails()
-    {
-        $this->resource->setType(null);
-        $this->resource->listAll();
-    }
-
 }

@@ -9,7 +9,7 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class Changelog extends ReadOnlyResource
 {
-
+    private $id;
     private $timestamp;
     private $entity_id;
     private $alarm_id;

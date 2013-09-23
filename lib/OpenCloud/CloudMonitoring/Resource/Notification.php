@@ -9,7 +9,7 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class Notification extends AbstractResource implements ResourceInterface
 {
-    
+    private $id;
     private $label;
     private $type;
     private $details;

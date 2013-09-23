@@ -29,7 +29,7 @@ class ServerMetadata extends Metadata
 {
 
     private $parent;   // the parent object
-    private $key;      // the metadata item (if supplied)
+    protected $key;      // the metadata item (if supplied)
     private $url;      // the URL of this particular metadata item or block
 
     /**
@@ -76,20 +76,11 @@ class ServerMetadata extends Metadata
             $this->checkJsonError();
 
             if (isset($object->metadata)) {
-                $this->populate($object->metadata);
+                foreach ($object->metadata as $key => $value) {
+                    $this->$key = $value;
+                }
             }
         }
-    }
-
-    public function setParent(Server $parent)
-    {
-        $this->parent = $parent;
-        return $this;
-    }
-    
-    public function getParent()
-    {
-        return $this->parent;
     }
     
     /**
@@ -200,15 +191,6 @@ class ServerMetadata extends Metadata
         // @codeCoverageIgnoreEnd
     }
 
-    /**
-     * Overrides the base setter method, since the metadata key can be
-     * anything (no name-checking is required)
-     *
-     * @param string $key
-     * @param string $value
-     * @return void
-     * @throws MetadataKeyError
-     */
     public function __set($key, $value)
     {
         // if a key was supplied when creating the object, then we can't set
@@ -223,9 +205,7 @@ class ServerMetadata extends Metadata
         // otherwise, just set it;
         parent::__set($key, $value);
     }
-
-    /********** PRIVATE METHODS **********/
-
+    
     /**
      * Builds a metadata JSON string
      *

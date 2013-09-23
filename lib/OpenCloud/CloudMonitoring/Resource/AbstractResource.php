@@ -3,9 +3,7 @@
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\CloudMonitoring\Exception;
 
 /**
  * Abstract AbstractResource class.
@@ -141,11 +139,6 @@ abstract class AbstractResource extends PersistentObject
         $this->checkJsonError();
 
         return $this->customAction($this->testUrl($debug), 'POST', $json);
-    }
-    
-    public function baseUrl()
-    {
-        return $this->getParent()->url($this->resourceName());
     }
    
 }

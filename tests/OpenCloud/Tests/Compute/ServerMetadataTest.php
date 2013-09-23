@@ -43,6 +43,7 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
         // test whole group
         $metadata = $this->server->metadata();
         $this->assertEquals('bar', $metadata->foo);
+
         // now test individual property
         $met = $this->server->metadata('foobar');
         $met->foobar = 'BAZ';

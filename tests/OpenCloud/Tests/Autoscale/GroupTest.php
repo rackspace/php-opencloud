@@ -90,22 +90,6 @@ class GroupTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\JsonError
-     */
-    public function testCreateFailsWithIncorrectJsonString()
-    {
-        $this->service->group()->create('somethingIncorrect');
-    }
-    
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
-     */
-    public function testCreateFailsWithIncorrectParams()
-    {
-        $this->service->group()->create(false);
-    }
-    
-    /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
     public function testUpdateAlwaysFails()

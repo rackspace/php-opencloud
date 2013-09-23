@@ -54,7 +54,7 @@ abstract class Base
             return $this->setProperty($property, $args[0]);
         }
     }
-    
+        
     /**
      * Set value in data array.
      * 
@@ -64,11 +64,18 @@ abstract class Base
      * @return void
      */
     protected function setProperty($property, $value)
-    {
-        // We can set a property under two conditions:
-        // 1. If has already been defined
-        // 2. If the property name's prefix is in an approved list
-        if (false !== ($propertyVal = $this->propertyExists($property))) { 
+    { 
+        // We can set a property under three conditions:
+        // 1. If it has a concret setter: setProperty()
+        // 2. If has already been defined
+        // 3. If the property name's prefix is in an approved list
+
+        $setter = 'set' . $this->toCamel($property);
+        if (method_exists($this, $setter)) {
+            
+            return call_user_func(array($this, $setter), $value);
+            
+        } elseif (false !== ($propertyVal = $this->propertyExists($property))) { 
             
             // Are we setting a public or private property?
             if ($this->isAccessible($propertyVal)) {
@@ -95,14 +102,31 @@ abstract class Base
         if (!property_exists($this, $property) && !$this->checkAttributePrefix($property)) {
             // Convert to under_score and retry
             if ($allowRetry) {
-                $retry = strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $property));
-                return $this->propertyExists($retry, false);
+                return $this->propertyExists($this->toUnderscores($property), false);
             } else {
                 $property = false;
             }
         }
 
         return $property;
+    }
+    
+    function toCamel($string, $capitalise = true) 
+    {
+        if ($capitalise) {
+          $string[0] = strtoupper($string[0]);
+        }
+        return preg_replace_callback('/_([a-z])/', function($char) {
+            return strtoupper($char[1]);
+        }, $string);
+    }
+    
+    function toUnderscores($string) 
+    {
+        $string[0] = strtolower($string[0]);
+        return preg_replace_callback('/([A-Z])/', function($char) {
+            return "_" . strtolower($char[1]);
+        }, $string);
     }
     
     private function isAccessible($property)
@@ -140,6 +164,8 @@ abstract class Base
     {
         if (array_key_exists($property, $this->properties)) {
             return $this->properties[$property];
+        } elseif (array_key_exists($this->toUnderscores($property), $this->properties)) {
+            return $this->properties[$this->toUnderscores($property)];  
         } elseif (false !== ($propertyVal = $this->propertyExists($property))) {
             $method = 'get' . ucfirst($property);
             if ($this->isAccessible($propertyVal)) {
@@ -197,7 +223,6 @@ abstract class Base
      */
     public function populate($info, $setObjects = true)
     {
-
         if (is_string($info) || is_integer($info)) {
             
             $this->setProperty($this->primaryKeyField(), $info);
@@ -205,14 +230,14 @@ abstract class Base
             
         } elseif (is_object($info) || is_array($info)) {
 
-            foreach($info as $key => $value) {
+            foreach ($info as $key => $value) {
                 
                 if ($key == 'metadata' || $key == 'meta') {
                     
                     // Try retrieving existing value
                     if (null === ($metadata = $this->getProperty($key))) {
                         // If none exists, create new object
-                        $metadata = new Metadata; 
+                        $metadata = new Metadata;
                     }
                     
                     // Set values for metadata
@@ -229,7 +254,7 @@ abstract class Base
                         $resource->setParent($this);
                         $this->setProperty($key, $resource);
                     } catch (Exception\ServiceException $e) {}
-                    
+   
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
                     
                     // Associated collection
@@ -354,25 +379,4 @@ abstract class Base
         }
     }
     
-    /**
-     * Retrieve property from array/object.
-     * 
-     * @access public
-     * @param mixed $haystack
-     * @param mixed $needle
-     * @return void
-     */
-    public function getKeyFromHaystack($haystack, $needle)
-    {
-        if (is_object($haystack) && isset($haystack->$needle)) {
-            return $haystack->$needle;
-        }
-
-        if (is_array($haystack) && isset($haystack[$needle])) {
-            return $haystack[$needle];
-        }
-
-        return false;
-    }
-
 }

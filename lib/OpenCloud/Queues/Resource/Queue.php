@@ -25,6 +25,7 @@ use OpenCloud\Common\Collection;
  */
 class Queue extends PersistentObject
 {
+    private $id;
     
     /**
      * The name given to the queue. The name MUST NOT exceed 64 bytes in length, 
@@ -39,7 +40,7 @@ class Queue extends PersistentObject
      * 
      * @var array|Metadata 
      */
-    private $metadata;
+    protected $metadata;
     
     /**
      * Populated when the service's listQueues() method is called. Provides a 
@@ -63,7 +64,7 @@ class Queue extends PersistentObject
                 print_r($name, true)
             ));
         }
-            
+
         $this->name = $name;
         return $this;
     }

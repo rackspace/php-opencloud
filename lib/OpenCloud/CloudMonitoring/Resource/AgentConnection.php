@@ -12,7 +12,7 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class AgentConnection extends ReadOnlyResource implements ResourceInterface
 {
-
+    private $id;
     private $guid;
     private $agent_id;
     private $endpoint;
@@ -24,11 +24,4 @@ class AgentConnection extends ReadOnlyResource implements ResourceInterface
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'agents';
     
-    /**
-     * @codeCoverageIgnore
-     */
-    public function baseUrl()
-    {
-    }
-
 }

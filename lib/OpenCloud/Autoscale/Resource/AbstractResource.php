@@ -73,14 +73,14 @@ abstract class AbstractResource extends PersistentObject
         $object = new \stdClass;
 
         foreach ($this->createKeys as $key) {
-            if (!empty($this->$key)) {
-                $object->$key = $this->$key;
+            if ($value = $this->getProperty($key)) {
+                $object->$key = $value;
             }
         }
         
         if (!empty($this->metadata)) {
             $object->metadata = new \stdClass;
-            foreach ($this->metadata as $key => $value) {
+            foreach ($this->getMetadata()->toArray() as $key => $value) {
                 $object->metadata->$key = $value;
             }
         }

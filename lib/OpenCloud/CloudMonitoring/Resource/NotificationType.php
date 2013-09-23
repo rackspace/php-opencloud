@@ -18,9 +18,4 @@ class NotificationType extends ReadOnlyResource implements ResourceInterface
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'notification_types';
     
-    public function baseUrl()
-    {
-        return $this->getService()->url($this->resourceName());
-    }
-
 }

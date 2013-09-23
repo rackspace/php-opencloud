@@ -14,7 +14,7 @@ class Check extends AbstractResource implements ResourceInterface
 	private $details;
 	private $disabled;
 	private $label;
-	private $metadata;
+	protected $metadata;
 	private $period;
 	private $timeout;
 	private $monitoring_zones_poll;
@@ -47,11 +47,6 @@ class Check extends AbstractResource implements ResourceInterface
     protected $associatedResources = array(
         'CheckType' => 'CheckType'
     );
-
-    public function baseUrl($subresource = '')
-    {
-        return $this->getParent()->Url() . '/' . $this->getParent()->getId() . '/'. $this->resourceName();
-    }
 
     public function createUrl()
     {

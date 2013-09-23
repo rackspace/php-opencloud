@@ -32,11 +32,6 @@ class AgentHost extends ReadOnlyResource implements ResourceInterface
         'who'
     );
 
-    public function baseUrl()
-    {
-        return $this->getParent()->url($this->getParent()->getId() . '/' . $this->resourceName());
-    }
-
     public function info($type)
     {
         if (!in_array($type, $this->allowedTypes)) {

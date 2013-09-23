@@ -22,7 +22,7 @@ class Metadata extends Base
 {
 
     // array holding the names of keys that were set
-    private $metaProperties = array();    
+    protected $metaProperties = array();    
 
     /**
      * This setter overrides the base one, since the metadata key can be
@@ -43,6 +43,11 @@ class Metadata extends Base
         if (array_key_exists($key, $this->metaProperties)) {
             return $this->metaProperties[$key];
         }
+    }
+    
+    public function __isset($property)
+    {
+        return array_key_exists($property, $this->metaProperties);
     }
     
     /**
@@ -79,6 +84,11 @@ class Metadata extends Base
             } 
             $this->metaProperties[$key] = $value;
         }
+    }
+    
+    public function toArray()
+    {
+        return $this->metaProperties;
     }
 
 }

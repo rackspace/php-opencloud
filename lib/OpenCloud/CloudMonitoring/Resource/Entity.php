@@ -14,7 +14,7 @@ class Entity extends AbstractResource
 	private $label;
 	private $agent_id;
 	private $ip_addresses;
-	private $metadata;
+	protected $metadata;
 
     protected static $json_name = false;
     protected static $url_resource = 'entities';

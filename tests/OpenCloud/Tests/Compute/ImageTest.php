@@ -47,7 +47,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     {
         $image = new Image($this->compute);
         $this->assertEquals(null, $image->status);
-        $this->assertEquals('OpenCloud\Common\Metadata', get_class($image->metadata));
+        $this->assertEquals('OpenCloud\Common\Metadata', get_class($image->getMetadata()));
     }
 
     /**

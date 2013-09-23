@@ -13,7 +13,7 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class AgentToken extends AbstractResource implements ResourceInterface
 {
-    
+    private $id;
     private $token;
     private $label;
     

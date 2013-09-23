@@ -256,11 +256,9 @@ class Container extends CDNContainer
 			return $this->metadata;
         }
         // @codeCoverageIgnoreEnd
-        
+
         // return NULL if the CDN container is not enabled
-        if (!isset($this->getCDN()->metadata->Enabled) 
-            || $this->getCDN()->metadata->Enabled == 'False'
-        ) {
+        if ($this->getCDN()->metadata->Enabled != 'True') {
             return null;
         }
 

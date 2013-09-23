@@ -189,7 +189,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testCDNinfo()
 	{
-	    $this->assertInstanceOf(
+        $this->assertInstanceOf(
             'OpenCloud\Common\Metadata',
             $this->getContainer()->CDNinfo()
         );

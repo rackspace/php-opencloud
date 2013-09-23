@@ -2,8 +2,6 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
-use OpenCloud\CloudMonitoring\Exception;
-
 /**
  * NotificationHistory class.
  * 
@@ -12,6 +10,7 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 {
+    private $id;
     private $timestamp;
     private $notification_plan_id;
     private $transaction_id;
@@ -23,11 +22,6 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'notification_history';
-
-    public function baseUrl()
-    {
-        return $this->getParent()->url($this->getParent()->getId()) . '/notification_history';
-    }
 
     public function listChecks()
     {
@@ -46,9 +40,7 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
         
         if ($json = $response->httpBody()) {
             $object = json_decode($json);
-            foreach ($object as $key => $val) {
-                $this->$key = $val;
-            }
+            $this->populate($object);
         }
         
         return false;

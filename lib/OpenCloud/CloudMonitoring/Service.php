@@ -62,15 +62,4 @@ class Service extends AbstractService
         );
     }
 
-    /**
-     * getResources function.
-     * 
-     * @access public
-     * @return void
-     */
-    public function getResources()
-    {
-        return $this->resources;
-    }
-
 }

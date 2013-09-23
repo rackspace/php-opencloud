@@ -62,7 +62,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     * @expectedException OpenCloud\Queues\Exception\QueueException
      */
     public function test_Create_Fails_With_Incorrect_Name()
     {

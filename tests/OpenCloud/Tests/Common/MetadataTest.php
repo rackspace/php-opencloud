@@ -32,12 +32,6 @@ class MetadataTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('bar', $this->metadata->foo);
     }
 
-    public function testKeylist()
-    {
-        $this->metadata->foo = 'bar';
-        $this->assertTrue(in_array('foo', $this->metadata->Keylist()));
-    }
-
     public function testSetArray()
     {
         $this->metadata->setArray(array('opt' => 'uno', 'foobar' => 'baz'));

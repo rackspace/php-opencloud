@@ -111,6 +111,7 @@ class Logger extends AbstractLogger
         foreach ($options as $key => $value) {
             $this->setOption($key, $value);
         }
+        return $this;
     }
     
     /**
@@ -133,6 +134,7 @@ class Logger extends AbstractLogger
     {
         if ($this->optionExists($key)) {
             $this->options[$key] = $value;
+            return $this;
         }
     }
     
@@ -212,7 +214,7 @@ class Logger extends AbstractLogger
             // Output to file
             file_put_contents($file, $this->formatFileLine($output), FILE_APPEND);
         } else {
-            
+
             echo $output;
         }
     }

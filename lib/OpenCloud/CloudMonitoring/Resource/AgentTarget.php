@@ -19,7 +19,7 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
     protected static $json_collection_name = 'targets';
     protected static $url_resource = 'targets';
 
-    private $allowedTypes = array(
+    protected $allowedTypes = array(
         'agent.filesystem',
         'agent.memory',
         'agent.load_average',
@@ -46,15 +46,14 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
 
         $this->type = $type;
     }
+    
+    public function getType()
+    {
+        return $this->type;
+    }
 
     public function listAll()
     {
-        if (!$this->type) {
-            throw new Exception\AgentException(sprintf(
-                'Please specify a target type'
-            ));
-        }
-
         $response = $this->getService()->request($this->url());
         $object = json_decode($response->httpBody());
 

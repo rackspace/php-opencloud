@@ -26,6 +26,10 @@ class MyBase extends Base
     
     protected $bar;
     
+    private $baz;
+    
+    private $metadata;
+    
     public function setBar($bar)
     {
         $this->bar = $bar . '!!!';
@@ -64,6 +68,24 @@ class BaseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Lang::translate('Hello'), 'Hello');
     }
 
+    public function test_Incorrect_Method()
+    {
+        $this->assertNull($this->my->fooBarMethod());
+    }
+    
+    public function test_Setting_NonExistent_Property()
+    {
+        $object = $this->my;
+        
+        $object->getLogger()
+            ->setOption('outputToFile', false)
+            ->setEnabled(true);
+        
+        $object->setGhost('foobar');
+        
+        $this->expectOutputRegex('#property has not been defined.#');
+    }
+    
     public function test_noslash()
     {
         $this->assertEquals(Lang::noslash('String/'), 'String');
@@ -77,6 +99,19 @@ class BaseTest extends PHPUnit_Framework_TestCase
         
         $logger->info("HELLO, WORLD!");
         $this->expectOutputRegex('/ELLO/');
+    }
+    
+    public function test_Metadata_Populate()
+    {
+        $object = $this->my;
+        $data = (object) array(
+            'metadata' => array(
+                'foo' => 'bar'
+            )
+        );
+        $object->populate($data);
+        
+        $this->assertInstanceOf('OpenCloud\Common\Metadata', $object->getMetadata());
     }
 
     /**
@@ -120,8 +155,11 @@ class BaseTest extends PHPUnit_Framework_TestCase
 
     public function testSetProperty()
     {
-        $this->my->setProperty('bar', 'hello');
+        $this->my->setBar('hello');
         $this->assertEquals('hello!!!', $this->my->getBar());
+        
+        $this->my->setBaz('goodbye');
+        $this->assertEquals('goodbye', $this->my->getBaz());
     }
 
 }

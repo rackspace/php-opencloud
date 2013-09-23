@@ -4,6 +4,7 @@ namespace OpenCloud\CloudMonitoring\Resource;
 
 class NotificationPlan extends AbstractResource implements ResourceInterface
 {
+    private $id;
 	private $label;
 	private $critical_state;
 	private $ok_state;

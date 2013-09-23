@@ -48,12 +48,6 @@ class FlavorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('NEW', $this->resource->id);
     }
 
-    public function test__set2()
-    {
-        $this->resource->foo = 'BAR';
-        $this->assertNull($this->resource->foo);
-    }
-
     public function testService()
     {
         $this->assertInstanceOf(

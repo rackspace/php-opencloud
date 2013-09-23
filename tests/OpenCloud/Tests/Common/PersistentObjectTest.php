@@ -160,12 +160,6 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
         $server->status = 'FOOBAR';
     }
     
-//    public function testWaitForSleep()
-//    {
-//        $this->instance->id = 11;
-//        $this->instance->waitFor('BAZ', 2, array($this, 'waitForCallBack'), 1);
-//    }
-
     /**
      * @expectedException \OpenCloud\Common\Exceptions\CreateError
      */
@@ -180,14 +174,6 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     public function testUpdate()
     {
         $this->instance->Update();
-    }
-
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\UrlError
-     */
-    public function testDelete()
-    {
-        $this->instance->delete();
     }
 
     public function testName()
@@ -288,8 +274,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals('DFW', $this->instance->Region());
     }
-    
-    
+        
     /**
      * @expectedException OpenCloud\Common\Exceptions\ServiceValueError
      */
@@ -313,7 +298,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testGetNameFailsWhenNoName()
     {
-        $object = new NamelessObject;
+        $object = new NamelessObject($this->service);
         $object->name();
     }
 
@@ -352,7 +337,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testJsonNameFailsIfNotSet()
     {
-        $server = new NamelessObject;
+        $server = new NamelessObject($this->service);
         $server->jsonName();
     }
     
@@ -361,7 +346,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testResourceNameFailsIfNotSet()
     {
-        $server = new NamelessObject;
+        $server = new NamelessObject($this->service);
         $server->resourceName();
     }
     

@@ -69,8 +69,8 @@ abstract class PersistentObject extends Base
 {
       
     private $service;
-    
     private $parent;
+    protected $metadata;
 
     /**
      * Retrieves the instance from persistent storage
@@ -84,6 +84,8 @@ abstract class PersistentObject extends Base
             $this->setService($service);
         }
         
+        $this->metadata = new Metadata;
+
         $this->populate($info);
     }
             
@@ -156,6 +158,18 @@ abstract class PersistentObject extends Base
     public function parent()
     {
         return $this->getParent();
+    }
+    
+    public function setMetadata($metadata)
+    {
+        $this->metadata = $metadata;
+        
+        return $this;
+    }
+    
+    public function getMetadata()
+    {
+        return $this->metadata;
     }
     
     /**
@@ -388,29 +402,26 @@ abstract class PersistentObject extends Base
      * @param string $subresource optional sub-resource string
      * @param array $qstr optional k/v pairs for query strings
      * @return string
-     * @throws UrlError if URL is not defined
      */
     public function url($subresource = null, $queryString = array())
     {
+        // Check link first
         if (!$url = $this->findLink('self')) {
+            
+            // ...otherwise construct a URL from parent and this resource's
+            // "URL name". If no name is set, resourceName() throws an error.
             $url = Lang::noslash($this->getParent()->url($this->resourceName()));
+            
+            // Does it have a primary key?
             if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {
                 $url .= '/' . $primaryKey;
             }
         }
-
-        // add the subresource
-        if (!$url) {
-            throw new Exceptions\UrlError(sprintf(
-                Lang::translate('%s does not have a URL yet'), 
-                get_class($this)
-            ));
-        }
         
+        // Append subresource and query
         if ($subresource) {
             $url .= '/' . $subresource;
         }
-        
         if (count($queryString)) {
             $url .= '?' . $this->makeQueryString($queryString);
         }

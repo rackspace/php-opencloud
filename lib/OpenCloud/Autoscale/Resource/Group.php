@@ -38,7 +38,7 @@ class Group extends AbstractResource
     private $launchConfiguration;
     private $scalingPolicies;
     private $name;
-    private $metadata;
+    protected $metadata;
     
     private $active;
     private $activeCapacity;
@@ -106,8 +106,8 @@ class Group extends AbstractResource
      */
     public function getGroupConfig()
     {
-        if ($this->groupConfiguration instanceof GroupConfiguration) {
-            return $this->groupConfiguration;
+        if (($config = $this->getProperty('groupConfiguration')) instanceof GroupConfiguration) {
+            return $config;
         }
         
         $config = $this->getService()->resource('GroupConfiguration');
@@ -125,8 +125,8 @@ class Group extends AbstractResource
      */
     public function getLaunchConfig()
     {
-        if ($this->launchConfiguration instanceof LaunchConfiguration) {
-            return $this->launchConfiguration;
+        if (($config = $this->getProperty('launchConfiguration')) instanceof LaunchConfiguration) {
+            return $config;
         }
         
         $config = $this->getService()->resource('LaunchConfiguration');

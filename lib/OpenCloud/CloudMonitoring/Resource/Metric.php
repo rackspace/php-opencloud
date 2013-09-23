@@ -24,11 +24,6 @@ class Metric extends ReadOnlyResource implements ResourceInterface
     	'select'
     );
 
-    public function baseUrl()
-    {
-    	return $this->getParent()->url($this->getParent()->getId() . '/'. $this->resourceName());
-    }
-
 	public function fetchDataPoints($metricName, array $options = array())
 	{
 		$url = $this->url($metricName . '/plot');

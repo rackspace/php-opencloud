@@ -32,7 +32,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('OpenCloud\Common\Collection', $queues);
 
         $first = $queues->first();
-        
+
         $this->assertEquals(
             '036b184b28fcb548349af623079119c6a966cbc',
             $first->getName()

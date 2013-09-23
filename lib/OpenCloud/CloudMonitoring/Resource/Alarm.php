@@ -18,7 +18,7 @@ class Alarm extends AbstractResource implements ResourceInterface
 	private $criteria;
 	private $disabled;
 	private $label;
-	private $metadata;
+	protected $metadata;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';

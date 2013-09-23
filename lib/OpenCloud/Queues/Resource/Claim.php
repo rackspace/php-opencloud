@@ -76,8 +76,17 @@ class Claim extends PersistentObject
         $paths = explode('/', $href);
         $this->id = end($paths);
         $this->href = $href;
-        
         return $this;
+    }
+    
+    public function getHref()
+    {
+        return $this->href;
+    }
+    
+    public function getId()
+    {
+        return $this->id;
     }
     
     /**
