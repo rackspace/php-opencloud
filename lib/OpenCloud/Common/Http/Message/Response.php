@@ -12,6 +12,7 @@
 namespace OpenCloud\Common\Http\Message;
 
 use Guzzle\Http\Message\Response as GuzzleResponse;
+use OpenCloud\Common\Base;
 
 /**
  * Description of Response
@@ -84,9 +85,14 @@ class Response extends GuzzleResponse
     const STATUS_CODE_511 = 511;
     /**#@-*/
     
-    public function setExceptionHandlers(array $config) 
+    public function getBody($decode = false) 
     {
+        if (true === $decode) {
+            $this->body = json_decode($this->body);
+            Base::checkJsonError();
+        }
         
+        return $this->body;
     }
     
 }

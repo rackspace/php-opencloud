@@ -25,7 +25,7 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 
     public function listChecks()
     {
-        $response = $this->getService()->get($this->url())->send();
+        $response = $this->getClient()->get($this->url())->send();
         return $response->getBody(true);
     }
     

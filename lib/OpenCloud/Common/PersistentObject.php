@@ -117,16 +117,6 @@ abstract class PersistentObject extends Base
     }
     
     /**
-     * Legacy shortcut to getService
-     * 
-     * @return \OpenCloud\Common\Service
-     */
-    public function service()
-    {
-        return $this->getService();
-    }
-    
-    /**
      * Set the parent object for this resource.
      * 
      * @param \OpenCloud\Common\PersistentObject $parent
@@ -149,15 +139,10 @@ abstract class PersistentObject extends Base
         }
         return $this->parent;
     }
-    
-    /**
-     * Legacy shortcut to getParent
-     * 
-     * @return \OpenCloud\Common\PersistentObject
-     */
-    public function parent()
+        
+    public function getClient()
     {
-        return $this->getParent();
+        return $this->getService()->getClient();
     }
     
     public function setMetadata($metadata)
@@ -290,7 +275,7 @@ abstract class PersistentObject extends Base
         }
 
         // perform a GET on the URL
-        $response = $this->getService()->get($url)->send();
+        $response = $this->getClient()->get($url)->send();
   
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
@@ -439,7 +424,7 @@ abstract class PersistentObject extends Base
         $url = $this->url('action');
 
         // POST the message
-        return $this->getService()->post($url, array(), $json)->send();
+        return $this->getClient()->post($url, array(), $json)->send();
     }
 
      /**

@@ -30,7 +30,7 @@ class FakeConnection extends OpenStack
 		}
 	}
     
-	public function Request($url, $method = "GET", $headers = array(), $body = null) 
+	public function createRequest($url, $method = "GET", $headers = array(), $body = null) 
 	{   
 		$this->url = trim($url, '/');
 		$response = new Blank;

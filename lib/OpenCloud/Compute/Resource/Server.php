@@ -511,7 +511,7 @@ class Server extends PersistentObject
     {
         $url = Lang::noslash($this->Url('ips/'.$network));
 
-        $response = $this->getService()->get($url)->send();       
+        $response = $this->getClient()->get($url)->send();       
         $object = $response->getBody(true);
 
         if (isset($object->addresses)) {

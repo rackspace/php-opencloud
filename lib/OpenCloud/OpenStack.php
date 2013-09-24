@@ -318,7 +318,7 @@ class OpenStack extends Client
         // try to auth
         $response = $this->post($this->url(), array(), $this->credentials())->send();
         $object = $response->getBody(true);
-        
+
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);
         $this->setExpiration(strtotime($object->access->token->expires));
@@ -542,6 +542,11 @@ class OpenStack extends Client
             $this->setLogger(new Common\Log\Logger);
         }
         return $this->logger;
+    }
+    
+    public function url()
+    {
+        return $this->getBaseUrl();
     }
     
 }

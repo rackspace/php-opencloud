@@ -322,7 +322,7 @@ abstract class Base
      * 
      * @codeCoverageIgnore
      */
-    public function checkJsonError()
+    public static function checkJsonError()
     {
         switch (json_last_error()) {
             case JSON_ERROR_NONE:

@@ -32,7 +32,7 @@ abstract class Service extends Base
     const DEFAULT_REGION   = 'DFW';
     const DEFAULT_URL_TYPE = 'publicURL';
     
-    protected $conn;
+    protected $client;
     private $service_type;
     private $service_name;
     private $service_region;
@@ -56,19 +56,13 @@ abstract class Service extends Base
      * @param string $urltype - the specified URL from the catalog
      *      (e.g., "publicURL")
      */
-    public function __construct(
-        OpenStack $conn,
-        $type,
-        $name,
-        $region,
-        $urltype = RAXSDK_URL_PUBLIC,
-        $customServiceUrl = null
-    ) {
-        $this->setConnection($conn);
+    public function __construct($client, $type, $name, $region, $urltype = RAXSDK_URL_PUBLIC) 
+    {
+        $this->client = $client;
         $this->service_type = $type;
         $this->service_name = $name;
         $this->service_region = $region;
-        $this->service_url = $customServiceUrl ?: $this->getEndpoint($type, $name, $region, $urltype);
+        $this->service_url = $this->getEndpoint($type, $name, $region, $urltype);
     }
     
     /**
@@ -76,9 +70,9 @@ abstract class Service extends Base
      * 
      * @param type $connection
      */
-    public function setConnection($connection)
+    public function setClient(Client $client)
     {
-        $this->conn = $connection;
+        $this->client = $client;
     }
     
     /**
@@ -86,9 +80,9 @@ abstract class Service extends Base
      * 
      * @return type
      */
-    public function getConnection()
+    public function getClient()
     {
-        return $this->conn;
+        return $this->client;
     }
     
     /**
@@ -291,7 +285,7 @@ abstract class Service extends Base
      */
     private function getEndpoint($type, $name, $region, $urltype = null)
     {
-        $catalog = $this->getConnection()->serviceCatalog();
+        $catalog = $this->getClient()->serviceCatalog();
         
         if (empty($urltype)) {
             $urltype = RAXSDK_URL_PUBLIC;

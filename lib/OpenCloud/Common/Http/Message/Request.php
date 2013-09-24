@@ -12,6 +12,7 @@
 namespace OpenCloud\Common\Http\Message;
 
 use Guzzle\Http\Message\Request as GuzzleRequest;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Description of Request
@@ -34,4 +35,46 @@ class Request extends GuzzleRequest
     const METHOD_PATCH   = 'PATCH';
     const METHOD_PROPFIND= 'PROPFIND';
     /**#@-*/
+    
+    protected $expectedResponse;
+    protected $exceptionHandler;
+    
+    public function setExpectedResponse($expectedResponse)
+    {
+        $this->expectedResponse = $expectedResponse;
+        
+        return $this;
+    }
+    
+    public function setExceptionHandler(array $params = array())
+    {
+        $this->exceptionHandler = ResponseHandler::fromArray($params);
+        
+        return $this;
+    }
+    
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher->addListener('request.complete', array(__CLASS__, 'onRequestCompletion'));
+        
+        return $this;
+    }
+    
+    public function onRequestCompletion(Event $event)
+    {
+        if (null === $this->exceptionHandler) {
+            $this->setExceptionHandler();
+        }
+        
+        $exception = $this->exceptionHandler->setRequest($event['request'])
+            ->setResponse($event['response'])
+            ->setExpectedResponse($this->expectedResponse)
+            ->handle();
+        
+        if (null !== $exception) {
+            throw $exception;
+        }
+    }
+    
 }
