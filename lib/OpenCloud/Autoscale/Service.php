@@ -18,8 +18,7 @@ use OpenCloud\OpenStack;
  */
 class Service extends AbstractService
 {
-    const DEFAULT_NAME = '';
-    
+    const DEFAULT_NAME = 'rax:autoscale';
     
     /**
      * Autoscale resources.

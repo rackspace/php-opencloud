@@ -19,34 +19,6 @@ use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\ServiceCatalogItem;
 
-/**
- * The OpenStack class represents a relationship (or "connection")
- * between a user and a service.
- *
- * This is the primary entry point into an OpenStack system, and the only one
- * where the developer is required to know and provide the endpoint URL (in
- * all other cases, the endpoint is derived from the Service Catalog provided
- * by the authentication system).
- *
- * Since various providers have different mechanisms for authentication, users
- * will often use a subclass of OpenStack. For example, the Rackspace
- * class is provided for users of Rackspace's cloud services, and other cloud
- * providers are welcome to add their own subclasses as well.
- *
- * General usage example:
- * <code>
- *  $username = 'My Username';
- *  $secret = 'My Secret';
- *  $connection = new OpenCloud\OpenStack($username, $secret);
- *  // having established the connection, we can set some defaults
- *  // this sets the default name and region of the Compute service
- *  $connection->SetDefaults('Compute', 'cloudServersOpenStack', 'ORD');
- *  // access a Compute service
- *  $chicago = $connection->Compute();
- *  // if we want to access a different service, we can:
- *  $dallas = $connection->Compute('cloudServersOpenStack', 'DFW');
- * </code>
- */
 class OpenStack extends Client
 {
     
@@ -59,16 +31,12 @@ class OpenStack extends Client
     private $catalog;
     private $logger;
 
-    /**
-     * list of attributes to export/import
-     */
     private $exportItems = array(
         'token',
         'expiration',
         'tenant',
         'catalog'
     );
-
 
     public function __construct($url, array $secret, array $options = array())
     {
