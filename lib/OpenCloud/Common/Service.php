@@ -28,7 +28,10 @@ use OpenCloud\Common\Exceptions;
 
 abstract class Service extends Base
 {
-
+    
+    const DEFAULT_REGION   = 'DFW';
+    const DEFAULT_URL_TYPE = 'publicURL';
+    
     protected $conn;
     private $service_type;
     private $service_name;

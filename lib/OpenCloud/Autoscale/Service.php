@@ -18,6 +18,8 @@ use OpenCloud\OpenStack;
  */
 class Service extends AbstractService
 {
+    const DEFAULT_NAME = '';
+    
     
     /**
      * Autoscale resources.

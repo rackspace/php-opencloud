@@ -1,0 +1,64 @@
+lib//OpenCloud/CloudMonitoring/Resource/AbstractResource.php:102:    protected function request($url, $method = 'GET', array $headers = array(), $body = null)
+lib//OpenCloud/CloudMonitoring/Resource/AbstractResource.php:104:        $response = $this->getService()->request($url, $method, $headers, $body);
+lib//OpenCloud/CloudMonitoring/Resource/AgentTarget.php:57:        $response = $this->getService()->request($this->url());
+lib//OpenCloud/CloudMonitoring/Resource/Alarm.php:67:        return $this->request($url, 'POST', array(), json_encode((object) $params));
+lib//OpenCloud/CloudMonitoring/Resource/NotificationHistory.php:28:        $response = $this->getService()->request($this->url());
+lib//OpenCloud/CloudMonitoring/Resource/NotificationHistory.php:39:        $response = $this->getService()->request($this->url($checkId . '/' . $historyId));
+lib//OpenCloud/Common/Nova.php:123:	public function request($url, $method = 'GET', array $headers = array(), $body = null) 
+lib//OpenCloud/Common/PersistentObject.php:211:        $response = $this->getService()->request(
+lib//OpenCloud/Common/PersistentObject.php:312:        $response = $this->getService()->request($this->url(), 'DELETE');
+lib//OpenCloud/Common/PersistentObject.php:527:        $response = $this->getService()->request($url);
+lib//OpenCloud/Common/PersistentObject.php:653:        $response = $this->getService()->request($url, 'POST', array(), $json);
+lib//OpenCloud/Common/PersistentObject.php:700:        $response = $this->service()->request($url, $method, array(), $body);
+lib//OpenCloud/Common/Service.php:152:    public function request($url, $method = 'GET', array $headers = array(), $body = null)
+lib//OpenCloud/Common/Service.php:160:        return $this->conn->request($url, $method, $headers, $body);
+lib//OpenCloud/Common/Service.php:199:        $response = $this->request($url);
+lib//OpenCloud/Common/Service.php:390:        $response = $this->request($url);
+lib//OpenCloud/Compute/Resource/Server.php:352:            $response = $this->getService()->request($url);
+lib//OpenCloud/Compute/Resource/Server.php:355:            $response = $this->getService()->request($url, 'DELETE');
+lib//OpenCloud/Compute/Resource/Server.php:362:            $response = $this->getService()->request($url, 'POST', array(), json_encode($object));
+lib//OpenCloud/Compute/Resource/Server.php:531:        $response = $this->getService()->request($url);
+lib//OpenCloud/Compute/Resource/ServerMetadata.php:54:            $response = $this->getParent()->getService()->request($this->url());
+lib//OpenCloud/Compute/Resource/ServerMetadata.php:121:        $response = $this->getParent()->getService()->request(
+lib//OpenCloud/Compute/Resource/ServerMetadata.php:149:        $response = $this->getParent()->getService()->request(
+lib//OpenCloud/Compute/Resource/ServerMetadata.php:177:        $response = $this->getParent()->getService()->request(
+lib//OpenCloud/Database/Resource/Database.php:116:        $response = $this->getParent()->getService()->request($url, 'POST', array(), $json);
+lib//OpenCloud/Database/Resource/Database.php:154:    	$response = $this->getParent()->getService()->request($this->url(), 'DELETE');
+lib//OpenCloud/Database/Resource/Instance.php:117:        $response = $this->getService()->request($this->url('root'), 'POST');
+lib//OpenCloud/Database/Resource/Instance.php:197:        $response = $this->getService()->request($this->Url('databases'));
+lib//OpenCloud/Database/Resource/User.php:134:		$response = $this->getParent()->getService()->request($this->url(), 'DELETE');
+lib//OpenCloud/DNS/Resource/PtrRecord.php:103:        $response = $this->getService()->request($url, 'DELETE');
+lib//OpenCloud/DNS/Service.php:114:    public function request(
+lib//OpenCloud/DNS/Service.php:122:        return parent::request($url, $method, $headers, $body);
+lib//OpenCloud/DNS/Service.php:142:        $resp = $this->request($url, $method, $headers, $body);
+lib//OpenCloud/DNS/Service.php:231:        $response = $this->request($url);
+lib//OpenCloud/ObjectStore/Resource/CDNContainer.php:140:        $response = $this->getService()->request($this->url(), 'PUT', $this->metadataHeaders());
+lib//OpenCloud/ObjectStore/Resource/CDNContainer.php:165:        $response = $this->getService()->request($this->url(), 'POST', $this->metadataHeaders());
+lib//OpenCloud/ObjectStore/Resource/CDNContainer.php:190:        $response = $this->getService()->request($this->url(), 'DELETE');
+lib//OpenCloud/ObjectStore/Resource/CDNContainer.php:229:        $response = $this->getService()->request(
+lib//OpenCloud/ObjectStore/Resource/Container.php:102:        $response = $this->getService()->request($url, 'PUT', $headers);
+lib//OpenCloud/ObjectStore/Resource/Container.php:149:        $response = $this->getService()->request($this->CDNURL(), 'PUT', $headers);
+lib//OpenCloud/ObjectStore/Resource/Container.php:176:        $response = $this->getService()->request($this->url(), 'POST', $headers);
+lib//OpenCloud/ObjectStore/Resource/Container.php:204:        $response = $this->getService()->request($this->url(), 'POST', $headers);
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:355:        $response = $this->getService()->request(
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:421:        $response = $this->getService()->request(
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:457:        $response = $this->getService()->request($this->url(), 'DELETE');
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:489:        $response = $this->getService()->request(
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:596:        return $this->getService()->request($this->url())->httpBody();
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:632:        $result = $this->getService()->request($this->url(), 'GET', array(), $fp);
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:673:        return $this->getService()->request($this->url(), 'GET', array(), $resource);
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:713:        $response = $this->getService()->request($url, 'DELETE', $headers);
+lib//OpenCloud/ObjectStore/Resource/DataObject.php:808:        $response = $this->getService()->request($this->url(), 'HEAD', array('Accept' => '*/*'));
+lib//OpenCloud/ObjectStore/Service.php:77:        $response = $this->request(
+lib//OpenCloud/OpenStack.php:505:        $response = $this->request(
+lib//OpenCloud/Queues/Resource/Claim.php:117:        $response = $this->getService()->request($this->url(), 'PATCH', array(), $json);
+lib//OpenCloud/Queues/Resource/Message.php:134:        $response = $this->getService()->request($url, 'DELETE');
+lib//OpenCloud/Queues/Resource/Queue.php:112:            $response = $this->getService()->request($url, 'PUT', array(), $json);
+lib//OpenCloud/Queues/Resource/Queue.php:136:            $response = $this->getService()->request($this->url('metadata'));
+lib//OpenCloud/Queues/Resource/Queue.php:183:        $response = $this->getService()->request(
+lib//OpenCloud/Queues/Resource/Queue.php:274:        $response = $this->getService()->request($this->url('messages'), 'POST', array(), $json);
+lib//OpenCloud/Queues/Resource/Queue.php:340:        $response = $this->getService()->request($url, 'DELETE');
+lib//OpenCloud/Queues/Resource/Queue.php:394:        $response = $this->getService()->request($url, 'POST', array(), $json);
+lib//OpenCloud/Queues/Service.php:98:    public function request($url, $method = 'GET', array $headers = array(), $body = null)
+lib//OpenCloud/Queues/Service.php:106:        return parent::request($url, $method, $headers, $body);
+lib//OpenCloud/Queues/Service.php:159:        $response = $this->request($this->url("queues/$name"), 'HEAD');

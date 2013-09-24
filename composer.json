@@ -11,15 +11,18 @@
         },
         {
             "name": "Jamie Hannaford",
-            "email": "jamie@limetree.org"
+            "email": "jamie.hannaford@rackspace.com"
         }
     ],
     "autoload": {
-        "classmap": ["lib/"]
+        "psr-0": {
+            "OpenCloud": "lib/"
+        }
     },
     "require": {
-        "php"     : ">=5.3.0",
-        "ext-curl": "*"
+        "php"         : ">=5.3.0",
+        "ext-curl"    : "*",
+        "guzzle/http" : "3.7.*@dev"
     }
 
 }

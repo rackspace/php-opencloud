@@ -63,8 +63,10 @@ class Alarm extends AbstractResource implements ResourceInterface
             );
         }
         
-        $url = $this->getParent()->url('test-alarm');
-        return $this->request($url, 'POST', array(), json_encode((object) $params));
+        $url  = $this->getParent()->url('test-alarm');
+        $body = (object) $params;
+        
+        return $this->getClient()->post($url, array(), $body);
     }	
 	
 }

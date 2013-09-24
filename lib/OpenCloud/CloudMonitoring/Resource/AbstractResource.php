@@ -90,22 +90,6 @@ abstract class AbstractResource extends PersistentObject
     }
 
     /**
-     * Request function.
-     * 
-     * @access protected
-     * @param mixed $url
-     * @param string $method (default: 'GET')
-     * @param array $headers (default: array())
-     * @param mixed $body (default: null)
-     * @return void
-     */
-    protected function request($url, $method = 'GET', array $headers = array(), $body = null)
-    {
-        $response = $this->getService()->request($url, $method, $headers, $body);
-        return ($body = $response->HttpBody()) ? json_decode($body) : false;
-    }
-
-    /**
      * Test the validity of certain parameters for the resource.
      * 
      * @access public
