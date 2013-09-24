@@ -131,20 +131,7 @@ class User extends PersistentObject
 	 */
 	public function delete()
     {
-		$response = $this->getParent()->getService()->request($this->url(), 'DELETE');
-
-		// @codeCoverageIgnoreStart
-		if ($response->HttpStatus() > 202) {
-			throw new Exceptions\UserDeleteError(sprintf(
-                Lang::translate('Error deleting user [%s], status [%d] response [%s]',
-				$this->name,
-                $response->HttpStatus(),
-                $response->HttpBody())
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-		return $response;
+		return $this->getClient()->delete($this->url());
 	}
 
 	/**

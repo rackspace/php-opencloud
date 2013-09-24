@@ -109,26 +109,10 @@ class Database extends PersistentObject
         }
 
         $json = json_encode($this->createJson($params));
-
         $this->checkJsonError();
 
         // POST it off
-        $response = $this->getParent()->getService()->request($url, 'POST', array(), $json);
-
-        // check the response code
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() != 202) {
-        	throw new Exceptions\DatabaseCreateError(sprintf(
-                Lang::translate('Error creating database [%s], status [%d] response [%s]'),
-        		$this->name,
-                $response->HttpStatus(),
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        // refresh and return
-        return $response;
+        return $this->getClient()->post($url, array(), $json)->send();
     }
 
     /**
@@ -151,20 +135,7 @@ class Database extends PersistentObject
      */
     public function delete()
     {
-    	$response = $this->getParent()->getService()->request($this->url(), 'DELETE');
-        
-        // @codeCoverageIgnoreStart
-    	if ($response->HttpStatus() != 202) {
-    		throw new Exceptions\DatabaseDeleteError(sprintf(
-                Lang::translate('Error deleting database [%s], status [%d] response [%s]'),
-    			$this->name,
-    			$response->HttpStatus(),
-    			$response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-    	return $response;
+    	return $this->getClient()->delete($this->url())->send();
     }
 
     /**

@@ -137,19 +137,7 @@ class CDNContainer extends AbstractStorageObject
         
         // Dispatch
         $this->containerUrl = $this->url();
-        $response = $this->getService()->request($this->url(), 'PUT', $this->metadataHeaders());
-
-        // Check return code
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() > 202) {
-            throw new Exceptions\ContainerCreateError(sprintf(
-                Lang::translate('Problem creating container [%s] status [%d] response [%s]'),
-                $this->url(),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        $this->getClient()->put($this->url(), $this->metadataHeaders())->send();
 
         return true;
     }
@@ -162,19 +150,9 @@ class CDNContainer extends AbstractStorageObject
      */
     public function update()
     {
-        $response = $this->getService()->request($this->url(), 'POST', $this->metadataHeaders());
-
-        // check return code
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() > 204) {
-            throw new Exceptions\ContainerCreateError(sprintf(
-                Lang::translate('Problem updating container [%s] status [%d] response [%s]'),
-                $this->Url(),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        $this->getClient()->post($this->url(), 'POST', $this->metadataHeaders())
+            ->setExpectedResponse(204)
+            ->send();
         
         return true;
     }
@@ -187,34 +165,14 @@ class CDNContainer extends AbstractStorageObject
      */
     public function delete()
     {
-        $response = $this->getService()->request($this->url(), 'DELETE');
-
-        // validate the response code
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() == 404) {
-            throw new Exceptions\ContainerNotFoundError(sprintf(
-                Lang::translate('Container [%s] not found'),
-                $this->name
-            ));
-        }
-
-        if ($response->httpStatus() == 409) {
-            throw new Exceptions\ContainerNotEmptyError(sprintf(
-                Lang::translate('Container [%s] must be empty before deleting'),
-                $this->name
-            ));
-        }
-
-        if ($response->httpStatus() >= 300) {
-            throw new Exceptions\ContainerDeleteError(sprintf(
-                Lang::translate('Problem deleting container [%s] status [%d] response [%s]'),
-                $this->url(),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-            return false;
-        }
-        // @codeCoverageIgnoreEnd
+        $this->getClient()->delete($this->url())
+            ->setExpectedResponse(204)
+            ->setExceptionHandler(array(
+                404 => 'Container not found',
+                409 => 'Container must be empty before deleting',
+                300 => 'Unknown error'
+            ))
+            ->send();
 
         return true;
     }
@@ -226,41 +184,16 @@ class CDNContainer extends AbstractStorageObject
      */
     public function refresh($name = null, $url = null)
     {
-        $response = $this->getService()->request(
-        	$this->url($name), 'HEAD', array('Accept' => '*/*')
-        );
+        $url = $this->url($name);
+        $response = $this->getClient()->head($url, array('Accept' => '*/*'))
+            ->setExceptionHandler(array(
+                404 => 'Container not found'
+            ))
+            ->send();
 
-        // validate the response code
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() == 404) {
-            throw new Exceptions\ContainerNotFoundError(sprintf(
-                'Container [%s] (%s) not found',
-                $this->name,
-                $this->url()
-            ));
-        }
-
-        if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\HttpError(sprintf(
-                'Error retrieving Container, status [%d] response [%s]',
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-
-		// check for headers (not metadata)
-		foreach($response->headers() as $header => $value) {
-			switch($header) {
-                case 'X-Container-Object-Count':
-                    $this->count = $value;
-                    break;
-                case 'X-Container-Bytes-Used':
-                    $this->bytes = $value;
-                    break;
-			}
-		}
-        // @codeCoverageIgnoreEnd
-
+        $this->count = $response->getHeader('X-Container-Object-Count');
+        $this->bytes = $response->getHeader('X-Container-Bytes-Used');
+        
         // parse the returned object
         $this->getMetadata($response);
     }

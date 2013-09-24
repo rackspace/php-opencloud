@@ -114,23 +114,8 @@ class Instance extends PersistentObject
      */
     public function enableRootUser() 
     {
-        $response = $this->getService()->request($this->url('root'), 'POST');
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 202) {
-            throw new Exceptions\InstanceError(sprintf(
-                Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        $object = json_decode($response->HttpBody());
-        
-        $this->checkJsonError();
-
+        $response = $this->getClient()->post($this->url('root'))->send();
+        $object = $response->getBody(true);
         return (!empty($object->user)) ? new User($this, $object->user) : false;
     }
 
@@ -143,23 +128,8 @@ class Instance extends PersistentObject
      */
     public function isRootEnabled() 
     {
-        $response = $this->getService()->Request($this->Url('root'), 'GET');
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 202) {
-            throw new Exceptions\InstanceError(sprintf(
-                Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-        $object = json_decode($response->httpBody());
-
-        $this->checkJsonError();
-
+        $response = $this->getClient()->get($this->url('root'))->send();
+        $object = $response->getBody(true);
         return !empty($object->rootEnabled);
     }
 
@@ -194,23 +164,8 @@ class Instance extends PersistentObject
      */
     public function databaseList() 
     {
-        $response = $this->getService()->request($this->Url('databases'));
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 200) {
-            throw new Exceptions\DatabaseListError(sprintf(
-                Lang::translate('Error listing databases for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-        $object = json_decode($response->httpBody());
-
-        $this->checkJsonError();
-
+        $response = $this->getClient()->get($this->url('databases'))->send();
+        $object = $response->httpBody(true);
         $data = (!empty($object->databases)) ? $object->databases : array();
         return new Collection($this, 'OpenCloud\DbService\Database', $data);
     }
@@ -223,22 +178,8 @@ class Instance extends PersistentObject
      */
     public function userList() 
     {
-        $response = $this->getService()->Request($this->Url('users'));
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 200) {
-            throw new Exceptions\UserListError(sprintf(
-                Lang::translate('Error listing users for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-        $object = json_decode($response->HttpBody());
-        
-        $this->checkJsonError();
+        $response = $this->getClient()->get($this->url('users'))->send();        
+        $object = $response->getBody(true);
 
         $data = (!empty($object->users)) ? $object->users : array();
         return new Collection($this, 'OpenCloud\DbService\User', $data);

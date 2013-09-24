@@ -74,24 +74,9 @@ class Service extends AbstractService
      */
     public function setTempUrlSecret($secret) 
     {
-        $response = $this->request(
-            $this->url(), 
-            'POST',
-            array('X-Account-Meta-Temp-Url-Key' => $secret)
-        );
-        
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() > 204) {
-            throw new Exceptions\HttpError(sprintf(
-                Lang::translate('Error in request, status [%d] for URL [%s] [%s]'),
-                $response->httpStatus(),
-                $this->url(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $response;
+        return $this->getClient()->post($this->url(), array(
+            'X-Account-Meta-Temp-Url-Key' => $secret
+        ));
     }
 
     /**

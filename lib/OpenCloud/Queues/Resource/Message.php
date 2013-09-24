@@ -131,17 +131,9 @@ class Message extends PersistentObject
     public function delete($claimId = null)
     {
         $url = $this->url(null, array('claim_id' => $claimId));
-        $response = $this->getService()->request($url, 'DELETE');
-        
-        if ($response->httpStatus() != 204) {
-            throw new DeleteMessageException(sprintf(
-                'Error claiming message with ID %s. HTTP status [%i] and '
-                . 'HTTP body [%s]',
-                $this->getId(),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
+        $this->getService()->delete($url)
+            ->setExpectedResponse(204)
+            ->send();
         
         return true;
     }

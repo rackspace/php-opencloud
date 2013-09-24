@@ -91,22 +91,6 @@ class Service extends AbstractService
     } 
     
     /**
-     * Need to augment parent method to add feature-specific headers. 
-     * 
-     * {@inheritDoc}
-     */
-    public function request($url, $method = 'GET', array $headers = array(), $body = null)
-    {
-        if (preg_match('#https?:#', $url) === 0) {
-            $url = $this->service_url . preg_replace('#^/v\d(\.\d)?#', '', $url);
-        }
-        
-        $headers['Client-ID'] = $this->getClientId();
-        
-        return parent::request($url, $method, $headers, $body);
-    }
-    
-    /**
      * This operation lists queues for the project, sorting the queues 
      * alphabetically by name.
      * 
@@ -156,9 +140,8 @@ class Service extends AbstractService
             ));
         }
         
-        $response = $this->request($this->url("queues/$name"), 'HEAD');
-        
-        return $response->httpStatus() == 204;
+        $response = $this->getClient()->head($this->url("queues/$name"))->send();
+        return $response->getStatus() == 204;
     }
     
 }

@@ -99,18 +99,7 @@ class Container extends CDNContainer
         $headers['X-CDN-Enabled']   = 'True';
 
         // PUT to the CDN container
-        $response = $this->getService()->request($url, 'PUT', $headers);
-
-        // check the response status
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() > 202) {
-            throw new Exceptions\CdnHttpError(sprintf(
-                Lang::translate('HTTP error publishing to CDN, status [%d] response [%s]'),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        $this->getClient()->put($url, $headers)->send();
 
         // refresh the data
         $this->refresh();
@@ -142,22 +131,12 @@ class Container extends CDNContainer
     public function disableCDN()
     {
         // Set necessary headers
-        $headers['X-Log-Retention'] = 'False';
-        $headers['X-CDN-Enabled']   = 'False';
+        $headers = array('X-Log-Retention' => 'False', 'X-CDN-Enabled' => 'False');
 
         // PUT it to the CDN service
-        $response = $this->getService()->request($this->CDNURL(), 'PUT', $headers);
-
-        // check the response status
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() != 201) {
-            throw new Exceptions\CdnHttpError(sprintf(
-                Lang::translate('HTTP error disabling CDN, status [%d] response [%s]'),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        $this->getClient()->put($this->CDNURL(), $headers)
+            ->setExpectedResponse(201)
+            ->send();
         
         return true;
     }
@@ -173,21 +152,7 @@ class Container extends CDNContainer
     public function createStaticSite($indexHtml)
     {
         $headers = array('X-Container-Meta-Web-Index' => $indexHtml);
-        $response = $this->getService()->request($this->url(), 'POST', $headers);
-
-        // check return code
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 204) {
-            throw new Exceptions\ContainerError(sprintf(
-                Lang::translate('Error creating static website for [%s], status [%d] response [%s]'),
-                $this->name,
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $response;
+        return $this->getClient()->post($this->url(), $headers)->send();
     }
 
     /**
@@ -201,21 +166,7 @@ class Container extends CDNContainer
     public function staticSiteErrorPage($name)
     {
         $headers = array('X-Container-Meta-Web-Error' => $name);
-        $response = $this->getService()->request($this->url(), 'POST', $headers);
-
-        // check return code
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() > 204) {
-            throw new Exceptions\ContainerError(sprintf(
-                Lang::translate('Error creating static site error page for [%s], status [%d] response [%s]'),
-                $this->name,
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-
-        return $response;
-        // @codeCoverageIgnoreEnd
+        return $this->getClient()->post($this->url(), $headers)->send();
     }
 
     /**

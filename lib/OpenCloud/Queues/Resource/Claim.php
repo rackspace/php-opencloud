@@ -114,17 +114,9 @@ class Claim extends PersistentObject
         $json = json_encode($object);
         $this->checkJsonError();
 
-        $response = $this->getService()->request($this->url(), 'PATCH', array(), $json);
-
-        if ($response->httpStatus() != 204) {
-            throw new UpdateError(sprintf(
-                'Error updating [%s] with [%s], status [%d] response [%s]',
-                get_class($this),
-                $json,
-                $response->HttpStatus(),
-                $response->HttpBody()
-            ));
-        }
+        $this->getClient()->patch($this->url(), array(), $json)
+            ->setExpectedResponse(204)
+            ->send();
 
         return true;
     }

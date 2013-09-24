@@ -84,4 +84,9 @@ class Response extends GuzzleResponse
     const STATUS_CODE_511 = 511;
     /**#@-*/
     
+    public function setExceptionHandlers(array $config) 
+    {
+        
+    }
+    
 }

@@ -25,8 +25,8 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 
     public function listChecks()
     {
-        $response = $this->getService()->get($this->url());
-        return ($json = $response->httpBody()) ? json_decode($json) : false;
+        $response = $this->getService()->get($this->url())->send();
+        return $response->getBody(true);
     }
     
     public function listHistory($checkId)
@@ -37,13 +37,11 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
     public function getSingleHistoryItem($checkId, $historyId)
     {
         $url = $this->url($checkId . '/' . $historyId);
-        $response = $this->getClient()->get($url);
+        $response = $this->getClient()->get($url)->send();
         
-        if ($json = $response->httpBody()) {
-            $object = json_decode($json);
-            $this->populate($object);
+        if (null !== ($decoded = $response->getBody(true))) {
+            $this->populate($decoded);
         }
-        
         return false;
     }
 

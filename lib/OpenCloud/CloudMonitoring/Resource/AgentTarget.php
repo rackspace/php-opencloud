@@ -54,9 +54,9 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
 
     public function listAll()
     {
-        $response = $this->getClient()->get($this->url());
+        $response = $this->getClient()->get($this->url())->send();
         
-        $object = json_decode($response->httpBody());
+        $object = $response->getBody(true);
 
         if (isset($object->{self::$json_collection_name})) {
             $response = $object->{self::$json_collection_name};

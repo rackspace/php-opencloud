@@ -316,27 +316,8 @@ class OpenStack extends Client
     public function authenticate()
     {
         // try to auth
-        $response = $this->request(
-            $this->url(),
-            'POST',
-            array('Content-Type'=>'application/json'),
-            $this->credentials()
-        );
-
-        $json = $response->httpBody();
-
-        // check for errors
-        if ($response->HttpStatus() >= 400) {
-            throw new Exceptions\AuthenticationError(sprintf(
-                Lang::translate('Authentication failure, status [%d], response [%s]'),
-                $response->httpStatus(),
-                $json
-            ));
-        }
-
-        // Decode and check
-        $object = json_decode($json);
-        $this->checkJsonError();
+        $response = $this->post($this->url(), array(), $this->credentials())->send();
+        $object = $response->getBody(true);
         
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);

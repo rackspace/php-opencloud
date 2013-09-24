@@ -51,17 +51,7 @@ class ServerMetadata extends Metadata
             $this->key = $key;
 
             // in either case, retrieve the data
-            $response = $this->getParent()->getService()->request($this->url());
-
-            // @codeCoverageIgnoreStart
-            if ($response->httpStatus() >= 300) {
-                throw new Exceptions\MetadataError(sprintf(
-                    Lang::translate('Unable to retrieve metadata [%s], response [%s]'),
-                    $this->Url(),
-                    $response->HttpBody()
-                ));
-            }
-            // @codeCoverageIgnoreEnd
+            $response = $this->getClient()->get($this->url())->send();
 
             $this->getLogger()->info(
                 Lang::translate('Metadata for [{url}] is [{body}]'), 
@@ -72,8 +62,7 @@ class ServerMetadata extends Metadata
             );
 
             // parse and assign the server metadata
-            $object = json_decode($response->HttpBody());
-            $this->checkJsonError();
+            $object = $response->getBody(true);
 
             if (isset($object->metadata)) {
                 foreach ($object->metadata as $key => $value) {
@@ -117,23 +106,7 @@ class ServerMetadata extends Metadata
      */
     public function create()
     {
-        // perform the request
-        $response = $this->getParent()->getService()->request(
-            $this->url(),
-            'PUT',
-            array(),
-            $this->getMetadataJson()
-        );
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() >= 300) {
-            throw new \OpenCloud\Common\Exceptions\MetadataCreateError(sprintf(
-                Lang::translate('Error setting metadata on [%s], response [%s]'),
-                $this->Url(),
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        return $this->getClient()->put($this->url(), array(), $this->getMetadataJson());
     }
 
     /**
@@ -145,23 +118,9 @@ class ServerMetadata extends Metadata
      */
     public function update()
     {
-        // perform the request
-        $response = $this->getParent()->getService()->request(
-            $this->url(),
-            'POST',
-            array(),
-            $this->getMetadataJson()
-        );
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\MetadataUpdateError(sprintf(
-                Lang::translate('Error updating metadata on [%s], response [%s]'),
-                $this->Url(),
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        return $this->getClient()
+            ->post($this->url(), array(), $this->getMetadataJson())
+            ->send();
     }
 
     /**
@@ -173,22 +132,7 @@ class ServerMetadata extends Metadata
      */
     public function delete()
     {
-        // perform the request
-        $response = $this->getParent()->getService()->request(
-            $this->url(),
-            'DELETE',
-            array()
-        );
-
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() >= 300) {
-            throw new Exceptions\MetadataDeleteError(sprintf(
-                Lang::translate('Error deleting metadata on [%s], response [%s]'),
-                $this->url(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        return $this->getClient()->delete($this->url(), array());
     }
 
     public function __set($key, $value)
@@ -215,8 +159,8 @@ class ServerMetadata extends Metadata
     private function getMetadataJson()
     {
         $object = (object) array(
-            'meta'     => new \stdClass,
-            'metadata' => new \stdClass
+            'meta'     => (object) array(),
+            'metadata' => (object) array()
         );
 
         // different element if only a key is set

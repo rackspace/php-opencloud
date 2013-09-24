@@ -108,7 +108,7 @@ abstract class Service extends Base
         }
 
         if (!empty($param)) {
-            $baseurl .= '?'.$this->MakeQueryString($param);
+            $baseurl .= '?'.$this->makeQueryString($param);
         }
 
         return $baseurl;
@@ -136,31 +136,6 @@ abstract class Service extends Base
     {
         $limits = $this->getMetaUrl('limits');
         return (is_object($limits)) ? $limits->limits : array();
-    }
-
-    /**
-     * Performs an authenticated request
-     *
-     * This method handles the addition of authentication headers to each
-     * request. It always adds the X--Auth-Token: header and will add the
-     * X-Auth-Project-Id: header if there is a tenant defined on the
-     * connection.
-     *
-     * @param string $url The URL of the request
-     * @param string $method The HTTP method (defaults to "GET")
-     * @param array $headers An associative array of headers
-     * @param string $body An optional body for POST/PUT requests
-     * @return \OpenCloud\HttpResult
-     */
-    public function request($url, $method = 'GET', array $headers = array(), $body = null)
-    {
-        $headers['X-Auth-Token'] = $this->conn->Token();
-
-        if ($tenant = $this->conn->Tenant()) {
-            $headers['X-Auth-Project-Id'] = $tenant;
-        }
-        
-        return $this->conn->request($url, $method, $headers, $body);
     }
 
     /**
@@ -199,23 +174,7 @@ abstract class Service extends Base
         );
 
         // Fetch the list
-        $response = $this->request($url);
-        
-        $this->getLogger()->info('Response {status} [{body}]', array(
-            'status' => $response->httpStatus(),
-            'body'   => $response->httpBody()
-        ));
-        
-        // Check return code
-        if ($response->httpStatus() > 204) {
-            throw new Exceptions\CollectionError(sprintf(
-                Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
-                $class,
-                $url,
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
+        $response = $this->get($url)->send();       
 
         // Handle empty response
         if (strlen($response->httpBody()) == 0) {
@@ -223,7 +182,7 @@ abstract class Service extends Base
         }
 
         // Parse the return
-        $object = json_decode($response->httpBody());
+        $object = $response->getBody(true);
         $this->checkJsonError();
         
         // See if there's a "next" link
@@ -390,27 +349,19 @@ abstract class Service extends Base
 
         $url = Lang::noslash($urlBase) . '/' . $resource;
 
-        $response = $this->request($url);
+        $response = $this->get($url)
+            ->setExceptionHandlers(array(
+                404 => array('allow' => true)
+            ))
+            ->send();
 
         // check for NOT FOUND response
-        if ($response->httpStatus() == 404) {
+        if ($response->getStatus() == 404) {
             return array();
         }
 
-        // @codeCoverageIgnoreStart
-        if ($response->httpStatus() >= 300) {
-            throw new Exceptions\HttpError(sprintf(
-                Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
-                $urlBase,
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
         // we're good; proceed
-        $object = json_decode($response->httpBody());
-
+        $object = $response->getBody(true);
         $this->checkJsonError();
 
         return $object;
