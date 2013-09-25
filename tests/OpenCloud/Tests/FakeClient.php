@@ -11,30 +11,38 @@
 
 namespace OpenCloud\Tests;
 
-use OpenCloud\OpenStack;
+use Exception;
+use OpenCloud\Rackspace;
 use OpenCloud\Common\Http\Message\EntityEnclosingRequest;
+use OpenCloud\Common\Http\Message\Response;
 
 /**
  * Description of FakeClient
  * 
  * @link 
  */
-class FakeClient extends OpenStack
+class FakeClient extends Rackspace
 {
+    const DEFAULT_TYPE = 'misc';
+    
     private $url;
     private $requests;
     private $responseDir;
+    protected $pathType;
     
     public function send($requests) 
 	{   
-        return new Response(200);
-        
-        $this->responseDir = __DIR__ . 'Response' . DIRECTORY_SEPARATOR;
+        $this->responseDir = __DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR;
         $this->url = $requests->getUrl();
         $this->requests = $requests;
         
         $response = $this->intercept(); 
+        if (404 == $response->getStatusCode()) {
+            //var_dump($this->url, $requests->getMethod(), (string) $response->getBody());
+            die;
+        }
         $requests->setResponse($response);
+        
 		return $response;
 	}
     
@@ -43,10 +51,10 @@ class FakeClient extends OpenStack
 		return strpos($this->url, $substring) !== false;
 	}
 
-	private function covertToRegex($array)
+	private function covertToRegex(array $array)
 	{
 		$regex = array();
-        array_walk($array, function($config, $urlTemplate) use ($regex) {
+        array_walk($array, function($config, $urlTemplate) use (&$regex) {
             $trans = array(
                 '{d}' => '(\d)+',
                 '{s}' => '(\s)+',
@@ -67,51 +75,48 @@ class FakeClient extends OpenStack
 		}
 	}
 
-    private function getBodyPath($path)
+    private function getBodyPath($file)
     {
         // Set to ./Response/Body/ by default
         $path = $this->responseDir . 'Body' . DIRECTORY_SEPARATOR;
         // Strip 'rax:' prefix from type - rax:autoscale becomes Autoscale
-        $path .= ucfirst(str_replace('rax:', '', $this->getServiceType()));
+        $path .= ucfirst(str_replace('rax:', '', $this->pathType));
         // Append file path
-        $path .= DIRECTORY_SEPARATOR . $path . '.json';
-        
+        $path .= DIRECTORY_SEPARATOR . $file . '.json';
+
         return $path;
     }
     
-    private function findServiceArray($array) 
+    private function findServiceArray($array, $type) 
     {
-        $type = $this->getServiceType();
-        
-        if (!array_key_exists($type, $array)) {
-            throw new Exception(sprintf(
-                '%s service was not found in the response array template.',
-                $type
-            ));
-        }
-        return $array[$type];
+        return isset($array[$type]) ? $array[$type] : false;
     }
-    
+        
 	public function intercept()
 	{
 		$array = include $this->responseDir . strtoupper($this->requests->getMethod()) . '.php';
 
-        // Retrieve second-level array from service type
-        $serviceArray = $this->findServiceArray($array);
+        $typeOptions = array(self::DEFAULT_TYPE, $this->getServiceType());
+        foreach ($typeOptions as $typeOption) {
+            if ($serviceArray = $this->findServiceArray($array, $typeOption)) {
+                if ($config = $this->matchUrlToArray($this->covertToRegex($serviceArray))) {
+                    $this->pathType = $typeOption;
+                    break;
+                }
+            }
+        }
         
-        // Now find the config array based on the path
-        if (!$config = $this->matchUrlToArray($this->covertToRegex($serviceArray))) {
-            // If not found, assume a 404
-            return new Response(404);
+        if (empty($config)) {
+            throw new Exception('Cannot find config in array');
         }
         
         // Retrieve config from nested array structure
-        $config = $this->parseConfig($config);
-        
+        $params = $this->parseConfig($config);
+
         // Set response parameters to defaults if necessary
-        $body = $config['body'];
-        $status = $config['status'] ?: $this->defaults('status');
-        $headers = $config['headers'] ?: $this->defaults('headers');
+        $body = $params['body'];
+        $status = $params['status'] ?: $this->defaults('status');
+        $headers = $params['headers'] ?: $this->defaults('headers');
         
         return new Response($status, $headers, $body);
 	}
@@ -128,7 +133,7 @@ class FakeClient extends OpenStack
             
             if (file_exists($bodyPath)) {
                 // Load external file contents
-                $body = include $bodyPath;
+                $body = file_get_contents($bodyPath);
             } else{
                 // Set body to string literal
                 $body = $input;
@@ -146,7 +151,7 @@ class FakeClient extends OpenStack
                     if (!file_exists($bodyPath)) {
                         throw new Exception(sprintf('No response file found: %s', $bodyPath));
                     }
-                    $body = include $bodyPath;
+                    $body = file_get_contents($bodyPath);
                 }
                 
                 if (!empty($input['status'])) {

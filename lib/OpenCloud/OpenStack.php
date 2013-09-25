@@ -100,6 +100,9 @@ class OpenStack extends Client
      */
     public function getToken()
     {
+        if (null === $this->token || $this->shouldReauthenticate()) {
+            $this->authenticate();
+        } 
         return $this->token;
     }
     
@@ -123,6 +126,9 @@ class OpenStack extends Client
      */
     public function getExpiration()
     {
+        if (null === $this->expiration || $this->shouldReauthenticate()) {
+            $this->authenticate();
+        }
         return $this->expiration;
     }
     
@@ -135,7 +141,7 @@ class OpenStack extends Client
     public function setTenant($tenant)
     {
         $this->tenant = $tenant;
-        
+       
         return $this;
     }
     
@@ -146,6 +152,9 @@ class OpenStack extends Client
      */
     public function getTenant()
     {
+        if (null === $this->tenant || $this->shouldReauthenticate()) {
+            $this->authenticate();
+        }
         return $this->tenant;
     }
     
@@ -169,6 +178,9 @@ class OpenStack extends Client
      */
     public function getCatalog()
     {
+        if (null === $this->catalog || $this->shouldReauthenticate()) {
+            $this->authenticate();
+        }
         return $this->catalog;
     }
             
@@ -204,14 +216,9 @@ class OpenStack extends Client
         return $this->getSecret();
     }
    
-    /**
-     * Re-authenticates session if expired.
-     */
-    public function checkExpiration()
+    public function shouldReauthenticate()
     {
-        if ($this->hasExpired()) {
-            $this->authenticate();
-        }
+        return $this->hasExpired();
     }
     
     /**
@@ -221,7 +228,7 @@ class OpenStack extends Client
      */
     public function hasExpired()
     {
-        return time() > ($this->getExpiration() - RAXSDK_FUDGE);
+        return time() > ($this->expiration - RAXSDK_FUDGE);
     }
     
     /**
@@ -232,8 +239,6 @@ class OpenStack extends Client
      */
     public function token()
     {
-        $this->checkExpiration();
-        
         return $this->getToken();
     }
 
@@ -246,8 +251,6 @@ class OpenStack extends Client
      */
     public function expiration()
     {
-        $this->checkExpiration();
-        
         return $this->getExpiration();
     }
 
@@ -259,8 +262,6 @@ class OpenStack extends Client
      */
     public function tenant()
     {
-        $this->checkExpiration();
-        
         return $this->getTenant();
     }
 
@@ -271,8 +272,6 @@ class OpenStack extends Client
      */
     public function serviceCatalog()
     {
-        $this->checkExpiration();
-        
         return $this->getCatalog();
     }
 
@@ -329,8 +328,8 @@ class OpenStack extends Client
     public function authenticate()
     {
         // try to auth
-        $response = $this->post($this->url(), array(), $this->credentials())->send();
-        $object = $response->getBody(true);
+        $response = $this->post('tokens', array(), $this->credentials())->send();
+        $object = $response->getDecodedBody();
 
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);
@@ -503,32 +502,15 @@ class OpenStack extends Client
     
     private function getDefaults($class)
     {
-        $defaults = array(
-            'name'    => 'DEFAULT_NAME', 
-            'region'  => 'DEFAULT_REGION', 
-            'urlType' => 'DEFAULT_URL_TYPE'
-        );
-        
         $base = 'OpenCloud\\Common\\Service';
-        $output = array();
         
-        foreach ($defaults as $key => $default) {
-            $output[$key] = $this->getDefault($class, $default) 
-                ?: $this->getDefault($base, $default);
-        }
-        
-        return $output;
+        return array(
+            'name'    => (defined("{$class}::DEFAULT_NAME")) ? $class::DEFAULT_NAME : $base::DEFAULT_NAME,
+            'region'  => (defined("{$class}::DEFAULT_REGION")) ? $class::DEFAULT_REGION : $base::DEFAULT_REGION,
+            'urlType' => (defined("{$class}::DEFAULT_URL_TYPE")) ? $class::DEFAULT_URL_TYPE : $base::DEFAULT_URL_TYPE,
+        );
     }
     
-    public function getDefault($class, $default)
-    {
-        if (defined("{$class}::{$default}")) {
-            return $class::$default;            
-        } else {
-            return false;
-        }
-    }
-
     /**
      * returns a service catalog item
      *

@@ -85,14 +85,11 @@ class Response extends GuzzleResponse
     const STATUS_CODE_511 = 511;
     /**#@-*/
     
-    public function getBody($decode = false) 
+    public function getDecodedBody() 
     {
-        if (true === $decode) {
-            $this->body = json_decode($this->body);
-            Base::checkJsonError();
-        }
-        
-        return $this->body;
+        $body = json_decode((string) $this->body);
+        Base::checkJsonError();
+        return $body;
     }
     
 }

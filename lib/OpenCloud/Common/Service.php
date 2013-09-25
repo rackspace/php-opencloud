@@ -28,7 +28,7 @@ use OpenCloud\Common\Exceptions;
 
 abstract class Service extends Base
 {
-    
+    const DEFAULT_NAME = '';
     const DEFAULT_REGION   = 'DFW';
     const DEFAULT_URL_TYPE = 'publicURL';
     
@@ -288,7 +288,7 @@ abstract class Service extends Base
      */
     private function getEndpoint($type, $name, $region, $urltype = null)
     {
-        $catalog = $this->getClient()->serviceCatalog();
+        $catalog = $this->getClient()->getCatalog();
         
         if (empty($urltype)) {
             $urltype = RAXSDK_URL_PUBLIC;

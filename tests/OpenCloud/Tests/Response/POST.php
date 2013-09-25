@@ -2,6 +2,10 @@
 
 return array(
     
+    'misc' => array(
+        'tokens' => array('path' => 'tokens', 'status' => 204)
+    ),
+    
     'rax:autoscale' => array(
         
         // Groups

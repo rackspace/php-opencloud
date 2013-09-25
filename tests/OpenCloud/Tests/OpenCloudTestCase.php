@@ -33,7 +33,7 @@ class OpenCloudTestCase extends PHPUnit_Framework_TestCase
         
         $expiry = time() + 10000;
         $hash = sha1(rand(1, 99));
-        return $client->setToken($hash)->setExpiry($expiry);
+        return $client->setToken($hash)->setExpiration($expiry);
     }
     
     public function getClient()

@@ -10,10 +10,9 @@
 
 namespace OpenCloud\Tests\Autoscale;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\OpenCloudTestCase;
 
-class GroupTest extends PHPUnit_Framework_TestCase 
+class GroupTest extends OpenCloudTestCase 
 {
     
     const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
