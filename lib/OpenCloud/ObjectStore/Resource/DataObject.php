@@ -241,15 +241,8 @@ class DataObject extends AbstractStorageObject
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
         }
         
-        $urls = $this->container->url();
-        $processedUrls = array();
-        foreach ($urls as $url) {
-            $url = Lang::noslash($url) . '/' . 
+        return Lang::noslash($this->container->url()) . '/' . 
                     str_replace('%2F', '/', rawurlencode($this->name));
-            $processedUrls[] = $url;
-        }
-
-        return $processedUrls;
     }
 
     /**
@@ -358,12 +351,9 @@ class DataObject extends AbstractStorageObject
         }
 
         // perform the request
-        $urls = $this->url();
-        foreach($urls as $url) {
-            $url = $url . $extractArchiveUrlArg;
-        }
+        $url = $this->url() . $extractArchiveUrlArg;
         $response = $this->getService()->request(
-            $urls,
+            $url,
             'PUT',
             $headers,
             $fp ? $fp : $this->data
@@ -560,29 +550,26 @@ class DataObject extends AbstractStorageObject
         }
 
         // construct the URL
-        $urls  = $this->url();
-        $temp_urls = array();
-        foreach($urls as $url) {
-            $path = urldecode(parse_url($url, PHP_URL_PATH));
+        $url  = $this->url();
+        $path = urldecode(parse_url($url, PHP_URL_PATH));
 
-            $hmac_body = "$method\n$expiry_time\n$path";
-            $hash = hash_hmac('sha1', $hmac_body, $secret);
+        $hmac_body = "$method\n$expiry_time\n$path";
+        $hash = hash_hmac('sha1', $hmac_body, $secret);
 
-            $this->getLogger()->info('URL [{url}]; SIG [{sig}]; HASH [{hash}]', array(
-                'url'  => $url, 
-                'sig'  => $hmac_body, 
-                'hash' => $hash
-            ));
+        $this->getLogger()->info('URL [{url}]; SIG [{sig}]; HASH [{hash}]', array(
+            'url'  => $url, 
+            'sig'  => $hmac_body, 
+            'hash' => $hash
+        ));
 
-            $temp_urls[] = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
+        $url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
 
-            // debug that stuff
-            $this->getLogger()->info('TempUrl generated [{url}]', array(
-                'url' => $temp_urls[count($temp_urls) - 1]
-            ));
-        }
+        // debug that stuff
+        $this->getLogger()->info('TempUrl generated [{url}]', array(
+            'url' => $url[count($url) - 1]
+        ));
 
-        return $temp_urls;
+        return $url;
     }
 
     /**
@@ -721,10 +708,7 @@ class DataObject extends AbstractStorageObject
         }
         // @codeCoverageIgnoreEnd
 
-        $url = array();
-        foreach($cdn as $c) {
-            $url[] = $c . '/' . $this->name;
-        }
+        $url = $cdn . '/' . $this->name;
         $headers['X-Purge-Email'] = $email;
         $response = $this->getService()->request($url, 'DELETE', $headers);
 

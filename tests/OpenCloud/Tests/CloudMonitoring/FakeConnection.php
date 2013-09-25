@@ -35,14 +35,14 @@ class FakeConnection extends OpenStack
                 if ($this->realRequests && !preg_match('#/tokens$#', $url)) {
                     return parent::Request($url, $method, $headers, $body);
                 }
-                if(is_array($url)) {
-                    foreach($url as &$oneUrl) {
-                        $oneUrl = trim($oneUrl, '/');
-                    }
-                    $this->url = $url;
-                } else {
-                    $this->url = trim($url, '/');
+                
+                $this->url = trim($url, '/');
+                
+                $hostname = "";
+                foreach($this->hostnames as $host) {
+                    $hostname = $host;
                 }
+                
 		$response = new Blank;
 		$response->headers = array('Content-Length' => '999');
 
@@ -59,7 +59,7 @@ class FakeConnection extends OpenStack
 				break;
 		}
 
-		$response->body = $this->$method($url);
+		$response->body = $this->$method($host . $url);
 
 		return $response;
 	}

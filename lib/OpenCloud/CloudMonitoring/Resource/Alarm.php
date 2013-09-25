@@ -41,11 +41,8 @@ class Alarm extends AbstractResource implements ResourceInterface
 
     public function baseUrl()
     {
-        $urls = $this->getParent()->Url();
-        foreach($urls as &$url) {
-            $url .= '/' . $this->getParent()->id . '/' . $this->resourceName();
-        }
-        return $urls;
+        $url = $this->getParent()->Url() . '/' . $this->getParent()->id . '/' . $this->resourceName();
+        return $url;
     }
     
     public function createUrl()
@@ -67,12 +64,9 @@ class Alarm extends AbstractResource implements ResourceInterface
             );
         }
         
-        $urls = $this->getParent()->Url();
-        foreach($urls as &$url) {
-            $url .= '/' . $this->getParent()->id . '/test-alarm';
-        }
+        $url = $this->getParent()->Url() . '/' . $this->getParent()->id . '/test-alarm';
         
-        return $this->request($urls, 'POST', array(), json_encode((object) $params));
+        return $this->request($url, 'POST', array(), json_encode((object) $params));
     }	
 	
 }

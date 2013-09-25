@@ -108,12 +108,7 @@ class ServerMetadata extends Metadata
 
         if ($this->key) {
             //careful, you don't want to overwrite the existing this->_url field
-            $urlArray = array();
-            foreach($this->url as $url) {
-                $url .= '/' . $this->key;
-                $urlArray[] = $url;
-            }
-            return $urlArray;
+            return $this->url . '/' . $this->key;
         } else {
             return $this->url;
         }

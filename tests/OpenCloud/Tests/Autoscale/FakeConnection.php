@@ -32,14 +32,7 @@ class FakeConnection extends OpenStack
     
 	public function Request($url, $method = "GET", $headers = array(), $body = null) 
 	{
-            if(is_array($url)) {
-                foreach($url as &$oneUrl) {
-                    $oneUrl = trim($oneUrl, '/');
-                }
-                $this->url = $url;
-            } else {
                 $this->url = trim($url, '/');
-            }
 		$response = new Blank;
 		$response->headers = array('Content-Length' => '999');
 
@@ -55,8 +48,13 @@ class FakeConnection extends OpenStack
 				$method = 'doDelete';
 				break;
 		}
+                
+                $hostname = "";
+                foreach($this->hostnames as $host) {
+                    $hostname = $host;
+                }
 
-		$response->body = $this->$method($url);
+		$response->body = $this->$method($host . $url);
         
 		return $response;
 	}

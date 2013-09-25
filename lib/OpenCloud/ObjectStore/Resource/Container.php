@@ -78,12 +78,7 @@ class Container extends CDNContainer
      */
     public function enableCDN($ttl = null)
     {
-        $urls = $this->getService()->CDN()->url();
-        $urlArray = array();
-        foreach ($urls as $url) {
-            $url = $url . '/' . rawurlencode($this->name);
-            $urlArray[] = $url;
-        }
+        $url = $this->getService()->CDN()->url() . '/' . rawurlencode($this->name);
 
         $headers = $this->metadataHeaders();
 
@@ -104,7 +99,7 @@ class Container extends CDNContainer
         $headers['X-CDN-Enabled']   = 'True';
 
         // PUT to the CDN container
-        $response = $this->getService()->request($urlArray, 'PUT', $headers);
+        $response = $this->getService()->request($url, 'PUT', $headers);
 
         // check the response status
         // @codeCoverageIgnoreStart
@@ -355,17 +350,13 @@ class Container extends CDNContainer
         $queryString = $this->makeQueryString($params);
 
         // append the query string to the URL
-        $urls = $this->url();
-        $urlsAndParams = array();
-        foreach ($urls as $url) {
-            if (strlen($queryString) > 0) {
-                $url .= '?' . $queryString;
-            }
-            $urlsAndParams[] = $url;
+        $url = $this->url();
+        if (strlen($queryString) > 0) {
+            $url .= '?' . $queryString;
         }
         
         return $this->getService()->collection(
-        	'OpenCloud\ObjectStore\Resource\DataObject', $urlsAndParams, $this
+        	'OpenCloud\ObjectStore\Resource\DataObject', $url, $this
         );
     }
 

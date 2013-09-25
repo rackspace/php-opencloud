@@ -94,16 +94,10 @@ class Service extends AbstractService
      */
     public function ptrRecordList(Server $server)
     {
-        $hrefs = $server->url();
-        $urls = array();
-        foreach ($hrefs as $href) {
-            $urls[] = $this->url('rdns/' . $server->getService()->name(), array(
-                'href' => $href
-            ));
-        }
-        $return = array();
-        array_walk_recursive($urls, function($a) use (&$return) { $return[] = $a; });
-        return $this->collection('OpenCloud\DNS\Resource\PtrRecord', $return);
+        $url = $this->url('rdns/' . $server->getService()->name(), array(
+                'href' => $server->url()
+        ));
+        return $this->collection('OpenCloud\DNS\Resource\PtrRecord', $url);
     }
 
     /**
@@ -210,10 +204,7 @@ class Service extends AbstractService
      */
     public function limits($type = null)
     {
-        $urls = $this->url('limits');
-        foreach($urls as &$url) {
-            $url .= ($type ? "/$type" : '');
-        }
+        $url = $this->url('limits') . ($type ? "/$type" : '');
         $object = $this->simpleRequest($url);
         return ($type) ? $object : $object->limits;
     }

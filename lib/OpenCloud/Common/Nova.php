@@ -28,7 +28,7 @@ use OpenCloud\Compute\Resource\Flavor;
 abstract class Nova extends Service 
 {
 
-	private $_urls;
+	private $_url;
 
 	/**
 	 * Called when creating a new Compute service object
@@ -61,10 +61,7 @@ abstract class Nova extends Service
 			$urltype
 		);
         
-                $urls = parent::Url();
-                foreach($urls as $url) {
-                    $this->_urls[] = Lang::noslash($url);
-                }
+                $this->_url = Lang::noslash(parent::Url());
         
         $this->getLogger()->info(Lang::translate('Initializing Nova...'));
 	}
@@ -116,17 +113,17 @@ abstract class Nova extends Service
      * This is a simple subclass of the parent::Request() method that ensures
      * that all Compute requests use application/json as the Content-Type:
      *
-     * @param array $urls - the URLs of the request
+     * @param string $url - the URL of the request
      * @param string $method - the HTTP method ("GET" by default)
      * @param array $headers - an associative array of headers to pass to
      *      the request
      * @param string $body - optional body for POST or PUT requests
      * @return \Rackspace\HttpResult object
      */
-	public function request($urls, $method = 'GET', array $headers = array(), $body = null) 
+	public function request($url, $method = 'GET', array $headers = array(), $body = null) 
 	{
 		$headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
-		return parent::Request($urls, $method, $headers, $body);
+		return parent::Request($url, $method, $headers, $body);
 	}
 
 	/**

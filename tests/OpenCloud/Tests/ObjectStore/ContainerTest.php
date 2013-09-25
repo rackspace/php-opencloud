@@ -73,27 +73,21 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testUrl()
 	{
-            $urls = $this->getContainer()->Url();
-            foreach($urls as $url) {
-                $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST');
-            }
+            $url = $this->getContainer()->Url();
+            $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST');
 
 		$space_cont = new Container($this->service, 'Name With Spaces');
 
-            $spaceUrls = $space_cont->Url();
-            foreach($spaceUrls as $spaceUrl) {
-                $this->assertEquals($spaceUrl, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/Name%20With%20Spaces');
-            }
+            $spaceUrl = $space_cont->Url();
+            $this->assertEquals($spaceUrl, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/Name%20With%20Spaces');
 	}
 
 	public function testCreate()
 	{
 		$con = $this->getContainer()->Create(array('name'=>'SECOND'));
 		$this->assertEquals(TRUE, $con);
-                $urls = $this->getContainer()->Url();
-                foreach($urls as $url) {
-                    $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND');
-                }
+                $url = $this->getContainer()->Url();
+                $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND');
 	}
 
 	public function testCreate0()
@@ -181,10 +175,8 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testCDNURL()
 	{
-            $urls = $this->getContainer()->CDNURL();
-            foreach($urls as $url) {
-                $this->assertEquals($url, 'https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST');
-            }
+            $url = $this->getContainer()->CDNURL();
+            $this->assertEquals($url, 'https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST');
 	}
 
 	public function testCDNinfo()

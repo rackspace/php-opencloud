@@ -44,11 +44,9 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $this->db->name = 'TEST';
-        $urls = $this->db->url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
+        $url = $this->db->url();
+        $this->assertEquals($url, 'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
                         'TENANT-ID/instances/12345678/databases/TEST');
-        }
     }
 
     public function testInstance()

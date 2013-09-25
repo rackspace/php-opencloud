@@ -59,20 +59,16 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $urls = $this->dataobject->Url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT');
-        }
+        $url = $this->dataobject->Url();
+        $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT');
     }
 
     // tests objects with spaces
     public function testUrl2()
     {
         $testobject = new DataObject($this->container, 'A name with spaces');
-        $urls = $testobject->Url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/A%20name%20with%20spaces');
-        }
+        $url = $testobject->Url();
+        $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/A%20name%20with%20spaces');
     }
 
     public function testCreate1()
@@ -159,16 +155,14 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 
     public function testTempUrl1()
     {
-        $values = $this->dataobject->tempUrl('secret', 60, 'GET'); 
-        foreach($values as $value) {
-            $this->assertEquals(
-                0, 
-                strpos(
-                    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT?temp_url_sig', 
-                    $value
-                )
-            );
-        }
+        $value = $this->dataobject->tempUrl('secret', 60, 'GET'); 
+        $this->assertEquals(
+            0, 
+            strpos(
+                'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT?temp_url_sig', 
+                $value
+            )
+        );
     }
 
     /**

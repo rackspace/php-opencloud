@@ -52,16 +52,12 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $urls = $this->metadata->Url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata');
-        }
+        $url = $this->metadata->Url();
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata');
         
         $m2 = new ServerMetadata($this->server, 'property');
-        $urls = $m2->url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property');
-        }
+        $url = $m2->url();
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property');
     }
 
     /**

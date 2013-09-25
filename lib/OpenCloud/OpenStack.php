@@ -62,6 +62,7 @@ class OpenStack extends Base
     public $useragent = RAXSDK_USER_AGENT;
 
     protected $url;
+    protected $hostnames;
     protected $secret = array();
     protected $token;
     protected $expiration = 0;
@@ -257,6 +258,15 @@ class OpenStack extends Base
         return $this;
     }
     
+    public function setHostnames($hostnames) 
+    {
+        $this->hostnames = $hostnames;
+    }
+    
+    public function getHostnames() 
+    {
+        return $this->hostnames;
+    }
     /**
      * Get the URL.
      * 
@@ -574,15 +584,7 @@ class OpenStack extends Base
      */
     public function url($subresource='tokens')
     {
-        if(is_array($this->url)) {
-            $urls = array();
-            foreach($this->url as $oneUrl) {
-                $urls[] = Lang::noslash($oneUrl) . '/' . $subresource;
-            }
-            return $urls;
-        } else {
-            return Lang::noslash($this->url) . '/' . $subresource;
-        }
+        return Lang::noslash($this->url) . '/' . $subresource;
     }
 
     /**
@@ -767,7 +769,7 @@ class OpenStack extends Base
      * exceptions for the request.
      *
      * @api
-     * @param array urls - the URL of the request
+     * @param array url - the URL of the request
      * @param string method - the HTTP method (defaults to GET)
      * @param array headers - an associative array of headers
      * @param string data - either a string or a resource (file pointer) to
@@ -775,39 +777,13 @@ class OpenStack extends Base
      * @return HttpResponse object
      * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
      */
-    public function request($urls, $method = 'GET', $headers = array(), $data = null)
+    public function request($url, $method = 'GET', $headers = array(), $data = null)
     {
-        if(is_array($urls)) {
-            return $this->requestMany($urls, $method, $headers, $data);
-        } else {
-            return $this->requestOne($urls, $method, $headers, $data);
-        }
-    }
-    
-    /**
-     * This method handles requsting from multiple regions. If the resource is not found in one region,
-     * it tries the other region. The copy from one region to another happens every 12 hours per region, offset by 6 hours.
-     * 
-     * e.g. DFW copies to ORD @ 00:00
-     *      ORD copies to DFW @ 06:00
-     *      DFW copies to ORD @ 12:00
-     *      ORD copies to DFW @ 18:00
-     * 
-     * @api
-     * @param array urls - the URLs of the request
-     * @param string method - the HTTP method (defaults to GET)
-     * @param array headers - an associative array of headers
-     * @param string data - either a string or a resource (file pointer) to
-     *      use as the request body (for PUT or POST)
-     * @return HttpResponse object
-     * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
-     */
-    private function requestMany($urls, $method, $headers, $data) {
         $exception = null;
         $response = null;
-        foreach ($urls as $url) {
+        foreach ($this->hostnames as $hostname) {
             try {
-                $response = $this->requestOne($url, $method, $headers, $data);
+                $response = $this->requestOne($hostname . $url, $method, $headers, $data);
                 //if the file is not found go ahead and check other regions.
                 if ($response->httpStatus() != 404) {
                     return $response;
@@ -831,14 +807,16 @@ class OpenStack extends Base
             return $response;
         }
         //else, throw the exception we got
-        throw $exception;
+        if($exception) {
+            throw $exception;
+        }
     }
     
     
     /**
      * 
      * @api
-     * @param array url - the URL of the request
+     * @param string url - the URL of the request
      * @param string method - the HTTP method (defaults to GET)
      * @param array headers - an associative array of headers
      * @param string data - either a string or a resource (file pointer) to

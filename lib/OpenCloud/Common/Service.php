@@ -33,7 +33,7 @@ abstract class Service extends Base
     private $service_type;
     private $service_name;
     private $service_regions;
-    protected $service_urls;
+    protected $service_hostnames;
 
     protected $_namespaces = array();
 
@@ -65,7 +65,16 @@ abstract class Service extends Base
         $this->service_type = $type;
         $this->service_name = $name;
         $this->service_regions = $regions;
-        $this->service_urls = $customServiceUrls ?: $this->getEndpoint($type, $name, $regions, $urltype);
+        if(!$customServiceUrls) {
+            $this->service_hostnames = $this->getEndpoint($type, $name, $regions, $urltype);
+        } else {
+            if(!is_array($customServiceUrls)) {
+                $this->service_hostnames = array($customServiceUrls);
+            } else {
+                $this->service_hostnames = $customServiceUrls;
+            }
+        }
+        $this->conn->setHostnames($this->service_hostnames);
     }
     
     /**
@@ -97,21 +106,17 @@ abstract class Service extends Base
      */
     public function url($resource = '', array $param = array())
     {
-        $baseurls = $this->service_urls;
-        $urls = array();
-        foreach ($baseurls as $baseurl) {
-                    // use strlen instead of boolean test because '0' is a valid name
-            if (strlen($resource) > 0) {
-                $baseurl = Lang::noslash($baseurl).'/'.$resource;
-            }
-
-            if (!empty($param)) {
-                $baseurl .= '?'.$this->MakeQueryString($param);
-            }
-            $urls[] = $baseurl;
+        $url = "";
+        // use strlen instead of boolean test because '0' is a valid name
+        if (strlen($resource) > 0) {
+            $url = Lang::noslash($url).'/'.$resource;
         }
 
-        return $urls;
+        if (!empty($param)) {
+            $url .= '?'.$this->MakeQueryString($param);
+        }
+
+        return $url;
     }
 
     /**
@@ -162,14 +167,6 @@ abstract class Service extends Base
         
         return $this->conn->request($url, $method, $headers, $body);
     }
-    
-    public function findMatchingUrlRegionFromServiceUrls($url) {
-        foreach($this->service_urls as $serviceUrl) {
-            if(substr($serviceUrl, 7, 3) == substr($url, 7, 3)) {
-                return $serviceUrl;
-            }
-        }
-    }
 
     /**
      * returns a collection of objects
@@ -179,7 +176,7 @@ abstract class Service extends Base
      * @param mixed $parent (optional) the parent service/object
      * @return OpenCloud\Common\Collection
      */
-    public function collection($class, $urls = null, $parent = null)
+    public function collection($class, $url = null, $parent = null)
     {
 
         // Set the element names
@@ -192,8 +189,8 @@ abstract class Service extends Base
         }
 
         // Set the URL if empty
-        if (!$urls) {
-            $urls = $parent->url($class::ResourceName());
+        if (!$url) {
+            $url = $parent->url($class::ResourceName());
         }
 
         // Save debug info
@@ -201,14 +198,14 @@ abstract class Service extends Base
             '{class}:Collection({url}, {collectionClass}, {collectionName})',
             array(
                 'class' => get_class($this),
-                'urls'   => $urls,
+                'url'   => $url,
                 'collectionClass' => $class,
                 'collectionName'  => $collectionName
             )
         );
 
         // Fetch the list
-        $response = $this->request($urls);
+        $response = $this->request($url);
         
         $this->getLogger()->info('Response {status} [{body}]', array(
             'status' => $response->httpStatus(),
@@ -220,7 +217,7 @@ abstract class Service extends Base
             throw new Exceptions\CollectionError(sprintf(
                 Lang::translate('Unable to retrieve [%s] list from [%s], status [%d] response [%s]'),
                 $class,
-                implode(", ", $urls),
+                $url,
                 $response->httpStatus(),
                 $response->httpBody()
             ));
@@ -322,6 +319,10 @@ abstract class Service extends Base
     {
         return (isset($this->_namespaces) && is_array($this->_namespaces)) ? $this->_namespaces : array();
     }
+    
+    public function getHostnames() {
+        return $this->service_hostnames;
+    }
 
     /**
      * Given a service type, name, and region, return the url
@@ -376,7 +377,6 @@ abstract class Service extends Base
                 $urltype
             ));
         }
-        
         return $url;
     }
 
@@ -392,19 +392,17 @@ abstract class Service extends Base
      */
     private function getMetaUrl($resource)
     {
-        $urlBase = $this->getEndpoint(
+        /*$hostnames = $this->getEndpoint(
             $this->service_type,
             $this->service_name,
             $this->service_regions,
             RAXSDK_URL_PUBLIC
-        );
+        );*/
 
-        $urls = array();
-        foreach($urlBase as $url) {
-            $urls[] = Lang::noslash($url) . '/' . $resource;
-        }
+        //put hostname in if you need it....
+        $url = '/' . $resource;
 
-        $response = $this->request($urls);
+        $response = $this->request($url);
 
         // check for NOT FOUND response
         if ($response->httpStatus() == 404) {
@@ -415,7 +413,8 @@ abstract class Service extends Base
         if ($response->httpStatus() >= 300) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Error accessing [%s] - status [%d], response [%s]'),
-                $urlBase,
+                //implode(", ", $hostnames),
+                $url,
                 $response->httpStatus(),
                 $response->httpBody()
             ));

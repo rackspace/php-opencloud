@@ -42,20 +42,14 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $urls = $this->compute->Url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers');
-        }
+        $url = $this->compute->Url();
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers');
         
-        $urls = $this->compute->Url('servers/detail');
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/detail');
-        }
+        $url = $this->compute->Url('servers/detail');
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/detail');
         
-        $urls = $this->compute->Url('servers', array('A' => 1, 'B' => 2));
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers?A=1&B=2');
-        }
+        $url = $this->compute->Url('servers', array('A' => 1, 'B' => 2));
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers?A=1&B=2');
     }
 
     public function testServer()

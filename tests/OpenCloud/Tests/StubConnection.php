@@ -44,18 +44,20 @@ ENDRESPONSE;
         }
     }
 
-    public function request($urls, $method = "GET", $headers = array(), $body = null) 
+    public function request($url, $method = "GET", $headers = array(), $body = null) 
     {
-        //yes, this is wrong. you need to handle 404 cases etc, and don't just return the last one we get... 
-        //i'm just trying to get the suite working right now though
-        if(is_array($urls)) {
-            foreach($urls as $url) {
-                $result = $this->requestOne($url, $method, $headers, $body);
+        //when authenticating, the hostname will still be null because we haven't 
+        //found the hosts we're going to connect to yet.
+        //chicken egg situation
+        $hostname = "";
+
+        if($this->hostnames) {
+            foreach($this->hostnames as $host) {
+                $hostname = $host;
             }
-            return $result;
-        } else {
-            return $this->requestOne($urls, $method, $headers, $body);
         }
+        
+        return $this->requestOne($hostname . $url, $method, $headers, $body);
     }
     
     private function requestOne($url, $method, $headers, $body) 

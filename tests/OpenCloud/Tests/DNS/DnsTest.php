@@ -40,10 +40,8 @@ class DnsTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $urls = $this->dns->url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID');
-        }
+        $url = $this->dns->url();
+        $this->assertEquals($url, 'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID');
     }
 
     public function testDomain()

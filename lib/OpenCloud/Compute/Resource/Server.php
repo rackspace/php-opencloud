@@ -221,26 +221,23 @@ class Server extends PersistentObject
      */
     public function imageSchedule($retention = false)
     {
-        $urls = $this->url('rax-si-image-schedule');
-        foreach($urls as &$url) {
-            $url = Lang::noslash($url);
-        }
+        $url = Lang::noslash($this->url('rax-si-image-schedule'));
 
         $response = null;
 
         if ($retention === false) { 
             // Get current retention
-            $response = $this->getService()->request($urls);
+            $response = $this->getService()->request($url);
         } elseif ($retention <= 0) { 
             // Delete image schedule
-            $response = $this->getService()->request($urls, 'DELETE');
+            $response = $this->getService()->request($url, 'DELETE');
         } else { 
             // Set image schedule
             $object = new \stdClass();
             $object->image_schedule = new \stdClass();
             $object->image_schedule->retention = $retention;
             
-            $response = $this->getService()->request($urls, 'POST', array(), json_encode($object));
+            $response = $this->getService()->request($url, 'POST', array(), json_encode($object));
         }
         
         // @codeCoverageIgnoreStart
@@ -407,10 +404,7 @@ class Server extends PersistentObject
      */
     public function ips($network = null)
     {
-        $urls = $this->Url('ips/'.$network);
-        foreach($urls as &$url) {
-            $url = Lang::noslash($url);
-        }
+        $url = Lang::noslash($this->Url('ips/'.$network));
 
         $response = $this->getService()->request($url);
         

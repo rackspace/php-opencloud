@@ -61,10 +61,8 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $urls = $this->record->url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID/rdns');
-        }
+        $url = $this->record->url();
+        $this->assertEquals($url, 'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID/rdns');
     }
 
     public function testCreate()

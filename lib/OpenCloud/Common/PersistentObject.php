@@ -436,33 +436,22 @@ abstract class PersistentObject extends Base
 
         // first, see if we have a [self] link
         $url = $this->findLink('self');
-        $urls = array();
         /**
          * Next, check to see if we have an ID
          * Note that we use Parent() instead of Service(), since the parent
          * object might not be a service.
          */
         if (!$url && $this->$primaryKey) {
-            $urls = $this->getParent()->url($this->resourceName());
-            foreach ($urls as &$url) {
-                $url = Lang::noslash($url) . '/' . $this->$primaryKey;
-            }
-            //$url = Lang::noslash($this->getParent()->url($this->resourceName())) . '/' . $this->$primaryKey;
-        } else {
-            if($url) {
-                $urls[] = $url;
-            }
+            $url = Lang::noslash($this->getParent()->url($this->resourceName())) . '/' . $this->$primaryKey;
         }
 
         // add the subresource
-        if (!empty($urls)) {
-            foreach($urls as &$url) {
-                $url .= $subresource ? "/$subresource" : '';
-                if (count($queryString)) {
-                    $url .= '?' . $this->makeQueryString($queryString);
-                }
+        if (!empty($url)) {
+            $url .= $subresource ? "/$subresource" : '';
+            if (count($queryString)) {
+                $url .= '?' . $this->makeQueryString($queryString);
             }
-            return $urls;
+            return $url;
         }
         
 
@@ -535,7 +524,7 @@ abstract class PersistentObject extends Base
     public function refresh($id = null, $url = null)
     {
         $primaryKey = $this->PrimaryKeyField();
-
+        
         if (!$url) {
             if ($id === null) {
                 $id = $this->$primaryKey;
@@ -573,7 +562,7 @@ abstract class PersistentObject extends Base
                 sprintf(Lang::translate('%s [%s] not found [%s]'),
                 get_class($this),
                 $this->$primaryKey,
-                implode(", ", $url)
+                $url
             ));
         }
 
@@ -591,7 +580,7 @@ abstract class PersistentObject extends Base
             throw new Exceptions\EmptyResponseError(
                 sprintf(Lang::translate('%s::Refresh() unexpected empty response, URL [%s]'),
                 get_class($this),
-                implode(", ", $url)
+                $url
             ));
         }
 
@@ -706,7 +695,7 @@ abstract class PersistentObject extends Base
             throw new Exceptions\ServerActionError(sprintf(
                 Lang::translate('%s::Action() [%s] failed; response [%s]'),
                 get_class($this),
-                implode(", ", $url),
+                $url,
                 $response->HttpBody()
             ));
         }

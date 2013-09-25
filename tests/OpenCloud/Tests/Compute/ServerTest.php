@@ -51,17 +51,13 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $urls = $this->server->Url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
+        $url = $this->server->Url();
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
                 '9bfd203a-0695-xxxx-yyyy-66c4194c967b');
-        }
         
-        $urls = $this->server->Url('action');
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
+        $url = $this->server->Url('action');
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
             '9bfd203a-0695-xxxx-yyyy-66c4194c967b/action');
-        }
     }
 
     public function test_ip()
@@ -226,10 +222,8 @@ class ServerTest extends PHPUnit_Framework_TestCase
     {
         $server = new Server($this->service);
         $server->id = 'Bad-ID';
-        $urls = $server->Url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID');
-        }
+        $url = $server->Url();
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID');
     }
 
     /**

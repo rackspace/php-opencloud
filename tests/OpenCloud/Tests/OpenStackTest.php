@@ -52,6 +52,10 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
             'username' => 'Foo', 
             'password' => 'Bar'
         ));
+        $this->testConn->setHostnames(array("")); 
+        // Hey is this valid? Both StubCnxn & TestingCnxn extend OpenStack
+        // Since no one passes in the Common/Service the hostnames are never set.
+        
     }
 
     /**
@@ -246,10 +250,8 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     {
         $this->my->setDefaults('Compute', 'cloudServersOpenStack', array('DFW'), 'publicURL');
         $comp = $this->my->Compute();
-        $urls = $comp->Url();
-        foreach($urls as $url) {
-            $this->assertRegExp('/dfw.servers/', $url);
-        }
+        $url = $comp->Url();
+        $this->assertRegExp('/dfw.servers/', $url);
     }
     
     /**

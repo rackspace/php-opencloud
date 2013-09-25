@@ -50,21 +50,17 @@ abstract class AbstractResource extends PersistentObject
      */
     public function url($subResource = null, $includeId = true)
     {
-        $urls = $this->parent()->url($this->resourceName());
+        $url = $this->parent()->url($this->resourceName());
         
         if ($includeId && $this->id) {
-            foreach($urls as &$url) {
-                $url .= '/' . $this->id;
-            }
+            $url .= '/' . $this->id;
         }
         
         if ($subResource) {
-            foreach($urls as &$url) {
-                $url .= '/' . $subResource;
-            }
+            $url .= '/' . $subResource;
         }
         
-        return $urls;
+        return $url;
     }
     
     /**

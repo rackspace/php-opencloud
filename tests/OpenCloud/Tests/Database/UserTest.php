@@ -53,11 +53,9 @@ class UserTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $this->user->name = 'TEST';
-        $urls = $this->user->url();
-        foreach($urls as $url) {
-            $this->assertEquals($url, 'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
+        $url = $this->user->url();
+        $this->assertEquals($url, 'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
                 'TENANT-ID/instances/12345678/users/TEST');
-        }
     }
 
     public function testInstance()
