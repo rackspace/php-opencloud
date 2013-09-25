@@ -30,7 +30,8 @@ class OpenStack extends Client
     private $tenant;
     private $catalog;
     private $logger;
-
+    private $serviceType;
+    
     private $exportItems = array(
         'token',
         'expiration',
@@ -181,6 +182,18 @@ class OpenStack extends Client
         return $this->exportItems;
     }    
 
+    public function setServiceType($serviceType)
+    {
+        $this->serviceType = $serviceType;
+        
+        return $this;
+    }
+    
+    public function getServiceType()
+    {
+        return $this->serviceType;
+    }
+    
     /**
      * Returns the stored secret
      *

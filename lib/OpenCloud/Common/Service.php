@@ -63,6 +63,9 @@ abstract class Service extends Base
         $this->service_name = $name;
         $this->service_region = $region;
         $this->service_url = $this->getEndpoint($type, $name, $region, $urltype);
+        
+        // Let client know what service is relying on it
+        $this->client->setServiceType($type);
     }
     
     /**
