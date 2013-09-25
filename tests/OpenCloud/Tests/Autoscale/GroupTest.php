@@ -11,7 +11,7 @@
 namespace OpenCloud\Tests\Autoscale;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\Autoscale\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
 class GroupTest extends PHPUnit_Framework_TestCase 
 {
@@ -24,13 +24,7 @@ class GroupTest extends PHPUnit_Framework_TestCase
     
     public function __construct()
     {
-        $connection = new FakeConnection(
-            'http://example.com', 
-            'SECRET'
-        );
-
-        $this->service = new Service($connection, 'autoscale', 'DFW', 'publicURL', self::ENDPOINT);
-        
+        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
     }
     
     public function testGroup()

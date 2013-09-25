@@ -9,7 +9,10 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
+namespace OpenCloud\Tests;
+
 use OpenCloud\OpenStack;
+use OpenCloud\Common\Http\Message\EntityEnclosingRequest;
 
 /**
  * Description of FakeClient
@@ -19,14 +22,16 @@ use OpenCloud\OpenStack;
 class FakeClient extends OpenStack
 {
     private $url;
-    private $method;
+    private $requests;
     private $responseDir;
     
     public function send($requests) 
 	{   
+        return new Response(200);
+        
         $this->responseDir = __DIR__ . 'Response' . DIRECTORY_SEPARATOR;
         $this->url = $requests->getUrl();
-        $this->method = $requests->getMethod();
+        $this->requests = $requests;
         
         $response = $this->intercept(); 
         $requests->setResponse($response);
@@ -89,7 +94,7 @@ class FakeClient extends OpenStack
     
 	public function intercept()
 	{
-		$array = include $this->responseDir . strtoupper($this->method) . '.php';
+		$array = include $this->responseDir . strtoupper($this->requests->getMethod()) . '.php';
 
         // Retrieve second-level array from service type
         $serviceArray = $this->findServiceArray($array);
@@ -100,48 +105,105 @@ class FakeClient extends OpenStack
             return new Response(404);
         }
         
-        // If no path is set, assume it's an empty body
-        if (empty($config['path'])) {
-           $body = null;
-        } else {
-            // Retrieve file contents for body
-            $bodyPath = $this->getBodyPath($config['path']);
-            if (!file_exists($bodyPath)) {
-                throw new Exception(sprintf('No response file found: %s', $bodyPath));
+        // Retrieve config from nested array structure
+        $config = $this->parseConfig($config);
+        
+        // Set response parameters to defaults if necessary
+        $body = $config['body'];
+        $status = $config['status'] ?: $this->defaults('status');
+        $headers = $config['headers'] ?: $this->defaults('headers');
+        
+        return new Response($status, $headers, $body);
+	}
+    
+    private function parseConfig($input)
+    {
+        $body    = null;
+        $status  = null;
+        $headers = null;
+        
+        if (is_string($input)) {
+            // A string can act as a filepath or as the actual body itself
+            $bodyPath = $this->getBodyPath($input);
+            
+            if (file_exists($bodyPath)) {
+                // Load external file contents
+                $body = include $bodyPath;
+            } else{
+                // Set body to string literal
+                $body = $input;
             }
-            $body = include $bodyPath;
+            
+        } elseif (is_array($input)) {          
+            
+            if (!empty($input['path']) || !empty($input['body'])) {
+                
+                // Only one response option for this URL path
+                if (!empty($input['body'])) {
+                    $body = $input['body'];
+                } else {  
+                    $bodyPath = $this->getBodyPath($input['path']);
+                    if (!file_exists($bodyPath)) {
+                        throw new Exception(sprintf('No response file found: %s', $bodyPath));
+                    }
+                    $body = include $bodyPath;
+                }
+                
+                if (!empty($input['status'])) {
+                    $status = $input['status'];
+                }
+                
+                if (!empty($input['headers'])) {
+                    $headers = $input['headers'];
+                }
+                
+            } elseif ($this->getRequest() instanceof EntityEnclosingRequest) {
+                // If there are multiple response options for this URL path, you
+                // need to do a pattern search on the request to differentiate
+                $request = $this->getRequest()->toString();
+                foreach ($input as $possibility) {
+                    if (preg_match($request, $possibility['pattern'])) {
+                        return $this->parseConfig($possibility);
+                    }
+                }    
+            }
         }
         
-        // Set defaults if none explicitly provided
-        $statusCode = (!empty($config['status'])) ? $config['status'] : $this->defaults('status');
-        $headers = (!empty($config['headers'])) ? $config['headers'] : $this->defaults('headers');
-        
-        return new Response($statusCode, $headers, $body);
-	}
+        return array(
+            'body'    => $body,
+            'headers' => $headers,
+            'status'  => $status
+        );
+    }
     
     private function defaults($key)
     {
         $config = array();
         
-        switch ($this->method) {
+        switch ($this->requests->getMethod()) {
             case 'POST':
             case 'PUT':
-                $config['status'] = 101;
+                $config['status'] = 200;
                 $config['headers'] = array();
                 break;
             
             case 'GET':
-                $config['status'] = 101;
+                $config['status'] = 200;
+                $config['headers'] = array();
+                break;
+            
+            case 'DELETE':
+                $config['status'] = 202;
                 $config['headers'] = array();
                 break;
             
             case 'HEAD':
-                $config['status'] = 101;
+                $config['status'] = 204;
                 $config['headers'] = array();
                 break;
             
             case 'PATCH':
-                $config['status'] = 101;
+                $config['status'] = 204;
                 $config['headers'] = array();
                 break;
             

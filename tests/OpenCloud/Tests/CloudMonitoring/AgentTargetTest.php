@@ -2,23 +2,15 @@
 
 namespace OpenCloud\Tests\CloudMonitoring;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\CloudMonitoring\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class AgentTargetTest extends PHPUnit_Framework_TestCase
+class AgentTargetTest extends OpenCloudTestCase
 {
     const ENTITY_ID = 'enAAAAA';
 
     public function __construct()
     {
-        $this->connection = new FakeConnection('example.com', 'SECRET');
-
-        $this->service = new Service(
-            $this->connection,
-            'cloudMonitoring',
-            'DFW',
-            'publicURL'
-        );
+        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
         
         // Set up parent resource
         $agent = $this->service->resource('Entity');

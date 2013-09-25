@@ -10,11 +10,10 @@
 
 namespace OpenCloud\Tests\Autoscale;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Autoscale\Resource\GroupConfiguration;
-use OpenCloud\Autoscale\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class GroupConfigurationTest extends PHPUnit_Framework_TestCase 
+class GroupConfigurationTest extends OpenCloudTestCase 
 {
 
     const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
@@ -28,12 +27,7 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
     
     public function __construct()
     {
-        $connection = new FakeConnection(
-            'http://example.com', 
-            'SECRET'
-        );
-
-        $this->service = new Service($connection, 'autoscale', 'DFW', 'publicURL', self::ENDPOINT); 
+        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
     }
     
     public function testParentFactory()

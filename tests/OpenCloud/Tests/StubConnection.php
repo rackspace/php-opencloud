@@ -46,39 +46,17 @@ ENDRESPONSE;
 
     public function request($url, $method = "GET", $headers = array(), $body = null) 
     {
-        $resp = new Blank;
-        $resp->headers = array(
-            'Content-Length' => '999'
-        );
 
-        // POST
 		if ($method == 'POST') {
-            
-			$resp->status = 200;
-			
-            if (strpos($url, '/action')) {
-			    if ('{"rescue' == substr($body, 0, 8)) {
-			        $resp->body = '{"adminPass": "m7UKdGiKFpqM"}';
-			    } elseif(preg_match('#EPIC-IMAGE#', $body)) {
-                    $resp->body = '';
-                    $resp->status = 202;
-                    $resp->headers['Location'] = 'fooBar';
-                } else {
-    				$resp->body = '';
-    			}
-			} elseif (strpos($url, '/token')) {
-                // Bad auth
-                if (preg_match('/badPassword/', $body)) {
-                    $resp->status = 400;
-                } else {
-                    // Good auth
-                    $resp->body = file_get_contents($this->testDir . '/connection.json');
-                }
-			} elseif (preg_match('/root$/', $url)) {
+                
+            if (preg_match('/root$/', $url)) {
 				$resp->body = '{"user":{"name":"root","password":"foo"}}';
-			} elseif (strpos($url, '/databases')) {
+			
+                
+            } elseif (strpos($url, '/databases')) {
 				$resp->body = '{to be filled in}';
 				$resp->status = 202;
+                
 			} elseif (strpos($url, '/loadbalancers')) {
 				$resp->body = '{"loadBalancer":{"id":"123","name":"NONAME"}}';
                 $resp->status = 202;

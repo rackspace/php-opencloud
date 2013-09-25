@@ -2,12 +2,9 @@
 
 namespace OpenCloud\Tests\CloudMonitoring;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\CloudMonitoring\Service;
-use OpenCloud\CloudMonitoring\Exception;
-use OpenCloud\Common\Collection;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class NotificationHistoryTest extends PHPUnit_Framework_TestCase
+class NotificationHistoryTest extends OpenCloudTestCase
 {
     
     const ENTITY_ID = 'enAAAAA';
@@ -17,14 +14,7 @@ class NotificationHistoryTest extends PHPUnit_Framework_TestCase
     
     public function __construct()
     {
-        $this->connection = new FakeConnection('http://example.com', 'SECRET');
-
-        $this->service = new Service(
-            $this->connection,
-            'cloudMonitoring',
-            'LON',
-            'publicURL'
-        );
+        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
         
         // Grandparent resource (i.e. entity)
         $entityResource = $this->service->resource('entity');

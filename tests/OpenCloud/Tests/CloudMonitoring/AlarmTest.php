@@ -2,10 +2,9 @@
 
 namespace OpenCloud\Tests\CloudMonitoring;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\CloudMonitoring\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class AlarmTest extends PHPUnit_Framework_TestCase
+class AlarmTest extends OpenCloudTestCase
 {
 
     const ENTITY_ID = 'enAAAAA';
@@ -13,14 +12,7 @@ class AlarmTest extends PHPUnit_Framework_TestCase
     
     public function __construct()
     {
-        $this->connection = new FakeConnection('example.com', 'SECRET');
-
-        $this->service = new Service(
-            $this->connection,
-            'cloudMonitoring',
-            'DFW',
-            'publicURL'
-        );
+        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
         
         // Parent object (i.e. entity)
         $entityResource = $this->service->resource('Entity');
