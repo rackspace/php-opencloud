@@ -2,6 +2,10 @@
 
 return array(
     
+    'misc' => array(
+        'BADJSON' => '{"bad jjson'
+    ),
+    
     'rax:autoscale' => array(
         
         // Groups
@@ -83,6 +87,102 @@ return array(
         'agents/{w}/host_info/processes' => 'Agent/host_processes',
         'agents/{w}/host_info/system' => 'Agent/host_sysinfo',
         'agents/{w}/host_info/who' => 'Agent/host_logged_in_user'
-    )
+    ),
+    
+    "object-store" => array(
+        'TEST\?format=json' => 'format',
+        'delimeter' => '[{"subdir": "files/Pseudo1/"},{"subdir": "files/Pseudo2/"}]'
+    ),
+    
+    "rax:object-cdn" => array(),
+    
+    "rax:database" => array(
+        '/instances/' => 'instance',
+        '/instances' => '{"instances":[]}',
+        '/volumes/' => '{"volume":[]}',        
+    ),
+    
+    "volume" => array(),
+    
+    "rax:load-balancer" => array(
+        '/loadbalancers/{w}/stats$/' => '{"connectTimeOut":10,"connectError":20,"connectFailure":30,"dataTimedOut":40,"keepAliveTimedOut":50,"maxConn":60}',
+        '/loadbalancers' => '{"loadBalancers":[{"name":"one","id":1,"protocol":"HTTP","port":80}]}',
+        '/virtualips' => '{}',
+        '/nodes' => '{}',
+        '/billable' => '{}',
+        '/algorithms' => '{}',
+        '/sessionpersistence' => '{}',
+        '/errorpage' => '{}',
+        '/healthmonitor' => '{}',
+        '/usage' => '{}',
+        '/accesslist' => '{}',
+        '/connectionthrottle' => '{}',
+        '/connectionlogging' => '{}',
+        '/contentcaching' => '{}',
+        '/alloweddomains' => '{}',
+        '/protocols' => '{}',
+        '/ssltermination' => '{}',
+        '/metadata' => '{}',
+        '/2000' => array('path' => 'get')
+    ),
+    
+    "rax:backup" => array(),
+    
+    "compute" => array(
+        'os-volume_attachments/' => '{"volumeAttachment":{"volumeId":"FOO"}}',
+        'os-volume_attachments' => '{"volumeAttachments": []}',
+        'os-networksv2' => '{}',
+        'metadata$' => '{"metadata":{"foo":"bar","a":"1"}}',
+        'extensions' => 'extensions',
+        'flavors/{w}' => 'flavor',
+        'flavors' => 'flavors',
+        '/images/detail' => 'image',
+        '/servers/{w}/rax-si-image-schedule' => 'schedule',
+        '/servers/' => 'server',
+        'EMPTY' => '{}',
+    ),
+    
+    "rax:dns" => array(
+        'export' => array(
+            'body'   => '{"status":"RUNNING","verb":"GET","jobId":"852a1e4a-45b4-409b-9d46-2d6d641b27cf","callbackUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/status/852a1e4a-45b4-409b-9d46-2d6d641b27cf","requestUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/domains/3612932/export"}',
+            'status' => 202
+        ),
+        'limits/types' => array(
+            'body' => '{"limitTypes":["RATE_LIMIT","DOMAIN_LIMIT","DOMAIN_RECORD_LIMIT"]}',
+            'status' => 202
+         ),
+        'limits/DOMAIN_LIMIT' => array(
+            'body' => '{"absolute":{"limits":[{"name":"domains","value":500}]}}',
+            'status' => 202
+        ),
+        'limits{w}/limits' => array(
+            'path' => 'limits',
+            'status' => 202
+        ),
+        'changes' => array(
+            'body' => '{"changes":[],"from":"2013-02-20T00:00:00.000+0000","to":"2013-02-20T16:12:08.000+0000","totalEntries":0}',
+            'status' => 202
+        ),
+        'domains' => array(
+            'body' => '{"domains":[{"name":"raxdrg.info","id":999919,"accountId":"TENANT-ID","emailAddress":"noname@dontuseemail.com","updated":"2013-02-15T16:30:28.000+0000","created":"2013-02-15T16:30:27.000+0000"}]}',
+            'status' => 200
+        ),
+        'rdns' => array(
+            'body' => '{"records":[{"name":"foobar.raxdrg.info","id":"PTR-548486","type":"PTR","data":"2001:4800:7811:513:199e:7e1e:ff04:be3f","ttl":900,"updated":"2013-02-18T20:24:50.000+0000","created":"2013-02-18T20:24:50.000+0000"},{"name":"foobar.raxdrg.info","id":"PTR-548485","type":"PTR","data":"166.78.48.90","ttl":900,"updated":"2013-02-18T20:24:34.000+0000","created":"2013-02-18T20:24:34.000+0000"}]}',
+            'status' => 200
+        )
+        
+    ),
+    
+    "rax:queues" => array(
+        '/queues(\?.+)?$' => 'list_queues',
+        '/queues/foobar/metadata$' => array('status' => 404, 'body' => '{}'),
+        '/queues/{w}/metadata' => 'queue_metadata',
+        '/queues/{w}/stats$' => 'queue_stats',
+        '/queues/{w}/messages\?marker\=1\&limit\=2?$' => array('status' => 204, 'path' => 'queue_exists'),
+        '/queues/{w}/messages(\?.+)?$' => 'list_messages',
+        '/queues/{w}/messages/(\w|\-)+(\?.+)?$' => 'get_message',
+        '/queues/{w}/claims/(\w|\-)+$' => 'get_claim'
+    ),
     
 );

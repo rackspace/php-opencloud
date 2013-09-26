@@ -12,7 +12,6 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
 use OpenCloud\Compute\Service;
 use OpenCloud\Compute\Resource\Server;
@@ -26,7 +25,7 @@ class PublicServer extends Server
     }
 }
 
-class ServerTest extends PHPUnit_Framework_TestCase
+class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $service;
@@ -34,10 +33,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
         $this->server = new Server($this->service, 'SERVER-ID');
     }
 

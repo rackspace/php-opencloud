@@ -188,22 +188,18 @@ abstract class PersistentObject extends Base
 
         // send the request
         $response = $this->getClient()->post($this->createUrl(), array(), $json)
-            ->setExceptionHandlers(array(
+            ->setExceptionHandler(array(
                 201 => array(
+                    'allow'    => true,
                     'callback' => function($response) {
                         $this->refresh(null, $response->getHeader('Location'));
                     }
                 ),
-                204 => array(
-                    'not'     => true,
-                    'class'   => Exceptions\CreateError,
-                    'message' => sprintf(
-                        'Error creating [%s] [%s]',
-                        get_class($this), 
-                        $this->getProperty($this->primaryKeyField())
-                    )
-                )
-            ))
+                204 => sprintf('Error creating [%s] [%s]',
+                    get_class($this), 
+                    $this->getProperty($this->primaryKeyField())
+                ))
+            )
             ->send();
             
         if (null !== ($decoded = $this->parseResponse($response))) {

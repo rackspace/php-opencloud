@@ -12,9 +12,7 @@
 
 namespace OpenCloud\Tests\ObjectStore;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\ObjectStore\Resource\AbstractStorageObject;
-use OpenCloud\Common\Request\Response\Blank;
 
 // stub class, since ObjStoreBase is abstract
 class MyObjStoreBase extends AbstractStorageObject
@@ -22,11 +20,9 @@ class MyObjStoreBase extends AbstractStorageObject
     public $name = 'FOOBAR';
 }
 
-class MyNamelessObjectStore extends AbstractStorageObject
-{
-}
+class MyNamelessObjectStore extends AbstractStorageObject {}
 
-class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
+class ObjStoreBaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $obj;
@@ -43,22 +39,9 @@ class ObjStoreBaseTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->obj = new MyObjStoreBase();
         $this->assertInstanceOf('OpenCloud\Common\Metadata', $this->obj->metadata);
     }
 
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\MetadataPrefixError
-     */
-    public function testGetMetadata()
-    {
-        $blank = new Blank;
-        $blank->headers = array(
-            'X-Meta-Something' => 'FOO',
-            'X-Meta-Else' => 'BAR'
-        );
-        $this->obj->getMetadata($blank);
-    }
 
     /**
      * @expectedException \OpenCloud\Common\Exceptions\MetadataPrefixError

@@ -9,47 +9,34 @@
 
 namespace OpenCloud\Tests\LoadBalancer;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\LoadBalancer\Resources\SubResource;
-use OpenCloud\LoadBalancer\Resources\LoadBalancer;
-use OpenCloud\LoadBalancer\Service;
-use OpenCloud\Tests\StubConnection;
-
-class MySubResource extends SubResource
+class MySubResource extends \OpenCloud\LoadBalancer\Resources\SubResource
 {
     public $id;
-    
     public static $json_name = 'ignore';
     public static $url_resource = 'ignore';
-    
     protected $createKeys = array('id');
 
-    public function CreateJson()
+    public function createJson()
     {
-        return parent::CreateJson();
+        return parent::createJson();
     }
 
-    public function UpdateJson($params = array())
+    public function updateJson($params = array())
     {
-        return parent::UpdateJson($params);
+        return parent::updateJson($params);
     }
-
 }
 
-class LoadBalancerTest extends PHPUnit_Framework_TestCase
+class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $connection;
     private $service;
     private $loadBalancer;
 
     public function __construct()
     {
-        $this->connection = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $this->connection, 'cloudLoadBalancers', 'DFW', 'publicURL'
-        );
-        $this->loadBalancer = new LoadBalancer($this->service);
+        $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
+        $this->loadBalancer = $this->service->loadBalancer();
     }
 
     /**
@@ -72,8 +59,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         //$lb->Create();
         $lb->AddNode('1.1.1.1', 80);
         $lb->Create();
-        $lb->AddNodes();
-        
+        $lb->AddNodes(); 
     }
 
     /**

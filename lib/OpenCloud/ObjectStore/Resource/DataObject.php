@@ -14,7 +14,7 @@ namespace OpenCloud\ObjectStore\Resource;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\ObjectStore\AbstractService;
-use OpenCloud\Common\Request\Response\Http;
+use OpenCloud\Common\Http\Message\Response;
 
 /**
  * Objects are the basic storage entities in Cloud Files. They represent the 
@@ -718,7 +718,9 @@ class DataObject extends AbstractStorageObject
             throw new Exceptions\NoNameError(Lang::translate('Cannot retrieve an unnamed object'));
         }
 
-        $response = $this->getClient()->head($this->url(), array('Accept' => '*/*'))
+        $response = $this->getService()
+            ->getClient()
+            ->head($this->url(), array('Accept' => '*/*'))
             ->send();
 
         // set headers as metadata?
@@ -734,9 +736,9 @@ class DataObject extends AbstractStorageObject
      * 
      * @param Http $response
      */
-    private function saveResponseHeaders(Http $response, $fillExtraIfNotFound = true)
+    private function saveResponseHeaders(Response $response, $fillExtraIfNotFound = true)
     {
-        foreach ($response->headers() as $header => $value) {
+        foreach ($response->getHeaders() as $header => $value) {
             if (isset($this->headerTranslate[$header])) {
                 // This header needs to be translated
                 $property = $this->headerTranslate[$header];

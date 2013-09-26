@@ -12,35 +12,14 @@
 
 namespace OpenCloud\Tests\Common;
 
-use OpenCloud\Common\Service;
-use OpenCloud\Tests\StubConnection;
-use PHPUnit_Framework_TestCase;
-
-/**
- * Since Service is an abstract class, we'll wrap it so we can test it
- */
-class MyService extends Service
+class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    public function Request($url, $method = 'GET', array $headers = array(), $body = NULL)
-    {
-        return parent::Request($url, $method, $headers, $body);
-    }
-
-}
-
-class ServiceTest extends PHPUnit_Framework_TestCase
-{
-
-    private $conn;
     private $service;
 
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new MyService(
-            $this->conn, 'compute', 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW');
     }
 
     /**
@@ -93,7 +72,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function test_UrlType_Defaults()
     {
         $service = new MyService(
-            $this->conn, 'compute', 'cloudServersOpenStack', 'DFW', ''
+            $this->getClient(), 'compute', 'cloudServersOpenStack', 'DFW', ''
         );
     }
     

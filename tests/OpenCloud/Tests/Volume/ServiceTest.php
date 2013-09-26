@@ -12,32 +12,18 @@
 
 namespace OpenCloud\Tests\Volume;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Volume\Service;
-use OpenCloud\Tests\StubConnection;
-
-class ServiceTest extends PHPUnit_Framework_TestCase
+class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $conn;
     private $service;
 
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $this->conn, 'cloudBlockStorage', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->volumeService('cloudBlockStorage', 'DFW');
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
-        $this->service = new Service(
-            $this->conn, 'cloudBlockStorage', 'DFW', 'publicURL'
-        );
         $this->assertInstanceOf('OpenCloud\Volume\Service', $this->service);
     }
 

@@ -11,9 +11,7 @@
 
 namespace OpenCloud\Tests\Queues\Resource;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Queues\Service;
-use OpenCloud\Tests\StubConnection;
 use OpenCloud\Common\Metadata;
 
 /**
@@ -21,17 +19,15 @@ use OpenCloud\Common\Metadata;
  * 
  * @link 
  */
-class QueueTest extends PHPUnit_Framework_TestCase
+class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
     
-    private $connection;
     private $service;
     private $queue;
     
     public function __construct()
     {
-        $this->connection = new StubConnection('foo', 'bar');
-        $this->service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $this->service = $this->getClient()->queues('cloudQueues', 'ORD');
         $this->queue = $this->service->getQueue();
     }
     

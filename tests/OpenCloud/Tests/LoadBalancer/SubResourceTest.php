@@ -10,26 +10,16 @@
 
 namespace OpenCloud\Tests\LoadBalancer;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\LoadBalancer\Resources\LoadBalancer;
-use OpenCloud\LoadBalancer\Service;
-
-class SubResourceTest extends PHPUnit_Framework_TestCase 
+class SubResourceTest extends \OpenCloud\Tests\OpenCloudTestCase 
 {
 
-    private $connection;
     private $service;
     private $loadBalancer;
 
     public function __construct()
     {
-        $this->connection = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $this->connection, 'cloudLoadBalancers', 'DFW', 'publicURL'
-        );
-        $this->loadBalancer = new LoadBalancer($this->service);
-        $this->loadBalancer->refresh('2000');
+        $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
+        $this->loadBalancer = $this->service->loadBalancer('2000');
     }
     
     /**

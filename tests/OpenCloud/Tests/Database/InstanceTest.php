@@ -12,10 +12,7 @@
 
 namespace OpenCloud\Tests;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Database\Resource\Instance;
-use OpenCloud\Database\Service;
-use OpenCloud\Tests\StubConnection;
 
 class MyInstanceClass extends Instance
 {
@@ -25,7 +22,7 @@ class MyInstanceClass extends Instance
     }
 }
 
-class InstanceTest extends PHPUnit_Framework_TestCase
+class InstanceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $service;
@@ -33,10 +30,7 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $conn, 'cloudDatabases', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
         $this->instance = new MyInstanceClass(
             $this->service, 'INSTANCE-ID'
         );

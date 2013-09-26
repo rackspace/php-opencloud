@@ -12,27 +12,16 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use OpenCloud\Tests\StubConnection;
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Compute\Resource\Image;
-use OpenCloud\Compute\Service;
 
-class ImageStub extends Image
+class ImageTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-}
-
-class ImageTest extends PHPUnit_Framework_TestCase
-{
-
-    private $compute;
+    private $service;
 
     public function __construct()
     {
-        $connection = new StubConnection('http://example.com', 'SECRET');
-        $this->compute = new Service(
-            $connection, 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
     }
 
     /**
@@ -40,12 +29,12 @@ class ImageTest extends PHPUnit_Framework_TestCase
      */
     public function test___construct()
     {
-        $image = new Image($this->compute, 'XXXXXX');
+        new Image($this->service, 'XXXXXX');
     }
 
     public function test_good_image()
     {
-        $image = new Image($this->compute);
+        $image = new Image($this->service);
         $this->assertEquals(null, $image->status);
         $this->assertEquals('OpenCloud\Common\Metadata', get_class($image->getMetadata()));
     }
@@ -55,7 +44,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
      */
     public function test_bad_json()
     {
-        $image = new Image($this->compute, 'BADJSON');
+        new Image($this->service, 'BADJSON');
     }
 
     /**
@@ -63,7 +52,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
      */
     public function test_empty_json()
     {
-        $image = new Image($this->compute, 'EMPTY');
+        new Image($this->service, 'EMPTY');
     }
 
     /**
@@ -71,7 +60,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
-        $image = $this->compute->image();
+        $image = $this->service->image();
         $image->create();
     }
 
@@ -80,14 +69,8 @@ class ImageTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdate()
     {
-        $image = $this->compute->image();
+        $image = $this->service->image();
         $image->update();
-    }
-
-    public function testJsonName()
-    {
-        $x = new ImageStub($this->compute);
-        $this->assertEquals('image', $x->jsonName());
     }
 
 }

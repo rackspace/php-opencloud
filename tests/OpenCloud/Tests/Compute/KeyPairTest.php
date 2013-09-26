@@ -11,19 +11,13 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use OpenCloud\Tests\StubConnection;
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Compute\Service;
-
-class KeyPairTest extends PHPUnit_Framework_TestCase
+class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
+    private $compute;
     
     public function __construct()
     {
-        $connection = new StubConnection('http://example.com', 'SECRET');
-        $this->compute = new Service(
-            $connection, 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
+        $this->compute = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
     }
     
     public function test_Service_Methods()

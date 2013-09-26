@@ -12,7 +12,6 @@
 
 namespace OpenCloud\Tests\Common;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Common\Base;
 use OpenCloud\Common\Lang;
 
@@ -22,12 +21,9 @@ use OpenCloud\Common\Lang;
 class MyBase extends Base
 {
 
-    public $foo; // to test SetProperty
-    
+    public $foo;
     protected $bar;
-    
     private $baz;
-    
     private $metadata;
     
     public function setBar($bar)
@@ -39,30 +35,18 @@ class MyBase extends Base
     {
         return $this->bar;
     }
-    
-    public function getHttpRequestObject($url, $method = 'GET', array $options = array())
-    {
-        return parent::GetHttpRequestObject($url, $method);
-    }
-
 }
 
-class BaseTest extends PHPUnit_Framework_TestCase
+class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $my;
 
-    /**
-     * Create our redirected Base class
-     */
     public function __construct()
     {
         $this->my = new MyBase;
     }
 
-    /**
-     * Tests
-     */
     public function test_gettext()
     {
         $this->assertEquals(Lang::translate('Hello'), 'Hello');

@@ -87,6 +87,19 @@ class CDNContainer extends AbstractStorageObject
     }
     
     /**
+     * Returns the Service associated with the Container
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+    
+    public function getClient()
+    {
+        return $this->getService()->getClient();
+    }
+    
+    /**
      * Allow other objects to know what the primary key is.
      * 
      * @return string
@@ -94,14 +107,6 @@ class CDNContainer extends AbstractStorageObject
     public function primaryKeyField()
     {
         return 'name';
-    }
-    
-    /**
-     * Returns the Service associated with the Container
-     */
-    public function getService()
-    {
-        return $this->service;
     }
     
     /**

@@ -12,40 +12,25 @@
 
 namespace OpenCloud\Tests\ObjectStore;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\ObjectStore\Service;
-use OpenCloud\ObjectStore\Resource\Container;
-use OpenCloud\ObjectStore\Resource\DataObject;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\Tests\StubService;
-
-class DataObjectTest extends PHPUnit_Framework_TestCase
+class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $dataobject;
     private $service;
     private $container;
-    private $nullFile;
-    private $conn;
-    
+    private $nullFile; 
     private $nonCDNContainer;
 
     public function __construct()
     {
-        $this->conn = $conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new StubService(
-            $conn, 'object-store', 'cloudFiles', 'DFW', 'publicURL'
-        );
-        $this->container = new Container($this->service, 'TEST');
-        $this->dataobject = new DataObject($this->container, 'DATA-OBJECT');
+        $this->service = $this->getClient()->objectStore('cloudFiles', 'DFW');
+        $this->container = $this->service->container('TEST');
+        $this->dataobject = $this->container->dataObject('DATA-OBJECT');
 
         $this->nullFile = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'NUL' : '/dev/null';
         
-        $this->nonCDNContainer = new Container(
-            $this->conn->ObjectStore('cloudFiles', 'DFW', 'publicURL'),
-            'NON-CDN'
-        );
-        $this->nonCDNObject = new DataObject($this->nonCDNContainer, 'OBJECT');
+        $this->nonCDNContainer = $this->service->container('NON-CDN');
+        $this->nonCDNObject = $this->nonCDNContainer->dataObject('OBJECT');
     }
 
     /**
@@ -61,49 +46,53 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     {
         $this->assertEquals(
             'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/DATA-OBJECT', 
-            $this->dataobject->Url()
+            $this->dataobject->url()
         );
     }
 
     // tests objects with spaces
     public function testUrl2()
     {
-        $testobject = new DataObject($this->container, 'A name with spaces');
+        $testobject = $this->container->dataObject('A name with spaces');
         $this->assertEquals(
             'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/A%20name%20with%20spaces', 
-            $testobject->Url()
+            $testobject->url()
         );
     }
 
     public function testCreate1()
     {
-        $arr = array('name' => 'DOOFUS', 'content_type' => 'text/plain');
-        
-        $obj = new DataObject($this->container);
-        $this->assertInstanceOf('OpenCloud\Common\Request\Response\Blank', $obj->Create($arr));
-        $this->assertEquals('DOOFUS', $obj->name);
-        
-        $obj = new DataObject($this->container);
-        $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
-            $obj->create(array('name' => 'FOOBAR'), $this->nullFile)
-        );
+        $object = $this->container->dataObject();
+        $object->create(array(
+            'name' => 'DOOFUS', 
+            'content_type' => 'text/plain'
+        ));
+        $this->assertEquals('DOOFUS', $object->name);
     }
 
     public function testCreateContentType()
     {
-        $arr = array('name' => 'MOOFUS', 'content_type' => 'application/x-arbitrary-mime-type');
-        $obj = new DataObject($this->container);
-        $obj->create($arr, __FILE__);
-        $this->assertEquals('application/x-arbitrary-mime-type', $obj->content_type);
+        $object = $this->container->dataObject();
+        $object->create(array(
+                'name' => 'MOOFUS', 
+                'content_type' => 'application/x-arbitrary-mime-type'
+            ), 
+            __FILE__
+        );
+        $this->assertEquals('application/x-arbitrary-mime-type', $object->content_type);
     }
 
     public function testCreateWithHeaders()
     {
-        $arr = array('name' => 'HOOFUS', 'extra_headers' => array('Access-Control-Allow-Origin' => 'http://example.com'));
-        $obj = $this->nonCDNObject;
-        $obj->create($arr, $this->nullFile, 'tar.gz');
-        $this->assertEquals('http://example.com', $obj->extra_headers['Access-Control-Allow-Origin']);
+        $array = array(
+            'name' => 'HOOFUS', 
+            'extra_headers' => array('Access-Control-Allow-Origin' => 'http://example.com')
+        );
+        
+        $object = $this->nonCDNObject;
+        $object->create($array, $this->nullFile, 'tar.gz');
+        
+        $this->assertEquals('http://example.com', $object->extra_headers['Access-Control-Allow-Origin']);
     }
     
     /**
@@ -112,14 +101,14 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     public function testCreateFailsWithIncorrectExtractArchive()
     {
         $arr = array('name' => 'MOOFUS', 'content_type' => 'application/x-arbitrary-mime-type');
-        $obj = new DataObject($this->container);
+        $obj = $this->container->dataObject();
         $obj->create($arr, __FILE__, 'wrong.tar.gz');
     }
 
     public function testUpdate()
     {
         $arr = array('name' => 'XOOFUS', 'content_type' => 'text/plain');
-        $obj = new DataObject($this->container);
+        $obj = $this->container->dataObject();
         $this->assertInstanceOf(
             'OpenCloud\Common\Request\Response\Blank', 
             $obj->update($arr)
@@ -223,7 +212,7 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
 
     public function testFetch()
     {
-        $obj = new DataObject($this->container, 'FOO');
+        $obj = $this->container->dataObject('FOO');
         $this->assertEquals('FOO', $obj->name);
     }
     
@@ -232,8 +221,7 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
      */
     public function testFetchFailsWithoutName()
     {
-        $obj = new DataObject($this->container);
-        $obj->refresh();
+        $this->container->dataObject()->refresh();
     }
 
     /**
@@ -284,11 +272,7 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     
     public function testUrls()
     {
-        $container = new Container(
-            $this->conn->ObjectStore('cloudFiles', 'DFW', 'publicURL'),
-            'TEST'
-        );
-        $files = $container->objectList();
+        $files = $this->container->objectList();
         $file = $files->first();
         
         $this->assertNotNull($file->publicURL());
@@ -296,9 +280,9 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
         $this->assertNotNull($file->publicURL('SSL'));
         $this->assertNotNull($file->publicURL('IOS-STREAMING'));
         
-        $files = $this->nonCDNContainer->objectList();
-        $file = $files->first();
-        $this->assertNull($file->publicURL());
+        $files2 = $this->nonCDNContainer->objectList();
+        $file2 = $files2->first();
+        $this->assertNull($file2->publicURL());
     }
     
     /**

@@ -9,9 +9,10 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Http\Message;
+namespace OpenCloud\Common\Http\Message;
 
 use OpenCloud\Http\Exception\UnexpectedResponseException;
+use Guzzle\Http\Exception\BadResponseException;
 
 /**
  * Description of ResponseHandler
@@ -20,6 +21,8 @@ use OpenCloud\Http\Exception\UnexpectedResponseException;
  */
 class ResponseHandler
 {
+    
+    private $template = array();
     
     public static function fromArray(array $params = array())
     {
@@ -31,30 +34,38 @@ class ResponseHandler
     public function setConfiguration(array $params = array())
     {
         foreach ($params as $status => $config) {
-            if (Request::isValidStatus($status)) {
+            if (Response::isValidStatus($status)) {
                 $this->template[$status] = $config;
             }
         }
+        
+        return $this;
     }
     
     public function setRequest($request)
     {
         $this->request = $request;
+        
+        return $this;
     }
     
     public function setResponse($response)
     {
         $this->response = $response;
+        
+        return $this;
     }
     
     public function setExpectedResponse($expected)
     {
         $this->expectedResponse = $expected;
+        
+        return $this;
     }
     
     public function handle()
     {
-        $status = $this->response->getStatus();
+        $status = $this->response->getStatusCode();
         
         // If somebody is expecting a specific response code, make the check stricter
         if ($this->expectedResponse && $this->expectedResponse != $this->response) {
@@ -65,13 +76,24 @@ class ResponseHandler
             ));
         }
         
+        // How do we want to handle this particular status code?
         if (in_array($status, $this->template)) {
-            // Throw custom message
+
             $config = $this->template[$status];
-            $class = $config['class'];
-            return new $class($config['message']);
-        } else {
-            // Otherwise, rely on Guzzle's native error handling
+            
+            if (isset($config['allow']) && $config['allow'] === true) {
+                
+                if (!empty($config['callback'])) {
+                    return $config['callback'];
+                }
+                
+            } else { 
+                $class = $config['class'];
+                return new $class($config['message']);
+            }        
+            
+        } elseif ($this->response->isError()) {
+            // Otherwise, handle other errors
             return BadResponseException::factory($this->request, $this->response);
         }
     }

@@ -12,23 +12,18 @@
 
 namespace OpenCloud\Tests\Common;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Common\Nova;
-use OpenCloud\Tests\StubConnection;
 
 class MyNova extends Nova {}
 
-class NovaTest extends PHPUnit_Framework_TestCase
+class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
-    private $conn;
     private $nova;
 
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->nova = new MyNova(
-            $this->conn, 'compute', 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $this->getClient(), 'compute', 'cloudServersOpenStack', 'DFW', 'publicURL'
         );
     }
 
@@ -38,7 +33,9 @@ class NovaTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/foo', $this->nova->Url('foo'));
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/foo', 
+            $this->nova->Url('foo')
+        );
     }
 
     public function testFlavor()
@@ -49,13 +46,6 @@ class NovaTest extends PHPUnit_Framework_TestCase
     public function testFlavorList()
     {
         $this->assertInstanceOf('OpenCloud\Common\Collection', $this->nova->flavorList());
-    }
-
-    public function testRequest()
-    {
-        // this returns 404 because the Connection::Request() is stubbed out
-        $resp = $this->nova->Request('http://example.com');
-        $this->assertEquals(404, $resp->HttpStatus());
     }
 
 }

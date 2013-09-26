@@ -51,18 +51,21 @@ class ServerMetadata extends Metadata
             $this->key = $key;
 
             // in either case, retrieve the data
-            $response = $this->getClient()->get($this->url())->send();
+            $response = $this->getParent()
+                ->getClient()
+                ->get($this->url())
+                ->send();
 
             $this->getLogger()->info(
                 Lang::translate('Metadata for [{url}] is [{body}]'), 
                 array(
                     'url'  => $this->url(), 
-                    'body' => $response->httpBody()
+                    'body' => $response->getBody()
                 )
             );
 
             // parse and assign the server metadata
-            $object = $response->getBody(true);
+            $object = $response->getDecodedBody();
 
             if (isset($object->metadata)) {
                 foreach ($object->metadata as $key => $value) {

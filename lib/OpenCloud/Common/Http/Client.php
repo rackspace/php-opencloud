@@ -12,6 +12,7 @@
 namespace OpenCloud\Common\Http;
 
 use Guzzle\Http\Client as GuzzleClient;
+use Guzzle\Http\Curl\CurlVersion;
 
 /**
  * Description of Client
@@ -21,9 +22,13 @@ use Guzzle\Http\Client as GuzzleClient;
 class Client extends GuzzleClient
 {
     
-    public function registerResponseExceptions(array $exceptions)
+    const VERSION = '1.7.0';
+    
+    public function getDefaultUserAgent()
     {
-        
+        return 'OpenCloud/' . self::VERSION
+            . ' curl/' . CurlVersion::getInstance()->get('version')
+            . ' PHP/' . PHP_VERSION;
     }
     
 }

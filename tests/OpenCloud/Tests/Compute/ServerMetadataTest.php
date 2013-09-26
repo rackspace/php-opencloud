@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Unit Tests
  *
@@ -12,13 +11,7 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Compute\Resource\Server;
-use OpenCloud\Compute\Resource\ServerMetadata;
-use OpenCloud\Compute\Service;
-use OpenCloud\Tests\StubConnection;
-
-class ServerMetadataTest extends PHPUnit_Framework_TestCase
+class ServerMetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $server;
@@ -26,12 +19,9 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $compute = new Service(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
-        $this->server = new Server($compute, 'Identifier');
-        $this->metadata = new ServerMetadata($this->server);
+        $service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->server = $service->server('Identifier');
+        $this->metadata = $this->server->metadata();
     }
 
     /**
@@ -40,9 +30,7 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
     public function test___construct()
     {
         $this->assertInstanceOf('OpenCloud\Compute\Resource\ServerMetadata', $this->metadata);
-        // test whole group
-        $metadata = $this->server->metadata();
-        $this->assertEquals('bar', $metadata->foo);
+        $this->assertEquals('bar', $this->metadata->foo);
 
         // now test individual property
         $met = $this->server->metadata('foobar');
@@ -56,7 +44,7 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
             'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata', 
             $this->metadata->Url()
         );
-        $m2 = new ServerMetadata($this->server, 'property');
+        $m2 = $this->server->metadata('property');
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property', 
             $m2->url()
@@ -70,7 +58,7 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
     {
         $this->metadata->property = 'value';
         $this->assertEquals('value', $this->metadata->property);
-        $m2 = new ServerMetadata($this->server, 'property');
+        $m2 = $this->server->metadata('property');
         $m2->foo = 'bar'; // should cause exception
         $this->assertNull($m2->foo);
     }
@@ -101,13 +89,12 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
     {
         $server = $this->server;
         $server->id = null;
-        $metadata = new ServerMetadata($server);
-        $metadata->url();
+        $server->metadata()->url();
     }
     
     public function testKeyAssignment()
     {
-        $metadata = new ServerMetadata($this->server, 'baz');
+        $metadata = $this->server->metadata('baz');
         $metadata->baz = 'foo';
         $metadata->update();
     }

@@ -15,7 +15,7 @@ use OpenCloud\Common\Base;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Exceptions\NameError;
 use OpenCloud\Common\Exceptions\MetadataPrefixError;
-use OpenCloud\Common\Request\Response\Http;
+use OpenCloud\Common\Http\Message\Response;
 
 /**
  * Abstract base class which implements shared functionality of ObjectStore 
@@ -52,10 +52,10 @@ abstract class AbstractStorageObject extends Base
      * @param  OpenCloud\Common\Request\Response\Http
      * @return void
      */
-    public function getMetadata(Http $response)
+    public function getMetadata(Response $response)
     {
         $this->metadata = new Metadata;
-        $this->metadata->setArray($response->headers(), $this->prefix());
+        $this->metadata->setArray($response->getHeaders(), $this->prefix());
     }
 
     /**

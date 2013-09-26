@@ -12,72 +12,44 @@
 
 namespace OpenCloud\Tests\ObjectStore;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Common\Request\Response\Blank;
-use OpenCloud\ObjectStore\Service;
-use OpenCloud\Tests\StubConnection;
-
-/**
- * Stub wrapper class so that we can override the request() method
- */
-class MyObjectStore extends Service
+class ObjectStoreTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    public function request($url, $method = 'GET', array $headers = array(), $body = null)
-    {
-        return new Blank;
-    }
-
-}
-
-class ObjectStoreTest extends PHPUnit_Framework_TestCase
-{
-
-    private $ostore;
+    private $service;
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $this->ostore = new MyObjectStore(
-            $conn, 'cloudFiles', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->objectStore('cloudFiles', 'DFW', 'publicURL');
     }
 
     public function test__construct()
     {
-        $this->assertTrue(is_object($this->ostore));
-        $this->assertInstanceOf('OpenCloud\Tests\ObjectStore\MyObjectStore', $this->ostore);
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Service', $this->service);
     }
 
     public function testUrl()
     {
         $this->assertEquals(
             'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID', 
-            $this->ostore->url()
+            $this->service->url()
         );
     }
 
     public function testContainer()
     {
-        $obj = $this->ostore->Container();
+        $obj = $this->service->container();
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\Container', $obj);
     }
 
     public function testContainerList()
     {
-        $clist = $this->ostore->ContainerList();
+        $clist = $this->service->containerList();
         $this->assertInstanceOf('OpenCloud\Common\Collection', $clist);
     }
-
-    public function testSetTempUrlSecret()
-    {
-        $resp = $this->ostore->setTempUrlSecret('foobar');
-        $this->assertEquals(200, $resp->httpStatus());
-    }
-
+    
     public function testCDN()
     {
-        $this->assertInstanceOf('OpenCloud\ObjectStore\CDNService', $this->ostore->CDN());
+        $this->assertInstanceOf('OpenCloud\ObjectStore\CDNService', $this->service->CDN());
     }
 
     /**
@@ -85,7 +57,7 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
      */
     public function testCDNCDN()
     {
-        $this->assertFalse(get_class($this->ostore->CDN()->CDN()));
+        $this->assertFalse(get_class($this->service->CDN()->CDN()));
     }
 
 }

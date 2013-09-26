@@ -11,22 +11,9 @@
 
 namespace OpenCloud\Tests\ObjectStore;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Common\Request\Response\Blank;
-use OpenCloud\ObjectStore\Service;
 use OpenCloud\ObjectStore\Resource\CDNContainer;
-use OpenCloud\ObjectStore\Resource\Container;
-use OpenCloud\Tests\StubConnection;
 
-class StubObjectStore extends Service
-{
-    public function request($url, $method = 'GET', array $headers = array(), $data = null)
-	{
-        return new Blank;
-    }
-}
-
-class ContainerTest extends PHPUnit_Framework_TestCase
+class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 	private $service;
 	private $container;
@@ -37,38 +24,18 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	 */
 	public function __construct()
 	{
-		$conn = new StubConnection('http://example.com', 'SECRET');
-		$this->service = new StubObjectStore(
-			$conn,
-			'cloudFiles',
-			'DFW',
-			'publicURL'
-		);
-        
-        $service = new Service(
-			new StubConnection('http://example.com', 'SECRET'),
-			'cloudFiles',
-			'DFW',
-			'publicURL'
-		);
-        $this->otherContainer = new Container($service, 'TEST');
-	}
-
-	public function getContainer()
-	{
-		if (null === $this->container) {
-			$this->container = new Container($this->service, 'TEST');
-		}
-		return $this->container;
+		$this->service = $this->getClient()->objectStore('cloudFiles', 'DFW', 'publicURL');
+        $this->container = $this->service->container('TEST');
+        $this->otherContainer = $this->service->container('TEST');
 	}
 
 	public function test_construct()
 	{
-	    $this->assertEquals('TEST', $this->getContainer()->name);
+	    $this->assertEquals('TEST', $this->container->name);
         
 		$this->assertInstanceOf(
 		    'OpenCloud\Common\Metadata', 
-            $this->getContainer()->metadata
+            $this->container->metadata
         );
 	}
 
@@ -76,10 +43,10 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertEquals(
 		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST',
-		    $this->getContainer()->Url()
+		    $this->container->Url()
 		);
 
-		$space_cont = new Container($this->service, 'Name With Spaces');
+		$space_cont = $this->service->container('Name With Spaces');
 
 		$this->assertEquals(
 	        'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/Name%20With%20Spaces',
@@ -89,63 +56,61 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testCreate()
 	{
-		$con = $this->getContainer()->Create(array('name'=>'SECOND'));
-		$this->assertEquals(TRUE, $con);
+		$con = $this->container->create(array('name'=>'SECOND'));
+		$this->assertTrue($con);
 		$this->assertEquals(
 		    'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND',
-		    $this->getContainer()->Url());
+		    $this->container->Url()
+        );
 	}
 
 	public function testCreate0()
 	{
 		// '0' should be a valid container name
-		$con = $this->getContainer()->Create(array('name'=>'0'));
+		$con = $this->container->create(array('name'=>'0'));
 		$this->assertTrue($con);
 	}
 
 	public function testUpdate()
 	{
-	    $this->assertEquals(
-	        TRUE,
-	        $this->getContainer()->Update());
+	    $this->assertTrue($this->container->update());
 	}
 
 	public function testDelete()
 	{
-		$ret = $this->getContainer()->Delete();
-		$this->assertEquals(TRUE, $ret);
+		$this->assertTrue($this->container->delete());
 	}
 
 	public function testObjectList()
 	{
-		$olist = $this->getContainer()->ObjectList();
-		$this->assertEquals(
+		$this->assertInstanceOf(
 		    'OpenCloud\Common\Collection',
-		    get_class($olist));
+		    $this->container->objectList()
+        );
 	}
 
 	public function testDataObject()
 	{
-		$obj = $this->getContainer()->DataObject();
+		$obj = $this->container->dataObject();
 		$this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $obj);
         
-		$obj = $this->getContainer()->DataObject('FOO');
+		$obj = $this->container->dataObject('FOO');
 		$this->assertEquals('FOO', $obj->name);
 	}
 
 	public function testService()
 	{
-		$this->assertEquals($this->service, $this->getContainer()->getService());
+		$this->assertEquals($this->service, $this->container->getService());
 	}
 
 	public function testEnableCDN1()
 	{
-	    $this->getContainer()->enableCDN(100);
+	    $this->container->enableCDN(100);
 	}
     
     public function testCDNMetadata()
     {
-        $container = $this->getContainer();
+        $container = $this->container;
         $container->enableCDN(100);
         $container->CDN()->metadata = (object) array(
             'Enabled' => 'True',
@@ -155,7 +120,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.com', $container->CDNinfo('X-Cdn-Streaming-Uri'));
         $this->assertNull($container->CDNinfo('foo'));
         
-        $this->assertTrue(null !== $container->CDNinfo());
+        $this->assertNotNull($container->CDNinfo());
     }
 
 	/**
@@ -163,7 +128,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testEnableCDN2()
 	{
-	    $this->getContainer()->enableCDN('FOOBAR');
+	    $this->container->enableCDN('FOOBAR');
 	}
 
 	/**
@@ -171,7 +136,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testPubishToCDN2()
 	{
-	    $this->getContainer()->publishToCDN('FOOBAR');
+	    $this->container->publishToCDN('FOOBAR');
 	}
 
 	public function testDisableCDN()
@@ -183,7 +148,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 	    $this->assertEquals(
 	        'https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST',
-	        $this->getContainer()->CDNURL()
+	        $this->container->CDNURL()
         );
 	}
 
@@ -191,7 +156,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
         $this->assertInstanceOf(
             'OpenCloud\Common\Metadata',
-            $this->getContainer()->CDNinfo()
+            $this->container->CDNinfo()
         );
 	}
 
@@ -199,7 +164,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 	    $this->assertEquals(
             'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com',
-            $this->getContainer()->CDNURI()
+            $this->container->CDNURI()
         );
 	}
 
@@ -207,7 +172,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 	    $this->assertEquals(
             'https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.cf0.rackcdn.com',
-            $this->getContainer()->SSLURI()
+            $this->container->SSLURI()
         );
 	}
 
@@ -215,7 +180,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 	    $this->assertEquals(
             'http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.stream.cf0.rackcdn.com',
-            $this->getContainer()->streamingURI()
+            $this->container->streamingURI()
         );
 	}
 
@@ -223,7 +188,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 	    $this->assertEquals(
             'http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.ios.cf0.rackcdn.com',
-            $this->getContainer()->iosStreamingURI()
+            $this->container->iosStreamingURI()
         );
 	}
 
@@ -231,7 +196,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInstanceOf(
 			'OpenCloud\Common\Request\Response\Blank',
-			$this->getContainer()->createStaticSite('index.html')
+			$this->container->createStaticSite('index.html')
         );
 	}
 
@@ -239,7 +204,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 		$this->assertInstanceOf(
 			'OpenCloud\Common\Request\Response\Blank',
-			$this->getContainer()->StaticSiteErrorPage('error.html')
+			$this->container->StaticSiteErrorPage('error.html')
         );
 	}
 
@@ -247,7 +212,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	{
 	    $this->assertEquals(
             'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com',
-            $this->getContainer()->publicUrl()
+            $this->container->publicUrl()
         );
 	}
     
@@ -268,8 +233,8 @@ class ContainerTest extends PHPUnit_Framework_TestCase
      */
     public function testUrlFailsWithoutName()
     {
-        $this->getContainer()->name = '';
-        $this->getContainer()->url();
+        $this->container->name = '';
+        $this->container->url();
     }
     
     /**
@@ -278,7 +243,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     public function testNameFail1()
     {
         $name = '';
-        $this->getContainer()->isValidName($name);
+        $this->container->isValidName($name);
     }
     
     /**
@@ -287,7 +252,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
     public function testNameFail2()
     {
         $name = '/example/';
-        $this->getContainer()->isValidName($name);
+        $this->container->isValidName($name);
     }
     
     /**
@@ -298,7 +263,7 @@ class ContainerTest extends PHPUnit_Framework_TestCase
         $name = <<<EOT
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 EOT;
-        $this->getContainer()->isValidName($name);
+        $this->container->isValidName($name);
     }
     
     public function testPseudoDirectories()
@@ -315,12 +280,7 @@ EOT;
     
     public function testContainerNotFoundFailsGracefully()
     {
-        $new = new Container(new Service(
-			new StubConnection('http://example.com', 'SECRET'),
-			'cloudFiles',
-			'DFW',
-			'publicURL'
-		), 'foobar');
+        $new = $this->service->container('foobar');
         $new->refresh('FOOBAR');
     }
     

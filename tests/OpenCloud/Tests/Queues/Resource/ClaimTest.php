@@ -10,21 +10,15 @@
 
 namespace OpenCloud\Tests\Queues\Resource;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Queues\Service;
-use OpenCloud\Tests\StubConnection;
-
-class ClaimTest extends PHPUnit_Framework_TestCase 
+class ClaimTest extends \OpenCloud\Tests\OpenCloudTestCase 
 {
-    private $connection;
     private $service;
     private $queue;
     private $message;
     
     public function __construct()
     {
-        $this->connection = new StubConnection('foo', 'bar');
-        $this->service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $this->service = $this->getClient()->queues('cloudQueues', 'ORD');
         $this->queue = $this->service->getQueue()->setName('foo');
         $this->claim = $this->queue->getClaim('foo');
     }

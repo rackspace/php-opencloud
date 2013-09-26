@@ -12,40 +12,26 @@
 
 namespace OpenCloud\Tests;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\Database\Service;
-use OpenCloud\Database\Resource\Instance;
-use OpenCloud\Database\Resource\User;
-
-class UserTest extends PHPUnit_Framework_TestCase
+class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $inst;
+    private $instance;
     private $user;
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $useraas = new Service(
-            $conn, 'cloudDatabases', 'DFW', 'publicURL');
-        
-        $this->inst = new Instance($useraas);
-        $this->inst->id = '12345678';
-        
-        $this->user = new User($this->inst);
+        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
+        $this->instance = $this->service->instance('12345678');
+        $this->user = $this->instance->user();
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Resource\User', new User($this->inst)
+            'OpenCloud\Database\Resource\User', $this->user
         );
         
-        $u = new User($this->inst, 'glen', array('one', 'two'));
+        $u = $this->instance->user('glen', array('one', 'two'));
         $this->assertEquals('glen', $u->name);
         $this->assertEquals(2, count($u->databases));
     }
@@ -117,8 +103,7 @@ class UserTest extends PHPUnit_Framework_TestCase
      */
     public function testNameFailsWhenNotSet()
     {
-        $user = new User($this->inst);
-        $user->getName();
+        $this->instance->user()->getName();
     }
 
 }

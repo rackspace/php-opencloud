@@ -12,22 +12,14 @@
 
 namespace OpenCloud\Tests\LoadBalancer;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\LoadBalancer\Service;
-
-class ServiceTest extends PHPUnit_Framework_TestCase
+class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
-    private $conn;
+    
     private $service;
 
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $this->conn, 'cloudLoadBalancers', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
     }
 
     /**
@@ -35,9 +27,6 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->service = new Service(
-            $this->conn, 'cloudLoadBalancers', 'DFW', 'publicURL'
-        );
         $this->assertInstanceOf('OpenCloud\LoadBalancer\Service', $this->service);
     }
 

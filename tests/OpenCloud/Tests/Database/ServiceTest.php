@@ -12,60 +12,47 @@
 
 namespace OpenCloud\Tests;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Database\Service;
-use OpenCloud\Tests\StubConnection;
-
-class ServiceTest extends PHPUnit_Framework_TestCase
+class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
     
-    private $connection;
-    private $dbaas;
+    private $service;
 
     public function __construct()
     {
-        $this->connection = new StubConnection('http://example.com', 'secret');
-        $this->dbaas = new Service(
-            $this->connection, 'cloudDatabases', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
     }
 
     public function test__construct()
     {
-        $this->dbaas = new Service(
-            $this->connection, 'cloudDatabases', 'DFW', 'publicURL'
-        );
-        $this->assertInstanceOf('OpenCloud\Database\Service', $this->dbaas);
+        $this->assertInstanceOf('OpenCloud\Database\Service', $this->service);
     }
 
     public function testUrl()
     {
         $this->assertEquals(
             'https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances', 
-            $this->dbaas->Url()
+            $this->service->Url()
         );
         
         $this->assertEquals(
             'https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances/INSTANCE-ID', 
-            $this->dbaas->Url('instances/INSTANCE-ID')
+            $this->service->Url('instances/INSTANCE-ID')
         );
     }
 
     public function testFlavorList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->dbaas->flavorList());
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->flavorList());
     }
 
     public function testDbInstance()
     {
-        $inst = $this->dbaas->Instance();
-        $this->assertInstanceOf('OpenCloud\Database\Resource\Instance', $inst);
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Instance', $this->service->Instance());
     }
 
     public function testDbInstanceList()
     {
-        $list = $this->dbaas->InstanceList();
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->InstanceList());
     }
 
 }

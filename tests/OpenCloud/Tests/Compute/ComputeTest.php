@@ -12,22 +12,13 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use OpenCloud\Compute\Service;
-use OpenCloud\Tests\StubConnection;
-use PHPUnit_Framework_TestCase;
-
-class ServiceTest extends PHPUnit_Framework_TestCase
+class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
-    private $conn;    // connection
-    private $compute; // compute service
-
+    private $service;
+    
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->compute = new Service(
-            $this->conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
     }
 
     /**
@@ -35,62 +26,59 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $compute = new Service(
-            $this->conn, 'cloudServers', 'DFW', 'publicURL'
-        );
+        $this->getClient()->compute('cloudServers', 'DFW', 'publicURL');
     }
 
     public function testUrl()
     {
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers', 
-            $this->compute->Url()
+            $this->service->Url()
         );
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/detail', 
-            $this->compute->Url('servers/detail')
+            $this->service->Url('servers/detail')
         );
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers?A=1&B=2', 
-            $this->compute->Url('servers', array('A' => 1, 'B' => 2))
+            $this->service->Url('servers', array('A' => 1, 'B' => 2))
         );
     }
 
     public function testServer()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Resource\Server', $this->compute->Server());
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Server', $this->service->Server());
     }
 
     public function testServerList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->compute->ServerList());
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->ServerList());
     }
 
     public function testImage()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Resource\Image', $this->compute->Image());
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Image', $this->service->Image());
     }
 
     public function testNetwork()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $this->compute->Network());
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $this->service->Network());
     }
 
     public function testNetworkList()
     {
-        $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', $this->compute->NetworkList());
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->NetworkList());
     }
 
     public function testNamespaces()
     {
-        $this->assertNotContains('FOO', $this->compute->namespaces());
-        $this->assertContains('rax-bandwidth', $this->compute->namespaces());
+        $this->assertNotContains('FOO', $this->service->namespaces());
+        $this->assertContains('rax-bandwidth', $this->service->namespaces());
     }
 
     public function test_load_namespaces()
     {
-        $this->assertContains('rax-bandwidth', $this->compute->namespaces());
+        $this->assertContains('rax-bandwidth', $this->service->namespaces());
     }
 
 }

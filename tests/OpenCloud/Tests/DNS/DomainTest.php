@@ -12,31 +12,17 @@
 
 namespace OpenCloud\Tests\DNS;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\DNS\Service;
-use OpenCloud\DNS\Resource\Domain;
-
-class DomainTest extends PHPUnit_Framework_TestCase
+class DomainTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $conn;   // connection
-    private $dns;
-    private $domain; // compute service
+    private $domain;
 
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->dns = new Service(
-            $this->conn, 'cloudDNS', 'N/A', 'publicURL'
-        );
-        $this->domain = new Domain($this->dns);
-        $this->domain->id = 'DOMAIN-ID';
+        $service = $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL');
+        $this->domain = $service->domain('DOMAIN-ID');
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->domain);

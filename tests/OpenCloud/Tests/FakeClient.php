@@ -37,10 +37,6 @@ class FakeClient extends Rackspace
         $this->requests = $requests;
         
         $response = $this->intercept(); 
-        if (404 == $response->getStatusCode()) {
-            //var_dump($this->url, $requests->getMethod(), (string) $response->getBody());
-            die;
-        }
         $requests->setResponse($response);
         
 		return $response;
@@ -69,7 +65,7 @@ class FakeClient extends Rackspace
 	private function matchUrlToArray($array)
 	{
 		foreach ($array as $key => $item) {
-            if (preg_match("#{$key}$#", $this->url)) {
+            if (preg_match("#{$key}#", $this->url)) {
 				return $item;
 			}
 		}
@@ -97,6 +93,7 @@ class FakeClient extends Rackspace
 		$array = include $this->responseDir . strtoupper($this->requests->getMethod()) . '.php';
 
         $typeOptions = array(self::DEFAULT_TYPE, $this->getServiceType());
+        
         foreach ($typeOptions as $typeOption) {
             if ($serviceArray = $this->findServiceArray($array, $typeOption)) {
                 if ($config = $this->matchUrlToArray($this->covertToRegex($serviceArray))) {
@@ -107,12 +104,16 @@ class FakeClient extends Rackspace
         }
         
         if (empty($config)) {
-            throw new Exception('Cannot find config in array');
+            throw new Exception(sprintf(
+                "Cannot find stub config in [%s] for:\n%s",
+                $this->getServiceType(),
+                (string) $this->requests
+            ));
         }
         
         // Retrieve config from nested array structure
         $params = $this->parseConfig($config);
-
+        
         // Set response parameters to defaults if necessary
         $body = $params['body'];
         $status = $params['status'] ?: $this->defaults('status');
@@ -140,9 +141,9 @@ class FakeClient extends Rackspace
             }
             
         } elseif (is_array($input)) {          
-            
+
             if (!empty($input['path']) || !empty($input['body'])) {
-                
+
                 // Only one response option for this URL path
                 if (!empty($input['body'])) {
                     $body = $input['body'];
@@ -162,15 +163,15 @@ class FakeClient extends Rackspace
                     $headers = $input['headers'];
                 }
                 
-            } elseif ($this->getRequest() instanceof EntityEnclosingRequest) {
+            } elseif ($this->requests instanceof EntityEnclosingRequest) {
                 // If there are multiple response options for this URL path, you
                 // need to do a pattern search on the request to differentiate
-                $request = $this->getRequest()->toString();
+                $request = (string) $this->requests;
                 foreach ($input as $possibility) {
-                    if (preg_match($request, $possibility['pattern'])) {
+                    if (preg_match("#{$possibility['pattern']}#", $request)) {
                         return $this->parseConfig($possibility);
                     }
-                }    
+                }
             }
         }
         

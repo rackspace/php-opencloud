@@ -14,6 +14,7 @@ use OpenCloud\Common\Base;
 use OpenCloud\Common\Lang;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
+use Guzzle\Http\Exception\RequestException;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -25,7 +26,6 @@ use OpenCloud\Common\Exceptions;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-
 abstract class Service extends Base
 {
     const DEFAULT_NAME = '';
@@ -171,16 +171,13 @@ abstract class Service extends Base
         );
 
         // Fetch the list
-        $response = $this->get($url)->send();       
+        $response = $this->getClient()->get($url)->send();       
 
         // Handle empty response
-        if (strlen($response->httpBody()) == 0) {
+        $object = $response->getDecodedBody();
+        if (strlen($object) == 0) {
             return new Collection($parent, $class, array());
         }
-
-        // Parse the return
-        $object = $response->getBody(true);
-        $this->checkJsonError();
         
         // See if there's a "next" link
         // Note: not sure if the current API offers links as top-level structures;
@@ -293,7 +290,7 @@ abstract class Service extends Base
         if (empty($urltype)) {
             $urltype = RAXSDK_URL_PUBLIC;
         }
-        
+
         // Search each service to find The One
         foreach ($catalog as $service) {
             // Find the service by comparing the type ("compute") and name ("openstack")
@@ -345,15 +342,13 @@ abstract class Service extends Base
         );
 
         $url = Lang::noslash($urlBase) . '/' . $resource;
-
-        $response = $this->get($url)
-            ->setExceptionHandlers(array(
-                404 => array('allow' => true)
-            ))
-            ->send();
-
+        
+        try {
+            $response = $this->getClient()->get($url)->send();
+        } catch (RequestException $e) {}
+        
         // check for NOT FOUND response
-        if ($response->getStatus() == 404) {
+        if ($response->getStatusCode() == 404) {
             return array();
         }
 

@@ -92,4 +92,10 @@ class Response extends GuzzleResponse
         return $body;
     }
     
+    
+    public static function isValidStatus($code)
+    {
+        return defined(get_class() . "::STATUS_CODE_{$code}");
+    }
+    
 }

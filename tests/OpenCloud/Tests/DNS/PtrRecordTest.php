@@ -12,31 +12,23 @@
 
 namespace OpenCloud\Tests\DNS;
 
-use OpenCloud\Tests\StubConnection;
-use PHPUnit_Framework_TestCase;
-use OpenCloud\DNS\Service;
 use OpenCloud\DNS\Resource\Object;
-use OpenCloud\DNS\Resource\PtrRecord;
 
 class CustomRecord extends Object
 {
     public $name = 'fooBar';
 }
 
-class PtrRecordTest extends PHPUnit_Framework_TestCase
+class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $conn;
-    private $dns;
-    private $record; // the record
+    private $service;
+    private $record;
 
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->dns = new Service(
-            $this->conn, 'cloudDNS', 'N/A', 'publicURL'
-        );
-        $this->record = new PtrRecord($this->dns);
+        $this->service = $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL');
+        $this->record = $this->service->ptrRecord();
     }
 
     /**
@@ -44,7 +36,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->record = new PtrRecord($this->dns);
+        $this->record = $this->service()->ptrRecord();
         $this->assertEquals('PTR', $this->record->type);
     }
 
@@ -53,10 +45,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct2()
     {
-        // not allowed to change the record type from PTR
-        $this->record = new PtrRecord(
-            $this->dns, array('type' => 'A')
-        );
+        $this->service()->ptrRecord(array('type' => 'A'));
     }
 
     public function testUrl()
@@ -69,7 +58,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
     public function testCreate()
     {
-        $server = $this->conn->compute(null, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->getClient()->compute(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->record->create(array('server' => $server))
@@ -78,7 +67,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
     public function testUpdate()
     {
-        $server = $this->conn->compute(null, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->getClient()->compute(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->record->update(array('server' => $server))
@@ -87,7 +76,7 @@ class PtrRecordTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        $server = $this->conn->compute(NULL, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->getClient()->compute(NULL, 'ORD')->server(array('id' => 'foo'));
         $this->record->server = $server;
         $this->record->data   = 12345;
         $this->assertInstanceOf(

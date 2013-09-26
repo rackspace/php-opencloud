@@ -53,8 +53,8 @@ class OpenStack extends Client
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
         $this->setSecret($secret);
         
-        parent::__construct($url, $options);
         $this->setRequestFactory(RequestFactory::getInstance());
+        parent::__construct($url, $options);
     }
         
     /**
@@ -490,7 +490,7 @@ class OpenStack extends Client
             ));
         }
 
-        if (!$urltype = $urltype ?: $default['urltype']) {
+        if (!$urltype = $urltype ?: $default['urlType']) {
             throw new Exceptions\ServiceValueError(sprintf(
                 Lang::translate('No value for %s URL type'),
                 $class

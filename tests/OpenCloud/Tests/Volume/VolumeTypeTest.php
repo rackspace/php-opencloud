@@ -2,23 +2,15 @@
 
 namespace OpenCloud\Tests\Volume;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\Volume\Service;
-use OpenCloud\Volume\Resource\VolumeType;
-
-class VolumeTypeTest extends PHPUnit_Framework_TestCase
+class VolumeTypeTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $vt;
+    private $volumeType;
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $serv = new Service(
-            $conn, 'cloudBlockStorage', 'DFW', 'publicURL'
-        );
-        $this->vt = new VolumeType($serv);
+        $service = $this->getClient()->volumeService('cloudBlockStorage', 'DFW');
+        $this->volumeType = $service->volumeType();
     }
 
     /**
@@ -26,7 +18,7 @@ class VolumeTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testCreate()
     {
-        $this->vt->Create();
+        $this->volumeType->Create();
     }
 
     /**
@@ -34,7 +26,7 @@ class VolumeTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdate()
     {
-        $this->vt->Update();
+        $this->volumeType->Update();
     }
 
     /**
@@ -42,17 +34,17 @@ class VolumeTypeTest extends PHPUnit_Framework_TestCase
      */
     public function testDelete()
     {
-        $this->vt->Delete();
+        $this->volumeType->Delete();
     }
 
     public function testJsonName()
     {
-        $this->assertEquals('volume_type', $this->vt->JsonName());
+        $this->assertEquals('volume_type', $this->volumeType->JsonName());
     }
 
     public function testResourceName()
     {
-        $this->assertEquals('types', $this->vt->ResourceName());
+        $this->assertEquals('types', $this->volumeType->ResourceName());
     }
 
 }
