@@ -48,16 +48,19 @@ class ServiceTest extends PHPUnit_Framework_TestCase
      */
     public function testUrl()
     {
+        $hostnames = $this->service->getHostnames();
         /* This also validates the private function get_endpoint() */
         $this->assertEquals(
-            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID'), $this->service->Url());
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID', 
+                $hostnames[0] . $this->service->Url());
     }
 
     public function testUrl2()
     {
+        $hostnames = $this->service->getHostnames();
         $this->assertEquals(
-            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/sub?a=1&b=2'), 
-            $this->service->Url('sub', array('a' => 1, 'b' => 2))
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/sub?a=1&b=2', 
+            $hostnames[0] . $this->service->Url('sub', array('a' => 1, 'b' => 2))
         );
     }
 

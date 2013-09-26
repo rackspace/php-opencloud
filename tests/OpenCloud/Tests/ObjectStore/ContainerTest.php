@@ -73,13 +73,14 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 
 	public function testUrl()
 	{
+            $hostnames = $this->service->getHostnames();
             $url = $this->getContainer()->Url();
-            $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST');
+            $this->assertEquals($hostnames[0] . $url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST');
 
 		$space_cont = new Container($this->service, 'Name With Spaces');
 
             $spaceUrl = $space_cont->Url();
-            $this->assertEquals($spaceUrl, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/Name%20With%20Spaces');
+            $this->assertEquals($hostnames[0] . $spaceUrl, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/Name%20With%20Spaces');
 	}
 
 	public function testCreate()

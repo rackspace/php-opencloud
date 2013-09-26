@@ -37,8 +37,10 @@ class NovaTest extends PHPUnit_Framework_TestCase
      */
     public function testUrl()
     {
+        $hostnames = $this->conn->getHostnames();
         $this->assertEquals(
-            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/foo'), $this->nova->Url('foo'));
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/foo', 
+                $hostnames[0] . $this->nova->Url('foo'));
     }
 
     public function testFlavor()

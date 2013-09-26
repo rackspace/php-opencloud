@@ -250,8 +250,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     {
         $this->my->setDefaults('Compute', 'cloudServersOpenStack', array('DFW'), 'publicURL');
         $comp = $this->my->Compute();
-        $url = $comp->Url();
-        $this->assertRegExp('/dfw.servers/', $url);
+        $this->assertRegExp('/dfw.servers/', $comp->Url());
     }
     
     /**

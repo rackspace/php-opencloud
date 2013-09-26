@@ -126,23 +126,25 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
+        $hostnames = $this->service->getHostnames();
         $this->instance->id = '12';
         $this->assertEquals(
-            array('https://dfw.servers.api.rackspacecloud.com/v2/' .
-            'TENANT-ID/instances/12'), $this->instance->Url());
+            'https://dfw.servers.api.rackspacecloud.com/v2/' .
+            'TENANT-ID/instances/12', $hostnames[0] . $this->instance->Url());
         $this->assertEquals(
-            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/' .
-            'instances/12/foobar?foo=BAZ'), $this->instance->Url('foobar', array('foo' => 'BAZ')));
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/' .
+            'instances/12/foobar?foo=BAZ', $hostnames[0] . $this->instance->Url('foobar', array('foo' => 'BAZ')));
     }
 
     public function testUrl2()
     {
         $this->instance->id = '12';
+        $hostnames = $this->service->getHostnames();
         /* this tests for subresources and query strings */
         $qstr = array('a' => 1, 'b' => 2);
         $this->assertEquals(
-            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12/pogo?a=1&b=2'), 
-            $this->instance->Url('pogo', $qstr)
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12/pogo?a=1&b=2', 
+            $hostnames[0] . $this->instance->Url('pogo', $qstr)
         );
     }
 
@@ -285,9 +287,10 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 
     public function testCreateUrl()
     {
+        $hostnames = $this->service->getHostnames();
         $this->assertEquals(
-            array('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances'), 
-            $this->instance->CreateUrl()
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances', 
+            $hostnames[0] . $this->instance->CreateUrl()
         );
     }
 
