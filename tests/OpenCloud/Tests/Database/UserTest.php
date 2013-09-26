@@ -29,7 +29,7 @@ class UserTest extends PHPUnit_Framework_TestCase
         $conn = new StubConnection('http://example.com', 'SECRET');
         $useraas = new Service(
             $conn, 'cloudDatabases', array('DFW'), 'publicURL');
-        
+        $this->service = $conn;
         $this->inst = new Instance($useraas);
         $this->inst->id = '12345678';
         
@@ -54,8 +54,9 @@ class UserTest extends PHPUnit_Framework_TestCase
     {
         $this->user->name = 'TEST';
         $url = $this->user->url();
-        $this->assertEquals($url, 'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
-                'TENANT-ID/instances/12345678/users/TEST');
+        $hostnames = $this->service->getHostnames();
+        $this->assertEquals('https://dfw.databases.api.rackspacecloud.com/v1.0/' .
+                'TENANT-ID/instances/12345678/users/TEST', $hostnames[0] . $url);
     }
 
     public function testInstance()

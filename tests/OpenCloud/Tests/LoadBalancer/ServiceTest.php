@@ -44,7 +44,9 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $url = $this->service->url();
-        $this->assertEquals($url, 'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers');
+        $hostnames = $this->service->getHostnames();
+        $this->assertEquals('https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers', 
+                $hostnames[0] . $url);
     }
 
     public function testLoadBalancer()

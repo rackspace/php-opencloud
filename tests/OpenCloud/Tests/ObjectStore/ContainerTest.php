@@ -88,7 +88,8 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 		$con = $this->getContainer()->Create(array('name'=>'SECOND'));
 		$this->assertEquals(TRUE, $con);
                 $url = $this->getContainer()->Url();
-                $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND');
+                $hostnames = $this->service->getHostnames();
+                $this->assertEquals('https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/SECOND', $hostnames[0] . $url);
 	}
 
 	public function testCreate0()
@@ -177,7 +178,8 @@ class ContainerTest extends PHPUnit_Framework_TestCase
 	public function testCDNURL()
 	{
             $url = $this->getContainer()->CDNURL();
-            $this->assertEquals($url, 'https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST');
+            $hostnames = $this->service->getCDNService()->getHostnames();
+            $this->assertEquals('https://cdn1.clouddrive.com/v1/M-ALT-ID/TEST', $hostnames[0] . $url);
 	}
 
 	public function testCDNinfo()

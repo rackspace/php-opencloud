@@ -216,7 +216,7 @@ class ServerMetadata extends Metadata
         if ($this->key && $key != $this->key) {
             throw new Exceptions\MetadataKeyError(sprintf(
                 Lang::translate('You cannot set extra values on [%s]'),
-                implode(", ", $this->Url())
+                $this->Url()
             ));
         }
 

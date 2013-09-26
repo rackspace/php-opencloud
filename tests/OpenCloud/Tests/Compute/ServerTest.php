@@ -223,7 +223,9 @@ class ServerTest extends PHPUnit_Framework_TestCase
         $server = new Server($this->service);
         $server->id = 'Bad-ID';
         $url = $server->Url();
-        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID');
+        $hostnames = $this->service->getHostnames();
+        $this->assertEquals('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID',
+                $hostnames[0] . $url);
     }
 
     /**

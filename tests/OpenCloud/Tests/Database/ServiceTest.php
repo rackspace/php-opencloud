@@ -40,11 +40,12 @@ class ServiceTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $this->assertEquals($this->dbaas->Url(), 
-                array('https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances'));
+        $hostnames = $this->dbaas->getHostnames();
+        $this->assertEquals('https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances',
+                $hostnames[0] . $this->dbaas->Url());
         
-        $this->assertEquals($this->dbaas->Url('instances/INSTANCE-ID'), 
-                array('https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances/INSTANCE-ID'));
+        $this->assertEquals('https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances/INSTANCE-ID',
+                $hostnames[0] . $this->dbaas->Url('instances/INSTANCE-ID'));
     }
 
     public function testFlavorList()

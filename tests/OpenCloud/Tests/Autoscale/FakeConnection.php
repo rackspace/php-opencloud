@@ -50,11 +50,13 @@ class FakeConnection extends OpenStack
 		}
                 
                 $hostname = "";
-                foreach($this->hostnames as $host) {
-                    $hostname = $host;
+                if($this->hostnames) {
+                    foreach($this->hostnames as $host) {
+                        $hostname = $host;
+                    }
                 }
 
-		$response->body = $this->$method($host . $url);
+		$response->body = $this->$method($hostname . $url);
         
 		return $response;
 	}

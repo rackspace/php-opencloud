@@ -69,7 +69,7 @@ class DataObjectTest extends PHPUnit_Framework_TestCase
     {
         $hostnames = $this->service->getHostnames();
         $testobject = new DataObject($this->container, 'A name with spaces');
-        $url = $hostname[0] . $testobject->Url();
+        $url = $hostnames[0] . $testobject->Url();
         $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID/TEST/A%20name%20with%20spaces');
     }
 

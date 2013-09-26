@@ -39,8 +39,10 @@ class FakeConnection extends OpenStack
                 $this->url = trim($url, '/');
                 
                 $hostname = "";
-                foreach($this->hostnames as $host) {
-                    $hostname = $host;
+                if($this->hostnames) {
+                    foreach($this->hostnames as $host) {
+                        $hostname = $host;
+                    }
                 }
                 
 		$response = new Blank;
@@ -59,7 +61,7 @@ class FakeConnection extends OpenStack
 				break;
 		}
 
-		$response->body = $this->$method($host . $url);
+		$response->body = $this->$method($hostname . $url);
 
 		return $response;
 	}

@@ -52,7 +52,8 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $url = $this->ostore->url();
-        $this->assertEquals($url, 'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID');
+        $hostnames = $this->ostore->getHostnames();
+        $this->assertEquals('https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID', $hostnames[0] . $url);
     }
 
     public function testContainer()
