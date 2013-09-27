@@ -17,7 +17,9 @@ use OpenCloud\Common\Service as AbstractService;
  */
 class Service extends AbstractService
 {
-
+    
+    const DEFAULT_NAME = 'cloudMonitoring';
+    
     /**
      * Cloud Monitoring resources.
      * 

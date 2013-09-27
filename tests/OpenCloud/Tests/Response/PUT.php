@@ -40,5 +40,10 @@ return array(
         '/queues/{w}$' => array('status' => 201, 'body' => '{}', 'headers' => array('Location' => 'foo')),
         '/queues/(\w|\-)+/metadata$' => array('status' => 204, 'body' => '{}')
         
+    ),
+    
+    'compute' => array(
+        'metadata' => '{"metadata": {"foo" : "bar"}}'
     )
+    
 );

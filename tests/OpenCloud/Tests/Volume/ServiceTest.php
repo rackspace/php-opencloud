@@ -66,7 +66,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testRequest()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
+            'OpenCloud\Common\Http\Message\Response', 
             $this->service->Request('http://me.com')
         );
     }

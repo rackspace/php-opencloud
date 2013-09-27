@@ -20,7 +20,9 @@ use OpenCloud\Compute\Resource\Server;
  */
 class Service extends AbstractService
 {
-
+    const DEFAULT_NAME = 'cloudDNS';
+    const DEFAULT_REGION = '{ignore}';
+    
     /**
      * creates a new DNS object
      *
@@ -115,7 +117,7 @@ class Service extends AbstractService
     public function asyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
         // perform the initial request
-        $response = $this->getClient()->createRequest($url, $method, $headers, $body)->send();
+        $response = $this->getClient()->createRequest($method, $url, $headers, $body)->send();
 
         // debug
         $this->getLogger()->info('AsyncResponse [{body}]', array(
@@ -164,13 +166,16 @@ class Service extends AbstractService
 
     /**
      * returns a list of limits
-     *
      */
     public function limits($type = null)
     {
         $url = $this->url('limits') . ($type ? "/$type" : '');
-        $response = $this->getClient()->get($url)->send();
-        $object = $response->getDecodedBody();
+        
+        $object = $this->getClient()
+            ->get($url)
+            ->send()
+            ->getDecodedBody();
+        
         return ($type) ? $object : $object->limits;
     }
 

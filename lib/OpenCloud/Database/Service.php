@@ -19,7 +19,9 @@ use OpenCloud\OpenStack;
  */
 class Service extends Nova
 {
-
+    
+    const DEFAULT_NAME = 'cloudDatabases';
+    
     /**
      * Creates a new DbService service connection
      *

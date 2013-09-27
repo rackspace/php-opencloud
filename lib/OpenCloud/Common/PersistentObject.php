@@ -296,7 +296,7 @@ abstract class PersistentObject extends Base
         $this->getLogger()->info('{class}::Delete()', array('class' => get_class($this)));
 
         // send the request
-        return $this->getClient()->delete($this->url(), 'DELETE')->send();
+        return $this->getClient()->delete($this->url())->send();
     }
     
     /**

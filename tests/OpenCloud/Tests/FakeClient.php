@@ -38,8 +38,9 @@ class FakeClient extends Rackspace
         $this->responseDir = __DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR;
         $this->url = $requests->getUrl();
         $this->requests = $requests;
-        
+
         $response = $this->intercept(); 
+        
         $requests->setResponse($response);
 
 		return $requests->getResponse();
@@ -54,6 +55,8 @@ class FakeClient extends Rackspace
                     return $trace['object']->getService()->getType();
                 } elseif ($trace['object'] instanceof \OpenCloud\Common\Service) {
                     return $trace['object']->getType();
+                } elseif ($trace['object'] instanceof \OpenCloud\Compute\Resource\ServerMetadata) {
+                    return $trace['object']->getParent()->getService()->getType();
                 }
             }
         }
@@ -119,15 +122,16 @@ class FakeClient extends Rackspace
                 }
             }
         }
-        
-        
-        
+
         if (empty($config)) {
-            return new Response(404);
+            if ($this->requests->getMethod() == 'GET') { 
+                return new Response(404);
+            } else {
+                $params = array('body' => null, 'status' => null, 'headers' => null);
+            }
+        } else {
+            $params = $this->parseConfig($config);
         }
-        
-        // Retrieve config from nested array structure
-        $params = $this->parseConfig($config);
         
         // Set response parameters to defaults if necessary
         $body = $params['body'];

@@ -47,6 +47,8 @@ use OpenCloud\Common\Exceptions;
  */
 class Service extends Nova 
 {
+    
+    const DEFAULT_NAME = 'cloudServersOpenStack';
 
     /**
      * Called when creating a new Compute service object

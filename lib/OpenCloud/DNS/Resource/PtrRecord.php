@@ -100,7 +100,7 @@ class PtrRecord extends Record
         $url = $this->url('rdns/' . $this->link_rel, $params);
 
         // perform the request
-        $response = $this->getService()->delete($url)->send();
+        $response = $this->getClient()->delete($url)->send();
 
         // return the AsyncResponse object
         return new AsyncResponse($this->getService(), $response->getBody());

@@ -14,7 +14,6 @@
 namespace OpenCloud\Orchestration;
 
 use OpenCloud\Common\Service as AbstractService;
-use OpenCloud\Base\Lang;
 use OpenCloud\OpenStack;
 
 /**
@@ -28,7 +27,9 @@ use OpenCloud\OpenStack;
  */
 class Service extends AbstractService 
 {
-
+    
+    const DEFAULT_NAME = 'cloudOrchestration';
+    
     /**
      * {@inheritDoc}
      */

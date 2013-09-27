@@ -1,9 +1,9 @@
 {
     "group": {
-        "id": "{groupId}",
+        "id": "groupId",
         "links": [
           {
-            "href": "https://private-f52bc-autoscale.apiary.io/v1.0/010101/groups/{groupId}",
+            "href": "https://private-f52bc-autoscale.apiary.io/v1.0/010101/groups/groupId",
             "rel": "self"
           }
         ],

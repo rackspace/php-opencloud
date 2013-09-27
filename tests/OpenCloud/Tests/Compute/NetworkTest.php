@@ -39,7 +39,7 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testCreate()
     {
         $net = $this->service->network();
-        $net->Create(array('label' => 'foo', 'cidr' => 'bar'));
+        $net->create(array('label' => 'foo', 'cidr' => 'bar'));
         $this->assertEquals('foo', $net->label);
     }
 
@@ -49,14 +49,6 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testUpdate()
     {
         $this->net->update();
-    }
-
-    public function testDelete()
-    {
-        $net = $this->service->Network();
-        $net->id = 'foobar';
-        $resp = $net->delete();
-        $this->assertEquals(202, $resp->getStatusCode());
     }
 
     public function testName()

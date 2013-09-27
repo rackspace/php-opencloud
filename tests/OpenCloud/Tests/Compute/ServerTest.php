@@ -140,7 +140,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testDelete()
     {
-        $resp = $this->server->Delete();
+        $resp = $this->server->delete();
         $this->assertNotNull($resp->getStatusCode());
     }
 

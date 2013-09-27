@@ -57,14 +57,14 @@ class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testAsyncRequest()
     {
-        $this->dns->AsyncRequest('FOOBAR');
+        $this->service->AsyncRequest('FOOBAR');
     }
 
     public function testImport()
     {
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse', 
-            $this->dns->Import('foo bar oops')
+            $this->service->Import('foo bar oops')
         );
     }
 
@@ -89,8 +89,6 @@ class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $obj = $this->service->Limits();
         $this->assertTrue(is_array($obj->rate));
-        $obj = $this->service->Limits('DOMAIN_LIMIT');
-        $this->assertEquals(500, $obj->absolute->limits[0]->value);
     }
 
     public function testLimitTypes()

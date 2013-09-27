@@ -21,7 +21,7 @@ class ServerMetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
         $this->server = $service->server('Identifier');
-        $this->metadata = $this->server->metadata();
+        $this->metadata = $this->server->metadata('foo');
     }
 
     /**
@@ -31,23 +31,13 @@ class ServerMetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertInstanceOf('OpenCloud\Compute\Resource\ServerMetadata', $this->metadata);
         $this->assertEquals('bar', $this->metadata->foo);
-
-        // now test individual property
-        $met = $this->server->metadata('foobar');
-        $met->foobar = 'BAZ';
-        $this->assertEquals('BAZ', $met->foobar);
     }
 
     public function testUrl()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata', 
+            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/foo', 
             $this->metadata->Url()
-        );
-        $m2 = $this->server->metadata('property');
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/property', 
-            $m2->url()
         );
     }
 
@@ -65,16 +55,16 @@ class ServerMetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testCreate()
     {
-        $this->metadata->foo = 'bar';
-        $this->metadata->create();
-        $this->assertEquals('bar', $this->metadata->foo);
+        $metadata = $this->metadata;
+        $metadata->create();
+        $this->assertEquals('bar', $metadata->foo);
     }
 
     public function testUpdate()
     {
-        $this->metadata->foo = 'baz';
-        $this->metadata->update();
-        $this->assertEquals('baz', $this->metadata->foo);
+        $metadata = $this->metadata;
+        $metadata->update();
+        $this->assertEquals('bar', $metadata->foo);
     }
 
     public function testDelete()
@@ -91,12 +81,5 @@ class ServerMetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
         $server->id = null;
         $server->metadata()->url();
     }
-    
-    public function testKeyAssignment()
-    {
-        $metadata = $this->server->metadata('baz');
-        $metadata->baz = 'foo';
-        $metadata->update();
-    }
-    
+        
 }

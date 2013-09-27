@@ -40,11 +40,11 @@ class Zone extends ReadOnlyResource implements ResourceInterface
             $params->target_resolver = $options['target_resolver'];
         }
         
-        return $this->customAction(
-            $this->url('traceroute'), 
-            'POST', 
-            json_encode($params)
-        );
+        return $this->getService()
+            ->getClient()
+            ->post($this->url('traceroute'), array(), json_encode($params))
+            ->send()
+            ->getDecodedBody();
     }
     
 }

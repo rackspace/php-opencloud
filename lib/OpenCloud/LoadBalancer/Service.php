@@ -19,7 +19,7 @@ use OpenCloud\OpenStack;
  */
 class Service extends Nova
 {
-
+    const DEFAULT_NAME = 'cloudLoadBalancers';
     const SERVICE_TYPE = 'rax:load-balancer';
     const SERVICE_OBJECT_CLASS = 'LoadBalancer';
     const URL_RESOURCE = 'loadbalancers';

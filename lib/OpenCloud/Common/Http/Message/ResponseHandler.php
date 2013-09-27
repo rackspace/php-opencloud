@@ -74,7 +74,7 @@ class ResponseHandler
                 $status
             ));
         }
-        
+
         // How do we want to handle this particular status code?
         if (in_array($status, $this->template)) {
 

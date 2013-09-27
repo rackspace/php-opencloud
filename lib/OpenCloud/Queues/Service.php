@@ -54,6 +54,8 @@ use OpenCloud\Common\Exceptions\InvalidArgumentError;
  */
 class Service extends AbstractService
 {
+    const DEFAULT_NAME = 'cloudQueues';
+    
     /**
      * An arbitrary string used to differentiate your worker/subscriber. This is
      * needed, for example, when you return back a list of messages and want to

@@ -17,7 +17,9 @@ use OpenCloud\Common\Nova;
 
 class Service extends Nova 
 {
-
+    
+    const DEFAULT_NAME = 'cloudBlockStorage';
+    
 	/**
 	 * creates the VolumeService object
 	 */

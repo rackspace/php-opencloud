@@ -13,13 +13,14 @@ namespace OpenCloud\ObjectStore;
 
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Lang;
 
 /**
  * The ObjectStore (Cloud Files) service.
  */
 class Service extends AbstractService 
 {
+    
+    const DEFAULT_NAME = 'cloudFiles';
     
     /**
      * This holds the associated CDN service (for Rackspace public cloud)

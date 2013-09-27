@@ -195,7 +195,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
 	public function testCreateStaticSite()
 	{
 		$this->assertInstanceOf(
-			'OpenCloud\Common\Request\Response\Blank',
+			'OpenCloud\Common\Http\Message\Response',
 			$this->container->createStaticSite('index.html')
         );
 	}
@@ -203,7 +203,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
 	public function testStaticSiteErrorPage()
 	{
 		$this->assertInstanceOf(
-			'OpenCloud\Common\Request\Response\Blank',
+			'OpenCloud\Common\Http\Message\Response',
 			$this->container->StaticSiteErrorPage('error.html')
         );
 	}

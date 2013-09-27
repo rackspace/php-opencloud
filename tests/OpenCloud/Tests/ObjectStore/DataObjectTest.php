@@ -110,7 +110,7 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $arr = array('name' => 'XOOFUS', 'content_type' => 'text/plain');
         $obj = $this->container->dataObject();
         $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
+            'OpenCloud\Common\Http\Message\Response', 
             $obj->update($arr)
         );
         $this->assertEquals('XOOFUS', $obj->name);
@@ -133,7 +133,7 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $target = $this->container->DataObject();
         $target->name = 'DESTINATION';
         $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
+            'OpenCloud\Common\Http\Message\Response', 
             $this->dataobject->Copy($target)
         );
     }

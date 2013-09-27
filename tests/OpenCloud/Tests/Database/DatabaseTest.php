@@ -53,7 +53,7 @@ class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testCreate()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
+            'OpenCloud\Common\Http\Message\Response', 
             $this->database->create(array('name' => 'FOOBAR'))
         );
     }
@@ -70,7 +70,7 @@ class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->database->name = 'FOOBAR';
         $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
+            'OpenCloud\Common\Http\Message\Response', 
             $this->database->delete()
         );
     }

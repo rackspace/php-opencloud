@@ -358,7 +358,8 @@ class Server extends PersistentObject
             $object = (object) array('image_schedule' => 
                 (object) array('retention' => $retention)
             );
-            $response = $this->getClient()->post($url, 'POST', array(), $object);
+            $body = json_encode($object);
+            $response = $this->getClient()->post($url, array(), $body);
         }
         
         $object = $response->send()->getDecodedBody();

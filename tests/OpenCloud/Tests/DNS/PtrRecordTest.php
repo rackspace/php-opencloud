@@ -76,7 +76,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testDelete()
     {
-        $server = $this->getClient()->compute(NULL, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->getClient()->compute(null, 'ORD')->server(array('id' => 'foo'));
         $this->record->server = $server;
         $this->record->data   = 12345;
         $this->assertInstanceOf(
