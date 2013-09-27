@@ -78,7 +78,7 @@ class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
                 'baz'
             )
         ));
-        $this->assertLessThan(205, $response->httpStatus());
+        $this->assertLessThan(205, $response->getStatusCode());
         $this->assertEquals('FOOBAR', $this->user->name);
         $this->assertEquals('BAZ', $this->user->password);
     }
@@ -95,7 +95,7 @@ class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->user->name = 'GLEN';
         $response = $this->user->delete();
-        $this->assertLessThan(205, $response->HttpStatus());
+        $this->assertLessThan(205, $response->getStatusCode());
     }
     
     /**

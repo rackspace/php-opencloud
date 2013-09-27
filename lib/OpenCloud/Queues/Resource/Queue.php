@@ -135,7 +135,7 @@ class Queue extends PersistentObject
                 ->send();
             
             $metadata = new Metadata();
-            $metadata->setArray($response->getBody(true));
+            $metadata->setArray($response->getDecodedBody());
             $this->setMetadata($metadata, true);
             
         }
@@ -358,7 +358,7 @@ class Queue extends PersistentObject
             return false;
         }
         
-        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $response->getBody(true));
+        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $response->getDecodedBody());
     }
     
     /**

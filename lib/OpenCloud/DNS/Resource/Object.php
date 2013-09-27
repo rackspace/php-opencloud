@@ -30,7 +30,10 @@ abstract class Object extends PersistentObject
      */
     public function create($params = array()) 
     {
-        return new AsyncResponse($this->getService(), parent::create($params)->httpBody());
+        return new AsyncResponse(
+            $this->getService(), 
+            parent::create($params)->getDecodedBody()
+        );
     }
 
     /**
@@ -41,7 +44,10 @@ abstract class Object extends PersistentObject
      */
     public function update($params = array()) 
     {
-        return new AsyncResponse($this->getService(), parent::update($params)->httpBody());
+        return new AsyncResponse(
+            $this->getService(), 
+            parent::update($params)->getDecodedBody()
+        );
     }
 
     /**
@@ -52,7 +58,10 @@ abstract class Object extends PersistentObject
      */
     public function delete() 
     {
-        return new AsyncResponse($this->getService(), parent::delete()->httpBody());
+        return new AsyncResponse(
+            $this->getService(), 
+            parent::delete()->getDecodedBody()
+        );
     }
 
     /**

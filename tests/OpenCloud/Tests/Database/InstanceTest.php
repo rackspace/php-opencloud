@@ -54,18 +54,18 @@ class InstanceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testRestart()
     {
-        $this->assertEquals(200, $this->instance->restart()->httpStatus());
+        $this->assertEquals(200, $this->instance->restart()->getStatusCode());
     }
 
     public function testResize()
     {
         $flavor = $this->service->Flavor(2);
-        $this->assertEquals(200, $this->instance->Resize($flavor)->httpStatus());
+        $this->assertEquals(200, $this->instance->Resize($flavor)->getStatusCode());
     }
 
     public function testResizeVolume()
     {
-        $this->assertEquals(200, $this->instance->ResizeVolume(4)->httpStatus());
+        $this->assertEquals(200, $this->instance->ResizeVolume(4)->getStatusCode());
     }
 
     public function testEnableRootUser()

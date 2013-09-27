@@ -109,7 +109,10 @@ class ServerMetadata extends Metadata
      */
     public function create()
     {
-        return $this->getClient()->put($this->url(), array(), $this->getMetadataJson());
+        return $this->getParent()
+            ->getClient()
+            ->put($this->url(), array(), $this->getMetadataJson())
+            ->send();
     }
 
     /**
@@ -121,7 +124,8 @@ class ServerMetadata extends Metadata
      */
     public function update()
     {
-        return $this->getClient()
+        return $this->getParent()
+            ->getClient()
             ->post($this->url(), array(), $this->getMetadataJson())
             ->send();
     }
@@ -135,7 +139,7 @@ class ServerMetadata extends Metadata
      */
     public function delete()
     {
-        return $this->getClient()->delete($this->url(), array());
+        return $this->getParent()->getClient()->delete($this->url(), array());
     }
 
     public function __set($key, $value)

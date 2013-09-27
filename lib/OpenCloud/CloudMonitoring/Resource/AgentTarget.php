@@ -56,13 +56,13 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
     {
         $response = $this->getClient()->get($this->url())->send();
         
-        $object = $response->getBody(true);
+        $object = $response->getDecodedBody();
 
         if (isset($object->{self::$json_collection_name})) {
-            $response = $object->{self::$json_collection_name};
+            $object = $object->{self::$json_collection_name};
         }
 
-        return $response;
+        return $object;
     } 
     
 }

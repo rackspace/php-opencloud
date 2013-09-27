@@ -40,14 +40,6 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
     }
 
-    public function testRequest()
-    {
-        // this returns 404 because the Connection::Request() function
-        // is stubbed out
-        $resp = $this->service->Request('http://example.com');
-        $this->assertEquals(404, $resp->HttpStatus());
-    }
-
     public function testExtensions()
     {
         $ext = $this->service->Extensions();
@@ -68,12 +60,5 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertEquals('cloudServersOpenStack', $this->service->name());
     } 
-    
-    public function test_UrlType_Defaults()
-    {
-        $service = new MyService(
-            $this->getClient(), 'compute', 'cloudServersOpenStack', 'DFW', ''
-        );
-    }
-    
+        
 }

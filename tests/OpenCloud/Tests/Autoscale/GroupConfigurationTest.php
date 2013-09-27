@@ -17,7 +17,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
 {
 
     const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
-    const GROUP_ID = '{groupId}';
+    const GROUP_ID = 'groupId';
     
     const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
     const CONFIG_CLASS     = 'OpenCloud\Autoscale\Resource\GroupConfiguration';
@@ -57,7 +57,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
         
         $this->assertInstanceOf(
             self::GROUP_CLASS,
-            $config->parent()
+            $config->getParent()
         );
     }
     

@@ -322,7 +322,7 @@ class Server extends PersistentObject
 
         $response = $this->action($object);
         
-        if (!$response || !($location = $response->header('Location'))) {
+        if (!$response || !($location = $response->getHeader('Location'))) {
             return false;
         }
 
@@ -361,7 +361,7 @@ class Server extends PersistentObject
             $response = $this->getClient()->post($url, 'POST', array(), $object);
         }
         
-        $object = $response->send()->getBody(true);
+        $object = $response->send()->getDecodedBody();
         return (isset($object->image_schedule)) ? $object->image_schedule : (object) array();
     }
 
@@ -443,18 +443,14 @@ class Server extends PersistentObject
 
         $data = (object) array('rescue' => 'none');
 
-        $response = $this->action($data)->send();
-        $object = $response->getBody(true);
+        $object = $this->action($data)->getDecodedBody();
         
-        // @codeCoverageIgnoreStart
         if (!isset($object->adminPass)) {
             throw new Exceptions\ServerActionError(sprintf(
                 Lang::translate('Rescue() method failed unexpectedly, status [%s] response [%s]'),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        // @codeCoverageIgnoreEnd
-            
+                $response->getStatusCode(),
+                $object
+            ));  
         } else {
             return $object->adminPass;
         }
@@ -512,7 +508,7 @@ class Server extends PersistentObject
         $url = Lang::noslash($this->Url('ips/'.$network));
 
         $response = $this->getClient()->get($url)->send();       
-        $object = $response->getBody(true);
+        $object = $response->getDecodedBody();
 
         if (isset($object->addresses)) {
             $returnObject = $object->addresses;
@@ -610,8 +606,7 @@ class Server extends PersistentObject
         $action = (strpos('spice', $type) !== false) ? 'os-getSPICEConsole' : 'os-getVNCConsole';
         $object = (object) array($action => (object) array('type' => $type));
         
-        $response = $this->action($object);
-        $decoded  = $response->getBody(true);
+        $decoded  = $this->action($object)->getDecodedBody();
         return (isset($decoded->console)) ? $decoded->console : false;
     }
 

@@ -40,7 +40,11 @@ class Notification extends AbstractResource implements ResourceInterface
     
     public function testExisting($debug = false)
     {
-        return $this->customAction($this->testUrl($debug), 'POST');
+        return $this->getService()
+            ->getClient()
+            ->post($this->testUrl($debug))
+            ->send()
+            ->getDecodedBody();
     }
     
 }

@@ -73,7 +73,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testCreate()
     {
         $resp = $this->server->create();
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
         $this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
     }
     
@@ -113,7 +113,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testRebuild1()
     {
         $resp = $this->server->Rebuild();
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
         $this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
     }
 
@@ -123,7 +123,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testRebuild2()
     {
         $resp = $this->server->Rebuild(array('adminPass' => 'FOOBAR'));
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
         $this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
     }
 
@@ -135,25 +135,25 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
             'adminPass' => 'FOOBAR',
             'image'     => $image
         ));
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
     }
 
     public function testDelete()
     {
         $resp = $this->server->Delete();
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
     }
 
     public function testUpdate()
     {
         $resp = $this->server->Update(array('name' => 'FOO-BAR'));
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
         $this->assertEquals('FOO-BAR', $this->server->name);
     }
 
     public function testReboot()
     {
-        $this->assertEquals(200, $this->server->Reboot()->HttpStatus());
+        $this->assertEquals(200, $this->server->Reboot()->getStatusCode());
     }
     
     /**
@@ -180,22 +180,22 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testResize()
     {
-        $this->assertEquals(200, $this->server->Resize($this->service->Flavor(4))->HttpStatus());
+        $this->assertEquals(200, $this->server->Resize($this->service->Flavor(4))->getStatusCode());
     }
 
     public function testResizeConfirm()
     {
-        $this->assertEquals(200, $this->server->ResizeConfirm()->HttpStatus());
+        $this->assertEquals(200, $this->server->ResizeConfirm()->getStatusCode());
     }
 
     public function testResizeRevert()
     {
-        $this->assertEquals(200, $this->server->ResizeRevert()->HttpStatus());
+        $this->assertEquals(200, $this->server->ResizeRevert()->getStatusCode());
     }
 
     public function test_SetPassword()
     {
-        $this->assertEquals(200, $this->server->SetPassword('Bad Password')->HttpStatus());
+        $this->assertEquals(200, $this->server->SetPassword('Bad Password')->getStatusCode());
     }
 
     public function testMetadata()
@@ -267,7 +267,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testUnrescue()
     {
         $resp = $this->server->Unrescue();
-        $this->assertEquals(200, $resp->HttpStatus());
+        $this->assertEquals(200, $resp->getStatusCode());
         $blank = new Server($this->service);
         $blank->unrescue(); // should trigger the exception
     }
@@ -276,14 +276,14 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $vol = new Volume($this->service);
         $response = $this->server->AttachVolume($vol);
-        $this->assertEquals(200, $response->HttpStatus());
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function testDetachVolume()
     {
         $vol = new Volume($this->service, 'FOO');
         $response = $this->server->DetachVolume($vol);
-        $this->assertEquals(202, $response->HttpStatus());
+        $this->assertEquals(202, $response->getStatusCode());
     }
 
     public function testVolumeAttachment()

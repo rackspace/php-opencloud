@@ -13,6 +13,8 @@
 
 namespace OpenCloud\Common;
 
+use OpenCloud\Common\Http\Message\Response;
+
 /**
  * Represents an object that can be retrieved, created, updated and deleted.
  *
@@ -205,6 +207,8 @@ abstract class PersistentObject extends Base
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }
+        
+        return $response;
     }
 
     /**
@@ -236,7 +240,7 @@ abstract class PersistentObject extends Base
         return $this->getClient()->put($this->url(), array(), $json)->send();
     }
 
-/**
+    /**
      * Refreshes the object from the origin (useful when the server is
      * changing states)
      *
@@ -276,6 +280,8 @@ abstract class PersistentObject extends Base
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }
+        
+        return $response;
     }
     
     /**
@@ -290,7 +296,7 @@ abstract class PersistentObject extends Base
         $this->getLogger()->info('{class}::Delete()', array('class' => get_class($this)));
 
         // send the request
-        return $this->getClient()->delete($this->url(), 'DELETE');
+        return $this->getClient()->delete($this->url(), 'DELETE')->send();
     }
     
     /**
@@ -693,6 +699,21 @@ abstract class PersistentObject extends Base
             Lang::translate('No URL resource defined for class [%s] in ResourceName()'),
             get_class()
         ));
+    }
+    
+    private function parseResponse(Response $response)
+    {
+        $body = $response->getDecodedBody();
+        
+        $top = $this->jsonName();
+            
+        if ($top && isset($body->$top)) {
+            $content = $body->$top;
+        } else {
+            $content = $body;
+        }
+        
+        return $content;
     }
 
 }

@@ -131,7 +131,7 @@ class User extends PersistentObject
 	 */
 	public function delete()
     {
-		return $this->getClient()->delete($this->url());
+		return $this->getClient()->delete($this->url())->send();
 	}
 
 	/**

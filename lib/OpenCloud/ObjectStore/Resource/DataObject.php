@@ -340,7 +340,9 @@ class DataObject extends AbstractStorageObject
         }
 
         // perform the request
-        $response = $this->getClient()->put($this->url(), $headers, $fp ? $fp : $this->data, $options)
+        $response = $this->getService()
+            ->getClient()
+            ->put($this->url(), $headers, $fp ? $fp : $this->data, $options)
             ->send();
 
         // set values from response
@@ -390,7 +392,10 @@ class DataObject extends AbstractStorageObject
         $headers = $this->metadataHeaders();
         $headers['Content-Type'] = $this->getContentType();
 
-        return $this->getClient()->post($this->url(), $headers)->send();
+        return $this->getService()
+            ->getClient()
+            ->post($this->url(), $headers)
+            ->send();
     }
 
     /**
@@ -407,7 +412,7 @@ class DataObject extends AbstractStorageObject
     public function delete($params = array())
     {
         $this->populate($params);
-        return $this->getClient()->delete($this->url());
+        return $this->getService()->getClient()->delete($this->url())->send();
     }
 
     /**
@@ -425,9 +430,12 @@ class DataObject extends AbstractStorageObject
 
         $this->getLogger()->info('Copying object to [{uri}]', array('uri' => $uri));
 
-        $request = $this->getClient()->createRequest('COPY', $this->url(), array(
-            'Destination' => $uri
-        ))->setExpectedResponse(202);
+        $request = $this->getService()
+            ->getClient()
+            ->createRequest('COPY', $this->url(), array(
+                'Destination' => $uri
+            ))
+            ->setExpectedResponse(202);
         
         return $request->send();
     }
@@ -518,7 +526,11 @@ class DataObject extends AbstractStorageObject
      */
     public function saveToString()
     {
-        return $this->getClient()->get($this->url())->send()->getBody(true);
+        return $this->getService()
+            ->getClient()
+            ->get($this->url())
+            ->send()
+            ->getDecodedBody();
     }
 
     /**
@@ -554,7 +566,10 @@ class DataObject extends AbstractStorageObject
             ));
         }
         
-        $result = $this->getClient()->get($this->url(), array(), $fp)->send();
+        $result = $this->getService()
+            ->getClient()
+            ->get($this->url(), array(), $fp)
+            ->send();
         
         fclose($fp);
         
@@ -595,7 +610,10 @@ class DataObject extends AbstractStorageObject
             ));
         }
 
-        return $this->getClient()->get($this->url(), array(), $resource)->send();
+        return $this->getService()
+            ->getClient()
+            ->get($this->url(), array(), $resource)
+            ->send();
     }
 
 
@@ -634,7 +652,10 @@ class DataObject extends AbstractStorageObject
         // @codeCoverageIgnoreEnd
 
         $url = $cdn . '/' . $this->name;
-        $this->getClient()->delete($url, array('X-Purge-Email' => $email))->send();
+        $this->getService()
+            ->getClient()
+            ->delete($url, array('X-Purge-Email' => $email))
+            ->send();
         
         return true;
     }
@@ -771,7 +792,7 @@ class DataObject extends AbstractStorageObject
      * It's actually the object's container's service, so this method will
      * simplify things a bit.
      */
-    private function getService()
+    public function getService()
     {
         return $this->container->getService();
     }

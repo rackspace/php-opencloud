@@ -16,7 +16,7 @@ class GroupTest extends OpenCloudTestCase
 {
     
     const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
-    const GROUP_ID = '{groupId}';
+    const GROUP_ID = 'groupId';
     const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
     
     private $service;
@@ -26,7 +26,7 @@ class GroupTest extends OpenCloudTestCase
         $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
     }
     
-    public function testGroup()
+    public function test_Group()
     {
         $group = $this->service->group();
         $group->refresh(self::GROUP_ID);

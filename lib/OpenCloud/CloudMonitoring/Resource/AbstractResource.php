@@ -107,7 +107,11 @@ abstract class AbstractResource extends PersistentObject
         $this->checkJsonError();
         
         // send the request
-        return $this->customAction($this->testUrl($debug), 'POST', $json);
+        return $this->getService()
+            ->getClient()
+            ->post($this->testUrl($debug), array(), $json)
+            ->send()
+            ->getDecodedBody();
     }
 
     /**

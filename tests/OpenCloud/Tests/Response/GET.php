@@ -9,8 +9,8 @@ return array(
     'rax:autoscale' => array(
         
         // Groups
-        'groups' => 'Group/list',
-        'groups/{w}' => 'Group/get',
+        'groups/?$' => 'Group/list',
+        'groups/{w}/?$' => 'Group/get',
         'groups/{w}/state' => 'Group/state',
         
         // Config
@@ -28,53 +28,53 @@ return array(
     
     'rax:monitor' => array(
         
-        'entities' => 'Entity/entities',
-        'entities/{w}' => 'Entity/entity',
+        'entities/?$' => 'Entity/entities',
+        'entities/{w}/?$' => 'Entity/entity',
 
-        'entities/{w}/checks' => 'Check/list_checks',
-        'entities/{w}/checks/{w}' => 'Check/get',
+        'entities/{w}/checks/?$' => 'Check/list_checks',
+        'entities/{w}/checks/{w}/?$' => 'Check/get',
 
-        'entities/{w}/checks/{w}/metrics' => 'Metric/list',
+        'entities/{w}/checks/{w}/metrics/?$' => 'Metric/list',
         'entities/{w}/checks/{w}/metrics/{w}' => 'Metric/data_points',
 
-        'check_types' => 'CheckType/list',
-        'check_types/(\w|\.)+' => 'CheckType/get',
+        'check_types/?$' => 'CheckType/list',
+        'check_types/(\w|\.)+?$' => 'CheckType/get',
 
-        'entities/{w}/alarms' => 'Alarm/list',
-        'entities/{w}/alarms/{w}' => 'Alarm/get',
+        'entities/{w}/alarms/?$' => 'Alarm/list',
+        'entities/{w}/alarms/{w}/?$' => 'Alarm/get',
 
-        'entities/{w}/alarms/{w}/notification_history' => 'NotificationHistory/list',
-        'entities/{w}/alarms/{w}/notification_history/{w}' => 'NotificationHistory/get',
-        'entities/{w}/alarms/{w}/notification_history/{w}/{w}' => 'NotificationHistory/get_history_item',
+        'entities/{w}/alarms/{w}/notification_history/?$' => 'NotificationHistory/list',
+        'entities/{w}/alarms/{w}/notification_history/{w}/?$' => 'NotificationHistory/get',
+        'entities/{w}/alarms/{w}/notification_history/{w}/{w}/?$' => 'NotificationHistory/get_history_item',
 
-        'monitoring_zones' => 'Zone/list',
-        'monitoring_zones/{w}' => 'Zone/get',
+        'monitoring_zones/?$' => 'Zone/list',
+        'monitoring_zones/{w}/?$' => 'Zone/get',
 
-        'notifications' => 'Notification/list',
-        'notifications/{w}' => 'Notification/get',
+        'notifications/?$' => 'Notification/list',
+        'notifications/{w}/?$' => 'Notification/get',
 
-        'notification_plans' => 'NotificationPlan/list',
-        'notification_plans/{w}' => 'NotificationPlan/get',
+        'notification_plans/?$' => 'NotificationPlan/list',
+        'notification_plans/{w}/?$' => 'NotificationPlan/get',
 
-        'notification_types' => 'NotificationType/list',
-        'notification_types/{w}' => 'NotificationType/get',
+        'notification_types/?$' => 'NotificationType/list',
+        'notification_types/{w}/?$' => 'NotificationType/get',
 
-        'changelogs/alarms' => 'Changelog/list',
+        'changelogs/alarms/?$' => 'Changelog/list',
         'changelogs/alarms?entityId={w}' => 'Changelog/list',
 
-        'views/overview' => 'View/get',
+        'views/overview/?$' => 'View/get',
         'views/overview?id=entityId&id={w}' => 'View/get',
         'views/overview?uri={w}&uri={w}' => 'View/get',
 
-        'alarm_examples' => 'Alarm/example_list',
-        'alarm_examples/{w}' => 'Alarm/example_get',
+        'alarm_examples/?$' => 'Alarm/example_list',
+        'alarm_examples/{w}/?$' => 'Alarm/example_get',
 
-        'agents' => 'Agent/list',
-        'agents/{w}' => 'Agent/get',
-        'agents/{w}/connections' => 'Agent/connections_list',
+        'agents/?$' => 'Agent/list',
+        'agents/{w}/?$' => 'Agent/get',
+        'agents/{w}/connections/?$' => 'Agent/connections_list',
         'agents/{w}/connections/{w}' => 'Agent/connections_get',
 
-        'agent_tokens' => 'Agent/tokens_list',
+        'agent_tokens/?$' => 'Agent/tokens_list',
         'agent_tokens/{w}' => 'Agent/tokens_get',
 
         'entities/{w}/agent/check_types/{w}/targets' => 'Agent/targets_list',
@@ -90,11 +90,14 @@ return array(
     ),
     
     "object-store" => array(
+        'TEST' => '{}',
         'TEST\?format=json' => 'format',
         'delimeter' => '[{"subdir": "files/Pseudo1/"},{"subdir": "files/Pseudo2/"}]'
     ),
     
-    "rax:object-cdn" => array(),
+    "rax:object-cdn" => array(
+        'TEST' => '{}',
+    ),
     
     "rax:database" => array(
         '/instances/' => 'instance',

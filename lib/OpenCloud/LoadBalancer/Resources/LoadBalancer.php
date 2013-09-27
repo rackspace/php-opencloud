@@ -297,10 +297,10 @@ class LoadBalancer extends PersistentObject
             $virtualIp = $this->VirtualIp();
             $virtualIp->type = $type;
             $virtualIp->ipVersion = $object->version;
-            $http = $virtualIp->Create();
+            $http = $virtualIp->create();
             
             $this->getLogger()->info('AddVirtualIp:response [{body}]', array(
-                'body' => $http->httpBody()
+                'body' => $http->getDecodedBody()
             ));
             
             return $http;
@@ -364,7 +364,7 @@ class LoadBalancer extends PersistentObject
      */
     public function virtualIpList() 
     {
-        return $this->Service()->Collection('\OpenCloud\LoadBalancer\Resources\VirtualIp', null, $this);
+        return $this->getService()->collection('\OpenCloud\LoadBalancer\Resources\VirtualIp', null, $this);
     }
 
     /**

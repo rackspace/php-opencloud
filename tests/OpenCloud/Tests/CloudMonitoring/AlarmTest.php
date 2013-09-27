@@ -34,7 +34,7 @@ class AlarmTest extends OpenCloudTestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\\CloudMonitoring\\Resource\\Entity',
-            $this->resource->parent()
+            $this->resource->getParent()
         );
     }
     
@@ -70,7 +70,7 @@ class AlarmTest extends OpenCloudTestCase
         $params['criteria'] = 'if (metric["code"] == "404") { return new AlarmStatus(CRITICAL, "not found"); } return new AlarmStatus(OK);';
         
         // Data which needs to be tested
-        $params['check_data'] = json_decode(file_get_contents(__DIR__ . '/Resource/Check/test_existing.json'));
+        $params['check_data'] = json_decode(file_get_contents(__DIR__ . '/../Response/Body/Monitor/Check/test_existing.json'));
         
         $response = $this->resource->test($params);
 

@@ -141,7 +141,7 @@ class Service extends AbstractService
         }
         
         $response = $this->getClient()->head($this->url("queues/$name"))->send();
-        return $response->getStatus() == 204;
+        return $response->getStatusCode() == 204;
     }
     
 }

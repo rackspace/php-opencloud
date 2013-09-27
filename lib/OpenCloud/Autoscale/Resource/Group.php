@@ -31,7 +31,6 @@ use OpenCloud\Common\Exceptions;
  */
 class Group extends AbstractResource
 {
-    
     private $id;
     private $links;
     private $groupConfiguration;
@@ -94,8 +93,12 @@ class Group extends AbstractResource
      */
     public function getState()
     {
-        $object = $this->customAction($this->url('state', true));
-        
+        $object = $this->getService()
+            ->getClient()
+            ->get($this->url('state'))
+            ->send()
+            ->getDecodedBody();
+
         return (!empty($object->group)) ? $object->group : false;
     }
     
@@ -144,7 +147,7 @@ class Group extends AbstractResource
      */
     public function pause()
     {
-        return $this->customAction($this->url('pause', true), 'POST');
+        return $this->getService()->getClient()->post($this->url('pause'))->send();
     }
     
     /**
@@ -154,7 +157,7 @@ class Group extends AbstractResource
      */
     public function resume()
     {
-        return $this->customAction($this->url('resume', true), 'POST');
+        return $this->getService()->getClient()->post($this->url('resume'))->send();
     }
     
     /**
@@ -164,7 +167,7 @@ class Group extends AbstractResource
      */
     public function getPolicies()
     {
-        return $this->service()->resourceList('ScalingPolicy', null, $this);
+        return $this->getService()->resourceList('ScalingPolicy', null, $this);
     }
     
     /**

@@ -322,7 +322,7 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
             'port' => '8080'
         ));
 
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
 
         $this->assertEquals('ROUND_ROBIN',$lb->algorithm);
         $this->assertEquals('HTTP',$lb->protocol);

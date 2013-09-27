@@ -14,7 +14,7 @@ use OpenCloud\Common\Base;
 use OpenCloud\Common\Lang;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
-use Guzzle\Http\Exception\RequestException;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -33,7 +33,7 @@ abstract class Service extends Base
     const DEFAULT_URL_TYPE = 'publicURL';
     
     protected $client;
-    private $service_type;
+    protected $service_type;
     private $service_name;
     private $service_region;
     protected $service_url;
@@ -63,9 +63,6 @@ abstract class Service extends Base
         $this->service_name = $name;
         $this->service_region = $region;
         $this->service_url = $this->getEndpoint($type, $name, $region, $urltype);
-        
-        // Let client know what service is relying on it
-        $this->client->setServiceType($type);
     }
     
     /**
@@ -86,6 +83,11 @@ abstract class Service extends Base
     public function getClient()
     {
         return $this->client;
+    }
+    
+    public function getType()
+    {
+        return $this->service_type;
     }
     
     /**
@@ -175,7 +177,8 @@ abstract class Service extends Base
 
         // Handle empty response
         $object = $response->getDecodedBody();
-        if (strlen($object) == 0) {
+        
+        if (empty($object)) {
             return new Collection($parent, $class, array());
         }
         
@@ -345,18 +348,12 @@ abstract class Service extends Base
         
         try {
             $response = $this->getClient()->get($url)->send();
-        } catch (RequestException $e) {}
-        
-        // check for NOT FOUND response
-        if ($response->getStatusCode() == 404) {
+        } catch (ClientErrorResponseException $e) {
             return array();
         }
-
+        
         // we're good; proceed
-        $object = $response->getBody(true);
-        $this->checkJsonError();
-
-        return $object;
+        return $response->getDecodedBody();
     }
     
     /**

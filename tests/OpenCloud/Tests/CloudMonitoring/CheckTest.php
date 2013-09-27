@@ -29,7 +29,7 @@ class CheckTest extends OpenCloudTestCase
 
     public function testParentClass()
     {
-        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Entity', $this->resource->parent());
+        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Entity', $this->resource->getParent());
     }
 
     /**

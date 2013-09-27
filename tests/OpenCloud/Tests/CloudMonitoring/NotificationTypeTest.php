@@ -56,6 +56,7 @@ class NotificationTypeTest extends OpenCloudTestCase
     public function testGet()
     {
         $this->resource->refresh(self::NT_ID);
+
         $fields = $this->resource->getFields();
         $this->assertEquals('url', $fields[0]->name);
         $this->assertFalse($fields[0]->optional);

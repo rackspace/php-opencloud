@@ -1,6 +1,13 @@
 <?php
 return array(
     
+    'rax:autoscale' => array(
+        'groups/{w}/config' => 'Config/put',
+        'groups/{w}/launch' => 'Config/put_launch',
+        'groups/{w}/policies/{w}' => 'Policy/put',
+        'groups/{w}/policies/{w}/webhooks/{w}'=> 'Webhook/put',
+    ),
+    
     'rax:dns' => array(
         'import' => array(
             'body'   => '{"status":"RUNNING","verb":"GET","jobId":"852a1e4a-45b4-409b-9d46-2d6d641b27cf","callbackUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/status/852a1e4a-45b4-409b-9d46-2d6d641b27cf","requestUrl":"https://dns.api.rackspacecloud.com/v1.0/696206/domains/3612932/export"}',

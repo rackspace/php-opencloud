@@ -56,7 +56,7 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
         $net = $this->service->Network();
         $net->id = 'foobar';
         $resp = $net->delete();
-        $this->assertEquals(202, $resp->HttpStatus());
+        $this->assertEquals(202, $resp->getStatusCode());
     }
 
     public function testName()

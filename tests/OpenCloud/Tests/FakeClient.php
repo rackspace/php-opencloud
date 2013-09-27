@@ -15,6 +15,7 @@ use Exception;
 use OpenCloud\Rackspace;
 use OpenCloud\Common\Http\Message\EntityEnclosingRequest;
 use OpenCloud\Common\Http\Message\Response;
+use OpenCloud\Common\Service;
 
 /**
  * Description of FakeClient
@@ -29,18 +30,34 @@ class FakeClient extends Rackspace
     private $requests;
     private $responseDir;
     protected $pathType;
+    protected $serviceType;
     
     public function send($requests) 
-	{   
+	{
+        $this->serviceType = $this->traceServiceType();
         $this->responseDir = __DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR;
         $this->url = $requests->getUrl();
         $this->requests = $requests;
         
         $response = $this->intercept(); 
         $requests->setResponse($response);
-        
-		return $response;
+
+		return $requests->getResponse();
 	}
+    
+    public function traceServiceType()
+    {
+        $debug = debug_backtrace();
+        foreach ($debug as $trace) {
+            if (isset($trace['object'])) {
+                if (method_exists($trace['object'], 'getService')) {
+                    return $trace['object']->getService()->getType();
+                } elseif ($trace['object'] instanceof \OpenCloud\Common\Service) {
+                    return $trace['object']->getType();
+                }
+            }
+        }
+    }
     
 	private function urlContains($substring)
 	{
@@ -92,7 +109,7 @@ class FakeClient extends Rackspace
 	{
 		$array = include $this->responseDir . strtoupper($this->requests->getMethod()) . '.php';
 
-        $typeOptions = array(self::DEFAULT_TYPE, $this->getServiceType());
+        $typeOptions = array(self::DEFAULT_TYPE, $this->serviceType);
         
         foreach ($typeOptions as $typeOption) {
             if ($serviceArray = $this->findServiceArray($array, $typeOption)) {
@@ -103,12 +120,10 @@ class FakeClient extends Rackspace
             }
         }
         
+        
+        
         if (empty($config)) {
-            throw new Exception(sprintf(
-                "Cannot find stub config in [%s] for:\n%s",
-                $this->getServiceType(),
-                (string) $this->requests
-            ));
+            return new Response(404);
         }
         
         // Retrieve config from nested array structure

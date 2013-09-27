@@ -40,14 +40,14 @@ class ScalingPolicy extends AbstractResource
     
     public function getWebhookList()
     {
-        return $this->service()->resourceList('Webhook', null, $this);
+        return $this->getService()->resourceList('Webhook', null, $this);
     }
     
     public function getWebhook($id = null)
     {
         $webhook = new Webhook();
         $webhook->setParent($this);
-        $webhook->setService($this->service());
+        $webhook->setService($this->getService());
         if ($id) {
             $webhook->populate($id);
         }

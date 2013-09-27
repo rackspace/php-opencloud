@@ -11,7 +11,7 @@
 
 namespace OpenCloud\Common\Http\Message;
 
-use OpenCloud\Http\Exception\UnexpectedResponseException;
+use OpenCloud\Common\Http\Exception\UnexpectedResponseException;
 use Guzzle\Http\Exception\BadResponseException;
 
 /**
@@ -21,7 +21,6 @@ use Guzzle\Http\Exception\BadResponseException;
  */
 class ResponseHandler
 {
-    
     private $template = array();
     
     public static function fromArray(array $params = array())

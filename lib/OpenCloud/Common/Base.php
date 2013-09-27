@@ -174,6 +174,8 @@ abstract class Base
                 return call_user_func(array($this, $method));
             }
         }
+        
+        return null;
     }
     
     /**
@@ -250,7 +252,7 @@ abstract class Base
                     
                     // Associated resource
                     try {
-                        $resource = $this->service()->resource($this->associatedResources[$key], $value);
+                        $resource = $this->getService()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
                         $this->setProperty($key, $resource);
                     } catch (Exception\ServiceException $e) {}
@@ -259,9 +261,15 @@ abstract class Base
                     
                     // Associated collection
                     try {
-                        $this->setProperty($key, $this->getService()->resourceList(
-                            $this->associatedCollections[$key], null, $this
-                        )); 
+                        //$collection = $this->getService()->resourceList(
+                        //    $this->associatedCollections[$key], null, $this
+                        //);
+                        $collection = new Collection(
+                            $this->getService(), 
+                            $this->associatedCollections[$key], 
+                            $value
+                        );
+                        $this->setProperty($key, $collection); 
                     } catch (Exception\ServiceException $e) {}
                     
                 } elseif (!empty($this->aliases[$key])) {
@@ -350,16 +358,6 @@ abstract class Base
         if (isset($jsonError)) {
             throw new JsonError(Lang::translate($jsonError));
         }
-    }
-
-    /**
-     * Returns a class that implements the HttpRequest interface.
-     *
-     * This can be stubbed out for unit testing and avoid making live calls.
-     */
-    public function getHttpRequestObject($url, $method = 'GET', array $options = array())
-    {
-        return new Request\Curl($url, $method, $options);
     }
 
     /**

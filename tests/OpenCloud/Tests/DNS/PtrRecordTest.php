@@ -36,7 +36,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test__construct()
     {
-        $this->record = $this->service()->ptrRecord();
+        $this->record = $this->service->ptrRecord();
         $this->assertEquals('PTR', $this->record->type);
     }
 
@@ -45,7 +45,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test__construct2()
     {
-        $this->service()->ptrRecord(array('type' => 'A'));
+        $this->service->ptrRecord(array('type' => 'A'));
     }
 
     public function testUrl()

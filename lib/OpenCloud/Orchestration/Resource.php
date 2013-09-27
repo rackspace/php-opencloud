@@ -63,7 +63,7 @@ class Resource extends PersistentObject
 
     public function get() 
     {
-        $service = $this->parent()->service();
+        $service = $this->getParent()->getService();
  
         switch ($this->resource_type) {
             case 'AWS::EC2::Instance':

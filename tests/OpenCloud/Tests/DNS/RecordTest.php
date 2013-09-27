@@ -30,7 +30,7 @@ class RecordTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test__construct()
     {
-        $record = $this->domain()->record(array(
+        $record = $this->domain->record(array(
             'type' => 'A', 
             'ttl'  => 60, 
             'data' => '1.2.3.4'
