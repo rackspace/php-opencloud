@@ -90,7 +90,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testCreateFailsWithoutKeys()
     {
-        $object = new CustomRecord($this->dns);
+        $object = new CustomRecord($this->service);
         $object->create();
     }
     
@@ -99,7 +99,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testUpdateFailsWithoutKeys()
     {
-        $object = new CustomRecord($this->dns);
+        $object = new CustomRecord($this->service);
         $object->update();
     }
 

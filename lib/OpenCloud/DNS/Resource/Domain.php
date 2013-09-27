@@ -139,7 +139,12 @@ class Domain extends Object
     public function changes($since = null)
     {   
         $url = $this->url('changes', isset($since) ? array('since' => $since) : null);
-        return $this->getService()->simpleRequest($url);
+        
+        return $this->getService()
+            ->getClient()
+            ->get($url)
+            ->send()
+            ->getDecodedBody();
     }
 
     /**

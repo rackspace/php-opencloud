@@ -44,7 +44,7 @@ class RecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testParent()
     {
-        $this->assertEquals($this->domain, $this->record->Parent());
+        $this->assertEquals($this->domain, $this->record->getParent());
     }
 
 }

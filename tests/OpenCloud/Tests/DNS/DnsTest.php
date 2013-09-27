@@ -24,9 +24,6 @@ class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->service = $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL');
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\DNS\Service', $this->service);
@@ -53,7 +50,7 @@ class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\AsyncHttpError
+     * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function testAsyncRequest()
     {

@@ -84,13 +84,13 @@ class DomainTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $sub = $this->domain->Subdomain();
         $this->assertInstanceOf('OpenCloud\DNS\Resource\Subdomain', $sub);
-        $this->assertEquals(1, $this->domain->AddSubdomain($sub));
-        $this->assertEquals($this->domain, $sub->Parent());
+        $this->assertEquals(1, $this->domain->addSubdomain($sub));
+        $this->assertEquals($this->domain, $sub->getParent());
     }
 
     public function testChanges()
     {
-        $this->assertInstanceOf('stdClass', $this->domain->Changes());
+        $this->assertInstanceOf('stdClass', $this->domain->changes());
     }
 
     public function testExport()
