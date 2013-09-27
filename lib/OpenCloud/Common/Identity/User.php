@@ -8,6 +8,8 @@
  * @author Jamie Hannaford <jamie.hannaford@rackspace.co.uk>
  */
 
+namespace OpenCloud\Common\Identity;
+
 /**
  * Represents a sub-user in Keystone.
  *
