@@ -113,7 +113,7 @@ class Queue extends PersistentObject
                 ->setExpectedResponse(204)
                 ->send();
         }
-        
+
         return $this;
     }
     
@@ -214,7 +214,11 @@ class Queue extends PersistentObject
      */
     public function getStats()
     {
-        $body = $this->customAction($this->url('stats'));
+        $body = $this->getClient()
+            ->get($this->url('stats'))
+            ->send()
+            ->getDecodedBody();
+        
         return (!isset($body->messages)) ? false : $body->messages;
     }
     
@@ -307,7 +311,7 @@ class Queue extends PersistentObject
     public function deleteMessages(array $ids)
     {
         $url = $this->url('messages', array('ids' => implode(',', $ids)));
-        $this->getClient()->delete($url)->setExpectedResponse(204)->send();
+        $this->getClient()->delete($url)->send();
         return true;
     }
     
@@ -354,7 +358,7 @@ class Queue extends PersistentObject
             ->setExpectedResponse(array(201, 204))
             ->send();
 
-        if ($response->getStatus() == 204) {
+        if ($response->getStatusCode() == 204) {
             return false;
         }
         

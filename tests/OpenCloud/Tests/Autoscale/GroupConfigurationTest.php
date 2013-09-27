@@ -69,7 +69,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
         $config = $group->getGroupConfig();
 
         $this->assertEquals(60, $config->cooldown);
-        $this->assertEquals('thisisastring', $config->metadata->firstkey);
+        $this->assertEquals('this is a string', $config->metadata->firstkey);
     }
     
     public function testLaunchConfig()
@@ -87,7 +87,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
         $server = $config->getArgs()->server;
         $this->assertEquals('0d589460-f177-4b0f-81c1-8ab8903ac7d8', $server->imageRef);
         $this->assertEquals(
-            'ssh-rsaAAAAB3Nza...LiPk==user@example.net',
+            'ssh-rsa AAAAB3Nza...LiPk== user@example.net',
             $server->personality[0]->contents
         );
     }

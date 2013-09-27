@@ -155,8 +155,7 @@ class CDNContainer extends AbstractStorageObject
      */
     public function update()
     {
-        $this->getClient()->post($this->url(), 'POST', $this->metadataHeaders())
-            ->setExpectedResponse(204)
+        $this->getClient()->post($this->url(), $this->metadataHeaders())
             ->send();
         
         return true;
@@ -171,7 +170,6 @@ class CDNContainer extends AbstractStorageObject
     public function delete()
     {
         $this->getClient()->delete($this->url())
-            ->setExpectedResponse(204)
             ->setExceptionHandler(array(
                 404 => 'Container not found',
                 409 => 'Container must be empty before deleting',

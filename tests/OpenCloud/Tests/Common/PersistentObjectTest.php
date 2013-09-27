@@ -233,12 +233,12 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testService()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->Service());
+        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->getService());
     }
 
     public function testParent()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->Parent());
+        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->getParent());
     }
 
     /**

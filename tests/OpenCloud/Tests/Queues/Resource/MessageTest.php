@@ -61,11 +61,12 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
         $response = $this->queue->setName('test-queue')->createMessages(array(
             array('body' => 'Do homework', 'ttl' => 3600)
         ));
+        
         $this->assertTrue($response);
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
      */
     public function test_Batch_Create_Fails_When_Queue_Not_Found()
     {
@@ -97,14 +98,5 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->message->setId('foo');
         $this->message->delete();
     }
-    
-    /**
-     * @expectedException OpenCloud\Queues\Exception\DeleteMessageException
-     */
-    public function test_Delete_Fails_Without_Correct_Response()
-    {
-        $this->message->setId('foobar');
-        $this->message->delete();
-    }
-    
+        
 }

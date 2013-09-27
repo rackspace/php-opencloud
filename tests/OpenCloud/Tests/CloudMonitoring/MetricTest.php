@@ -49,7 +49,7 @@ class MetricTest extends OpenCloudTestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\\CloudMonitoring\\Resource\\Check',
-            $this->resource->Parent()
+            $this->resource->getParent()
         );
     }
     

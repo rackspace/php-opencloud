@@ -203,7 +203,7 @@ abstract class PersistentObject extends Base
                 ))
             )
             ->send();
-            
+                
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }

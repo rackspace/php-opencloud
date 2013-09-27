@@ -67,12 +67,23 @@ class ResponseHandler
         $status = $this->response->getStatusCode();
         
         // If somebody is expecting a specific response code, make the check stricter
-        if ($this->expectedResponse && $this->expectedResponse != $this->response) {
-            return new UnexpectedResponseException(sprintf(
-                'This operation was expecting a %d status code, but received %d',
-                $this->expectedResponse,
-                $status
-            ));
+        if ($this->expectedResponse) {
+            
+            $match = false;
+
+            if (is_array($this->expectedResponse) && in_array($status, $this->expectedResponse)) {
+                $match = true;
+            } elseif ((int) $this->expectedResponse == $status) {
+                $match = true;
+            }
+            
+            if (!$match) {
+                return new UnexpectedResponseException(sprintf(
+                    'This operation was expecting a %d status code, but received %d',
+                    print_r($this->expectedResponse, true),
+                    $status
+                ));
+            }
         }
 
         // How do we want to handle this particular status code?

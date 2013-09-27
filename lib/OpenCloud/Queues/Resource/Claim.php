@@ -11,7 +11,6 @@
 namespace OpenCloud\Queues\Resource;
 
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Exceptions\UpdateError;
 
 /**
  * A worker claims or checks out a message to perform a task. Doing so prevents 
@@ -89,9 +88,6 @@ class Claim extends PersistentObject
         return $this->id;
     }
     
-    /**
-     * {@inheritDoc}
-     */
     public function create($params = array())
     {
         return $this->noCreate();

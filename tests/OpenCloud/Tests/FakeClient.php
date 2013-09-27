@@ -161,10 +161,10 @@ class FakeClient extends Rackspace
             
         } elseif (is_array($input)) {          
 
-            if (!empty($input['path']) || !empty($input['body'])) {
+            if (isset($input['path']) || isset($input['body'])) {
 
                 // Only one response option for this URL path
-                if (!empty($input['body'])) {
+                if (isset($input['body'])) {
                     $body = $input['body'];
                 } else {  
                     $bodyPath = $this->getBodyPath($input['path']);

@@ -303,7 +303,7 @@ class Container extends CDNContainer
         if (strlen($queryString) > 0) {
             $url .= '?' . $queryString;
         }
-        
+
         return $this->getService()->collection(
         	'OpenCloud\ObjectStore\Resource\DataObject', $url, $this
         );

@@ -25,7 +25,7 @@ class ImageTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\InstanceNotFound
+     * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function test___construct()
     {
@@ -45,14 +45,6 @@ class ImageTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_bad_json()
     {
         new Image($this->service, 'BADJSON');
-    }
-
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\EmptyResponseError
-     */
-    public function test_empty_json()
-    {
-        new Image($this->service, 'EMPTY');
     }
 
     /**

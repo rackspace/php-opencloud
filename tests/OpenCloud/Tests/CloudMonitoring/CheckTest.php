@@ -68,8 +68,7 @@ class CheckTest extends OpenCloudTestCase
         $this->resource->setType('remote.http');
 
         $response = $this->resource->testExisting();
-        $this->assertNotNull($response);
-
+        
         $this->assertObjectHasAttribute('metrics', $response[0]);
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);
     }

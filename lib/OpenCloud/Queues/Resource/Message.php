@@ -133,7 +133,6 @@ class Message extends PersistentObject
         $url = $this->url(null, array('claim_id' => $claimId));
         $this->getClient()
             ->delete($url)
-            ->setExpectedResponse(204)
             ->send();
         
         return true;

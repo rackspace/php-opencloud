@@ -75,7 +75,10 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
 	{
 	    $this->assertTrue($this->container->update());
 	}
-
+    
+    /**
+     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
+     */
 	public function testDelete()
 	{
 		$this->assertTrue($this->container->delete());
@@ -137,11 +140,6 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
 	public function testPubishToCDN2()
 	{
 	    $this->container->publishToCDN('FOOBAR');
-	}
-
-	public function testDisableCDN()
-	{
-	    $this->assertTrue($this->otherContainer->disableCDN());
 	}
 
 	public function testCDNURL()
@@ -264,18 +262,6 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 EOT;
         $this->container->isValidName($name);
-    }
-    
-    public function testPseudoDirectories()
-    {
-        $files = $this->otherContainer->objectList(array(
-           'delimiter' => '/',
-           'prefix'    => 'files/'
-        ));
-        
-        while ($file = $files->next()) {
-            $this->assertTrue($file->isDirectory());
-        }
     }
     
     public function testContainerNotFoundFailsGracefully()

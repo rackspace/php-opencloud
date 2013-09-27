@@ -63,7 +63,7 @@ class ScalingPolicy extends AbstractResource
     
     public function execute()
     {
-        return $this->customAction($this->url('execute', true), 'POST');
+        return $this->getClient()->post($this->url('execute'))->send();
     }
     
 }

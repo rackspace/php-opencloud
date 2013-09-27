@@ -47,11 +47,4 @@ class SnapshotTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertEquals('snapshots', $this->snapshot->ResourceName());
     }
 
-    public function testCreateJson()
-    {
-        $this->snapshot->display_name = 'BARFOO';
-        $obj = $this->snapshot->createJson();
-        $this->assertEquals('BARFOO', $obj->snapshot->display_name);
-    }
-
 }

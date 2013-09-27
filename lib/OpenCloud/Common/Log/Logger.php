@@ -171,10 +171,7 @@ class Logger extends AbstractLogger
      */
     public function log($level, $message, array $context = array())
     {
-        if ($this->outputIsUrgent($level) 
-            || $this->getEnabled() === true 
-            || RAXSDK_DEBUG === true
-        ) {
+        if ($this->outputIsUrgent($level) || $this->getEnabled() === true) {
             $this->dispatch($message, $context);
         }
     }

@@ -29,7 +29,8 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         /* This also validates the private function get_endpoint() */
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID', $this->service->Url());
+            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers', 
+            $this->service->Url());
     }
 
     public function testUrl2()
@@ -44,11 +45,6 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $ext = $this->service->Extensions();
         $this->assertTrue(is_array($ext));
-    }
-
-    public function testLimits()
-    {
-        $this->assertTrue(is_array($this->service->Limits()));
     }
 
     public function testRegion()

@@ -41,7 +41,7 @@ class Agent extends ReadOnlyResource implements ResourceInterface
     	}
     	
     	$url = $this->url('connections/' . $connectionId);
-    	$response = $this->customAction($url);
+    	$response = $this->getClient()->get($url)->send()->getDecodedBody();
     	return $this->getService()->resource('AgentConnection', $response);
 	}
 	

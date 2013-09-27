@@ -14,11 +14,6 @@ namespace OpenCloud\Tests;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\FakeClient;
 
-/**
- * Description of TestCase
- * 
- * @link 
- */
 class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 {
     
@@ -44,5 +39,7 @@ class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 
         return self::$client;
     }
+    
+    public function test_Something() {}
     
 }

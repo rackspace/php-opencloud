@@ -106,37 +106,6 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->my->Url();
     }
 
-    public function testGetHttpRequestObject()
-    {
-        $request = $this->my->GetHttpRequestObject('file:/dev/null');
-        $this->assertEquals(
-            'OpenCloud\Common\Request\Curl', get_class($request));
-    }
-
-    public function testMakeQueryString()
-    {
-        $this->assertEquals(
-            'A=1', $this->my->MakeQueryString(array('A' => 1)));
-        $this->assertEquals(
-            'A=1&B=2', $this->my->MakeQueryString(array('A' => 1, 'B' => 2)));
-        $this->assertEquals(
-            'A=1&B=False', $this->my->MakeQueryString(array('A' => 1, 'B' => FALSE)));
-        $this->assertEquals(
-            'A=1&B=True', $this->my->MakeQueryString(array('A' => 1, 'B' => TRUE)));
-    }
-
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\JsonError
-     */
-    public function testCheckJsonError()
-    {
-        $obj = json_decode('{"one":"two"}');
-        $this->my->CheckJsonError();
-        
-        $obj = json_decode('{"one":"two"');
-        $this->my->CheckJsonError();
-    }
-
     public function testSetProperty()
     {
         $this->my->setBar('hello');

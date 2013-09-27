@@ -11,8 +11,8 @@
 
 namespace OpenCloud\Common\Http\Exception;
 
-use Guzzle\Http\Exception\RequestException;
+use Guzzle\Http\Exception\BadResponseException;
 
-class UnexpectedResponseException extends RequestException
+class UnexpectedResponseException extends BadResponseException
 {
 }

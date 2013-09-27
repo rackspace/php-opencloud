@@ -89,8 +89,9 @@ return array(
     
     'rax:database' => array(
         'root' => '{"user":{"name":"root","password":"foo"}}',
-        'databases' => array('body' => '{to be filled in}', 'status' => 202),
-        'instances' => array('path' => 'instance_create')
+        'databases' => array('body' => '{}', 'status' => 202),
+        'instances/?$' => array('path' => 'instance_create'),
+        'users' => '{}'
     ),
     
     'rax:load-balancer' => array(

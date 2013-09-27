@@ -51,13 +51,4 @@ class ClaimTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->claim->getMessages();
     }
     
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\UpdateError
-     */
-    public function test_Update_Fails()
-    {
-        $this->claim->setId('foobar');
-        $this->claim->update();
-    }
-    
 }

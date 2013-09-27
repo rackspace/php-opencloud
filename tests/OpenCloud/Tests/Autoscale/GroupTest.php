@@ -51,8 +51,9 @@ class GroupTest extends OpenCloudTestCase
         );
         
         // Test individual resources in collection
-        $first = $group->getScalingPolicies()->First();
-        $this->assertEquals(150, $first->cooldown);
+        $first = $group->getScalingPolicies()->first();
+        
+        $this->assertEquals(150, $first->getCooldown());
         $this->assertInstanceOf('OpenCloud\Autoscale\Resource\ScalingPolicy', $first);
     }
     

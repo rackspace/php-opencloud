@@ -41,12 +41,6 @@ class ObjectStoreTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\Container', $obj);
     }
 
-    public function testContainerList()
-    {
-        $clist = $this->service->containerList();
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $clist);
-    }
-    
     public function testCDN()
     {
         $this->assertInstanceOf('OpenCloud\ObjectStore\CDNService', $this->service->CDN());

@@ -13,6 +13,7 @@ namespace OpenCloud\Queues;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Service as AbstractService;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use Guzzle\Http\Exception\BadResponseException;
 
 /**
  * Cloud Queues is an open source, scalable, and highly available message and 
@@ -142,8 +143,18 @@ class Service extends AbstractService
             ));
         }
         
-        $response = $this->getClient()->head($this->url("queues/$name"))->send();
-        return $response->getStatusCode() == 204;
+        try {
+            
+            $this->getClient()
+                ->head($this->url("queues/$name"))
+                ->setExpectedResponse(204)
+                ->send();
+            
+            return true;
+            
+        } catch (BadResponseException $e) {
+            return false;
+        } 
     }
     
 }

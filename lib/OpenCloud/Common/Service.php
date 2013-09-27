@@ -173,8 +173,8 @@ abstract class Service extends Base
         );
 
         // Fetch the list
-        $response = $this->getClient()->get($url)->send();       
-
+        $response = $this->getClient()->get($url)->send();
+        
         // Handle empty response
         $object = $response->getDecodedBody();
         
@@ -206,9 +206,7 @@ abstract class Service extends Base
 
         if (!$collectionName || is_array($object)) {
             // No element name, just a plain object/array
-            // @codeCoverageIgnoreStart
-            $data = $object;
-            // @codeCoverageIgnoreEnd
+            $data = (array) $object;
         } elseif (isset($object->$collectionName)) {
             if (!$elementName) {
                 // The object has a top-level collection name only

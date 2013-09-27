@@ -286,30 +286,6 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
     }
 
-    public function testSubResource()
-    {
-        $this->loadBalancer->id = '42';
-        
-        $sub = new MySubResource($this->service, '42');
-        $sub->setParent($this->loadBalancer);
-        
-        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource', get_class($sub));
-        
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/42/ignore', 
-            $sub->Url('foo', array('one' => 1)
-        ));
-        
-        $obj = $sub->UpdateJson();
-        $json = json_encode($obj);
-        
-        $this->assertEquals('{"ignore":{"id":"42"}}', $json);
-        
-        $this->assertEquals($this->loadBalancer, $sub->getParent());
-        
-        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource-42', $sub->Name());
-    }
-
     public function testUpdate()
     {
 

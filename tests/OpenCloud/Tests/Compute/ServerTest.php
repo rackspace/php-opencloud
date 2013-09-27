@@ -157,7 +157,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\InstanceNotFound
+     * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function testCreateImage()
     {
@@ -226,7 +226,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testService()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Service', $this->server->Service()
+            'OpenCloud\Compute\Service', $this->server->getService()
         );
     }
 

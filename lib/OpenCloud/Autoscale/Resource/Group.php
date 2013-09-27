@@ -165,9 +165,12 @@ class Group extends AbstractResource
      * 
      * @return Collection
      */
-    public function getPolicies()
+    public function getScalingPolicies($override = false)
     {
-        return $this->getService()->resourceList('ScalingPolicy', null, $this);
+        if (null === $this->scalingPolicies || $override === true) {
+            $this->scalingPolicies = $this->getService()->resourceList('ScalingPolicy', null, $this);
+        }
+        return $this->scalingPolicies;
     }
     
     /**
@@ -176,7 +179,7 @@ class Group extends AbstractResource
      * @param  object|int $id
      * @return ScalingPolicy
      */
-    public function getPolicy($id = null)
+    public function getScalingPolicy($id = null)
     {
         $config = $this->getService()->resource('ScalingPolicy');
         $config->setParent($this);
