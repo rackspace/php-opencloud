@@ -17,7 +17,7 @@ namespace OpenCloud\Common\Identity;
  * 
  * @codeCoverageIgnore
  */
-class User extends PersistentObject
+class User
 {
     
     public static function factory($info)
@@ -31,45 +31,30 @@ class User extends PersistentObject
      */
     public function get($info)
     {
-        if (is_integer($info)) {
-            
-        } elseif (is_string($info)) {
-            
-        } else {
-            throw new Exception\IdentityException(sprintf(
-                'A string-based username or an integer-based user ID is valid'
-            ));
-        }
     }
     
     public function create()
     {
-        
     }
     
     public function update()
     {
-        
     }
     
     public function delete()
     {
-        
     }
     
     public function listAllCredentials()
     {
-        
     }
     
     public function getCredentials()
     {
-        
     }
     
     public function resetApiKey()
     {
-        
     }
     
 }
