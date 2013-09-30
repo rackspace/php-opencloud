@@ -76,14 +76,6 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
 	    $this->assertTrue($this->container->update());
 	}
     
-    /**
-     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
-     */
-	public function testDelete()
-	{
-		$this->assertTrue($this->container->delete());
-	}
-
 	public function testObjectList()
 	{
 		$this->assertInstanceOf(

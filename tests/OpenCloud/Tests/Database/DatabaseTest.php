@@ -21,7 +21,7 @@ class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function __construct()
     {
         $service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
-        $this->instance = $service->instance('12345678');
+        $this->instance = $service->instance('56a0c515-9999-4ef1-9fe2-76be46a3aaaa');
         $this->database = $this->instance->database();
     }
 
@@ -37,8 +37,8 @@ class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->database->name = 'TEST';
         $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
-            'TENANT-ID/instances/12345678/databases/TEST', $this->database->url()
+            'https://dfw.databases.api.rackspacecloud.com/v1.0/9999/instances/56a0c515-9999-4ef1-9fe2-76be46a3aaaa/databases/TEST', 
+            $this->database->url()
         );
     }
 

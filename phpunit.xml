@@ -13,10 +13,10 @@
             lowUpperBound="35" highLowerBound="70"/>
     </logging>
 
-  <filter>
+    <filter>
         <whitelist>
             <directory suffix=".php">./lib/OpenCloud</directory>
         </whitelist>
-  </filter>
+    </filter>
 
 </phpunit>

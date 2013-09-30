@@ -40,8 +40,7 @@ class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->user->name = 'TEST';
         $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
-            'TENANT-ID/instances/12345678/users/TEST', 
+            'https://dfw.databases.api.rackspacecloud.com/v1.0/9999/instances/56a0c515-9999-4ef1-9fe2-76be46a3aaaa/users/TEST', 
             $this->user->url()
         );
     }

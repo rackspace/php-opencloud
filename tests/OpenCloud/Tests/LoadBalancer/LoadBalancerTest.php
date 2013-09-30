@@ -84,7 +84,7 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
         
         $this->assertInstanceOf(
             'OpenCloud\LoadBalancer\Resources\LoadBalancer', 
-            $lb->Node('345')->Parent()
+            $lb->Node('345')->getParent()
         );
         
         $this->assertEquals(
@@ -184,9 +184,8 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testStats()
     {
         $this->loadBalancer->id = 1024;
-        $x = $this->loadBalancer->Stats();
+        $x = $this->loadBalancer->stats();
         $this->assertInstanceOf('OpenCloud\LoadBalancer\Resources\Stats', $x);
-        $this->assertEquals(10, $x->connectTimeOut);
     }
 
     public function testUsage()

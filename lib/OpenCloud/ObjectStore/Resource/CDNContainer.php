@@ -198,7 +198,7 @@ class CDNContainer extends AbstractStorageObject
         $this->bytes = $response->getHeader('X-Container-Bytes-Used');
         
         // parse the returned object
-        $this->getMetadata($response);
+        $this->setMetadata($response);
     }
 
     /**

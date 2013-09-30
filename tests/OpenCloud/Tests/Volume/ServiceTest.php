@@ -43,7 +43,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CollectionError
+     * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function testVolumeTypeList()
     {
@@ -56,19 +56,11 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CollectionError
+     * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function testSnapshotList()
     {
         $this->service->SnapshotList();
-    }
-
-    public function testRequest()
-    {
-        $this->assertInstanceOf(
-            'OpenCloud\Common\Http\Message\Response', 
-            $this->service->Request('http://me.com')
-        );
     }
 
 }

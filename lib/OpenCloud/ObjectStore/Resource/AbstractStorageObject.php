@@ -52,10 +52,18 @@ abstract class AbstractStorageObject extends Base
      * @param  OpenCloud\Common\Request\Response\Http
      * @return void
      */
-    public function getMetadata(Response $response)
+    public function setMetadata($data)
     {
-        $this->metadata = new Metadata;
-        $this->metadata->setArray($response->getHeaders(), $this->prefix());
+        if ($data instanceof Response) {
+            $this->metadata = new Metadata;
+            $headers = array();
+            foreach ($data->getHeaders() as $value) {
+                $headers[$value->getName()] = (string) $value;
+            }
+            $this->metadata->setArray($headers, $this->prefix());
+        } else {
+            $this->metadata = $data;
+        }
     }
 
     /**
