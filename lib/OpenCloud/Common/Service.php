@@ -170,6 +170,7 @@ abstract class Service extends Base
      */
     public function collection($class, $url = null, $parent = null)
     {
+
         // Set the element names
         $collectionName = $class::JsonCollectionName();
         $elementName    = $class::JsonCollectionElement();

@@ -215,7 +215,7 @@ abstract class Base
         ));
     }
 
-/**
+    /**
      * Populates the current object based on an unknown data type.
      * 
      * @param  array|object|string|integer $info
@@ -223,6 +223,7 @@ abstract class Base
      */
     public function populate($info, $setObjects = true)
     {
+
         if (is_string($info) || is_integer($info)) {
             
             $this->setProperty($this->primaryKeyField(), $info);
@@ -247,7 +248,7 @@ abstract class Base
                     $this->setProperty($key, $metadata);
                     
                 } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
-                    
+
                     // Associated resource
                     try {
                         $resource = $this->service()->resource($this->associatedResources[$key], $value);
@@ -256,7 +257,7 @@ abstract class Base
                     } catch (Exception\ServiceException $e) {}
    
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
-                    
+
                     // Associated collection
                     try {
                         $this->setProperty($key, $this->getService()->resourceList(
