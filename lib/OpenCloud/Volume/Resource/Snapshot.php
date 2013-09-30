@@ -1,13 +1,11 @@
 <?php
 /**
- * Defines a block storage snapshot
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Volume\Resource;
@@ -18,18 +16,6 @@ use OpenCloud\Common\Exceptions;
 
 /**
  * The Snapshot class represents a single block storage snapshot
- *
- * @api
- * @author Glen Campbell <glen.campbell@rackspace.com>
- *
- * @property string $id the identifier (usually a GUID)
- * @property string $display_name the name of the snapshot
- * @property string $display_description the description
- * @property string $volume_id the ID of the associated volume (GUID)
- * @property string $status a regular status value 
- * @property integer $size the size of the snapshot
- * @property datetime $created_at the date/time the snapshot was created
- * @property object $metadata metadata associated with the snapshot
  */
 class Snapshot extends PersistentObject 
 {

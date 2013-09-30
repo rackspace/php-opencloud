@@ -1,14 +1,10 @@
 <?php
 /**
- * The OpenStack Orchestration (Heat) service
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Stephen Sugden <openstack@stephensugden.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Stephen Sugden <openstack@stephensugden.com>
  */
 
 namespace OpenCloud\Orchestration;

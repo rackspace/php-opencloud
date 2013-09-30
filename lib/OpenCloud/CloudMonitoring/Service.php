@@ -1,20 +1,18 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\CloudMonitoring;
 
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Service as AbstractService;
 
-/**
- * The Rackspace Cloud Monitoring service.
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- *      See COPYING for licensing information
- * @package phpOpenCloud
- * @version 1.0
- * @author  Jamie Hannaford <jamie.hannaford@rackspace.com>
- * @extends AbstractService
- */
 class Service extends AbstractService
 {
     
@@ -22,9 +20,6 @@ class Service extends AbstractService
     
     /**
      * Cloud Monitoring resources.
-     * 
-     * @var     array
-     * @access  private
      */
     private $resources = array(
         'Agent',
@@ -47,16 +42,6 @@ class Service extends AbstractService
         'Zone'
     );
 
-    /**
-     * Main service constructor.
-     * 
-     * @access public
-     * @param OpenStack $connection
-     * @param mixed $serviceName
-     * @param mixed $serviceRegion
-     * @param mixed $urlType
-     * @return void
-     */
     public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType)
     {
         parent::__construct(

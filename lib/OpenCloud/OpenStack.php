@@ -2,16 +2,13 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud;
-
-require_once 'Globals.php';
 
 use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Http\Message\RequestFactory;
@@ -21,9 +18,8 @@ use OpenCloud\Common\ServiceCatalogItem;
 
 class OpenStack extends Client
 {
+    const VERSION = '1.7.0';
     
-    const MINIMUM_PHP_VERSION = '5.3.3';
-
     private $secret = array();
     private $token;
     private $expiration = 0;
@@ -40,19 +36,11 @@ class OpenStack extends Client
 
     public function __construct($url, array $secret, array $options = array())
     {
-        // @codeCoverageIgnoreStart
-    	if (phpversion() < self::MINIMUM_PHP_VERSION) {
-    		throw new Exceptions\UnsupportedVersionError(sprintf(
-                Lang::translate('You must have PHP version >= %s installed.'),
-                self::MINIMUM_PHP_VERSION
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
-        $this->setSecret($secret);
         
+        $this->setSecret($secret);
         $this->setRequestFactory(RequestFactory::getInstance());
+        
         parent::__construct($url, $options);
     }
         
@@ -99,7 +87,7 @@ class OpenStack extends Client
      */
     public function getToken()
     {
-        if (null === $this->token || $this->shouldReauthenticate()) {
+        if (null === $this->token || $this->hasExpired()) {
             $this->authenticate();
         } 
         return $this->token;
@@ -125,7 +113,7 @@ class OpenStack extends Client
      */
     public function getExpiration()
     {
-        if (null === $this->expiration || $this->shouldReauthenticate()) {
+        if (null === $this->expiration || $this->hasExpired()) {
             $this->authenticate();
         }
         return $this->expiration;
@@ -151,7 +139,7 @@ class OpenStack extends Client
      */
     public function getTenant()
     {
-        if (null === $this->tenant || $this->shouldReauthenticate()) {
+        if (null === $this->tenant || $this->hasExpired()) {
             $this->authenticate();
         }
         return $this->tenant;
@@ -177,7 +165,7 @@ class OpenStack extends Client
      */
     public function getCatalog()
     {
-        if (null === $this->catalog || $this->shouldReauthenticate()) {
+        if (null === $this->catalog || $this->hasExpired()) {
             $this->authenticate();
         }
         return $this->catalog;
@@ -201,11 +189,6 @@ class OpenStack extends Client
     public function secret()
     {
         return $this->getSecret();
-    }
-   
-    public function shouldReauthenticate()
-    {
-        return $this->hasExpired();
     }
     
     /**
