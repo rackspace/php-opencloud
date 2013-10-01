@@ -205,4 +205,15 @@ class Service extends Nova
         return $this->collection('OpenCloud\Compute\Resource\Image', $url);
     }
 
+    /**
+     * Retrieve the (read-only) hard-limits for the current tenant.
+     *
+     * @return stdClass
+     */
+    public function limits()
+    {
+        $url = $this->url('limits');
+        return json_decode($this->request($url)->httpBody())->limits;
+    }
+
 }
