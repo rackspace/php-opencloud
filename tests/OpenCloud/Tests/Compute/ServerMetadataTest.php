@@ -10,11 +10,11 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\Compute;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\Compute\Server;
-use OpenCloud\Compute\ServerMetadata;
+use OpenCloud\Compute\Resource\Server;
+use OpenCloud\Compute\Resource\ServerMetadata;
 use OpenCloud\Compute\Service;
 use OpenCloud\Tests\StubConnection;
 
@@ -40,7 +40,7 @@ class ServerMetadataTest extends PHPUnit_Framework_TestCase
      */
     public function test___construct()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\ServerMetadata', $this->metadata);
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\ServerMetadata', $this->metadata);
         // test whole group
         $metadata = $this->server->metadata();
         $this->assertEquals('bar', $metadata->foo);

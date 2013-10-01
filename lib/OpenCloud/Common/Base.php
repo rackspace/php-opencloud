@@ -75,7 +75,7 @@ abstract class Base
         ));
     }
 
-/**
+    /**
      * Populates the current object based on an unknown data type.
      * 
      * @param  array|object|string|integer $info
@@ -83,6 +83,7 @@ abstract class Base
      */
     public function populate($info, $setObjects = true)
     {
+
         if (is_string($info) || is_integer($info)) {
             
             // If the data type represents an ID, the primary key is set
@@ -91,33 +92,33 @@ abstract class Base
             $this->refresh($info);
             
         } elseif (is_object($info) || is_array($info)) {
-            
+
             foreach($info as $key => $value) {
-                
+
                 if ($key == 'metadata' || $key == 'meta') {
                     
-                    if (empty($this->metadata) || !$this->metadata instanceof Metadata) {
-                        $this->metadata = new Metadata;
+                    if (empty($this->$key) || !$this->$key instanceof Metadata) {
+                        $this->$key = new Metadata;
                     }
                     
                     // Metadata
                     $this->$key->setArray($value);
                     
                 } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
-                    
+
                     // Associated resource
                     try {
                         $resource = $this->service()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
                         $this->$key = $resource;
-                    } catch (Exception\ServiceException $e) {}
+                    } catch (Exception\ServiceException $e) { }
                     
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
-                    
+
                     // Associated collection
                     try {
                         $this->$key = $this->service()->resourceList($this->associatedCollections[$key], null, $this); 
-                    } catch (Exception\ServiceException $e) {}
+                    } catch (Exception\ServiceException $e) { }
                     
                 } else {
                     
@@ -140,12 +141,12 @@ abstract class Base
      * arbitrarily added to an object. If this function is called, it
      * means that the attribute is not defined on the object, and thus
      * an exception is thrown.
-     *
-     * @codeCoverageIgnore
      * 
      * @param string $property the name of the attribute
      * @param mixed $value the value of the attribute
      * @return void
+     * 
+     * @codeCoverageIgnore
      */
     public function __set($property, $value)
     {
@@ -166,14 +167,20 @@ abstract class Base
      *      the property prefix is not in the list of prefixes.
      */
     public function setProperty($property, $value, array $prefixes = array())
-    {
-        // if strict checks are off, go ahead and set it
-        if (!RAXSDK_STRICT_PROPERTY_CHECKS 
-            || $this->checkAttributePrefix($property, $prefixes)
-        ) {
+    {  
+        $setter = 'set' . ucfirst($property);
+        
+        if (method_exists($this, $setter)) {
+            // Does an explicitly defined setter method exist?
+            return call_user_func(array($this, $setter), $value);
+            
+        } elseif (!RAXSDK_STRICT_PROPERTY_CHECKS || $this->checkAttributePrefix($property, $prefixes)) {
+            // If not, we have to attempt to set the property directly.
+            // If strict checks are off, go ahead and set it
             $this->$property = $value;
+            
         } else {
-            // if that fails, then throw the exception
+            // If that fails, then throw the exception
             throw new AttributeError(sprintf(
                 Lang::translate('Unrecognized attribute [%s] for [%s]'),
                 $property,

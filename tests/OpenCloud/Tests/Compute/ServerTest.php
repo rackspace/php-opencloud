@@ -12,12 +12,13 @@
 
 namespace OpenCloud\Tests\Compute;
 
+use PHPUnit_Framework_TestCase;
 use OpenCloud\Tests\StubConnection;
 use OpenCloud\Compute\Service;
-use OpenCloud\Compute\Server;
-use OpenCloud\Volume\Volume;
+use OpenCloud\Compute\Resource\Server;
+use OpenCloud\Volume\Resource\Volume;
 
-class PublicServer extends \OpenCloud\Compute\Server
+class PublicServer extends Server
 {
     public function CreateJson($x = 'server')
     {
@@ -25,7 +26,7 @@ class PublicServer extends \OpenCloud\Compute\Server
     }
 }
 
-class ServerTest extends \PHPUnit_Framework_TestCase
+class ServerTest extends PHPUnit_Framework_TestCase
 {
 
     private $service;
@@ -45,7 +46,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Server', $this->server);
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Server', $this->server);
     }
 
     public function testUrl()
@@ -180,8 +181,10 @@ class ServerTest extends \PHPUnit_Framework_TestCase
 
     public function testMetadataMore()
     {
-        $this->assertEquals(
-            'OpenCloud\Compute\ServerMetadata', get_class($this->server->Metadata()));
+        $this->assertInstanceOf(
+            'OpenCloud\Compute\Resource\ServerMetadata', 
+            $this->server->Metadata()
+        );
     }
 
     public function test_ips()
@@ -271,7 +274,7 @@ class ServerTest extends \PHPUnit_Framework_TestCase
     public function testVolumeAttachment()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\VolumeAttachment', 
+            'OpenCloud\Compute\Resource\VolumeAttachment', 
             $this->server->VolumeAttachment()
         );
     }

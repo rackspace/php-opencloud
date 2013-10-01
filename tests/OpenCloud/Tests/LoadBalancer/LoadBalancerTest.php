@@ -7,11 +7,11 @@
  * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\LoadBalancer;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\LoadBalancer\Resources\SubResource;
-use OpenCloud\LoadBalancer\Resources\LoadBalancer;
+use OpenCloud\LoadBalancer\Resource\SubResource;
+use OpenCloud\LoadBalancer\Resource\LoadBalancer;
 use OpenCloud\LoadBalancer\Service;
 use OpenCloud\Tests\StubConnection;
 
@@ -65,14 +65,11 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         $lb->AddNode('1.1.1.2', 80, 'foobar');
     }
 
-    public function testAddNodes()
+    public function testRemoveNode()
     {
-        $lb = $this->service->LoadBalancer();
-        //$lb->Create();
-        $lb->AddNode('1.1.1.1', 80);
-        $lb->Create();
-        $lb->AddNodes();
-        
+        $lb = $this->service->LoadBalancer(2000);
+        $resp = $lb->removeNode(1041);
+        $this->assertEquals(202,$resp->status);
     }
 
     /**
@@ -96,17 +93,17 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\LoadBalancer', 
+            'OpenCloud\LoadBalancer\Resource\LoadBalancer', 
             $lb->Node('345')->Parent()
         );
         
         $this->assertEquals(
-            'OpenCloud\LoadBalancer\Resources\Node[456]', 
+            'OpenCloud\LoadBalancer\Resource\Node[456]', 
             $lb->Node('456')->Name()
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\Metadata', 
+            'OpenCloud\LoadBalancer\Resource\Metadata', 
             $lb->Node('456')->Metadata()
         );
         
@@ -198,7 +195,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     {
         $this->loadBalancer->id = 1024;
         $x = $this->loadBalancer->Stats();
-        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resources\Stats', $x);
+        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resource\Stats', $x);
         $this->assertEquals(10, $x->connectTimeOut);
     }
 
@@ -306,7 +303,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         $sub = new MySubResource($this->service, '42');
         $sub->setParent($this->loadBalancer);
         
-        $this->assertEquals('OpenCloud\Tests\MySubResource', get_class($sub));
+        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource', get_class($sub));
         
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/42/ignore', 
@@ -320,7 +317,26 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         
         $this->assertEquals($this->loadBalancer, $sub->getParent());
         
-        $this->assertEquals('OpenCloud\Tests\MySubResource-42', $sub->Name());
+        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource-42', $sub->Name());
+    }
+
+    public function testUpdate()
+    {
+
+        $lb = $this->service->LoadBalancer();
+        $lb->Create();
+
+        $resp = $lb->Update(array(
+            'algorithm' => 'ROUND_ROBIN',
+            'protocol' => 'HTTP',
+            'port' => '8080'
+        ));
+
+        $this->assertNotNull($resp->HttpStatus());
+
+        $this->assertEquals('ROUND_ROBIN',$lb->algorithm);
+        $this->assertEquals('HTTP',$lb->protocol);
+        $this->assertEquals('8080',$lb->port);
     }
     
     public function testAddingNodeWithType()
@@ -342,14 +358,6 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     public function testAddingNodeFailsWithoutCorrectWeight()
     {
         $this->loadBalancer->addNode('localhost', 8080, 'ENABLED', 'PRIMARY', 'baz');
-    }
-    
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\MissingValueError
-     */
-    public function testAddingNodesFailsWithoutAnythingPreviouslySet()
-    {
-        $this->loadBalancer->addNodes();
     }
     
     public function testAddingVirtualIp()

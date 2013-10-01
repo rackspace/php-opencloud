@@ -77,7 +77,7 @@ class Service extends Nova
         );
 
         // check the URL version
-        $path = parse_url($this->Url(), PHP_URL_PATH);
+        $path = parse_url($this->url(), PHP_URL_PATH);
 
         if (substr($path, 0, 3) == '/v1') {
             throw new Exceptions\UnsupportedVersionError(sprintf(
@@ -118,7 +118,7 @@ class Service extends Nova
      */
     public function server($id = null) 
     {
-        return new Server($this, $id);
+        return new Resource\Server($this, $id);
     }
 
     /**
@@ -139,8 +139,8 @@ class Service extends Nova
      */
     public function serverList($details = true, array $filter = array()) 
     {
-        $url = $this->url(Server::resourceName() . (($details) ? '/detail' : ''), $filter);
-        return $this->collection('OpenCloud\Compute\Server', $url);
+        $url = $this->url(Resource\Server::resourceName() . (($details) ? '/detail' : ''), $filter);
+        return $this->collection('OpenCloud\Compute\Resource\Server', $url);
     }
 
     /**
@@ -152,7 +152,7 @@ class Service extends Nova
      */
     public function network($id = null) 
     {
-        return new Network($this, $id);
+        return new Resource\Network($this, $id);
     }
 
     /**
@@ -164,7 +164,7 @@ class Service extends Nova
      */
     public function networkList($filter = array()) 
     {
-        return $this->collection('OpenCloud\Compute\Network');
+        return $this->collection('OpenCloud\Compute\Resource\Network');
     }
 
     /**
@@ -179,7 +179,7 @@ class Service extends Nova
      */
     public function image($id = null) 
     {
-        return new Image($this, $id);
+        return new Resource\Image($this, $id);
     }
 
     /**
@@ -202,7 +202,7 @@ class Service extends Nova
     public function imageList($details = true, array $filter = array()) 
     {
         $url = $this->url('images' . (($details) ? '/detail' : ''), $filter);
-        return $this->collection('OpenCloud\Compute\Image', $url);
+        return $this->collection('OpenCloud\Compute\Resource\Image', $url);
     }
 
 }

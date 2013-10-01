@@ -44,8 +44,9 @@ ENDRESPONSE;
         }
     }
 
-    public function request($url, $method = "GET", $headers = array(), $body = null) 
+    public function request($url, $method = "GET", $headers = array(), $body = null)
     {
+
         $resp = new Blank;
         $resp->headers = array(
             'Content-Length' => '999'
@@ -101,6 +102,37 @@ ENDRESPONSE;
                 $resp->status = 204;
             } elseif (strpos($url, '/servers')) {
                 $resp->body = file_get_contents($this->testDir.'/server-create.json');
+            } elseif (strpos($url, '/queues')) {
+            
+               if (preg_match('#/queues/foobar/messages$#', $url)) {                
+                    // post message
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/(\w|\-)+/messages$#', $url)) {
+                   // post message
+                   $resp->status = 201;
+                   $resp->body = file_get_contents(__DIR__ . '/Queues/Response/POST/post_message.json');
+                   if (!preg_match('#test-queue#', $url)) { 
+                    $resp->headers = array(
+                       'Location' => '/v1/queues/demoqueue/messages?ids=51db6f78c508f17ddc924357'
+                    );
+                   }
+               } elseif (preg_match('#/queues/foobar/claims(\?(\w|\&|\=)+)?$#', $url)) {
+                   $resp->status = 204;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/baz/claims(\?(\w|\&|\=)+)?$$#', $url)) {
+                   // post message
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               } elseif (preg_match('#/queues/(\w|\-)+/claims(\?(\w|\&|\=)+)?$#', $url)) {
+                   // claim messages
+                   $resp->status = 201;
+                   $resp->body = file_get_contents(__DIR__ . '/Queues/Response/POST/claim_messages.json');
+               } else {
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               }
+                
             } else {
                 die("No stub data for URL $url\n");
             }
@@ -110,6 +142,14 @@ ENDRESPONSE;
         
 		elseif ($method == 'DELETE') {
 			$resp->status = 202;
+            
+            if (strpos($url, '/queues')) {
+                if (strpos($url, 'foobar')) {
+                    $resp->status = 404;
+                } else {
+                    $resp->status = 204;
+                }
+            }
 		}
         
         // PUT
@@ -128,6 +168,33 @@ ENDRESPONSE;
                     'Content-Length' => 0,
                     'Content-Type' => 'text/plain; charset=UTF-8'
                 );
+            } elseif (strpos($url, '/queues')) {
+                
+               if (preg_match('#/queues/baz$#', $url)) {
+                   
+                   $resp->status = 404;
+                   $resp->body = '{}';
+                   
+               } elseif (preg_match('#/queues/(\w|\-)+$#', $url)) {
+                   // create queue
+                   $resp->status = 201;
+                   $resp->body = '{}';
+                   
+                   if (!preg_match('#test-queue#', $url)) {
+                        $resp->headers = array(
+                            'Location' => 'foo'
+                        );
+                   }
+                   
+               } elseif (preg_match('#/queues/(\w|\-)+/metadata$#', $url)) {
+                   // Sets queue metadata
+                   $resp->status = 204;
+                   $resp->body = '{}';
+               } else {
+                   $resp->status = 404;
+                   $resp->body = '{}';
+               }
+                
             } else {
                 
                 if (!empty($headers['X-CDN-Enabled'])) {
@@ -161,8 +228,23 @@ ENDRESPONSE;
                     'X-Trans-Id' => 'tx82a6752e00424edb9c46fa2573132e2c',
                     'Content-Length' => 0
                 );
-            }
+            } elseif (preg_match('#/queues/foobar$#', $url)) {  
+                $resp->status = 404;
+                $resp->body = '{}';
+            } elseif (preg_match('#/queues/(\w|\-)+$#', $url)) {
+                // Queue exists
+                $resp->body = '{}';
+                $resp->status = 204;
+            } 
             
+        }
+        
+        // PATCH
+        elseif ($method == 'PATCH') {
+            $resp->status = 204;
+            if (strpos($url, 'claims/foobar')) {
+                $resp->status = 404;
+            }
         }
         
         // GET
@@ -185,7 +267,19 @@ ENDRESPONSE;
                 $resp->body = '{"ignore":{}}';
             } elseif (strpos($url, '/loadbalancers/')) {
                 $resp->status = 200;
-                if (strpos($url, '/virtualips'))
+                if (preg_match('/\/2000\/nodes$/',$url))
+                    $resp->body = <<<EOT
+{"nodes":[{"id":1041,"address":"10.1.1.1","port":80,"condition":"ENABLED","status":"ONLINE"},{"id":1411,"address":"10.1.1.2","port":80,"condition":"ENABLED","status":"ONLINE"}]}
+EOT;
+                elseif (preg_match('/\/2000\/virtualIps$/',$url))
+                    $resp->body = <<<EOT
+{"virtualIps":[{"id":1000,"address":"206.10.10.210","type":"PUBLIC","ipVersion":"IPV4"}]}
+EOT;
+                elseif (preg_match('/\/2000$/',$url))
+                    $resp->body = <<<EOT
+{"loadBalancer":{"id":2000,"name":"sample-loadbalancer","protocol":"HTTP","port":80,"algorithm":"RANDOM","status":"ACTIVE","timeout":30,"connectionLogging":{"enabled":true},"virtualIps":[{"id":   1000,"address":"206.10.10.210","type":"PUBLIC","ipVersion":"IPV4"}],"nodes":[{"id":1041,"address":"10.1.1.1","port":80,"condition":"ENABLED","status":"ONLINE"},{"id":1411,"address":"10.1.1.2",    "port":80,"condition":"ENABLED","status":"ONLINE"}],"sessionPersistence":{"persistenceType":"HTTP_COOKIE"},"connectionThrottle":{"minConnections":10,"maxConnections":100,"maxConnectionRate":50,   "rateInterval":60},"cluster":{"name":"c1.dfw1"},"created":{"time":"2010-11-30T03:23:42Z"},"updated":{"time":"2010-11-30T03:23:44Z"},"sourceAddresses":{"ipv6Public":"2001:4801:79f1:1::1/64",       "ipv4Servicenet":"10.0.0.0","ipv4Public":"10.12.99.28"}}}
+EOT;
+                elseif (strpos($url, '/virtualips'))
                     $resp->body = '{}';
                 elseif (strpos($url, '/nodes'))
                     $resp->body = '{}';
@@ -217,10 +311,6 @@ ENDRESPONSE;
                     $resp->body = '{}';
                 elseif (strpos($url, '/metadata'))
                     $resp->body = '{}';
-                elseif (strpos($url, '/2000'))
-                    $resp->body = <<<EOT
-{"loadBalancer":{"id":2000,"name":"sample-loadbalancer","protocol":"HTTP","port":80,"algorithm":"RANDOM","status":"ACTIVE","timeout":30,"connectionLogging":{"enabled":true},"virtualIps":[{"id":1000,"address":"206.10.10.210","type":"PUBLIC","ipVersion":"IPV4"}],"nodes":[{"id":1041,"address":"10.1.1.1","port":80,"condition":"ENABLED","status":"ONLINE"},{"id":1411,"address":"10.1.1.2","port":80,"condition":"ENABLED","status":"ONLINE"}],"sessionPersistence":{"persistenceType":"HTTP_COOKIE"},"connectionThrottle":{"minConnections":10,"maxConnections":100,"maxConnectionRate":50,"rateInterval":60},"cluster":{"name":"c1.dfw1"},"created":{"time":"2010-11-30T03:23:42Z"},"updated":{"time":"2010-11-30T03:23:44Z"},"sourceAddresses":{"ipv6Public":"2001:4801:79f1:1::1/64","ipv4Servicenet":"10.0.0.0","ipv4Public":"10.12.99.28"}}}
-EOT;
                 else {
                     die("NEED TO DEFINE RESPONSE FOR $url\n");
                 }
@@ -230,7 +320,7 @@ EOT;
 {"loadBalancers":[{"name":"one","id":1,"protocol":"HTTP","port":80}]}
 ENDLB;
                 $resp->status = 200;
-            } elseif (preg_match('/metadata$/', $url)) {
+            } elseif (preg_match('#servers/(\w|\-)+/metadata$#', $url)) {
                 $resp->body = '{"metadata":{"foo":"bar","a":"1"}}';
                 $resp->status = 200;
             } elseif (strpos($url, '/export')) { // domain export
@@ -266,9 +356,6 @@ ENDDOM;
                 $resp->body = <<<ENDRDNS
 {"records":[{"name":"foobar.raxdrg.info","id":"PTR-548486","type":"PTR","data":"2001:4800:7811:513:199e:7e1e:ff04:be3f","ttl":900,"updated":"2013-02-18T20:24:50.000+0000","created":"2013-02-18T20:24:50.000+0000"},{"name":"foobar.raxdrg.info","id":"PTR-548485","type":"PTR","data":"166.78.48.90","ttl":900,"updated":"2013-02-18T20:24:34.000+0000","created":"2013-02-18T20:24:34.000+0000"}]}
 ENDRDNS;
-                $resp->status = 200;
-            } elseif (strpos($url, '/metadata')) {
-                $resp->body = NULL;
                 $resp->status = 200;
             } elseif (strpos($url, '/extensions')) {
                 $resp->body = file_get_contents($this->testDir.'/extensions.json');
@@ -318,6 +405,48 @@ EOT;
             } elseif (strpos($url, 'delimiter')) {
                 $resp->body = '[{"subdir": "files/Pseudo1/"},{"subdir": "files/Pseudo2/"}]';
                 $resp->status = 200;
+            
+            } elseif (strpos($url, '/queues')) { 
+                
+                /*** CLOUD QUEUES ***/
+                
+                $resp->status = 200;
+                $file = null;
+                $status = null;
+
+                if (preg_match('#/queues(\?.+)?$#', $url)) {
+                    // List queues
+                    $file = 'list_queues';
+                } elseif (preg_match('#/queues/foobar/metadata$#', $url)) {
+                    
+                } elseif (preg_match('#/queues/(\w|\-)+/metadata$#', $url)) {
+                    // Queue metadata
+                    $file = 'queue_metadata';
+                } elseif (preg_match('#/queues/(\w|\-)+/stats$#', $url)) {
+                    // Queue stats
+                    $file = 'queue_stats';
+                } elseif (preg_match('#/queues/(\w|\-)+/messages\?marker\=1\&limit\=2?$#', $url)) {
+                    $file = 'queue_exists';
+                    $status = 204;
+                } elseif (preg_match('#/queues/(\w|\-)+/messages(\?.+)?$#', $url)) {
+                    // List messages
+                    $file = 'list_messages';
+                } elseif (preg_match('#/queues/(\w|\-)+/messages/(\w|\-)+(\?.+)?$#', $url)) {
+                    // Get message
+                    $file = 'get_message';
+                } elseif (preg_match('#/queues/(\w|\-)+/claims/(\w|\-)+$#', $url)) {
+                    // Get a claim
+                   $file = 'get_claim';
+                } 
+                
+                if (null !== $file) {
+                    $resp->status = $status ?: 200;
+                    $resp->body = file_get_contents(__DIR__ . '/Queues/Response/GET/' . $file . '.json');
+                } else {
+                    $resp->status = 404;
+                    $resp->body = '{}';
+                }
+                
             } else {
                 $resp->status = 404;
             }

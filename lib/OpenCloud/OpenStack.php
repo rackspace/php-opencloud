@@ -128,6 +128,16 @@ class OpenStack extends Base
         	'name'		=> RAXSDK_AUTOSCALE_NAME,
         	'region'	=> RAXSDK_AUTOSCALE_REGION,
         	'urltype'	=> RAXSDK_AUTOSCALE_URLTYPE
+        ),
+        'Queues' => array(
+            'name'		=> RAXSDK_QUEUES_NAME,
+        	'region'	=> RAXSDK_QUEUES_REGION,
+        	'urltype'	=> RAXSDK_QUEUES_URLTYPE
+        ),
+        'Network' => array(
+            'name'      => RAXSDK_NETWORK_NAME,
+            'region'    => RAXSDK_NETWORK_REGION,
+            'urltype'   => RAXSDK_NETWORK_URLTYPE
         )
     );
 
@@ -1104,7 +1114,7 @@ class OpenStack extends Base
      * Creates a new Orchestration (heat) service object
      *
      * @api
-     * @param string $name the name of the Compute service to attach to
+     * @param string $name the name of the Orchestration service to attach to
      * @param string $region the name of the region to use
      * @param string $urltype the URL type (normally "publicURL")
      * @return Orchestration\Service
@@ -1113,6 +1123,20 @@ class OpenStack extends Base
     public function orchestration($name = null, $region = null, $urltype = null)
     {
         return $this->service('Orchestration', $name, $region, $urltype);
+    }
+
+    /**
+     * Creates a new Network (quantum) service object
+     *
+     * @api
+     * @param string $name the name of the Network service to attach to
+     * @param string $region the name of the region to use
+     * @param string $urltype the URL type (normally "publicURL")
+     * @return Orchestration\Service
+     */
+    public function Network($name = null, $region = null, $urltype = null)
+    {
+        return $this->Service('Network', $name, $region, $urltype);
     }
 
     /**
