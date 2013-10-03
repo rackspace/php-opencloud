@@ -17,9 +17,9 @@ use OpenCloud\Common\PersistentObject;
 /**
  * @codeCoverageIgnore
  */
-class Resource extends PersistentObject 
+class Resource extends PersistentObject
 {
-    
+
     protected $links;
     protected $logical_resource_id;
     protected $physical_resource_id;
@@ -28,7 +28,7 @@ class Resource extends PersistentObject
     protected $resource_type;
     protected $resource_metadata;
     protected $updated_time;
-    
+
     protected static $url_resource = 'resources';
     protected static $json_name = 'resource';
 
@@ -36,32 +36,37 @@ class Resource extends PersistentObject
         'AWS::EC2::Instance' => array('Compute', 'nova', 'Server'),
     );
 
-    public function create($info = null) 
+    public function create($info = null)
     {
         $this->noCreate();
     }
 
-    public function id() 
+    public function id()
+    {
+        return $this->getId();
+    }
+
+    public function getId()
     {
         return $this->physical_resource_id;
     }
 
-    protected function primaryKeyField() 
+    protected function primaryKeyField()
     {
         return 'physical_resource_id';
     }
 
-    public function name() 
+    public function getName()
     {
         return $this->logical_resource_id;
     }
 
-    public function type() 
+    public function getType()
     {
         return $this->resource_type;
     }
 
-    public function status() 
+    public function getStatus()
     {
         return $this->resource_status;
     }
@@ -69,7 +74,8 @@ class Resource extends PersistentObject
     /**
      * @return object decoded metadata
      */
-    public function metadata() {
+    public function getMetadata()
+    {
         if (!is_null($this->resource_metadata)) {
             return $this->resource_metadata;
         }
@@ -86,7 +92,7 @@ class Resource extends PersistentObject
     /**
      * @return PersistentObject varies depending on the type of resource being fetched
      */
-    public function get() 
+    public function get()
     {
         if (!isset(static::$resource_type_mapping[$this->resource_type])) {
             throw new \Exception("Unknown resource type {$this->resource_type}");
@@ -97,10 +103,10 @@ class Resource extends PersistentObject
         $region      = $orchService->region();
 
         list($serviceType, $serviceName, $method) =
-        self::$resource_type_mapping[$this->resource_type];
-        
+            self::$resource_type_mapping[$this->resource_type];
+
         $resourceService = $connection->service($serviceType, $serviceName, $region);
- 
+
         return $resourceService->$method($this->id());
     }
 }
