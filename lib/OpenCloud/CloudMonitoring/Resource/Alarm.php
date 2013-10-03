@@ -41,7 +41,8 @@ class Alarm extends AbstractResource implements ResourceInterface
 
     public function baseUrl()
     {
-        return $this->getParent()->Url() . '/' . $this->getParent()->id . '/' . $this->resourceName();
+        $url = $this->getParent()->Url() . '/' . $this->getParent()->id . '/' . $this->resourceName();
+        return $url;
     }
     
     public function createUrl()

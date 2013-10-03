@@ -26,29 +26,26 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     {
         $this->connection = new StubConnection('http://example.com', 'secret');
         $this->dbaas = new Service(
-            $this->connection, 'cloudDatabases', 'DFW', 'publicURL'
+            $this->connection, 'cloudDatabases', array('DFW'), 'publicURL'
         );
     }
 
     public function test__construct()
     {
         $this->dbaas = new Service(
-            $this->connection, 'cloudDatabases', 'DFW', 'publicURL'
+            $this->connection, 'cloudDatabases', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\Database\Service', $this->dbaas);
     }
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances', 
-            $this->dbaas->Url()
-        );
+        $hostnames = $this->dbaas->getHostnames();
+        $this->assertEquals('https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances',
+                $hostnames[0] . $this->dbaas->Url());
         
-        $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances/INSTANCE-ID', 
-            $this->dbaas->Url('instances/INSTANCE-ID')
-        );
+        $this->assertEquals('https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances/INSTANCE-ID',
+                $hostnames[0] . $this->dbaas->Url('instances/INSTANCE-ID'));
     }
 
     public function testFlavorList()

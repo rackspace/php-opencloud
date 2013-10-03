@@ -17,7 +17,7 @@ class EntityTest extends PHPUnit_Framework_TestCase
         $this->service = new Service(
             $this->connection,
             'cloudMonitoring',
-            'LON',
+            array('LON'),
             'publicURL'
         );
 

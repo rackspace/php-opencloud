@@ -52,6 +52,10 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
             'username' => 'Foo', 
             'password' => 'Bar'
         ));
+        $this->testConn->setHostnames(array("")); 
+        // Hey is this valid? Both StubCnxn & TestingCnxn extend OpenStack
+        // Since no one passes in the Common/Service the hostnames are never set.
+        
     }
 
     /**
@@ -244,9 +248,10 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
 
     public function testSetDefaults()
     {
-        $this->my->setDefaults('Compute', 'cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->my->setDefaults('Compute', 'cloudServersOpenStack', array('DFW'), 'publicURL');
         $comp = $this->my->Compute();
-        $this->assertRegExp('/dfw.servers/', $comp->Url());
+        $hostnames = $this->my->getHostnames();
+        $this->assertRegExp('/dfw.servers/', $hostnames[0] . $comp->Url());
     }
     
     /**
@@ -314,7 +319,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     public function testObjectStore()
     {
         $objs = $this->my->ObjectStore(
-            'cloudFiles', 'DFW', 'publicURL'
+            'cloudFiles', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\ObjectStore\Service', $objs);
     }
@@ -322,7 +327,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     public function testCompute1()
     {
         $comp = $this->my->Compute(
-            'cloudServersOpenStack', 'DFW', 'publicURL'
+            'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\Compute\Service', $comp);
     }
@@ -340,7 +345,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
      */
     public function testFailWithoutServiceName()
     {
-        $this->my->setDefault('NewService', array('region' => 'DFW', 'name' => '', 'urltype' => ''));
+        $this->my->setDefault('NewService', array('regions' => array('DFW'), 'name' => '', 'urltype' => ''));
         $this->my->service('NewService');
     }
     
@@ -349,7 +354,7 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
      */
     public function testFailWithoutServiceUrlType()
     {
-        $this->my->setDefault('NewService', array('region' => 'DFW', 'name' => '', 'urltype' => ''));
+        $this->my->setDefault('NewService', array('regions' => array('DFW'), 'name' => '', 'urltype' => ''));
         $this->my->service('NewService', 'name');
     }
 
@@ -359,14 +364,14 @@ class OpenStackTest extends PHPUnit_Framework_TestCase
     public function testComputeFail()
     {
         $comp = $this->my->Compute(
-            'FOOBAR', 'DFW', 'publicURL'
+            'FOOBAR', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\Compute\Service', $comp);
     }
 
     public function testVolumeService()
     {
-        $cbs = $this->my->VolumeService('cloudBlockStorage', 'DFW');
+        $cbs = $this->my->VolumeService('cloudBlockStorage', array('DFW'));
         $this->assertInstanceOf('OpenCloud\Volume\Service', $cbs);
     }
 

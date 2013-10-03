@@ -28,13 +28,13 @@ class CDNService extends AbstractService
      *
      * @param OpenCloud\OpenStack $connection    The connection object
      * @param string              $serviceName   The name of the service
-     * @param string              $serviceRegion The service's region
+     * @param array               $serviceRegion The service regions
      * @param string              $urlType       The type of URL (normally 'publicURL')
      */
     public function __construct(
         OpenStack $connection,
         $serviceName = RAXSDK_OBJSTORE_NAME,
-        $serviceRegion = RAXSDK_OBJSTORE_REGION,
+        $serviceRegions = array(RAXSDK_OBJSTORE_REGION),
         $urltype = RAXSDK_URL_PUBLIC
     ) {
         $this->getLogger()->info('Initializing CDN Service...');
@@ -43,7 +43,7 @@ class CDNService extends AbstractService
             $connection,
             'rax:object-cdn',
             $serviceName,
-            $serviceRegion,
+            $serviceRegions,
             $urltype
         );
     }

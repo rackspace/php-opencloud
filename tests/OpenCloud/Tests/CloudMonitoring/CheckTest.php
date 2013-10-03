@@ -13,7 +13,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
         $this->connection = new FakeConnection('example.com', 'SECRET');
 
         $this->service = new Service(
-            $this->connection, 'cloudMonitoring', 'DFW', 'publicURL'
+            $this->connection, 'cloudMonitoring', array('DFW'), 'publicURL'
         );
 
         $parentEntity = $this->service->resource('entity', 'enAAAAA');

@@ -39,7 +39,7 @@ abstract class Nova extends Service
 	 * modified as often.
 	 *
 	 * @param \OpenCloud\Identity $conn - a connection object
-	 * @param string $serviceRegion - identifies the region of this Compute
+	 * @param array $serviceRegions - identifies the regions of this Compute
 	 *      service
 	 * @param string $urltype - identifies the URL type ("publicURL",
 	 *      "privateURL")
@@ -50,18 +50,18 @@ abstract class Nova extends Service
 		OpenStack $conn,
 	    $serviceType, 
 	    $serviceName, 
-	    $serviceRegion, 
+	    $serviceRegions, 
 	    $urltype
 	) {
 		parent::__construct(
 			$conn,
 			$serviceType,
 			$serviceName,
-			$serviceRegion,
+			$serviceRegions,
 			$urltype
 		);
         
-		$this->_url = Lang::noslash(parent::Url());
+                $this->_url = Lang::noslash(parent::Url());
         
         $this->getLogger()->info(Lang::translate('Initializing Nova...'));
 	}

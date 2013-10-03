@@ -61,7 +61,7 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\Database\Service', 
-            $this->conn->dbService(null, 'DFW')
+            $this->conn->dbService(null, array('DFW'))
         );
     }
 
@@ -69,7 +69,7 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\LoadBalancer\Service', 
-            $this->conn->loadBalancerService(null, 'DFW')
+            $this->conn->loadBalancerService(null, array('DFW'))
         );
     }
 
@@ -77,7 +77,7 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\DNS\Service', 
-            $this->conn->DNS(null, 'DFW')
+            $this->conn->DNS(null, array('DFW'))
         );
     }
 
@@ -93,7 +93,7 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\Autoscale\Service', 
-            $this->conn->autoscale(null, 'DFW')
+            $this->conn->autoscale(null, array('DFW'))
         );
     }
     
@@ -101,7 +101,7 @@ class RackspaceTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\Queues\Service', 
-            $this->conn->queues(null, 'ORD')
+            $this->conn->queues(null, array('ORD'))
         );
     }
 

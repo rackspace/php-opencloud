@@ -27,7 +27,7 @@ class RecordTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
-        $dns = new Service($conn, 'cloudDNS', 'N/A', 'publicURL');
+        $dns = new Service($conn, 'cloudDNS', array('N/A'), 'publicURL');
         $this->domain = new Domain($dns);
         $this->record = new Record($this->domain);
     }

@@ -23,7 +23,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->connection = new StubConnection('foo', 'bar');
-        $this->service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $this->service = new Service($this->connection, 'cloudQueues', array('ORD'));
     }
         
     public function testListQueues()

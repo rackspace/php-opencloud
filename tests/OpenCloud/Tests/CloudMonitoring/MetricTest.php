@@ -21,7 +21,7 @@ class MetricTest extends PHPUnit_Framework_TestCase
         $this->service = new Service(
             $this->connection,
             'cloudMonitoring',
-            'LON',
+            array('LON'),
             'publicURL'
         );
         
@@ -65,9 +65,10 @@ class MetricTest extends PHPUnit_Framework_TestCase
     
     public function testUrl()
     {
+        $hostnames = $this->service->getHostnames();
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/entities/'.self::ENTITY_ID.'/checks/'.self::CHECK_ID.'/metrics',
-            $this->resource->Url()
+            $hostnames[0] . $this->resource->Url()
         );
     }
     

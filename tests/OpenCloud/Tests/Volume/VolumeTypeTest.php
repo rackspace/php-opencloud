@@ -16,7 +16,7 @@ class VolumeTypeTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $serv = new Service(
-            $conn, 'cloudBlockStorage', 'DFW', 'publicURL'
+            $conn, 'cloudBlockStorage', array('DFW'), 'publicURL'
         );
         $this->vt = new VolumeType($serv);
     }

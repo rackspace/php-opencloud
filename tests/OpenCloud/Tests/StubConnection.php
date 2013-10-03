@@ -44,7 +44,23 @@ ENDRESPONSE;
         }
     }
 
-    public function request($url, $method = "GET", $headers = array(), $body = null)
+    public function request($url, $method = "GET", $headers = array(), $body = null) 
+    {
+        //when authenticating, the hostname will still be null because we haven't 
+        //found the hosts we're going to connect to yet.
+        //chicken egg situation
+        $hostname = "";
+
+        if($this->hostnames) {
+            foreach($this->hostnames as $host) {
+                $hostname = $host;
+            }
+        }
+        
+        return $this->requestOne($hostname . $url, $method, $headers, $body);
+    }
+    
+    private function requestOne($url, $method, $headers, $body) 
     {
 
         $resp = new Blank;

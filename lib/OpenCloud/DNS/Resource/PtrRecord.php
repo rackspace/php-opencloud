@@ -96,9 +96,8 @@ class PtrRecord extends Record
         if (!empty($this->data)) {
             $params['ip'] = $this->data;
         }
-        
-        $url = $this->url('rdns/' . $this->link_rel, $params);
 
+        $url = $this->url('rdns/' . $this->link_rel, $params);
         // perform the request
         $response = $this->getService()->request($url, 'DELETE');
 

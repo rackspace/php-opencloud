@@ -26,7 +26,7 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $this->conn, 'cloudLoadBalancers', 'DFW', 'publicURL'
+            $this->conn, 'cloudLoadBalancers', array('DFW'), 'publicURL'
         );
     }
 
@@ -36,17 +36,17 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function test__construct()
     {
         $this->service = new Service(
-            $this->conn, 'cloudLoadBalancers', 'DFW', 'publicURL'
+            $this->conn, 'cloudLoadBalancers', array('DFW'), 'publicURL'
         );
         $this->assertInstanceOf('OpenCloud\LoadBalancer\Service', $this->service);
     }
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers', 
-            $this->service->url()
-        );
+        $url = $this->service->url();
+        $hostnames = $this->service->getHostnames();
+        $this->assertEquals('https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers', 
+                $hostnames[0] . $url);
     }
 
     public function testLoadBalancer()

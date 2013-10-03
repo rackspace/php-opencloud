@@ -39,7 +39,7 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $this->ostore = new MyObjectStore(
-            $conn, 'cloudFiles', 'DFW', 'publicURL'
+            $conn, 'cloudFiles', array('DFW'), 'publicURL'
         );
     }
 
@@ -51,10 +51,9 @@ class ObjectStoreTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID', 
-            $this->ostore->url()
-        );
+        $url = $this->ostore->url();
+        $hostnames = $this->ostore->getHostnames();
+        $this->assertEquals('https://storage101.dfw1.clouddrive.com/v1/M-ALT-ID', $hostnames[0] . $url);
     }
 
     public function testContainer()

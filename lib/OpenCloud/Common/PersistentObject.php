@@ -436,7 +436,6 @@ abstract class PersistentObject extends Base
 
         // first, see if we have a [self] link
         $url = $this->findLink('self');
-
         /**
          * Next, check to see if we have an ID
          * Note that we use Parent() instead of Service(), since the parent
@@ -447,13 +446,14 @@ abstract class PersistentObject extends Base
         }
 
         // add the subresource
-        if ($url) {
+        if (!empty($url)) {
             $url .= $subresource ? "/$subresource" : '';
             if (count($queryString)) {
                 $url .= '?' . $this->makeQueryString($queryString);
             }
             return $url;
         }
+        
 
         // otherwise, we don't have a URL yet
         throw new Exceptions\UrlError(sprintf(
@@ -524,7 +524,7 @@ abstract class PersistentObject extends Base
     public function refresh($id = null, $url = null)
     {
         $primaryKey = $this->PrimaryKeyField();
-
+        
         if (!$url) {
             if ($id === null) {
                 $id = $this->$primaryKey;
@@ -678,10 +678,10 @@ abstract class PersistentObject extends Base
 
         // get the URL for the POST message
         $url = $this->url('action');
-
+        
         // POST the message
         $response = $this->getService()->request($url, 'POST', array(), $json);
-
+        
         // @codeCoverageIgnoreStart
         if (!is_object($response)) {
             throw new Exceptions\HttpError(sprintf(
@@ -700,14 +700,13 @@ abstract class PersistentObject extends Base
             ));
         }
         // @codeCoverageIgnoreStart
-
         return $response;
     }
     
     /**
      * Execute a custom resource request.
      * 
-     * @param string $path
+     * @param string|array $url
      * @param string $method
      * @param string|array|object $body
      * @return boolean
@@ -726,9 +725,27 @@ abstract class PersistentObject extends Base
             $body = json_encode($body);
         }
 
-        // POST the message
+        $response = null;
+        if(is_array($url)) {
+            foreach($url as $oneUrl) {
+                $response = $this->oneCustomAction($url, $method, $body);
+            }
+            if($response) {
+                return $response;
+            }
+        } else {
+            // POST the message
+            return $this->oneCustomAction($url, $method, $body);
+        }
+    }
+    
+    private function oneCustomAction($url, $method, $body) {
         $response = $this->service()->request($url, $method, array(), $body);
 
+        return $this->checkResponse($response);
+    }
+    
+    private function checkResponse($response) {
         if (!is_object($response)) {
             throw new Exceptions\HttpError(sprintf(
                 Lang::translate('Invalid response for %s::customAction() request'),

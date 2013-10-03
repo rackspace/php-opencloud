@@ -29,7 +29,7 @@ class FlavorTest extends PHPUnit_Framework_TestCase
             'http://example.com', 'SECRET'
         );
 
-        $this->service = new Service($connection, 'cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->service = new Service($connection, 'cloudServersOpenStack', array('DFW'), 'publicURL');
 
         $this->resource = $this->service->flavor();
     }

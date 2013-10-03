@@ -31,7 +31,7 @@ class ImageTest extends PHPUnit_Framework_TestCase
     {
         $connection = new StubConnection('http://example.com', 'SECRET');
         $this->compute = new Service(
-            $connection, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $connection, 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
     }
 

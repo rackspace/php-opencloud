@@ -16,7 +16,7 @@ class AgentHostTest extends PHPUnit_Framework_TestCase
         $this->service = new Service(
             $this->connection,
             'cloudMonitoring',
-            'DFW',
+            array('DFW'),
             'publicURL'
         );
         

@@ -41,7 +41,7 @@ class Service extends AbstractService
      * modified as often.
      *
      * @param OpenStack $conn - a connection object
-     * @param string $serviceRegion - identifies the region of this Compute
+     * @param array $serviceRegions - identifies the region of this Compute
      *      service
      * @param string $urltype - identifies the URL type ("publicURL",
      *      "privateURL")
@@ -51,13 +51,13 @@ class Service extends AbstractService
     public function __construct(
         OpenStack $conn, 
         $serviceName, 
-        $serviceRegion, 
+        $serviceRegions,
         $urltype, 
         $customEndpoint = null
     ) {
 
         parent::__construct(
-            $conn, 'rax:autoscale', $serviceName, $serviceRegion, $urltype, $customEndpoint
+            $conn, 'rax:autoscale', $serviceName, $serviceRegions, $urltype, $customEndpoint
         );
         
         $this->getLogger()->info('Initializing Autoscale...');

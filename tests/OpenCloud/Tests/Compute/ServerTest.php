@@ -36,7 +36,7 @@ class ServerTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new Service(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $conn, 'cloudServersOpenStack', array('DFW'), 'publicURL'
         );
         $this->server = new Server($this->service, 'SERVER-ID');
     }
@@ -51,12 +51,13 @@ class ServerTest extends PHPUnit_Framework_TestCase
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
-            '9bfd203a-0695-xxxx-yyyy-66c4194c967b', $this->server->Url());
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
-            '9bfd203a-0695-xxxx-yyyy-66c4194c967b/action', $this->server->Url('action'));
+        $url = $this->server->Url();
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
+                '9bfd203a-0695-xxxx-yyyy-66c4194c967b');
+        
+        $url = $this->server->Url('action');
+        $this->assertEquals($url, 'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
+            '9bfd203a-0695-xxxx-yyyy-66c4194c967b/action');
     }
 
     public function test_ip()
@@ -136,6 +137,8 @@ class ServerTest extends PHPUnit_Framework_TestCase
     public function testCreateImage()
     {
         $resp = $this->server->createImage('EPIC-IMAGE', array('foo' => 'bar'));
+        printf("res\n");
+        printf("resp $resp \n");
         $this->assertFalse($resp);
     }
     
@@ -219,10 +222,10 @@ class ServerTest extends PHPUnit_Framework_TestCase
     {
         $server = new Server($this->service);
         $server->id = 'Bad-ID';
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID', 
-            $server->Url()
-        );
+        $url = $server->Url();
+        $hostnames = $this->service->getHostnames();
+        $this->assertEquals('https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID',
+                $hostnames[0] . $url);
     }
 
     /**

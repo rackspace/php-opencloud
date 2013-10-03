@@ -25,7 +25,7 @@ class MessageTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->connection = new StubConnection('foo', 'bar');
-        $this->service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $this->service = new Service($this->connection, 'cloudQueues', array('ORD'));
         $this->queue = $this->service->getQueue()->setName('foo');
         $this->message = $this->queue->listMessages()->first();           
     }

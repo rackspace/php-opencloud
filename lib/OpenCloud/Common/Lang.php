@@ -12,10 +12,10 @@ class Lang
 	
 	public static function noslash($str) 
 	{
-		while ($str && (substr($str, -1) == '/')) {
-			$str = substr($str, 0, strlen($str) - 1);
-		}
-		return $str;
+            while ($str && (substr($str, -1) == '/')) {
+                    $str = substr($str, 0, strlen($str) - 1);
+            }
+            return $str;
 	}
 	
 }

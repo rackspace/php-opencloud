@@ -240,10 +240,9 @@ class DataObject extends AbstractStorageObject
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
         }
-
-        return Lang::noslash(
-            $this->container->url()) . '/' . str_replace('%2F', '/', rawurlencode($this->name)
-        );
+        
+        return Lang::noslash($this->container->url()) . '/' . 
+                    str_replace('%2F', '/', rawurlencode($this->name));
     }
 
     /**
@@ -352,8 +351,9 @@ class DataObject extends AbstractStorageObject
         }
 
         // perform the request
+        $url = $this->url() . $extractArchiveUrlArg;
         $response = $this->getService()->request(
-            $this->url() . $extractArchiveUrlArg,
+            $url,
             'PUT',
             $headers,
             $fp ? $fp : $this->data
@@ -562,14 +562,14 @@ class DataObject extends AbstractStorageObject
             'hash' => $hash
         ));
 
-        $temp_url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
+        $url = sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry_time);
 
         // debug that stuff
         $this->getLogger()->info('TempUrl generated [{url}]', array(
-            'url' => $temp_url
+            'url' => $url[count($url) - 1]
         ));
 
-        return $temp_url;
+        return $url;
     }
 
     /**

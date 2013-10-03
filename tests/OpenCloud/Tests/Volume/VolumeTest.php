@@ -35,7 +35,7 @@ class VolumeTest extends PHPUnit_Framework_TestCase
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
         $serv = new Service(
-            $conn, 'cloudBlockStorage', 'DFW', 'publicURL'
+            $conn, 'cloudBlockStorage', array('DFW'), 'publicURL'
         );
         $this->vol = new publicVolume($serv);
     }
@@ -69,7 +69,7 @@ class VolumeTest extends PHPUnit_Framework_TestCase
         $service = new Service(
             new StubConnection('http://', 'S'), 
             'cloudBlockStorage', 
-            'DFW', 
+            array('DFW'), 
             'publicURL'
         );
         $type = new VolumeType($service);

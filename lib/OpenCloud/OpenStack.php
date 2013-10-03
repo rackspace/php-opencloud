@@ -62,6 +62,7 @@ class OpenStack extends Base
     public $useragent = RAXSDK_USER_AGENT;
 
     protected $url;
+    protected $hostnames;
     protected $secret = array();
     protected $token;
     protected $expiration = 0;
@@ -86,52 +87,52 @@ class OpenStack extends Base
     protected $defaults = array(
         'Compute' => array(
             'name'      => RAXSDK_COMPUTE_NAME,
-            'region'    => RAXSDK_COMPUTE_REGION,
+            'regions'    => array(RAXSDK_COMPUTE_REGION),
             'urltype'   => RAXSDK_COMPUTE_URLTYPE
         ),
         'ObjectStore' => array(
             'name'      => RAXSDK_OBJSTORE_NAME,
-            'region'    => RAXSDK_OBJSTORE_REGION,
+            'regions'    => array(RAXSDK_OBJSTORE_REGION),
             'urltype'   => RAXSDK_OBJSTORE_URLTYPE
         ),
         'Database' => array(
             'name'      => RAXSDK_DATABASE_NAME,
-            'region'    => RAXSDK_DATABASE_REGION,
+            'regions'    => array(RAXSDK_DATABASE_REGION),
             'urltype'   => RAXSDK_DATABASE_URLTYPE
         ),
         'Volume' => array(
             'name'      => RAXSDK_VOLUME_NAME,
-            'region'    => RAXSDK_VOLUME_REGION,
+            'regions'    => array(RAXSDK_VOLUME_REGION),
             'urltype'   => RAXSDK_VOLUME_URLTYPE
         ),
         'LoadBalancer' => array(
             'name'      => RAXSDK_LBSERVICE_NAME,
-            'region'    => RAXSDK_LBSERVICE_REGION,
+            'regions'    => array(RAXSDK_LBSERVICE_REGION),
             'urltype'   => RAXSDK_LBSERVICE_URLTYPE
         ),
         'DNS' => array(
             'name'      => RAXSDK_DNS_NAME,
-            'region'    => RAXSDK_DNS_REGION,
+            'regions'    => array(RAXSDK_DNS_REGION),
             'urltype'   => RAXSDK_DNS_URLTYPE
         ),
         'Orchestration' => array(
             'name'      => RAXSDK_ORCHESTRATION_NAME,
-            'region'    => RAXSDK_ORCHESTRATION_REGION,
+            'regions'    => array(RAXSDK_ORCHESTRATION_REGION),
             'urltype'   => RAXSDK_ORCHESTRATION_URLTYPE
         ),
         'CloudMonitoring' => array(
             'name'      => RAXSDK_MONITORING_NAME,
-            'region'    => RAXSDK_MONITORING_REGION,
+            'regions'    => array(RAXSDK_MONITORING_REGION),
             'urltype'   => RAXSDK_MONITORING_URLTYPE
         ),
         'Autoscale' => array(
         	'name'		=> RAXSDK_AUTOSCALE_NAME,
-        	'region'	=> RAXSDK_AUTOSCALE_REGION,
+        	'regions'	=> array(RAXSDK_AUTOSCALE_REGION),
         	'urltype'	=> RAXSDK_AUTOSCALE_URLTYPE
         ),
         'Queues' => array(
             'name'		=> RAXSDK_QUEUES_NAME,
-        	'region'	=> RAXSDK_QUEUES_REGION,
+        	'regions'	=> array(RAXSDK_QUEUES_REGION),
         	'urltype'	=> RAXSDK_QUEUES_URLTYPE
         )
     );
@@ -257,6 +258,15 @@ class OpenStack extends Base
         return $this;
     }
     
+    public function setHostnames($hostnames) 
+    {
+        $this->hostnames = $hostnames;
+    }
+    
+    public function getHostnames() 
+    {
+        return $this->hostnames;
+    }
     /**
      * Get the URL.
      * 
@@ -519,7 +529,7 @@ class OpenStack extends Base
      */
     public function setDefault($service, array $value = array())
     {
-        if (isset($value['name']) && isset($value['region']) && isset($value['urltype'])) {
+        if (isset($value['name']) && isset($value['regions']) && isset($value['urltype'])) {
             $this->defaults[$service] = $value;
         }
         
@@ -751,7 +761,7 @@ class OpenStack extends Base
     }
 
     /**
-     * Performs a single HTTP request
+     * Performs a single or many HTTP request
      *
      * The request() method is one of the most frequently-used in the entire
      * library. It performs an HTTP request using the specified URL, method,
@@ -759,7 +769,7 @@ class OpenStack extends Base
      * exceptions for the request.
      *
      * @api
-     * @param string url - the URL of the request
+     * @param array url - the URL of the request
      * @param string method - the HTTP method (defaults to GET)
      * @param array headers - an associative array of headers
      * @param string data - either a string or a resource (file pointer) to
@@ -768,6 +778,53 @@ class OpenStack extends Base
      * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError
      */
     public function request($url, $method = 'GET', $headers = array(), $data = null)
+    {
+        $exception = null;
+        $response = null;
+        foreach ($this->hostnames as $hostname) {
+            try {
+                $response = $this->requestOne($hostname . $url, $method, $headers, $data);
+                //if the file is not found go ahead and check other regions.
+                if ($response->httpStatus() != 404) {
+                    return $response;
+                }
+            } catch (\OpenCloud\Common\Exceptions\HttpOverLimitError $e) {
+                throw $e;
+            } catch (\OpenCloud\Common\Exceptions\HttpUnauthorizedError $e) {
+                throw $e;
+            } catch (\OpenCloud\Common\Exceptions\HttpForbiddenError $e) {
+                throw $e;
+            } catch (\OpenCloud\Common\Exceptions\HttpTimeoutError $e) {
+                //continue, assume that the zone is down
+                $exception = $e;
+            } catch (\OpenCloud\Common\Exceptions\HttpError $e) {
+                //continue... assume that the zone is down. 
+                $exception = $e;
+            }
+        }
+        //if we really got a 404, return it
+        if($response) {
+            return $response;
+        }
+        //else, throw the exception we got
+        if($exception) {
+            throw $exception;
+        }
+    }
+    
+    
+    /**
+     * 
+     * @api
+     * @param string url - the URL of the request
+     * @param string method - the HTTP method (defaults to GET)
+     * @param array headers - an associative array of headers
+     * @param string data - either a string or a resource (file pointer) to
+     *      use as the request body (for PUT or POST)
+     * @return HttpResponse object
+     * @throws HttpOverLimitError, HttpUnauthorizedError, HttpForbiddenError, HttpError
+     */
+    private function requestOne($url, $method = 'GET', $headers = array(), $data = null)
     {
         $this->getLogger()->info('Resource [{url}] method [{method}] body [{body}]', array(
             'url'    => $url, 
@@ -913,7 +970,7 @@ class OpenStack extends Base
      * @api
      * @param string $service the name of a supported service; e.g. 'Compute'
      * @param string $name the service name; e.g., 'cloudServersOpenStack'
-     * @param string $region the region name; e.g., 'LON'
+     * @param array $regions the region name; e.g., 'LON'
      * @param string $urltype the type of URL to use; e.g., 'internalURL'
      * @return void
      * @throws UnrecognizedServiceError
@@ -921,7 +978,7 @@ class OpenStack extends Base
     public function setDefaults(
         $service,
         $name = null,
-        $region = null,
+        $regions = null,
         $urltype = null
     ) {
 
@@ -935,8 +992,8 @@ class OpenStack extends Base
             $this->defaults[$service]['name'] = $name;
         }
 
-        if (isset($region)) {
-            $this->defaults[$service]['region'] = $region;
+        if (isset($regions)) {
+            $this->defaults[$service]['regions'] = $regions;
         }
 
         if (isset($urltype)) {
@@ -1096,13 +1153,13 @@ class OpenStack extends Base
      *
      * @api
      * @param string $name the name of the Compute service to attach to
-     * @param string $region the name of the region to use
+     * @param array $regions the name of the region to use
      * @param string $urltype the URL type (normally "publicURL")
      * @return Compute
      */
-    public function compute($name = null, $region = null, $urltype = null)
+    public function compute($name = null, $regions = array(), $urltype = null)
     {
-        return $this->service('Compute', $name, $region, $urltype);
+        return $this->service('Compute', $name, $regions, $urltype);
     }
 
     /**
@@ -1141,27 +1198,27 @@ class OpenStack extends Base
      *
      * @param string $class the name of the Service class to produce
      * @param string $name the name of the Compute service to attach to
-     * @param string $region the name of the region to use
+     * @param array $regions the name of the region to use
      * @param string $urltype the URL type (normally "publicURL")
      * @return Service (or subclass such as Compute, ObjectStore)
      * @throws ServiceValueError
      */
-    public function service($class, $name = null, $region = null, $urltype = null)
+    public function service($class, $name = null, $regions = array(), $urltype = null)
     {
         // debug message
-        $this->getLogger()->info('Factory for class [{class}] [{name}/{region}/{urlType}]', array(
+        $this->getLogger()->info('Factory for class [{class}] [{name}/{regions}/{urlType}]', array(
             'class'   => $class, 
             'name'    => $name, 
-            'region'  => $region, 
+            'regions'  => implode(", ", $regions), 
             'urlType' => $urltype
         ));
-
+        
         // Strips off base namespace 
         $class = preg_replace('#\\\?OpenCloud\\\#', '', $class);
 
         // check for defaults
         $default = $this->getDefault($class);
-
+        
         // report errors
         if (!$name = $name ?: $default['name']) {
             throw new Exceptions\ServiceValueError(sprintf(
@@ -1170,7 +1227,8 @@ class OpenStack extends Base
             ));
         }
 
-        if (!$region = $region ?: $default['region']) {
+        $regions = $regions ?: $default['regions'];
+        if (!$regions || (is_array($regions) && (empty($regions) || is_null($regions[0])))) {
             throw new Exceptions\ServiceValueError(sprintf(
                 Lang::translate('No value for %s region'),
                 $class
@@ -1186,8 +1244,8 @@ class OpenStack extends Base
 
         // return the object
         $fullclass = 'OpenCloud\\' . $class . '\\Service';
-
-        return new $fullclass($this, $name, $region, $urltype);
+        
+        return new $fullclass($this, $name, $regions, $urltype);
     }
 
     /**

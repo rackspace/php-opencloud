@@ -26,7 +26,7 @@ class DnsTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->dns = new Service($this->conn, 'cloudDNS', 'N/A', 'publicURL');
+        $this->dns = new Service($this->conn, 'cloudDNS', array('N/A'), 'publicURL');
     }
 
     /**
@@ -34,16 +34,15 @@ class DnsTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $thing = new Service($this->conn, 'cloudDNS', 'N/A', 'publicURL');
+        $thing = new Service($this->conn, 'cloudDNS', array('N/A'), 'publicURL');
         $this->assertInstanceOf('OpenCloud\DNS\Service', $thing);
     }
 
     public function testUrl()
     {
-        $this->assertEquals(
-            'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID', 
-            $this->dns->url()
-        );
+        $url = $this->dns->url();
+        $hostnames = $this->dns->getHostnames();
+        $this->assertEquals('https://dns.api.rackspacecloud.com/v1.0/TENANT-ID', $hostnames[0] . $url);
     }
 
     public function testDomain()
@@ -77,7 +76,7 @@ class DnsTest extends PHPUnit_Framework_TestCase
     public function testPtrRecordList()
     {
         $server = new Compute\Resource\Server(
-            new Compute\Service($this->conn, 'cloudServersOpenStack', 'DFW', 'publicURL')
+            new Compute\Service($this->conn, 'cloudServersOpenStack', array('DFW'), 'publicURL')
         );
         $server->id = '42';
         $this->assertInstanceOf(

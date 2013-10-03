@@ -31,13 +31,13 @@ class QueueTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->connection = new StubConnection('foo', 'bar');
-        $this->service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $this->service = new Service($this->connection, 'cloudQueues', array('ORD'));
         $this->queue = $this->service->getQueue();
     }
     
     public function test__construct()
     {
-        $service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $service = new Service($this->connection, 'cloudQueues', array('ORD'));
         $service->setClientId('TEST');
     }
     

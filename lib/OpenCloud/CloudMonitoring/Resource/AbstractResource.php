@@ -84,8 +84,10 @@ abstract class AbstractResource extends PersistentObject
         if ($subresource) {
             $url .= "/$subresource";
         }
+        
+        $url .= $this->MakeQueryString($query);
 
-        return $url . $this->MakeQueryString($query);
+        return $url;
     }
 
     /**

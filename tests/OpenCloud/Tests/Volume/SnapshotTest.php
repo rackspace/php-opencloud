@@ -35,7 +35,7 @@ class SnapshotTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $conn = new StubConnection('http://example.com', 'SECRET');
-        $serv = new Service($conn, 'cloudBlockStorage', 'DFW', 'publicURL');
+        $serv = new Service($conn, 'cloudBlockStorage', array('DFW'), 'publicURL');
         $this->snap = new publicSnapshot($serv);
     }
 
