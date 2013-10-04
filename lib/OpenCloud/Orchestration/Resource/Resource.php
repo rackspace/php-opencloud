@@ -91,6 +91,8 @@ class Resource extends PersistentObject
     }
 
     /**
+     * Get the object this Stack Resource refers to.
+     *
      * @return PersistentObject varies depending on the type of resource being fetched
      */
     public function get()
@@ -107,7 +109,7 @@ class Resource extends PersistentObject
             self::$resource_type_mapping[$this->resource_type];
 
         $resourceService = $connection->service($serviceType, $serviceName, $region);
-
-        return $resourceService->$method($this->id());
+ 
+        return $resourceService->$method($this->getId());
     }
 }
