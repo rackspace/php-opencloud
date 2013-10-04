@@ -31,6 +31,7 @@ class Resource extends PersistentObject
 
     protected static $url_resource = 'resources';
     protected static $json_name = 'resource';
+    protected static $json_collection_name = 'resources';
 
     protected static $resource_type_mapping = array(
         'AWS::EC2::Instance' => array('Compute', 'nova', 'Server'),
@@ -46,7 +47,7 @@ class Resource extends PersistentObject
         return $this->getId();
     }
 
-    public function getId()
+    public function getId() 
     {
         return $this->physical_resource_id;
     }
