@@ -53,4 +53,8 @@ class Service extends AbstractService {
     public function namespaces() {
         return array();
     }
+
+    public function port($id = null) {
+        return new Resource\Port($this, $id);
+    }
 }

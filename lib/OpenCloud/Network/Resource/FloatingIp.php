@@ -17,30 +17,41 @@ class FloatingIp extends PersistentObject {
         $floating_network_id,
         $port_id;
 
-    public function __construct(Service $service, $id) {
+    public function __construct(Service $service, $id)
+    {
         parent::__construct($service, $id);
     }
 
-    protected function createJson() {
-        return new \stdClass();
+    protected function createJson()
+    {
+        return array(
+            'port_id'             => $this->port_id,
+            'floating_network_id' => $this->floating_network_id
+        );
     }
 
-    public function portId() {
-        return $this->port_id;
+    public function getPort()
+    {
+        return $this->getService()->port($this->port_id);
     }
 
-    public function disassociate() {
-        $this->Update(array('port_id' => null));
+    public function disassociate()
+    {
+        $this->update(array('port_id' => null));
     }
 
     /**
-     * @param $port Port The Port instance to associate this IP to
+     * @param $portOrPortId string|Port The Port instance or string port ID to associate this IP with.
+     * @return $void
      */
-    public function associate($portId) {
-        $this->Update(array('port_id' => $portId));
+    public function associate($portOrPortId)
+    {
+        $portId = is_string($portOrPortId) ? $portOrPortId : $portOrPortId->id;
+        $this->update(array('port_id' => $portId));
     }
 
-    public function updateJson($params = array()) {
+    public function updateJson($params = array())
+    {
         return array(
             self::$json_name => array_merge(array(
                 'port_id' => $this->port_id
@@ -48,7 +59,8 @@ class FloatingIp extends PersistentObject {
         );
     }
 
-    public function name() {
+    public function name()
+    {
         return 'floater';
     }
 }
