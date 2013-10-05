@@ -127,7 +127,7 @@ class Node extends PersistentObject
      *
      * @return \stdClass
      */
-    protected function _Json()
+    protected function commonJson()
     {
         $nodes = (object) array('node' => new \stdClass);
         foreach($this->createKeys as $key) {
@@ -143,7 +143,7 @@ class Node extends PersistentObject
      */
     protected function createJson() 
     {
-        return (object) array('nodes' => array($this->_Json()));
+        return (object) array('nodes' => array($this->commonJson()));
     }
 
     /**
@@ -154,7 +154,7 @@ class Node extends PersistentObject
      */
     protected function updateJson($params = array()) 
     {
-        return $this->_Json();
+        return $this->commonJson();
     }
 
     /**
