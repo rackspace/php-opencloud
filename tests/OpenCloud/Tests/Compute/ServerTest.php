@@ -74,7 +74,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $resp = $this->server->create();
         $this->assertNotNull($resp->getStatusCode());
-        $this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
+        $this->assertEquals($this->getClient()->getUserAgent(), $this->server->metadata->sdk);
     }
     
     /**
@@ -112,9 +112,9 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testRebuild1()
     {
-        $resp = $this->server->Rebuild();
+        $resp = $this->server->rebuild();
         $this->assertNotNull($resp->getStatusCode());
-        $this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
+        $this->assertEquals($this->getClient()->getUserAgent(), $this->server->metadata->sdk);
     }
 
     /**
@@ -124,7 +124,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $resp = $this->server->Rebuild(array('adminPass' => 'FOOBAR'));
         $this->assertNotNull($resp->getStatusCode());
-        $this->assertEquals(RAXSDK_USER_AGENT, $this->server->metadata->sdk);
+        $this->assertEquals($this->getClient()->getUserAgent(), $this->server->metadata->sdk);
     }
 
     public function testRebuild3()

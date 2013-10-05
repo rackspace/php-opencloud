@@ -10,8 +10,8 @@
 
 namespace OpenCloud\Autoscale;
 
-use OpenCloud\Common\Service as AbstractService;
 use OpenCloud\OpenStack;
+use OpenCloud\Common\Service\AbstractService;
 
 /**
  * The Autoscale class represents the OpenStack Otter service.

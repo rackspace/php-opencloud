@@ -9,7 +9,7 @@
 
 namespace OpenCloud\Orchestration;
 
-use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\OpenStack;
 
 /**

@@ -2,4 +2,4 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ServiceValueError extends \Exception {}
+class ServiceException extends \Exception {}

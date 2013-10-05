@@ -11,7 +11,7 @@
 namespace OpenCloud\Queues;
 
 use OpenCloud\OpenStack;
-use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use Guzzle\Http\Exception\BadResponseException;
 

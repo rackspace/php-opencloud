@@ -10,6 +10,8 @@
 
 namespace OpenCloud;
 
+use OpenCloud\Common\Service\ServiceBuilder;
+
 /**
  * Rackspace extends the OpenStack class with support for Rackspace's
  * API key and tenant requirements.
@@ -37,7 +39,7 @@ class Rackspace extends OpenStack
      * JSON template for Rackspace credentials
      */
     const CREDS_TEMPLATE = <<<EOF
-{"auth":{ "RAX-KSKEY:apiKeyCredentials": { "username": "%s", "apiKey": "%s" } }}
+{"auth":{"RAX-KSKEY:apiKeyCredentials":{"username":"%s","apiKey":"%s"}}}
 EOF;
 
     /**
@@ -45,13 +47,13 @@ EOF;
      *
      * @return string
      */
-    public function credentials()
+    public function getCredentials()
     {
-        $secret = $this->secret();
+        $secret = $this->getSecret();
         
         return (isset($secret['username']) && isset($secret['apiKey']))
             ? sprintf(self::CREDS_TEMPLATE, $secret['username'], $secret['apiKey'])
-            : parent::credentials();
+            : parent::getCredentials();
     }
 
     /**
@@ -64,7 +66,11 @@ EOF;
      */
     public function dbService($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('Database', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'Database', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
 
     /**
@@ -77,7 +83,11 @@ EOF;
      */
     public function loadBalancerService($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('LoadBalancer', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'LoadBalancer', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
 
     /**
@@ -90,7 +100,11 @@ EOF;
      */
     public function DNS($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('DNS', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'DNS', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
 
     /**
@@ -103,7 +117,11 @@ EOF;
      */
     public function cloudMonitoring($name = null, $region = null, $urltype = null)
     {
-        return $this->Service('CloudMonitoring', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'CloudMonitoring', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
 
     /**
@@ -116,7 +134,11 @@ EOF;
      */
     public function autoscale($name = null, $region = null, $urltype = null)
     {
-        return $this->service('Autoscale', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'Autoscale', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
     
     /**
@@ -129,7 +151,11 @@ EOF;
      */
     public function queues($name = null, $region = null, $urltype = null)
     {
-        return $this->service('Queues', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'Queues', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
     
 }

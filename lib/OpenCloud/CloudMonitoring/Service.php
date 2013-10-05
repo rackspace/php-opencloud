@@ -11,7 +11,7 @@
 namespace OpenCloud\CloudMonitoring;
 
 use OpenCloud\OpenStack;
-use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Service\AbstractService;
 
 class Service extends AbstractService
 {

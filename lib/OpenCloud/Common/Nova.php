@@ -21,7 +21,7 @@ use OpenCloud\Compute\Resource\Flavor;
  * as well as Rackspace's Cloud Databases. This class is, in essence, a vehicle
  * for sharing common code between those other classes.
  */
-abstract class Nova extends Service 
+abstract class Nova extends Service\AbstractService
 {
 
 	private $_url;
@@ -105,10 +105,10 @@ abstract class Nova extends Service
 	/**
 	 * Loads the available namespaces from the /extensions resource
 	 */
-	protected function load_namespaces() 
+	protected function loadNamespaces() 
     {
-	    foreach($this->extensions() as $obj) {
-	        $this->_namespaces[] = $obj->alias;
+	    foreach($this->extensions() as $object) {
+	        $this->namespaces[] = $object->alias;
 	    }
 	}
 

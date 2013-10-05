@@ -15,7 +15,8 @@ use Exception;
 use OpenCloud\Rackspace;
 use OpenCloud\Common\Http\Message\EntityEnclosingRequest;
 use OpenCloud\Common\Http\Message\Response;
-use OpenCloud\Common\Service;
+use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Compute\Resource\ServerMetadata;
 
 /**
  * Description of FakeClient
@@ -53,9 +54,9 @@ class FakeClient extends Rackspace
             if (isset($trace['object'])) {
                 if (method_exists($trace['object'], 'getService')) {
                     return $trace['object']->getService()->getType();
-                } elseif ($trace['object'] instanceof \OpenCloud\Common\Service) {
+                } elseif ($trace['object'] instanceof AbstractService) {
                     return $trace['object']->getType();
-                } elseif ($trace['object'] instanceof \OpenCloud\Compute\Resource\ServerMetadata) {
+                } elseif ($trace['object'] instanceof ServerMetadata) {
                     return $trace['object']->getParent()->getService()->getType();
                 }
             }

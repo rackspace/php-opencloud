@@ -273,7 +273,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
         
     /**
-     * @expectedException OpenCloud\Common\Exceptions\ServiceValueError
+     * @expectedException OpenCloud\Common\Exceptions\ServiceException
      */
     public function testGettingServiceFailsIfNotSet()
     {

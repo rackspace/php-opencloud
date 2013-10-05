@@ -16,7 +16,7 @@ namespace OpenCloud\CloudMonitoring\Resource;
  * @extends ReadOnlyResource
  * @implements ResourceInterface
  */
-class AgentToken extends AbstractResource implements ResourceInterface
+class AgentToken extends AbstractResource
 {
     private $id;
     private $token;

@@ -10,7 +10,9 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\Common\Service as CommonService;
+use OpenCloud\Common\Service\AbstractService as CommonAbstractService;
+use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\ObjectStore\Resource\Container;
 
 define('SWIFT_MAX_OBJECT_SIZE', 5 * 1024 * 1024 * 1024 + 1);
 
@@ -20,37 +22,61 @@ define('SWIFT_MAX_OBJECT_SIZE', 5 * 1024 * 1024 * 1024 + 1);
  * 
  * @todo Maybe we use Traits instead of this small abstract class?
  */
-abstract class AbstractService extends CommonService
+abstract class AbstractService extends CommonAbstractService
 {
 
-    const MAX_CONTAINER_NAME_LEN    = 256;
+    const MAX_CONTAINER_NAME_LENGTH = 256;
     const MAX_OBJECT_NAME_LEN       = 1024;
     const MAX_OBJECT_SIZE           = SWIFT_MAX_OBJECT_SIZE;
-
-    /**
-     * Creates a Container resource object.
-     * 
-     * @param  mixed $cdata  The name of the container or an object from which to set values
-     * @return OpenCloud\ObjectStore\Resource\Container
-     */
-    public function container($cdata = null)
+    
+    
+    public function getContainer($data = null)
     {
-        return new Resource\Container($this, $cdata);
+        return new Container($this, $data);
     }
-
-    /**
-     * Returns a Collection of Container objects.
-     *
-     * @param  array $filter  An array to filter the results
-     * @return OpenCloud\Common\Collection
-     */
-    public function containerList(array $filter = array())
+    
+    public function createContainer($name, array $metadata = array())
     {
-        $filter['format'] = 'json';
+        $this->checkContainerName($name);
         
-        return $this->collection(
-        	'OpenCloud\ObjectStore\Resource\Container', $this->url(null, $filter)
-        );
+        $containerHeaders = Container::stockHeaders($metadata);
+            
+        $response = $this->getClient()
+            ->put($this->getUri($name), $containerHeaders)
+            ->send();
+        
+        if ($response->getStatusCode() == 201) {
+            return Container::fromResponse($response);
+        }
+        
+        return false;
+    }
+    
+    public function checkContainerName($name)
+    {
+        if (strlen($name) == 0) {
+            $error = 'Container name cannot be blank';
+        }
+
+        if (strpos($name, '/') !== false) {
+            $error = 'Container name cannot contain "/"';
+        }
+
+        if (strlen($name) > self::MAX_CONTAINER_NAME_LENGTH) {
+            $error = 'Container name is too long';
+        }
+        
+        if (isset($error)) {
+            throw new InvalidArgumentError($error);
+        }
+
+        return true;
+    }
+    
+    public function listContainers(array $filter = array())
+    {
+        $uri = $this->parameterizeCollectionUri(null, $filter);
+        return $this->resourceList('Container', $uri);
     }
 
 }

@@ -8,13 +8,14 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Common;
+namespace OpenCloud\Common\Service;
 
 use OpenCloud\Common\Base;
 use OpenCloud\Common\Lang;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use OpenCloud\Common\Collection;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -26,19 +27,45 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
  *
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-abstract class Service extends Base
+abstract class AbstractService extends Base
 {
-    const DEFAULT_NAME = '';
     const DEFAULT_REGION   = 'DFW';
     const DEFAULT_URL_TYPE = 'publicURL';
     
+    /**
+     * @var OpenCloud\Common\Http\Client The client which interacts with the API.
+     */
     protected $client;
-    protected $service_type;
-    private $service_name;
-    private $service_region;
-    protected $service_url;
-
-    protected $_namespaces = array();
+    
+    /**
+     * @var string The type of this service, as set in Catalog. 
+     */
+    private $type;
+    
+    /**
+     * @var string The name of this service, as set in Catalog.
+     */
+    private $name;
+    
+    /**
+     * @var string|array The chosen region(s) for this service.
+     */
+    private $region;
+    
+    /**
+     * @var string Either 'publicURL' or 'privateURL'.
+     */
+    private $urlType;
+    
+    /**
+     * @var Endpoint The endpoints for this service.
+     */
+    private $endpoint;
+    
+    /**
+     * @var array Namespaces for this service.
+     */
+    protected $namespaces = array();
 
     /**
      * Creates a service on the specified connection
@@ -59,27 +86,18 @@ abstract class Service extends Base
     public function __construct($client, $type, $name, $region, $urltype = RAXSDK_URL_PUBLIC) 
     {
         $this->client = $client;
-        $this->service_type = $type;
-        $this->service_name = $name;
-        $this->service_region = $region;
-        $this->service_url = $this->getEndpoint($type, $name, $region, $urltype);
+        $this->type = $type;
+        $this->name = $name;
+        $this->region = $region;
+        $this->urlType = $urltype;
+        $this->endpoint = $this->findEndpoint();
     }
     
-    /**
-     * Set this service's connection.
-     * 
-     * @param type $connection
-     */
     public function setClient(Client $client)
     {
         $this->client = $client;
     }
     
-    /**
-     * Get this service's connection.
-     * 
-     * @return type
-     */
     public function getClient()
     {
         return $this->client;
@@ -87,7 +105,33 @@ abstract class Service extends Base
     
     public function getType()
     {
-        return $this->service_type;
+        return $this->type;
+    }
+    
+    public function getRegion()
+    {
+        return $this->region;
+    }
+    
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    /**
+     * Backwards comp.
+     */
+    public function region()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Backwards comp.
+     */
+    public function name()
+    {
+        return $this->name;
     }
     
     /**
@@ -99,11 +143,11 @@ abstract class Service extends Base
      */
     public function url($resource = '', array $param = array())
     {
-        $baseurl = $this->service_url;
+        $baseurl = $this->getBaseUrl();
 
 		// use strlen instead of boolean test because '0' is a valid name
-        if (strlen($resource) > 0) {
-            $baseurl = Lang::noslash($baseurl).'/'.$resource;
+        if (strlen($resource)) {
+            $baseurl = Lang::noslash($baseurl) . '/' . $resource;
         }
 
         if (!empty($param)) {
@@ -235,92 +279,45 @@ abstract class Service extends Base
     }
 
     /**
-     * returns the Region associated with the service
-     *
-     * @api
-     * @return string
-     */
-    public function region()
-    {
-        return $this->service_region;
-    }
-
-    /**
-     * returns the serviceName associated with the service
-     *
-     * This is used by DNS for PTR record lookups
-     *
-     * @api
-     * @return string
-     */
-    public function name()
-    {
-        return $this->service_name;
-    }
-
-    /**
      * Returns a list of supported namespaces
      *
      * @return array
      */
     public function namespaces()
     {
-        return (isset($this->_namespaces) && is_array($this->_namespaces)) ? $this->_namespaces : array();
+        return (isset($this->namespaces) && is_array($this->namespaces)) 
+            ? $this->namespaces 
+            : array();
     }
 
     /**
-     * Given a service type, name, and region, return the url
-     *
-     * This function ensures that services are represented by an entry in the
-     * service catalog, and NOT by an arbitrarily-constructed URL.
-     *
-     * Note that it will always return the first match found in the
-     * service catalog (there *should* be only one, but you never know...)
-     *
-     * @param string $type The OpenStack service type ("compute" or
-     *      "object-store", for example
-     * @param string $name The name of the service in the service catlog
-     * @param string $region The region of the service
-     * @param string $urltype The URL type; defaults to "publicURL"
-     * @return string The URL of the service
+     * Extracts the appropriate endpoint from the service catalog based on the
+     * name and type of a service, and sets for further use.
+     * 
+     * @throws Exceptions\EndpointError
      */
-    private function getEndpoint($type, $name, $region, $urltype = null)
+    private function findEndpoint()
     {
-        $catalog = $this->getClient()->getCatalog();
-        
-        if (empty($urltype)) {
-            $urltype = RAXSDK_URL_PUBLIC;
+        if (!$this->getClient()->getCatalog()) {
+            $this->getClient()->authenticate();
         }
+        
+        $catalog = $this->getClient()->getCatalog();
 
         // Search each service to find The One
-        foreach ($catalog as $service) {
-            // Find the service by comparing the type ("compute") and name ("openstack")
-            if (!strcasecmp($service->type, $type) && !strcasecmp($service->name, $name)) {
-                foreach($service->endpoints as $endpoint) {
-                    // Only set the URL if:
-                    // a. It is a regionless service (i.e. no region key set)
-                    // b. The region matches the one we want
-                    if (isset($endpoint->$urltype) && 
-                        (!isset($endpoint->region) || !strcasecmp($endpoint->region, $region))
-                    ) {
-                        $url = $endpoint->$urltype;
-                    }
-                }
+        foreach ($catalog->getItems() as $service) {
+            if ($service->hasType($this->type) && $service->hasName($this->name)) {
+                return Endpoint::factory($service->getEndpointFromRegion($this->region));
             }
         }
 
-        // error if not found
-        if (empty($url)) {
-            throw new Exceptions\EndpointError(sprintf(
-                'No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]',
-                $type,
-                $name,
-                $region,
-                $urltype
-            ));
-        }
-        
-        return $url;
+        throw new Exceptions\EndpointError(sprintf(
+            'No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]',
+            $this->type,
+            $this->name,
+            $this->region,
+            $this->urlType
+        ));
     }
 
     /**
@@ -335,14 +332,8 @@ abstract class Service extends Base
      */
     private function getMetaUrl($resource)
     {
-        $urlBase = $this->getEndpoint(
-            $this->service_type,
-            $this->service_name,
-            $this->service_region,
-            RAXSDK_URL_PUBLIC
-        );
-
-        $url = Lang::noslash($urlBase) . '/' . $resource;
+        // Note: try and use Guzzle's URI class
+        $url = $this->getBaseUrl() . '/' . $resource;
         
         try {
             $response = $this->getClient()->get($url)->send();
@@ -424,6 +415,15 @@ abstract class Service extends Base
     {
         $className = $this->resolveResourceClass($resourceName);
         return $this->collection($className, $url, $service);
+    }
+    
+    public function getBaseUrl()
+    {
+        $url = ($this->urlType == 'publicURL') 
+            ? $this->endpoint->getPublicUrl() 
+            : $this->endpoint->getPrivateUrl();
+        
+        return rtrim($url, '/');
     }
 
 }

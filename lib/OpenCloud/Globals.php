@@ -83,7 +83,7 @@ if (!defined('RAXSDK_SSL_VERIFYPEER'))
  */
 
 /* these should not be overridden */
-define('RAXSDK_VERSION', '1.6.0');
+define('RAXSDK_VERSION', '1.7.0');
 define('RAXSDK_ERROR', 'Error:');
 define('RAXSDK_FATAL', 'FATAL ERROR:');
 define('RAXSDK_TERMINATED', '*** PROCESSING HALTED ***');

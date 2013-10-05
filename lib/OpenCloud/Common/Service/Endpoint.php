@@ -8,6 +8,8 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
+namespace OpenCloud\Common\Service;
+
 /**
  * Description of Endpoint
  * 
@@ -19,5 +21,53 @@ class Endpoint
     private $publicUrl;
     private $region;
     private $privateUrl;
+    
+    public static function factory($object)
+    {
+        $endpoint = new self();
+        $endpoint->setPublicUrl($object->publicURL);
+        
+        if (isset($object->privateURL)) {
+            $endpoint->setPrivateUrl($object->privateURL);
+        }
+        if (isset($object->region)) {
+            $endpoint->setRegion($object->region);
+        }
+        
+        return $endpoint;
+    }
+    
+    public function setPublicUrl($publicUrl)
+    {
+        $this->publicUrl = $publicUrl;
+        return $this;
+    }
+    
+    public function getPublicUrl()
+    {
+        return $this->publicUrl;
+    }
+    
+    public function setPrivateUrl($privateUrl)
+    {
+        $this->privateUrl = $privateUrl;
+        return $this;
+    }
+    
+    public function getPrivateUrl()
+    {
+        return $this->privateUrl;
+    }
+    
+    public function setRegion($region)
+    {
+        $this->region = $region;
+        return $this;
+    }
+    
+    public function getRegion()
+    {
+        return $this->region;
+    }
     
 }

@@ -11,6 +11,7 @@
 namespace OpenCloud\Common;
 
 use OpenCloud\Common\Http\Message\Response;
+use OpenCloud\Common\Service\AbstractService;
 
 /**
  * Represents an object that can be retrieved, created, updated and deleted.
@@ -79,7 +80,7 @@ abstract class PersistentObject extends Base
      */
     public function __construct($service = null, $info = null)
     {
-        if ($service instanceof Service) {
+        if ($service instanceof AbstractService) {
             $this->setService($service);
         }
         
@@ -91,9 +92,9 @@ abstract class PersistentObject extends Base
     /**
      * Sets the service associated with this resource object.
      * 
-     * @param \OpenCloud\Common\Service $service
+     * @param OpenCloud\Common\Service\AbstractService $service
      */
-    public function setService(Service $service)
+    public function setService(AbstractService $service)
     {
         $this->service = $service;
         return $this;
@@ -103,12 +104,12 @@ abstract class PersistentObject extends Base
      * Returns the service object for this resource; required for making
      * requests, etc. because it has direct access to the Connection.
      * 
-     * @return \OpenCloud\Common\Service
+     * @return OpenCloud\Common\Service\AbstractService
      */
     public function getService()
     {
         if (null === $this->service) {
-            throw new Exceptions\ServiceValueError(
+            throw new Exceptions\ServiceException(
                 'No service defined'
             );
         }

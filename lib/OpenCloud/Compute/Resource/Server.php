@@ -617,7 +617,7 @@ class Server extends PersistentObject
     protected function createJson()
     {
         // Convert some values
-        $this->metadata->sdk = RAXSDK_USER_AGENT;
+        $this->metadata->sdk = $this->getService()->getClient()->getUserAgent();
         
         if (!empty($this->image) && $this->image instanceof Image) {
             $this->imageRef = $this->image->id;

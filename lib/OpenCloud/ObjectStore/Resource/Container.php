@@ -12,6 +12,7 @@ namespace OpenCloud\ObjectStore\Resource;
 
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
+use Guzzle\Http\EntityBody;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -22,31 +23,22 @@ use OpenCloud\Common\Lang;
  * A container can also be CDN-enabled (for public access), in which case you
  * will need to interact with a CDNContainer object instead of this one.
  */
-class Container extends CDNContainer
+class Container extends AbstractContainer
 {
-
+    const HEADER_METADATA_PREFIX = 'X-Container-Meta-';
+    const HEADER_METADATA_UNSET_PREFIX = 'X-Remove-Container-Meta-';
+    
     /**
-     * CDN container (if set).
-     * 
      * @var CDNContainer|null 
      */
     private $cdn;
     
-    /**
-     * Sets the CDN container.
-     * 
-     * @param OpenCloud\ObjectStore\Resource\CDNContainer $cdn
-     */
     public function setCDN(CDNContainer $cdn)
     {
         $this->cdn = $cdn;
+        return $this;
     }
     
-    /**
-     * Returns the CDN container.
-     * 
-     * @returns CDNContainer
-     */
     public function getCDN()
     {
         if (!$this->cdn) {
@@ -58,23 +50,53 @@ class Container extends CDNContainer
         return $this->cdn;
     }
     
-    /**
-     * Backwards compatability.
-     */
-    public function CDN()
+    public function delete($deleteObjects = false)
     {
-        return $this->getCDN();
+        if ($deleteObjects === true) {
+            $this->deleteAllObjects();
+        }
+        
+        $this->getClient()->delete($this->getUri())
+            ->setExceptionHandler(array(
+                404 => 'Container not found',
+                409 => 'Container must be empty before deleting. Please set the $deleteObjects argument to TRUE.',
+                300 => 'Unknown error'
+            ))
+            ->send();
+
+        return true;
     }
     
     /**
-     * Makes the container public via the CDN
+     * Creates a Collection of objects in the container
      *
-     * @api
-     * @param integer $TTL the Time-To-Live for the CDN container; if NULL,
-     *      then the cloud's default value will be used for caching.
-     * @throws CDNNotAvailableError if CDN services are not available
-     * @return CDNContainer
+     * @param array $params associative array of parameter values.
+     * * account/tenant - The unique identifier of the account/tenant.
+     * * container- The unique identifier of the container.
+     * * limit (Optional) - The number limit of results.
+     * * marker (Optional) - Value of the marker, that the object names
+     *      greater in value than are returned.
+     * * end_marker (Optional) - Value of the marker, that the object names
+     *      less in value than are returned.
+     * * prefix (Optional) - Value of the prefix, which the returned object
+     *      names begin with.
+     * * format (Optional) - Value of the serialized response format, either
+     *      json or xml.
+     * * delimiter (Optional) - Value of the delimiter, that all the object
+     *      names nested in the container are returned.
+     * @link http://api.openstack.org for a list of possible parameter
+     *      names and values
+     * @return OpenCloud\Collection
+     * @throws ObjFetchError
      */
+    public function objectList(array $params = array())
+    {
+        $url = $this->parameterizeCollectionUri($params);
+        return $this->getService()->resourceList('DataObject', $url, $this);
+    }
+    
+    
+    
     public function enableCDN($ttl = null)
     {
         $url = $this->getService()->CDN()->url() . '/' . rawurlencode($this->name);
@@ -111,21 +133,10 @@ class Container extends CDNContainer
     }
 
     /**
-     * Backwards compatability.
-     */
-    public function publishToCDN($ttl = null)
-    {
-        return $this->enableCDN($ttl);
-    }
-
-    /**
-     * Disables the containers CDN function.
-     *
-     * Note that the container will still be available on the CDN until
-     * its TTL expires.
-     *
-     * @api
-     * @return void
+     * Disables the containers CDN function. Note that the container will still 
+     * be available on the CDN until its TTL expires.
+     * 
+     * @return true
      */
     public function disableCDN()
     {
@@ -143,7 +154,6 @@ class Container extends CDNContainer
     /**
      * Creates a static website from the container
      *
-     * @api
      * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html
      * @param string $index the index page (starting page) of the website
      * @return \OpenCloud\HttpResponse
@@ -268,56 +278,7 @@ class Container extends CDNContainer
         return $this->CDNinfo('Ios-Uri');
     }
 
-    /**
-     * Creates a Collection of objects in the container
-     *
-     * @param array $params associative array of parameter values.
-     * * account/tenant - The unique identifier of the account/tenant.
-     * * container- The unique identifier of the container.
-     * * limit (Optional) - The number limit of results.
-     * * marker (Optional) - Value of the marker, that the object names
-     *      greater in value than are returned.
-     * * end_marker (Optional) - Value of the marker, that the object names
-     *      less in value than are returned.
-     * * prefix (Optional) - Value of the prefix, which the returned object
-     *      names begin with.
-     * * format (Optional) - Value of the serialized response format, either
-     *      json or xml.
-     * * delimiter (Optional) - Value of the delimiter, that all the object
-     *      names nested in the container are returned.
-     * @link http://api.openstack.org for a list of possible parameter
-     *      names and values
-     * @return OpenCloud\Collection
-     * @throws ObjFetchError
-     */
-    public function objectList($params = array())
-    {
-        // construct a query string out of the parameters
-        $params['format'] = 'json';
-        
-        $queryString = $this->makeQueryString($params);
-
-        // append the query string to the URL
-        $url = $this->url();
-        if (strlen($queryString) > 0) {
-            $url .= '?' . $queryString;
-        }
-
-        return $this->getService()->collection(
-        	'OpenCloud\ObjectStore\Resource\DataObject', $url, $this
-        );
-    }
-
-    /**
-     * Returns a new DataObject associated with this container
-     *
-     * @param string $name if supplied, the name of the object to return
-     * @return DataObject
-     */
-    public function dataObject($name = null)
-    {
-        return new DataObject($this, $name);
-    }
+    
 
     /**
      * Refreshes, then associates the CDN container
@@ -344,6 +305,52 @@ class Container extends CDNContainer
             }
         }
         // @codeCoverageIgnoreEnd
+    }
+    
+    public function getObject($name = null)
+    {
+        return new DataObject($this, $name);
+    }
+    
+    /**
+     * @param array $params
+     */
+    public function uploadObject(array $options = array())
+    {
+        // Name is required
+        if (empty($options['name'])) {
+            throw new Exceptions\InvalidArgumentError('You must provide a name.');
+        }
+
+        // As is some form of entity body
+        if (!empty($options['path'])) {
+            $body = EntityBody::factory($options['path']);
+        } elseif (!empty($options['body'])) {
+            $body = EntityBody::factory($options['body']);
+        } else {
+            throw new Exceptions\InvalidArgumentError('You must provide either a path or a body');
+        }
+        
+        // Build upload
+        $uploader = UploadBuilder::factory()
+            ->setObjectName($options['name'])
+            ->setEntityData($body)
+            ->setContainer($this);
+        
+        // Add extra options
+        if (!empty($options['metadata'])) {
+            $uploader->setOption('metadata', $options['metadata']);
+        }
+        if (!empty($options['partSize'])) {
+            $uploader->setPartSize($options['partSize']);
+        }
+        if (!empty($options['concurrency'])) {
+            $uploader->setConcurrency($options['concurrency']);
+        }
+        
+        var_dump($uploader);die;
+        
+        return $uploader->upload();
     }
 
 }

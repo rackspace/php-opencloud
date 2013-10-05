@@ -87,8 +87,8 @@ class Service extends Nova
             ));
         }
 
-        $this->load_namespaces();
-        $this->_namespaces[] = 'OS-FLV-DISABLED';
+        $this->loadNamespaces();
+        $this->namespaces[] = 'OS-FLV-DISABLED';
     }
 
     /**

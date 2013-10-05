@@ -12,6 +12,7 @@ namespace OpenCloud\Common\Http;
 
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Curl\CurlVersion;
+use Guzzle\Http\Curl\CurlHandle;
 
 /**
  * Description of Client
@@ -20,6 +21,8 @@ use Guzzle\Http\Curl\CurlVersion;
  */ 
 class Client extends GuzzleClient
 {
+    
+    const VERSION = '1.7.0';
     
     const MINIMUM_PHP_VERSION = '5.3.3';
     
@@ -40,8 +43,24 @@ class Client extends GuzzleClient
     public function getDefaultUserAgent()
     {
         return 'OpenCloud/' . self::VERSION
-            . ' curl/' . CurlVersion::getInstance()->get('version')
+            . ' cURL/' . CurlVersion::getInstance()->get('version')
             . ' PHP/' . PHP_VERSION;
+    }
+    
+    public function getUserAgent()
+    {
+        if (null === $this->userAgent) {
+            $this->userAgent = $this->getDefaultUserAgent();
+        }
+        return $this->userAgent;
+    }
+    
+    public function post($uri = null, $headers = null, $postBody = null, array $options = array())
+    {
+        if (is_string($postBody) && empty($options[CurlHandle::BODY_AS_STRING])) {
+            $options[CurlHandle::BODY_AS_STRING] = false;
+        }
+        return $this->createRequest('POST', $uri, $headers, $postBody, $options);
     }
     
 }

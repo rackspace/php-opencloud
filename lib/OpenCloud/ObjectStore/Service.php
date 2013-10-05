@@ -26,16 +26,8 @@ class Service extends AbstractService
      * or is NULL otherwise. The existence of an object here is
      * indicative that the CDN service is available.
      */
-    private $cdn;
+    private $cdnService;
 
-    /**
-     * Creates a new ObjectStore service object.
-     *
-     * @param OpenCloud\OpenStack $connection    The connection object
-     * @param string              $serviceName   The name of the service
-     * @param string              $serviceRegion The service's region
-     * @param string              $urlType       The type of URL (normally 'publicURL')
-     */
     public function __construct(
         OpenStack $connection,
         $serviceName = RAXSDK_OBJSTORE_NAME,
@@ -54,16 +46,13 @@ class Service extends AbstractService
 
         // establish the CDN container, if available
         try {
-            $this->cdn = new CDNService(
+            $this->cdnService = new CDNService(
                 $connection,
                 $serviceName . 'CDN',
                 $serviceRegion,
                 $urltype
             );
-        } catch (Exceptions\EndpointError $e) {
-             // If we have an endpoint error, then the CDN functionality is not 
-             // available. In this case, we silently ignore  it.
-        }
+        } catch (Exceptions\EndpointError $e) {}
     }
 
     /** 
@@ -86,15 +75,7 @@ class Service extends AbstractService
      */
     public function getCDNService() 
     {
-        return $this->cdn;
-    }
-    
-    /**
-     * Backwards compability.
-     */
-    public function CDN()
-    {
-        return $this->getCDNService();
+        return $this->cdnService;
     }
     
 }

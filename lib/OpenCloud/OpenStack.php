@@ -14,34 +14,31 @@ use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Http\Message\RequestFactory;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\ServiceCatalogItem;
+use OpenCloud\Common\Service\ServiceBuilder;
+use OpenCloud\Common\Service\Catalog;
+use Guzzle\Common\Collection;
 
 class OpenStack extends Client
 {
-    const VERSION = '1.7.0';
-    
     private $secret = array();
     private $token;
-    private $expiration = 0;
+    private $expiration;
     private $tenant;
     private $catalog;
     private $logger;
     
-    private $exportItems = array(
-        'token',
-        'expiration',
-        'tenant',
-        'catalog'
-    );
-
     public function __construct($url, array $secret, array $options = array())
     {
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
-        
+
         $this->setSecret($secret);
         $this->setRequestFactory(RequestFactory::getInstance());
-        
+
         parent::__construct($url, $options);
+        
+        $this->defaultHeaders = new Collection(array(
+            'Content-Type' => 'application/json'
+        ));
     }
         
     /**
@@ -87,9 +84,6 @@ class OpenStack extends Client
      */
     public function getToken()
     {
-        if (null === $this->token || $this->hasExpired()) {
-            $this->authenticate();
-        } 
         return $this->token;
     }
     
@@ -113,9 +107,6 @@ class OpenStack extends Client
      */
     public function getExpiration()
     {
-        if (null === $this->expiration || $this->hasExpired()) {
-            $this->authenticate();
-        }
         return $this->expiration;
     }
     
@@ -139,9 +130,6 @@ class OpenStack extends Client
      */
     public function getTenant()
     {
-        if (null === $this->tenant || $this->hasExpired()) {
-            $this->authenticate();
-        }
         return $this->tenant;
     }
     
@@ -153,8 +141,8 @@ class OpenStack extends Client
      */
     public function setCatalog($catalog)
     {
-        $this->catalog = $catalog;
-        
+        $this->catalog = Catalog::factory($catalog);
+
         return $this;
     }
     
@@ -165,12 +153,22 @@ class OpenStack extends Client
      */
     public function getCatalog()
     {
-        if (null === $this->catalog || $this->hasExpired()) {
-            $this->authenticate();
-        }
         return $this->catalog;
     }
-            
+    
+    public function setLogger(Common\Log\LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function getLogger()
+    {
+        if (null === $this->logger) {
+            $this->setLogger(new Common\Log\Logger);
+        }
+        return $this->logger;
+    }
+    
     /**
      * Get the items to be exported.
      * 
@@ -179,16 +177,6 @@ class OpenStack extends Client
     public function getExportItems()
     {
         return $this->exportItems;
-    }    
-    
-    /**
-     * Returns the stored secret
-     *
-     * @return array
-     */
-    public function secret()
-    {
-        return $this->getSecret();
     }
     
     /**
@@ -198,62 +186,7 @@ class OpenStack extends Client
      */
     public function hasExpired()
     {
-        return time() > ($this->expiration - RAXSDK_FUDGE);
-    }
-    
-    /**
-     * Returns the cached token; if it has expired, then it re-authenticates
-     *
-     * @api
-     * @return string
-     */
-    public function token()
-    {
-        return $this->getToken();
-    }
-
-    /**
-     * Returns the cached expiration time;
-     * if it has expired, then it re-authenticates
-     *
-     * @api
-     * @return string
-     */
-    public function expiration()
-    {
-        return $this->getExpiration();
-    }
-
-    /**
-     * Returns the tenant ID, re-authenticating if necessary
-     *
-     * @api
-     * @return string
-     */
-    public function tenant()
-    {
-        return $this->getTenant();
-    }
-
-    /**
-     * Returns the service catalog object from the auth service
-     *
-     * @return \stdClass
-     */
-    public function serviceCatalog()
-    {
-        return $this->getCatalog();
-    }
-
-    /**
-     * Returns a Collection of objects with information on services
-     *
-     * Note that these are informational (read-only) and are not actually
-     * 'Service'-class objects.
-     */
-    public function serviceList()
-    {
-        return new Common\Collection($this, 'ServiceCatalogItem', $this->serviceCatalog());
+        return !$this->expiration || time() > ($this->expiration - RAXSDK_FUDGE);
     }
 
     /**
@@ -262,9 +195,9 @@ class OpenStack extends Client
      *
      * @return string
      */
-    public function credentials()
+    public function getCredentials()
     {
-        if (isset($this->secret['username']) && isset($this->secret['password'])) {
+        if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
             
             $credentials = array(
                 'auth' => array(
@@ -297,8 +230,8 @@ class OpenStack extends Client
      */
     public function authenticate()
     {
-        // try to auth
-        $response = $this->post('tokens', array(), $this->credentials())->send();
+        $request = $this->post('tokens', null, $this->getCredentials());
+        $response = $request->send();
         $object = $response->getDecodedBody();
 
         // Save the token information as well as the ServiceCatalog
@@ -327,15 +260,15 @@ class OpenStack extends Client
      */
     public function exportCredentials()
     {
-    	$this->authenticate();
-    	
-        $array = array();
-        
-        foreach ($this->getExportItems() as $key) {
-            $array[$key] = $this->$key;
+        if ($this->hasExpired()) {
+            $this->authenticate();
         }
-        
-        return $array;
+        return array(
+            'token'      => $this->getToken(),
+            'expiration' => $this->getExpiration(),
+            'tenant'     => $this->getTenant(),
+            'catalog'    => $this->getCatalog()
+        );
     }
 
     /**
@@ -347,17 +280,24 @@ class OpenStack extends Client
      */
     public function importCredentials(array $values)
     {
-        foreach ($this->getExportItems() as $item) {
-            $this->$item = $values[$item];
+        if (!empty($values['token'])) {
+            $this->setToken($values['token']);
+        }
+        if (!empty($values['expiration'])) {
+            $this->setExpiration($values['expiration']);
+        }
+        if (!empty($values['tenant'])) {
+            $this->setTenant($values['tenant']);
+        }
+        if (!empty($values['catalog'])) {
+            $this->setCatalog($values['catalog']);
         }
     }
-
-    /********** FACTORY METHODS **********
-     * 
-     * These methods are provided to permit easy creation of services
-     * (for example, Nova or Swift) from a connection object. As new
-     * services are supported, factory methods should be provided here.
-     */
+    
+    public function url()
+    {
+        return $this->getBaseUrl();
+    }
 
     /**
      * Creates a new ObjectStore object (Swift/Cloud Files)
@@ -370,7 +310,11 @@ class OpenStack extends Client
      */
     public function objectStore($name = null, $region = null, $urltype = null)
     {
-        return $this->service('ObjectStore', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'ObjectStore', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
 
     /**
@@ -384,7 +328,11 @@ class OpenStack extends Client
      */
     public function compute($name = null, $region = null, $urltype = null)
     {
-        return $this->service('Compute', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'Compute', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
 
     /**
@@ -399,7 +347,11 @@ class OpenStack extends Client
      */
     public function orchestration($name = null, $region = null, $urltype = null)
     {
-        return $this->service('Orchestration', $name, $region, $urltype);
+        return ServiceBuilder::factory($this, 'Orchestration', array(
+            'name'    => $name, 
+            'region'  => $region, 
+            'urlType' => $urltype
+        ));
     }
 
     /**
@@ -413,105 +365,11 @@ class OpenStack extends Client
      */
     public function volumeService($name = null, $region = null, $urltype = null)
     {
-        return $this->service('Volume', $name, $region, $urltype);
-    }
-
-    /**
-     * Generic Service factory method
-     *
-     * Contains code reused by the other service factory methods.
-     *
-     * @param string $class the name of the Service class to produce
-     * @param string $name the name of the Compute service to attach to
-     * @param string $region the name of the region to use
-     * @param string $urltype the URL type (normally "publicURL")
-     * @return Service (or subclass such as Compute, ObjectStore)
-     * @throws ServiceValueError
-     */
-    public function service($class, $name = null, $region = null, $urltype = null)
-    {
-        // debug message
-        $this->getLogger()->info('Factory for class [{class}] [{name}/{region}/{urlType}]', array(
-            'class'   => $class, 
+        return ServiceBuilder::factory($this, 'Volume', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
         ));
-
-        // Strips off base namespace 
-        $class = preg_replace('#\\\?OpenCloud\\\#', '', $class);
-
-        // check for defaults
-        $fullclass = 'OpenCloud\\' . $class . '\\Service';
-        $default   = $this->getDefaults($fullclass);
-
-        // report errors
-        if (!$name = $name ?: $default['name']) {
-            throw new Exceptions\ServiceValueError(sprintf(
-                Lang::translate('No value for %s name'),
-                $class
-            ));
-        }
-
-        if (!$region = $region ?: $default['region']) {
-            throw new Exceptions\ServiceValueError(sprintf(
-                Lang::translate('No value for %s region'),
-                $class
-            ));
-        }
-
-        if (!$urltype = $urltype ?: $default['urlType']) {
-            throw new Exceptions\ServiceValueError(sprintf(
-                Lang::translate('No value for %s URL type'),
-                $class
-            ));
-        }
-
-        return new $fullclass($this, $name, $region, $urltype);
-    }
-    
-    private function getDefaults($class)
-    {
-        $base = 'OpenCloud\\Common\\Service';
-        
-        return array(
-            'name'    => (defined("{$class}::DEFAULT_NAME")) ? $class::DEFAULT_NAME : $base::DEFAULT_NAME,
-            'region'  => (defined("{$class}::DEFAULT_REGION")) ? $class::DEFAULT_REGION : $base::DEFAULT_REGION,
-            'urlType' => (defined("{$class}::DEFAULT_URL_TYPE")) ? $class::DEFAULT_URL_TYPE : $base::DEFAULT_URL_TYPE,
-        );
-    }
-    
-    /**
-     * returns a service catalog item
-     *
-     * This is a helper function used to list service catalog items easily
-     */
-    public function serviceCatalogItem($info = array())
-    {
-        return new ServiceCatalogItem($info);
-    }
-    
-    public function setLogger(Common\Log\LoggerInterface $logger)
-    {
-        $this->logger = $logger;
     }
 
-    /**
-     * Returns the Logger object.
-     * 
-     * @return \OpenCloud\Common\Log\AbstractLogger
-     */
-    public function getLogger()
-    {
-        if (null === $this->logger) {
-            $this->setLogger(new Common\Log\Logger);
-        }
-        return $this->logger;
-    }
-    
-    public function url()
-    {
-        return $this->getBaseUrl();
-    }
-    
 }

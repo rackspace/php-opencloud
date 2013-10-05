@@ -11,7 +11,7 @@
 namespace OpenCloud\DNS\Resource;
 
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Service\AbstractService;
 
 /**
  * The AsyncResponse class encapsulates the data returned by a Cloud DNS

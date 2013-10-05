@@ -21,12 +21,8 @@ class Service extends Nova
 	/**
 	 * creates the VolumeService object
 	 */
-	public function __construct(
-		OpenStack $connection, 
-		$name, 
-		$region, 
-		$urltype
-	) {
+	public function __construct(OpenStack $connection, $name, $region, $urltype) 
+    {
 		parent::__construct($connection, 'volume', $name, $region, $urltype);
 	}
 
