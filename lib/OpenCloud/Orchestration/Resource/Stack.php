@@ -204,7 +204,7 @@ class Stack extends PersistentObject
 
     public function output($name)
     {
-        $outputs = $this->outputs;
+        $outputs = $this->getOutputs();
         if (is_array($outputs) && array_key_exists($name, $outputs)) {
             return $outputs[$name];
         }
