@@ -153,6 +153,13 @@ abstract class Service extends Base
     {
         $headers['X-Auth-Token'] = $this->conn->Token();
 
+        $secret = $this->conn->Secret();
+        if ($username = @$secret['username']) {
+            $headers['X-Auth-User'] = $username;
+        }
+        if ($password = @$secret['password']) {
+            $headers['X-Auth-Key'] = $password;
+        }
         if ($tenant = $this->conn->Tenant()) {
             $headers['X-Auth-Project-Id'] = $tenant;
         }

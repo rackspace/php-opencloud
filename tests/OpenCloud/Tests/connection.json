@@ -156,6 +156,18 @@
         ], 
         "name": "cloudQueues", 
         "type": "rax:queues"
+      },
+      {
+        "endpoints": [
+          {
+            "region": "DFW",
+            "tenantId": "M-ALT-ID",
+            "publicURL": "https:\/\/example.com\/v1\/heat",
+            "internalURL": "https:\/\/example.com\/v1\/heat"
+          }
+        ],
+        "name": "heat",
+        "type": "orchestration"
       }
     ],
     "user": {

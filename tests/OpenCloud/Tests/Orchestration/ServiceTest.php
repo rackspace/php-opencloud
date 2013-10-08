@@ -20,12 +20,25 @@ class ServiceTest extends PHPUnit_Framework_TestCase
     public function __construct()
     {
         $connection = new StubConnection('http://example.com', 'SECRET');
-        //$this->service = $connection->orchestration();
+        $this->service = $connection->orchestration('heat', 'DFW', 'publicURL');
     }
     
     public function testServiceClass()
     {
-        //$this->assertInstanceOf('OpenCloud\Orchestration\Service', $this->service);
+        $this->assertInstanceOf('OpenCloud\Orchestration\Service', $this->service);
+    }
+
+    public function testStack()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\Orchestration\Resource\Stack', $this->service->stack());
+    }
+
+    public function testStackWithName()
+    {
+        $stack = $this->service->stack('stack_name');
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $stack);
+        $this->assertEquals($stack->name(), 'stack_name');
     }
 
 }
