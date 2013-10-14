@@ -210,11 +210,16 @@ abstract class Base
      *
      * @throws UrlError
      */
-    public function url($subresource = '')
+    public function getUrl($path = null, array $query = array())
     {
         throw new UrlError(Lang::translate(
             'URL method must be overridden in class definition'
         ));
+    }
+    
+    public function url($path = null, array $query = array())
+    {
+        return $this->getUrl($path, $query);
     }
 
 /**

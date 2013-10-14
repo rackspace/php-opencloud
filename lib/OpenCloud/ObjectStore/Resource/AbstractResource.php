@@ -15,6 +15,7 @@ use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Exceptions\NameError;
 use OpenCloud\Common\Exceptions\MetadataPrefixError;
 use OpenCloud\Common\Http\Message\Response;
+use Guzzle\Http\Url;
 
 /**
  * Abstract base class which implements shared functionality of ObjectStore 
@@ -40,12 +41,14 @@ abstract class AbstractResource extends Base
         return $object;
     }
     
-    public static function trimHeaders(array $headers)
+    public static function trimHeaders($headers)
     {
         $output = array();
         foreach ($headers as $header => $value) {
-            if (strpos($header, self::HEADER_METADATA_PREFIX) !== false) {
-                $output[str_replace(self::HEADER_METADATA_PREFIX, '', $header)] = $value;
+            $pattern = '#' . static::HEADER_METADATA_PREFIX . 'e#';
+            if (preg_match($pattern, $header) !== false) {
+                $key = str_replace(static::HEADER_METADATA_PREFIX, '', $header);
+                $output[$key] = (string) $value;
             }
         }
         return $output;
@@ -55,8 +58,8 @@ abstract class AbstractResource extends Base
     {
         foreach ($headers as $header => $value) {
             $prefix = (!isset($value)) 
-                ? self::HEADER_METADATA_UNSET_PREFIX 
-                : self::HEADER_METADATA_PREFIX;
+                ? static::HEADER_METADATA_UNSET_PREFIX 
+                : static::HEADER_METADATA_PREFIX;
             $headers[$prefix . $header] = $value;
         }
         
@@ -68,8 +71,9 @@ abstract class AbstractResource extends Base
         if ($constructFromResponse) {
             $metadata = new Metadata;
             $metadata->setArray(self::trimHeaders($data));
+            $data = $metadata;
         }
-        
+
         $this->metadata = $data;
     }
     
@@ -84,7 +88,7 @@ abstract class AbstractResource extends Base
     public function saveMetadata(array $metadata)
     {
         $headers = self::stockHeaders($metadata);
-        $response = $this->getClient()->put($this->getUri(), $headers);
+        $response = $this->getClient()->put($this->getUrl(), $headers);
         
         $this->setMetdata($response->getHeaders(), true);
         return $this->getMetadata();
@@ -93,11 +97,11 @@ abstract class AbstractResource extends Base
     public function retrieveMetadata()
     {
         $response = $this->getClient()
-            ->head($this->getUri())
+            ->head($this->getUrl())
             ->send();
         
         $this->setMetdata($response->getHeaders(), true);
-        return $this->getMetadata();
+        return $this->metadata;
     }
     
     protected function parameterizeCollectionUri($path = null, array $params = array())
@@ -110,7 +114,9 @@ abstract class AbstractResource extends Base
             throw new InvalidArgumentError('Invalid format type: can only be json');
         }
         
-        return $this->getUri($path, $params);
+        return $this->getUrl($path, $params);
     }
+    
+    
     
 }

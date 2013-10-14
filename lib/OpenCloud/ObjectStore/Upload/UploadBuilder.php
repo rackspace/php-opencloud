@@ -20,8 +20,7 @@ use Guzzle\Http\Url;
  * @link 
  */
 class UploadBuilder
-{
-    
+{ 
     protected $partSize;
     
     protected $concurrency;
@@ -34,7 +33,7 @@ class UploadBuilder
     
     protected $options;
     
-    public static function start()
+    public static function factory()
     {
         return new self();
     }
@@ -109,16 +108,16 @@ class UploadBuilder
     public function build()
     {
         // Validate properties
-        if (!$this->client || !$this->entityBody || !$this->objectName) {
-            throw new InvalidArgumentError('A client, entity body and object name must be set');
+        if (!$this->container || !$this->entityData || !$this->objectName) {
+            throw new InvalidArgumentError('A container, entity body and object name must be set');
         }
         
         // Create TransferState object for later use
         $this->transferState = new TransferState();
-        
+        var_dump($this->container->getUrl());die;
         // Bring in necessary options
         $this->options = array_merge($this->options, array(
-            'containerUri' => Url::factory($this->getContainer()->url()),
+            'containerUri' => $this->container->getUrl(),
             'objectName'   => $this->objectName,
             'concurrency'  => $this->concurrency
         ));
@@ -129,7 +128,7 @@ class UploadBuilder
             : 'ConsecutiveTransfer';
         
         return $transferClass::factory()
-            ->setClient($this->client)
+            ->setClient($this->container->getClient())
             ->setEntityData($this->entityData)
             ->setTransferState($this->transferState)
             ->setOptions($this->options)

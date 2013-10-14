@@ -47,15 +47,6 @@ class PtrRecord extends Record
     }
 
     /**
-     * specialized DNS PTR URL requires server service name and href
-     */
-    public function url($subresource = null, $params = array()) 
-    {
-        $subresource = $subresource ?: self::$url_resource;
-        return $this->getParent()->url($subresource, $params);
-    }
-
-    /**
      * DNS PTR Create() method requires a server
      *
      * Generally called as `Create(array('server'=>$server))`

@@ -12,6 +12,7 @@ namespace OpenCloud\DNS\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Service\AbstractService;
+use Guzzle\Http\Url;
 
 /**
  * The AsyncResponse class encapsulates the data returned by a Cloud DNS
@@ -55,9 +56,10 @@ class AsyncResponse extends PersistentObject
      *
      * @return string
      */
-    public function url($subresource = null, $qstr = array())
+    public function getUrl($path = null, array $query = array())
     {
-        return $this->callbackUrl . '?showDetails=True';
+        return Url::factory($this->callbackUrl)
+            ->setQuery(array('showDetails' => 'True'));
     }
 
     /**

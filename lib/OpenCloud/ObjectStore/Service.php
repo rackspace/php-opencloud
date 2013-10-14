@@ -63,7 +63,7 @@ class Service extends AbstractService
      */
     public function setTempUrlSecret($secret) 
     {
-        return $this->getClient()->post($this->url(), array(
+        return $this->getClient()->post($this->getUrl(), array(
             'X-Account-Meta-Temp-Url-Key' => $secret
         ));
     }

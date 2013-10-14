@@ -53,13 +53,13 @@ class DataObject extends AbstractStorageObject
         return 'name';
     }
     
-    public function url($subresource = '')
+    public function getUrl($path = null, array $params = array())
     {
         if (!$this->name) {
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
         }
 
-        return $this->container->url(urlencode($this->name));
+        return $this->container->getUrl(urlencode($this->name));
     }
 
     public function create($params = array(), $filename = null, $extractArchive = null)
@@ -90,7 +90,7 @@ class DataObject extends AbstractStorageObject
 
         return $this->getService()
             ->getClient()
-            ->post($this->url(), $headers)
+            ->post($this->getUrl(), $headers)
             ->send();
     }
 
@@ -108,7 +108,7 @@ class DataObject extends AbstractStorageObject
     public function delete($params = array())
     {
         $this->populate($params);
-        return $this->getService()->getClient()->delete($this->url())->send();
+        return $this->getService()->getClient()->delete($this->getUrl())->send();
     }
 
     /**
@@ -128,7 +128,7 @@ class DataObject extends AbstractStorageObject
 
         $request = $this->getService()
             ->getClient()
-            ->createRequest('COPY', $this->url(), array(
+            ->createRequest('COPY', $this->getUrl(), array(
                 'Destination' => $uri
             ))
             ->setExpectedResponse(202);
@@ -169,7 +169,7 @@ class DataObject extends AbstractStorageObject
         }
 
         // construct the URL
-        $url  = $this->url();
+        $url  = $this->getUrl();
         $path = urldecode(parse_url($url, PHP_URL_PATH));
 
         $hmac_body = "$method\n$expiry_time\n$path";
@@ -200,7 +200,7 @@ class DataObject extends AbstractStorageObject
     {
         return $this->getService()
             ->getClient()
-            ->get($this->url())
+            ->get($this->getUrl())
             ->send()
             ->getDecodedBody();
     }
@@ -240,7 +240,7 @@ class DataObject extends AbstractStorageObject
         
         $result = $this->getService()
             ->getClient()
-            ->get($this->url(), array(), $fp)
+            ->get($this->getUrl(), array(), $fp)
             ->send();
         
         fclose($fp);
@@ -284,7 +284,7 @@ class DataObject extends AbstractStorageObject
 
         return $this->getService()
             ->getClient()
-            ->get($this->url(), array(), $resource)
+            ->get($this->getUrl(), array(), $resource)
             ->send();
     }
 
@@ -374,7 +374,7 @@ class DataObject extends AbstractStorageObject
 
         $response = $this->getService()
             ->getClient()
-            ->head($this->url(), array('Accept' => '*/*'))
+            ->head($this->getUrl(), array('Accept' => '*/*'))
             ->send();
 
         // set headers as metadata?

@@ -13,6 +13,7 @@ namespace OpenCloud\ObjectStore\Resource;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use Guzzle\Http\EntityBody;
+use OpenCloud\ObjectStore\Upload\UploadBuilder;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -56,7 +57,7 @@ class Container extends AbstractContainer
             $this->deleteAllObjects();
         }
         
-        $this->getClient()->delete($this->getUri())
+        $this->getClient()->delete($this->getUrl())
             ->setExceptionHandler(array(
                 404 => 'Container not found',
                 409 => 'Container must be empty before deleting. Please set the $deleteObjects argument to TRUE.',
@@ -95,11 +96,23 @@ class Container extends AbstractContainer
         return $this->getService()->resourceList('DataObject', $url, $this);
     }
     
+    public function enableLogging()
+    {
+        return $this->saveMetadata(array(
+            self::HEADER_ACCESS_LOGS => true
+        ));
+    }
     
+    public function disableLogging()
+    {
+        return $this->saveMetadata(array(
+            self::HEADER_ACCESS_LOGS => false
+        ));
+    }
     
     public function enableCDN($ttl = null)
     {
-        $url = $this->getService()->CDN()->url() . '/' . rawurlencode($this->name);
+        $url = $this->getCDNService()->getUrl(rawurlencode($this->name));
 
         $headers = $this->metadataHeaders();
 
@@ -126,7 +139,7 @@ class Container extends AbstractContainer
         $this->refresh();
 
         // return the CDN container object
-        $cdn = new CDNContainer($this->getService()->getCDNService(), $this->name);
+        $cdn = new CDNContainer($this->getCDNService(), $this->name);
         $this->setCDN($cdn);
         
         return $cdn;
@@ -141,7 +154,10 @@ class Container extends AbstractContainer
     public function disableCDN()
     {
         // Set necessary headers
-        $headers = array('X-Log-Retention' => 'False', 'X-CDN-Enabled' => 'False');
+        $headers = array(
+            'X-Log-Retention' => 'False', 
+            'X-CDN-Enabled'   => 'False'
+        );
 
         // PUT it to the CDN service
         $this->getClient()->put($this->CDNURL(), $headers)
@@ -161,7 +177,7 @@ class Container extends AbstractContainer
     public function createStaticSite($indexHtml)
     {
         $headers = array('X-Container-Meta-Web-Index' => $indexHtml);
-        return $this->getClient()->post($this->url(), $headers)->send();
+        return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
     /**
@@ -175,7 +191,7 @@ class Container extends AbstractContainer
     public function staticSiteErrorPage($name)
     {
         $headers = array('X-Container-Meta-Web-Error' => $name);
-        return $this->getClient()->post($this->url(), $headers)->send();
+        return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
     /**
@@ -190,7 +206,7 @@ class Container extends AbstractContainer
      */
     public function CDNURL()
     {
-        return $this->getCDN()->url();
+        return $this->getCDN()->getUrl();
     }
 
     /**
@@ -278,8 +294,6 @@ class Container extends AbstractContainer
         return $this->CDNinfo('Ios-Uri');
     }
 
-    
-
     /**
      * Refreshes, then associates the CDN container
      */
@@ -287,29 +301,44 @@ class Container extends AbstractContainer
     {
         parent::refresh($id, $url);
         
-        // @codeCoverageIgnoreStart
-		if ($this->getService() instanceof CDNService) {
-			return;
-        }
-        
-        
-        if (null !== ($cdn = $this->getService()->CDN())) {
+        if (null !== ($cdn = $this->getService()->getCDNService())) {
             try {
-                $this->cdn = new CDNContainer(
-                    $cdn,
-                    $this->name
-                );
+                $this->cdn = new CDNContainer($cdn, $this->name);
             } catch (Exceptions\ContainerNotFoundError $e) {
                 $this->cdn = new CDNContainer($cdn);
                 $this->cdn->name = $this->name;
             }
         }
-        // @codeCoverageIgnoreEnd
     }
     
-    public function getObject($name = null)
+    /**
+     * Retrieve an object from the API. Apart from using the name as an 
+     * identifier, you can also specify additional headers that will be used 
+     * fpr a conditional GET request. These are
+     * 
+     * * `If-Match'
+     * * `If-None-Match'
+     * * `If-Modified-Since'
+     * * `If-Unmodified-Since'
+     * * `Range'  For example: 
+     *      bytes=-5    would mean the last 5 bytes of the object
+     *      bytes=10-15 would mean 5 bytes after a 10 byte offset
+     *      bytes=32-   would mean all dat after first 32 bytes
+     * 
+     * These are also documented in RFC 2616.
+     * 
+     * @param type $name
+     * @param array $headers
+     * @return type
+     */
+    public function getObject($name, array $headers = array())
     {
-        return new DataObject($this, $name);
+        $entity = $this->getClient()
+            ->get($this->getUrl($name), $headers)
+            ->send()
+            ->getDecodedBody();
+        
+        return $this->resource('DataObject', $entity);
     }
     
     /**
@@ -348,9 +377,7 @@ class Container extends AbstractContainer
             $uploader->setConcurrency($options['concurrency']);
         }
         
-        var_dump($uploader);die;
-        
-        return $uploader->upload();
+        return $uploader->build();
     }
 
 }

@@ -34,10 +34,10 @@ class AgentTarget extends ReadOnlyResource
         'agent.plugin'
     );
 
-    public function url($subresource = null, $queryString = array())
+    public function getUrl($path = null, array $query = array())
     {
-        $resourceUrl = "agent/check_types/{$this->type}/{$this->resourceName()}";
-        return $this->getParent()->url($resourceUrl);
+        $path = "agent/check_types/{$this->type}/{$this->resourceName()}";
+        return $this->getParent()->getUrl($path);
     }
 
     public function setType($type)

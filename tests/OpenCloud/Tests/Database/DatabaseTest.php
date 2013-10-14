@@ -38,7 +38,7 @@ class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->database->name = 'TEST';
         $this->assertEquals(
             'https://dfw.databases.api.rackspacecloud.com/v1.0/9999/instances/56a0c515-9999-4ef1-9fe2-76be46a3aaaa/databases/TEST', 
-            $this->database->url()
+            (string) $this->database->url()
         );
     }
 
@@ -74,14 +74,7 @@ class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
             $this->database->delete()
         );
     }
+    
 
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\DatabaseNameError
-     */
-    public function testUrlFailsWithoutName()
-    {
-        $db = $this->instance->database();
-        $db->url();
-    }
     
 }

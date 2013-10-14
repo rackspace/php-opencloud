@@ -11,15 +11,19 @@
 
 namespace OpenCloud\ObjectStore\Resource;
 
+use OpenCloud\Common\Service\AbstractService;
+use Guzzle\Http\Url;
+
 /**
  * Description of AbstractContainer
  * 
  * @link 
  */
-abstract class AbstractContainer
+abstract class AbstractContainer extends AbstractResource
 {
-    const HEADER_OBJECT_COUNT = 'X-Container-Object-Count';
-    const HEADER_BYTES_USED = 'X-Container-Bytes-Used';
+    const HEADER_OBJECT_COUNT = 'Object-Count';
+    const HEADER_BYTES_USED = 'Bytes-Used';
+    const HEADER_ACCESS_LOGS = 'Access-Log-Delivery';
     
     /**
      * The name of the container. 
@@ -47,8 +51,6 @@ abstract class AbstractContainer
     {
         $this->getLogger()->info('Initializing CDN Container Service...');
 
-        parent::__construct();
-
         $this->service = $service;
 
         // Populate data if set
@@ -58,6 +60,11 @@ abstract class AbstractContainer
     public function getService()
     {
         return $this->service;
+    }
+    
+    public function getCDNService()
+    {
+        return $this->service->getCDNService();
     }
     
     public function getClient()
@@ -94,10 +101,27 @@ abstract class AbstractContainer
     public function update()
     {
         $this->getClient()
-            ->post($this->getUri(), $this->metadataHeaders())
+            ->post($this->getUrl(), $this->metadataHeaders())
             ->send();
         
         return true;
+    }
+    
+    public function getUrl($path = null, array $params = array())
+    {
+        if (strlen($this->name) == 0) {
+            throw new Exceptions\NoNameError(
+            	Lang::translate('Container does not have an identifier')
+            );
+        }
+        
+        $url = $this->getService()->url(rawurlencode($this->name));
+        
+        if (!$url instanceof Url) {
+            $url = Url::factory($url);
+        }
+        
+        return $url;
     }
     
 }

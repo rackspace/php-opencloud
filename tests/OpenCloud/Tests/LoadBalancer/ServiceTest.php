@@ -22,20 +22,9 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\LoadBalancer\Service', $this->service);
-    }
-
-    public function testUrl()
-    {
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers', 
-            $this->service->url()
-        );
     }
 
     public function testLoadBalancer()

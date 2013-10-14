@@ -29,22 +29,6 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->getClient()->compute('cloudServers', 'DFW', 'publicURL');
     }
 
-    public function testUrl()
-    {
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers', 
-            $this->service->Url()
-        );
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/detail', 
-            $this->service->Url('servers/detail')
-        );
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers?A=1&B=2', 
-            $this->service->Url('servers', array('A' => 1, 'B' => 2))
-        );
-    }
-
     public function testServer()
     {
         $this->assertInstanceOf('OpenCloud\Compute\Resource\Server', $this->service->Server());

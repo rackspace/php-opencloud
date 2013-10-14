@@ -42,18 +42,6 @@ class Service extends Nova
     }
 
     /**
-     * Returns the URL of this service, or optionally that of
-     * an instance
-     *
-     * @param string $resource the resource required
-     * @param array $args extra arguments to pass to the URL as query strings
-     */
-    public function url($resource = self::URL_RESOURCE, array $args = array()) 
-    {
-        return parent::url($resource, $args);
-    }
-
-    /**
      * creates a new LoadBalancer object
      *
      * @api

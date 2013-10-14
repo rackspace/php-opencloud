@@ -92,21 +92,6 @@ class Service extends Nova
     }
 
     /**
-     * Returns the selected endpoint URL of this compute Service
-     *
-     * @param string $resource - an optional child resource. For example,
-     *      passing 'details' would return .../servers/details. Should *not* be
-     *    prefixed with a slash (/).
-     * @param array $args (optional) an array of key-value pairs for query
-     *      strings to append to the URL
-     * @returns string - the requested URL
-     */
-    public function url($resource = 'servers', array $args = array()) 
-    {
-        return parent::Url($resource, $args);
-    }
-
-    /**
      * Returns a Server object associated with this Compute service
      *
      * This is a factory method and should generally be used to create server

@@ -35,7 +35,7 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Url()
     {
         $keypair = $this->compute->keypair(array('name' => 'foo'));
-        $this->assertRegExp('#/os-keypairs/foo$#', $keypair->url());
+        $this->assertRegExp('#/os-keypairs/foo$#', (string) $keypair->getUrl());
     }
     
     public function test_Create()

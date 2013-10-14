@@ -22,25 +22,6 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW');
     }
 
-    /**
-     * Tests
-     */
-    public function testUrl()
-    {
-        /* This also validates the private function get_endpoint() */
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers', 
-            $this->service->Url());
-    }
-
-    public function testUrl2()
-    {
-        $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/sub?a=1&b=2', 
-            $this->service->Url('sub', array('a' => 1, 'b' => 2))
-        );
-    }
-
     public function testExtensions()
     {
         $ext = $this->service->Extensions();

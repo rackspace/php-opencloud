@@ -27,19 +27,6 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertInstanceOf('OpenCloud\Database\Service', $this->service);
     }
 
-    public function testUrl()
-    {
-        $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances', 
-            $this->service->Url()
-        );
-        
-        $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/TENANT-ID/instances/INSTANCE-ID', 
-            $this->service->Url('instances/INSTANCE-ID')
-        );
-    }
-
     public function testFlavorList()
     {
         $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->flavorList());

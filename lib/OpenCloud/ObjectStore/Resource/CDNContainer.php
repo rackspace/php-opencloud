@@ -22,18 +22,22 @@ class CDNContainer extends AbstractContainer
 
     public function refresh($name = null, $url = null)
     {
-        $url = $this->url($name);
-        $response = $this->getClient()->head($url, array('Accept' => '*/*'))
+        $response = $this->getClient()
+            ->head($this->getUrl($name), array('Accept' => '*/*'))
             ->setExceptionHandler(array(
                 404 => 'Container not found'
-            ))
-            ->send();
-
-        $this->count = $response->getHeader('X-Container-Object-Count');
-        $this->bytes = $response->getHeader('X-Container-Bytes-Used');
+            ));
+        //var_dump($this->getClient()->getToken());die;
+        var_dump((string) $response);die;
+            //->send();
+        
+        $headers = $response->getHeaders();
+        
+        $this->count = $headers['X-Container-Object-Count'];
+        $this->bytes = $headers['X-Container-Bytes-Used'];
         
         // parse the returned object
-        $this->setMetadata($response);
+        $this->setMetadata($headers, true);
     }
 
 }

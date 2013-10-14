@@ -20,7 +20,9 @@ use OpenCloud\Common\Lang;
  */
 class Database extends PersistentObject
 {
-
+    
+    protected static $url_resource = 'databases';
+    
     public $name;
 
     /**
@@ -68,19 +70,12 @@ class Database extends PersistentObject
         }
         return $this->name;
     }
-    
-    /**
-     * Returns the Url of the Database
-     *
-     * @api
-     * @param string $subresource Not used
-     * @return string
-     */
-    public function url($subresource = '', $params = array())
-    {
-        return stripslashes($this->getParent()->url('databases')) . '/' . $this->getName();
-    }
 
+    public function primaryKeyField()
+    {
+        return 'name';
+    }
+    
     /**
      * Returns the Instance of the database
      *

@@ -48,20 +48,6 @@ abstract class SubResource extends PersistentObject
     }
 
     /**
-     * returns the URL of the SubResource
-     *
-     * @api
-     * @param string $subresource the subresource of the parent
-     * @param array $qstr an array of key/value pairs to be converted to
-     *  query string parameters for the subresource
-     * @return string
-     */
-    public function url($subresource = null, $qstr = array()) 
-    {
-        return $this->getParent()->url($this->ResourceName());
-    }
-
-    /**
      * returns the JSON document's object for creating the subresource
      *
      * The value `$_create_keys` should be an array of names of data items

@@ -12,6 +12,7 @@ namespace OpenCloud\Common;
 
 use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
+use Guzzle\Http\Url;
 
 /**
  * Represents an object that can be retrieved, created, updated and deleted.
@@ -306,30 +307,30 @@ abstract class PersistentObject extends Base
      * @param array $qstr optional k/v pairs for query strings
      * @return string
      */
-    public function url($subresource = null, $queryString = array())
+    public function url($path = null, array $query = array())
     {
-        // Check link first
+        return $this->getUrl($path, $query);
+    }
+    
+    public function getUrl($path = null, array $query = array())
+    {
         if (!$url = $this->findLink('self')) {
             
             // ...otherwise construct a URL from parent and this resource's
             // "URL name". If no name is set, resourceName() throws an error.
-            $url = Lang::noslash($this->getParent()->url($this->resourceName()));
+            $url = $this->getParent()->getUrl($this->resourceName());
             
             // Does it have a primary key?
             if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {
-                $url .= '/' . $primaryKey;
+                $url->addPath($primaryKey);
             }
         }
         
-        // Append subresource and query
-        if ($subresource) {
-            $url .= '/' . $subresource;
-        }
-        if (count($queryString)) {
-            $url .= '?' . $this->makeQueryString($queryString);
+        if (!$url instanceof Url) {
+            $url = Url::factory($url);
         }
         
-        return $url;
+        return $url->addPath($path)->setQuery($query);
     }
 
     /**

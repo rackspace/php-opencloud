@@ -95,6 +95,7 @@ return array(
     "object-store" => array(
         'TEST/?$' => '{}',
         'TEST\?format=json' => 'format',
+        'NON-CDN' => 'format',
         'delimeter' => '[{"subdir": "files/Pseudo1/"},{"subdir": "files/Pseudo2/"}]'
     ),
     

@@ -41,7 +41,7 @@ class FakeClient extends Rackspace
         $this->requests = $requests;
 
         $response = $this->intercept(); 
-        
+
         $requests->setResponse($response);
 
 		return $requests->getResponse();

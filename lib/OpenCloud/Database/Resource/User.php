@@ -31,6 +31,7 @@ class User extends PersistentObject
     public $databases = array();
     
     protected static $json_name = 'user';
+    protected static $url_resource = 'users';
 
     /**
      * Creates a new database object
@@ -88,9 +89,9 @@ class User extends PersistentObject
     /**
      * {@inheritDoc}
      */
-    public function url($subresource = '', $params = array())
+    public function primaryKeyField()
     {
-        return stripslashes($this->getParent()->url('users')) . '/' . $this->getName();
+        return 'name';
     }
 
 	/**

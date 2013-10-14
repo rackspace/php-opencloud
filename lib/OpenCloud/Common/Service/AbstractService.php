@@ -11,11 +11,11 @@
 namespace OpenCloud\Common\Service;
 
 use OpenCloud\Common\Base;
-use OpenCloud\Common\Lang;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use OpenCloud\Common\Collection;
+use Guzzle\Http\Url;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -141,20 +141,19 @@ abstract class AbstractService extends Base
      * @param array $query optional k/v pairs for query strings
      * @return string
      */
-    public function url($resource = '', array $param = array())
+    public function getUrl($path = null, array $query = array())
     {
-        $baseurl = $this->getBaseUrl();
-
-		// use strlen instead of boolean test because '0' is a valid name
-        if (strlen($resource)) {
-            $baseurl = Lang::noslash($baseurl) . '/' . $resource;
-        }
-
-        if (!empty($param)) {
-            $baseurl .= '?'.$this->makeQueryString($param);
-        }
-
-        return $baseurl;
+        return Url::factory($this->getBaseUrl())
+            ->addPath($path)
+            ->setQuery($query);
+    }
+    
+    /**
+     * @deprecated
+     */
+    public function url($path = null, array $query = array()) 
+    {
+        return $this->getUrl($path, $query);
     }
 
     /**

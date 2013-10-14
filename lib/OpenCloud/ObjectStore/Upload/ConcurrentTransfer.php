@@ -77,7 +77,7 @@ class ConcurrentTransfer
     
     private function prepareParts($workers)
     {
-        //$uri = $this->entityData->getUri();
+        //$uri = $this->entityData->getUrl();
         
         $firstPart = new ReadLimitEntityBody($this->entityData, $this->partSize);
         $array = array($firstPart);

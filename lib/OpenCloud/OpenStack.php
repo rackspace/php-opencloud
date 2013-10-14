@@ -11,12 +11,11 @@
 namespace OpenCloud;
 
 use OpenCloud\Common\Http\Client;
-use OpenCloud\Common\Http\Message\RequestFactory;
+use OpenCloud\Common\Http\Message\RequestSubscriber;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
-use Guzzle\Common\Collection;
 
 class OpenStack extends Client
 {
@@ -32,13 +31,12 @@ class OpenStack extends Client
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
 
         $this->setSecret($secret);
-        $this->setRequestFactory(RequestFactory::getInstance());
 
         parent::__construct($url, $options);
         
-        $this->defaultHeaders = new Collection(array(
-            'Content-Type' => 'application/json'
-        ));
+        $this->defaultHeaders = array('Content-Type' => 'application/json');
+        
+        $this->addSubscriber(RequestSubscriber::factory());
     }
         
     /**
@@ -230,15 +228,17 @@ class OpenStack extends Client
      */
     public function authenticate()
     {
-        $request = $this->post('tokens', null, $this->getCredentials());
-        $response = $request->send();
+        $response = $this->post('tokens', null, $this->getCredentials())->send();
         $object = $response->getDecodedBody();
 
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);
         $this->setExpiration(strtotime($object->access->token->expires));
         $this->setCatalog($object->access->serviceCatalog);
-
+        
+        // Add to default headers for future reference
+        $this->defaultHeaders['X-Auth-Token'] = (string) $this->getToken();
+        
         /**
          * In some cases, the tenant name/id is not returned
          * as part of the auth token, so we check for it before
@@ -294,7 +294,7 @@ class OpenStack extends Client
         }
     }
     
-    public function url()
+    public function getUrl()
     {
         return $this->getBaseUrl();
     }

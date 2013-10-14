@@ -42,7 +42,7 @@ abstract class AbstractService extends CommonAbstractService
         $containerHeaders = Container::stockHeaders($metadata);
             
         $response = $this->getClient()
-            ->put($this->getUri($name), $containerHeaders)
+            ->put($this->getUrl($name), $containerHeaders)
             ->send();
         
         if ($response->getStatusCode() == 201) {

@@ -38,18 +38,6 @@ class Service extends Nova
     }
 
     /**
-     * Returns the URL of this database service, or optionally that of
-     * an instance
-     *
-     * @param string $resource the resource required
-     * @param array $args extra arguments to pass to the URL as query strings
-     */
-    public function url($resource = 'instances', array $args = array())
-    {
-        return parent::url($resource, $args);
-    }
-
-    /**
      * Returns a list of flavors
      *
      * just call the parent FlavorList() method, but pass FALSE

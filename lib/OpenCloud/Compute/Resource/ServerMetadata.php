@@ -13,6 +13,7 @@ namespace OpenCloud\Compute\Resource;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Exceptions;
+use Guzzle\Http\Url;
 
 /**
  * This class handles specialized metadata for OpenStack Server objects (metadata 
@@ -21,12 +22,10 @@ use OpenCloud\Common\Exceptions;
  * Server metadata is a weird beast in that it has resource representations
  * and HTTP calls to set the entire server metadata as well as individual
  * items.
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 class ServerMetadata extends Metadata
 {
-
+    
     private $parent;   // the parent object
     protected $key;      // the metadata item (if supplied)
     private $url;      // the URL of this particular metadata item or block
@@ -52,13 +51,13 @@ class ServerMetadata extends Metadata
             // in either case, retrieve the data
             $response = $this->getParent()
                 ->getClient()
-                ->get($this->url())
+                ->get($this->getUrl())
                 ->send();
 
             $this->getLogger()->info(
                 Lang::translate('Metadata for [{url}] is [{body}]'), 
                 array(
-                    'url'  => $this->url(), 
+                    'url'  => $this->getUrl(), 
                     'body' => $response->getBody()
                 )
             );
@@ -81,7 +80,7 @@ class ServerMetadata extends Metadata
      * @param string $subresource not used; required for strict compatibility
      * @throws ServerUrlerror
      */
-    public function url($subresource = '')
+    public function getUrl($path = null, array $query = array())
     {
         if (!isset($this->url)) {
             throw new Exceptions\ServerUrlError(
@@ -89,11 +88,7 @@ class ServerMetadata extends Metadata
             );
         }
 
-        if ($this->key) {
-            return $this->url . '/' . $this->key;
-        } else {
-            return $this->url;
-        }
+        return Url::factory($this->url)->addPath($this->key);
     }
 
     /**

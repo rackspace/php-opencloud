@@ -42,28 +42,6 @@ abstract class AbstractResource extends PersistentObject
     public $associatedCollections = array();
     
     /**
-     * Returns the URL for this resource.
-     * 
-     * @param  string|null $subResource
-     * @param  bool        $includeId
-     * @return string
-     */
-    public function url($subResource = null, $includeId = true)
-    {
-        $url = $this->getParent()->url($this->resourceName());
-        
-        if ($includeId && $this->getId()) {
-            $url .= '/' . $this->getId();
-        }
-        
-        if ($subResource) {
-            $url .= '/' . $subResource;
-        }
-        
-        return $url;
-    }
-    
-    /**
      * Creates the object which will be JSON encoded for request.
      * 
      * @return \stdClass
