@@ -16,6 +16,7 @@ use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
+use OpenCloud\Common\Http\Message\RequestFactory;
 
 class OpenStack extends Client
 {
@@ -32,6 +33,8 @@ class OpenStack extends Client
 
         $this->setSecret($secret);
 
+        $this->setRequestFactory(RequestFactory::factory());
+        
         parent::__construct($url, $options);
         
         $this->defaultHeaders = array('Content-Type' => 'application/json');
