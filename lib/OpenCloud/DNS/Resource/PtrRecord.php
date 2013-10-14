@@ -93,7 +93,7 @@ class PtrRecord extends Record
         $response = $this->getClient()->delete($url)->send();
 
         // return the AsyncResponse object
-        return new AsyncResponse($this->getService(), $response->getBody());
+        return new AsyncResponse($this->getService(), $response->getDecodedBody());
     }
 
     /**

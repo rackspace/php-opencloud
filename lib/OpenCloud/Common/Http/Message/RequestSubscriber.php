@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class RequestSubscriber implements EventSubscriberInterface
 {
     
-    public function getInstance()
+    public static function getInstance()
     {
         return new self();
     }
@@ -28,7 +28,15 @@ class RequestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            
+            'curl.callback.progress' => 'doCurlProgress'
+        );
+    }
+    
+    public function doCurlProgress($options)
+    {
+        return array(
+            'upload_size'   => $options['upload_size'],
+            'uploaded'      => $options['uploaded']
         );
     }
     

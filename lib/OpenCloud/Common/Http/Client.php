@@ -13,7 +13,6 @@ namespace OpenCloud\Common\Http;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Curl\CurlVersion;
 use Guzzle\Http\Curl\CurlHandle;
-use OpenCloud\Common\Http\Curl\CurlMultiProxy;
 
 /**
  * Description of Client
@@ -56,24 +55,6 @@ class Client extends GuzzleClient
             $this->userAgent = $this->getDefaultUserAgent();
         }
         return $this->userAgent;
-    }
-    
-    public function post($uri = null, $headers = null, $postBody = null, array $options = array())
-    {
-        $request = $this->createRequest('POST', $uri, $headers, $postBody, $options);
-        if (is_string($postBody) && empty($options[CurlHandle::BODY_AS_STRING])) {
-            $request->getCurlOptions()->set(CurlHandle::BODY_AS_STRING, true);
-        }
-        return $request;
-    }
-    
-    public function getCurlMulti()
-    {
-        if (!$this->curlMulti) {
-            $this->curlMulti = new CurlMultiProxy();
-        }
-
-        return $this->curlMulti;
     }
     
 }

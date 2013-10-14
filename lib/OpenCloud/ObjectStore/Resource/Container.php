@@ -341,9 +341,24 @@ class Container extends AbstractContainer
         return $this->resource('DataObject', $entity);
     }
     
-    /**
-     * @param array $params
-     */
+    public function uploadObjects(array $files, array $headers = array())
+    {
+        $requests = array();
+        
+        foreach ($files as $name => $body) {
+            $entityBody = EntityBody::factory($body);
+            if ($entityBody->getContentLength() >= 5 * Size::GB) {
+                throw new Exceptions\InvalidArgumentError(
+                    'For multiple uploads, you cannot upload more than 5GB per '
+                    . ' file. Use the UploadBuilder for larger files.'
+                );
+            }
+            $requests[] = $this->getClient()->put($this->getUrl($name), $headers, $body);
+        }
+        
+        return $this->getClient()->execute($requests);
+    }
+    
     public function uploadObject(array $options = array())
     {
         // Name is required
@@ -353,16 +368,16 @@ class Container extends AbstractContainer
 
         // As is some form of entity body
         if (!empty($options['path'])) {
-            $body = EntityBody::factory($options['path']);
+            $body = $options['path'];
         } elseif (!empty($options['body'])) {
-            $body = EntityBody::factory($options['body']);
+            $body = $options['path'];
         } else {
             throw new Exceptions\InvalidArgumentError('You must provide either a path or a body');
         }
         
         // Build upload
         $uploader = UploadBuilder::factory()
-            ->setObjectName($options['name'])
+            ->setOption('objectName', $options['name'])
             ->setEntityData($body)
             ->setContainer($this);
         
@@ -371,13 +386,16 @@ class Container extends AbstractContainer
             $uploader->setOption('metadata', $options['metadata']);
         }
         if (!empty($options['partSize'])) {
-            $uploader->setPartSize($options['partSize']);
+            $uploader->setOption('partSize', $options['partSize']);
         }
         if (!empty($options['concurrency'])) {
-            $uploader->setConcurrency($options['concurrency']);
+            $uploader->setOption('concurrency', $options['concurrency']);
         }
-        
-        return $uploader->build();
+        if (!empty($options['progress'])) {
+            $uploader->setOption('progress', $options['progress']);
+        }
+
+        return $uploader->build()->upload();
     }
 
 }

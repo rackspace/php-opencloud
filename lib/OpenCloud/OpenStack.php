@@ -38,10 +38,6 @@ class OpenStack extends Client
         
         parent::__construct($url, $options);
         
-        $this->defaultHeaders = new Collection(
-            array('Content-Type' => 'application/json')
-        );
-        
         $this->addSubscriber(RequestSubscriber::getInstance());
     }
         
@@ -234,8 +230,11 @@ class OpenStack extends Client
      */
     public function authenticate()
     {
-        $response = $this->post('tokens', null, $this->getCredentials())->send();
-        $object = $response->getDecodedBody();
+        $headers = array('Content-Type' => 'application/json');
+        
+        $object = $this->post('tokens', $headers, $this->getCredentials())
+            ->send()
+            ->getDecodedBody();
 
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);

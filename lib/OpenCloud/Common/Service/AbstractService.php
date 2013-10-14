@@ -90,7 +90,9 @@ abstract class AbstractService extends Base
         $this->name = $name;
         $this->region = $region;
         $this->urlType = $urltype;
+        
         $this->endpoint = $this->findEndpoint();
+        $this->client->setBaseUrl($this->getBaseUrl());
     }
     
     public function setClient(Client $client)

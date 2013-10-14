@@ -18,25 +18,27 @@ use Guzzle\Http\ReadLimitEntityBody;
  * 
  * @link 
  */
-class ConcurrentTransfer
+class ConcurrentTransfer extends AbstractTransfer
 {
     
     public function setup()
     {
         parent::setup();
 
-        if (!$this->entityData->isLocal()) {
+        if (!$this->entityBody->isLocal()) {
             throw new RuntimeException('The entity data must be a local file stream when using concurrent transfers .');
         }
 
         if (empty($this->options['concurrency'])) {
             throw new RuntimeException('The `concurrency` option must be specified when using concurrent transfers.');
         }
+        
+        return $this;
     }
     
     public function transfer()
     {
-        $totalParts = (int) ceil($this->entityData->getContentLength() / $this->partSize);
+        $totalParts = (int) ceil($this->entityBody->getContentLength() / $this->partSize);
         $workers = min($totalParts, $this->options['concurrency']);
         $parts = $this->prepareParts($workers);
         
@@ -62,13 +64,13 @@ class ConcurrentTransfer
                 $requestQueue[] = UploadPart::createRequest(
                     $parts[$i], 
                     $this->transferState->count() + 1 + $i, 
-                    $this->getClient(), 
+                    $this->client, 
                     $this->options
                 );
             }
             
             // Iterate over our queued requests and process them
-            foreach ($this->getClient()->execute($requestQueue) as $response) {
+            foreach ($this->client->send($requestQueue) as $response) {
                 // Add this part to the TransferState
                 $this->transferState->addPart(UploadPart::fromResponse($response));
             }
@@ -77,9 +79,9 @@ class ConcurrentTransfer
     
     private function prepareParts($workers)
     {
-        //$uri = $this->entityData->getUrl();
+        //$uri = $this->entityBody->getUrl();
         
-        $firstPart = new ReadLimitEntityBody($this->entityData, $this->partSize);
+        $firstPart = new ReadLimitEntityBody($this->entityBody, $this->partSize);
         $array = array($firstPart);
         
         for ($i = 0; $i < $workers; $i++) {

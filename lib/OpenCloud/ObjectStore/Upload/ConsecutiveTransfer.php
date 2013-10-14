@@ -10,21 +10,28 @@
 
 namespace OpenCloud\ObjectStore\Upload;
 
+use Guzzle\Http\ReadLimitEntityBody;
+
 /**
  * Description of ConsecutiveTransfer
  * 
  * @link 
  */
-class ConsecutiveTransfer
+class ConsecutiveTransfer extends AbstractTransfer
 {
+    public function setup()
+    {
+        parent::setup();
+        return $this;
+    }
     
     public function transfer()
     {
-        while (!$this->entityData->isConsumed()) {
+        while (!$this->entityBody->isConsumed()) {
             
-            if ($this->entityData->getContentLength() && $this->entityData->isSeekable()) {
+            if ($this->entityBody->getContentLength() && $this->entityBody->isSeekable()) {
                 // Stream directly from the data
-                $body = new ReadLimitEntityBody($this->entityData, $this->partSize, $this->entityData->ftell());
+                $body = new ReadLimitEntityBody($this->entityBody, $this->partSize, $this->entityBody->ftell());
             } else {
                 // If not-seekable, read the data into a new, seekable "buffer"
                 $body = EntityBody::factory();
@@ -32,7 +39,7 @@ class ConsecutiveTransfer
                 while ($body->getContentLength() < $this->partSize && $output !== false) {
                     // Write maximum of 10KB at a time
                     $length = min(10 * Size::KB, $this->partSize - $body->getContentLength());
-                    $output = $body->write($this->entityData->read($length));
+                    $output = $body->write($this->entityBody->read($length));
                 }
             }
 
@@ -40,14 +47,14 @@ class ConsecutiveTransfer
                 break;
             }
 
-            $request = UploadPart::getRequest(
+            $request = UploadPart::createRequest(
                 $body, 
                 $this->transferState->count() + 1,
-                $this->getClient(), 
+                $this->client, 
                 $this->options
             );
             
-            $response = $request->getResponse();
+            $response = $request->send();
 
             $this->transferState->addPart(UploadPart::fromResponse($response));
         }

@@ -11,6 +11,7 @@
 namespace OpenCloud\ObjectStore\Upload;
 
 use OpenCloud\Common\Http\Message\Response;
+use Guzzle\Http\Url;
 
 /**
  * Description of UploadPart
@@ -94,8 +95,8 @@ class UploadPart
      */
     public static function createRequest($part, $number, $client, $options)
     {
-        $name = sprintf('%s_%s_%d', $options['objectName'], $options['prefix'], $number);
-        $uri = $options['containerUri']->getPath() + '/' + $name;
+        $name = sprintf('%s/%s/%d', $options['objectName'], $options['prefix'], $number);
+        $uri = $options['containerUri']->getPath() . '/' . $name;
         
         $headers = array(
             'Host'           => $options['containerUri']->getHost(),
@@ -106,12 +107,18 @@ class UploadPart
             $headers['ETag'] = $part->getContentMd5();
         }
         
-        return $client->put($uri, $headers, $part);
+        $request = $client->put($uri, $headers, $part);
+        
+        if (isset($options['progress'])) {
+            $request->getCurlOptions()->add('progress', true);
+        }
+        
+        return $request;
     }
     
-    public static function fromResponse(Response $response, $partNumber)
+    public static function fromResponse(Response $response, $partNumber = 1)
     {
-        $responseUri = Uri::factory($response->getEffectiveUrl());
+        $responseUri = Url::factory($response->getEffectiveUrl());
         
         $object = new self();
         

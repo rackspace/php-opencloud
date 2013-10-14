@@ -12,7 +12,6 @@ namespace OpenCloud\ObjectStore\Upload;
 
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use Guzzle\Http\EntityBody;
-use Guzzle\Http\Url;
 
 /**
  * Description of UploadManager
@@ -20,34 +19,16 @@ use Guzzle\Http\Url;
  * @link 
  */
 class UploadBuilder
-{ 
-    protected $partSize;
-    
-    protected $concurrency;
-    
+{  
     protected $container;
-    
-    protected $objectName;
     
     protected $entityData;
     
-    protected $options;
+    protected $options = array();
     
     public static function factory()
     {
         return new self();
-    }
-    
-    public function setPartSize($partSize)
-    {
-        $this->partSize = $partSize;
-        return $this;
-    }
-    
-    public function setConcurrency($concurrency)
-    {
-        $this->concurrency = $concurrency;
-        return $this;
     }
     
     /**
@@ -75,15 +56,15 @@ class UploadBuilder
         return $this;
     }
     
-    public function setContainer($container)
+    public function setOption($key, $value)
     {
-        $this->container = $container;
+        $this->options[$key] = $value;
         return $this;
     }
     
-    public function setObjectName($objectName)
+    public function setContainer($container)
     {
-        $this->objectName = $objectName;
+        $this->container = $container;
         return $this;
     }
     
@@ -108,29 +89,28 @@ class UploadBuilder
     public function build()
     {
         // Validate properties
-        if (!$this->container || !$this->entityData || !$this->objectName) {
+        if (!$this->container || !$this->entityData || !$this->options['objectName']) {
             throw new InvalidArgumentError('A container, entity body and object name must be set');
         }
         
         // Create TransferState object for later use
-        $this->transferState = new TransferState();
-        var_dump($this->container->getUrl());die;
+        $transferState = TransferState::factory();
+        
         // Bring in necessary options
         $this->options = array_merge($this->options, array(
-            'containerUri' => $this->container->getUrl(),
-            'objectName'   => $this->objectName,
-            'concurrency'  => $this->concurrency
+            'containerName' => $this->container->getName(),
+            'containerUri'  => $this->container->getUrl()
         ));
         
         // Instantiate Concurrent-/ConsecutiveTransfer 
-        $transferClass = $this->concurrency > 1 
-            ? 'ConcurrentTransfer' 
-            : 'ConsecutiveTransfer';
+        $transferClass = isset($this->options['concurrency']) && $this->options['concurrency'] > 1 
+            ? __NAMESPACE__ . '\\ConcurrentTransfer' 
+            : __NAMESPACE__ . '\\ConsecutiveTransfer';
         
-        return $transferClass::factory()
+        return $transferClass::newInstance()
             ->setClient($this->container->getClient())
-            ->setEntityData($this->entityData)
-            ->setTransferState($this->transferState)
+            ->setEntityBody($this->entityData)
+            ->setTransferState($transferState)
             ->setOptions($this->options)
             ->setup();
     }

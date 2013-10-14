@@ -26,10 +26,8 @@ class CDNContainer extends AbstractContainer
             ->head($this->getUrl($name), array('Accept' => '*/*'))
             ->setExceptionHandler(array(
                 404 => 'Container not found'
-            ));
-        //var_dump($this->getClient()->getToken());die;
-        var_dump((string) $response);die;
-            //->send();
+            ))
+            ->send();
         
         $headers = $response->getHeaders();
         

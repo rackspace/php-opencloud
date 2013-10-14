@@ -1,28 +1,27 @@
 <?php
+
 /**
  * PHP OpenCloud library.
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
-
 namespace OpenCloud\Common\Http\Message;
 
+use Guzzle\Http\Message\EntityEnclosingRequest as GuzzleEntityEnclosingRequest;
 use Guzzle\Common\Event;
-use Guzzle\Http\Message\Request as GuzzleRequest;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Guzzle\Http\Exception\RequestException;
-use Guzzle\Http\EntityBody;
 
 /**
- * Description of Request
+ * Description of EntityEnclosingRequest
  * 
  * @link 
  */
-class Request extends GuzzleRequest
-{
+class EntityEnclosingRequest extends GuzzleEntityEnclosingRequest
+{   
     /**#@+
      * @const string METHOD constant names
      */
@@ -81,15 +80,6 @@ class Request extends GuzzleRequest
         } elseif (is_callable($handlerResponse)) {
             return call_user_func($handlerResponse, $event['response']);
         }
-    }
-    
-    public function createRequest($method = 'GET', $uri = null, $headers = null, $body = null, array $options = array())
-    {
-        if ($body && isset($this->defaultHeaders['Content-Type'])) {
-            unset($this->defaultHeaders['Content-Type']);
-        }
-        
-        return parent::createRequest($method, $uri, $headers, $body, $options);
     }
     
 }

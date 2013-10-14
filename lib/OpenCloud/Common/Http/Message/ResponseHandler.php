@@ -89,18 +89,14 @@ class ResponseHandler
         if (in_array($status, $this->template)) {
 
             $config = $this->template[$status];
-            
-            if (isset($config['allow']) && $config['allow'] === true) {
-                
+            if (isset($config['allow']) && $config['allow'] === true) {   
                 if (!empty($config['callback'])) {
                     return $config['callback'];
-                }
-                
+                }   
             } else { 
                 $class = $config['class'];
                 return new $class($config['message']);
-            }        
-            
+            } 
         } elseif ($this->response->isError()) {
             // Otherwise, handle other errors
             return BadResponseException::factory($this->request, $this->response);

@@ -58,7 +58,7 @@ class ServerMetadata extends Metadata
                 Lang::translate('Metadata for [{url}] is [{body}]'), 
                 array(
                     'url'  => $this->getUrl(), 
-                    'body' => $response->getBody()
+                    'body' => $response->getDecodedBody()
                 )
             );
 

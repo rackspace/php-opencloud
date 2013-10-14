@@ -20,6 +20,24 @@ class TransferState
     
     protected $completedParts = array();
     
+    protected $running;
+    
+    public static function factory()
+    {
+        $self = new self();
+        return $self->init();
+    }
+    
+    public function getPart($key)
+    {
+        return $this->hasPart($key) ? $this->parts[$key] : null;
+    }
+    
+    public function hasPart($key)
+    {
+        return isset($this->parts[$key]);
+    }
+    
     public function addPart(UploadPart $part)
     {
         $this->completedParts[] = $part;
@@ -28,6 +46,25 @@ class TransferState
     public function count()
     {
         return count($this->completedParts);
+    }
+    
+    public function isRunning()
+    {
+        return $this->running;
+    }
+    
+    public function init()
+    {
+        $this->running = true;
+        
+        return $this;
+    }
+    
+    public function cancel()
+    {
+        $this->running = false;
+        
+        return $this;
     }
     
 }

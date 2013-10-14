@@ -11,6 +11,8 @@
 
 namespace OpenCloud\Common\Service;
 
+use OpenCloud\Common\Exceptions\InvalidArgumentError;
+
 /**
  * Description of Catalog
  * 
@@ -30,9 +32,11 @@ class Catalog
         } elseif ($config instanceof Catalog) {
             $catalog = $config;
         } else {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Argument for Catalog::factory must be either an array or an instance of %s',
-                get_class($this)
+            throw new InvalidArgumentError(sprintf(
+                'Argument for Catalog::factory must be either an array or an '
+                . 'instance of %s. You passed in: %s',
+                get_class($this),
+                print_r($config, true)
             ));
         }
         

@@ -13,6 +13,8 @@ namespace OpenCloud\ObjectStore\Upload;
 use Exception;
 use OpenCloud\Common\Http\Client;
 use Guzzle\Http\EntityBody;
+use OpenCloud\Common\Exceptions\RuntimeException;
+use OpenCloud\ObjectStore\Exception\UploadException;
 
 /**
  * Description of AbstractTransfer
@@ -21,9 +23,20 @@ use Guzzle\Http\EntityBody;
  */
 class AbstractTransfer
 {
+    /**
+     * Minimum chunk size is 1MB.
+     */
     const MIN_PART_SIZE = 1048576;
+    
+    /**
+     * Maximum chunk size is 5GB.
+     */
     const MAX_PART_SIZE = 5368709120;
-    const DEFAULT_PART_SIZE = 5242880;
+    
+    /**
+     * Default chunk size is 1GB.
+     */
+    const DEFAULT_PART_SIZE = 1073741824;
     
     protected $client;
     
@@ -34,15 +47,15 @@ class AbstractTransfer
     protected $options;
     
     protected $defaultOptions = array(
-        'concurrency' => true,
-        'partSize'    => self::MIN_PART_SIZE,
-        'prefix'      => 'segment',
+        'concurrency'    => true,
+        'partSize'       => self::DEFAULT_PART_SIZE,
+        'prefix'         => 'segment',
         'doPartChecksum' => true
     );
     
-    public static function factory()
+    public static function newInstance()
     {
-        return new self();
+        return new static();
     }
     
     public function setClient(Client $client)
@@ -68,6 +81,12 @@ class AbstractTransfer
         return $this->options;
     }
     
+    public function setOptions($options)
+    {
+        $this->options = $options;
+        return $this;
+    }
+    
     public function setOption($option, $value)
     {
         $this->options[$option] = $value;
@@ -76,26 +95,22 @@ class AbstractTransfer
     
     public function setup()
     {
-        $this->options = array_replace($this->defaultOptions, $this->options);
-        
-        $this->partSize = $this->calculatePartSize();
+        $this->options  = array_merge($this->defaultOptions, $this->options);
+        $this->partSize = $this->validatePartSize();
     }
     
-    protected function calculatePartSize()
+    protected function validatePartSize()
     {
-        // If no part-size is provided, use default
-        $partSize = $this->options['partSize'] ?: self::DEFAULT_PART_SIZE;
-        
         // Make sure it falls within a certain range
-        $partSize = min($partSize, self::MAX_PART_SIZE);
-        $partSize = max($partSize, self::MIN_PART_SIZE);
-
-        return $partSize;
+        return max(
+            min($this->options['partSize'], self::MAX_PART_SIZE), 
+            self::MIN_PART_SIZE
+        );
     }
     
     public function upload()
     {
-        if ($this->transferState->isAborted()) {
+        if (!$this->transferState->isRunning()) {
             throw new RuntimeException('The transfer has been aborted.');
         }
 
@@ -103,7 +118,7 @@ class AbstractTransfer
             $this->transfer();
             $result = $this->complete();
         } catch (Exception $e) {
-            throw new MultipartUploadException($this->transferState, $e);
+            throw new UploadException($this->transferState, $e);
         }
 
         return $result;
@@ -117,6 +132,7 @@ class AbstractTransfer
     private function createManifest()
     {
         $parts = array();
+        
         foreach ($this->transferState as $part) {
             $parts[] = (object) array(
                 'path'       => $part->getPath(),
@@ -127,19 +143,23 @@ class AbstractTransfer
         
         $headers = array(
             'Content-Length'    => 0,
-            'X-Object-Manifest' => sprintf('%s_%s', $this->options['objectName'], $this->options['prefix'])
+            'X-Object-Manifest' => sprintf('%s/%s/%s/', 
+                $this->options['containerName'],
+                $this->options['objectName'], 
+                $this->options['prefix']
+            )
         );
         
-        $body = null;
+        $body = '';
         
-        if ($this->isStaticLargeObject) {
-            $body = json_encode($parts);
-            $headers['Content-Length'] = strlen($body);
-        }
+//        if ($this->isStaticLargeObject) {
+//            $body = json_encode($parts);
+//            $headers['Content-Length'] = strlen($body);
+//        }
         
         $uri = $this->options['containerUri'] . '/' . $this->options['objectName'];
         
-        $response = $this->getClient()->put($uri, $headers, $body)->send();
+        $response = $this->client->put($uri, $headers, $body)->send();
         
         return $response;
     }
