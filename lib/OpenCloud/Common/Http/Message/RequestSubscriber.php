@@ -20,12 +20,12 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class RequestSubscriber implements EventSubscriberInterface
 {
     
-    public function factory()
+    public function getInstance()
     {
         return new self();
     }
     
-    public function getSubscribedEvents()
+    public static function getSubscribedEvents()
     {
         return array(
             

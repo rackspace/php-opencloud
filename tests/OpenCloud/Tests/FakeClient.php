@@ -14,7 +14,7 @@ namespace OpenCloud\Tests;
 use Exception;
 use OpenCloud\Rackspace;
 use OpenCloud\Common\Http\Message\EntityEnclosingRequest;
-use OpenCloud\Common\Http\Message\Response;
+use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Compute\Resource\ServerMetadata;
 

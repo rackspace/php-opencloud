@@ -17,6 +17,7 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Http\Message\RequestFactory;
+use Guzzle\Common\Collection;
 
 class OpenStack extends Client
 {
@@ -33,13 +34,15 @@ class OpenStack extends Client
 
         $this->setSecret($secret);
 
-        $this->setRequestFactory(RequestFactory::factory());
+        $this->setRequestFactory(RequestFactory::getInstance());
         
         parent::__construct($url, $options);
         
-        $this->defaultHeaders = array('Content-Type' => 'application/json');
+        $this->defaultHeaders = new Collection(
+            array('Content-Type' => 'application/json')
+        );
         
-        $this->addSubscriber(RequestSubscriber::factory());
+        $this->addSubscriber(RequestSubscriber::getInstance());
     }
         
     /**

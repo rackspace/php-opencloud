@@ -58,6 +58,7 @@ class Request extends GuzzleRequest
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->eventDispatcher->addListener('request.complete', array($this, 'onRequestCompletion'));
+        $this->eventDispatcher->addListener('request.complete', array($this, 'decodeBody'));
         
         return $this;
     }
@@ -78,6 +79,11 @@ class Request extends GuzzleRequest
         } elseif (is_callable($handlerResponse)) {
             return call_user_func($handlerResponse, $event['response']);
         }
+    }
+    
+    public function decodeBody(Event $event)
+    {
+        $event['response'] = json_decode($event['response']);
     }
     
 }
