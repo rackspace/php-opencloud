@@ -46,16 +46,15 @@ class CDNService extends AbstractService
             $urltype
         );
     }
-
-    /**
-     * Helps catch errors if someone calls the method on the
-     * wrong object
-     */
-    public function CDN()
+    
+	/**
+	 * This CDN service only allows publicURL, so override parent.
+	 *
+	 * {@inheritDoc}
+	 */
+    public function getBaseUrl()
     {
-        throw new Exceptions\CdnError(
-        	'Invalid method call; no CDN() on the CDN object'
-        );
+        return $this->getEndpoint()->getPublicUrl();
     }
 
 }

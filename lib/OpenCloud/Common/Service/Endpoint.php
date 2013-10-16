@@ -27,8 +27,8 @@ class Endpoint
         $endpoint = new self();
         $endpoint->setPublicUrl($object->publicURL);
         
-        if (isset($object->privateURL)) {
-            $endpoint->setPrivateUrl($object->privateURL);
+        if (isset($object->internalURL)) {
+            $endpoint->setPrivateUrl($object->internalURL);
         }
         if (isset($object->region)) {
             $endpoint->setRegion($object->region);

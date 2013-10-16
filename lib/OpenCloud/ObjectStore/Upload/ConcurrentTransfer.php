@@ -12,6 +12,8 @@ namespace OpenCloud\ObjectStore\Upload;
 
 use OpenCloud\Common\Exceptions\RuntimeException;
 use Guzzle\Http\ReadLimitEntityBody;
+use Guzzle\Http\EntityBody;
+use Guzzle\Batch\BatchBuilder;
 
 /**
  * Description of ConcurrentTransfer
@@ -40,13 +42,12 @@ class ConcurrentTransfer extends AbstractTransfer
     {
         $totalParts = (int) ceil($this->entityBody->getContentLength() / $this->partSize);
         $workers = min($totalParts, $this->options['concurrency']);
-        $parts = $this->prepareParts($workers);
-        
-        $requestQueue = array();
+        $parts = $this->collectParts($workers);
         
         while ($this->transferState->count() < $totalParts) {
             
             $completedParts = $this->transferState->count();
+            $requests = array();
             
             // Iterate over number of workers until total completed parts is what we need it to be
             for ($i = 0; $i < $workers && ($completedParts + $i) < $totalParts; $i++) {
@@ -59,35 +60,35 @@ class ConcurrentTransfer extends AbstractTransfer
                 if ($parts[$i]->getContentLength() == 0) {
                     break;
                 }
-                
+
                 // Add this to the request queue for later processing
-                $requestQueue[] = UploadPart::createRequest(
+                $requests[] = UploadPart::createRequest(
                     $parts[$i], 
-                    $this->transferState->count() + 1 + $i, 
+                    $this->transferState->count() + $i + 1, 
                     $this->client, 
                     $this->options
                 );
             }
-            
+
             // Iterate over our queued requests and process them
-            foreach ($this->client->send($requestQueue) as $response) {
+            foreach ($this->client->send($requests) as $response) {
                 // Add this part to the TransferState
                 $this->transferState->addPart(UploadPart::fromResponse($response));
             }
         }
     }
     
-    private function prepareParts($workers)
+    private function collectParts($workers)
     {
-        //$uri = $this->entityBody->getUrl();
+        $uri = $this->entityBody->getUri();
         
-        $firstPart = new ReadLimitEntityBody($this->entityBody, $this->partSize);
-        $array = array($firstPart);
+        $array = array(new ReadLimitEntityBody($this->entityBody, $this->partSize));
         
-        for ($i = 0; $i < $workers; $i++) {
-            $array[] = clone $firstPart;
+        for ($i = 1; $i < $workers; $i++) {
+        	// Need to create a fresh EntityBody, otherwise you'll get weird 408 responses
+            $array[] = new ReadLimitEntityBody(new EntityBody(fopen($uri, 'r')), $this->partSize);
         }
-        
+
         return $array;
     }
     

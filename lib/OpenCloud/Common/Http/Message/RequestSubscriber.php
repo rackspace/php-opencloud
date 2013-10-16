@@ -34,10 +34,17 @@ class RequestSubscriber implements EventSubscriberInterface
     
     public function doCurlProgress($options)
     {
-        return array(
-            'upload_size'   => $options['upload_size'],
-            'uploaded'      => $options['uploaded']
-        );
+    	if ($options['request']->getCurlOptions()->hasKey('progressCallback')) {
+	    	return call_user_func($options['request']->getCurlOptions()->get('progressCallback'));
+    	} else {
+	    	echo sprintf(
+	    		"Download size: [%d]\nDownloaded: [%d]\nUpload size: [%d]\nUploaded: [%d]\n",
+	    		$options['download_size'],
+				$options['downloaded'],
+            	$options['upload_size'],
+            	$options['uploaded']
+			);
+    	}
     }
     
 }

@@ -19,23 +19,5 @@ class CDNContainer extends AbstractContainer
 {
     const HEADER_METADATA_PREFIX = 'X-Cdn-';
     const HEADER_METADATA_UNSET_PREFIX = 'X-Remove-Cdn-';
-
-    public function refresh($name = null, $url = null)
-    {
-        $response = $this->getClient()
-            ->head($this->getUrl($name), array('Accept' => '*/*'))
-            ->setExceptionHandler(array(
-                404 => 'Container not found'
-            ))
-            ->send();
-        
-        $headers = $response->getHeaders();
-        
-        $this->count = $headers['X-Container-Object-Count'];
-        $this->bytes = $headers['X-Container-Bytes-Used'];
-        
-        // parse the returned object
-        $this->setMetadata($headers, true);
-    }
-
+    
 }
