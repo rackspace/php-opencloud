@@ -64,7 +64,6 @@ class DataObject extends AbstractStorageObject
 
     public function create($params = array(), $filename = null, $extractArchive = null)
     {
-        
     }
 
     public function update($params = array(), $filename = '')
