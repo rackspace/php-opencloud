@@ -124,4 +124,29 @@ abstract class AbstractContainer extends AbstractResource
         return $url;
     }
     
+    public function refresh($name = null, $url = null)
+    {
+        $response = $this->getClient()
+            ->head($this->getUrl($name), array('Accept' => '*/*'))
+            ->setExceptionHandler(array(
+                404 => 'Container not found'
+            ))
+            ->send();
+
+		$headers = $response->getHeaders();
+        $this->stockFromHeaders($headers);
+        
+        return $headers;  
+    }
+    
+    public function stockFromHeaders($headers)
+    {
+	    $this->objectCount = $headers['X-Container-Object-Count'];
+        $this->bytesUsed   = $headers['X-Container-Bytes-Used'];
+        
+        unset($headers['X-Container-Object-Count'], $headers['X-Container-Bytes-Used']);
+        
+        $this->setMetadata($headers, true);
+    }
+    
 }

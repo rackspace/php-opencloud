@@ -18,6 +18,7 @@ use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Http\Message\RequestFactory;
 use Guzzle\Common\Collection;
+use Guzzle\Http\Url;
 
 class OpenStack extends Client
 {
@@ -27,12 +28,14 @@ class OpenStack extends Client
     private $tenant;
     private $catalog;
     private $logger;
+    private $authUrl;
     
     public function __construct($url, array $secret, array $options = array())
     {
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
 
         $this->setSecret($secret);
+        $this->setAuthUrl($url);
 
         $this->setRequestFactory(RequestFactory::getInstance());
         
@@ -220,6 +223,17 @@ class OpenStack extends Client
             );
         }
     }
+    
+    public function setAuthUrl($url)
+    {
+	    $this->authUrl = $url;
+	    return $this;
+    }
+    
+    public function getAuthUrl()
+    {
+	    return Url::factory($this->authUrl)->addPath('tokens');
+    }
 
     /**
      * Authenticates using the supplied credentials
@@ -232,7 +246,7 @@ class OpenStack extends Client
     {
         $headers = array('Content-Type' => 'application/json');
         
-        $object = $this->post('tokens', $headers, $this->getCredentials())
+        $object = $this->post($this->getAuthUrl(), $headers, $this->getCredentials())
             ->send()
             ->getDecodedBody();
 

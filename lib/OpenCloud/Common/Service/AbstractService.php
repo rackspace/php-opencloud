@@ -120,6 +120,11 @@ abstract class AbstractService extends Base
         return $this->name;
     }
     
+    public function getEndpoint()
+    {
+	    return $this->endpoint;
+    }
+    
     /**
      * Backwards comp.
      */
@@ -424,7 +429,16 @@ abstract class AbstractService extends Base
             ? $this->endpoint->getPublicUrl() 
             : $this->endpoint->getPrivateUrl();
         
-        return rtrim($url, '/');
+        if ($url === null) {
+	        throw new Exceptions\ServiceException(sprintf(
+	        	'The base %s  could not be found. Perhaps the service'
+	        	. 'you are using requires a different URL type, or does '
+	        	. 'not support this region.',
+	        	$this->urlType
+		    ));
+        }
+        
+        return $url;
     }
 
 }

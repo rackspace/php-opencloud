@@ -14,6 +14,7 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use Guzzle\Http\EntityBody;
 use OpenCloud\ObjectStore\Upload\UploadBuilder;
+use OpenCloud\Common\Constants\Size;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -299,16 +300,12 @@ class Container extends AbstractContainer
      */
     public function refresh($id = null, $url = null)
     {
-        parent::refresh($id, $url);
+        $headers = parent::refresh($id, $url);
         
-        if (null !== ($cdn = $this->getService()->getCDNService())) {
-            try {
-                $this->cdn = new CDNContainer($cdn, $this->name);
-            } catch (Exceptions\ContainerNotFoundError $e) {
-                $this->cdn = new CDNContainer($cdn);
-                $this->cdn->name = $this->name;
-            }
-        }
+        // Populate new object with existing headers (to avoid extra request)
+        $this->cdn = new CDNContainer($this->getService()->getCDNService());
+        $this->cdn->name = $this->name;
+        $this->cdn->stockFromHeaders($headers);
     }
     
     /**
@@ -345,18 +342,38 @@ class Container extends AbstractContainer
     {
         $requests = array();
         
-        foreach ($files as $name => $body) {
+        foreach ($files as $entity) {
+            
+            if (empty($entity['name'])) {
+	            throw new Exceptions\InvalidArgumentError('You must provide a name.');
+	        }
+            
+            if (!empty($entity['path']) && file_exists($entity['path'])) {
+            	if (!$body = fopen($entity['path'], 'r+')) {
+	            	throw new Exceptions\InvalidArgumentError('This path could not be opened for reading.');
+            	}
+	        } elseif (!empty($entity['body'])) {
+	            $body = $entity['body'];
+	        } else {
+	            throw new Exceptions\InvalidArgumentError('You must provide either a readable path or a body');
+	        }
+	        
             $entityBody = EntityBody::factory($body);
+
             if ($entityBody->getContentLength() >= 5 * Size::GB) {
                 throw new Exceptions\InvalidArgumentError(
                     'For multiple uploads, you cannot upload more than 5GB per '
                     . ' file. Use the UploadBuilder for larger files.'
                 );
             }
-            $requests[] = $this->getClient()->put($this->getUrl($name), $headers, $body);
+            
+            $url = clone $this->getUrl();
+            $url->addPath($entity['name']);
+
+            $requests[] = $this->getClient()->put($url, $headers, $entityBody);
         }
         
-        return $this->getClient()->execute($requests);
+        return $this->getClient()->send($requests);
     }
     
     public function uploadObject(array $options = array())
@@ -367,18 +384,18 @@ class Container extends AbstractContainer
         }
 
         // As is some form of entity body
-        if (!empty($options['path'])) {
-            $body = $options['path'];
+        if (!empty($options['path']) && is_readable($options['path'])) {
+            $body = fopen($options['path'], 'r+');
         } elseif (!empty($options['body'])) {
-            $body = $options['path'];
+            $body = $options['body'];
         } else {
-            throw new Exceptions\InvalidArgumentError('You must provide either a path or a body');
+            throw new Exceptions\InvalidArgumentError('You must provide either a readable path or a body');
         }
         
         // Build upload
         $uploader = UploadBuilder::factory()
             ->setOption('objectName', $options['name'])
-            ->setEntityData($body)
+            ->setEntityBody(EntityBody::factory($body))
             ->setContainer($this);
         
         // Add extra options
