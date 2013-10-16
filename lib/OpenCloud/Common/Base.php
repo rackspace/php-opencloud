@@ -45,14 +45,20 @@ abstract class Base
         $property = lcfirst(substr($method, 3));
 
         // Do getter
-        if ($prefix == 'get') {
-            return $this->getProperty($property);
+        if ($prefix == 'get' && ($value = $this->getProperty($property))) {
+            return $value;
         }
 
         // Do setter
-        if ($prefix == 'set') {
-            return $this->setProperty($property, $args[0]);
+        if ($prefix == 'set' && ($value = $this->setProperty($property, $args[0]))) {
+            return $value;
         }
+        
+        throw new Exceptions\RuntimeException(sprintf(
+        	'No method %s::%s()', 
+        	get_class($this), 
+        	$method
+		));
     }
         
     /**

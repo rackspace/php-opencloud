@@ -22,7 +22,7 @@ class UploadBuilder
 {  
     protected $container;
     
-    protected $entityData;
+    protected $entityBody;
     
     protected $options = array();
     
@@ -68,28 +68,16 @@ class UploadBuilder
         return $this;
     }
     
-    public function setEntityData($data)
+    public function setEntityBody(EntityBody $entityBody)
     {
-        // Handle string pathnames and other types that can be converted
-        if (is_string($data)) {
-            if (!file_exists($data)) {
-                throw new InvalidArgumentError(
-                    'If a string is provided for the entity data, it must reference a valid pathname.'
-                );
-            }
-            clearstatcache(true, $data);
-            $data = fopen($data, 'r');
-        }
-        
-        $this->entityData = EntityBody::factory($data);
-        
+        $this->entityBody = $entityBody;
         return $this;
     }
     
     public function build()
     {
         // Validate properties
-        if (!$this->container || !$this->entityData || !$this->options['objectName']) {
+        if (!$this->container || !$this->entityBody || !$this->options['objectName']) {
             throw new InvalidArgumentError('A container, entity body and object name must be set');
         }
         
@@ -109,7 +97,7 @@ class UploadBuilder
         
         return $transferClass::newInstance()
             ->setClient($this->container->getClient())
-            ->setEntityBody($this->entityData)
+            ->setEntityBody($this->entityBody)
             ->setTransferState($transferState)
             ->setOptions($this->options)
             ->setup();

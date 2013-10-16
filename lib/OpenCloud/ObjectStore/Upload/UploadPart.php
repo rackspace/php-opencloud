@@ -96,23 +96,27 @@ class UploadPart
     public static function createRequest($part, $number, $client, $options)
     {
         $name = sprintf('%s/%s/%d', $options['objectName'], $options['prefix'], $number);
-        $uri = $options['containerUri']->getPath() . '/' . $name;
-        
+        $url  = clone $options['containerUri'];
+        $url->addPath($name);
+
         $headers = array(
-            'Host'           => $options['containerUri']->getHost(),
-            'Content-Length' => $part->getContentLength()
-        );
+            'Content-Length' => $part->getContentLength(),
+            'Content-Type'   => $part->getContentType()
+		);
         
         if ($options['doPartChecksum'] === true) {
             $headers['ETag'] = $part->getContentMd5();
         }
         
-        $request = $client->put($uri, $headers, $part);
+        $request = $client->put($url, $headers, $part);
         
         if (isset($options['progress'])) {
             $request->getCurlOptions()->add('progress', true);
+            if (is_callable($options['progress'])) {
+	            $request->getCurlOptions()->add('progressCallback', $options['progress']);
+            }
         }
-        
+
         return $request;
     }
     

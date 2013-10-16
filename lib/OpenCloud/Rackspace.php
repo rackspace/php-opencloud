@@ -34,7 +34,9 @@ use OpenCloud\Common\Service\ServiceBuilder;
  */
 class Rackspace extends OpenStack
 {
-
+	const US_IDENTITY_ENDPOINT = 'https://identity.api.rackspacecloud.com/v2.0/';
+	const UK_IDENTITY_ENDPOINT = 'https://lon.identity.api.rackspacecloud.com/v2.0/';
+	
     /**
      * JSON template for Rackspace credentials
      */
