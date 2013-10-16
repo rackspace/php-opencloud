@@ -12,7 +12,6 @@
 
 namespace OpenCloud\Tests\Common;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Common\Base;
 use OpenCloud\Common\Lang;
 
@@ -22,12 +21,9 @@ use OpenCloud\Common\Lang;
 class MyBase extends Base
 {
 
-    public $foo; // to test SetProperty
-    
+    public $foo;
     protected $bar;
-    
     private $baz;
-    
     private $metadata;
     
     public function setBar($bar)
@@ -39,30 +35,18 @@ class MyBase extends Base
     {
         return $this->bar;
     }
-    
-    public function getHttpRequestObject($url, $method = 'GET', array $options = array())
-    {
-        return parent::GetHttpRequestObject($url, $method);
-    }
-
 }
 
-class BaseTest extends PHPUnit_Framework_TestCase
+class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $my;
 
-    /**
-     * Create our redirected Base class
-     */
     public function __construct()
     {
         $this->my = new MyBase;
     }
 
-    /**
-     * Tests
-     */
     public function test_gettext()
     {
         $this->assertEquals(Lang::translate('Hello'), 'Hello');
@@ -120,37 +104,6 @@ class BaseTest extends PHPUnit_Framework_TestCase
     public function testUrl()
     {
         $this->my->Url();
-    }
-
-    public function testGetHttpRequestObject()
-    {
-        $request = $this->my->GetHttpRequestObject('file:/dev/null');
-        $this->assertEquals(
-            'OpenCloud\Common\Request\Curl', get_class($request));
-    }
-
-    public function testMakeQueryString()
-    {
-        $this->assertEquals(
-            'A=1', $this->my->MakeQueryString(array('A' => 1)));
-        $this->assertEquals(
-            'A=1&B=2', $this->my->MakeQueryString(array('A' => 1, 'B' => 2)));
-        $this->assertEquals(
-            'A=1&B=False', $this->my->MakeQueryString(array('A' => 1, 'B' => FALSE)));
-        $this->assertEquals(
-            'A=1&B=True', $this->my->MakeQueryString(array('A' => 1, 'B' => TRUE)));
-    }
-
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\JsonError
-     */
-    public function testCheckJsonError()
-    {
-        $obj = json_decode('{"one":"two"}');
-        $this->my->CheckJsonError();
-        
-        $obj = json_decode('{"one":"two"');
-        $this->my->CheckJsonError();
     }
 
     public function testSetProperty()

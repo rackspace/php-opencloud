@@ -9,47 +9,34 @@
 
 namespace OpenCloud\Tests\LoadBalancer;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\LoadBalancer\Resource\SubResource;
-use OpenCloud\LoadBalancer\Resource\LoadBalancer;
-use OpenCloud\LoadBalancer\Service;
-use OpenCloud\Tests\StubConnection;
-
-class MySubResource extends SubResource
+class MySubResource extends \OpenCloud\Tests\OpenCloudTestCase
 {
     public $id;
-    
     public static $json_name = 'ignore';
     public static $url_resource = 'ignore';
-    
     protected $createKeys = array('id');
 
-    public function CreateJson()
+    public function createJson()
     {
-        return parent::CreateJson();
+        return parent::createJson();
     }
 
-    public function UpdateJson($params = array())
+    public function updateJson($params = array())
     {
-        return parent::UpdateJson($params);
+        return parent::updateJson($params);
     }
-
 }
 
-class LoadBalancerTest extends PHPUnit_Framework_TestCase
+class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $connection;
     private $service;
     private $loadBalancer;
 
     public function __construct()
     {
-        $this->connection = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $this->connection, 'cloudLoadBalancers', 'DFW', 'publicURL'
-        );
-        $this->loadBalancer = new LoadBalancer($this->service);
+        $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
+        $this->loadBalancer = $this->service->loadBalancer();
     }
 
     /**
@@ -68,9 +55,11 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveNode()
     {
-        $lb = $this->service->LoadBalancer(2000);
-        $resp = $lb->removeNode(1041);
-        $this->assertEquals(202,$resp->status);
+        $lb = $this->service->LoadBalancer();
+        //$lb->Create();
+        $lb->AddNode('1.1.1.1', 80);
+        $lb->Create();
+        $lb->AddNodes(); 
     }
 
     /**
@@ -94,8 +83,8 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\LoadBalancer', 
-            $lb->Node('345')->Parent()
+            'OpenCloud\LoadBalancer\Resources\LoadBalancer', 
+            $lb->Node('345')->getParent()
         );
         
         $this->assertEquals(
@@ -195,9 +184,9 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
     public function testStats()
     {
         $this->loadBalancer->id = 1024;
-        $x = $this->loadBalancer->Stats();
-        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resource\Stats', $x);
-        $this->assertEquals(10, $x->connectTimeOut);
+
+        $x = $this->loadBalancer->stats();
+        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resources\Stats', $x);
     }
 
     public function testUsage()
@@ -297,30 +286,6 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testSubResource()
-    {
-        $this->loadBalancer->id = '42';
-        
-        $sub = new MySubResource($this->service, '42');
-        $sub->setParent($this->loadBalancer);
-        
-        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource', get_class($sub));
-        
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/42/ignore', 
-            $sub->Url('foo', array('one' => 1)
-        ));
-        
-        $obj = $sub->UpdateJson();
-        $json = json_encode($obj);
-        
-        $this->assertEquals('{"ignore":{"id":"42"}}', $json);
-        
-        $this->assertEquals($this->loadBalancer, $sub->getParent());
-        
-        $this->assertEquals('OpenCloud\Tests\LoadBalancer\MySubResource-42', $sub->Name());
-    }
-
     public function testUpdate()
     {
 
@@ -333,7 +298,7 @@ class LoadBalancerTest extends PHPUnit_Framework_TestCase
             'port' => '8080'
         ));
 
-        $this->assertNotNull($resp->HttpStatus());
+        $this->assertNotNull($resp->getStatusCode());
 
         $this->assertEquals('ROUND_ROBIN',$lb->algorithm);
         $this->assertEquals('HTTP',$lb->protocol);

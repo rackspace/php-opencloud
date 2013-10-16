@@ -1,11 +1,11 @@
 <?php
 /**
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- * @package phpOpenCloud
- * @version 1.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Common;
@@ -45,14 +45,20 @@ abstract class Base
         $property = lcfirst(substr($method, 3));
 
         // Do getter
-        if ($prefix == 'get') {
-            return $this->getProperty($property);
+        if ($prefix == 'get' && ($value = $this->getProperty($property))) {
+            return $value;
         }
 
         // Do setter
-        if ($prefix == 'set') {
-            return $this->setProperty($property, $args[0]);
+        if ($prefix == 'set' && ($value = $this->setProperty($property, $args[0]))) {
+            return $value;
         }
+        
+        throw new Exceptions\RuntimeException(sprintf(
+        	'No method %s::%s()', 
+        	get_class($this), 
+        	$method
+		));
     }
         
     /**
@@ -174,6 +180,8 @@ abstract class Base
                 return call_user_func(array($this, $method));
             }
         }
+        
+        return null;
     }
     
     /**
@@ -208,11 +216,16 @@ abstract class Base
      *
      * @throws UrlError
      */
-    public function url($subresource = '')
+    public function getUrl($path = null, array $query = array())
     {
         throw new UrlError(Lang::translate(
             'URL method must be overridden in class definition'
         ));
+    }
+    
+    public function url($path = null, array $query = array())
+    {
+        return $this->getUrl($path, $query);
     }
 
     /**
@@ -251,7 +264,7 @@ abstract class Base
 
                     // Associated resource
                     try {
-                        $resource = $this->service()->resource($this->associatedResources[$key], $value);
+                        $resource = $this->getService()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
                         $this->setProperty($key, $resource);
                     } catch (Exception\ServiceException $e) {}
@@ -260,9 +273,15 @@ abstract class Base
 
                     // Associated collection
                     try {
-                        $this->setProperty($key, $this->getService()->resourceList(
-                            $this->associatedCollections[$key], null, $this
-                        )); 
+                        //$collection = $this->getService()->resourceList(
+                        //    $this->associatedCollections[$key], null, $this
+                        //);
+                        $collection = new Collection(
+                            $this->getService(), 
+                            $this->associatedCollections[$key], 
+                            $value
+                        );
+                        $this->setProperty($key, $collection); 
                     } catch (Exception\ServiceException $e) {}
                     
                 } elseif (!empty($this->aliases[$key])) {
@@ -323,7 +342,7 @@ abstract class Base
      * 
      * @codeCoverageIgnore
      */
-    public function checkJsonError()
+    public static function checkJsonError()
     {
         switch (json_last_error()) {
             case JSON_ERROR_NONE:
@@ -351,16 +370,6 @@ abstract class Base
         if (isset($jsonError)) {
             throw new JsonError(Lang::translate($jsonError));
         }
-    }
-
-    /**
-     * Returns a class that implements the HttpRequest interface.
-     *
-     * This can be stubbed out for unit testing and avoid making live calls.
-     */
-    public function getHttpRequestObject($url, $method = 'GET', array $options = array())
-    {
-        return new Request\Curl($url, $method, $options);
     }
 
     /**

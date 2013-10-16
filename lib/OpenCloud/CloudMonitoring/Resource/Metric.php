@@ -1,4 +1,12 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
@@ -6,10 +14,8 @@ use OpenCloud\CloudMonitoring\Exception;
 
 /**
  * Metric class.
- * 
- * @extends ReadOnlyResource
  */
-class Metric extends ReadOnlyResource implements ResourceInterface
+class Metric extends ReadOnlyResource
 {
 
     protected static $json_name = 'metrics';

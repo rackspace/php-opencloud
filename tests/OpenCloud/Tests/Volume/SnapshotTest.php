@@ -12,31 +12,15 @@
 
 namespace OpenCloud\Tests\Volume;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\Volume\Service;
-use OpenCloud\Volume\Resource\Snapshot;
-
-class publicSnapshot extends Snapshot
+class SnapshotTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    public function CreateJson()
-    {
-        return parent::createJson();
-    }
-
-}
-
-class SnapshotTest extends PHPUnit_Framework_TestCase
-{
-
-    private $snap;
+    private $snapshot;
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $serv = new Service($conn, 'cloudBlockStorage', 'DFW', 'publicURL');
-        $this->snap = new publicSnapshot($serv);
+        $service = $this->getClient()->volumeService('cloudBlockStorage', 'DFW');
+        $this->snapshot = $service->snapshot();
     }
 
     /**
@@ -44,30 +28,23 @@ class SnapshotTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdate()
     {
-        $this->snap->Update();
+        $this->snapshot->Update();
     }
 
     public function testName()
     {
-        $this->snap->display_name = 'FOOBAR';
-        $this->assertEquals('FOOBAR', $this->snap->Name());
+        $this->snapshot->display_name = 'FOOBAR';
+        $this->assertEquals('FOOBAR', $this->snapshot->Name());
     }
 
     public function testJsonName()
     {
-        $this->assertEquals('snapshot', $this->snap->JsonName());
+        $this->assertEquals('snapshot', $this->snapshot->JsonName());
     }
 
     public function testResourceName()
     {
-        $this->assertEquals('snapshots', $this->snap->ResourceName());
-    }
-
-    public function testCreateJson()
-    {
-        $this->snap->display_name = 'BARFOO';
-        $obj = $this->snap->createJson();
-        $this->assertEquals('BARFOO', $obj->snapshot->display_name);
+        $this->assertEquals('snapshots', $this->snapshot->ResourceName());
     }
 
 }

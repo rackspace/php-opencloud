@@ -12,7 +12,6 @@
 
 namespace OpenCloud\Tests\Common;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Common\Collection;
 
 class Gertrude
@@ -41,7 +40,7 @@ class Ethel
     }
 }
 
-class CollectionTest extends PHPUnit_Framework_TestCase
+class CollectionTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $my;

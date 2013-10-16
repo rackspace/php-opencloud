@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -47,6 +46,8 @@ use OpenCloud\Common\Exceptions;
  */
 class Service extends Nova 
 {
+    
+    const DEFAULT_NAME = 'cloudServersOpenStack';
 
     /**
      * Called when creating a new Compute service object
@@ -86,23 +87,8 @@ class Service extends Nova
             ));
         }
 
-        $this->load_namespaces();
-        $this->_namespaces[] = 'OS-FLV-DISABLED';
-    }
-
-    /**
-     * Returns the selected endpoint URL of this compute Service
-     *
-     * @param string $resource - an optional child resource. For example,
-     *      passing 'details' would return .../servers/details. Should *not* be
-     *    prefixed with a slash (/).
-     * @param array $args (optional) an array of key-value pairs for query
-     *      strings to append to the URL
-     * @returns string - the requested URL
-     */
-    public function url($resource = 'servers', array $args = array()) 
-    {
-        return parent::Url($resource, $args);
+        $this->loadNamespaces();
+        $this->namespaces[] = 'OS-FLV-DISABLED';
     }
 
     /**

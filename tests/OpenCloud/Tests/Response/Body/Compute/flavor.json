@@ -1,0 +1,22 @@
+{
+    "flavor": {
+        "OS-FLV-DISABLED:disabled": false, 
+        "disk": 20, 
+        "id": "2", 
+        "links": [
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/v2/010101/flavors/2", 
+                "rel": "self"
+            }, 
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/010101/flavors/2", 
+                "rel": "bookmark"
+            }
+        ], 
+        "name": "512MB Standard Instance", 
+        "ram": 512, 
+        "rxtx_factor": 2.0, 
+        "swap": 512, 
+        "vcpus": 1
+    }
+}

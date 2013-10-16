@@ -1,9 +1,9 @@
 <?php
 /**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -11,7 +11,6 @@
 namespace OpenCloud\Queues\Resource;
 
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Exceptions\UpdateError;
 
 /**
  * A worker claims or checks out a message to perform a task. Doing so prevents 
@@ -89,9 +88,6 @@ class Claim extends PersistentObject
         return $this->id;
     }
     
-    /**
-     * {@inheritDoc}
-     */
     public function create($params = array())
     {
         return $this->noCreate();
@@ -114,17 +110,9 @@ class Claim extends PersistentObject
         $json = json_encode($object);
         $this->checkJsonError();
 
-        $response = $this->getService()->request($this->url(), 'PATCH', array(), $json);
-
-        if ($response->httpStatus() != 204) {
-            throw new UpdateError(sprintf(
-                'Error updating [%s] with [%s], status [%d] response [%s]',
-                get_class($this),
-                $json,
-                $response->HttpStatus(),
-                $response->HttpBody()
-            ));
-        }
+        $this->getClient()->patch($this->url(), array(), $json)
+            ->setExpectedResponse(204)
+            ->send();
 
         return true;
     }

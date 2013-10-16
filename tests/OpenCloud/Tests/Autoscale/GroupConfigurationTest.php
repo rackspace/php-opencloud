@@ -10,15 +10,14 @@
 
 namespace OpenCloud\Tests\Autoscale;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Autoscale\Resource\GroupConfiguration;
-use OpenCloud\Autoscale\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class GroupConfigurationTest extends PHPUnit_Framework_TestCase 
+class GroupConfigurationTest extends OpenCloudTestCase 
 {
 
     const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
-    const GROUP_ID = '{groupId}';
+    const GROUP_ID = 'groupId';
     
     const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
     const CONFIG_CLASS     = 'OpenCloud\Autoscale\Resource\GroupConfiguration';
@@ -28,12 +27,7 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
     
     public function __construct()
     {
-        $connection = new FakeConnection(
-            'http://example.com', 
-            'SECRET'
-        );
-
-        $this->service = new Service($connection, 'autoscale', 'DFW', 'publicURL', self::ENDPOINT); 
+        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
     }
     
     public function testParentFactory()
@@ -63,7 +57,7 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
         
         $this->assertInstanceOf(
             self::GROUP_CLASS,
-            $config->parent()
+            $config->getParent()
         );
     }
     
@@ -75,7 +69,7 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
         $config = $group->getGroupConfig();
 
         $this->assertEquals(60, $config->cooldown);
-        $this->assertEquals('thisisastring', $config->metadata->firstkey);
+        $this->assertEquals('this is a string', $config->metadata->firstkey);
     }
     
     public function testLaunchConfig()
@@ -93,7 +87,7 @@ class GroupConfigurationTest extends PHPUnit_Framework_TestCase
         $server = $config->getArgs()->server;
         $this->assertEquals('0d589460-f177-4b0f-81c1-8ab8903ac7d8', $server->imageRef);
         $this->assertEquals(
-            'ssh-rsaAAAAB3Nza...LiPk==user@example.net',
+            'ssh-rsa AAAAB3Nza...LiPk== user@example.net',
             $server->personality[0]->contents
         );
     }

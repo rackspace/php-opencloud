@@ -10,30 +10,23 @@
 
 namespace OpenCloud\Tests\Autoscale;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Autoscale\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class GroupTest extends PHPUnit_Framework_TestCase 
+class GroupTest extends OpenCloudTestCase 
 {
     
     const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
-    const GROUP_ID = '{groupId}';
+    const GROUP_ID = 'groupId';
     const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
     
     private $service;
     
     public function __construct()
     {
-        $connection = new FakeConnection(
-            'http://example.com', 
-            'SECRET'
-        );
-
-        $this->service = new Service($connection, 'autoscale', 'DFW', 'publicURL', self::ENDPOINT);
-        
+        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
     }
     
-    public function testGroup()
+    public function test_Group()
     {
         $group = $this->service->group();
         $group->refresh(self::GROUP_ID);
@@ -58,8 +51,9 @@ class GroupTest extends PHPUnit_Framework_TestCase
         );
         
         // Test individual resources in collection
-        $first = $group->getScalingPolicies()->First();
-        $this->assertEquals(150, $first->cooldown);
+        $first = $group->getScalingPolicies()->first();
+        
+        $this->assertEquals(150, $first->getCooldown());
         $this->assertInstanceOf('OpenCloud\Autoscale\Resource\ScalingPolicy', $first);
     }
     

@@ -12,10 +12,8 @@
 
 namespace OpenCloud\Tests\Common;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Compute\Service as ComputeService;
-use OpenCloud\Tests\StubConnection;
 
 // make a real class from the abstract one
 class MyPersistentObject extends PersistentObject
@@ -81,7 +79,7 @@ class NamelessObject extends PersistentObject
 {
 }
 
-class PersistentObjectTest extends PHPUnit_Framework_TestCase
+class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $service;
@@ -89,9 +87,8 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
         $this->service = new ComputeService(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
+            $this->getClient(), 'cloudServersOpenStack', 'DFW', 'publicURL'
         );
         $this->instance = new MyPersistentObject($this->service);
     }
@@ -236,12 +233,12 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
 
     public function testService()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->Service());
+        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->getService());
     }
 
     public function testParent()
     {
-        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->Parent());
+        $this->assertInstanceOf('OpenCloud\Compute\Service', $this->instance->getParent());
     }
 
     /**
@@ -276,7 +273,7 @@ class PersistentObjectTest extends PHPUnit_Framework_TestCase
     }
         
     /**
-     * @expectedException OpenCloud\Common\Exceptions\ServiceValueError
+     * @expectedException OpenCloud\Common\Exceptions\ServiceException
      */
     public function testGettingServiceFailsIfNotSet()
     {

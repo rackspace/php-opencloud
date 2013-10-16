@@ -1,9 +1,9 @@
 <?php
 /**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.1
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -11,8 +11,9 @@
 namespace OpenCloud\Queues;
 
 use OpenCloud\OpenStack;
-use OpenCloud\Common\Service as AbstractService;
+use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use Guzzle\Http\Exception\BadResponseException;
 
 /**
  * Cloud Queues is an open source, scalable, and highly available message and 
@@ -54,6 +55,8 @@ use OpenCloud\Common\Exceptions\InvalidArgumentError;
  */
 class Service extends AbstractService
 {
+    const DEFAULT_NAME = 'cloudQueues';
+    
     /**
      * An arbitrary string used to differentiate your worker/subscriber. This is
      * needed, for example, when you return back a list of messages and want to
@@ -89,22 +92,6 @@ class Service extends AbstractService
             $connection, 'rax:queues', $serviceName, $serviceRegion, $urlType
         );
     } 
-    
-    /**
-     * Need to augment parent method to add feature-specific headers. 
-     * 
-     * {@inheritDoc}
-     */
-    public function request($url, $method = 'GET', array $headers = array(), $body = null)
-    {
-        if (preg_match('#https?:#', $url) === 0) {
-            $url = $this->service_url . preg_replace('#^/v\d(\.\d)?#', '', $url);
-        }
-        
-        $headers['Client-ID'] = $this->getClientId();
-        
-        return parent::request($url, $method, $headers, $body);
-    }
     
     /**
      * This operation lists queues for the project, sorting the queues 
@@ -156,9 +143,18 @@ class Service extends AbstractService
             ));
         }
         
-        $response = $this->request($this->url("queues/$name"), 'HEAD');
-        
-        return $response->httpStatus() == 204;
+        try {
+            
+            $this->getClient()
+                ->head($this->url("queues/$name"))
+                ->setExpectedResponse(204)
+                ->send();
+            
+            return true;
+            
+        } catch (BadResponseException $e) {
+            return false;
+        } 
     }
     
 }

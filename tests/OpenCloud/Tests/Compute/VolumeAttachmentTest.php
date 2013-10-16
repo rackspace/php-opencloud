@@ -12,20 +12,16 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
 use OpenCloud\Compute\Resource\Server;
 
-class VolumeAttachmentTest extends PHPUnit_Framework_TestCase
+class VolumeAttachmentTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $attachment;
 
     public function __construct()
     {
-        $connection = new StubConnection('http://example.com', 'SECRET');
-        $service = $connection->compute(null, 'DFW');
-
+        $service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
         $server = new Server($service, 'XXX');
         $this->attachment = $server->volumeAttachment('FOO');
     }

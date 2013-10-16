@@ -12,25 +12,17 @@
 
 namespace OpenCloud\Tests\Database;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\Database\Resource\Database;
-use OpenCloud\Database\Resource\Instance;
-use OpenCloud\Database\Service;
-
-class DatabaseTest extends PHPUnit_Framework_TestCase
+class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $inst;
-    private $db;
+    private $instance;
+    private $database;
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $dbaas = new Service($conn, 'cloudDatabases', 'DFW', 'publicURL');
-        $this->inst = new Instance($dbaas);
-        $this->inst->id = '12345678';
-        $this->db = new Database($this->inst);
+        $service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
+        $this->instance = $service->instance('56a0c515-9999-4ef1-9fe2-76be46a3aaaa');
+        $this->database = $this->instance->database();
     }
 
     /**
@@ -38,15 +30,15 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
      */
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\Database\Resource\Database', $this->db);
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Database', $this->database);
     }
 
     public function testUrl()
     {
-        $this->db->name = 'TEST';
+        $this->database->name = 'TEST';
         $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
-            'TENANT-ID/instances/12345678/databases/TEST', $this->db->url()
+            'https://dfw.databases.api.rackspacecloud.com/v1.0/9999/instances/56a0c515-9999-4ef1-9fe2-76be46a3aaaa/databases/TEST', 
+            (string) $this->database->url()
         );
     }
 
@@ -54,15 +46,15 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\Database\Resource\Instance', 
-            $this->db->instance()
+            $this->database->instance()
         );
     }
 
     public function testCreate()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
-            $this->db->create(array('name' => 'FOOBAR'))
+            'OpenCloud\Common\Http\Message\Response', 
+            $this->database->create(array('name' => 'FOOBAR'))
         );
     }
 
@@ -71,25 +63,18 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
      */
     public function testUpdate()
     {
-        $this->db->update();
+        $this->database->update();
     }
 
     public function testDelete()
     {
-        $this->db->name = 'FOOBAR';
+        $this->database->name = 'FOOBAR';
         $this->assertInstanceOf(
-            'OpenCloud\Common\Request\Response\Blank', 
-            $this->db->delete()
+            'OpenCloud\Common\Http\Message\Response', 
+            $this->database->delete()
         );
     }
+    
 
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\DatabaseNameError
-     */
-    public function testUrlFailsWithoutName()
-    {
-        $db = new Database($this->inst);
-        $db->url();
-    }
     
 }

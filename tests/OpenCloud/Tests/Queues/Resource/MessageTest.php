@@ -10,22 +10,17 @@
 
 namespace OpenCloud\Tests\Queues\Resource;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Queues\Resource\Message;
-use OpenCloud\Queues\Service;
-use OpenCloud\Tests\StubConnection;
 
-class MessageTest extends PHPUnit_Framework_TestCase 
+class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase 
 {
-    private $connection;
     private $service;
     private $queue;
     private $message;
     
     public function __construct()
     {
-        $this->connection = new StubConnection('foo', 'bar');
-        $this->service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $this->service = $this->getClient()->queues('cloudQueues', 'ORD');
         $this->queue = $this->service->getQueue()->setName('foo');
         $this->message = $this->queue->listMessages()->first();           
     }
@@ -66,11 +61,12 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $response = $this->queue->setName('test-queue')->createMessages(array(
             array('body' => 'Do homework', 'ttl' => 3600)
         ));
+        
         $this->assertTrue($response);
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
      */
     public function test_Batch_Create_Fails_When_Queue_Not_Found()
     {
@@ -102,14 +98,5 @@ class MessageTest extends PHPUnit_Framework_TestCase
         $this->message->setId('foo');
         $this->message->delete();
     }
-    
-    /**
-     * @expectedException OpenCloud\Queues\Exception\DeleteMessageException
-     */
-    public function test_Delete_Fails_Without_Correct_Response()
-    {
-        $this->message->setId('foobar');
-        $this->message->delete();
-    }
-    
+        
 }

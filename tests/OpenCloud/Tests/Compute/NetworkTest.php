@@ -12,12 +12,9 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Compute\Service;
 use OpenCloud\Compute\Resource\Network;
-use OpenCloud\Tests\StubConnection;
 
-class NetworkTest extends PHPUnit_Framework_TestCase
+class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $service;
@@ -25,10 +22,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $conn, 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
         $this->net = new Network($this->service, RAX_PUBLIC);
     }
 
@@ -45,7 +39,7 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     public function testCreate()
     {
         $net = $this->service->network();
-        $net->Create(array('label' => 'foo', 'cidr' => 'bar'));
+        $net->create(array('label' => 'foo', 'cidr' => 'bar'));
         $this->assertEquals('foo', $net->label);
     }
 
@@ -55,14 +49,6 @@ class NetworkTest extends PHPUnit_Framework_TestCase
     public function testUpdate()
     {
         $this->net->update();
-    }
-
-    public function testDelete()
-    {
-        $net = $this->service->Network();
-        $net->id = 'foobar';
-        $resp = $net->delete();
-        $this->assertEquals(202, $resp->HttpStatus());
     }
 
     public function testName()

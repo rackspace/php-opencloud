@@ -2,18 +2,15 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\DNS;
 
-use OpenCloud\Common\Service as AbstractService;
-use OpenCloud\Common\Lang;
-use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\OpenStack;
 use OpenCloud\Compute\Resource\Server;
 
@@ -22,7 +19,9 @@ use OpenCloud\Compute\Resource\Server;
  */
 class Service extends AbstractService
 {
-
+    const DEFAULT_NAME = 'cloudDNS';
+    const DEFAULT_REGION = '{ignore}';
+    
     /**
      * creates a new DNS object
      *
@@ -101,28 +100,6 @@ class Service extends AbstractService
     }
 
     /**
-     * performs a HTTP request
-     *
-     * This method overrides the request with JSON content type
-     *
-     * @param string $url the URL to target
-     * @param string $method the HTTP method to use
-     * @param array $headers key/value pairs for headers to include
-     * @param string $body the body of the request (for PUT and POST)
-     * @return \OpenCloud\HttpResponse
-     */
-    public function request(
-    	$url,
-    	$method = 'GET',
-    	array $headers = array(),
-    	$body = null
-    ) {
-        $headers['Accept'] = RAXSDK_CONTENT_TYPE_JSON;
-        $headers['Content-Type'] = RAXSDK_CONTENT_TYPE_JSON;
-        return parent::request($url, $method, $headers, $body);
-    }
-
-    /**
      * retrieves an asynchronous response
      *
      * This method calls the provided `$url` and expects an asynchronous
@@ -139,27 +116,15 @@ class Service extends AbstractService
     public function asyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
         // perform the initial request
-        $resp = $this->request($url, $method, $headers, $body);
-
-        // @codeCoverageIgnoreStart
-        if ($resp->HttpStatus() > 204) {
-            throw new Exceptions\AsyncHttpError(sprintf(
-                Lang::translate('Unexpected HTTP status for async request: URL [%s] method [%s] status [%s] response [%s]'),
-                $url,
-                $method,
-                $resp->HttpStatus(),
-                $resp->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
+        $response = $this->getClient()->createRequest($method, $url, $headers, $body)->send();
 
         // debug
         $this->getLogger()->info('AsyncResponse [{body}]', array(
-            'body' => $resp->httpBody()
+            'body' => $response->getDecodedBody()
         ));
 
         // return an AsyncResponse object
-        return new Resource\AsyncResponse($this, $resp->httpBody());
+        return new Resource\AsyncResponse($this, $response->getDecodedBody());
     }
 
     /**
@@ -200,12 +165,16 @@ class Service extends AbstractService
 
     /**
      * returns a list of limits
-     *
      */
     public function limits($type = null)
     {
         $url = $this->url('limits') . ($type ? "/$type" : '');
-        $object = $this->simpleRequest($url);
+        
+        $object = $this->getClient()
+            ->get($url)
+            ->send()
+            ->getDecodedBody();
+        
         return ($type) ? $object : $object->limits;
     }
 
@@ -216,41 +185,9 @@ class Service extends AbstractService
      */
     public function limitTypes()
     {
-        $object = $this->simpleRequest($this->url('limits/types'));
+        $response = $this->getClient()->get($this->url('limits/types'))->send();
+        $object = $response->getDecodedBody();
         return $object->limitTypes;
-    }
-
-    /**
-     * Performs a simple request and returns the JSON as an object
-     *
-     * @param string $url the URL to GET
-     */
-    public function simpleRequest($url)
-    {
-        // Perform the request
-        $response = $this->request($url);
-
-        // Check for errors
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 202) {
-            throw new Exceptions\HttpError(sprintf(
-                Lang::translate('Unexpected status [%s] for URL [%s], body [%s]'),
-                $response->HttpStatus(),
-                $url,
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        // Decode the JSON
-        $json = $response->httpBody();
-        $this->getLogger()->info('Limit Types JSON [{json}]', array('json' => $json));
-
-        $object = json_decode($json);
-
-        $this->checkJsonError();
-
-        return $object;
     }
 
 }

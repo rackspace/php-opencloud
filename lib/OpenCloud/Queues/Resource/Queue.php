@@ -1,10 +1,9 @@
 <?php
-
 /**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.5.9
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -13,7 +12,6 @@ namespace OpenCloud\Queues\Resource;
 
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
-use OpenCloud\Common\Exceptions\CreateError;
 use OpenCloud\Queues\Exception;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Collection;
@@ -109,14 +107,11 @@ class Queue extends PersistentObject
             $json = json_encode((object) get_object_vars($metadata));
             $url  = $this->url('metadata');
             
-            $response = $this->getService()->request($url, 'PUT', array(), $json);
-
-            // Catch errors
-            if ($response->httpStatus() != 204) {
-                throw new Exception\QueueMetadataException(sprintf('Unable to set metadata for this Queue'));
-            }
+            $this->getClient()->put($url, array(), $json)
+                ->setExpectedResponse(204)
+                ->send();
         }
-        
+
         return $this;
     }
     
@@ -133,19 +128,12 @@ class Queue extends PersistentObject
     {
         if ($query === true) {
 
-            $response = $this->getService()->request($this->url('metadata'));
+            $response = $this->getClient()->get($this->url('metadata'))
+                ->setExpectedResponse(200)
+                ->send();
             
-            if ($response->httpStatus() != 200) {
-                throw new Exception\QueueMetadataException(sprintf(
-                    'Unable to gather metadata for this Queue from API'
-                ));
-            }
-            
-            $data = json_decode($response->httpBody());
-            $this->checkJsonError();
-  
             $metadata = new Metadata();
-            $metadata->setArray($data);
+            $metadata->setArray($response->getDecodedBody());
             $this->setMetadata($metadata, true);
             
         }
@@ -180,24 +168,11 @@ class Queue extends PersistentObject
         ));
 
         // send the request
-        $response = $this->getService()->request(
-            $this->url(),
-            'PUT',
-            array('Content-Type' => 'application/json'),
-            $json
-        );
+        $response = $this->getClient()->put($this->url(), array(), $json)
+            ->setExpectedResponse(201)
+            ->send();
         
-        if ($response->httpStatus() != 201) {
-            throw new CreateError(sprintf(
-                'Error creating [%s] [%s], status [%d] response [%s]',
-                get_class($this),
-                $this->getName(),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        
-        $this->setHref($response->header('Location'));
+        $this->setHref($response->getHeader('Location'));
     } 
     
     /**
@@ -237,7 +212,11 @@ class Queue extends PersistentObject
      */
     public function getStats()
     {
-        $body = $this->customAction($this->url('stats'));
+        $body = $this->getClient()
+            ->get($this->url('stats'))
+            ->send()
+            ->getDecodedBody();
+        
         return (!isset($body->messages)) ? false : $body->messages;
     }
     
@@ -271,18 +250,11 @@ class Queue extends PersistentObject
         $json = json_encode($objects);
         $this->checkJsonError();
         
-        $response = $this->getService()->request($this->url('messages'), 'POST', array(), $json);
+        $response = $this->getClient()->post($this->url('messages'), array(), $json)
+            ->setExpectedResponse(201)
+            ->send();
         
-        if ($response->httpStatus() != 201) {
-            throw new CreateError(sprintf(
-                'Error creating messages for [%s], status [%d] response [%s]',
-                $this->getName(),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-
-        if ($location = $response->header('Location')) {
+        if (null !== ($location = $response->getHeader('Location'))) {
             return $this->getService()->resourceList('Message', $location, $this);
         }
         
@@ -337,18 +309,7 @@ class Queue extends PersistentObject
     public function deleteMessages(array $ids)
     {
         $url = $this->url('messages', array('ids' => implode(',', $ids)));
-        $response = $this->getService()->request($url, 'DELETE');
-        
-        if ($response->httpStatus() != 204) {
-            throw new Exception\DeleteMessageException(sprintf(
-                'Could not delete this set of Queues with IDs [%s]. HTTP status '
-                . '[%i] and body [%s]',
-                print_r($ids, true),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        }
-        
+        $this->getClient()->delete($url)->send();
         return true;
     }
     
@@ -391,22 +352,15 @@ class Queue extends PersistentObject
         $json = json_encode($object);
         
         $url = $this->url('claims', array('limit' => $limit));
-        $response = $this->getService()->request($url, 'POST', array(), $json);
+        $response = $this->getClient()->post($url, array(), $json)
+            ->setExpectedResponse(array(201, 204))
+            ->send();
 
-        if ($response->httpStatus() == 204) {
+        if ($response->getStatusCode() == 204) {
             return false;
-        } elseif ($response->httpStatus() != 201) {
-            throw new Exception\MessageException(sprintf(
-                'Error claiming messages with limit [%s]. HTTP status [%i] and '
-                . 'HTTP body [%s]',
-                $limit,
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
         }
         
-        $array = json_decode($response->httpBody());
-        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $array);
+        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $response->getDecodedBody());
     }
     
     /**

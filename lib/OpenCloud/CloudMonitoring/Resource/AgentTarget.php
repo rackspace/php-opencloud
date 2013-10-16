@@ -1,4 +1,12 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
@@ -6,11 +14,8 @@ use OpenCloud\CloudMonitoring\Exception;
 
 /**
  * Agent class.
- * 
- * @extends ReadOnlyResource
- * @implements ResourceInterface
  */
-class AgentTarget extends ReadOnlyResource implements ResourceInterface
+class AgentTarget extends ReadOnlyResource
 {
     
     private $type = 'agent.filesystem';
@@ -29,10 +34,10 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
         'agent.plugin'
     );
 
-    public function url($subresource = null, $queryString = array())
+    public function getUrl($path = null, array $query = array())
     {
-        $resourceUrl = "agent/check_types/{$this->type}/{$this->resourceName()}";
-        return $this->getParent()->url($resourceUrl);
+        $path = "agent/check_types/{$this->type}/{$this->resourceName()}";
+        return $this->getParent()->getUrl($path);
     }
 
     public function setType($type)
@@ -54,14 +59,15 @@ class AgentTarget extends ReadOnlyResource implements ResourceInterface
 
     public function listAll()
     {
-        $response = $this->getService()->request($this->url());
-        $object = json_decode($response->httpBody());
+        $response = $this->getClient()->get($this->url())->send();
+        
+        $object = $response->getDecodedBody();
 
         if (isset($object->{self::$json_collection_name})) {
-            $response = $object->{self::$json_collection_name};
+            $object = $object->{self::$json_collection_name};
         }
 
-        return $response;
+        return $object;
     } 
     
 }

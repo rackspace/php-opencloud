@@ -2,24 +2,16 @@
 
 namespace OpenCloud\Tests\CloudMonitoring;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\CloudMonitoring\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class NotificationPlanTest extends PHPUnit_Framework_TestCase
+class NotificationPlanTest extends OpenCloudTestCase
 {
     
     const NP_ID = 'npAAAA';
     
     public function __construct()
     {
-        $this->connection = new FakeConnection('example.com', 'SECRET');
-
-        $this->service = new Service(
-            $this->connection,
-            'cloudMonitoring',
-            'DFW',
-            'publicURL'
-        );
+        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
            
         $this->resource = $this->service->resource('NotificationPlan');
     }

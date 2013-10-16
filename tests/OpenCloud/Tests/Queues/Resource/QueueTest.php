@@ -11,9 +11,7 @@
 
 namespace OpenCloud\Tests\Queues\Resource;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Queues\Service;
-use OpenCloud\Tests\StubConnection;
 use OpenCloud\Common\Metadata;
 
 /**
@@ -21,26 +19,18 @@ use OpenCloud\Common\Metadata;
  * 
  * @link 
  */
-class QueueTest extends PHPUnit_Framework_TestCase
+class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
     
-    private $connection;
     private $service;
     private $queue;
     
     public function __construct()
     {
-        $this->connection = new StubConnection('foo', 'bar');
-        $this->service = new Service($this->connection, 'cloudQueues', 'ORD');
+        $this->service = $this->getClient()->queues('cloudQueues', 'ORD');
         $this->queue = $this->service->getQueue();
     }
-    
-    public function test__construct()
-    {
-        $service = new Service($this->connection, 'cloudQueues', 'ORD');
-        $service->setClientId('TEST');
-    }
-    
+        
     public function test_Create()
     { 
         $this->queue->create(array(
@@ -52,7 +42,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
      */
     public function test_Create_Fails_With_Incorrect_Response()
     {
@@ -105,7 +95,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException OpenCloud\Queues\Exception\QueueMetadataException
+     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
      */
     public function test_Metadata_Fails_If_Queue_Not_Found()
     {
@@ -120,18 +110,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     {
         $this->queue->setMetadata('');
     }
-    
-    /**
-     * @expectedException OpenCloud\Queues\Exception\QueueMetadataException
-     */
-    public function test_SetMetadata_Fails_Without_Correct_Response()
-    {
-        $queue = $this->queue->setName('foobar');
-        $queue->setMetadata(array(
-            'foo' => 'baz'
-        ));
-    }
-        
+            
     public function test_Stats()
     {
         $this->assertNotNull($this->queue->setName('foo')->getStats());
@@ -161,16 +140,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
             $this->queue->setName('foo')->deleteMessages(array(100, 901, 58))
         );
     }
-    
-    /**
-     * @expectedException OpenCloud\Queues\Exception\DeleteMessageException
-     */
-    public function test_Delete_Message_Fails_If_Queue_Not_Found()
-    {
-        $queue = $this->queue->setName('foobar');
-        $queue->deleteMessages(array(100, 901, 58));
-    }
-        
+            
     public function test_Claim_Messages()
     {
         $this->assertInstanceOf(
@@ -181,7 +151,7 @@ class QueueTest extends PHPUnit_Framework_TestCase
     }
     
     /**
-     * @expectedException OpenCloud\Queues\Exception\MessageException
+     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
      */
     public function test_Claim_Messages_Fails_If_Queue_Not_Found()
     {

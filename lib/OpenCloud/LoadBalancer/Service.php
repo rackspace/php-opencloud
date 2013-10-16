@@ -19,7 +19,7 @@ use OpenCloud\OpenStack;
  */
 class Service extends Nova
 {
-
+    const DEFAULT_NAME = 'cloudLoadBalancers';
     const SERVICE_TYPE = 'rax:load-balancer';
     const SERVICE_OBJECT_CLASS = 'LoadBalancer';
     const URL_RESOURCE = 'loadbalancers';
@@ -39,18 +39,6 @@ class Service extends Nova
     public function __construct(OpenStack $conn, $name, $region, $urltype) 
     {
         parent::__construct($conn, self::SERVICE_TYPE, $name, $region, $urltype);
-    }
-
-    /**
-     * Returns the URL of this service, or optionally that of
-     * an instance
-     *
-     * @param string $resource the resource required
-     * @param array $args extra arguments to pass to the URL as query strings
-     */
-    public function url($resource = self::URL_RESOURCE, array $args = array()) 
-    {
-        return parent::url($resource, $args);
     }
 
     /**

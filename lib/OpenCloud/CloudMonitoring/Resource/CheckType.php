@@ -1,13 +1,19 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
 /**
  * CheckType class.
- * 
- * @extends AbstractResource
  */
-class CheckType extends ReadOnlyResource implements ResourceInterface
+class CheckType extends ReadOnlyResource
 {
 	
 	private $id;

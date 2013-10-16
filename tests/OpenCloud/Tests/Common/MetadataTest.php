@@ -12,11 +12,9 @@
 
 namespace OpenCloud\Tests\Common;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Common\Metadata;
-use OpenCloud\Tests\StubConnection;
 
-class MetadataTest extends PHPUnit_Framework_TestCase
+class MetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $metadata;

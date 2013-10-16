@@ -2,9 +2,9 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -31,7 +31,6 @@ use OpenCloud\Common\Exceptions;
  */
 class Group extends AbstractResource
 {
-    
     private $id;
     private $links;
     private $groupConfiguration;
@@ -94,8 +93,12 @@ class Group extends AbstractResource
      */
     public function getState()
     {
-        $object = $this->customAction($this->url('state', true));
-        
+        $object = $this->getService()
+            ->getClient()
+            ->get($this->url('state'))
+            ->send()
+            ->getDecodedBody();
+
         return (!empty($object->group)) ? $object->group : false;
     }
     
@@ -144,7 +147,7 @@ class Group extends AbstractResource
      */
     public function pause()
     {
-        return $this->customAction($this->url('pause', true), 'POST');
+        return $this->getService()->getClient()->post($this->url('pause'))->send();
     }
     
     /**
@@ -154,7 +157,7 @@ class Group extends AbstractResource
      */
     public function resume()
     {
-        return $this->customAction($this->url('resume', true), 'POST');
+        return $this->getService()->getClient()->post($this->url('resume'))->send();
     }
     
     /**
@@ -162,9 +165,12 @@ class Group extends AbstractResource
      * 
      * @return Collection
      */
-    public function getPolicies()
+    public function getScalingPolicies($override = false)
     {
-        return $this->service()->resourceList('ScalingPolicy', null, $this);
+        if (null === $this->scalingPolicies || $override === true) {
+            $this->scalingPolicies = $this->getService()->resourceList('ScalingPolicy', null, $this);
+        }
+        return $this->scalingPolicies;
     }
     
     /**
@@ -173,7 +179,7 @@ class Group extends AbstractResource
      * @param  object|int $id
      * @return ScalingPolicy
      */
-    public function getPolicy($id = null)
+    public function getScalingPolicy($id = null)
     {
         $config = $this->getService()->resource('ScalingPolicy');
         $config->setParent($this);

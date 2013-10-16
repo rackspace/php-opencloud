@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -322,7 +321,7 @@ class Server extends PersistentObject
 
         $response = $this->action($object);
         
-        if (!$response || !($location = $response->header('Location'))) {
+        if (!$response || !($location = $response->getHeader('Location'))) {
             return false;
         }
 
@@ -349,36 +348,21 @@ class Server extends PersistentObject
 
         if ($retention === false) { 
             // Get current retention
-            $response = $this->getService()->request($url);
+            $response = $this->getClient()->get($url);
         } elseif ($retention <= 0) { 
             // Delete image schedule
-            $response = $this->getService()->request($url, 'DELETE');
+            $response = $this->getClient()->delete($url);
         } else { 
             // Set image schedule
-            $object = new \stdClass();
-            $object->image_schedule = new \stdClass();
-            $object->image_schedule->retention = $retention;
-            
-            $response = $this->getService()->request($url, 'POST', array(), json_encode($object));
+            $object = (object) array('image_schedule' => 
+                (object) array('retention' => $retention)
+            );
+            $body = json_encode($object);
+            $response = $this->getClient()->post($url, array(), $body);
         }
         
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\ServerImageScheduleError(sprintf(
-                Lang::translate('Error in Server::ImageSchedule(), status [%d], response [%s]'),
-                $response->HttpStatus(),
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        $object = json_decode($response->HttpBody());
-        
-        if ($object && property_exists($object, 'image_schedule'))
-            return $object->image_schedule;
-        else {
-            return new \stdClass;
-        }
+        $object = $response->send()->getDecodedBody();
+        return (isset($object->image_schedule)) ? $object->image_schedule : (object) array();
     }
 
     /**
@@ -459,19 +443,14 @@ class Server extends PersistentObject
 
         $data = (object) array('rescue' => 'none');
 
-        $response = $this->action($data);
-        $object = json_decode($response->httpBody());
-        $this->checkJsonError();
+        $object = $this->action($data)->getDecodedBody();
         
-        // @codeCoverageIgnoreStart
         if (!isset($object->adminPass)) {
             throw new Exceptions\ServerActionError(sprintf(
                 Lang::translate('Rescue() method failed unexpectedly, status [%s] response [%s]'),
-                $response->httpStatus(),
-                $response->httpBody()
-            ));
-        // @codeCoverageIgnoreEnd
-            
+                $response->getStatusCode(),
+                $object
+            ));  
         } else {
             return $object->adminPass;
         }
@@ -528,19 +507,8 @@ class Server extends PersistentObject
     {
         $url = Lang::noslash($this->Url('ips/'.$network));
 
-        $response = $this->getService()->request($url);
-        
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() >= 300) {
-            throw new Exceptions\ServerIpsError(sprintf(
-                Lang::translate('Error in Server::ips(), status [%d], response [%s]'),
-                $response->HttpStatus(),
-                $response->HttpBody()
-            ));
-        }
-        
-        $object = json_decode($response->httpBody());
-        $this->checkJsonError();
+        $response = $this->getClient()->get($url)->send();       
+        $object = $response->getDecodedBody();
 
         if (isset($object->addresses)) {
             $returnObject = $object->addresses;
@@ -551,7 +519,6 @@ class Server extends PersistentObject
         }
         
         return $object;
-        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -588,7 +555,7 @@ class Server extends PersistentObject
     public function detachVolume(Volume $volume)
     {
         $this->checkExtension('os-volumes');
-        return $this->volumeAttachment($volume->id)->Delete();
+        return $this->volumeAttachment($volume->id)->delete();
     }
 
     /**
@@ -638,7 +605,9 @@ class Server extends PersistentObject
     {
         $action = (strpos('spice', $type) !== false) ? 'os-getSPICEConsole' : 'os-getVNCConsole';
         $object = (object) array($action => (object) array('type' => $type));
-        return json_decode($this->action($object)->httpBody())->console;
+        
+        $decoded  = $this->action($object)->getDecodedBody();
+        return (isset($decoded->console)) ? $decoded->console : false;
     }
 
 
@@ -648,7 +617,7 @@ class Server extends PersistentObject
     protected function createJson()
     {
         // Convert some values
-        $this->metadata->sdk = RAXSDK_USER_AGENT;
+        $this->metadata->sdk = $this->getService()->getClient()->getUserAgent();
         
         if (!empty($this->image) && $this->image instanceof Image) {
             $this->imageRef = $this->image->id;

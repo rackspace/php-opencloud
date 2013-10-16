@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -47,16 +46,15 @@ class CDNService extends AbstractService
             $urltype
         );
     }
-
-    /**
-     * Helps catch errors if someone calls the method on the
-     * wrong object
-     */
-    public function CDN()
+    
+	/**
+	 * This CDN service only allows publicURL, so override parent.
+	 *
+	 * {@inheritDoc}
+	 */
+    public function getBaseUrl()
     {
-        throw new Exceptions\CdnError(
-        	'Invalid method call; no CDN() on the CDN object'
-        );
+        return $this->getEndpoint()->getPublicUrl();
     }
 
 }

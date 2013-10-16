@@ -2,19 +2,14 @@
 
 namespace OpenCloud\Tests\CloudMonitoring;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\CloudMonitoring\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class CheckTest extends PHPUnit_Framework_TestCase
+class CheckTest extends OpenCloudTestCase
 {
 
     public function __construct()
     {
-        $this->connection = new FakeConnection('example.com', 'SECRET');
-
-        $this->service = new Service(
-            $this->connection, 'cloudMonitoring', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
 
         $parentEntity = $this->service->resource('entity', 'enAAAAA');
         
@@ -34,7 +29,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
 
     public function testParentClass()
     {
-        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Entity', $this->resource->parent());
+        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Entity', $this->resource->getParent());
     }
 
     /**
@@ -54,7 +49,6 @@ class CheckTest extends PHPUnit_Framework_TestCase
         $response = $this->resource->test(array(), false);
 
         $this->assertNotNull($response);
-
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);
     }
 
@@ -74,8 +68,7 @@ class CheckTest extends PHPUnit_Framework_TestCase
         $this->resource->setType('remote.http');
 
         $response = $this->resource->testExisting();
-        $this->assertNotNull($response);
-
+        
         $this->assertObjectHasAttribute('metrics', $response[0]);
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);
     }
@@ -87,11 +80,4 @@ class CheckTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->resource->getId(), 'chAAAA');
     }
     
-    public function testCreate()
-    {
-        $this->resource->create(array(
-            'type' => $this->service->resource('CheckType', 'remote.http')
-        ));
-    }
-
 }

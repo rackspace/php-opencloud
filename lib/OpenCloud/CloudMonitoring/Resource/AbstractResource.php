@@ -1,41 +1,27 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\PersistentObject;
 
-/**
- * Abstract AbstractResource class.
- * 
- * @abstract
- * @extends PersistentObject
- * @package phpOpenCloud
- * @version 1.0
- * @author  Jamie Hannaford <jamie@limetree.org>
- */
 abstract class AbstractResource extends PersistentObject
 {
-    /**
-     * __construct function.
-     * 
-     * @access public
-     * @param mixed $service
-     * @param mixed $info
-     * @return void
-     */
+
     public function __construct($service, $info)
     {
         $this->setService($service);
         parent::__construct($service, $info);
     }
 
-    /**
-     * Procedure for JSON create object.
-     * 
-     * @access protected
-     * @return void
-     */
     protected function createJson()
     {
         foreach (static::$requiredKeys as $requiredKey) {
@@ -57,12 +43,6 @@ abstract class AbstractResource extends PersistentObject
         return $object;
     }
 
-    /**
-     * Procedure for JSON update object.
-     * 
-     * @access protected
-     * @return void
-     */
     protected function updateJson($params = array())
     {
         $object = (object) $params;       
@@ -90,22 +70,6 @@ abstract class AbstractResource extends PersistentObject
     }
 
     /**
-     * Request function.
-     * 
-     * @access protected
-     * @param mixed $url
-     * @param string $method (default: 'GET')
-     * @param array $headers (default: array())
-     * @param mixed $body (default: null)
-     * @return void
-     */
-    protected function request($url, $method = 'GET', array $headers = array(), $body = null)
-    {
-        $response = $this->getService()->request($url, $method, $headers, $body);
-        return ($body = $response->HttpBody()) ? json_decode($body) : false;
-    }
-
-    /**
      * Test the validity of certain parameters for the resource.
      * 
      * @access public
@@ -123,7 +87,11 @@ abstract class AbstractResource extends PersistentObject
         $this->checkJsonError();
         
         // send the request
-        return $this->customAction($this->testUrl($debug), 'POST', $json);
+        return $this->getService()
+            ->getClient()
+            ->post($this->testUrl($debug), array(), $json)
+            ->send()
+            ->getDecodedBody();
     }
 
     /**
@@ -138,7 +106,10 @@ abstract class AbstractResource extends PersistentObject
         $json = json_encode($this->updateJson());
         $this->checkJsonError();
 
-        return $this->customAction($this->testUrl($debug), 'POST', $json);
+        return $this->getClient()
+            ->post($this->testUrl($debug), array(), $json)
+            ->send()
+            ->getDecodedBody();
     }
    
 }

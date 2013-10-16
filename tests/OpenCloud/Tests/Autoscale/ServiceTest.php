@@ -10,23 +10,16 @@
 
 namespace OpenCloud\Tests\Autoscale;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Autoscale\Service;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class ServiceTest extends PHPUnit_Framework_TestCase 
+class ServiceTest extends OpenCloudTestCase 
 {
     
     private $service;
     
     public function __construct()
     {
-        $connection = new FakeConnection(
-            'http://example.com', 
-            'SECRET'
-        );
-
-        $this->service = new Service($connection, 'autoscale', 'DFW', 'publicURL');
-        
+        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
     }
     
     public function testResources()

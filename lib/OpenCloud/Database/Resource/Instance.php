@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -114,23 +113,8 @@ class Instance extends PersistentObject
      */
     public function enableRootUser() 
     {
-        $response = $this->getService()->request($this->url('root'), 'POST');
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 202) {
-            throw new Exceptions\InstanceError(sprintf(
-                Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        $object = json_decode($response->HttpBody());
-        
-        $this->checkJsonError();
-
+        $response = $this->getClient()->post($this->url('root'))->send();
+        $object = $response->getDecodedBody();
         return (!empty($object->user)) ? new User($this, $object->user) : false;
     }
 
@@ -143,23 +127,8 @@ class Instance extends PersistentObject
      */
     public function isRootEnabled() 
     {
-        $response = $this->getService()->Request($this->Url('root'), 'GET');
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 202) {
-            throw new Exceptions\InstanceError(sprintf(
-                Lang::translate('Error enabling root user for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-        $object = json_decode($response->httpBody());
-
-        $this->checkJsonError();
-
+        $response = $this->getClient()->get($this->url('root'))->send();
+        $object = $response->getDecodedBody();
         return !empty($object->rootEnabled);
     }
 
@@ -194,23 +163,8 @@ class Instance extends PersistentObject
      */
     public function databaseList() 
     {
-        $response = $this->getService()->request($this->Url('databases'));
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 200) {
-            throw new Exceptions\DatabaseListError(sprintf(
-                Lang::translate('Error listing databases for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-        $object = json_decode($response->httpBody());
-
-        $this->checkJsonError();
-
+        $response = $this->getClient()->get($this->url('databases'))->send();
+        $object = $response->getDecodedBody();
         $data = (!empty($object->databases)) ? $object->databases : array();
         return new Collection($this, 'OpenCloud\DbService\Database', $data);
     }
@@ -223,22 +177,8 @@ class Instance extends PersistentObject
      */
     public function userList() 
     {
-        $response = $this->getService()->Request($this->Url('users'));
-
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() > 200) {
-            throw new Exceptions\UserListError(sprintf(
-                Lang::translate('Error listing users for instance [%s], status [%d] response [%s]'),
-                $this->name, 
-                $response->HttpStatus(), 
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-        $object = json_decode($response->HttpBody());
-        
-        $this->checkJsonError();
+        $response = $this->getClient()->get($this->url('users'))->send();        
+        $object = $response->getDecodedBody();
 
         $data = (!empty($object->users)) ? $object->users : array();
         return new Collection($this, 'OpenCloud\DbService\User', $data);

@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -21,7 +20,9 @@ use OpenCloud\Common\Lang;
  */
 class Database extends PersistentObject
 {
-
+    
+    protected static $url_resource = 'databases';
+    
     public $name;
 
     /**
@@ -69,19 +70,12 @@ class Database extends PersistentObject
         }
         return $this->name;
     }
-    
-    /**
-     * Returns the Url of the Database
-     *
-     * @api
-     * @param string $subresource Not used
-     * @return string
-     */
-    public function url($subresource = '', $params = array())
-    {
-        return stripslashes($this->getParent()->url('databases')) . '/' . $this->getName();
-    }
 
+    public function primaryKeyField()
+    {
+        return 'name';
+    }
+    
     /**
      * Returns the Instance of the database
      *
@@ -109,26 +103,10 @@ class Database extends PersistentObject
         }
 
         $json = json_encode($this->createJson($params));
-
         $this->checkJsonError();
 
         // POST it off
-        $response = $this->getParent()->getService()->request($url, 'POST', array(), $json);
-
-        // check the response code
-        // @codeCoverageIgnoreStart
-        if ($response->HttpStatus() != 202) {
-        	throw new Exceptions\DatabaseCreateError(sprintf(
-                Lang::translate('Error creating database [%s], status [%d] response [%s]'),
-        		$this->name,
-                $response->HttpStatus(),
-                $response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        // refresh and return
-        return $response;
+        return $this->getClient()->post($url, array(), $json)->send();
     }
 
     /**
@@ -151,20 +129,7 @@ class Database extends PersistentObject
      */
     public function delete()
     {
-    	$response = $this->getParent()->getService()->request($this->url(), 'DELETE');
-        
-        // @codeCoverageIgnoreStart
-    	if ($response->HttpStatus() != 202) {
-    		throw new Exceptions\DatabaseDeleteError(sprintf(
-                Lang::translate('Error deleting database [%s], status [%d] response [%s]'),
-    			$this->name,
-    			$response->HttpStatus(),
-    			$response->HttpBody()
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-        
-    	return $response;
+    	return $this->getClient()->delete($this->url())->send();
     }
 
     /**

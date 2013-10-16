@@ -12,96 +12,85 @@
 
 namespace OpenCloud\Tests\DNS;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Compute;
-use OpenCloud\DNS\Service;
-use OpenCloud\Tests\StubConnection;
 
-class DnsTest extends PHPUnit_Framework_TestCase
+class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $conn;
-    private $dns;
+    private $service;
 
     public function __construct()
     {
-        $this->conn = new StubConnection('http://example.com', 'SECRET');
-        $this->dns = new Service($this->conn, 'cloudDNS', 'N/A', 'publicURL');
+        $this->service = $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL');
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
-        $thing = new Service($this->conn, 'cloudDNS', 'N/A', 'publicURL');
-        $this->assertInstanceOf('OpenCloud\DNS\Service', $thing);
+        $this->assertInstanceOf('OpenCloud\DNS\Service', $this->service);
     }
 
     public function testUrl()
     {
         $this->assertEquals(
             'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID', 
-            $this->dns->url()
+            $this->service->url()
         );
     }
 
     public function testDomain()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->dns->domain());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->service->domain());
     }
 
     public function testDomainList()
     {
-        $list = $this->dns->domainList();
+        $list = $this->service->domainList();
         $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
         $this->assertGreaterThan(2, strlen($list->Next()->Name()));
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\AsyncHttpError
+     * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function testAsyncRequest()
     {
-        $this->dns->AsyncRequest('FOOBAR');
+        $this->service->AsyncRequest('FOOBAR');
     }
 
     public function testImport()
     {
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse', 
-            $this->dns->Import('foo bar oops')
+            $this->service->Import('foo bar oops')
         );
     }
 
     public function testPtrRecordList()
     {
         $server = new Compute\Resource\Server(
-            new Compute\Service($this->conn, 'cloudServersOpenStack', 'DFW', 'publicURL')
+            $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL')
         );
         $server->id = '42';
         $this->assertInstanceOf(
             'OpenCloud\Common\Collection', 
-            $this->dns->PtrRecordList($server)
+            $this->service->PtrRecordList($server)
         );
     }
 
     public function testRecord()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Resource\PtrRecord', $this->dns->PtrRecord());
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\PtrRecord', $this->service->PtrRecord());
     }
 
     public function testLimits()
     {
-        $obj = $this->dns->Limits();
+        $obj = $this->service->Limits();
         $this->assertTrue(is_array($obj->rate));
-        $obj = $this->dns->Limits('DOMAIN_LIMIT');
-        $this->assertEquals(500, $obj->absolute->limits[0]->value);
     }
 
     public function testLimitTypes()
     {
-        $arr = $this->dns->LimitTypes();
+        $arr = $this->service->LimitTypes();
         $this->assertTrue(in_array('RATE_LIMIT', $arr));
     }
 

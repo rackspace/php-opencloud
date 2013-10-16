@@ -12,40 +12,26 @@
 
 namespace OpenCloud\Tests;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\Database\Service;
-use OpenCloud\Database\Resource\Instance;
-use OpenCloud\Database\Resource\User;
-
-class UserTest extends PHPUnit_Framework_TestCase
+class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
-    private $inst;
+    private $instance;
     private $user;
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $useraas = new Service(
-            $conn, 'cloudDatabases', 'DFW', 'publicURL');
-        
-        $this->inst = new Instance($useraas);
-        $this->inst->id = '12345678';
-        
-        $this->user = new User($this->inst);
+        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
+        $this->instance = $this->service->instance('12345678');
+        $this->user = $this->instance->user();
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Resource\User', new User($this->inst)
+            'OpenCloud\Database\Resource\User', $this->user
         );
         
-        $u = new User($this->inst, 'glen', array('one', 'two'));
+        $u = $this->instance->user('glen', array('one', 'two'));
         $this->assertEquals('glen', $u->name);
         $this->assertEquals(2, count($u->databases));
     }
@@ -54,8 +40,7 @@ class UserTest extends PHPUnit_Framework_TestCase
     {
         $this->user->name = 'TEST';
         $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/' .
-            'TENANT-ID/instances/12345678/users/TEST', 
+            'https://dfw.databases.api.rackspacecloud.com/v1.0/9999/instances/56a0c515-9999-4ef1-9fe2-76be46a3aaaa/users/TEST', 
             $this->user->url()
         );
     }
@@ -92,7 +77,7 @@ class UserTest extends PHPUnit_Framework_TestCase
                 'baz'
             )
         ));
-        $this->assertLessThan(205, $response->httpStatus());
+        $this->assertLessThan(205, $response->getStatusCode());
         $this->assertEquals('FOOBAR', $this->user->name);
         $this->assertEquals('BAZ', $this->user->password);
     }
@@ -109,7 +94,7 @@ class UserTest extends PHPUnit_Framework_TestCase
     {
         $this->user->name = 'GLEN';
         $response = $this->user->delete();
-        $this->assertLessThan(205, $response->HttpStatus());
+        $this->assertLessThan(205, $response->getStatusCode());
     }
     
     /**
@@ -117,8 +102,7 @@ class UserTest extends PHPUnit_Framework_TestCase
      */
     public function testNameFailsWhenNotSet()
     {
-        $user = new User($this->inst);
-        $user->getName();
+        $this->instance->user()->getName();
     }
 
 }

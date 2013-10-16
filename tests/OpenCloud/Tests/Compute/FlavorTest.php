@@ -11,11 +11,7 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Compute\Service;
-use OpenCloud\Tests\Autoscale\FakeConnection;
-
-class FlavorTest extends PHPUnit_Framework_TestCase
+class FlavorTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     const FLAVOR_ID = '';
@@ -25,12 +21,7 @@ class FlavorTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $connection = new FakeConnection(
-            'http://example.com', 'SECRET'
-        );
-
-        $this->service = new Service($connection, 'cloudServersOpenStack', 'DFW', 'publicURL');
-
+        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
         $this->resource = $this->service->flavor();
     }
 

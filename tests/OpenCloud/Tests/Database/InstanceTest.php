@@ -12,10 +12,7 @@
 
 namespace OpenCloud\Tests;
 
-use PHPUnit_Framework_TestCase;
 use OpenCloud\Database\Resource\Instance;
-use OpenCloud\Database\Service;
-use OpenCloud\Tests\StubConnection;
 
 class MyInstanceClass extends Instance
 {
@@ -25,7 +22,7 @@ class MyInstanceClass extends Instance
     }
 }
 
-class InstanceTest extends PHPUnit_Framework_TestCase
+class InstanceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $service;
@@ -33,10 +30,7 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
-        $conn = new StubConnection('http://example.com', 'SECRET');
-        $this->service = new Service(
-            $conn, 'cloudDatabases', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
         $this->instance = new MyInstanceClass(
             $this->service, 'INSTANCE-ID'
         );
@@ -60,18 +54,18 @@ class InstanceTest extends PHPUnit_Framework_TestCase
 
     public function testRestart()
     {
-        $this->assertEquals(200, $this->instance->restart()->httpStatus());
+        $this->assertNotNull($this->instance->restart()->getBody());
     }
 
     public function testResize()
     {
         $flavor = $this->service->Flavor(2);
-        $this->assertEquals(200, $this->instance->Resize($flavor)->httpStatus());
+        $this->assertNotNull($this->instance->Resize($flavor)->getBody());
     }
 
     public function testResizeVolume()
     {
-        $this->assertEquals(200, $this->instance->ResizeVolume(4)->httpStatus());
+        $this->assertNotNull($this->instance->resizeVolume(4)->getBody());
     }
 
     public function testEnableRootUser()

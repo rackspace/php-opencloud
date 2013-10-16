@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -19,7 +18,9 @@ use OpenCloud\OpenStack;
  */
 class Service extends Nova
 {
-
+    
+    const DEFAULT_NAME = 'cloudDatabases';
+    
     /**
      * Creates a new DbService service connection
      *
@@ -34,18 +35,6 @@ class Service extends Nova
     public function __construct(OpenStack $conn, $name, $region, $urltype)
     {
         parent::__construct($conn, 'rax:database', $name, $region, $urltype);
-    }
-
-    /**
-     * Returns the URL of this database service, or optionally that of
-     * an instance
-     *
-     * @param string $resource the resource required
-     * @param array $args extra arguments to pass to the URL as query strings
-     */
-    public function url($resource = 'instances', array $args = array())
-    {
-        return parent::url($resource, $args);
     }
 
     /**

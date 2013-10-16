@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -45,15 +44,6 @@ class PtrRecord extends Record
                 $this->type
             ));
         }
-    }
-
-    /**
-     * specialized DNS PTR URL requires server service name and href
-     */
-    public function url($subresource = null, $params = array()) 
-    {
-        $subresource = $subresource ?: self::$url_resource;
-        return $this->getParent()->url($subresource, $params);
     }
 
     /**
@@ -100,10 +90,10 @@ class PtrRecord extends Record
         $url = $this->url('rdns/' . $this->link_rel, $params);
 
         // perform the request
-        $response = $this->getService()->request($url, 'DELETE');
+        $response = $this->getClient()->delete($url)->send();
 
         // return the AsyncResponse object
-        return new AsyncResponse($this->getService(), $response->httpBody());
+        return new AsyncResponse($this->getService(), $response->getDecodedBody());
     }
 
     /**

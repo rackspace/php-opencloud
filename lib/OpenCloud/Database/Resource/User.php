@@ -2,9 +2,8 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.6.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -32,6 +31,7 @@ class User extends PersistentObject
     public $databases = array();
     
     protected static $json_name = 'user';
+    protected static $url_resource = 'users';
 
     /**
      * Creates a new database object
@@ -89,9 +89,9 @@ class User extends PersistentObject
     /**
      * {@inheritDoc}
      */
-    public function url($subresource = '', $params = array())
+    public function primaryKeyField()
     {
-        return stripslashes($this->getParent()->url('users')) . '/' . $this->getName();
+        return 'name';
     }
 
 	/**
@@ -131,20 +131,7 @@ class User extends PersistentObject
 	 */
 	public function delete()
     {
-		$response = $this->getParent()->getService()->request($this->url(), 'DELETE');
-
-		// @codeCoverageIgnoreStart
-		if ($response->HttpStatus() > 202) {
-			throw new Exceptions\UserDeleteError(sprintf(
-                Lang::translate('Error deleting user [%s], status [%d] response [%s]',
-				$this->name,
-                $response->HttpStatus(),
-                $response->HttpBody())
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-		return $response;
+		return $this->getClient()->delete($this->url())->send();
 	}
 
 	/**

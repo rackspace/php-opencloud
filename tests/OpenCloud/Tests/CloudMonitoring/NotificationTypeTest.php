@@ -2,27 +2,16 @@
 
 namespace OpenCloud\Tests\CloudMonitoring;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\CloudMonitoring\Service;
-use OpenCloud\CloudMonitoring\Exception;
-use OpenCloud\Common\Collection;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class NotificationTypeTest extends PHPUnit_Framework_TestCase
+class NotificationTypeTest extends OpenCloudTestCase
 {
     
     const NT_ID = 'webhook';
     
     public function __construct()
     {
-        $this->connection = new FakeConnection('http://example.com', 'SECRET');
-
-        $this->service = new Service(
-            $this->connection,
-            'cloudMonitoring',
-            'LON',
-            'publicURL'
-        );
-        
+        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
         $this->resource = $this->service->resource('NotificationType');
     }
     
@@ -67,6 +56,7 @@ class NotificationTypeTest extends PHPUnit_Framework_TestCase
     public function testGet()
     {
         $this->resource->refresh(self::NT_ID);
+
         $fields = $this->resource->getFields();
         $this->assertEquals('url', $fields[0]->name);
         $this->assertFalse($fields[0]->optional);

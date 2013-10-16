@@ -1,14 +1,19 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ * 
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
 /**
  * NotificationHistory class.
- * 
- * @extends ReadOnlyResource
- * @implements ResourceInterface
  */
-class NotificationHistory extends ReadOnlyResource implements ResourceInterface
+class NotificationHistory extends ReadOnlyResource
 {
     private $id;
     private $timestamp;
@@ -25,8 +30,8 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 
     public function listChecks()
     {
-        $response = $this->getService()->request($this->url());
-        return ($json = $response->httpBody()) ? json_decode($json) : false;
+        $response = $this->getClient()->get($this->url())->send();
+        return $response->getDecodedBody();
     }
     
     public function listHistory($checkId)
@@ -36,13 +41,12 @@ class NotificationHistory extends ReadOnlyResource implements ResourceInterface
 
     public function getSingleHistoryItem($checkId, $historyId)
     {
-        $response = $this->getService()->request($this->url($checkId . '/' . $historyId));
+        $url = $this->url($checkId . '/' . $historyId);
+        $response = $this->getClient()->get($url)->send();
         
-        if ($json = $response->httpBody()) {
-            $object = json_decode($json);
-            $this->populate($object);
+        if (null !== ($decoded = $response->getDecodedBody())) {
+            $this->populate($decoded);
         }
-        
         return false;
     }
 
