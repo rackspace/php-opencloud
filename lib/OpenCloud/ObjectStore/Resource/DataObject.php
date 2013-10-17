@@ -254,7 +254,7 @@ class DataObject extends AbstractStorageObject
      *      'name' and 'content_type' of the object
      * @param string $filename if provided, then the object is loaded from the
      *      specified file
-     * @return boolean
+     * @return \OpenCloud\Common\Request\Response\Http
      * @throws CreateUpdateError
      */
     public function create($params = array(), $filename = null, $extractArchive = null)
@@ -393,7 +393,7 @@ class DataObject extends AbstractStorageObject
      * @param array $params an optional associative array that can contain the
      *      'name' and 'type' of the object
      * @param string $filename if provided, the object is loaded from the file
-     * @return boolean
+     * @return \OpenCloud\Common\Request\Response\Http
      */
     public function update($params = array(), $filename = '')
     {
