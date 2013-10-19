@@ -1,0 +1,4 @@
+Hello, World!
+
+This is a simple text file that is used in the simple.php
+example code.
