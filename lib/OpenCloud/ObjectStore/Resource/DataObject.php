@@ -315,9 +315,9 @@ class DataObject extends AbstractStorageObject
         $extractArchiveUrlArg = '';
 
         if ($extractArchive) {
-            if ($extractArchive !== "tar.gz" && $extractArchive !== "tar.bz2") {
+            if ($extractArchive !== "tar" && $extractArchive !== "tar.gz" && $extractArchive !== "tar.bz2") {
                 throw new Exceptions\ObjectError(
-                    "Extract Archive only supports tar.gz and tar.bz2"
+                    "Extract Archive only supports tar, tar.gz or tar.bz2"
                 );
             } else {
                 $extractArchiveUrlArg = "?extract-archive=" . $extractArchive;
