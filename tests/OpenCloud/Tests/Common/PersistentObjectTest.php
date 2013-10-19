@@ -158,11 +158,11 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
     
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\CreateError
+     * @expectedException OpenCloud\Common\Exceptions\RuntimeException
      */
     public function testCreate()
     {
-        $this->instance->Create();
+        $this->instance->create();
     }
 
     /**

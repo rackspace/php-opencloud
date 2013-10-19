@@ -24,7 +24,10 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\LoadBalancer\Service', $this->service);
+        $this->assertInstanceOf(
+            'OpenCloud\LoadBalancer\Service', 
+            $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL')
+        );
     }
 
     public function testLoadBalancer()

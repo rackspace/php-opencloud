@@ -44,14 +44,17 @@ abstract class Base
         // Get property - convert from camel case to underscore
         $property = lcfirst(substr($method, 3));
 
-        // Do getter
-        if ($prefix == 'get' && ($value = $this->getProperty($property))) {
-            return $value;
-        }
+        // Only do these methods on properties which exist
+        if ($this->propertyExists($property)) {
+            // Do getter
+            if ($prefix == 'get') {
+                return $this->getProperty($property);
+            }
 
-        // Do setter
-        if ($prefix == 'set' && ($value = $this->setProperty($property, $args[0]))) {
-            return $value;
+            // Do setter
+            if ($prefix == 'set') {
+                return $this->setProperty($property, $args[0]);
+            }
         }
         
         throw new Exceptions\RuntimeException(sprintf(
@@ -103,7 +106,7 @@ abstract class Base
         }
     }
     
-    private function propertyExists($property, $allowRetry = true)
+    protected function propertyExists($property, $allowRetry = true)
     {
         if (!property_exists($this, $property) && !$this->checkAttributePrefix($property)) {
             // Convert to under_score and retry

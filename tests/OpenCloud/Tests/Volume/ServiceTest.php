@@ -24,7 +24,10 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\Volume\Service', $this->service);
+        $this->assertInstanceOf(
+            'OpenCloud\Volume\Service', 
+            $this->getClient()->volumeService('cloudBlockStorage', 'DFW')
+        );
     }
 
     public function testVolume()

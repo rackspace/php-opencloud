@@ -245,7 +245,23 @@ class LoadBalancer extends PersistentObject
             $this->nodes[] = $node;
         }
     }
+    
+    public function addNodes() 
+    {
+        if (count($this->nodes) < 1) {
+            throw new Exceptions\MissingValueError(
+                Lang::translate('Cannot add nodes; no nodes are defined')
+            );
+        }
 
+        // iterate through all the nodes
+        foreach($this->nodes as $node) {
+            $resp = $node->Create();
+        }
+
+        return $resp;
+    }
+    
     /**
      * Remove a node from this load-balancer
      *
@@ -343,7 +359,7 @@ class LoadBalancer extends PersistentObject
      */
     public function nodeList() 
     {
-        return $this->getParent()->Collection('\OpenCloud\LoadBalancer\Resource\Node', null, $this);
+        return $this->getParent()->resourceList('Node');
     }
 
     /**
@@ -361,7 +377,7 @@ class LoadBalancer extends PersistentObject
      */
     public function nodeEventList() 
     {
-        return $this->getParent()->Collection('\OpenCloud\LoadBalancer\Resource\NodeEvent', null, $this);
+        return $this->getParent()->resourceList('NodeEvent');
     }
 
     /**
@@ -380,7 +396,7 @@ class LoadBalancer extends PersistentObject
      */
     public function virtualIpList() 
     {
-        return $this->getService()->collection('\OpenCloud\LoadBalancer\Resources\VirtualIp', null, $this);
+        return $this->getService()->resourceList('VirtualIp');
     }
 
     /**
@@ -455,7 +471,7 @@ class LoadBalancer extends PersistentObject
      */
     public function accessList() 
     {
-        return $this->getService()->Collection('OpenCloud\LoadBalancer\Resource\Access', null, $this);
+        return $this->getService()->resourceList('Access');
     }
 
     /**
@@ -507,7 +523,7 @@ class LoadBalancer extends PersistentObject
      */
     public function metadataList() 
     {
-        return $this->getService()->Collection('\OpenCloud\LoadBalancer\Resource\Metadata', null, $this);
+        return $this->getService()->resourceList('Metadata');
     }
 
     /**

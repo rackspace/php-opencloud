@@ -1,6 +1,6 @@
 {
     "webhook": {
-        "id":"{webhookId}",
+        "id":"webhookId",
         "name": "webhook name",
         "metadata": {},
         "links": [

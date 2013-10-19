@@ -86,7 +86,7 @@ class Message extends PersistentObject
     {
         return (object) array(
             'ttl'  => $this->getTtl(),
-            'body' => $this->getDecodedBody()
+            'body' => $this->getBody()
         );
     }
     

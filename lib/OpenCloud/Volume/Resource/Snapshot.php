@@ -34,53 +34,21 @@ class Snapshot extends PersistentObject
     protected static $json_name = 'snapshot';
     protected static $url_resource = 'snapshots';
 
-    private $_create_keys = array(
+    protected $createKeys = array(
         'display_name',
         'display_description',
         'volume_id',
         'force'
     );
 
-    /**
-     * updates are not permitted
-     *
-     * @throws OpenCloud\UpdateError always
-     */
-    public function Update($params = array()) 
+    public function update($params = array()) 
     {
-        throw new Exceptions\UpdateError(
-            Lang::translate('VolumeType cannot be updated')
-        );
+        return $this->noUpdate();
     }
 
-    /**
-     * returns the display_name attribute
-     *
-     * @api
-     * @return string
-     */
-    public function Name() 
+    public function name() 
     {
         return $this->display_name;
-    }
-
-    /**
-     * returns the object for the Create() method's JSON
-     *
-     * @return stdClass
-     */
-    protected function CreateJson() 
-    {
-        $object = new \stdClass();
-
-        $elem = $this->JsonName();
-        $object->$elem = new \stdClass();
-        
-        foreach($this->_create_keys as $key) {
-            $object->$elem->$key = $this->$key;
-        }
-
-        return $object;
     }
 
 }

@@ -81,19 +81,6 @@ abstract class AbstractResource extends PersistentObject
         return $existing + $params;
     }
     
-    /**
-     * Factory method for returning a resource. This is mostly used when a 
-     * Collection instantiates an individual resource (i.e. in next() calls).
-     * 
-     * @param  string $name
-     * @param  string $info
-     * @return AbstractResource
-     */
-    public function resource($name, $info)
-    {
-        return $this->getService()->resource($name, $info);
-    }
-    
     public function primaryKeyField()
     {
         return 'id';

@@ -46,28 +46,22 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->my = new MyBase;
     }
-
-    public function test_gettext()
-    {
-        $this->assertEquals(Lang::translate('Hello'), 'Hello');
-    }
-
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\RuntimeException
+     */
     public function test_Incorrect_Method()
     {
         $this->assertNull($this->my->fooBarMethod());
     }
     
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\RuntimeException
+     */
     public function test_Setting_NonExistent_Property()
     {
         $object = $this->my;
-        
-        $object->getLogger()
-            ->setOption('outputToFile', false)
-            ->setEnabled(true);
-        
         $object->setGhost('foobar');
-        
-        $this->expectOutputRegex('#property has not been defined.#');
     }
     
     public function test_noslash()

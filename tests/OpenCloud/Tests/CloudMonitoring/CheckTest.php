@@ -16,18 +16,26 @@ class CheckTest extends OpenCloudTestCase
         $this->resource = $this->service->resource('check');
         $this->resource->setParent($parentEntity);
     }
-
-    public function testCheckClass()
+    
+    public function test_Create()
+    {
+        $this->service->resource('check')->create(array(
+            'type' => 'webhook',
+            'name' => 'TEST'
+        ));
+    }
+    
+    public function test_Check_Class()
     {
         $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Check', $this->resource);
     }
 
-    public function testListAllIsCollection()
+    public function test_List_All_Is_Collection()
     {
         $this->assertInstanceOf('OpenCloud\\Common\\Collection', $this->resource->listAll());
     }
 
-    public function testParentClass()
+    public function test_Parent_Class()
     {
         $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Entity', $this->resource->getParent());
     }
@@ -35,12 +43,12 @@ class CheckTest extends OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
-    public function testCreateFailsWithoutRequiredParams()
+    public function test_Create_Fails_Without_Required_Params()
     {
         $this->resource->create();
     }
 
-    public function testCheckTest()
+    public function test_Check_Test()
     {
         $this->resource->setType('remote.http');
         $this->resource->setLabel('Example label');
@@ -52,7 +60,7 @@ class CheckTest extends OpenCloudTestCase
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);
     }
 
-    public function testCheckTestWithDebug()
+    public function test_Check_Test_With_Debug()
     {
         $this->resource->setType('remote.http');
         $this->resource->setLabel('Example label');
@@ -62,7 +70,7 @@ class CheckTest extends OpenCloudTestCase
         $this->assertObjectHasAttribute('debug_info', $response[0]);
     }
 
-    public function testExistingCheckTest()
+    public function test_Existing_Check_Test()
     {
         $this->resource->setId('chAAAA');
         $this->resource->setType('remote.http');
@@ -73,7 +81,7 @@ class CheckTest extends OpenCloudTestCase
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);
     }
 
-    public function testGetCheck()
+    public function test_Get_Check()
     {
         $this->resource->refresh('chAAAA');
 

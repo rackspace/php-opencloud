@@ -317,7 +317,7 @@ abstract class AbstractService extends Base
                 return Endpoint::factory($service->getEndpointFromRegion($this->region));
             }
         }
-
+        
         throw new Exceptions\EndpointError(sprintf(
             'No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]',
             $this->type,

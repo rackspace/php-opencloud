@@ -23,12 +23,19 @@ class SnapshotTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->snapshot = $service->snapshot();
     }
 
+    public function test_Create()
+    {
+        $this->snapshot->create(array(
+            
+        ));
+    }
+    
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
     public function testUpdate()
     {
-        $this->snapshot->Update();
+        $this->snapshot->update();
     }
 
     public function testName()

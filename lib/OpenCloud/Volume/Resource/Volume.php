@@ -35,7 +35,7 @@ class Volume extends PersistentObject
     protected static $json_name = 'volume';
     protected static $url_resource = 'volumes';
 
-    private $createKeys = array(
+    protected $createKeys = array(
         'snapshot_id',
         'display_name',
         'display_description',
@@ -43,12 +43,11 @@ class Volume extends PersistentObject
         'volume_type',
         'availability_zone'
     );
-
-    /**
-     * Always throws an error; updates are not permitted
-     *
-     * @throws OpenCloud\UpdateError always
-     */
+    
+    protected $associatedResources = array(
+        'volume_type' => 'VolumeType'
+    );
+    
     public function update($params = array()) 
     {
         throw new Exceptions\UpdateError(
@@ -56,51 +55,22 @@ class Volume extends PersistentObject
         );
     }
 
-    /**
-     * returns the name of the volume
-     *
-     * @api
-     * @return string
-     */
     public function name() 
     {
         return $this->display_name;
     }
 
-    /********** PROTECTED METHODS **********/
-
-    /**
-     * Creates the JSON object for the Create() method
-     *
-     * @return stdClass
-     */
     protected function createJson() 
     {
-        $element = $this->JsonName();
-        $object = new \stdClass();
-        $object->$element = new \stdClass();
+        $element = parent::createJson();
 
-        foreach ($this->createKeys as $name) {
-            if ($this->$name) {
-                switch($name) {
-                    case 'volume_type':
-                        $object->$element->$name = $this->volume_type->Name();
-                        break;
-                    default:
-                        $object->$element->$name = $this->$name;
-                        break;
-                }
-            }
+        if ($this->propertyExists('volume_type') 
+            && $this->getProperty('volume_type') instanceof VolumeType
+        ) {
+            $element->volume_type = $this->volume_type->name();
         }
 
-        if (is_array($this->metadata) && count($this->metadata)) {
-            $object->$element->metadata = new \stdClass();
-            foreach($this->metadata as $key => $value) {
-                $object->$element->metadata->$key = $value;
-            }
-        }
-
-        return $object;
+        return $element;
     }
 
 }

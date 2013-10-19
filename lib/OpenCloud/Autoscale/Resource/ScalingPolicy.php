@@ -53,14 +53,7 @@ class ScalingPolicy extends AbstractResource
         }
         return $webhook;
     }
-    
-    public function webhook($info)
-    {
-        $webhook = $this->getWebhook();
-        $webhook->populate($info);
-        return $webhook;
-    }
-    
+
     public function execute()
     {
         return $this->getClient()->post($this->url('execute'))->send();

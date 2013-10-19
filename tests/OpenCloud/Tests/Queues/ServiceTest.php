@@ -20,9 +20,10 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->service = $this->getClient()->queues('cloudQueues', 'ORD');
     }
         
-    public function testListQueues()
+    public function test_List_Queues()
     {
-        $queues = $this->service->listQueues(array('marker' => 2));
+        $service = $this->getClient()->queues('cloudQueues', 'ORD');
+        $queues = $service->listQueues(array('marker' => 2));
         $this->assertInstanceOf('OpenCloud\Common\Collection', $queues);
 
         $first = $queues->first();
@@ -35,13 +36,13 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertNotNull($first->getHref());
     }
     
-    public function testGetQueue()
+    public function test_Get_Queue()
     {
         $queue = $this->service->getQueue();
         $this->assertInstanceOf('OpenCloud\Queues\Resource\Queue', $queue);
     }
     
-    public function testHasQueue()
+    public function test_Has_Queue()
     {
         $this->assertTrue($this->service->hasQueue('realQueue'));
         $this->assertFalse($this->service->hasQueue('foobar'));
@@ -50,7 +51,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
-    public function testHasQueueFailsWithoutName()
+    public function test_Has_Queue_Fails_Without_Name()
     {
         $this->service->hasQueue(array());
     }

@@ -83,7 +83,7 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resources\LoadBalancer', 
+            'OpenCloud\LoadBalancer\Resource\LoadBalancer', 
             $lb->Node('345')->getParent()
         );
         
@@ -146,7 +146,7 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $lb = $this->service->LoadBalancer();
         $lb->Create();
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $lb->VirtualIpList());
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $lb->virtualIpList());
     }
 
     public function testSessionPersistence()
@@ -186,7 +186,7 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->loadBalancer->id = 1024;
 
         $x = $this->loadBalancer->stats();
-        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resources\Stats', $x);
+        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resource\Stats', $x);
     }
 
     public function testUsage()

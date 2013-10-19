@@ -21,6 +21,11 @@ class AgentHostTest extends OpenCloudTestCase
         $this->resource->setParent($agent);
     }
     
+    public function test__construct()
+    {
+        $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW');
+    }
+    
     public function testResourceClass()
     {
         $this->assertInstanceOf(

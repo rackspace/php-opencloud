@@ -111,7 +111,8 @@ return array(
     ),
     
     "volume" => array(
-         'detail' => 'detail'
+        'detail' => 'detail',
+        'types/{w}' => 'type'
     ),
     
     "rax:load-balancer" => array(

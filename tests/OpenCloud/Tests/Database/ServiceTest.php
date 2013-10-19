@@ -10,7 +10,7 @@
  * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 
-namespace OpenCloud\Tests;
+namespace OpenCloud\Tests\Database;
 
 class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
@@ -24,7 +24,10 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\Database\Service', $this->service);
+        $this->assertInstanceOf(
+            'OpenCloud\Database\Service', 
+            $this->getClient()->dbService('cloudDatabases', 'DFW')
+        );
     }
 
     public function testFlavorList()

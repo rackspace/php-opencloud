@@ -26,7 +26,8 @@ class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Service', $this->service);
+        $this->assertInstanceOf('OpenCloud\DNS\Service', 
+            $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL'));
     }
 
     public function testUrl()

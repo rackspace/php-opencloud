@@ -10,9 +10,10 @@
 
 namespace OpenCloud\Common;
 
+use Guzzle\Http\Url;
 use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
-use Guzzle\Http\Url;
+use OpenCloud\Common\Exceptions\RuntimeException;
 
 /**
  * Represents an object that can be retrieved, created, updated and deleted.
@@ -436,10 +437,26 @@ abstract class PersistentObject extends Base
      */
     protected function createJson()
     {
-        throw new Exceptions\CreateError(sprintf(
-            Lang::translate('[%s] CreateJson() must be overridden'),
-            get_class($this)
-        ));
+        if (!isset($this->createKeys)) {
+            throw new RuntimeException(sprintf(
+                'This resource object [%s] must have a visible createKeys array',
+                get_class($this)
+            ));
+        }
+        
+        $element = (object) array();
+
+        foreach ($this->createKeys as $key) {
+            if (null !== ($property = $this->getProperty($key))) {
+                $element->$key = $property;
+            }
+        }
+
+        if (!empty($this->metadata)) {
+            $element->metadata = (object) $this->metadata->toArray();
+        }
+
+        return (object) array($this->jsonName() => (object) $element);
     }
 
     /**

@@ -21,12 +21,20 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
     }
 
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\UnsupportedVersionError
-     */
     public function test__construct()
     {
-        $this->getClient()->compute('cloudServers', 'DFW', 'publicURL');
+        $this->assertInstanceOf(
+            'OpenCloud\Compute\Service', 
+            $this->getClient()->compute('cloudServersOpenStack', 'DFW')
+        );
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\UnsupportedVersionError
+     */
+    public function test_Deprecated_Endpoint()
+    {
+        $this->getClient()->compute('cloudServers', 'DFW');
     }
 
     public function testServer()
