@@ -11,10 +11,13 @@
 namespace OpenCloud\ObjectStore\Resource;
 
 use Guzzle\Http\EntityBody;
+use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
+use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
+use OpenCloud\Common\Service\AbstractService;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -34,6 +37,16 @@ class Container extends AbstractContainer
      * @var CDNContainer|null 
      */
     private $cdn;
+    
+    public static function fromResponse(Response $response, AbstractService $service)
+    {
+        $self = parent::fromResponse($response, $service);
+        
+        $segments = Url::factory($response->getEffectiveUrl())->getPathSegments();
+        $self->name = end($segments);
+        
+        return $self;
+    }
     
     public function getCdn()
     {

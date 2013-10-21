@@ -45,10 +45,6 @@ abstract class AbstractContainer extends AbstractResource
      */
     private $service;
     
-    protected $objectCount = 0;
-    
-    protected $bytesUsed = 0;
-    
     public function __construct(AbstractService $service, $cdata = null)
     {
         $this->getLogger()->info('Initializing CDN Container Service...');

@@ -10,9 +10,12 @@
 
 namespace OpenCloud\ObjectStore;
 
+use Guzzle\Http\EntityBody;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Collection;
+use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\ObjectStore\Resource\Container;
+use OpenCloud\ObjectStore\Constants\UrlType;
 
 /**
  * The ObjectStore (Cloud Files) service.
@@ -87,18 +90,9 @@ class Service extends AbstractService
         return $this->cdnService;
     }
     
-    public function listContainers(array $filter = array())
-    {
-        $response = $this->getClient()->get($this->getUrl(null, $filter))->send();
-        
-        $containers = explode(PHP_EOL, $response->getBody());
-        
-        return new Collection($this, __NAMESPACE__ . '\\Resource\\Container', $containers);
-    }
-    
     public function getContainer($data = null)
     {
-        return new Resource\Container($this, $data);
+        return new Container($this, $data);
     }
     
     public function createContainer($name, array $metadata = array())
@@ -112,7 +106,7 @@ class Service extends AbstractService
             ->send();
         
         if ($response->getStatusCode() == 201) {
-            return Container::fromResponse($response);
+            return Container::fromResponse($response, $this);
         }
         
         return false;
@@ -151,7 +145,7 @@ class Service extends AbstractService
         
         if (!in_array($archiveType, $acceptableTypes)) {
             throw new Exceptions\InvalidArgumentError(sprintf(
-                'The archive type must be one of the following: [%s]. You provided [%s].'.
+                'The archive type must be one of the following: [%s]. You provided [%s].',
                 implode($acceptableTypes, ','),
                 print_r($archiveType, true)
             ));
@@ -161,9 +155,9 @@ class Service extends AbstractService
         $response = $this->getClient()->put($url, array(), $entity)->send();
         
         $message = $response->getDecodedBody();
-        
-        if (!empty($message->errors)) {
-            throw new Exception\BulkOperationException((array) $message->errors);
+
+        if (!empty($message->Errors)) {
+            throw new Exception\BulkOperationException((array) $message->Errors);
         }
         
         return $response;
@@ -181,8 +175,8 @@ class Service extends AbstractService
         
         $message = $response->getDecodedBody();
         
-        if (!empty($message->errors)) {
-            throw new Exception\BulkOperationException((array) $message->errors);
+        if (!empty($message->Errors)) {
+            throw new Exception\BulkOperationException((array) $message->Errors);
         }
         
         return $response;

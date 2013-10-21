@@ -26,4 +26,14 @@ class Account extends AbstractResource
         return $this->retrieveMetadata();
     }
     
+    public function getObjectCount()
+    {
+        return $this->metadata->getProperty('Object-Count');
+    }
+    
+    public function getBytesUsed()
+    {
+        return $this->metadata->getProperty('Bytes-Used');
+    }
+    
 }

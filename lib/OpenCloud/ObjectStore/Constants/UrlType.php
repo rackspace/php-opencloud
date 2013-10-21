@@ -16,4 +16,8 @@ class UrlType
     const SSL = 'SSL';
     const STREAMING = 'Streaming';
     const IOS_STREAMING = 'IOS-Streaming';
+    
+    const TAR = 'tar';
+    const TAR_GZ = 'tar.gz';
+    const TAR_BZ2 = 'tar.bz2';
 }

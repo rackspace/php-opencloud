@@ -32,37 +32,33 @@ class Metadata extends Base
      */
     public function __set($property, $value) 
     {
-        // set the value and track the keys
-        $this->metadata[$property] = $value;
+        $this->setProperty($property, $value);
     }
 
     public function __get($key)
     {
-        if (array_key_exists($key, $this->metadata)) {
-            return $this->metadata[$key];
-        }
+        $this->getProperty($key);
     }
     
-    public function propertyExists($property)
+    public function propertyExists($property, $allowRetry = true)
     {
-        return isset($this->metadata[$property]);
+        return isset($this->metadata[strtolower($property)]) 
+            || parent::propertyExists($property, $allowRetry);
     }
     
     public function getProperty($property)
     {
-        return $this->propertyExists($property) ? $this->metadata[$property] : null;
+        return $this->propertyExists($property) ? $this->metadata[strtolower($property)] : null;
     }
     
     public function setProperty($property, $value)
     {
-        if ($this->propertyExists($property)) {
-            $this->metadata[$property] = $value;
-        }
+        $this->metadata[strtolower($property)] = $value;
     }
     
     public function __isset($property)
     {
-        return array_key_exists($property, $this->metadata);
+        return $this->propertyExists($property);
     }
     
     /**
@@ -97,7 +93,7 @@ class Metadata extends Base
             if ($prefix && strpos($key, $prefix) === 0) {
                 $key = substr($key, strlen($prefix));
             } 
-            $this->metadata[$key] = $value;
+            $this->setProperty($key, $value);
         }
     }
     

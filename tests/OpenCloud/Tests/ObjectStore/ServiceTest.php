@@ -10,6 +10,9 @@
  */
 namespace OpenCloud\Tests\ObjectStore;
 
+use OpenCloud\ObjectStore\Service;
+use OpenCloud\ObjectStore\Constants\UrlType;
+
 /**
  * Description of ServiceTest
  * 
@@ -45,29 +48,82 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $list = $this->service->listContainers();
         
         $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
-        $this->assertEquals('', $list->first()->getName());
+        $this->assertEquals('a', $list->first()->getName());
         
         $partialList = $this->service->listContainers(array('limit' => 5));
-        $this->assertEqual(5, $partialList->count());
+        $this->assertEquals(5, $partialList->count());
     }
     
     public function test_Create_Container()
     {
+        $container = $this->service->createContainer('fooBar');
         
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\Container', $container);
+        $this->assertEquals('fooBar', $container->getName());
+        $this->assertEquals('JackWolf', $container->getMetadata()->getProperty('InspectedBy'));
+       
+        $this->assertFalse($this->service->createContainer('existing-container'));
     }
     
-    public function test_Check_ContainerName()
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Bad_Container_Name_Empty()
     {
-        
+        $this->service->createContainer('');
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Bad_Container_Name_Slashes()
+    {
+        $this->service->createContainer('foo/bar');
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Bad_Container_Name_Long()
+    {
+        $this->service->createContainer(str_repeat('a', Service::MAX_CONTAINER_NAME_LENGTH + 1));
     }
     
     public function test_Bulk_Extract()
     {
-        
+        $response = $this->service->bulkExtract('fooBarContainer', 'CONTENT', UrlType::TAR);
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+    
+    /**
+     * @expectedException OpenCloud\ObjectStore\Exception\BulkOperationException
+     */
+    public function test_Bad_Bulk_Extract()
+    {
+        $response = $this->service->bulkExtract('bad-container', 'CONTENT', UrlType::TAR);
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Bulk_Extract_With_Incorrect_Type()
+    {
+        $this->service->bulkExtract('bad-container', 'CONTENT', 'foo');
     }
     
     public function test_Bulk_Delete()
     {
-        
+        $response = $this->service->bulkDelete(array('foo/Bar', 'foo/Baz'));
+        $this->assertEquals(202, $response->getStatusCode());
     }
+    
+    /**
+     * @expectedException OpenCloud\ObjectStore\Exception\BulkOperationException
+     */
+    public function test_Bad_Bulk_Delete()
+    {
+        $this->service->bulkDelete(array('nonEmptyContainer'));
+    }
+    
 }

@@ -10,11 +10,8 @@
 
 namespace OpenCloud\ObjectStore;
 
+use OpenCloud\Common\Collection;
 use OpenCloud\Common\Service\AbstractService as CommonAbstractService;
-use OpenCloud\Common\Exceptions\InvalidArgumentError;
-use OpenCloud\ObjectStore\Resource\Container;
-
-define('SWIFT_MAX_OBJECT_SIZE', 5 * 1024 * 1024 * 1024 + 1);
 
 /**
  * An abstract base class for common code shared between ObjectStore\Service
@@ -27,11 +24,16 @@ abstract class AbstractService extends CommonAbstractService
 
     const MAX_CONTAINER_NAME_LENGTH = 256;
     const MAX_OBJECT_NAME_LEN       = 1024;
-    const MAX_OBJECT_SIZE           = SWIFT_MAX_OBJECT_SIZE;
+    const MAX_OBJECT_SIZE           = 5102410241025;
     
     public function listContainers(array $filter = array())
     {
-        return $this->resourceList('Container', $this->getUrl(null, $filter));
+        $response = $this->getClient()->get($this->getUrl(null, $filter))->send();
+        
+        $containers = explode(PHP_EOL, $response->getBody());
+        
+        $class = ($this instanceof Service) ? 'Container' : 'CDNContainer';
+        return new Collection($this, __NAMESPACE__ . '\\Resource\\' . $class, $containers);
     }
     
 }

@@ -27,7 +27,7 @@ class ServerMetadata extends Metadata
 {
     
     private $parent;   // the parent object
-    protected $key;      // the metadata item (if supplied)
+    protected $key;    // the metadata item (if supplied)
     private $url;      // the URL of this particular metadata item or block
 
     /**

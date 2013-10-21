@@ -12,6 +12,7 @@ namespace OpenCloud\ObjectStore\Resource;
 
 use OpenCloud\Common\Base;
 use OpenCloud\Common\Http\Message\Response;
+use OpenCloud\Common\Service\AbstractService;
 
 /**
  * Abstract base class which implements shared functionality of ObjectStore 
@@ -23,9 +24,9 @@ abstract class AbstractResource extends Base
     protected $metadata;
     protected $metadataClass = 'OpenCloud\\Common\\Metadata';
 
-    public static function fromResponse(Response $response)
+    public static function fromResponse(Response $response, AbstractService $service)
     {
-        $object = new static();
+        $object = new static($service);
         
         if (null !== ($headers = $response->getHeaders())) {
             $object->setMetadata($headers, true);
@@ -37,13 +38,14 @@ abstract class AbstractResource extends Base
     public static function trimHeaders($headers)
     {
         $output = array();
+        
         foreach ($headers as $header => $value) {
-            $pattern = '#' . static::HEADER_METADATA_PREFIX . 'e#';
-            if (preg_match($pattern, $header) !== false) {
-                $key = str_replace(static::HEADER_METADATA_PREFIX, '', $header);
+            $pattern = '#' . str_replace('-', '\-', static::HEADER_METADATA_PREFIX) . '#i';
+            if (null !== ($key = preg_replace($pattern, '', $header))) {
                 $output[$key] = (string) $value;
             }
         }
+
         return $output;
     }
     

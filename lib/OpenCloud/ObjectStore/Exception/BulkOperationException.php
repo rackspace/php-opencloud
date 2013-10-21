@@ -17,12 +17,12 @@ namespace OpenCloud\ObjectStore\Exception;
  */
 class BulkOperationException extends \Exception
 {
-    public function __construct(array $errors, \Exception $exception)
+    public function __construct(array $errors)
     {
         $output = '';
         
-        foreach ($errors as $file => $message) {
-            $output .= "$file: $message" . PHP_EOL;
+        foreach ($errors as $error) {
+            $output .= "$error[0]: $error[1]" . PHP_EOL;
         }
         
         parent::__construct(

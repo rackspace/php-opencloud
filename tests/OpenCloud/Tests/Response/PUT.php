@@ -16,21 +16,13 @@ return array(
      ),
     
     'object-store' => array(
-        'NON-CDN' => array(
-            'body' => '',
+        'bad-container\?extract-archive' => array('status' => 200, 'body' => '{"Number Files Created":10,"Response Status":"400 Bad Request","Errors":[["/v1/AUTH_test/test_cont/big_file.wav","413 Request Entity Too Large"]],"Response Body":""}'),
+        '{w}\?extract-archive' => array('status' => 200, 'body' => '{"Number Files Created":10,"Response Status":"201 Created","Errors":[],"Response Body":""}'),
+        'M-ALT-ID/existing-container$' => array('status' => 202, 'body' => ''),
+        'M-ALT-ID/{w}/?$' => array(
             'status' => 201,
-            'headers' => array(
-                'ETag' => 'd9f5eb4bba4e2f2f046e54611bc8196b',
-                'Content-Length' => 0,
-                'Content-Type' => 'text/plain; charset=UTF-8'
-            )
-        ),
-        'TEST' => array(
-            array(
-                'pattern' => 'X-CDN-Enabled: True',
-                'status' => 201,
-                'body'   => ''
-            )
+            'body' => '{}',
+            'headers' => array('X-Container-Meta-InspectedBy' => 'JackWolf')
         )
     ),
     

@@ -81,6 +81,8 @@ return array(
     
     'object-store' => array(
         
+        
+        
     ),
     
     'rax:object-cdn' => array(
