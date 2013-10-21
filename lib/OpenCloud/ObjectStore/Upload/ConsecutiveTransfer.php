@@ -47,7 +47,7 @@ class ConsecutiveTransfer extends AbstractTransfer
                 break;
             }
 
-            $request = UploadPart::createRequest(
+            $request = TransferPart::createRequest(
                 $body, 
                 $this->transferState->count() + 1,
                 $this->client, 
@@ -56,7 +56,7 @@ class ConsecutiveTransfer extends AbstractTransfer
             
             $response = $request->send();
 
-            $this->transferState->addPart(UploadPart::fromResponse($response));
+            $this->transferState->addPart(TransferPart::fromResponse($response));
         }
     }
     

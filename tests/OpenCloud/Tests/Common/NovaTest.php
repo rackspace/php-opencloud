@@ -12,9 +12,9 @@
 
 namespace OpenCloud\Tests\Common;
 
-use OpenCloud\Common\Nova;
+use OpenCloud\Common\Service\NovaService;
 
-class MyNova extends Nova {}
+class MyNova extends NovaService {}
 
 class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
 {

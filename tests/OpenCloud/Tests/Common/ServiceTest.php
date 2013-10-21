@@ -19,7 +19,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW');
+        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW');
     }
 
     public function testExtensions()

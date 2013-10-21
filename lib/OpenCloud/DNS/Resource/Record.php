@@ -53,21 +53,4 @@ class Record extends Object
         'comment'
     );
 
-    /**
-     * create a new record object
-     *
-     * @param mixed $parent either the domain object or the DNS object (for PTR)
-     * @param mixed $info ID or array/object of data for the object
-     * @return void
-     */
-    public function __construct($parent, $info = null) 
-    { 
-        if ($parent instanceof Service) {
-            parent::__construct($parent, $info);
-        } else {
-            $this->setParent($parent);
-            parent::__construct($parent->getService(), $info);
-        }
-    }
-
 }

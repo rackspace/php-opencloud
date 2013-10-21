@@ -95,4 +95,9 @@ class SubResourceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->loadBalancer->virtualIp()->update();
     }
     
+    public function test_Name()
+    {
+        $this->assertEquals('ContentCaching-2000', $this->loadBalancer->contentCaching()->name());
+    }
+    
 }

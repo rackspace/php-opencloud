@@ -40,9 +40,9 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\DomainError
+     * @expectedException OpenCloud\Common\Exceptions\DomainError
      */
-    public function testAddNode()
+    public function test_Add_Node()
     {
         $lb = $this->service->LoadBalancer();
         $lb->addNode('1.1.1.1', 80);
@@ -53,28 +53,37 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $lb->AddNode('1.1.1.2', 80, 'foobar');
     }
 
-    public function testRemoveNode()
+    public function test_Remove_Node()
     {
         $lb = $this->service->LoadBalancer();
-        //$lb->Create();
-        $lb->AddNode('1.1.1.1', 80);
-        $lb->Create();
-        $lb->AddNodes(); 
+        
+        $lb->addNode('1.1.1.1', 80);
+        $lb->addNodes();
+        
+        $lb->removeNode(1040);
     }
 
     /**
-     * @ expectedException \OpenCloud\Common\Exceptions\DomainError
+     * @expectedException OpenCloud\Common\Exceptions\MissingValueError
+     */
+    public function test_Adding_Nodes_Fails_When_Empty()
+    {
+        $this->service->loadBalancer()->addNodes();
+    }
+    
+    /**
+     * @ expectedException OpenCloud\Common\Exceptions\DomainError
      */
     public function testAddVirtualIp()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->AddVirtualIp('public');
+        $lb = $this->service->loadBalancer();
+        $lb->addVirtualIp('public');
         $this->assertEquals('PUBLIC', $lb->virtualIps[0]->type);
     }
 
     public function testNode()
     {
-        $lb = $this->service->LoadBalancer();
+        $lb = $this->service->loadBalancer();
         $lb->Create();
         
         $this->assertEquals(
@@ -111,7 +120,9 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testNodeList()
     {
         $lb = $this->service->LoadBalancer();
-        $lb->Create();
+        $lb->addVirtualIp('PUBLIC', 4);
+        $lb->addNode('0.0.0.1', 1000);
+        $lb->create(array('name' => 'foobar'));
         $this->assertInstanceOf('OpenCloud\Common\Collection', $lb->NodeList());
     }
 
@@ -288,7 +299,6 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testUpdate()
     {
-
         $lb = $this->service->LoadBalancer();
         $lb->Create();
 
@@ -303,6 +313,14 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertEquals('ROUND_ROBIN',$lb->algorithm);
         $this->assertEquals('HTTP',$lb->protocol);
         $this->assertEquals('8080',$lb->port);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Update_Fails_Without_Correct_Fields()
+    {
+        $this->loadBalancer->update(array('foo' => 'bar'));
     }
     
     public function testAddingNodeWithType()
@@ -339,6 +357,6 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testAddingVirtualIpFailsWithIncorrectIpType()
     {
         $this->loadBalancer->addVirtualIp(123, 5);
-    }
-
+    } 
+    
 }

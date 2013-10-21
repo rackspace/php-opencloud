@@ -4,22 +4,22 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\ObjectStore\Resource;
 
+use Guzzle\Http\EntityBody;
+use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
-use Guzzle\Http\EntityBody;
-use OpenCloud\ObjectStore\Upload\UploadBuilder;
-use OpenCloud\Common\Constants\Size;
+use OpenCloud\ObjectStore\Upload\TransferBuilder;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
- * to organize your data. You can think of a container as a folder in Windows® 
- * or a directory in UNIX®. The primary difference between a container and these 
+ * to organize your data. You can think of a container as a folder in Windows 
+ * or a directory in Unix. The primary difference between a container and these 
  * other file system concepts is that containers cannot be nested.
  * 
  * A container can also be CDN-enabled (for public access), in which case you
@@ -35,21 +35,41 @@ class Container extends AbstractContainer
      */
     private $cdn;
     
-    public function setCDN(CDNContainer $cdn)
+    public function getCdn()
     {
-        $this->cdn = $cdn;
-        return $this;
-    }
-    
-    public function getCDN()
-    {
+        if (!$this->isCdnEnabled()) {
+            throw new Exceptions\CdnNotAvailableError(
+            	'This container is not CDN-enabled.'
+            );
+        }
+        
         if (!$this->cdn) {
             throw new Exceptions\CdnNotAvailableError(
-            	Lang::translate('CDN-enabled container is not available')
+            	'The CDN for this container is not available'
             );
         }
         
         return $this->cdn;
+    }
+    
+    public function getObjectCount()
+    {
+        return $this->metadata->getProperty('X-Container-Object-Count');
+    }
+    
+    public function getBytesUsed()
+    {
+        return $this->metadata->getProperty('X-Container-Bytes-Used');
+    }
+    
+    public function getCountQuota()
+    {
+        return $this->metadata->getProperty('Quota-Count');
+    }
+    
+    public function getBytesQuota()
+    {
+        return $this->metadata->getProperty('Quota-Bytes');
     }
     
     public function delete($deleteObjects = false)
@@ -140,10 +160,9 @@ class Container extends AbstractContainer
         $this->refresh();
 
         // return the CDN container object
-        $cdn = new CDNContainer($this->getCDNService(), $this->name);
-        $this->setCDN($cdn);
+        $this->cdn = new CDNContainer($this->getCDNService(), $this->name);
         
-        return $cdn;
+        return $this->cdn;
     }
 
     /**
@@ -196,116 +215,27 @@ class Container extends AbstractContainer
     }
 
     /**
-     * Returns the CDN URL of the container (if enabled)
-     *
-     * The CDNURL() is used to manage the container. Note that it is different
-     * from the PublicURL() of the container, which is the publicly-accessible
-     * URL on the network.
-     *
-     * @api
-     * @return string
-     */
-    public function CDNURL()
-    {
-        return $this->getCDN()->getUrl();
-    }
-
-    /**
-     * Returns the Public URL of the container (on the CDN network)
-     *
-     */
-    public function publicURL()
-    {
-        return $this->CDNURI();
-    }
-
-    /**
-     * Returns the CDN info about the container
-     *
-     * @api
-     * @return stdClass
-     */
-    public function CDNinfo($property = null)
-    {
-        // Not quite sure why this is here...
-        // @codeCoverageIgnoreStart
-		if ($this->getService() instanceof CDNService) {
-			return $this->metadata;
-        }
-        // @codeCoverageIgnoreEnd
-
-        // return NULL if the CDN container is not enabled
-        if ($this->getCDN()->metadata->Enabled != 'True') {
-            return null;
-        }
-
-        // check to see if it's set
-        if (isset($this->getCDN()->metadata->$property)) {
-            return trim($this->getCDN()->metadata->$property);
-        } elseif ($property !== null) {
-            return null;
-        }
-
-        // otherwise, return the whole metadata object
-        return $this->getCDN()->metadata;
-    }
-
-    /**
-     * Returns the CDN container URI prefix
-     *
-     * @api
-     * @return string
-     */
-    public function CDNURI()
-    {
-        return $this->CDNinfo('Uri');
-    }
-
-    /**
-     * Returns the SSL URI for the container
-     *
-     * @api
-     * @return string
-     */
-    public function SSLURI()
-    {
-        return $this->CDNinfo('Ssl-Uri');
-    }
-
-    /**
-     * Returns the streaming URI for the container
-     *
-     * @api
-     * @return string
-     */
-    public function streamingURI()
-    {
-        return $this->CDNinfo('Streaming-Uri');
-    }
-
-    /**
-     * Returns the IOS streaming URI for the container
-     *
-     * @api
-     * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/iOS-Streaming-d1f3725.html
-     * @return string
-     */
-    public function iosStreamingURI()
-    {
-        return $this->CDNinfo('Ios-Uri');
-    }
-
-    /**
      * Refreshes, then associates the CDN container
      */
     public function refresh($id = null, $url = null)
     {
-        $headers = parent::refresh($id, $url);
-        
-        // Populate new object with existing headers (to avoid extra request)
         $this->cdn = new CDNContainer($this->getService()->getCDNService());
         $this->cdn->name = $this->name;
-        $this->cdn->stockFromHeaders($headers);
+        
+        $requests = array(
+            $this->createRefreshRequest($this->name),
+            $this->cdn->createRefreshRequest($this->name)
+        );
+        
+        // Execute queued requests in parallel
+        foreach ($this->getService()->getClient()->send($requests) as $response) {
+            $headers = $response->getHeaders();
+            if ($headers->offsetExists('X-Cdn-Uri')) {
+                $this->cdn->stockFromHeaders($headers);
+            } else {
+                $this->stockFromHeaders($headers);
+            }
+        }
     }
     
     /**
@@ -393,26 +323,26 @@ class Container extends AbstractContainer
         }
         
         // Build upload
-        $uploader = UploadBuilder::factory()
+        $transfer = TransferBuilder::factory()
             ->setOption('objectName', $options['name'])
             ->setEntityBody(EntityBody::factory($body))
             ->setContainer($this);
         
         // Add extra options
         if (!empty($options['metadata'])) {
-            $uploader->setOption('metadata', $options['metadata']);
+            $transfer->setOption('metadata', $options['metadata']);
         }
         if (!empty($options['partSize'])) {
-            $uploader->setOption('partSize', $options['partSize']);
+            $transfer->setOption('partSize', $options['partSize']);
         }
         if (!empty($options['concurrency'])) {
-            $uploader->setOption('concurrency', $options['concurrency']);
+            $transfer->setOption('concurrency', $options['concurrency']);
         }
         if (!empty($options['progress'])) {
-            $uploader->setOption('progress', $options['progress']);
+            $transfer->setOption('progress', $options['progress']);
         }
 
-        return $uploader->build()->upload();
+        return $transfer->build()->upload();
     }
 
 }

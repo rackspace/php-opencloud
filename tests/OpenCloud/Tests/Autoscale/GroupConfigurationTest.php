@@ -27,7 +27,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
+        $this->service = $this->getClient()->autoscaleService('autoscale', 'DFW', 'publicURL'); 
     }
     
     public function testParentFactory()

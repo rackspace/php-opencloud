@@ -62,7 +62,7 @@ class ConcurrentTransfer extends AbstractTransfer
                 }
 
                 // Add this to the request queue for later processing
-                $requests[] = UploadPart::createRequest(
+                $requests[] = TransferPart::createRequest(
                     $parts[$i], 
                     $this->transferState->count() + $i + 1, 
                     $this->client, 
@@ -73,7 +73,7 @@ class ConcurrentTransfer extends AbstractTransfer
             // Iterate over our queued requests and process them
             foreach ($this->client->send($requests) as $response) {
                 // Add this part to the TransferState
-                $this->transferState->addPart(UploadPart::fromResponse($response));
+                $this->transferState->addPart(TransferPart::fromResponse($response));
             }
         }
     }

@@ -27,7 +27,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL');
+        $this->service = $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL');
         $this->record = $this->service->ptrRecord();
     }
 
@@ -58,7 +58,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testCreate()
     {
-        $server = $this->getClient()->compute(null, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->record->create(array('server' => $server))
@@ -67,7 +67,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testUpdate()
     {
-        $server = $this->getClient()->compute(null, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse', 
             $this->record->update(array('server' => $server))
@@ -76,7 +76,7 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testDelete()
     {
-        $server = $this->getClient()->compute(null, 'ORD')->server(array('id' => 'foo'));
+        $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->record->server = $server;
         $this->record->data   = 12345;
         $this->assertInstanceOf(

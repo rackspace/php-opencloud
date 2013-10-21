@@ -17,7 +17,7 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function __construct()
     {
-        $this->compute = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->compute = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
     }
     
     public function test_Service_Methods()
@@ -83,6 +83,22 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Upload_Fails_NoKey()
     {
         $this->compute->keypair()->upload();
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Name_Validity()
+    {
+        $this->compute->keypair()->setName('!!!');
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Name_Validity_Create()
+    {
+        $this->compute->keypair()->create(array('name' => '!!!'));
     }
     
 }

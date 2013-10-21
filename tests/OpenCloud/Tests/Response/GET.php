@@ -93,10 +93,9 @@ return array(
     ),
     
     "object-store" => array(
-        'TEST/?$' => '{}',
-        'TEST\?format=json' => 'format',
-        'NON-CDN' => 'format',
-        'delimeter' => '[{"subdir": "files/Pseudo1/"},{"subdir": "files/Pseudo2/"}]'
+        'M-ALT-ID?$' => "a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk",
+        'M-ALT-ID\?limit=5?$' => "a\nb\nc\nd\ne",
+        
     ),
     
     "rax:object-cdn" => array(
@@ -151,8 +150,9 @@ return array(
         '/servers/' => 'server',
         'EMPTY' => '{}',
         '/volumes/' => '{"volume":[]}', 
+        'flavors/?$' => 'flavors',
+        'flavors/detail/?$' => 'flavors',
         'flavors/{w}' => 'flavor',
-        'flavors' => 'flavors',
     ),
     
     "rax:dns" => array(

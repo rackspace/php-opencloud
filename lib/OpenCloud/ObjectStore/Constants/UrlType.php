@@ -8,10 +8,12 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
-namespace OpenCloud\ObjectStore\Resource;
+namespace OpenCloud\ObjectStore\Constants;
 
-use OpenCloud\Common\Metadata;
-
-class ContainerMetadata extends Metadata
-{    
+class UrlType
+{
+    const CDN = 'CDN';
+    const SSL = 'SSL';
+    const STREAMING = 'Streaming';
+    const IOS_STREAMING = 'IOS-Streaming';
 }

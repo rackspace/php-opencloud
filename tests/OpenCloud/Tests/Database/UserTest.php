@@ -20,7 +20,7 @@ class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->databaseService('cloudDatabases', 'DFW', 'publicURL');
         $this->instance = $this->service->instance('12345678');
         $this->user = $this->instance->user();
     }
@@ -78,7 +78,7 @@ class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
             )
         ));
         $this->assertLessThan(205, $response->getStatusCode());
-        $this->assertEquals('FOOBAR', $this->user->name);
+        $this->assertEquals('FOOBAR', $this->user->getName());
         $this->assertEquals('BAZ', $this->user->password);
     }
 

@@ -13,12 +13,8 @@ namespace OpenCloud\ObjectStore\Upload;
 use OpenCloud\Common\Http\Message\Response;
 use Guzzle\Http\Url;
 
-/**
- * Description of UploadPart
- * 
- * @link 
- */
-class UploadPart
+
+class TransferPart
 {
     /**
      * @var int Its position in the upload queue.
@@ -96,7 +92,7 @@ class UploadPart
     public static function createRequest($part, $number, $client, $options)
     {
         $name = sprintf('%s/%s/%d', $options['objectName'], $options['prefix'], $number);
-        $url  = clone $options['containerUri'];
+        $url  = clone $options['containerUrl'];
         $url->addPath($name);
 
         $headers = array(

@@ -12,7 +12,6 @@ namespace OpenCloud\Common\Http;
 
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Curl\CurlVersion;
-use Guzzle\Http\Curl\CurlHandle;
 
 /**
  * Description of Client

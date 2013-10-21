@@ -12,7 +12,7 @@ namespace OpenCloud\Compute;
 
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Lang;
-use OpenCloud\Common\Nova;
+use OpenCloud\Common\Service\NovaService;
 use OpenCloud\Common\Exceptions;
 
 /**
@@ -44,7 +44,7 @@ use OpenCloud\Common\Exceptions;
  * </code>
  *
  */
-class Service extends Nova 
+class Service extends NovaService
 {
     
     const DEFAULT_NAME = 'cloudServersOpenStack';

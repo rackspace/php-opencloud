@@ -12,6 +12,7 @@ namespace OpenCloud\ObjectStore;
 
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Collection;
 
 /**
  * The ObjectStore (Cloud Files) service.
@@ -27,6 +28,8 @@ class Service extends AbstractService
      * indicative that the CDN service is available.
      */
     private $cdnService;
+    
+    private $tempUrlSecret;
 
     public function __construct(
         OpenStack $connection,
@@ -61,21 +64,128 @@ class Service extends AbstractService
      * @param string $secret the shared secret
      * @return HttpResponse
      */
-    public function setTempUrlSecret($secret) 
+    public function setTempUrlSecret($secret = null) 
     {
+        if (!$secret) {
+            $secret = sha1(rand(1, 99999));
+        }
+        
+        $this->tempUrlSecret = $secret;
+        
         return $this->getClient()->post($this->getUrl(), array(
             'X-Account-Meta-Temp-Url-Key' => $secret
         ));
     }
+    
+    public function getTempUrlSecret()
+    {
+        return $this->tempUrlSecret;
+    }
 
-    /**
-     * Get the CDN service.
-     * 
-     * @return null|CDNService
-     */
-    public function getCDNService() 
+    public function getCdnService() 
     {
         return $this->cdnService;
+    }
+    
+    public function listContainers(array $filter = array())
+    {
+        $response = $this->getClient()->get($this->getUrl(null, $filter))->send();
+        
+        $containers = explode(PHP_EOL, $response->getBody());
+        
+        return new Collection($this, __NAMESPACE__ . '\\Resource\\Container', $containers);
+    }
+    
+    public function getContainer($data = null)
+    {
+        return new Resource\Container($this, $data);
+    }
+    
+    public function createContainer($name, array $metadata = array())
+    {
+        $this->checkContainerName($name);
+        
+        $containerHeaders = Container::stockHeaders($metadata);
+            
+        $response = $this->getClient()
+            ->put($this->getUrl($name), $containerHeaders)
+            ->send();
+        
+        if ($response->getStatusCode() == 201) {
+            return Container::fromResponse($response);
+        }
+        
+        return false;
+    }
+    
+    public function checkContainerName($name)
+    {
+        if (strlen($name) == 0) {
+            $error = 'Container name cannot be blank';
+        }
+
+        if (strpos($name, '/') !== false) {
+            $error = 'Container name cannot contain "/"';
+        }
+
+        if (strlen($name) > self::MAX_CONTAINER_NAME_LENGTH) {
+            $error = 'Container name is too long';
+        }
+        
+        if (isset($error)) {
+            throw new InvalidArgumentError($error);
+        }
+
+        return true;
+    }
+    
+    public function bulkExtract($path, $archive, $archiveType = UrlType::TAR_GZ)
+    {
+        $entity = EntityBody::factory($archive);
+        
+        $acceptableTypes = array(
+            UrlType::TAR,
+            UrlType::TAR_GZ,
+            UrlType::TAR_BZ2
+        );
+        
+        if (!in_array($archiveType, $acceptableTypes)) {
+            throw new Exceptions\InvalidArgumentError(sprintf(
+                'The archive type must be one of the following: [%s]. You provided [%s].'.
+                implode($acceptableTypes, ','),
+                print_r($archiveType, true)
+            ));
+        }
+        
+        $url = $this->getUrl()->addPath($path)->setQuery(array('extract-archive' => $archiveType));
+        $response = $this->getClient()->put($url, array(), $entity)->send();
+        
+        $message = $response->getDecodedBody();
+        
+        if (!empty($message->errors)) {
+            throw new Exception\BulkOperationException((array) $message->errors);
+        }
+        
+        return $response;
+    }
+    
+    public function bulkDelete(array $paths)
+    {
+        $entity = EntityBody::factory(implode(PHP_EOL, $paths));
+        
+        $url = $this->getUrl()->setQuery(array('bulk-delete' => true));
+        
+        $response = $this->getClient()
+            ->delete($url, array('Content-Type' => 'text/plain'), $entity)
+            ->send();
+        
+        $message = $response->getDecodedBody();
+        
+        if (!empty($message->errors)) {
+            throw new Exception\BulkOperationException((array) $message->errors);
+        }
+        
+        return $response;
     }
     
 }

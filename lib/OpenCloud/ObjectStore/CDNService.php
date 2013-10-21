@@ -11,25 +11,13 @@
 namespace OpenCloud\ObjectStore;
 
 use OpenCloud\OpenStack;
-use OpenCloud\Common\Exceptions;
 
 /**
  * This is the CDN version of the ObjectStore service. 
  */
 class CDNService extends AbstractService
 {
-
-    /**
-     * Creates a new CDNService object.
-     *
-     * This is a simple wrapper function around the parent Service construct,
-     * but supplies defaults for the service type.
-     *
-     * @param OpenCloud\OpenStack $connection    The connection object
-     * @param string              $serviceName   The name of the service
-     * @param string              $serviceRegion The service's region
-     * @param string              $urlType       The type of URL (normally 'publicURL')
-     */
+    
     public function __construct(
         OpenStack $connection,
         $serviceName = RAXSDK_OBJSTORE_NAME,
@@ -47,14 +35,4 @@ class CDNService extends AbstractService
         );
     }
     
-	/**
-	 * This CDN service only allows publicURL, so override parent.
-	 *
-	 * {@inheritDoc}
-	 */
-    public function getBaseUrl()
-    {
-        return $this->getEndpoint()->getPublicUrl();
-    }
-
 }

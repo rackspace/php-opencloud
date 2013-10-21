@@ -21,7 +21,7 @@ class ScalingPolicyTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
+        $this->service = $this->getClient()->autoscaleService('autoscale', 'DFW', 'publicURL'); 
         $this->policy = $this->service->group(self::GROUP_ID)->getScalingPolicy(self::POLICY_ID);
     }
     

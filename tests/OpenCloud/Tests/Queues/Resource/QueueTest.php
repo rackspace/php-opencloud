@@ -27,7 +27,7 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->queues('cloudQueues', 'ORD');
+        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD');
         $this->queue = $this->service->getQueue();
     }
         

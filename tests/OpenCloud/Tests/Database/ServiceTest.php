@@ -19,14 +19,14 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->databaseService('cloudDatabases', 'DFW', 'publicURL');
     }
 
     public function test__construct()
     {
         $this->assertInstanceOf(
             'OpenCloud\Database\Service', 
-            $this->getClient()->dbService('cloudDatabases', 'DFW')
+            $this->getClient()->databaseService('cloudDatabases', 'DFW')
         );
     }
 

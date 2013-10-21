@@ -18,7 +18,7 @@ use Guzzle\Http\EntityBody;
  * 
  * @link 
  */
-class UploadBuilder
+class TransferBuilder
 {  
     protected $container;
     
@@ -74,6 +74,12 @@ class UploadBuilder
         return $this;
     }
     
+    public function setCustomUrl($customUrl)
+    {
+        $this->customUrl = $customUrl;
+        return $this;
+    }
+    
     public function build()
     {
         // Validate properties
@@ -87,7 +93,7 @@ class UploadBuilder
         // Bring in necessary options
         $this->options = array_merge($this->options, array(
             'containerName' => $this->container->getName(),
-            'containerUri'  => $this->container->getUrl()
+            'containerUrl'  => $this->container->getUrl()
         ));
         
         // Instantiate Concurrent-/ConsecutiveTransfer 

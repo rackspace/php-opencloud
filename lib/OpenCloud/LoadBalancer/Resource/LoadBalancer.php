@@ -136,13 +136,15 @@ class LoadBalancer extends PersistentObject
     protected static $url_resource = 'loadbalancers';
 
     protected $associatedResources = array(
-        'connectionLogging' => 'ConnectionLogging',
-        'healthMonitor' => 'HealthMonitor',
+        'node'               => 'Node',
+        'virtualIp'          => 'VirtualIp',
+        'connectionLogging'  => 'ConnectionLogging',
+        'healthMonitor'      => 'HealthMonitor',
         'sessionPersistance' => 'SessionPersistance'
     );
 
     protected $associatedCollections = array(
-        'nodes' => 'Node',
+        'nodes'      => 'Node',
         'virtualIps' => 'VirtualIp',
         'accessList' => 'Access'
     );
@@ -232,18 +234,8 @@ class LoadBalancer extends PersistentObject
             }
         }
 
-        if ($this->Id()) {
-            $http = $node->Create();
-
-            $this->getLogger()->info('AddNode:response [{body}]', array(
-                'body' => $http->httpBody()
-            ));
-
-            return $http;
-        } else {
-            // queue it
-            $this->nodes[] = $node;
-        }
+        // queue it
+        $this->nodes[] = $node;
     }
     
     public function addNodes() 
@@ -269,9 +261,9 @@ class LoadBalancer extends PersistentObject
      * @param int $id id of the node
      * @return mixed
      */
-    public function removeNode($nodeId){
-
-        return $this->node($nodeId)->Delete();
+    public function removeNode($nodeId)
+    {
+        return $this->node($nodeId)->delete();
     }
 
     /**
@@ -533,37 +525,23 @@ class LoadBalancer extends PersistentObject
      */
     protected function createJson() 
     {
-        $object = new \stdClass();
-        $elem = $this->JsonName();
-        $object->$elem = new \stdClass();
+        $element = (object) array();
 
-        $nodeKeys = $this->node()->createKeys;
-        
-        // set the properties
         foreach ($this->createKeys as $key) {
             if ($key == 'nodes') {
                 foreach ($this->nodes as $node) {
-                    $nodeObject = new \stdClass();
-                    foreach ($node as $property => $value) {
-                        if ($value !== null) {
-                            $nodeObject->$property = $value;
-                        }
-                    }
-                    $object->$elem->nodes[] = $nodeObject;
+                    $element->nodes[] = (object) $node;
                 }
-            } elseif($key == 'virtualIps'){
-                foreach ($this->virtualIps  as $virtualIp){
-                    $virtualIpObject = new \stdClass();
-                    foreach ($virtualIp as $property => $value){
-                        if($value !== null)
-                            $virtualIpObject->$property = $value;
-                    }
-                    $object->$elem->virtualIps[] = $virtualIpObject;
+            } elseif($key == 'virtualIps') {
+                foreach ($this->virtualIps  as $virtualIp) {
+                    $element->virtualIps[] = (object) $virtualIp;
                 }
-            } elseif ($this->$key !== null) {
-                $object->$elem->$key = $this->$key;
+            } elseif (isset($this->$key)) {
+                $element->$key = $this->$key;
             }
         }
+        
+        $object = (object) array($this->jsonName() => $element);
 
         return $object;
     }
@@ -581,9 +559,10 @@ class LoadBalancer extends PersistentObject
 
         //Validate supplied fields
         $fields = array_keys($params);
-        foreach($fields as $field){
-            if(!in_array($field,$updatableFields))
-                throw new Exceptions\InvalidParameterError("You cannot update $field.");
+        foreach($fields as $field) {
+            if (!in_array($field, $updatableFields)) {
+                throw new Exceptions\InvalidArgumentError("You cannot update $field.");
+            }
         }
 
         $object = new \stdClass();

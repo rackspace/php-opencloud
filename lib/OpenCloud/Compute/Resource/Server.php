@@ -445,15 +445,7 @@ class Server extends PersistentObject
 
         $object = $this->action($data)->getDecodedBody();
         
-        if (!isset($object->adminPass)) {
-            throw new Exceptions\ServerActionError(sprintf(
-                Lang::translate('Rescue() method failed unexpectedly, status [%s] response [%s]'),
-                $response->getStatusCode(),
-                $object
-            ));  
-        } else {
-            return $object->adminPass;
-        }
+        return (isset($object->adminPass)) ? $object->adminPass : false;
     }
 
     /**
@@ -509,16 +501,9 @@ class Server extends PersistentObject
 
         $response = $this->getClient()->get($url)->send();       
         $object = $response->getDecodedBody();
-
-        if (isset($object->addresses)) {
-            $returnObject = $object->addresses;
-        } elseif (isset($object->network)) {
-            $returnObject = $object->network;
-        } else {
-            $returnObject = (object) array();
-        }
         
-        return $object;
+        return (isset($object->addresses)) ? $object->addresses : 
+            ((isset($object->network)) ? $object->network : (object) array());
     }
 
     /**
@@ -610,10 +595,6 @@ class Server extends PersistentObject
         return (isset($decoded->console)) ? $decoded->console : false;
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
     protected function createJson()
     {
         // Convert some values

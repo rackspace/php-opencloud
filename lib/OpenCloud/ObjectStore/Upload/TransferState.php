@@ -38,7 +38,7 @@ class TransferState
         return isset($this->parts[$key]);
     }
     
-    public function addPart(UploadPart $part)
+    public function addPart(TransferPart $part)
     {
         $this->completedParts[] = $part;
     }

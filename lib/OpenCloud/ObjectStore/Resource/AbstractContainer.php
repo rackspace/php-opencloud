@@ -22,8 +22,10 @@ use Guzzle\Http\Url;
 abstract class AbstractContainer extends AbstractResource
 {
     const HEADER_OBJECT_COUNT = 'Object-Count';
-    const HEADER_BYTES_USED = 'Bytes-Used';
-    const HEADER_ACCESS_LOGS = 'Access-Log-Delivery';
+    const HEADER_BYTES_USED   = 'Bytes-Used';
+    const HEADER_ACCESS_LOGS  = 'Access-Log-Delivery';
+    
+    protected $metadataClass = 'OpenCloud\\ObjectStore\\Resource\\ContainerMetadata';
     
     /**
      * The name of the container. 
@@ -72,24 +74,26 @@ abstract class AbstractContainer extends AbstractResource
         return $this->getService()->getClient();
     }
     
-    public function getObjectCount($retrieve = false)
+    public function getTransId()
     {
-        return $this->getMetadata()->getObjectCount();
+        return $this->metadata->getProperty('X-Trans-Id');
     }
     
-    public function getBytesUsed($retrieve = false)
+    public function isCdnEnabled()
     {
-        return $this->getMetadata()->getBytesUsed();
-    }
-    
-    public function getQuota($type = 'bytes') 
-    {
-        if ($type == 'bytes') {
-            return $this->metadata->getBytesQuota();
-        } elseif ($type == 'count') {
-            return $this->metadata->getCountQuota();
+        if ($this instanceof CDNContainer) {
+            return $this->metadata->getProperty('X-Cdn-Enabled') == 'True';
         } else {
-            throw new InvalidArgumentError('Please specify a type of quota: either bytes or count.');
+            return empty($this->cdn);
+        }
+    }
+    
+    public function hasLogRetention()
+    {
+        if ($this instanceof CDNContainer) {
+            return $this->metadata->getProperty('X-Log-Retention') == 'True';
+        } else {
+            return $this->metadata->getProperty(self::HEADER_ACCESS_LOGS);
         }
     }
     
@@ -124,14 +128,18 @@ abstract class AbstractContainer extends AbstractResource
         return $url;
     }
     
-    public function refresh($name = null, $url = null)
+    protected function createRefreshRequest($name)
     {
-        $response = $this->getClient()
+        return $this->getClient()
             ->head($this->getUrl($name), array('Accept' => '*/*'))
             ->setExceptionHandler(array(
                 404 => 'Container not found'
-            ))
-            ->send();
+            ));
+    }
+    
+    public function refresh($name = null, $url = null)
+    {
+        $response = $this->createRefreshRequest($name)->send();
 
 		$headers = $response->getHeaders();
         $this->stockFromHeaders($headers);

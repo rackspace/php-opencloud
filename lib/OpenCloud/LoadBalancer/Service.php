@@ -11,13 +11,13 @@
 
 namespace OpenCloud\LoadBalancer;
 
-use OpenCloud\Common\Nova;
+use OpenCloud\Common\Service\NovaService;
 use OpenCloud\OpenStack;
 
 /**
  * The Rackspace Cloud Load Balancers
  */
-class Service extends Nova
+class Service extends NovaService
 {
     const DEFAULT_NAME = 'cloudLoadBalancers';
     const SERVICE_TYPE = 'rax:load-balancer';

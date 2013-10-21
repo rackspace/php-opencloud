@@ -12,8 +12,6 @@
 
 namespace OpenCloud\Tests\Compute;
 
-use OpenCloud\Tests\StubConnection;
-use OpenCloud\Compute\Service;
 use OpenCloud\Compute\Resource\Server;
 use OpenCloud\Volume\Resource\Volume;
 
@@ -33,19 +31,16 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
         $this->server = new Server($this->service, 'SERVER-ID');
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\Compute\Resource\Server', $this->server);
     }
 
-    public function testUrl()
+    public function test_Url()
     {
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
@@ -55,7 +50,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
             '9bfd203a-0695-xxxx-yyyy-66c4194c967b/action', $this->server->Url('action'));
     }
 
-    public function test_ip()
+    public function test_Ip()
     {
         $this->assertEquals('500.6.73.19', $this->server->ip(4));
         $this->assertEquals(
@@ -70,11 +65,12 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertEquals('FOO', $this->server->ip(5));
     }
 
-    public function testCreate()
+    public function test_Create()
     {
-        $resp = $this->server->create();
+        $resp = $this->service->server()->create(array(
+            'flavor' => $this->service->flavorList()->first()
+        ));
         $this->assertNotNull($resp->getStatusCode());
-        $this->assertEquals($this->getClient()->getUserAgent(), $this->server->metadata->sdk);
     }
     
     /**
@@ -82,7 +78,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Create_Fails_Without_KeyPair_Name()
     {
-        $this->server->create(array(
+        $this->service->server()->create(array(
             'keypair' => array('name' => null)
         ));
     }
@@ -92,14 +88,14 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Create_Fails_Without_KeyPair_PublicKey()
     {
-        $this->server->create(array(
+        $this->service->server()->create(array(
             'keypair' => array('name' => 'foo')
         ));
     }
 
     public function test_Create_With_KeyPair()
     {
-        $this->server->create(array(
+        $this->service->server()->create(array(
             'keypair' => array(
                 'name'      => 'foo',
                 'publicKey' => 'bar'
@@ -110,7 +106,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\RebuildError
      */
-    public function testRebuild1()
+    public function test_Rebuild1()
     {
         $resp = $this->server->rebuild();
         $this->assertNotNull($resp->getStatusCode());
@@ -120,14 +116,14 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\RebuildError
      */
-    public function testRebuild2()
+    public function test_Rebuild2()
     {
         $resp = $this->server->Rebuild(array('adminPass' => 'FOOBAR'));
         $this->assertNotNull($resp->getStatusCode());
         $this->assertEquals($this->getClient()->getUserAgent(), $this->server->metadata->sdk);
     }
 
-    public function testRebuild3()
+    public function test_Rebuild3()
     {
         $image = $this->service->Image();
         $image->id = '123';
@@ -138,20 +134,20 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertNotNull($resp->getStatusCode());
     }
 
-    public function testDelete()
+    public function test_Delete()
     {
         $resp = $this->server->delete();
         $this->assertNotNull($resp->getStatusCode());
     }
 
-    public function testUpdate()
+    public function test_Update()
     {
         $resp = $this->server->Update(array('name' => 'FOO-BAR'));
         $this->assertNotNull($resp->getStatusCode());
         $this->assertEquals('FOO-BAR', $this->server->name);
     }
 
-    public function testReboot()
+    public function test_Reboot()
     {
         $this->assertEquals(200, $this->server->Reboot()->getStatusCode());
     }
@@ -159,13 +155,13 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
-    public function testCreateImage()
+    public function test_Create_Image()
     {
         $resp = $this->server->createImage('EPIC-IMAGE', array('foo' => 'bar'));
         $this->assertFalse($resp);
     }
     
-    public function testCreateFailsWithoutResponse()
+    public function test_Create_Fails_Without_Response()
     {
         $this->assertFalse($this->server->createImage('foo'));
     }
@@ -173,39 +169,39 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\ImageError
      */
-    public function testCreateImageFailsWithoutName()
+    public function test_Create_Image_Fails_Without_Name()
     {
         $this->server->createImage(null);
     }
 
-    public function testResize()
+    public function test_Resize()
     {
         $this->assertEquals(200, $this->server->Resize($this->service->Flavor(4))->getStatusCode());
     }
 
-    public function testResizeConfirm()
+    public function test_Resize_Confirm()
     {
         $this->assertEquals(200, $this->server->ResizeConfirm()->getStatusCode());
     }
 
-    public function testResizeRevert()
+    public function test_Resize_Revert()
     {
         $this->assertEquals(200, $this->server->ResizeRevert()->getStatusCode());
     }
 
-    public function test_SetPassword()
+    public function test_Set_Password()
     {
         $this->assertEquals(200, $this->server->SetPassword('Bad Password')->getStatusCode());
     }
 
-    public function testMetadata()
+    public function test_Metadata()
     {
         $server = new Server($this->service);
         // this causes the exception
         $this->assertTrue(is_object($server->Metadata()));
     }
 
-    public function testMetadataMore()
+    public function test_Metadata_More()
     {
         $this->assertInstanceOf(
             'OpenCloud\Compute\Resource\ServerMetadata', 
@@ -213,24 +209,24 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
     }
 
-    public function test_ips()
+    public function test_Ips()
     {
         $this->assertTrue(is_object($this->server->ips()));
     }
 
-    public function test_ips_network()
+    public function test_Ips_Network()
     {
         $this->assertTrue(is_object($this->server->ips('public')));
     }
 
-    public function testService()
+    public function test_Service()
     {
         $this->assertInstanceOf(
             'OpenCloud\Compute\Service', $this->server->getService()
         );
     }
 
-    public function testResourceName()
+    public function test_Resource_Name()
     {
         $server = new Server($this->service);
         $server->id = 'Bad-ID';
@@ -243,7 +239,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException \OpenCloud\Common\Exceptions\ServerActionError
      */
-    public function testRescue()
+    public function test_Rescue()
     {
         $password = $this->server->Rescue();
         $this->assertGreaterThan(5, strlen($password));
@@ -254,7 +250,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException \OpenCloud\Common\Exceptions\ServerActionError
      */
-    public function testRescueFailsWithoutId()
+    public function test_Rescue_Fails_Without_Id()
     {
         $blank = new Server($this->service);
         $blank->id = null;
@@ -264,7 +260,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException \OpenCloud\Common\Exceptions\ServerActionError
      */
-    public function testUnrescue()
+    public function test_Unrescue()
     {
         $resp = $this->server->Unrescue();
         $this->assertEquals(200, $resp->getStatusCode());
@@ -272,37 +268,31 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $blank->unrescue(); // should trigger the exception
     }
 
-    public function testAttachVolume()
+    public function test_Attaching_Detaching_Volume()
     {
-        $vol = new Volume($this->service);
-        $response = $this->server->AttachVolume($vol);
-        $this->assertEquals(200, $response->getStatusCode());
+        $volume = new Volume($this->service);
+
+        $this->assertEquals(200, $this->server->attachVolume($volume)->getStatusCode());
+        $this->assertEquals(202, $this->server->detachVolume($volume)->getStatusCode());
     }
 
-    public function testDetachVolume()
-    {
-        $vol = new Volume($this->service, 'FOO');
-        $response = $this->server->DetachVolume($vol);
-        $this->assertEquals(202, $response->getStatusCode());
-    }
-
-    public function testVolumeAttachment()
+    public function test_Volume_Attachment()
     {
         $this->assertInstanceOf(
             'OpenCloud\Compute\Resource\VolumeAttachment', 
-            $this->server->VolumeAttachment()
+            $this->server->volumeAttachment()
         );
     }
 
-    public function testVolumeAttachmentList()
+    public function test_Volume_Attachment_List()
     {
         $this->assertInstanceOf(
             'OpenCloud\Common\Collection', 
-            $this->server->VolumeAttachmentList()
+            $this->server->volumeAttachmentList()
         );
     }
 
-    public function testCreate_personality()
+    public function test_Create_Personality()
     {
         $new = new PublicServer($this->service);
         $new->addFile('/tmp/hello.txt', 'Hello, world!');
@@ -313,7 +303,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
             '/tmp/hello.txt', $obj->server->personality[0]->path);
     }
     
-    public function testImageSchedule()
+    public function test_Image_Schedule()
     {
         // Get current backups
         $this->server->imageSchedule();
@@ -323,16 +313,12 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->server->imageSchedule(0);
     }
 
-    public function testCreateWithNetworks()
+    public function test_Create_With_Networks()
     {
-        $flavorList = $this->service->flavorList();
-        $imageList  = $this->service->imageList();
-
-        $server = $this->service->server();
-        $server->create(array(
+        $this->service->server()->create(array(
             'name'     => 'personality test 1',
-            'image'    => $imageList->first(),
-            'flavor'   => $flavorList->first(),
+            'image'    => $this->service->imageList()->first(),
+            'flavor'   => $this->service->flavorList()->first(),
             'networks' => array(
                 $this->service->network(RAX_PUBLIC),
                 $this->service->network()
@@ -343,16 +329,12 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
      */
-    public function testCreateFailsWithoutCorrectNetworks()
+    public function test_Create_Fails_Without_Correct_Networks()
     {
-        $flavorList = $this->service->flavorList();
-        $imageList  = $this->service->imageList();
-
-        $server = $this->service->server();
-        $server->create(array(
+        $this->service->server()->create(array(
             'name'     => 'personality test 1',
-            'image'    => $imageList->first(),
-            'flavor'   => $flavorList->first(),
+            'image'    => $this->service->imageList()->first(),
+            'flavor'   => $this->service->flavorList()->first(),
             'networks' => array(
                 1234
             )

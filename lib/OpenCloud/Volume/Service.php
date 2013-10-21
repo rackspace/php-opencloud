@@ -11,9 +11,9 @@
 namespace OpenCloud\Volume;
 
 use OpenCloud\OpenStack;
-use OpenCloud\Common\Nova;
+use OpenCloud\Common\Service\NovaService;
 
-class Service extends Nova 
+class Service extends NovaService
 {
     
     const DEFAULT_NAME = 'cloudBlockStorage';

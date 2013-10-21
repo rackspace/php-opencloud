@@ -25,15 +25,17 @@ class Endpoint
     public static function factory($object)
     {
         $endpoint = new self();
-        $endpoint->setPublicUrl($object->publicURL);
         
+        if (isset($object->publicURL)) {
+            $endpoint->setPublicUrl($object->publicURL);
+        }
         if (isset($object->internalURL)) {
             $endpoint->setPrivateUrl($object->internalURL);
         }
         if (isset($object->region)) {
             $endpoint->setRegion($object->region);
         }
-        
+
         return $endpoint;
     }
     

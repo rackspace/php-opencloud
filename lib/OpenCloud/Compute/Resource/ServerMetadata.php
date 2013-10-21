@@ -156,6 +156,7 @@ class ServerMetadata extends Metadata
      *
      * @return string
      * @throws MetadataJsonError
+     * @codeCoverageIgnore
      */
     private function getMetadataJson()
     {

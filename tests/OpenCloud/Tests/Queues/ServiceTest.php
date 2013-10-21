@@ -17,12 +17,19 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->queues('cloudQueues', 'ORD');
+        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD');
     }
-        
+    
+    public function test_ClientId()
+    {
+        $rand = sha1(rand(1, 9999));
+        $this->service->setClientId($rand);
+        $this->assertEquals($rand, $this->service->getClientId());
+    }
+    
     public function test_List_Queues()
     {
-        $service = $this->getClient()->queues('cloudQueues', 'ORD');
+        $service = $this->getClient()->queuesService('cloudQueues', 'ORD');
         $queues = $service->listQueues(array('marker' => 2));
         $this->assertInstanceOf('OpenCloud\Common\Collection', $queues);
 

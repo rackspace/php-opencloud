@@ -12,7 +12,7 @@ class AlarmTest extends OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
         
         // Parent object (i.e. entity)
         $entityResource = $this->service->resource('Entity');

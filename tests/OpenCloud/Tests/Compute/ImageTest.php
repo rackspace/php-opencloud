@@ -21,7 +21,7 @@ class ImageTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
     }
 
     /**

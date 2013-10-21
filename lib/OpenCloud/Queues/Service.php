@@ -66,17 +66,6 @@ class Service extends AbstractService
      */
     private $clientId;
     
-    public function setClientId($clientId)
-    {
-        $this->clientId = $clientId;
-        return $this;
-    }
-    
-    public function getClientId()
-    {
-        return $this->clientId;
-    }
-    
     /**
      * Main service constructor.
      * 
@@ -92,6 +81,17 @@ class Service extends AbstractService
             $connection, 'rax:queues', $serviceName, $serviceRegion, $urlType
         );
     } 
+    
+    public function setClientId($clientId)
+    {
+        $this->clientId = $clientId;
+        return $this;
+    }
+    
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
     
     /**
      * This operation lists queues for the project, sorting the queues 

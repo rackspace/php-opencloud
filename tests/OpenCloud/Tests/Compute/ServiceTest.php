@@ -18,14 +18,14 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
     }
 
     public function test__construct()
     {
         $this->assertInstanceOf(
             'OpenCloud\Compute\Service', 
-            $this->getClient()->compute('cloudServersOpenStack', 'DFW')
+            $this->getClient()->computeService('cloudServersOpenStack', 'DFW')
         );
     }
     
@@ -34,7 +34,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Deprecated_Endpoint()
     {
-        $this->getClient()->compute('cloudServers', 'DFW');
+        $this->getClient()->computeService('cloudServers', 'DFW');
     }
 
     public function testServer()

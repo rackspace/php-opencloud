@@ -18,10 +18,7 @@ use Guzzle\Http\Message\RequestFactory as GuzzleRequestFactory;
  * @link 
  */
 class RequestFactory extends GuzzleRequestFactory
-{
-    
+{   
     protected $requestClass = 'OpenCloud\\Common\\Http\\Message\\Request';
-    
-    protected $entityEnclosingRequestClass = 'OpenCloud\\Common\\Http\\Message\\EntityEnclosingRequest';
-    
+    protected $entityEnclosingRequestClass = 'OpenCloud\\Common\\Http\\Message\\EntityEnclosingRequest';   
 }

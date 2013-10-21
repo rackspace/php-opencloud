@@ -20,7 +20,7 @@ class RecordTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $service = $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL');
+        $service = $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL');
         $this->domain = $service->domain();
         $this->record = $this->domain->record();
     }

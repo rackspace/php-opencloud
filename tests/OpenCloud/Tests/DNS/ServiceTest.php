@@ -14,20 +14,20 @@ namespace OpenCloud\Tests\DNS;
 
 use OpenCloud\Compute;
 
-class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $service;
 
     public function __construct()
     {
-        $this->service = $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL');
+        $this->service = $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL');
     }
 
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\DNS\Service', 
-            $this->getClient()->dns('cloudDNS', 'N/A', 'publicURL'));
+            $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL'));
     }
 
     public function testUrl()
@@ -69,7 +69,7 @@ class DnsTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testPtrRecordList()
     {
         $server = new Compute\Resource\Server(
-            $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL')
+            $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL')
         );
         $server->id = '42';
         $this->assertInstanceOf(

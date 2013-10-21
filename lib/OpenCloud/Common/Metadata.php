@@ -20,7 +20,7 @@ class Metadata extends Base
 {
 
     // array holding the names of keys that were set
-    protected $metaProperties = array();    
+    protected $metadata = array();    
 
     /**
      * This setter overrides the base one, since the metadata key can be
@@ -33,19 +33,36 @@ class Metadata extends Base
     public function __set($property, $value) 
     {
         // set the value and track the keys
-        $this->metaProperties[$property] = $value;
+        $this->metadata[$property] = $value;
     }
 
     public function __get($key)
     {
-        if (array_key_exists($key, $this->metaProperties)) {
-            return $this->metaProperties[$key];
+        if (array_key_exists($key, $this->metadata)) {
+            return $this->metadata[$key];
+        }
+    }
+    
+    public function propertyExists($property)
+    {
+        return isset($this->metadata[$property]);
+    }
+    
+    public function getProperty($property)
+    {
+        return $this->propertyExists($property) ? $this->metadata[$property] : null;
+    }
+    
+    public function setProperty($property, $value)
+    {
+        if ($this->propertyExists($property)) {
+            $this->metadata[$property] = $value;
         }
     }
     
     public function __isset($property)
     {
-        return array_key_exists($property, $this->metaProperties);
+        return array_key_exists($property, $this->metadata);
     }
     
     /**
@@ -53,9 +70,9 @@ class Metadata extends Base
      *
      * @return array
      */
-    public function Keylist() 
+    public function keylist() 
     {
-        return $this->metaProperties;
+        return $this->metadata;
     }
 
     /**
@@ -80,13 +97,13 @@ class Metadata extends Base
             if ($prefix && strpos($key, $prefix) === 0) {
                 $key = substr($key, strlen($prefix));
             } 
-            $this->metaProperties[$key] = $value;
+            $this->metadata[$key] = $value;
         }
     }
     
     public function toArray()
     {
-        return $this->metaProperties;
+        return $this->metadata;
     }
 
 }

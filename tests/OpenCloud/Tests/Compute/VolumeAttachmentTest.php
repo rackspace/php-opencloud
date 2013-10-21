@@ -21,7 +21,7 @@ class VolumeAttachmentTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
+        $service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
         $server = new Server($service, 'XXX');
         $this->attachment = $server->volumeAttachment('FOO');
     }

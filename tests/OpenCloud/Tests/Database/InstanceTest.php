@@ -30,7 +30,7 @@ class InstanceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->databaseService('cloudDatabases', 'DFW', 'publicURL');
         $this->instance = new MyInstanceClass(
             $this->service, 'INSTANCE-ID'
         );

@@ -225,7 +225,7 @@ abstract class AbstractService extends Base
 
         // Fetch the list
         $response = $this->getClient()->get($url)->send();
-        
+
         // Handle empty response
         $object = $response->getDecodedBody();
         
@@ -431,8 +431,8 @@ abstract class AbstractService extends Base
             : $this->endpoint->getPrivateUrl();
         
         if ($url === null) {
-	        throw new Exceptions\ServiceException(sprintf(
-	        	'The base %s  could not be found. Perhaps the service'
+            throw new Exceptions\ServiceException(sprintf(
+	        	'The base %s  could not be found. Perhaps the service '
 	        	. 'you are using requires a different URL type, or does '
 	        	. 'not support this region.',
 	        	$this->urlType

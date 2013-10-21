@@ -20,17 +20,25 @@ class DatabaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $service = $this->getClient()->dbService('cloudDatabases', 'DFW', 'publicURL');
+        $service = $this->getClient()->databaseService('cloudDatabases', 'DFW', 'publicURL');
         $this->instance = $service->instance('56a0c515-9999-4ef1-9fe2-76be46a3aaaa');
         $this->database = $this->instance->database();
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\Database\Resource\Database', $this->database);
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DatabaseNameError
+     */
+    public function test_Name()
+    {
+        $db = $this->database;
+        $db->name = null;
+        
+        $db->getName();
     }
 
     public function testUrl()

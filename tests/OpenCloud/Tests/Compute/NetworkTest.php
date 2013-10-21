@@ -22,21 +22,17 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
-        $this->net = new Network($this->service, RAX_PUBLIC);
+        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
+        $this->network = $this->service->network(RAX_PUBLIC);
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
-        $this->assertEquals(RAX_PUBLIC, $this->net->id);
-        $net = $this->service->Network();
-        $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $net);
+        $this->assertEquals(RAX_PUBLIC, $this->network->id);
+        $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $this->network);
     }
 
-    public function testCreate()
+    public function test_Create()
     {
         $net = $this->service->network();
         $net->create(array('label' => 'foo', 'cidr' => 'bar'));
@@ -44,30 +40,30 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\NetworkUpdateError
+     * @expectedException OpenCloud\Common\Exceptions\NetworkUpdateError
      */
-    public function testUpdate()
+    public function test_Update()
     {
-        $this->net->update();
+        $this->network->update();
     }
 
-    public function testName()
+    public function test_Name()
     {
-        $this->assertEquals('public', $this->net->Name());
-    }
-
-    public function testConstruct()
-    {
-        $network = new Network($this->service, RAX_PUBLIC);
-        
+        $this->assertEquals('public', $this->network->name());
     }
     
     /**
-     * @expectedException \OpenCloud\Common\Exceptions\DeleteError
+     * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
-    public function testDeleteFailsWithIncorrectIp()
+    public function test_Delete_Fails_With_Incorrect_Ip()
     {
         $network = new Network($this->service, RAX_PRIVATE);
+        $network->delete();
+    }
+    
+    public function test_Deletes_With_Custom_Ip()
+    {
+        $network = $this->service->network('0.0.0.0');
         $network->delete();
     }
     

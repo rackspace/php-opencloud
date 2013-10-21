@@ -11,11 +11,7 @@
 namespace OpenCloud\ObjectStore\Resource;
 
 use OpenCloud\Common\Base;
-use OpenCloud\Common\Metadata;
-use OpenCloud\Common\Exceptions\NameError;
-use OpenCloud\Common\Exceptions\MetadataPrefixError;
 use OpenCloud\Common\Http\Message\Response;
-use Guzzle\Http\Url;
 
 /**
  * Abstract base class which implements shared functionality of ObjectStore 
@@ -25,16 +21,13 @@ use Guzzle\Http\Url;
 abstract class AbstractResource extends Base
 {
     protected $metadata;
+    protected $metadataClass = 'OpenCloud\\Common\\Metadata';
 
     public static function fromResponse(Response $response)
     {
         $object = new static();
         
-        if ($body = $response->getDecodedBody()) {
-            
-        }
-        
-        if ($headers = $response->getHeaders()) {
+        if (null !== ($headers = $response->getHeaders())) {
             $object->setMetadata($headers, true);
         }
         
@@ -69,7 +62,7 @@ abstract class AbstractResource extends Base
     public function setMetadata($data, $constructFromResponse = false)
     {
         if ($constructFromResponse) {
-            $metadata = new Metadata;
+            $metadata = new $this->metadataClass;
             $metadata->setArray(self::trimHeaders($data));
             $data = $metadata;
         }
@@ -103,20 +96,5 @@ abstract class AbstractResource extends Base
         $this->setMetdata($response->getHeaders(), true);
         return $this->metadata;
     }
-    
-    protected function parameterizeCollectionUri($path = null, array $params = array())
-    {
-        if (!isset($params['format'])) {
-            $params['format'] = 'json';
-        } elseif ($params['format'] === false) {
-            unset($params['format']);
-        } elseif ($params['format'] != 'json') {
-            throw new InvalidArgumentError('Invalid format type: can only be json');
-        }
-        
-        return $this->getUrl($path, $params);
-    }
-    
-    
     
 }

@@ -17,7 +17,6 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Http\Message\RequestFactory;
-use Guzzle\Common\Collection;
 use Guzzle\Http\Url;
 
 class OpenStack extends Client
@@ -173,16 +172,6 @@ class OpenStack extends Client
     }
     
     /**
-     * Get the items to be exported.
-     * 
-     * @return array
-     */
-    public function getExportItems()
-    {
-        return $this->exportItems;
-    }
-    
-    /**
      * Checks whether token has expired.
      * 
      * @return bool
@@ -201,21 +190,12 @@ class OpenStack extends Client
     public function getCredentials()
     {
         if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
-            
-            $credentials = array(
+           
+            return json_encode(array(
                 'auth' => array(
-                    'passwordCredentials' => array(
-                        'username' => $this->secret['username'],
-                        'password' => $this->secret['password']
-                    )
+                    'passwordCredentials' => $this->secret
                 )
-            );
-
-            if (isset($this->secret['tenantName'])) {
-                $credentials['auth']['tenantName'] = $this->secret['tenantName'];
-            }
-
-            return json_encode($credentials);
+            ));
             
         } else {
             throw new Exceptions\CredentialError(
@@ -268,50 +248,6 @@ class OpenStack extends Client
             $this->setTenant($object->access->token->tenant->id);
         }
     }
-
-    /**
-     * exports saved token, expiration, tenant, and service catalog as an array
-     *
-     * This could be stored in a cache (APC or disk file) and reloaded using
-     * ImportCredentials()
-     *
-     * @return array
-     */
-    public function exportCredentials()
-    {
-        if ($this->hasExpired()) {
-            $this->authenticate();
-        }
-        return array(
-            'token'      => $this->getToken(),
-            'expiration' => $this->getExpiration(),
-            'tenant'     => $this->getTenant(),
-            'catalog'    => $this->getCatalog()
-        );
-    }
-
-    /**
-     * imports credentials from an array
-     *
-     * Takes the same values as ExportCredentials() and reuses them.
-     *
-     * @return void
-     */
-    public function importCredentials(array $values)
-    {
-        if (!empty($values['token'])) {
-            $this->setToken($values['token']);
-        }
-        if (!empty($values['expiration'])) {
-            $this->setExpiration($values['expiration']);
-        }
-        if (!empty($values['tenant'])) {
-            $this->setTenant($values['tenant']);
-        }
-        if (!empty($values['catalog'])) {
-            $this->setCatalog($values['catalog']);
-        }
-    }
     
     public function getUrl()
     {
@@ -327,7 +263,7 @@ class OpenStack extends Client
      * @param string $urltype the URL type (normally "publicURL")
      * @return ObjectStore
      */
-    public function objectStore($name = null, $region = null, $urltype = null)
+    public function objectStoreService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'ObjectStore', array(
             'name'    => $name, 
@@ -345,7 +281,7 @@ class OpenStack extends Client
      * @param string $urltype the URL type (normally "publicURL")
      * @return Compute
      */
-    public function compute($name = null, $region = null, $urltype = null)
+    public function computeService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'Compute', array(
             'name'    => $name, 
@@ -364,7 +300,7 @@ class OpenStack extends Client
      * @return Orchestration\Service
      * @codeCoverageIgnore
      */
-    public function orchestration($name = null, $region = null, $urltype = null)
+    public function orchestrationService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'Orchestration', array(
             'name'    => $name, 

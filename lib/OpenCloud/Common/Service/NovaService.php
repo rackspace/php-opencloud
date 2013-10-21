@@ -8,7 +8,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Common;
+namespace OpenCloud\Common\Service;
 
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Lang;
@@ -21,7 +21,7 @@ use OpenCloud\Compute\Resource\Flavor;
  * as well as Rackspace's Cloud Databases. This class is, in essence, a vehicle
  * for sharing common code between those other classes.
  */
-abstract class Nova extends Service\AbstractService
+abstract class NovaService extends AbstractService
 {
 
 	private $_url;
@@ -94,12 +94,13 @@ abstract class Nova extends Service\AbstractService
 	 */
 	public function flavorList($details = true, array $filter = array()) 
 	{
-	    if ($details) {
-	        $url = $this->Url(Flavor::ResourceName().'/detail', $filter);
-	    } else {
-	        $url = $this->Url(Flavor::ResourceName(), $filter);
-	    }
-	    return $this->collection('OpenCloud\Compute\Resource\Flavor', $url);
+        $path = Flavor::resourceName();
+        
+        if ($details === true) {
+            $path .= '/detail';
+        }
+
+        return $this->collection('OpenCloud\Compute\Resource\Flavor', $this->getUrl($path, $filter));
 	}
 
 	/**

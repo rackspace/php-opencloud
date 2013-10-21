@@ -19,7 +19,7 @@ class ServerMetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $service = $this->getClient()->compute('cloudServersOpenStack', 'DFW', 'publicURL');
+        $service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
         $this->server = $service->server('Identifier');
         $this->metadata = $this->server->metadata('foo');
     }

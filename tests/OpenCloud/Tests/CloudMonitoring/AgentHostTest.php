@@ -10,7 +10,7 @@ class AgentHostTest extends OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
         
         // Set up parent resource
         $agent = $this->service->resource('Agent');
@@ -23,7 +23,7 @@ class AgentHostTest extends OpenCloudTestCase
     
     public function test__construct()
     {
-        $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW');
+        $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW');
     }
     
     public function testResourceClass()

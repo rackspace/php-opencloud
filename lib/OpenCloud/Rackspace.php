@@ -53,7 +53,7 @@ EOF;
     {
         $secret = $this->getSecret();
         
-        return (isset($secret['username']) && isset($secret['apiKey']))
+        return (!empty($secret['username']) && !empty($secret['apiKey']))
             ? sprintf(self::CREDS_TEMPLATE, $secret['username'], $secret['apiKey'])
             : parent::getCredentials();
     }
@@ -66,7 +66,7 @@ EOF;
      * @param  string $urltype
      * @return OpenCloud\Queues\Service
      */
-    public function dbService($name = null, $region = null, $urltype = null)
+    public function databaseService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'Database', array(
             'name'    => $name, 
@@ -100,7 +100,7 @@ EOF;
      * @param  string $urltype
      * @return OpenCloud\Queues\Service
      */
-    public function DNS($name = null, $region = null, $urltype = null)
+    public function dnsService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'DNS', array(
             'name'    => $name, 
@@ -117,7 +117,7 @@ EOF;
      * @param  string $urltype
      * @return OpenCloud\Queues\Service
      */
-    public function cloudMonitoring($name = null, $region = null, $urltype = null)
+    public function cloudMonitoringService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'CloudMonitoring', array(
             'name'    => $name, 
@@ -134,7 +134,7 @@ EOF;
      * @param  string $urltype
      * @return OpenCloud\Queues\Service
      */
-    public function autoscale($name = null, $region = null, $urltype = null)
+    public function autoscaleService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'Autoscale', array(
             'name'    => $name, 
@@ -151,7 +151,7 @@ EOF;
      * @param  string $urltype
      * @return OpenCloud\Queues\Service
      */
-    public function queues($name = null, $region = null, $urltype = null)
+    public function queuesService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'Queues', array(
             'name'    => $name, 

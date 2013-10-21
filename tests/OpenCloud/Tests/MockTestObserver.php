@@ -1,51 +1,49 @@
 <?php
 
-/**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.5.9
- * @author    Glen Campbell <glen.campbell@rackspace.com>
- * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
- */
-
 namespace OpenCloud\Tests;
 
-use Exception;
-use OpenCloud\Rackspace;
-use OpenCloud\Common\Http\Message\EntityEnclosingRequest;
+use Guzzle\Common\Event;
+use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
+use OpenCloud\Common\Http\Message\EntityEnclosingRequest;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Compute\Resource\ServerMetadata;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Description of FakeClient
  * 
  * @link 
  */
-class FakeClient extends Rackspace
+class MockTestObserver implements EventSubscriberInterface
 {
     const DEFAULT_TYPE = 'misc';
     
-    private $url;
-    private $requests;
+    private $request;
     private $responseDir;
     protected $pathType;
     protected $serviceType;
     
-    public function send($requests) 
-	{
-        $this->serviceType = $this->traceServiceType();
+    public function __construct()
+    {
         $this->responseDir = __DIR__ . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR;
-        $this->url = $requests->getUrl();
-        $this->requests = $requests;
-
-        $response = $this->intercept(); 
-
-        $requests->setResponse($response);
-
-		return $requests->getResponse();
-	}
+    }
+    
+    public static function getSubscribedEvents()
+    {
+        return array(
+            'request.before_send' => 'onBeforeSend'
+        );
+    }
+    
+    public function onBeforeSend(Event $event)
+    {
+        $this->request = $event['request'];
+        $this->serviceType = $this->traceServiceType();
+        
+        $event['request']->setResponse($this->produceMockResponse())
+            ->setState(Request::STATE_COMPLETE);
+    }
     
     public function traceServiceType()
     {
@@ -65,7 +63,7 @@ class FakeClient extends Rackspace
     
 	private function urlContains($substring)
 	{
-		return strpos($this->url, $substring) !== false;
+		return strpos($this->request->getUrl(), $substring) !== false;
 	}
 
 	private function covertToRegex(array $array)
@@ -86,7 +84,7 @@ class FakeClient extends Rackspace
 	private function matchUrlToArray($array)
 	{
 		foreach ($array as $key => $item) {
-            if (preg_match("#{$key}#", $this->url)) {
+            if (preg_match("#{$key}#", $this->request->getUrl())) {
 				return $item;
 			}
 		}
@@ -109,9 +107,9 @@ class FakeClient extends Rackspace
         return isset($array[$type]) ? $array[$type] : false;
     }
         
-	public function intercept()
+	public function produceMockResponse()
 	{
-		$array = include $this->responseDir . strtoupper($this->requests->getMethod()) . '.php';
+		$array = include $this->responseDir . strtoupper($this->request->getMethod()) . '.php';
 
         $typeOptions = array(self::DEFAULT_TYPE, $this->serviceType);
         
@@ -125,7 +123,7 @@ class FakeClient extends Rackspace
         }
 
         if (empty($config)) {
-            if ($this->requests->getMethod() == 'GET') { 
+            if ($this->request->getMethod() == 'GET') { 
                 return new Response(404);
             } else {
                 $params = array('body' => null, 'status' => null, 'headers' => null);
@@ -170,7 +168,7 @@ class FakeClient extends Rackspace
                 } else {  
                     $bodyPath = $this->getBodyPath($input['path']);
                     if (!file_exists($bodyPath)) {
-                        throw new Exception(sprintf('No response file found: %s', $bodyPath));
+                        throw new \Exception(sprintf('No response file found: %s', $bodyPath));
                     }
                     $body = file_get_contents($bodyPath);
                 }
@@ -183,10 +181,10 @@ class FakeClient extends Rackspace
                     $headers = $input['headers'];
                 }
                 
-            } elseif ($this->requests instanceof EntityEnclosingRequest) {
+            } elseif ($this->request instanceof EntityEnclosingRequest) {
                 // If there are multiple response options for this URL path, you
                 // need to do a pattern search on the request to differentiate
-                $request = (string) $this->requests;
+                $request = (string) $this->request;
                 foreach ($input as $possibility) {
                     if (preg_match("#{$possibility['pattern']}#", $request)) {
                         return $this->parseConfig($possibility);
@@ -206,7 +204,7 @@ class FakeClient extends Rackspace
     {
         $config = array();
         
-        switch ($this->requests->getMethod()) {
+        switch ($this->request->getMethod()) {
             case 'POST':
             case 'PUT':
                 $config['status'] = 200;

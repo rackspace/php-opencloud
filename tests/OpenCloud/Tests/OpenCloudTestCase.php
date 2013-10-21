@@ -12,7 +12,7 @@
 namespace OpenCloud\Tests;
 
 use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\FakeClient;
+use OpenCloud\Rackspace;
 
 class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 {
@@ -21,14 +21,14 @@ class OpenCloudTestCase extends PHPUnit_Framework_TestCase
     
     private static function newClient()
     {
-        $client = new FakeClient(RACKSPACE_US, array(
+        $client = new Rackspace(RACKSPACE_US, array(
             'username' => 'foo',
             'apiKey'   => 'bar'
         ));
         
-        $expiry = time() + 10000;
-        $hash = sha1(rand(1, 99));
-        return $client->setToken($hash)->setExpiration($expiry);
+        $client->addSubscriber(new MockTestObserver());
+        
+        return $client;
     }
     
     public function getClient()

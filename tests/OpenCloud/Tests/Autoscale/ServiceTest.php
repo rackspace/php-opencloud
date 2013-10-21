@@ -19,12 +19,12 @@ class ServiceTest extends OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->autoscale('autoscale', 'DFW', 'publicURL'); 
+        $this->service = $this->getClient()->autoscaleService('autoscale', 'DFW', 'publicURL'); 
     }
     
     public function test__construct()
     {
-        $this->getClient()->autoscale('autoscale', 'DFW');
+        $this->getClient()->autoscaleService('autoscale', 'DFW');
         $this->assertInstanceOf(
             'OpenCloud\Autoscale\Resource\Group', 
             $this->service->resource('Group')

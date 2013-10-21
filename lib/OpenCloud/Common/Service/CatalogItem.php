@@ -82,6 +82,12 @@ class CatalogItem
                 return $endpoint;
             }
         }
+        
+        throw new \OpenCloud\Common\Exceptions\EndpointError(sprintf(
+            'This service [%s] does not have access to the [%s] endpoint.',
+            $this->name,
+            $region
+        ));
     }
     
 }

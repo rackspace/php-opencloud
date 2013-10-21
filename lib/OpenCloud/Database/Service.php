@@ -10,13 +10,13 @@
 
 namespace OpenCloud\Database;
 
-use OpenCloud\Common\Nova;
+use OpenCloud\Common\Service\NovaService;
 use OpenCloud\OpenStack;
 
 /**
  * The Rackspace Database As A Service (aka "Red Dwarf")
  */
-class Service extends Nova
+class Service extends NovaService
 {
     
     const DEFAULT_NAME = 'cloudDatabases';

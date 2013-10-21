@@ -9,7 +9,7 @@ class CheckTypeTest extends OpenCloudTestCase
 	
 	public function __construct()
 	{
-        $this->service = $this->getClient()->cloudMonitoring('cloudMonitoring', 'DFW', 'publicURL');
+        $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
         $this->resource = $this->service->resource('CheckType');
 	}
 

@@ -20,4 +20,29 @@ class CDNContainer extends AbstractContainer
     const HEADER_METADATA_PREFIX = 'X-Cdn-';
     const HEADER_METADATA_UNSET_PREFIX = 'X-Remove-Cdn-';
     
+    public function getCdnSslUri()
+    {
+        return $this->metadata->getProperty('X-Cdn-Ssl-Uri');
+    }
+
+    public function getCdnUri()
+    {
+        return $this->metadata->getProperty('X-Cdn-Uri');
+    }
+    
+    public function getTtl()
+    {
+        return $this->metadata->getProperty('X-Ttl');
+    }
+    
+    public function getCdnStreamingUri()
+    {
+        return $this->metadata->getProperty('X-Cdn-Streaming-Uri');
+    }
+    
+    public function purgeObjects()
+    {
+        
+    }
+    
 }
