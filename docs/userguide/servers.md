@@ -165,6 +165,17 @@ Take server out of rescue mode:
 This restores the server to its original state (plus any changes you may have
 made while it was in rescue mode).
 
+### Accessing extended attributes (OS-EXT-STS and OS-DCF)
+
+Rackspace provides access to some additional status attributes for your servers, called [Disk Configuration Extension](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_extensions.html#diskconfig_attribute) and [Extended Status Extension](http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_extensions.html#ext_status). These attributes provide the VM, task, and power statuses for servers as well as the disk.
+
+To access these additional attributes, simply use the following:
+
+    print "OS-EXT-STS:vm_state - ".$server->{"OS-EXT-STS:vm_state"}."\n";
+    print "OS-EXT-STS:task_state - ".$server->{"OS-EXT-STS:task_state"}."\n";
+    print "OS-EXT-STS:power_state - ".$server->{"OS-EXT-STS:power_state"}."\n";
+    print "OS-DCF:diskConfig - ".$server->{"OS-DCF:diskConfig"}."\n";
+
 ## Volumes
 
 See [Working with Volumes](volumes.md) for information on the 
