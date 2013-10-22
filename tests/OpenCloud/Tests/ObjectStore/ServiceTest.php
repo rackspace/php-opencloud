@@ -34,12 +34,13 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Url_Secret()
     {
-        $this->service->setTempUrlSecret('foo');
-        $this->assertEquals('foo', $this->service->getTempUrlSecret());
+        $account = $this->service->getAccount();
+        $account->setTempUrlSecret('foo');
+        $this->assertEquals('foo', $account->getTempUrlSecret());
         
         // Random val
-        $this->service->setTempUrlSecret();
-        $temp = $this->service->getTempUrlSecret();
+        $account->setTempUrlSecret();
+        $temp = $account->getTempUrlSecret();
         $this->assertTrue($temp && $temp != 'foo');
     }
     
@@ -124,6 +125,17 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Bad_Bulk_Delete()
     {
         $this->service->bulkDelete(array('nonEmptyContainer'));
+    }
+    
+    public function test_Accounts()
+    {
+        $account = $this->service->getAccount();
+
+        $this->assertInstanceOf('OpenCloud\Common\Metadata', $account->getDetails());
+        
+        $this->assertEquals('50000000', $account->getBytesUsed());
+        $this->assertEquals('1000000', $account->getObjectCount());
+        $this->assertEquals('20', $account->getContainerCount());
     }
     
 }

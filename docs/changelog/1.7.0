@@ -1,0 +1,26 @@
+Changelog
+
+- Support for keypairs
+- Integration with Guzzle
+ - Parallel requests
+ - New, quicker way to upload files
+   - Files over 5GB are fragmented and uploading using multibyte chunking
+   - Multiple files are uploaded concurrently using multi-curl
+ - Better response and exception handling
+ - URLs are objectified, allowing for more powerful interaction
+ - Endpoints, service catalog, catalog items are now objectified
+ - Factory methods are renamed with *service for greater clarity
+ - Services are now constructed with a ServiceBuilder for efficiency
+ - Near 100% API consistency for Cloud Files
+ - Completely refactored unit tests
+  - All unit tests now inherit from one centralized test case
+  - Use of singletons for client object re-use
+  - New implementation of mock responses
+  - Request capturing using Event dispatchers
+ - Namespace changes to all service models for greater consistency
+ - Refactoring of Autoscale/Monitoring to make things DRYer
+ - New docblock for every file with up-to-date license
+ - Fix to logging output functionality
+ - Fixes to server metadata
+ - Minor changes to Metadata
+ - Core change to method/property overloading. For every private model property, the end-user now has access to a dynamic getter/setter methods that ensure better encapsulation. For finer-grained control, they can specify concrete methods which supercede the magic methods. I want to get into the habit of encouraging filtered access through methods rather than raw property access.

@@ -26,7 +26,7 @@ class TransferBuilder
     
     protected $options = array();
     
-    public static function factory()
+    public static function newInstance()
     {
         return new self();
     }
@@ -71,12 +71,6 @@ class TransferBuilder
     public function setEntityBody(EntityBody $entityBody)
     {
         $this->entityBody = $entityBody;
-        return $this;
-    }
-    
-    public function setCustomUrl($customUrl)
-    {
-        $this->customUrl = $customUrl;
         return $this;
     }
     

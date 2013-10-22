@@ -26,6 +26,10 @@ return array(
         )
     ),
     
+    'rax:object-cdn' => array(
+        
+    ),
+    
     'rax:queues' => array(
         '/queues/baz$' => array('status' => 404, 'body' => '{}'),
         '/queues/test-queue$' => array('status' => 201, 'body' => '{}'),

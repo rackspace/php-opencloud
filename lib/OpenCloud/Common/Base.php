@@ -24,9 +24,6 @@ use OpenCloud\Common\Exceptions\UrlError;
 abstract class Base
 {
 
-    private $http_headers = array();
-    private $_errors = array();
-    
     private $properties = array();
 
     /**
@@ -75,7 +72,7 @@ abstract class Base
     protected function setProperty($property, $value)
     { 
         // We can set a property under three conditions:
-        // 1. If it has a concret setter: setProperty()
+        // 1. If it has a concrete setter: setProperty()
         // 2. If has already been defined
         // 3. If the property name's prefix is in an approved list
 

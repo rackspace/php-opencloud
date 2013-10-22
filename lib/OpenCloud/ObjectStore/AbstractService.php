@@ -36,4 +36,9 @@ abstract class AbstractService extends CommonAbstractService
         return new Collection($this, __NAMESPACE__ . '\\Resource\\' . $class, $containers);
     }
     
+    public function getAccount()
+    {
+        return new Resource\Account($this);
+    }
+    
 }

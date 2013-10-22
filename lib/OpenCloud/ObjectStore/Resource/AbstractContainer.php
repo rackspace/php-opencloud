@@ -12,7 +12,7 @@
 namespace OpenCloud\ObjectStore\Resource;
 
 use OpenCloud\Common\Service\AbstractService;
-use Guzzle\Http\Url;
+use OpenCloud\Common\Exceptions;
 
 /**
  * Description of AbstractContainer
@@ -40,45 +40,24 @@ abstract class AbstractContainer extends AbstractResource
      */
     public $name;
     
-    /**
-     * @var AbstractService The service object.
-     */
-    private $service;
-    
-    public function __construct(AbstractService $service, $cdata = null)
+    public function __construct(AbstractService $service, $data = null)
     {
-        $this->getLogger()->info('Initializing CDN Container Service...');
-
-        $this->service = $service;
+        $this->service  = $service;
+        $this->metadata = new $this->metadataClass;
 
         // Populate data if set
-        $this->populate($cdata);
-    }
-    
-    public function getService()
-    {
-        return $this->service;
-    }
-    
-    public function getCDNService()
-    {
-        return $this->service->getCDNService();
-    }
-    
-    public function getClient()
-    {
-        return $this->getService()->getClient();
+        $this->populate($data);
     }
     
     public function getTransId()
     {
-        return $this->metadata->getProperty('X-Trans-Id');
+        return $this->metadata->getProperty('Trans-Id');
     }
     
     public function isCdnEnabled()
     {
         if ($this instanceof CDNContainer) {
-            return $this->metadata->getProperty('X-Cdn-Enabled') == 'True';
+            return $this->metadata->getProperty('Enabled') == 'True';
         } else {
             return empty($this->cdn);
         }
@@ -87,9 +66,9 @@ abstract class AbstractContainer extends AbstractResource
     public function hasLogRetention()
     {
         if ($this instanceof CDNContainer) {
-            return $this->metadata->getProperty('X-Log-Retention') == 'True';
+            return $this->metadata->getProperty('Log-Retention') == 'True';
         } else {
-            return $this->metadata->getProperty(self::HEADER_ACCESS_LOGS);
+            return $this->metadata->propertyExists(self::HEADER_ACCESS_LOGS);
         }
     }
     
@@ -97,31 +76,15 @@ abstract class AbstractContainer extends AbstractResource
     {
         return 'name';
     }
-    
-    public function update()
-    {
-        $this->getClient()
-            ->post($this->getUrl(), $this->metadataHeaders())
-            ->send();
-        
-        return true;
-    }
-    
+
     public function getUrl($path = null, array $params = array())
     {
         if (strlen($this->name) == 0) {
-            throw new Exceptions\NoNameError(
-            	Lang::translate('Container does not have an identifier')
-            );
+            throw new Exceptions\NoNameError('Container does not have a name');
         }
         
-        $url = $this->getService()->url(rawurlencode($this->name));
-        
-        if (!$url instanceof Url) {
-            $url = Url::factory($url);
-        }
-        
-        return $url;
+        $url = clone $this->getService()->getUrl();
+        return $url->addPath($this->name)->addPath($path)->setQuery($params);
     }
     
     protected function createRefreshRequest($name)
@@ -132,25 +95,5 @@ abstract class AbstractContainer extends AbstractResource
                 404 => 'Container not found'
             ));
     }
-    
-    public function refresh($name = null, $url = null)
-    {
-        $response = $this->createRefreshRequest($name)->send();
 
-		$headers = $response->getHeaders();
-        $this->stockFromHeaders($headers);
-        
-        return $headers;  
-    }
-    
-    public function stockFromHeaders($headers)
-    {
-	    $this->objectCount = $headers['X-Container-Object-Count'];
-        $this->bytesUsed   = $headers['X-Container-Bytes-Used'];
-        
-        unset($headers['X-Container-Object-Count'], $headers['X-Container-Bytes-Used']);
-        
-        $this->setMetadata($headers, true);
-    }
-    
 }

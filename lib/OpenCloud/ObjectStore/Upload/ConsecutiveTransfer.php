@@ -10,7 +10,9 @@
 
 namespace OpenCloud\ObjectStore\Upload;
 
+use Guzzle\Http\EntityBody;
 use Guzzle\Http\ReadLimitEntityBody;
+use OpenCloud\Common\Constants\Size;
 
 /**
  * Description of ConsecutiveTransfer

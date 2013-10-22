@@ -17,9 +17,14 @@ namespace OpenCloud\ObjectStore\Resource;
  */
 class Account extends AbstractResource
 {
-    const HEADER_METADATA_PREFIX = 'X-Account-';
-    const HEADER_BYTES_USED      = 'Bytes-Used';
-    const HEADER_CONTAINER_COUNT = 'Container-Count';
+    const METADATA_LABEL = 'Account';
+    
+    private $tempUrlSecret;
+    
+    public function getUrl($path = null, array $query = array())
+    {
+        return $this->getService()->getUrl();
+    }
     
     public function getDetails()
     {
@@ -31,9 +36,43 @@ class Account extends AbstractResource
         return $this->metadata->getProperty('Object-Count');
     }
     
+    public function getContainerCount()
+    {
+        return $this->metadata->getProperty('Container-Count');
+    }
+    
     public function getBytesUsed()
     {
         return $this->metadata->getProperty('Bytes-Used');
+    }
+    
+    /** 
+     * Sets the shared secret value for the TEMP_URL
+     *
+     * @param string $secret the shared secret
+     * @return HttpResponse
+     */
+    public function setTempUrlSecret($secret = null) 
+    {
+        if (!$secret) {
+            $secret = sha1(rand(1, 99999));
+        }
+        
+        $this->tempUrlSecret = $secret;
+        
+        $this->saveMetadata($this->appendToMetadata(array('Temp-Url-Key' => $secret)));
+        
+        return $this;
+    }
+    
+    public function getTempUrlSecret()
+    {
+        if (null === $this->tempUrlSecret) {
+            $this->retrieveMetadata();
+            $this->tempUrlSecret = $this->metadata->getProperty('Temp-Url-Key');
+        }
+        
+        return $this->tempUrlSecret;
     }
     
 }

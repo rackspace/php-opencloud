@@ -95,7 +95,21 @@ return array(
     "object-store" => array(
         'M-ALT-ID?$' => "a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk",
         'M-ALT-ID\?limit=5?$' => "a\nb\nc\nd\ne",
-        
+        'container2' => array(
+            'body' => '[{"subdir" : "photos"}]'
+        ),
+        'container1/?$' => 'objects',
+        'container1/foobar/?$' => array(
+            'status' => 200, 
+            'body' => 'b0dffe8254d152d8fd28f3c5e0404a10', 
+            'headers' => array(
+                'Date' => 'Wed, 11 Jul 2007 19:37:41 GMT',
+                'Last-Modified' => 'Fri, 12 Jun 2007 13:40:18 GMT',
+                'ETag' => 'foo',
+                'Content-Type' => 'text/plain',
+                'Content-Length' => '512000'
+            )
+        )
     ),
     
     "rax:object-cdn" => array(

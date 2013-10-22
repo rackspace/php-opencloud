@@ -40,22 +40,23 @@ class MockTestObserver implements EventSubscriberInterface
     {
         $this->request = $event['request'];
         $this->serviceType = $this->traceServiceType();
-        
+
         $event['request']->setResponse($this->produceMockResponse())
             ->setState(Request::STATE_COMPLETE);
     }
     
     public function traceServiceType()
     {
-        $debug = debug_backtrace();
-        foreach ($debug as $trace) {
-            if (isset($trace['object'])) {
-                if (method_exists($trace['object'], 'getService')) {
-                    return $trace['object']->getService()->getType();
-                } elseif ($trace['object'] instanceof AbstractService) {
-                    return $trace['object']->getType();
-                } elseif ($trace['object'] instanceof ServerMetadata) {
-                    return $trace['object']->getParent()->getService()->getType();
+        $host = (string) $this->request->getUrl(true)->getHost();
+        
+        $json = json_decode(file_get_contents($this->responseDir . 'Body/Misc/tokens.json'));
+        
+        foreach ($json->access->serviceCatalog as $service) {
+            foreach ($service->endpoints as $endpoint) {
+                if (strpos($endpoint->publicURL, $host) !== false
+                    || (isset($endpoint->internalURL) && strpos($endpoint->internalURL, $host) !== false)
+                ) {
+                    return $service->type;
                 }
             }
         }

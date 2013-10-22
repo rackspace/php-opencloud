@@ -150,16 +150,10 @@ class AbstractTransfer
             )
         );
         
-        $body = '';
+        $url = clone $this->options['containerUrl'];
+        $url->addPath($this->options['objectName']);
         
-//        if ($this->isStaticLargeObject) {
-//            $body = json_encode($parts);
-//            $headers['Content-Length'] = strlen($body);
-//        }
-        
-        $uri = $this->options['containerUri'] . '/' . $this->options['objectName'];
-        
-        $response = $this->client->put($uri, $headers, $body)->send();
+        $response = $this->client->put($url, $headers)->send();
         
         return $response;
     }

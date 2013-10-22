@@ -31,8 +31,6 @@ class Service extends AbstractService
      * indicative that the CDN service is available.
      */
     private $cdnService;
-    
-    private $tempUrlSecret;
 
     public function __construct(
         OpenStack $connection,
@@ -59,30 +57,6 @@ class Service extends AbstractService
                 $urltype
             );
         } catch (Exceptions\EndpointError $e) {}
-    }
-
-    /** 
-     * Sets the shared secret value for the TEMP_URL
-     *
-     * @param string $secret the shared secret
-     * @return HttpResponse
-     */
-    public function setTempUrlSecret($secret = null) 
-    {
-        if (!$secret) {
-            $secret = sha1(rand(1, 99999));
-        }
-        
-        $this->tempUrlSecret = $secret;
-        
-        return $this->getClient()->post($this->getUrl(), array(
-            'X-Account-Meta-Temp-Url-Key' => $secret
-        ));
-    }
-    
-    public function getTempUrlSecret()
-    {
-        return $this->tempUrlSecret;
     }
 
     public function getCdnService() 

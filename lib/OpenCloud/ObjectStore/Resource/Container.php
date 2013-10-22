@@ -14,10 +14,11 @@ use Guzzle\Http\EntityBody;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Lang;
+use OpenCloud\Common\Collection;
 use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
 use OpenCloud\Common\Service\AbstractService;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -30,8 +31,7 @@ use OpenCloud\Common\Service\AbstractService;
  */
 class Container extends AbstractContainer
 {
-    const HEADER_METADATA_PREFIX = 'X-Container-Meta-';
-    const HEADER_METADATA_UNSET_PREFIX = 'X-Remove-Container-Meta-';
+    const METADATA_LABEL = 'Container';
     
     /**
      * @var CDNContainer|null 
@@ -50,15 +50,9 @@ class Container extends AbstractContainer
     
     public function getCdn()
     {
-        if (!$this->isCdnEnabled()) {
+        if (!$this->isCdnEnabled() || !$this->cdn) {
             throw new Exceptions\CdnNotAvailableError(
-            	'This container is not CDN-enabled.'
-            );
-        }
-        
-        if (!$this->cdn) {
-            throw new Exceptions\CdnNotAvailableError(
-            	'The CDN for this container is not available'
+            	'Either this container is not CDN-enabled or the CDN is not available'
             );
         }
         
@@ -67,12 +61,12 @@ class Container extends AbstractContainer
     
     public function getObjectCount()
     {
-        return $this->metadata->getProperty('X-Container-Object-Count');
+        return $this->metadata->getProperty('Object-Count');
     }
     
     public function getBytesUsed()
     {
-        return $this->metadata->getProperty('X-Container-Bytes-Used');
+        return $this->metadata->getProperty('Bytes-Used');
     }
     
     public function getCountQuota()
@@ -91,15 +85,26 @@ class Container extends AbstractContainer
             $this->deleteAllObjects();
         }
         
-        $this->getClient()->delete($this->getUrl())
+        return $this->getClient()->delete($this->getUrl())
             ->setExceptionHandler(array(
                 404 => 'Container not found',
                 409 => 'Container must be empty before deleting. Please set the $deleteObjects argument to TRUE.',
                 300 => 'Unknown error'
             ))
             ->send();
+    }
+    
+    public function deleteAllObjects()
+    {
+        $requests = array();
+        
+        $list = $this->objectList();
+        
+        while ($object = $list->next()) {
+            $requests[] = $this->getClient()->delete($object->getUrl());
+        }
 
-        return true;
+        return $this->getClient()->send($requests);
     }
     
     /**
@@ -126,56 +131,37 @@ class Container extends AbstractContainer
      */
     public function objectList(array $params = array())
     {
-        $url = $this->parameterizeCollectionUri($params);
-        return $this->getService()->resourceList('DataObject', $url, $this);
+        $objects = $this->getClient()
+            ->get($this->getUrl(null, $params))
+            ->send()
+            ->getDecodedBody();
+
+        return new Collection($this, 'OpenCloud\ObjectStore\Resource\DataObject', $objects);
     }
     
     public function enableLogging()
     {
-        return $this->saveMetadata(array(
+        return $this->saveMetadata($this->appendToMetadata(array(
             self::HEADER_ACCESS_LOGS => true
-        ));
+        )));
     }
     
     public function disableLogging()
     {
-        return $this->saveMetadata(array(
+        return $this->saveMetadata($this->appendToMetadata(array(
             self::HEADER_ACCESS_LOGS => false
-        ));
+        )));
     }
     
-    public function enableCDN($ttl = null)
+    public function enableCdn($ttl = null)
     {
-        $url = $this->getCDNService()->getUrl(rawurlencode($this->name));
-
-        $headers = $this->metadataHeaders();
-
+        $headers = array('X-CDN-Enabled' => 'True');
         if ($ttl) {
-           
-            // Make sure we're dealing with a real figure
-            if (!is_integer($ttl)) {
-                throw new Exceptions\CdnTtlError(sprintf(
-                    Lang::translate('TTL value [%s] must be an integer'), 
-                    $ttl
-                ));
-            }
-            
-            $headers['X-TTL'] = $ttl;
+            $headers['X-TTL'] = (int) $ttl;
         }
 
-        $headers['X-Log-Retention'] = 'True';
-        $headers['X-CDN-Enabled']   = 'True';
-
-        // PUT to the CDN container
-        $this->getClient()->put($url, $headers)->send();
-
-        // refresh the data
+        $this->getClient()->put($this->getCdnService()->getUrl($this->name), $headers)->send();
         $this->refresh();
-
-        // return the CDN container object
-        $this->cdn = new CDNContainer($this->getCDNService(), $this->name);
-        
-        return $this->cdn;
     }
 
     /**
@@ -184,20 +170,11 @@ class Container extends AbstractContainer
      * 
      * @return true
      */
-    public function disableCDN()
+    public function disableCdn()
     {
-        // Set necessary headers
-        $headers = array(
-            'X-Log-Retention' => 'False', 
-            'X-CDN-Enabled'   => 'False'
-        );
-
-        // PUT it to the CDN service
-        $this->getClient()->put($this->CDNURL(), $headers)
-            ->setExpectedResponse(201)
+        return $this->getClient()
+            ->put($this->getCdnService()->getUrl($this->name), array('X-CDN-Enabled' => 'False'))
             ->send();
-        
-        return true;
     }
 
     /**
@@ -232,23 +209,27 @@ class Container extends AbstractContainer
      */
     public function refresh($id = null, $url = null)
     {
-        $this->cdn = new CDNContainer($this->getService()->getCDNService());
-        $this->cdn->name = $this->name;
+        $headers = $this->createRefreshRequest($this->name)->send()->getHeaders();
+        $this->setMetadata($headers, true);
         
-        $requests = array(
-            $this->createRefreshRequest($this->name),
-            $this->cdn->createRefreshRequest($this->name)
-        );
-        
-        // Execute queued requests in parallel
-        foreach ($this->getService()->getClient()->send($requests) as $response) {
-            $headers = $response->getHeaders();
-            if ($headers->offsetExists('X-Cdn-Uri')) {
-                $this->cdn->stockFromHeaders($headers);
-            } else {
-                $this->stockFromHeaders($headers);
+        try {
+            
+            $cdn = new CDNContainer($this->getService()->getCDNService());
+            $cdn->setName($this->name);
+            
+            $response = $cdn->createRefreshRequest($this->name)->send();
+            
+            if ($response->isSuccessful()) {
+                $this->cdn = $cdn;
+                $this->cdn->setMetadata($response->getHeaders(), true);
             }
-        }
+            
+        } catch (ClientErrorResponseException $e) {}   
+    }
+    
+    public function dataObject($info = null)
+    {
+        return new DataObject($this, $info);
     }
     
     /**
@@ -273,12 +254,13 @@ class Container extends AbstractContainer
      */
     public function getObject($name, array $headers = array())
     {
-        $entity = $this->getClient()
+        $response = $this->getClient()
             ->get($this->getUrl($name), $headers)
-            ->send()
-            ->getDecodedBody();
+            ->send();
         
-        return $this->resource('DataObject', $entity);
+        return $this->dataObject()->setName($name)
+            ->setContent($response->getBody())
+            ->setMetadata($response->getHeaders(), true);
     }
     
     public function uploadObjects(array $files, array $headers = array())
@@ -292,9 +274,7 @@ class Container extends AbstractContainer
 	        }
             
             if (!empty($entity['path']) && file_exists($entity['path'])) {
-            	if (!$body = fopen($entity['path'], 'r+')) {
-	            	throw new Exceptions\InvalidArgumentError('This path could not be opened for reading.');
-            	}
+            	$body = fopen($entity['path'], 'r+');
 	        } elseif (!empty($entity['body'])) {
 	            $body = $entity['body'];
 	        } else {
@@ -302,13 +282,15 @@ class Container extends AbstractContainer
 	        }
 	        
             $entityBody = EntityBody::factory($body);
-
+            
+            // @codeCoverageIgnoreStart
             if ($entityBody->getContentLength() >= 5 * Size::GB) {
                 throw new Exceptions\InvalidArgumentError(
                     'For multiple uploads, you cannot upload more than 5GB per '
                     . ' file. Use the UploadBuilder for larger files.'
                 );
             }
+            // @codeCoverageIgnoreEnd
             
             $url = clone $this->getUrl();
             $url->addPath($entity['name']);
@@ -319,7 +301,17 @@ class Container extends AbstractContainer
         return $this->getClient()->send($requests);
     }
     
-    public function uploadObject(array $options = array())
+    public function uploadObject($name, $data, array $headers = array())
+    {
+        $entityBody = EntityBody::factory($data);
+        
+        $url = clone $this->getUrl();
+        $url->addPath($name);
+        
+        return $this->getClient()->put($url, $headers, $entityBody)->send();
+    }
+    
+    public function setupObjectTransfer(array $options = array())
     {
         // Name is required
         if (empty($options['name'])) {
@@ -327,7 +319,7 @@ class Container extends AbstractContainer
         }
 
         // As is some form of entity body
-        if (!empty($options['path']) && is_readable($options['path'])) {
+        if (!empty($options['path']) && file_exists($options['path'])) {
             $body = fopen($options['path'], 'r+');
         } elseif (!empty($options['body'])) {
             $body = $options['body'];
@@ -336,7 +328,7 @@ class Container extends AbstractContainer
         }
         
         // Build upload
-        $transfer = TransferBuilder::factory()
+        $transfer = TransferBuilder::newInstance()
             ->setOption('objectName', $options['name'])
             ->setEntityBody(EntityBody::factory($body))
             ->setContainer($this);
@@ -355,7 +347,7 @@ class Container extends AbstractContainer
             $transfer->setOption('progress', $options['progress']);
         }
 
-        return $transfer->build()->upload();
+        return $transfer->build();
     }
 
 }

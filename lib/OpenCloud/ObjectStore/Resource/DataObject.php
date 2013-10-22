@@ -14,6 +14,7 @@ use Guzzle\Http\EntityBody;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\ObjectStore\Constants\UrlType;
 
 /**
  * Objects are the basic storage entities in Cloud Files. They represent the 
@@ -24,32 +25,44 @@ use OpenCloud\Common\Exceptions;
  */
 class DataObject extends AbstractResource
 {
-    const HEADER_METADATA_PREFIX = 'X-Object-Meta-';
-    const HEADER_METADATA_UNSET_PREFIX = 'X-Remove-Object-Meta-';
+    const METADATA_LABEL = 'Object';
 
-    private $name;
+    private $container;
+    
+    protected $name;
     
     /**
      * @var EntityBody 
      */
-    private $content;
+    protected $content;
     
-    private $directory = false;
+    protected $directory = false;
     
-    public function __construct($container, $cdata = null)
+    protected $contentType;
+    
+    public function __construct(Container $container, $data = null)
     {
-        parent::__construct();
-
-        $this->container = $container;
-   
-        // For pseudo-directories, we need to ensure the name is set
-        if (!empty($cdata->subdir)) {
-            $this->name = $cdata->subdir;
-            $this->directory = true;
-            return;
-        } 
+        $this->setContainer($container);
+        $this->setService($container->getService());
         
-        $this->populate($cdata);
+        // For pseudo-directories, we need to ensure the name is set
+        if (!empty($data->subdir)) {
+            $this->setName($data->subdir)->setDirectory(true);
+            return;
+        }
+        
+        $this->populate($data);
+    }
+    
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+        return $this;
+    }
+    
+    public function getContainer()
+    {
+        return $this->container;
     }
     
     /**
@@ -71,28 +84,25 @@ class DataObject extends AbstractResource
         return $this->content;
     }
     
+    public function setContentType($contentType)
+    {
+        $this->contentType = $contentType;
+        return $this;
+    }
+    
     public function getContentType()
     {
-        if (!$this->content) {
-            return false;
-        }
-        return $this->content->getContentType();
+        return $this->contentType ?: $this->content->getContentType();
     }
     
     public function getContentLength()
     {
-        if (!$this->content) {
-            return false;
-        }
-        return $this->content->getContentLength();
+        return (!$this->content) ? 0 : $this->content->getContentLength();
     }
     
     public function getEtag()
     {
-        if (!$this->content) {
-            return false;
-        }
-        return $this->content->getContentMd5();
+        return (!$this->content) ? null : $this->content->getContentMd5();
     }
     
     public function primaryKeyField()
@@ -106,16 +116,12 @@ class DataObject extends AbstractResource
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
         }
 
-        return $this->container->getUrl(urlencode($this->name));
+        return $this->container->getUrl($this->name);
     }
 
     public function update($params = array())
     {
-        return $this->container->uploadObject(array(
-            'name' => $this->name,
-            'body' => $this->content,
-            'metadata' => $this->metadata->toArray()
-        ));
+        return $this->container->uploadObject($this->name, $this->content, $this->metadata->toArray());
     }
 
     public function copy($target)
@@ -134,19 +140,16 @@ class DataObject extends AbstractResource
             ));
         }
         
-        $request = $this->getService()
+        return $this->getService()
             ->getClient()
             ->createRequest('COPY', $this->getUrl(), array(
                 'Destination' => (string) $destination
             ))
-            ->setExpectedResponse(202);
-        
-        return $request->send();
+            ->send();
     }
     
     public function delete($params = array())
     {
-        $this->populate($params);
         return $this->getService()->getClient()->delete($this->getUrl())->send();
     }
 
@@ -162,10 +165,16 @@ class DataObject extends AbstractResource
                 $method
             ));
         }
+        
+        // @codeCoverageIgnoreStart
+        if (!($secret = $this->getService()->getAccount()->getTempUrlSecret())) {
+            throw new Exceptions\ObjectError('Cannot produce temporary URL without an account secret.');
+        }
+        // @codeCoverageIgnoreEnd
 
         $url  = $this->getUrl();
         $body = sprintf("%s\n%d\n%s", $method, $expiry, $url->getPath());
-        $hash = hash_hmac('sha1', $body, $this->getService()->getTempUrlSecret());
+        $hash = hash_hmac('sha1', $body, $secret);
 
         return sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry);
     }
@@ -187,7 +196,7 @@ class DataObject extends AbstractResource
     {
         $cdn = $this->container->getCdn();
         
-        switch (strtoupper($type)) {
+        switch ($type) {
             case UrlType::CDN:
                 $uri = $cdn->getCdnUri();
                 break;
@@ -207,16 +216,13 @@ class DataObject extends AbstractResource
 
     public function refresh()
     {
-        if (!$this->name) {
-            throw new Exceptions\NoNameError(Lang::translate('Cannot retrieve an unnamed object'));
-        }
-
         $response = $this->getService()->getClient()
             ->get($this->getUrl())
             ->send();
 
         $this->content = $response->getBody();
-        $this->stockFromHeaders($response->getHeaders());
+        $this->setMetadata($response->getHeaders(), true);
+        $this->setContentType((string) $response->getHeader('Content-Type'));
     }
 
 }
