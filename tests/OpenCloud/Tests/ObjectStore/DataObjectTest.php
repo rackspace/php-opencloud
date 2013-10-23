@@ -37,7 +37,7 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertEquals(32, $object->getContentLength());
         $this->assertNotNull($object->getEtag());
         
-        $this->assertInstanceOf('Guzzle\Http\Message\Response', $object->update());
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $object->update());
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $object->delete());
     }
     

@@ -93,12 +93,12 @@ return array(
     ),
     
     "object-store" => array(
-        'M-ALT-ID?$' => "a\nb\nc\nd\ne\nf\ng\nh\ni\nj\nk",
-        'M-ALT-ID\?limit=5?$' => "a\nb\nc\nd\ne",
+        'M-ALT-ID(\?format=json)?$' => '[{"name":"test_container_1", "count":2, "bytes":78},{"name":"test_container_2", "count":1, "bytes":17},{"name":"test_container_1", "count":2, "bytes":78},{"name":"test_container_2", "count":1, "bytes":17},{"name":"test_container_1", "count":2, "bytes":78},{"name":"test_container_2", "count":1, "bytes":17}]',
+        'M-ALT-ID\?limit=5&format=json?$' => '[{"name":"test_container_1", "count":2, "bytes":78},{"name":"test_container_2", "count":1, "bytes":17},{"name":"test_container_2", "count":1, "bytes":17},{"name":"test_container_2", "count":1, "bytes":17},{"name":"test_container_2", "count":1, "bytes":17}]',
         'container2' => array(
             'body' => '[{"subdir" : "photos"}]'
         ),
-        'container1/?$' => 'objects',
+        'container1(\?format=json)?$' => 'objects',
         'container1/foobar/?$' => array(
             'status' => 200, 
             'body' => 'b0dffe8254d152d8fd28f3c5e0404a10', 

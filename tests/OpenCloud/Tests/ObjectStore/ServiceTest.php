@@ -49,7 +49,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $list = $this->service->listContainers();
         
         $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
-        $this->assertEquals('a', $list->first()->getName());
+        $this->assertEquals('test_container_1', $list->first()->getName());
         
         $partialList = $this->service->listContainers(array('limit' => 5));
         $this->assertEquals(5, $partialList->count());

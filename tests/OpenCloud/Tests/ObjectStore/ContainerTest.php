@@ -192,8 +192,8 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Upload()
     {
         $this->assertInstanceOf(
-            'Guzzle\Http\Message\Response', 
-            $this->service->getContainer('container1')->uploadObject('name', 'data')
+            'OpenCloud\ObjectStore\Resource\DataObject',
+            $this->service->getContainer('container1')->uploadObject('foobar', 'data')
         );
     }
     

@@ -46,13 +46,7 @@ abstract class AbstractContainer extends AbstractResource
         $this->metadata = new $this->metadataClass;
 
         // Populate data if set
-        if (!empty($data)) {
-            if (is_string($data)) {
-                $this->setName($data);
-            } elseif (is_object($data) || is_array($data)) {
-                $this->populate($data);
-            }
-        }
+        $this->populate($data);
     }
     
     public function getTransId()
