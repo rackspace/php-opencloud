@@ -28,11 +28,15 @@ abstract class AbstractService extends CommonAbstractService
     
     public function listContainers(array $filter = array())
     {
-        $response = $this->getClient()->get($this->getUrl(null, $filter))->send();
-        
-        $containers = explode(PHP_EOL, $response->getBody());
+        $filter['format'] = 'json';
+
+        $containers = $this->getClient()
+            ->get($this->getUrl(null, $filter))
+            ->send()
+            ->getDecodedBody();
         
         $class = ($this instanceof Service) ? 'Container' : 'CDNContainer';
+
         return new Collection($this, __NAMESPACE__ . '\\Resource\\' . $class, $containers);
     }
     

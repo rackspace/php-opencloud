@@ -84,7 +84,7 @@ class Container extends AbstractContainer
         if ($deleteObjects === true) {
             $this->deleteAllObjects();
         }
-        
+
         return $this->getClient()->delete($this->getUrl())
             ->setExceptionHandler(array(
                 404 => 'Container not found',
@@ -131,6 +131,8 @@ class Container extends AbstractContainer
      */
     public function objectList(array $params = array())
     {
+        $params['format'] = 'json';
+
         $objects = $this->getClient()
             ->get($this->getUrl(null, $params))
             ->send()
@@ -177,27 +179,12 @@ class Container extends AbstractContainer
             ->send();
     }
 
-    /**
-     * Creates a static website from the container
-     *
-     * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Create_Static_Website-dle4000.html
-     * @param string $index the index page (starting page) of the website
-     * @return \OpenCloud\HttpResponse
-     */
     public function createStaticSite($indexHtml)
     {
         $headers = array('X-Container-Meta-Web-Index' => $indexHtml);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
-    /**
-     * Sets the error page(s) for the static website
-     *
-     * @api
-     * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Error_Pages_for_Static_Website-dle4005.html
-     * @param string $name the name of the error page
-     * @return \OpenCloud\HttpResponse
-     */
     public function staticSiteErrorPage($name)
     {
         $headers = array('X-Container-Meta-Web-Error' => $name);
@@ -209,7 +196,7 @@ class Container extends AbstractContainer
      */
     public function refresh($id = null, $url = null)
     {
-        $headers = $this->createRefreshRequest($this->name)->send()->getHeaders();
+        $headers = $this->createRefreshRequest()->send()->getHeaders();
         $this->setMetadata($headers, true);
         
         try {
@@ -217,7 +204,7 @@ class Container extends AbstractContainer
             $cdn = new CDNContainer($this->getService()->getCDNService());
             $cdn->setName($this->name);
             
-            $response = $cdn->createRefreshRequest($this->name)->send();
+            $response = $cdn->createRefreshRequest()->send();
             
             if ($response->isSuccessful()) {
                 $this->cdn = $cdn;
@@ -308,7 +295,8 @@ class Container extends AbstractContainer
         $url = clone $this->getUrl();
         $url->addPath($name);
         
-        return $this->getClient()->put($url, $headers, $entityBody)->send();
+        $this->getClient()->put($url, $headers, $entityBody)->send();
+        return $this->getObject($name);
     }
     
     public function setupObjectTransfer(array $options = array())

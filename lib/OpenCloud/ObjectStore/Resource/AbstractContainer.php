@@ -46,7 +46,13 @@ abstract class AbstractContainer extends AbstractResource
         $this->metadata = new $this->metadataClass;
 
         // Populate data if set
-        $this->populate($data);
+        if (!empty($data)) {
+            if (is_string($data)) {
+                $this->setName($data);
+            } elseif (is_object($data) || is_array($data)) {
+                $this->populate($data);
+            }
+        }
     }
     
     public function getTransId()
@@ -79,18 +85,18 @@ abstract class AbstractContainer extends AbstractResource
 
     public function getUrl($path = null, array $params = array())
     {
-        if (strlen($this->name) == 0) {
+        if (strlen($this->getName()) == 0) {
             throw new Exceptions\NoNameError('Container does not have a name');
         }
-        
-        $url = clone $this->getService()->getUrl();
-        return $url->addPath($this->name)->addPath($path)->setQuery($params);
+
+        $url = $this->getService()->getUrl();
+        return $url->addPath($this->getName())->addPath($path)->setQuery($params);
     }
     
-    protected function createRefreshRequest($name)
+    protected function createRefreshRequest()
     {
         return $this->getClient()
-            ->head($this->getUrl($name), array('Accept' => '*/*'))
+            ->head($this->getUrl(), array('Accept' => '*/*'))
             ->setExceptionHandler(array(
                 404 => 'Container not found'
             ));

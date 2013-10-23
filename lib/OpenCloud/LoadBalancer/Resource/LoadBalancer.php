@@ -351,7 +351,7 @@ class LoadBalancer extends PersistentObject
      */
     public function nodeList() 
     {
-        return $this->getParent()->resourceList('Node');
+        return $this->getService()->resourceList('Node', null, $this);
     }
 
     /**
@@ -369,7 +369,7 @@ class LoadBalancer extends PersistentObject
      */
     public function nodeEventList() 
     {
-        return $this->getParent()->resourceList('NodeEvent');
+        return $this->getParent()->resourceList('NodeEvent', null, $this);
     }
 
     /**
@@ -388,7 +388,7 @@ class LoadBalancer extends PersistentObject
      */
     public function virtualIpList() 
     {
-        return $this->getService()->resourceList('VirtualIp');
+        return $this->getService()->resourceList('VirtualIp', null, $this);
     }
 
     /**
@@ -463,7 +463,7 @@ class LoadBalancer extends PersistentObject
      */
     public function accessList() 
     {
-        return $this->getService()->resourceList('Access');
+        return $this->getService()->resourceList('Access', null, $this);
     }
 
     /**
@@ -515,7 +515,7 @@ class LoadBalancer extends PersistentObject
      */
     public function metadataList() 
     {
-        return $this->getService()->resourceList('Metadata');
+        return $this->getService()->resourceList('Metadata', null, $this);
     }
 
     /**
@@ -530,11 +530,17 @@ class LoadBalancer extends PersistentObject
         foreach ($this->createKeys as $key) {
             if ($key == 'nodes') {
                 foreach ($this->nodes as $node) {
-                    $element->nodes[] = (object) $node;
+                    $nodeObject = (object) array();
+                    foreach ($node->createKeys as $key) {
+                        if (!empty($node->$key)) {
+                            $nodeObject->$key = $node->$key;
+                        }
+                    }
+                    $element->nodes[] = (object) $nodeObject;
                 }
             } elseif($key == 'virtualIps') {
                 foreach ($this->virtualIps  as $virtualIp) {
-                    $element->virtualIps[] = (object) $virtualIp;
+                    $element->virtualIps[] = $virtualIp;
                 }
             } elseif (isset($this->$key)) {
                 $element->$key = $this->$key;

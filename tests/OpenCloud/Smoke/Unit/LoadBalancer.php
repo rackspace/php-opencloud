@@ -13,7 +13,7 @@ namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\Smoke\Enum;
 use OpenCloud\Smoke\Utils;
-use OpenCloud\Common\Exceptions\InstanceNotFound;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use OpenCloud\Common\Exceptions\DeleteError;
 
 /**
@@ -139,7 +139,7 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
                 try {
                     $loadBalancer->SSLTermination();
                     $step->subStep('SSL terminated');
-                } catch (InstanceNotFound $e) {
+                } catch (ClientErrorResponseException $e) {
                     $step->subStep('No SSL termination');
                 }
 

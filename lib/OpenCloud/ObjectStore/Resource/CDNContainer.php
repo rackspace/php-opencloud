@@ -46,7 +46,7 @@ class CDNContainer extends AbstractContainer
     
     public function refresh($name = null, $url = null)
     {
-        $response = $this->createRefreshRequest($name)->send();
+        $response = $this->createRefreshRequest()->send();
 
 		$headers = $response->getHeaders();
         $this->setMetadata($headers, true);

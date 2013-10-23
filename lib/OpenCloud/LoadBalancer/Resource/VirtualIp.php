@@ -47,7 +47,7 @@ class VirtualIp extends SubResource
     protected static $json_name = FALSE;
     protected static $url_resource = 'virtualips';
     
-    protected $createKeys = array(
+    public $createKeys = array(
         'type', 
         'ipVersion'
     );

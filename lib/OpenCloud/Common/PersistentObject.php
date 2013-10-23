@@ -277,7 +277,7 @@ abstract class PersistentObject extends Base
                 $this->setProperty($primaryKey, $id);
             }
             
-            $url = $this->url();
+            $url = $this->getUrl();
         }
         
         // reset status, if available
