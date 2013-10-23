@@ -12,7 +12,7 @@
 namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\Smoke\Utils;
-use OpenCloud\Common\Exceptions\CreateError;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * Description of Compute
@@ -32,7 +32,7 @@ class Compute extends AbstractUnit implements UnitInterface
      */
     public function setupService()
     {
-        return $this->getConnection()->compute('cloudServersOpenStack', Utils::getRegion());
+        return $this->getConnection()->computeService('cloudServersOpenStack', Utils::getRegion());
     }
     
     /**
@@ -71,7 +71,7 @@ class Compute extends AbstractUnit implements UnitInterface
                 'label' => $this->prepend(self::NETWORK_NAME), 
                 'cidr'  => '192.168.0.0/24'
             ));
-        } catch (CreateError $e) {
+        } catch (ClientErrorResponseException $e) {
             $this->stepInfo('Failed to create network :(');
         }
         
@@ -79,7 +79,7 @@ class Compute extends AbstractUnit implements UnitInterface
         $this->step('List Networks');
         $networks = $this->getService()->networkList();
         $networks->sort('label');
-        while ($network = $networks->Next()) {
+        while ($network = $networks->next()) {
             $this->stepInfo('%s: %s (%s)', $network->id, $network->label, $network->cidr);
         }
         

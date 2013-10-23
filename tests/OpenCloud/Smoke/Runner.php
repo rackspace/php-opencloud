@@ -193,43 +193,43 @@ class Runner
         
         // Do connection stuff
         $connection = new Rackspace($identityEndpoint, $secret);
-        $connection->appendUserAgent(Enum::USER_AGENT);
+        $connection->setUserAgent($connection->getUserAgent() . '/' . Enum::USER_AGENT);
 
-        // See if we can retrieve credentials
-        $credentialsCacheFile = __DIR__ . '/Resource/' . Enum::CREDS_FILENAME;
-        
-        try {
-            $fp = fopen($credentialsCacheFile, 'r');
-        } catch (Exception $e) {}
-        
-        // Does the credentials file already exist?
-        if (!$fp || !($size = filesize($credentialsCacheFile))) {
-            
-            // If not, can we create a new one?            
-            if (!is_writable($credentialsCacheFile)
-                || false === ($fp = fopen($credentialsCacheFile, 'w'))
-            ) {
-                throw new SmokeException(sprintf(
-                    'Credentials file [%s] cannot be written to',
-                    $credentialsCacheFile
-                ));
-            }
-            
-            Utils::logf('   Saving credentials to %s', $credentialsCacheFile);
- 
-            // Save credentials
-            fwrite($fp, serialize($connection->exportCredentials()));
-            
-        } else { 
-            
-            Utils::logf('   Loading credentials from %s', $credentialsCacheFile);
-            
-            // Read from file
-            $string = fread($fp, $size);
-            $connection->importCredentials(unserialize($string)); 
-        }
-        
-        fclose($fp);
+//        // See if we can retrieve credentials
+//        $credentialsCacheFile = __DIR__ . '/Resource/' . Enum::CREDS_FILENAME;
+//
+//        try {
+//            $fp = fopen($credentialsCacheFile, 'r');
+//        } catch (Exception $e) {}
+//
+//        // Does the credentials file already exist?
+//        if (!$fp || !($size = filesize($credentialsCacheFile))) {
+//
+//            // If not, can we create a new one?
+//            if (!is_writable($credentialsCacheFile)
+//                || false === ($fp = fopen($credentialsCacheFile, 'w'))
+//            ) {
+//                throw new SmokeException(sprintf(
+//                    'Credentials file [%s] cannot be written to',
+//                    $credentialsCacheFile
+//                ));
+//            }
+//
+//            Utils::logf('   Saving credentials to %s', $credentialsCacheFile);
+//
+//            // Save credentials
+//            fwrite($fp, serialize($connection->exportCredentials()));
+//
+//        } else {
+//
+//            Utils::logf('   Loading credentials from %s', $credentialsCacheFile);
+//
+//            // Read from file
+//            $string = fread($fp, $size);
+//            $connection->importCredentials(unserialize($string));
+//        }
+//
+//        fclose($fp);
         
         Utils::logf('   Using identity endpoint: %s', $identityEndpoint);
         Utils::logf('   Using region: %s', Utils::getRegion());
@@ -239,5 +239,5 @@ class Runner
         
 }
 
-require __DIR__ . '/../../../lib/php-opencloud.php';
+require __DIR__ . '/../../bootstrap.php';
 Runner::run();

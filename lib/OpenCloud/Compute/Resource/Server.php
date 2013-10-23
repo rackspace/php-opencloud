@@ -235,14 +235,6 @@ class Server extends PersistentObject
         
         return parent::create($params);
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function createUrl()
-    {
-        return $this->getService()->url();
-    }
 
     /**
      * Rebuilds an existing server

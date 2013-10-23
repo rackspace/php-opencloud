@@ -12,7 +12,7 @@
 namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\OpenStack;
-use OpenCloud\Common\Service;
+use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Smoke\Enum;
 use OpenCloud\Smoke\Step;
 use OpenCloud\Smoke\Utils;
@@ -88,7 +88,7 @@ abstract class AbstractUnit
         return $this->connection;
     }
     
-    public function setService(Service $service)
+    public function setService(AbstractService $service)
     {
         $this->service = $service;
         return $this;

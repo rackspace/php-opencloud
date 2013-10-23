@@ -94,5 +94,10 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
             $this->client->volumeService('cloudBlockStorage', 'DFW')
         );
     }
+
+    public function test_User_Agent()
+    {
+        $this->assertEquals($this->client->getUserAgent(), $this->client->getDefaultUserAgent());
+    }
     
 }

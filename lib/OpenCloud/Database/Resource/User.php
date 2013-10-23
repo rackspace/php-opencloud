@@ -106,14 +106,6 @@ class User extends PersistentObject
 		$this->databases[] = $dbname;
 	}
     
-    /**
-     * {@inheritDoc}
-     */
-    public function createUrl()
-    {
-        return $this->getParent()->url('users');
-    }
-    
 	/**
 	 * {@inheritDoc}
 	 */

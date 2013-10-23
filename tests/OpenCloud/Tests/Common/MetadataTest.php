@@ -28,12 +28,16 @@ class MetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->metadata->foo = 'bar';
         $this->assertEquals('bar', $this->metadata->foo);
+
+        $this->assertTrue(isset($this->metadata->foo));
     }
 
     public function testSetArray()
     {
-        $this->metadata->setArray(array('opt' => 'uno', 'foobar' => 'baz'));
+        $array = array('opt' => 'uno', 'foobar' => 'baz');
+        $this->metadata->setArray($array);
         $this->assertEquals('uno', $this->metadata->opt);
+        $this->assertEquals($array, $this->metadata->keylist());
         $this->metadata->setArray(array('X-one' => 1, 'X-two' => 2), 'X-');
         $this->assertEquals(2, $this->metadata->two);
     }

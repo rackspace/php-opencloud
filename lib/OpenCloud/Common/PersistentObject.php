@@ -10,6 +10,7 @@
 
 namespace OpenCloud\Common;
 
+use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
@@ -188,22 +189,32 @@ abstract class PersistentObject extends Base
         $json = json_encode($this->createJson());
         $this->checkJsonError();
 
+        $createUrl = $this->createUrl();
+
         // send the request
-        $response = $this->getClient()->post($this->createUrl(), array(), $json)
+        $response = $this->getClient()->post($createUrl, array(), $json)
             ->setExceptionHandler(array(
                 201 => array(
                     'allow'    => true,
-                    'callback' => function($response) {
-                        $this->refresh(null, $response->getHeader('Location'));
-                    }
+                    // @codeCoverageIgnoreStart
+                    'callback' => function($response) use ($createUrl) {
+                            if ($location = $response->getHeader('Location')) {
+                                $parts = array_merge($createUrl->getParts(), parse_url($location));var_dump(Url::buildUrl($parts));die;
+                                $this->refresh(null, Url::buildUrl($parts));
+                            }
+                        }
+                    // @codeCoverageIgnoreEnd
                 ),
-                204 => sprintf('Error creating [%s] [%s]',
-                    get_class($this), 
-                    $this->getProperty($this->primaryKeyField())
-                ))
-            )
+                204 => array(
+                    'message' => sprintf(
+                        'Error creating [%s] [%s]',
+                        get_class($this),
+                        $this->getProperty($this->primaryKeyField())
+                    )
+                )
+            ))
             ->send();
-                
+
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }
@@ -354,6 +365,7 @@ abstract class PersistentObject extends Base
      *      example, to update a status display or to permit other operations
      *      to continue
      * @return void
+     * @codeCoverageIgnore
      */
     public function waitFor(
         $terminal = 'ACTIVE',
@@ -617,9 +629,9 @@ abstract class PersistentObject extends Base
      *
      * @return string
      */
-    protected function createUrl()
+    public function createUrl()
     {
-        return $this->getParent()->url($this->resourceName());
+        return $this->getParent()->getUrl($this->resourceName());
     }
 
     /**

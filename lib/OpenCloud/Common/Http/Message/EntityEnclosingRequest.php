@@ -78,7 +78,9 @@ class EntityEnclosingRequest extends GuzzleEntityEnclosingRequest
         if ($handlerResponse instanceof RequestException) {
             throw $handlerResponse;
         } elseif (is_callable($handlerResponse)) {
+            // @codeCoverageIgnoreStart
             return call_user_func($handlerResponse, $event['response']);
+            // @codeCoverageIgnoreEnd
         }
     }
     

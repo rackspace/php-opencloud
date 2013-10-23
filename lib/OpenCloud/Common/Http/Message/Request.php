@@ -79,17 +79,10 @@ class Request extends GuzzleRequest
         if ($handlerResponse instanceof RequestException) {
             throw $handlerResponse;
         } elseif (is_callable($handlerResponse)) {
+            // @codeCoverageIgnoreStart
             return call_user_func($handlerResponse, $event['response']);
+            // @codeCoverageIgnoreEnd
         }
-    }
-    
-    public function createRequest($method = 'GET', $uri = null, $headers = null, $body = null, array $options = array())
-    {
-        if ($body && isset($this->defaultHeaders['Content-Type'])) {
-            unset($this->defaultHeaders['Content-Type']);
-        }
-        
-        return parent::createRequest($method, $uri, $headers, $body, $options);
     }
     
 }

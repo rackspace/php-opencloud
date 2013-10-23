@@ -82,6 +82,9 @@ class CollectionTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Size()
     {
         $this->assertEquals(4, $this->my->Size());
+
+        $this->my->addItem((object) array('id' => 'five', 'val' => 10));
+        $this->assertEquals(5, $this->my->count());
     }
 
     public function test_Sort()

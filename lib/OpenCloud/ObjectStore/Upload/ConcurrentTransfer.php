@@ -10,33 +10,14 @@
 
 namespace OpenCloud\ObjectStore\Upload;
 
-use OpenCloud\Common\Exceptions\RuntimeException;
 use Guzzle\Http\ReadLimitEntityBody;
 use Guzzle\Http\EntityBody;
-use Guzzle\Batch\BatchBuilder;
 
 /**
- * Description of ConcurrentTransfer
- * 
- * @link 
+ * @codeCoverageIgnore
  */
 class ConcurrentTransfer extends AbstractTransfer
 {
-    
-    public function setup()
-    {
-        parent::setup();
-
-        if (!$this->entityBody->isLocal()) {
-            throw new RuntimeException('The entity data must be a local file stream when using concurrent transfers .');
-        }
-
-        if (empty($this->options['concurrency'])) {
-            throw new RuntimeException('The `concurrency` option must be specified when using concurrent transfers.');
-        }
-        
-        return $this;
-    }
     
     public function transfer()
     {

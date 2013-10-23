@@ -54,11 +54,6 @@ class Check extends AbstractResource
         'CheckType' => 'CheckType'
     );
 
-    public function createUrl()
-    {
-        return $this->url();
-    }
-
     public function testUrl($debug = false)
     {
         $params = array();

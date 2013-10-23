@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Copyright (c) 2012 PHP Framework Interoperability Group
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy 

@@ -35,7 +35,7 @@ class Catalog
             throw new InvalidArgumentError(sprintf(
                 'Argument for Catalog::factory must be either an array or an '
                 . 'instance of %s. You passed in: %s',
-                get_class($this),
+                get_class(),
                 print_r($config, true)
             ));
         }

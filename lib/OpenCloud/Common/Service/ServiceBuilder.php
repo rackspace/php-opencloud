@@ -39,7 +39,7 @@ class ServiceBuilder
         $fullclass = 'OpenCloud\\' . $class . '\\Service';
         $defaults  = self::getDefaults($fullclass);
 
-        // report errors
+        // @codeCoverageIgnoreStart
         if (!$name = !empty($options['name']) ? $options['name'] : $defaults['name']) {
             throw new ServiceException(sprintf(
                 Lang::translate('No value for %s name'),
@@ -60,6 +60,7 @@ class ServiceBuilder
                 $class
             ));
         }
+        // @codeCoverageIgnoreEnd
 
         return new $fullclass($client, $name, $region, $urltype);
     }

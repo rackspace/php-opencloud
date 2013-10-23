@@ -97,6 +97,8 @@ class AbstractTransfer
     {
         $this->options  = array_merge($this->defaultOptions, $this->options);
         $this->partSize = $this->validatePartSize();
+        
+        return $this;
     }
     
     protected function validatePartSize()
@@ -108,6 +110,13 @@ class AbstractTransfer
         );
     }
     
+    /**
+     * 
+     * @return type
+     * @throws RuntimeException
+     * @throws UploadException
+     * @codeCoverageIgnore
+     */
     public function upload()
     {
         if (!$this->transferState->isRunning()) {
@@ -116,19 +125,19 @@ class AbstractTransfer
 
         try {
             $this->transfer();
-            $result = $this->complete();
+            $response = $this->createManifest();
         } catch (Exception $e) {
             throw new UploadException($this->transferState, $e);
         }
 
-        return $result;
+        return $response;
     }
     
-    protected function complete()
-    {
-        return $this->createManifest();
-    }
-    
+    /**
+     * 
+     * @return type
+     * @codeCoverageIgnore
+     */
     private function createManifest()
     {
         $parts = array();
@@ -153,9 +162,7 @@ class AbstractTransfer
         $url = clone $this->options['containerUrl'];
         $url->addPath($this->options['objectName']);
         
-        $response = $this->client->put($url, $headers)->send();
-        
-        return $response;
+        return $this->client->put($url, $headers)->send();
     }
     
 }

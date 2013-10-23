@@ -15,17 +15,10 @@ use Guzzle\Http\ReadLimitEntityBody;
 use OpenCloud\Common\Constants\Size;
 
 /**
- * Description of ConsecutiveTransfer
- * 
- * @link 
+ * @codeCoverageIgnore
  */
 class ConsecutiveTransfer extends AbstractTransfer
 {
-    public function setup()
-    {
-        parent::setup();
-        return $this;
-    }
     
     public function transfer()
     {

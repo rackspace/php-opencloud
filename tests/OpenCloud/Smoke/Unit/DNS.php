@@ -26,7 +26,7 @@ class DNS extends AbstractUnit implements UnitInterface
      */
     public function setupService()
     {
-        return $this->getConnection()->DNS();
+        return $this->getConnection()->dnsService();
     }
     
     /**

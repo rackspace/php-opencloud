@@ -31,7 +31,12 @@ class RequestSubscriber implements EventSubscriberInterface
             'curl.callback.progress' => 'doCurlProgress'
         );
     }
-    
+
+    /**
+     * @param $options
+     * @return mixed
+     * @codeCoverageIgnore
+     */
     public function doCurlProgress($options)
     {
     	if ($options['request']->getCurlOptions()->hasKey('progressCallback')) {

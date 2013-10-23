@@ -10,6 +10,7 @@
 
 namespace OpenCloud\Tests\ObjectStore;
 
+use Guzzle\Http\EntityBody;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
 
 /**
@@ -17,20 +18,38 @@ use OpenCloud\ObjectStore\Upload\TransferBuilder;
  * 
  * @link 
  */
-class TransferTest extends \OpenCloud\Tests\MockTestObserver
+class TransferTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
     
     public function __construct()
     {
         $this->service = $this->getClient()->objectStoreService('cloudFiles', 'DFW');  
+        $this->container = $this->service->getContainer('container1');
     }
     
-    public function test_Transfer_Builder()
+    public function test_Consecutive_Transfer()
     {
+        $options = array('objectName' => 'NEW_OBJECT');
+        
         $transfer = TransferBuilder::newInstance()
-            ->setOption('objectName', $options['name'])
-            ->setEntityBody(EntityBody::factory($body))
-            ->setContainer($this);
+            ->setOptions($options)
+            ->setEntityBody(EntityBody::factory(str_repeat('A', 100)))
+            ->setContainer($this->container)
+            ->build();
+        
+        $this->assertCount(7, $transfer->getOptions());   
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Consecutive_Transfer_Fails_Without_Object_Name()
+    {
+        TransferBuilder::newInstance()
+            ->setOptions(array('objectName' => false))
+            ->setEntityBody(EntityBody::factory(str_repeat('A', 100)))
+            ->setContainer($this->container)
+            ->build(); 
     }
     
 }

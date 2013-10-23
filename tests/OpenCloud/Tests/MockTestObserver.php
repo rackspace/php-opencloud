@@ -53,7 +53,7 @@ class MockTestObserver implements EventSubscriberInterface
         
         foreach ($json->access->serviceCatalog as $service) {
             foreach ($service->endpoints as $endpoint) {
-                if (strpos($endpoint->publicURL, $host) !== false
+                if ((isset($endpoint->publicURL) && strpos($endpoint->publicURL, $host) !== false)
                     || (isset($endpoint->internalURL) && strpos($endpoint->internalURL, $host) !== false)
                 ) {
                     return $service->type;

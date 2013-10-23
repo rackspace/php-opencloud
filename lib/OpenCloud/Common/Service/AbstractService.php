@@ -13,9 +13,10 @@ namespace OpenCloud\Common\Service;
 use OpenCloud\Common\Base;
 use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
-use Guzzle\Http\Exception\ClientErrorResponseException;
 use OpenCloud\Common\Collection;
+use OpenCloud\Common\Http\Client;
 use Guzzle\Http\Url;
+use Guzzle\Http\Exception\BadResponseException;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -85,7 +86,8 @@ abstract class AbstractService extends Base
      */
     public function __construct($client, $type, $name, $region, $urltype = RAXSDK_URL_PUBLIC) 
     {
-        $this->client = $client;
+        $this->setClient($client);
+
         $this->type = $type;
         $this->name = $name;
         $this->region = $region;
@@ -130,7 +132,7 @@ abstract class AbstractService extends Base
      */
     public function region()
     {
-        return $this->region;
+        return $this->getRegion();
     }
 
     /**
@@ -209,7 +211,7 @@ abstract class AbstractService extends Base
 
         // Set the URL if empty
         if (!$url) {
-            $url = $parent->url($class::resourceName());
+            $url = $parent->getUrl($class::resourceName());
         }
 
         // Save debug info
@@ -228,15 +230,15 @@ abstract class AbstractService extends Base
 
         // Handle empty response
         $object = $response->getDecodedBody();
-        
+
+        // @codeCoverageIgnoreStart
         if (empty($object)) {
             return new Collection($parent, $class, array());
         }
         
         // See if there's a "next" link
-        // Note: not sure if the current API offers links as top-level structures;
-        //       might have to refactor to allow $nextPageUrl as method argument
-        // @codeCoverageIgnoreStart
+        // Note: not sure if the current API offers links as top-level structures might have to refactor to allow
+        // $nextPageUrl as method argument
         if (isset($object->links) && is_array($object->links)) {
             foreach($object->links as $link) {
                 if (isset($link->rel) && $link->rel == 'next') {
@@ -257,7 +259,9 @@ abstract class AbstractService extends Base
 
         if (!$collectionName || is_array($object)) {
             // No element name, just a plain object/array
+            // @codeCoverageIgnoreStart
             $data = (array) $object;
+            // @codeCoverageIgnoreEnd
         } elseif (isset($object->$collectionName)) {
             if (!$elementName) {
                 // The object has a top-level collection name only
@@ -339,17 +343,16 @@ abstract class AbstractService extends Base
      */
     private function getMetaUrl($resource)
     {
-        // Note: try and use Guzzle's URI class
-        $url = $this->getBaseUrl() . '/' . $resource;
-        
+        $url = clone $this->getBaseUrl();
+        $url->addPath($resource);
         try {
-            $response = $this->getClient()->get($url)->send();
-        } catch (ClientErrorResponseException $e) {
-            return array();
+            $response = $this->getClient()->get($url)->send()->getDecodedBody();
+        } catch (BadResponseException $e) {
+            // @codeCoverageIgnoreStart
+            $response = array();
+            // @codeCoverageIgnoreEnd
         }
-        
-        // we're good; proceed
-        return $response->getDecodedBody();
+        return $response;
     }
     
     /**

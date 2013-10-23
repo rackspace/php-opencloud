@@ -13,7 +13,9 @@ namespace OpenCloud\ObjectStore\Upload;
 use OpenCloud\Common\Http\Message\Response;
 use Guzzle\Http\Url;
 
-
+/**
+ * @codeCoverageIgnore
+ */
 class TransferPart
 {
     /**

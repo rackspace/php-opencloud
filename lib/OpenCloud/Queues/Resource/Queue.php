@@ -10,6 +10,7 @@
 
 namespace OpenCloud\Queues\Resource;
 
+use Guzzle\Http\Url;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Queues\Exception;
@@ -250,12 +251,17 @@ class Queue extends PersistentObject
         $json = json_encode($objects);
         $this->checkJsonError();
         
-        $response = $this->getClient()->post($this->url('messages'), array(), $json)
+        $response = $this->getClient()
+            ->post($this->getUrl('messages'), array(), $json)
             ->setExpectedResponse(201)
             ->send();
-        
+
         if (null !== ($location = $response->getHeader('Location'))) {
-            return $this->getService()->resourceList('Message', $location, $this);
+            
+            $parts = array_merge($this->getUrl()->getParts(), parse_url($location));
+            $url = Url::buildUrl($parts);
+            
+            return $this->getService()->resourceList('Message', $url, $this);
         }
         
         return true;

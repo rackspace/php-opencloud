@@ -202,7 +202,8 @@ return array(
     ),
     
     "rax:queues" => array(
-        '/queues(\?.+)?$' => 'list_queues',
+        '/queues(\?.\=+)?$' => 'list_queues',
+        '/queues\?marker\=2$' => 'list_queues',
         '/queues/foobar/metadata$' => array('status' => 404, 'body' => '{}'),
         '/queues/{w}/metadata' => 'queue_metadata',
         '/queues/{w}/stats$' => 'queue_stats',

@@ -42,16 +42,13 @@ abstract class Base
         $property = lcfirst(substr($method, 3));
 
         // Only do these methods on properties which exist
-        if ($this->propertyExists($property)) {
-            // Do getter
-            if ($prefix == 'get') {
-                return $this->getProperty($property);
-            }
+        if ($this->propertyExists($property) && $prefix == 'get') {
+            return $this->getProperty($property);
+        }
 
-            // Do setter
-            if ($prefix == 'set') {
-                return $this->setProperty($property, $args[0]);
-            }
+        // Do setter
+        if ($this->propertyExists($property) && $prefix == 'set') {
+            return $this->setProperty($property, $args[0]);
         }
         
         throw new Exceptions\RuntimeException(sprintf(
@@ -303,28 +300,6 @@ abstract class Base
             ));
         }
     }
-        
-    /**
-     * Converts an array of key/value pairs into a single query string
-     *
-     * For example, array('A'=>1,'B'=>2) would become 'A=1&B=2'.
-     *
-     * @param array $arr array of key/value pairs
-     * @return string
-     */
-    public function makeQueryString($array)
-    {
-        $queryString = '';
-
-        foreach($array as $key => $value) {
-            if ($queryString) {
-                $queryString .= '&';
-            }
-            $queryString .= urlencode($key) . '=' . urlencode($this->to_string($value));
-        }
-
-        return $queryString;
-    }
 
     /**
      * Checks the most recent JSON operation for errors
@@ -369,23 +344,6 @@ abstract class Base
         
         if (isset($jsonError)) {
             throw new JsonError(Lang::translate($jsonError));
-        }
-    }
-
-    /**
-     * Converts a value to an HTTP-displayable string form
-     *
-     * @param mixed $x a value to convert
-     * @return string
-     */
-    private function to_string($x)
-    {
-        if (is_bool($x) && $x) {
-            return 'True';
-        } elseif (is_bool($x)) {
-            return 'False';
-        } else {
-            return (string) $x;
         }
     }
     

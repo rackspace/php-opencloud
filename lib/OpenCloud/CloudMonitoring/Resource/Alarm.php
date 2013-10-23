@@ -42,11 +42,6 @@ class Alarm extends AbstractResource
         'label',
         'metadata'
     );
-        
-    public function createUrl()
-    {
-        return $this->url();
-    }
     
     public function test($params = array(), $debug = false)
     {

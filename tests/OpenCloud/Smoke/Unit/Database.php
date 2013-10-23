@@ -29,7 +29,7 @@ class Database extends AbstractUnit implements UnitInterface
      */
     public function setupService()
     {
-        return $this->getConnection()->dbService('cloudDatabases', Utils::getRegion(), 'publicURL');
+        return $this->getConnection()->databaseService('cloudDatabases', Utils::getRegion(), 'publicURL');
     }
     
     /**

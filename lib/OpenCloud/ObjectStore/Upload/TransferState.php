@@ -11,9 +11,7 @@
 namespace OpenCloud\ObjectStore\Upload;
 
 /**
- * Description of TransferState
- * 
- * @link 
+ * @codeCoverageIgnore
  */
 class TransferState
 {

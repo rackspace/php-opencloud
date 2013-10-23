@@ -22,7 +22,7 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD');
         $this->queue = $this->service->getQueue()->setName('foo');
-        $this->message = $this->queue->listMessages()->first();           
+        $this->message = $this->queue->listMessages()->first();   
     }
     
     public function test_SettingTtl()

@@ -43,9 +43,12 @@ class Volume extends PersistentObject
         'volume_type',
         'availability_zone'
     );
-    
+
+    // Normally we'd populate a sibling object when this one refreshes
+    // but there are times (i.e. during creation) when the NAME of the VolumeType
+    // is returned, instead of its primary key...
     protected $associatedResources = array(
-        'volume_type' => 'VolumeType'
+        //'volume_type' => 'VolumeType'
     );
     
     public function update($params = array()) 
@@ -67,7 +70,7 @@ class Volume extends PersistentObject
         if ($this->propertyExists('volume_type') 
             && $this->getProperty('volume_type') instanceof VolumeType
         ) {
-            $element->volume_type = $this->volume_type->name();
+            $element->volume->volume_type = $this->volume_type->name();
         }
 
         return $element;

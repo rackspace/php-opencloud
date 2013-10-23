@@ -226,9 +226,9 @@ class OpenStack extends Client
     {
         $headers = array('Content-Type' => 'application/json');
         
-        $object = $this->post($this->getAuthUrl(), $headers, $this->getCredentials())
-            ->send()
-            ->getDecodedBody();
+        $request = $this->post($this->getAuthUrl(), $headers, $this->getCredentials());
+        $response = $request->send();
+        $object = $response->getDecodedBody();
 
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);
@@ -236,7 +236,7 @@ class OpenStack extends Client
         $this->setCatalog($object->access->serviceCatalog);
         
         // Add to default headers for future reference
-        $this->defaultHeaders['X-Auth-Token'] = (string) $this->getToken();
+        $this->setDefaultOption('headers/X-Auth-Token', (string) $this->getToken());
         
         /**
          * In some cases, the tenant name/id is not returned
@@ -252,6 +252,35 @@ class OpenStack extends Client
     public function getUrl()
     {
         return $this->getBaseUrl();
+    }
+
+    public function exportCredentials()
+    {
+        if ($this->hasExpired()) {
+            $this->authenticate();
+        }
+        return array(
+            'token'      => $this->getToken(),
+            'expiration' => $this->getExpiration(),
+            'tenant'     => $this->getTenant(),
+            'catalog'    => $this->getCatalog()
+        );
+    }
+
+    public function importCredentials(array $values)
+    {
+        if (!empty($values['token'])) {
+            $this->setToken($values['token']);
+        }
+        if (!empty($values['expiration'])) {
+            $this->setExpiration($values['expiration']);
+        }
+        if (!empty($values['tenant'])) {
+            $this->setTenant($values['tenant']);
+        }
+        if (!empty($values['catalog'])) {
+            $this->setCatalog($values['catalog']);
+        }
     }
 
     /**

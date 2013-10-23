@@ -18,7 +18,7 @@ class ClaimTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function __construct()
     {
-        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD');
+        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD', 'internalURL');
         $this->queue = $this->service->getQueue()->setName('foo');
         $this->claim = $this->queue->getClaim('foo');
     }

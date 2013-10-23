@@ -84,12 +84,6 @@ class TransferBuilder
         // Create TransferState object for later use
         $transferState = TransferState::factory();
         
-        // Bring in necessary options
-        $this->options = array_merge($this->options, array(
-            'containerName' => $this->container->getName(),
-            'containerUrl'  => $this->container->getUrl()
-        ));
-        
         // Instantiate Concurrent-/ConsecutiveTransfer 
         $transferClass = isset($this->options['concurrency']) && $this->options['concurrency'] > 1 
             ? __NAMESPACE__ . '\\ConcurrentTransfer' 
@@ -100,6 +94,8 @@ class TransferBuilder
             ->setEntityBody($this->entityBody)
             ->setTransferState($transferState)
             ->setOptions($this->options)
+            ->setOption('containerName', $this->container->getName())
+            ->setOption('containerUrl', $this->container->getUrl())
             ->setup();
     }
     

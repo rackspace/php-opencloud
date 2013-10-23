@@ -30,7 +30,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
      */
     public function setupService()
     {
-        return $this->getConnection()->objectStore('cloudFiles', Utils::getRegion());
+        return $this->getConnection()->objectStoreService('cloudFiles', Utils::getRegion());
     }
     
     /**

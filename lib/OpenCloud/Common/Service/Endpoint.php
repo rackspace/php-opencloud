@@ -10,6 +10,8 @@
 
 namespace OpenCloud\Common\Service;
 
+use Guzzle\Http\Url;
+
 /**
  * Description of Endpoint
  * 
@@ -41,7 +43,7 @@ class Endpoint
     
     public function setPublicUrl($publicUrl)
     {
-        $this->publicUrl = $publicUrl;
+        $this->publicUrl = Url::factory($publicUrl);
         return $this;
     }
     
@@ -52,7 +54,7 @@ class Endpoint
     
     public function setPrivateUrl($privateUrl)
     {
-        $this->privateUrl = $privateUrl;
+        $this->privateUrl = Url::factory($privateUrl);
         return $this;
     }
     

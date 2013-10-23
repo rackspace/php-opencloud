@@ -32,12 +32,12 @@ class Metadata extends Base
      */
     public function __set($property, $value) 
     {
-        $this->setProperty($property, $value);
+        return $this->setProperty($property, $value);
     }
 
     public function __get($key)
     {
-        $this->getProperty($key);
+        return $this->getProperty($key);
     }
     
     public function propertyExists($property, $allowRetry = true)
