@@ -13,6 +13,7 @@ namespace OpenCloud\Common\Http;
 use Guzzle\Http\Client as GuzzleClient;
 use Guzzle\Http\Curl\CurlVersion;
 use Guzzle\Http\Curl\CurlHandle;
+use OpenCloud\Common\Exceptions\UnsupportedVersionError;
 
 /**
  * Description of Client
@@ -24,7 +25,7 @@ class Client extends GuzzleClient
     
     const VERSION = '1.7.0';
     
-    const MINIMUM_PHP_VERSION = '5.3.3';
+    const MINIMUM_PHP_VERSION = '5.3.0';
     
     private $curlMulti;
     
@@ -32,7 +33,7 @@ class Client extends GuzzleClient
     {
         // @codeCoverageIgnoreStart
     	if (PHP_VERSION < self::MINIMUM_PHP_VERSION) {
-    		throw new Exceptions\UnsupportedVersionError(sprintf(
+    		throw new UnsupportedVersionError(sprintf(
                 Lang::translate('You must have PHP version >= %s installed.'),
                 self::MINIMUM_PHP_VERSION
             ));

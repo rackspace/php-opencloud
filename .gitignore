@@ -7,3 +7,4 @@ vendor/
 .DS_Store
 *.log
 *.phar
+phpunit.xml
