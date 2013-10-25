@@ -23,6 +23,9 @@
         "php"         : ">=5.3.3",
         "ext-curl"    : "*",
         "guzzle/http" : "3.7.*@dev"
+    },
+    "require-dev": {
+        "phpdocumentor/phpdocumentor": "2.1.*@dev"
     }
 
 }

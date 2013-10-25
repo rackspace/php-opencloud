@@ -1,11 +1,9 @@
 <?php
-
 /**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.5.9
- * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ *
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -14,14 +12,23 @@ namespace OpenCloud\Common\Service;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 
 /**
- * Description of Catalog
- * 
- * @link 
+ * This object represents the service catalog returned by the Rackspace API. It contains all the services available
+ * to the end-user, including specific information for each service.
  */
 class Catalog
 {
+    /**
+     * @var array Service items
+     */
     private $items = array();
-    
+
+    /**
+     * Produces a Catalog from a mixed input.
+     *
+     * @param  $config
+     * @return Catalog
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
     public static function factory($config)
     {
         if (is_array($config)) {
@@ -42,7 +49,10 @@ class Catalog
         
         return $catalog;
     }
-    
+
+    /**
+     * @return array
+     */
     public function getItems()
     {
         return $this->items;

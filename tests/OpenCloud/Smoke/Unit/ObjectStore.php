@@ -75,6 +75,9 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         // Upload 50 objects
         $this->step('Upload ' . self::UPLOAD_COUNT . ' files');
         $dir = __DIR__ . '/../Resource/ObjectStore/';
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
         if (count(scandir($dir)) == 2) {
             $this->createFiles($dir);
         }
@@ -84,7 +87,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
             $file = self::OBJECT_NAME . "_$i";
             $files[] = array('name' => $file, 'path' => __DIR__ . '/../Resource/ObjectStore/' . $file);
         }
-        //$container->uploadObjects($files);
+        $container->uploadObjects($files);
 
         // Upload mahoosive file
         $this->step('Upload 5GB file using multipart');

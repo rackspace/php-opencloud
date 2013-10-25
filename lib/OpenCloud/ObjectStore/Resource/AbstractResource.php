@@ -22,8 +22,15 @@ use OpenCloud\Common\Service\AbstractService;
 abstract class AbstractResource extends Base
 {
     const GLOBAL_METADATA_PREFIX = 'X';
-    
+
+    /**
+     * @var \OpenCloud\Common\Metadata
+     */
     protected $metadata;
+
+    /**
+     * @var string The FQCN of the metadata object used for the container.
+     */
     protected $metadataClass = 'OpenCloud\\Common\\Metadata';
     
     /**
@@ -51,7 +58,14 @@ abstract class AbstractResource extends Base
     {
         return $this->service->getClient();
     }
-    
+
+    /**
+     * Factory method that allows for easy instantiation from a Response object.
+     *
+     * @param Response        $response
+     * @param AbstractService $service
+     * @return static
+     */
     public static function fromResponse(Response $response, AbstractService $service)
     {
         $object = new static($service);
@@ -62,7 +76,13 @@ abstract class AbstractResource extends Base
         
         return $object;
     }
-    
+
+    /**
+     * Trim headers of their resource-specific prefixes.
+     *
+     * @param  $headers
+     * @return array
+     */
     public static function trimHeaders($headers)
     {
         $output = array();
@@ -78,13 +98,25 @@ abstract class AbstractResource extends Base
 
         return $output;
     }
-    
+
+    /**
+     * Strip an individual header name of its resource-specific prefix.
+     *
+     * @param $header
+     * @return mixed
+     */
     private static function stripPrefix($header)
     {
         $pattern = '#^' . self::GLOBAL_METADATA_PREFIX . '\-(' . static::METADATA_LABEL . '-)?(Meta-)?#i';
         return preg_replace($pattern, '', $header);
     }
-    
+
+    /**
+     * Prepend/stock the header names with a resource-specific prefix.
+     *
+     * @param array $headers
+     * @return array
+     */
     public static function stockHeaders(array $headers)
     {
         $output = array();
@@ -95,6 +127,13 @@ abstract class AbstractResource extends Base
         return $output;
     }
 
+    /**
+     * Set the metadata (local-only) for this object.
+     *
+     * @param      $data
+     * @param bool $constructFromResponse
+     * @return $this
+     */
     public function setMetadata($data, $constructFromResponse = false)
     {
         if ($constructFromResponse) {
@@ -106,18 +145,32 @@ abstract class AbstractResource extends Base
         $this->metadata = $data;
         return $this;
     }
-    
+
+    /**
+     * @return \OpenCloud\Common\Metadata
+     */
     public function getMetadata()
     {
         return $this->metadata;
     }
-    
+
+    /**
+     * Push local metadata to the API, thereby executing a permanent save.
+     *
+     * @param array $metadata
+     * @return mixed
+     */
     public function saveMetadata(array $metadata)
     {
         $headers = self::stockHeaders($metadata);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
-    
+
+    /**
+     * Retrieve metadata from the API. This method will then set and return this value.
+     *
+     * @return \OpenCloud\Common\Metadata
+     */
     public function retrieveMetadata()
     {
         $response = $this->getClient()
@@ -127,7 +180,13 @@ abstract class AbstractResource extends Base
         $this->setMetadata($response->getHeaders(), true);
         return $this->metadata;
     }
-    
+
+    /**
+     * To delete or unset a particular metadata item.
+     *
+     * @param $key
+     * @return mixed
+     */
     public function unsetMetadataItem($key)
     {
         $header = sprintf('%s-Remove-%s-Meta-%s', self::GLOBAL_METADATA_PREFIX, 
@@ -137,7 +196,13 @@ abstract class AbstractResource extends Base
             ->post($this->getUrl(), array($header => 'True'))
             ->send();
     }
-    
+
+    /**
+     * Append a particular array of values to the existing metadata. Analogous to a merge.
+     *
+     * @param array $values
+     * @return array
+     */
     public function appendToMetadata(array $values)
     {
         return (!empty($this->metadata) && is_array($this->metadata)) 

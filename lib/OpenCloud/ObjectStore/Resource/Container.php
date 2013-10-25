@@ -34,10 +34,20 @@ class Container extends AbstractContainer
     const METADATA_LABEL = 'Container';
     
     /**
-     * @var CDNContainer|null 
+     * This is the object that holds all the CDN functionality. This Container therefore acts as a simple wrapper and is
+     * interested in storage concerns only.
+     *
+     * @var CDNContainer|null
      */
     private $cdn;
-    
+
+    /**
+     * Factory method that instantiates an object from a Response object.
+     *
+     * @param Response        $response
+     * @param AbstractService $service
+     * @return static
+     */
     public static function fromResponse(Response $response, AbstractService $service)
     {
         $self = parent::fromResponse($response, $service);
@@ -47,7 +57,13 @@ class Container extends AbstractContainer
         
         return $self;
     }
-    
+
+    /**
+     * Get the CDN object.
+     *
+     * @return null|CDNContainer
+     * @throws \OpenCloud\Common\Exceptions\CdnNotAvailableError
+     */
     public function getCdn()
     {
         if (!$this->isCdnEnabled() || !$this->cdn) {
@@ -58,22 +74,37 @@ class Container extends AbstractContainer
         
         return $this->cdn;
     }
-    
+
+    /**
+     * It would be awesome to put these convenience methods (which are identical to the ones in the Account object) in
+     * a trait, but we have to wait for v5.3 EOL first...
+     *
+     * @return null|string|int
+     */
     public function getObjectCount()
     {
         return $this->metadata->getProperty('Object-Count');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getBytesUsed()
     {
         return $this->metadata->getProperty('Bytes-Used');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getCountQuota()
     {
         return $this->metadata->getProperty('Quota-Count');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getBytesQuota()
     {
         return $this->metadata->getProperty('Quota-Bytes');
@@ -93,7 +124,13 @@ class Container extends AbstractContainer
             ))
             ->send();
     }
-    
+
+    /**
+     * Deletes all objects that this container currently contains. Useful when doing operations (like a delete) that
+     * require an empty container first.
+     *
+     * @return mixed
+     */
     public function deleteAllObjects()
     {
         $requests = array();
@@ -140,21 +177,36 @@ class Container extends AbstractContainer
 
         return new Collection($this, 'OpenCloud\ObjectStore\Resource\DataObject', $objects);
     }
-    
+
+    /**
+     * Turn on access logs, which track all the web traffic that your data objects accrue.
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
     public function enableLogging()
     {
         return $this->saveMetadata($this->appendToMetadata(array(
             self::HEADER_ACCESS_LOGS => true
         )));
     }
-    
+
+    /**
+     * Disable access logs.
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
     public function disableLogging()
     {
         return $this->saveMetadata($this->appendToMetadata(array(
             self::HEADER_ACCESS_LOGS => false
         )));
     }
-    
+
+    /**
+     * Enable this container for public CDN access.
+     *
+     * @param null $ttl
+     */
     public function enableCdn($ttl = null)
     {
         $headers = array('X-CDN-Enabled' => 'True');
@@ -170,7 +222,7 @@ class Container extends AbstractContainer
      * Disables the containers CDN function. Note that the container will still 
      * be available on the CDN until its TTL expires.
      * 
-     * @return true
+     * @return \Guzzle\Http\Message\Response
      */
     public function disableCdn()
     {
@@ -179,21 +231,30 @@ class Container extends AbstractContainer
             ->send();
     }
 
-    public function createStaticSite($indexHtml)
+    /**
+     * This method will enable your CDN-enabled container to serve out HTML content like a website.
+     *
+     * @param $indexPage The data object name (i.e. a .html file) that will serve as the main index page.
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function createStaticSite($indexPage)
     {
-        $headers = array('X-Container-Meta-Web-Index' => $indexHtml);
+        $headers = array('X-Container-Meta-Web-Index' => $indexPage);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
+    /**
+     * Set the default error page for your static site.
+     *
+     * @param $name The data object name (i.e. a .html file) that will serve as the main error page.
+     * @return \Guzzle\Http\Message\Response
+     */
     public function staticSiteErrorPage($name)
     {
         $headers = array('X-Container-Meta-Web-Error' => $name);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
-    /**
-     * Refreshes, then associates the CDN container
-     */
     public function refresh($id = null, $url = null)
     {
         $headers = $this->createRefreshRequest()->send()->getHeaders();
@@ -213,7 +274,13 @@ class Container extends AbstractContainer
             
         } catch (ClientErrorResponseException $e) {}   
     }
-    
+
+    /**
+     * Get either a fresh data object (no $info), or get an existing one by passing in data for population.
+     *
+     * @param  mixed $info
+     * @return DataObject
+     */
     public function dataObject($info = null)
     {
         return new DataObject($this, $info);
@@ -237,7 +304,7 @@ class Container extends AbstractContainer
      * 
      * @param type $name
      * @param array $headers
-     * @return type
+     * @return DataObject
      */
     public function getObject($name, array $headers = array())
     {
@@ -249,7 +316,40 @@ class Container extends AbstractContainer
             ->setContent($response->getBody())
             ->setMetadata($response->getHeaders(), true);
     }
-    
+
+    /**
+     * Upload a single file to the API.
+     *
+     * @param       $name    Name that the file will be saved as in your container.
+     * @param       $data    Either a string or stream representation of the file contents to be uploaded.
+     * @param array $headers Optional headers that will be sent with the request (useful for object metadata).
+     * @return DataObject
+     */
+    public function uploadObject($name, $data, array $headers = array())
+    {
+        $entityBody = EntityBody::factory($data);
+
+        $url = clone $this->getUrl();
+        $url->addPath($name);
+
+        $this->getClient()->put($url, $headers, $entityBody)->send();
+        return $this->getObject($name);
+    }
+
+    /**
+     * Upload an array of objects for upload. This method optimizes the upload procedure by batching requests for
+     * faster execution. This is a very useful procedure when you just have a bunch of unremarkable files to be
+     * uploaded quickly. Each file must be under 5GB.
+     *
+     * @param array $files With the following array structure:
+     *                      `name' Name that the file will be saved as in your container. Required.
+     *                      `path' Path to an existing file, OR
+     *                      `body' Either a string or stream representation of the file contents to be uploaded.
+     * @param array $headers Optional headers that will be sent with the request (useful for object metadata).
+     *
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     * @return \Guzzle\Http\Message\Response
+     */
     public function uploadObjects(array $files, array $headers = array())
     {
         $requests = array();
@@ -287,18 +387,16 @@ class Container extends AbstractContainer
         
         return $this->getClient()->send($requests);
     }
-    
-    public function uploadObject($name, $data, array $headers = array())
-    {
-        $entityBody = EntityBody::factory($data);
-        
-        $url = clone $this->getUrl();
-        $url->addPath($name);
-        
-        $this->getClient()->put($url, $headers, $entityBody)->send();
-        return $this->getObject($name);
-    }
-    
+
+    /**
+     * When uploading large files (+5GB), you need to upload the file as chunks using multibyte transfer. This method
+     * sets up the transfer, and in order to execute the transfer, you need to call upload() on the returned object.
+     *
+     * @param array Options
+     * @see \OpenCloud\ObjectStore\Upload\UploadBuilder::setOptions for a list of accepted options.
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     * @return mixed
+     */
     public function setupObjectTransfer(array $options = array())
     {
         // Name is required

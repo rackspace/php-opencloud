@@ -11,17 +11,32 @@
 namespace OpenCloud\Common\Service;
 
 /**
- * Description of CatalogItem
- * 
- * @link 
+ * This object represents an individual service catalog item - in other words an API Service. Each service has
+ * particular information which form the basis of how it distinguishes itself, and how it executes API operations.
  */
 class CatalogItem
 {
-    
+    /**
+     * @var string
+     */
     private $name;
+
+    /**
+     * @var string
+     */
     private $type;
-    private $endpoints;
-    
+
+    /**
+     * @var array
+     */
+    private $endpoints = array();
+
+    /**
+     * Construct a CatalogItem from a mixed input.
+     *
+     * @param  $object
+     * @return CatalogItem
+     */
     public static function factory($object)
     {
         $item = new self();
@@ -31,50 +46,88 @@ class CatalogItem
         
         return $item;
     }
-    
+
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
-    
+
+    /**
+     * A basic string check.
+     *
+     * @param  $string
+     * @return bool
+     */
     public function hasName($string)
     {
         return !strnatcasecmp($this->name, $string);
     }
-    
+
+    /**
+     * @param $type
+     * @return $this
+     */
     public function setType($type)
     {
         $this->type = $type;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
-    
+
+    /**
+     * @param $string
+     * @return bool
+     */
     public function hasType($string)
     {
         return !strnatcasecmp($this->type, $string);
     }
-    
-    public function setEndpoints($endpoints)
+
+    /**
+     * @param  array $endpoints
+     * @return $this
+     */
+    public function setEndpoints(array $endpoints)
     {
         $this->endpoints = $endpoints;
         return $this;
     }
-    
+
+    /**
+     * @return array
+     */
     public function getEndpoints()
     {
         return $this->endpoints;
     }
-    
+
+    /**
+     * Using a standard data object, extract its endpoint.
+     *
+     * @param $region
+     * @return mixed
+     * @throws \OpenCloud\Common\Exceptions\EndpointError
+     */
     public function getEndpointFromRegion($region)
     {
         foreach ($this->endpoints as $endpoint) {

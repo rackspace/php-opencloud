@@ -13,18 +13,14 @@ namespace OpenCloud\ObjectStore\Resource;
 
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
 
 /**
- * Description of AbstractContainer
- * 
- * @link 
+ * Abstract class holding shared functionality for containers.
  */
 abstract class AbstractContainer extends AbstractResource
 {
-    const HEADER_OBJECT_COUNT = 'Object-Count';
-    const HEADER_BYTES_USED   = 'Bytes-Used';
-    const HEADER_ACCESS_LOGS  = 'Access-Log-Delivery';
-    
+
     protected $metadataClass = 'OpenCloud\\ObjectStore\\Resource\\ContainerMetadata';
     
     /**
@@ -36,7 +32,7 @@ abstract class AbstractContainer extends AbstractResource
      * encoded. For example, a container named Course Docs would be URL encoded
      * as Course%20Docs - which is 13 bytes in length rather than the expected 11.
      * 
-     * @var string 
+     * @var string
      */
     public $name;
     
@@ -51,13 +47,13 @@ abstract class AbstractContainer extends AbstractResource
     
     public function getTransId()
     {
-        return $this->metadata->getProperty('Trans-Id');
+        return $this->metadata->getProperty(HeaderConst::TRANS_ID);
     }
     
     public function isCdnEnabled()
     {
         if ($this instanceof CDNContainer) {
-            return $this->metadata->getProperty('Enabled') == 'True';
+            return $this->metadata->getProperty(HeaderConst::ENABLED) == 'True';
         } else {
             return empty($this->cdn);
         }
@@ -66,9 +62,9 @@ abstract class AbstractContainer extends AbstractResource
     public function hasLogRetention()
     {
         if ($this instanceof CDNContainer) {
-            return $this->metadata->getProperty('Log-Retention') == 'True';
+            return $this->metadata->getProperty(HeaderConst::LOG_RETENTION) == 'True';
         } else {
-            return $this->metadata->propertyExists(self::HEADER_ACCESS_LOGS);
+            return $this->metadata->propertyExists(HeaderConst::ACCESS_LOGS);
         }
     }
     

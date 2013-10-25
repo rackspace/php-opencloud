@@ -49,7 +49,7 @@ abstract class AbstractService extends Base
     private $name;
     
     /**
-     * @var string|array The chosen region(s) for this service.
+     * @var string The chosen region(s) for this service.
      */
     private $region;
     
@@ -59,7 +59,7 @@ abstract class AbstractService extends Base
     private $urlType;
     
     /**
-     * @var Endpoint The endpoints for this service.
+     * @var OpenCloud\Common\Service\Endpoint The endpoints for this service.
      */
     private $endpoint;
     
@@ -69,66 +69,82 @@ abstract class AbstractService extends Base
     protected $namespaces = array();
 
     /**
-     * Creates a service on the specified connection
+     * Creates a service object, based off the specified client.
      *
-     * Usage: `$x = new Service($conn, $type, $name, $region, $urltype);`
-     * The service's URL is defined in the OpenStack's serviceCatalog; it
-     * uses the $type, $name, $region, and $urltype to find the proper URL
+     * The service's URL is defined in the client's serviceCatalog; it
+     * uses the $type, $name, $region, and $urlType to find the proper endpoint
      * and set it. If it cannot find a URL in the service catalog that matches
      * the criteria, then an exception is thrown.
      *
-     * @param OpenStack $conn - a Connection object
-     * @param string $type - the service type (e.g., "compute")
-     * @param string $name - the service name (e.g., "cloudServersOpenStack")
-     * @param string $region - the region (e.g., "ORD")
-     * @param string $urltype - the specified URL from the catalog
-     *      (e.g., "publicURL")
+     * @param Client $client  Client object
+     * @param string $type    Service type (e.g. 'compute')
+     * @param string $name    Service name (e.g. 'cloudServersOpenStack')
+     * @param string $region  Service region (e.g. 'DFW', 'ORD', 'IAD', 'LON', 'SYD')
+     * @param string $urlType Either 'publicURL' or 'privateURL'
      */
-    public function __construct($client, $type, $name, $region, $urltype = RAXSDK_URL_PUBLIC) 
+    public function __construct(Client $client, $type, $name, $region, $urlType = RAXSDK_URL_PUBLIC)
     {
         $this->setClient($client);
 
         $this->type = $type;
         $this->name = $name;
         $this->region = $region;
-        $this->urlType = $urltype;
+        $this->urlType = $urlType;
         
         $this->endpoint = $this->findEndpoint();
         $this->client->setBaseUrl($this->getBaseUrl());
     }
-    
+
+    /**
+     * @param Client $client
+     */
     public function setClient(Client $client)
     {
         $this->client = $client;
     }
-    
+
+    /**
+     * @return OpenCloud\Common\Http\Client
+     */
     public function getClient()
     {
         return $this->client;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getRegion()
     {
         return $this->region;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
-    
+
+    /**
+     * @return Endpoint|OpenCloud\Common\Service\Endpoint
+     */
     public function getEndpoint()
     {
 	    return $this->endpoint;
     }
     
     /**
-     * Backwards comp.
+     * @deprecated
      */
     public function region()
     {
@@ -136,7 +152,7 @@ abstract class AbstractService extends Base
     }
 
     /**
-     * Backwards comp.
+     * @deprecated
      */
     public function name()
     {
@@ -146,9 +162,9 @@ abstract class AbstractService extends Base
     /**
      * Returns the URL for the Service
      *
-     * @param string $resource optional sub-resource
-     * @param array $query optional k/v pairs for query strings
-     * @return string
+     * @param  string $path  URL path segment
+     * @param  array  $query Array of query pairs
+     * @return Guzzle\Http\Url
      */
     public function getUrl($path = null, array $query = array())
     {
@@ -178,9 +194,8 @@ abstract class AbstractService extends Base
     }
 
     /**
-     * Returns the /limits for the service
+     * Returns the limits for the service
      *
-     * @api
      * @return array of limits
      */
     public function limits()
@@ -190,11 +205,11 @@ abstract class AbstractService extends Base
     }
 
     /**
-     * returns a collection of objects
+     * Returns a collection of objects
      *
-     * @param string $class the class of objects to fetch
-     * @param string $url (optional) the URL to retrieve
-     * @param mixed $parent (optional) the parent service/object
+     * @param string $class  The class of objects to fetch
+     * @param string $url    The URL to retrieve
+     * @param mixed  $parent The parent service/object
      * @return OpenCloud\Common\Collection
      */
     public function collection($class, $url = null, $parent = null)
@@ -212,17 +227,6 @@ abstract class AbstractService extends Base
         if (!$url) {
             $url = $parent->getUrl($class::resourceName());
         }
-
-        // Save debug info
-        $this->getLogger()->info(
-            '{class}:Collection({url}, {collectionClass}, {collectionName})',
-            array(
-                'class' => get_class($this),
-                'url'   => $url,
-                'collectionClass' => $class,
-                'collectionName'  => $collectionName
-            )
-        );
 
         // Fetch the list
         $response = $this->getClient()->get($url)->send();
@@ -303,8 +307,9 @@ abstract class AbstractService extends Base
     /**
      * Extracts the appropriate endpoint from the service catalog based on the
      * name and type of a service, and sets for further use.
-     * 
-     * @throws Exceptions\EndpointError
+     *
+     * @return \OpenCloud\Common\Service\Endpoint
+     * @throws \OpenCloud\Common\Exceptions\EndpointError
      */
     private function findEndpoint()
     {
@@ -377,10 +382,11 @@ abstract class AbstractService extends Base
     }
     
     /**
-     * Resolves fully-qualified classname for associated local resource.
-     * 
-     * @param  string $resourceName
+     * Resolves FQCN for local resource.
+     *
+     * @param  $resourceName
      * @return string
+     * @throws \OpenCloud\Common\Exceptions\UnrecognizedServiceError
      */
     protected function resolveResourceClass($resourceName)
     {
@@ -401,8 +407,7 @@ abstract class AbstractService extends Base
     
     /**
      * Factory method for instantiating resource objects.
-     * 
-     * @access public
+     *
      * @param  string $resourceName
      * @param  mixed $info (default: null)
      * @return object
@@ -414,18 +419,24 @@ abstract class AbstractService extends Base
     }
     
     /**
-     * Factory method for instantiate a resource collection.
-     * 
-     * @param  string $resourceName
-     * @param  string|null $url
-     * @return Collection
+     * Factory method for instantiating a resource collection.
+     *
+     * @param string      $resourceName
+     * @param string|null $url
+     * @param string|null $service
+     * @return OpenCloud\Common\Collection
      */
     public function resourceList($resourceName, $url = null, $service = null)
     {
         $className = $this->resolveResourceClass($resourceName);
         return $this->collection($className, $url, $service);
     }
-    
+
+    /**
+     * Get the base URL for this service, based on the set URL type.
+     * @return \Guzzle\Http\Url
+     * @throws \OpenCloud\Common\Exceptions\ServiceException
+     */
     public function getBaseUrl()
     {
         $url = ($this->urlType == 'publicURL') 

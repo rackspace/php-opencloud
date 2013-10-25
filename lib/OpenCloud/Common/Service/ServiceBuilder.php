@@ -4,7 +4,6 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -14,9 +13,7 @@ use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Exceptions\ServiceException;
 
 /**
- * Description of ServiceBuilder
- * 
- * @link 
+ * This object is a factory for building Service objects.
  */
 class ServiceBuilder
 {
@@ -27,17 +24,14 @@ class ServiceBuilder
      * @param Client $client The HTTP client object
      * @param string $class  The class name of the service
      * @param array $options The options.
-     * @return OpenCloud\Common\Service\AbstractService
+     * @return \OpenCloud\Common\Service\AbstractService
      * @throws ServiceException
      */
     public static function factory(Client $client, $class, array $options = array())
     {
-        // Strip off base namespace 
-        $class = preg_replace('#\\\?OpenCloud\\\#', '', $class);
-
-        // check for defaults
-        $fullclass = 'OpenCloud\\' . $class . '\\Service';
-        $defaults  = self::getDefaults($fullclass);
+        // Strip off base namespace
+        $class = 'OpenCloud\\' . preg_replace('#\\\?OpenCloud\\\#', '', $class) . '\\Service';
+        $defaults  = self::getDefaults($class);
 
         // @codeCoverageIgnoreStart
         if (!$name = !empty($options['name']) ? $options['name'] : $defaults['name']) {
@@ -54,7 +48,7 @@ class ServiceBuilder
             ));
         }
 
-        if (!$urltype = !empty($options['urlType']) ? $options['urlType'] : $defaults['urlType']) {
+        if (!$urlType = !empty($options['urlType']) ? $options['urlType'] : $defaults['urlType']) {
             throw new ServiceException(sprintf(
                 Lang::translate('No value for %s URL type'),
                 $class
@@ -62,9 +56,15 @@ class ServiceBuilder
         }
         // @codeCoverageIgnoreEnd
 
-        return new $fullclass($client, $name, $region, $urltype);
+        return new $class($client, $name, $region, $urlType);
     }
-    
+
+    /**
+     * Get the default information from a Service class using its constants.
+     *
+     * @param $class
+     * @return array
+     */
     private static function getDefaults($class)
     {
         $base = __NAMESPACE__ . '\\AbstractService';

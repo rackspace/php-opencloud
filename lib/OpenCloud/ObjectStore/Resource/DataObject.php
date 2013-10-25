@@ -153,6 +153,16 @@ class DataObject extends AbstractResource
         return $this->getService()->getClient()->delete($this->getUrl())->send();
     }
 
+    /**
+     * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/TempURL-d1a4450.html
+     *
+     * @param $expires
+     * @param $method
+     * @return string
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     * @throws \OpenCloud\Common\Exceptions\ObjectError
+     *
+     */
     public function getTemporaryUrl($expires, $method)
     {
         $method = strtoupper($method);

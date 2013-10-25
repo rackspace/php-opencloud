@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP OpenCloud library.
+ * PHP OpenCloud library
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
@@ -10,7 +10,6 @@
 
 namespace OpenCloud\Common;
 
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions\JsonError;
 use OpenCloud\Common\Exceptions\UrlError;
 
@@ -23,7 +22,9 @@ use OpenCloud\Common\Exceptions\UrlError;
  */
 abstract class Base
 {
-
+    /**
+     * @var array Holds all the properties added by overloading.
+     */
     private $properties = array();
 
     /**
@@ -34,6 +35,13 @@ abstract class Base
      */
     private $logger;
 
+    /**
+     * Intercept non-existent method calls for dynamic getter/setter functionality.
+     *
+     * @param $method
+     * @param $args
+     * @throws Exceptions\RuntimeException
+     */
     public function __call($method, $args)
     {
         $prefix = substr($method, 0, 3);
@@ -59,21 +67,20 @@ abstract class Base
     }
         
     /**
-     * Set value in data array.
-     * 
-     * @access public
-     * @param mixed $name
-     * @param mixed $value
-     * @return void
+     * We can set a property under three conditions:
+     *
+     * 1. If it has a concrete setter: setProperty()
+     * 2. If the property exists
+     * 3. If the property name's prefix is in an approved list
+     *
+     * @param  mixed $property
+     * @param  mixed $value
+     * @return mixed
      */
     protected function setProperty($property, $value)
-    { 
-        // We can set a property under three conditions:
-        // 1. If it has a concrete setter: setProperty()
-        // 2. If has already been defined
-        // 3. If the property name's prefix is in an approved list
-
+    {
         $setter = 'set' . $this->toCamel($property);
+
         if (method_exists($this, $setter)) {
             
             return call_user_func(array($this, $setter), $value);
@@ -86,9 +93,11 @@ abstract class Base
             } else {
                 $this->properties[$propertyVal] = $value;
             }
+
             return $this;
 
         } else {
+
             $this->getLogger()->warning(
                 'Attempted to set {property} with value {value}, but the'
                 . ' property has not been defined. Please define first.',
@@ -99,7 +108,15 @@ abstract class Base
             );
         }
     }
-    
+
+    /**
+     * Basic check to see whether property exists.
+     *
+     * @param string $property   The property name being investigated.
+     * @param bool   $allowRetry If set to TRUE, the check will try to format the name in underscores because
+     *                           there are sometimes discrepancies between camelCaseNames and underscore_names.
+     * @return bool
+     */
     protected function propertyExists($property, $allowRetry = true)
     {
         if (!property_exists($this, $property) && !$this->checkAttributePrefix($property)) {
@@ -113,25 +130,44 @@ abstract class Base
 
         return $property;
     }
-    
+
+    /**
+     * Convert a string to camelCase format.
+     *
+     * @param       $string
+     * @param  bool $capitalise Optional flag which allows for word capitalization.
+     * @return mixed
+     */
     function toCamel($string, $capitalise = true) 
     {
         if ($capitalise) {
-          $string[0] = strtoupper($string[0]);
+            $string = ucfirst($string);
         }
         return preg_replace_callback('/_([a-z])/', function($char) {
             return strtoupper($char[1]);
         }, $string);
     }
-    
+
+    /**
+     * Convert string to underscore format.
+     *
+     * @param $string
+     * @return mixed
+     */
     function toUnderscores($string) 
     {
-        $string[0] = strtolower($string[0]);
+        $string = lcfirst($string);
         return preg_replace_callback('/([A-Z])/', function($char) {
             return "_" . strtolower($char[1]);
         }, $string);
     }
-    
+
+    /**
+     * Does the property exist in the object variable list (i.e. does it have public or protected visibility?)
+     *
+     * @param $property
+     * @return bool
+     */
     private function isAccessible($property)
     {
         return array_key_exists($property, get_object_vars($this));
@@ -144,8 +180,7 @@ abstract class Base
      * This is to support extension namespaces in some services.
      *
      * @param string $property the name of the attribute
-     * @param array $prefixes a list of prefixes
-     * @return boolean TRUE if valid; FALSE if not
+     * @return boolean
      */
     private function checkAttributePrefix($property)
     {
@@ -157,11 +192,10 @@ abstract class Base
     }
     
     /**
-     * Grab value out of data array.
-     * 
-     * @access public
-     * @param mixed $name
-     * @return void
+     * Grab value out of the data array.
+     *
+     * @param string $property
+     * @return mixed
      */
     protected function getProperty($property)
     {
@@ -182,13 +216,15 @@ abstract class Base
     }
     
     /**
-     * Sets the Logger object.
-     * 
-     * @param \OpenCloud\Common\Log\LoggerInterface $logger
+     * Sets the logger.
+     *
+     * @param Log\LoggerInterface $logger
+     * @return $this
      */
     public function setLogger(Log\LoggerInterface $logger)
     {
         $this->logger = $logger;
+        return $this;
     }
 
     /**
@@ -205,11 +241,7 @@ abstract class Base
     }
 
     /**
-     * Returns the URL of the service/object
-     *
-     * The assumption is that nearly all objects will have a URL; at this
-     * base level, it simply throws an exception to enforce the idea that
-     * subclasses need to define this method.
+     * Returns the individual URL of the service/object.
      *
      * @throws UrlError
      */
@@ -219,7 +251,10 @@ abstract class Base
             'URL method must be overridden in class definition'
         ));
     }
-    
+
+    /**
+     * @deprecated
+     */
     public function url($path = null, array $query = array())
     {
         return $this->getUrl($path, $query);
@@ -228,7 +263,15 @@ abstract class Base
     /**
      * Populates the current object based on an unknown data type.
      * 
-     * @param  array|object|string|integer $info
+     * @param  mixed $info
+     * @param  bool
+     * @throws Exceptions\InvalidArgumentError
+     */
+    /**
+     * @param  mixed $info       The data structure that is populating the object.
+     * @param  bool  $setObjects If set to TRUE, then this method will try to populate associated resources as objects
+     *                           rather than anonymous data types. So, a Server being populated might stock a Network
+     *                           object instead of a stdClass object.
      * @throws Exceptions\InvalidArgumentError
      */
     public function populate($info, $setObjects = true)
@@ -302,19 +345,9 @@ abstract class Base
     }
 
     /**
-     * Checks the most recent JSON operation for errors
+     * Checks the most recent JSON operation for errors.
      *
-     * This function should be called after any `json_*()` function call.
-     * This ensures that nasty JSON errors are detected and the proper
-     * exception thrown.
-     *
-     * Example:
-     *   `$obj = json_decode($string);`
-     *   `if (check_json_error()) do something ...`
-     *
-     * @return boolean TRUE if an error occurred, FALSE if none
-     * @throws JsonError
-     * 
+     * @throws Exceptions\JsonError
      * @codeCoverageIgnore
      */
     public static function checkJsonError()

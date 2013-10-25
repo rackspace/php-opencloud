@@ -11,46 +11,65 @@
 namespace OpenCloud\ObjectStore\Resource;
 
 /**
- * Description of Account
+ * Represents an account that interacts with the CloudFiles API.
  * 
- * @link 
+ * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Accounts-d1e421.html
  */
 class Account extends AbstractResource
 {
     const METADATA_LABEL = 'Account';
-    
+
+    /**
+     * @var string The temporary URL secret for this account
+     */
     private $tempUrlSecret;
     
     public function getUrl($path = null, array $query = array())
     {
         return $this->getService()->getUrl();
     }
-    
+
+    /**
+     * Convenience method.
+     *
+     * @return \OpenCloud\Common\Metadata
+     */
     public function getDetails()
     {
         return $this->retrieveMetadata();
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getObjectCount()
     {
         return $this->metadata->getProperty('Object-Count');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getContainerCount()
     {
         return $this->metadata->getProperty('Container-Count');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getBytesUsed()
     {
         return $this->metadata->getProperty('Bytes-Used');
     }
     
     /** 
-     * Sets the shared secret value for the TEMP_URL
+     * Sets the secret value for the temporary URL.
      *
-     * @param string $secret the shared secret
-     * @return HttpResponse
+     * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Account_Metadata-d1a4460.html
+     *
+     * @param null $secret The value to set the secret to. If left blank, a random hash is generated.
+     * @return $this
      */
     public function setTempUrlSecret($secret = null) 
     {
@@ -64,7 +83,10 @@ class Account extends AbstractResource
         
         return $this;
     }
-    
+
+    /**
+     * @return null|string
+     */
     public function getTempUrlSecret()
     {
         if (null === $this->tempUrlSecret) {

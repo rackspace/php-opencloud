@@ -1,6 +1,7 @@
 .idea/
 local-tests/
 build/
+docs/api/
 nbproject/
 vendor/
 

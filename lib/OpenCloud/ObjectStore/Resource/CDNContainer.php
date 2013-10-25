@@ -18,32 +18,47 @@ namespace OpenCloud\ObjectStore\Resource;
 class CDNContainer extends AbstractContainer
 {
     const METADATA_LABEL = 'Cdn';
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getCdnSslUri()
     {
         return $this->metadata->getProperty('Ssl-Uri');
     }
 
+    /**
+     * @return null|string|int
+     */
     public function getCdnUri()
     {
         return $this->metadata->getProperty('Uri');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getTtl()
     {
         return $this->metadata->getProperty('Ttl');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getCdnStreamingUri()
     {
         return $this->metadata->getProperty('Streaming-Uri');
     }
-    
+
+    /**
+     * @return null|string|int
+     */
     public function getIosStreamingUri()
     {
         return $this->metadata->getProperty('Ios-Uri');
     }
-    
+
     public function refresh($name = null, $url = null)
     {
         $response = $this->createRefreshRequest()->send();
