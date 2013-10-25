@@ -11,53 +11,68 @@
 namespace OpenCloud\ObjectStore\Upload;
 
 /**
+ * Represents the current state of the Transfer.
+ *
  * @codeCoverageIgnore
  */
 class TransferState
 {
-    
+    /**
+     * @var array Holds all of the parts which have been transferred.
+     */
     protected $completedParts = array();
-    
+
+    /**
+     * @var bool
+     */
     protected $running;
-    
+
+    /**
+     * @return $this
+     */
     public static function factory()
     {
         $self = new self();
         return $self->init();
     }
-    
-    public function getPart($key)
-    {
-        return $this->hasPart($key) ? $this->parts[$key] : null;
-    }
-    
-    public function hasPart($key)
-    {
-        return isset($this->parts[$key]);
-    }
-    
+
+    /**
+     * @param TransferPart $part
+     */
     public function addPart(TransferPart $part)
     {
         $this->completedParts[] = $part;
     }
-    
+
+    /**
+     * @return int
+     */
     public function count()
     {
         return count($this->completedParts);
     }
-    
+
+    /**
+     * @return bool
+     */
     public function isRunning()
     {
         return $this->running;
     }
-    
+
+    /**
+     * @return $this
+     */
     public function init()
     {
         $this->running = true;
         
         return $this;
     }
-    
+
+    /**
+     * @return $this
+     */
     public function cancel()
     {
         $this->running = false;

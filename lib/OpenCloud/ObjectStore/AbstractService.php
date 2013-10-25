@@ -16,16 +16,22 @@ use OpenCloud\Common\Service\AbstractService as CommonAbstractService;
 /**
  * An abstract base class for common code shared between ObjectStore\Service
  * (container) and ObjectStore\CDNService (CDN containers).
- * 
- * @todo Maybe we use Traits instead of this small abstract class?
  */
 abstract class AbstractService extends CommonAbstractService
 {
+    const DEFAULT_NAME = 'cloudFiles';
 
     const MAX_CONTAINER_NAME_LENGTH = 256;
     const MAX_OBJECT_NAME_LEN       = 1024;
     const MAX_OBJECT_SIZE           = 5102410241025;
-    
+
+    /**
+     * List all available containers. If called by a CDN service, it returns CDN-enabled; if called by a regular
+     * service, normal containers are returned.
+     *
+     * @param array $filter
+     * @return Collection
+     */
     public function listContainers(array $filter = array())
     {
         $filter['format'] = 'json';
@@ -39,7 +45,10 @@ abstract class AbstractService extends CommonAbstractService
 
         return new Collection($this, __NAMESPACE__ . '\\Resource\\' . $class, $containers);
     }
-    
+
+    /**
+     * @return Resource\Account
+     */
     public function getAccount()
     {
         return new Resource\Account($this);

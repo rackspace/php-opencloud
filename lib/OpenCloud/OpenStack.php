@@ -4,8 +4,8 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud;
@@ -19,16 +19,48 @@ use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Http\Message\RequestFactory;
 use Guzzle\Http\Url;
 
+/**
+ * The main client of the library. This object is the central point of negotiation between your application and the
+ * API because it handles all of the HTTP transactions required to perform operations. It also manages the services
+ * for your application through convenient factory methods.
+ */
 class OpenStack extends Client
 {
+    /**
+     * @var array Credentials passed in by the user
+     */
     private $secret = array();
+
+    /**
+     * @var string The token produced by the API
+     */
     private $token;
+
+    /**
+     * @var int The expiration date (in Unix time) for the current token
+     */
     private $expiration;
+
+    /**
+     * @var string The unique identifier for who's accessing the API
+     */
     private $tenant;
+
+    /**
+     * @var \OpenCloud\Common\Service\Catalog The catalog of services which are provided by the API
+     */
     private $catalog;
+
+    /**
+     * @var \OpenCloud\Common\Log\LoggerInterface The object responsible for logging output
+     */
     private $logger;
+
+    /**
+     * @var string The endpoint URL used for authentication
+     */
     private $authUrl;
-    
+
     public function __construct($url, array $secret, array $options = array())
     {
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
@@ -44,10 +76,10 @@ class OpenStack extends Client
     }
         
     /**
-     * Set the secret for the client.
-     * 
-     * @param  array $secret
-     * @return OpenCloud\OpenStack
+     * Set the credentials for the client
+     *
+     * @param array $secret
+     * @return $this
      */
     public function setSecret(array $secret = array())
     {
@@ -70,7 +102,7 @@ class OpenStack extends Client
      * Set the token for this client.
      * 
      * @param  string $token
-     * @return OpenCloud\OpenStack
+     * @return $this
      */
     public function setToken($token)
     {
@@ -93,7 +125,7 @@ class OpenStack extends Client
      * Set the expiration for this token.
      * 
      * @param  int $expiration
-     * @return OpenCloud\OpenStack
+     * @return $this
      */
     public function setExpiration($expiration)
     {
@@ -116,7 +148,7 @@ class OpenStack extends Client
      * Set the tenant for this client.
      * 
      * @param  string $tenant
-     * @return OpenCloud\OpenStack
+     * @return $this
      */
     public function setTenant($tenant)
     {
@@ -139,7 +171,7 @@ class OpenStack extends Client
      * Set the service catalog.
      * 
      * @param  mixed $catalog
-     * @return OpenCloud\OpenStack
+     * @return $this
      */
     public function setCatalog($catalog)
     {
@@ -157,12 +189,20 @@ class OpenStack extends Client
     {
         return $this->catalog;
     }
-    
+
+    /**
+     * @param Common\Log\LoggerInterface $logger
+     * @return $this
+     */
     public function setLogger(Common\Log\LoggerInterface $logger)
     {
         $this->logger = $logger;
+        return $this;
     }
 
+    /**
+     * @return Common\Log\LoggerInterface
+     */
     public function getLogger()
     {
         if (null === $this->logger) {
@@ -172,7 +212,7 @@ class OpenStack extends Client
     }
     
     /**
-     * Checks whether token has expired.
+     * Checks whether token has expired
      * 
      * @return bool
      */
@@ -182,10 +222,10 @@ class OpenStack extends Client
     }
 
     /**
-     * Creates and returns the formatted credentials to POST to the auth
-     * service.
+     * Formats the credentials array (as a string) for authentication
      *
      * @return string
+     * @throws Common\Exceptions\CredentialError
      */
     public function getCredentials()
     {
@@ -203,32 +243,35 @@ class OpenStack extends Client
             );
         }
     }
-    
+
+    /**
+     * @param $url
+     * @return $this
+     */
     public function setAuthUrl($url)
     {
 	    $this->authUrl = $url;
 	    return $this;
     }
-    
+
+    /**
+     * @return Url
+     */
     public function getAuthUrl()
     {
 	    return Url::factory($this->authUrl)->addPath('tokens');
     }
 
     /**
-     * Authenticates using the supplied credentials
+     * Authenticate the tenant using the supplied credentials
      *
-     * @api
      * @return void
      * @throws AuthenticationError
      */
     public function authenticate()
     {
         $headers = array('Content-Type' => 'application/json');
-        
-        $request = $this->post($this->getAuthUrl(), $headers, $this->getCredentials());
-        $response = $request->send();
-        $object = $response->getDecodedBody();
+        $object = $this->post($this->getAuthUrl(), $headers, $this->getCredentials())->send()->getDecodedBody();
 
         // Save the token information as well as the ServiceCatalog
         $this->setToken($object->access->token->id);
@@ -248,12 +291,19 @@ class OpenStack extends Client
             $this->setTenant($object->access->token->tenant->id);
         }
     }
-    
+
+    /**
+     * @deprecated
+     */
     public function getUrl()
     {
         return $this->getBaseUrl();
     }
 
+    /**
+     * Convenience method for exporting current credentials. Useful for local caching.
+     * @return array
+     */
     public function exportCredentials()
     {
         if ($this->hasExpired()) {
@@ -267,6 +317,11 @@ class OpenStack extends Client
         );
     }
 
+    /**
+     * Convenience method for importing credentials. Useful for local caching because it reduces HTTP traffic.
+     *
+     * @param array $values
+     */
     public function importCredentials(array $values)
     {
         if (!empty($values['token'])) {
@@ -286,11 +341,10 @@ class OpenStack extends Client
     /**
      * Creates a new ObjectStore object (Swift/Cloud Files)
      *
-     * @api
-     * @param string $name the name of the Object Storage service to attach to
-     * @param string $region the name of the region to use
-     * @param string $urltype the URL type (normally "publicURL")
-     * @return ObjectStore
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\ObjectStore\Service
      */
     public function objectStoreService($name = null, $region = null, $urltype = null)
     {
@@ -304,11 +358,10 @@ class OpenStack extends Client
     /**
      * Creates a new Compute object (Nova/Cloud Servers)
      *
-     * @api
-     * @param string $name the name of the Compute service to attach to
-     * @param string $region the name of the region to use
-     * @param string $urltype the URL type (normally "publicURL")
-     * @return Compute
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Compute\Service
      */
     public function computeService($name = null, $region = null, $urltype = null)
     {
@@ -320,13 +373,12 @@ class OpenStack extends Client
     }
 
     /**
-     * Creates a new Orchestration (heat) service object
+     * Creates a new Orchestration (Heat) service object
      *
-     * @api
-     * @param string $name the name of the Compute service to attach to
-     * @param string $region the name of the region to use
-     * @param string $urltype the URL type (normally "publicURL")
-     * @return Orchestration\Service
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Orchestration\Service
      * @codeCoverageIgnore
      */
     public function orchestrationService($name = null, $region = null, $urltype = null)
@@ -339,13 +391,12 @@ class OpenStack extends Client
     }
 
     /**
-     * Creates a new VolumeService (cinder) service object
+     * Creates a new Volume (Cinder) service object
      *
-     * This is a factory method that is Rackspace-only (NOT part of OpenStack).
-     *
-     * @param string $name the name of the service (e.g., 'cloudBlockStorage')
-     * @param string $region the region (e.g., 'DFW')
-     * @param string $urltype the type of URL (e.g., 'publicURL');
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Volume\Service
      */
     public function volumeService($name = null, $region = null, $urltype = null)
     {

@@ -17,7 +17,7 @@ use OpenCloud\OpenStack;
  */
 class CDNService extends AbstractService
 {
-    
+
     public function __construct(
         OpenStack $connection,
         $serviceName = RAXSDK_OBJSTORE_NAME,
@@ -25,7 +25,7 @@ class CDNService extends AbstractService
         $urltype = RAXSDK_URL_PUBLIC
     ) {
         $this->getLogger()->info('Initializing CDN Service...');
-        
+
         parent::__construct(
             $connection,
             'rax:object-cdn',
@@ -34,5 +34,5 @@ class CDNService extends AbstractService
             $urltype
         );
     }
-    
+
 }

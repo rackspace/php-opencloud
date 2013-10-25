@@ -22,9 +22,6 @@ use OpenCloud\ObjectStore\Constants\UrlType;
  */
 class Service extends AbstractService 
 {
-    
-    const DEFAULT_NAME = 'cloudFiles';
-    
     /**
      * This holds the associated CDN service (for Rackspace public cloud)
      * or is NULL otherwise. The existence of an object here is
@@ -59,16 +56,30 @@ class Service extends AbstractService
         } catch (Exceptions\EndpointError $e) {}
     }
 
+    /**
+     * @return CDNService
+     */
     public function getCdnService() 
     {
         return $this->cdnService;
     }
-    
+
+    /**
+     * @param $data
+     * @return Container
+     */
     public function getContainer($data = null)
     {
         return new Container($this, $data);
     }
-    
+
+    /**
+     * Create a container for this service.
+     *
+     * @param       $name     The name of the container
+     * @param array $metadata Additional (optional) metadata to associate with the container
+     * @return bool|static
+     */
     public function createContainer($name, array $metadata = array())
     {
         $this->checkContainerName($name);
@@ -85,7 +96,14 @@ class Service extends AbstractService
         
         return false;
     }
-    
+
+    /**
+     * Check the validity of a potential container name.
+     *
+     * @param $name
+     * @return bool
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
     public function checkContainerName($name)
     {
         if (strlen($name) == 0) {
@@ -106,8 +124,21 @@ class Service extends AbstractService
 
         return true;
     }
-    
-    public function bulkExtract($path, $archive, $archiveType = UrlType::TAR_GZ)
+
+    /**
+     * Perform a bulk extraction, expanding an archive file. If the $path is an empty string, containers will be
+     * auto-created accordingly, and files in the archive that do not map to any container (files in the base directory)
+     * will be ignored. You can create up to 1,000 new containers per extraction request. Also note that only regular
+     * files will be uploaded. Empty directories, symlinks, and so on, will not be uploaded.
+     *
+     * @param        $path        The path to the archive being extracted
+     * @param        $archive     The contents of the archive (either string or stream)
+     * @param string $archiveType The type of archive you're using {@see \OpenCloud\ObjectStore\Constants\UrlType}
+     * @return \Guzzle\Http\Message\Response
+     * @throws Exception\BulkOperationException
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function bulkExtract($path = '', $archive, $archiveType = UrlType::TAR_GZ)
     {
         $entity = EntityBody::factory($archive);
         
@@ -136,7 +167,15 @@ class Service extends AbstractService
         
         return $response;
     }
-    
+
+    /**
+     * This method will delete multiple objects or containers from their account with a single request.
+     *
+     * @param array $paths A two-dimensional array of paths:
+     *                      array('container_a/file_1', 'container_b/file_78', 'container_c/file_40582')
+     * @return \Guzzle\Http\Message\Response
+     * @throws Exception\BulkOperationException
+     */
     public function bulkDelete(array $paths)
     {
         $entity = EntityBody::factory(implode(PHP_EOL, $paths));

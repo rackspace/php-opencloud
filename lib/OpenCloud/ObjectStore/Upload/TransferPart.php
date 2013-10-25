@@ -14,6 +14,8 @@ use OpenCloud\Common\Http\Message\Response;
 use Guzzle\Http\Url;
 
 /**
+ * Represents an individual part of the EntityBody being uploaded.
+ *
  * @codeCoverageIgnore
  */
 class TransferPart
@@ -37,46 +39,74 @@ class TransferPart
      * @var string The API path of this upload.
      */
     protected $path;
-    
+
+    /**
+     * @param int $contentLength
+     * @return $this
+     */
     public function setContentLength($contentLength)
     {
         $this->contentLength = $contentLength;
         return $this;
     }
-    
+
+    /**
+     * @return int
+     */
     public function getContentLength()
     {
         return $this->contentLength;
     }
-    
+
+    /**
+     * @param  string $etag
+     * @return $this
+     */
     public function setETag($etag)
     {
         $this->etag = $etag;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getETag()
     {
         return $this->etag;
     }
-    
+
+    /**
+     * @param int $partNumber
+     * @return $this
+     */
     public function setPartNumber($partNumber)
     {
         $this->partNumber = $partNumber;
         return $this;
     }
-    
+
+    /**
+     * @return int
+     */
     public function getPartNumber()
     {
         return $this->partNumber;
     }
-    
+
+    /**
+     * @param $path
+     * @return $this
+     */
     public function setPath($path)
     {
         $this->path = $path;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getPath()
     {
         return $this->path;
@@ -117,7 +147,14 @@ class TransferPart
 
         return $request;
     }
-    
+
+    /**
+     * Construct a TransferPart from a HTTP response delivered by the API.
+     *
+     * @param Response $response
+     * @param int      $partNumber
+     * @return TransferPart
+     */
     public static function fromResponse(Response $response, $partNumber = 1)
     {
         $responseUri = Url::factory($response->getEffectiveUrl());

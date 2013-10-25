@@ -17,9 +17,7 @@ use OpenCloud\Common\Exceptions\RuntimeException;
 use OpenCloud\ObjectStore\Exception\UploadException;
 
 /**
- * Description of AbstractTransfer
- * 
- * @link 
+ * Contains abstract functionality for transfer objects.
  */
 class AbstractTransfer
 {
@@ -37,62 +35,109 @@ class AbstractTransfer
      * Default chunk size is 1GB.
      */
     const DEFAULT_PART_SIZE = 1073741824;
-    
+
+    /**
+     * @var \OpenCloud\Common\Http\Client The client object which handles all HTTP interactions
+     */
     protected $client;
-    
+
+    /**
+     * @var \Guzzle\Http\EntityBody The payload being transferred
+     */
     protected $entityBody;
-    
+
+    /**
+     * The current state of the transfer responsible for, among other things, holding an itinerary of uploaded parts
+     *
+     * @var \OpenCloud\ObjectStore\Upload\TransferState
+     */
     protected $transferState;
-    
+
+    /**
+     * @var array User-defined key/pair options
+     */
     protected $options;
-    
+
+    /**
+     * @var array Defaults that will always override user-defined options
+     */
     protected $defaultOptions = array(
         'concurrency'    => true,
         'partSize'       => self::DEFAULT_PART_SIZE,
         'prefix'         => 'segment',
         'doPartChecksum' => true
     );
-    
+
+    /**
+     * @return static
+     */
     public static function newInstance()
     {
         return new static();
     }
-    
+
+    /**
+     * @param Client $client
+     * @return $this
+     */
     public function setClient(Client $client)
     {
         $this->client = $client;
         return $this;
     }
-    
+
+    /**
+     * @param EntityBody $entityBody
+     * @return $this
+     */
     public function setEntityBody(EntityBody $entityBody)
     {
         $this->entityBody = $entityBody;
         return $this;
     }
-    
+
+    /**
+     * @param TransferState $transferState
+     * @return $this
+     */
     public function setTransferState(TransferState $transferState)
     {
         $this->transferState = $transferState;
         return $this;
     }
-    
+
+    /**
+     * @return array
+     */
     public function getOptions()
     {
         return $this->options;
     }
-    
+
+    /**
+     * @param $options
+     * @return $this
+     */
     public function setOptions($options)
     {
         $this->options = $options;
         return $this;
     }
-    
+
+    /**
+     * @param $option The key being updated
+     * @param $value  The option's value
+     * @return $this
+     */
     public function setOption($option, $value)
     {
         $this->options[$option] = $value;
         return $this;
     }
-    
+
+    /**
+     * @return $this
+     */
     public function setup()
     {
         $this->options  = array_merge($this->defaultOptions, $this->options);
@@ -100,21 +145,24 @@ class AbstractTransfer
         
         return $this;
     }
-    
+
+    /**
+     * Make sure the part size falls within a valid range
+     *
+     * @return mixed
+     */
     protected function validatePartSize()
     {
-        // Make sure it falls within a certain range
-        return max(
-            min($this->options['partSize'], self::MAX_PART_SIZE), 
-            self::MIN_PART_SIZE
-        );
+        $min = min($this->options['partSize'], self::MAX_PART_SIZE);
+        return max($min, self::MIN_PART_SIZE);
     }
     
     /**
-     * 
-     * @return type
-     * @throws RuntimeException
-     * @throws UploadException
+     * Initiates the upload procedure.
+     *
+     * @return \Guzzle\Http\Message\Response
+     * @throws RuntimeException If the transfer is not in a "running" state
+     * @throws UploadException  If any errors occur during the upload
      * @codeCoverageIgnore
      */
     public function upload()
@@ -134,8 +182,12 @@ class AbstractTransfer
     }
     
     /**
-     * 
-     * @return type
+     * With large uploads, you must create a manifest file. Although each segment or TransferPart remains
+     * individually addressable, the manifest file serves as the unified file (i.e. the 5GB download) which, when
+     * retrieved, streams all the segments concatenated.
+     *
+     * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Large_Object_Creation-d1e2019.html
+     * @return \Guzzle\Http\Message\Response
      * @codeCoverageIgnore
      */
     private function createManifest()

@@ -12,20 +12,31 @@ namespace OpenCloud\ObjectStore\Upload;
 
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use Guzzle\Http\EntityBody;
+use OpenCloud\ObjectStore\Resource\Container;
 
 /**
- * Description of UploadManager
- * 
- * @link 
+ * Factory which creates Transfer objects, either ConcurrentTransfer or ConsecutiveTransfer.
  */
 class TransferBuilder
-{  
+{
+    /**
+     * @var Container The container being uploaded to
+     */
     protected $container;
-    
+
+    /**
+     * @var EntityBody The data payload.
+     */
     protected $entityBody;
-    
+
+    /**
+     * @var array A key/value pair of options.
+     */
     protected $options = array();
-    
+
+    /**
+     * @return TransferBuilder
+     */
     public static function newInstance()
     {
         return new self();
@@ -37,16 +48,12 @@ class TransferBuilder
      * * `concurrency'    <bool>   The number of concurrent workers.
      * * `partSize'       <int>    The size, in bytes, for the chunk
      * * `doPartChecksum' <bool>   Enable or disable MD5 checksum in request (ETag)
-     * * `prefix'         <string> The prefix that will be used. The format is:
      * 
-     * <MAIN_OBJECT_NAME>_<PREFIX>_<SEGMENT_NUMBER>
+     * If you are uploading FooBar, its chunks will have the following naming structure:
      * 
-     * The default is `segment'. For example, if you are uploading FooBar.iso,
-     * its chunks will have the following naming structure:
-     * 
-     * FooBar_segment_1
-     * FooBar_segment_2
-     * FooBar_segment_3
+     * FooBar/1
+     * FooBar/2
+     * FooBar/3
      * 
      * @return \OpenCloud\ObjectStore\Upload\UploadBuilder
      */
@@ -55,25 +62,44 @@ class TransferBuilder
         $this->options = $options;
         return $this;
     }
-    
+
+    /**
+     * @param $key   The option name
+     * @param $value The option value
+     * @return $this
+     */
     public function setOption($key, $value)
     {
         $this->options[$key] = $value;
         return $this;
     }
-    
-    public function setContainer($container)
+
+    /**
+     * @param Container $container
+     * @return $this
+     */
+    public function setContainer(Container $container)
     {
         $this->container = $container;
         return $this;
     }
-    
+
+    /**
+     * @param EntityBody $entityBody
+     * @return $this
+     */
     public function setEntityBody(EntityBody $entityBody)
     {
         $this->entityBody = $entityBody;
         return $this;
     }
-    
+
+    /**
+     * Build the transfer.
+     *
+     * @return mixed
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
     public function build()
     {
         // Validate properties

@@ -11,14 +11,15 @@
 namespace OpenCloud\ObjectStore\Resource;
 
 use Guzzle\Http\EntityBody;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Url;
+use OpenCloud\Common\Collection;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Collection;
 use OpenCloud\Common\Http\Message\Response;
-use OpenCloud\ObjectStore\Upload\TransferBuilder;
 use OpenCloud\Common\Service\AbstractService;
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
+use OpenCloud\ObjectStore\Upload\TransferBuilder;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -163,7 +164,7 @@ class Container extends AbstractContainer
      *      names nested in the container are returned.
      * @link http://api.openstack.org for a list of possible parameter
      *      names and values
-     * @return OpenCloud\Collection
+     * @return 'OpenCloud\Common\Collection
      * @throws ObjFetchError
      */
     public function objectList(array $params = array())
@@ -186,7 +187,7 @@ class Container extends AbstractContainer
     public function enableLogging()
     {
         return $this->saveMetadata($this->appendToMetadata(array(
-            self::HEADER_ACCESS_LOGS => true
+            HeaderConst::ACCESS_LOGS => true
         )));
     }
 
@@ -198,7 +199,7 @@ class Container extends AbstractContainer
     public function disableLogging()
     {
         return $this->saveMetadata($this->appendToMetadata(array(
-            self::HEADER_ACCESS_LOGS => false
+            HeaderConst::ACCESS_LOGS => false
         )));
     }
 

@@ -22,15 +22,15 @@ use OpenCloud\Common\Service\ServiceBuilder;
  * service.
  *
  * Example:
- * <code>
- * $conn = new Rackspace(
+ * <pre><code>
+ * $client = new Rackspace(
  *      'https://identity.api.rackspacecloud.com/v2.0/',
  *      array(
  *          'username' => 'FRED',
  *          'apiKey'   => '0900af093093788912388fc09dde090ffee09'
  *      )
  * );
- * </code>
+ * </code></pre>
  */
 class Rackspace extends OpenStack
 {
@@ -46,8 +46,7 @@ EOF;
 
     /**
      * Generates Rackspace API key credentials
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getCredentials()
     {
@@ -60,11 +59,11 @@ EOF;
 
     /**
      * Creates a new Database service. Note: this is a Rackspace-only feature.
-     * 
-     * @param  string $name
-     * @param  string $region
-     * @param  string $urltype
-     * @return OpenCloud\Queues\Service
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Database\Service
      */
     public function databaseService($name = null, $region = null, $urltype = null)
     {
@@ -77,11 +76,11 @@ EOF;
 
     /**
      * Creates a new Load Balancer service. Note: this is a Rackspace-only feature.
-     * 
-     * @param  string $name
-     * @param  string $region
-     * @param  string $urltype
-     * @return OpenCloud\Queues\Service
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\LoadBalancer\Service
      */
     public function loadBalancerService($name = null, $region = null, $urltype = null)
     {
@@ -94,11 +93,11 @@ EOF;
 
     /**
      * Creates a new DNS service. Note: this is a Rackspace-only feature.
-     * 
-     * @param  string $name
-     * @param  string $region
-     * @param  string $urltype
-     * @return OpenCloud\Queues\Service
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return OpenCloud\DNS\Service
      */
     public function dnsService($name = null, $region = null, $urltype = null)
     {
@@ -110,12 +109,12 @@ EOF;
     }
 
     /**
-     * Creates a new Monitoring service. Note: this is a Rackspace-only feature.
-     * 
-     * @param  string $name
-     * @param  string $region
-     * @param  string $urltype
-     * @return OpenCloud\Queues\Service
+     * Creates a new Cloud Monitoring service. Note: this is a Rackspace-only feature.
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\CloudMonitoring\Service
      */
     public function cloudMonitoringService($name = null, $region = null, $urltype = null)
     {
@@ -128,11 +127,11 @@ EOF;
 
     /**
      * Creates a new CloudQueues service. Note: this is a Rackspace-only feature.
-     * 
-     * @param  string $name
-     * @param  string $region
-     * @param  string $urltype
-     * @return OpenCloud\Queues\Service
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Autoscale\Service
      */
     public function autoscaleService($name = null, $region = null, $urltype = null)
     {
@@ -145,11 +144,11 @@ EOF;
     
     /**
      * Creates a new CloudQueues service. Note: this is a Rackspace-only feature.
-     * 
-     * @param  string $name
-     * @param  string $region
-     * @param  string $urltype
-     * @return OpenCloud\Queues\Service
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Queues\Service
      */
     public function queuesService($name = null, $region = null, $urltype = null)
     {

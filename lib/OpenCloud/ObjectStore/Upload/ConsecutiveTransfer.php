@@ -15,6 +15,9 @@ use Guzzle\Http\ReadLimitEntityBody;
 use OpenCloud\Common\Constants\Size;
 
 /**
+ * A transfer type which executes consecutively - i.e. it will upload an entire EntityBody and then move on to the next
+ * in a linear fashion. There is no concurrency here.
+ *
  * @codeCoverageIgnore
  */
 class ConsecutiveTransfer extends AbstractTransfer

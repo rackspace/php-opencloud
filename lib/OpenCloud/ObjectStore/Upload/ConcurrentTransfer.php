@@ -14,11 +14,14 @@ use Guzzle\Http\ReadLimitEntityBody;
 use Guzzle\Http\EntityBody;
 
 /**
+ * A transfer type which executes in a concurrent fashion, i.e. with multiple workers uploading at once. Each worker is
+ * charged with uploading a particular chunk of data. The entity body is fragmented into n pieces - calculated by
+ * dividing the total size by the individual part size.
+ *
  * @codeCoverageIgnore
  */
 class ConcurrentTransfer extends AbstractTransfer
 {
-    
     public function transfer()
     {
         $totalParts = (int) ceil($this->entityBody->getContentLength() / $this->partSize);
@@ -58,7 +61,15 @@ class ConcurrentTransfer extends AbstractTransfer
             }
         }
     }
-    
+
+    /**
+     * Partitions the entity body into an array - each worker is represented by a key, and the value is a
+     * ReadLimitEntityBody object, whose read limit is fixed based on this object's partSize value. This will always
+     * ensure the chunks are sent correctly.
+     *
+     * @param int    The total number of workers
+     * @return array The worker array
+     */
     private function collectParts($workers)
     {
         $uri = $this->entityBody->getUri();
