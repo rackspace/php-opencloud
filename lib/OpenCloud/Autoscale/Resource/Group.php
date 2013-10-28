@@ -13,7 +13,7 @@ namespace OpenCloud\Autoscale\Resource;
 use OpenCloud\Common\Exceptions;
 
 /**
- * An autoscaling group is monitored by Rackspace Cloud Monitoring. When 
+ * An autoscaling group is monitored by Rackspace CloudMonitoring. When
  * Monitoring triggers an alarm for high utilization within the autoscaling 
  * group, a webhook is triggered. The webhook stimulates the autoscale service 
  * which consults a policy in accordance with the webhook. The policy determines 

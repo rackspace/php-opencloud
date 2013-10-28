@@ -19,7 +19,7 @@ class Service extends AbstractService
     const DEFAULT_NAME = 'cloudMonitoring';
     
     /**
-     * Cloud Monitoring resources.
+     * CloudMonitoring resources.
      */
     private $resources = array(
         'Agent',

@@ -109,7 +109,7 @@ EOF;
     }
 
     /**
-     * Creates a new Cloud Monitoring service. Note: this is a Rackspace-only feature.
+     * Creates a new CloudMonitoring service. Note: this is a Rackspace-only feature.
      *
      * @param string $name    The name of the service as it appears in the Catalog
      * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
