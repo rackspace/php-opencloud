@@ -124,7 +124,7 @@ class DataObject extends AbstractResource
         return $this->container->uploadObject($this->name, $this->content, $this->metadata->toArray());
     }
 
-    public function copy($target)
+    public function copy($destination)
     {
         return $this->getService()
             ->getClient()

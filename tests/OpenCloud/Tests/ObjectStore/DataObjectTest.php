@@ -57,17 +57,10 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
             'Guzzle\Http\Message\Response', 
             $object->copy('/new_container/new_object')
         );
-
-        $new = $this->service->getContainer('container2')->dataObject('foobar');
-        $object = $this->service->getContainer('container1')->dataObject('foobar');
-        $this->assertInstanceOf(
-            'Guzzle\Http\Message\Response', 
-            $object->copy($new)
-        );
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     * @expectedException OpenCloud\Common\Exceptions\NoNameError
      */
     public function test_Copy_Fails()
     {

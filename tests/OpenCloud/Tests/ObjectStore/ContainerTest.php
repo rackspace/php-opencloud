@@ -52,10 +52,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertEquals('5', $container->getObjectCount());
         $this->assertEquals('3846773', $container->getBytesUsed());
         $this->assertFalse($container->hasLogRetention());
-        
-        $this->assertEquals('100000', $container->getCountQuota());
-        $this->assertEquals('5000000', $container->getBytesQuota());
-        
+
         $cdn = $container->getCdn();
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\CDNContainer', $cdn);
         $this->assertEquals('tx82a6752e00424edb9c46fa2573132e2c', $cdn->getTransId());
@@ -134,11 +131,11 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
-            $container->createStaticSite('<body>Hello world!</body>')
+            $container->getCdn()->setStaticIndexPage('index.html')
         );
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
-            $container->staticSiteErrorPage('error.html')
+            $container->getCdn()->setStaticErrorPage('error.html')
         );
     }
     
@@ -182,8 +179,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
             array('name' => 'test', 'body' => 'FOOBAR')
         ));
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $responses[0]);
-        
-        
+
         $container->uploadObjects(array(
             array('name' => 'test', 'path' => $this->getTestFilePath())
         ));
@@ -264,6 +260,17 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
         
         $response = $container->unsetMetadataItem('Subject');
+    }
+
+    public function test_Quotas()
+    {
+        $container = $this->service->getContainer('container1');
+
+        $this->assertInstanceOf('Guzzle\Http\Message\Response', $container->setCountQuota(50));
+        $this->assertInstanceOf('Guzzle\Http\Message\Response', $container->setBytesQuota(50 * 1024));
+
+        $this->assertEquals(50, $container->getCountQuota());
+        $this->assertEquals(50 * 1024, $container->getBytesQuota());
     }
     
 }

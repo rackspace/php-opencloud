@@ -99,5 +99,39 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals($this->client->getUserAgent(), $this->client->getDefaultUserAgent());
     }
+
+    public function test_Export_Credentials()
+    {
+        $this->client->setExpiration(time() - 1);
+        $credentials = $this->client->exportCredentials();
+        $this->assertTrue(is_array($credentials));
+        $this->assertCount(4, $credentials);
+    }
+
+    public function test_Import_Credentials()
+    {
+        $this->client->importCredentials(array(
+            'token'      => '{token}',
+            'expiration' => '{expiration}',
+            'tenant'     => '{tenant}',
+            'catalog'    => array(
+                (object) array(
+                    'endpoints' => array(
+                        (object) array(
+                            'region'      => 'DFW',
+                            'publicURL'   => 'foo',
+                            'internalURL' => 'bar'
+                        )
+                    ),
+                    'name' => 'testService',
+                    'type' => 'someServiceType'
+                )
+            )
+        ));
+
+        $this->assertEquals('{token}', $this->client->getToken());
+        $this->assertEquals('{expiration}', $this->client->getExpiration());
+        $this->assertEquals('{tenant}', $this->client->getTenant());
+    }
     
 }
