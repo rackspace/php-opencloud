@@ -43,14 +43,95 @@ $someContainers = $service->listContainers(array('limit' => 560));
 
 # Get container
 
+To retrieve a certain container, either to access its object or metadata:
 
+```php
+$container = $service->getContainer('container_name');
+
+echo $container->getObjectCount();
+echo $container->getBytesUsed();
+```
 
 # Create container
 
+To create a new container, you just need to define its name:
+
+```php
+$container = $service->createContainer('my_amazing_container');
+```
+
+If the response returned is `FALSE`, there was an API error - most likely due to the fact you have a naming collision.
+
+Container names must be valid strings between 0 and 256 characters. Forward slashes are not currently permitted.
+
 # Delete container
+
+Deleting a container is easy:
+```php
+$container->delete();
+```
+
+Please bear mind that you must delete all objects inside a container before deleting it. This is done for you if you
+set the `$deleteObjects` parameter to `TRUE`. You can also do it manually:
+
+```php
+$container->deleteAllObjects();
+```
 
 # Create or update container metadata
 
+```php
+$container->saveMetadata(array(
+    'Author' => 'Virginia Woolf',
+    'Published' => '1931'
+));
+```
+
+Please bear in mind that this action will set metadata to this array - overriding existing values and wiping those left
+out. To _append_ values to the current metadata:
+
+```php
+$metadata = $container->appendToMetadata(array(
+    'Publisher' => 'Hogarth'
+));
+```
+
+If you only want to set the metadata to the local object, and not immediately retain these values on the API, you can
+use a standard setter method - which can contribute to eventual actions like an update:
+
+```php
+$container->setMetadata(array('Foo' => 'Bar'));
+```
+
 # Container quotas
 
+The container_quotas middleware implements simple quotas that can be imposed on Cloud Files containers by a user.
+Setting container quotas can be useful for limiting the scope of containers that are delegated to non-admin users,
+exposed to formpost uploads, or just as a self-imposed sanity check.
+
+To set quotas for a container:
+
+```php
+use OpenCloud\Common\Constants\Size;
+
+$container->setCountQuota(1000);
+$container->setBytesQuota(2.5 * Size::GB);
+```
+
+And to retrieve them:
+
+```php
+echo $container->getCountQuota();
+echo $container->getBytesQuota();
+```
+
 # Access log delivery
+
+To view your object access, turn on Access Log Delivery. You can use access logs to analyze the number of people who
+access your objects, where they come from, how many requests for each object you receive, and time-based usage patterns
+(such as monthly or seasonal usage).
+
+```php
+$container->enableLogging();
+$container->disableLogging();
+```

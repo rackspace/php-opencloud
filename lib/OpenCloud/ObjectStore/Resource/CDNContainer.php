@@ -68,5 +68,29 @@ class CDNContainer extends AbstractContainer
 
         return $headers;  
     }
+
+    /**
+     * This method will enable your CDN-enabled container to serve out HTML content like a website.
+     *
+     * @param $indexPage The data object name (i.e. a .html file) that will serve as the main index page.
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function setStaticIndexPage($page)
+    {
+        $headers = array('X-Container-Meta-Web-Index' => $page);
+        return $this->getClient()->post($this->getUrl(), $headers)->send();
+    }
+
+    /**
+     * Set the default error page for your static site.
+     *
+     * @param $name The data object name (i.e. a .html file) that will serve as the main error page.
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function setStaticErrorPage($page)
+    {
+        $headers = array('X-Container-Meta-Web-Error' => $page);
+        return $this->getClient()->post($this->getUrl(), $headers)->send();
+    }
     
 }

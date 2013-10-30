@@ -126,20 +126,6 @@ class DataObject extends AbstractResource
 
     public function copy($target)
     {
-        if (is_string($target)) {
-            $destination = $target;
-        } elseif ($target instanceof DataObject) {
-            $destination = sprintf('/%s/%s', 
-                $target->getContainer()->getName(), $target->getName());
-        } else {
-            throw new Exceptions\InvalidArgumentError(sprintf(
-                'The target must either be a string representation of a '
-                . 'destination /<container>/<object> or an instance of '
-                . 'DataObject. You passed in [%s]',
-                print_r($target, true)
-            ));
-        }
-        
         return $this->getService()
             ->getClient()
             ->createRequest('COPY', $this->getUrl(), array(
@@ -156,8 +142,8 @@ class DataObject extends AbstractResource
     /**
      * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/TempURL-d1a4450.html
      *
-     * @param $expires
-     * @param $method
+     * @param $expires Expiration time in seconds
+     * @param $method  What method can use this URL? (`GET' or `PUT')
      * @return string
      * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      * @throws \OpenCloud\Common\Exceptions\ObjectError
@@ -189,16 +175,18 @@ class DataObject extends AbstractResource
         return sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry);
     }
 
-    public function purge($email)
+    public function purge($email = null)
     {
         $cdn = $this->getContainer()->getCdn();
 
         $url = clone $cdn->getUrl();
         $url->addPath($this->name);
-        
+
+        $headers = ($email !== null) ? array('X-Purge-Email' => $email) : array();
+
         return $this->getService()
             ->getClient()
-            ->delete($url, array('X-Purge-Email' => $email))
+            ->delete($url, $headers)
             ->send();
     }
 

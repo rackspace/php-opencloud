@@ -96,11 +96,31 @@ class Container extends AbstractContainer
     }
 
     /**
+     * @param $value
+     * @return mixed
+     */
+    public function setCountQuota($value)
+    {
+        $this->metadata->setProperty('Quota-Count', $value);
+        return $this->saveMetadata($this->metadata->toArray());
+    }
+
+    /**
      * @return null|string|int
      */
     public function getCountQuota()
     {
         return $this->metadata->getProperty('Quota-Count');
+    }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public function setBytesQuota($value)
+    {
+        $this->metadata->setProperty('Quota-Bytes', $value);
+        return $this->saveMetadata($this->metadata->toArray());
     }
 
     /**
@@ -232,30 +252,6 @@ class Container extends AbstractContainer
             ->send();
     }
 
-    /**
-     * This method will enable your CDN-enabled container to serve out HTML content like a website.
-     *
-     * @param $indexPage The data object name (i.e. a .html file) that will serve as the main index page.
-     * @return \Guzzle\Http\Message\Response
-     */
-    public function createStaticSite($indexPage)
-    {
-        $headers = array('X-Container-Meta-Web-Index' => $indexPage);
-        return $this->getClient()->post($this->getUrl(), $headers)->send();
-    }
-
-    /**
-     * Set the default error page for your static site.
-     *
-     * @param $name The data object name (i.e. a .html file) that will serve as the main error page.
-     * @return \Guzzle\Http\Message\Response
-     */
-    public function staticSiteErrorPage($name)
-    {
-        $headers = array('X-Container-Meta-Web-Error' => $name);
-        return $this->getClient()->post($this->getUrl(), $headers)->send();
-    }
-
     public function refresh($id = null, $url = null)
     {
         $headers = $this->createRefreshRequest()->send()->getHeaders();
@@ -312,7 +308,7 @@ class Container extends AbstractContainer
         $response = $this->getClient()
             ->get($this->getUrl($name), $headers)
             ->send();
-        
+
         return $this->dataObject()->setName($name)
             ->setContent($response->getBody())
             ->setMetadata($response->getHeaders(), true);
