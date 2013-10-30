@@ -5,6 +5,8 @@ docs/api/
 nbproject/
 vendor/
 
+composer.lock
+composer.phar
 .DS_Store
 *.log
 *.phar
