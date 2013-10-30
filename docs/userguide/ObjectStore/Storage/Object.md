@@ -1,4 +1,4 @@
-# 1. List objects in a container
+## List objects in a container
 
 To return a list of objects:
 
@@ -16,7 +16,7 @@ result set. For a full specification of query parameters relating to collection 
 $container->listObjects(array('prefix' => 'logFile_'));
 ```
 
-# 2. Get object
+## Get object
 
 To retrieve a specific file from Cloud Files:
 
@@ -24,7 +24,7 @@ To retrieve a specific file from Cloud Files:
 $file = $container->getObject('summer_vacation.mp4');
 ```
 
-## 2.1 Conditional requests
+### Conditional requests
 
 You can also perform conditional requests according to [RFC 2616 specification](http://www.ietf.org/rfc/rfc2616.txt)
 (§§ 14.24-26). Supported headers are `If-Match`, `If-None-Match`, `If-Modified-Since` and `If-Unmodified-Since`.
@@ -64,11 +64,11 @@ of a file:
 $snippet = $container->getObject('output.log', array('range' => 'bytes=-20'));
 ```
 
-# 3. Create an object
+## Create an object
 
 There are three ways to upload a new file, each of which has different business needs.
 
-## 3.1 To upload a single/basic file:
+### To upload a single/basic file:
 
 ```php
 $data = fopen('/path/to/sample.mp3', 'r+');
@@ -81,7 +81,7 @@ $container->uploadObject('sample.mp3', $data, array(
 ));
 ```
 
-## 3.2 To upload multiple small-to-mid sized files:
+### To upload multiple small-to-mid sized files:
 
 ```php
 $files = array(
@@ -105,7 +105,7 @@ $container->uploadObjects($files);
 As you can see, the `name` key is required for every file. You must also specify _either_ a path key (to an existing
 file), or a `body`. The `body` can either be a PHP resource or a string representation of the content you want to upload.
 
-## 3.3 To upload large files
+### To upload large files
 
 For files over 5GB, you will need to use the `OpenCloud\ObjectStore\Upload\TransferBuilder` factory to build your transfer,
 upon which you can execute your upload functionality. For your convenience, the Container resource object contains a
@@ -131,7 +131,7 @@ segment rather than the full file). After all parts are uploaded, a manifest is 
 the 5GB by its true filename, it actually references the manifest file which concatenates each segment into a streaming
 download.
 
-# Update an existing object
+## Update an existing object
 
 Updating content is easy:
 
@@ -143,7 +143,7 @@ $file->update();
 Bear in mind that updating a file name will result in a new file being generated (under the new name). You will need to
 delete the old file.
 
-# Copy object
+## Copy object
 
 To copy a file to another location, you need to specify a string-based destination path:
 
@@ -151,13 +151,13 @@ To copy a file to another location, you need to specify a string-based destinati
 $object->copy('/container_2/new_object_name');
 ```
 
-# Delete object
+## Delete object
 
 ```php
 $object->delete();
 ```
 
-# Get object metadata
+## Get object metadata
 
 Metadata will be automatically populated when the file is retrieved from the API. To access these populated values:
 
@@ -171,7 +171,7 @@ But, if for some reason, you'd like to retrieve the freshest data by executing a
 $object->retrieveMetadata();
 ```
 
-# Update object metadata
+## Update object metadata
 
 Similarly, with setting metadata there are two options: you can update the metadata values of the local object (i.e. no
 HTTP request) if you anticipate you'll be executing one soon (an update operation for example):
@@ -206,7 +206,7 @@ $metadata = $object->appendToMetadata(array(
 $object->saveMetadata($metadata);
 ```
 
-# Extract archive
+## Extract archive
 
 CloudFiles provides you the ability to extract uploaded archives to particular destinations. The archive will be extracted
 and its contents will populate the particular area specified. To upload file (which might represent a directory structure)
@@ -221,7 +221,7 @@ $service->bulkExtract('container_1', fopen('/home/jamie/files.tar.gz'), UrlType:
 You can also omit the container name (i.e. provide an empty string as the first argument). If you do this, the API will
 create the containers necessary to house the extracted files - this is done based on the filenames inside the archive.
 
-# Bulk delete
+## Bulk delete
 
 Bulk delete a set of paths:
 

@@ -1,8 +1,4 @@
 <?php
-/**
- * This auto-loads the autoloader, auto-loading the php-opencloud
- * namespaces
- */
 
 require_once __DIR__ . '/../lib/OpenCloud/Globals.php';
 

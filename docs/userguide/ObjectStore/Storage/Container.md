@@ -1,6 +1,6 @@
-# 1. List containers
+## List containers
 
-## 1.1 Return a list of containers
+### Return a list of containers
 
 ```php
 $containerList = $service->listContainers();
@@ -15,11 +15,11 @@ data using SQLite's memcmp() function, regardless of text encoding.
 
 The list is limited to 10,000 containers at a time. See 1.3 for ways to limit and navigate this list.
 
-## 1.2 Return a formatted list of containers
+### Return a formatted list of containers
 
 Currently, the SDK only supports JSON-formatted responses.
 
-## 1.3 Controlling a large list of containers
+### Controlling a large list of containers
 
 You may limit and control this list of results by using the `marker` and `end_marker` parameters. The former parameter
 (`marker`) tells the API where to begin the list, and the latter (`end_marker`) tells it where to end the list. You may
@@ -41,7 +41,7 @@ Or to return a limited set:
 $someContainers = $service->listContainers(array('limit' => 560));
 ```
 
-# Get container
+## Get container
 
 To retrieve a certain container, either to access its object or metadata:
 
@@ -52,7 +52,7 @@ echo $container->getObjectCount();
 echo $container->getBytesUsed();
 ```
 
-# Create container
+## Create container
 
 To create a new container, you just need to define its name:
 
@@ -64,7 +64,7 @@ If the response returned is `FALSE`, there was an API error - most likely due to
 
 Container names must be valid strings between 0 and 256 characters. Forward slashes are not currently permitted.
 
-# Delete container
+## Delete container
 
 Deleting a container is easy:
 ```php
@@ -78,7 +78,7 @@ set the `$deleteObjects` parameter to `TRUE`. You can also do it manually:
 $container->deleteAllObjects();
 ```
 
-# Create or update container metadata
+## Create or update container metadata
 
 ```php
 $container->saveMetadata(array(
@@ -103,7 +103,7 @@ use a standard setter method - which can contribute to eventual actions like an 
 $container->setMetadata(array('Foo' => 'Bar'));
 ```
 
-# Container quotas
+## Container quotas
 
 The container_quotas middleware implements simple quotas that can be imposed on Cloud Files containers by a user.
 Setting container quotas can be useful for limiting the scope of containers that are delegated to non-admin users,
@@ -125,7 +125,7 @@ echo $container->getCountQuota();
 echo $container->getBytesQuota();
 ```
 
-# Access log delivery
+## Access log delivery
 
 To view your object access, turn on Access Log Delivery. You can use access logs to analyze the number of people who
 access your objects, where they come from, how many requests for each object you receive, and time-based usage patterns

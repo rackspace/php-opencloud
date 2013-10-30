@@ -102,4 +102,9 @@ class Metadata extends Base
         return $this->metadata;
     }
 
+    public function count()
+    {
+        return count($this->metadata);
+    }
+
 }

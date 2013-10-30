@@ -603,14 +603,18 @@ class Server extends PersistentObject
         $server = (object) array(
             'name'        => $this->name,
             'imageRef'    => $this->imageRef,
-            'flavorRef'   => $this->flavorRef,
-            'metadata'    => $this->metadata,
-            'networks'    => array(),
-            'personality' => array()
+            'flavorRef'   => $this->flavorRef
         );
+
+        if ($this->metadata->count()) {
+            $server->metadata = $this->metadata->toArray();
+        }
         
         // Networks
 		if (is_array($this->networks) && count($this->networks)) {
+
+            $server->networks = array();
+
 			foreach ($this->networks as $network) {
 				if (!$network instanceof Network) {
 					throw new Exceptions\InvalidParameterError(sprintf(
@@ -633,6 +637,9 @@ class Server extends PersistentObject
 
         // Personality files
         if (!empty($this->personality)) {
+
+            $server->personality = array();
+
             foreach ($this->personality as $path => $data) {
                 // Stock personality array
                 $server->personality[] = (object) array(
@@ -661,7 +668,7 @@ class Server extends PersistentObject
                 'public_key' => $this->keypair['publicKey']
             );
         }
-        
+
         return (object) array('server' => $server);
     }
 

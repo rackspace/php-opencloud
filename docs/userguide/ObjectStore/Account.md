@@ -1,4 +1,4 @@
-# View Account Details
+## View Account Details
 
 To see how many containers you have in your account (X-Account-Container-Count), how many objects are in your account
 (X-Account-Object-Count), and how many total bytes your account uses (X-Account-Bytes-Used):

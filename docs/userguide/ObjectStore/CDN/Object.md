@@ -1,4 +1,4 @@
-# Purge CDN-enabled objects
+## Purge CDN-enabled objects
 
 To remove a CDN object from public access:
 
@@ -14,7 +14,7 @@ $object->purge('jamie.hannaford@rackspace.com');
 $object->purge('hello@example.com,hallo@example.com');
 ```
 
-# Hosting websites on CloudFiles
+## Hosting websites on CloudFiles
 
 To host a static (i.e. HTML) website on CloudFiles, you must follow these steps:
 

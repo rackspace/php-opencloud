@@ -25,8 +25,7 @@ use Guzzle\Http\Url;
  */
 class ServerMetadata extends Metadata
 {
-    
-    private $parent;   // the parent object
+    private $parent;
     protected $key;    // the metadata item (if supplied)
     private $url;      // the URL of this particular metadata item or block
 
@@ -72,7 +71,18 @@ class ServerMetadata extends Metadata
             }
         }
     }
-    
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+
     /**
      * Returns the URL of the metadata (key or block)
      *

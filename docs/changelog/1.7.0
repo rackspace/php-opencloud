@@ -1,26 +1,78 @@
-Changelog
+# Changelog for v1.7.0
 
-- Support for keypairs
-- Integration with Guzzle
- - Parallel requests
- - New, quicker way to upload files
+This guide lists the most conspicuous changes features for this release, and hopefully also a guide for developers to
+backwards compatibility.
+
+## Integration with Guzzle
+
+ - Uploading files is now quicker
+   - Parallel requests using multi-cURL, which means files can be uploaded concurrently
    - Files over 5GB are fragmented and uploading using multibyte chunking
-   - Multiple files are uploaded concurrently using multi-curl
- - Better response and exception handling
- - URLs are objectified, allowing for more powerful interaction
- - Endpoints, service catalog, catalog items are now objectified
- - Factory methods are renamed with *service for greater clarity
+ - URLs are now treated as fully fledged objects - allowing for greater functionality
+
+## Keypair support
+
+Although code now exists in the SDK for API compatability for creating servers with keypairs, there has been
+a recent bug in Nova where certain endpoints (DFW, IAD and ORD) do not exhibit the desired functionality. A patch will
+be released in the near future. For reference, you just need to add in an extra array key:
+
+```php
+try {
+    $server->create(array(
+        'name'     => 'test',
+        'image'    => $image,
+        'flavor'   => $service->flavorList()->first(),
+        'networks' => array(
+            $service->network(RAX_PUBLIC),
+            $service->network(RAX_PRIVATE)
+        ),
+        'OS-DCF:diskConfig' => 'AUTO',
+        'keypair' => array(
+            'name'      => 'id_rsa.pub',
+            'publicKey' => file_get_contents('/path/to/local/key')
+        )
+    ));
+} catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {
+    var_dump($e->getResponse());
+}
+```
+
+## Better handling of services
+
+ - Endpoints, the Service Catalog, and Catalog Items are now treated as objects
+ - Factory methods in the core OpenStack client have renamed for greater clarity
  - Services are now constructed with a ServiceBuilder for efficiency
- - Near 100% API consistency for Cloud Files
+ - Namespace changes to all resource models for greater consistency
+
+## Major upgrade of CloudFiles
+
+ - _Near_ 100% API consistency for Cloud Files
+ - Complete documentation, both technical and non-technical, for all functionality
+ - Better handling of resource objects: Account, Container, CDNContainer, DataObject
+ - The ability to upload files in 3 different ways (each one has a different use case):
+   - Sequential uploads for simple files
+   - Parallel batched uploads for multiple files
+   - A TransferBuilder factory object for handling large uploads (+5GB) that require chunking
+ - Conditional requests for getting objects (`If-Match`, `If-None-Match`, `If-Modified-Since` and `If-Unmodified-Since`).
+  `Range` is also now supported for partial content returns.
+ - Bulk extract and bulk delete now better supported
+
+## Unit test structure overhaul
+
  - Completely refactored unit tests
   - All unit tests now inherit from one centralized test case
   - Use of singletons for client object re-use
   - New implementation of mock responses
   - Request capturing using Event dispatchers
- - Namespace changes to all service models for greater consistency
- - Refactoring of Autoscale/Monitoring to make things DRYer
+
+## Other changes
+
+ - Refactoring of Autoscale/Monitoring to keep things DRY
  - New docblock for every file with up-to-date license
  - Fix to logging output functionality
  - Fixes to server metadata
  - Minor changes to Metadata
- - Core change to method/property overloading. For every private model property, the end-user now has access to a dynamic getter/setter methods that ensure better encapsulation. For finer-grained control, they can specify concrete methods which supercede the magic methods. I want to get into the habit of encouraging filtered access through methods rather than raw property access.
+ - Core change to method/property overloading. For every private model property, the end-user now has access to a
+ dynamic getter/setter methods that ensure better encapsulation. For finer-grained control, they can specify concrete
+ methods which supercede the magic methods. I want to get into the habit of encouraging filtered access through methods
+ rather than raw property access.

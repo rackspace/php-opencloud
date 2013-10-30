@@ -1,9 +1,9 @@
-# List CDN-enabled container
+## List CDN-enabled container
 
 To list CDN-only containers, follow the same operation for Storage which lists all containers. The only difference is
 which service object you execute the method on.
 
-# CDN-enable and -disable a container
+## CDN-enable and -disable a container
 
 Before a container can be CDN-enabled, it must exist in the storage system. When a container is CDN-enabled, any objects
 stored in it are publicly accessible over the Content Delivery Network by combining the container's CDN URL with the
@@ -18,19 +18,19 @@ $container->enableCdn();
 $container->disableCdn();
 ```
 
-# Serving containers through SSL
+## Serving containers through SSL
 
 ```php
 $container->getCdnSslUri();
 ```
 
-# Streaming CDN-enabled containers
+## Streaming CDN-enabled containers
 
 ```php
 $container->getCdnStreamingUri();
 ```
 
-# iOS streaming
+## iOS streaming
 
 The Cloud Files CDN allows you to stream video to iOS devices without needing to convert your video. Once you
 CDN-enable your container, you have the tools necessary for streaming media to multiple devices.
