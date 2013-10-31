@@ -3,12 +3,20 @@
 This guide lists the most conspicuous changes features for this release, and hopefully also a guide for developers to
 backwards compatibility.
 
-## Integration with Guzzle
+## Integration with Guzzle HTTP component
 
- - Uploading files is now quicker
+This guide cannot give a complete overview of Guzzle HTTP's awesomesome, but here some highlights:
+
+ - Uploading files is now way quicker
    - Parallel requests using multi-cURL, which means files can be uploaded concurrently
    - Files over 5GB are fragmented and uploading using multibyte chunking
- - URLs are now treated as fully fledged objects - allowing for greater functionality
+ - URLs are now treated as fully fledged objects, allowing for greater functionality
+ - Requests that send content now have the benefit of using the EntityBody object, which extends and builds on the
+ native functionality offered by PHP streams. Now there is a cool abstraction layer that offers a lot of consistency
+ - Progress functionality (either by dedicated methods or by anonymous functions)
+ - Event dispatching so all of your objects now have access to, and can also modify, the HTTP workflow
+
+For a complete list of features, [view the official page](http://guzzlephp.org).
 
 ## Keypair support
 
@@ -21,7 +29,7 @@ try {
     $server->create(array(
         'name'     => 'test',
         'image'    => $image,
-        'flavor'   => $service->flavorList()->first(),
+        'flavor'   => $flavor,
         'networks' => array(
             $service->network(RAX_PUBLIC),
             $service->network(RAX_PRIVATE)
