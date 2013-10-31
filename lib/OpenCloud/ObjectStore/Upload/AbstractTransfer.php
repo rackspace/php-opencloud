@@ -59,6 +59,11 @@ class AbstractTransfer
     protected $options;
 
     /**
+     * @var int
+     */
+    protected $partSize;
+
+    /**
      * @var array Defaults that will always override user-defined options
      */
     protected $defaultOptions = array(
@@ -133,6 +138,11 @@ class AbstractTransfer
     {
         $this->options[$option] = $value;
         return $this;
+    }
+
+    public function getPartSize()
+    {
+        return $this->partSize;
     }
 
     /**
