@@ -4,11 +4,7 @@ PHP SDK for OpenStack/Rackspace APIs
 
 [![Latest Stable Version](https://poser.pugx.org/rackspace/php-opencloud/v/stable.png)](https://packagist.org/packages/rackspace/php-opencloud) [![Travis CI](https://secure.travis-ci.org/rackspace/php-opencloud.png)](https://travis-ci.org/rackspace/php-opencloud) [![Total Downloads](https://poser.pugx.org/rackspace/php-opencloud/downloads.png)](https://packagist.org/packages/rackspace/php-opencloud)
 
-See the
-[COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
-file for license and copyright information.
-
-For other SDKs, see http://developer.rackspace.com
+For SDKs in different languages, see http://developer.rackspace.com.
 
 The PHP SDK should work with most OpenStack-based cloud deployments,
 though it specifically targets the Rackspace public cloud. In
@@ -27,7 +23,7 @@ Installation
 ------------
 You must install this library through Composer:
 
-```
+```bash
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
 
