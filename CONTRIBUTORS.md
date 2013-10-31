@@ -2,5 +2,5 @@ Contributors
 ============
 
 - Glen Campbell <glen.campbell@rackspace.com>
-- Jamie Hannaford <jamie@limetree.org>
+- Jamie Hannaford <jamie.hannaford@rackspace.com>
 - Stephen Sugden <openstack@stephensugden.com>
