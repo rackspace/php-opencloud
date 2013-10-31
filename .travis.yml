@@ -10,7 +10,7 @@ branches:
     - working
 
 before_script:
-- composer install
+- composer install --no-dev
 
 notifications:
   email:
