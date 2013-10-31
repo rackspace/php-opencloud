@@ -128,9 +128,8 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         
         // Copy
         $this->step('Copy Object');
-        $target = $container->dataObject();
-        $target->setName($this->prepend(self::OBJECT_NAME . '_COPY'));
-        $object->copy($target);
+        $destination = sprintf('/%s/%s', $container->getName(), $this->prepend(self::OBJECT_NAME . '_COPY'));
+        $object->copy($destination);
         
         // List containers
         $this->step('List all containers');
