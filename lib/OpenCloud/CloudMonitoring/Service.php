@@ -49,4 +49,24 @@ class Service extends AbstractService
         );
     }
 
+    public function getEntities()
+    {
+        return $this->getService()->resourceList('Entity');
+    }
+
+    public function getEntity($id = null)
+    {
+        return $this->getService()->resource('Entity', $id);
+    }
+
+    public function getCheckTypes()
+    {
+        return $this->getService()->resourceList('CheckType');
+    }
+
+    public function getCheckType($id = null)
+    {
+        return $this->getService()->resource('CheckType', $id);
+    }
+
 }

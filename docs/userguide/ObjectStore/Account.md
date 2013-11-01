@@ -1,3 +1,15 @@
+## Setup
+
+```php
+use OpenCloud\Rackspace;
+
+$client = new Rackspace(RACKSPACE_US, array(
+
+));
+
+$service = $client->objectStoreService('cloudFiles');
+```
+
 ## View Account Details
 
 To see how many containers you have in your account (X-Account-Container-Count), how many objects are in your account

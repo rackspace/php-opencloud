@@ -11,10 +11,10 @@
 namespace OpenCloud\Common\Service;
 
 use OpenCloud\Common\Base;
-use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Collection;
 use OpenCloud\Common\Http\Client;
+use OpenCloud\Common\PersistentObject;
 use Guzzle\Http\Url;
 use Guzzle\Http\Exception\BadResponseException;
 
@@ -410,12 +410,18 @@ abstract class AbstractService extends Base
      *
      * @param  string $resourceName
      * @param  mixed $info (default: null)
+     * @param  mixed $parent The parent object
      * @return object
      */
-    public function resource($resourceName, $info = null)
+    public function resource($resourceName, $info = null, $parent = null)
     {
         $className = $this->resolveResourceClass($resourceName);
-        return new $className($this, $info);
+
+        $resource = new $className($this);
+        $resource->setParent($parent);
+        $resource->populate($info);
+
+        return $resource;
     }
     
     /**

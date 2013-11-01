@@ -1,3 +1,8 @@
+## Setup
+
+You will need to instantiate the container object and access its CDN functionality as
+[documented here](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/CDN/Container.md).
+
 ## Purge CDN-enabled objects
 
 To remove a CDN object from public access:

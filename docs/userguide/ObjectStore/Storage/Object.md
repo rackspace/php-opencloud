@@ -1,3 +1,7 @@
+## Setup
+
+You will need to instantiate the container object as [documented here](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/Storage/Container.md).
+
 ## List objects in a container
 
 To return a list of objects:
