@@ -43,7 +43,7 @@ class DataObject extends AbstractResource
     public function __construct(Container $container, $data = null)
     {
         $this->setContainer($container);
-        $this->setService($container->getService());
+        parent::__construct($container->getService());
         
         // For pseudo-directories, we need to ensure the name is set
         if (!empty($data->subdir)) {
