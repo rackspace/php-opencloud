@@ -18,6 +18,7 @@ use OpenCloud\Common\Service\AbstractService;
  */
 class Service extends AbstractService
 {
+    const DEFAULT_TYPE = 'rax:autoscale';
     const DEFAULT_NAME = 'autoscale';
     
     /**
@@ -32,37 +33,6 @@ class Service extends AbstractService
         'LaunchConfiguration',
         'ScalingPolicy'
     );
-
-    /**
-     * Called when creating a new Autoscale service object
-     *
-     * _NOTE_ that the order of parameters for this is *different* from the
-     * parent Service class. This is because the earlier parameters are the
-     * ones that most typically change, whereas the later ones are not
-     * modified as often.
-     *
-     * @param OpenStack $conn - a connection object
-     * @param string $serviceRegion - identifies the region of this Compute
-     *      service
-     * @param string $urltype - identifies the URL type ("publicURL",
-     *      "privateURL")
-     * @param string $serviceName - identifies the name of the service in the
-     *      catalog
-     */
-    public function __construct(
-        OpenStack $conn, 
-        $serviceName, 
-        $serviceRegion, 
-        $urltype, 
-        $customEndpoint = null
-    ) {
-
-        parent::__construct(
-            $conn, 'rax:autoscale', $serviceName, $serviceRegion, $urltype, $customEndpoint
-        );
-        
-        $this->getLogger()->info('Initializing Autoscale...');
-    }
     
     /**
      * Convenience method for getting an autoscale group.

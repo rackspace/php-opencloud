@@ -15,13 +15,6 @@ use OpenCloud\Common\PersistentObject;
 
 abstract class AbstractResource extends PersistentObject
 {
-
-    public function __construct($service, $info)
-    {
-        $this->setService($service);
-        parent::__construct($service, $info);
-    }
-
     protected function createJson()
     {
         foreach (static::$requiredKeys as $requiredKey) {

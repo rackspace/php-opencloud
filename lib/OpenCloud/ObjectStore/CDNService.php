@@ -17,22 +17,6 @@ use OpenCloud\OpenStack;
  */
 class CDNService extends AbstractService
 {
-
-    public function __construct(
-        OpenStack $connection,
-        $serviceName = RAXSDK_OBJSTORE_NAME,
-        $serviceRegion = RAXSDK_OBJSTORE_REGION,
-        $urltype = RAXSDK_URL_PUBLIC
-    ) {
-        $this->getLogger()->info('Initializing CDN Service...');
-
-        parent::__construct(
-            $connection,
-            'rax:object-cdn',
-            $serviceName,
-            $serviceRegion,
-            $urltype
-        );
-    }
-
+    const DEFAULT_NAME = 'cloudFilesCDN';
+    const DEFAULT_TYPE = 'rax:object-cdn';
 }

@@ -21,7 +21,7 @@ class OpenCloudTestCase extends PHPUnit_Framework_TestCase
     
     private static function newClient()
     {
-        $client = new Rackspace(RACKSPACE_US, array(
+        $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
             'username' => 'foo',
             'apiKey'   => 'bar'
         ));

@@ -67,7 +67,7 @@ EOF;
      */
     public function databaseService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'Database', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\Database\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -84,7 +84,7 @@ EOF;
      */
     public function loadBalancerService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'LoadBalancer', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\LoadBalancer\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -101,7 +101,7 @@ EOF;
      */
     public function dnsService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'DNS', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\DNS\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -118,7 +118,7 @@ EOF;
      */
     public function cloudMonitoringService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'CloudMonitoring', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\CloudMonitoring\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -135,7 +135,7 @@ EOF;
      */
     public function autoscaleService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'Autoscale', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\Autoscale\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -152,7 +152,7 @@ EOF;
      */
     public function queuesService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'Queues', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\Queues\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype

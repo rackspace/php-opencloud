@@ -11,9 +11,10 @@
 namespace OpenCloud\ObjectStore;
 
 use Guzzle\Http\EntityBody;
-use OpenCloud\OpenStack;
+use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\ObjectStore\Resource\Container;
 use OpenCloud\ObjectStore\Constants\UrlType;
 
@@ -22,6 +23,9 @@ use OpenCloud\ObjectStore\Constants\UrlType;
  */
 class Service extends AbstractService 
 {
+    const DEFAULT_NAME = 'cloudFiles';
+    const DEFAULT_TYPE = 'object-store';
+
     /**
      * This holds the associated CDN service (for Rackspace public cloud)
      * or is NULL otherwise. The existence of an object here is
@@ -29,30 +33,12 @@ class Service extends AbstractService
      */
     private $cdnService;
 
-    public function __construct(
-        OpenStack $connection,
-        $serviceName = RAXSDK_OBJSTORE_NAME,
-        $serviceRegion = RAXSDK_OBJSTORE_REGION,
-        $urltype = RAXSDK_OBJSTORE_URLTYPE
-    ) {
-        $this->getLogger()->info('Initializing Container Service...');
+    public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
+    {
+        parent::__construct($client, $type, $name, $region, $urlType);
 
-        parent::__construct(
-            $connection,
-            'object-store',
-            $serviceName,
-            $serviceRegion,
-            $urltype
-        );
-
-        // establish the CDN container, if available
         try {
-            $this->cdnService = new CDNService(
-                $connection,
-                $serviceName . 'CDN',
-                $serviceRegion,
-                $urltype
-            );
+            $this->cdnService = ServiceBuilder::factory($client, 'OpenCloud\ObjectStore\CDNService');
         } catch (Exceptions\EndpointError $e) {}
     }
 

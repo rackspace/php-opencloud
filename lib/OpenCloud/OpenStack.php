@@ -218,7 +218,7 @@ class OpenStack extends Client
      */
     public function hasExpired()
     {
-        return !$this->expiration || time() > ($this->expiration - RAXSDK_FUDGE);
+        return !$this->expiration || (time() > $this->expiration);
     }
 
     /**
@@ -348,7 +348,7 @@ class OpenStack extends Client
      */
     public function objectStoreService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'ObjectStore', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\ObjectStore\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -365,7 +365,7 @@ class OpenStack extends Client
      */
     public function computeService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'Compute', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\Compute\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -383,7 +383,7 @@ class OpenStack extends Client
      */
     public function orchestrationService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'Orchestration', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\Orchestration\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype
@@ -400,7 +400,7 @@ class OpenStack extends Client
      */
     public function volumeService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'Volume', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\Volume\Service', array(
             'name'    => $name, 
             'region'  => $region, 
             'urlType' => $urltype

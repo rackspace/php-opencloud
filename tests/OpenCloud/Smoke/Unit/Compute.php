@@ -9,6 +9,7 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use OpenCloud\Compute\Constants\Network;
 use OpenCloud\Smoke\Utils;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 
@@ -129,8 +130,8 @@ class Compute extends AbstractUnit implements UnitInterface
             'image'    => $centos,
             'flavor'   => $flavorList->first(),
             'networks' => array(
-                $this->getService()->network(RAX_PUBLIC), 
-                $this->getService()->network(RAX_PRIVATE)
+                $this->getService()->network(Network::RAX_PUBLIC),
+                $this->getService()->network(Network::RAX_PRIVATE)
             ),
             "OS-DCF:diskConfig" => "AUTO"
         ));
@@ -213,7 +214,7 @@ class Compute extends AbstractUnit implements UnitInterface
         
         $networks = $this->getService()->networkList();
         while ($network = $networks->next()) {
-            if (!in_array($network->id, array(RAX_PRIVATE, RAX_PUBLIC))) {
+            if (!in_array($network->id, array(Network::RAX_PRIVATE, Network::RAX_PUBLIC))) {
                 $this->stepInfo('Deleting: %s %s', $network->id, $network->label);
                 $network->delete();
             }

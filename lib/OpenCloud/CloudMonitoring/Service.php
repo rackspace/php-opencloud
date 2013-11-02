@@ -10,12 +10,11 @@
 
 namespace OpenCloud\CloudMonitoring;
 
-use OpenCloud\OpenStack;
 use OpenCloud\Common\Service\AbstractService;
 
 class Service extends AbstractService
 {
-    
+    const DEFAULT_TYPE = 'rax:monitor';
     const DEFAULT_NAME = 'cloudMonitoring';
     
     /**
@@ -42,31 +41,24 @@ class Service extends AbstractService
         'Zone'
     );
 
-    public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType)
-    {
-        parent::__construct(
-            $connection, 'rax:monitor', $serviceName, $serviceRegion, $urlType
-        );
-    }
-
     public function getEntities()
     {
-        return $this->getService()->resourceList('Entity');
+        return $this->resourceList('Entity');
     }
 
     public function getEntity($id = null)
     {
-        return $this->getService()->resource('Entity', $id);
+        return $this->resource('Entity', $id);
     }
 
     public function getCheckTypes()
     {
-        return $this->getService()->resourceList('CheckType');
+        return $this->resourceList('CheckType');
     }
 
     public function getCheckType($id = null)
     {
-        return $this->getService()->resource('CheckType', $id);
+        return $this->resource('CheckType', $id);
     }
 
 }

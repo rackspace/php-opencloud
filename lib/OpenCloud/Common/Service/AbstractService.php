@@ -59,7 +59,7 @@ abstract class AbstractService extends Base
     private $urlType;
     
     /**
-     * @var OpenCloud\Common\Service\Endpoint The endpoints for this service.
+     * @var \OpenCloud\Common\Service\Endpoint The endpoints for this service.
      */
     private $endpoint;
     
@@ -82,15 +82,16 @@ abstract class AbstractService extends Base
      * @param string $region  Service region (e.g. 'DFW', 'ORD', 'IAD', 'LON', 'SYD')
      * @param string $urlType Either 'publicURL' or 'privateURL'
      */
-    public function __construct(Client $client, $type, $name, $region, $urlType = RAXSDK_URL_PUBLIC)
+    public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
     {
+
         $this->setClient($client);
 
-        $this->type = $type;
-        $this->name = $name;
-        $this->region = $region;
-        $this->urlType = $urlType;
-        
+        $this->type = $type ?: static::DEFAULT_TYPE;
+        $this->name = $name ?: static::DEFAULT_NAME;
+        $this->region = $region ?: static::DEFAULT_REGION;
+        $this->urlType = $urlType ?: static::DEFAULT_URL_TYPE;
+
         $this->endpoint = $this->findEndpoint();
         $this->client->setBaseUrl($this->getBaseUrl());
     }
@@ -187,7 +188,7 @@ abstract class AbstractService extends Base
      * @api
      * @return array of objects
      */
-    public function extensions()
+    public function getExtensions()
     {
         $ext = $this->getMetaUrl('extensions');
         return (is_object($ext) && isset($ext->extensions)) ? $ext->extensions : array();
@@ -325,7 +326,7 @@ abstract class AbstractService extends Base
                 return Endpoint::factory($service->getEndpointFromRegion($this->region));
             }
         }
-        
+
         throw new Exceptions\EndpointError(sprintf(
             'No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]',
             $this->type,
@@ -418,7 +419,9 @@ abstract class AbstractService extends Base
         $className = $this->resolveResourceClass($resourceName);
 
         $resource = new $className($this);
-        $resource->setParent($parent);
+        if ($parent) {
+            $resource->setParent($parent);
+        }
         $resource->populate($info);
 
         return $resource;

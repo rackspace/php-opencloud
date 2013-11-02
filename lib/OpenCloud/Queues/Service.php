@@ -55,6 +55,7 @@ use Guzzle\Http\Exception\BadResponseException;
  */
 class Service extends AbstractService
 {
+    const DEFAULT_TYPE = 'rax:queues';
     const DEFAULT_NAME = 'cloudQueues';
     
     /**
@@ -65,23 +66,7 @@ class Service extends AbstractService
      * @var string 
      */
     private $clientId;
-    
-    /**
-     * Main service constructor.
-     * 
-     * @param OpenStack $connection
-     * @param mixed $serviceName
-     * @param mixed $serviceRegion
-     * @param mixed $urlType
-     * @return void
-     */
-    public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType = null)
-    {
-        parent::__construct(
-            $connection, 'rax:queues', $serviceName, $serviceRegion, $urlType
-        );
-    } 
-    
+
     public function setClientId($clientId)
     {
         $this->clientId = $clientId;

@@ -10,7 +10,7 @@
 
 namespace OpenCloud\Compute;
 
-use OpenCloud\OpenStack;
+use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Service\NovaService;
 use OpenCloud\Common\Exceptions;
@@ -46,47 +46,23 @@ use OpenCloud\Common\Exceptions;
  */
 class Service extends NovaService
 {
-    
+    const DEFAULT_TYPE = 'compute';
     const DEFAULT_NAME = 'cloudServersOpenStack';
 
-    /**
-     * Called when creating a new Compute service object
-     *
-     * _NOTE_ that the order of parameters for this is *different* from the
-     * parent Service class. This is because the earlier parameters are the
-     * ones that most typically change, whereas the later ones are not
-     * modified as often.
-     *
-     * @param \OpenCloud\Identity $conn - a connection object
-     * @param string $serviceRegion - identifies the region of this Compute
-     *      service
-     * @param string $urltype - identifies the URL type ("publicURL",
-     *      "privateURL")
-     * @param string $serviceName - identifies the name of the service in the
-     *      catalog
-     */
-    public function __construct(OpenStack $conn, $serviceName, $serviceRegion, $urltype) 
-    {
-        $this->getLogger()->info(Lang::translate('Initializing compute...'));
-        
-        parent::__construct(
-            $conn,
-            'compute',
-            $serviceName,
-            $serviceRegion,
-            $urltype
-        );
+    protected $additionalExtensions = array('OS-FLV-DISABLED');
 
-        // check the URL version
+    public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
+    {
+        parent::__construct($client, $type, $name, $region, $urlType);
+
         if (strpos($this->getUrl()->getPath(), '/v1') !== false) {
             throw new Exceptions\UnsupportedVersionError(sprintf(
                 Lang::translate('Sorry; API version /v1 is not supported [%s]'), 
-                $this->Url()
+                $this->getUrl()
             ));
         }
 
         $this->loadNamespaces();
-        $this->namespaces[] = 'OS-FLV-DISABLED';
     }
 
     /**
@@ -123,7 +99,7 @@ class Service extends NovaService
      */
     public function serverList($details = true, array $filter = array()) 
     {
-        $url = $this->url(Resource\Server::resourceName() . (($details) ? '/detail' : ''), $filter);
+        $url = $this->getUrl(Resource\Server::resourceName() . (($details) ? '/detail' : ''), $filter);
         return $this->collection('OpenCloud\Compute\Resource\Server', $url);
     }
 
@@ -185,7 +161,7 @@ class Service extends NovaService
      */
     public function imageList($details = true, array $filter = array()) 
     {
-        $url = $this->url('images' . (($details) ? '/detail' : ''), $filter);
+        $url = $this->getUrl('images' . (($details) ? '/detail' : ''), $filter);
         return $this->collection('OpenCloud\Compute\Resource\Image', $url);
     }
 

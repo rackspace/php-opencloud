@@ -19,34 +19,9 @@ use OpenCloud\Compute\Resource\Server;
  */
 class Service extends AbstractService
 {
+    const DEFAULT_TYPE = 'rax:dns';
     const DEFAULT_NAME = 'cloudDNS';
-    const DEFAULT_REGION = '{ignore}';
-    
-    /**
-     * creates a new DNS object
-     *
-     * @param \OpenCloud\OpenStack $conn connection object
-     * @param string $serviceName the name of the service
-     * @param string $serviceRegion (not currently used; DNS is regionless)
-     * @param string $urltype the type of URL
-     */
-    public function __construct(
-        OpenStack $connection,
-        $serviceName,
-        $serviceRegion,
-        $urltype
-    ) {
-        
-        $this->getLogger()->info('Initializing DNS...');
-        
-        parent::__construct(
-            $connection,
-            'rax:dns',
-            $serviceName,
-            $serviceRegion,
-            $urltype
-        );
-    }
+    const DEFAULT_REGION = false;
 
     /**
      * returns a DNS::Domain object

@@ -87,9 +87,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function __construct()
     {
-        $this->service = new ComputeService(
-            $this->getClient(), 'cloudServersOpenStack', 'DFW', 'publicURL'
-        );
+        $this->service = $this->getClient()->computeService();
         $this->instance = new MyPersistentObject($this->service);
     }
 

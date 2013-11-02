@@ -14,6 +14,7 @@ use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Compute\Service;
+use OpenCloud\Compute\Constants\Network as NetworkConst;
 
 /**
  * The Network class represents a single virtual network
@@ -37,7 +38,7 @@ class Network extends PersistentObject
      * @param \OpenCloud\Compute $service The compute service associated with
      *      the network
      * @param string $id The ID of the network (this handles the pseudo-networks
-     *      RAX_PUBLIC and RAX_PRIVATE
+     *      Network::RAX_PUBLIC and Network::RAX_PRIVATE
      * @return void
      */
     public function __construct(Service $service, $id = null) 
@@ -45,11 +46,11 @@ class Network extends PersistentObject
         $this->id = $id;
 
         switch ($id) {
-            case RAX_PUBLIC:
+            case NetworkConst::RAX_PUBLIC:
                 $this->label = 'public';
                 $this->cidr = 'NA';
                 break;
-            case RAX_PRIVATE:
+            case NetworkConst::RAX_PRIVATE:
                 $this->label = 'private';
                 $this->cidr = 'NA';
                 break;
@@ -67,7 +68,7 @@ class Network extends PersistentObject
      */
     public function update($params = array()) 
     {
-        throw new Exceptions\NetworkUpdateError(Lang::translate('Isolated networks cannot be updated'));
+        throw new Exceptions\NetworkUpdateError('Isolated networks cannot be updated');
     }
 
     /**
@@ -80,8 +81,8 @@ class Network extends PersistentObject
     public function delete() 
     {
         switch ($this->id) {
-            case RAX_PUBLIC:
-            case RAX_PRIVATE:
+            case NetworkConst::RAX_PUBLIC:
+            case NetworkConst::RAX_PRIVATE:
                 throw new Exceptions\DeleteError('Network may not be deleted');
             default:
                 return parent::Delete();

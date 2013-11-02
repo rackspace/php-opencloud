@@ -12,6 +12,7 @@ namespace OpenCloud\Common;
 
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Url;
+use OpenCloud\Common\Constants\State as StateConst;
 use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions\RuntimeException;
@@ -352,11 +353,6 @@ abstract class PersistentObject extends Base
      * status. Once the status reaches the `$terminal` value (or 'ERROR'),
      * then the function returns.
      *
-     * The polling interval is set by the constant RAXSDK_POLL_INTERVAL.
-     *
-     * The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
-     * seconds elapse.
-     *
      * @api
      * @param string $terminal the terminal state to wait for
      * @param integer $timeout the max time (in seconds) to wait
@@ -367,16 +363,16 @@ abstract class PersistentObject extends Base
      * @return void
      * @codeCoverageIgnore
      */
-    public function waitFor(
-        $terminal = 'ACTIVE',
-        $timeout = RAXSDK_SERVER_MAXTIMEOUT,
-        $callback = NULL,
-        $sleep = RAXSDK_POLL_INTERVAL
-    ) {
+    public function waitFor($state = null, $timeout = null, $callback = null, $interval = null)
+    {
+        $state    = $state ?: StateConst::ACTIVE;
+        $timeout  = $timeout ?: StateConst::DEFAULT_TIMEOUT;
+        $interval = $interval ?: StateConst::DEFAULT_INTERVAL;
+
         // save stats
         $startTime = time();
         
-        $states = array('ERROR', $terminal);
+        $states = array('ERROR', $state);
         
         while (true) {
             
@@ -390,7 +386,7 @@ abstract class PersistentObject extends Base
                 return;
             }
             
-            sleep($sleep);
+            sleep($interval);
         }
     }
     

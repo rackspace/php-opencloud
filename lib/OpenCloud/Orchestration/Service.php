@@ -23,29 +23,8 @@ use OpenCloud\OpenStack;
  */
 class Service extends AbstractService 
 {
-    
+    const DEFAULT_TYPE = 'orchestration';
     const DEFAULT_NAME = 'cloudOrchestration';
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function __construct(
-        OpenStack $conn,
-        $serviceName,
-        $serviceRegion,
-        $urltype
-    ) {
-        
-        $this->getLogger()->info('Initializing Orchestration...');
-        
-        parent::__construct(
-            $conn,
-            'orchestration',
-            $serviceName,
-            $serviceRegion,
-            $urltype
-        );
-    }
 
     /**
      * Returns a Stack object associated with this Orchestration service

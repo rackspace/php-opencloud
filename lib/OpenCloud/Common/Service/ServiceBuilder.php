@@ -29,51 +29,11 @@ class ServiceBuilder
      */
     public static function factory(Client $client, $class, array $options = array())
     {
-        // Strip off base namespace
-        $class = 'OpenCloud\\' . preg_replace('#\\\?OpenCloud\\\#', '', $class) . '\\Service';
-        $defaults  = self::getDefaults($class);
+        $name = isset($options['name']) ? $options['name'] : null;
+        $region = isset($options['region']) ? $options['region'] : null;
+        $urlType = isset($options['urlType']) ? $options['urlType'] : null;
 
-        // @codeCoverageIgnoreStart
-        if (!$name = !empty($options['name']) ? $options['name'] : $defaults['name']) {
-            throw new ServiceException(sprintf(
-                Lang::translate('No value for %s name'),
-                $class
-            ));
-        }
-
-        if (!$region = !empty($options['region']) ? $options['region'] : $defaults['region']) {
-            throw new ServiceException(sprintf(
-                Lang::translate('No value for %s region'),
-                $class
-            ));
-        }
-
-        if (!$urlType = !empty($options['urlType']) ? $options['urlType'] : $defaults['urlType']) {
-            throw new ServiceException(sprintf(
-                Lang::translate('No value for %s URL type'),
-                $class
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        return new $class($client, $name, $region, $urlType);
-    }
-
-    /**
-     * Get the default information from a Service class using its constants.
-     *
-     * @param $class
-     * @return array
-     */
-    private static function getDefaults($class)
-    {
-        $base = __NAMESPACE__ . '\\AbstractService';
-        
-        return array(
-            'name'    => (defined("{$class}::DEFAULT_NAME")) ? $class::DEFAULT_NAME : null,
-            'region'  => (defined("{$class}::DEFAULT_REGION")) ? $class::DEFAULT_REGION : $base::DEFAULT_REGION,
-            'urlType' => (defined("{$class}::DEFAULT_URL_TYPE")) ? $class::DEFAULT_URL_TYPE : $base::DEFAULT_URL_TYPE,
-        );
+        return new $class($client, null, $name, $region, $urlType);
     }
     
 }
