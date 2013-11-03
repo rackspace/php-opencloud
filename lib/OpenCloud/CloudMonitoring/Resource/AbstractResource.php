@@ -15,7 +15,7 @@ use OpenCloud\Common\PersistentObject;
 
 abstract class AbstractResource extends PersistentObject
 {
-    protected function createJson()
+    public function createJson()
     {
         foreach (static::$requiredKeys as $requiredKey) {
             if (!$this->getProperty($requiredKey)) {
@@ -70,7 +70,7 @@ abstract class AbstractResource extends PersistentObject
      * @param bool $debug (default: false)
      * @return void
      */
-    public function test($params = array(), $debug = false)
+    public function testParams($params = array(), $debug = false)
     {
         if (!empty($params)) {
             $this->populate($params);
@@ -94,7 +94,7 @@ abstract class AbstractResource extends PersistentObject
      * @param bool $debug (default: false)
      * @return void
      */
-    public function testExisting($debug = false)
+    public function test($debug = false)
     {
         $json = json_encode($this->updateJson());
         $this->checkJsonError();

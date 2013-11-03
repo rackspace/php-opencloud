@@ -22,6 +22,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
     const DEFAULT_CHECK_TYPE = 'remote.dns';
 
     private $entity;
+    private $check;
 
     public function setupService()
     {
@@ -103,8 +104,6 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 
         /*** CHECKS ***/
 
-
-
         /**
          * On IRC, ask Cloud Monitoring team why they have an IP hash for entities when individual checks set the URL.
          * In the docs, they say checks can "reference" the IPs of their parent, but I can't see how.
@@ -140,22 +139,109 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         }
 
         $check->update(array('period' => 200));
+        $this->check = $check;
     }
 
     public function doMetricsBlock()
     {
+        $this->step('Metrics');
 
+        // fetch metrics
+        $step1 = $this->stepInfo('Showing metrics for check %s: ', $this->check->getId());
+        $metrics = $this->check->getMetrics();
+        while ($metric = $metrics->next()) {
+            $step1->stepInfo(print_r($metric, true));
+        }
     }
 
     public function doNotificationsBlock()
     {
-        // notification plans
+        /*** NOTIFICATIONS ***/
+        $this->step('Notification');
 
-        // notifications
+        $params = array(
+            'label' => $this->prepend(self::NOTIFICATION_LABEL),
+            'type'  => 'webhook',
+            'details' => (object) array('url' => 'http://google.com')
+        );
 
-        // notification types
+        $this->stepInfo('Test notification');
+        $this->getService()->testNotification($params);
 
-        // alarm notification history
+        $this->stepInfo('Create notification');
+        $this->getService()->createNotification($params);
+
+        $step1 = $this->stepInfo('List notifications');
+        $notifications = $this->getService()->getNotifications();
+        while ($notification = $notifications->next()) {
+            $step1->stepInfo('Notification %s', $notification->getId());
+        }
+
+        /*** NOTIFICATION PLANS ***/
+
+        $this->step('Notification plans');
+
+        // create
+        $this->stepInfo('Create NP');
+        $this->getService()->createNotificationPlan(array(
+            'label' => $this->prepend(self::NOTIFICATION_PLAN_LABEL),
+            'critical_state' => array($notification->getId()),
+            'warning_state'  => array($notification->getId()),
+            'ok_state'       => array($notification->getId()),
+        ));
+
+        // list
+        $step2 = $this->stepInfo('List NPs');
+        $plans = $this->getService()->getNotificationPlans();
+        while ($plan = $plans->next()) {
+            $step2->stepInfo('Notification Plan %s', $plan->getId());
+        }
+    }
+
+    public function doAlarmBlock()
+    {
+        $this->step('Alarms');
+
+        $params = array(
+            'check_id' => $this->check->getId(),
+            'criteria' => 'if (metric[\"duration\"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);',
+            'notification_plan_id' => $this->notificationPlan->getId()
+        );
+
+        // test alarm params
+        $this->stepInfo('Test alarm');
+        $this->entity->testAlarm($params);
+
+        // create alarm
+        $this->stepInfo('Create alarm');
+        $this->entity->createAlarm($params);
+
+        // list alarms
+        $step = $this->stepInfo('List alarms');
+        $alarms = $this->entity->getAlarms();
+        while ($alarm = $alarms->next()) {
+            $step->stepInfo('Alarm %s', $alarm->getId());
+        }
+
+        $this->step('Alarm notification history');
+
+        $step1 = $this->stepInfo('List recorded checks for alarm %s', $alarm->getId());
+        $checkIds = $alarm->getRecordedChecks();
+
+        if (!is_array($checkIds)) {
+            return;
+        }
+
+        foreach ($checkIds as $checkId) {
+            $step1->stepInfo('Check recorded: %s', $checkId);
+        }
+
+        $step2 = $this->stepInfo('List notification history for check %s on alarm %s', $checkId, $alarm->getId());
+        $history = $alarm->getNotificationHistoryForCheck($checkId);
+
+        while ($historyItem = $history->next()) {
+            $step2->stepInfo('History item: ID [%s] with status [%s]', $historyItem->getId(), $historyItem->getStatus());
+        }
     }
 
     public function doMonitoringZonesBlock()

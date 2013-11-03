@@ -37,4 +37,34 @@ class Entity extends AbstractResource
         'label'
     );
 
+    public function getChecks()
+    {
+        return $this->getService()->resourceList('Check', null, $this);
+    }
+
+    public function getCheck($id = null)
+    {
+        return $this->getService()->resource('Check', $id, $this);
+    }
+
+    public function testNewCheckParams(array $params, $debug = false)
+    {
+        return $this->getCheck()->testParams($params, $debug);
+    }
+
+    public function createAlarm(array $params)
+    {
+        return $this->getService()->resource('Alarm', $params, $this)->create();
+    }
+
+    public function testAlarm(array $params)
+    {
+        return $this->getService()->resource('Alarm', $params, $this)->test();
+    }
+
+    public function getAlarms()
+    {
+        return $this->getService()->resourceList('Alarm', null, $this);
+    }
+
 }

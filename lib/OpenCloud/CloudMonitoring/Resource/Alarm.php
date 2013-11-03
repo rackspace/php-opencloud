@@ -65,6 +65,33 @@ class Alarm extends AbstractResource
             ->post($url, array(), $body)
             ->send()
             ->getDecodedBody();
-    }	
+    }
+
+    public function getHistoryUrl()
+    {
+        return $this->getUrl()->addPath(NotificationHistory::resourceName());
+    }
+
+    public function getRecordedChecks()
+    {
+        $data = $this->getService()
+            ->getClient()
+            ->get($this->getHistoryUrl())
+            ->send()
+            ->getDecodedBody();
+
+        return (isset($data->check_ids)) ? $data->check_ids : false;
+    }
+
+    public function getNotificationHistoryForCheck($checkId)
+    {
+        $url = $this->getHistoryUrl()->addPath($checkId);
+        return $this->getService()->resourceList('NotificationHistory', $url, $this);
+    }
+
+    public function getNotificationHistoryItem($uuid)
+    {
+        return $this->getService()->resource('NotificationHistory', $uuid, $this);
+    }
 	
 }

@@ -61,4 +61,39 @@ class Service extends AbstractService
         return $this->resource('CheckType', $id);
     }
 
+    public function createNotification(array $params)
+    {
+        return $this->getNotification($params)->create();
+    }
+
+    public function testNotification(array $params)
+    {
+        return $this->getNotification()->testParams($params);
+    }
+
+    public function getNotification($id = null)
+    {
+        return $this->resource('Notification', $id);
+    }
+
+    public function getNotifications()
+    {
+        return $this->resourceList('Notification');
+    }
+
+    public function createNotificationPlan(array $params)
+    {
+        return $this->getNotificationPlan()->create($params);
+    }
+
+    public function getNotificationPlan($id = null)
+    {
+        return $this->resource('NotificationPlan', $id);
+    }
+
+    public function getNotificationPlans()
+    {
+        return $this->resourceList('NotificationPlan');
+    }
+
 }
