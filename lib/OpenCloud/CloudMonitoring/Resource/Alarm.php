@@ -53,13 +53,13 @@ class Alarm extends AbstractResource
         
         if (!isset($params['check_data']) || !is_array($params['check_data'])) {
             throw new Exception\AlarmException(
-                'Please specify a "check data" array'
+                'Please specify a "check_data" array'
             );
         }
         
         $url  = $this->getParent()->url('test-alarm');
         $body = json_encode((object) $params);
-        
+
         return $this->getService()
             ->getClient()
             ->post($url, array(), $body)

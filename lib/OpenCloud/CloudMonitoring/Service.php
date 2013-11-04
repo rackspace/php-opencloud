@@ -96,4 +96,36 @@ class Service extends AbstractService
         return $this->resourceList('NotificationPlan');
     }
 
+    public function getMonitoringZones()
+    {
+        return $this->resourceList('Zone');
+    }
+
+    public function getMonitoringZone($id = null)
+    {
+        return $this->resource('Zone', $id);
+    }
+
+    public function getChangelog($entityId = null)
+    {
+        $url = $this->resource('Changelog')->getUrl();
+
+        if ($entityId) {
+            $url->setQuery(array('entityId' => $entityId));
+        }
+
+        $response = $this->getClient()->get($url)->send()->getDecodedBody();
+
+        return (isset($response->values)) ? $response->values : false;
+    }
+
+    public function getViews()
+    {
+        $url = $this->resource('View')->getUrl();
+
+        $response = $this->getClient()->get($url)->send()->getDecodedBody();
+
+        return (isset($response->values)) ? $response->values : false;
+    }
+
 }

@@ -216,11 +216,24 @@ abstract class PersistentObject extends Base
             ))
             ->send();
 
-        if (null !== ($decoded = $this->parseResponse($response))) {
+        if ($location = $response->getHeader('Location')) {
+            $this->refreshFromLocationUrl($location);
+        } elseif (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }
         
         return $response;
+    }
+
+    public function refreshFromLocationUrl($url)
+    {
+        $fullUrl = Url::factory($url);
+
+        $response = $this->getClient()->get($fullUrl)->send();
+
+        if (null !== ($decoded = $this->parseResponse($response))) {
+            $this->populate($decoded);
+        }
     }
 
     /**
@@ -249,7 +262,7 @@ abstract class PersistentObject extends Base
         $this->checkJsonError();
 
         // send the request
-        return $this->getClient()->put($this->url(), array(), $json)->send();
+        return $this->getClient()->put($this->getUrl(), array(), $json)->send();
     }
 
     /**

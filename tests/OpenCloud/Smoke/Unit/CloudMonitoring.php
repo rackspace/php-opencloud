@@ -9,6 +9,8 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use OpenCloud\Smoke\Utils;
+
 /**
  * Description of CloudMonitoring
  * 
@@ -18,24 +20,42 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 {
     const ENTITY_LABEL = 'test_entity';
     const CHECK_LABEL = 'website_check';
+    const NOTIFICATION_LABEL = 'test_notification';
+    const NOTIFICATION_PLAN_LABEL = 'test_notification_plan';
 
     const DEFAULT_CHECK_TYPE = 'remote.dns';
+    const TRACEROUTE_TARGET  = 'bbc.com';
 
     private $entity;
     private $check;
 
     public function setupService()
     {
-        return $this->getConnection()->computeService('cloudMonitoring', Utils::getRegion());
+        return $this->getConnection()->cloudMonitoringService('cloudMonitoring', Utils::getRegion());
     }
 
     public function main()
     {
         $this->doEntityBlock();
+        //$this->entity = $this->getService()->getEntity('enrWJv2inD');
+
+        $this->doCheckBlock();
+        //$this->check = $this->entity->getCheck('chw1LVCem6');
+
+        $this->doMetricsBlock();
+        $this->doNotificationsBlock();
+        //$this->notificationPlan = $this->getService()->getNotificationPlan('npyooOmV8g');
+
+        $this->doAlarmBlock();
+        $this->doMonitoringZonesBlock();
+        $this->doOtherBlock();
+
+        $this->doAgentBlock();
     }
 
     public function teardown()
     {
+        $this->doEntityTeardown();
     }
 
     public function doEntityBlock()
@@ -68,11 +88,11 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
             )
         ));
 
-        $this->stepInfo('List entities');
+        $step = $this->stepInfo('List entities');
 
         $entities = $this->getService()->getEntities();
         while ($entity = $entities->next()) {
-            $this->stepInfo('Entity: %s', $entity->getLabel());
+            $step->stepInfo('Entity: %s', $entity->getLabel());
         }
     }
 
@@ -81,7 +101,9 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         $entities = $this->getService()->getEntities();
         while ($entity = $entities->next()) {
             if ($this->shouldDelete($entity->getLabel())) {
-                $entity->delete();
+                try {
+                    $entity->delete();
+                } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {}
             }
         }
     }
@@ -95,7 +117,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         $step1 = $this->stepInfo('List check types');
         $types = $this->getService()->getCheckTypes();
         while ($type = $types->next()) {
-            $step1->stepInfo('Check type: [%s] %s', $type->getId(), $type->getName());
+            $step1->stepInfo('Check type: ID [%s], type [%s]', $type->getId(), $type->getType());
         }
 
         $this->stepInfo('Get check type');
@@ -117,29 +139,33 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
                 'method' => 'GET'
             ),
             'monitoring_zones_poll' => array('mzlon'),
-            'period' => 100,
-            'timeout' => 30,
-            'target_alias' => 'default',
-            'label'  => $this->prepend(self::CHECK_LABEL)
+            'timeout' => 10,
+            'target_alias' => 'default'
         );
 
         $this->stepInfo('Testing check parameters');
-        $check->test($params);
+        $check->testParams($params);
+
+        $params['period'] = 30;
+        $params['label'] = $this->prepend(self::CHECK_LABEL);
 
         $this->stepInfo('Create check for entity ID %s', $this->entity->getId());
         $check->create($params);
 
-        $debug = $check->testExisting(true);
+        $debug = $check->test(true);
         $this->stepInfo('Test existing check: %s', print_r($debug, true));
 
         $step2 = $this->stepInfo('List checks');
         $checks = $this->entity->getChecks();
         while ($check = $checks->next()) {
             $step2->stepInfo($check->getLabel());
+
+            $finalCheck = $check;
         }
 
-        $check->update(array('period' => 200));
-        $this->check = $check;
+        $this->stepInfo('Updating check %s', $finalCheck->getId());
+        $finalCheck->update(array('period' => 200));
+        $this->check = $finalCheck;
     }
 
     public function doMetricsBlock()
@@ -149,6 +175,10 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         // fetch metrics
         $step1 = $this->stepInfo('Showing metrics for check %s: ', $this->check->getId());
         $metrics = $this->check->getMetrics();
+        if (!$metrics->count()) {
+            $this->stepInfo('No metrics to show yet!');
+            return;
+        }
         while ($metric = $metrics->next()) {
             $step1->stepInfo(print_r($metric, true));
         }
@@ -175,26 +205,32 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         $notifications = $this->getService()->getNotifications();
         while ($notification = $notifications->next()) {
             $step1->stepInfo('Notification %s', $notification->getId());
+            $finalNotification = $notification;
         }
 
         /*** NOTIFICATION PLANS ***/
 
-        $this->step('Notification plans');
+        if (isset($finalNotification)) {
+            $this->step('Notification plans');
 
-        // create
-        $this->stepInfo('Create NP');
-        $this->getService()->createNotificationPlan(array(
-            'label' => $this->prepend(self::NOTIFICATION_PLAN_LABEL),
-            'critical_state' => array($notification->getId()),
-            'warning_state'  => array($notification->getId()),
-            'ok_state'       => array($notification->getId()),
-        ));
+            $id = $finalNotification->getId();
+
+            // create
+            $this->stepInfo('Create NP');
+            $this->getService()->createNotificationPlan(array(
+                'label' => $this->prepend(self::NOTIFICATION_PLAN_LABEL),
+                'critical_state' => array($id),
+                'warning_state'  => array($id),
+                'ok_state'       => array($id),
+            ));
+        }
 
         // list
         $step2 = $this->stepInfo('List NPs');
         $plans = $this->getService()->getNotificationPlans();
         while ($plan = $plans->next()) {
             $step2->stepInfo('Notification Plan %s', $plan->getId());
+            $this->notificationPlan = $plan;
         }
     }
 
@@ -202,31 +238,38 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
     {
         $this->step('Alarms');
 
-        $params = array(
-            'check_id' => $this->check->getId(),
-            'criteria' => 'if (metric[\"duration\"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);',
-            'notification_plan_id' => $this->notificationPlan->getId()
-        );
-
         // test alarm params
         $this->stepInfo('Test alarm');
-        $this->entity->testAlarm($params);
+        $this->entity->testAlarm(array(
+            'check_data' => $this->check->test(),
+            'criteria' => 'if (metric["duration"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);'
+        ));
 
         // create alarm
         $this->stepInfo('Create alarm');
-        $this->entity->createAlarm($params);
+        $this->entity->createAlarm(array(
+            'check_id' => $this->check->getId(),
+            'criteria' => 'if (metric["duration"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);',
+            'notification_plan_id' => $this->notificationPlan->getId()
+        ));
 
         // list alarms
         $step = $this->stepInfo('List alarms');
         $alarms = $this->entity->getAlarms();
         while ($alarm = $alarms->next()) {
             $step->stepInfo('Alarm %s', $alarm->getId());
+            $finalAlarm = $alarm;
         }
 
         $this->step('Alarm notification history');
 
-        $step1 = $this->stepInfo('List recorded checks for alarm %s', $alarm->getId());
-        $checkIds = $alarm->getRecordedChecks();
+        if (!isset($finalAlarm)) {
+            $this->stepInfo('No alarms!');
+            return;
+        }
+
+        $step1 = $this->stepInfo('List recorded checks for alarm %s', $finalAlarm->getId());
+        $checkIds = $finalAlarm->getRecordedChecks();
 
         if (!is_array($checkIds)) {
             return;
@@ -236,8 +279,8 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
             $step1->stepInfo('Check recorded: %s', $checkId);
         }
 
-        $step2 = $this->stepInfo('List notification history for check %s on alarm %s', $checkId, $alarm->getId());
-        $history = $alarm->getNotificationHistoryForCheck($checkId);
+        $step2 = $this->stepInfo('List notification history for check %s on alarm %s', $checkId, $finalAlarm->getId());
+        $history = $finalAlarm->getNotificationHistoryForCheck($checkId);
 
         while ($historyItem = $history->next()) {
             $step2->stepInfo('History item: ID [%s] with status [%s]', $historyItem->getId(), $historyItem->getStatus());
@@ -246,14 +289,40 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 
     public function doMonitoringZonesBlock()
     {
+        $this->step('Monitoring zones');
 
+        // list zones
+        $step = $this->stepInfo('List zones');
+        $zones = $this->getService()->getMonitoringZones();
+        while ($zone = $zones->next()) {
+            $zoneId = $zone->getId();
+            $step->stepInfo('Monitoring zone: ID [%s], label [%s]', $zoneId, $zone->getLabel());
+        }
+
+        // get zone
+        $this->stepInfo('Get zone');
+        $zone = $this->getService()->getMonitoringZone($zoneId);
+
+        // perform traceroute
+        $trace = $zone->traceroute(array('target' => self::TRACEROUTE_TARGET,'target_resolver' => 'IPv4'));
+        $this->stepInfo('Traceroute: %s', print_r($trace, true));
     }
 
     public function doOtherBlock()
     {
         // changelog
+        $this->step('Changelog');
+
+        //$step = $this->stepInfo('List 1st key of changelog for entity %s', $this->entity->getId());
+        //$changelog = $this->getService()->getChangelog($this->entity->getId());
+        //$step->stepInfo(print_r($changelog[0], true));
 
         // views
+        $this->step('Views');
+
+        $step = $this->stepInfo('List 1st key of views');
+        $views = $this->getService()->getViews();
+        $step->stepInfo(print_r($views[0], true));
     }
 
     public function doAgentBlock()

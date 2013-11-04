@@ -39,7 +39,7 @@ class Check extends AbstractResource
         'details',
         'disabled',
         'label',
-        'metadata',
+        //'metadata',
         'period',
         'timeout',
         'monitoring_zones_poll',
@@ -71,6 +71,11 @@ class Check extends AbstractResource
             $params['debug'] = 'true';
         }
         return $this->getParent()->url('test-check', $params); 
+    }
+
+    public function testExistingUrl($debug = false)
+    {
+        return $this->getUrl()->addPath('test');
     }
 
     public function getMetrics()

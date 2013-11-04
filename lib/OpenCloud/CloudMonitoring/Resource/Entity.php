@@ -59,7 +59,7 @@ class Entity extends AbstractResource
 
     public function testAlarm(array $params)
     {
-        return $this->getService()->resource('Alarm', $params, $this)->test();
+        return $this->getService()->resource('Alarm', null, $this)->test($params);
     }
 
     public function getAlarms()

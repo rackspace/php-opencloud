@@ -34,23 +34,26 @@ class Zone extends ReadOnlyResource
             );    
         }
         
-        if (!isset($options['target'])) {
+        if (!isset($options['target']) || !isset($options['target_resolver'])) {
             throw new Exception\ZoneException(
-                'Please specify a "target" value'
+                'Please specify a "target" and "target_resolver" value'
             );
         }
-        
-        $params = (object) array('target' => $options['target']);
-        
-        if (isset($options['target_resolver'])) {
-            $params->target_resolver = $options['target_resolver'];
-        }
-        
-        return $this->getService()
+
+        $params = (object) array(
+            'target' => $options['target'],
+            'target_resolver' => $options['target_resolver']
+        );
+        try {
+        $data = $this->getService()
             ->getClient()
             ->post($this->url('traceroute'), array(), json_encode($params))
             ->send()
             ->getDecodedBody();
+        } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {
+            var_dump((string)$e->getResponse()->getBody());die;
+        }
+        return (isset($data->result)) ? $data->result : false;
     }
     
 }

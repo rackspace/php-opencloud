@@ -331,10 +331,10 @@ abstract class Base
                     $this->setProperty($this->aliases[$key], $value);
                     
                 } else {
-                    
                     // Normal key/value pair
                     $this->setProperty($key, $value);
-                } 
+                }
+
             }
         } elseif (null !== $info) {
             throw new Exceptions\InvalidArgumentError(sprintf(

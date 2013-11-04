@@ -43,7 +43,7 @@ abstract class AbstractResource extends PersistentObject
         foreach (static::$requiredKeys as $requiredKey) {
             if (!$this->getProperty($requiredKey)) {
                 throw new Exceptions\UpdateError(sprintf(
-                    "%s is required to create a new %s", $requiredKey, get_class()
+                    "%s is required to update a %s", $requiredKey, get_class()
                 ));
             }
         }
@@ -72,13 +72,8 @@ abstract class AbstractResource extends PersistentObject
      */
     public function testParams($params = array(), $debug = false)
     {
-        if (!empty($params)) {
-            $this->populate($params);
-        }
+        $json = json_encode((object) $params);
 
-        $json = json_encode($this->createJson());
-        $this->checkJsonError();
-        
         // send the request
         return $this->getService()
             ->getClient()
@@ -100,7 +95,7 @@ abstract class AbstractResource extends PersistentObject
         $this->checkJsonError();
 
         return $this->getClient()
-            ->post($this->testUrl($debug), array(), $json)
+            ->post($this->testExistingUrl($debug), array(), $json)
             ->send()
             ->getDecodedBody();
     }

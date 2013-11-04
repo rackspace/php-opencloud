@@ -194,6 +194,7 @@ class Runner
         // Do connection stuff
         $connection = new Rackspace($identityEndpoint, $secret);
         $connection->setUserAgent($connection->getUserAgent() . '/' . Enum::USER_AGENT);
+        $connection->authenticate();
 
 //        // See if we can retrieve credentials
 //        $credentialsCacheFile = __DIR__ . '/Resource/' . Enum::CREDS_FILENAME;
@@ -233,6 +234,7 @@ class Runner
         
         Utils::logf('   Using identity endpoint: %s', $identityEndpoint);
         Utils::logf('   Using region: %s', Utils::getRegion());
+        Utils::logf('   Token generated: %s', (string) $connection->getToken());
         
         return $connection;
     }
