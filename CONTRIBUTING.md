@@ -21,3 +21,20 @@ efforts. Here are a few general guidelines to follow:
 
 If you submit code, please add your name and email address to the
 CONTRIBUTORS file.
+
+Test Instructions
+-----------------
+
+### Install Composer
+curl -sS https://getcomposer.org/installer | php
+
+### Install dependencies
+php composer.phar install
+
+### Run unit tests
+phpunit
+
+### (If necessary) run the full suite of acceptance tests
+1. Make sure your [variables-order](http://www.php.net/manual/en/ini.core.php#ini.variables-order) is set to "EGCRS"
+2. Set your *PHP_OpenCloud_USERNAME* and *PHP_OpenCloud_API_KEY* variables
+3. Run `php tests/OpenCloud/Smoke/Runner.php`

@@ -69,14 +69,7 @@ The source for the "Getting Started with
 There is a complete (auto-generated) API reference manual in the
 docs/api directory. Start with docs/api/index.html.
 
-See the [HOWTO.md](https://github.com/rackspace/php-opencloud/blob/master/HOWTO.md) file for instructions on
-regenerating the documentation and running tests.
-
-See the [smoketest.php](https://github.com/rackspace/php-opencloud/blob/master/smoketest.php) file for some
-simple, working examples. This is a test we run before builds to ensure that all
-the core functionality is still working after code changes.
-
-The [samples/](https://github.com/rackspace/php-opencloud/tree/master/samples/) directory has a collection
+The [samples/](https://github.com/rackspace/php-opencloud/tree/master/docs/samples/) directory has a collection
 of tested, working sample code. Note that these may create objects in your cloud
 for which you could be charged.
 
