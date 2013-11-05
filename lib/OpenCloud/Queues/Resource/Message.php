@@ -78,10 +78,7 @@ class Message extends PersistentObject
         $this->href = $href;
         return $this;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function createJson()
     {
         return (object) array(
@@ -92,18 +89,14 @@ class Message extends PersistentObject
     
     /**
      * To create messages, use the service's createMessages() method because it
-     * allows for batch creation.
-     * 
+     * allows for batch creation
      * {@inheritDoc}
      */
     public function create($params = array())
     {
         return $this->noCreate();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function update($params = array())
     {
         return $this->noUpdate();

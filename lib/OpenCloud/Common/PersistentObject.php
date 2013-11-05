@@ -285,7 +285,7 @@ abstract class PersistentObject extends Base
             if (!$id = $id ?: $primaryKeyVal) {
                 throw new Exceptions\IdRequiredError(sprintf(
                     Lang::translate("%s has no %s; cannot be refreshed"),
-                    get_class(),
+                    get_class($this),
                     $primaryKey
                 ));
             }
@@ -324,7 +324,7 @@ abstract class PersistentObject extends Base
         $this->getLogger()->info('{class}::Delete()', array('class' => get_class($this)));
 
         // send the request
-        return $this->getClient()->delete($this->url())->send();
+        return $this->getClient()->delete($this->getUrl())->send();
     }
     
     /**

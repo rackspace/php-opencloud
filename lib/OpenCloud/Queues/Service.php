@@ -77,7 +77,12 @@ class Service extends AbstractService
     {
         return $this->clientId;
     }
-    
+
+    public function createQueue($name)
+    {
+        return $this->resource('Queue.md')->create(array('name' => $name));
+    }
+
     /**
      * This operation lists queues for the project, sorting the queues 
      * alphabetically by name.
@@ -98,19 +103,17 @@ class Service extends AbstractService
      */
     public function listQueues(array $params = array())
     {
-        return $this->resourceList('Queue', $this->url('queues', $params));
+        return $this->resourceList('Queue.md', $this->getUrl('queues', $params));
     }
     
     /**
-     * Return an empty Queue object.
+     * Return an empty Queue.md object.
      * 
-     * @return Queue
+     * @return Queue.md
      */
     public function getQueue($id = null)
     {
-        $resource = $this->resource('Queue');
-        $resource->populate($id);
-        return $resource;
+        return $this->resource('Queue.md', $id);
     }
     
     /**
@@ -129,14 +132,15 @@ class Service extends AbstractService
         }
         
         try {
-            
+            $url = $this->getUrl();
+            $url->addPath('queues')->addPath($name);
+
             $this->getClient()
-                ->head($this->url("queues/$name"))
+                ->head($url)
                 ->setExpectedResponse(204)
                 ->send();
-            
+
             return true;
-            
         } catch (BadResponseException $e) {
             return false;
         } 

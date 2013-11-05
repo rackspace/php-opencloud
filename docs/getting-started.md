@@ -1,147 +1,173 @@
-# Getting Started with the Rackspace Cloud SDK for PHP
+# Installing the SDK
 
-The Rackspace Cloud SDK for PHP is a Software Development Kit
-intended to help PHP developers more easily build applications
-that access OpenStack and Rackspace clouds (both public and private
-cloud offerings).
+You must install through Composer, because this library has a few dependencies:
 
-This SDK includes the following components:
+```bash
+# Install Composer
+curl -sS https://getcomposer.org/installer | php
 
-1. The php-opencloud language bindings (under the `lib/` directory)
-2. Documentation (under the `docs/` directory)
-3. Sample code (under the `samples/` directory)
+# Require php-opencloud as a dependency
+php composer.phar require rackspace/php-opencloud:dev-master
+```
 
-## How to install the SDK
+Once you have installed the library, you will need to load Composer's autoloader (which registers all the required
+namespaces):
 
-The SDK is available from the Rackspace GitHub repository. You can
-reach it at http://github.com/rackspace/php-opencloud.
+```php
+require 'vendor/autoload.php';
+```
 
-To get the most reach release (stable) version of the code:
+And you're good to go!
 
-<img src="img/tags.png">
-
-1. Click on the Tags link
-2. Choose the most recent version, then click on either the `zip`
-   or the `.tar.gz` button beneath it.
-3. Find the downloaded file and uncompress it into the location
-   of your choice. Make a note of the directory path; you will need
-   it later.
-
-## Building some cloud servers
+# Quick deep-dive: building some cloud servers
 
 In this example, you will write code that will create two 1GB
 Cloud Servers running Ubuntu 13.04. You will need a text editor
 to enter and edit this code. Here is the complete program:
 
+### 1. Setup the client and pass in your credentials
 
-    <?php
-    require('/path/to/lib/php-opencloud.php');
+To authenticate against, and use the services of, Rackspace's API:
 
-    define('IMAGE_UBUNTU', '9922a7c7-5a42-4a56-bc6a-93f857ae2346');
-    define('FLAVOR_1GB', '3');
+```php
+<?php
 
-    // establish our credentials
-    $connection = new \OpenCloud\Rackspace(
-        RACKSPACE_US,
-        array( 'username' => 'USERNAME',
-    	       'password' => 'PASSWORD'));
+require 'vendor/autoload.php';
 
-    // now, connect to the compute service
-    $compute = $connection->Compute('cloudServersOpenStack', 'ORD');
+use OpenCloud\Rackspace;
 
-    // first, find the image
-    $image = $compute->Image(IMAGE_UBUNTU);
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    'username' => 'foo',
+    'apiKey'   => 'bar'
+));
+```
 
-    // get a flavor object
-    $flavor = $compute->Flavor(FLAVOR_1GB);
+Alternatively, if you would like to validate against your own API, or just want to access OpenStack services:
 
-    // create the server
-    for ($i=0; $i<2; $i++) {
-		$server = $compute->Server();		// get a blank server
-		$resp = $server->Create(array(
-			'name' => sprintf('server-%d', $i),
-			'image' => $image,
-			'flavor' => $flavor));
-		// check for errors
-		if ($resp->HttpStatus() > 204)
-			die("Error building server. Response is ".$resp->HttpBody());
-		// display the root password
-		printf("Server [%s] is building. Root password is [%s]\n",
-			$server->Name(), $server->adminPass);
+```
+use OpenCloud\OpenStack;
+
+$client = new OpenStack('http://identity.my-openstack.com/v2.0/', array(
+    'username' => 'foo',
+    'password' => 'bar'
+));
+```
+
+You can see in the first example that the constant `Rackspace::US_IDENTITY_ENDPOINT` is just a string representation of
+Rackspace's identity endpoint (`https://identity.api.rackspacecloud.com/v2.0/`). Another difference is that Rackspace
+uses API key for authentication, whereas OpenStack uses a generic password.
+
+### 2. Pick what service you want to use
+
+In this case, we want to use the Compute (Nova) service:
+
+```php
+$compute = $client->computeService('cloudServersOpenStack', 'ORD');
+```
+
+The first argument is the __name__ of the service as it appears in the OpenStack service catalog. If in doubt, you can
+leave blank and it will revert to the default name for the service. The second argument is the region; you may use either
+__DFW__ (Dallas); __ORD__ (Chicago); __IAD__ (Virginia); __LON__ (London); __HKG__ (Hong Kong); or __SYD__ (Sydney). The
+third and last argument is the type of URL; you may use either `publicUrl` or `internalUrl`. If you select `internalUrl`
+all API traffic will use ServiceNet (internal IPs) and will receive a performance boost.
+
+### 3. Select your server image
+
+Servers are based on "images", which are effectively just the type of operating system you want. Let's go through the list
+and find an Ubuntu one:
+
+```php
+$images = $compute->imageList();
+while ($image = $images->next()) {
+    if (strpos($image->name, 'Ubuntu') !== false) {
+        $ubuntu = $image;
+        break;
     }
+}
+```
 
+Alternatively, if you already know the image ID, you can do this much easier:
 
-## Understanding the program
+```php
+$ubuntu = $compute->image('868a0966-0553-42fe-b8b3-5cadc0e0b3c5');
+```
 
-    <?php
-    require('/path/to/lib/php-opencloud.php');
+## 4. Select your flavor
 
-The `<?php` is required for any PHP program (since PHP is usually embedded
-within HTML).
-The `require()` statement includes the **php-opencloud** library. You will
-need to edit this so that the path is the actual directory path to the
-`php-opencloud.php` file (which is under the `lib/` directory you just
-downloaded).
+There are different server specs - some which offer 1GB RAM, others which offer a much higher spec. The 'flavor' of a
+server is its hardware configuration. So if we want to a 2GB instance but don't know the ID, we have to traverse the list:
 
-    define('IMAGE_UBUNTU', '9922a7c7-5a42-4a56-bc6a-93f857ae2346');
-    define('FLAVOR_1GB', '3');
-
-These two constants define the image ID of the Ubuntu 13.04 image and
-the 1GB flavor. To use a different flavor or image, look up the
-available values through the Rackspace Control Panel or using the
-`novaclient` CLI.
-
-    // establish our credentials
-    $connection = new \OpenCloud\Rackspace(
-        RACKSPACE_US,
-        array( 'username' => 'USERNAME',
-    	       'password' => 'PASSWORD'));
-
-This creates a `$connection` object using the `\OpenCloud\Rackspace`
-connector. This object takes two parameters:
-
-1. The URL of the authentication endpoint (`RACKSPACE_US` is a
-   helpful constant provided by **php-opencloud**).
-2. An array containing your username and password. Edit the `'USERNAME'`
-   and `'PASSWORD'` values to reflect your own username and password.
-
-    // now, connect to the compute service
-    $compute = $connection->Compute('cloudServersOpenStack', 'ORD');
-
-This creates a `Compute` object, which is a connection to a specific
-instance of a service (in this case, the service is named
-`cloudServersOpenStack`) in a region (in this case, the `ORD` region).
-The `Compute()` method on the connection is a *factory method* that
-returns a new connection to a service with each invocation.
-
-    // first, find the image
-    $image = $compute->Image(IMAGE_UBUNTU);
-    // get a flavor object
-    $flavor = $compute->Flavor(FLAVOR_1GB);
-
-These are two more factory methods that return an `Image` object and
-a `Flavor` object, respectively.
-
-    // create the server
-    for ($i=0; $i<2; $i++) {
-		$server = $compute->Server();		// get a blank server
-		$resp = $server->Create(array(
-			'name' => sprintf('server-%d', $i),
-			'image' => $image,
-			'flavor' => $flavor));
-		// check for errors
-		if ($resp->HttpStatus() > 204)
-			die("Error building server. Response is ".$resp->HttpBody());
-		// display the root password
-		printf("Server [%s] is building. Root password is [%s]\n",
-			$server->Name(), $server->adminPass);
+```php
+$flavors = $compute->flavorList();
+while ($flavor = $flavors->next()) {
+    if (strpos($flavor->name, '2GB') !== false) {
+        $twoGbFlavor = $flavor;
+        break;
     }
+}
+```
 
-This actually creates the servers. It starts by creating a new,
-empty server object from the `$compute` service by using the
-`Server()` method.
-Finally, it calls the `Create()` method on the `Server` object.
-This takes an parameter that is an array of properties. `name`,
-`image`, and `flavor` are the required properties for creating
-a new server.
+Again, it's much easier if we know the ID:
 
+```php
+$twoGbFlavor = $compute->flavor('4');
+```
+
+## 5. Thunderbirds are go!
+
+Okay, we're ready to spin up a server:
+
+```php
+use OpenCloud\Compute\Constants\Network;
+
+$server = $compute->server();
+
+try {
+    $response = $server->create(array(
+        'name'     => 'My lovely server',
+        'image'    => $ubuntu,
+        'flavor'   => $twoGbFlavor,
+        'networks' => array(
+            $compute->network(Network::RAX_PUBLIC),
+            $compute->network(Network::RAX_PRIVATE)
+        )
+    ));
+} catch (\Guzzle\Http\Exception\BadResponseException $e) {
+
+    // No! Something failed. Let's find out:
+
+    $responseBody = (string) $e->getResponse()->getBody();
+    $statusCode   = $e->getResponse()->getStatusCode();
+    $headers      = $e->getResponse()->getHeaderLines();
+
+    echo sprintf('Status: %s\nBody: %s\nHeaders: %s', $statusCode, $responseBody, implode(', ', $headers);
+}
+```
+
+As you can see, we're creating a server called "My lovely server", and we've inserted it in two networks: the Rackspace
+private network (ServiceNet), and the Rackspace public network (for Internet connectivity). This will take a few
+minutes for the build to complete.
+
+We can also call a polling function that checks on the build process:
+
+```php
+use OpenCloud\Compute\Constants\ServerState;
+
+$callback = function($server) {
+    if (!empty($server->error)) {
+        var_dump($server->error);
+        exit;
+    } else {
+        echo sprintf(
+            "Waiting on %s/%-12s %4s%%",
+            $server->name(),
+            $server->status(),
+            isset($server->progress) ? $server->progress : 0
+        );
+    }
+};
+
+$server->waitFor(ServerState::ACTIVE, 600, $callback);
+```
+So, the server will be polled until it is in an `ACTIVE` state, with a timeout of 600s. When the poll happens, the
+callback function is executed - which in the case just logs some output.

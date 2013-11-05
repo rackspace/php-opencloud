@@ -259,12 +259,11 @@ class Server extends PersistentObject
     public function reboot($type = null)
     {
         if (!$type) {
-            $type = ServerState::REBOOT;
+            $type = ServerState::REBOOT_STATE_HARD;
         }
 
-        $object = (object) array(
-            'reboot' => (object) array('type' => strtoupper($type))
-        );
+        $object = (object) array('reboot' => (object) array('type' => $type));
+
         return $this->action($object);
     }
 

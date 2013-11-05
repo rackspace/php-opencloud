@@ -59,10 +59,9 @@ Further Reading
 The file [docs/quickref.md](https://github.com/rackspace/php-opencloud/blob/master/docs/quickref.md) contains a Quick
 Reference guide to the **php-opencloud** library.
 
-The source for the "Getting Started with **php-opencloud**" document (the user guide) starts in
-[docs/userguide/index.md](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/index.md).
-
-To generate the API reference manual for viewing, please execute: `sh ./docs/generate.sh` from the base directory.
+The [samples/](https://github.com/rackspace/php-opencloud/tree/master/docs/samples/) directory has a collection
+of tested, working sample code. Note that these may create objects in your cloud
+for which you could be charged.
 
 If you'd like to contribute to the project, or require help running the unit/acceptance tests, please view the
 [contributing guidelines](https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md).

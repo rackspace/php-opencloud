@@ -184,12 +184,17 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
      */
     public function teardown()
     {
+        $this->step('Teardown');
+
         $loadBalancers = $this->getService()->loadBalancerList();
         while ($loadBalancer = $loadBalancers->next()) {
             if ($this->shouldDelete($loadBalancer->name())) {
                 try {
+                    $this->stepInfo('Deleting %s', $loadBalancer->getId());
                     $loadBalancer->delete();
-                } catch (DeleteError $e) {}
+                } catch (\Exception $e) {
+                    $this->stepInfo('Failed to delete %s', $loadBalancer->getId());
+                }
             }
         }
     }
