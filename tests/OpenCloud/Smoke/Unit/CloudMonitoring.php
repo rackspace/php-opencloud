@@ -98,12 +98,17 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 
     public function doEntityTeardown()
     {
+        $this->step('Deleting entities');
+
         $entities = $this->getService()->getEntities();
         while ($entity = $entities->next()) {
             if ($this->shouldDelete($entity->getLabel())) {
                 try {
+                    $this->stepInfo('Deleting entity: ID [%s], label [%s]', $entity->getId(), $entity->getLabel());
                     $entity->delete();
-                } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {}
+                } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {
+                    $this->stepInfo('Could not delete entity: ID [%s], label [%s]', $entity->getId(), $entity->getLabel());
+                }
             }
         }
     }

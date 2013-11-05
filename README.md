@@ -16,7 +16,7 @@ so that you can still use the SDK with a pure OpenStack instance
 
 Requirements
 ------------
-* PHP >= 5.3.3
+* PHP >=5.3.3
 * cURL extension for PHP
 
 Installation
@@ -56,27 +56,13 @@ If you'd like to contribute, see the
 
 Further Reading
 ---------------
-The file
-[docs/quickref.md](https://github.com/rackspace/php-opencloud/blob/master/docs/quickref.md)
-contains a Quick Reference
-guide to the
-**php-opencloud** library.
+The file [docs/quickref.md](https://github.com/rackspace/php-opencloud/blob/master/docs/quickref.md) contains a Quick
+Reference guide to the **php-opencloud** library.
 
-The source for the "Getting Started with
-**php-opencloud**" document (the user guide) starts in
+The source for the "Getting Started with **php-opencloud**" document (the user guide) starts in
 [docs/userguide/index.md](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/index.md).
 
-There is a complete (auto-generated) API reference manual in the
-docs/api directory. Start with docs/api/index.html.
+To generate the API reference manual for viewing, please execute: `sh ./docs/generate.sh` from the base directory.
 
-See the [HOWTO.md](https://github.com/rackspace/php-opencloud/blob/master/HOWTO.md) file for instructions on
-regenerating the documentation and running tests.
-
-See the [smoketest.php](https://github.com/rackspace/php-opencloud/blob/master/smoketest.php) file for some
-simple, working examples. This is a test we run before builds to ensure that all
-the core functionality is still working after code changes.
-
-The [samples/](https://github.com/rackspace/php-opencloud/tree/master/samples/) directory has a collection
-of tested, working sample code. Note that these may create objects in your cloud
-for which you could be charged.
-
+If you'd like to contribute to the project, or require help running the unit/acceptance tests, please view the
+[contributing guidelines](https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md).

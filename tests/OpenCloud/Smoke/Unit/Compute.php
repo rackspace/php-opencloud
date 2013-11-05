@@ -135,7 +135,9 @@ class Compute extends AbstractUnit implements UnitInterface
             ),
             "OS-DCF:diskConfig" => "AUTO"
         ));
+
         $adminPassword = $server->adminPass;
+        $this->stepInfo('ADMIN PASSWORD = %s', $adminPassword);
 
         $this->step('Wait for Server create');
         $server->waitFor('ACTIVE', 600, $this->getWaiterCallback());

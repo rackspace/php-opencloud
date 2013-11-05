@@ -216,12 +216,15 @@ abstract class PersistentObject extends Base
             ))
             ->send();
 
-        if ($location = $response->getHeader('Location')) {
-            $this->refreshFromLocationUrl($location);
-        } elseif (null !== ($decoded = $this->parseResponse($response))) {
+        // We have to try to parse the response body first because it should have precedence over a Location refresh.
+        // I'd like to reverse the order, but Nova instances return ephemeral properties on creation which are not
+        // available when you follow the Location link...
+        if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
+        } elseif ($location = $response->getHeader('Location')) {
+            $this->refreshFromLocationUrl($location);
         }
-        
+
         return $response;
     }
 
