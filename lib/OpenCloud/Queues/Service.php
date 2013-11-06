@@ -113,6 +113,13 @@ class Service extends AbstractService implements EventSubscriberInterface
      */
     public function createQueue($name)
     {
+        if (!is_string($name)) {
+            throw new InvalidArgumentError(
+                'The only parameter required to create a Queue is a string name. Metadata can be set with '
+                . 'Queue::setMetadata and Queue::saveMetadata'
+            );
+        }
+
         $queue = $this->getQueue();
         $queue->setName($name);
 

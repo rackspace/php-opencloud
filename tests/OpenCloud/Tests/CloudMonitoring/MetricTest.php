@@ -14,19 +14,11 @@ class MetricTest extends OpenCloudTestCase
     public function __construct()
     {
         $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
-        
-        // Grandparent object (i.e. entity)
-        $entityResource = $this->service->resource('Entity');
-        $entityResource->refresh(self::ENTITY_ID);
 
-        // Parent object (i.e. check)
-        $checkResource = $this->service->resource('Check');
-        $checkResource->setParent($entityResource);
-        $checkResource->refresh(self::CHECK_ID);
-        
-        // Our metric object
-        $this->resource = $this->service->resource('Metric');
-        $this->resource->setParent($checkResource);
+        $entity = $this->service->getEntity(self::ENTITY_ID);
+        $this->check = $entity->getCheck(self::CHECK_ID);
+        $this->metrics = $this->check->getMetrics();
+        $this->resource = $this->service->resource('Metric')->setParent($this->check);
     }
 
     public function testResourceClass()
@@ -41,7 +33,7 @@ class MetricTest extends OpenCloudTestCase
     {
     	$this->assertInstanceOf(
     	   'OpenCloud\\Common\\Collection',
-    	   $this->resource->listAll()
+    	   $this->metrics
     	);
     }
     
@@ -57,39 +49,39 @@ class MetricTest extends OpenCloudTestCase
     {
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/entities/'.self::ENTITY_ID.'/checks/'.self::CHECK_ID.'/metrics',
-            $this->resource->Url()
+            (string) $this->resource->getUrl()
         );
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     * @expectedException \OpenCloud\Common\Exceptions\CreateError
      */
     public function testCreateFail()
     {
-    	$this->resource->Create();
+    	$this->resource->create();
     }
    
     /**
-     * @expectedException OpenCloud\Common\Exceptions\UpdateError
+     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */ 
     public function testUpdateFail()
     {
-        $this->resource->Update();
+        $this->resource->update();
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\DeleteError
+     * @expectedException \OpenCloud\Common\Exceptions\DeleteError
      */
     public function testDeleteFail()
     {
-        $this->resource->Delete();
+        $this->resource->delete();
     }
     
     public function testDataPointsClass()
     {
         $this->assertInstanceOf(
             'OpenCloud\\Common\\Collection',
-            $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+            $this->check->fetchDataPoints(self::METRIC_NAME, array(
             	'resolution' => 'FULL',
                 'select'     => 'average',
             	'from'       => 1369756378450,
@@ -99,40 +91,40 @@ class MetricTest extends OpenCloudTestCase
     }
     
     /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     * @expectedException \OpenCloud\CloudMonitoring\Exception\MetricException
      */
     public function testFetchWithoutToFails()
     {
-        $this->resource->fetchDataPoints(self::METRIC_NAME);
+        $this->check->fetchDataPoints(self::METRIC_NAME);
     }
     
     /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     * @expectedException \OpenCloud\CloudMonitoring\Exception\MetricException
      */
     public function testFetchWithoutFromFails()
     {
-        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+        $this->check->fetchDataPoints(self::METRIC_NAME, array(
             'to' => 1369760279018
         ));
     }
     
     /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     * @expectedException \OpenCloud\CloudMonitoring\Exception\MetricException
      */
     public function testFetchWithoutTheRestFails()
     {
-        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+        $this->check->fetchDataPoints(self::METRIC_NAME, array(
             'to'     => 1369760279018,
             'from'   => 1369756378450
         ));
     }
     
     /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     * @expectedException \OpenCloud\CloudMonitoring\Exception\MetricException
      */
     public function testFetchWithIncorrectSelectFails()
     {
-        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+        $this->check->fetchDataPoints(self::METRIC_NAME, array(
             'to'     => 1369760279018,
             'from'   => 1369756378450,
             'select' => 'foo'
@@ -140,11 +132,11 @@ class MetricTest extends OpenCloudTestCase
     }
     
     /**
-     * @expectedException OpenCloud\CloudMonitoring\Exception\MetricException
+     * @expectedException \OpenCloud\CloudMonitoring\Exception\MetricException
      */
     public function testFetchWithIncorrectResolutionFails()
     {
-        $this->resource->fetchDataPoints(self::METRIC_NAME, array(
+        $this->check->fetchDataPoints(self::METRIC_NAME, array(
             'to'         => 1369760279018,
             'from'       => 1369756378450,
             'resolution' => 'bar'

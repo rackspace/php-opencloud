@@ -4,7 +4,6 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -17,10 +16,17 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Zone extends ReadOnlyResource
 {
+    /** @var string */
     private $id;
-	private $country_code;
+
+    /** @var string Country Code */
+    private $country_code;
+
+    /** @var string */
 	private $label;
-	private $source_ips;
+
+    /** @var array List of source IPs */
+    private $source_ips;
 
     protected static $json_name = false;
     protected static $json_collection_name = 'values';

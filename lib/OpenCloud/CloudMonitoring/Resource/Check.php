@@ -17,18 +17,69 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Check extends AbstractResource
 {
+    /**
+     * @var string
+     */
     private $id;
-	private $type;
-	private $details;
-	private $disabled;
-	private $label;
-	protected $metadata;
-	private $period;
-	private $timeout;
-	private $monitoring_zones_poll;
-	private $target_alias;
-	private $target_hostname;
-	private $target_resolver;
+
+    /**
+     * @var string|CheckType The type of check.
+     */
+    private $type;
+
+    /**
+     * @var array Details specific to the check type.
+     */
+    private $details;
+
+    /**
+     * @var bool Disables the check.
+     */
+    private $disabled;
+
+    /**
+     * @var string A friendly label for a check.
+     */
+    private $label;
+
+    /**
+     * @var int The period in seconds for a check. The value must be greater than the minimum period set on your account.
+     */
+    private $period;
+
+    /**
+     * @var int The timeout in seconds for a check. This has to be less than the period.
+     */
+    private $timeout;
+
+    /**
+     * For remote checks only. List of monitoring zones to poll from. Note: This argument is only required for remote
+     * (non-agent) checks.
+     *
+     * @var array
+     */
+    private $monitoring_zones_poll;
+
+    /**
+     * For remote checks only. A key in the entity's 'ip_addresses' hash used to resolve this check to an IP address.
+     * This parameter is mutually exclusive with target_hostname.
+     *
+     * @var string
+     */
+    private $target_alias;
+
+    /**
+     * For remote checks only. The hostname this check should target. This parameter is mutually exclusive with target_alias.
+     *
+     * @var string
+     */
+    private $target_hostname;
+
+    /**
+     * For remote checks only. Determines how to resolve the check target.
+     * @var string
+     */
+    private $target_resolver;
 
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -39,7 +90,6 @@ class Check extends AbstractResource
         'details',
         'disabled',
         'label',
-        //'metadata',
         'period',
         'timeout',
         'monitoring_zones_poll',
@@ -48,13 +98,9 @@ class Check extends AbstractResource
         'target_resolver'
     );
 
-    protected static $requiredKeys = array(
-        'type'
-    );
+    protected static $requiredKeys = array('type');
     
-    protected $associatedResources = array(
-        'CheckType' => 'CheckType'
-    );
+    protected $associatedResources = array('CheckType' => 'CheckType');
 
     protected $dataPointParams = array(
         'from',
@@ -83,6 +129,14 @@ class Check extends AbstractResource
         return $this->getService()->resourceList('Metric', null, $this);
     }
 
+    /**
+     * Fetch particular data points.
+     *
+     * @param string $metricName
+     * @param array  $options
+     * @return mixed
+     * @throws \OpenCloud\CloudMonitoring\Exception\MetricException
+     */
     public function fetchDataPoints($metricName, array $options = array())
     {
         $metric = $this->getService()->resource('Metric', null, $this);

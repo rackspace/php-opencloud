@@ -328,9 +328,9 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\DocumentError
+     * @expectedException \OpenCloud\Common\Exceptions\DocumentError
      */
-    public function testJsonNameFailsIfNotSet()
+    public function test_Json_Name_Fails_If_Not_Set()
     {
         $server = new NamelessObject($this->service);
         $server->jsonName();

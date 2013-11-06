@@ -15,9 +15,7 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class Metric extends ReadOnlyResource
 {
-
     protected static $json_name = 'metrics';
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'metrics';
-
 }

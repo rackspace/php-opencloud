@@ -6,20 +6,21 @@ use OpenCloud\Tests\OpenCloudTestCase;
 
 class CheckTest extends OpenCloudTestCase
 {
+    const ENTITY_ID = 'enAAAA';
+
+    private $entity;
 
     public function __construct()
     {
         $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
 
-        $parentEntity = $this->service->resource('entity', 'enAAAAA');
-        
-        $this->resource = $this->service->resource('check');
-        $this->resource->setParent($parentEntity);
+        $this->entity = $this->service->getEntity(self::ENTITY_ID);
+        $this->resource = $this->entity->getCheck();
     }
     
     public function test_Create()
     {
-        $this->service->resource('check')->create(array(
+        $this->entity->createCheck(array(
             'type' => 'webhook',
             'name' => 'TEST'
         ));
@@ -54,9 +55,9 @@ class CheckTest extends OpenCloudTestCase
         $this->resource->setLabel('Example label');
         $this->resource->setDisabled(false);
 
-        $response = $this->resource->test(array(), false);
+        $response = $this->resource->testParams(array(), false);
 
-        $this->assertNotNull($response);
+        $this->assertNotNull($response[0]);
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);
     }
 
@@ -66,7 +67,7 @@ class CheckTest extends OpenCloudTestCase
         $this->resource->setLabel('Example label');
         $this->resource->setDisabled(false);
 
-        $response = $this->resource->test(array(), true);
+        $response = $this->resource->testParams(array(), true);
         $this->assertObjectHasAttribute('debug_info', $response[0]);
     }
 
@@ -75,7 +76,7 @@ class CheckTest extends OpenCloudTestCase
         $this->resource->setId('chAAAA');
         $this->resource->setType('remote.http');
 
-        $response = $this->resource->testExisting();
+        $response = $this->resource->test();
         
         $this->assertObjectHasAttribute('metrics', $response[0]);
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);

@@ -17,26 +17,44 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Agent extends ReadOnlyResource
 {
-	private $id;
-	private $last_connected;
+    /**
+     * Agent IDs are user specified strings that are a maximum of 255 characters and can contain letters, numbers,
+     * dashes and dots.
+     *
+     * @var string
+     */
+    private $id;
+
+    /**
+     * @var int UTC timestamp of last connection.
+     */
+    private $last_connected;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'agents';
 
-	public function getConnections()
+    /**
+     * @return mixed
+     * @throws \OpenCloud\CloudMonitoring\Exception\AgentException
+     */
+    public function getConnections()
 	{
     	if (!$this->getId()) {
         	throw new Exception\AgentException(
         	   'Please specify an "ID" value'
         	);
     	}
-    	
-    	$url = $this->url('connections');
-    	return $this->getService()->resourceList('AgentConnection', $url);
+
+    	return $this->getService()->resourceList('AgentConnection', $this->getUrl('connections'));
 	}
-	
-	public function getConnection($connectionId)
+
+    /**
+     * @param $connectionId
+     * @return mixed
+     * @throws \OpenCloud\CloudMonitoring\Exception\AgentException
+     */
+    public function getConnection($connectionId)
 	{
     	if (!$this->getId()) {
         	throw new Exception\AgentException(
@@ -44,7 +62,9 @@ class Agent extends ReadOnlyResource
         	);
     	}
     	
-    	$url = $this->url('connections/' . $connectionId);
+    	$url = clone $this->getUrl();
+        $url->addPath('connections')->addPath($connectionId);
+
     	$response = $this->getClient()->get($url)->send()->getDecodedBody();
     	return $this->getService()->resource('AgentConnection', $response);
 	}

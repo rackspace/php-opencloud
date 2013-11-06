@@ -61,8 +61,8 @@ class ZoneTest extends OpenCloudTestCase
             'target_resolver' => 'foo'
         ));
         
-        $this->assertCount(27, $object->result);
-        $this->assertEquals('173.194.78.139', $object->result[26]->ip);
+        $this->assertCount(27, $object);
+        $this->assertEquals('173.194.78.139', $object[26]->ip);
     }
     
     /**

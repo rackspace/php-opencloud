@@ -36,7 +36,7 @@ class NotificationTest extends OpenCloudTestCase
      */
     public function testCreateFailWithNoParams()
     {
-        $this->resource->Create();
+        $this->resource->create();
     }
     
     public function testCreateTest()
@@ -49,7 +49,7 @@ class NotificationTest extends OpenCloudTestCase
             )
         );
         
-        $response = $this->resource->test($params);
+        $response = $this->resource->testParams($params);
 
         $this->assertEquals('success', $response->status);
     }
@@ -57,7 +57,7 @@ class NotificationTest extends OpenCloudTestCase
     public function testExistingTest()
     {
         $this->resource->refresh(self::NOTIFICATION_ID);
-        $response = $this->resource->testExisting();
+        $response = $this->resource->test();
         $this->assertEquals('success', $response->status);
     }
     

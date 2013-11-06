@@ -33,22 +33,15 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
         
     public function test_Create()
     { 
-        $this->queue->create(array(
-            'name'     => 'test',
-            'metadata' => array(
-                'foo' => 'bar'
-            )
-        ));
+        $this->service->createQueue('test');
     }
     
     /**
-     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
+     * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function test_Create_Fails_With_Incorrect_Response()
     {
-        $this->queue->create(array(
-            'name' => 'baz'
-        ));
+        $this->service->createQueue('baz');
     }
     
     /**
@@ -56,9 +49,7 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Create_Fails_With_Incorrect_Name()
     {
-        $this->queue->create(array(
-            'name' => 'baz!!!*'
-        ));
+        $this->service->createQueue('baz!!!*');
     }
     
     /**
@@ -78,14 +69,14 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Metadata()
     {
         $this->queue->setName('test')
-                    ->setMetadata(array(
+                    ->saveMetadata(array(
                         'new metadata' => 'bar'
-                    ), true);
+                    ));
         
         $metadata = $this->queue->getMetadata();
 
         $this->assertInstanceOf('OpenCloud\Common\Metadata', $metadata);
-        $this->assertEquals('Omega', $metadata->{'new metadata'});
+        $this->assertEquals('bar', $metadata->{'new metadata'});
         
         $newMetadata = new Metadata();
         $newMetadata->setArray(array(
@@ -95,12 +86,11 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
+     * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function test_Metadata_Fails_If_Queue_Not_Found()
     {
-        $queue = $this->queue->setName('foobar');
-        $queue->getMetadata();
+        $this->service->getQueue('foobar')->retrieveMetadata();
     }
     
     /**
@@ -151,7 +141,7 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
+     * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function test_Claim_Messages_Fails_If_Queue_Not_Found()
     {

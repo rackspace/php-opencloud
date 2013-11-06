@@ -42,16 +42,6 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->message->getAge();
     }
     
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
-     */
-    public function test_Creating_Message()
-    {
-        $message = new Message();
-        $message->setService($this->service)->setParent($this->queue);
-        $message->setTtl(100)->setBody('foo')->create();  
-    }
-    
     public function test_Batch_Create()
     {
         $this->queue->createMessages(array(
@@ -66,7 +56,7 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Http\Exception\UnexpectedResponseException
+     * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */
     public function test_Batch_Create_Fails_When_Queue_Not_Found()
     {

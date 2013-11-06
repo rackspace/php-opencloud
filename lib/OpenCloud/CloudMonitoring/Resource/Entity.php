@@ -15,12 +15,25 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class Entity extends AbstractResource
 {
-    
-	private $id;
-	private $label;
-	private $agent_id;
-	private $ip_addresses;
-	protected $metadata;
+    /**
+     * @var string
+     */
+    private $id;
+
+    /**
+     * @var string Defines a name for the entity.
+     */
+    private $label;
+
+    /**
+     * @var string Agent to which this entity is bound to.
+     */
+    private $agent_id;
+
+    /**
+     * @var array Hash of IP addresses that can be referenced by checks on this entity.
+     */
+    private $ip_addresses;
 
     protected static $json_name = false;
     protected static $url_resource = 'entities';
@@ -45,6 +58,11 @@ class Entity extends AbstractResource
     public function getCheck($id = null)
     {
         return $this->getService()->resource('Check', $id, $this);
+    }
+
+    public function createCheck(array $params)
+    {
+        return $this->getCheck()->create($params);
     }
 
     public function testNewCheckParams(array $params, $debug = false)

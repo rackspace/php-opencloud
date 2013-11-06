@@ -43,7 +43,7 @@ abstract class AbstractResource extends PersistentObject
         foreach (static::$requiredKeys as $requiredKey) {
             if (!$this->getProperty($requiredKey)) {
                 throw new Exceptions\UpdateError(sprintf(
-                    "%s is required to update a %s", $requiredKey, get_class()
+                    "%s is required to update a %s", $requiredKey, get_class($this)
                 ));
             }
         }

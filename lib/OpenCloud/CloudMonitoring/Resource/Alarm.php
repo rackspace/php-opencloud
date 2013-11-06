@@ -17,13 +17,35 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Alarm extends AbstractResource
 {
+    /**
+     * @var string
+     */
     private $id;
-	private $check_id;
-	private $notification_plan_id;
-	private $criteria;
-	private $disabled;
-	private $label;
-	protected $metadata;
+
+    /**
+     * @var string The ID of the check to alert on.
+     */
+    private $check_id;
+
+    /**
+     * @var string The id of the notification plan to execute when the state changes.
+     */
+    private $notification_plan_id;
+
+    /**
+     * @var string The alarm DSL for describing alerting conditions and their output states.
+     */
+    private $criteria;
+
+    /**
+     * @var bool Disable processing and alerts on this alarm.
+     */
+    private $disabled;
+
+    /**
+     * @var string A friendly label for an alarm.
+     */
+    private $label;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';

@@ -12,11 +12,30 @@ namespace OpenCloud\CloudMonitoring\Resource;
 
 class NotificationPlan extends AbstractResource
 {
+    /**
+     * @var string
+     */
     private $id;
-	private $label;
-	private $critical_state;
-	private $ok_state;
-	private $warning_state;
+
+    /**
+     * @var string Friendly name for the notification plan.
+     */
+    private $label;
+
+    /**
+     * @var array The notification list to send to when the state is CRITICAL.
+     */
+    private $critical_state;
+
+    /**
+     * @var array The notification list to send to when the state is OK.
+     */
+    private $ok_state;
+
+    /**
+     * @var array The notification list to send to when the state is WARNING.
+     */
+    private $warning_state;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
