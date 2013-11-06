@@ -4,7 +4,6 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -57,7 +56,14 @@ class Queue extends PersistentObject
     protected static $json_name = false;
     
     public $createKeys = array('name');
-        
+
+    /**
+     * Set the name (with validation).
+     *
+     * @param $name string
+     * @return $this
+     * @throws \OpenCloud\Queues\Exception\QueueException
+     */
     public function setName($name)
     {
         if (preg_match('#[^\w\d\-\_]+#', $name)) {
@@ -71,18 +77,21 @@ class Queue extends PersistentObject
         $this->name = $name;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
     
     /**
-     * Sets the metadata for this Queue.md.
-     * 
-     * @param array|object|Metadata $data  The data we want to use
-     * @return Queue
-     * @throws Exception\QueueMetadataException
+     * Sets the metadata for this Queue.
+     *
+     * @param $data
+     * @return $this
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      */
     public function setMetadata($data)
     {
@@ -104,6 +113,12 @@ class Queue extends PersistentObject
         return $this;
     }
 
+    /**
+     * Save this metadata both to the local object and the API.
+     *
+     * @param array $params
+     * @return mixed
+     */
     public function saveMetadata(array $params = array())
     {
         if (!empty($params)) {
@@ -121,13 +136,15 @@ class Queue extends PersistentObject
      * Returns the metadata associated with a Queue.md.
      *
      * @return Metadata|null
-     * @throws Exceptions\QueueMetadataException
      */
     public function getMetadata()
     {
         return $this->metadata;
     }
 
+    /**
+     * Retrieve metadata from the API and set it to the local object.
+     */
     public function retrieveMetadata()
     {
         $response = $this->getClient()->get($this->url('metadata'))
@@ -151,12 +168,7 @@ class Queue extends PersistentObject
             'metadata'   => $this->getMetadata(false)
         );
     }
-    
-    /**
-     * Needed to set correct URL (for delete method among others).
-     * 
-     * @return string
-     */
+
     public function primaryKeyField()
     {
         return 'name';
@@ -197,11 +209,23 @@ class Queue extends PersistentObject
         return $this->getService()->resource('Message', $id, $this);
     }
 
+    /**
+     * Post an individual message.
+     *
+     * @param array $params
+     * @return bool
+     */
     public function createMessage(array $params)
     {
         return $this->createMessages(array($params));
     }
 
+    /**
+     * Post multiple messages.
+     *
+     * @param array $messages
+     * @return bool
+     */
     public function createMessages(array $messages)
     {
         $objects = array();
@@ -280,10 +304,7 @@ class Queue extends PersistentObject
         $this->getClient()->delete($url)->send();
         return true;
     }
-    
-    
-    /*** CLAIMS ***/
-    
+
     /**
      * This operation claims a set of messages, up to limit, from oldest to 
      * newest, skipping any that are already claimed. If no unclaimed messages 

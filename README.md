@@ -42,7 +42,9 @@ And you're ready to go!
 
 Support and Feedback
 --------------------
-Your feedback is appreciated! If you have specific problems or bugs with this SDK, please file an issue on Github.
+Your feedback is appreciated! If you have specific problems or bugs with this SDK, please file an issue on Github. We
+also have a [mailing list](https://groups.google.com/forum/#!forum/php-opencloud), so feel free to join to keep up to
+date with all the latest changes and announcements to the library.
 
 For general feedback and support requests, send an email to sdk-support@rackspace.com.
 

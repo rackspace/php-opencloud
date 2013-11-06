@@ -4,7 +4,6 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -113,7 +112,7 @@ class Message extends PersistentObject
      *      operation fails. You can only delete claimed messages by providing 
      *      an appropriate $claimId.
      * 
-     * @return boolean
+     * @return bool
      * @throws DeleteMessageException
      */
     public function delete($claimId = null)

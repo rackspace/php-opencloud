@@ -17,6 +17,7 @@ use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\PersistentObject;
 use Guzzle\Http\Url;
 use Guzzle\Http\Exception\BadResponseException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -84,7 +85,6 @@ abstract class AbstractService extends Base
      */
     public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
     {
-
         $this->setClient($client);
 
         $this->type = $type ?: static::DEFAULT_TYPE;
@@ -94,6 +94,10 @@ abstract class AbstractService extends Base
 
         $this->endpoint = $this->findEndpoint();
         $this->client->setBaseUrl($this->getBaseUrl());
+
+        if ($this instanceof EventSubscriberInterface) {
+            $this->client->getEventDispatcher()->addSubscriber($this);
+        }
     }
 
     /**

@@ -1,6 +1,8 @@
 php-opencloud Quick Reference
 =============================
 
+> This guide is in the process of being phased out in favour of more detailed documentation for each cloud service. 
+
 This is a quick reference to <b>php-opencloud</b> functions; see the
 [user guide](userguide/index.md) for more details.
 

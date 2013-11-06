@@ -9,11 +9,6 @@
 
 namespace OpenCloud\Smoke\Unit;
 
-/**
- * Description of Queues
- * 
- * @link 
- */
 class Queues extends AbstractUnit implements UnitInterface
 {
     const QUEUE_NAME = 'test_queue';

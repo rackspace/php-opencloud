@@ -13,7 +13,6 @@ use Guzzle\Common\Event;
 use Guzzle\Http\Exception\BadResponseException;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Common\Service\AbstractService;
-use OpenCloud\Common\Http\Client;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -59,13 +58,6 @@ class Service extends AbstractService implements EventSubscriberInterface
     const DEFAULT_TYPE = 'rax:queues';
     const DEFAULT_NAME = 'cloudQueues';
 
-    public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
-    {
-        parent::__construct($client, $type, $name, $region, $urlType);
-
-        $this->getClient()->getEventDispatcher()->addSubscriber($this);
-    }
-
     public static function getSubscribedEvents()
     {
         return array(
@@ -73,6 +65,11 @@ class Service extends AbstractService implements EventSubscriberInterface
         );
     }
 
+    /**
+     * Append the Client-ID header to all requests for this service.
+     *
+     * @param Event $event
+     */
     public function appendClientIdToRequest(Event $event)
     {
         $event['request']->addHeader('Client-ID', $this->getClientId());
@@ -87,20 +84,33 @@ class Service extends AbstractService implements EventSubscriberInterface
      */
     private $clientId;
 
+    /**
+     * @param null $clientId
+     * @return $this
+     */
     public function setClientId($clientId = null)
     {
-        if ($clientId == null) {
+        if (!$clientId) {
             $clientId = self::generateUuid();
         }
         $this->clientId = $clientId;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getClientId()
     {
         return $this->clientId;
     }
 
+    /**
+     * Create a new Queue.
+     *
+     * @param $name Name of the new queue
+     * @return Queue
+     */
     public function createQueue($name)
     {
         $queue = $this->getQueue();
@@ -140,7 +150,7 @@ class Service extends AbstractService implements EventSubscriberInterface
     /**
      * Return an empty Queue.md object.
      * 
-     * @return Queue.md
+     * @return Queue
      */
     public function getQueue($id = null)
     {

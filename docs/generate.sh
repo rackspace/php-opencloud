@@ -9,7 +9,7 @@ BIN_FILE=vendor/bin/phpdoc.php
 # Make sure PHPDoc is installed
 if [ ! -f $BIN_FILE ]; then
     rm composer.lock
-    /usr/bin/php composer.phar install --dev
+    php composer.phar install --dev
 fi
 
 if [ ! -d $DOC_DIR ]; then

@@ -72,6 +72,9 @@ $snippet = $container->getObject('output.log', array('range' => 'bytes=-20'));
 
 There are three ways to upload a new file, each of which has different business needs.
 
+__N.B__: Unlike previous versions, you do not need to manually specify your object's content type. The API will do this
+for you.
+
 ### To upload a single/basic file:
 
 ```php
