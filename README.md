@@ -40,6 +40,8 @@ require 'vendor/autoload.php';
 
 And you're ready to go!
 
+- - -
+
 Alternatively, if you would like to clone the repository into a directory (to work and submit pull requests):
 
 ```bash
