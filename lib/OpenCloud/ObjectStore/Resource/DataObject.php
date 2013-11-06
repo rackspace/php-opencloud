@@ -43,7 +43,7 @@ class DataObject extends AbstractResource
     public function __construct(Container $container, $data = null)
     {
         $this->setContainer($container);
-        $this->setService($container->getService());
+        parent::__construct($container->getService());
         
         // For pseudo-directories, we need to ensure the name is set
         if (!empty($data->subdir)) {
@@ -169,7 +169,8 @@ class DataObject extends AbstractResource
         // @codeCoverageIgnoreEnd
 
         $url  = $this->getUrl();
-        $body = sprintf("%s\n%d\n%s", $method, $expiry, $url->getPath());
+        $urlPath = urldecode($url->getPath());
+        $body = sprintf("%s\n%d\n%s", $method, $expiry, $urlPath);
         $hash = hash_hmac('sha1', $body, $secret);
 
         return sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry);
