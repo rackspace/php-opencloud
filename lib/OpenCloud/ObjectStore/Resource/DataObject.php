@@ -36,22 +36,23 @@ class DataObject extends AbstractResource
      */
     protected $content;
     
-    protected $directory = false;
+    protected $directory;
     
     protected $contentType;
     
     public function __construct(Container $container, $data = null)
     {
         $this->setContainer($container);
-        $this->setService($container->getService());
-        
+
+        parent::__construct($container->getService());
+
         // For pseudo-directories, we need to ensure the name is set
-        if (!empty($data->subdir)) {
-            $this->setName($data->subdir)->setDirectory(true);
-            return;
+        if (is_array($data) && isset($data['subdir'])) {
+            $this->setName($data['subdir'])->setDirectory(true);
+        } else {
+            $this->setDirectory(false);
+            $this->populate($data);
         }
-        
-        $this->populate($data);
     }
     
     public function setContainer(Container $container)
@@ -64,6 +65,24 @@ class DataObject extends AbstractResource
     {
         return $this->container;
     }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
     
     /**
      * @return bool Is this data object a pseudo-directory?
@@ -72,7 +91,17 @@ class DataObject extends AbstractResource
     {
         return (bool) $this->directory;
     }
-    
+
+    /**
+     * @param boolean $directory
+     * @return $this
+     */
+    public function setDirectory($directory)
+    {
+        $this->directory = $directory;
+        return $this;
+    }
+
     public function setContent($content)
     {
         $this->content = EntityBody::factory($content);
@@ -222,5 +251,4 @@ class DataObject extends AbstractResource
         $this->setMetadata($response->getHeaders(), true);
         $this->setContentType((string) $response->getHeader('Content-Type'));
     }
-
 }

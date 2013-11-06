@@ -11,6 +11,8 @@
 namespace OpenCloud\Common;
 
 use OpenCloud\Common\Exceptions\JsonError;
+use OpenCloud\Common\Exceptions\ServiceException;
+use OpenCloud\Common\Exceptions\RuntimeException;
 use OpenCloud\Common\Exceptions\UrlError;
 
 /**
@@ -40,6 +42,7 @@ abstract class Base
      *
      * @param $method
      * @param $args
+     * @return mixed
      * @throws Exceptions\RuntimeException
      */
     public function __call($method, $args)
@@ -59,7 +62,7 @@ abstract class Base
             return $this->setProperty($property, $args[0]);
         }
         
-        throw new Exceptions\RuntimeException(sprintf(
+        throw new RuntimeException(sprintf(
         	'No method %s::%s()', 
         	get_class($this), 
         	$method
@@ -307,7 +310,7 @@ abstract class Base
                         $resource = $this->getService()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
                         $this->setProperty($key, $resource);
-                    } catch (Exception\ServiceException $e) {}
+                    } catch (ServiceException $e) {}
    
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
 
@@ -322,7 +325,7 @@ abstract class Base
                             $value
                         );
                         $this->setProperty($key, $collection); 
-                    } catch (Exception\ServiceException $e) {}
+                    } catch (ServiceException $e) {}
                     
                 } elseif (!empty($this->aliases[$key])) {
 
