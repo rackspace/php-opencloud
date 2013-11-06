@@ -34,7 +34,7 @@ class Client extends GuzzleClient
             ));
         }
         // @codeCoverageIgnoreEnd
-        
+
         parent::__construct($url, $options);
     }
     

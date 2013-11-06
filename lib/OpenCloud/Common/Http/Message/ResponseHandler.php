@@ -11,7 +11,7 @@
 namespace OpenCloud\Common\Http\Message;
 
 use OpenCloud\Common\Http\Exception\UnexpectedResponseException;
-use Guzzle\Http\Exception\BadResponseException;
+use OpenCloud\Common\Http\Exception\BadResponseException;
 
 /**
  * Description of ResponseHandler
@@ -77,11 +77,7 @@ class ResponseHandler
             }
             
             if (!$match) {
-                return new UnexpectedResponseException(sprintf(
-                    'This operation was expecting a %d status code, but received %d',
-                    print_r($this->expectedResponse, true),
-                    $status
-                ));
+                return UnexpectedResponseException::factory($this->request, $this->response);
             }
         }
 

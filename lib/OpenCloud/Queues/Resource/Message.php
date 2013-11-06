@@ -86,14 +86,10 @@ class Message extends PersistentObject
             'body' => $this->getBody()
         );
     }
-    
-    /**
-     * To create messages, use the service's createMessages() method because it
-     * allows for batch creation
-     * {@inheritDoc}
-     */
+
     public function create($params = array())
     {
+        $this->getLogger()->alert('Please use Queue::createMessage() or Queue::createMessages()');
         return $this->noCreate();
     }
 

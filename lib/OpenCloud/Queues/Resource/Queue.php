@@ -28,8 +28,6 @@ class Queue extends PersistentObject
      * Maximum number of messages that can be posted at once.
      */
     const MAX_POST_MESSAGES = 10;
-
-    private $id;
     
     /**
      * The name given to the queue. The name MUST NOT exceed 64 bytes in length, 
@@ -56,6 +54,7 @@ class Queue extends PersistentObject
     
     protected static $url_resource = 'queues';
     protected static $json_collection_name = 'queues';
+    protected static $json_name = false;
     
     public $createKeys = array('name');
         
@@ -142,38 +141,9 @@ class Queue extends PersistentObject
 
     public function create($params = array())
     {
-        // set parameters
-        if (!empty($params)) {
-            $this->populate($params, false);
-        }
-        
-        // debug
-        $this->getLogger()->info('{class}::Create({name})', array(
-            'class' => get_class($this), 
-            'name'  => $this->Name()
-        ));
+        return $this->getService()->createQueue($params);
+    }
 
-        // construct the JSON
-        $object = $this->createJson();
-        $json = json_encode($object);
-        $this->checkJsonError();
-
-        $this->getLogger()->info('{class}::Create JSON [{json}]', array(
-            'class' => get_class($this), 
-            'json'  => $json
-        ));
-
-        // send the request
-        $response = $this->getClient()->put($this->url(), array(), $json)
-            ->setExpectedResponse(201)
-            ->send();
-        
-        $this->setHref($response->getHeader('Location'));
-    } 
-    
-    /**
-     * {@inheritDoc}
-     */
     public function createJson()
     {
         return (object) array(
@@ -191,10 +161,7 @@ class Queue extends PersistentObject
     {
         return 'name';
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function update($params = array())
     {
         return $this->noUpdate();
@@ -209,16 +176,13 @@ class Queue extends PersistentObject
     public function getStats()
     {
         $body = $this->getClient()
-            ->get($this->url('stats'))
+            ->get($this->getUrl('stats'))
             ->send()
             ->getDecodedBody();
         
         return (!isset($body->messages)) ? false : $body->messages;
     }
-    
-    
-    /*** MESSAGES ***/
-    
+
     /**
      * Gets a message either by a specific ID, or, if no ID is specified, just 
      * an empty Message object.
@@ -235,7 +199,7 @@ class Queue extends PersistentObject
 
     public function createMessage(array $params)
     {
-        return $this->getMessage()->create($params);
+        return $this->createMessages(array($params));
     }
 
     public function createMessages(array $messages)

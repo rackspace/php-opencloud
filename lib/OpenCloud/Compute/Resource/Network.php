@@ -85,7 +85,7 @@ class Network extends PersistentObject
             case NetworkConst::RAX_PRIVATE:
                 throw new Exceptions\DeleteError('Network may not be deleted');
             default:
-                return parent::Delete();
+                return parent::delete();
         }
     }
     

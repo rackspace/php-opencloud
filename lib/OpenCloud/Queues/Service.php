@@ -4,16 +4,17 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Queues;
 
-use OpenCloud\OpenStack;
-use OpenCloud\Common\Service\AbstractService;
-use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use Guzzle\Common\Event;
 use Guzzle\Http\Exception\BadResponseException;
+use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Http\Client;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Cloud Queues is an open source, scalable, and highly available message and 
@@ -53,11 +54,30 @@ use Guzzle\Http\Exception\BadResponseException;
  * Cloud Queueing guarantees that messages are handled in a First In, First Out 
  * (FIFO) order.
  */
-class Service extends AbstractService
+class Service extends AbstractService implements EventSubscriberInterface
 {
     const DEFAULT_TYPE = 'rax:queues';
     const DEFAULT_NAME = 'cloudQueues';
-    
+
+    public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
+    {
+        parent::__construct($client, $type, $name, $region, $urlType);
+
+        $this->getClient()->getEventDispatcher()->addSubscriber($this);
+    }
+
+    public static function getSubscribedEvents()
+    {
+        return array(
+            'request.before_send' => 'appendClientIdToRequest'
+        );
+    }
+
+    public function appendClientIdToRequest(Event $event)
+    {
+        $event['request']->addHeader('Client-ID', $this->getClientId());
+    }
+
     /**
      * An arbitrary string used to differentiate your worker/subscriber. This is
      * needed, for example, when you return back a list of messages and want to
@@ -67,8 +87,11 @@ class Service extends AbstractService
      */
     private $clientId;
 
-    public function setClientId($clientId)
+    public function setClientId($clientId = null)
     {
+        if ($clientId == null) {
+            $clientId = self::generateUuid();
+        }
         $this->clientId = $clientId;
         return $this;
     }
@@ -80,7 +103,15 @@ class Service extends AbstractService
 
     public function createQueue($name)
     {
-        return $this->resource('Queue.md')->create(array('name' => $name));
+        $queue = $this->getQueue();
+        $queue->setName($name);
+
+        // send the request
+        $this->getClient()->put($queue->getUrl())
+            ->setExpectedResponse(201)
+            ->send();
+
+        return $queue;
     }
 
     /**
@@ -103,7 +134,7 @@ class Service extends AbstractService
      */
     public function listQueues(array $params = array())
     {
-        return $this->resourceList('Queue.md', $this->getUrl('queues', $params));
+        return $this->resourceList('Queue', $this->getUrl('queues', $params));
     }
     
     /**
@@ -113,7 +144,7 @@ class Service extends AbstractService
      */
     public function getQueue($id = null)
     {
-        return $this->resource('Queue.md', $id);
+        return $this->resource('Queue', $id);
     }
     
     /**

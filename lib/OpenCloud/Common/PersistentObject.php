@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP OpenCloud library.
+ * PHP OpenCloud library
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
@@ -160,15 +160,10 @@ abstract class PersistentObject extends Base
     {
         return $this->metadata;
     }
-    
-    /**
-     * API OPERATIONS (CRUD & CUSTOM)
-     */
-    
+
     /**
      * Creates a new object
      *
-     * @api
      * @param array $params array of values to set when creating the object
      * @return HttpResponse
      * @throws VolumeCreateError if HTTP status is not Success
@@ -180,19 +175,12 @@ abstract class PersistentObject extends Base
             $this->populate($params, false);
         }
 
-        // debug
-        $this->getLogger()->info('{class}::Create({name})', array(
-            'class' => get_class($this), 
-            'name'  => $this->getProperty($this->primaryKeyField())
-        ));
-
         // construct the JSON
         $json = json_encode($this->createJson());
         $this->checkJsonError();
 
         $createUrl = $this->createUrl();
 
-        // send the request
         $response = $this->getClient()->post($createUrl, array(), $json)
             ->setExceptionHandler(array(
                 201 => array(
@@ -354,7 +342,7 @@ abstract class PersistentObject extends Base
                 $url->addPath($primaryKey);
             }
         }
-        
+
         if (!$url instanceof Url) {
             $url = Url::factory($url);
         }
@@ -506,7 +494,7 @@ abstract class PersistentObject extends Base
     {
         throw new Exceptions\CreateError(sprintf(
             Lang::translate('[%s] does not support Create()'),
-            get_class()
+            get_class($this)
         ));
     }
 
@@ -519,7 +507,7 @@ abstract class PersistentObject extends Base
     {
         throw new Exceptions\DeleteError(sprintf(
             Lang::translate('[%s] does not support Delete()'),
-            get_class()
+            get_class($this)
         ));
     }
 
@@ -532,7 +520,7 @@ abstract class PersistentObject extends Base
     {
         throw new Exceptions\UpdateError(sprintf(
             Lang::translate('[%s] does not support Update()'),
-            get_class()
+            get_class($this)
         ));
     }
         
@@ -678,7 +666,7 @@ abstract class PersistentObject extends Base
 
         throw new Exceptions\DocumentError(sprintf(
             Lang::translate('No JSON object defined for class [%s] in JsonName()'),
-            get_class()
+            get_class($this)
         ));
     }
 
@@ -741,7 +729,7 @@ abstract class PersistentObject extends Base
         ));
     }
     
-    private function parseResponse(Response $response)
+    public function parseResponse(Response $response)
     {
         $body = $response->getDecodedBody();
         

@@ -454,7 +454,7 @@ abstract class AbstractService extends Base
         
         if ($url === null) {
             throw new Exceptions\ServiceException(sprintf(
-	        	'The base %s  could not be found. Perhaps the service '
+	        	'The base %s could not be found. Perhaps the service '
 	        	. 'you are using requires a different URL type, or does '
 	        	. 'not support this region.',
 	        	$this->urlType

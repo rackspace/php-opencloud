@@ -36,21 +36,17 @@ then claim the message.
 
 ### 3.2 Attributes
 
-The ttl attribute specifies how long the server waits before releasing the claim. The ttl value must be between 60 and
+The `ttl` attribute specifies how long the server waits before releasing the claim. The ttl value must be between 60 and
 43200 seconds (12 hours). You must include a value for this attribute in your request.
 
-The grace attribute specifies the message grace period in seconds. The value of grace value must be between 60 and
+The `grace` attribute specifies the message grace period in seconds. The value of grace value must be between 60 and
 43200 seconds (12 hours). You must include a value for this attribute in your request. To deal with workers that have
 stopped responding (for up to 1209600 seconds or 14 days, including claim lifetime), the server extends the lifetime of
 claimed messages to be at least as long as the lifetime of the claim itself, plus the specified grace period. If a
 claimed message would normally live longer than the grace period, its expiration is not adjusted.
 
-| Name | Style | Type | Description |
-|------|-------|------|-------------|
-| limit | Query | ​int | Specifies the number of messages to return, up to 20 messages. If limit is not specified, limit
- defaults to 10. The limit parameter is optional. |
-| queue_name | Template | String | Specifies the name of the queue. |
-|------|-------|------|-------------|
+The `limit` attribute specifies the number of messages to return, up to 20 messages. If limit is not specified, limit
+ defaults to 10. The limit parameter is optional.
 
 ### 3.3 Code
 
@@ -73,11 +69,7 @@ found by ID are ignored.
 
 ### 4.2 Attributes
 
-| Name | Style | Type | Description |
-|------|-------|------|-------------|
-| queue_name | Template | String | Specifies the name of the queue. |
-| claimId | Template | String | Specifies the claim ID. |
-|------|-------|------|-------------|
+Claim ID.
 
 ### 4.3 Code
 

@@ -19,6 +19,9 @@ use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Http\Message\RequestFactory;
 use Guzzle\Http\Url;
 
+define('RACKSPACE_US', 'https://identity.api.rackspacecloud.com/v2.0/');
+define('RACKSPACE_UK', 'https://lon.identity.api.rackspacecloud.com/v2.0/');
+
 /**
  * The main client of the library. This object is the central point of negotiation between your application and the
  * API because it handles all of the HTTP transactions required to perform operations. It also manages the services
@@ -73,6 +76,7 @@ class OpenStack extends Client
         parent::__construct($url, $options);
         
         $this->addSubscriber(RequestSubscriber::getInstance());
+        $this->setDefaultOption('headers/Accept', 'application/json');
     }
         
     /**
@@ -280,7 +284,7 @@ class OpenStack extends Client
         
         // Add to default headers for future reference
         $this->setDefaultOption('headers/X-Auth-Token', (string) $this->getToken());
-        
+
         /**
          * In some cases, the tenant name/id is not returned
          * as part of the auth token, so we check for it before

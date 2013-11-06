@@ -44,7 +44,10 @@ delete the message until its age has reached up to (ttl + 60) seconds, to allow 
 use OpenCloud\Common\Constants\Datetime;
 
 $queue->createMessage(array(
-    'name' => 'new_message',
+    'body' => (object) array(
+        'event'    => 'BackupStarted',
+        'deadline' => '26.12.2013
+    ),
     'ttl'  => 2 * Datetime::DAY
 ));
 ```
@@ -58,11 +61,15 @@ use OpenCloud\Common\Constants\Datetime;
 
 $messages = array(
     array(
-        'name' => 'message_1',
+        'body' => (object) array(
+            'play' => 'football'
+        ),
         'ttl'  => 2 * Datetime::DAY
     ),
     array(
-        'name' => 'message_2',
+        'body' => (object) array(
+            'play' => 'tennis'
+        ),
         'ttl'  => 50 * Datetime::HOUR
     )
 );
