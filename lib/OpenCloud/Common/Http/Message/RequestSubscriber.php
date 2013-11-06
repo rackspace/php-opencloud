@@ -39,8 +39,9 @@ class RequestSubscriber implements EventSubscriberInterface
      */
     public function doCurlProgress($options)
     {
-    	if ($options['request']->getCurlOptions()->hasKey('progressCallback')) {
-	    	return call_user_func($options['request']->getCurlOptions()->get('progressCallback'));
+        $curlOptions = $options['request']->getCurlOptions();
+    	if ($curlOptions->hasKey('progressCallback')) {
+	    	return call_user_func($curlOptions->get('progressCallback'));
     	} else {
 	    	echo sprintf(
 	    		"Download size: [%d]\nDownloaded: [%d]\nUpload size: [%d]\nUploaded: [%d]\n",
