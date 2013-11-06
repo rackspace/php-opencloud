@@ -11,8 +11,9 @@
 namespace OpenCloud\Tests\ObjectStore;
 
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\Tests\OpenCloudTestCase;
 
-class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
+class DataObjectTest extends OpenCloudTestCase
 {
     public function __construct()
     {

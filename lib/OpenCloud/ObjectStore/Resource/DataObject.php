@@ -49,6 +49,9 @@ class DataObject extends AbstractResource
         // For pseudo-directories, we need to ensure the name is set
         if (is_array($data) && isset($data['subdir'])) {
             $this->setName($data['subdir'])->setDirectory(true);
+        }
+        elseif (is_object($data) && property_exists($data, 'subdir') && !is_null($data->subdir)) {
+            $this->setName($data->subdir)->setDirectory(true);
         } else {
             $this->setDirectory(false);
             $this->populate($data);
