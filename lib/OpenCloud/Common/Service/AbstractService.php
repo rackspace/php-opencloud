@@ -442,7 +442,7 @@ abstract class AbstractService extends Base
         $url = ($this->urlType == 'publicURL') 
             ? $this->endpoint->getPublicUrl() 
             : $this->endpoint->getPrivateUrl();
-        
+
         if ($url === null) {
             throw new Exceptions\ServiceException(sprintf(
 	        	'The base %s  could not be found. Perhaps the service '
