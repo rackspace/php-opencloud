@@ -24,7 +24,7 @@
         "php" : ">=5.3.3",
         "guzzle/http" : "3.7.*@dev"
     },
-    "require-dev": {
-        "phpdocumentor/phpdocumentor": "dev-master"
+    "require-dev" : {
+        "apigen/apigen" : "dev-master"
     }
 }

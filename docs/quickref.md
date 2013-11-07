@@ -18,51 +18,8 @@ Contents:
 <a name="auth"></a>
 Authentication
 --------------
-Before you can use any of the cloud services, you must authenticate
-using a connection object. This object establishes a relationship
-between a user and a single Keystone identity endpoint URL. There are
-two different connection services provided: OpenStack and Rackspace
-(hopefully, there will be more in the future, and developers are
-encouraged to contribute theirs).
 
-To use the **php-opencloud** library, use this `require()` statement in your
-script:
-
-	require '/path/to/lib/php-opencloud.php';
-
-Once you've referenced the desired connection class, you can proceed
-to establish the connection. For OpenStack clouds, provide the
-username and password:
-
-    $conn = new \OpenCloud\OpenStack(
-    	'https://example.com/v2/identity',
-    	array(
-    		'username' => 'your username',
-    		'password' => 'your Keystone password',
-    		'tenantName' => 'your tenant (project) name'
-    	));
-
-(Note that the `tenantName` value may not be required for all installations.)
-
-If you are using Rackspace's authentication, you need to pass your
-API key and tenant ID instead:
-
-	$conn = new \OpenCloud\Rackspace(
-		'https://example.com/v2/identity',
-		array(
-			'username' => 'your username',
-			'apiKey' => 'your API key',
-			'tenantName' => 'your tenant name'
-		));
-
-Note that the `Rackspace` class will also permit `username`/`password`
-authentication as well, but the `apiKey` method is preferred.
-The `tenantName` argument is optional; if not provided, your access
-may be restricted because of ACLs on the account.
-
-The connection object can be re-used at will (so long as you're
-communicating with the same endpoint) and must be passed to other
-data objects.
+Please see [this section](https://github.com/rackspace/php-opencloud/blob/master/docs/getting-started.md#1-setup-the-client-and-pass-in-your-credentials) about authenticating.
 
 
 <a name="compute"></a>
@@ -77,27 +34,15 @@ These examples all assume a connection object `$conn` created using either the
 To connect to a Compute instance, you need to specify the name of the service,
 the region, and the URL type:
 
-    $compute = $conn->Compute('cloudServersOpenStack', 'DFW', 'publicURL');
+    $compute = $conn->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
 
 This can get complicated, but you can simplify things by relying upon the
-default values. For example, the default URL type is `'publicURL'`, so you
-can leave that off:
+default values. For example: the default service name for Rackspace Compute is `cloudServersOpenStack`, the default
+ region is `DFW`, and the default URL type is `publicURL`. So if your service matches this default criteria, you can
+ leave them out:
 
-    $compute = $conn->Compute('cloudServersOpenStack', 'DFW');
+    $compute = $conn->computeService();
 
-and you can set the defaults once and not have to change it:
-
-    $conn->SetDefaults('Compute', 'cloudServersOpenStack', 'DFW', 'publicURL');
-
-So this code:
-
-    $compute = $conn->Compute();
-
-connects to the default service and region, while this one:
-
-    $computeORD = $conn->Compute(NULL, 'ORD');
-
-connects to the same service, but on the `'ORD'` endpoint.
 
 ### Working with lists (the Collection object)
 
@@ -116,7 +61,7 @@ Collections have four primary methods:
 The following examples display the lists of flavors, images, and servers
 for a compute object:
 
-    $flavorlist = $compute->FlavorList();
+    $flavorlist = $compute->flavorList();
     $flavorlist->Sort();    // The default sort key is 'id'
     while($flavor = $flavorlist->Next())
         printf("Flavor: %s RAM=%d\n", $flavor->name, $flavor->ram);
@@ -261,7 +206,7 @@ Cloud Networks is accessible via the `Compute` object. Thus, before you can
 create or manage virtual networks, you must have a Compute connection:
 
     $cloud = new Rackspace(...);
-    $compute = $cloud->Compute(...);
+    $compute = $cloud->computeService(...);
 
 The following examples assume the use of the `$compute` object.
 
@@ -341,24 +286,18 @@ Quick Reference - Cloud Databases (database as a service)
 
 ### Connecting to the Database service
 
-Cloud Databases is not part of OpenStack; the product is only available
-via a Rackspace connection:
+To connect to Cloud Databases, you must use the `OpenCloud\Database\Service` object. Like the other
+services, you must specify the service name ("cloudDatabases"), the region, and the URL type:
 
-    $cloud = new OpenCloud\Rackspace('https://...', array(...));
+    $databaseService = $client->databaseService('cloudDatabases', 'DFW', 'publicURL');
 
-To connect to Cloud Databases, you use the `DbService` object. Like the other
-services, you must specify the service name ("cloudDatabases"),
-the region, and the URL type:
+This can be simplified if you're happy using the defaults:
 
-    $dbaas = $cloud->DbService('cloudDatabases','DFW','publicURL');
-
-This can be simplified by using the defaults:
-
-    $dbaas = $cloud->DbService(NULL, 'DFW');
+    $databaseService = $cloud->databaseService();
 
 ### Creating a database service instance
 
-    $instance = $dbaas->Instance();         // empty Instance
+    $instance = $databaseService->Instance();         // empty Instance
     $instance->name = 'InstanceName';
     $instance->flavor = $dbaas->Flavor(1);  // small
     $instance->volume->size = 2;            // 2GB disk
@@ -366,24 +305,24 @@ This can be simplified by using the defaults:
 
 ### Retrieve an existing instance
 
-    $instance = $dbaas->Instance({INSTANCE-ID});
+    $instance = $databaseService->Instance({INSTANCE-ID});
 
 ### List all instances
 
-    $instlist = $dbaas->InstanceList();
-    while($instance = $instlist->Next()) {
+    $instances = $databaseService->instanceList();
+    while ($instance = $instances->next()) {
         printf("%s (%s)\n", $instance->id, $instance->name);
     }
 
 ### Delete an instance
 
-    $instance->Delete();
+    $instance->delete();
 
 ### Performing instance actions
 
 #### Restart
 
-    $instance->Restart();
+    $instance->restart();
 
 #### Resize
 
@@ -467,26 +406,9 @@ The `databases` attribute of a user contains a list of all the database
 Quick Reference - Cloud Block Storage (Cinder)
 ----------------------------------------------
 Cloud Block Storage is a dynamic volume creation and management service
-built upon the OpenStack Cinder project.
+built upon the OpenStack Cinder project. To use Block Storage, you must use the `OpenCloud\Volume\Service`:
 
-### Connecting to Cloud Block Storage
-Cloud Block Storage is available on either the OpenStack or Rackspace
-connection using the `VolumeService` method:
-
-Assuming:
-
-    $cloud = new Rackspace(...);
-
-Syntax:
-
-    {variable} = $cloud->VolumeService({servicename}, {region}, {urltype});
-
-Example:
-
-    $dallas = $cloud->VolumeService('cloudBlockStorage', 'DFW');
-
-This creates a connection to the `cloudBlockStorage` service (as it is
-called at Rackspace) in the `DFW` region.
+    $volumeService = $client->volumeService('cloudBlockStorage', 'DFW', 'publicURL');
 
 ### Volume Types
 
@@ -497,7 +419,7 @@ either be `SSD` (solid state disk: expensive, high-performance) or
 #### Listing volume types
 The `VolumeTypeList` method returns a Collection of VolumeType objects:
 
-    $vtlist = $dallas->VolumeTypeList();
+    $vtlist = $volumeService->VolumeTypeList();
     while($vt = $vtlist->Next())
         printf("%s %s\n", $vt->id, $vt->Name());
 
@@ -508,7 +430,7 @@ This lists the volume types and their IDs.
 If you know the ID of a volume type, use the `VolumeType` method to retrieve
 information on it:
 
-    $volumetype = $dallas->VolumeType(1);
+    $volumetype = $volumeService->VolumeType(1);
 
 ### Working with Volumes
 
@@ -523,7 +445,7 @@ the volume type is recommended.
 
 Example:
 
-    $myvolume = $dallas->Volume();  // an empty volume object
+    $myvolume = $volumeService->Volume();  // an empty volume object
     $response = $myvolume->Create(array(
         'size' => 200,
         'volume_type' => $dallas->VolumeType(1),
@@ -537,7 +459,7 @@ a `VolumeType` object.
 
 The `VolumeList` method returns a Collection of Volume objects:
 
-    $volumes = $dallas->VolumeList();
+    $volumes = $volumeService->VolumeList();
     $volumes->Sort('display_name');
     while($vol = $volumes->Next())
         print $vol->Name()."\n";
@@ -549,7 +471,7 @@ This lists all the volumes associated with your account.
 If you specify an ID on the `Volume` method, it retrieves information on
 the specified volume:
 
-    $myvolume = $dallas->Volume('0d0f90209...');
+    $myvolume = $volumeService->Volume('0d0f90209...');
     printf("volume size = %d\n", $myvolume->size);
 
 #### To delete a volume
@@ -569,7 +491,7 @@ the snapshot.
 A `Snapshot` object is created from the Cloud Block Storage service. However,
 it is associated with a volume, and you must specify a volume to create one:
 
-	$snapshot = $dallas->Snapshot();	// empty Snapshot object
+	$snapshot = $volumeService->Snapshot();	// empty Snapshot object
 	$snapshot->Create(array(
 		'display_name' => 'Name that snapshot',
 		'volume_id' => $volume->id));
@@ -578,7 +500,7 @@ it is associated with a volume, and you must specify a volume to create one:
 
 The `SnapshotList` method returns a Collection of Snapshot objects:
 
-	$snaplist = $dallas->SnapshotList();
+	$snaplist = $volumeService->SnapshotList();
 	while($snap = $snaplist->Next())
 		printf("[%s] %s\n", $snap->id, $snap->Name());
 
@@ -586,7 +508,7 @@ The `SnapshotList` method returns a Collection of Snapshot objects:
 
 To retrieve a single Snapshot, specify its ID on the `Snapshot` method:
 
-	$snapshot = $dallas->Snapshot({snapshot-id});
+	$snapshot = $volumeService->Snapshot({snapshot-id});
 
 #### To delete a snapshot
 
@@ -603,8 +525,8 @@ a server so that the server can use the volume.
 
 Syntax:
 
-    $server = $compute->Server({server-id});
-    $volume = $dallas->Volume({volume-id});
+    $server = $computeService->Server({server-id});
+    $volume = $volumeService->Volume({volume-id});
     $server->AttachVolume($volume, {mount-point})
 
 `{server-id}` and `{volume-id}` are the IDs of the server and volume,
@@ -617,16 +539,16 @@ parameter.
 
 Example:
 
-    $server = $compute->Server('010d092...');
-    $volume = $dallas->Volume('39d0f0...');
+    $server = $computeService->Server('010d092...');
+    $volume = $volumeService->Volume('39d0f0...');
     $server->AttachVolume($volume); // uses the 'auto' mount point
 
 #### To detach a volume from a server
 
 Syntax:
 
-	$server = $compute->Server({server-id});
-	$volume = $dallas->Volume({volume-id});
+	$server = $computeService->Server({server-id});
+	$volume = $volumeService->Volume({volume-id});
 	$server->DetachVolume($volume);
 
 <a name="CLB"></a>
@@ -639,17 +561,8 @@ dynamically. It is not currently part of the OpenStack project.
 Cloud Block Storage is available only via a `Rackspace`
 connection using the `LoadBalancerService` method:
 
-Assuming:
-
-    $cloud = new Rackspace(...);
-
-Syntax:
-
-    {variable} = $cloud->LoadBalancerService({servicename}, {region}, {urltype});
-
-Example:
-
-    $chitown = $cloud->VolumeService('cloudLoadBalancers', 'ORD');
+    $client = new Rackspace(...);
+    $lbService = $client->loadBalancerService(...);
 
 This creates a connection to the `cloudLoadBalancers` service
 in the `ORD` (Chicago) region.
@@ -686,12 +599,7 @@ Cloud DNS lets you manage your domain names via a simple interface. To connect
 to Cloud DNS:
 
 	$cloud = new Rackspace(...);
-	$dns = $cloud->DNS({name}, {region}, {urltype});
-
-Omitted values use defaults; since Cloud DNS is regionless, this is usually
-sufficient:
-
-	$dns = $cloud->DNS();
+	$dns = $cloud->dnsService(...);
 
 ### Service-Level Methods
 
