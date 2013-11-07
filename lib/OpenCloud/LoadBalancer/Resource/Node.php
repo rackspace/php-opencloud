@@ -123,18 +123,38 @@ class Node extends PersistentObject
     }
 
     /**
+     * returns the raw object for the Create / Update JSON
+     *
+     * @return \stdClass
+     */
+    protected function commonJson()
+    {
+        $nodes = (object) array('node' => new \stdClass);
+        foreach($this->createKeys as $key) {
+            $nodes->node->$key = $this->$key;
+        }
+        return $nodes;
+    }
+
+    /**
      * returns the object for the Create JSON
      *
      * @return \stdClass
      */
     protected function createJson() 
     {
-        $nodes = (object) array('node' => new \stdClass);
-        foreach($this->createKeys as $key) {
-            $nodes->node->$key = $this->$key;
-        }
-        
-        return (object) array('nodes' => array($nodes));
+        return (object) array('nodes' => array($this->commonJson()));
+    }
+
+    /**
+     * returns the JSON for the update (same as create)
+     *
+     * For these subresources, the update JSON is the same as the Create JSON
+     * @return \stdClass
+     */
+    protected function updateJson($params = array()) 
+    {
+        return $this->commonJson();
     }
 
     /**
