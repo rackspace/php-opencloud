@@ -3,7 +3,7 @@
 
 
 DOC_DIR=docs/api
-TEMPLATE=abstract
+TEMPLATE=responsive
 BIN_FILE=vendor/bin/phpdoc.php
 
 # Make sure PHPDoc is installed

@@ -14,6 +14,7 @@ use Guzzle\Http\EntityBody;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\ObjectStore\Constants\UrlType;
 
 /**
@@ -52,10 +53,33 @@ class DataObject extends AbstractResource
      * @var string The object's content type
      */
     protected $contentType;
-    
+
+    /**
+     * @var The size of this object.
+     */
+    protected $contentLength;
+
+    /**
+     * @var string Date of last modification.
+     */
+    protected $lastModified;
+
+    /**
+     * @var string Etag.
+     */
+    protected $etag;
+
+    /**
+     * Also need to set Container parent and handle pseudo-directories.
+     * {@inheritDoc}
+     *
+     * @param Container $container
+     * @param null      $data
+     */
     public function __construct(Container $container, $data = null)
     {
         $this->setContainer($container);
+
         parent::__construct($container->getService());
         
         // For pseudo-directories, we need to ensure the name is set
@@ -63,8 +87,59 @@ class DataObject extends AbstractResource
             $this->setName($data->subdir)->setDirectory(true);
             return;
         }
-        
+
         $this->populate($data);
+    }
+
+    /**
+     * A collection list of DataObjects contains a different data structure than the one returned for the
+     * "Retrieve Object" operation. So we need to stock the values differently.
+     * {@inheritDoc}
+     */
+    public function populate($info, $setObjects = true)
+    {
+        parent::populate($info, $setObjects);
+
+        if (isset($info->bytes)) {
+            $this->setContentLength($info->bytes);
+        }
+        if (isset($info->last_modified)) {
+            $this->setLastModified($info->last_modified);
+        }
+        if (isset($info->content_type)) {
+            $this->setContentType($info->content_type);
+        }
+        if (isset($info->hash)) {
+            $this->setEtag($info->hash);
+        }
+    }
+
+    /**
+     * Takes a response and stocks common values from both the body and the headers.
+     *
+     * @param Response $response
+     * @return $this
+     */
+    public function populateFromResponse(Response $response)
+    {
+        $this->content = $response->getBody();
+
+        $headers = $response->getHeaders();
+
+        return $this->setMetadata($headers, true)
+            ->setContentType((string) $headers['Content-type'])
+            ->setLastModified((string) $headers['Last-Modified'])
+            ->setContentLength((string) $headers['Content-Length'])
+            ->setEtag((string) $headers['ETag']);
+    }
+
+    public function refresh()
+    {
+        $response = $this->getService()->getClient()
+            ->get($this->getUrl())
+            ->send();
+
+        return $this->populateFromResponse($response);
     }
 
     /**
@@ -166,11 +241,31 @@ class DataObject extends AbstractResource
     }
 
     /**
+     * @param $contentType int
+     * @return $this
+     */
+    public function setContentLength($contentLength)
+    {
+        $this->contentLength = $contentLength;
+        return $this;
+    }
+
+    /**
      * @return int
      */
     public function getContentLength()
     {
-        return (!$this->content) ? 0 : $this->content->getContentLength();
+        return $this->contentLength ?: $this->content->getContentLength();
+    }
+
+    /**
+     * @param $etag
+     * @return $this
+     */
+    public function setEtag($etag)
+    {
+        $this->etag = $etag;
+        return $this;
     }
 
     /**
@@ -178,7 +273,18 @@ class DataObject extends AbstractResource
      */
     public function getEtag()
     {
-        return (!$this->content) ? null : $this->content->getContentMd5();
+        return $this->etag ?: $this->content->getContentMd5();
+    }
+
+    public function setLastModified($lastModified)
+    {
+        $this->lastModified = $lastModified;
+        return $this;
+    }
+
+    public function getLastModified()
+    {
+        return $this->lastModified;
     }
 
     public function primaryKeyField()
@@ -306,16 +412,4 @@ class DataObject extends AbstractResource
         
         return (isset($uri)) ? Url::factory($uri)->addPath($this->name) : false;
     }
-
-    public function refresh()
-    {
-        $response = $this->getService()->getClient()
-            ->get($this->getUrl())
-            ->send();
-
-        $this->content = $response->getBody();
-        $this->setMetadata($response->getHeaders(), true);
-        $this->setContentType((string) $response->getHeader('Content-Type'));
-    }
-
 }

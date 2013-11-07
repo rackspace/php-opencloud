@@ -34,7 +34,7 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $object = $this->service->getContainer('container1')->dataObject('foobar');
         $this->assertEquals('text/plain', $object->getContentType());
-        $this->assertEquals(32, $object->getContentLength());
+        $this->assertEquals(512000, $object->getContentLength());
         $this->assertNotNull($object->getEtag());
         
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $object->update());

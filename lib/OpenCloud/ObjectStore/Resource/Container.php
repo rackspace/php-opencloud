@@ -322,9 +322,9 @@ class Container extends AbstractContainer
             ->get($this->getUrl($name), $headers)
             ->send();
 
-        return $this->dataObject()->setName($name)
-            ->setContent($response->getBody())
-            ->setMetadata($response->getHeaders(), true);
+        return $this->dataObject()
+            ->populateFromResponse($response)
+            ->setName($name);
     }
 
     /**
