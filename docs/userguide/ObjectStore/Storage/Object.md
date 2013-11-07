@@ -7,7 +7,7 @@ You will need to instantiate the container object as [documented here](https://g
 To return a list of objects:
 
 ```php
-$files = $container->listObjects();
+$files = $container->objectList();
 while ($file = $files->next()) {
     // ... do something
 }

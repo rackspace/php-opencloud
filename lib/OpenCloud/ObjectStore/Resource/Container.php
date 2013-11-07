@@ -42,6 +42,19 @@ class Container extends AbstractContainer
      */
     private $cdn;
 
+    public function __construct(AbstractService $service, $data = null)
+    {
+        parent::__construct($service, $data);
+
+        // Set metadata items for collection listings
+        if (isset($data->count)) {
+            $this->metadata->setProperty('Object-Count', $data->count);
+        }
+        if (isset($data->bytes)) {
+            $this->metadata->setProperty('Bytes-Used', $data->bytes);
+        }
+    }
+
     /**
      * Factory method that instantiates an object from a Response object.
      *
@@ -299,7 +312,7 @@ class Container extends AbstractContainer
      * 
      * These are also documented in RFC 2616.
      * 
-     * @param type $name
+     * @param string $name
      * @param array $headers
      * @return DataObject
      */
@@ -348,7 +361,7 @@ class Container extends AbstractContainer
      * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      * @return \Guzzle\Http\Message\Response
      */
-    public function uploadObjects(array $files, array $headers = array())
+    public function uploadObjects(array $files, array $commonHeaders = array())
     {
         $requests = array();
         
@@ -376,7 +389,10 @@ class Container extends AbstractContainer
                 );
             }
             // @codeCoverageIgnoreEnd
-            
+
+            // Allow custom headers and common
+            $headers = (isset($entity['headers'])) ? $entity['headers'] : $commonHeaders;
+
             $url = clone $this->getUrl();
             $url->addPath($entity['name']);
 

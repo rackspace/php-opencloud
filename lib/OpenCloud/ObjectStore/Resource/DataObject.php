@@ -27,17 +27,30 @@ class DataObject extends AbstractResource
 {
     const METADATA_LABEL = 'Object';
 
+    /**
+     * @var Container
+     */
     private $container;
-    
+
+    /**
+     * @var The file name of the object
+     */
     protected $name;
     
     /**
      * @var EntityBody 
      */
     protected $content;
-    
+
+    /**
+     * @var bool Whether or not this object is a "pseudo-directory"
+     * @link http://docs.openstack.org/trunk/openstack-object-storage/developer/content/pseudo-hierarchical-folders-directories.html
+     */
     protected $directory = false;
-    
+
+    /**
+     * @var string The object's content type
+     */
     protected $contentType;
     
     public function __construct(Container $container, $data = null)
@@ -53,16 +66,59 @@ class DataObject extends AbstractResource
         
         $this->populate($data);
     }
-    
+
+    /**
+     * @param Container $container
+     * @return $this
+     */
     public function setContainer(Container $container)
     {
         $this->container = $container;
         return $this;
     }
-    
+
+    /**
+     * @return Container
+     */
     public function getContainer()
     {
         return $this->container;
+    }
+
+    /**
+     * @param $name string
+     * @return $this
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param $directory bool
+     * @return $this
+     */
+    public function setDirectory($directory)
+    {
+        $this->directory = $directory;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDirectory()
+    {
+        return $this->directory;
     }
     
     /**
@@ -72,44 +128,64 @@ class DataObject extends AbstractResource
     {
         return (bool) $this->directory;
     }
-    
+
+    /**
+     * @param  mixed $content
+     * @return $this
+     */
     public function setContent($content)
     {
         $this->content = EntityBody::factory($content);
         return $this;
     }
-    
+
+    /**
+     * @return EntityBody
+     */
     public function getContent()
     {
         return $this->content;
     }
-    
+
+    /**
+     * @param  string $contentType
+     * @return $this
+     */
     public function setContentType($contentType)
     {
         $this->contentType = $contentType;
         return $this;
     }
-    
+
+    /**
+     * @return null|string
+     */
     public function getContentType()
     {
         return $this->contentType ?: $this->content->getContentType();
     }
-    
+
+    /**
+     * @return int
+     */
     public function getContentLength()
     {
         return (!$this->content) ? 0 : $this->content->getContentLength();
     }
-    
+
+    /**
+     * @return null|string
+     */
     public function getEtag()
     {
         return (!$this->content) ? null : $this->content->getContentMd5();
     }
-    
+
     public function primaryKeyField()
     {
         return 'name';
     }
-    
+
     public function getUrl($path = null, array $params = array())
     {
         if (!$this->name) {
@@ -124,6 +200,10 @@ class DataObject extends AbstractResource
         return $this->container->uploadObject($this->name, $this->content, $this->metadata->toArray());
     }
 
+    /**
+     * @param string $destination Path (`container/object') of new object
+     * @return \Guzzle\Http\Message\Response
+     */
     public function copy($destination)
     {
         return $this->getService()
@@ -133,13 +213,15 @@ class DataObject extends AbstractResource
             ))
             ->send();
     }
-    
+
     public function delete($params = array())
     {
         return $this->getService()->getClient()->delete($this->getUrl())->send();
     }
 
     /**
+     * Get a temporary URL for this object.
+     *
      * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/TempURL-d1a4450.html
      *
      * @param $expires Expiration time in seconds
@@ -176,9 +258,17 @@ class DataObject extends AbstractResource
         return sprintf('%s?temp_url_sig=%s&temp_url_expires=%d', $url, $hash, $expiry);
     }
 
+    /**
+     * Remove this object from the CDN.
+     *
+     * @param null $email
+     * @return mixed
+     */
     public function purge($email = null)
     {
-        $cdn = $this->getContainer()->getCdn();
+        if (!$cdn = $this->getContainer()->getCdn()) {
+            return false;
+        }
 
         $url = clone $cdn->getUrl();
         $url->addPath($this->name);
@@ -191,6 +281,10 @@ class DataObject extends AbstractResource
             ->send();
     }
 
+    /**
+     * @param string $type
+     * @return bool|Url
+     */
     public function getPublicUrl($type = UrlType::CDN)
     {
         $cdn = $this->container->getCdn();

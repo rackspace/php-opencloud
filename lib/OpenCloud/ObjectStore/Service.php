@@ -171,12 +171,13 @@ class Service extends AbstractService
         $response = $this->getClient()
             ->delete($url, array('Content-Type' => 'text/plain'), $entity)
             ->send();
-        
-        $message = $response->getDecodedBody();
-        
-        if (!empty($message->Errors)) {
-            throw new Exception\BulkOperationException((array) $message->Errors);
-        }
+
+        try {
+            $message = $response->getDecodedBody();
+            if (!empty($message->Errors)) {
+                throw new Exception\BulkOperationException((array) $message->Errors);
+            }
+        } catch (Exceptions\JsonError $e) {}
         
         return $response;
     }
