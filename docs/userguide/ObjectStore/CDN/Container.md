@@ -1,3 +1,23 @@
+## Setup
+
+```php
+use OpenCloud\Rackspace;
+
+$client = new Rackspace(RACKSPACE_US, array(
+
+));
+
+$service = $client->objectStoreService('cloudFiles');
+```
+
+To access the CDN functionality of a particular container:
+
+```php
+$container = $service->getContainer('foo_bar');
+
+$cdn = $container->getCdn();
+```
+
 ## List CDN-enabled container
 
 To list CDN-only containers, follow the same operation for Storage which lists all containers. The only difference is

@@ -26,7 +26,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testExtensions()
     {
-        $ext = $this->service->Extensions();
+        $ext = $this->service->getExtensions();
         $this->assertTrue(is_array($ext));
     }
 

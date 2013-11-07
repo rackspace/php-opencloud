@@ -1,16 +1,15 @@
 <?php
-
 /**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.5.9
- * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ *
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Smoke\Unit;
 
+use OpenCloud\Compute\Constants\Network;
 use OpenCloud\Smoke\Utils;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 
@@ -131,12 +130,14 @@ class Compute extends AbstractUnit implements UnitInterface
             'image'    => $centos,
             'flavor'   => $flavorList->first(),
             'networks' => array(
-                $this->getService()->network(RAX_PUBLIC), 
-                $this->getService()->network(RAX_PRIVATE)
+                $this->getService()->network(Network::RAX_PUBLIC),
+                $this->getService()->network(Network::RAX_PRIVATE)
             ),
             "OS-DCF:diskConfig" => "AUTO"
         ));
+
         $adminPassword = $server->adminPass;
+        $this->stepInfo('ADMIN PASSWORD = %s', $adminPassword);
 
         $this->step('Wait for Server create');
         $server->waitFor('ACTIVE', 600, $this->getWaiterCallback());
@@ -215,7 +216,7 @@ class Compute extends AbstractUnit implements UnitInterface
         
         $networks = $this->getService()->networkList();
         while ($network = $networks->next()) {
-            if (!in_array($network->id, array(RAX_PRIVATE, RAX_PUBLIC))) {
+            if (!in_array($network->id, array(Network::RAX_PRIVATE, Network::RAX_PUBLIC))) {
                 $this->stepInfo('Deleting: %s %s', $network->id, $network->label);
                 $network->delete();
             }

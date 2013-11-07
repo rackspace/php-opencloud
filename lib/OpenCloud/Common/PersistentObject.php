@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP OpenCloud library.
+ * PHP OpenCloud library
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,7 @@ namespace OpenCloud\Common;
 
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Url;
+use OpenCloud\Common\Constants\State as StateConst;
 use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions\RuntimeException;
@@ -159,15 +160,10 @@ abstract class PersistentObject extends Base
     {
         return $this->metadata;
     }
-    
-    /**
-     * API OPERATIONS (CRUD & CUSTOM)
-     */
-    
+
     /**
      * Creates a new object
      *
-     * @api
      * @param array $params array of values to set when creating the object
      * @return HttpResponse
      * @throws VolumeCreateError if HTTP status is not Success
@@ -179,19 +175,12 @@ abstract class PersistentObject extends Base
             $this->populate($params, false);
         }
 
-        // debug
-        $this->getLogger()->info('{class}::Create({name})', array(
-            'class' => get_class($this), 
-            'name'  => $this->getProperty($this->primaryKeyField())
-        ));
-
         // construct the JSON
         $json = json_encode($this->createJson());
         $this->checkJsonError();
 
         $createUrl = $this->createUrl();
 
-        // send the request
         $response = $this->getClient()->post($createUrl, array(), $json)
             ->setExceptionHandler(array(
                 201 => array(
@@ -215,11 +204,27 @@ abstract class PersistentObject extends Base
             ))
             ->send();
 
+        // We have to try to parse the response body first because it should have precedence over a Location refresh.
+        // I'd like to reverse the order, but Nova instances return ephemeral properties on creation which are not
+        // available when you follow the Location link...
+        if (null !== ($decoded = $this->parseResponse($response))) {
+            $this->populate($decoded);
+        } elseif ($location = $response->getHeader('Location')) {
+            $this->refreshFromLocationUrl($location);
+        }
+
+        return $response;
+    }
+
+    public function refreshFromLocationUrl($url)
+    {
+        $fullUrl = Url::factory($url);
+
+        $response = $this->getClient()->get($fullUrl)->send();
+
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }
-        
-        return $response;
     }
 
     /**
@@ -248,7 +253,7 @@ abstract class PersistentObject extends Base
         $this->checkJsonError();
 
         // send the request
-        return $this->getClient()->put($this->url(), array(), $json)->send();
+        return $this->getClient()->put($this->getUrl(), array(), $json)->send();
     }
 
     /**
@@ -268,7 +273,7 @@ abstract class PersistentObject extends Base
             if (!$id = $id ?: $primaryKeyVal) {
                 throw new Exceptions\IdRequiredError(sprintf(
                     Lang::translate("%s has no %s; cannot be refreshed"),
-                    get_class(),
+                    get_class($this),
                     $primaryKey
                 ));
             }
@@ -307,7 +312,7 @@ abstract class PersistentObject extends Base
         $this->getLogger()->info('{class}::Delete()', array('class' => get_class($this)));
 
         // send the request
-        return $this->getClient()->delete($this->url())->send();
+        return $this->getClient()->delete($this->getUrl())->send();
     }
     
     /**
@@ -337,7 +342,7 @@ abstract class PersistentObject extends Base
                 $url->addPath($primaryKey);
             }
         }
-        
+
         if (!$url instanceof Url) {
             $url = Url::factory($url);
         }
@@ -352,11 +357,6 @@ abstract class PersistentObject extends Base
      * status. Once the status reaches the `$terminal` value (or 'ERROR'),
      * then the function returns.
      *
-     * The polling interval is set by the constant RAXSDK_POLL_INTERVAL.
-     *
-     * The function will automatically terminate after RAXSDK_SERVER_MAXTIMEOUT
-     * seconds elapse.
-     *
      * @api
      * @param string $terminal the terminal state to wait for
      * @param integer $timeout the max time (in seconds) to wait
@@ -367,16 +367,16 @@ abstract class PersistentObject extends Base
      * @return void
      * @codeCoverageIgnore
      */
-    public function waitFor(
-        $terminal = 'ACTIVE',
-        $timeout = RAXSDK_SERVER_MAXTIMEOUT,
-        $callback = NULL,
-        $sleep = RAXSDK_POLL_INTERVAL
-    ) {
+    public function waitFor($state = null, $timeout = null, $callback = null, $interval = null)
+    {
+        $state    = $state ?: StateConst::ACTIVE;
+        $timeout  = $timeout ?: StateConst::DEFAULT_TIMEOUT;
+        $interval = $interval ?: StateConst::DEFAULT_INTERVAL;
+
         // save stats
         $startTime = time();
         
-        $states = array('ERROR', $terminal);
+        $states = array('ERROR', $state);
         
         while (true) {
             
@@ -390,7 +390,7 @@ abstract class PersistentObject extends Base
                 return;
             }
             
-            sleep($sleep);
+            sleep($interval);
         }
     }
     
@@ -494,7 +494,7 @@ abstract class PersistentObject extends Base
     {
         throw new Exceptions\CreateError(sprintf(
             Lang::translate('[%s] does not support Create()'),
-            get_class()
+            get_class($this)
         ));
     }
 
@@ -507,7 +507,7 @@ abstract class PersistentObject extends Base
     {
         throw new Exceptions\DeleteError(sprintf(
             Lang::translate('[%s] does not support Delete()'),
-            get_class()
+            get_class($this)
         ));
     }
 
@@ -520,7 +520,7 @@ abstract class PersistentObject extends Base
     {
         throw new Exceptions\UpdateError(sprintf(
             Lang::translate('[%s] does not support Update()'),
-            get_class()
+            get_class($this)
         ));
     }
         
@@ -729,7 +729,7 @@ abstract class PersistentObject extends Base
         ));
     }
     
-    private function parseResponse(Response $response)
+    public function parseResponse(Response $response)
     {
         $body = $response->getDecodedBody();
         

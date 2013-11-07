@@ -1,44 +1,131 @@
 <?php
-
 /**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.5.9
- * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ *
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Smoke\Unit;
 
-/**
- * Description of Queues
- * 
- * @link 
- */
 class Queues extends AbstractUnit implements UnitInterface
 {
-    /**
-     * {@inheritDoc}
-     */
+    const QUEUE_NAME = 'test_queue';
+
+    private $queue;
+
     public function setupService()
     {
-        
+        $service = $this->getConnection()->queuesService('cloudQueues');
+        $service->setClientId($service::generateUuid());
+        return $service;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function main()
     {
-        
+        $this->doQueueBlock();
+        $this->doMessageBlock();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
+    public function doQueueBlock()
+    {
+        $this->step('Queues');
+
+        // create
+        $this->stepInfo('Create queue');
+        $this->queue = $this->getService()->createQueue(self::QUEUE_NAME . rand(1, 9999));
+
+        // check existence
+        $this->stepInfo('Check queue existence');
+        $this->getService()->hasQueue($this->prepend(self::QUEUE_NAME));
+
+        // metadata
+        $this->stepInfo('Update metadata');
+        $this->queue->saveMetadata(array(
+            'foo' => 'bar'
+        ));
+
+        // stats
+        $stats = $this->queue->getStats();
+        $this->stepInfo('Get stats: %s', print_r($stats, true));
+
+        // list
+        $step = $this->stepInfo('List queues');
+        $queues = $this->getService()->listQueues();
+        while ($queue = $queues->next()) {
+            $step->stepInfo($queue->getName());
+        }
+    }
+
+    public function doMessageBlock()
+    {
+        $this->step('Messages');
+
+        // post
+        $this->stepInfo('Create messages for queue %s', $this->queue->getName());
+        $this->queue->createMessage(array(
+            'body' => (object) array(
+                    'instructions' => 'Do it now!'
+                ),
+            'ttl' => 300
+        ));
+
+        $this->queue->createMessages(array(
+            array(
+                'body' => (object) array('foo' => 'bar'),
+                'ttl'  => 700
+            ),
+            array(
+                'body' => (object) array('baz' => 'lol'),
+                'ttl'  => 600
+            )
+        ));
+
+        // list
+        $step = $this->stepInfo('List messages for queue %s', $this->queue->getName());
+        $messages = $this->queue->listMessages();
+        $ids = array();
+        while ($message = $messages->next()) {
+            $step->stepInfo($message->getId());
+            $ids[] = $message->getId();
+        }
+
+        array_pop($ids);
+
+        // list by ID
+        $messages = $this->queue->listMessages(array('ids' => $ids));
+        while ($message = $messages->next()) {
+        }
+    }
+
+    public function doClaimBlock()
+    {
+        $this->step('Claims');
+
+        // claim
+        $this->stepInfo('Create claims');
+
+        $this->queue->claimMessages(array(
+            'ttl'   => 300,
+            'grace' => 300,
+            'limit' => 15
+        ));
+    }
+
     public function teardown()
     {
-        
+        $this->step('Delete queues');
+
+        $queues = $this->getService()->listQueues();
+        while ($queue = $queues->next()) {
+            if ($this->shouldDelete($queue->getName())) {
+                try {
+                    $this->stepInfo('Deleting %s', $queue->getName());
+                } catch (\Exception $e) {
+                    $this->stepInfo('Failed to delete %s', $queue->getName());
+                }
+            }
+        }
     }
 }

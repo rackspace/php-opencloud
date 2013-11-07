@@ -1,9 +1,13 @@
+## Setup
+
+You will need to instantiate the container object as [documented here](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/Storage/Container.md).
+
 ## List objects in a container
 
 To return a list of objects:
 
 ```php
-$files = $container->listObjects();
+$files = $container->objectList();
 while ($file = $files->next()) {
     // ... do something
 }
@@ -67,6 +71,9 @@ $snippet = $container->getObject('output.log', array('range' => 'bytes=-20'));
 ## Create an object
 
 There are three ways to upload a new file, each of which has different business needs.
+
+__N.B__: Unlike previous versions, you do not need to manually specify your object's content type. The API will do this
+for you.
 
 ### To upload a single/basic file:
 

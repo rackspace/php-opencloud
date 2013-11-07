@@ -4,16 +4,16 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Queues;
 
-use OpenCloud\OpenStack;
-use OpenCloud\Common\Service\AbstractService;
-use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use Guzzle\Common\Event;
 use Guzzle\Http\Exception\BadResponseException;
+use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\Common\Service\AbstractService;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Cloud Queues is an open source, scalable, and highly available message and 
@@ -53,10 +53,28 @@ use Guzzle\Http\Exception\BadResponseException;
  * Cloud Queueing guarantees that messages are handled in a First In, First Out 
  * (FIFO) order.
  */
-class Service extends AbstractService
+class Service extends AbstractService implements EventSubscriberInterface
 {
+    const DEFAULT_TYPE = 'rax:queues';
     const DEFAULT_NAME = 'cloudQueues';
-    
+
+    public static function getSubscribedEvents()
+    {
+        return array(
+            'request.before_send' => 'appendClientIdToRequest'
+        );
+    }
+
+    /**
+     * Append the Client-ID header to all requests for this service.
+     *
+     * @param Event $event
+     */
+    public function appendClientIdToRequest(Event $event)
+    {
+        $event['request']->addHeader('Client-ID', $this->getClientId());
+    }
+
     /**
      * An arbitrary string used to differentiate your worker/subscriber. This is
      * needed, for example, when you return back a list of messages and want to
@@ -65,34 +83,54 @@ class Service extends AbstractService
      * @var string 
      */
     private $clientId;
-    
+
     /**
-     * Main service constructor.
-     * 
-     * @param OpenStack $connection
-     * @param mixed $serviceName
-     * @param mixed $serviceRegion
-     * @param mixed $urlType
-     * @return void
+     * @param null $clientId
+     * @return $this
      */
-    public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType = null)
+    public function setClientId($clientId = null)
     {
-        parent::__construct(
-            $connection, 'rax:queues', $serviceName, $serviceRegion, $urlType
-        );
-    } 
-    
-    public function setClientId($clientId)
-    {
+        if (!$clientId) {
+            $clientId = self::generateUuid();
+        }
         $this->clientId = $clientId;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getClientId()
     {
         return $this->clientId;
     }
-    
+
+    /**
+     * Create a new Queue.
+     *
+     * @param $name Name of the new queue
+     * @return Queue
+     */
+    public function createQueue($name)
+    {
+        if (!is_string($name)) {
+            throw new InvalidArgumentError(
+                'The only parameter required to create a Queue is a string name. Metadata can be set with '
+                . 'Queue::setMetadata and Queue::saveMetadata'
+            );
+        }
+
+        $queue = $this->getQueue();
+        $queue->setName($name);
+
+        // send the request
+        $this->getClient()->put($queue->getUrl())
+            ->setExpectedResponse(201)
+            ->send();
+
+        return $queue;
+    }
+
     /**
      * This operation lists queues for the project, sorting the queues 
      * alphabetically by name.
@@ -113,19 +151,17 @@ class Service extends AbstractService
      */
     public function listQueues(array $params = array())
     {
-        return $this->resourceList('Queue', $this->url('queues', $params));
+        return $this->resourceList('Queue', $this->getUrl('queues', $params));
     }
     
     /**
-     * Return an empty Queue object.
+     * Return an empty Queue.md object.
      * 
      * @return Queue
      */
     public function getQueue($id = null)
     {
-        $resource = $this->resource('Queue');
-        $resource->populate($id);
-        return $resource;
+        return $this->resource('Queue', $id);
     }
     
     /**
@@ -144,14 +180,15 @@ class Service extends AbstractService
         }
         
         try {
-            
+            $url = $this->getUrl();
+            $url->addPath('queues')->addPath($name);
+
             $this->getClient()
-                ->head($this->url("queues/$name"))
+                ->head($url)
                 ->setExpectedResponse(204)
                 ->send();
-            
+
             return true;
-            
         } catch (BadResponseException $e) {
             return false;
         } 

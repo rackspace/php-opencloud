@@ -15,6 +15,7 @@ use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\Compute\Service;
+use OpenCloud\Compute\Constants\ServerState;
 
 /**
  * A virtual machine (VM) instance in the Cloud Servers environment.
@@ -25,32 +26,7 @@ use OpenCloud\Compute\Service;
 class Server extends PersistentObject
 {
     /**
-     * The server status. Supported types are: 
-     * 
-     * * ACTIVE: The server is active and ready to use.
-     * * BUILD: The server is being built.
-     * * DELETED: The server was deleted. The list servers API operation does 
-     *      not show servers with a status of DELETED. To list deleted servers, 
-     *      use the changes-since parameter.
-     * * ERROR: The requested operation failed and the server is in an error state.
-     * * HARD_REBOOT: The server is going through a hard reboot. This power 
-     *      cycles your server, which performs an immediate shutdown and restart.
-     * * MIGRATING: The server is being moved from one physical node to 
-     *      another physical node. Server migration is a Rackspace extension.
-     * * PASSWORD: The password for the server is being changed.
-     * * REBOOT: The server is going through a soft reboot. During a soft reboot, 
-     *      the operating system is signaled to restart, which allows for a 
-     *      graceful shutdown and restart of all processes.
-     * * REBUILD: The server is being rebuilt from an image.
-     * * RESCUE: The server is in rescue mode. Rescue mode is a Rackspace extension.
-     * * RESIZE: The server is being resized and is inactive until it completes.
-     * * REVERT_RESIZE: A resized or migrated server is being reverted to its 
-     *      previous size. The destination server is being cleaned up and the 
-     *      original source server is restarting. Server migration is a Rackspace extension.
-     * * SUSPENDED: The server is inactive, either by request or necessity.
-     * * UNKNOWN: The server is in an unknown state.
-     * * VERIFY_RESIZE: The server is waiting for the resize operation to be 
-     *      confirmed so that the original server can be removed.
+     * The server status. {@see \OpenCloud\Compute\Constants\ServerState} for supported types.
      * 
      * @var string 
      */
@@ -213,16 +189,19 @@ class Server extends PersistentObject
      * @param integer $ip_type the type of IP version (4 or 6) to return
      * @return string IP address
      */
-    public function ip($ip_type = RAXSDK_DEFAULT_IP_VERSION)
+    public function ip($type = null)
     {
-        switch($ip_type) {
-            case 4:
-                return $this->accessIPv4;
-            case 6:
-                return $this->accessIPv6;
+        switch ($type) {
             default:
-                throw new Exceptions\InvalidIpTypeError(Lang::translate('Invalid IP address type; must be 4 or 6'));
+            case 4:
+                $value = $this->accessIPv4;
+                break;
+            case 6:
+                $value = $this->accessIPv6;
+                break;
         }
+
+        return $value;
     }
 
     /**
@@ -270,22 +249,21 @@ class Server extends PersistentObject
     /**
      * Reboots a server
      *
-     * You can pass the parameter RAXSDK_SOFT_REBOOT (default) or
-     * RAXSDK_HARD_REBOOT to specify the type of reboot. A "soft" reboot
-     * requests that the operating system reboot itself; a "hard" reboot
-     * is the equivalent of pulling the power plug and then turning it back
-     * on, with a possibility of data loss.
+     * A "soft" reboot requests that the operating system reboot itself; a "hard" reboot is the equivalent of pulling
+     * the power plug and then turning it back on, with a possibility of data loss.
      *
      * @api
-     * @param string $type - either 'soft' (the default) or 'hard' to
-     *      indicate the type of reboot
-     * @return boolean TRUE on success; FALSE on failure
+     * @param  string $type A particular reboot State. See Constants\ServerState for string values.
+     * @return \OpenCloud\Common\Http\Message\Response
      */
-    public function reboot($type = RAXSDK_SOFT_REBOOT)
+    public function reboot($type = null)
     {
-        $object = (object) array(
-            'reboot' => (object) array('type' => strtoupper($type))
-        );
+        if (!$type) {
+            $type = ServerState::REBOOT_STATE_HARD;
+        }
+
+        $object = (object) array('reboot' => (object) array('type' => $type));
+
         return $this->action($object);
     }
 
@@ -672,9 +650,6 @@ class Server extends PersistentObject
         return (object) array('server' => $server);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     protected function updateJson($params = array())
     {
         return (object) array('server' => (object) $params);

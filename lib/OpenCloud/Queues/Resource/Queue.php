@@ -4,7 +4,6 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -24,7 +23,10 @@ use OpenCloud\Common\Collection;
  */
 class Queue extends PersistentObject
 {
-    private $id;
+    /**
+     * Maximum number of messages that can be posted at once.
+     */
+    const MAX_POST_MESSAGES = 10;
     
     /**
      * The name given to the queue. The name MUST NOT exceed 64 bytes in length, 
@@ -43,7 +45,7 @@ class Queue extends PersistentObject
     
     /**
      * Populated when the service's listQueues() method is called. Provides a 
-     * convenient link for a particular Queue.
+     * convenient link for a particular Queue.md.
      * 
      * @var string 
      */
@@ -51,9 +53,17 @@ class Queue extends PersistentObject
     
     protected static $url_resource = 'queues';
     protected static $json_collection_name = 'queues';
+    protected static $json_name = false;
     
     public $createKeys = array('name');
-        
+
+    /**
+     * Set the name (with validation).
+     *
+     * @param $name string
+     * @return $this
+     * @throws \OpenCloud\Queues\Exception\QueueException
+     */
     public function setName($name)
     {
         if (preg_match('#[^\w\d\-\_]+#', $name)) {
@@ -67,22 +77,23 @@ class Queue extends PersistentObject
         $this->name = $name;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
     
     /**
-     * Sets the metadata for this Queue. 
-     * 
-     * @param array|object|Metadata $data  The data we want to use
-     * @param bool $query If set to TRUE, we will make the $data persistent and 
-     *      save it to the API.
-     * @return Queue
-     * @throws Exception\QueueMetadataException
+     * Sets the metadata for this Queue.
+     *
+     * @param $data
+     * @return $this
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      */
-    public function setMetadata($data, $query = true)
+    public function setMetadata($data)
     {
         // Check for either objects, arrays or Metadata objects
         if ($data instanceof Metadata) {
@@ -97,88 +108,59 @@ class Queue extends PersistentObject
                 print_r($data, true)
             ));
         }
-        
-        // Set property
-        $this->metadata = $metadata;
-        
-        // Is this a persistent change?
-        if ($query === true && $this->getName()) {
-            
-            // Get metadata properties as JSON-encoded object
-            $json = json_encode((object) get_object_vars($metadata));
-            $url  = $this->url('metadata');
-            
-            $this->getClient()->put($url, array(), $json)
-                ->setExpectedResponse(204)
-                ->send();
-        }
 
+        $this->metadata = $metadata;
         return $this;
     }
-    
-    /**
-     * Returns the metadata associated with a Queue.
-     * 
-     * @param bool $query If set to TRUE, we will query the API for the current
-     *      metadata, rather than relying on the value set in this object. Once
-     *      returned, the API version will override the object value.
-     * @return Metadata|null
-     * @throws Exceptions\QueueMetadataException
-     */
-    public function getMetadata($query = true)
-    {
-        if ($query === true) {
 
-            $response = $this->getClient()->get($this->url('metadata'))
-                ->setExpectedResponse(200)
-                ->send();
-            
-            $metadata = new Metadata();
-            $metadata->setArray($response->getDecodedBody());
-            $this->setMetadata($metadata, true);
-            
+    /**
+     * Save this metadata both to the local object and the API.
+     *
+     * @param array $params
+     * @return mixed
+     */
+    public function saveMetadata(array $params = array())
+    {
+        if (!empty($params)) {
+            $this->setMetadata($params);
         }
-        
-        return $this->metadata;
+
+        $json = json_encode((object) $this->getMetadata()->toArray());
+
+        return $this->getClient()->put($this->getUrl('metadata'), array(), $json)
+            ->setExpectedResponse(204)
+            ->send();
     }
     
     /**
-     * {@inheritDoc}
+     * Returns the metadata associated with a Queue.md.
+     *
+     * @return Metadata|null
      */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
+
+    /**
+     * Retrieve metadata from the API and set it to the local object.
+     */
+    public function retrieveMetadata()
+    {
+        $response = $this->getClient()->get($this->url('metadata'))
+            ->setExpectedResponse(200)
+            ->send();
+
+        $metadata = new Metadata();
+        $metadata->setArray($response->getDecodedBody());
+        $this->setMetadata($metadata);
+    }
+
     public function create($params = array())
     {
-        // set parameters
-        if (!empty($params)) {
-            $this->populate($params, false);
-        }
-        
-        // debug
-        $this->getLogger()->info('{class}::Create({name})', array(
-            'class' => get_class($this), 
-            'name'  => $this->Name()
-        ));
+        return $this->getService()->createQueue($params);
+    }
 
-        // construct the JSON
-        $object = $this->createJson();
-        $json = json_encode($object);
-        $this->checkJsonError();
-
-        $this->getLogger()->info('{class}::Create JSON [{json}]', array(
-            'class' => get_class($this), 
-            'json'  => $json
-        ));
-
-        // send the request
-        $response = $this->getClient()->put($this->url(), array(), $json)
-            ->setExpectedResponse(201)
-            ->send();
-        
-        $this->setHref($response->getHeader('Location'));
-    } 
-    
-    /**
-     * {@inheritDoc}
-     */
     public function createJson()
     {
         return (object) array(
@@ -186,20 +168,12 @@ class Queue extends PersistentObject
             'metadata'   => $this->getMetadata(false)
         );
     }
-    
-    /**
-     * Needed to set correct URL (for delete method among others).
-     * 
-     * @return string
-     */
+
     public function primaryKeyField()
     {
         return 'name';
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function update($params = array())
     {
         return $this->noUpdate();
@@ -214,16 +188,13 @@ class Queue extends PersistentObject
     public function getStats()
     {
         $body = $this->getClient()
-            ->get($this->url('stats'))
+            ->get($this->getUrl('stats'))
             ->send()
             ->getDecodedBody();
         
         return (!isset($body->messages)) ? false : $body->messages;
     }
-    
-    
-    /*** MESSAGES ***/
-    
+
     /**
      * Gets a message either by a specific ID, or, if no ID is specified, just 
      * an empty Message object.
@@ -235,11 +206,26 @@ class Queue extends PersistentObject
      */
     public function getMessage($id = null)
     {
-        $resource = $this->getService()->resource('Message');
-        $resource->setParent($this)->populate($id);
-        return $resource;
+        return $this->getService()->resource('Message', $id, $this);
     }
-    
+
+    /**
+     * Post an individual message.
+     *
+     * @param array $params
+     * @return bool
+     */
+    public function createMessage(array $params)
+    {
+        return $this->createMessages(array($params));
+    }
+
+    /**
+     * Post multiple messages.
+     *
+     * @param array $messages
+     * @return bool
+     */
     public function createMessages(array $messages)
     {
         $objects = array();
@@ -248,7 +234,7 @@ class Queue extends PersistentObject
             $objects[] = $this->getMessage($dataArray)->createJson();
         }
         
-        $json = json_encode($objects);
+        $json = json_encode(array_slice($objects, 0, self::MAX_POST_MESSAGES));
         $this->checkJsonError();
         
         $response = $this->getClient()
@@ -318,10 +304,7 @@ class Queue extends PersistentObject
         $this->getClient()->delete($url)->send();
         return true;
     }
-    
-    
-    /*** CLAIMS ***/
-    
+
     /**
      * This operation claims a set of messages, up to limit, from oldest to 
      * newest, skipping any that are already claimed. If no unclaimed messages 
@@ -378,9 +361,7 @@ class Queue extends PersistentObject
      */
     public function getClaim($id = null)
     {
-        $resource = $this->getService()->resource('Claim');
-        $resource->setParent($this)->populate($id);
-        return $resource;
+        return $this->getService()->resource('Claim', $id, $this);
     }
     
 }

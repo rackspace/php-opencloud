@@ -102,7 +102,7 @@ EOF;
         if (false !== ($endpoint = self::getEnvVar(Enum::ENV_IDENTITY_ENDPOINT))) {
             return $endpoint;
         } else {
-            return RACKSPACE_US;
+            return \OpenCloud\Rackspace::US_IDENTITY_ENDPOINT;
         }
     }
     

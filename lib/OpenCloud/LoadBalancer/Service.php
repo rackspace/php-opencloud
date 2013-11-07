@@ -20,26 +20,7 @@ use OpenCloud\OpenStack;
 class Service extends NovaService
 {
     const DEFAULT_NAME = 'cloudLoadBalancers';
-    const SERVICE_TYPE = 'rax:load-balancer';
-    const SERVICE_OBJECT_CLASS = 'LoadBalancer';
-    const URL_RESOURCE = 'loadbalancers';
-    const JSON_ELEMENT = 'loadBalancers';
-
-    /**
-     * Creates a new LoadBalancerService connection
-     *
-     * This is not normally called directly, but via the factory method on the
-     * OpenStack or Rackspace connection object.
-     *
-     * @param OpenStack $conn the connection on which to create the service
-     * @param string $name the name of the service (e.g., "cloudDatabases")
-     * @param string $region the region of the service (e.g., "DFW" or "LON")
-     * @param string $urltype the type of URL (normally "publicURL")
-     */
-    public function __construct(OpenStack $conn, $name, $region, $urltype) 
-    {
-        parent::__construct($conn, self::SERVICE_TYPE, $name, $region, $urltype);
-    }
+    const DEFAULT_TYPE = 'rax:load-balancer';
 
     /**
      * creates a new LoadBalancer object

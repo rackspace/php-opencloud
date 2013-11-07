@@ -1,3 +1,15 @@
+## Setup
+
+```php
+use OpenCloud\Rackspace;
+
+$client = new Rackspace(RACKSPACE_US, array(
+
+));
+
+$service = $client->objectStoreService('cloudFiles');
+```
+
 ## List containers
 
 ### Return a list of containers

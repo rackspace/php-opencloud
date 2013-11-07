@@ -1,12 +1,14 @@
 php-opencloud Quick Reference
 =============================
 
+> This guide is in the process of being phased out in favour of more detailed documentation for each cloud service. 
+
 This is a quick reference to <b>php-opencloud</b> functions; see the
 [user guide](userguide/index.md) for more details.
 
 Contents:
 * [Authentication](#auth)
-* [ObjectStore (Swift/Cloud Files)](#ostore)
+* [ObjectStore (Swift/Cloud Files)](https://github.com/rackspace/php-opencloud/tree/master/docs/userguide/ObjectStore)
 * [Compute (Nova/Cloud Servers)](#compute)
 * [Networks (Quantum/Cloud Networks)](#networks)
 * [Cloud Databases](#dbaas)
@@ -61,130 +63,6 @@ may be restricted because of ACLs on the account.
 The connection object can be re-used at will (so long as you're
 communicating with the same endpoint) and must be passed to other
 data objects.
-
-<a name="ostore"></a>
-Quick Reference - ObjectStore (Swift/Cloud Files)
--------------------------------------------------
-These examples all assume a `$conn` object created via one of the
-authentication methods outlined above.
-
-### Connecting to the ObjectStore service
-
-    $ostore = $conn->ObjectStore({name}, {region}, {urltype});
-
-where `{name}` is the service name (e.g., "cloudFiles"),
-`{region}` is the region identifier (e.g., "DFW" or "LON"), and
-`{urltype}` is the URL type (normally `'publicURL'` by default, but
-can be changed if you're working with an internal staging instance).
-
-You can simplify this by setting the defaults:
-
-    $conn->SetDefaults('ObjectStore', {name}, {region}, {urltype});
-    $ostore = $conn->ObjectStore(); // uses default values
-
-### Create a new container
-
-Using the `$ostore` object created above:
-
-    $mycontainer = $ostore->Container();
-    $mycontainer->name = 'SuperContainer';
-    $mycontainer->Create();
-
-Or, you can simplify things somewhat:
-
-    $mycontainer = $ostore->Container();
-    $mycontainer->Create(array('name'=>'SuperContainer'));
-
-### Retrieve an existing container
-
-Using the `$ostore` object create above:
-
-    $myoldcontainer = $ostore->Container('SomeOldContainer');
-
-### Get a list of all containers (using a Collection object)
-
-When php-opencloud retrieves a _list_ of something, it returns a `Collection`
-object that can be navigated via the `->First()`, `->Next()`, and `->Size()`
-methods.
-
-Using the `$ostore` object created above:
-
-    $containerlist = $ostore->ContainerList();
-    while($container = $containerlist->Next()) {
-        // do something with the container
-        printf("Container %s has %u bytes\n",
-            $container->name, $container->bytes);
-    }
-
-The `->First()` method on a Collection resets to the beginning of the list,
-while the `->Next()` method retrieves the next object in the collection,
-returning `FALSE` when it's done.
-
-### Delete a container
-
-Note that you cannot delete a container unless it is empty (i.e., all the
-objects in it have also been deleted). Example:
-
-    $mycontainer->Delete();
-
-### Create a new object in a container
-
-    $mypicture = $mycontainer->DataObject();
-    $mypicture->Create(
-        array('name'=>'picture.jpg', 'content_type'=>'image/jpeg'),
-        '/path/to/mypicture.jpg');
-
-The first parameter to `Create()` is a hashed array of values. `name` is the
-object name, and `content_type` is the Content-Type.
-
-The second parameter to `Create()` is an optional filename; the data will be
-streamed from the local file to the stored Object.
-
-If you prefer, you can create the object in-memory first:
-
-    $mypicture = $mycontainer->DataObject();
-    $mypicture->SetData(file_get_contents('/path/to/picture.jpg'));
-    $mypicture->name = 'potato.jpg';
-    $mypicture->content_type = 'image/jpeg';
-    $mypicture->Create();
-
-### Save an object to a file
-
-Because objects are sometimes enormous, they are not retrieved directly
-from the object store; instead, the metadata about the object is returned.
-For example, this call:
-
-    $myphoto = $mycontainer->DataObject('photo.jpg');
-
-does not actually retrieve the photo data; it retrieve the metadata about
-the photo. To save the data to a file, use this method:
-
-    $myphoto->SaveToFilename('/path/to/yourfile.jpg');
-
-### Delete an object
-
-To delete an object:
-
-    $myobject->Delete();
-
-### List the objects in a container
-
-Remember the Collection object discussed above? Here it is used again
-to list each object in a container:
-
-    $objlist = $mycontainer->ObjectList();
-    while($object = $objlist->Next()) {
-        printf("Object %s size=%u\n", $object->name, $object->bytes);
-    }
-
-### Filter lists
-
-Most functions that return a collection can be passed an associative array of
-values that are used as filters. For example, see [the API guide](http://docs.rackspace.com/files/api/v1/cf-devguide/content/List_Objects-d1e1284.html)
-for a list of filters. Here's an example: we'll only list objects whose
-names are prefixed with `photo`:
-
-    $objlist = $mycontainer->ObjectList(array('prefix'=>'photo'));
 
 
 <a name="compute"></a>

@@ -15,16 +15,8 @@ use OpenCloud\Common\Service\NovaService;
 
 class Service extends NovaService
 {
-    
+    const DEFAULT_TYPE = 'volume';
     const DEFAULT_NAME = 'cloudBlockStorage';
-    
-	/**
-	 * creates the VolumeService object
-	 */
-	public function __construct(OpenStack $connection, $name, $region, $urltype) 
-    {
-		parent::__construct($connection, 'volume', $name, $region, $urltype);
-	}
 
 	/**
 	 * Returns a Volume object

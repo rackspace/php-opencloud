@@ -54,9 +54,13 @@ abstract class NovaService extends AbstractService
 	 */
 	protected function loadNamespaces() 
     {
-	    foreach($this->extensions() as $object) {
+	    foreach ($this->getExtensions() as $object) {
 	        $this->namespaces[] = $object->alias;
 	    }
+
+        if (!empty($this->additionalNamespaces)) {
+            $this->namespaces += $this->additionalNamespaces;
+        }
 	}
 
 }

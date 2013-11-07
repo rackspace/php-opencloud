@@ -19,8 +19,6 @@ use OpenCloud\Common\Service\AbstractService as CommonAbstractService;
  */
 abstract class AbstractService extends CommonAbstractService
 {
-    const DEFAULT_NAME = 'cloudFiles';
-
     const MAX_CONTAINER_NAME_LENGTH = 256;
     const MAX_OBJECT_NAME_LEN       = 1024;
     const MAX_OBJECT_SIZE           = 5102410241025;

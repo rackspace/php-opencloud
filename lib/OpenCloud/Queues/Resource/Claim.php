@@ -4,7 +4,6 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -69,7 +68,13 @@ class Claim extends PersistentObject
     
     protected static $url_resource = 'claims';
     protected static $json_name = '';
-        
+
+    /**
+     * Set the Href attribute and extrapolate the ID.
+     *
+     * @param $href
+     * @return $this
+     */
     public function setHref($href)
     {
         $paths = explode('/', $href);
@@ -77,17 +82,23 @@ class Claim extends PersistentObject
         $this->href = $href;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getHref()
     {
         return $this->href;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
-    
+
     public function create($params = array())
     {
         return $this->noCreate();
@@ -99,6 +110,7 @@ class Claim extends PersistentObject
      * the middle of processing a message. This is done by setting a new TTL for 
      * the claim (which may be different from the original TTL). The server will 
      * then reset the age of the claim and apply the new TTL.
+     * {@inheritDoc}
      */
     public function update($params = array())
     {

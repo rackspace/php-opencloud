@@ -12,6 +12,7 @@
 
 namespace OpenCloud\Tests\Compute;
 
+use OpenCloud\Compute\Constants\Network;
 use OpenCloud\Compute\Resource\Server;
 use OpenCloud\Volume\Resource\Volume;
 
@@ -53,16 +54,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Ip()
     {
         $this->assertEquals('500.6.73.19', $this->server->ip(4));
-        $this->assertEquals(
-            '2001:4800:780e:0510:199e:7e1e:xxxx:yyyy', $this->server->ip(6));
-    }
-
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\InvalidIpTypeError
-     */
-    public function test_ip_bad()
-    {
-        $this->assertEquals('FOO', $this->server->ip(5));
+        $this->assertEquals('2001:4800:780e:0510:199e:7e1e:xxxx:yyyy', $this->server->ip(6));
     }
 
     public function test_Create()
@@ -149,7 +141,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function test_Reboot()
     {
-        $this->assertEquals(200, $this->server->Reboot()->getStatusCode());
+        $this->assertEquals(200, $this->server->reboot()->getStatusCode());
     }
     
     /**
@@ -320,7 +312,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
             'image'    => $this->service->imageList()->first(),
             'flavor'   => $this->service->flavorList()->first(),
             'networks' => array(
-                $this->service->network(RAX_PUBLIC),
+                $this->service->network(Network::RAX_PUBLIC),
                 $this->service->network()
             )
         ));

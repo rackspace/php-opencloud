@@ -4,11 +4,7 @@ PHP SDK for OpenStack/Rackspace APIs
 
 [![Latest Stable Version](https://poser.pugx.org/rackspace/php-opencloud/v/stable.png)](https://packagist.org/packages/rackspace/php-opencloud) [![Travis CI](https://secure.travis-ci.org/rackspace/php-opencloud.png)](https://travis-ci.org/rackspace/php-opencloud) [![Total Downloads](https://poser.pugx.org/rackspace/php-opencloud/downloads.png)](https://packagist.org/packages/rackspace/php-opencloud)
 
-See the
-[COPYING](https://github.com/rackspace/php-opencloud/blob/master/COPYING)
-file for license and copyright information.
-
-For other SDKs, see http://developer.rackspace.com
+For SDKs in different languages, see http://developer.rackspace.com.
 
 The PHP SDK should work with most OpenStack-based cloud deployments,
 though it specifically targets the Rackspace public cloud. In
@@ -20,14 +16,14 @@ so that you can still use the SDK with a pure OpenStack instance
 
 Requirements
 ------------
-* PHP >= 5.3.3
+* PHP >=5.3.3
 * cURL extension for PHP
 
 Installation
 ------------
 You must install this library through Composer:
 
-```
+```bash
 # Install Composer
 curl -sS https://getcomposer.org/installer | php
 
@@ -44,9 +40,23 @@ require 'vendor/autoload.php';
 
 And you're ready to go!
 
+- - -
+
+Alternatively, if you would like to fork or clone the repository into a directory (to work and submit pull requests),
+you will need to execute:
+
+```bash
+php composer.phar install
+```
+
+Instead of the `require` command. You can also specify the `--no-dev` option if you do not want to install phpDocumentor
+(which has lots of vendor folders).
+
 Support and Feedback
 --------------------
-Your feedback is appreciated! If you have specific problems or bugs with this SDK, please file an issue on Github.
+Your feedback is appreciated! If you have specific problems or bugs with this SDK, please file an issue on Github. We
+also have a [mailing list](https://groups.google.com/forum/#!forum/php-opencloud), so feel free to join to keep up to
+date with all the latest changes and announcements to the library.
 
 For general feedback and support requests, send an email to sdk-support@rackspace.com.
 
@@ -60,27 +70,12 @@ If you'd like to contribute, see the
 
 Further Reading
 ---------------
-The file
-[docs/quickref.md](https://github.com/rackspace/php-opencloud/blob/master/docs/quickref.md)
-contains a Quick Reference
-guide to the
-**php-opencloud** library.
+The file [docs/quickref.md](https://github.com/rackspace/php-opencloud/blob/master/docs/quickref.md) contains a Quick
+Reference guide to the **php-opencloud** library.
 
-The source for the "Getting Started with
-**php-opencloud**" document (the user guide) starts in
-[docs/userguide/index.md](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/index.md).
-
-There is a complete (auto-generated) API reference manual in the
-docs/api directory. Start with docs/api/index.html.
-
-See the [HOWTO.md](https://github.com/rackspace/php-opencloud/blob/master/HOWTO.md) file for instructions on
-regenerating the documentation and running tests.
-
-See the [smoketest.php](https://github.com/rackspace/php-opencloud/blob/master/smoketest.php) file for some
-simple, working examples. This is a test we run before builds to ensure that all
-the core functionality is still working after code changes.
-
-The [samples/](https://github.com/rackspace/php-opencloud/tree/master/samples/) directory has a collection
+The [samples/](https://github.com/rackspace/php-opencloud/tree/master/docs/samples/) directory has a collection
 of tested, working sample code. Note that these may create objects in your cloud
 for which you could be charged.
 
+If you'd like to contribute to the project, or require help running the unit/acceptance tests, please view the
+[contributing guidelines](https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md).

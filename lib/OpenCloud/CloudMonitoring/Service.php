@@ -4,22 +4,26 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\CloudMonitoring;
 
-use OpenCloud\OpenStack;
 use OpenCloud\Common\Service\AbstractService;
 
+/**
+ * Cloud Monitoring service.
+ *
+ * @package OpenCloud\CloudMonitoring
+ * @link    http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/index.html
+ */
 class Service extends AbstractService
 {
-    
+    const DEFAULT_TYPE = 'rax:monitor';
     const DEFAULT_NAME = 'cloudMonitoring';
-    
+
     /**
-     * CloudMonitoring resources.
+     * @var array CloudMonitoring resources.
      */
     private $resources = array(
         'Agent',
@@ -42,11 +46,178 @@ class Service extends AbstractService
         'Zone'
     );
 
-    public function __construct(OpenStack $connection, $serviceName, $serviceRegion, $urlType)
+    /**
+     * Return a collection of Entities.
+     *
+     * @return \OpenCloud\Common\Collection
+     */
+    public function getEntities()
     {
-        parent::__construct(
-            $connection, 'rax:monitor', $serviceName, $serviceRegion, $urlType
-        );
+        return $this->resourceList('Entity');
+    }
+
+    /**
+     * Get either an empty object, or a populated one that exists on the API.
+     *
+     * @param null $id
+     * @return \OpenCloud\CloudMonitoring\Resource\Entity
+     */
+    public function getEntity($id = null)
+    {
+        return $this->resource('Entity', $id);
+    }
+
+    /**
+     * Get a collection of possible check types.
+     *
+     * @return \OpenCloud\Common\Collection
+     */
+    public function getCheckTypes()
+    {
+        return $this->resourceList('CheckType');
+    }
+
+    /**
+     * Get a particular check type.
+     *
+     * @param null $id
+     * @return \OpenCloud\CloudMonitoring\Resource\CheckType
+     */
+    public function getCheckType($id = null)
+    {
+        return $this->resource('CheckType', $id);
+    }
+
+    /**
+     * Create a new notification.
+     *
+     * @param array $params
+     * @return
+     */
+    public function createNotification(array $params)
+    {
+        return $this->getNotification($params)->create();
+    }
+
+    /**
+     * Test the parameters of a notification before creating it.
+     *
+     * @param array $params
+     * @return mixed
+     */
+    public function testNotification(array $params)
+    {
+        return $this->getNotification()->testParams($params);
+    }
+
+    /**
+     * Get a particular notification.
+     *
+     * @param null $id
+     * @return \OpenCloud\CloudMonitoring\Resource\Notification
+     */
+    public function getNotification($id = null)
+    {
+        return $this->resource('Notification', $id);
+    }
+
+    /**
+     * Get a collection of Notifications.
+     *
+     * @return \OpenCloud\Common\Collection
+     */
+    public function getNotifications()
+    {
+        return $this->resourceList('Notification');
+    }
+
+    /**
+     * Create a new notification plan.
+     *
+     * @param array $params
+     * @return mixed
+     */
+    public function createNotificationPlan(array $params)
+    {
+        return $this->getNotificationPlan()->create($params);
+    }
+
+    /**
+     * Get a particular notification plan.
+     *
+     * @param null $id
+     * @return \OpenCloud\CloudMonitoring\Resource\NotificationPlan
+     */
+    public function getNotificationPlan($id = null)
+    {
+        return $this->resource('NotificationPlan', $id);
+    }
+
+    /**
+     * Get a collection of notification plans.
+     *
+     * @return \OpenCloud\Common\Collection
+     */
+    public function getNotificationPlans()
+    {
+        return $this->resourceList('NotificationPlan');
+    }
+
+    /**
+     * Get a collection of monitoring zones.
+     *
+     * @return \OpenCloud\Common\Collection
+     */
+    public function getMonitoringZones()
+    {
+        return $this->resourceList('Zone');
+    }
+
+    /**
+     * Get a particular monitoring zone.
+     *
+     * @param null $id
+     * @return \OpenCloud\CloudMonitoring\Resource\Zone
+     */
+    public function getMonitoringZone($id = null)
+    {
+        return $this->resource('Zone', $id);
+    }
+
+    /**
+     * Get a changelog - either a general one or one catered for a particular entity.
+     *
+     * @param string|null $entityId
+     * @return object|false
+     */
+    public function getChangelog($data = null)
+    {
+        // Cater for Collections
+        if (is_object($data)) {
+            return $this->resource('Changelog', $data);
+        }
+
+        $url = $this->resource('Changelog')->getUrl();
+
+        if ($data) {
+            $url->setQuery(array('entityId' => (string) $data));
+        }
+
+        $response = $this->getClient()->get($url)->send()->getDecodedBody();
+
+        return (isset($response->values)) ? $response->values : false;
+    }
+
+    /**
+     * @return object|false
+     */
+    public function getViews()
+    {
+        $url = $this->resource('View')->getUrl();
+
+        $response = $this->getClient()->get($url)->send()->getDecodedBody();
+
+        return (isset($response->values)) ? $response->values : false;
     }
 
 }

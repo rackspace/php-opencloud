@@ -1,13 +1,10 @@
 <?php
-
 /**
  * PHP OpenCloud library.
  *
- * @author    jami6682
- * @version   1.5.9
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
 namespace OpenCloud\Smoke\Unit;

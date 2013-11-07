@@ -1,3 +1,15 @@
+## Setup
+
+```php
+use OpenCloud\Rackspace;
+
+$client = new Rackspace(RACKSPACE_US, array(
+
+));
+
+$service = $client->objectStoreService('cloudFiles');
+```
+
 ## Temporary URLs
 
 Temporary URLs allow you to create time-limited Internet addresses that allow you to grant access to your Cloud Files

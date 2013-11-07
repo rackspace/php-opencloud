@@ -4,7 +4,6 @@
  * 
  * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -78,10 +77,7 @@ class Message extends PersistentObject
         $this->href = $href;
         return $this;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function createJson()
     {
         return (object) array(
@@ -89,21 +85,13 @@ class Message extends PersistentObject
             'body' => $this->getBody()
         );
     }
-    
-    /**
-     * To create messages, use the service's createMessages() method because it
-     * allows for batch creation.
-     * 
-     * {@inheritDoc}
-     */
+
     public function create($params = array())
     {
+        $this->getLogger()->alert('Please use Queue::createMessage() or Queue::createMessages()');
         return $this->noCreate();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function update($params = array())
     {
         return $this->noUpdate();
@@ -124,7 +112,7 @@ class Message extends PersistentObject
      *      operation fails. You can only delete claimed messages by providing 
      *      an appropriate $claimId.
      * 
-     * @return boolean
+     * @return bool
      * @throws DeleteMessageException
      */
     public function delete($claimId = null)

@@ -12,6 +12,7 @@
 
 namespace OpenCloud\Tests\Compute;
 
+use OpenCloud\Compute\Constants\Network as NetworkConst;
 use OpenCloud\Compute\Resource\Network;
 
 class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
@@ -23,12 +24,12 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function __construct()
     {
         $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
-        $this->network = $this->service->network(RAX_PUBLIC);
+        $this->network = $this->service->network(NetworkConst::RAX_PUBLIC);
     }
 
     public function test__construct()
     {
-        $this->assertEquals(RAX_PUBLIC, $this->network->id);
+        $this->assertEquals(NetworkConst::RAX_PUBLIC, $this->network->id);
         $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $this->network);
     }
 
@@ -57,7 +58,7 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Delete_Fails_With_Incorrect_Ip()
     {
-        $network = new Network($this->service, RAX_PRIVATE);
+        $network = new Network($this->service, NetworkConst::RAX_PRIVATE);
         $network->delete();
     }
     

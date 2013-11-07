@@ -15,9 +15,24 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class Notification extends AbstractResource
 {
+    /**
+     * @var string
+     */
     private $id;
+
+    /**
+     * @var string Friendly name for the notification.
+     */
     private $label;
+
+    /**
+     * @var string|NotificationType The notification type to send.
+     */
     private $type;
+
+    /**
+     * @var array A hash of notification specific details based on the notification type.
+     */
     private $details;
     
     protected static $json_name = false;
@@ -41,10 +56,10 @@ class Notification extends AbstractResource
         
     public function testUrl($debug = false)
     {
-        return $this->getService()->url('test-notification');
+        return $this->getService()->getUrl('test-notification');
     }
     
-    public function testExisting($debug = false)
+    public function test($debug = false)
     {
         return $this->getService()
             ->getClient()

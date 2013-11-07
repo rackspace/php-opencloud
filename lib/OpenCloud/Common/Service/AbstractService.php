@@ -11,12 +11,13 @@
 namespace OpenCloud\Common\Service;
 
 use OpenCloud\Common\Base;
-use OpenCloud\OpenStack;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Collection;
 use OpenCloud\Common\Http\Client;
+use OpenCloud\Common\PersistentObject;
 use Guzzle\Http\Url;
 use Guzzle\Http\Exception\BadResponseException;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -59,7 +60,7 @@ abstract class AbstractService extends Base
     private $urlType;
     
     /**
-     * @var OpenCloud\Common\Service\Endpoint The endpoints for this service.
+     * @var \OpenCloud\Common\Service\Endpoint The endpoints for this service.
      */
     private $endpoint;
     
@@ -82,17 +83,21 @@ abstract class AbstractService extends Base
      * @param string $region  Service region (e.g. 'DFW', 'ORD', 'IAD', 'LON', 'SYD')
      * @param string $urlType Either 'publicURL' or 'privateURL'
      */
-    public function __construct(Client $client, $type, $name, $region, $urlType = RAXSDK_URL_PUBLIC)
+    public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
     {
         $this->setClient($client);
 
-        $this->type = $type;
-        $this->name = $name;
-        $this->region = $region;
-        $this->urlType = $urlType;
-        
+        $this->type = $type ?: static::DEFAULT_TYPE;
+        $this->name = $name ?: static::DEFAULT_NAME;
+        $this->region = $region ?: static::DEFAULT_REGION;
+        $this->urlType = $urlType ?: static::DEFAULT_URL_TYPE;
+
         $this->endpoint = $this->findEndpoint();
         $this->client->setBaseUrl($this->getBaseUrl());
+
+        if ($this instanceof EventSubscriberInterface) {
+            $this->client->getEventDispatcher()->addSubscriber($this);
+        }
     }
 
     /**
@@ -187,7 +192,7 @@ abstract class AbstractService extends Base
      * @api
      * @return array of objects
      */
-    public function extensions()
+    public function getExtensions()
     {
         $ext = $this->getMetaUrl('extensions');
         return (is_object($ext) && isset($ext->extensions)) ? $ext->extensions : array();
@@ -325,7 +330,7 @@ abstract class AbstractService extends Base
                 return Endpoint::factory($service->getEndpointFromRegion($this->region));
             }
         }
-        
+
         throw new Exceptions\EndpointError(sprintf(
             'No endpoints for service type [%s], name [%s], region [%s] and urlType [%s]',
             $this->type,
@@ -410,12 +415,20 @@ abstract class AbstractService extends Base
      *
      * @param  string $resourceName
      * @param  mixed $info (default: null)
+     * @param  mixed $parent The parent object
      * @return object
      */
-    public function resource($resourceName, $info = null)
+    public function resource($resourceName, $info = null, $parent = null)
     {
         $className = $this->resolveResourceClass($resourceName);
-        return new $className($this, $info);
+
+        $resource = new $className($this);
+        if ($parent) {
+            $resource->setParent($parent);
+        }
+        $resource->populate($info);
+
+        return $resource;
     }
     
     /**
@@ -445,7 +458,7 @@ abstract class AbstractService extends Base
 
         if ($url === null) {
             throw new Exceptions\ServiceException(sprintf(
-	        	'The base %s  could not be found. Perhaps the service '
+	        	'The base %s could not be found. Perhaps the service '
 	        	. 'you are using requires a different URL type, or does '
 	        	. 'not support this region.',
 	        	$this->urlType

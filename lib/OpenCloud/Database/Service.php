@@ -18,24 +18,8 @@ use OpenCloud\OpenStack;
  */
 class Service extends NovaService
 {
-    
+    const DEFAULT_TYPE = 'rax:database';
     const DEFAULT_NAME = 'cloudDatabases';
-    
-    /**
-     * Creates a new DbService service connection
-     *
-     * This is not normally called directly, but via the factory method on the
-     * OpenStack or Rackspace connection object.
-     *
-     * @param OpenStack $conn the connection on which to create the service
-     * @param string $name the name of the service (e.g., "cloudDatabases")
-     * @param string $region the region of the service (e.g., "DFW" or "LON")
-     * @param string $urltype the type of URL (normally "publicURL")
-     */
-    public function __construct(OpenStack $conn, $name, $region, $urltype)
-    {
-        parent::__construct($conn, 'rax:database', $name, $region, $urltype);
-    }
 
     /**
      * Returns a list of flavors

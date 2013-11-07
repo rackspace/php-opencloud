@@ -11,6 +11,7 @@
 namespace OpenCloud\Tests;
 
 use OpenCloud\OpenStack;
+use OpenCloud\Rackspace;
 
 class OpenStackTest extends \PHPUnit_Framework_TestCase 
 {
@@ -20,13 +21,13 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
     
     public function __construct()
     {
-        $this->client = new OpenStack(RACKSPACE_US, $this->credentials);
+        $this->client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, $this->credentials);
         $this->client->addSubscriber(new MockTestObserver);
     }
     
     public function test__construct()
     {
-        $client = new OpenStack(RACKSPACE_US, $this->credentials);
+        $client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, $this->credentials);
     }
     
     public function test_Credentials()
@@ -67,16 +68,16 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
      */
     public function test_Credentials_Fail()
     {
-        $client = new OpenStack(RACKSPACE_US, array());
+        $client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, array());
         $client->getCredentials();
     }
     
     public function test_Auth_Url()
     {
-        $this->assertEquals(RACKSPACE_US . 'tokens', (string) $this->client->getAuthUrl());
+        $this->assertEquals(Rackspace::US_IDENTITY_ENDPOINT . 'tokens', (string) $this->client->getAuthUrl());
         
-        $this->client->setAuthUrl(RACKSPACE_UK);
-        $this->assertEquals(RACKSPACE_UK . 'tokens', (string) $this->client->getAuthUrl());
+        $this->client->setAuthUrl(Rackspace::UK_IDENTITY_ENDPOINT);
+        $this->assertEquals(Rackspace::UK_IDENTITY_ENDPOINT . 'tokens', (string) $this->client->getAuthUrl());
     }
     
     public function test_Factory_Methods()

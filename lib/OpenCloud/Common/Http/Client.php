@@ -34,7 +34,7 @@ class Client extends GuzzleClient
             ));
         }
         // @codeCoverageIgnoreEnd
-        
+
         parent::__construct($url, $options);
     }
     
@@ -48,15 +48,6 @@ class Client extends GuzzleClient
     public function getUserAgent()
     {
         return $this->userAgent;
-    }
-
-    public function createRequest($method = 'GET', $uri = null, $headers = null, $body = null, array $options = array())
-    {
-        if ($body && !isset($headers['Content-Type'])) {
-            $headers['Content-Type'] = 'application/json';
-        }
-
-        return parent::createRequest($method, $uri, $headers, $body, $options);
     }
     
 }

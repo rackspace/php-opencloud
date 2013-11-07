@@ -290,14 +290,14 @@ class Collection extends Base
         // Are there specific methods in the parent/service that can be used to 
         // instantiate the resource? Currently supported: getResource(), resource()
         foreach (array($class, 'get' . ucfirst($class)) as $method) {
-            if (method_exists($this->getService(), $method)) {
-                return call_user_func(array($this->getService(), $method), $data);
+            if (method_exists($this->service, $method)) {
+                return call_user_func(array($this->service, $method), $data);
             }
         }
         
         // Backup method
-        if (method_exists($this->getService(), 'resource')) {
-            return $this->getService()->resource($class, $data);
+        if (method_exists($this->service, 'resource')) {
+            return $this->service->resource($class, $data);
         }
 
         return false;

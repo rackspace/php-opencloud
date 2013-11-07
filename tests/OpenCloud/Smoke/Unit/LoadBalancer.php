@@ -1,11 +1,9 @@
 <?php
-
 /**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.5.9
- * @author    Glen Campbell <glen.campbell@rackspace.com>
+ * PHP OpenCloud library.
+ *
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
@@ -186,12 +184,17 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
      */
     public function teardown()
     {
+        $this->step('Teardown');
+
         $loadBalancers = $this->getService()->loadBalancerList();
         while ($loadBalancer = $loadBalancers->next()) {
             if ($this->shouldDelete($loadBalancer->name())) {
                 try {
+                    $this->stepInfo('Deleting %s', $loadBalancer->getId());
                     $loadBalancer->delete();
-                } catch (DeleteError $e) {}
+                } catch (\Exception $e) {
+                    $this->stepInfo('Failed to delete %s', $loadBalancer->getId());
+                }
             }
         }
     }

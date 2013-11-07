@@ -26,7 +26,7 @@ class CheckTypeTest extends OpenCloudTestCase
     public function testListAllCheckTypesHasRightCount()
     {
         $response = $this->resource->listAll();
-        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\CheckType', $response->First());
+        $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\CheckType', $response->first());
     }
 
     public function testGetCheckType()

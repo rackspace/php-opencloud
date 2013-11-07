@@ -17,13 +17,35 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class Alarm extends AbstractResource
 {
+    /**
+     * @var string
+     */
     private $id;
-	private $check_id;
-	private $notification_plan_id;
-	private $criteria;
-	private $disabled;
-	private $label;
-	protected $metadata;
+
+    /**
+     * @var string The ID of the check to alert on.
+     */
+    private $check_id;
+
+    /**
+     * @var string The id of the notification plan to execute when the state changes.
+     */
+    private $notification_plan_id;
+
+    /**
+     * @var string The alarm DSL for describing alerting conditions and their output states.
+     */
+    private $criteria;
+
+    /**
+     * @var bool Disable processing and alerts on this alarm.
+     */
+    private $disabled;
+
+    /**
+     * @var string A friendly label for an alarm.
+     */
+    private $label;
 	
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
@@ -53,18 +75,45 @@ class Alarm extends AbstractResource
         
         if (!isset($params['check_data']) || !is_array($params['check_data'])) {
             throw new Exception\AlarmException(
-                'Please specify a "check data" array'
+                'Please specify a "check_data" array'
             );
         }
         
         $url  = $this->getParent()->url('test-alarm');
         $body = json_encode((object) $params);
-        
+
         return $this->getService()
             ->getClient()
             ->post($url, array(), $body)
             ->send()
             ->getDecodedBody();
-    }	
+    }
+
+    public function getHistoryUrl()
+    {
+        return $this->getUrl()->addPath(NotificationHistory::resourceName());
+    }
+
+    public function getRecordedChecks()
+    {
+        $data = $this->getService()
+            ->getClient()
+            ->get($this->getHistoryUrl())
+            ->send()
+            ->getDecodedBody();
+
+        return (isset($data->check_ids)) ? $data->check_ids : false;
+    }
+
+    public function getNotificationHistoryForCheck($checkId)
+    {
+        $url = $this->getHistoryUrl()->addPath($checkId);
+        return $this->getService()->resourceList('NotificationHistory', $url, $this);
+    }
+
+    public function getNotificationHistoryItem($uuid)
+    {
+        return $this->getService()->resource('NotificationHistory', $uuid, $this);
+    }
 	
 }
