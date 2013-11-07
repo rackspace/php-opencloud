@@ -44,7 +44,7 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 
 Alternatively, if you would like to validate against your own API, or just want to access OpenStack services:
 
-```
+```php
 use OpenCloud\OpenStack;
 
 $client = new OpenStack('http://identity.my-openstack.com/v2.0/', array(
