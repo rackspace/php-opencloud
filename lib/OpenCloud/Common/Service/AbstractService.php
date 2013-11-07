@@ -141,6 +141,14 @@ abstract class AbstractService extends Base
     }
 
     /**
+     * @return string
+     */
+    public function getUrlType()
+    {
+        return $this->urlType;
+    }
+
+    /**
      * @return Endpoint|OpenCloud\Common\Service\Endpoint
      */
     public function getEndpoint()

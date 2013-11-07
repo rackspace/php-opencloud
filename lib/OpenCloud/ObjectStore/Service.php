@@ -38,7 +38,9 @@ class Service extends AbstractService
         parent::__construct($client, $type, $name, $region, $urlType);
 
         try {
-            $this->cdnService = ServiceBuilder::factory($client, 'OpenCloud\ObjectStore\CDNService');
+            $this->cdnService = ServiceBuilder::factory($client, 'OpenCloud\ObjectStore\CDNService', array(
+                'region' => $region
+            ));
         } catch (Exceptions\EndpointError $e) {}
     }
 
