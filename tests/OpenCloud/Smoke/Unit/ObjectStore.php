@@ -23,7 +23,7 @@ use OpenCloud\ObjectStore\Constants\UrlType;
 class ObjectStore extends AbstractUnit implements UnitInterface
 {
     
-    const OBJECT_NAME  = 'TestObject';
+    const OBJECT_NAME  = 'TestObject.txt';
     const UPLOAD_COUNT = 50;
     const MASSIVE_FILE_PATH = '/tmp/massive.txt';
     

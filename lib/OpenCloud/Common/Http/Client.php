@@ -49,14 +49,5 @@ class Client extends GuzzleClient
     {
         return $this->userAgent;
     }
-
-    public function createRequest($method = 'GET', $uri = null, $headers = null, $body = null, array $options = array())
-    {
-        if ($body && !isset($headers['Content-Type'])) {
-            $headers['Content-Type'] = 'application/json';
-        }
-
-        return parent::createRequest($method, $uri, $headers, $body, $options);
-    }
     
 }

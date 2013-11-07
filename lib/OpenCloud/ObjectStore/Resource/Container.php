@@ -330,6 +330,7 @@ class Container extends AbstractContainer
         $url->addPath($name);
 
         $this->getClient()->put($url, $headers, $entityBody)->send();
+
         return $this->getObject($name);
     }
 
