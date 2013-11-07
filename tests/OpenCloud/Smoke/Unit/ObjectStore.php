@@ -23,7 +23,7 @@ use OpenCloud\ObjectStore\Constants\UrlType;
 class ObjectStore extends AbstractUnit implements UnitInterface
 {
     
-    const OBJECT_NAME  = 'TestObject.txt';
+    const OBJECT_NAME  = 'TestObject';
     const UPLOAD_COUNT = 50;
     const MASSIVE_FILE_PATH = '/tmp/massive.txt';
     
@@ -66,7 +66,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
 
         // Upload normal file
         $this->step('Upload 1 file');
-        $object = $container->uploadObject(self::OBJECT_NAME, str_repeat("never gonna give you up...\n", 1000), array(
+        $object = $container->uploadObject(self::OBJECT_NAME . '.txt', str_repeat("never gonna give you up...\n", 1000), array(
             'Author' => 'Best singer ever!111'
         ));
 
@@ -83,7 +83,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         $files = array();
         for ($i = 1; $i <= 50; $i++) {
             $file = self::OBJECT_NAME . "_$i";
-            $files[] = array('name' => $file, 'path' => __DIR__ . '/../Resource/ObjectStore/' . $file);
+            $files[] = array('name' => $file . '.txt', 'path' => __DIR__ . '/../Resource/ObjectStore/' . $file);
         }
         $container->uploadObjects($files);
 
@@ -95,7 +95,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         }
 
         $transfer = $container->setupObjectTransfer(array(
-            'name' => self::OBJECT_NAME . '_massive',
+            'name' => self::OBJECT_NAME . '_massive.txt',
             'path' => self::MASSIVE_FILE_PATH,
             'metadata' => array(
                 'Subject' => 'Something uninteresting',

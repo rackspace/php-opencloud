@@ -42,15 +42,15 @@ And you're ready to go!
 
 - - -
 
-Alternatively, if you would like to clone the repository into a directory (to work and submit pull requests):
+Alternatively, if you would like to fork or clone the repository into a directory (to work and submit pull requests),
+you will need to execute:
 
 ```bash
-git clone git@github.com:rackspace/php-opencloud.git .
-curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 ```
 
-You can specify the `--no-dev` flag to Composer if you do not want to install phpDocumentor (lots of vendor folders).
+Instead of the `require` command. You can also specify the `--no-dev` option if you do not want to install phpDocumentor
+(which has lots of vendor folders).
 
 Support and Feedback
 --------------------
