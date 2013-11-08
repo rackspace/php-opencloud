@@ -12,8 +12,8 @@ setter methods:
 |Parent container|`getContainer`|
 |Name|`getName`|
 |Body of file|`getContent`|
-|Size of file|`getContentType`|
-|Type of file|`getContentLength`|
+|Size of file|`getContentLength`|
+|Type of file|`getContentType`|
 |ETag checksum|`getEtag`|
 |Last modified date|`getLastModified`|
 
