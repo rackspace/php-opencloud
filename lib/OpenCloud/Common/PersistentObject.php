@@ -192,7 +192,7 @@ abstract class PersistentObject extends Base
         $createUrl = $this->createUrl();
 
         // send the request
-        $response = $this->getClient()->post($createUrl, array(), $json)
+        $response = $this->getClient()->post($createUrl, array('Content-Type' => 'application/json'), $json)
             ->setExceptionHandler(array(
                 201 => array(
                     'allow'    => true,
@@ -438,7 +438,7 @@ abstract class PersistentObject extends Base
         $url = $this->url('action');
 
         // POST the message
-        return $this->getClient()->post($url, array(), $json)->send();
+        return $this->getClient()->post($url, array('Content-Type' => 'application/json'), $json)->send();
     }
 
      /**
