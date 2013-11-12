@@ -11,6 +11,7 @@
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\CloudMonitoring\Exception;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * Agent class.
@@ -60,14 +61,14 @@ class AgentTarget extends ReadOnlyResource
     public function listAll()
     {
         $response = $this->getClient()->get($this->url())->send();
-        
-        $object = $response->getDecodedBody();
 
-        if (isset($object->{self::$json_collection_name})) {
-            $object = $object->{self::$json_collection_name};
+        $body = Formatter::decode($response);
+
+        if (isset($body->{self::$json_collection_name})) {
+            $body = $body->{self::$json_collection_name};
         }
 
-        return $object;
+        return $body;
     } 
     
 }

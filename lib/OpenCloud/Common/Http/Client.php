@@ -24,7 +24,7 @@ class Client extends GuzzleClient
     const VERSION = '1.7.0';
     const MINIMUM_PHP_VERSION = '5.3.0';
 
-    public function __construct($url, $options)
+    public function __construct($baseUrl = '', $config = null)
     {
         // @codeCoverageIgnoreStart
     	if (PHP_VERSION < self::MINIMUM_PHP_VERSION) {
@@ -35,7 +35,7 @@ class Client extends GuzzleClient
         }
         // @codeCoverageIgnoreEnd
 
-        parent::__construct($url, $options);
+        parent::__construct($baseUrl, $config);
     }
     
     public function getDefaultUserAgent()

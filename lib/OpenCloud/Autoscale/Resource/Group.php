@@ -11,6 +11,7 @@
 namespace OpenCloud\Autoscale\Resource;
 
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * An autoscaling group is monitored by Rackspace CloudMonitoring. When
@@ -93,13 +94,14 @@ class Group extends AbstractResource
      */
     public function getState()
     {
-        $object = $this->getService()
+        $response = $this->getService()
             ->getClient()
             ->get($this->url('state'))
-            ->send()
-            ->getDecodedBody();
+            ->send();
 
-        return (!empty($object->group)) ? $object->group : false;
+        $body = Formatter::decode($response);
+
+        return (!empty($body->group)) ? $body->group : false;
     }
     
     /**

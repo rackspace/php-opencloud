@@ -10,6 +10,8 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
+use OpenCloud\Common\Http\Message\Formatter;
+
 /**
  * NotificationHistory class.
  */
@@ -31,7 +33,7 @@ class NotificationHistory extends ReadOnlyResource
     public function listChecks()
     {
         $response = $this->getClient()->get($this->url())->send();
-        return $response->getDecodedBody();
+        return Formatter::decode($response);
     }
     
     public function listHistory($checkId)
@@ -44,9 +46,10 @@ class NotificationHistory extends ReadOnlyResource
         $url = $this->url($checkId . '/' . $historyId);
         $response = $this->getClient()->get($url)->send();
         
-        if (null !== ($decoded = $response->getDecodedBody())) {
+        if (null !== ($decoded = Formatter::decode($response))) {
             $this->populate($decoded);
         }
+
         return false;
     }
 

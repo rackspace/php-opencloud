@@ -10,6 +10,8 @@
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\CloudMonitoring\Exception;
+use OpenCloud\Common\Http\Message\Formatter;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * Zone class.
@@ -51,15 +53,18 @@ class Zone extends ReadOnlyResource
             'target_resolver' => $options['target_resolver']
         );
         try {
-        $data = $this->getService()
-            ->getClient()
-            ->post($this->url('traceroute'), array(), json_encode($params))
-            ->send()
-            ->getDecodedBody();
-        } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {
-            var_dump((string)$e->getResponse()->getBody());die;
+            $response = $this->getService()
+                ->getClient()
+                ->post($this->url('traceroute'), array(), json_encode($params))
+                ->send();
+
+            $body = Formatter::decode($response);
+
+            return (isset($body->result)) ? $body->result : false;
+
+        } catch (ClientErrorResponseException $e) {
+            return false;
         }
-        return (isset($data->result)) ? $data->result : false;
     }
     
 }

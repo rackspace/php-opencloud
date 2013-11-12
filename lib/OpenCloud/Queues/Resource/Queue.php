@@ -15,6 +15,7 @@ use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Queues\Exception;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Collection;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * A queue holds messages. Ideally, a queue is created per work type. For example, 
@@ -152,7 +153,7 @@ class Queue extends PersistentObject
             ->send();
 
         $metadata = new Metadata();
-        $metadata->setArray($response->getDecodedBody());
+        $metadata->setArray(Formatter::decode($response));
         $this->setMetadata($metadata);
     }
 
@@ -187,10 +188,11 @@ class Queue extends PersistentObject
      */
     public function getStats()
     {
-        $body = $this->getClient()
+        $response = $this->getClient()
             ->get($this->getUrl('stats'))
-            ->send()
-            ->getDecodedBody();
+            ->send();
+
+        $body = Formatter::decode($response);
         
         return (!isset($body->messages)) ? false : $body->messages;
     }
@@ -348,8 +350,10 @@ class Queue extends PersistentObject
         if ($response->getStatusCode() == 204) {
             return false;
         }
+
+        $body = Formatter::decode($response);
         
-        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $response->getDecodedBody());
+        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $body);
     }
     
     /**

@@ -92,13 +92,6 @@ class Response extends GuzzleResponse
         return $object;
     }
     
-    public function getDecodedBody() 
-    {
-        $body = json_decode((string) $this->body);
-        Base::checkJsonError();
-        return $body;
-    }
-    
     public static function isValidStatus($code)
     {
         return defined(get_class() . "::STATUS_CODE_{$code}");

@@ -13,6 +13,7 @@ namespace OpenCloud\DNS;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\OpenStack;
 use OpenCloud\Compute\Resource\Server;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * DNS Service.
@@ -90,16 +91,8 @@ class Service extends AbstractService
      */
     public function asyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
-        // perform the initial request
         $response = $this->getClient()->createRequest($method, $url, $headers, $body)->send();
-
-        // debug
-        $this->getLogger()->info('AsyncResponse [{body}]', array(
-            'body' => $response->getDecodedBody()
-        ));
-
-        // return an AsyncResponse object
-        return new Resource\AsyncResponse($this, $response->getDecodedBody());
+        return new Resource\AsyncResponse($this, Formatter::decode($response));
     }
 
     /**
@@ -144,13 +137,11 @@ class Service extends AbstractService
     public function limits($type = null)
     {
         $url = $this->url('limits') . ($type ? "/$type" : '');
+
+        $response = $this->getClient()->get($url)->send();
+        $body = Formatter::decode($response);
         
-        $object = $this->getClient()
-            ->get($url)
-            ->send()
-            ->getDecodedBody();
-        
-        return ($type) ? $object : $object->limits;
+        return ($body) ? $body : $body->limits;
     }
 
     /**
@@ -160,9 +151,9 @@ class Service extends AbstractService
      */
     public function limitTypes()
     {
-        $response = $this->getClient()->get($this->url('limits/types'))->send();
-        $object = $response->getDecodedBody();
-        return $object->limitTypes;
+        $response = $this->getClient()->get($this->getUrl('limits/types'))->send();
+        $body = Formatter::decode($response);
+        return $body->limitTypes;
     }
 
 }

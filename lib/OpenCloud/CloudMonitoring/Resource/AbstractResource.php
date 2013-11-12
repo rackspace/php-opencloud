@@ -12,6 +12,7 @@ namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Http\Message\Formatter;
 
 abstract class AbstractResource extends PersistentObject
 {
@@ -75,11 +76,12 @@ abstract class AbstractResource extends PersistentObject
         $json = json_encode((object) $params);
 
         // send the request
-        return $this->getService()
+        $response = $this->getService()
             ->getClient()
             ->post($this->testUrl($debug), array(), $json)
-            ->send()
-            ->getDecodedBody();
+            ->send();
+
+        return Formatter::decode($response);
     }
 
     /**
@@ -94,10 +96,11 @@ abstract class AbstractResource extends PersistentObject
         $json = json_encode($this->updateJson());
         $this->checkJsonError();
 
-        return $this->getClient()
+        $response = $this->getClient()
             ->post($this->testExistingUrl($debug), array(), $json)
-            ->send()
-            ->getDecodedBody();
+            ->send();
+
+        return Formatter::decode($response);
     }
    
 }

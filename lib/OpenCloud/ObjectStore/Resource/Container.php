@@ -20,6 +20,7 @@ use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -204,12 +205,13 @@ class Container extends AbstractContainer
     {
         $params['format'] = 'json';
 
-        $objects = $this->getClient()
+        $response = $this->getClient()
             ->get($this->getUrl(null, $params))
-            ->send()
-            ->getDecodedBody();
+            ->send();
 
-        return new Collection($this, 'OpenCloud\ObjectStore\Resource\DataObject', $objects);
+        $body = Formatter::decode($response);
+
+        return new Collection($this, 'OpenCloud\ObjectStore\Resource\DataObject', $body);
     }
 
     /**

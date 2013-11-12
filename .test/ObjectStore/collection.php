@@ -14,13 +14,10 @@ $service = $client->objectStoreService('cloudFiles', 'ORD');
 
 $container = $service->getContainer('ORD_TEST_1');
 
-$list = ResourceList::factory($container, $container->getUrl(), 'DataObject', 'name');
+$list = ResourceList::factory($container, $container->getUrl(), array('resourceClass' => 'DataObject'));
 
 $i = 1;
 
-foreach ($list as $bucket) {
-var_dump($bucket);die;
-    //echo $bucket->instantiateCurrentResource()->getName(), ' --- ', $i, PHP_EOL;
+$list->populateAll();
 
-    $i++;
-}
+var_dump($list->count());

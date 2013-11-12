@@ -12,6 +12,7 @@ namespace OpenCloud\ObjectStore;
 
 use OpenCloud\Common\Collection;
 use OpenCloud\Common\Service\AbstractService as CommonAbstractService;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * An abstract base class for common code shared between ObjectStore\Service
@@ -34,14 +35,15 @@ abstract class AbstractService extends CommonAbstractService
     {
         $filter['format'] = 'json';
 
-        $containers = $this->getClient()
+        $response = $this->getClient()
             ->get($this->getUrl(null, $filter))
-            ->send()
-            ->getDecodedBody();
+            ->send();
+
+        $body = Formatter::decode($response);
         
         $class = ($this instanceof Service) ? 'Container' : 'CDNContainer';
 
-        return new Collection($this, __NAMESPACE__ . '\\Resource\\' . $class, $containers);
+        return new Collection($this, __NAMESPACE__ . '\\Resource\\' . $class, $body);
     }
 
     /**

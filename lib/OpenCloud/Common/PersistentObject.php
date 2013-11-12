@@ -16,6 +16,7 @@ use OpenCloud\Common\Constants\State as StateConst;
 use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions\RuntimeException;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * Represents an object that can be retrieved, created, updated and deleted.
@@ -731,7 +732,7 @@ abstract class PersistentObject extends Base
     
     public function parseResponse(Response $response)
     {
-        $body = $response->getDecodedBody();
+        $body = Formatter::decode($response);
         
         $top = $this->jsonName();
             

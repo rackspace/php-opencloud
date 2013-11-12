@@ -16,6 +16,7 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\Compute\Service;
 use OpenCloud\Compute\Constants\ServerState;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * A virtual machine (VM) instance in the Cloud Servers environment.
@@ -312,27 +313,27 @@ class Server extends PersistentObject
      */
     public function imageSchedule($retention = false)
     {
-        $url = Lang::noslash($this->url('rax-si-image-schedule'));
-
-        $response = null;
+        $url = $this->getUrl('rax-si-image-schedule');
 
         if ($retention === false) { 
             // Get current retention
-            $response = $this->getClient()->get($url);
+            $request = $this->getClient()->get($url);
         } elseif ($retention <= 0) { 
             // Delete image schedule
-            $response = $this->getClient()->delete($url);
+            $request = $this->getClient()->delete($url);
         } else { 
             // Set image schedule
             $object = (object) array('image_schedule' => 
                 (object) array('retention' => $retention)
             );
             $body = json_encode($object);
-            $response = $this->getClient()->post($url, array(), $body);
+            $request = $this->getClient()->post($url, array(), $body);
         }
         
-        $object = $response->send()->getDecodedBody();
-        return (isset($object->image_schedule)) ? $object->image_schedule : (object) array();
+        $response = $request->send();
+        $body = Formatter::decode($response->getBody());
+
+        return (isset($body->image_schedule)) ? $body->image_schedule : (object) array();
     }
 
     /**
@@ -413,9 +414,10 @@ class Server extends PersistentObject
 
         $data = (object) array('rescue' => 'none');
 
-        $object = $this->action($data)->getDecodedBody();
+        $response = $this->action($data);
+        $body = Formatter::decode($response);
         
-        return (isset($object->adminPass)) ? $object->adminPass : false;
+        return (isset($body->adminPass)) ? $body->adminPass : false;
     }
 
     /**
@@ -470,10 +472,10 @@ class Server extends PersistentObject
         $url = Lang::noslash($this->Url('ips/'.$network));
 
         $response = $this->getClient()->get($url)->send();       
-        $object = $response->getDecodedBody();
+        $body = Formatter::decode($response);
         
-        return (isset($object->addresses)) ? $object->addresses : 
-            ((isset($object->network)) ? $object->network : (object) array());
+        return (isset($body->addresses)) ? $body->addresses :
+            ((isset($body->network)) ? $body->network : (object) array());
     }
 
     /**
@@ -561,8 +563,10 @@ class Server extends PersistentObject
         $action = (strpos('spice', $type) !== false) ? 'os-getSPICEConsole' : 'os-getVNCConsole';
         $object = (object) array($action => (object) array('type' => $type));
         
-        $decoded  = $this->action($object)->getDecodedBody();
-        return (isset($decoded->console)) ? $decoded->console : false;
+        $response  = $this->action($object);
+        $body = Formatter::decode($response);
+
+        return (isset($body->console)) ? $body->console : false;
     }
 
     protected function createJson()

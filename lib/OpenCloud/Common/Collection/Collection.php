@@ -18,28 +18,26 @@ use IteratorAggregate;
  * @since 1.8.0
  * @package OpenCloud\Common\Collection
  */
-class Collection implements ArrayAccess, IteratorAggregate
+class Collection implements ArrayAccess
 {
 
-    protected $container;
+    protected $elements;
 
     /**
      * @param array $data
-     * @return $this
      */
-    public static function factory(array $data = array())
+    public function __construct(array $data = array())
     {
-        $self = new self();
-        return $self->setContainer($data);
+        $this->elements = $data;
     }
 
     /**
      * @param array $data
      * @return $this
      */
-    public function setContainer(array $data = array())
+    public function setElements(array $data = array())
     {
-        $this->container = $data;
+        $this->elements = $data;
         return $this;
     }
 
@@ -51,7 +49,7 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     public function offsetSet($offset, $value)
     {
-        $this->container[$offset] = $value;
+        $this->elements[$offset] = $value;
     }
 
     /**
@@ -61,7 +59,7 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     public function append($value)
     {
-        $this->container[] = $value;
+        $this->elements[] = $value;
     }
 
     /**
@@ -72,7 +70,7 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     public function offsetExists($offset)
     {
-        return isset($this->container[$offset]);
+        return isset($this->elements[$offset]);
     }
 
     /**
@@ -83,7 +81,7 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     public function valueExists($value)
     {
-        return array_search($this->container, $value) !== false;
+        return array_search($this->elements, $value) !== false;
     }
 
     /**
@@ -93,7 +91,7 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     public function offsetUnset($offset)
     {
-        unset($this->container[$offset]);
+        unset($this->elements[$offset]);
     }
 
     /**
@@ -104,17 +102,7 @@ class Collection implements ArrayAccess, IteratorAggregate
      */
     public function offsetGet($offset)
     {
-        return $this->offsetExists($offset) ? $this->container[$offset] : null;
+        return $this->offsetExists($offset) ? $this->elements[$offset] : null;
     }
-
-    /**
-     * @return \Traversable|void
-     */
-    public function getIterator()
-    {
-        return new ArrayIterator($this->container);
-    }
-
-
 
 }

@@ -11,6 +11,7 @@
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\CloudMonitoring\Exception;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * Agent class.
@@ -65,8 +66,10 @@ class Agent extends ReadOnlyResource
     	$url = clone $this->getUrl();
         $url->addPath('connections')->addPath($connectionId);
 
-    	$response = $this->getClient()->get($url)->send()->getDecodedBody();
-    	return $this->getService()->resource('AgentConnection', $response);
+    	$response = $this->getClient()->get($url)->send();
+        $body = Formatter::decode($response);
+
+    	return $this->getService()->resource('AgentConnection', $body);
 	}
 	
 }

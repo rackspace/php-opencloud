@@ -17,6 +17,7 @@ use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\ObjectStore\Resource\Container;
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * The ObjectStore (Cloud Files) service.
@@ -147,10 +148,10 @@ class Service extends AbstractService
         $url = $this->getUrl()->addPath($path)->setQuery(array('extract-archive' => $archiveType));
         $response = $this->getClient()->put($url, array(), $entity)->send();
         
-        $message = $response->getDecodedBody();
+        $body = Formatter::decode($response);
 
-        if (!empty($message->Errors)) {
-            throw new Exception\BulkOperationException((array) $message->Errors);
+        if (!empty($body->Errors)) {
+            throw new Exception\BulkOperationException((array) $body->Errors);
         }
         
         return $response;
@@ -175,9 +176,9 @@ class Service extends AbstractService
             ->send();
 
         try {
-            $message = $response->getDecodedBody();
-            if (!empty($message->Errors)) {
-                throw new Exception\BulkOperationException((array) $message->Errors);
+            $body = Formatter::decode($response);
+            if (!empty($body->Errors)) {
+                throw new Exception\BulkOperationException((array) $body->Errors);
             }
         } catch (Exceptions\JsonError $e) {}
         

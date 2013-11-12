@@ -17,6 +17,7 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Http\Message\RequestFactory;
+use OpenCloud\Common\Http\Message\Formatter;
 use Guzzle\Http\Url;
 
 define('RACKSPACE_US', 'https://identity.api.rackspacecloud.com/v2.0/');
@@ -275,12 +276,13 @@ class OpenStack extends Client
     public function authenticate()
     {
         $headers = array('Content-Type' => 'application/json');
-        $object = $this->post($this->getAuthUrl(), $headers, $this->getCredentials())->send()->getDecodedBody();
+        $response = $this->post($this->getAuthUrl('tokens'), $headers, $this->getCredentials())->send();
+        $body = Formatter::decode($response);
 
         // Save the token information as well as the ServiceCatalog
-        $this->setToken($object->access->token->id);
-        $this->setExpiration(strtotime($object->access->token->expires));
-        $this->setCatalog($object->access->serviceCatalog);
+        $this->setToken($body->access->token->id);
+        $this->setExpiration(strtotime($body->access->token->expires));
+        $this->setCatalog($body->access->serviceCatalog);
         
         // Add to default headers for future reference
         $this->setDefaultOption('headers/X-Auth-Token', (string) $this->getToken());
@@ -291,8 +293,8 @@ class OpenStack extends Client
          * we set it. This occurs with pure Keystone, but not
          * with the Rackspace auth.
          */
-        if (isset($object->access->token->tenant)) {
-            $this->setTenant($object->access->token->tenant->id);
+        if (isset($body->access->token->tenant)) {
+            $this->setTenant($body->access->token->tenant->id);
         }
     }
 

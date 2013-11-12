@@ -10,6 +10,8 @@
 
 namespace OpenCloud\DNS\Resource;
 
+use OpenCloud\Common\Http\Message\Formatter;
+
 /**
  * The Domain class represents a single domain
  *
@@ -139,11 +141,12 @@ class Domain extends Object
     {   
         $url = $this->url('changes', isset($since) ? array('since' => $since) : array());
         
-        return $this->getService()
+        $response = $this->getService()
             ->getClient()
             ->get($url)
-            ->send()
-            ->getDecodedBody();
+            ->send();
+
+        return Formatter::decode($response);
     }
 
     /**

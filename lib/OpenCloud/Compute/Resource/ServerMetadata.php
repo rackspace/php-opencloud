@@ -14,6 +14,7 @@ use OpenCloud\Common\Lang;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Exceptions;
 use Guzzle\Http\Url;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * This class handles specialized metadata for OpenStack Server objects (metadata 
@@ -53,19 +54,11 @@ class ServerMetadata extends Metadata
                 ->get($this->getUrl())
                 ->send();
 
-            $this->getLogger()->info(
-                Lang::translate('Metadata for [{url}] is [{body}]'), 
-                array(
-                    'url'  => $this->getUrl(), 
-                    'body' => $response->getDecodedBody()
-                )
-            );
-
             // parse and assign the server metadata
-            $object = $response->getDecodedBody();
+            $body = Formatter::decode($response);
 
-            if (isset($object->metadata)) {
-                foreach ($object->metadata as $key => $value) {
+            if (isset($body->metadata)) {
+                foreach ($body->metadata as $key => $value) {
                     $this->$key = $value;
                 }
             }

@@ -13,6 +13,7 @@ namespace OpenCloud\DNS\Resource;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * The DnsObject class is an extension of the PersistentObject class that
@@ -29,10 +30,8 @@ abstract class Object extends PersistentObject
      */
     public function create($params = array()) 
     {
-        return new AsyncResponse(
-            $this->getService(), 
-            parent::create($params)->getDecodedBody()
-        );
+        $body = Formatter::decode(parent::create($params));
+        return new AsyncResponse($this->getService(), $body);
     }
 
     /**
@@ -43,10 +42,8 @@ abstract class Object extends PersistentObject
      */
     public function update($params = array()) 
     {
-        return new AsyncResponse(
-            $this->getService(), 
-            parent::update($params)->getDecodedBody()
-        );
+        $body = Formatter::decode(parent::update($params));
+        return new AsyncResponse($this->getService(), $body);
     }
 
     /**
@@ -57,10 +54,8 @@ abstract class Object extends PersistentObject
      */
     public function delete() 
     {
-        return new AsyncResponse(
-            $this->getService(), 
-            parent::delete()->getDecodedBody()
-        );
+        $body = Formatter::decode(parent::delete());
+        return new AsyncResponse($this->getService(), $body);
     }
 
     /**

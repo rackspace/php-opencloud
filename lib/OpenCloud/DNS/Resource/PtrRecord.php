@@ -12,6 +12,7 @@ namespace OpenCloud\DNS\Resource;
 
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * PTR records are used for reverse DNS
@@ -87,13 +88,13 @@ class PtrRecord extends Record
             $params['ip'] = $this->data;
         }
         
-        $url = $this->url('rdns/' . $this->link_rel, $params);
+        $url = clone $this->getUrl();
+        $url->addPath('rdns')
+            ->addPath($this->link_rel)
+            ->setQuery($params);
 
-        // perform the request
         $response = $this->getClient()->delete($url)->send();
-
-        // return the AsyncResponse object
-        return new AsyncResponse($this->getService(), $response->getDecodedBody());
+        return new AsyncResponse($this->getService(), Formatter::decode($response));
     }
 
     /**

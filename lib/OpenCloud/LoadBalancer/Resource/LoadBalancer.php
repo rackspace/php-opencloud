@@ -14,6 +14,7 @@ namespace OpenCloud\LoadBalancer\Resource;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * A load balancer is a logical device which belongs to a cloud account. It is 
@@ -318,16 +319,10 @@ class LoadBalancer extends PersistentObject
          * balancer is created.
          */
         if ($this->Id()) {
-            $virtualIp = $this->VirtualIp();
+            $virtualIp = $this->virtualIp();
             $virtualIp->type = $type;
             $virtualIp->ipVersion = $object->version;
-            $http = $virtualIp->create();
-            
-            $this->getLogger()->info('AddVirtualIp:response [{body}]', array(
-                'body' => $http->getDecodedBody()
-            ));
-            
-            return $http;
+            return $virtualIp->create();
         } else {
             // queue it
             $this->virtualIps[] = $object;

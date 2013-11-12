@@ -16,6 +16,7 @@ use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Compute\Resource\Flavor;
 use OpenCloud\Database\Service;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * Instance represents an instance of DbService, similar to a Server in a
@@ -114,8 +115,8 @@ class Instance extends PersistentObject
     public function enableRootUser() 
     {
         $response = $this->getClient()->post($this->url('root'))->send();
-        $object = $response->getDecodedBody();
-        return (!empty($object->user)) ? new User($this, $object->user) : false;
+        $body = Formatter::decode($response);
+        return (!empty($body->user)) ? new User($this, $body->user) : false;
     }
 
     /**
@@ -128,8 +129,8 @@ class Instance extends PersistentObject
     public function isRootEnabled() 
     {
         $response = $this->getClient()->get($this->url('root'))->send();
-        $object = $response->getDecodedBody();
-        return !empty($object->rootEnabled);
+        $body = Formatter::decode($response);
+        return !empty($body->rootEnabled);
     }
 
     /**
@@ -164,8 +165,8 @@ class Instance extends PersistentObject
     public function databaseList() 
     {
         $response = $this->getClient()->get($this->url('databases'))->send();
-        $object = $response->getDecodedBody();
-        $data = (!empty($object->databases)) ? $object->databases : array();
+        $body = Formatter::decode($response);
+        $data = (!empty($body->databases)) ? $body->databases : array();
         return new Collection($this, 'OpenCloud\DbService\Database', $data);
     }
 
@@ -177,10 +178,9 @@ class Instance extends PersistentObject
      */
     public function userList() 
     {
-        $response = $this->getClient()->get($this->url('users'))->send();        
-        $object = $response->getDecodedBody();
-
-        $data = (!empty($object->users)) ? $object->users : array();
+        $response = $this->getClient()->get($this->url('users'))->send();
+        $body = Formatter::decode($response);
+        $data = (!empty($body->users)) ? $body->users : array();
         return new Collection($this, 'OpenCloud\DbService\User', $data);
     }
 

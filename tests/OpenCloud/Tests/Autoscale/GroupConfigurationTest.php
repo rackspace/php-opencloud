@@ -13,12 +13,10 @@ namespace OpenCloud\Tests\Autoscale;
 use OpenCloud\Autoscale\Resource\GroupConfiguration;
 use OpenCloud\Tests\OpenCloudTestCase;
 
-class GroupConfigurationTest extends OpenCloudTestCase 
+class GroupConfigurationTest extends OpenCloudTestCase
 {
-
-    const ENDPOINT = 'https://private-f52bc-autoscale.apiary.io/v1.0/tenantId/';
     const GROUP_ID = 'groupId';
-    
+
     const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
     const CONFIG_CLASS     = 'OpenCloud\Autoscale\Resource\GroupConfiguration';
     const GROUP_CLASS      = 'OpenCloud\Autoscale\Resource\Group';
@@ -30,7 +28,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
         $this->service = $this->getClient()->autoscaleService('autoscale');
     }
     
-    public function testParentFactory()
+    public function test_Parent_Factory()
     {
         $config = $this->service->group()->getGroupConfig();
         
@@ -45,7 +43,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
         );
     }
     
-    public function testManualInstantiation()
+    public function test_Manual_Instantiation()
     {
         $config = new GroupConfiguration($this->service);
         $config->setParent($this->service->group());
@@ -61,7 +59,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
         );
     }
     
-    public function testConfig()
+    public function test_Config()
     {
         $group = $this->service->group(self::GROUP_ID);
         $group->setGroupConfiguration(null);
@@ -72,7 +70,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
         $this->assertEquals('this is a string', $config->metadata->firstkey);
     }
     
-    public function testLaunchConfig()
+    public function test_Launch_Config()
     {
         $group = $this->service->group(self::GROUP_ID);
         $config1 = $group->getLaunchConfig();
@@ -95,7 +93,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
-    public function testGroupConfigCreateFails()
+    public function test_Group_Config_Create_Fails()
     {
         $this->service->group(self::GROUP_ID)->getGroupConfig()->create();
     }
@@ -103,7 +101,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
-    public function testGroupConfigDeleteFails()
+    public function test_Group_Config_Delete_Fails()
     {
         $this->service->group(self::GROUP_ID)->getGroupConfig()->delete();
     }
@@ -111,7 +109,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
-    public function testLaunchConfigCreateFails()
+    public function test_Launch_Config_Create_Fails()
     {
         $this->service->group(self::GROUP_ID)->getLaunchConfig()->create();
     }
@@ -119,7 +117,7 @@ class GroupConfigurationTest extends OpenCloudTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
-    public function testLaunchConfigDeleteFails()
+    public function test_Launch_Config_Delete_Fails()
     {
         $this->service->group(self::GROUP_ID)->getLaunchConfig()->delete();
     }

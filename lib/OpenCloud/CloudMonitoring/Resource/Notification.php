@@ -10,6 +10,8 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
+use OpenCloud\Common\Http\Message\Formatter;
+
 /**
  * Notification class.
  */
@@ -61,11 +63,12 @@ class Notification extends AbstractResource
     
     public function test($debug = false)
     {
-        return $this->getService()
+        $response = $this->getService()
             ->getClient()
             ->post($this->testUrl($debug))
-            ->send()
-            ->getDecodedBody();
+            ->send();
+
+        return Formatter::decode($response);
     }
     
 }

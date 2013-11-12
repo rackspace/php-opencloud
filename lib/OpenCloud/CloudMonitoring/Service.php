@@ -10,6 +10,7 @@
 namespace OpenCloud\CloudMonitoring;
 
 use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * Cloud Monitoring service.
@@ -203,9 +204,10 @@ class Service extends AbstractService
             $url->setQuery(array('entityId' => (string) $data));
         }
 
-        $response = $this->getClient()->get($url)->send()->getDecodedBody();
+        $response = $this->getClient()->get($url)->send();
+        $body = Formatter::decode($response);
 
-        return (isset($response->values)) ? $response->values : false;
+        return (isset($body->values)) ? $body->values : false;
     }
 
     /**
@@ -215,9 +217,10 @@ class Service extends AbstractService
     {
         $url = $this->resource('View')->getUrl();
 
-        $response = $this->getClient()->get($url)->send()->getDecodedBody();
+        $response = $this->getClient()->get($url)->send();
+        $body = Formatter::decode($response);
 
-        return (isset($response->values)) ? $response->values : false;
+        return (isset($body->values)) ? $body->values : false;
     }
 
 }

@@ -32,29 +32,20 @@ class Flavor extends PersistentObject
 
     protected static $json_name = 'flavor';
     protected static $url_resource = 'flavors';
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function create($params = array()) 
     { 
         return $this->noCreate(); 
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function update($params = array()) 
     { 
         return $this->noUpdate(); 
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function delete() 
-    { 
-        return $this->noDelete(); 
+    {
+        return $this->noDelete();
     }
 
 }

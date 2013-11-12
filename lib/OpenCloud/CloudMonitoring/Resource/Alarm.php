@@ -11,6 +11,7 @@
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\CloudMonitoring\Exception;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * Alarm class.
@@ -82,11 +83,12 @@ class Alarm extends AbstractResource
         $url  = $this->getParent()->url('test-alarm');
         $body = json_encode((object) $params);
 
-        return $this->getService()
+        $response = $this->getService()
             ->getClient()
             ->post($url, array(), $body)
-            ->send()
-            ->getDecodedBody();
+            ->send();
+
+        return Formatter::decode($response);
     }
 
     public function getHistoryUrl()
@@ -96,13 +98,14 @@ class Alarm extends AbstractResource
 
     public function getRecordedChecks()
     {
-        $data = $this->getService()
+        $response = $this->getService()
             ->getClient()
             ->get($this->getHistoryUrl())
-            ->send()
-            ->getDecodedBody();
+            ->send();
 
-        return (isset($data->check_ids)) ? $data->check_ids : false;
+        $body = Formatter::decode($response);
+
+        return (isset($body->check_ids)) ? $body->check_ids : false;
     }
 
     public function getNotificationHistoryForCheck($checkId)
