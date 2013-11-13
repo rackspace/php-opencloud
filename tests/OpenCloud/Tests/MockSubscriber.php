@@ -10,33 +10,51 @@
 namespace OpenCloud\Tests;
 
 use Guzzle\Common\Event;
+use Guzzle\Plugin\Mock\MockPlugin;
 use OpenCloud\Common\Http\Message\Request;
 use OpenCloud\Common\Http\Message\Response;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class MockSubscriber implements EventSubscriberInterface
+class MockSubscriber extends MockPlugin implements EventSubscriberInterface
 {
 
     public static function getSubscribedEvents()
     {
         return array(
             'request.before_send' => array(
-                array('onBeforeSend', -1000)
+                array('onRequestBeforeSend', -999),
+                array('onBeforeSendFallback', -1000)
             )
         );
     }
 
-    public function onBeforeSend(Event $event)
+    public function onBeforeSendFallback(Event $event)
     {
         if (strpos($event['request']->getUrl(), 'tokens') !== false) {
             // auth request must pass
             $message  = file_get_contents(__DIR__ . '/_response/Auth.resp');
             $response = Response::fromMessage($message);
             $event['request']->setResponse($response)->setState(Request::STATE_COMPLETE);
+            $event->stopPropagation();
         } else {
             // default fallback is a 404
             $response = new Response(404);
             $event['request']->setResponse($response)->setState(Request::STATE_COMPLETE);
+            $event->stopPropagation();
+        }
+    }
+
+    public function onRequestBeforeSend(Event $event)
+    {
+        if ($this->queue) {
+            $request = $event['request'];
+            $this->received[] = $request;
+            // Detach the filter from the client so it's a one-time use
+            if ($this->temporary && count($this->queue) == 1 && $request->getClient()) {
+                $request->getClient()->getEventDispatcher()->removeSubscriber($this);
+            }
+            $this->dequeue($request);
+            $event->stopPropagation();
         }
     }
 

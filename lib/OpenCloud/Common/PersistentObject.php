@@ -292,6 +292,9 @@ abstract class PersistentObject extends Base
         }
 
         // perform a GET on the URL
+        if (strpos((string) $url, '6742e741-cab6-42ff-abe5-458150afc9b1') !== false) {
+            //var_dump($this->getClient()->getEventDispatcher()->getListeners('request.before_send'));die;
+        }
         $response = $this->getClient()->get($url)->send();
   
         if (null !== ($decoded = $this->parseResponse($response))) {

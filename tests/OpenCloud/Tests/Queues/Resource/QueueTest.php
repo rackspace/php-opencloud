@@ -9,7 +9,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Tests\Queues\Resource;
+namespace OpenCloud\Tests\Queues\Resource\Resource;
 
 use OpenCloud\Queues\Service;
 use OpenCloud\Common\Metadata;

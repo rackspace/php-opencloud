@@ -13,15 +13,18 @@ namespace OpenCloud\Tests;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Rackspace;
-use Guzzle\Plugin\Mock\MockPlugin;
 
 abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 {
-    
+    const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
+
     public static $client;
 
-    protected $testDir = '_response';
+    protected $mockPath = './';
+    protected $testDir = '_response/';
     protected $testExt = '.resp';
+
+    protected $currentMockSubscriber;
 
     private static function newClient()
     {
@@ -29,9 +32,11 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
             'username' => 'foo',
             'apiKey'   => 'bar'
         ));
-        
+
         $client->addSubscriber(new MockSubscriber());
-        
+
+        $client->authenticate();
+
         return $client;
     }
     
@@ -46,32 +51,51 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        if (strpos($this->getName(), 'Response') === false) {
+        $reflection = new \ReflectionMethod(get_class($this), $this->getName());
+
+        if (false == ($mockFile = self::parseDocBlock($reflection->getDocComment()))) {
             return;
         }
 
-        $testFile = preg_replace('#[test|\_]*#', '', $this->getName());
-        $testPath = $this->getTestFilePath($testFile);
+        $mockFilePath = $this->getTestFilePath($mockFile);
 
-        if (file_exists($testPath)) {
-            $this->addMockSubscriber($testPath);
+        if (file_exists($mockFilePath)) {
+            $this->addMockSubscriber($mockFilePath);
         }
     }
 
-    protected function getTestFilePath($file, $dir = false, $root = false)
+    protected static function parseDocBlock($string)
     {
-        if ($dir) {
-            $dir = ($root) ? ROOT_TEST_DIR . DIRECTORY_SEPARATOR . $dir : $dir;
-        } else {
-            $dir = __DIR__;
-        }
-        return $dir . DIRECTORY_SEPARATOR . $this->testDir . DIRECTORY_SEPARATOR . $file . $this->testExt;
+        preg_match('#\@mockFile\s(\w+)#', $string, $matches);
+        return (isset($matches[1])) ? $matches[1] : false;
+    }
+
+    protected function getTestFilePath($file)
+    {
+        return ROOT_TEST_DIR . $this->mockPath . '/' . $this->testDir . $file . $this->testExt;
+    }
+
+    public function tearDown()
+    {
+        $this->unsetCurrentMockSubscriber();
     }
 
     protected function addMockSubscriber($response)
     {
-        $plugin = new MockPlugin(array($response), true);
-        $this->getClient()->addSubscriber($plugin);
+        $this->currentMockSubscriber = new MockSubscriber(array($response));
+        $this->getClient()->addSubscriber($this->currentMockSubscriber);
+    }
+
+    public function unsetCurrentMockSubscriber()
+    {
+        if ($this->currentMockSubscriber) {
+            $this->getClient()->getEventDispatcher()->removeSubscriber($this->currentMockSubscriber);
+            $this->currentMockSubscriber = null;
+        }
+    }
+
+    public function setupClassDependencies()
+    {
     }
     
 }

@@ -10,7 +10,7 @@
 
 namespace OpenCloud\Tests\Queues\Resource;
 
-use OpenCloud\Queues\Resource\Message;
+use OpenCloud\Queues\Resource\Message\Resource;
 
 class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase 
 {

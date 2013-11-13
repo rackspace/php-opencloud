@@ -8,7 +8,7 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
 
-namespace OpenCloud\Tests\Queues\Resource;
+namespace OpenCloud\Tests\Queues\Resource\Resource;
 
 class ClaimTest extends \OpenCloud\Tests\OpenCloudTestCase 
 {

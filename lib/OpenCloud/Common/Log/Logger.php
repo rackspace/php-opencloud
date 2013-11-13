@@ -23,7 +23,7 @@ class Logger extends AbstractLogger
      * 
      * @var bool
      */
-    private $enabled = false;
+    private $enabled;
     
     /**
      * These are the levels which will always be outputted - regardless of 
@@ -48,7 +48,12 @@ class Logger extends AbstractLogger
         'dateFormat'   => 'd/m/y H:I',
         'delimeter'    => ' - '
     );
-    
+
+    public function __construct($enabled = false)
+    {
+        $this->enabled = $enabled;
+    }
+
     /**
      * Determines whether a log level needs to be outputted.
      * 
@@ -96,9 +101,9 @@ class Logger extends AbstractLogger
      * 
      * @return bool
      */
-    public function getEnabled()
+    public function isEnabled()
     {
-        return $this->enabled;
+        return $this->enabled === true;
     }
     
     /**
@@ -171,7 +176,7 @@ class Logger extends AbstractLogger
      */
     public function log($level, $message, array $context = array())
     {
-        if ($this->outputIsUrgent($level) || $this->getEnabled() === true) {
+        if ($this->outputIsUrgent($level) || $this->isEnabled()) {
             $this->dispatch($message, $context);
         }
     }
@@ -214,6 +219,12 @@ class Logger extends AbstractLogger
 
             echo $output;
         }
+    }
+
+    public function deprecated($method, $new)
+    {
+        $string = sprintf('The %s method is deprecated, please use %s instead', $method, $new);
+        return $this->warning($string);
     }
     
 }

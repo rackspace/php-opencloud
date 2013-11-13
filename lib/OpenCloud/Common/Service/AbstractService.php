@@ -389,4 +389,83 @@ abstract class AbstractService extends Base
         return $url;
     }
 
+    /**
+     * @deprecated
+     * @codeCoverageIgnore
+     */
+    public function collection($class, $url = null, $parent = null)
+    {
+        $collectionName = $class::JsonCollectionName();
+        $elementName    = $class::JsonCollectionElement();
+
+        // Set the parent if empty
+        if (!$parent) {
+            $parent = $this;
+        }
+
+        // Set the URL if empty
+        if (!$url) {
+            $url = $parent->getUrl($class::resourceName());
+        }
+
+        // Fetch the list
+        $response = $this->getClient()->get($url)->send();
+
+        // Handle empty response
+        $object = Formatter::decode($response);
+
+        if (empty($object)) {
+            return new Collection($parent, $class, array());
+        }
+
+        // See if there's a "next" link
+        // Note: not sure if the current API offers links as top-level structures might have to refactor to allow
+        // $nextPageUrl as method argument
+        if (isset($object->links) && is_array($object->links)) {
+            foreach($object->links as $link) {
+                if (isset($link->rel) && $link->rel == 'next') {
+                    if (isset($link->href)) {
+                        $nextPageUrl = $link->href;
+                    } else {
+                        $this->getLogger()->warning(
+                            'Unexpected [links] found with no [href]'
+                        );
+                    }
+                }
+            }
+        }
+
+        // How should we populate the collection?
+        $data = array();
+
+        if (!$collectionName || is_array($object)) {
+            // No element name, just a plain object/array
+            // @codeCoverageIgnoreStart
+            $data = (array) $object;
+            // @codeCoverageIgnoreEnd
+        } elseif (isset($object->$collectionName)) {
+            if (!$elementName) {
+                // The object has a top-level collection name only
+                $data = $object->$collectionName;
+            } else {
+                // The object has element levels which need to be iterated over
+                $data = array();
+                foreach($object->$collectionName as $item) {
+                    $subValues = $item->$elementName;
+                    unset($item->$elementName);
+                    $data[] = array_merge((array)$item, (array)$subValues);
+                }
+            }
+        }
+
+        $collectionObject = new Collection($parent, $class, $data);
+
+        // if there's a $nextPageUrl, then we need to establish a callback
+        if (!empty($nextPageUrl)) {
+            $collectionObject->setNextPageCallback(array($this, 'Collection'), $nextPageUrl);
+        }
+
+        return $collectionObject;
+    }
+
 }

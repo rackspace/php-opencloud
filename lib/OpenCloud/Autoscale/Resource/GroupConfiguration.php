@@ -38,18 +38,12 @@ class GroupConfiguration extends AbstractResource
         'minEntities',
         'maxEntities'
     );
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function create($params = array())
     {
         return $this->noCreate();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function delete()
     {
         return $this->noDelete();

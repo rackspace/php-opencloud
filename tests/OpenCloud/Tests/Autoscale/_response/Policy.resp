@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Wed, 11 Sep 2013 00:20:49 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+Transfer-Encoding: chunked
+Via: 1.1 Repose (Repose/2.8.2)
+x-response-id: b6188369-4715-4ad5-9bf4-bea23679d0b3
+
+{
+    "policy": {
+        "args": {
+            "cron": "23 * * * *"
+        },
+        "changePercent": -5.5,
+        "cooldown": 1800,
+        "id": "5f26e16c-5fa7-4d4f-8e78-257ea711389f",
+        "links": [
+            {
+                "href": "https://dfw.autoscale.api.rackspacecloud.com/v1.0/676873/groups/605e13f6-1452-4588-b5da-ac6bb468c5bf/policies/5f26e16c-5fa7-4d4f-8e78-257ea711389f/",
+                "rel": "self"
+            }
+        ],
+        "name": "scale down by 5.5 percent at 11pm",
+        "type": "schedule"
+    }
+}

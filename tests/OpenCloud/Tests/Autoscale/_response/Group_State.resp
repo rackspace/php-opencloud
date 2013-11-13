@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Wed, 11 Sep 2013 17:39:33 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+Transfer-Encoding: chunked
+Via: 1.1 Repose (Repose/2.8.2)
+x-response-id: 8dc6bfc0-91e7-4fee-8d1a-ee42c1efe15c
+
+{
+    "group": {
+        "paused": false,
+        "pendingCapacity": 0,
+        "name": "testscalinggroup198547",
+        "active": [],
+        "activeCapacity": 10,
+        "desiredCapacity": 0
+    }
+}

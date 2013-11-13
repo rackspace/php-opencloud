@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+Date: Wed, 11 Sep 2013 00:28:20 GMT
+Server: Jetty(8.0.y.z-SNAPSHOT)
+Transfer-Encoding: chunked
+Via: 1.1 Repose (Repose/2.8.2)
+x-response-id: ac83e409-5f75-4a37-8db6-10c4d30fb546
+
+{
+    "groupConfiguration": {
+        "cooldown": 60,
+        "maxEntities": 0,
+        "metadata": {},
+        "minEntities": 0,
+        "name": "smallest possible group"
+    }
+}
