@@ -19,9 +19,7 @@
         "psr-0": {
             "OpenCloud": ["lib/", "tests/"]
         },
-        "files" : [
-            "lib/OpenCloud/OpenStack.php"
-        ]
+        "files" : ["lib/OpenCloud/OpenStack.php"]
     },
     "require": {
         "php" : ">=5.3.3",
