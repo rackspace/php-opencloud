@@ -1,0 +1,28 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 11:14:41 GMT
+Content-Type: application/json; charset=UTF-8
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS
+Access-Control-Max-Age: 86400
+Access-Control-Allow-Headers: X-Auth-Token, Content-Type, Accept
+Access-Control-Allow-Credentials: true
+Access-Control-Expose-Headers: X-Response-Id, WWW-Authenticate
+X-RateLimit-Limit: 500
+X-RateLimit-Remaining: 498
+X-RateLimit-Window: 24 hours
+X-RateLimit-Type: test_alarm
+X-Response-Id: .rh-Sm7N.h-ord1-maas-prod-api1.r-Fl2tRumf.c-8722605.ts-1384427681370.v-e6ec51e
+X-LB: ord1-maas-prod-api0
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+
+[
+    {
+        "timestamp": "1319222001982",
+        "state": "OK",
+        "status": "Matched default return statement"
+    }
+]

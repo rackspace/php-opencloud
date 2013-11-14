@@ -85,4 +85,9 @@ class Entity extends AbstractResource
         return $this->getService()->resourceList('Alarm', null, $this);
     }
 
+    public function getAlarm($id = null)
+    {
+        return $this->getService()->resource('Alarm', $id, $this);
+    }
+
 }

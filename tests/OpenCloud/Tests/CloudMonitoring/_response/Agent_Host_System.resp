@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 10:30:21 GMT
+Content-Type: application/json; charset=UTF-8
+
+{
+    "timestamp": 1354039150948,
+    "info": {
+        "name": "Linux",
+        "arch": "x86_64",
+        "version": "2.6.32-44-server",
+        "vendor": "Ubuntu",
+        "vendor_version": "10.04"
+    }
+}

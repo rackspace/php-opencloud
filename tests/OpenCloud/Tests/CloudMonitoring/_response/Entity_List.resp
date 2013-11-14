@@ -1,0 +1,269 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 10:21:07 GMT
+Content-Type: application/json; charset=UTF-8
+X-RateLimit-Limit: 50000
+X-RateLimit-Remaining: 49986
+X-RateLimit-Window: 24 hours
+X-RateLimit-Type: global
+X-Response-Id: .rh-Sm7N.h-ord1-maas-prod-api1.r-Cu8SF4OE.c-8421968.ts-1384424467134.v-e6ec51e
+X-LB: ord1-maas-prod-api0
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Length: 1812
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+
+{
+    "values": [
+        {
+            "id": "en5hw56rAh",
+            "label": "as77883661-autoscale_server",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4801:7821:0077:b2d4:f2fa:ff10:8936",
+                "access_ip1_v4": "192.237.184.223",
+                "public0_v4": "192.237.184.223",
+                "public1_v6": "2001:4801:7821:0077:b2d4:f2fa:ff10:8936",
+                "private0_v4": "10.208.140.87"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/1c3c45a9-54aa-4612-ae8a-aeefd34a4839",
+            "agent_id": "1c3c45a9-54aa-4612-ae8a-aeefd34a4839",
+            "created_at": 1378286006726,
+            "updated_at": 1378286006726
+        },
+        {
+            "id": "en9yLicQeQ",
+            "label": "ACPTTESTJtUnPKNBSTAdLj1b",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4800:7813:0516:b2d4:f2fa:ff04:5483",
+                "access_ip1_v4": "192.237.200.193",
+                "public0_v6": "2001:4800:7813:0516:b2d4:f2fa:ff04:5483",
+                "public1_v4": "192.237.200.193",
+                "private0_v4": "10.183.20.94"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://dfw.servers.api.rackspacecloud.com/848195/servers/06848b87-a8bc-4673-81b5-2067ce796c87",
+            "agent_id": "06848b87-a8bc-4673-81b5-2067ce796c87",
+            "created_at": 1378483260021,
+            "updated_at": 1378483260021
+        },
+        {
+            "id": "enJSS74VhF",
+            "label": "internal",
+            "ip_addresses": {
+                "public0_v4": "198.61.225.127",
+                "access_ip0_v6": "2001:4801:7817:0072:b2d4:f2fa:ff10:6b79",
+                "private0_v4": "10.177.10.90",
+                "public1_v6": "2001:4801:7817:0072:b2d4:f2fa:ff10:6b79",
+                "access_ip1_v4": "198.61.225.127"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/4e7529ff-961c-45f7-97d4-ee76e3d0af1e",
+            "agent_id": "4e7529ff-961c-45f7-97d4-ee76e3d0af1e",
+            "created_at": 1383829531926,
+            "updated_at": 1383829531926
+        },
+        {
+            "id": "enSyaKzub6",
+            "label": "keypair_Test2",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff11:14b3",
+                "access_ip1_v4": "67.207.155.228",
+                "public0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff11:14b3",
+                "private0_v4": "10.208.18.218",
+                "public1_v4": "67.207.155.228"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/9be7e3b6-2af9-4888-8765-8f3e18d7235a",
+            "agent_id": "9be7e3b6-2af9-4888-8765-8f3e18d7235a",
+            "created_at": 1380018647947,
+            "updated_at": 1380018647947
+        },
+        {
+            "id": "enUUn30ram",
+            "label": "autoscale_server-as6af0a279",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:ea32",
+                "access_ip1_v4": "192.237.247.131",
+                "public0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:ea32",
+                "public1_v4": "192.237.247.131",
+                "private0_v4": "10.208.4.141"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/6d81169b-e0f7-426d-bf6f-3920ec93e154",
+            "agent_id": "6d81169b-e0f7-426d-bf6f-3920ec93e154",
+            "created_at": 1379323086663,
+            "updated_at": 1379323086663
+        },
+        {
+            "id": "enUsP8PeMq",
+            "label": "keypair_Test2",
+            "ip_addresses": {
+                "public0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff11:1490",
+                "public1_v4": "67.207.154.156",
+                "private0_v4": "10.208.13.23",
+                "access_ip0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff11:1490",
+                "access_ip1_v4": "67.207.154.156"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/3956bcc8-89f2-47d0-a2ab-f4bb54456d6b",
+            "agent_id": "3956bcc8-89f2-47d0-a2ab-f4bb54456d6b",
+            "created_at": 1380020457495,
+            "updated_at": 1380020457495
+        },
+        {
+            "id": "enaZW9tfeo",
+            "label": "rumm_db_instance",
+            "ip_addresses": {},
+            "metadata": {},
+            "managed": false,
+            "uri": "https://ord.databases.api.rackspacecloud.com/v1.0/848195/instances/d9be5b8f-fdf2-4643-921b-5f7279753e2e",
+            "agent_id": "d9be5b8f-fdf2-4643-921b-5f7279753e2e",
+            "created_at": 1379585249139,
+            "updated_at": 1379585249139
+        },
+        {
+            "id": "eneiaEdeqz",
+            "label": "autoscale_server-as11ace996",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:f4d2",
+                "access_ip1_v4": "192.237.247.101",
+                "public0_v4": "192.237.247.101",
+                "public1_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:f4d2",
+                "private0_v4": "10.208.5.204"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/d17fcc9c-7f31-4206-b414-04f9d348ea92",
+            "agent_id": "d17fcc9c-7f31-4206-b414-04f9d348ea92",
+            "created_at": 1379331076879,
+            "updated_at": 1379331076879
+        },
+        {
+            "id": "enfofmJl8Z",
+            "label": "autoscale_server-as25356597",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:f529",
+                "access_ip1_v4": "192.237.246.199",
+                "public0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:f529",
+                "public1_v4": "192.237.246.199",
+                "private0_v4": "10.208.6.181"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/34b2cf31-c621-4e1a-a1d2-e76741c96330",
+            "agent_id": "34b2cf31-c621-4e1a-a1d2-e76741c96330",
+            "created_at": 1379324116595,
+            "updated_at": 1379324116595
+        },
+        {
+            "id": "engCYhi4TT",
+            "label": "wp test",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4801:7817:0072:b2d4:f2fa:ff10:4556",
+                "access_ip1_v4": "198.61.225.31",
+                "public0_v4": "198.61.225.31",
+                "public1_v6": "2001:4801:7817:0072:b2d4:f2fa:ff10:4556",
+                "private0_v4": "10.177.42.219"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/cc7db7df-156b-46ba-9fd8-c33f20c2d482",
+            "agent_id": "cc7db7df-156b-46ba-9fd8-c33f20c2d482",
+            "created_at": 1378228186830,
+            "updated_at": 1378228186830
+        },
+        {
+            "id": "enuq3GkO6S",
+            "label": "autoscale_server-as64cff5e4",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:e670",
+                "access_ip1_v4": "192.237.246.204",
+                "access_ip2_v4": "192.237.246.204",
+                "public0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:e670",
+                "private0_v4": "10.208.6.186",
+                "public1_v4": "192.237.246.204"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/013c7e32-907d-4268-a28c-a899d6f66f11",
+            "agent_id": "013c7e32-907d-4268-a28c-a899d6f66f11",
+            "created_at": 1379323905588,
+            "updated_at": 1379323905588
+        },
+        {
+            "id": "envMDTrOk5",
+            "label": "personality test 2",
+            "ip_addresses": {
+                "access_ip0_v6": "2001:4800:7813:0516:b2d4:f2fa:ff05:4886",
+                "access_ip1_v4": "192.237.222.172",
+                "public0_v6": "2001:4800:7813:0516:b2d4:f2fa:ff05:4886",
+                "public1_v4": "192.237.222.172"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://dfw.servers.api.rackspacecloud.com/848195/servers/e5fd6300-27fa-45d3-bb94-10d97107bd28",
+            "agent_id": "e5fd6300-27fa-45d3-bb94-10d97107bd28",
+            "created_at": 1378215047363,
+            "updated_at": 1378215047363
+        },
+        {
+            "id": "enwJCOJtCW",
+            "label": "autoscale_server-as68837983",
+            "ip_addresses": {
+                "public0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:16eb",
+                "public1_v4": "192.237.246.93",
+                "private0_v4": "10.208.2.18",
+                "access_ip0_v6": "2001:4801:7823:0076:b2d4:f2fa:ff10:16eb",
+                "access_ip1_v4": "192.237.246.93"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/b644b69d-b98c-4ab5-9e97-6d69b906c745",
+            "agent_id": "b644b69d-b98c-4ab5-9e97-6d69b906c745",
+            "created_at": 1379413846410,
+            "updated_at": 1379413846410
+        },
+        {
+            "id": "enx2tQKbiL",
+            "label": "Cloud Database Instance(0ba3022c-9495-4315-b0d5-c24c5234e3c3)",
+            "ip_addresses": {},
+            "metadata": {},
+            "managed": false,
+            "uri": "https://dfw.databases.api.rackspacecloud.com/v1.0/848195/instances/0ba3022c-9495-4315-b0d5-c24c5234e3c3",
+            "agent_id": "0ba3022c-9495-4315-b0d5-c24c5234e3c3",
+            "created_at": 1376337647216,
+            "updated_at": 1376337647216
+        },
+        {
+            "id": "enyPJaK3wH",
+            "label": "php-test",
+            "ip_addresses": {
+                "public0_v4": "162.242.170.17",
+                "access_ip0_v6": "2001:4801:7822:0103:b2d4:f2fa:ff10:fa82",
+                "private0_v4": "10.209.65.27",
+                "public1_v6": "2001:4801:7822:0103:b2d4:f2fa:ff10:fa82",
+                "access_ip1_v4": "162.242.170.17"
+            },
+            "metadata": null,
+            "managed": false,
+            "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/f5ea18f1-603f-4763-b25f-0b7dc6c88959",
+            "agent_id": "f5ea18f1-603f-4763-b25f-0b7dc6c88959",
+            "created_at": 1384420623086,
+            "updated_at": 1384420623086
+        }
+    ],
+    "metadata": {
+        "count": 15,
+        "limit": 100,
+        "marker": null,
+        "next_marker": null,
+        "next_href": null
+    }
+}

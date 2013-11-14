@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 10:37:52 GMT
+Content-Type: application/json; charset=UTF-8
+X-RateLimit-Limit: 50000
+X-RateLimit-Remaining: 49978
+X-RateLimit-Window: 24 hours
+X-RateLimit-Type: global
+X-Response-Id: .rh-pAlf.h-ord1-maas-prod-api0.r-3dqoL7Hf.c-8120386.ts-1384425472976.v-e6ec51e
+X-LB: ord1-maas-prod-api1
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+
+{
+    "id": "1d29b4f9-87ca-4b22-b5a2-4e40a07bf068",
+    "last_connected": 1383616760309
+}

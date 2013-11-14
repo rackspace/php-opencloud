@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 11:16:15 GMT
+Content-Type: application/json; charset=UTF-8
+X-RateLimit-Limit: 50000
+X-RateLimit-Remaining: 49971
+X-RateLimit-Window: 24 hours
+X-RateLimit-Type: global
+X-Response-Id: .rh-Sm7N.h-ord1-maas-prod-api1.r-eaoOuW2O.c-8726899.ts-1384427775617.v-e6ec51e
+X-LB: ord1-maas-prod-api1
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Length: 106
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+
+{
+    "values": [
+        {
+            "id": "alAAAA",
+            "check_id": "chAAAA",
+            "criteria": "if (metric[\"duration\"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);"
+        }
+    ],
+    "metadata": {
+        "count": 1,
+        "limit": 50,
+        "marker": null,
+        "next_marker": null,
+        "next_href": null
+    }
+}

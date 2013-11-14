@@ -78,6 +78,11 @@ class DNS extends AbstractUnit implements UnitInterface
             );
         }
 
+        $recordList = $domain->recordList();
+        while ($record = $recordList->next()) {
+            $record->update(array('name' => 'something-else.com'));
+        }
+
         // List everything
         $this->step('List domains and records');
         

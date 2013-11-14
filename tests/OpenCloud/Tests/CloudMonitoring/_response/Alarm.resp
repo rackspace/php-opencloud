@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 11:16:15 GMT
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": "alAAAA",
+    "check_id": "chAAAA",
+    "criteria": "if (metric[\"duration\"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);"
+}

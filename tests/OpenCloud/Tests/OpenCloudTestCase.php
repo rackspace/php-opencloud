@@ -51,6 +51,12 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $this->setupObjects();
+        $this->handleMockSubscribers();
+    }
+
+    public function handleMockSubscribers()
+    {
         $reflection = new \ReflectionMethod(get_class($this), $this->getName());
 
         if (false == ($mockFile = self::parseDocBlock($reflection->getDocComment()))) {
@@ -75,26 +81,13 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
         return ROOT_TEST_DIR . $this->mockPath . '/' . $this->testDir . $file . $this->testExt;
     }
 
-    public function tearDown()
-    {
-        $this->unsetCurrentMockSubscriber();
-    }
-
     protected function addMockSubscriber($response)
     {
-        $this->currentMockSubscriber = new MockSubscriber(array($response));
+        $this->currentMockSubscriber = new MockSubscriber(array($response), true);
         $this->getClient()->addSubscriber($this->currentMockSubscriber);
     }
 
-    public function unsetCurrentMockSubscriber()
-    {
-        if ($this->currentMockSubscriber) {
-            $this->getClient()->getEventDispatcher()->removeSubscriber($this->currentMockSubscriber);
-            $this->currentMockSubscriber = null;
-        }
-    }
-
-    public function setupClassDependencies()
+    public function setupObjects()
     {
     }
     

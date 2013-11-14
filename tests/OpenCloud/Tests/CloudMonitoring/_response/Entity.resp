@@ -1,0 +1,32 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 10:23:01 GMT
+Content-Type: application/json; charset=UTF-8
+X-RateLimit-Limit: 50000
+X-RateLimit-Remaining: 49981
+X-RateLimit-Window: 24 hours
+X-RateLimit-Type: global
+X-Response-Id: .rh-pAlf.h-ord1-maas-prod-api0.r-dfT8726N.c-8048535.ts-1384424581590.v-e6ec51e
+X-LB: ord1-maas-prod-api1
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+
+{
+    "id": "en5hw56rAh",
+    "label": "as77883661-autoscale_server",
+    "ip_addresses": {
+        "access_ip0_v6": "2001:4801:7821:0077:b2d4:f2fa:ff10:8936",
+        "access_ip1_v4": "192.237.184.223",
+        "public0_v4": "192.237.184.223",
+        "public1_v6": "2001:4801:7821:0077:b2d4:f2fa:ff10:8936",
+        "private0_v4": "10.208.140.87"
+    },
+    "metadata": null,
+    "managed": false,
+    "uri": "https://ord.servers.api.rackspacecloud.com/848195/servers/1c3c45a9-54aa-4612-ae8a-aeefd34a4839",
+    "agent_id": "1c3c45a9-54aa-4612-ae8a-aeefd34a4839",
+    "created_at": 1378286006726,
+    "updated_at": 1378286006726
+}

@@ -17,7 +17,6 @@ class AutoscaleTestCase extends OpenCloudTestCase
     const POLICY_ID = 'policyId';
     const WEBHOOK_ID = '23037efb-53a9-4ae5-bc33-e89a56b501b6';
 
-    const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
     const CONFIG_CLASS     = 'OpenCloud\Autoscale\Resource\GroupConfiguration';
     const GROUP_CLASS      = 'OpenCloud\Autoscale\Resource\Group';
 
@@ -27,18 +26,11 @@ class AutoscaleTestCase extends OpenCloudTestCase
 
     protected $mockPath = 'Autoscale';
 
-    public function setUp()
+    public function setupObjects()
     {
         $this->service = $this->getClient()->autoscaleService('autoscale');
 
         $this->addMockSubscriber($this->getTestFilePath('Group'));
         $this->group = $this->service->group(self::GROUP_ID);
-        $this->unsetCurrentMockSubscriber();
-
-        $this->addMockSubscriber($this->getTestFilePath('Policy'));
-        $this->policy = $this->group->getScalingPolicy(self::POLICY_ID);
-        $this->unsetCurrentMockSubscriber();
-
-        parent::setUp();
     }
-} 
+}

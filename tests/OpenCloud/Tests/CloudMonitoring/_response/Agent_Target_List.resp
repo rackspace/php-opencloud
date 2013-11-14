@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 10:30:21 GMT
+Content-Type: application/json; charset=UTF-8
+
+{
+    "targets": [
+        "/",
+        "/proc",
+        "/sys",
+        "/sys/fs/fuse/connections",
+        "/sys/kernel/debug",
+        "/sys/kernel/security",
+        "/dev",
+        "/dev/pts",
+        "/dev/shm",
+        "/var/run",
+        "/var/lock",
+        "/lib/init/rw",
+        "/var/lib/ureadahead/debugfs",
+        "/boot",
+        "/mnt/hgfs",
+        "/var/run/vmblock-fuse"
+    ]
+}
