@@ -38,7 +38,7 @@ class ChangelogTest extends OpenCloudTestCase
     {
         $this->resource->create();
     }
-    
+
     public function testListAll()
     {
         $this->assertInstanceOf(

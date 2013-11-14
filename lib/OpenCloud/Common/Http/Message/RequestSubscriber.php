@@ -10,6 +10,8 @@
 
 namespace OpenCloud\Common\Http\Message;
 
+use Guzzle\Common\Event;
+use Guzzle\Http\Message\EntityEnclosingRequest;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -28,8 +30,20 @@ class RequestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            'request.before_send'    => 'ensureContentType',
             'curl.callback.progress' => 'doCurlProgress'
         );
+    }
+
+    public function ensureContentType(Event $event)
+    {
+        if ($event['request'] instanceof EntityEnclosingRequest
+            && $event['request']->getBody()
+            && $event['request']->getBody()->getContentLength()
+            && !$event['request']->hasHeader('Content-Type')
+        ) {
+            $event['request']->setHeader('Content-Type', 'application/json');
+        }
     }
 
     /**

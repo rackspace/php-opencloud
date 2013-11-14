@@ -32,15 +32,21 @@ class DNS extends AbstractUnit implements UnitInterface
      */
     public function main()
     {
-        $domainName = Enum::GLOBAL_PREFIX . 'domain-' . time() . '.com';
+        $domainName = 'domain-' . time() . '.com';
         
         // Add a domain
         $this->step('Try to add a domain %s', $domainName);
-        
+
         $domain = $this->getService()->domain();
+        $domain->addRecord($domain->record(array(
+            'ttl'  => 5771,
+            'name' => 'foo.' . $domainName,
+            'type' => 'A',
+            'data' => '192.0.2.8'
+        )));
         $asyncResponse = $domain->create(array(
             'name'         => $domainName,
-            'emailAddress' => 'sdk-support@rackspace.com',
+            'emailAddress' => 'jamie.hannaford@rackspace.com',
             'ttl'          => 3600
         ));
         $asyncResponse->waitFor('COMPLETED', 300, $this->getWaiterCallback(), 1);
