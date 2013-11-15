@@ -1,0 +1,43 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 15:01:11 GMT
+Content-Type: application/json; charset=UTF-8
+X-RateLimit-Limit: 50000
+X-RateLimit-Remaining: 49964
+X-RateLimit-Window: 24 hours
+X-RateLimit-Type: global
+X-Response-Id: .rh-9SuA.h-dfw1-maas-prod-api1.r-PnOxfRIP.c-9118760.ts-1384441271301.v-e6ec51e
+X-LB: dfw1-maas-prod-api0
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Length: 106
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+
+{
+    "values": [
+        {
+            "id": "chAAAA",
+            "label": "Website check 1",
+            "type": "remote.http",
+            "details": {
+                "url": "http://www.foo.com",
+                "method": "GET",
+                "follow_redirects": true,
+                "include_body": false
+            },
+            "monitoring_zones_poll": [
+                "mzA"
+            ],
+            "timeout": 30,
+            "period": 100,
+            "target_alias": "default"
+        }
+    ],
+    "metadata": {
+        "count": 1,
+        "limit": 50,
+        "marker": null,
+        "next_marker": null,
+        "next_href": null
+    }
+}

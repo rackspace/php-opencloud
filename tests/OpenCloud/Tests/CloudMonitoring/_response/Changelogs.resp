@@ -1,0 +1,35 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 14:45:38 GMT
+Content-Type: application/json; charset=UTF-8
+X-RateLimit-Limit: 50000
+X-RateLimit-Remaining: 49964
+X-RateLimit-Window: 24 hours
+X-RateLimit-Type: global
+X-Response-Id: .rh-pAlf.h-ord1-maas-prod-api0.r-oIloxbnj.c-10096352.ts-1384440338770.v-e6ec51e
+X-LB: ord1-maas-prod-api1
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Content-Length: 106
+Keep-Alive: timeout=3, max=100
+Connection: Keep-Alive
+
+{
+    "values": [
+        {
+            "id": "4c5e28f0-0b3f-11e1-860d-c55c4705a286",
+            "timestamp": 1320890228991,
+            "entity_id": "enPhid7noo",
+            "alarm_id": "alahf9vuNa",
+            "check_id": "chIe7vohba",
+            "state": "WARNING",
+            "analyzed_by_monitoring_zone_id": "DFW"
+        }
+    ],
+    "metadata": {
+        "count": 1,
+        "limit": 50,
+        "marker": null,
+        "next_marker": null,
+        "next_href": null
+    }
+}

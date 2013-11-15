@@ -204,10 +204,7 @@ class Service extends AbstractService
             $url->setQuery(array('entityId' => (string) $data));
         }
 
-        $response = $this->getClient()->get($url)->send();
-        $body = Formatter::decode($response);
-
-        return (isset($body->values)) ? $body->values : false;
+        return $this->resourceList('Changelog', $url);
     }
 
     /**

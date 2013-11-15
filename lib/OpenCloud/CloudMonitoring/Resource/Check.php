@@ -129,6 +129,11 @@ class Check extends AbstractResource
         return $this->getService()->resourceList('Metric', null, $this);
     }
 
+    public function getMetric($info = null)
+    {
+        return $this->getService()->resource('Metric', $info, $this);
+    }
+
     /**
      * Fetch particular data points.
      *

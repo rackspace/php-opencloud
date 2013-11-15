@@ -9,6 +9,8 @@ $client = new Rackspace(RACKSPACE_US, array(
     'apiKey'   => '504de62cad6b2356d378027e40d25d7c'
 ));
 
+echo RACKSPACE_US;die;
+
 $service = $client->objectStoreService('cloudFiles');
 
 $container = $service->getContainer('1');

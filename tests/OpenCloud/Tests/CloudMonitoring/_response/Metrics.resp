@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Thu, 14 Nov 2013 15:01:11 GMT
+Content-Type: application/json; charset=UTF-8
+
+{
+    "values": [
+        {
+            "name": "mzdfw.available"
+        },
+        {
+            "name": "mzdfw.average"
+        }
+    ],
+    "metadata": {
+        "count": 2,
+        "limit": null,
+        "marker": null,
+        "next_marker": null,
+        "next_href": null
+    }
+}
