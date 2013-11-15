@@ -27,7 +27,7 @@ to enter and edit this code. Here is the complete program:
 
 ### 1. Setup the client and pass in your credentials
 
-To authenticate against, and use the services of, Rackspace's API:
+To authenticate against the Rackspace API and use its services:
 
 ```php
 <?php
@@ -66,9 +66,16 @@ $compute = $client->computeService('cloudServersOpenStack', 'ORD');
 ```
 
 The first argument is the __name__ of the service as it appears in the OpenStack service catalog. If in doubt, you can
-leave blank and it will revert to the default name for the service. The second argument is the region; you may use either
-__DFW__ (Dallas); __ORD__ (Chicago); __IAD__ (Virginia); __LON__ (London); __HKG__ (Hong Kong); or __SYD__ (Sydney). The
-third and last argument is the type of URL; you may use either `publicUrl` or `internalUrl`. If you select `internalUrl`
+leave blank and it will revert to the default name for the service. The second argument is the region; you may use:
+
+- __DFW__ (Dallas)
+- __ORD__ (Chicago)
+- __IAD__ (Virginia)
+- __LON__ (London)
+- __HKG__ (Hong Kong)
+- __SYD__ (Sydney)
+
+The third and last argument is the type of URL; you may use either `publicUrl` or `internalUrl`. If you select `internalUrl`
 all API traffic will use ServiceNet (internal IPs) and will receive a performance boost.
 
 ### 3. Select your server image
@@ -95,7 +102,7 @@ $ubuntu = $compute->image('868a0966-0553-42fe-b8b3-5cadc0e0b3c5');
 ## 4. Select your flavor
 
 There are different server specs - some which offer 1GB RAM, others which offer a much higher spec. The 'flavor' of a
-server is its hardware configuration. So if we want to a 2GB instance but don't know the ID, we have to traverse the list:
+server is its hardware configuration. So if you want a 2GB instance but don't know the ID, you have to traverse the list:
 
 ```php
 $flavors = $compute->flavorList();
@@ -107,7 +114,7 @@ while ($flavor = $flavors->next()) {
 }
 ```
 
-Again, it's much easier if we know the ID:
+Again, it's much easier if you know the ID:
 
 ```php
 $twoGbFlavor = $compute->flavor('4');
@@ -115,7 +122,7 @@ $twoGbFlavor = $compute->flavor('4');
 
 ## 5. Thunderbirds are go!
 
-Okay, we're ready to spin up a server:
+Okay, you're ready to spin up a server:
 
 ```php
 use OpenCloud\Compute\Constants\Network;
@@ -144,11 +151,11 @@ try {
 }
 ```
 
-As you can see, we're creating a server called "My lovely server", and we've inserted it in two networks: the Rackspace
+As you can see, you're creating a server called "My lovely server", and you've inserted it in two networks: the Rackspace
 private network (ServiceNet), and the Rackspace public network (for Internet connectivity). This will take a few
 minutes for the build to complete.
 
-We can also call a polling function that checks on the build process:
+You can also call a polling function that checks on the build process:
 
 ```php
 use OpenCloud\Compute\Constants\ServerState;
@@ -169,5 +176,5 @@ $callback = function($server) {
 
 $server->waitFor(ServerState::ACTIVE, 600, $callback);
 ```
-So, the server will be polled until it is in an `ACTIVE` state, with a timeout of 600s. When the poll happens, the
-callback function is executed - which in the case just logs some output.
+So, the server will be polled until it is in an `ACTIVE` state, with a timeout of 600 seconds. When the poll happens, the
+callback function is executed - which in this case just logs some output.
