@@ -41,13 +41,13 @@ $container->disableCdn();
 ## Serving containers through SSL
 
 ```php
-$container->getCdnSslUri();
+$cdn->getCdnSslUri();
 ```
 
 ## Streaming CDN-enabled containers
 
 ```php
-$container->getCdnStreamingUri();
+$cdn->getCdnStreamingUri();
 ```
 
 ## iOS streaming
@@ -56,5 +56,14 @@ The Cloud Files CDN allows you to stream video to iOS devices without needing to
 CDN-enable your container, you have the tools necessary for streaming media to multiple devices.
 
 ```php
-$container->getIosStreamingUri();
+$cdn->getIosStreamingUri();
+```
+
+## CDN logging
+
+To enable and disable logging for your CDN:
+
+```php
+$cdn->enableCdnLogging();
+$cdn->disableCdnLogging();
 ```

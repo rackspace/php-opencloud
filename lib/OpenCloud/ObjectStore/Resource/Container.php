@@ -222,7 +222,7 @@ class Container extends AbstractContainer
     public function enableLogging()
     {
         return $this->saveMetadata($this->appendToMetadata(array(
-            HeaderConst::ACCESS_LOGS => true
+            HeaderConst::ACCESS_LOGS => 'True'
         )));
     }
 
@@ -234,7 +234,7 @@ class Container extends AbstractContainer
     public function disableLogging()
     {
         return $this->saveMetadata($this->appendToMetadata(array(
-            HeaderConst::ACCESS_LOGS => false
+            HeaderConst::ACCESS_LOGS => 'False'
         )));
     }
 
@@ -324,9 +324,9 @@ class Container extends AbstractContainer
             ->get($this->getUrl($name), $headers)
             ->send();
 
-        return $this->dataObject()->setName($name)
-            ->setContent($response->getBody())
-            ->setMetadata($response->getHeaders(), true);
+        return $this->dataObject()
+            ->populateFromResponse($response)
+            ->setName($name);
     }
 
     /**
@@ -365,8 +365,8 @@ class Container extends AbstractContainer
      */
     public function uploadObjects(array $files, array $commonHeaders = array())
     {
-        $requests = array();
-        
+        $requests = $entities = array();
+
         foreach ($files as $entity) {
             
             if (empty($entity['name'])) {
@@ -375,14 +375,15 @@ class Container extends AbstractContainer
             
             if (!empty($entity['path']) && file_exists($entity['path'])) {
             	$body = fopen($entity['path'], 'r+');
+
 	        } elseif (!empty($entity['body'])) {
 	            $body = $entity['body'];
 	        } else {
 	            throw new Exceptions\InvalidArgumentError('You must provide either a readable path or a body');
 	        }
 	        
-            $entityBody = EntityBody::factory($body);
-            
+            $entityBody = $entities[] = EntityBody::factory($body);
+
             // @codeCoverageIgnoreStart
             if ($entityBody->getContentLength() >= 5 * Size::GB) {
                 throw new Exceptions\InvalidArgumentError(
@@ -400,8 +401,14 @@ class Container extends AbstractContainer
 
             $requests[] = $this->getClient()->put($url, $headers, $entityBody);
         }
-        
-        return $this->getClient()->send($requests);
+
+        $responses = $this->getClient()->send($requests);
+
+        foreach ($entities as $entity) {
+            $entity->close();
+        }
+
+        return $responses;
     }
 
     /**

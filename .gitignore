@@ -1,5 +1,6 @@
 .idea/
 .local/
+.test/
 build/
 docs/api/
 vendor/

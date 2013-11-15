@@ -2,6 +2,21 @@
 
 You will need to instantiate the container object as [documented here](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/Storage/Container.md).
 
+## Note on object properties
+
+Please be aware that you cannot directly access the properties of DataObject anymore, you __must__ use appropriate getter/
+setter methods:
+
+|Property|Method|
+|--------|------|
+|Parent container|`getContainer`|
+|Name|`getName`|
+|Body of file|`getContent`|
+|Size of file|`getContentLength`|
+|Type of file|`getContentType`|
+|ETag checksum|`getEtag`|
+|Last modified date|`getLastModified`|
+
 ## List objects in a container
 
 To return a list of objects:

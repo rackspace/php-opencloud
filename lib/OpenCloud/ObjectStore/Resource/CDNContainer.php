@@ -63,7 +63,7 @@ class CDNContainer extends AbstractContainer
     {
         $response = $this->createRefreshRequest()->send();
 
-		$headers = $response->getHeaders();
+        $headers = $response->getHeaders();
         $this->setMetadata($headers, true);
 
         return $headers;  
@@ -91,6 +91,28 @@ class CDNContainer extends AbstractContainer
     {
         $headers = array('X-Container-Meta-Web-Error' => $page);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
+    }
+
+    /**
+     * Turn on access logs, which track all the web traffic that your data objects accrue.
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function enableCdnLogging()
+    {
+        $headers = array('X-Log-Retention' => 'True');
+        return $this->getClient()->put($this->getUrl(), $headers)->send();
+    }
+
+    /**
+     * Disable access logs.
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function disableCdnLogging()
+    {
+        $headers = array('X-Log-Retention' => 'False');
+        return $this->getClient()->put($this->getUrl(), $headers)->send();
     }
     
 }
