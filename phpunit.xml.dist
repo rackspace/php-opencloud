@@ -14,7 +14,6 @@
                 <directory suffix="Exception.php">./lib/OpenCloud/CloudMonitoring/Exception</directory>
                 <directory suffix="Error.php">./lib/OpenCloud/Common/Exceptions</directory>
                 <directory suffix="Exception.php">./lib/OpenCloud/Common/Exceptions</directory>
-                <directory suffix="Exception.php">./lib/OpenCloud/Common/Exceptions</directory>
                 <directory suffix="Exception.php">./lib/OpenCloud/Compute/Exception</directory>
                 <directory suffix="Exception.php">./lib/OpenCloud/ObjectStore/Exception</directory>
                 <directory suffix="Exception.php">./lib/OpenCloud/Queues/Exception</directory>
