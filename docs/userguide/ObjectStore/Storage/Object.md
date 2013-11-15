@@ -7,17 +7,15 @@ You will need to instantiate the container object as [documented here](https://g
 Please be aware that you cannot directly access the properties of DataObject anymore, you __must__ use appropriate getter/
 setter methods:
 
-|--------|------|
 |Property|Method|
 |--------|------|
 |Parent container|`getContainer`|
 |Name|`getName`|
 |Body of file|`getContent`|
-|Size of file|`getContentType`|
-|Type of file|`getContentLength`|
+|Size of file|`getContentLength`|
+|Type of file|`getContentType`|
 |ETag checksum|`getEtag`|
 |Last modified date|`getLastModified`|
-|--------|------|
 
 ## List objects in a container
 
