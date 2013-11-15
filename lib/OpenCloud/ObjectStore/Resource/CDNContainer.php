@@ -111,7 +111,8 @@ class CDNContainer extends AbstractContainer
      */
     public function disableCdnLogging()
     {
-        return $this->unsetMetadataItem(HeaderConst::LOG_RETENTION);
+        $headers = array('X-Log-Retention' => 'False');
+        return $this->getClient()->put($this->getUrl(), $headers)->send();
     }
     
 }
