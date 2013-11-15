@@ -6,12 +6,12 @@ use OpenCloud\Rackspace;
 
 $client = new Rackspace(RACKSPACE_US, array(
     'username' => 'jamiehannaford1',
-    'apiKey'   => '504de62cad6b2356d378027e40d25d7c'
+    'apiKey'   => '8d28b0ee0c694a6d9db6e973ebfb2d67'
 ));
 
 $service = $client->objectStoreService('cloudFiles');
 
-$container = $service->getContainer('PHPSmokeTest55098');
+$container = $service->getContainer('1');
 
 $files = array(
     array('name' => 'cloud_files-7.x-1.1.zip', 'path' => '/Users/jami6682/Downloads/cloud_files-7.x-1.1.zip'),
