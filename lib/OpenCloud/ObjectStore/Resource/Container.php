@@ -231,9 +231,7 @@ class Container extends AbstractContainer
      */
     public function disableLogging()
     {
-        return $this->saveMetadata($this->appendToMetadata(array(
-            HeaderConst::ACCESS_LOGS => false
-        )));
+        return $this->unsetMetadataItem(HeaderConst::ACCESS_LOGS);
     }
 
     /**
