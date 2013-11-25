@@ -140,7 +140,7 @@ class Service extends AbstractService
 
         $response = $this->getClient()->get($url)->send();
         $body = Formatter::decode($response);
-        
+
         return ($body) ? $body : $body->limits;
     }
 

@@ -10,6 +10,7 @@
 namespace OpenCloud\Common\Http\Message;
 
 use OpenCloud\Common\Constants\Mime;
+use OpenCloud\Common\Exceptions\JsonError;
 
 class Formatter
 {
@@ -17,13 +18,25 @@ class Formatter
     public static function decode(Response $response)
     {
         if (strpos($response->getHeader('Content-Type'), Mime::JSON) !== false) {
-            return json_decode((string) $response->getBody());
+            $string   = (string) $response->getBody();
+            $response = json_decode($string);
+            self::checkJsonError($string);
+            return $response;
         }
     }
 
     public static function encode($body)
     {
         return json_encode($body);
+    }
+
+    public static function checkJsonError($string = null)
+    {
+        if (json_last_error()) {
+            $error   = sprintf('%s', json_last_error_msg());
+            $message = ($string) ? sprintf('%s trying to decode: %s', $error, $string) : $error;
+            throw new JsonError($message);
+        }
     }
 
 }

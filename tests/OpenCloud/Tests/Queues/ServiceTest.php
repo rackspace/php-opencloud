@@ -10,15 +10,8 @@
 
 namespace OpenCloud\Tests\Queues;
 
-class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase 
+class ServiceTest extends QueuesTestCase
 {
-    
-    private $service;
-    
-    public function __construct()
-    {
-        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD');
-    }
     
     public function test_ClientId()
     {
@@ -26,11 +19,13 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->service->setClientId($rand);
         $this->assertEquals($rand, $this->service->getClientId());
     }
-    
+
+    /**
+     * @mockFile Queue_List
+     */
     public function test_List_Queues()
     {
-        $service = $this->getClient()->queuesService('cloudQueues', 'ORD');
-        $queues = $service->listQueues(array('marker' => 2));
+        $queues = $this->service->listQueues(array('marker' => 2));
         $this->assertInstanceOf('OpenCloud\Common\Collection', $queues);
 
         $first = $queues->first();
@@ -51,6 +46,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Has_Queue()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 204));
         $this->assertTrue($this->service->hasQueue('realQueue'));
         $this->assertFalse($this->service->hasQueue('foobar'));
     }

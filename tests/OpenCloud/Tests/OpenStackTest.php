@@ -22,7 +22,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, $this->credentials);
-        $this->client->addSubscriber(new MockTestObserver);
+        $this->client->addSubscriber(new MockSubscriber());
     }
     
     public function test__construct()

@@ -10,19 +10,18 @@
 
 namespace OpenCloud\Tests\Queues\Resource;
 
-use OpenCloud\Queues\Resource\Message\Resource;
+use OpenCloud\Tests\Queues\QueuesTestCase;
 
-class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase 
+class MessageTest extends QueuesTestCase
 {
-    private $service;
-    private $queue;
     private $message;
     
-    public function __construct()
+    public function setupObjects()
     {
-        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD');
-        $this->queue = $this->service->getQueue()->setName('foo');
-        $this->message = $this->queue->listMessages()->first();   
+        parent::setupObjects();
+
+        $this->addMockSubscriber($this->getTestFilePath('Message'));
+        $this->message = $this->queue->getMessage('foo');
     }
     
     public function test_SettingTtl()
@@ -44,14 +43,18 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Batch_Create()
     {
-        $this->queue->createMessages(array(
+        $this->addMockSubscriber($this->makeResponse(null, 201));
+
+        $response = $this->queue->createMessages(array(
             array('body' => 'Do homework', 'ttl' => 3600)
         ));
-        
+        $this->assertTrue($response);
+
+        $this->addMockSubscriber($this->makeResponse(null, 201));
+
         $response = $this->queue->setName('test-queue')->createMessages(array(
             array('body' => 'Do homework', 'ttl' => 3600)
         ));
-        
         $this->assertTrue($response);
     }
     
@@ -60,21 +63,13 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Batch_Create_Fails_When_Queue_Not_Found()
     {
-        $queue = $this->queue->setName('foobar');
-        $queue->createMessages(array(
+        $this->addMockSubscriber($this->makeResponse(null, 404));
+
+        $this->queue->createMessages(array(
             array('body' => 'Do homework', 'ttl' => 3600)
         ));
     }
-    
-    public function test_Collection()
-    {
-        $messages = $this->queue->listMessages();
-        while ($message = $messages->next()) {
-            $this->assertInstanceOf('OpenCloud\Queues\Resource\Message', $message);
-            break;
-        }
-    }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -82,7 +77,7 @@ class MessageTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->message->update();
     }
-    
+
     public function test_Delete()
     {
         $this->message->setId('foo');

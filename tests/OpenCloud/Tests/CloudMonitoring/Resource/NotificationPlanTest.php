@@ -2,18 +2,18 @@
 
 namespace OpenCloud\Tests\CloudMonitoring\Resource;
 
-use OpenCloud\Tests\OpenCloudTestCase;
+use Guzzle\Http\Message\Response;
+use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
-class NotificationPlanTest extends OpenCloudTestCase
+class NotificationPlanTest extends CloudMonitoringTestCase
 {
     
     const NP_ID = 'npAAAA';
     
-    public function __construct()
+    public function setupObjects()
     {
-        $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
-           
-        $this->resource = $this->service->resource('NotificationPlan');
+        $this->service = $this->getClient()->cloudMonitoringService();
+        $this->resource = $this->service->getNotificationPlan();
     }
     
     public function testNPClass()
@@ -27,8 +27,8 @@ class NotificationPlanTest extends OpenCloudTestCase
     public function testNPUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/notification_plans',
-            $this->resource->Url()
+            'https://monitoring.api.rackspacecloud.com/v1.0/123456/notification_plans',
+            (string) $this->resource->getUrl()
         );
     }
     
@@ -37,26 +37,28 @@ class NotificationPlanTest extends OpenCloudTestCase
      */
     public function testCreateFailsWithoutParams()
     {
-        $this->resource->Create();
+        $this->resource->create();
     }
     
-    public function testListAllClass()
+    public function testListAll()
     {
-        $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
-            $this->resource->listAll()
-        );
-    }
-    
-    public function testListAllProperties()
-    {
-        $list = $this->resource->listAll();
+        $response = new Response(200, array('Content-Type' => 'application/json'), '{"values":[{"label":"Notification Plan 1","critical_state":["ntAAAA"],"warning_state":["ntCCCCC"],"ok_state":["ntBBBB"]}],"metadata":{"count":1,"limit":50,"marker":null,"next_marker":null,"next_href":null}}');
+        $this->addMockSubscriber($response);
+
+        $list = $this->service->getNotificationPlans();
+
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
+
         $first = $list->first();
+        $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\NotificationPlan', $first);
         $this->assertObjectHasAttribute('label', $first);
     }
     
     public function testGet()
     {
+        $response = new Response(200, array('Content-Type' => 'application/json'), '{"label":"Notification Plan 1","critical_state":["ntAAAA"],"warning_state":["ntCCCCC"],"ok_state":["ntBBBB"]}');
+        $this->addMockSubscriber($response);
+
         $this->resource->refresh(self::NP_ID);
         $this->assertEquals('Notification Plan 1', $this->resource->getLabel());
     }

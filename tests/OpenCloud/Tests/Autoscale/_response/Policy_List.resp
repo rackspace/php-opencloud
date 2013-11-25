@@ -78,7 +78,7 @@ x-response-id: 2781c8a3-e99b-452b-a2b1-73300bce95f8
             ],
             "name": "scale up by one server",
             "type": "webhook"
-        },
+        }
     ],
     "policies_links": []
 }

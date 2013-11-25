@@ -2,17 +2,22 @@
 
 namespace OpenCloud\Tests\CloudMonitoring\Resource;
 
-use OpenCloud\Tests\OpenCloudTestCase;
+use Guzzle\Http\Message\Response;
+use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
-class NotificationTypeTest extends OpenCloudTestCase
+class NotificationTypeTest extends CloudMonitoringTestCase
 {
     
     const NT_ID = 'webhook';
     
-    public function __construct()
+    public function setupObjects()
     {
-        $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
-        $this->resource = $this->service->resource('NotificationType');
+        $this->service = $this->getClient()->cloudMonitoringService();
+
+        $response = new Response(200, array('Content-Type' => 'application/json'), '{"id":"webhook","fields":[{"name":"url","description":"An HTTP or HTTPS URL to POST to","optional":false}]}');
+        $this->addMockSubscriber($response);
+
+        $this->resource = $this->service->getNotificationType(self::NT_ID);
     }
     
     public function testResourceClass()
@@ -26,8 +31,8 @@ class NotificationTypeTest extends OpenCloudTestCase
     public function testResourceUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/notification_types',
-            $this->resource->Url()
+            'https://monitoring.api.rackspacecloud.com/v1.0/123456/notification_types/webhook',
+            (string) $this->resource->getUrl()
         );
     }
     
@@ -36,27 +41,30 @@ class NotificationTypeTest extends OpenCloudTestCase
      */
     public function testCreateFailWithNoParams()
     {
-        $this->resource->Create();
+        $this->resource->create();
     }
-    
+
+    /**
+     * @mockFile NotificationType_List
+     */
     public function testListAll()
     {
+        $list = $this->service->getNotificationTypes();
+
         $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
-            $this->resource->listAll()
+            self::COLLECTION_CLASS,
+            $list
         );
         
-        $first = $this->resource->listAll()->First();
+        $first = $list->first();
         
         $this->assertEquals('webhook', $first->getId());
         $fields = $first->getFields();
         $this->assertEquals('An HTTP or HTTPS URL to POST to', $fields[0]->description);
     }
-    
+
     public function testGet()
     {
-        $this->resource->refresh(self::NT_ID);
-
         $fields = $this->resource->getFields();
         $this->assertEquals('url', $fields[0]->name);
         $this->assertFalse($fields[0]->optional);

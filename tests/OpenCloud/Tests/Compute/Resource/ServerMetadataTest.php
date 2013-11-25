@@ -11,33 +11,32 @@
 
 namespace OpenCloud\Tests\Compute\Resource;
 
-class ServerMetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
+use OpenCloud\Tests\Compute\ComputeTestCase;
+
+class ServerMetadataTest extends ComputeTestCase
 {
 
-    private $server;
     private $metadata;
 
-    public function __construct()
+    public function setupObjects()
     {
-        $service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
-        $this->server = $service->server('Identifier');
+        parent::setupObjects();
+
+        $response = new \Guzzle\Http\Message\Response(200, array('content-type' => 'application/json'), '{"metadata": {"foo": "bar"}}');
+        $this->addMockSubscriber($response);
         $this->metadata = $this->server->metadata('foo');
     }
 
-    /**
-     * Tests
-     */
-    public function test___construct()
+    public function test_Class()
     {
         $this->assertInstanceOf('OpenCloud\Compute\Resource\ServerMetadata', $this->metadata);
-        $this->assertEquals('bar', $this->metadata->foo);
     }
 
     public function testUrl()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b/metadata/foo', 
-            $this->metadata->Url()
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841/metadata/foo',
+            (string) $this->metadata->getUrl()
         );
     }
 

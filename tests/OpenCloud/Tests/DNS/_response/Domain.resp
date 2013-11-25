@@ -1,0 +1,76 @@
+HTTP/1.1 200 OK
+Status: 200 OK
+Date: Thu, 28 Jul 2011 21:54:21 GMT
+X-API-VERSION: 1.0.17
+Content-Type: application/json
+Content-Length: 1975
+
+{
+  "nameservers" : [ {
+    "name" : "dns1.stabletransit.com"
+  }, {
+    "name" : "dns2.stabletransit.com"
+  } ],
+  "recordsList" : {
+    "records" : [ {
+      "updated" : "2011-05-19T13:07:08.000+0000",
+      "ttl" : 5771,
+      "created" : "2011-05-18T19:53:09.000+0000",
+      "name" : "ftp.example.com",
+      "id" : "A-6817754",
+      "type" : "A",
+      "data" : "192.0.2.8"
+    }, {
+      "updated" : "2011-06-24T01:12:52.000+0000",
+      "ttl" : 86400,
+      "created" : "2011-06-24T01:12:52.000+0000",
+      "name" : "example.com",
+      "id" : "A-6822994",
+      "type" : "A",
+      "data" : "192.0.2.17"
+    }, {
+      "updated" : "2011-06-24T01:12:51.000+0000",
+      "ttl" : 3600,
+      "created" : "2011-06-24T01:12:51.000+0000",
+      "name" : "example.com",
+      "id" : "NS-6251982",
+      "type" : "NS",
+      "data" : "dns1.stabletransit.com"
+    }, {
+      "updated" : "2011-06-24T01:12:51.000+0000",
+      "ttl" : 3600,
+      "created" : "2011-06-24T01:12:51.000+0000",
+      "name" : "example.com",
+      "id" : "NS-6251983",
+      "type" : "NS",
+      "data" : "dns2.stabletransit.com"
+    }, {
+      "updated" : "2011-06-24T01:12:53.000+0000",
+      "ttl" : 3600,
+      "created" : "2011-06-24T01:12:53.000+0000",
+      "name" : "example.com",
+      "id" : "MX-3151218",
+      "priority" : 5,
+      "type" : "MX",
+      "data" : "mail.example.com"
+    }, {
+      "updated" : "2011-06-24T01:12:54.000+0000",
+      "ttl" : 5400,
+      "created" : "2011-06-24T01:12:54.000+0000",
+      "name" : "www.example.com",
+      "id" : "CNAME-9778009",
+      "type" : "CNAME",
+      "comment" : "This is a comment on the CNAME record",
+      "data" : "example.com"
+    } ],
+    "totalEntries" : 6
+  },
+  "emailAddress" : "sample@rackspace.com",
+  "updated" : "2011-06-24T01:23:15.000+0000",
+  "ttl" : 3600,
+  "created" : "2011-06-24T01:12:51.000+0000",
+  "accountId" : 1234,
+  "name" : "example.com",
+  "id" : 2725233,
+  "comment" : "Optional domain comment..."
+}

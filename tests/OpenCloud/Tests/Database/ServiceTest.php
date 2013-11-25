@@ -12,15 +12,8 @@
 
 namespace OpenCloud\Tests\Database;
 
-class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ServiceTest extends DatabaseTestCase
 {
-    
-    private $service;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->databaseService('cloudDatabases', 'DFW', 'publicURL');
-    }
 
     public function test__construct()
     {

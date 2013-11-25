@@ -12,16 +12,16 @@
 
 namespace OpenCloud\Tests\Database\Resource;
 
-class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
-{
+use OpenCloud\Tests\Database\DatabaseTestCase;
 
-    private $instance;
+class UserTest extends DatabaseTestCase
+{
     private $user;
 
-    public function __construct()
+    public function setupObjects()
     {
-        $this->service = $this->getClient()->databaseService('cloudDatabases', 'DFW', 'publicURL');
-        $this->instance = $this->service->instance('12345678');
+        parent::setupObjects();
+
         $this->user = $this->instance->user();
     }
 
@@ -40,8 +40,8 @@ class UserTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->user->name = 'TEST';
         $this->assertEquals(
-            'https://dfw.databases.api.rackspacecloud.com/v1.0/9999/instances/56a0c515-9999-4ef1-9fe2-76be46a3aaaa/users/TEST', 
-            $this->user->url()
+            'https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/dcc5c518-73c7-4471-83e1-15fae67a98eb/users/TEST',
+            (string) $this->user->getUrl()
         );
     }
 

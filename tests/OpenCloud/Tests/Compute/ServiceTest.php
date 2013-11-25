@@ -12,14 +12,8 @@
 
 namespace OpenCloud\Tests\Compute;
 
-class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ServiceTest extends ComputeTestCase
 {
-    private $service;
-    
-    public function __construct()
-    {
-        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
-    }
 
     public function test__construct()
     {
@@ -65,12 +59,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testNamespaces()
     {
         $this->assertNotContains('FOO', $this->service->namespaces());
-        $this->assertContains('rax-bandwidth', $this->service->namespaces());
-    }
-
-    public function test_load_namespaces()
-    {
-        $this->assertContains('rax-bandwidth', $this->service->namespaces());
+        $this->assertContains('os-flavor-rxtx', $this->service->namespaces());
     }
 
 }

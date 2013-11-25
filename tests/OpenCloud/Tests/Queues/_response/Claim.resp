@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Content-Length: 263
+Content-Type: application/json; charset=utf-8
+Content-Location: /v1/queues/demoqueue/claims/51db7067821e727dc24df754
+
+{
+  "age": 57,
+  "href": "/v1/queues/demoqueue/claims/51db7067821e727dc24df754",
+  "messages": [
+    {
+      "body": {
+        "event": "BackupStarted"
+      },
+      "age": 296,
+      "href": "/v1/queues/demoqueue/messages/51db6f78c508f17ddc924357?claim_id=51db7067821e727dc24df754",
+      "ttl": 300
+    }
+  ],
+  "ttl": 300
+}

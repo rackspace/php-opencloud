@@ -91,7 +91,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\ServiceException
+     * @expectedException OpenCloud\Common\Exceptions\EndpointError
      */
     public function test_Endpoint_Error()
     {

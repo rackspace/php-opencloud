@@ -1,47 +1,15 @@
 <?php
 
-/**
- * Unit Tests
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- */
-
 namespace OpenCloud\Tests\Database\Resource;
 
-use OpenCloud\Database\Resource\Instance;
+use OpenCloud\Tests\Database\DatabaseTestCase;
 
-class MyInstanceClass extends Instance
-{
-    public function createJson($parm = array())
-    {
-        return parent::CreateJson($parm);
-    }
-}
-
-class InstanceTest extends \OpenCloud\Tests\OpenCloudTestCase
+class InstanceTest extends DatabaseTestCase
 {
 
-    private $service;
-    private $instance;
-
-    public function __construct()
+    public function test_Class()
     {
-        $this->service = $this->getClient()->databaseService('cloudDatabases', 'DFW', 'publicURL');
-        $this->instance = new MyInstanceClass(
-            $this->service, 'INSTANCE-ID'
-        );
-    }
-
-    /**
-     * Tests
-     */
-    public function test___construct()
-    {
-        $this->assertInstanceOf('OpenCloud\Tests\MyInstanceClass', $this->instance);
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Instance', $this->instance);
     }
 
     /**
@@ -70,6 +38,10 @@ class InstanceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testEnableRootUser()
     {
+        $this->instance->refresh();
+
+        $this->addMockSubscriber($this->makeResponse('{"user":{"name":"root","password":"12345"}}'));
+
         $this->assertInstanceOf('OpenCloud\Database\Resource\User', $this->instance->enableRootUser());
     }
 
@@ -100,32 +72,6 @@ class InstanceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testUserList()
     {
         $this->assertInstanceOf('OpenCloud\Common\Collection', $this->instance->userList());
-    }
-
-    public function testCreateJson()
-    {
-        $this->instance->name = 'FOOBAR';
-        $obj = $this->instance->createJson();
-        $this->assertEquals('FOOBAR', $obj->instance->name);
-    }
-    
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\InstanceFlavorError
-     */
-    public function testCreateFailsWithoutFlavor()
-    {
-        $instance = new MyInstanceClass($this->service);
-        $instance->create();
-    }
-    
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\InstanceError
-     */
-    public function testCreateFailsWithoutName()
-    {
-        $instance = new MyInstanceClass($this->service);
-        $instance->flavor = (object) array('links' => array('href' => 'bar'));
-        $instance->create();
     }
 
 }

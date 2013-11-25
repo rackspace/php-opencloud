@@ -11,23 +11,11 @@
 namespace OpenCloud\Tests\ObjectStore\Resource;
 
 use OpenCloud\Common\Constants\Size;
+use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
-/**
- * Description of ContainerTest
- * 
- * @link 
- */
-class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ContainerTest extends ObjectStoreTestCase
 {
-    
-    private $service;
-    
-    public function __construct()
-    {
-        $this->service = $this->getClient()->objectStoreService('cloudFiles', 'DFW');
-    }
-    
-    private function getTestFilePath()
+    private function getFilePath()
     {
         $path = '/tmp/php_sdk_test_file';
         if (!file_exists($path)) {
@@ -40,15 +28,15 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\ObjectStore\CDNService',
-            $this->service->getContainer()->getCDNService()
+            $this->container->getCDNService()
         );
     }
     
     public function test_Get_Container()
     {
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
 
-        $this->assertEquals('container1', $container->getName());
+        $this->assertEquals('foo', $container->getName());
         $this->assertEquals('5', $container->getObjectCount());
         $this->assertEquals('3846773', $container->getBytesUsed());
         $this->assertFalse($container->hasLogRetention());
@@ -58,9 +46,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertEquals('tx82a6752e00424edb9c46fa2573132e2c', $cdn->getTransId());
         $this->assertFalse($cdn->hasLogRetention());
         $this->assertTrue($cdn->isCdnEnabled());
-        
-        $cdn->refresh();
-        
+
         $this->assertEquals(
             'https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.cf0.rackcdn.com', 
             $cdn->getCdnSslUri()
@@ -84,38 +70,47 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Bad_Name_Url()
     {
-        $container = $this->service->getContainer();
+        $container = $this->container;
         $container->name = '';
         
         $container->getUrl();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CdnNotAvailableError
      */
     public function test_NonCDN_Container()
     {
-        $container = $this->service->getContainer('container2');
+        $this->addMockSubscriber($this->makeResponse(null, 200));
+        $this->addMockSubscriber($this->makeResponse(null, 404));
+
+        $container = $this->service->getContainer('foo');
         $container->getCdn();
     }
     
     public function test_Delete()
     {
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 200));
         $container->delete(true);
     }
     
     public function test_Object_List()
     {
-        $list = $this->service->getContainer('container1')->objectList();
+        $container = $this->container;
+
+        $this->addMockSubscriber($this->makeResponse('[{"name":"test_obj_1","hash":"4281c348eaf83e70ddce0e07221c3d28","bytes":14,"content_type":"application\/octet-stream","last_modified":"2009-02-03T05:26:32.612278"},{"name":"test_obj_2","hash":"b039efe731ad111bc1b0ef221c3849d0","bytes":64,"content_type":"application\/octet-stream","last_modified":"2009-02-03T05:26:32.612278"}]', 200));
+
+
+        $list = $container->objectList();
         $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
-        $this->assertEquals(6, $list->count());
         $this->assertEquals('test_obj_1', $list->first()->getName());
     }
     
     public function test_Misc_Operations()
     {
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
+
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $container->enableLogging()
@@ -141,7 +136,9 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Get_Object()
     {
-        $object = $this->service->getContainer('container1')->getObject('foobar');
+        $this->addMockSubscriber($this->makeResponse('b0dffe8254d152d8fd28f3c5e0404a10'));
+        $object = $this->container->getObject('foobar');
+
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $object);
         $this->assertEquals(
             'b0dffe8254d152d8fd28f3c5e0404a10', 
@@ -155,7 +152,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Upload_Multiple_Fails_Without_Name()
     {
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
         $container->uploadObjects(array(
             array('path' => '/foo')
         ));
@@ -166,7 +163,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Upload_Multiple_Fails_With_No_Data()
     {
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
         $container->uploadObjects(array(
             array('name' => 'test', 'baz' => 'something')
         ));
@@ -174,14 +171,15 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Upload_Multiple()
     {
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
+
         $responses = $container->uploadObjects(array(
             array('name' => 'test', 'body' => 'FOOBAR')
         ));
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $responses[0]);
 
         $container->uploadObjects(array(
-            array('name' => 'test', 'path' => $this->getTestFilePath())
+            array('name' => 'test', 'path' => $this->getFilePath())
         ));
     }
     
@@ -189,7 +187,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertInstanceOf(
             'OpenCloud\ObjectStore\Resource\DataObject',
-            $this->service->getContainer('container1')->uploadObject('foobar', 'data')
+            $this->container->uploadObject('foobar', 'data')
         );
     }
     
@@ -197,7 +195,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $options = array(
             'name' => 'new_object',
-            'path' => $this->getTestFilePath(),
+            'path' => $this->getFilePath(),
             'metadata' => array('author' => 'Jamie'),
             'partSize' => Size::MB * 20,
             'concurrency' => 3,
@@ -206,7 +204,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
             } 
         );
         
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
         $container->setupObjectTransfer($options);
     }
     
@@ -217,7 +215,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
             'body' => 'foo'
         );
         
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
         $container->setupObjectTransfer($options);
     }
     
@@ -230,7 +228,7 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
             'path' => '/foo'
         );
         
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
         $container->setupObjectTransfer($options);  
     }
     
@@ -244,27 +242,26 @@ class ContainerTest extends \OpenCloud\Tests\OpenCloudTestCase
             'path' => '/' . rand(1,9999)
         );
         
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
         $container->setupObjectTransfer($options);  
     }
     
     public function test_Metadata()
     {
-        $container = $this->service->getContainer('container1');
-        $metadata = $container->retrieveMetadata();
-        
+        $metadata = $this->container->getMetadata();
+
         $this->assertEquals('Whaling', $metadata->getProperty('Subject'));
         $this->assertEquals(
-            $container->getMetadata()->getProperty('Subject'), 
+            $this->container->getMetadata()->getProperty('Subject'),
             $metadata->getProperty('Subject')
         );
         
-        $response = $container->unsetMetadataItem('Subject');
+        $response = $this->container->unsetMetadataItem('Subject');
     }
 
     public function test_Quotas()
     {
-        $container = $this->service->getContainer('container1');
+        $container = $this->container;
 
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $container->setCountQuota(50));
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $container->setBytesQuota(50 * 1024));

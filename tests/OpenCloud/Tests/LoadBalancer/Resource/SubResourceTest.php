@@ -10,18 +10,11 @@
 
 namespace OpenCloud\Tests\LoadBalancer\Resource;
 
-class SubResourceTest extends \OpenCloud\Tests\OpenCloudTestCase 
+use OpenCloud\Tests\LoadBalancer\LoadBalancerTestCase;
+
+class SubResourceTest extends LoadBalancerTestCase
 {
 
-    private $service;
-    private $loadBalancer;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
-        $this->loadBalancer = $this->service->loadBalancer('2000');
-    }
-    
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */

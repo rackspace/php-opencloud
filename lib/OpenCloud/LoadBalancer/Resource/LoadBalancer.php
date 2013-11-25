@@ -145,7 +145,7 @@ class LoadBalancer extends PersistentObject
     );
 
     protected $associatedCollections = array(
-        'nodes'      => 'Node',
+        //'nodes'      => 'Node',
         'virtualIps' => 'VirtualIp',
         'accessList' => 'Access'
     );

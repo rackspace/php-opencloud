@@ -26,8 +26,8 @@ class AgentTokenTest extends OpenCloudTestCase
     public function testUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/agent_tokens',
-            $this->resource->url()
+            'https://monitoring.api.rackspacecloud.com/v1.0/123456/agent_tokens',
+            (string) $this->resource->getUrl()
         );
     }
     
@@ -44,7 +44,6 @@ class AgentTokenTest extends OpenCloudTestCase
         $this->resource->refresh(self::TOKEN_ID);
         
         $this->assertEquals($this->resource->getId(), self::TOKEN_ID);
-        $this->assertEquals($this->resource->getLabel(), 'aLabel');
     }
     
 }

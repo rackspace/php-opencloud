@@ -33,8 +33,8 @@ class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testUrl()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/foo', 
-            $this->nova->Url('foo')
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/foo',
+            (string) $this->nova->getUrl('foo')
         );
     }
 

@@ -1,33 +1,12 @@
 <?php
 
-/**
- * Unit Tests
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- */
-
 namespace OpenCloud\Tests\DNS\Resource;
 
-class RecordTest extends \OpenCloud\Tests\OpenCloudTestCase
+use OpenCloud\Tests\DNS\DnsTestCase;
+
+class RecordTest extends DnsTestCase
 {
-    private $service;
-    private $domain;
-    private $record;
 
-    public function __construct()
-    {
-        $service = $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL');
-        $this->domain = $service->domain();
-        $this->record = $this->domain->record();
-    }
-
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $record = $this->domain->record(array(
@@ -40,11 +19,6 @@ class RecordTest extends \OpenCloud\Tests\OpenCloudTestCase
             $record
         );
         $this->assertEquals('1.2.3.4', $record->data);
-    }
-
-    public function testParent()
-    {
-        $this->assertEquals($this->domain, $this->record->getParent());
     }
 
 }

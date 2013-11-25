@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Nov 2013 13:55:50 GMT
+Content-Length: 1458
+Content-Type: application/json
+X-Compute-Request-Id: req-6bedb0b1-1af7-4e2a-909f-465e8c2356b4
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{"image": {"status": "ACTIVE", "updated": "2013-11-14T14:08:12Z", "links": [{"href": "https://ord.servers.api.rackspacecloud.com/v2/848195/images/df27d481-63a5-40ca-8920-3d132ed643d9", "rel": "self"}, {"href": "https://ord.servers.api.rackspacecloud.com/848195/images/df27d481-63a5-40ca-8920-3d132ed643d9", "rel": "bookmark"}, {"href": "https://ord.images.api.rackspacecloud.com/848195/images/df27d481-63a5-40ca-8920-3d132ed643d9", "type": "application/vnd.openstack.image", "rel": "alternate"}], "OS-DCF:diskConfig": "AUTO", "id": "df27d481-63a5-40ca-8920-3d132ed643d9", "OS-EXT-IMG-SIZE:size": 231047429, "name": "Ubuntu 13.10 (Saucy Salamander)", "created": "2013-11-13T22:33:38Z", "minDisk": 0, "progress": 100, "minRam": 512, "metadata": {"os_distro": "ubuntu", "com.rackspace__1__visible_core": "1", "com.rackspace__1__build_rackconnect": "1", "com.rackspace__1__options": "0", "image_type": "base", "cache_in_nova": "True", "com.rackspace__1__source": "kickstart", "org.openstack__1__os_distro": "com.ubuntu", "com.rackspace__1__release_build_date": "2013-11-13_16-15-15", "auto_disk_config": "True", "com.rackspace__1__release_version": "4", "os_type": "linux", "com.rackspace__1__visible_rackconnect": "1", "com.rackspace__1__release_id": "1006", "com.rackspace__1__visible_managed": "1", "com.rackspace__1__build_core": "1", "org.openstack__1__os_version": "13.10", "org.openstack__1__architecture": "x64", "com.rackspace__1__build_managed": "1"}}}

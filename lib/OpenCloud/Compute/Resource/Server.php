@@ -329,9 +329,8 @@ class Server extends PersistentObject
             $body = json_encode($object);
             $request = $this->getClient()->post($url, array(), $body);
         }
-        
-        $response = $request->send();
-        $body = Formatter::decode($response->getBody());
+
+        $body = Formatter::decode($request->send());
 
         return (isset($body->image_schedule)) ? $body->image_schedule : (object) array();
     }

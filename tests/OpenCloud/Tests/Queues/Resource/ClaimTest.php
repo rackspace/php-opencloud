@@ -10,16 +10,17 @@
 
 namespace OpenCloud\Tests\Queues\Resource\Resource;
 
-class ClaimTest extends \OpenCloud\Tests\OpenCloudTestCase 
+use OpenCloud\Tests\Queues\QueuesTestCase;
+
+class ClaimTest extends QueuesTestCase
 {
-    private $service;
-    private $queue;
-    private $message;
+    private $claim;
     
-    public function __construct()
+    public function setupObjects()
     {
-        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD', 'internalURL');
-        $this->queue = $this->service->getQueue()->setName('foo');
+        parent::setupObjects();
+
+        $this->addMockSubscriber($this->getTestFilePath('Claim'));
         $this->claim = $this->queue->getClaim('foo');
     }
     
@@ -28,19 +29,20 @@ class ClaimTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Create_Fails()
     {
-        $this->queue->getClaim()->create();
+        $this->claim->create();
     }
     
     public function test_Getting_Claim()
     {
-        $claim = $this->queue->getClaim('fooz');
-        $this->assertNotNull($claim->getId());
-        $this->assertNotNull($claim->getTtl());
-        $this->assertNotNull($claim->getHref());
+        $this->assertNotNull($this->claim->getId());
+        $this->assertNotNull($this->claim->getTtl());
+        $this->assertNotNull($this->claim->getHref());
     }
     
     public function test_Update()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 204));
+
         $this->claim->update(array(
             'grace' => 10,
             'ttl'   => 100

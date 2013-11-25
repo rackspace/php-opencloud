@@ -1,0 +1,75 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Nov 2013 14:12:58 GMT
+Content-Length: 1364
+Content-Type: application/json
+X-Compute-Request-Id: req-164dc435-90c2-48ce-9d69-96f170c518c8
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "server": {
+        "OS-DCF:diskConfig": "AUTO",
+        "OS-EXT-STS:power_state": 1,
+        "OS-EXT-STS:task_state": null,
+        "OS-EXT-STS:vm_state": "active",
+        "accessIPv4": "198.101.241.238",
+        "accessIPv6": "2001:4800:780e:0510:d87b:9cbc:ff04:513a",
+        "addresses": {
+            "private": [
+                {
+                    "addr": "10.180.3.171",
+                    "version": 4
+                }
+            ],
+            "public": [
+                {
+                    "addr": "198.101.241.238",
+                    "version": 4
+                },
+                {
+                    "addr": "2001:4800:780e:0510:d87b:9cbc:ff04:513a",
+                    "version": 6
+                }
+            ]
+        },
+        "created": "2012-08-16T18:41:43Z",
+        "flavor": {
+            "id": "2",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/123456/flavors/2",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "hostId": "33ccb6c82f3625748b6f2338f54d8e9df07cc583251e001355569056",
+        "id": "ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+        "image": {
+            "id": "3afe97b2-26dc-49c5-a2cc-a2fc8d80c001",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/123456/images/3afe97b2-26dc-49c5-a2cc-a2fc8d80c001",
+                    "rel": "bookmark"
+                }
+            ]
+        },
+        "links": [
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+                "rel": "self"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841",
+                "rel": "bookmark"
+            }
+        ],
+        "metadata": {
+            "My Server Name": "API Test Server 2"
+        },
+        "name": "api-test-server 2",
+        "progress": 100,
+        "status": "ACTIVE",
+        "tenant_id": "010101",
+        "updated": "2012-08-16T18:50:38Z",
+        "user_id": "170454"
+    }
+}

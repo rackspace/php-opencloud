@@ -114,9 +114,20 @@ class Alarm extends AbstractResource
         return $this->getService()->resourceList('NotificationHistory', $url, $this);
     }
 
-    public function getNotificationHistoryItem($uuid)
+    public function getNotificationHistoryItem($checkId, $uuid)
     {
-        return $this->getService()->resource('NotificationHistory', $uuid, $this);
+        $resource = $this->getService()->resource('NotificationHistory', null, $this);
+
+        $url = clone $resource->getUrl();
+        $url->addPath($checkId)->addPath($uuid);
+        $resource->refresh(null, $url);
+
+        return $resource;
+    }
+
+    public function notificationHistory($info)
+    {
+        return $this->getService()->resource('NotificationHistory', $info, $this);
     }
 	
 }

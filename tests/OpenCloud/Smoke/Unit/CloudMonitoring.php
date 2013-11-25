@@ -327,7 +327,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 
         $step = $this->stepInfo('List 1st key of views');
         $views = $this->getService()->getViews();
-        $step->stepInfo(print_r($views[0], true));
+        $step->stepInfo(print_r($views->first(), true));
     }
 
     public function doAgentBlock()

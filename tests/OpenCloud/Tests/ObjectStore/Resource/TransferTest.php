@@ -12,21 +12,11 @@ namespace OpenCloud\Tests\ObjectStore\Resource;
 
 use Guzzle\Http\EntityBody;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
+use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
-/**
- * Description of TransferTest
- * 
- * @link 
- */
-class TransferTest extends \OpenCloud\Tests\OpenCloudTestCase
+class TransferTest extends ObjectStoreTestCase
 {
-    
-    public function __construct()
-    {
-        $this->service = $this->getClient()->objectStoreService('cloudFiles', 'DFW');  
-        $this->container = $this->service->getContainer('container1');
-    }
-    
+
     public function test_Consecutive_Transfer()
     {
         $options = array('objectName' => 'NEW_OBJECT');

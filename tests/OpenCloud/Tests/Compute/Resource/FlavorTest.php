@@ -11,17 +11,16 @@
 
 namespace OpenCloud\Tests\Compute\Resource;
 
-class FlavorTest extends \OpenCloud\Tests\OpenCloudTestCase
-{
+use OpenCloud\Tests\Compute\ComputeTestCase;
 
+class FlavorTest extends ComputeTestCase
+{
     const FLAVOR_ID = '';
 
-    private $service;
-    private $resource;
-
-    public function __construct()
+    public function setupObjects()
     {
-        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
+        parent::setupObjects();
+
         $this->resource = $this->service->flavor();
     }
 

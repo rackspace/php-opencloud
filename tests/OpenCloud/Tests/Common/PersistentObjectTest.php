@@ -85,7 +85,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     private $service;
     private $instance;
 
-    public function __construct()
+    public function setupObjects()
     {
         $this->service = $this->getClient()->computeService();
         $this->instance = new MyPersistentObject($this->service);
@@ -115,11 +115,13 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->instance->id = '12';
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/' .
-            'TENANT-ID/instances/12', $this->instance->Url());
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances/12',
+            (string) $this->instance->getUrl()
+        );
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/' .
-            'instances/12/foobar?foo=BAZ', $this->instance->Url('foobar', array('foo' => 'BAZ')));
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances/12/foobar?foo=BAZ',
+            (string) $this->instance->getUrl('foobar', array('foo' => 'BAZ'))
+        );
     }
 
     public function testUrl2()
@@ -128,15 +130,19 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         /* this tests for subresources and query strings */
         $qstr = array('a' => 1, 'b' => 2);
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances/12/pogo?a=1&b=2', 
-            $this->instance->Url('pogo', $qstr)
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances/12/pogo?a=1&b=2',
+            (string) $this->instance->getUrl('pogo', $qstr)
         );
     }
 
+    /**
+     * @mockFile Server
+     * @mockPath Compute
+     */
     public function testRefresh()
     {
-        $this->instance->Refresh('SERVER-ID');
-        $this->assertEquals('ACTIVE', $this->instance->status);
+        $this->instance->refresh('ef08aa7a-b5e4-4bb8-86df-5ac56230f841');
+        $this->assertObjectHasAttribute('status', $this->instance);
     }
     
     /**
@@ -260,8 +266,8 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testCreateUrl()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/instances', 
-            $this->instance->CreateUrl()
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances',
+            (string) $this->instance->CreateUrl()
         );
     }
 

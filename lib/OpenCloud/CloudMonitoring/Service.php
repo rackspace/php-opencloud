@@ -165,6 +165,27 @@ class Service extends AbstractService
     }
 
     /**
+     * Get a particular notification type.
+     *
+     * @param null $id
+     * @return \OpenCloud\CloudMonitoring\Resource\NotificationType
+     */
+    public function getNotificationType($id = null)
+    {
+        return $this->resource('NotificationType', $id);
+    }
+
+    /**
+     * Get a collection of notification types.
+     *
+     * @return \OpenCloud\Common\Collection
+     */
+    public function getNotificationTypes()
+    {
+        return $this->resourceList('NotificationType');
+    }
+
+    /**
      * Get a collection of monitoring zones.
      *
      * @return \OpenCloud\Common\Collection
@@ -212,12 +233,7 @@ class Service extends AbstractService
      */
     public function getViews()
     {
-        $url = $this->resource('View')->getUrl();
-
-        $response = $this->getClient()->get($url)->send();
-        $body = Formatter::decode($response);
-
-        return (isset($body->values)) ? $body->values : false;
+        return $this->resourceList('View');
     }
 
 }

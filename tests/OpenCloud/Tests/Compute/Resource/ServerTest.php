@@ -14,6 +14,7 @@ namespace OpenCloud\Tests\Compute\Resource;
 
 use OpenCloud\Compute\Constants\Network;
 use OpenCloud\Compute\Resource\Server;
+use OpenCloud\Tests\Compute\ComputeTestCase;
 use OpenCloud\Volume\Resource\Volume;
 
 class PublicServer extends Server
@@ -24,17 +25,8 @@ class PublicServer extends Server
     }
 }
 
-class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ServerTest extends ComputeTestCase
 {
-
-    private $service;
-    private $server;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
-        $this->server = new Server($this->service, 'SERVER-ID');
-    }
 
     public function test__construct()
     {
@@ -44,17 +36,19 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test_Url()
     {
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
-            '9bfd203a-0695-xxxx-yyyy-66c4194c967b', $this->server->Url());
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841',
+            (string) $this->server->getUrl()
+        );
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/9999/servers/' .
-            '9bfd203a-0695-xxxx-yyyy-66c4194c967b/action', $this->server->Url('action'));
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841/action',
+            (string) $this->server->getUrl('action')
+        );
     }
 
     public function test_Ip()
     {
-        $this->assertEquals('500.6.73.19', $this->server->ip(4));
-        $this->assertEquals('2001:4800:780e:0510:199e:7e1e:xxxx:yyyy', $this->server->ip(6));
+        $this->assertEquals('198.101.241.238', $this->server->ip(4));
+        $this->assertEquals('2001:4800:780e:0510:d87b:9cbc:ff04:513a', $this->server->ip(6));
     }
 
     public function test_Create()
@@ -149,6 +143,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Create_Image()
     {
+        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(404));
         $resp = $this->server->createImage('EPIC-IMAGE', array('foo' => 'bar'));
         $this->assertFalse($resp);
     }
@@ -223,8 +218,8 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
         $server = new Server($this->service);
         $server->id = 'Bad-ID';
         $this->assertEquals(
-            'https://dfw.servers.api.rackspacecloud.com/v2/TENANT-ID/servers/Bad-ID', 
-            $server->Url()
+            'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/Bad-ID',
+            (string) $server->getUrl()
         );
     }
 
@@ -233,6 +228,7 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Rescue()
     {
+        $this->addMockSubscriber($this->makeResponse('{"adminPass": "m7UKdGiKFpqM"}'));
         $password = $this->server->Rescue();
         $this->assertGreaterThan(5, strlen($password));
         $blank = new Server($this->service);
@@ -264,8 +260,8 @@ class ServerTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $volume = new Volume($this->service);
 
-        $this->assertEquals(200, $this->server->attachVolume($volume)->getStatusCode());
-        $this->assertEquals(202, $this->server->detachVolume($volume)->getStatusCode());
+        $this->assertInstanceOf(self::RESPONSE_CLASS, $this->server->attachVolume($volume));
+        $this->assertInstanceOf(self::RESPONSE_CLASS, $this->server->detachVolume($volume));
     }
 
     public function test_Volume_Attachment()

@@ -11,41 +11,33 @@
 
 namespace OpenCloud\Tests\Compute\Resource;
 
-class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
+use OpenCloud\Tests\Compute\ComputeTestCase;
+
+class KeyPairTest extends ComputeTestCase
 {
-    private $compute;
-    
-    public function __construct()
-    {
-        $this->compute = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
-    }
-    
+
     public function test_Service_Methods()
     {
         $this->assertInstanceOf(
             'OpenCloud\Compute\Resource\KeyPair',
-            $this->compute->keypair()
+            $this->service->keypair()
         );
         $this->assertInstanceOf(
             'OpenCloud\Common\Collection',
-            $this->compute->listKeypairs()
+            $this->service->listKeypairs()
         );
     }
     
     public function test_Url()
     {
-        $keypair = $this->compute->keypair(array('name' => 'foo'));
+        $keypair = $this->service->keypair(array('name' => 'foo'));
         $this->assertRegExp('#/os-keypairs/foo$#', (string) $keypair->getUrl());
     }
     
     public function test_Create()
     {
-        $keypair = $this->compute->keypair(array('name' => 'foo'));
-        $keypair->create();
-        $this->assertEquals(
-            '35:9d:d0:c3:4a:80:d3:d8:86:f1:ca:f7:df:c4:f9:d8', 
-            $keypair->getFingerprint()
-        );
+        $keypair = $this->service->keypair(array('name' => 'foo'));
+        $this->assertNotNull($keypair->create());
     }
     
     /**
@@ -53,15 +45,15 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Update_Fails()
     {
-        $this->compute->keypair()->update();
+        $this->service->keypair()->update();
     }
     
     public function test_Upload()
     {
-        $path = __DIR__ . '/Resource/test.key';
+        $path = __DIR__ . '/test.key';
         $contents = file_get_contents($path);
         
-        $keypair = $this->compute->keypair();
+        $keypair = $this->service->keypair();
         $keypair->upload(array('path' => $path));
         $this->assertEquals($contents, $keypair->getPublicKey());
         
@@ -74,7 +66,7 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Upload_Fails_IncorrectPath()
     {
-        $this->compute->keypair()->upload(array('path' => 'foo'));
+        $this->service->keypair()->upload(array('path' => 'foo'));
     }
     
     /**
@@ -82,7 +74,7 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Upload_Fails_NoKey()
     {
-        $this->compute->keypair()->upload();
+        $this->service->keypair()->upload();
     }
     
     /**
@@ -90,7 +82,7 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Name_Validity()
     {
-        $this->compute->keypair()->setName('!!!');
+        $this->service->keypair()->setName('!!!');
     }
     
     /**
@@ -98,7 +90,7 @@ class KeyPairTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Name_Validity_Create()
     {
-        $this->compute->keypair()->create(array('name' => '!!!'));
+        $this->service->keypair()->create(array('name' => '!!!'));
     }
     
 }

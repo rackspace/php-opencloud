@@ -114,7 +114,7 @@ class Instance extends PersistentObject
      */
     public function enableRootUser() 
     {
-        $response = $this->getClient()->post($this->url('root'))->send();
+        $response = $this->getClient()->post($this->getUrl('root'))->send();
         $body = Formatter::decode($response);
         return (!empty($body->user)) ? new User($this, $body->user) : false;
     }

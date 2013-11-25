@@ -13,17 +13,8 @@ namespace OpenCloud\Tests\ObjectStore;
 use OpenCloud\ObjectStore\Service;
 use OpenCloud\ObjectStore\Constants\UrlType;
 
-/**
- * Description of ServiceTest
- * 
- * @link 
- */
-class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ServiceTest extends ObjectStoreTestCase
 {
-    public function __construct()
-    {
-        $this->service = $this->getClient()->objectStoreService('cloudFiles', 'DFW');
-    }
     
     public function test__construct()
     {
@@ -46,22 +37,25 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_List_Containers()
     {
+        $this->addMockSubscriber($this->makeResponse('[{"name":"test_container_1", "count":2, "bytes":78},{"name":"test_container_2", "count":1, "bytes":17}]'));
+
         $list = $this->service->listContainers();
         
         $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
         $this->assertEquals('test_container_1', $list->first()->getName());
-        
+
+        $this->addMockSubscriber($this->makeResponse('[{"name":"1"},{"name":"1"},{"name":"1"},{"name":"1"},{"name":"1"}]'));
         $partialList = $this->service->listContainers(array('limit' => 5));
         $this->assertEquals(5, $partialList->count());
     }
     
     public function test_Create_Container()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 201));
+
         $container = $this->service->createContainer('fooBar');
         
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\Container', $container);
-        $this->assertEquals('fooBar', $container->getName());
-        $this->assertEquals('JackWolf', $container->getMetadata()->getProperty('InspectedBy'));
        
         $this->assertFalse($this->service->createContainer('existing-container'));
     }
@@ -101,8 +95,8 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Bad_Bulk_Extract()
     {
-        $response = $this->service->bulkExtract('bad-container', 'CONTENT', UrlType::TAR);
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->addMockSubscriber($this->makeResponse('{"Number Files Created":10,"Response Status":"400 Bad Request","Errors":[["/v1/AUTH_test/test_cont/big_file.wav","413 Request Entity Too Large"]],"Response Body":""}'));
+        $this->service->bulkExtract('bad-container', 'CONTENT', UrlType::TAR);
     }
     
     /**
@@ -115,6 +109,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Bulk_Delete()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 202));
         $response = $this->service->bulkDelete(array('foo/Bar', 'foo/Baz'));
         $this->assertEquals(202, $response->getStatusCode());
     }
@@ -124,6 +119,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Bad_Bulk_Delete()
     {
+        $this->addMockSubscriber($this->makeResponse('{"Number Not Found":0,"Response Status":"400 Bad Request","Errors":[["/v1/AUTH_test/non_empty_container","409 Conflict"]],"Number Deleted":0,"Response Body":""}'));
         $this->service->bulkDelete(array('nonEmptyContainer'));
     }
     
@@ -132,10 +128,6 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $account = $this->service->getAccount();
 
         $this->assertInstanceOf('OpenCloud\Common\Metadata', $account->getDetails());
-        
-        $this->assertEquals('50000000', $account->getBytesUsed());
-        $this->assertEquals('1000000', $account->getObjectCount());
-        $this->assertEquals('20', $account->getContainerCount());
     }
     
 }

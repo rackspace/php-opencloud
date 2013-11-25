@@ -27,8 +27,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Because Service is an abstract class, it cannot be called directly. Provider
  * services such as Rackspace Cloud Servers or OpenStack Swift are each
  * subclassed from Service.
- *
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
 abstract class AbstractService extends Base
 {
@@ -347,6 +345,7 @@ abstract class AbstractService extends Base
         if ($parent) {
             $resource->setParent($parent);
         }
+
         $resource->populate($info);
 
         return $resource;
@@ -444,13 +443,13 @@ abstract class AbstractService extends Base
             $data = (array) $object;
             // @codeCoverageIgnoreEnd
         } elseif (isset($object->$collectionName)) {
-            if (!$elementName) {
+            if (!$elementName || !isset($item->$elementName)) {
                 // The object has a top-level collection name only
                 $data = $object->$collectionName;
             } else {
                 // The object has element levels which need to be iterated over
                 $data = array();
-                foreach($object->$collectionName as $item) {
+                foreach ($object->$collectionName as $item) {
                     $subValues = $item->$elementName;
                     unset($item->$elementName);
                     $data[] = array_merge((array)$item, (array)$subValues);

@@ -2,15 +2,17 @@
 
 namespace OpenCloud\Tests\Volume\Resource;
 
-class VolumeTypeTest extends \OpenCloud\Tests\OpenCloudTestCase
+use OpenCloud\Tests\Volume\VolumeTestCase;
+
+class VolumeTypeTest extends VolumeTestCase
 {
 
     private $volumeType;
 
-    public function __construct()
+    public function setupObjects()
     {
-        $service = $this->getClient()->volumeService('cloudBlockStorage', 'DFW');
-        $this->volumeType = $service->volumeType();
+        parent::setupObjects();
+        $this->volumeType = $this->service->volumeType();
     }
 
     /**

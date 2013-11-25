@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Nov 2013 13:55:35 GMT
+Content-Length: 465
+Content-Type: application/json
+X-Compute-Request-Id: req-8f4f171a-b924-446b-8ac8-774456e777cb
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{"flavor": {"OS-FLV-WITH-EXT-SPECS:extra_specs": {"class": "standard1", "disk_io_index": "2", "number_of_data_disks": "0"}, "name": "512MB Standard Instance", "links": [{"href": "https://ord.servers.api.rackspacecloud.com/v2/848195/flavors/2", "rel": "self"}, {"href": "https://ord.servers.api.rackspacecloud.com/848195/flavors/2", "rel": "bookmark"}], "ram": 512, "vcpus": 1, "swap": 512, "rxtx_factor": 2.0, "OS-FLV-EXT-DATA:ephemeral": 0, "disk": 20, "id": "2"}}

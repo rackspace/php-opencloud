@@ -2,16 +2,20 @@
 
 namespace OpenCloud\Tests\CloudMonitoring\Resource;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Tests\OpenCloudTestCase;
+use Guzzle\Http\Message\Response;
+use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
-class ZoneTest extends OpenCloudTestCase
+class ZoneTest extends CloudMonitoringTestCase
 {
     
     public function __construct()
     {
-        $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
-        $this->resource = $this->service->resource('zone');
+        $this->service = $this->getClient()->cloudMonitoringService();
+
+        $response = new Response(200, array('Content-Type' => 'application/json'), '{"id":"mzAAAAA","label":"US South (Atlanta) - 5","country_code":"US","source_ips":["1.2.0.0/24"]}');
+        $this->addMockSubscriber($response);
+
+        $this->resource = $this->service->getMonitoringZone('mzAAAAA');
     }
     
     public function testResourceClass()
@@ -25,23 +29,21 @@ class ZoneTest extends OpenCloudTestCase
     public function testUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/monitoring_zones',
-            $this->resource->Url()
+            'https://monitoring.api.rackspacecloud.com/v1.0/123456/monitoring_zones/mzAAAAA',
+            (string) $this->resource->getUrl()
         );
     }
     
     public function testCollection()
     {
-        $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
-            $this->resource->listAll()
-        );
-    }
-    
-    public function testCollectionContent()
-    {
-        $list = $this->resource->listAll();
-        $first = $list->First();
+        $response = new Response(200, array('Content-Type' => 'application/json'), '{"values":[{"id":"mzAAAAA","label":"US South (Atlanta) - 5","country_code":"US","source_ips":["1.2.0.0/24"]}],"metadata":{"count":1,"limit":50,"marker":null,"next_marker":null,"next_href":null}}');
+        $this->addMockSubscriber($response);
+
+        $list = $this->service->getMonitoringZones();
+
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
+
+        $first = $list->first();
         
         $this->assertEquals('mzAAAAA', $first->getId());
         $this->assertEquals('US', $first->getCountryCode());
@@ -49,13 +51,14 @@ class ZoneTest extends OpenCloudTestCase
     
     public function testGetClass()
     {
-        $this->resource->refresh('mzAAAAA');
         $this->assertEquals('mzAAAAA', $this->resource->getId());
     }
-    
+
+    /**
+     * @mockFile Zone_TraceRoute
+     */
     public function testTraceroute()
     {
-        $this->resource->setId('mzAAAAA');
         $object = $this->resource->traceroute(array(
             'target' => 'http://test.com',
             'target_resolver' => 'foo'

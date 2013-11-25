@@ -13,10 +13,15 @@ namespace OpenCloud\Tests;
 
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Rackspace;
+use Guzzle\Http\Message\Response;
 
 abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 {
     const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
+    const RESPONSE_CLASS   = 'Guzzle\Http\Message\Response';
+
+    const ANNOTATION_FILE = 'mockFile';
+    const ANNOTATION_PATH = 'mockPath';
 
     public static $client;
 
@@ -63,22 +68,27 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
             return;
         }
 
-        $mockFilePath = $this->getTestFilePath($mockFile);
+        $mockPath = self::parseDocBlock($reflection->getDocComment(), self::ANNOTATION_PATH);
+        $mockFilePath = $this->getTestFilePath($mockFile, $mockPath);
 
         if (file_exists($mockFilePath)) {
-            $this->addMockSubscriber($mockFilePath);
+            $this->getClient()->getEventDispatcher()->removeListener('request.before_send', 'onRequestBeforeSend');
+            $this->addMockSubscriber($mockFilePath, 0);
         }
     }
 
-    protected static function parseDocBlock($string)
+    protected static function parseDocBlock($string, $annotation = self::ANNOTATION_FILE)
     {
-        preg_match('#\@mockFile\s(\w+)#', $string, $matches);
+        $pattern = sprintf('#\@%s\s(\w+)#', $annotation);
+        preg_match($pattern, $string, $matches);
         return (isset($matches[1])) ? $matches[1] : false;
     }
 
-    protected function getTestFilePath($file)
+    protected function getTestFilePath($file, $mockPath = null)
     {
-        return ROOT_TEST_DIR . $this->mockPath . '/' . $this->testDir . $file . $this->testExt;
+        $mockPath = $mockPath ?: $this->mockPath;
+
+        return ROOT_TEST_DIR . $mockPath . '/' . $this->testDir . $file . $this->testExt;
     }
 
     protected function addMockSubscriber($response)
@@ -89,6 +99,11 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 
     public function setupObjects()
     {
+    }
+
+    public function makeResponse($body = null, $status = 200)
+    {
+        return new Response($status, array('Content-Type' => 'application/json'), $body);
     }
     
 }

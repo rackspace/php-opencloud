@@ -1,0 +1,55 @@
+HTTP/1.1 200 OK
+Content-Length: 3170
+Content-Type: application/json; charset=utf-8
+Content-Location: /v1/queues
+
+{
+  "queues": [
+    {
+      "href": "/v1/queues/036b184b28fcb548349af623079119c6a966cbc",
+      "name": "036b184b28fcb548349af623079119c6a966cbc"
+    },
+    {
+      "href": "/v1/queues/0441f28617afbdecf4887e635fd0777fb3cec38",
+      "name": "0441f28617afbdecf4887e635fd0777fb3cec38"
+    },
+    {
+      "href": "/v1/queues/0f8f0eff158922874536efa9cf8412b9e0fd07a",
+      "name": "0f8f0eff158922874536efa9cf8412b9e0fd07a"
+    },
+    {
+      "href": "/v1/queues/160f981379972a4a0afaee5f5394a5d960c410e",
+      "name": "160f981379972a4a0afaee5f5394a5d960c410e"
+    },
+    {
+      "href": "/v1/queues/2888a4527d0a11a3d82202d800f8e90eebd60ea",
+      "name": "2888a4527d0a11a3d82202d800f8e90eebd60ea"
+    },
+    {
+      "href": "/v1/queues/2ad8eeca7f53d480d8ca4885d620643bfc6a7f9",
+      "name": "2ad8eeca7f53d480d8ca4885d620643bfc6a7f9"
+    },
+    {
+      "href": "/v1/queues/3926ce2051db957d76a04cb2ea2d89fd49e6894",
+      "name": "3926ce2051db957d76a04cb2ea2d89fd49e6894"
+    },
+    {
+      "href": "/v1/queues/46b30ebd60186c30194039824e6405300dc0903",
+      "name": "46b30ebd60186c30194039824e6405300dc0903"
+    },
+    {
+      "href": "/v1/queues/486d5af3e057ee1a430eee3ee845aeb60c900d3",
+      "name": "486d5af3e057ee1a430eee3ee845aeb60c900d3"
+    },
+    {
+      "href": "/v1/queues/58e8622645f07c7673412acbed51abb97ddb25d",
+      "name": "58e8622645f07c7673412acbed51abb97ddb25d"
+    }
+  ],
+  "links": [
+    {
+      "href": "/v1/queues?marker=58e8622645f07c7673412acbed51abb9",
+      "rel": "next"
+    }
+  ]
+}

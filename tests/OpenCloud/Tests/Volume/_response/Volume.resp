@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Content-Length: 263
+
+{
+  "volume": {
+    "status": "available",
+    "display_name": "vol-001",
+    "attachments": [],
+    "availability_zone": "nova",
+    "bootable": "false",
+    "created_at": "2012-02-14T20:53:07Z",
+    "display_description": "Another volume.",
+    "volume_type": "SATA",
+    "snapshot_id": null,
+    "source_volid": null,
+    "metadata": {},
+    "id": "521752a6-acf6-4b2d-bc7a-119f9148cd8c",
+    "size": 100
+  }
+}

@@ -1,40 +1,23 @@
 <?php
 
-/**
- * Unit Tests
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- */
 
 namespace OpenCloud\Tests\DNS;
 
 use OpenCloud\Compute;
 
-class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ServiceTest extends DnsTestCase
 {
-
-    private $service;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL');
-    }
 
     public function test__construct()
     {
-        $this->assertInstanceOf('OpenCloud\DNS\Service', 
-            $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL'));
+        $this->assertInstanceOf('OpenCloud\DNS\Service', $this->service);
     }
 
     public function testUrl()
     {
         $this->assertEquals(
-            'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID', 
-            $this->service->url()
+            'https://dns.api.rackspacecloud.com/v1.0/123456',
+            (string) $this->service->getUrl()
         );
     }
 
@@ -43,6 +26,9 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->service->domain());
     }
 
+    /**
+     * @mockFile Domain_List
+     */
     public function testDomainList()
     {
         $list = $this->service->domainList();
@@ -55,6 +41,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testAsyncRequest()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->service->AsyncRequest('FOOBAR');
     }
 
@@ -83,15 +70,11 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertInstanceOf('OpenCloud\DNS\Resource\PtrRecord', $this->service->PtrRecord());
     }
 
-    public function testLimits()
-    {
-        $obj = $this->service->Limits();
-        $this->assertTrue(is_array($obj->rate));
-    }
-
     public function testLimitTypes()
     {
+        $this->addMockSubscriber($this->makeResponse('{"limitTypes": [ "RATE_LIMIT", "DOMAIN_LIMIT", "DOMAIN_RECORD_LIMIT" ]}'));
         $arr = $this->service->LimitTypes();
+
         $this->assertTrue(in_array('RATE_LIMIT', $arr));
     }
 

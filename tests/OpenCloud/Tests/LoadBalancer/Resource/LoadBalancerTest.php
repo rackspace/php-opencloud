@@ -1,43 +1,11 @@
 <?php
-/**
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- * @author Jamie Hannaford <jamie.hannaford@rackspace.com>
- */
 
 namespace OpenCloud\Tests\LoadBalancer\Resource;
 
-class MySubResource extends \OpenCloud\Tests\OpenCloudTestCase
+use OpenCloud\Tests\LoadBalancer\LoadBalancerTestCase;
+
+class LoadBalancerTest extends LoadBalancerTestCase
 {
-    public $id;
-    public static $json_name = 'ignore';
-    public static $url_resource = 'ignore';
-    protected $createKeys = array('id');
-
-    public function createJson()
-    {
-        return parent::createJson();
-    }
-
-    public function updateJson($params = array())
-    {
-        return parent::updateJson($params);
-    }
-}
-
-class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
-{
-
-    private $service;
-    private $loadBalancer;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
-        $this->loadBalancer = $this->service->loadBalancer();
-    }
 
     /**
      * @expectedException OpenCloud\Common\Exceptions\DomainError
@@ -83,37 +51,34 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testNode()
     {
-        $lb = $this->service->loadBalancer();
-        $lb->Create();
-        
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/321', 
-            (string) $lb->Node('321')->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/nodes/321',
+            (string) $this->loadBalancer->node('321')->getUrl()
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\LoadBalancer', 
-            $lb->Node('345')->getParent()
+            'OpenCloud\LoadBalancer\Resource\LoadBalancer',
+            $this->loadBalancer->Node('345')->getParent()
         );
         
         $this->assertEquals(
-            'OpenCloud\LoadBalancer\Resource\Node[456]', 
-            $lb->Node('456')->Name()
+            'OpenCloud\LoadBalancer\Resource\Node[456]',
+            (string) $this->loadBalancer->Node('456')->Name()
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\Metadata', 
-            $lb->Node('456')->Metadata()
+            'OpenCloud\LoadBalancer\Resource\Metadata',
+            $this->loadBalancer->Node('456')->Metadata()
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
-            $lb->Node('456')->MetadataList()
+            'OpenCloud\Common\Collection',
+            $this->loadBalancer->Node('456')->MetadataList()
         );
         
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/456',
-            (string) $lb->Node('456')->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/nodes/456',
+            (string) $this->loadBalancer->Node('456')->getUrl()
         );
     }
 
@@ -128,66 +93,51 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testNodeEvent()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/nodes/events',
-            (string) $lb->NodeEvent()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/nodes/events',
+            (string) $this->loadBalancer->NodeEvent()->Url()
         );
     }
 
     public function testNodeEventList()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $lb->NodeEventList());
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->loadBalancer->NodeEventList());
     }
 
     public function testVirtualIp()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/virtualips',
-            (string) $lb->VirtualIp()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/virtualips',
+            (string) $this->loadBalancer->VirtualIp()->Url()
         );
     }
 
     public function testVirtualIpList()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $lb->virtualIpList());
+        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->loadBalancer->virtualIpList());
     }
 
     public function testSessionPersistence()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/sessionpersistence',
-            (string) $lb->SessionPersistence()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/sessionpersistence',
+            (string) $this->loadBalancer->SessionPersistence()->Url()
         );
     }
 
     public function testErrorPage()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/errorpage',
-            (string) $lb->ErrorPage()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/errorpage',
+            (string) $this->loadBalancer->ErrorPage()->Url()
         );
     }
 
     public function testHealthMonitor()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/healthmonitor',
-            (string) $lb->HealthMonitor()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/healthmonitor',
+            (string) $this->loadBalancer->HealthMonitor()->Url()
         );
     }
 
@@ -201,99 +151,79 @@ class LoadBalancerTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testUsage()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/' .
-            'loadbalancers/123/usage',
-            (string) $lb->Usage()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/usage',
+            (string) $this->loadBalancer->Usage()->Url()
         );
     }
 
     public function testAccess()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/accesslist',
-            (string) $lb->Access()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/accesslist',
+            (string) $this->loadBalancer->Access()->Url()
         );
     }
 
     public function testAccessList()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
-            $lb->AccessList()
+            'OpenCloud\Common\Collection',
+            $this->loadBalancer->AccessList()
         );
     }
 
     public function testConnectionThrottle()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/connectionthrottle',
-            (string) $lb->ConnectionThrottle()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/connectionthrottle',
+            (string) $this->loadBalancer->ConnectionThrottle()->Url()
         );
     }
 
     public function testConnectionLogging()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/connectionlogging',
-            (string) $lb->ConnectionLogging()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/connectionlogging',
+            (string) $this->loadBalancer->ConnectionLogging()->Url()
         );
     }
 
     public function testContentCaching()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/contentcaching',
-            (string) $lb->ContentCaching()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/contentcaching',
+            (string) $this->loadBalancer->ContentCaching()->Url()
         );
     }
 
     public function testSSLTermination()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/ssltermination',
-            (string) $lb->SSLTermination()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/ssltermination',
+            (string) $this->loadBalancer->SSLTermination()->Url()
         );
     }
 
     public function testMetadata()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/TENANT-ID/loadbalancers/123/metadata',
-            (string) $lb->Metadata()->Url()
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/metadata',
+            (string) $this->loadBalancer->Metadata()->Url()
         );
     }
 
     public function testMetadataList()
     {
-        $lb = $this->service->LoadBalancer();
-        $lb->Create();
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
-            $lb->MetadataList()
+            'OpenCloud\Common\Collection',
+            $this->loadBalancer->MetadataList()
         );
     }
 
     public function testUpdate()
     {
         $lb = $this->service->LoadBalancer();
-        $lb->Create();
 
         $resp = $lb->Update(array(
             'algorithm' => 'ROUND_ROBIN',

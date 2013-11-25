@@ -15,13 +15,18 @@ use OpenCloud\Common\Collection\ResourceIterator;
 class ResourceIteratorTest extends OpenCloudTestCase
 {
 
+    public function setupObjects()
+    {
+        $this->service = $this->getClient()->computeService();
+    }
+
+    /**
+     * @mockFile Flavor_List
+     * @mockPath Compute
+     */
     public function test_Factory()
     {
-        $service = $this->getClient()->computeService();
-
-        $this->addMockSubscriber($this->getTestFilePath('Flavors', 'Compute', true));
-
-        $iterator = ResourceIterator::factory($service, $service->getUrl('flavors'), array(
+        $iterator = ResourceIterator::factory($this->service, $this->service->getUrl('flavors'), array(
             'resourceClass' => 'Flavor',
             'collectionKey' => 'flavors',
             'markerKey'     => 'id',
@@ -32,7 +37,7 @@ class ResourceIteratorTest extends OpenCloudTestCase
 
         $this->assertInstanceOf('OpenCloud\Compute\Resource\Flavor', $item);
         $this->assertEquals('512MB Standard Instance', $item->getName());
-        $this->assertEquals(7, $iterator->count());
+        $this->assertEquals(16, $iterator->count());
     }
 
 }

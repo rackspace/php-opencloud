@@ -13,17 +13,19 @@
 namespace OpenCloud\Tests\Compute\Resource;
 
 use OpenCloud\Compute\Resource\Server;
+use OpenCloud\Tests\Compute\ComputeTestCase;
 
-class VolumeAttachmentTest extends \OpenCloud\Tests\OpenCloudTestCase
+class VolumeAttachmentTest extends ComputeTestCase
 {
 
     private $attachment;
 
-    public function __construct()
+    public function setupObjects()
     {
-        $service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
-        $server = new Server($service, 'XXX');
-        $this->attachment = $server->volumeAttachment('FOO');
+        parent::setupObjects();
+
+        $this->addMockSubscriber($this->makeResponse('{"volumeAttachment":{"device":"/dev/xvdb","serverId":"76ddf257-2771-4097-aab8-b07b52110376","id":"4ab50df6-7480-45df-8604-b1ee39fe857c","volumeId":"4ab50df6-7480-45df-8604-b1ee39fe857c"}}'));
+        $this->attachment = $this->server->volumeAttachment('4ab50df6-7480-45df-8604-b1ee39fe857c');
     }
 
     /**
@@ -36,13 +38,7 @@ class VolumeAttachmentTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testName()
     {
-        $this->assertEquals('Attachment [FOO]', $this->attachment->Name());
-    }
-    
-    public function testCreate()
-    {
-        $this->attachment->device = 'foo';
-        $this->attachment->create();
+        $this->assertEquals('Attachment [4ab50df6-7480-45df-8604-b1ee39fe857c]', $this->attachment->Name());
     }
 
 }

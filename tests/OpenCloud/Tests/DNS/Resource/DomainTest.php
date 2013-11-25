@@ -12,16 +12,10 @@
 
 namespace OpenCloud\Tests\DNS\Resource;
 
-class DomainTest extends \OpenCloud\Tests\OpenCloudTestCase
+use OpenCloud\Tests\DNS\DnsTestCase;
+
+class DomainTest extends DnsTestCase
 {
-
-    private $domain;
-
-    public function __construct()
-    {
-        $service = $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL');
-        $this->domain = $service->domain('DOMAIN-ID');
-    }
 
     public function test__construct()
     {
@@ -88,6 +82,9 @@ class DomainTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->assertEquals($this->domain, $sub->getParent());
     }
 
+    /**
+     * @mockFile Domain_Changes
+     */
     public function testChanges()
     {
         $this->assertInstanceOf('stdClass', $this->domain->changes());
@@ -95,16 +92,19 @@ class DomainTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testExport()
     {
+        $response = $this->makeResponse('{"status":"RUNNING","verb":"POST","jobId":"52179628-6df6-46a0-bdb3-078769cd0e9d","callbackUrl":"https://dns.api.rackspacecloud.com/v1.0/1234/status/52179628-6df6-46a0-bdb3-078769cd0e9d","requestUrl":"https://dns.api.rackspacecloud.com/v1.0/1234/domains/3586209/clone?cloneName=clone1.com"}', 202);
+        $this->addMockSubscriber($response);
         $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $this->domain->export());
     }
 
     public function testCloneDomain()
     {
+        $this->addMockSubscriber($this->makeResponse('{"name": "foo", "url": "foo"}'));
+
         $asr = $this->domain->cloneDomain('newdomain.io');
         $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $asr);
         
         $this->assertNotNull($asr->url());
-        $this->assertNotNull($asr->name());
         $this->assertEquals('jobId', $asr->primaryKeyField());
     }
     

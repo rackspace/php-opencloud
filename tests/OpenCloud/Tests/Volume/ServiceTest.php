@@ -12,21 +12,14 @@
 
 namespace OpenCloud\Tests\Volume;
 
-class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ServiceTest extends VolumeTestCase
 {
-
-    private $service;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->volumeService('cloudBlockStorage', 'DFW');
-    }
 
     public function test__construct()
     {
         $this->assertInstanceOf(
             'OpenCloud\Volume\Service', 
-            $this->getClient()->volumeService('cloudBlockStorage', 'DFW')
+            $this->service
         );
     }
 
@@ -50,6 +43,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testVolumeTypeList()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->service->VolumeTypeList();
     }
 
@@ -63,6 +57,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testSnapshotList()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->service->SnapshotList();
     }
 

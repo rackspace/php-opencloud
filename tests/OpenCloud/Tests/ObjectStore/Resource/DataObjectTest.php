@@ -11,29 +11,30 @@
 namespace OpenCloud\Tests\ObjectStore\Resource;
 
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
-class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
+class DataObjectTest extends ObjectStoreTestCase
 {
-    public function __construct()
-    {
-        $this->service = $this->getClient()->objectStoreService('cloudFiles', 'DFW');  
-    }
-    
+
     public function test_Pseudo_Dirs()
     {
-        $container = $this->service->getContainer('container2');
-        $list = $container->objectList();
+        $this->addMockSubscriber($this->makeResponse('[{"subdir": "foo"}]'));
+        $list = $this->container->objectList();
         while ($object = $list->next()) {
             $this->assertTrue($object->isDirectory());
-            $this->assertEquals($object->getContainer(), $container);
+            $this->assertEquals('foo', $object->getName());
+            $this->assertEquals($object->getContainer(), $this->container);
             break;
         }
     }
-    
+
+    /**
+     * @mockFile Object
+     */
     public function test_Contents()
     {
-        $object = $this->service->getContainer('container1')->dataObject('foobar');
-        $this->assertEquals('text/plain', $object->getContentType());
+        $object = $this->container->dataObject('foobar');
+        $this->assertEquals('text/html', $object->getContentType());
         $this->assertEquals(512000, $object->getContentLength());
         $this->assertNotNull($object->getEtag());
         
@@ -46,13 +47,13 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Url_Fails()
     {
-        $object = $this->service->getContainer('container1')->dataObject();
+        $object = $this->container->dataObject();
         $object->getUrl();
     }
 
     public function test_Copy()
     {
-        $object = $this->service->getContainer('container1')->dataObject('foobar');
+        $object = $this->container->dataObject('foobar');
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response', 
             $object->copy('/new_container/new_object')
@@ -64,15 +65,7 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Copy_Fails()
     {
-        $this->service->getContainer('container1')->dataObject()->copy(null);
-    }
-    
-    public function test_Temp_Url()
-    {
-        $this->service->getAccount()->setTempUrlSecret('lalalala');
-        
-        $object = $this->service->getContainer('container1')->dataObject('foobar');
-        $this->assertNotNull($object->getTemporaryUrl(1000, 'GET'));
+        $this->container->dataObject()->copy(null);
     }
     
     /**
@@ -80,15 +73,12 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Temp_Url_Fails_With_Incorrect_Method()
     {
-        $this->service
-            ->getContainer('container1')
-            ->dataObject('foobar')
-            ->getTemporaryUrl(1000, 'DELETE');
+        $this->container->dataObject('foobar')->getTemporaryUrl(1000, 'DELETE');
     }
     
     public function test_Purge()
     {
-        $object = $this->service->getContainer('container1')->dataObject('foobar');
+        $object = $this->container->dataObject('foobar');
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response', 
             $object->purge('test@example.com')
@@ -97,7 +87,7 @@ class DataObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Public_Urls()
     {
-        $object = $this->service->getContainer('container1')->dataObject('foobar');
+        $object = $this->container->dataObject('foobar');
         
         $this->assertNotNull($object->getPublicUrl());
         $this->assertNotNull($object->getPublicUrl(UrlType::SSL));

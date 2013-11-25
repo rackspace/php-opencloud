@@ -38,7 +38,7 @@ class MockSubscriber extends MockPlugin implements EventSubscriberInterface
             $event->stopPropagation();
         } else {
             // default fallback is a 404
-            $response = new Response(404);
+            $response = new Response(200);
             $event['request']->setResponse($response)->setState(Request::STATE_COMPLETE);
             $event->stopPropagation();
         }

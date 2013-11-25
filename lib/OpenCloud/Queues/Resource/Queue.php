@@ -290,6 +290,7 @@ class Queue extends PersistentObject
         }
         
         $url = $this->url('messages', $options);
+
         return $this->getService()->resourceList('Message', $url, $this);
     }
     

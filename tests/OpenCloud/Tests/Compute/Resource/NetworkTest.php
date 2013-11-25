@@ -14,16 +14,15 @@ namespace OpenCloud\Tests\Compute\Resource;
 
 use OpenCloud\Compute\Constants\Network as NetworkConst;
 use OpenCloud\Compute\Resource\Network;
+use OpenCloud\Tests\Compute\ComputeTestCase;
 
-class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
+class NetworkTest extends ComputeTestCase
 {
-
-    private $service;
-    private $net;
 
     public function __construct()
     {
-        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
+        parent::setupObjects();
+        $this->addMockSubscriber($this->makeResponse('{"network":{"id":"public","ip":[{"version":4,"addr":"67.23.10.132"},{"version":6,"addr":"::babe:67.23.10.132"},{"version":4,"addr":"67.23.10.131"},{"version":6,"addr":"::babe:4317:0A83"}]}}'));
         $this->network = $this->service->network(NetworkConst::RAX_PUBLIC);
     }
 
@@ -35,9 +34,9 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function test_Create()
     {
+        $this->addMockSubscriber($this->makeResponse());
         $net = $this->service->network();
         $net->create(array('label' => 'foo', 'cidr' => 'bar'));
-        $this->assertEquals('foo', $net->label);
     }
 
     /**
@@ -64,6 +63,8 @@ class NetworkTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Deletes_With_Custom_Ip()
     {
+        $this->addMockSubscriber($this->makeResponse());
+
         $network = $this->service->network('0.0.0.0');
         $network->delete();
     }

@@ -13,24 +13,15 @@
 namespace OpenCloud\Tests\DNS\Resource;
 
 use OpenCloud\DNS\Resource\Object;
+use OpenCloud\Tests\DNS\DnsTestCase;
 
 class CustomRecord extends Object
 {
     public $name = 'fooBar';
 }
 
-class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
+class PtrRecordTest extends DnsTestCase
 {
-
-    private $service;
-    private $record;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->dnsService('cloudDNS', 'N/A', 'publicURL');
-        $this->record = $this->service->ptrRecord();
-    }
-
     /**
      * Tests
      */
@@ -51,8 +42,8 @@ class PtrRecordTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testUrl()
     {
         $this->assertEquals(
-            'https://dns.api.rackspacecloud.com/v1.0/TENANT-ID/rdns', 
-            $this->record->url()
+            'https://dns.api.rackspacecloud.com/v1.0/123456/rdns',
+            (string) $this->record->getUrl()
         );
     }
 

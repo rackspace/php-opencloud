@@ -13,27 +13,15 @@ namespace OpenCloud\Tests\Queues\Resource\Resource;
 
 use OpenCloud\Queues\Service;
 use OpenCloud\Common\Metadata;
+use OpenCloud\Tests\Queues\QueuesTestCase;
 
-/**
- * Description of QueueTest
- * 
- * @link 
- */
-class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
+class QueueTest extends QueuesTestCase
 {
-    
-    private $service;
-    private $queue;
-    
-    public function __construct()
-    {
-        $this->service = $this->getClient()->queuesService('cloudQueues', 'ORD');
-        $this->queue = $this->service->getQueue();
-    }
-        
+
     public function test_Create()
-    { 
-        $this->service->createQueue('test');
+    {
+        $this->addMockSubscriber($this->makeResponse(null, 201));
+        $this->assertInstanceOf('OpenCloud\Queues\Resource\Queue', $this->service->createQueue('test'));
     }
     
     /**
@@ -41,6 +29,7 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Create_Fails_With_Incorrect_Response()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->service->createQueue('baz');
     }
     
@@ -68,6 +57,8 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     public function test_Metadata()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 204));
+
         $this->queue->setName('test')
                     ->saveMetadata(array(
                         'new metadata' => 'bar'
@@ -90,7 +81,8 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Metadata_Fails_If_Queue_Not_Found()
     {
-        $this->service->getQueue('foobar')->retrieveMetadata();
+        $this->addMockSubscriber($this->makeResponse(null, 404));
+        $this->queue->retrieveMetadata();
     }
     
     /**
@@ -133,11 +125,11 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
             
     public function test_Claim_Messages()
     {
+        $this->addMockSubscriber($this->makeResponse('[{"body":{"event":"BackupStarted"},"age":239,"href":"/v1/queues/demoqueue/messages/51db6f78c508f17ddc924357?claim_id=51db7067821e727dc24df754","ttl":300}]', 201));
         $this->assertInstanceOf(
             'OpenCloud\Queues\Resource\Message',
             $this->queue->setName('foo')->claimMessages()->first()
         );
-        $this->assertFalse($this->queue->setName('foobar')->claimMessages());
     }
     
     /**
@@ -145,8 +137,9 @@ class QueueTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test_Claim_Messages_Fails_If_Queue_Not_Found()
     {
-        $queue = $this->queue->setName('baz');
-        $queue->claimMessages();
+        $this->addMockSubscriber($this->makeResponse(null, 404));
+
+        $this->queue->claimMessages();
     }
     
     public function test_Getting_Claim()

@@ -13,38 +13,16 @@
 namespace OpenCloud\Tests\Compute\Resource;
 
 use OpenCloud\Compute\Resource\Image;
+use OpenCloud\Tests\Compute\ComputeTestCase;
 
-class ImageTest extends \OpenCloud\Tests\OpenCloudTestCase
+class ImageTest extends ComputeTestCase
 {
-
-    private $service;
-
-    public function __construct()
-    {
-        $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW', 'publicURL');
-    }
-
-    /**
-     * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
-     */
-    public function test___construct()
-    {
-        new Image($this->service, 'XXXXXX');
-    }
 
     public function test_good_image()
     {
         $image = new Image($this->service);
         $this->assertEquals(null, $image->status);
         $this->assertEquals('OpenCloud\Common\Metadata', get_class($image->getMetadata()));
-    }
-
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\JsonError
-     */
-    public function test_bad_json()
-    {
-        new Image($this->service, 'BADJSON');
     }
 
     /**

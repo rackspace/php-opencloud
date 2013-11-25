@@ -2,30 +2,31 @@
 
 namespace OpenCloud\Tests\CloudMonitoring\Resource;
 
-use OpenCloud\Tests\OpenCloudTestCase;
+use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
-class ViewTest extends OpenCloudTestCase
+class ViewTest extends CloudMonitoringTestCase
 {
     
-    public function __construct()
+    public function setupObjects()
     {
-        $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL'); 
-        $this->resource = $this->service->resource('View');
+        $this->service = $this->getClient()->cloudMonitoringService();
+
+        $this->addMockSubscriber($this->getTestFilePath('View'));
+        $this->resource = $this->service->getViews();
     }
     
     public function testResourceClass()
     {
-        $this->assertInstanceOf(
-            'OpenCloud\\CloudMonitoring\\Resource\\View',
-            $this->resource
-        );
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->resource);
+
+        $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\View', $this->resource->first());
     }
     
     public function testResourceUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/TENANT-ID/views/overview',
-            $this->resource->Url()
+            'https://monitoring.api.rackspacecloud.com/v1.0/123456/views/overview',
+            (string) $this->resource->first()->getUrl()
         );
     }
     
@@ -34,26 +35,20 @@ class ViewTest extends OpenCloudTestCase
      */
     public function testCreateFailWithNoParams()
     {
-        $this->resource->create();
+        $this->resource->first()->create();
     }
     
-    public function testListAll()
+    public function test_Values()
     {
-        $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
-            $this->resource->listAll()
-        );
-        
-        $list = $this->resource->listAll();
-        
-        $first = $list->first();
+        $item = $this->resource->first();
 
-        $this->assertEquals('enBBBBIPV4', $first->getEntity()->getId());
-        
-        $this->assertInstanceOf(
-            'OpenCloud\\CloudMonitoring\\Resource\\Entity',
-            $first->getEntity()        
-        );
+        $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\Entity', $item->getEntity());
+
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $item->getAlarms());
+        $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\Alarm', $item->getAlarms()->first());
+
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $item->getChecks());
+        $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\Check', $item->getChecks()->first());
     }
         
 }
