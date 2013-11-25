@@ -235,11 +235,23 @@ class OpenStack extends Client
     {
         if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
            
-            return json_encode(array(
+            $credentials = array(
                 'auth' => array(
                     'passwordCredentials' => $this->secret
                 )
-            ));
+            );
+
+            if( !empty($credentials['auth']['passwordCredentials']['tenantName']) ) {
+                $credentials['auth']['tenantName'] = $credentials['auth']['passwordCredentials']['tenantName'];
+                unset($credentials['auth']['passwordCredentials']['tenantName']);
+            } 
+            
+            if( !empty($credentials['auth']['passwordCredentials']['tenantId']) ) {
+                $credentials['auth']['tenantId'] = $credentials['auth']['passwordCredentials']['tenantId'];
+                unset($credentials['auth']['passwordCredentials']['tenantId']);
+            }
+
+            return json_encode($credentials);
             
         } else {
             throw new Exceptions\CredentialError(
