@@ -37,7 +37,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->credentials, $client->getSecret());
 
         $this->assertEquals(
-            json_encode(array('auth' => array('passwordCredentials' => $this->credentials))), 
+            json_encode(array('auth' => array('passwordCredentials' => array('username' => 'foo', 'password' => 'bar'), 'tenantName' => 'baz'))), 
             $client->getCredentials()
         );
     }
