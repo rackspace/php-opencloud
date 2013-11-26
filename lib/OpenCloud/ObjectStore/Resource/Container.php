@@ -338,9 +338,14 @@ class Container extends AbstractContainer
         $url = clone $this->getUrl();
         $url->addPath($name);
 
+        // @todo for new major release: Return response rather than populated DataObject
+
         $this->getClient()->put($url, $headers, $entityBody)->send();
 
-        return $this->getObject($name);
+        return $this->dataObject()
+            ->populateFromResponse($response)
+            ->setName($name)
+            ->setContent($entityBody);
     }
 
     /**
