@@ -12,12 +12,11 @@ namespace OpenCloud\Common\Http\Message;
 
 use Guzzle\Common\Event;
 use Guzzle\Http\Message\EntityEnclosingRequest;
+use OpenCloud\Common\Constants\Header;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Description of RequestSubscriber
- * 
- * @link 
  */
 class RequestSubscriber implements EventSubscriberInterface
 {
@@ -40,9 +39,9 @@ class RequestSubscriber implements EventSubscriberInterface
         if ($event['request'] instanceof EntityEnclosingRequest
             && $event['request']->getBody()
             && $event['request']->getBody()->getContentLength()
-            && !$event['request']->hasHeader('Content-Type')
+            && !$event['request']->hasHeader(Header::CONTENT_TYPE)
         ) {
-            $event['request']->setHeader('Content-Type', 'application/json');
+            $event['request']->setHeader(Header::CONTENT_TYPE, 'application/json');
         }
     }
 

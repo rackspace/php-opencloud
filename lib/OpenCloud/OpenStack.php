@@ -10,6 +10,8 @@
 
 namespace OpenCloud;
 
+use OpenCloud\Common\Constants\Header;
+use OpenCloud\Common\Constants\Mime;
 use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Http\Message\RequestSubscriber;
 use OpenCloud\Common\Lang;
@@ -272,7 +274,7 @@ class OpenStack extends Client
      */
     public function authenticate()
     {
-        $headers = array('Content-Type' => 'application/json');
+        $headers = array(Header::CONTENT_TYPE => Mime::JSON);
         $response = $this->post($this->getAuthUrl('tokens'), $headers, $this->getCredentials())->send();
         $body = Formatter::decode($response);
 

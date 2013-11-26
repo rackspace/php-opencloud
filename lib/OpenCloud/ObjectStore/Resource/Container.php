@@ -340,7 +340,7 @@ class Container extends AbstractContainer
 
         // @todo for new major release: Return response rather than populated DataObject
 
-        $this->getClient()->put($url, $headers, $entityBody)->send();
+        $response = $this->getClient()->put($url, $headers, $entityBody)->send();
 
         return $this->dataObject()
             ->populateFromResponse($response)

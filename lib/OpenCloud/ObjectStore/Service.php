@@ -11,13 +11,15 @@
 namespace OpenCloud\ObjectStore;
 
 use Guzzle\Http\EntityBody;
-use OpenCloud\Common\Http\Client;
+use OpenCloud\Common\Constants\Header;
+use OpenCloud\Common\Constants\Mime;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\Common\Http\Client;
+use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\ObjectStore\Resource\Container;
 use OpenCloud\ObjectStore\Constants\UrlType;
-use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * The ObjectStore (Cloud Files) service.
@@ -138,7 +140,7 @@ class Service extends AbstractService
         );
         
         if (!in_array($archiveType, $acceptableTypes)) {
-            throw new Exceptions\InvalidArgumentError(sprintf(
+            throw new InvalidArgumentError(sprintf(
                 'The archive type must be one of the following: [%s]. You provided [%s].',
                 implode($acceptableTypes, ','),
                 print_r($archiveType, true)
@@ -172,7 +174,7 @@ class Service extends AbstractService
         $url = $this->getUrl()->setQuery(array('bulk-delete' => true));
         
         $response = $this->getClient()
-            ->delete($url, array('Content-Type' => 'text/plain'), $entity)
+            ->delete($url, array(Header::CONTENT_TYPE => Mime::TEXT), $entity)
             ->send();
 
         try {
