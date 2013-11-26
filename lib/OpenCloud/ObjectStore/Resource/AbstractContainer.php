@@ -83,11 +83,7 @@ abstract class AbstractContainer extends AbstractResource
     
     protected function createRefreshRequest()
     {
-        return $this->getClient()
-            ->head($this->getUrl(), array('Accept' => '*/*'))
-            ->setExceptionHandler(array(
-                404 => 'Container not found'
-            ));
+        return $this->getClient()->head($this->getUrl(), array('Accept' => '*/*'));
     }
 
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP OpenCloud library.
  * 
@@ -8,9 +7,10 @@
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
+
 namespace OpenCloud\ObjectStore\Upload;
 
-use OpenCloud\Common\Http\Message\Response;
+use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 
 /**

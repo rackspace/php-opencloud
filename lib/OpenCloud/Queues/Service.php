@@ -124,9 +124,7 @@ class Service extends AbstractService implements EventSubscriberInterface
         $queue->setName($name);
 
         // send the request
-        $this->getClient()->put($queue->getUrl())
-            ->setExpectedResponse(201)
-            ->send();
+        $this->getClient()->put($queue->getUrl())->send();
 
         return $queue;
     }
@@ -183,10 +181,7 @@ class Service extends AbstractService implements EventSubscriberInterface
             $url = $this->getUrl();
             $url->addPath('queues')->addPath($name);
 
-            $this->getClient()
-                ->head($url)
-                ->setExpectedResponse(204)
-                ->send();
+            $this->getClient()->head($url)->send();
 
             return true;
         } catch (BadResponseException $e) {

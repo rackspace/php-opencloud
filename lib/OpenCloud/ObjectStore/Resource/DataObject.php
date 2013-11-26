@@ -11,10 +11,10 @@
 namespace OpenCloud\ObjectStore\Resource;
 
 use Guzzle\Http\EntityBody;
+use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\ObjectStore\Constants\UrlType;
 
 /**

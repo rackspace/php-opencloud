@@ -11,8 +11,8 @@ namespace OpenCloud\Tests;
 
 use Guzzle\Common\Event;
 use Guzzle\Plugin\Mock\MockPlugin;
-use OpenCloud\Common\Http\Message\Request;
-use OpenCloud\Common\Http\Message\Response;
+use Guzzle\Http\Message\Request;
+use Guzzle\Http\Message\Response;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MockSubscriber extends MockPlugin implements EventSubscriberInterface

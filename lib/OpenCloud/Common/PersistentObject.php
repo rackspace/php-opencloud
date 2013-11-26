@@ -11,9 +11,9 @@
 namespace OpenCloud\Common;
 
 use Guzzle\Http\Exception\BadResponseException;
+use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\State as StateConst;
-use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions\RuntimeException;
 use OpenCloud\Common\Http\Message\Formatter;
@@ -182,28 +182,7 @@ abstract class PersistentObject extends Base
 
         $createUrl = $this->createUrl();
 
-        $response = $this->getClient()->post($createUrl, array(), $json)
-            ->setExceptionHandler(array(
-                201 => array(
-                    'allow'    => true,
-                    // @codeCoverageIgnoreStart
-                    'callback' => function($response) use ($createUrl) {
-                            if ($location = $response->getHeader('Location')) {
-                                $parts = array_merge($createUrl->getParts(), parse_url($location));var_dump(Url::buildUrl($parts));die;
-                                $this->refresh(null, Url::buildUrl($parts));
-                            }
-                        }
-                    // @codeCoverageIgnoreEnd
-                ),
-                204 => array(
-                    'message' => sprintf(
-                        'Error creating [%s] [%s]',
-                        get_class($this),
-                        $this->getProperty($this->primaryKeyField())
-                    )
-                )
-            ))
-            ->send();
+        $response = $this->getClient()->post($createUrl, array(), $json)->send();
 
         // We have to try to parse the response body first because it should have precedence over a Location refresh.
         // I'd like to reverse the order, but Nova instances return ephemeral properties on creation which are not

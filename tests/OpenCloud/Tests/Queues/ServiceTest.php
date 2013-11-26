@@ -48,6 +48,7 @@ class ServiceTest extends QueuesTestCase
     {
         $this->addMockSubscriber($this->makeResponse(null, 204));
         $this->assertTrue($this->service->hasQueue('realQueue'));
+        $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->assertFalse($this->service->hasQueue('foobar'));
     }
     

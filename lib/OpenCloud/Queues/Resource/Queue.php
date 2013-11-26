@@ -128,9 +128,7 @@ class Queue extends PersistentObject
 
         $json = json_encode((object) $this->getMetadata()->toArray());
 
-        return $this->getClient()->put($this->getUrl('metadata'), array(), $json)
-            ->setExpectedResponse(204)
-            ->send();
+        return $this->getClient()->put($this->getUrl('metadata'), array(), $json)->send();
     }
     
     /**
@@ -148,9 +146,7 @@ class Queue extends PersistentObject
      */
     public function retrieveMetadata()
     {
-        $response = $this->getClient()->get($this->url('metadata'))
-            ->setExpectedResponse(200)
-            ->send();
+        $response = $this->getClient()->get($this->url('metadata'))->send();
 
         $metadata = new Metadata();
         $metadata->setArray(Formatter::decode($response));
@@ -241,7 +237,6 @@ class Queue extends PersistentObject
         
         $response = $this->getClient()
             ->post($this->getUrl('messages'), array(), $json)
-            ->setExpectedResponse(201)
             ->send();
 
         if (null !== ($location = $response->getHeader('Location'))) {
@@ -344,9 +339,8 @@ class Queue extends PersistentObject
         $json = json_encode($object);
         
         $url = $this->url('claims', array('limit' => $limit));
-        $response = $this->getClient()->post($url, array(), $json)
-            ->setExpectedResponse(array(201, 204))
-            ->send();
+
+        $response = $this->getClient()->post($url, array(), $json)->send();
 
         if ($response->getStatusCode() == 204) {
             return false;

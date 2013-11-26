@@ -9,8 +9,8 @@
 
 namespace OpenCloud\ObjectStore\Resource;
 
+use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Base;
-use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 
 /**

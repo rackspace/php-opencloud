@@ -255,7 +255,7 @@ class Server extends PersistentObject
      *
      * @api
      * @param  string $type A particular reboot State. See Constants\ServerState for string values.
-     * @return \OpenCloud\Common\Http\Message\Response
+     * @return \Guzzle\Http\Message\Response
      */
     public function reboot($type = null)
     {

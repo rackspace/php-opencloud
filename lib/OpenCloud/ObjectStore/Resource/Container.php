@@ -12,11 +12,11 @@ namespace OpenCloud\ObjectStore\Resource;
 
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Collection;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Http\Message\Response;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
@@ -151,13 +151,7 @@ class Container extends AbstractContainer
             $this->deleteAllObjects();
         }
 
-        return $this->getClient()->delete($this->getUrl())
-            ->setExceptionHandler(array(
-                404 => 'Container not found',
-                409 => 'Container must be empty before deleting. Please set the $deleteObjects argument to TRUE.',
-                300 => 'Unknown error'
-            ))
-            ->send();
+        return $this->getClient()->delete($this->getUrl())->send();
     }
 
     /**

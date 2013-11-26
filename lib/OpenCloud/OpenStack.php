@@ -16,7 +16,6 @@ use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
-use OpenCloud\Common\Http\Message\RequestFactory;
 use OpenCloud\Common\Http\Message\Formatter;
 use Guzzle\Http\Url;
 
@@ -72,8 +71,6 @@ class OpenStack extends Client
         $this->setSecret($secret);
         $this->setAuthUrl($url);
 
-        $this->setRequestFactory(RequestFactory::getInstance());
-        
         parent::__construct($url, $options);
         
         $this->addSubscriber(RequestSubscriber::getInstance());

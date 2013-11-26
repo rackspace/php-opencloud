@@ -9,6 +9,7 @@
 
 namespace OpenCloud\Common\Http\Message;
 
+use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Constants\Mime;
 use OpenCloud\Common\Exceptions\JsonError;
 

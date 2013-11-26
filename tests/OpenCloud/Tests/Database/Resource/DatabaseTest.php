@@ -62,7 +62,7 @@ class DatabaseTest extends DatabaseTestCase
     public function testCreate()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Http\Message\Response', 
+            'Guzzle\Http\Message\Response',
             $this->database->create(array('name' => 'FOOBAR'))
         );
     }
@@ -79,7 +79,7 @@ class DatabaseTest extends DatabaseTestCase
     {
         $this->database->name = 'FOOBAR';
         $this->assertInstanceOf(
-            'OpenCloud\Common\Http\Message\Response', 
+            'Guzzle\Http\Message\Response',
             $this->database->delete()
         );
     }
