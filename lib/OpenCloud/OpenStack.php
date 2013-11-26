@@ -231,9 +231,14 @@ class OpenStack extends Client
     {
         if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
            
+            if(!empty($this->secret['tenantName'])){
+                $this->tenant = $this->secret['tenantName'];
+            }
+
             return json_encode(array(
                 'auth' => array(
-                    'passwordCredentials' => $this->secret
+                    'passwordCredentials' => $this->secret,
+                    'tenantName' => $this->tenant
                 )
             ));
             
