@@ -13,6 +13,4 @@ $service = $client->objectStoreService('cloudFiles', 'DFW');
 
 $container = $service->getContainer(1);
 
-$cdn = $container->getCdn();
-
-var_dump($cdn->getCdnUri(), $cdn->getCdnSslUri(), $cdn->getCdnStreamingUri(), $cdn->getIosStreamingUri());
+$service->bulkExtract('1/', fopen('/Users/jami6682/Documents/test.tar.gz', 'r+'));
