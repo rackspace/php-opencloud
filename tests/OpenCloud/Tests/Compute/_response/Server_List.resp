@@ -1,0 +1,139 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Nov 2013 14:12:58 GMT
+Content-Length: 1364
+Content-Type: application/json
+X-Compute-Request-Id: req-164dc435-90c2-48ce-9d69-96f170c518c8
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "servers": [
+        {
+            "OS-DCF:diskConfig": "AUTO",
+            "OS-EXT-STS:power_state": 1,
+            "OS-EXT-STS:task_state": null,
+            "OS-EXT-STS:vm_state": "active",
+            "accessIPv4": "50.56.172.247",
+            "accessIPv6": "2001:4800:780e:0510:d87b:9cbc:ff03:bbbd",
+            "addresses": {
+                "private": [
+                    {
+                        "addr": "10.180.1.226",
+                        "version": 4
+                    }
+                ],
+                "public": [
+                    {
+                        "addr": "50.56.172.247",
+                        "version": 4
+                    },
+                    {
+                        "addr": "2001:4800:780e:0510:d87b:9cbc:ff03:bbbd",
+                        "version": 6
+                    }
+                ]
+            },
+            "created": "2012-07-28T15:32:25Z",
+            "flavor": {
+                "id": "6",
+                "links": [
+                    {
+                        "href": "https://dfw.servers.api.rackspacecloud.com/010101/flavors/6",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "hostId": "fb19e2fe4405c9f819c6f574e4954ec4f1a7e58e94782d171dddeb9a",
+            "id": "ff671041-b677-4da4-b901-535e689a796d",
+            "image": {
+                "id": "3afe97b2-26dc-49c5-a2cc-a2fc8d80c001",
+                "links": [
+                    {
+                        "href": "https://dfw.servers.api.rackspacecloud.com/010101/images/3afe97b2-26dc-49c5-a2cc-a2fc8d80c001",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/ff671041-b677-4da4-b901-535e689a796d",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/010101/servers/ff671041-b677-4da4-b901-535e689a796d",
+                    "rel": "bookmark"
+                }
+            ],
+            "metadata": {},
+            "name": "myUbuntuServer",
+            "progress": 100,
+            "status": "ACTIVE",
+            "tenant_id": "010101",
+            "updated": "2012-07-28T15:37:09Z",
+            "user_id": "170454"
+        },
+        {
+            "OS-DCF:diskConfig": "AUTO",
+            "OS-EXT-STS:power_state": 1,
+            "OS-EXT-STS:task_state": null,
+            "OS-EXT-STS:vm_state": "active",
+            "accessIPv4": "",
+            "accessIPv6": "",
+            "addresses": {
+                "private": [
+                    {
+                        "addr": "10.180.13.75",
+                        "version": 4
+                    }
+                ],
+                "public": [
+                    {
+                        "addr": "2001:4800:780e:0510:d87b:9cbc:ff04:3e81",
+                        "version": 6
+                    },
+                    {
+                        "addr": "50.56.186.185",
+                        "version": 4
+                    }
+                ]
+            },
+            "created": "2012-05-15T15:47:37Z",
+            "flavor": {
+                "id": "6",
+                "links": [
+                    {
+                        "href": "https://dfw.servers.api.rackspacecloud.com/010101/flavors/6",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "hostId": "1d65b563fc573c2eb544319e0af598f2b2c5f84f75de252db3757cd3",
+            "id": "a09e7493-7429-41e1-8d3f-384d7ece09c0",
+            "image": {
+                "id": "3afe97b2-26dc-49c5-a2cc-a2fc8d80c001",
+                "links": [
+                    {
+                        "href": "https://dfw.servers.api.rackspacecloud.com/010101/images/3afe97b2-26dc-49c5-a2cc-a2fc8d80c001",
+                        "rel": "bookmark"
+                    }
+                ]
+            },
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/010101/servers/a09e7493-7429-41e1-8d3f-384d7ece09c0",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/010101/servers/a09e7493-7429-41e1-8d3f-384d7ece09c0",
+                    "rel": "bookmark"
+                }
+            ],
+            "metadata": {},
+            "name": "UbuntuDevStack",
+            "progress": 100,
+            "status": "ACTIVE",
+            "tenant_id": "010101",
+            "updated": "2012-05-15T15:55:00Z",
+            "user_id": "170454"
+        }
+    ]
+}

@@ -80,10 +80,7 @@ class AlarmTest extends CloudMonitoringTestCase
      */
     public function testAlarmCollection()
     {
-        $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
-            $this->resource->listAll()
-        );
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->resource->listAll());
     }
 
     /**

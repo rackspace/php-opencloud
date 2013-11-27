@@ -29,7 +29,6 @@ class ScalingPolicy extends AbstractResource
     protected static $json_name = 'policy';
     protected static $json_collection_name = 'policies';
     protected static $url_resource = 'policies';
-    protected static $json_collection_element = 'data';
     
     public $createKeys = array(
         'name',

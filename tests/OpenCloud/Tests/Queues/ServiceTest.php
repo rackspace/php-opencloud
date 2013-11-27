@@ -26,7 +26,7 @@ class ServiceTest extends QueuesTestCase
     public function test_List_Queues()
     {
         $queues = $this->service->listQueues(array('marker' => 2));
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $queues);
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $queues);
 
         $first = $queues->first();
 

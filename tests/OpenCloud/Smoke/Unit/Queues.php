@@ -53,7 +53,7 @@ class Queues extends AbstractUnit implements UnitInterface
         // list
         $step = $this->stepInfo('List queues');
         $queues = $this->getService()->listQueues();
-        while ($queue = $queues->next()) {
+        foreach ($queues as $queue) {
             $step->stepInfo($queue->getName());
         }
     }
@@ -86,17 +86,12 @@ class Queues extends AbstractUnit implements UnitInterface
         $step = $this->stepInfo('List messages for queue %s', $this->queue->getName());
         $messages = $this->queue->listMessages();
         $ids = array();
-        while ($message = $messages->next()) {
+        foreach ($queues as $queue) {
             $step->stepInfo($message->getId());
             $ids[] = $message->getId();
         }
 
         array_pop($ids);
-
-        // list by ID
-        $messages = $this->queue->listMessages(array('ids' => $ids));
-        while ($message = $messages->next()) {
-        }
     }
 
     public function doClaimBlock()
@@ -118,7 +113,7 @@ class Queues extends AbstractUnit implements UnitInterface
         $this->step('Delete queues');
 
         $queues = $this->getService()->listQueues();
-        while ($queue = $queues->next()) {
+        foreach ($queues as $queue) {
             if ($this->shouldDelete($queue->getName())) {
                 try {
                     $this->stepInfo('Deleting %s', $queue->getName());

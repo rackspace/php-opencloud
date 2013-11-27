@@ -15,21 +15,13 @@ use OpenCloud\Common\Exceptions\CdnNotAvailableError;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\ObjectStore\Constants\UrlType;
 
-/**
- * Description of ObjectStore
- * 
- * @link 
- */
 class ObjectStore extends AbstractUnit implements UnitInterface
 {
     
     const OBJECT_NAME  = 'TestObject';
     const UPLOAD_COUNT = 50;
     const MASSIVE_FILE_PATH = '/tmp/massive.txt';
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function setupService()
     {
         return $this->getConnection()->objectStoreService('cloudFiles', Utils::getRegion());
@@ -55,9 +47,6 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         fclose($fh);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function main()
     {
         // Container
@@ -132,24 +121,19 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         // List containers
         $this->step('List all containers');
         $containers = $this->getService()->listContainers();
-        $i = 0;
-        while (($container = $containers->next()) && $i <= Enum::DISPLAY_ITER_LIMIT) {
+
+        foreach ($containers as $container) {
 
             $step = $this->stepInfo('Container: %s', $container->getName());
             
             // List this container's objects
             $objects = $container->objectList();
-            while ($object = $objects->next()) {
+            foreach ($containers as $container) {
                 $step->stepInfo('Object: %s', $object->getName());
             }
-            
-            $i++;
         }        
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function teardown()
     {
         $containers = $this->getService()->listContainers(array(
@@ -158,7 +142,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         
         $this->step('Teardown');
         
-        while ($container = $containers->next()) {
+        foreach ($containers as $container) {
             // Disable CDN and delete object
             $this->stepInfo('Disable Container CDN');
             try {
@@ -168,7 +152,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
             $step = $this->stepInfo('Delete objects');
             $objects = $container->objectList();
             if ($objects->count()) {
-                while ($object = $objects->next()) {
+                foreach ($objects as $object) {
                     $step->stepInfo('Deleting: %s', $object->getName());
                     $object->delete();
                 }

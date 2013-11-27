@@ -39,7 +39,7 @@ class ChangelogTest extends CloudMonitoringTestCase
     {
         $list = $this->service->getChangelog();
 
-        $this->assertInstanceOf('OpenCloud\\Common\\Collection', $list);
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
 
         $first = $list->first();
 

@@ -38,7 +38,7 @@ class ServiceTest extends ComputeTestCase
 
     public function testServerList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->ServerList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->ServerList());
     }
 
     public function testImage()
@@ -53,7 +53,7 @@ class ServiceTest extends ComputeTestCase
 
     public function testNetworkList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->NetworkList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->NetworkList());
     }
 
     public function testNamespaces()

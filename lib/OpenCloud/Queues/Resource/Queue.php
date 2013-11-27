@@ -14,7 +14,7 @@ use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Queues\Exception;
 use OpenCloud\Common\Metadata;
-use OpenCloud\Common\Collection;
+use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 
 /**
@@ -331,14 +331,13 @@ class Queue extends PersistentObject
         $limit = (isset($options['limit'])) ? $options['limit'] : Claim::LIMIT_DEFAULT;
         $grace = (isset($options['grace'])) ? $options['grace'] : Claim::GRACE_DEFAULT;
         $ttl = (isset($options['ttl'])) ? $options['ttl'] : Claim::TTL_DEFAULT;
-        
-        $object = (object) array(
+
+        $json = json_encode((object) array(
             'grace' => $grace,
             'ttl'   => $ttl
-        );
-        $json = json_encode($object);
+        ));
         
-        $url = $this->url('claims', array('limit' => $limit));
+        $url = $this->getUrl('claims', array('limit' => $limit));
 
         $response = $this->getClient()->post($url, array(), $json)->send();
 
@@ -346,9 +345,9 @@ class Queue extends PersistentObject
             return false;
         }
 
-        $body = Formatter::decode($response);
-        
-        return new Collection($this, 'OpenCloud\Queues\Resource\Message', $body);
+        $options = array('resourceClass' => 'Message', 'baseUrl' => $url);
+
+        return PaginatedIterator::factory($this, $options, Formatter::decode($response));
     }
     
     /**

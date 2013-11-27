@@ -55,7 +55,7 @@ class DomainTest extends DnsTestCase
 
     public function testRecordList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->domain->recordList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->domain->recordList());
     }
 
     public function testSubdomain()
@@ -65,7 +65,7 @@ class DomainTest extends DnsTestCase
 
     public function testSubdomainList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->domain->subdomainList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->domain->subdomainList());
     }
 
     public function testAddRecord()

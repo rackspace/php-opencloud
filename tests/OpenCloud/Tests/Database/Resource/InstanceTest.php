@@ -66,12 +66,12 @@ class InstanceTest extends DatabaseTestCase
 
     public function testDatabaseList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->instance->databaseList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->instance->databaseList());
     }
 
     public function testUserList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->instance->userList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->instance->userList());
     }
 
 }

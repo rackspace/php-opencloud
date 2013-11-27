@@ -35,7 +35,7 @@ class CheckTest extends CloudMonitoringTestCase
      */
     public function test_List_All_Is_Collection()
     {
-        $this->assertInstanceOf('OpenCloud\\Common\\Collection', $this->entity->getChecks());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->entity->getChecks());
     }
 
     public function test_Parent_Class()

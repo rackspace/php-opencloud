@@ -11,13 +11,13 @@
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\CloudMonitoring\Exception;
+use OpenCloud\Common\Collection\ResourceIterator;
 
 /**
  * Agent class.
  */
 class AgentHost extends ReadOnlyResource
 {
-    
     private $token;
     private $label;
     
@@ -45,7 +45,7 @@ class AgentHost extends ReadOnlyResource
             ));
         }
 
-        return $this->getService()->resourceList('AgentHostInfo', $this->url($type), $this);
-    }    
-    
+        return $this->getService()->resourceList('AgentHostInfo', $this->getUrl($type), $this);
+    }
+
 }

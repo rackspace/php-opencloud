@@ -72,7 +72,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
         );
         
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection',
+            self::COLLECTION_CLASS,
             $this->loadBalancer->Node('456')->MetadataList()
         );
         
@@ -88,7 +88,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
         $lb->addVirtualIp('PUBLIC', 4);
         $lb->addNode('0.0.0.1', 1000);
         $lb->create(array('name' => 'foobar'));
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $lb->NodeList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $lb->NodeList());
     }
 
     public function testNodeEvent()
@@ -101,7 +101,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
     public function testNodeEventList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->loadBalancer->NodeEventList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->loadBalancer->NodeEventList());
     }
 
     public function testVirtualIp()
@@ -114,7 +114,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
     public function testVirtualIpList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->loadBalancer->virtualIpList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->loadBalancer->virtualIpList());
     }
 
     public function testSessionPersistence()
@@ -168,7 +168,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
     public function testAccessList()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection',
+            self::COLLECTION_CLASS,
             $this->loadBalancer->AccessList()
         );
     }
@@ -216,7 +216,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
     public function testMetadataList()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection',
+            self::COLLECTION_CLASS,
             $this->loadBalancer->MetadataList()
         );
     }

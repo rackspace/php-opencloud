@@ -23,7 +23,7 @@ class KeyPairTest extends ComputeTestCase
             $this->service->keypair()
         );
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection',
+            self::COLLECTION_CLASS,
             $this->service->listKeypairs()
         );
     }

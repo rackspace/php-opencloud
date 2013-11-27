@@ -33,10 +33,7 @@ class AgentTokenTest extends OpenCloudTestCase
     
     public function testCollection()
     {
-        $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
-            $this->resource->listAll()
-        );
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->resource->listAll());
     }
     
     public function testGet()

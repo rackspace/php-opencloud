@@ -33,5 +33,15 @@ class View extends ReadOnlyResource
         'alarms' => 'Alarm',
         'checks' => 'Check'
     );
-    
+
+    public function getAlarm($info = null)
+    {
+        return $this->getService()->resource('Alarm', $info);
+    }
+
+    public function getCheck($info = null)
+    {
+        return $this->getService()->resource('Check', $info);
+    }
+
 }

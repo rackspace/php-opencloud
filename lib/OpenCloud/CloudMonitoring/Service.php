@@ -26,7 +26,7 @@ class Service extends AbstractService
     /**
      * @var array CloudMonitoring resources.
      */
-    private $resources = array(
+    protected $resources = array(
         'Agent',
         'AgentConnection',
         'AgentHost',

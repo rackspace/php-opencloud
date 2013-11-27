@@ -41,7 +41,7 @@ class ServiceTest extends ObjectStoreTestCase
 
         $list = $this->service->listContainers();
         
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
         $this->assertEquals('test_container_1', $list->first()->getName());
 
         $this->addMockSubscriber($this->makeResponse('[{"name":"1"},{"name":"1"},{"name":"1"},{"name":"1"},{"name":"1"}]'));

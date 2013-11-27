@@ -30,7 +30,7 @@ class ServiceTest extends VolumeTestCase
 
     public function testVolumeList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->VolumeList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->volumeList());
     }
 
     public function testVolumeType()

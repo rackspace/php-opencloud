@@ -25,33 +25,27 @@ class Compute extends AbstractUnit implements UnitInterface
     const VOLUME_SIZE  = 103;
     const SERVER_NAME  = 'FooServer';
     const SNAPSHOT_NAME = 'FooSnapshot';
-        
-    /**
-     * {@inheritDoc}
-     */
+
     public function setupService()
     {
         return $this->getConnection()->computeService('cloudServersOpenStack', Utils::getRegion());
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function main()
     {
         // Flavors
         $this->step('List Flavors');
         $flavorList = $this->getService()->flavorList();
         $flavorList->sort('id');
-        while ($flavor = $flavorList->next()) {
+        foreach ($flavorList as $flavor) {
             $this->stepInfo('%s: %sMB', $flavor->name, $flavor->ram);
         }
 
         // Images
         $this->step('List Images');
-        $imageList = $this->getService()->ImageList();
-        $imageList->sort('name');
-        while ($image = $imageList->next()) {
+        $imageList = $this->getService()->imageList();
+        //$imageList->sort('name');
+        foreach ($imageList as $image) {
             $this->stepInfo($image->name);
             // save a CentOS image for later
             if (!isset($centos) 
@@ -77,8 +71,8 @@ class Compute extends AbstractUnit implements UnitInterface
         // List networks
         $this->step('List Networks');
         $networks = $this->getService()->networkList();
-        $networks->sort('label');
-        while ($network = $networks->next()) {
+        //$networks->sort('label');
+        foreach ($networks as $network) {
             $this->stepInfo('%s: %s (%s)', $network->id, $network->label, $network->cidr);
         }
         
@@ -89,7 +83,9 @@ class Compute extends AbstractUnit implements UnitInterface
         // Volume types
         $this->step('Volume Types');
         $volumeTypes = $volumeService->volumeTypeList();
-        while ($volumeType = $volumeTypes->next()) {
+        $volumeTypes->populateAll();
+
+        foreach ($volumeTypes as $volumeType) {
             $this->stepInfo('%s - %s', $volumeType->id, $volumeType->name);
             // save the ID for later
             if (!isset($savedId)) {
@@ -110,7 +106,7 @@ class Compute extends AbstractUnit implements UnitInterface
         // List volumes
         $this->step('Listing volumes');
         $volumeList = $volumeService->volumeList();
-        while ($volume1 = $volumeList->next()) {
+        foreach ($volumeList as $volume1) {
             $this->stepInfo(
                 'Volume: %s %s [%s] size=%d',
                 $volume1->id,
@@ -185,23 +181,22 @@ class Compute extends AbstractUnit implements UnitInterface
         // List all servers
         $this->step('List Servers');
         $list = $this->getService()->serverList();
-        $list->sort('name');
-        while ($server1 = $list->Next()) {
+        //$list->sort('name');
+        foreach ($list as $server1) {
             $this->stepInfo($server1->name);
         }
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function teardown()
     {
         $this->step('Teardown');
         $servers = $this->getService()->serverList();
-        while ($server = $servers->next()) {
+
+        foreach ($servers as $server) {
             
             $attachments = $server->volumeAttachmentList();
-            while ($volumeAttachment = $attachments->next()) {
+
+            foreach ($attachments as $volumeAttachment) {
                 if ($this->shouldDelete($volumeAttachment->name())) {
                     $this->stepInfo('Deleting attachment: %s', $volumeAttachment->name());
                     $volumeAttachment->delete();
@@ -215,7 +210,7 @@ class Compute extends AbstractUnit implements UnitInterface
         } 
         
         $networks = $this->getService()->networkList();
-        while ($network = $networks->next()) {
+        foreach ($networks as $network) {
             if (!in_array($network->id, array(Network::RAX_PRIVATE, Network::RAX_PUBLIC))) {
                 $this->stepInfo('Deleting: %s %s', $network->id, $network->label);
                 $network->delete();

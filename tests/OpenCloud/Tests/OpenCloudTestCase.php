@@ -17,7 +17,7 @@ use Guzzle\Http\Message\Response;
 
 abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 {
-    const COLLECTION_CLASS = 'OpenCloud\Common\Collection';
+    const COLLECTION_CLASS = 'OpenCloud\Common\Collection\ResourceIterator';
     const RESPONSE_CLASS   = 'Guzzle\Http\Message\Response';
 
     const ANNOTATION_FILE = 'mockFile';

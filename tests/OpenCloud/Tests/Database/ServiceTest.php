@@ -25,7 +25,7 @@ class ServiceTest extends DatabaseTestCase
 
     public function testFlavorList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->flavorList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->flavorList());
     }
 
     public function testDbInstance()
@@ -35,7 +35,7 @@ class ServiceTest extends DatabaseTestCase
 
     public function testDbInstanceList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->service->InstanceList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->InstanceList());
     }
 
 }

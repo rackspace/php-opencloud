@@ -91,7 +91,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         $step = $this->stepInfo('List entities');
 
         $entities = $this->getService()->getEntities();
-        while ($entity = $entities->next()) {
+        foreach ($entities as $entity) {
             $step->stepInfo('Entity: %s', $entity->getLabel());
         }
     }
@@ -101,7 +101,8 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         $this->step('Deleting entities');
 
         $entities = $this->getService()->getEntities();
-        while ($entity = $entities->next()) {
+
+        foreach ($entities as $entity) {
             if ($this->shouldDelete($entity->getLabel())) {
                 try {
                     $this->stepInfo('Deleting entity: ID [%s], label [%s]', $entity->getId(), $entity->getLabel());
@@ -121,7 +122,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 
         $step1 = $this->stepInfo('List check types');
         $types = $this->getService()->getCheckTypes();
-        while ($type = $types->next()) {
+        foreach ($types as $type) {
             $step1->stepInfo('Check type: ID [%s], type [%s]', $type->getId(), $type->getType());
         }
 
@@ -162,7 +163,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 
         $step2 = $this->stepInfo('List checks');
         $checks = $this->entity->getChecks();
-        while ($check = $checks->next()) {
+        foreach ($checks as $check) {
             $step2->stepInfo($check->getLabel());
 
             $finalCheck = $check;
@@ -184,7 +185,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
             $this->stepInfo('No metrics to show yet!');
             return;
         }
-        while ($metric = $metrics->next()) {
+        foreach ($metrics as $metric) {
             $step1->stepInfo(print_r($metric, true));
         }
     }
@@ -208,7 +209,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
 
         $step1 = $this->stepInfo('List notifications');
         $notifications = $this->getService()->getNotifications();
-        while ($notification = $notifications->next()) {
+        foreach ($notifications as $notification) {
             $step1->stepInfo('Notification %s', $notification->getId());
             $finalNotification = $notification;
         }
@@ -233,7 +234,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         // list
         $step2 = $this->stepInfo('List NPs');
         $plans = $this->getService()->getNotificationPlans();
-        while ($plan = $plans->next()) {
+        foreach ($plans as $plan) {
             $step2->stepInfo('Notification Plan %s', $plan->getId());
             $this->notificationPlan = $plan;
         }
@@ -261,7 +262,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         // list alarms
         $step = $this->stepInfo('List alarms');
         $alarms = $this->entity->getAlarms();
-        while ($alarm = $alarms->next()) {
+        foreach ($alarms as $alarm) {
             $step->stepInfo('Alarm %s', $alarm->getId());
             $finalAlarm = $alarm;
         }
@@ -287,7 +288,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         $step2 = $this->stepInfo('List notification history for check %s on alarm %s', $checkId, $finalAlarm->getId());
         $history = $finalAlarm->getNotificationHistoryForCheck($checkId);
 
-        while ($historyItem = $history->next()) {
+        foreach ($history as $historyItem) {
             $step2->stepInfo('History item: ID [%s] with status [%s]', $historyItem->getId(), $historyItem->getStatus());
         }
     }
@@ -299,7 +300,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         // list zones
         $step = $this->stepInfo('List zones');
         $zones = $this->getService()->getMonitoringZones();
-        while ($zone = $zones->next()) {
+        foreach ($zones as $zone) {
             $zoneId = $zone->getId();
             $step->stepInfo('Monitoring zone: ID [%s], label [%s]', $zoneId, $zone->getLabel());
         }

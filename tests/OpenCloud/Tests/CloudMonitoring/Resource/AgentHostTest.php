@@ -50,7 +50,7 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testCollection()
     {
         $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
+            self::COLLECTION_CLASS,
             $this->host->info('cpus')
         );
     }
@@ -61,7 +61,8 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testCPU()
     {
         $list = $this->host->info('cpus');
-        while ($info = $list->next()) {
+
+        foreach ($list as $info) {
             $this->assertObjectHasAttribute('name', $info);
             $this->assertObjectHasAttribute('vendor', $info);
             $this->assertObjectHasAttribute('model', $info);
@@ -74,7 +75,7 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testDisks()
     {
         $list = $this->host->info('disks');
-        while ($info = $list->Next()) {
+        foreach ($list as $info) {
             $this->assertObjectHasAttribute('read_bytes', $info);
             $this->assertObjectHasAttribute('reads', $info);
             $this->assertObjectHasAttribute('rtime', $info);
@@ -87,7 +88,7 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testFilesystems()
     {
         $list = $this->host->info('filesystems');
-        while ($info = $list->Next()) {
+        foreach ($list as $info) {
             $this->assertObjectHasAttribute('dir_name', $info);
             $this->assertObjectHasAttribute('dev_name', $info);
             $this->assertObjectHasAttribute('free_files', $info);
@@ -100,7 +101,7 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testNetworkInterfaces()
     {
         $list = $this->host->info('network_interfaces');
-        while ($info = $list->Next()) {
+        foreach ($list as $info) {
             $this->assertObjectHasAttribute('name', $info);
             $this->assertObjectHasAttribute('type', $info);
             $this->assertObjectHasAttribute('netmask', $info);

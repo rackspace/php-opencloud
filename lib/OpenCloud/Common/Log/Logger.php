@@ -54,6 +54,11 @@ class Logger extends AbstractLogger
         $this->enabled = $enabled;
     }
 
+    public static function newInstance()
+    {
+        return new static();
+    }
+
     /**
      * Determines whether a log level needs to be outputted.
      * 

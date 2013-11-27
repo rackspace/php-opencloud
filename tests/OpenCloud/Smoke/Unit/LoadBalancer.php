@@ -14,26 +14,15 @@ use OpenCloud\Smoke\Utils;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use OpenCloud\Common\Exceptions\DeleteError;
 
-/**
- * Description of LoadBalancer
- * 
- * @link 
- */
 class LoadBalancer extends AbstractUnit implements UnitInterface
 {
     const LB_NAME = 'TEST_LB';
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function setupService()
     {
         return $this->getConnection()->loadBalancerService('cloudLoadBalancers', Utils::getRegion());
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function main()
     {
         $this->step('Connect to the Load Balancer Service');
@@ -62,14 +51,14 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         // allowed domains
         $this->step('List allowed domains');
         $allowedDomains = $this->getService()->allowedDomainList();
-        while ($allowedDomain = $allowedDomains->next()) {
+        foreach ($allowedDomains as $allowedDomain) {
             $this->stepInfo('Allowed domain: [%s]', $allowedDomain->name());
         }
 
         // protocols
         $this->step('List protocols:');
         $protocolList = $this->getService()->protocolList();
-        while($protocol = $protocolList->next()) {
+        foreach ($protocolList as $protocol) {
             $this->stepInfo(
                 '%s %4d', 
                 substr($protocol->name() . '..................', 0, 20), 
@@ -80,19 +69,21 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         // algorithms
         $this->step('List algorithms:');
         $algorithmList = $this->getService()->algorithmList();
-        while($algorithm = $algorithmList->next()) {
+        foreach ($algorithmList as $algorithm) {
             $this->stepInfo('%s', $algorithm->name());
         }
 
         // list load balancers
         $this->step('Listing load balancers');
         $loadBalancers = $this->getService()->loadBalancerList();
+        $loadBalancers->setOption('limit.total', Enum::DISPLAY_ITER_LIMIT);
+
         if ($loadBalancers->count()) {
-            
+
             $i = 1;
             $total = $loadBalancers->count() > 10 ? 10 : $loadBalancers->count();
             
-            while (($loadBalancer = $loadBalancers->next()) && $i <= Enum::DISPLAY_ITER_LIMIT) {
+            foreach ($loadBalancers as $loadBalancer) {
                 
                 $step = $this->stepInfo('Load balancer (%d/%d)', $i, $total);
                 $step->stepInfo(
@@ -108,7 +99,7 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
                 if (!$nodeList->count()) {
                     $step1->stepInfo('No nodes');
                 } else {
-                    while ($node = $nodeList->next()) {
+                    foreach ($nodeList as $node) {
                         $step1->stepInfo('Node: [%s] %s:%d %s/%s',
                             $node->id(), 
                             $node->address, 
@@ -125,7 +116,7 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
                 if (!$nodeEvents->count()) {
                     $step2->stepInfo('No node events');
                 } else {
-                    while ($event = $nodeEvents->next()) {
+                    foreach ($nodeEvents as $event) {
                         $step2->stepInfo('Event: %s (%s)',
                             $event->detailedMessage, 
                             $event->author
@@ -144,14 +135,14 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
                 // Metadata
                 $step3 = $step->subStep('Listing metadata');
                 $metadataList = $loadBalancer->metadataList();
-                while ($metadataItem = $metadataList->Next()) {
+                foreach ($metadataList as $metadataItem) {
                     $step3->stepInfo('[Metadata #%s] %s=%s',
                         $metadataItem->Id(), 
                         $metadataItem->key, 
                         $metadataItem->value
                     );
                 }
-                               
+
                 $i++;
             }
         } else {
@@ -170,7 +161,7 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         ));
         
         if ($list->count()) {
-            while ($lb = $list->Next()) {
+            foreach ($list as $lb) {
                 $this->stepInfo('%10s %s', $lb->Id(), $lb->name());
                 $this->stepInfo('%10s created: %s', '', $lb->created->time);
             }
@@ -178,16 +169,13 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
             $this->stepInfo('No billable load balancers');
         }
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function teardown()
     {
         $this->step('Teardown');
 
         $loadBalancers = $this->getService()->loadBalancerList();
-        while ($loadBalancer = $loadBalancers->next()) {
+        foreach ($loadBalancers as $loadBalancer) {
             if ($this->shouldDelete($loadBalancer->name())) {
                 try {
                     $this->stepInfo('Deleting %s', $loadBalancer->getId());

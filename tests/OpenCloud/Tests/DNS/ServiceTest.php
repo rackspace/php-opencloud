@@ -32,8 +32,8 @@ class ServiceTest extends DnsTestCase
     public function testDomainList()
     {
         $list = $this->service->domainList();
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
-        $this->assertGreaterThan(2, strlen($list->Next()->Name()));
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
+        $this->assertGreaterThan(2, strlen($list->first()->Name()));
     }
 
     /**
@@ -60,7 +60,7 @@ class ServiceTest extends DnsTestCase
         );
         $server->id = '42';
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
+            self::COLLECTION_CLASS,
             $this->service->PtrRecordList($server)
         );
     }

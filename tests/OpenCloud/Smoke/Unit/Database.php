@@ -11,35 +11,24 @@ namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\Smoke\Utils;
 
-/**
- * Description of Database
- * 
- * @link 
- */
 class Database extends AbstractUnit implements UnitInterface
 {
     const INSTANCE_NAME = 'FooInstance';
     const DATABASE_NAME = 'FooDb';
     const USER_NAME = 'FooUser';
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function setupService()
     {
         return $this->getConnection()->databaseService('cloudDatabases', Utils::getRegion(), 'publicURL');
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function main()
     {
         $this->step('Get Flavors');
         
         $flavors = $this->getService()->flavorList();
-        $flavors->sort();
-        while ($flavor = $flavors->next()) {
+        //$flavors->sort();
+        foreach ($flavors as $flavor) {
             $this->stepInfo('%s - %dM', $flavor->name, $flavor->ram);
         }
 
@@ -81,32 +70,26 @@ class Database extends AbstractUnit implements UnitInterface
         ));
 
         $this->step('List database instances');
-        $databasePages = $this->getService()->instanceList();
-        
-        while ($databasePage = $databasePages->nextPage()) {
-            while($database = $databasePage->next()) {
-                $this->stepInfo(
-                    'Database Instance: %s (id %s)', 
-                    $database->name, 
-                    $database->id
-                );
-            }
+        $databases = $this->getService()->instanceList();
+        foreach ($databases as $database) {
+            $this->stepInfo(
+                'Database Instance: %s (id %s)',
+                $database->name,
+                $database->id
+            );
         }
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function teardown()
     {
         $this->step('Teardown');
         
         $instances = $this->getService()->instanceList();
-        while ($instance = $instances->next()) {
+        foreach ($instances as $instance) {
             
             // Users
             $users = $instance->userList();
-            while ($user = $users->next()) {
+            foreach ($users as $user) {
                 if ($this->shouldDelete($user->name)) {
                     $this->stepInfo('Deleting user: %s', $user->name);
                     $user->delete();
@@ -115,7 +98,7 @@ class Database extends AbstractUnit implements UnitInterface
             
             // Databases
             $databases = $instance->databaseList();
-            while ($database = $databases->next()) {
+            foreach ($databases as $database) {
                 if ($this->shouldDelete($database->name)) {
                     $this->stepInfo('Deleting database: %s', $database->name);
                     $database->delete();

@@ -9,102 +9,163 @@
 
 namespace OpenCloud\Common\Collection;
 
-use Guzzle\Http\Url;
-use OpenCloud\Common\Exceptions\CollectionException;
+use Iterator;
+use OpenCloud\Common\Log\Logger;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
-use OpenCloud\Common\Http\Message\Formatter;
 
-class ResourceIterator extends Collection implements \Iterator
+class ResourceIterator extends ArrayCollection implements Iterator
 {
+    /**
+     * @var int Internal pointer of the iterator - reveals its current position.
+     */
+    protected $position;
 
-    private $position;
-    private $options;
-    private $baseUrl;
-    private $resourceParent;
-    private $currentMarker;
-    private $nextUrl;
+    /**
+     * @var object The parent object which resource models are instantiated from. The parent needs to have appropriate
+     *             methods to instantiate the particular object.
+     */
+    protected $resourceParent;
 
-    private $defaults = array(
-        'markerKey'   => 'name',
-        'limit'       => 10000,
-        'pageLimit'   => 100,
-        'method'      => 'GET',
-        'headers'     => array(),
-        'body'        => null,
-        'curlOptions' => array(),
-        'linksKey'    => 'links'
-    );
+    /**
+     * @var array The options for this iterator.
+     */
+    protected $options;
 
-    private $required = array('resourceClass', 'collectionKey');
+    /**
+     * @var array Fallback defaults if options are not explicitly set or provided.
+     */
+    protected $defaults = array();
 
-    public static function factory($parent, Url $url, array $params = array())
+    /**
+     * @var array Required options
+     */
+    protected $required = array();
+
+    public static function factory($parent, array $options = array(), array $data = array())
     {
-        $list = new static();
+        $iterator = new static($data);
 
-        $options = $params + $list->defaults;
+        $iterator->setResourceParent($parent)
+            ->setElements($data)
+            ->setOptions($iterator->parseOptions($options))
+            ->rewind();
 
-        if ($missing = array_diff($list->required, array_keys($options))) {
+        return $iterator;
+    }
+
+    protected function parseOptions(array $options)
+    {
+        $options = $options + $this->defaults;
+
+        if ($missing = array_diff($this->required, array_keys($options))) {
             throw new InvalidArgumentError(sprintf('%s is a required option', implode(',', $missing)));
         }
 
-        $list->setOptions($options)
-            ->setBaseUrl($url)
-            ->setResourceParent($parent)
-            ->setup();
-
-        return $list;
+        return $options;
     }
 
-    public function setup()
-    {
-        $this->rewind();
-        $this->appendNewCollection();
-    }
-
+    /**
+     * @param $parent
+     * @return $this
+     */
     public function setResourceParent($parent)
     {
         $this->resourceParent = $parent;
         return $this;
     }
 
-    public function setBaseUrl(Url $url)
-    {
-        $this->baseUrl = $url;
-        return $this;
-    }
-
+    /**
+     * @param array $options
+     * @return $this
+     */
     public function setOptions(array $options)
     {
         $this->options = $options;
         return $this;
     }
 
+    /**
+     * Set a particular option.
+     *
+     * @param $key
+     * @param $value
+     * @return $this
+     */
     public function setOption($key, $value)
     {
         $this->options[$key] = $value;
         return $this;
     }
 
+    /**
+     * @param $key
+     * @return null
+     */
     public function getOption($key)
     {
         return (isset($this->options[$key])) ? $this->options[$key] : null;
     }
 
+    /**
+     * This method is called after self::rewind() and self::next() to check if the current position is valid.
+     *
+     * @return bool
+     */
+    public function valid()
+    {
+        return $this->offsetExists($this->position) && $this->position < $this->limit;
+    }
+
+    /**
+     * Increment the current pointer by 1, and also update the current marker.
+     */
+    public function next()
+    {
+        $this->position++;
+    }
+
+    /**
+     * Reset the pointer and current marker.
+     */
+    public function rewind()
+    {
+        $this->position = 0;
+    }
+
+    /**
+     * @return mixed
+     */
     public function current()
     {
         return $this->constructResource($this->currentElement());
     }
 
+    /**
+     * @return mixed
+     */
     public function currentElement()
     {
-        return $this->elements[$this->position];
+        return $this->offsetGet($this->key());
     }
 
+    /**
+     * Using a standard object, this method populates a resource model with all the object data. It does this using a
+     * whatever method the parent object has for resource creation.
+     *
+     * @param $object Standard object
+     * @return mixed
+     * @throws \OpenCloud\Common\Exceptions\CollectionException
+     */
     public function constructResource($object)
     {
         $className = $this->getOption('resourceClass');
-        $parent = $this->resourceParent;
 
+        if (substr_count($className, '\\')) {
+            $array = explode('\\', $className);
+            $className = end($array);
+        }
+
+        $parent = $this->resourceParent;
         $getter = sprintf('get%s', ucfirst($className));
 
         if (method_exists($parent, $className)) {
@@ -117,147 +178,18 @@ class ResourceIterator extends Collection implements \Iterator
             // $parent->resource('Server', $data)
             return $parent->resource($className, $object);
         } else {
-            throw new CollectionException(sprintf(
-                'The %s parent object does not have any methods to instantiate %s',
-                get_class($parent),
-                $className
-            ));
+            return $object;
         }
     }
 
+    /**
+     * Return the current position/internal pointer.
+     *
+     * @return int|mixed
+     */
     public function key()
     {
         return $this->position;
-    }
-
-    public function next()
-    {
-        ++$this->position;
-        $this->updateMarkerToCurrent();
-    }
-
-    public function updateMarkerToCurrent()
-    {
-        if (!isset($this->elements[$this->position])) {
-            return;
-        }
-
-        $element = $this->elements[$this->position];
-        $key = $this->getOption('markerKey');
-        if (isset($element->$key)) {
-            $this->currentMarker = $element->$key;
-        }
-    }
-
-    public function rewind()
-    {
-        $this->position = 0;
-        $this->currentMarker = null;
-    }
-
-    public function count()
-    {
-        return count($this->elements);
-    }
-
-    public function valid()
-    {
-        if ($this->position >= $this->getOption('limit')) {
-            return false;
-        } elseif (isset($this->elements[$this->position])) {
-            return true;
-        } else {
-            $before = $this->count();
-            $this->appendNewCollection();
-            return ($this->count() > $before) ? true : false;
-        }
-    }
-
-    public function appendElements(array $elements)
-    {
-        $this->elements = array_merge($this->elements, $elements);
-        return $this;
-    }
-
-    public function appendNewCollection()
-    {
-        $response = $this->resourceParent
-            ->getClient()
-            ->createRequest(
-                $this->getOption('method'),
-                $this->constructNextUrl(),
-                $this->getOption('headers'),
-                $this->getOption('body'),
-                $this->getOption('curlOptions')
-            )
-            ->send();
-
-        if (!($body = Formatter::decode($response)) || $response->getStatusCode() == 204) {
-            return false;
-        }
-
-        if ($nextUrl = $this->extractNextLink($body)) {
-            $this->nextUrl = $nextUrl;
-        }
-
-        return $this->appendElements($this->parseResponseBody($body));
-    }
-
-    public function extractNextLink($body)
-    {
-        $key = $this->getOption('linksKey');
-
-        if (isset($body->$key)) {
-            foreach ($body->$key as $link) {
-                if (isset($link->rel) && $link->rel == 'next') {
-                    return $link->href;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public function constructNextUrl()
-    {
-        if (!$url = $this->nextUrl) {
-            $url = clone $this->baseUrl;
-            $url->setQuery(array('marker' => $this->currentMarker, 'limit' => $this->getOption('pageLimit')));
-        }
-
-        return $url;
-    }
-
-    public function parseResponseBody($body)
-    {
-        $collectionKey = $this->getOption('collectionKey');
-
-        $data = array();
-
-        if (is_array($body)) {
-            $data = $body;
-        } elseif (isset($body->$collectionKey)) {
-            if (null !== ($elementKey = $this->getOption('collectionElementKey'))) {
-                // The object has element levels which need to be iterated over
-                foreach ($body->$collectionKey as $item) {
-                    $subValues = $item->$elementKey;
-                    unset($item->$elementKey);
-                    $data[] = array_merge((array) $item, (array) $subValues);
-                }
-            } else {
-                // The object has a top-level collection name only
-                $data = $body->$collectionKey;
-            }
-        }
-
-        return $data;
-    }
-
-    public function populateAll()
-    {
-        while ($this->valid()) {
-            $this->next();
-        }
     }
 
     public function getElement($offset)
@@ -265,4 +197,29 @@ class ResourceIterator extends Collection implements \Iterator
         return (!$this->offsetExists($offset)) ? false : $this->constructResource($this->offsetGet($offset));
     }
 
-} 
+    /**
+     * @deprecated
+     */
+    public function first()
+    {
+        Logger::newInstance()->deprecated(__METHOD__, 'getElement');
+        return $this->getElement(0);
+    }
+
+    /**
+     * @todo Implement
+     */
+    public function sort()
+    {
+    }
+
+    /**
+     * Count all the elements.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->elements);
+    }
+}

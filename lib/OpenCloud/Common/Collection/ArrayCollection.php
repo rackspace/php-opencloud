@@ -10,17 +10,18 @@
 namespace OpenCloud\Common\Collection;
 
 use ArrayAccess;
-use ArrayIterator;
-use IteratorAggregate;
 
 /**
- * Class Collection
- * @since 1.8.0
+ * A generic, abstract collection class that allows collections to exhibit array functionality.
+ *
  * @package OpenCloud\Common\Collection
+ * @since   1.8.0
  */
-class Collection implements ArrayAccess
+abstract class ArrayCollection implements ArrayAccess
 {
-
+    /**
+     * @var array The elements being held by this iterator.
+     */
     protected $elements;
 
     /**
@@ -28,7 +29,15 @@ class Collection implements ArrayAccess
      */
     public function __construct(array $data = array())
     {
-        $this->elements = $data;
+        $this->setElements($data);
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->elements);
     }
 
     /**
@@ -81,7 +90,7 @@ class Collection implements ArrayAccess
      */
     public function valueExists($value)
     {
-        return array_search($this->elements, $value) !== false;
+        return array_search($value, $this->elements) !== false;
     }
 
     /**

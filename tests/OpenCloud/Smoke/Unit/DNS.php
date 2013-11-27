@@ -11,25 +11,14 @@ namespace OpenCloud\Smoke\Unit;
 
 use OpenCloud\Smoke\Enum;
 
-/**
- * Description of DNS
- * 
- * @link 
- */
 class DNS extends AbstractUnit implements UnitInterface
 {
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function setupService()
     {
         return $this->getConnection()->dnsService();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function main()
     {
         $domainName = 'domain-' . time() . '.com';
@@ -64,7 +53,7 @@ class DNS extends AbstractUnit implements UnitInterface
         $this->step("Adding a CNAME record www.%s", $domainName);
         
         $domains = $this->getService()->domainList(array('name' => $domainName));
-        $domain = $domains->next();
+        $domain = $domains->getElement(0);
 
         $record = $domain->record();
         $asyncResponse = $record->create(array(
@@ -84,24 +73,24 @@ class DNS extends AbstractUnit implements UnitInterface
             );
         }
 
-        $recordList = $domain->recordList();
-        while ($record = $recordList->next()) {
+        $records = $domain->recordList();
+        foreach ($records as $record) {
             $record->update(array('name' => 'something-else.com'));
         }
 
         // List everything
         $this->step('List domains and records');
         
-        $domains = $this->getService()->domainList(); 
-        $i = 0;
-        while (($domain = $domains->next()) && $i <= Enum::DISPLAY_ITER_LIMIT) {
+        $domains = $this->getService()->domainList();
+        $domains->setOption('limit.total', Enum::DISPLAY_ITER_LIMIT);
+
+        foreach ($domains as $domain) {
             
             $this->stepInfo('%s [%s]', $domain->name(), $domain->emailAddress);
             $step = $this->stepInfo('Domain Records:');
-            
-            $recordList = $domain->recordList();
-            
-            while ($record = $recordList->next()) {
+
+            $records = $domain->recordList();
+            foreach ($records as $record) {
                 $step->stepInfo(
                     '- %s %d %s %s',
                     $record->type, 
@@ -110,18 +99,13 @@ class DNS extends AbstractUnit implements UnitInterface
                     $record->data
                 );
             }
-            
-            $i++;
         }
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function teardown()
     {
         $domains = $this->getService()->domainList();
-        while ($domain = $domains->next()) {
+        foreach ($domains as $domain) {
             if ($this->shouldDelete($domain->name())) {
                 $domain->delete();
             }

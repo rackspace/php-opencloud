@@ -11,7 +11,7 @@ class CheckTypeTest extends CloudMonitoringTestCase
      */
     public function testListAllCheckTypesClass()
     {
-        $this->assertInstanceOf('OpenCloud\\Common\\Collection', $this->service->getCheckTypes());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->getCheckTypes());
     }
 
     /**

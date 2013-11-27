@@ -412,4 +412,5 @@ class DataObject extends AbstractResource
         
         return (isset($uri)) ? Url::factory($uri)->addPath($this->name) : false;
     }
+
 }

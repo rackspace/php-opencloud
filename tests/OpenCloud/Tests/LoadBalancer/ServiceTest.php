@@ -41,7 +41,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testLoadBalancerList()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
+            self::COLLECTION_CLASS,
             $this->service->loadBalancerList()
         );
     }
@@ -57,7 +57,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testLoadBillableBalancerList()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
+            self::COLLECTION_CLASS,
             $this->service->BillableLoadBalancerList()
         );
     }
@@ -73,7 +73,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testAllowedDomainList()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
+            self::COLLECTION_CLASS,
             $this->service->allowedDomainList()
         );
     }
@@ -89,7 +89,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testProtocolList()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
+            self::COLLECTION_CLASS,
             $this->service->protocolList()
         );
     }
@@ -105,7 +105,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testAlgorithmList()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
+            self::COLLECTION_CLASS,
             $this->service->algorithmList()
         );
     }

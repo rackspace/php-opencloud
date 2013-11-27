@@ -10,7 +10,6 @@
 
 namespace OpenCloud\Database\Resource;
 
-use OpenCloud\Common\Collection;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
@@ -159,29 +158,21 @@ class Instance extends PersistentObject
     /**
      * Returns a Collection of all databases in the instance
      *
-     * @return Collection
-     * @throws DatabaseListError if HTTP status is not Success
+     * @return OpenCloud\Common\Collection\PaginatedIterator
      */
     public function databaseList() 
     {
-        $response = $this->getClient()->get($this->url('databases'))->send();
-        $body = Formatter::decode($response);
-        $data = (!empty($body->databases)) ? $body->databases : array();
-        return new Collection($this, 'OpenCloud\DbService\Database', $data);
+        return $this->getService()->resourceList('Database', $this->getUrl('databases'), $this);
     }
 
     /**
      * Returns a Collection of all users in the instance
      *
-     * @return Collection
-     * @throws UserListError if HTTP status is not Success
+     * @return OpenCloud\Common\Collection\PaginatedIterator
      */
     public function userList() 
     {
-        $response = $this->getClient()->get($this->url('users'))->send();
-        $body = Formatter::decode($response);
-        $data = (!empty($body->users)) ? $body->users : array();
-        return new Collection($this, 'OpenCloud\DbService\User', $data);
+        return $this->getService()->resourceList('User', $this->getUrl('users'), $this);
     }
 
     /**

@@ -45,7 +45,7 @@ class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testFlavorList()
     {
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $this->nova->flavorList());
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->nova->flavorList());
     }
 
 }

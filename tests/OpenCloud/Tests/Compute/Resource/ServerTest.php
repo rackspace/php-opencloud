@@ -275,7 +275,7 @@ class ServerTest extends ComputeTestCase
     public function test_Volume_Attachment_List()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Collection', 
+            self::COLLECTION_CLASS,
             $this->server->volumeAttachmentList()
         );
     }

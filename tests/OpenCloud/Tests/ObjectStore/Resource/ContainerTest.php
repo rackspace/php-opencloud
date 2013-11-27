@@ -103,7 +103,7 @@ class ContainerTest extends ObjectStoreTestCase
 
 
         $list = $container->objectList();
-        $this->assertInstanceOf('OpenCloud\Common\Collection', $list);
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
         $this->assertEquals('test_obj_1', $list->first()->getName());
     }
     

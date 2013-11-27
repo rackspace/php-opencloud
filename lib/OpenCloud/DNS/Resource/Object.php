@@ -42,7 +42,8 @@ abstract class Object extends PersistentObject
      */
     public function update($params = array()) 
     {
-        $body = Formatter::decode(parent::update($params));
+        $response = parent::update($params);
+        $body = Formatter::decode($response);
         return new AsyncResponse($this->getService(), $body);
     }
 

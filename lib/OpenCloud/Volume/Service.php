@@ -40,7 +40,10 @@ class Service extends NovaService
 	 */
 	public function volumeList($details = true, $filter = array()) 
 	{
-		$url = $this->url(Resource\Volume::ResourceName()) . ($details ? '/detail' : '');
+		$url = clone $this->getUrl(Resource\Volume::ResourceName());
+        if ($details) {
+            $url->addPath('detail');
+        }
 		return $this->collection('OpenCloud\Volume\Resource\Volume', $url);
 	}
 

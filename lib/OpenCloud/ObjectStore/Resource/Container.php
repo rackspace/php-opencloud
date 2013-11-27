@@ -14,7 +14,6 @@ use Guzzle\Http\EntityBody;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
-use OpenCloud\Common\Collection;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\AbstractService;
@@ -166,7 +165,7 @@ class Container extends AbstractContainer
         
         $list = $this->objectList();
         
-        while ($object = $list->next()) {
+        foreach ($list as $object) {
             $requests[] = $this->getClient()->delete($object->getUrl());
         }
 
@@ -198,14 +197,7 @@ class Container extends AbstractContainer
     public function objectList(array $params = array())
     {
         $params['format'] = 'json';
-
-        $response = $this->getClient()
-            ->get($this->getUrl(null, $params))
-            ->send();
-
-        $body = Formatter::decode($response);
-
-        return new Collection($this, 'OpenCloud\ObjectStore\Resource\DataObject', $body);
+        return $this->getService()->resourceList('DataObject', $this->getUrl(null, $params), $this);
     }
 
     /**

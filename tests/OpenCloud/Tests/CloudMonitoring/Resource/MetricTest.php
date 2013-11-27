@@ -34,10 +34,7 @@ class MetricTest extends CloudMonitoringTestCase
             $this->metric->getParent()
         );
 
-    	$this->assertInstanceOf(
-    	   'OpenCloud\\Common\\Collection',
-    	   $this->metrics
-    	);
+    	$this->assertInstanceOf(self::COLLECTION_CLASS, $this->metrics);
     }
     
     public function testUrl()
@@ -78,7 +75,7 @@ class MetricTest extends CloudMonitoringTestCase
     public function testDataPointsClass()
     {
         $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
+            self::COLLECTION_CLASS,
             $this->check->fetchDataPoints(self::METRIC_NAME, array(
             	'resolution' => 'FULL',
                 'select'     => 'average',

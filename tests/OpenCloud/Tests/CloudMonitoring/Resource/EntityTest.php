@@ -3,17 +3,13 @@
 namespace OpenCloud\Tests\CloudMonitoring\Resource;
 
 use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
-use OpenCloud\Common\Collection;
 
 class EntityTest extends CloudMonitoringTestCase
 {
 
     public function testResourceClass()
     {
-    	$this->assertInstanceOf(
-    		'OpenCloud\\CloudMonitoring\\Resource\\Entity',
-            $this->entity
-    	);
+    	$this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\Entity', $this->entity);
     }
 
     /**
@@ -21,10 +17,7 @@ class EntityTest extends CloudMonitoringTestCase
      */
     public function testListIsCollection()
     {
-    	$this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->service->getEntities()
-    	);
+    	$this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->getEntities());
     }
 
 }

@@ -10,8 +10,10 @@
 
 namespace OpenCloud\Common;
 
+use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Exceptions\JsonError;
 use OpenCloud\Common\Exceptions\UrlError;
+use OpenCloud\Common\Collection\ResourceIterator;
 
 /**
  * The root class for all other objects used or defined by this SDK.
@@ -301,24 +303,25 @@ abstract class Base
 
                     // Associated resource
                     try {
+
                         $resource = $this->getService()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
+
                         $this->setProperty($key, $resource);
+
                     } catch (Exception\ServiceException $e) {}
    
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
 
                     // Associated collection
                     try {
-                        //$collection = $this->getService()->resourceList(
-                        //    $this->associatedCollections[$key], null, $this
-                        //);
-                        $collection = new Collection(
-                            $this->getService(), 
-                            $this->associatedCollections[$key], 
-                            $value
-                        );
-                        $this->setProperty($key, $collection); 
+
+                        $className = $this->associatedCollections[$key];
+                        $options = $this->makeResourceIteratorOptions($className);
+                        $iterator = ResourceIterator::factory($this, $options, $value);
+
+                        $this->setProperty($key, $iterator);
+
                     } catch (Exception\ServiceException $e) {}
                     
                 } elseif (!empty($this->aliases[$key])) {
@@ -399,5 +402,26 @@ abstract class Base
             mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
     }
-    
+
+    public function makeResourceIteratorOptions($resource)
+    {
+        $options = array('resourceClass' => $this->stripNamespace($resource));
+
+        if (method_exists($resource, 'jsonCollectionName')) {
+            $options['key.collection'] = $resource::jsonCollectionName();
+        }
+
+        if (method_exists($resource, 'jsonCollectionElement')) {
+            $options['key.collectionElement'] = $resource::jsonCollectionElement();
+        }
+
+        return $options;
+    }
+
+    public function stripNamespace($namespace)
+    {
+        $array = explode('\\', $namespace);
+        return end($array);
+    }
+
 }

@@ -54,7 +54,7 @@ class AgentTest extends CloudMonitoringTestCase
     public function testCollection()
     {
         $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
+            self::COLLECTION_CLASS,
             $this->resource->listAll()
         );
     }
@@ -77,10 +77,7 @@ class AgentTest extends CloudMonitoringTestCase
         $this->resource->setId(self::AGENT_ID);
         $list = $this->resource->getConnections();
         
-        $this->assertInstanceOf(
-            'OpenCloud\\Common\\Collection',
-            $list
-        );
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
         
         $first = $list->first();
         
