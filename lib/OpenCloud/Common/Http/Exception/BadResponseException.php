@@ -36,7 +36,9 @@ class BadResponseException extends GuzzleBadResponseException
                 '[reason phrase] ' . $response->getReasonPhrase(),
                 '[message] ' . (string) $response->getBody(),
                 '[method] ' . $request->getMethod(),
-                '[url] ' . $request->getUrl()
+                '[url] ' . $request->getUrl(),
+                '[request message] ' . (string) $request->getBody(),
+                '[request raw headers] ' . (string) $request->getRawHeaders(),
             ));
 
         $e = new $class($message);
