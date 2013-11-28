@@ -57,18 +57,5 @@ class AgentTarget extends ReadOnlyResource
     {
         return $this->type;
     }
-
-    public function listAll()
-    {
-        $response = $this->getClient()->get($this->url())->send();
-
-        $body = Formatter::decode($response);
-
-        if (isset($body->{self::$json_collection_name})) {
-            $body = $body->{self::$json_collection_name};
-        }
-
-        return $body;
-    } 
     
 }

@@ -40,6 +40,15 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
             json_encode(array('auth' => array('passwordCredentials' => array('username' => 'foo', 'password' => 'bar'), 'tenantName' => 'baz'))), 
             $client->getCredentials()
         );
+
+        $client->setSecret(array(
+            'username' => 'foo', 'password' => 'bar', 'tenantId' => 'baz'
+        ));
+
+        $this->assertEquals(
+            json_encode(array('auth' => array('passwordCredentials' => array('username' => 'foo', 'password' => 'bar'), 'tenantId' => 'baz'))),
+            $client->getCredentials()
+        );
     }
     
     public function test_Auth_Methods()

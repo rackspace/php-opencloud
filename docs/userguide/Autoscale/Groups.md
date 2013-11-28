@@ -1,46 +1,31 @@
-#Autoscale groups
+#Auto Scale groups
 
-Groups acts as categories for your Autoscaling. Each scaling group has its own set of configuration properties which define its state and relationship with other resources. 
+## Intro
 
-## Setup the service
+The scaling group is at the heart of an Auto Scale deployment. The scaling group specifies the basic elements of the Auto Scale configuration. It manages how many servers can participate in the scaling group. It also specifies information related to load balancers if your configuration uses a load balancer.
 
-Nothing special here; you setup your connection and service objects in the same way as every other resource:
+## Service setup
+
+Nothing special here; you setup your client and service objects in the same way as every other resource:
 
 ```php
-use OpenCloud\Rackspace;
-use OpenCloud\Autoscale\Service;
-
-$connection = new Rackspace(
-    RACKSPACE_US,
-    array(
-        'username' => 'foo',
-        'apiKey'   => 'bar'
-    )
-);
-
-// Either use the convenient factory method
-$service = $connection->autoscale('autoscale', 'DFW', 'publicURL');
-
-// or manually instantiate
-$service = new Service($connection, 'autoscale', 'DFW', 'publicURL');
+$service = $client->autoscaleService();
 ```
+
+Please consult the [client doc](docs/userguide/Client.md) for more information about creating clients.
 
 ## List all groups
 
 ```php
 $groups = $service->groupList();
-
-while ($group = $groups->next()) {
-    // do something with the individual object
-}
 ```
+
+Please consult the [iterator doc](docs/userguide/Iterators.md) for more information about iterators.
 
 ## Retrieve one group by ID
 
 ```php
-$id = 'foobar';
-
-$group = $service->group($id);
+$group = $service->group('605e13f6-1452-4588-b5da-ac6bb468c5bf');
 ```
 
 ## Create a new group

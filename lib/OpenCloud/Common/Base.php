@@ -275,7 +275,6 @@ abstract class Base
      */
     public function populate($info, $setObjects = true)
     {
-
         if (is_string($info) || is_integer($info)) {
             
             $this->setProperty($this->primaryKeyField(), $info);

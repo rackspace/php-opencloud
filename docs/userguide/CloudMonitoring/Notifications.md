@@ -1,39 +1,27 @@
 # Notifications
 
-A notification is a destination to send an alarm, it can be a variety of different types, and will evolve over time.
+## Info
 
-For instance, with a webhook type notification Rackspace Cloud Monitoring posts JSON formatted data to a user-specified URL on an alert condition (Check goes from `OK` -> `CRITICAL` and so on).
+A notification is a destination to send an alarm; it can be a variety of different types, and will evolve over time.
 
-### Setup
+For instance, with a webhook type notification, Cloud Monitoring posts JSON formatted data to a user-specified URL on an alert condition (Check goes from `OK` -> `CRITICAL` and so on).
+
+## Setup
 
 ```php
-require_once 'path/to/lib/php-opencloud.php';
-
-use OpenCloud\OpenStack;
-use OpenCloud\CloudMonitoring\Service;
-
-$connection = new OpenStack(
-	RACKSPACE_US, // Set to whatever
-	array(
-		'username' => 'foo',
-		'password' => 'bar'
-	)
-);
-
-$monitoringService = new Service($connection);
-
-$notification = $monitoringService->resource('notification');
+$id = 'ntAAAA';
+$notification = $service->getNotification($id);
 ```
 
-### Attributes
+## Attributes
 
-Name|Description|Required?|Data type
----|---|---|---
-details|A hash of notification specific details based on the notification type.|Array
-label|Friendly name for the notification.|String between 1 and 255 characters long
-type|The notification type to send.|String. One of (webhook, email, pagerduty)
+Name|Description|Data type|Method
+---|---|---|---|---
+details|A hash of notification specific details based on the notification type.|Array|`getDetails()`
+label|Friendly name for the notification.|String (1..255 chars)|`getLabel()`
+type|The notification type to send.|String. Either `webhook`, `email`, or `pagerduty`|`getType()`
 
-### Create notification (and test params)
+## Test parameters
 ```php
 $params = array(
 	'label' => 'My webhook #1',
@@ -44,42 +32,36 @@ $params = array(
 );
 
 // Test it
-$response = $notification->test($params);
+$response = $notification->testParams($params);
 
 if ($response->status == 'Success') {
 	echo $response->message;
 }
+```
 
-// And create it
+## Create Notification
+
+```php
 $notification->create($params);
 ```
 
-### Test existing notification
+## Test existing notification
 ```php
-// Set the ID of an existing check
-$notification->id = 'ntAAAA';
-
 $response = $notification->testExisting(true);
-
 echo $response->debug_info;
 ```
 
-### List checks
+## List Notifications
 ```php
-$notificationList = $notification->listAll();
+$notifications = $service->getNotifications();
 
-while ($notification = $notificationList->Next()) {
-	echo $notification->id . PHP_EOL;
+foreach ($notifications as $notification) {
+	echo $notification->getId();
 }
 ```
 
-### Get, update and delete check
+## Update and delete Notification
 ```php
-$notification->id = 'ntBBBB';
-
-// Get data
-$notification->get();
-
 // Update
 $notification->update(array(
 	'label' => 'New notification label'
@@ -91,23 +73,25 @@ $notification->delete();
 
 # Notification types
 
-The notification type represents the type of notification. When you create a notification in Rackspace Cloud Monitoring, you must specify the notification type. Rackspace Cloud Monitoring currently supports the following notification types:
+## Info
+
+Pretty self-explanatory. Rackspace Cloud Monitoring currently supports the following notification types:
 
 #### Webhook
 Industry-standard web hooks, where JSON is posted to a configurable URL. It has these attributes:
 
 Name|Description|Data type
-===|===|===
+---|---|---
 address|Email address to send notifications to|Valid email
 
 #### Email
 Email alerts where the message is delivered to a specified address. It has these attributes:
 
 Name|Description|Data type
-===|===|===
+---|---|---
 url|An HTTP or HTTPS URL to POST to|Valid URL
 
-### Setup
+## Setup
 
 If you've already set up a main Notification object, and want to access functionality for this Notification's particular Notification Type, you can access its property:
 
@@ -121,7 +105,7 @@ This will be encapsulated in its own object. Alternatively, you can instantiate 
 $notificationType = $monitoringService->resource('notificationType');
 ```
 
-### List all possible notification types
+## List all possible notification types
 ```php
 $list = $notificationType->listAll();
 
@@ -132,6 +116,8 @@ while ($notificationType = $list->Next()) {
 
 # Notification plans
 
+## Info
+
 A notification plan contains a set of notification actions that Rackspace Cloud Monitoring executes when triggered by an alarm. Rackspace Cloud Monitoring currently supports webhook and email notifications.
 
 Each notification state can contain multiple notification actions. For example, you can create a notification plan that hits a webhook/email to notify your operations team if a warning occurs. However, if the warning escalates to an Error, the notification plan could be configured to hit a different webhook/email that triggers both email and SMS messages to the operations team. The notification plan supports the following states:
@@ -140,36 +126,23 @@ Each notification state can contain multiple notification actions. For example, 
 - Warning
 - OK
 
-A notification plan, npTechnicalContactsEmail, is provided by default which will email all of the technical contacts on file for an account whenever there is a state change.
-### Setup
+A notification plan, `npTechnicalContactsEmail`, is provided by default which will email all of the technical contacts on file for an account whenever there is a state change.
+
+## Setup
 
 ```php
-require_once 'path/to/lib/php-opencloud.php';
-
-use OpenCloud\OpenStack;
-use OpenCloud\CloudMonitoring\Service;
-
-$connection = new OpenStack(
-	RACKSPACE_US, // Set to whatever
-	array(
-		'username' => 'foo',
-		'password' => 'bar'
-	)
-);
-
-$monitoringService = new Service($connection);
-
-$plan = $monitoringService-resource('notificationPlan');
+$planId = 'npAAAA';
+$plan = $service->getNotificationPlan();
 ```
 
 ### Attributes
 
-Name|Description|Required?|Data type
----|---|---|---
-label|Friendly name for the notification plan.|Required|String between 1 and 255 characters long
-critical_state|The notification list to send to when the state is `CRITICAL`.|Optional|Array
-ok_state|The notification list to send to when the state is `OK`.|Optional|Array
-warning_state|The notification list to send to when the state is `WARNING`.|Optional|Array
+Name|Description|Required?|Data type|Method
+---|---|---|---|---
+label|Friendly name for the notification plan.|Required|String (1..255 chars)|`getLabel()`
+critical_state|The notification list to send to when the state is `CRITICAL`.|Optional|Array|`getCriticalState()`
+ok_state|The notification list to send to when the state is `OK`.|Optional|Array|`getOkState()`
+warning_state|The notification list to send to when the state is `WARNING`.|Optional|Array|`getWarningState()`
 
 ### Create notification plan
 ```php

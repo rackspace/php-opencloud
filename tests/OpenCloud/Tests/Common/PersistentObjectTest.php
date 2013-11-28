@@ -91,9 +91,6 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->instance = new MyPersistentObject($this->service);
     }
 
-    /**
-     * Tests
-     */
     public function test__construct()
     {
         $inst = new MyPersistentObject($this->service);

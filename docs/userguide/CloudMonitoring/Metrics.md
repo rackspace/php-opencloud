@@ -1,10 +1,12 @@
 # Metrics
 
+## Info
+
 When Monitoring checks run, they generate metrics. These metrics are stored as full resolution data points in the Cloud Monitoring system. Full resolution data points are periodically rolled up (condensed) into coarser data points.
 
 Depending on your needs, you can use the metrics API to fetch individual data points (fine-grained) or rolled up data points (coarse-grained) over a period of time.
 
-### Data Granularity
+## Data Granularity
 
 Cloud Monitoring supports several granularities of data: full resolution data and rollups computed at 5, 20, 60, 240 and 1440 minute intervals.
 
@@ -54,53 +56,22 @@ MIN60|30 days
 MIN240|60 days
 MIN1440|365 days
 
-### Setup
+## Setup
 
+Metrics are sub-resources of Checks. For more information about working with Checks, please see the [relevant documentation](Checks.md).
+
+## List all metrics
 ```php
-require_once 'path/to/lib/php-opencloud.php';
+$metrics = $check->getMetrics();
 
-use OpenCloud\OpenStack;
-use OpenCloud\CloudMonitoring\Service;
-
-$connection = new OpenStack(
-	RACKSPACE_US, // Set to whatever
-	array(
-		'username' => 'foo',
-		'password' => 'bar'
-	)
-);
-
-$monitoringService = new Service($connection);
-```
-
-Please be aware that Metrics are sub-resources of Entities **and** Checks, so you will need to associate a Metric to its parent Check (with its own parent Entity) before exploiting its functionality.
-
-```php
-// Find grandparent object (i.e. an Entity)
-$entity = $monitoringService->resource('entity');
-$entity->get('enAAAA'); // Get by ID
-
-// Find parent object (i.e. a Check)
-$check = $monitoringService->resource('check');
-$check->setParent($entity); // Associate first
-$check->get('chAAAA'); // Get by ID
-
-$metrics = $monitoringService->resource('metric');
-$metrics->setParent($check); // Associate
-```
-
-### List all metrics
-```php
-$list = $metrics->listAll();
-
-while ($metric = $list->Next()) {
-	echo $metric->name . PHP_EOL;
+foreach ($metrics as $metric) {
+	echo $metric->getName();
 }
 ```
 
-### Fetch data points
+## Fetch data points
 ```php
-$response = $metrics->fetchDataPoints('mzdfw.available', array(
+$data = $check->fetchDataPoints('mzdfw.available', array(
 	'resolution' => 'FULL',
 	'from'       => 1369756378450,
 	'to'         => 1369760279018

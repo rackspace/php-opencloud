@@ -11,6 +11,7 @@
 
 namespace OpenCloud\LoadBalancer\Resource;
 
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 
@@ -31,7 +32,6 @@ use OpenCloud\Common\Lang;
  */
 abstract class SubResource extends PersistentObject 
 {
-    
     /**
      * This method needs attention.
      * 
@@ -55,7 +55,7 @@ abstract class SubResource extends PersistentObject
      *
      * @return \stdClass;
      */
-    protected function CreateJson() 
+    protected function createJson()
     {
         $object = new \stdClass;
 
@@ -96,4 +96,14 @@ abstract class SubResource extends PersistentObject
             ? sprintf('%s-%s', end($classArray), $this->getParent()->id())
             : parent::name();
     }
+
+    public function refresh($id = null, $url = null)
+    {
+        try {
+            return parent::refresh($id, $url);
+        } catch (ClientErrorResponseException $e) {
+            return false;
+        }
+    }
+
 }

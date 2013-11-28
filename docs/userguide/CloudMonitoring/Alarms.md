@@ -1,48 +1,32 @@
 # Alarms
 
+## Info
+
 Alarms bind alerting rules, entities, and notification plans into a logical unit. Alarms are responsible for determining a state (```OK```, ```WARNING``` or ```CRITICAL```) based on the result of a Check, and executing a notification plan whenever that state changes. You create alerting rules by using the alarm DSL. For information about using the alarm language, refer to the [reference documentation](http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/alerts-language.html).
 
-### Setup
+## Setup
+
+Alarms are sub-resources of Entities:
 
 ```php
-require_once 'path/to/lib/php-opencloud.php';
-
-use OpenCloud\OpenStack;
-use OpenCloud\CloudMonitoring\Service;
-
-$connection = new OpenStack(
-	RACKSPACE_US, // Set to whatever
-	array(
-		'username' => 'foo',
-		'password' => 'bar'
-	)
-);
-
-$monitoringService = new Service($connection);
+$alarmId = 'alAAAA';
+$alarm = $check->getAlarm();
 ```
 
-Please be aware that Alarms are sub-resources of Entities, so you will need to associate an Alarm to its parent Entity before exploiting its functionality.
+For more information about working with Checks, please see the [appropriate documentation](Checks.md).
 
-```php
-$entity = $monitoringService-resource('entity');
-$entity->get('enAAAA'); // Get by ID
+## Attributes
 
-$alarm = $monitoringService->resource('alarm');
-$alarm->setParent($entity); // Associate
-```
-
-### Attributes
-
-Name|Description|Required?|Data type
+Name|Description|Required?|Method
 ---|---|---|---
-check_id|The ID of the check to alert on.|Required|Valid Check ID
-notification_plan_id|The id of the notification plan to execute when the state changes.|Optional|Valid Notification Plan ID
-criteria|The alarm DSL for describing alerting conditions and their output states.|Optional|String between 1 and 16384 characters long
-disabled|Disable processing and alerts on this alarm|Optional|Boolean
-label|A friendly label for an alarm.|Optional|String between 1 and 255 characters long
-metadata|Arbitrary key/value pairs.|Optional|Multidimensional array
+check_id|The ID of the check to alert on.|Required|`getCheckId()`
+notification_plan_id|The ID of the notification plan to execute when the state changes.|Optional|`getNotificationPlanId()`
+criteria|The alarm DSL for describing alerting conditions and their output states.|Optional|`getCriteria()`
+disabled|Disable processing and alerts on this alarm|Optional|`isDisabled()` <`bool`>
+label|A friendly label for an alarm.|Optional|`getLabel()`
+metadata|Arbitrary key/value pairs.|Optional|`getMetadata()`
 
-### Create alarm
+## Create Alarm
 ```php
 $alarm->create(array(
 	'check_id' => 'chAAAA',
@@ -51,22 +35,17 @@ $alarm->create(array(
 ));
 ```
 
-### List alarms
+## List Alarms
 ```php
-$alarmList = $alarm->listAll();
+$alarms = $entity->getAlarms();
 
-while ($alarm = $alarmList->Next()) {
-	echo $alarm->id . PHP_EOL;
+foreach ($alarms as $alarm) {
+	echo $alarm->getId();
 }
 ```
 
-### Get, update and delete alarm
+## Update and delete Alarm
 ```php
-$alarm->id = 'newAlarmId';
-
-// Get data
-$alarm->get();
-
 // Update
 $alarm->update(array(
 	'criteria' => 'if (metric["duration"] >= 5) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);'

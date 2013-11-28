@@ -48,6 +48,41 @@ class Service extends AbstractService
     );
 
     /**
+     * Get an agent.
+     *
+     * @return \OpenCloud\CloudMonitoring\Resource\Agent
+     */
+    public function getAgent($id = null)
+    {
+        return $this->resource('Agent', $id);
+    }
+
+    public function getAgents()
+    {
+        return $this->resourceList('Agent');
+    }
+
+    public function getAgentHost($id = null)
+    {
+        return $this->resource('AgentHost', $id);
+    }
+
+    public function getAgentTargets()
+    {
+        return $this->resourceList('AgentTarget');
+    }
+
+    public function getAgentToken($id = null)
+    {
+        return $this->resource('AgentToken', $id);
+    }
+
+    public function getAgentTokens()
+    {
+        return $this->resourceList('AgentToken');
+    }
+
+    /**
      * Return a collection of Entities.
      *
      * @return \OpenCloud\Common\Collection
@@ -55,6 +90,11 @@ class Service extends AbstractService
     public function getEntities()
     {
         return $this->resourceList('Entity');
+    }
+
+    public function createEntity(array $params)
+    {
+        return $this->getEntity()->create($params);
     }
 
     /**

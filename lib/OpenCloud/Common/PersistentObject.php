@@ -645,7 +645,7 @@ abstract class PersistentObject extends Base
 
         throw new Exceptions\DocumentError(sprintf(
             Lang::translate('No JSON object defined for class [%s] in JsonName()'),
-            get_class($this)
+            get_class()
         ));
     }
 

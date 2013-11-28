@@ -48,7 +48,10 @@ class Rackspace extends OpenStack
         if (!empty($secret['username']) && !empty($secret['apiKey'])) {
 
             $credentials = array('auth' => array(
-                'RAX-KSKEY:apiKeyCredentials' => $secret
+                'RAX-KSKEY:apiKeyCredentials' => array(
+                    'username' => $secret['username'],
+                    'apiKey'   => $secret['apiKey']
+                )
             ));
 
             if (!empty($secret['tenantName'])) {

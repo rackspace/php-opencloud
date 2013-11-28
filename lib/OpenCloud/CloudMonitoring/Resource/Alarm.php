@@ -129,5 +129,10 @@ class Alarm extends AbstractResource
     {
         return $this->getService()->resource('NotificationHistory', $info, $this);
     }
+
+    public function isDisabled()
+    {
+        return $this->getDisabled() === true;
+    }
 	
 }

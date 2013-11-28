@@ -122,6 +122,7 @@ class ResourceIterator extends ArrayCollection implements Iterator
     public function next()
     {
         $this->position++;
+        return $this->current();
     }
 
     /**

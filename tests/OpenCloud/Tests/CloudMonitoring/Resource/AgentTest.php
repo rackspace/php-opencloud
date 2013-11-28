@@ -13,7 +13,7 @@ class AgentTest extends CloudMonitoringTestCase
     public function setupObjects()
     {
         $this->service = $this->getClient()->cloudMonitoringService();
-        $this->resource = $this->service->resource('Agent');
+        $this->resource = $this->service->getAgent();
     }
     
     public function testResourceClass()
