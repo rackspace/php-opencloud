@@ -203,7 +203,7 @@ class Domain extends Object
 
         // add records, if any
         if (count($this->records)) {
-            
+
             $recordsObject = (object) array('records' => array());
 
             foreach ($this->records as $record) {
@@ -220,7 +220,7 @@ class Domain extends Object
 
         // add subdomains, if any
         if (count($this->subdomains)) {
-            
+
             $subdomainsObject = (object) array('domains' => array());
 
             foreach($this->subdomains as $subdomain) {
@@ -234,7 +234,7 @@ class Domain extends Object
             }
             $object->domains[0]->subdomains = $subdomainsObject;
         }
-        
+
         return $object;
     }
 

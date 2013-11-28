@@ -20,7 +20,7 @@ use OpenCloud\Common\Lang;
  */
 class Database extends PersistentObject
 {
-    
+    protected static $json_collection_name = 'databases';
     protected static $url_resource = 'databases';
     
     public $name;

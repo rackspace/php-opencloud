@@ -86,7 +86,7 @@ class Queues extends AbstractUnit implements UnitInterface
         $step = $this->stepInfo('List messages for queue %s', $this->queue->getName());
         $messages = $this->queue->listMessages();
         $ids = array();
-        foreach ($queues as $queue) {
+        foreach ($messages as $message) {
             $step->stepInfo($message->getId());
             $ids[] = $message->getId();
         }
