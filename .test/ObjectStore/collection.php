@@ -7,17 +7,17 @@ use OpenCloud\Common\Collection\ResourceList;
 
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, [
     'username' => 'jamiehannaford1',
-    'apiKey'   => '8d28b0ee0c694a6d9db6e973ebfb2d67'
+    'apiKey'   => '8d28b0ee0c694a6d9db6e973ebfb2d67',
+    'tenantName' => 848195
 ]);
-
+$client->authenticate();
+var_dump($client);die;
 $service = $client->objectStoreService('cloudFiles', 'ORD');
 
 $container = $service->getContainer('ORD_TEST_1');
 
-$list = ResourceList::factory($container, $container->getUrl(), array('resourceClass' => 'DataObject'));
+$list = $container->objectList();
 
-$i = 1;
-
-$list->populateAll();
-
-var_dump($list->count());
+foreach ($list as $object) {
+    echo $object->getName(), PHP_EOL;
+}

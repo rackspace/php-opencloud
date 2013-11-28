@@ -235,12 +235,18 @@ class OpenStack extends Client
     {
         if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
            
-            return json_encode(array(
-                'auth' => array(
-                    'passwordCredentials' => $this->secret
-                )
+            $credentials = array('auth' => array(
+                'passwordCredentials' => $this->secret
             ));
-            
+
+            if (!empty($this->secret['tenantName'])) {
+                $credentials['auth']['tenantName'] = $this->secret['tenantName'];
+            } elseif (!empty($this->secret['tenantId'])) {
+                $credentials['auth']['tenantId'] = $this->secret['tenantId'];
+            }
+
+            return json_encode($credentials);
+
         } else {
             throw new Exceptions\CredentialError(
                Lang::translate('Unrecognized credential secret')
