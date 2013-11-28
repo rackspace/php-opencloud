@@ -234,7 +234,7 @@ class OpenStack extends Client
     public function getCredentials()
     {
         if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
-           
+
             $credentials = array('auth' => array(
                 'passwordCredentials' => $this->secret
             ));
