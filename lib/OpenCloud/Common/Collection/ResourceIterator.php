@@ -214,13 +214,4 @@ class ResourceIterator extends ArrayCollection implements Iterator
     {
     }
 
-    /**
-     * Count all the elements.
-     *
-     * @return int
-     */
-    public function count()
-    {
-        return count($this->elements);
-    }
 }

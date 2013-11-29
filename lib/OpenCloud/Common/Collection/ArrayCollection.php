@@ -9,6 +9,7 @@
 
 namespace OpenCloud\Common\Collection;
 
+use Countable;
 use ArrayAccess;
 
 /**
@@ -17,7 +18,7 @@ use ArrayAccess;
  * @package OpenCloud\Common\Collection
  * @since   1.8.0
  */
-abstract class ArrayCollection implements ArrayAccess
+abstract class ArrayCollection implements ArrayAccess, Countable
 {
     /**
      * @var array The elements being held by this iterator.
