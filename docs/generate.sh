@@ -7,7 +7,7 @@ BIN_FILE=vendor/bin/apigen.php
 
 if [ ! -f $BIN_FILE ]; then
     rm composer.lock
-    php composer.phar install --dev
+    php composer.phar require apigen/apigen:dev-master --dev
 fi
 
 if [ ! -d $DOC_DIR ]; then

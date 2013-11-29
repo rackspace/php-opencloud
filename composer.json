@@ -25,7 +25,6 @@
         "guzzle/http" : "3.7.*@dev"
     },
     "require-dev" : {
-        "apigen/apigen" : "dev-master",
         "guzzle/plugin-mock" : "3.7.*@dev"
     }
 }
