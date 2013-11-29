@@ -20,7 +20,6 @@ use OpenCloud\Common\Exceptions\UnsupportedVersionError;
  */ 
 class Client extends GuzzleClient
 {
-    
     const VERSION = '1.7.0';
     const MINIMUM_PHP_VERSION = '5.3.0';
 

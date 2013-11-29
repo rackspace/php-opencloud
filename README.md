@@ -40,6 +40,8 @@ require 'vendor/autoload.php';
 
 And you're ready to go!
 
+You can also check out the [Getting Started guide](docs/getting-started.md) for a quick tutorial.
+
 - - -
 
 Alternatively, if you would like to fork or clone the repository into a directory (to work and submit pull requests),
@@ -64,18 +66,5 @@ You can also find assistance via IRC on #rackspace at freenode.net.
 
 Contributing
 ------------
-If you'd like to contribute, see the
-[Contributing guide](https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md) and the
-[TODO list](https://github.com/rackspace/php-opencloud/blob/master/TODO.md).
-
-Further Reading
----------------
-The file [docs/quickref.md](https://github.com/rackspace/php-opencloud/blob/master/docs/quickref.md) contains a Quick
-Reference guide to the **php-opencloud** library.
-
-The [samples/](https://github.com/rackspace/php-opencloud/tree/master/docs/samples/) directory has a collection
-of tested, working sample code. Note that these may create objects in your cloud
-for which you could be charged.
-
 If you'd like to contribute to the project, or require help running the unit/acceptance tests, please view the
 [contributing guidelines](https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md).
