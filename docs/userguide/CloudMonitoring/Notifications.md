@@ -60,7 +60,7 @@ foreach ($notifications as $notification) {
 }
 ```
 
-## Update and delete Notification
+## Update and delete Notifications
 ```php
 // Update
 $notification->update(array(
@@ -78,6 +78,7 @@ $notification->delete();
 Pretty self-explanatory. Rackspace Cloud Monitoring currently supports the following notification types:
 
 #### Webhook
+
 Industry-standard web hooks, where JSON is posted to a configurable URL. It has these attributes:
 
 Name|Description|Data type
@@ -85,6 +86,7 @@ Name|Description|Data type
 address|Email address to send notifications to|Valid email
 
 #### Email
+
 Email alerts where the message is delivered to a specified address. It has these attributes:
 
 Name|Description|Data type
@@ -96,21 +98,22 @@ url|An HTTP or HTTPS URL to POST to|Valid URL
 If you've already set up a main Notification object, and want to access functionality for this Notification's particular Notification Type, you can access its property:
 
 ```php
-$notificationType = $notification->type;
+$type = $notification->getNotificationType();
 ```
 
-This will be encapsulated in its own object. Alternatively, you can instantiate a fresh resource object:
+Alternatively, you can retrieve an independent resource using the  ID:
 
 ```php
-$notificationType = $monitoringService->resource('notificationType');
+$typeId = 'pagerduty';
+$type = $service->getNotificationType($typeId);
 ```
 
 ## List all possible notification types
 ```php
-$list = $notificationType->listAll();
+$types = $service->getNotificationTypes();
 
-while ($notificationType = $list->Next()) {
-	echo "{$notificationType->name} ({$notificationType->description})" . PHP_EOL;
+foreach ($types as $type) {
+	echo sprintf('%s %s', $type->getName(), $type->getDescription());
 }
 ```
 
@@ -135,7 +138,7 @@ $planId = 'npAAAA';
 $plan = $service->getNotificationPlan();
 ```
 
-### Attributes
+## Attributes
 
 Name|Description|Required?|Data type|Method
 ---|---|---|---|---
@@ -144,29 +147,19 @@ critical_state|The notification list to send to when the state is `CRITICAL`.|Op
 ok_state|The notification list to send to when the state is `OK`.|Optional|Array|`getOkState()`
 warning_state|The notification list to send to when the state is `WARNING`.|Optional|Array|`getWarningState()`
 
-### Create notification plan
+## Create Notification Plan
 ```php
 $plan->create(array(
-	'label' => 'New Notification Plan',
-    'critical_state' => array(
-        'ntAAAA'
-    ),
-    'ok_state' => array(
-    	'ntBBBB'
-    ),
-    'warning_state' => array(
-    	'ntCCCC'
-    )
+	'label'          => 'New Notification Plan',
+    'critical_state' => array('ntAAAA'),
+    'ok_state'       => array('ntBBBB'),
+    'warning_state'  => array('ntCCCC')
 ));
 ```
 
-### Get, update and delete notification plan
+## Update and delete Notification Plan
+
 ```php
-$plan->id = 'notificationPlanId';
-
-// Get data
-$plan->get();
-
 // Update
 $plan->update(array(
 	'label' => 'New label for my plan'
@@ -176,58 +169,35 @@ $plan->update(array(
 $plan->delete();
 ```
 
-# Alarm notification history
+# Alarm Notification History
+
+## Info
 
 The monitoring service keeps a record of notifications sent for each alarm. This history is further subdivided by the check on which the notification occurred. Every attempt to send a notification is recorded, making this history a valuable tool in diagnosing issues with unreceived notifications, in addition to offering a means of viewing the history of an alarm's statuses.
 
 Alarm notification history is accessible as a Time Series Collection. By default alarm notification history is stored for 30 days and the API queries the last 7 days of information.
 
-### Setup
+## Setup
+
+Notification History is a sub-resource of an Alarm. For more information about working with Alarms, please consult the relevant [documentation](Alarms.md).
+
+## Discover which Checks have a Notification History
+
+This operation list checks for which alarm notification history is available:
 
 ```php
-require_once 'path/to/lib/php-opencloud.php';
-
-use OpenCloud\OpenStack;
-use OpenCloud\CloudMonitoring\Service;
-
-$connection = new OpenStack(
-	RACKSPACE_US, // Set to whatever
-	array(
-		'username' => 'foo',
-		'password' => 'bar'
-	)
-);
-
-$monitoringService = new Service($connection);
+$checks = $alarm->getRecordedChecks();
 ```
 
-Please be aware that Notification History is a sub-resources of Entities **and** Alarms, so you will need to associate a Metric to its parent Alarm (with its own parent Entity) before exploiting its functionality.
-
+## List Alarm Notification History for a particular Check
 ```php
-// Find grandparent object (i.e. an Entity)
-$entity = $monitoringService->resource('entity');
-$entity->get('enAAAA'); // Get by ID
-
-// Find parent object (i.e. an Alarm)
-$alarm = $monitoringService->resource('alarm');
-$alarm->setParent($entity); // Associate first
-$alarm->get('alAAAA'); // Get by ID
-
-$history = $monitoringService->resource('notificationHistory');
-$history->setParent($alarm); // Associate
+$checkHistory = $alarm->getNotificationHistoryForCheck('chAAAA');
 ```
 
-### Discover notification history
+## Get a particular Notification History item
 ```php
-$checks = $history->listChecks;
-```
+$checkId  = 'chAAAA';
+$itemUuid = '646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26';
 
-### List Alarm Notification History for a check
-```php
-$checkHistory = $history->listHistory('chAAAA');
-```
-
-### Get an item of history
-```php
-$singleItem = $history->getSingleHistoryItem('chAAAA', '646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26');
+$singleItem = $history->getNotificationHistoryItem($checkId, $itemUuid);
 ```
