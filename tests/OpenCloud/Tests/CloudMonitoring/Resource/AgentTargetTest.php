@@ -47,9 +47,9 @@ class AgentTargetTest extends CloudMonitoringTestCase
         
         $targetArray = $this->resource->listAll();
 
-        $this->assertContains('/', $targetArray);
-        $this->assertContains('/sys/kernel/debug', $targetArray);
-        $this->assertContains('/var/lock', $targetArray);
+        $this->assertTrue($targetArray->valueExists('/'));
+        $this->assertTrue($targetArray->valueExists('/sys/kernel/debug'));
+        $this->assertTrue($targetArray->valueExists('/var/lock'));
     }
     
     /**
