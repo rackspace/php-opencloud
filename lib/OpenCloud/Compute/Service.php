@@ -161,8 +161,17 @@ class Service extends NovaService
      */
     public function imageList($details = true, array $filter = array()) 
     {
-        $url = $this->getUrl('images' . (($details) ? '/detail' : ''), $filter);
-        return $this->collection('OpenCloud\Compute\Resource\Image', $url);
+        $url = clone $this->getUrl();
+
+        if ($details === true) {
+            $url->addPath('detail');
+        }
+
+        if (count($filter)) {
+            $url->setQuery($filter);
+        }
+
+        return $this->resourceList('Image', $url);
     }
 
     
