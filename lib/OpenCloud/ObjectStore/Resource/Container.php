@@ -259,15 +259,17 @@ class Container extends AbstractContainer
         $this->setMetadata($headers, true);
         
         try {
-            
-            $cdn = new CDNContainer($this->getService()->getCDNService());
-            $cdn->setName($this->name);
-            
-            $response = $cdn->createRefreshRequest()->send();
-            
-            if ($response->isSuccessful()) {
-                $this->cdn = $cdn;
-                $this->cdn->setMetadata($response->getHeaders(), true);
+
+            if (null !== ($cdnService = $this->getService()->getCDNService())) {
+                $cdn = new CDNContainer($this->getService()->getCDNService());
+                $cdn->setName($this->name);
+                
+                $response = $cdn->createRefreshRequest()->send();
+                
+                if ($response->isSuccessful()) {
+                    $this->cdn = $cdn;
+                    $this->cdn->setMetadata($response->getHeaders(), true);
+                }
             }
             
         } catch (ClientErrorResponseException $e) {}   
