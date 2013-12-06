@@ -20,7 +20,7 @@ To access all of the available images on a given compute instance, the
 `ImageList` [Collection](collections.md) is used:
 
     $imlist = $compute->ImageList();
-    foreach($image = $imlist->Next())
+    while($image = $imlist->Next())
         printf("Image: %s id=%s\n", $image->name, $image->id);
 
 This prints a list of all of the accessible images for your account in the
