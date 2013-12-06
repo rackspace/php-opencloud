@@ -114,9 +114,13 @@ class PaginatedIterator extends ResourceIterator implements Iterator
         if (!$this->valid()) {
             return false;
         }
+
+        $current = $this->current();
+
         $this->position++;
         $this->updateMarkerToCurrent();
-        return $this->current();
+
+        return $current;
     }
 
     /**

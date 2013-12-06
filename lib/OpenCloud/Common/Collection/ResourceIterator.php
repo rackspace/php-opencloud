@@ -160,7 +160,7 @@ class ResourceIterator extends ArrayCollection implements Iterator
     public function constructResource($object)
     {
         $className = $this->getOption('resourceClass');
-
+//var_dump($object->name);
         if (substr_count($className, '\\')) {
             $array = explode('\\', $className);
             $className = end($array);

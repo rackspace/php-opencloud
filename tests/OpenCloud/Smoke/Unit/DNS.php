@@ -13,7 +13,6 @@ use OpenCloud\Smoke\Enum;
 
 class DNS extends AbstractUnit implements UnitInterface
 {
-
     public function setupService()
     {
         return $this->getConnection()->dnsService();
