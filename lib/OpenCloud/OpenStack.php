@@ -292,8 +292,8 @@ class OpenStack extends Client
         $this->setExpiration(strtotime($body->access->token->expires));
         $this->setCatalog($body->access->serviceCatalog);
         
-        // Add to default headers for future reference
-        $this->setDefaultOption('headers/X-Auth-Token', (string) $this->getToken());
+        // Set X-Auth-Token HTTP request header
+        $this->updateTokenHeader();
 
         /**
          * In some cases, the tenant name/id is not returned
@@ -340,6 +340,7 @@ class OpenStack extends Client
     {
         if (!empty($values['token'])) {
             $this->setToken($values['token']);
+            $this->updateTokenHeader();
         }
         if (!empty($values['expiration'])) {
             $this->setExpiration($values['expiration']);
@@ -350,6 +351,18 @@ class OpenStack extends Client
         if (!empty($values['catalog'])) {
             $this->setCatalog($values['catalog']);
         }
+    }
+
+    /**
+     * Sets the X-Auth-Token header. If no value is explicitly passed in, the current token is used.
+     *
+     * @param  string $token Optional value of token.
+     * @return void
+     */
+    private function updateTokenHeader($token = null)
+    {
+        $token = $token ?: $this->getToken();
+        $this->setDefaultOption('headers/X-Auth-Token', (string) $token);
     }
 
     /**
