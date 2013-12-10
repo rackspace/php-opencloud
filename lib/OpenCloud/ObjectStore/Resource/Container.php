@@ -18,6 +18,7 @@ use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
+use OpenCloud\ObjectStore\Upload\DirectorySync;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
 use OpenCloud\Common\Http\Message\Formatter;
 
@@ -318,6 +319,26 @@ class Container extends AbstractContainer
     }
 
     /**
+     * Essentially the same as {@see getObject()}, except only the metadata is fetched from the API.
+     * This is useful for cases when the user does not want to fetch the full entity body of the
+     * object, only its metadata.
+     *
+     * @param       $name
+     * @param array $headers
+     * @return $this
+     */
+    public function getPartialObject($name, array $headers = array())
+    {
+        $response = $this->getClient()
+            ->head($this->getUrl($name), $headers)
+            ->send();
+
+        return $this->dataObject()
+            ->populateFromResponse($response)
+            ->setName($name);
+    }
+
+    /**
      * Upload a single file to the API.
      *
      * @param       $name    Name that the file will be saved as in your container.
@@ -450,6 +471,22 @@ class Container extends AbstractContainer
         }
 
         return $transfer->build();
+    }
+
+    /**
+     * Upload the contents of a local directory to a remote container, effectively syncing them.
+     * You have the opportunity to replace the API with the local version (i.e. replacing out-of-sync
+     * files, and deleting those that do not exist locally); or merely uploading new files.
+     *
+     * @param      $path     The local path to the directory.
+     * @param bool $replace  If set to TRUE, the operation will upload new files, replace existing ones, and delete
+     *                       files on the API that do not exist locally - i.e. a hard replace. If set to FALSE, the
+     *                       operation will only upload new files - i.e. append contents.
+     */
+    public function uploadDirectory($path, $replace = true)
+    {
+        $sync = DirectorySync::factory($path, $this);
+        $sync->execute();
     }
 
 }

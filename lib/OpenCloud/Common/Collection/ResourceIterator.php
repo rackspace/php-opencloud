@@ -160,7 +160,7 @@ class ResourceIterator extends ArrayCollection implements Iterator
     public function constructResource($object)
     {
         $className = $this->getOption('resourceClass');
-//var_dump($object->name);
+
         if (substr_count($className, '\\')) {
             $array = explode('\\', $className);
             $className = end($array);
@@ -212,6 +212,21 @@ class ResourceIterator extends ArrayCollection implements Iterator
      */
     public function sort()
     {
+    }
+
+    public function search(callable $callback)
+    {
+        $return = false;
+
+        foreach ($this->elements as $element) {
+            $resource = $this->constructResource($element);
+            if (call_user_func($callback, $resource) === true) {
+                $return = $resource;
+                break;
+            }
+        }
+
+        return $return;
     }
 
 }

@@ -17,7 +17,7 @@ $server   = $service->server($serverId);
 
 ## List servers
 
-You can list servers in two different ways: one operation returns an overview for each server (ID, name and links); the other returns detailed information for each server.
+You can list servers in two different ways: one operation returns an _overview_ for each server (ID, name and links), and the other returns _detailed information_ for each server.
 
 ```php
 // overview

@@ -269,5 +269,18 @@ class ContainerTest extends ObjectStoreTestCase
         $this->assertEquals(50, $container->getCountQuota());
         $this->assertEquals(50 * 1024, $container->getBytesQuota());
     }
-    
+
+    /**
+     * @mockFile Object_Metadata
+     */
+    public function test_Partial_Object()
+    {
+        $object = $this->container->getPartialObject('test.foo');
+
+        $this->assertEquals('', (string) $object->getContent());
+        $this->assertNotNull($object->getLastModified());
+    }
+
+
+
 }
