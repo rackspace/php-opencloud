@@ -22,7 +22,7 @@ class Compute extends AbstractUnit implements UnitInterface
 {
     const NETWORK_NAME = 'FooNetwork';
     const VOLUME_NAME  = 'FooVolume';
-    const VOLUME_SIZE  = 103;
+    const VOLUME_SIZE  = 100;
     const SERVER_NAME  = 'FooServer';
     const SNAPSHOT_NAME = 'FooSnapshot';
 
@@ -38,7 +38,7 @@ class Compute extends AbstractUnit implements UnitInterface
         $flavorList = $this->getService()->flavorList();
         $flavorList->sort('id');
         foreach ($flavorList as $flavor) {
-            $this->stepInfo('%s: %sMB', $flavor->name, $flavor->ram);
+            $this->stepInfo('%s: %sMB, ID: [%s]', $flavor->name, $flavor->ram, $flavor->id);
         }
 
         // Images
@@ -46,12 +46,8 @@ class Compute extends AbstractUnit implements UnitInterface
         $imageList = $this->getService()->imageList();
         //$imageList->sort('name');
         foreach ($imageList as $image) {
-            $this->stepInfo($image->name);
-            // save a CentOS image for later
-            if (!isset($centos) 
-                && isset($image->metadata->os_distro) 
-                && $image->metadata->os_distro == 'centos'
-            ) {
+            $this->stepInfo('%s; ID: [%s]; OS distro: [%s]', $image->name, $image->id, $image->metadata->os_distro);
+            if (isset($image->metadata->os_distro) && $image->metadata->os_distro == 'centos') {
                 $centos = $image;
             }
         }

@@ -192,7 +192,7 @@ class Runner
         $identityEndpoint = Utils::getIdentityEndpoint();
         
         // Do connection stuff
-        $connection = new Rackspace($identityEndpoint, $secret);
+        $client = new Rackspace($identityEndpoint, $secret);
         $connection->setUserAgent($connection->getUserAgent() . '/' . Enum::USER_AGENT);
         $connection->authenticate();
 

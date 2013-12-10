@@ -25,6 +25,7 @@
         "guzzle/http" : "3.7.*@dev"
     },
     "require-dev" : {
-        "guzzle/plugin-mock" : "3.7.*@dev"
+        "guzzle/plugin-mock": "3.7.*@dev",
+        "guzzle/plugin-log": "3.7.*@dev"
     }
 }
