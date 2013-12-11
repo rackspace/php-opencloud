@@ -102,8 +102,8 @@ As you can see, there are a lot of configuration parameters to pass in - and get
 
 There are certain configuration options that the paginated iterator needs to work. These are:
 
-Name|Description|Type|Required|Default
----|---|---|---|---
+Name|Description|Type|Required|Default|
+---|---|---|---|---|
 resourceClass|The resource class that is instantiated when the current element is retrieved. This is relative to the parent/service which called the iterator.|string|Yes|-
 baseUrl|The base URL that is used for making new calls to the API for new pages|`Guzzle\Http\Url`|Yes|-
 limit.total|The total amount of resources you want to traverse in your collection. The iterator will stop as this limit is reached, regardless if there are more items in the list|int|No|10000
