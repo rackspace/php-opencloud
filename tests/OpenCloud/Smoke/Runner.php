@@ -11,6 +11,8 @@
 
 namespace OpenCloud\Smoke;
 
+use Guzzle\Log\PsrLogAdapter;
+use Guzzle\Plugin\Log\LogPlugin;
 use OpenCloud\Rackspace;
 
 /**
@@ -156,7 +158,7 @@ class Runner
     
     public function executeTemplate()
     {
-        $connection = $this->createConnection();
+        $client = $this->createClient();
         
         foreach ($this->included as $unit) {
             
@@ -176,11 +178,11 @@ class Runner
             
             Utils::logf(PHP_EOL . 'Executing %s', $class);
             
-            $class::factory($connection, $this->included);
+            $class::factory($client, $this->included);
         }
     }
     
-    private function createConnection()
+    private function createClient()
     {
         Utils::log('Authenticate'); 
         
@@ -193,50 +195,16 @@ class Runner
         
         // Do connection stuff
         $client = new Rackspace($identityEndpoint, $secret);
-        $connection->setUserAgent($connection->getUserAgent() . '/' . Enum::USER_AGENT);
-        $connection->authenticate();
+        $client->setUserAgent($client->getUserAgent() . '/' . Enum::USER_AGENT);
+        $client->addSubscriber(new LogPlugin(new PsrLogAdapter(new Logger)));
 
-//        // See if we can retrieve credentials
-//        $credentialsCacheFile = __DIR__ . '/Resource/' . Enum::CREDS_FILENAME;
-//
-//        try {
-//            $fp = fopen($credentialsCacheFile, 'r');
-//        } catch (Exception $e) {}
-//
-//        // Does the credentials file already exist?
-//        if (!$fp || !($size = filesize($credentialsCacheFile))) {
-//
-//            // If not, can we create a new one?
-//            if (!is_writable($credentialsCacheFile)
-//                || false === ($fp = fopen($credentialsCacheFile, 'w'))
-//            ) {
-//                throw new SmokeException(sprintf(
-//                    'Credentials file [%s] cannot be written to',
-//                    $credentialsCacheFile
-//                ));
-//            }
-//
-//            Utils::logf('   Saving credentials to %s', $credentialsCacheFile);
-//
-//            // Save credentials
-//            fwrite($fp, serialize($connection->exportCredentials()));
-//
-//        } else {
-//
-//            Utils::logf('   Loading credentials from %s', $credentialsCacheFile);
-//
-//            // Read from file
-//            $string = fread($fp, $size);
-//            $connection->importCredentials(unserialize($string));
-//        }
-//
-//        fclose($fp);
-        
+        $client->authenticate();
+
         Utils::logf('   Using identity endpoint: %s', $identityEndpoint);
         Utils::logf('   Using region: %s', Utils::getRegion());
-        Utils::logf('   Token generated: %s', (string) $connection->getToken());
+        Utils::logf('   Token generated: %s', (string) $client->getToken());
         
-        return $connection;
+        return $client;
     }
         
 }

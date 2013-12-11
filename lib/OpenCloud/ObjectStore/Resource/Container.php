@@ -475,15 +475,10 @@ class Container extends AbstractContainer
 
     /**
      * Upload the contents of a local directory to a remote container, effectively syncing them.
-     * You have the opportunity to replace the API with the local version (i.e. replacing out-of-sync
-     * files, and deleting those that do not exist locally); or merely uploading new files.
      *
-     * @param      $path     The local path to the directory.
-     * @param bool $replace  If set to TRUE, the operation will upload new files, replace existing ones, and delete
-     *                       files on the API that do not exist locally - i.e. a hard replace. If set to FALSE, the
-     *                       operation will only upload new files - i.e. append contents.
+     * @param $path The local path to the directory.
      */
-    public function uploadDirectory($path, $replace = true)
+    public function uploadDirectory($path)
     {
         $sync = DirectorySync::factory($path, $this);
         $sync->execute();
