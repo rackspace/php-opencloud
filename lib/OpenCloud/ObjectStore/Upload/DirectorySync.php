@@ -1,4 +1,11 @@
 <?php
+/**
+ * PHP OpenCloud library.
+ *
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\ObjectStore\Upload;
 
@@ -8,12 +15,34 @@ use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\ObjectStore\Resource\Container;
 
+/**
+ * DirectorySync upload class, in charge of creating, replacing and delete data objects on the API. The goal of
+ * this execution is to sync local directories with remote CloudFiles containers so that they are consistent.
+ *
+ * @package OpenCloud\ObjectStore\Upload
+ */
 class DirectorySync
 {
+    /**
+     * @var string The path to the directory you're syncing.
+     */
     private $basePath;
+    /**
+     * @var ResourceIterator A collection of remote files in Swift.
+     */
     private $remoteFiles;
+    /**
+     * @var AbstractContainer The Container object you are syncing.
+     */
     private $container;
 
+    /**
+     * Basic factory method to instantiate a new DirectorySync object with all the appropriate properties.
+     *
+     * @param           $path      The local path
+     * @param Container $container The container you're syncing
+     * @return DirectorySync
+     */
     public static function factory($path, Container $container)
     {
         $transfer = new self();
@@ -24,6 +53,10 @@ class DirectorySync
         return $transfer;
     }
 
+    /**
+     * @param $path
+     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
     public function setBasePath($path)
     {
         if (!file_exists($path)) {
@@ -33,16 +66,31 @@ class DirectorySync
         $this->basePath = $path;
     }
 
+    /**
+     * @param ResourceIterator $remoteFiles
+     */
     public function setRemoteFiles(ResourceIterator $remoteFiles)
     {
         $this->remoteFiles = $remoteFiles;
     }
 
+    /**
+     * @param Container $container
+     */
     public function setContainer(Container $container)
     {
         $this->container = $container;
     }
 
+    /**
+     * Execute the sync process. This will collect all the remote files from the API and do a comparison. There are
+     * four scenarios that need to be dealt with:
+     *
+     * - Exists locally, exists remotely (identical checksum) = no action
+     * - Exists locally, exists remotely (diff checksum) = local overwrites remote
+     * - Exists locally, not exists remotely = local is written to remote
+     * - Not exists locally, exists remotely = remote file is deleted
+     */
     public function execute()
     {
         $localFiles = $this->traversePath($this->basePath);
@@ -95,6 +143,12 @@ class DirectorySync
         $this->container->getService()->bulkDelete($deletePaths);
     }
 
+    /**
+     * Given a path, traverse it recursively for nested files.
+     *
+     * @param $path
+     * @return array
+     */
     private function traversePath($path)
     {
         $filenames = array();
@@ -115,11 +169,23 @@ class DirectorySync
         return $filenames;
     }
 
+    /**
+     * Given a path, trim away leading slashes and strip the base path.
+     *
+     * @param $file
+     * @return string
+     */
     private function trimFilename($file)
     {
         return ltrim(str_replace($this->basePath, '', $file->getPathname()), '/');
     }
 
+    /**
+     * Get the callback used to do a search function on the remote iterator.
+     *
+     * @param $name     The name of the file we're looking for.
+     * @return callable
+     */
     private function getCallback($name)
     {
         $name = trim($name, '/');

@@ -147,3 +147,21 @@ access your objects, where they come from, how many requests for each object you
 $container->enableLogging();
 $container->disableLogging();
 ```
+
+## Syncing containers
+
+You can synchronize local directories with your CloudFiles/Swift containers very easily. When you do this, the container
+will mirror exactly the nested file structure within your local directory:
+
+```php
+$container->uploadDirectory('/home/Jamie/blog');
+```
+
+There are four scenarios you should be aware of:
+
+Local|Remote|Comparison|Action
+---|---|---|---
+File exists|File exists|Identical checksum|No action
+File exists|File exists|Different checksum|Local file overwrites remote
+File exists|File does not exist|-|Local file created in Swift
+Files does not exist|File exists|-|Remote file deleted
