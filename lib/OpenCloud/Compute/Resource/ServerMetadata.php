@@ -108,7 +108,7 @@ class ServerMetadata extends Metadata
     {
         return $this->getParent()
             ->getClient()
-            ->put($this->url(), array(), $this->getMetadataJson())
+            ->put($this->getUrl(), self::getJsonHeader(), $this->getMetadataJson())
             ->send();
     }
 
@@ -123,7 +123,7 @@ class ServerMetadata extends Metadata
     {
         return $this->getParent()
             ->getClient()
-            ->post($this->url(), array(), $this->getMetadataJson())
+            ->post($this->getUrl(), self::getJsonHeader(), $this->getMetadataJson())
             ->send();
     }
 
@@ -136,7 +136,7 @@ class ServerMetadata extends Metadata
      */
     public function delete()
     {
-        return $this->getParent()->getClient()->delete($this->url(), array());
+        return $this->getParent()->getClient()->delete($this->getUrl(), array());
     }
 
     public function __set($key, $value)
@@ -146,7 +146,7 @@ class ServerMetadata extends Metadata
         if ($this->key && $key != $this->key) {
             throw new Exceptions\MetadataKeyError(sprintf(
                 Lang::translate('You cannot set extra values on [%s]'),
-                $this->Url()
+                $this->getUrl()
             ));
         }
 

@@ -55,7 +55,7 @@ class Zone extends ReadOnlyResource
         try {
             $response = $this->getService()
                 ->getClient()
-                ->post($this->url('traceroute'), array(), json_encode($params))
+                ->post($this->url('traceroute'), self::getJsonHeader(), json_encode($params))
                 ->send();
 
             $body = Formatter::decode($response);

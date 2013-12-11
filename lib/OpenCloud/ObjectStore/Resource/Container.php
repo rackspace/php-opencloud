@@ -249,8 +249,10 @@ class Container extends AbstractContainer
      */
     public function disableCdn()
     {
+        $headers = array('X-CDN-Enabled' => 'False');
+
         return $this->getClient()
-            ->put($this->getCdnService()->getUrl($this->name), array('X-CDN-Enabled' => 'False'))
+            ->put($this->getCdnService()->getUrl($this->name), $headers)
             ->send();
     }
 

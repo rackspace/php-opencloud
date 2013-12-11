@@ -161,7 +161,7 @@ abstract class AbstractResource extends Base
      */
     public function saveMetadata(array $metadata)
     {
-        $headers = self::stockHeaders($metadata);
+        $headers = self::stockHeaders($metadata) + self::getJsonHeader();
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
@@ -190,9 +190,11 @@ abstract class AbstractResource extends Base
     {
         $header = sprintf('%s-Remove-%s-Meta-%s', self::GLOBAL_METADATA_PREFIX, 
             static::METADATA_LABEL, $key);
-        
+
+        $headers = array($header => 'True');
+
         return $this->getClient()
-            ->post($this->getUrl(), array($header => 'True'))
+            ->post($this->getUrl(), $headers)
             ->send();
     }
 

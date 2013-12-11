@@ -29,20 +29,8 @@ class RequestSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            'request.before_send'    => 'ensureContentType',
             'curl.callback.progress' => 'doCurlProgress'
         );
-    }
-
-    public function ensureContentType(Event $event)
-    {
-        if ($event['request'] instanceof EntityEnclosingRequest
-            && $event['request']->getBody()
-            && $event['request']->getBody()->getContentLength()
-            && !$event['request']->hasHeader(Header::CONTENT_TYPE)
-        ) {
-            $event['request']->setHeader(Header::CONTENT_TYPE, 'application/json');
-        }
     }
 
     /**

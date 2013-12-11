@@ -78,7 +78,7 @@ abstract class AbstractResource extends PersistentObject
         // send the request
         $response = $this->getService()
             ->getClient()
-            ->post($this->testUrl($debug), array(), $json)
+            ->post($this->testUrl($debug), self::getJsonHeader(), $json)
             ->send();
 
         return Formatter::decode($response);
@@ -97,7 +97,7 @@ abstract class AbstractResource extends PersistentObject
         $this->checkJsonError();
 
         $response = $this->getClient()
-            ->post($this->testExistingUrl($debug), array(), $json)
+            ->post($this->testExistingUrl($debug), self::getJsonHeader(), $json)
             ->send();
 
         return Formatter::decode($response);

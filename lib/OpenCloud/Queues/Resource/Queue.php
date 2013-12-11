@@ -128,7 +128,7 @@ class Queue extends PersistentObject
 
         $json = json_encode((object) $this->getMetadata()->toArray());
 
-        return $this->getClient()->put($this->getUrl('metadata'), array(), $json)->send();
+        return $this->getClient()->put($this->getUrl('metadata'), self::getJsonHeader(), $json)->send();
     }
     
     /**
@@ -236,7 +236,7 @@ class Queue extends PersistentObject
         $this->checkJsonError();
         
         $response = $this->getClient()
-            ->post($this->getUrl('messages'), array(), $json)
+            ->post($this->getUrl('messages'), self::getJsonHeader(), $json)
             ->send();
 
         if (null !== ($location = $response->getHeader('Location'))) {
@@ -339,7 +339,7 @@ class Queue extends PersistentObject
         
         $url = $this->getUrl('claims', array('limit' => $limit));
 
-        $response = $this->getClient()->post($url, array(), $json)->send();
+        $response = $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
 
         if ($response->getStatusCode() == 204) {
             return false;

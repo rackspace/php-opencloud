@@ -14,6 +14,8 @@ use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Exceptions\JsonError;
 use OpenCloud\Common\Exceptions\UrlError;
 use OpenCloud\Common\Collection\ResourceIterator;
+use OpenCloud\Common\Constants\Header as HeaderConst;
+use OpenCloud\Common\Constants\Mime as MimeConst;
 
 /**
  * The root class for all other objects used or defined by this SDK.
@@ -421,6 +423,11 @@ abstract class Base
     {
         $array = explode('\\', $namespace);
         return end($array);
+    }
+
+    protected static function getJsonHeader()
+    {
+        return array(HeaderConst::CONTENT_TYPE => MimeConst::JSON);
     }
 
 }

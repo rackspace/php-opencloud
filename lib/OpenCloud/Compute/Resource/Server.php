@@ -327,7 +327,7 @@ class Server extends PersistentObject
                 (object) array('retention' => $retention)
             );
             $body = json_encode($object);
-            $request = $this->getClient()->post($url, array(), $body);
+            $request = $this->getClient()->post($url, self::getJsonHeader(), $body);
         }
 
         $body = Formatter::decode($request->send());

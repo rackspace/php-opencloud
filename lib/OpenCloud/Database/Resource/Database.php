@@ -106,7 +106,7 @@ class Database extends PersistentObject
         $this->checkJsonError();
 
         // POST it off
-        return $this->getClient()->post($url, array(), $json)->send();
+        return $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
     }
 
     /**

@@ -122,7 +122,7 @@ class Claim extends PersistentObject
         $json = json_encode($object);
         $this->checkJsonError();
 
-        return $this->getClient()->patch($this->url(), array(), $json)->send();
+        return $this->getClient()->patch($this->url(), self::getJsonHeader(), $json)->send();
     }
     
 }

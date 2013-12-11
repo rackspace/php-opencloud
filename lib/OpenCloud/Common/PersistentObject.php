@@ -72,7 +72,6 @@ use OpenCloud\Common\Http\Message\Formatter;
  */
 abstract class PersistentObject extends Base
 {
-      
     private $service;
     private $parent;
     protected $metadata;
@@ -182,7 +181,7 @@ abstract class PersistentObject extends Base
 
         $createUrl = $this->createUrl();
 
-        $response = $this->getClient()->post($createUrl, array(), $json)->send();
+        $response = $this->getClient()->post($createUrl, self::getJsonHeader(), $json)->send();
 
         // We have to try to parse the response body first because it should have precedence over a Location refresh.
         // I'd like to reverse the order, but Nova instances return ephemeral properties on creation which are not
@@ -233,7 +232,7 @@ abstract class PersistentObject extends Base
         $this->checkJsonError();
 
         // send the request
-        return $this->getClient()->put($this->getUrl(), array(), $json)->send();
+        return $this->getClient()->put($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
 
     /**
@@ -417,7 +416,7 @@ abstract class PersistentObject extends Base
         $url = $this->url('action');
 
         // POST the message
-        return $this->getClient()->post($url, array(), $json)->send();
+        return $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
     }
 
      /**

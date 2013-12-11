@@ -85,7 +85,7 @@ class Alarm extends AbstractResource
 
         $response = $this->getService()
             ->getClient()
-            ->post($url, array(), $body)
+            ->post($url, self::getJsonHeader(), $body)
             ->send();
 
         return Formatter::decode($response);
