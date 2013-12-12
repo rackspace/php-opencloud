@@ -107,6 +107,9 @@ class DirectorySync
             $callback = $this->getCallback($filename);
 
             $filePath   = rtrim($this->basePath, '/') . '/' . $filename;
+
+            if (!is_readable($filePath)) continue;
+
             $entityBody = EntityBody::factory(fopen($filePath, 'r+'));
 
             if (false !== ($remoteFile = $this->remoteFiles->search($callback))) {
