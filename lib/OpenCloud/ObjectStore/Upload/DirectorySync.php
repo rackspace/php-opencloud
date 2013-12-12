@@ -113,7 +113,7 @@ class DirectorySync
                 continue;
             }
 
-            $entityBody = EntityBody::factory(fopen($filePath, 'r+'));
+            $entities[] = $entityBody = EntityBody::factory(fopen($filePath, 'r+'));
 
             if (false !== ($remoteFile = $this->remoteFiles->search($callback))) {
                 // if different, upload updated version
@@ -132,8 +132,6 @@ class DirectorySync
 
                 $requests[] = $this->container->getClient()->put($url, array(), $entityBody);
             }
-
-            unset($entityBody);
         }
 
         // Handle DELETE requests
