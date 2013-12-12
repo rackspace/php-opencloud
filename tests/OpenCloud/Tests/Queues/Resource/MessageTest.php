@@ -36,9 +36,10 @@ class MessageTest extends QueuesTestCase
         
         $this->assertEquals('foo', $this->message->getId());
         $this->assertEquals('bar', $this->message->getBody());
-        
-        $this->message->getHref();
-        $this->message->getAge();
+
+        $this->assertNotEmpty($this->message->getHref());
+        $this->assertNotEmpty($this->message->getAge());
+        $this->assertFalse($this->message->claimId());
     }
     
     public function test_Batch_Create()
@@ -83,5 +84,9 @@ class MessageTest extends QueuesTestCase
         $this->message->setId('foo');
         $this->message->delete();
     }
-        
+
+    public function test_Extract_ClaimId() {
+        $this->message->setHref("/foo/bar/baz?claim_id=123456789");
+        $this->assertEquals("123456789", $this->message->claimId());
+    }
 }
