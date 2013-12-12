@@ -9,6 +9,7 @@
 
 namespace OpenCloud\Queues\Resource;
 
+use Guzzle\Http\Url;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Queues\Exception\DeleteMessageException;
 
@@ -78,6 +79,14 @@ class Message extends PersistentObject
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getHref()
+    {
+        return $this->href;
+    }
+
     public function createJson()
     {
         return (object) array(
@@ -124,5 +133,17 @@ class Message extends PersistentObject
         
         return true;
     }
-    
+
+
+    /**
+     * If this message has been claimed, retrieve the claim id.
+     *
+     * @return string
+     */
+    public function getClaimIdFromHref()
+    {
+        $url = Url::factory($this->href);
+        return $url->getQuery()->get('claim_id');
+    }
+
 }

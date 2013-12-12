@@ -13,6 +13,7 @@ use DirectoryIterator;
 use Guzzle\Http\EntityBody;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\Common\Exceptions\IOError;
 use OpenCloud\ObjectStore\Resource\Container;
 
 /**
@@ -98,6 +99,7 @@ class DirectorySync
         $this->remoteFiles->rewind();
         $this->remoteFiles->populateAll();
 
+        $entities = array();
         $requests = array();
         $deletePaths = array();
 
@@ -105,9 +107,13 @@ class DirectorySync
         foreach ($localFiles as $filename) {
 
             $callback = $this->getCallback($filename);
+            $filePath = rtrim($this->basePath, '/') . '/' . $filename;
 
-            $filePath   = rtrim($this->basePath, '/') . '/' . $filename;
-            $entityBody = EntityBody::factory(fopen($filePath, 'r+'));
+            if (!is_readable($filePath)) {
+                continue;
+            }
+
+            $entities[] = $entityBody = EntityBody::factory(fopen($filePath, 'r+'));
 
             if (false !== ($remoteFile = $this->remoteFiles->search($callback))) {
                 // if different, upload updated version
@@ -137,10 +143,21 @@ class DirectorySync
         }
 
         // send update/create requests
-        $this->container->getClient()->send($requests);
+        if (count($requests)) {
+            $this->container->getClient()->send($requests);
+        }
 
         // bulk delete
-        $this->container->getService()->bulkDelete($deletePaths);
+        if (count($deletePaths)) {
+            $this->container->getService()->bulkDelete($deletePaths);
+        }
+
+        // close all streams
+        if (count($entities)) {
+            foreach ($entities as $entity) {
+                $entity->close();
+            }
+        }
     }
 
     /**
