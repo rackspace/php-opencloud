@@ -107,6 +107,9 @@ class DirectorySync
             $callback = $this->getCallback($filename);
 
             $filePath   = rtrim($this->basePath, '/') . '/' . $filename;
+
+            if (!is_readable($filePath)) continue;
+
             $entityBody = EntityBody::factory(fopen($filePath, 'r+'));
 
             if (false !== ($remoteFile = $this->remoteFiles->search($callback))) {
@@ -115,7 +118,7 @@ class DirectorySync
                     $requests[] = $this->container->getClient()->put(
                         $remoteFile->getUrl(),
                         $remoteFile->getMetadata()->toArray(),
-                        $entityBody
+                        (string) $entityBody
                     );
                 }
 
@@ -124,7 +127,7 @@ class DirectorySync
                 $url = clone $this->container->getUrl();
                 $url->addPath($filename);
 
-                $requests[] = $this->container->getClient()->put($url, array(), $entityBody);
+                $requests[] = $this->container->getClient()->put($url, array(), (string) $entityBody);
             }
         }
 
