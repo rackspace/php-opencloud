@@ -118,7 +118,7 @@ class DirectorySync
                     $requests[] = $this->container->getClient()->put(
                         $remoteFile->getUrl(),
                         $remoteFile->getMetadata()->toArray(),
-                        $entityBody
+                        (string) $entityBody
                     );
                 }
 
@@ -127,7 +127,7 @@ class DirectorySync
                 $url = clone $this->container->getUrl();
                 $url->addPath($filename);
 
-                $requests[] = $this->container->getClient()->put($url, array(), $entityBody);
+                $requests[] = $this->container->getClient()->put($url, array(), (string) $entityBody);
             }
         }
 
