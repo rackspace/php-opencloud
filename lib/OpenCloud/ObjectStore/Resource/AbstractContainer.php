@@ -86,4 +86,40 @@ abstract class AbstractContainer extends AbstractResource
         return $this->getClient()->head($this->getUrl(), array('Accept' => '*/*'));
     }
 
+    /**
+     * This method will enable your CDN-enabled container to serve out HTML content like a website.
+     *
+     * @param $indexPage The data object name (i.e. a .html file) that will serve as the main index page.
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function setStaticIndexPage($page)
+    {
+        if ($this instanceof CDNContainer) {
+            $this->getLogger()->warning(
+                'This method cannot be called on the CDN object - please execute it on the normal Container'
+            );
+        }
+
+        $headers = array('X-Container-Meta-Web-Index' => $page);
+        return $this->getClient()->post($this->getUrl(), $headers)->send();
+    }
+
+    /**
+     * Set the default error page for your static site.
+     *
+     * @param $name The data object name (i.e. a .html file) that will serve as the main error page.
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function setStaticErrorPage($page)
+    {
+        if ($this instanceof CDNContainer) {
+            $this->getLogger()->warning(
+                'This method cannot be called on the CDN object - please execute it on the normal Container'
+            );
+        }
+
+        $headers = array('X-Container-Meta-Web-Error' => $page);
+        return $this->getClient()->post($this->getUrl(), $headers)->send();
+    }
+
 }
