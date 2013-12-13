@@ -122,11 +122,6 @@ class Node extends PersistentObject
         return get_class() . '[' . $this->Id() . ']';
     }
 
-    /**
-     * returns the object for the Create JSON
-     *
-     * @return \stdClass
-     */
     protected function createJson() 
     {
         $nodes = (object) array('node' => new \stdClass);
@@ -135,6 +130,21 @@ class Node extends PersistentObject
         }
         
         return (object) array('nodes' => array($nodes));
+    }
+
+    protected function updateJson($params = array())
+    {
+        if ($this->condition) {
+            $params['condition'] = $this->condition;
+        }
+        if ($this->type) {
+            $params['type'] = $this->type;
+        }
+        if ($this->weight) {
+            $params['weight'] = $this->weight;
+        }
+
+        return (object) array('node' => (object) $params);
     }
 
     /**
