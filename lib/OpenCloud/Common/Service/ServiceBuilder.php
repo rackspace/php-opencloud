@@ -30,8 +30,15 @@ class ServiceBuilder
     public static function factory(Client $client, $class, array $options = array())
     {
         $name = isset($options['name']) ? $options['name'] : null;
-        $region = isset($options['region']) ? $options['region'] : null;
         $urlType = isset($options['urlType']) ? $options['urlType'] : null;
+
+        if (isset($options['region'])) {
+            $region = $options['region'];
+        } elseif () {
+
+        } else {
+            $region = null;
+        }
 
         return new $class($client, null, $name, $region, $urlType);
     }

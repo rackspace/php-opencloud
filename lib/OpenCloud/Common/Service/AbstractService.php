@@ -30,7 +30,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 abstract class AbstractService extends Base
 {
-    const DEFAULT_REGION   = 'DFW';
     const DEFAULT_URL_TYPE = 'publicURL';
     
     /**
@@ -84,16 +83,19 @@ abstract class AbstractService extends Base
      * @param Client $client  Client object
      * @param string $type    Service type (e.g. 'compute')
      * @param string $name    Service name (e.g. 'cloudServersOpenStack')
-     * @param string $region  Service region (e.g. 'DFW', 'ORD', 'IAD', 'LON', 'SYD')
+     * @param string $region  Service region (e.g. 'DFW', 'ORD', 'IAD', 'LON', 'SYD' or 'HKG')
      * @param string $urlType Either 'publicURL' or 'privateURL'
      */
     public function __construct(Client $client, $type = null, $name = null, $region = null, $urlType = null)
     {
         $this->setClient($client);
 
+        if (!$this->region = $region) {
+            throw new Exceptions\InvalidArgumentError('A region must be provided when instantiating a service');
+        }
+
         $this->type = $type ?: static::DEFAULT_TYPE;
         $this->name = $name ?: static::DEFAULT_NAME;
-        $this->region = $region ?: static::DEFAULT_REGION;
         $this->urlType = $urlType ?: static::DEFAULT_URL_TYPE;
 
         $this->endpoint = $this->findEndpoint();

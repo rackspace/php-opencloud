@@ -22,7 +22,6 @@ class Service extends AbstractService
 {
     const DEFAULT_TYPE = 'rax:dns';
     const DEFAULT_NAME = 'cloudDNS';
-    const DEFAULT_REGION = false;
 
     /**
      * returns a DNS::Domain object

@@ -66,6 +66,11 @@ class OpenStack extends Client
      */
     private $authUrl;
 
+    /**
+     * @var \OpenCloud\Identity\Resource\User
+     */
+    private $user;
+
     public function __construct($url, array $secret, array $options = array())
     {
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
@@ -291,6 +296,7 @@ class OpenStack extends Client
         $this->setToken($body->access->token->id);
         $this->setExpiration(strtotime($body->access->token->expires));
         $this->setCatalog($body->access->serviceCatalog);
+        $this->setUser(User::fromResponse($body->access->user));
         
         // Set X-Auth-Token HTTP request header
         $this->updateTokenHeader();
