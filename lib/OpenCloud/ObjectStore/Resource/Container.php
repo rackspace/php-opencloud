@@ -16,11 +16,10 @@ use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Service\ServiceInterface;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
 use OpenCloud\ObjectStore\Upload\DirectorySync;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
-use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * A container is a storage compartment for your data and provides a way for you 
@@ -43,7 +42,7 @@ class Container extends AbstractContainer
      */
     private $cdn;
 
-    public function __construct(AbstractService $service, $data = null)
+    public function __construct(ServiceInterface $service, $data = null)
     {
         parent::__construct($service, $data);
 
@@ -60,10 +59,10 @@ class Container extends AbstractContainer
      * Factory method that instantiates an object from a Response object.
      *
      * @param Response        $response
-     * @param AbstractService $service
+     * @param ServiceInterface $service
      * @return static
      */
-    public static function fromResponse(Response $response, AbstractService $service)
+    public static function fromResponse(Response $response, ServiceInterface $service)
     {
         $self = parent::fromResponse($response, $service);
         

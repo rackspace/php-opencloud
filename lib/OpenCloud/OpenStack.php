@@ -282,6 +282,24 @@ class OpenStack extends Client
     }
 
     /**
+     * Sets the current user based on the generated token.
+     *
+     * @param $data Object of user data
+     */
+    public function setUser($data)
+    {
+        $this->user = IdentityService::factory($this)->populateUserFromCatalog($data);
+    }
+
+    /**
+     * @return \OpenCloud\Identity\Resource\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
      * Authenticate the tenant using the supplied credentials
      *
      * @return void
@@ -289,13 +307,8 @@ class OpenStack extends Client
      */
     public function authenticate()
     {
-        $service = IdentityService::factory($this);
-
-        $headers = array(Header::CONTENT_TYPE => Mime::JSON);
-
-
-        $response = $this->post($this->getAuthUrl(), $headers, $this->getCredentials())->send();
-
+        $response = IdentityService::factory($this)
+            ->generateToken($this->getCredentials());
 
         $body = Formatter::decode($response);
 
@@ -303,7 +316,7 @@ class OpenStack extends Client
         $this->setToken($body->access->token->id);
         $this->setExpiration(strtotime($body->access->token->expires));
         $this->setCatalog($body->access->serviceCatalog);
-        $this->setUser(User::fromResponse($body->access->user));
+        $this->setUser($body->access->user);
         
         // Set X-Auth-Token HTTP request header
         $this->updateTokenHeader();

@@ -9,8 +9,8 @@
 
 namespace OpenCloud\ObjectStore\Resource;
 
-use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Service\ServiceInterface;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
 
 /**
@@ -34,7 +34,7 @@ abstract class AbstractContainer extends AbstractResource
      */
     public $name;
     
-    public function __construct(AbstractService $service, $data = null)
+    public function __construct(ServiceInterface $service, $data = null)
     {
         $this->service  = $service;
         $this->metadata = new $this->metadataClass;

@@ -12,7 +12,7 @@ namespace OpenCloud\Queues;
 use Guzzle\Common\Event;
 use Guzzle\Http\Exception\BadResponseException;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
-use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Service\CatalogService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -53,7 +53,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * Cloud Queueing guarantees that messages are handled in a First In, First Out 
  * (FIFO) order.
  */
-class Service extends AbstractService implements EventSubscriberInterface
+class Service extends CatalogService implements EventSubscriberInterface
 {
     const DEFAULT_TYPE = 'rax:queues';
     const DEFAULT_NAME = 'cloudQueues';

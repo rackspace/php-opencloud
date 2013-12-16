@@ -10,15 +10,13 @@
 
 namespace OpenCloud\ObjectStore;
 
-
-use OpenCloud\Common\Service\AbstractService as CommonAbstractService;
-use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Service\CatalogService;
 
 /**
  * An abstract base class for common code shared between ObjectStore\Service
  * (container) and ObjectStore\CDNService (CDN containers).
  */
-abstract class AbstractService extends CommonAbstractService
+abstract class AbstractService extends CatalogService
 {
     const MAX_CONTAINER_NAME_LENGTH = 256;
     const MAX_OBJECT_NAME_LEN       = 1024;

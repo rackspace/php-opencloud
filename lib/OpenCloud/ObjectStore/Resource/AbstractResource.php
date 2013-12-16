@@ -11,7 +11,7 @@ namespace OpenCloud\ObjectStore\Resource;
 
 use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Base;
-use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Service\ServiceInterface;
 
 /**
  * Abstract base class which implements shared functionality of ObjectStore 
@@ -33,11 +33,11 @@ abstract class AbstractResource extends Base
     protected $metadataClass = 'OpenCloud\\Common\\Metadata';
     
     /**
-     * @var AbstractService The service object.
+     * @var \OpenCloud\Common\Service\ServiceInterface The service object.
      */
     protected $service;
     
-    public function  __construct(AbstractService $service)
+    public function  __construct(ServiceInterface $service)
     {
         $this->service  = $service;
         $this->metadata = new $this->metadataClass;
@@ -62,10 +62,10 @@ abstract class AbstractResource extends Base
      * Factory method that allows for easy instantiation from a Response object.
      *
      * @param Response        $response
-     * @param AbstractService $service
+     * @param ServiceInterface $service
      * @return static
      */
-    public static function fromResponse(Response $response, AbstractService $service)
+    public static function fromResponse(Response $response, ServiceInterface $service)
     {
         $object = new static($service);
         

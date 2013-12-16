@@ -17,7 +17,7 @@ use OpenCloud\Compute\Resource\Flavor;
 /**
  * NovaService serves as an additional abstraction for particular OpenStack services that exhibit shared functionality.
  */
-abstract class NovaService extends AbstractService
+abstract class NovaService extends CatalogService
 {
 
 	/**

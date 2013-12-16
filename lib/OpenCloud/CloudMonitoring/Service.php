@@ -9,8 +9,7 @@
 
 namespace OpenCloud\CloudMonitoring;
 
-use OpenCloud\Common\Service\AbstractService;
-use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Service\CatalogService;
 
 /**
  * Cloud Monitoring service.
@@ -18,7 +17,7 @@ use OpenCloud\Common\Http\Message\Formatter;
  * @package OpenCloud\CloudMonitoring
  * @link    http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/index.html
  */
-class Service extends AbstractService
+class Service extends CatalogService
 {
     const DEFAULT_TYPE = 'rax:monitor';
     const DEFAULT_NAME = 'cloudMonitoring';

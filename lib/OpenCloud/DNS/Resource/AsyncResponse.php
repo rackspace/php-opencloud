@@ -10,9 +10,9 @@
 
 namespace OpenCloud\DNS\Resource;
 
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Service\AbstractService;
 use Guzzle\Http\Url;
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Service\ServiceInterface;
 
 /**
  * The AsyncResponse class encapsulates the data returned by a Cloud DNS
@@ -40,7 +40,7 @@ class AsyncResponse extends PersistentObject
      * @param \OpenCloud\Service $service the calling service
      * @param string $json the json response from the initial request
      */
-    public function __construct(AbstractService $service, $object = null)
+    public function __construct(ServiceInterface $service, $object = null)
     {
         if (!$object) {
             return;

@@ -10,13 +10,12 @@
 
 namespace OpenCloud\Autoscale;
 
-use OpenCloud\OpenStack;
-use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Service\CatalogService;
 
 /**
  * The Autoscale class represents the OpenStack Otter service.
  */
-class Service extends AbstractService
+class Service extends CatalogService
 {
     const DEFAULT_TYPE = 'rax:autoscale';
     const DEFAULT_NAME = 'autoscale';

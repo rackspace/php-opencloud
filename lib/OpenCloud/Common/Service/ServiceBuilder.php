@@ -9,7 +9,7 @@
 
 namespace OpenCloud\Common\Service;
 
-use OpenCloud\Common\Http\Client;
+use Guzzle\Http\ClientInterface;
 use OpenCloud\Common\Exceptions\ServiceException;
 
 /**
@@ -24,10 +24,10 @@ class ServiceBuilder
      * @param Client $client The HTTP client object
      * @param string $class  The class name of the service
      * @param array $options The options.
-     * @return \OpenCloud\Common\Service\AbstractService
+     * @return \OpenCloud\Common\Service\ServiceInterface
      * @throws ServiceException
      */
-    public static function factory(Client $client, $class, array $options = array())
+    public static function factory(ClientInterface $client, $class, array $options = array())
     {
         $name = isset($options['name']) ? $options['name'] : null;
         $urlType = isset($options['urlType']) ? $options['urlType'] : null;

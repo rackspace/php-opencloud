@@ -242,18 +242,6 @@ abstract class Base
     }
 
     /**
-     * Returns the individual URL of the service/object.
-     *
-     * @throws UrlError
-     */
-    public function getUrl($path = null, array $query = array())
-    {
-        throw new UrlError(Lang::translate(
-            'URL method must be overridden in class definition'
-        ));
-    }
-
-    /**
      * @deprecated
      */
     public function url($path = null, array $query = array())

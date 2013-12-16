@@ -9,8 +9,7 @@
 
 namespace OpenCloud\Orchestration;
 
-use OpenCloud\Common\Service\AbstractService;
-use OpenCloud\OpenStack;
+use OpenCloud\Common\Service\CatalogService;
 
 /**
  * The Orchestration class represents the OpenStack Heat service.
@@ -21,7 +20,7 @@ use OpenCloud\OpenStack;
  * 
  * @codeCoverageIgnore
  */
-class Service extends AbstractService 
+class Service extends CatalogService
 {
     const DEFAULT_TYPE = 'orchestration';
     const DEFAULT_NAME = 'cloudOrchestration';

@@ -13,4 +13,6 @@ interface ServiceInterface
     public function setEndpoint($endpoint);
 
     public function getEndpoint();
+
+    public function getUrl();
 }

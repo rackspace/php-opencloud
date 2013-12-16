@@ -10,7 +10,7 @@
 
 namespace OpenCloud\DNS;
 
-use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Service\CatalogService;
 use OpenCloud\OpenStack;
 use OpenCloud\Compute\Resource\Server;
 use OpenCloud\Common\Http\Message\Formatter;
@@ -18,7 +18,7 @@ use OpenCloud\Common\Http\Message\Formatter;
 /**
  * DNS Service.
  */
-class Service extends AbstractService
+class Service extends CatalogService
 {
     const DEFAULT_TYPE = 'rax:dns';
     const DEFAULT_NAME = 'cloudDNS';

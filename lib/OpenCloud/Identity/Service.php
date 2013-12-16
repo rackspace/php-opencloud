@@ -4,12 +4,12 @@ namespace OpenCloud\Identity;
 
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Url;
-use OpenCloud\Common\Service\ServiceInterface;
+use OpenCloud\Common\Collection\ResourceIterator;
+use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Service\AbstractService;
 
-class Service implements ServiceInterface
+class Service extends AbstractService
 {
-    private $client;
-    private $endpoint;
 
     public static function factory(ClientInterface $client)
     {
@@ -20,29 +20,10 @@ class Service implements ServiceInterface
         return $identity;
     }
 
-    public function setClient(ClientInterface $client)
-    {
-        $this->client = $client;
-    }
-
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    public function setEndpoint($endpoint)
-    {
-        $this->endpoint = $endpoint;
-    }
-
-    public function getEndpoint()
-    {
-        return $this->endpoint;
-    }
-
     public function getUrl($path = null)
     {
-        $url = clone $this->endpoint;
+        $url = $this->getEndpoint();
+
         if ($path) {
             $url->addPath($path);
         }
@@ -51,7 +32,11 @@ class Service implements ServiceInterface
 
     public function getUsers()
     {
-        return $this->getClient()->get($this->getUrl('users'))->send();
+        $response = $this->getClient()->get($this->getUrl('users'))->send();
+
+        if ($body = Formatter::decode($response)) {
+            return ResourceIterator::factory($this, array(), $response->users);
+        }
     }
 
     public function getUser($search, $mode = 'name')
@@ -71,37 +56,54 @@ class Service implements ServiceInterface
                 break;
         }
 
-        $response = $this->getClient()->get($url)->send();
+        return $this->resource('User')->refreshFromLocationUrl($url);
+    }
+
+    public function populateUserFromCatalog($data)
+    {
+        return $this->resource('User', $data);
     }
 
     public function createUser(array $params)
     {
-
+        return $this->resource('User')->create($params);
     }
 
     public function getRoles()
     {
-
+        // No API documentation
     }
 
-    public function getRole()
+    public function getRole($roleId)
     {
-
+        return $this->resource('Role', $roleId);
     }
 
-    public function generateToken()
+    public function generateToken($json, array $headers = array())
     {
+        $url = $this->getUrl();
+        $url->addPath('tokens');
 
+        $headers += self::getJsonHeader();
+
+        return $this->getClient()->post($url, $headers, $json)->send();
     }
 
-    public function revokeToken()
+    public function revokeToken($tokenId)
     {
-
+        return $this->resource('Token')->setId($tokenId)->delete();
     }
 
     public function getTenants()
     {
+        $url = $this->getUrl();
+        $url->addPath('tenants');
 
+        $response = $this->getClient()->get($url)->send();
+
+        if ($body = Formatter::decode($response)) {
+            return ResourceIterator::factory($this, array(), $body->tenants);
+        }
     }
 
 }
