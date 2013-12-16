@@ -19,6 +19,7 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Identity\Service as IdentityService;
 use Guzzle\Http\Url;
 
 define('RACKSPACE_US', 'https://identity.api.rackspacecloud.com/v2.0/');
@@ -76,7 +77,7 @@ class OpenStack extends Client
         $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
 
         $this->setSecret($secret);
-        $this->setAuthUrl($url);
+        $this->setAuthUrl(Url::factory($url));
 
         parent::__construct($url, $options);
         
@@ -266,7 +267,7 @@ class OpenStack extends Client
      * @param $url
      * @return $this
      */
-    public function setAuthUrl($url)
+    public function setAuthUrl(Url $url)
     {
 	    $this->authUrl = $url;
 	    return $this;
@@ -277,7 +278,7 @@ class OpenStack extends Client
      */
     public function getAuthUrl()
     {
-	    return Url::factory($this->authUrl)->addPath('tokens');
+	    return $this->authUrl;
     }
 
     /**
@@ -288,8 +289,14 @@ class OpenStack extends Client
      */
     public function authenticate()
     {
+        $service = IdentityService::factory($this);
+
         $headers = array(Header::CONTENT_TYPE => Mime::JSON);
-        $response = $this->post($this->getAuthUrl('tokens'), $headers, $this->getCredentials())->send();
+
+
+        $response = $this->post($this->getAuthUrl(), $headers, $this->getCredentials())->send();
+
+
         $body = Formatter::decode($response);
 
         // Save the token information as well as the ServiceCatalog

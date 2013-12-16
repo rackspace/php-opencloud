@@ -14,7 +14,6 @@ use OpenCloud\Common\Base;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Http\Client;
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Http\Message\Formatter;
 use Guzzle\Http\Url;
 use Guzzle\Http\Exception\BadResponseException;
@@ -28,8 +27,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * services such as Rackspace Cloud Servers or OpenStack Swift are each
  * subclassed from Service.
  */
-abstract class AbstractService extends Base
+abstract class AbstractService extends Base implements ServiceInterface
 {
+
     const DEFAULT_URL_TYPE = 'publicURL';
     
     /**
@@ -58,7 +58,7 @@ abstract class AbstractService extends Base
     private $urlType;
     
     /**
-     * @var \OpenCloud\Common\Service\Endpoint The endpoints for this service.
+     * @var \OpenCloud\Common\Service\Endpoint The endpoint for this service.
      */
     private $endpoint;
     
@@ -98,7 +98,8 @@ abstract class AbstractService extends Base
         $this->name = $name ?: static::DEFAULT_NAME;
         $this->urlType = $urlType ?: static::DEFAULT_URL_TYPE;
 
-        $this->endpoint = $this->findEndpoint();
+        $this->setEndpoint($this->findEndpoint());
+
         $this->client->setBaseUrl($this->getBaseUrl());
 
         if ($this instanceof EventSubscriberInterface) {
@@ -155,7 +156,15 @@ abstract class AbstractService extends Base
     }
 
     /**
-     * @return Endpoint|OpenCloud\Common\Service\Endpoint
+     * @param Endpoint $endpoint
+     */
+    public function setEndpoint($endpoint)
+    {
+        $this->endpoint = $endpoint;
+    }
+
+    /**
+     * @return |OpenCloud\Common\Service\Endpoint
      */
     public function getEndpoint()
     {
@@ -177,7 +186,7 @@ abstract class AbstractService extends Base
     {
         return $this->name;
     }
-    
+
     /**
      * Returns the URL for the Service
      *

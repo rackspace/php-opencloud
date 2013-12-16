@@ -34,8 +34,6 @@ class ServiceBuilder
 
         if (isset($options['region'])) {
             $region = $options['region'];
-        } elseif () {
-
         } else {
             $region = null;
         }

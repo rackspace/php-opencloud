@@ -14,7 +14,7 @@ use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\State as StateConst;
-use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Common\Service\ServiceInterface;
 use OpenCloud\Common\Exceptions\RuntimeException;
 use OpenCloud\Common\Http\Message\Formatter;
 
@@ -84,7 +84,7 @@ abstract class PersistentObject extends Base
      */
     public function __construct($service = null, $info = null)
     {
-        if ($service instanceof AbstractService) {
+        if ($service instanceof ServiceInterface) {
             $this->setService($service);
         }
         
@@ -96,9 +96,9 @@ abstract class PersistentObject extends Base
     /**
      * Sets the service associated with this resource object.
      * 
-     * @param OpenCloud\Common\Service\AbstractService $service
+     * @param \OpenCloud\Common\Service\ServiceInterface $service
      */
-    public function setService(AbstractService $service)
+    public function setService(ServiceInterface $service)
     {
         $this->service = $service;
         return $this;
@@ -108,7 +108,7 @@ abstract class PersistentObject extends Base
      * Returns the service object for this resource; required for making
      * requests, etc. because it has direct access to the Connection.
      * 
-     * @return OpenCloud\Common\Service\AbstractService
+     * @return \OpenCloud\Common\Service\ServiceInterface
      */
     public function getService()
     {
