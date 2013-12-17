@@ -1,4 +1,11 @@
 <?php
+/**
+ * PHP OpenCloud library
+ *
+ * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @license   https://www.apache.org/licenses/LICENSE-2.0
+ * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ */
 
 namespace OpenCloud\Identity;
 
@@ -9,9 +16,20 @@ use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\AbstractService;
 
+/**
+ * Class responsible for working with Rackspace's Cloud Identity service.
+ *
+ * @package OpenCloud\Identity
+ */
 class Service extends AbstractService
 {
 
+    /**
+     * Factory method which allows for easy service creation
+     *
+     * @param  ClientInterface $client
+     * @return self
+     */
     public static function factory(ClientInterface $client)
     {
         $identity = new self();
@@ -21,6 +39,11 @@ class Service extends AbstractService
         return $identity;
     }
 
+    /**
+     * Get this service's URL, with appended path if necessary.
+     *
+     * @return \Guzzle\Http\Url
+     */
     public function getUrl($path = null)
     {
         $url = clone $this->getEndpoint();
@@ -32,6 +55,11 @@ class Service extends AbstractService
         return $url;
     }
 
+    /**
+     * Get all users for the current tenant.
+     *
+     * @return \OpenCloud\Common\Collection\ResourceIterator
+     */
     public function getUsers()
     {
         $response = $this->getClient()->get($this->getUrl('users'))->send();
@@ -44,11 +72,21 @@ class Service extends AbstractService
         }
     }
 
+    /**
+     * Used for iterator resource instantation.
+     */
     public function user($info = null)
     {
         return $this->resource('User', $info);
     }
 
+    /**
+     * Get a user based on a particular keyword and a certain search mode.
+     *
+     * @param $search string Keyword
+     * @param $mode   string Either 'name', 'userId' or 'email'
+     * @return \OpenCloud\Identity\Resource\User
+     */
     public function getUser($search, $mode = 'name')
     {
         $url = $this->getUrl('users');
@@ -72,6 +110,12 @@ class Service extends AbstractService
         return $user;
     }
 
+    /**
+     * Create a new user with provided params.
+     *
+     * @param  $params array User data
+     * @return \OpenCloud\Identity\Resource\User
+     */
     public function createUser(array $params)
     {
         $user = $this->resource('User');
@@ -79,6 +123,11 @@ class Service extends AbstractService
         return $user;
     }
 
+    /**
+     * Get all possible roles.
+     *
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
     public function getRoles()
     {
         return PaginatedIterator::factory($this, array(
@@ -89,11 +138,24 @@ class Service extends AbstractService
         ));
     }
 
+    /**
+     * Get a specific role.
+     *
+     * @param $roleId string The ID of the role you're looking for
+     * @return \OpenCloud\Identity\Resource\Role
+     */
     public function getRole($roleId)
     {
         return $this->resource('Role', $roleId);
     }
 
+    /**
+     * Generate a new token for a given user.
+     *
+     * @param   $json    string The JSON data-structure used in the HTTP entity body when POSTing to the API
+     * @headers $headers array  Additional headers to send (optional)
+     * @return  \Guzzle\Http\Message\Response
+     */
     public function generateToken($json, array $headers = array())
     {
         $url = $this->getUrl();
@@ -104,6 +166,12 @@ class Service extends AbstractService
         return $this->getClient()->post($url, $headers, $json)->send();
     }
 
+    /**
+     * Revoke a given token based on its ID
+     *
+     * @param $tokenId string Token ID
+     * @return \Guzzle\Http\Message\Response
+     */
     public function revokeToken($tokenId)
     {
         $token = $this->resource('Token');
@@ -111,6 +179,11 @@ class Service extends AbstractService
         return $token->delete();
     }
 
+    /**
+     * List over all the tenants for this cloud account.
+     *
+     * @return \OpenCloud\Common\Collection\ResourceIterator
+     */
     public function getTenants()
     {
         $url = $this->getUrl();
