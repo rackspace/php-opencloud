@@ -12,14 +12,12 @@ namespace OpenCloud\Common;
 
 /**
  * The Metadata class represents either Server or Image metadata
- *
- * @api
- * @author Glen Campbell <glen.campbell@rackspace.com>
  */
-class Metadata extends Base 
+class Metadata extends Base implements \Countable
 {
-
-    // array holding the names of keys that were set
+    /**
+     * @var array Internal data store.
+     */
     protected $metadata = array();    
 
     /**

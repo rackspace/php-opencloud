@@ -2,7 +2,6 @@
 
 namespace OpenCloud\Identity\Resource;
 
-use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\PersistentObject;
 
@@ -111,7 +110,7 @@ class User extends PersistentObject
 
         $json = json_encode((object) array('user' => $array));
 
-        return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
+        return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json);
     }
 
     public function getOtherCredentials()

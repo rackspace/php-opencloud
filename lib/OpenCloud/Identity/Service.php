@@ -23,11 +23,12 @@ class Service extends AbstractService
 
     public function getUrl($path = null)
     {
-        $url = $this->getEndpoint();
+        $url = clone $this->getEndpoint();
 
         if ($path) {
             $url->addPath($path);
         }
+
         return $url;
     }
 
@@ -73,7 +74,9 @@ class Service extends AbstractService
 
     public function createUser(array $params)
     {
-        return $this->resource('User')->create($params);
+        $user = $this->resource('User');
+        $user->create($params);
+        return $user;
     }
 
     public function getRoles()

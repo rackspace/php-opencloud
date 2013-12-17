@@ -442,7 +442,7 @@ abstract class PersistentObject extends Base
             }
         }
 
-        if (!empty($this->metadata)) {
+        if (isset($this->metadata) && count($this->metadata)) {
             $element->metadata = (object) $this->metadata->toArray();
         }
 

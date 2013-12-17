@@ -30,8 +30,8 @@ class ServiceTest extends IdentityTestCase
     public function test_Create_User()
     {
         $this->addMockSubscriber($this->makeResponse(null, 201));
-        $response = $this->service->createUser(array('name' => 'foo'));
-        $this->assertInstanceOf('Guzzle\Http\Message\Response', $response);
+        $user = $this->service->createUser(array('name' => 'foo'));
+        $this->assertInstanceOf('OpenCloud\Identity\Resource\User', $user);
     }
 
     public function test_Get_Role()
