@@ -13,6 +13,7 @@ namespace OpenCloud\Smoke;
 
 use Guzzle\Log\PsrLogAdapter;
 use Guzzle\Plugin\Log\LogPlugin;
+use Guzzle\Log\MessageFormatter;
 use OpenCloud\Rackspace;
 
 /**
@@ -39,6 +40,11 @@ class Runner
         'Queues',
         'Volume'
     );
+
+    /**
+     * @var bool If set to TRUE, all HTTP traffic over the wire will be outputted.
+     */
+    private $debugMode = false;
     
     public static function run()
     {
@@ -92,7 +98,7 @@ class Runner
                 case 'D':
                 case 'debug':
                     Utils::log('Debug mode enabled');
-                    define(RAXSDK_DEBUG, true);
+                    $this->debugMode = true;
                     break;
                 case 'H':
                 case 'help':
@@ -197,7 +203,11 @@ class Runner
         // Do connection stuff
         $client = new Rackspace($identityEndpoint, $secret);
         $client->setUserAgent($client->getUserAgent() . '/' . Enum::USER_AGENT);
-        $client->addSubscriber(new LogPlugin(new PsrLogAdapter(new Logger)));
+
+        // enable logging
+        if ($this->debugMode) {
+            $client->addSubscriber(LogPlugin::getDebugPlugin());
+        }
 
         $client->authenticate();
 

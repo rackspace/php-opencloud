@@ -34,7 +34,7 @@ class ResourceIterator extends ArrayCollection implements Iterator
     /**
      * @var array Fallback defaults if options are not explicitly set or provided.
      */
-    protected $defaults = array();
+    protected $defaults = array('limit.total' => 1000);
 
     /**
      * @var array Required options
@@ -113,7 +113,7 @@ class ResourceIterator extends ArrayCollection implements Iterator
      */
     public function valid()
     {
-        return $this->offsetExists($this->position) && $this->position < $this->limit;
+        return $this->offsetExists($this->position) && $this->position < $this->getOption('limit.total');
     }
 
     /**

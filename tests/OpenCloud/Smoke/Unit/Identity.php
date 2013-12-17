@@ -11,14 +11,20 @@ class Identity extends AbstractUnit implements UnitInterface
 
     public function main()
     {
-        $this->executeUsers();
-        $this->executeRoles();
+        //$this->executeUsers();
+        //$this->executeRoles();
         $this->executeTokens();
         $this->executeTenants();
     }
 
     public function executeUsers()
     {
+        $step1 = $this->step('List users');
+        $users = $this->service->getUsers();
+        foreach ($users as $_user) {
+            $this->stepInfo('User: %s [%s]', $_user->getUsername(), $_user->getId());
+        }
+
         // get user
         $this->step('Get user');
         $user = $this->service->getUser('jamiehannaford1', 'name');
@@ -31,7 +37,7 @@ class Identity extends AbstractUnit implements UnitInterface
         $this->step('Create user');
         $user = $this->service->createUser(array(
             'username' => 'SMOKETEST_user_' . time(),
-            'email'    => 'jamie.hannaford@rackspace.com',
+            'email'    => sprintf('foo_%s@example.com', time()),
             'enabled'  => true
         ));
 
@@ -45,22 +51,22 @@ class Identity extends AbstractUnit implements UnitInterface
         $step1 = $this->step('List users');
         $users = $this->service->getUsers();
         foreach ($users as $_user) {
-            $step1->stepInfo(sprintf('User: %s [%s]', $_user->getUserName(), $_user->getId()));
+            $this->stepInfo(sprintf('User: %s [%s]', $_user->getUserName(), $_user->getId()));
         }
+
+        // reset API key
+        $this->step('(Re)set API key');
+        $this->stepInfo($user->resetApiKey());
 
         // get API key
         $this->step('Get API key');
         $this->stepInfo($user->getApiKey());
 
-        // reset API key
-        $this->step('Reset API key');
-        $this->stepInfo($user->resetApiKey());
-
         // list roles
         $step = $this->step('List user roles');
         $roles = $user->getRoles();
         foreach ($roles as $role) {
-            $step->stepInfo($role->getName());
+            $this->stepInfo($role->getName());
         }
 
         // delete user
@@ -71,24 +77,40 @@ class Identity extends AbstractUnit implements UnitInterface
     public function executeRoles()
     {
         // list roles
+        $this->step('List roles');
+        $roles = $this->service->getRoles();
+        foreach ($roles as $role) {
+            $this->stepInfo('Role: %s [%s]', $role->getName(), $role->getId());
+            $roleId = $role->getId();
+        }
 
+        // DOES NOT WORK
         // get role
+        $this->step('Get role');
+        //$role = $this->service->getRole($roleId);
+        //$this->stepInfo('Role: %s, %s, %s', $roleId, $role->getName(), $role->getDescription());
     }
 
     public function executeTokens()
     {
-        // generate
-
         // revoke
+        $this->step('Revoke token');
+        $this->service->revokeToken($this->getConnection()->getToken());
+
+        $this->getConnection()->authenticate();
     }
 
     public function executeTenants()
     {
         // list tenants
+        $this->step('List tenants');
+        $tenants = $this->service->getTenants();
+        foreach ($tenants as $tenant) {
+            $this->stepInfo('Tenant: %s [%s]', $tenant->getName(), $tenant->getId());
+        }
     }
 
     public function teardown()
     {
-
     }
 } 

@@ -2,6 +2,7 @@
 
 namespace OpenCloud\Identity\Resource;
 
+use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\PersistentObject;
 
@@ -80,6 +81,11 @@ class User extends PersistentObject
         $this->enabled = $enabled;
     }
 
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
     public function isEnabled()
     {
         return $this->enabled === true;
@@ -98,7 +104,7 @@ class User extends PersistentObject
                 $array[$key] = $this->$key;
             }
         }
-        return json_encode((object) array('user' => $array));
+        return (object) array('user' => $array);
     }
 
     public function updatePassword($newPassword)
@@ -184,6 +190,18 @@ class User extends PersistentObject
             'key.collection' => 'roles',
             'key.links'      => 'roles_links'
         ));
+    }
+
+    public function update($params = array())
+    {
+        if (!empty($params)) {
+            $this->populate($params);
+        }
+
+        $json = json_encode($this->updateJson($params));
+        $this->checkJsonError();
+
+        return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
 
 }

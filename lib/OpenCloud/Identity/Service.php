@@ -82,7 +82,7 @@ class Service extends AbstractService
     public function getRoles()
     {
         return PaginatedIterator::factory($this, array(
-            'resourceClass'  => 'User',
+            'resourceClass'  => 'Role',
             'baseUrl'        => $this->getUrl()->addPath('OS-KSADM')->addPath('roles'),
             'key.marker'     => 'id',
             'key.collection' => 'roles'
