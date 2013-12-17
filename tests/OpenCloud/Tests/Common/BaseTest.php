@@ -1,23 +1,10 @@
 <?php
 
-/**
- * Unit Tests
- *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
- */
-
 namespace OpenCloud\Tests\Common;
 
 use OpenCloud\Common\Base;
 use OpenCloud\Common\Lang;
 
-/**
- * Can't test Base directly, since it is an abstract class, so we instantiate it
- */
 class MyBase extends Base
 {
 
@@ -25,12 +12,12 @@ class MyBase extends Base
     protected $bar;
     private $baz;
     private $metadata;
-    
+
     public function setBar($bar)
     {
         $this->bar = $bar . '!!!';
     }
-    
+
     public function getBar()
     {
         return $this->bar;
@@ -42,7 +29,7 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     private $my;
 
-    public function __construct()
+    public function setupObjects()
     {
         $this->my = new MyBase;
     }
@@ -63,7 +50,7 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
         $object = $this->my;
         $object->setGhost('foobar');
     }
-    
+
     public function test_noslash()
     {
         $this->assertEquals(Lang::noslash('String/'), 'String');
@@ -90,14 +77,6 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
         $object->populate($data);
         
         $this->assertInstanceOf('OpenCloud\Common\Metadata', $object->getMetadata());
-    }
-
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\URLError
-     */
-    public function testUrl()
-    {
-        $this->my->Url();
     }
 
     public function testSetProperty()

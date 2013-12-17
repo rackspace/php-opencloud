@@ -34,7 +34,7 @@ abstract class AbstractService extends Base implements ServiceInterface
     /**
      * @var \OpenCloud\Common\Service\Endpoint The endpoint for this service.
      */
-    private $endpoint;
+    protected $endpoint;
 
     /**
      * @var array A collection of resource models that this service has control over.

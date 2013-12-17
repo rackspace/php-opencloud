@@ -13,13 +13,14 @@
 namespace OpenCloud\Tests\Common;
 
 use OpenCloud\Common\Service\Catalog;
+use OpenCloud\Common\Service\ServiceBuilder;
 
 class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
 
     private $service;
 
-    public function __construct()
+    public function setupObjects()
     {
         $this->service = $this->getClient()->computeService('cloudServersOpenStack', 'DFW');
     }
@@ -98,5 +99,41 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $service = $this->getClient()->computeService('testService', 'ORD');
         $service->getBaseUrl();
     }
-        
+
+    public function test_Region_ServiceBuilder()
+    {
+        $dfwService = ServiceBuilder::factory($this->getClient(), 'OpenCloud\Compute\Service', array(
+            'name'    => 'cloudServersOpenStack',
+            'region'  => 'DFW',
+            'urltype' => 'publicURL'
+        ));
+
+        $this->assertEquals('DFW', $dfwService->getEndpoint()->getRegion());
+
+        $dfwService2 = $this->getClient()->computeService('cloudServersOpenStack', 'SYD');
+        $this->assertEquals('SYD', $dfwService2->getEndpoint()->getREgion());
+    }
+
+    /**
+     * @expectedException \OpenCloud\Common\Exceptions\ServiceException
+     */
+    public function test_ServiceBuilder_Fails_Without_Region()
+    {
+        $this->addMockSubscriber($this->getTestFilePath('Auth_No_Default_Region', '.'));
+        $client = $this->getClient();
+        $client->authenticate();
+
+        $client->computeService('cloudServersOpenStack');
+    }
+
+    public function test_ServiceBuilder_Success_Without_Region_In_Regionless_Service()
+    {
+        $this->addMockSubscriber($this->getTestFilePath('Auth_No_Default_Region', '.'));
+        $client = $this->getClient();
+        $client->authenticate();
+
+        $client->dnsService('cloudDNS');
+        $client->cloudMonitoringService();
+    }
+
 }

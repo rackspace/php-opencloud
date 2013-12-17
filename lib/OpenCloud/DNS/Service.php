@@ -23,6 +23,8 @@ class Service extends CatalogService
     const DEFAULT_TYPE = 'rax:dns';
     const DEFAULT_NAME = 'cloudDNS';
 
+    protected $regionless = true;
+
     /**
      * returns a DNS::Domain object
      *

@@ -1,15 +1,18 @@
 <?php
 
-
 namespace OpenCloud\Identity\Resource;
 
+use OpenCloud\Common\PersistentObject;
 
-class Tenant 
+class Tenant extends PersistentObject
 {
     private $id;
     private $name;
     private $description;
     private $enabled;
+
+    protected static $url_resource = 'tenants';
+    protected static $json_name    = 'tenants';
 
     public function setId($id)
     {
@@ -34,6 +37,11 @@ class Tenant
     public function setDescription($description)
     {
         $this->description = $description;
+    }
+
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     public function setEnabled($enabled)

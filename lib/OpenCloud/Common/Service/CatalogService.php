@@ -6,6 +6,7 @@ use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Http\Message\Formatter;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class CatalogService extends AbstractService
@@ -33,6 +34,12 @@ abstract class CatalogService extends AbstractService
     private $urlType;
 
     /**
+     * @var bool Indicates whether a service is "regionless" or not. Defaults to FALSE because nearly all services
+     *           are region-specific.
+     */
+    protected $regionless = false;
+
+    /**
      * Creates a service object, based off the specified client.
      *
      * The service's URL is defined in the client's serviceCatalog; it
@@ -50,14 +57,18 @@ abstract class CatalogService extends AbstractService
     {
         $this->setClient($client);
 
-        if (!$this->region = $region) {
-            throw new Exceptions\InvalidArgumentError('A region must be provided when instantiating a service');
+        $this->name = $name ?: static::DEFAULT_NAME;
+
+        if ($this->regionless !== true && !($this->region = $region)) {
+            throw new Exceptions\ServiceException(sprintf(
+                'The %s service must have a region set. You can either pass in a region string as an argument param, or'
+                . ' set a default region for your user account by executing User::setDefaultRegion and ::update().',
+                $this->name
+            ));
         }
 
         $this->type = $type ?: static::DEFAULT_TYPE;
-        $this->name = $name ?: static::DEFAULT_NAME;
         $this->urlType = $urlType ?: static::DEFAULT_URL_TYPE;
-
         $this->setEndpoint($this->findEndpoint());
 
         $this->client->setBaseUrl($this->getBaseUrl());

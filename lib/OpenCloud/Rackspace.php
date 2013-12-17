@@ -11,6 +11,7 @@
 namespace OpenCloud;
 
 use OpenCloud\Common\Service\ServiceBuilder;
+use OpenCloud\Identity\Service as IdentityService;
 
 /**
  * Rackspace extends the OpenStack class with support for Rackspace's
@@ -169,6 +170,14 @@ class Rackspace extends OpenStack
             'region'  => $region, 
             'urlType' => $urltype
         ));
+    }
+
+    /**
+     * Creates a new Rackspace "Cloud Identity" service.
+     */
+    public function identityService()
+    {
+        return IdentityService::factory($this);
     }
     
 }

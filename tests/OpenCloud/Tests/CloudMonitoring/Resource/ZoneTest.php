@@ -8,7 +8,7 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 class ZoneTest extends CloudMonitoringTestCase
 {
     
-    public function __construct()
+    public function setupObjects()
     {
         $this->service = $this->getClient()->cloudMonitoringService();
 

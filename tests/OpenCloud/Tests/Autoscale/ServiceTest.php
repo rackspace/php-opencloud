@@ -13,10 +13,7 @@ use OpenCloud\Tests\OpenCloudTestCase;
 
 class ServiceTest extends OpenCloudTestCase 
 {
-    
-    private $service;
-    
-    public function __construct()
+    public function setupObjects()
     {
         $this->service = $this->getClient()->autoscaleService('autoscale');
     }

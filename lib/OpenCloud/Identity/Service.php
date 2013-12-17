@@ -4,6 +4,7 @@ namespace OpenCloud\Identity;
 
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Url;
+use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\AbstractService;
@@ -15,7 +16,7 @@ class Service extends AbstractService
     {
         $identity = new self();
         $identity->setClient($client);
-        $identity->setEndpoint($client->getAuthUrl());
+        $identity->setEndpoint(clone $client->getAuthUrl());
 
         return $identity;
     }
@@ -35,13 +36,21 @@ class Service extends AbstractService
         $response = $this->getClient()->get($this->getUrl('users'))->send();
 
         if ($body = Formatter::decode($response)) {
-            return ResourceIterator::factory($this, array(), $response->users);
+            return ResourceIterator::factory($this, array(
+                'resourceClass'  => 'User',
+                'key.collection' => 'users'
+            ), $body->users);
         }
+    }
+
+    public function user($info = null)
+    {
+        return $this->resource('User', $info);
     }
 
     public function getUser($search, $mode = 'name')
     {
-        $url = $this->getUrl();
+        $url = $this->getUrl('users');
 
         switch ($mode) {
             default:
@@ -56,12 +65,10 @@ class Service extends AbstractService
                 break;
         }
 
-        return $this->resource('User')->refreshFromLocationUrl($url);
-    }
+        $user = $this->resource('User');
+        $user->refreshFromLocationUrl($url);
 
-    public function populateUserFromCatalog($data)
-    {
-        return $this->resource('User', $data);
+        return $user;
     }
 
     public function createUser(array $params)
@@ -71,7 +78,12 @@ class Service extends AbstractService
 
     public function getRoles()
     {
-        // No API documentation
+        return PaginatedIterator::factory($this, array(
+            'resourceClass'  => 'User',
+            'baseUrl'        => $this->getUrl()->addPath('OS-KSADM')->addPath('roles'),
+            'key.marker'     => 'id',
+            'key.collection' => 'roles'
+        ));
     }
 
     public function getRole($roleId)
@@ -91,7 +103,9 @@ class Service extends AbstractService
 
     public function revokeToken($tokenId)
     {
-        return $this->resource('Token')->setId($tokenId)->delete();
+        $token = $this->resource('Token');
+        $token->setId($tokenId);
+        return $token->delete();
     }
 
     public function getTenants()
@@ -102,7 +116,10 @@ class Service extends AbstractService
         $response = $this->getClient()->get($url)->send();
 
         if ($body = Formatter::decode($response)) {
-            return ResourceIterator::factory($this, array(), $body->tenants);
+            return ResourceIterator::factory($this, array(
+                'resourceClass'  => 'Tenant',
+                'key.collection' => 'tenants'
+            ), $body->tenants);
         }
     }
 

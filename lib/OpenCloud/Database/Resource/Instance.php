@@ -115,7 +115,7 @@ class Instance extends PersistentObject
     {
         $response = $this->getClient()->post($this->getUrl('root'))->send();
         $body = Formatter::decode($response);
-        return (!empty($body->user)) ? new User($this, $body->user) : false;
+        return (isset($body->user)) ? new User($this, $body->user) : false;
     }
 
     /**

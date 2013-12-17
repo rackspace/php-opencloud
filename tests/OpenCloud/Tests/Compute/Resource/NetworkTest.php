@@ -19,7 +19,7 @@ use OpenCloud\Tests\Compute\ComputeTestCase;
 class NetworkTest extends ComputeTestCase
 {
 
-    public function __construct()
+    public function setupObjects()
     {
         parent::setupObjects();
         $this->addMockSubscriber($this->makeResponse('{"network":{"id":"public","ip":[{"version":4,"addr":"67.23.10.132"},{"version":6,"addr":"::babe:67.23.10.132"},{"version":4,"addr":"67.23.10.131"},{"version":6,"addr":"::babe:4317:0A83"}]}}'));

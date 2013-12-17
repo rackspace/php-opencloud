@@ -22,6 +22,8 @@ class Service extends CatalogService
     const DEFAULT_TYPE = 'rax:monitor';
     const DEFAULT_NAME = 'cloudMonitoring';
 
+    protected $regionless = true;
+
     /**
      * @var array CloudMonitoring resources.
      */

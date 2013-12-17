@@ -1,14 +1,5 @@
 <?php
 
-/**
- * @copyright Copyright 2012-2013 Rackspace US, Inc. 
-  See COPYING for licensing information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
- * @version   1.5.9
- * @author    Glen Campbell <glen.campbell@rackspace.com>
- * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
- */
-
 namespace OpenCloud\Tests;
 
 use PHPUnit_Framework_TestCase;
@@ -23,7 +14,7 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
     const ANNOTATION_FILE = 'mockFile';
     const ANNOTATION_PATH = 'mockPath';
 
-    public static $client;
+    public $client;
 
     protected $mockPath = './';
     protected $testDir = '_response/';
@@ -31,7 +22,7 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 
     protected $currentMockSubscriber;
 
-    private static function newClient()
+    public function newClient()
     {
         $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
             'username' => 'foo',
@@ -44,20 +35,22 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 
         return $client;
     }
-    
+
     public function getClient()
     {
-        if (!self::$client) {
-            self::$client = self::newClient();
-        }
-
-        return self::$client;
+        return $this->client;
     }
 
     public function setUp()
     {
+        $this->client = $this->newClient();
         $this->setupObjects();
         $this->handleMockSubscribers();
+    }
+
+    public function tearDown()
+    {
+        $this->client = null;
     }
 
     public function handleMockSubscribers()
@@ -97,9 +90,7 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
         $this->getClient()->addSubscriber($this->currentMockSubscriber);
     }
 
-    public function setupObjects()
-    {
-    }
+    public function setupObjects() {}
 
     public function makeResponse($body = null, $status = 200)
     {

@@ -54,14 +54,22 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
     public function test_Auth_Methods()
     {
         $this->client->authenticate();
-        
-        $this->assertNotNull($this->client->getExpiration());
-        $this->assertNotNull($this->client->getToken());
-        $this->assertNotNull($this->client->getCatalog());
-        $this->assertNotNull($this->client->getTenant());
-        /* ??? */
+
+        // catalog
+        $this->assertInstanceOf('OpenCloud\Common\Service\Catalog', $this->client->getCatalog());
+
+        // token
+        $this->assertNotNull('string', gettype($this->client->getToken()));
+        $this->assertInstanceOf('OpenCloud\Identity\Resource\Token', $this->client->getTokenObject());
+        $this->assertEquals($this->client->getTokenObject()->getExpires(), $this->client->getExpiration());
+        $this->assertEquals($this->client->getTokenObject()->hasExpired(), $this->client->hasExpired());
+
+        // tenant
+        $this->assertEquals('string', gettype($this->client->getTenant()));
+        $this->assertInstanceOf('OpenCloud\Identity\Resource\Tenant', $this->client->getTenantObject());
+
+        // misc
         $this->assertNotNull($this->client->getUrl());
-        $this->assertTrue($this->client->hasExpired());
     }
     
     public function test_Logger()
@@ -83,10 +91,10 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
     
     public function test_Auth_Url()
     {
-        $this->assertEquals(Rackspace::US_IDENTITY_ENDPOINT . 'tokens', (string) $this->client->getAuthUrl());
+        $this->assertEquals(Rackspace::US_IDENTITY_ENDPOINT, (string) $this->client->getAuthUrl());
         
         $this->client->setAuthUrl(Rackspace::UK_IDENTITY_ENDPOINT);
-        $this->assertEquals(Rackspace::UK_IDENTITY_ENDPOINT . 'tokens', (string) $this->client->getAuthUrl());
+        $this->assertEquals(Rackspace::UK_IDENTITY_ENDPOINT, (string) $this->client->getAuthUrl());
     }
     
     public function test_Factory_Methods()

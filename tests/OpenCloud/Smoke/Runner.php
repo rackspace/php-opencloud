@@ -32,6 +32,7 @@ class Runner
         'CloudMonitoring',
         'DNS',
         'Database',
+        'Identity',
         'LoadBalancer',
         'ObjectStore',
         'Orchestration',
@@ -96,7 +97,7 @@ class Runner
                 case 'H':
                 case 'help':
                     Utils::help();
-                    exit;
+                    exit();
                 case 'E':
                 case 'exclude':
                     $this->insertSpecification($value);
@@ -108,7 +109,7 @@ class Runner
                 case 'A':
                 case 'all':
                     Utils::logf('Possible units are: %s', implode(',', $this->units));
-                    break;
+                    exit();
             }
         }
         

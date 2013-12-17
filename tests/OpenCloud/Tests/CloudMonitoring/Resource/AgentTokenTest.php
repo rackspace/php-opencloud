@@ -9,7 +9,7 @@ class AgentTokenTest extends OpenCloudTestCase
 
     const TOKEN_ID = 'someId';
 
-    public function __construct()
+    public function setupObjects()
     {
         $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
         $this->resource = $this->service->resource('AgentToken');

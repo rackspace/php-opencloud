@@ -34,6 +34,8 @@ class ServiceBuilder
 
         if (isset($options['region'])) {
             $region = $options['region'];
+        } elseif ($client->getUser() && ($defaultRegion = $client->getUser()->getDefaultRegion())) {
+            $region = $defaultRegion;
         } else {
             $region = null;
         }

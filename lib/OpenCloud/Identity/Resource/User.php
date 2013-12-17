@@ -2,7 +2,7 @@
 
 namespace OpenCloud\Identity\Resource;
 
-use OpenCloud\Common\Collection\ResourceIterator;
+use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\PersistentObject;
 
@@ -111,7 +111,7 @@ class User extends PersistentObject
 
         $json = json_encode((object) array('user' => $array));
 
-        return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json);
+        return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
 
     public function getOtherCredentials()
@@ -140,7 +140,7 @@ class User extends PersistentObject
         }
     }
 
-    public function resetApiKey($newApiKey)
+    public function resetApiKey()
     {
         $url = $this->getUrl();
         $url->addPath('OS-KSADM')
@@ -149,14 +149,13 @@ class User extends PersistentObject
             ->addPath('RAX-AUTH')
             ->addPath('reset');
 
-        $json = json_encode((object) array(
-            "RAX-KSKEY:apiKeyCredentials" => (object) array(
-                "username" => $this->username,
-                "apiKey"   => $newApiKey
-            )
-        ));
+        $response = $this->getClient()->post($url)->send();
 
-        return $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
+        if ($body = Formatter::decode($response)) {
+            return isset($body->{'RAX-KSKEY:apiKeyCredentials'}->apiKey)
+                ? $body->{'RAX-KSKEY:apiKeyCredentials'}->apiKey
+                : $body;
+        }
     }
 
     public function addRole($roleId)
@@ -180,11 +179,12 @@ class User extends PersistentObject
         $url = $this->getUrl();
         $url->addPath('roles');
 
-        $response = $this->getClient()->get($url)->send();
-
-        if ($body = Formatter::decode($response)) {
-            return ResourceIterator::factory($this, array(), $body->roles);
-        }
+        return PaginatedIterator::factory($this, array(
+            'baseUrl'        => $url,
+            'resourceClass'  => 'Role',
+            'key.collection' => 'roles',
+            'key.links'      => 'roles_links'
+        ));
     }
 
 }

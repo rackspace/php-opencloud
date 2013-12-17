@@ -42,7 +42,7 @@ class DatabaseTest extends DatabaseTestCase
         $db->getName();
     }
 
-    public function testUrl()
+    public function test_Url()
     {
         $this->database->name = 'TEST';
         $this->assertEquals(

@@ -38,10 +38,7 @@ class InstanceTest extends DatabaseTestCase
 
     public function testEnableRootUser()
     {
-        $this->instance->refresh();
-
         $this->addMockSubscriber($this->makeResponse('{"user":{"name":"root","password":"12345"}}'));
-
         $this->assertInstanceOf('OpenCloud\Database\Resource\User', $this->instance->enableRootUser());
     }
 

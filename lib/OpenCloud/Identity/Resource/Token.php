@@ -2,10 +2,14 @@
 
 namespace OpenCloud\Identity\Resource;
 
-class Token 
+use OpenCloud\Common\PersistentObject;
+
+class Token extends PersistentObject
 {
     private $id;
     private $expires;
+
+    protected static $url_resource = 'tokens';
 
     public function setId($id)
     {

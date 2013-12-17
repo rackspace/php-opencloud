@@ -20,7 +20,7 @@ class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
     private $nova;
 
-    public function __construct()
+    public function setupObjects()
     {
         $this->nova = new MyNova(
             $this->getClient(), 'compute', 'cloudServersOpenStack', 'DFW', 'publicURL'

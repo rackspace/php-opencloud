@@ -17,7 +17,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     
     private $service;
 
-    public function __construct()
+    public function setupObjects()
     {
         $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
     }

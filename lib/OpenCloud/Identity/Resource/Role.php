@@ -1,9 +1,10 @@
 <?php
 
-
 namespace OpenCloud\Identity\Resource;
 
-class Role 
+use OpenCloud\Common\PersistentObject;
+
+class Role extends PersistentObject
 {
     private $id;
     private $name;
