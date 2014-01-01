@@ -7,7 +7,7 @@ $client = new Rackspace(RACKSPACE_US, array(
 
 ));
 
-$service = $client->objectStoreService('cloudFiles');
+$service = $client->objectStoreService('cloudFiles', 'DFW'); # Or another region
 ```
 
 ## Temporary URLs
