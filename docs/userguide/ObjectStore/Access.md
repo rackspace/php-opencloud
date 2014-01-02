@@ -7,7 +7,7 @@ $client = new Rackspace(RACKSPACE_US, array(
 
 ));
 
-$service = $client->objectStoreService('cloudFiles');
+$service = $client->objectStoreService('cloudFiles', 'IAD'); # Second argument is the region you want
 ```
 
 ## Temporary URLs
