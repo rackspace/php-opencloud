@@ -147,7 +147,7 @@ try {
     $statusCode   = $e->getResponse()->getStatusCode();
     $headers      = $e->getResponse()->getHeaderLines();
 
-    echo sprintf('Status: %s\nBody: %s\nHeaders: %s', $statusCode, $responseBody, implode(', ', $headers);
+    echo sprintf("Status: %s\nBody: %s\nHeaders: %s", $statusCode, $responseBody, implode(', ', $headers));
 }
 ```
 
