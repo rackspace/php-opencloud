@@ -237,7 +237,7 @@ into a particular container:
 ```php
 use OpenCloud\ObjectStore\Constants\UrlType;
 
-$service->bulkExtract('container_1', fopen('/home/jamie/files.tar.gz'), UrlType::TAR_GZ);
+$service->bulkExtract('container_1', fopen('/home/jamie/files.tar.gz','r'), UrlType::TAR_GZ);
 ```
 
 You can also omit the container name (i.e. provide an empty string as the first argument). If you do this, the API will
