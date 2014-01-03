@@ -214,9 +214,13 @@ class ResourceIterator extends ArrayCollection implements Iterator
     {
     }
 
-    public function search(callable $callback)
+    public function search($callback)
     {
         $return = false;
+
+        if (!is_callable($callback)) {
+            throw new InvalidArgumentError('The provided argument must be a valid callback');
+        }
 
         foreach ($this->elements as $element) {
             $resource = $this->constructResource($element);
