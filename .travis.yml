@@ -12,6 +12,9 @@ branches:
 before_script:
   - composer install
 
+after_script:
+  - php vendor/bin/coveralls -v
+
 notifications:
   email:
     - jamie.hannaford@rackspace.com
