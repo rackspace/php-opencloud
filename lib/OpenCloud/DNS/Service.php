@@ -26,6 +26,16 @@ class Service extends CatalogService
 
     protected $regionless = true;
 
+    public function collection($class, $url = null, $parent = null, $data = null)
+    {
+        $options = $this->makeResourceIteratorOptions($this->resolveResourceClass($class));
+        $options['baseUrl'] = $url;
+
+        $parent = $parent ?: $this;
+
+        return DnsIterator::factory($parent, $options, $data);
+    }
+
     /**
      * returns a DNS::Domain object
      *
@@ -47,16 +57,8 @@ class Service extends CatalogService
      */
     public function domainList($filter = array())
     {
-        $url = $this->url(Resource\Domain::resourceName(), $filter);
-
-        $options = $this->makeResourceIteratorOptions(
-            $this->resolveResourceClass('OpenCloud\DNS\Resource\Domain')
-        );
-        $options['baseUrl'] = $url;
-
-        $options['limit.page'] = 1;
-
-        return DnsIterator::factory($this, $options);
+        $url = $this->getUrl(Resource\Domain::resourceName(), $filter);
+        return $this->collection('OpenCloud\DNS\Resource\Domain', $url);
     }
 
     /**
@@ -79,9 +81,11 @@ class Service extends CatalogService
      */
     public function ptrRecordList(Server $server)
     {
-        $url = $this->url('rdns/' . $server->getService()->name(), array(
-            'href' => $server->url()
-        ));
+        $url = $this->getUrl()
+            ->addPath('rdns')
+            ->addPath($server->getService()->name())
+            ->setQuery(array('href' => $server->url()));
+
         return $this->collection('OpenCloud\DNS\Resource\PtrRecord', $url);
     }
 

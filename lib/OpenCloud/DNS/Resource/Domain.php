@@ -73,8 +73,10 @@ class Domain extends Object
      */
     public function recordList($filter = array())
     {
+        $url = $this->getUrl(Record::resourceName(), $filter);
+
         return $this->getParent()->collection(
-            'OpenCloud\DNS\Resource\Record', null, $this, $filter
+            'OpenCloud\DNS\Resource\Record', $url, $this
         );
     }
 
@@ -100,8 +102,10 @@ class Domain extends Object
      */
     public function subdomainList($filter = array())
     {
+        $url = $this->getUrl(Subdomain::resourceName(), $filter);
+
         return $this->getParent()->collection(
-            'OpenCloud\DNS\Resource\Subdomain', null, $this
+            'OpenCloud\DNS\Resource\Subdomain', $url, $this
         );
     }
 
