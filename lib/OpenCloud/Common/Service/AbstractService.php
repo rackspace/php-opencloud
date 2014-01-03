@@ -169,9 +169,8 @@ abstract class AbstractService extends Base implements ServiceInterface
             $parent = $this;
         }
 
-        $resource = $this->resolveResourceClass($class);
-
         if (!$url) {
+            $resource = $this->resolveResourceClass($class);
             $url = $parent->getUrl($resource::resourceName());
         }
 

@@ -14,6 +14,7 @@ use OpenCloud\Common\Service\CatalogService;
 use OpenCloud\OpenStack;
 use OpenCloud\Compute\Resource\Server;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\DNS\Collection\DnsIterator;
 
 /**
  * DNS Service.
@@ -46,8 +47,16 @@ class Service extends CatalogService
      */
     public function domainList($filter = array())
     {
-        $url = $this->url(Resource\Domain::ResourceName(), $filter);
-        return $this->collection('OpenCloud\DNS\Resource\Domain', $url);
+        $url = $this->url(Resource\Domain::resourceName(), $filter);
+
+        $options = $this->makeResourceIteratorOptions(
+            $this->resolveResourceClass('OpenCloud\DNS\Resource\Domain')
+        );
+        $options['baseUrl'] = $url;
+
+        $options['limit.page'] = 1;
+
+        return DnsIterator::factory($this, $options);
     }
 
     /**

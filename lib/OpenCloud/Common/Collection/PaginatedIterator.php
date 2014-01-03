@@ -24,15 +24,18 @@ use OpenCloud\Common\Http\Message\Formatter;
  */
 class PaginatedIterator extends ResourceIterator implements Iterator
 {
+    const MARKER = 'marker';
+    const LIMIT  = 'limit';
+
     /**
      * @var string Used for requests which append elements.
      */
-    private $currentMarker;
+    protected $currentMarker;
 
     /**
      * @var \Guzzle\Http\Url The next URL for pagination
      */
-    private $nextUrl;
+    protected $nextUrl;
 
     protected $defaults = array(
         // Collection limits
@@ -158,13 +161,18 @@ class PaginatedIterator extends ResourceIterator implements Iterator
             return false;
         } elseif (isset($this->elements[$this->position])) {
             return true;
-        } elseif ($this->currentMarker && $this->getOption('limit.page') % ($this->position + 1) == 0) {
+        } elseif ($this->shouldAppend() === true) {
             $before = $this->count();
             $this->appendNewCollection();
             return ($this->count() > $before) ? true : false;
         }
 
         return false;
+    }
+
+    protected function shouldAppend()
+    {
+        return $this->currentMarker && $this->getOption('limit.page') % ($this->position + 1) == 0;
     }
 
     /**
@@ -207,9 +215,7 @@ class PaginatedIterator extends ResourceIterator implements Iterator
             return false;
         }
 
-        if ($nextUrl = $this->extractNextLink($body)) {
-            $this->nextUrl = $nextUrl;
-        }
+        $this->nextUrl = $this->extractNextLink($body);
 
         return $this->appendElements($this->parseResponseBody($body));
     }
@@ -224,7 +230,7 @@ class PaginatedIterator extends ResourceIterator implements Iterator
     {
         $key = $this->getOption('key.links');
 
-        $value = false;
+        $value = null;
 
         if (isset($body->$key)) {
             foreach ($body->$key as $link) {
@@ -246,10 +252,19 @@ class PaginatedIterator extends ResourceIterator implements Iterator
     public function constructNextUrl()
     {
         if (!$url = $this->nextUrl) {
-            $url = $this->getOption('baseUrl');
-            if ($this->currentMarker) {
-                $url->setQuery(array('marker' => $this->currentMarker, 'limit' => $this->getOption('limit.page')));
+
+            $url = clone $this->getOption('baseUrl');
+            $query = array();
+
+            if (isset($this->currentMarker)) {
+                $query[static::MARKER] = $this->currentMarker;
             }
+
+            if ($limit = $this->getOption('limit.page')) {
+                $query[static::LIMIT] = $limit;
+            }
+
+            $url->setQuery($query);
         }
 
         return $url;
