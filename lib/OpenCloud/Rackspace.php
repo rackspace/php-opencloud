@@ -10,6 +10,7 @@
 
 namespace OpenCloud;
 
+use OpenCloud\Common\Exceptions\CredentialError;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Identity\Service as IdentityService;
 
@@ -64,9 +65,7 @@ class Rackspace extends OpenStack
             return json_encode($credentials);
 
         } else {
-            throw new Exceptions\CredentialError(
-                Lang::translate('Unrecognized credential secret')
-            );
+            throw new CredentialError('Unrecognized credential secret');
         }
     }
 
