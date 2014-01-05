@@ -303,7 +303,7 @@ class DataObject extends AbstractResource
 
     public function update($params = array())
     {
-        return $this->container->uploadObject($this->name, $this->content, $this->metadata->toArray());
+        return $this->container->uploadObject($this->name, $this->content, self::stockHeaders($this->metadata->toArray()));
     }
 
     /**
