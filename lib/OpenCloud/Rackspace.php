@@ -176,7 +176,9 @@ class Rackspace extends OpenStack
      */
     public function identityService()
     {
-        return IdentityService::factory($this);
+        $service = IdentityService::factory($this);
+        $this->authenticate();
+        return $service;
     }
     
 }

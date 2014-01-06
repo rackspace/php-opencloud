@@ -15,6 +15,7 @@ use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\AbstractService;
+use OpenCloud\Identity\Constants\User as UserConst;
 
 /**
  * Class responsible for working with Rackspace's Cloud Identity service.
@@ -87,19 +88,19 @@ class Service extends AbstractService
      * @param $mode   string Either 'name', 'userId' or 'email'
      * @return \OpenCloud\Identity\Resource\User
      */
-    public function getUser($search, $mode = 'name')
+    public function getUser($search, $mode = UserConst::MODE_NAME)
     {
         $url = $this->getUrl('users');
 
         switch ($mode) {
             default:
-            case 'name':
+            case UserConst::MODE_NAME:
                 $url->setQuery(array('name' => $search));
                 break;
-            case 'userId':
+            case UserConst::MODE_ID:
                 $url->addPath($search);
                 break;
-            case 'email':
+            case UserConst::MODE_EMAIL:
                 $url->setQuery(array('email' => $search));
                 break;
         }

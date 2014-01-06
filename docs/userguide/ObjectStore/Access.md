@@ -44,3 +44,23 @@ To allow PUT access for 1 hour:
 ```php
 $object->getTemporaryUrl(360, 'PUT');
 ```
+
+## Hosting websites on CloudFiles
+
+To host a static (i.e. HTML) website on CloudFiles, you must follow these steps:
+
+1. CDN-enable a container
+2. Upload all HTML content. You can use nested directory structures.
+3. Tell CloudFiles what to use for your default index page like this:
+
+```php
+$container->setStaticIndexPage('index.html');
+```
+
+4. (Optional) Tell CloudFiles which error page to use by default:
+
+```php
+$container->setStaticErrorPage('error.html');
+```
+
+Bear in mind that steps 3 & 4 do not upload content, but rather specify a reference to an existing page/CloudFiles object.

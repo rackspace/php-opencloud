@@ -44,12 +44,16 @@ class User extends PersistentObject
     /** @var bool Whether or not this user is enabled or not */
     private $enabled;
 
+    /** @var string The string password for this user */
+    private $password;
+
     protected $createKeys = array('username', 'email', 'enabled');
     protected $updateKeys = array('username', 'email', 'enabled', 'RAX-AUTH:defaultRegion', 'RAX-AUTH:domainId', 'id');
 
     protected $aliases = array(
         'RAX-AUTH:defaultRegion' => 'defaultRegion',
-        'RAX-AUTH:domainId'      => 'domainId'
+        'RAX-AUTH:domainId'      => 'domainId',
+        'OS-KSADM:password'      => 'password'
     );
 
     protected static $url_resource = 'users';
@@ -157,6 +161,22 @@ class User extends PersistentObject
     public function isEnabled()
     {
         return $this->enabled === true;
+    }
+
+    /**
+     * @param $username Set the username
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string Get the username
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 
     public function primaryKeyField()
