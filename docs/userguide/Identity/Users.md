@@ -11,7 +11,7 @@ User objects are instantiated from the Identity service. For more details, see t
 ## Useful object properties/methods
 
 Property|Description|Getter|Setter
----|---|---
+---|---|---|---
 id|The unique ID for this user|`getId()`|`setId()`
 username|Username for this user|`getUsername()`|`setUsername()`
 email|User's email address|`getEmail()`|`setEmail()`
