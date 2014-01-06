@@ -36,8 +36,8 @@ use OpenCloud\Identity\Service as IdentityService;
  */
 class Rackspace extends OpenStack
 {
-	const US_IDENTITY_ENDPOINT = 'https://identity.api.rackspacecloud.com/v2.0/';
-	const UK_IDENTITY_ENDPOINT = 'https://lon.identity.api.rackspacecloud.com/v2.0/';
+    const US_IDENTITY_ENDPOINT = 'https://identity.api.rackspacecloud.com/v2.0/';
+    const UK_IDENTITY_ENDPOINT = 'https://lon.identity.api.rackspacecloud.com/v2.0/';
 
     /**
      * Generates Rackspace API key credentials

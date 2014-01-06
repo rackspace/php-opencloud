@@ -21,5 +21,4 @@ class Header
     const TRANS_ID = 'Trans-Id';
     const ENABLED  = 'Enabled';
     const LOG_RETENTION = 'Log-Retention';
-
 } 

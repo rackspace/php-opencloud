@@ -87,10 +87,9 @@ abstract class AbstractResource extends Base
         $output = array();
         
         foreach ($headers as $header => $value) {
-            // Only allow allow X-* headers to pass through after stripping them
-            if (preg_match('#^' . self::GLOBAL_METADATA_PREFIX . '\-#i', $header)
-                && ($key = self::stripPrefix($header))
-            ) {
+            // Only allow allow X-<keyword>-* headers to pass through after stripping them
+            $pattern = sprintf('#^%s\-%s\-#i', self::GLOBAL_METADATA_PREFIX, static::METADATA_LABEL);
+            if (preg_match($pattern, $header) && ($key = self::stripPrefix($header))) {
                 $output[$key] = (string) $value;
             }
         }

@@ -13,6 +13,7 @@ namespace OpenCloud\ObjectStore\Resource;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
+use OpenCloud\Common\Constants\Header as HeaderConst;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\ObjectStore\Constants\UrlType;
@@ -127,10 +128,10 @@ class DataObject extends AbstractResource
         $headers = $response->getHeaders();
 
         return $this->setMetadata($headers, true)
-            ->setContentType((string) $headers['Content-type'])
-            ->setLastModified((string) $headers['Last-Modified'])
-            ->setContentLength((string) $headers['Content-Length'])
-            ->setEtag((string) $headers['ETag']);
+            ->setContentType((string) $headers[HeaderConst::CONTENT_TYPE])
+            ->setLastModified((string) $headers[HeaderConst::LAST_MODIFIED])
+            ->setContentLength((string) $headers[HeaderConst::CONTENT_LENGTH])
+            ->setEtag((string) $headers[HeaderConst::ETAG]);
     }
 
     public function refresh()
@@ -303,7 +304,17 @@ class DataObject extends AbstractResource
 
     public function update($params = array())
     {
-        return $this->container->uploadObject($this->name, $this->content, $this->metadata->toArray());
+        $metadata = self::stockHeaders($this->metadata->toArray());
+
+        // merge specific properties with metadata
+        $metadata += array(
+            HeaderConst::CONTENT_TYPE => $this->contentType,
+            HeaderConst::LAST_MODIFIED => $this->lastModified,
+            HeaderConst::CONTENT_LENGTH => $this->contentLength,
+            HeaderConst::ETAG => $this->etag
+        );
+
+        return $this->container->uploadObject($this->name, $this->content, $metadata);
     }
 
     /**
