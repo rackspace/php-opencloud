@@ -88,7 +88,7 @@ abstract class AbstractResource extends Base
         
         foreach ($headers as $header => $value) {
             // Only allow allow X-<keyword>-* headers to pass through after stripping them
-            $pattern = sprintf('#^%s\-%s\-#i', self::GLOBAL_METADATA_PREFIX, static::METADATA_LABEL);
+            $pattern = sprintf('#^%s\-#i', self::GLOBAL_METADATA_PREFIX);
             if (preg_match($pattern, $header) && ($key = self::stripPrefix($header))) {
                 $output[$key] = (string) $value;
             }
@@ -160,12 +160,7 @@ abstract class AbstractResource extends Base
      */
     public function saveMetadata(array $metadata)
     {
-        $headers = self::stockHeaders($metadata) + array(
-            HeaderConst::CONTENT_TYPE => $this->contentType,
-            HeaderConst::LAST_MODIFIED => $this->lastModified,
-            HeaderConst::CONTENT_LENGTH => $this->contentLength,
-            HeaderConst::ETAG => $this->etag
-        );
+        $headers = self::stockHeaders($metadata);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 

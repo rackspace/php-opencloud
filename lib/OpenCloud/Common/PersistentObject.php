@@ -292,7 +292,15 @@ abstract class PersistentObject extends Base
         // send the request
         return $this->getClient()->delete($this->getUrl())->send();
     }
-    
+
+    /**
+     * @deprecated
+     */
+    public function url($path = null, array $query = array())
+    {
+        return $this->getUrl($path, $query);
+    }
+
     /**
      * Returns the default URL of the object
      *
@@ -302,19 +310,14 @@ abstract class PersistentObject extends Base
      * @param array $qstr optional k/v pairs for query strings
      * @return string
      */
-    public function url($path = null, array $query = array())
-    {
-        return $this->getUrl($path, $query);
-    }
-    
     public function getUrl($path = null, array $query = array())
     {
         if (!$url = $this->findLink('self')) {
-            
+
             // ...otherwise construct a URL from parent and this resource's
             // "URL name". If no name is set, resourceName() throws an error.
             $url = $this->getParent()->getUrl($this->resourceName());
-            
+
             // Does it have a primary key?
             if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {
                 $url->addPath($primaryKey);
@@ -324,7 +327,7 @@ abstract class PersistentObject extends Base
         if (!$url instanceof Url) {
             $url = Url::factory($url);
         }
-        
+
         return $url->addPath($path)->setQuery($query);
     }
 

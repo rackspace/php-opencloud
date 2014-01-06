@@ -10,6 +10,7 @@
 
 namespace OpenCloud\Compute\Resource;
 
+use Guzzle\Http\Url;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
@@ -28,6 +29,7 @@ class Network extends PersistentObject
     
     protected static $json_name = 'network';
     protected static $url_resource = 'os-networksv2';
+    protected static $openStackResourcePath = 'os-networks';
 
     /**
      * Creates a new isolated Network object
@@ -111,6 +113,42 @@ class Network extends PersistentObject
                 'label' => $this->label
             )
         );
+    }
+
+    /**
+     * Rackspace Cloud Networks operates on a different URI than OpenStack Neutron.
+     * {@inheritDoc}
+     */
+    public function getUrl($path = null, array $query = array())
+    {
+        if (!$url = $this->findLink('self')) {
+
+            $url = $this->getParent()->getUrl($this->getResourcePath());
+
+            if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {
+                $url->addPath($primaryKey);
+            }
+        }
+
+        if (!$url instanceof Url) {
+            $url = Url::factory($url);
+        }
+
+        return $url->addPath($path)->setQuery($query);
+    }
+
+    /**
+     * Ascertain the correct URI path.
+     *
+     * @return string
+     */
+    public function getResourcePath()
+    {
+        if (strpos((string) $this->getService()->getUrl(), 'rackspacecloud.com') !== false) {
+            return self::$url_resource;
+        } else {
+            return self::$openStackResourcePath;
+        }
     }
 
 }

@@ -14,7 +14,9 @@ namespace OpenCloud\Tests\Compute\Resource;
 
 use OpenCloud\Compute\Constants\Network as NetworkConst;
 use OpenCloud\Compute\Resource\Network;
+use OpenCloud\OpenStack;
 use OpenCloud\Tests\Compute\ComputeTestCase;
+use OpenCloud\Tests\MockSubscriber;
 
 class NetworkTest extends ComputeTestCase
 {
@@ -67,6 +69,19 @@ class NetworkTest extends ComputeTestCase
 
         $network = $this->service->network('0.0.0.0');
         $network->delete();
+    }
+
+    public function test_Paths()
+    {
+        $this->assertStringEndsWith('os-networksv2', (string) $this->service->network()->getUrl());
+
+        $client = new OpenStack('http://identity.example.com/v2', array('username' => 'foo', 'password' => 'bar'));
+
+        $response = $this->getTestFilePath('Auth_OpenStack', '.');
+        $client->addSubscriber(new MockSubscriber(array($response)));
+
+        $service = $client->computeService('compute', 'RegionOne', 'publicURL');
+        $this->assertStringEndsWith('os-networks', (string) $service->network()->getUrl());
     }
     
 }

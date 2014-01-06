@@ -5,6 +5,7 @@ namespace OpenCloud\Tests;
 use PHPUnit_Framework_TestCase;
 use OpenCloud\Rackspace;
 use Guzzle\Http\Message\Response;
+use Guzzle\Plugin\Log\LogPlugin;
 
 abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 {
@@ -30,6 +31,7 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
         ));
 
         $client->addSubscriber(new MockSubscriber());
+        //$client->addSubscriber(LogPlugin::getDebugPlugin());
 
         $client->authenticate();
 

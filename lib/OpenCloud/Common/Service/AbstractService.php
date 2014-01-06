@@ -25,7 +25,6 @@ use OpenCloud\Common\Collection\PaginatedIterator;
  */
 abstract class AbstractService extends Base implements ServiceInterface
 {
-
     /**
      * @var OpenCloud\Common\Http\Client The client which interacts with the API.
      */

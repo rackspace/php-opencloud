@@ -55,10 +55,7 @@ class ContainerTest extends ObjectStoreTestCase
             'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com', 
             $cdn->getCdnUri()
         );
-        $this->assertEquals(
-            '259200', 
-            $cdn->getTtl()
-        );
+        $this->assertEquals('259200', $cdn->getTtl());
         $this->assertEquals(
             'http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.stream.cf0.rackcdn.com', 
             $cdn->getCdnStreamingUri()

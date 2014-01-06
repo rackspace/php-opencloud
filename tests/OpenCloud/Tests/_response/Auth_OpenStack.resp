@@ -1,0 +1,59 @@
+HTTP/1.1 200 OK
+Server: nginx/0.8.55
+Date: Thu, 02 May 2013 12:25:34 GMT
+Content-Type: application/json
+Connection: close
+response-source: cloud-auth
+vary: Accept, Accept-Encoding, X-Auth-Token
+VIA: 1.0 Repose (Repose/2.3.5)
+Front-End-Https: on
+
+{
+    "access":{
+        "token":{
+            "expires":"2012-02-05T00:00:00",
+            "id":"887665443383838",
+            "tenant":{
+                "id":"1",
+                "name":"customer-x"
+            }
+        },
+        "serviceCatalog":[
+            {
+                "endpoints":[
+                {
+                    "adminURL":"http://swift.admin-nets.local:8080/",
+                    "region":"RegionOne",
+                    "internalURL":"http://127.0.0.1:8080/v2/AUTH_1",
+                    "publicURL":"http://swift.publicinternets.com/v2/AUTH_1"
+                }
+                ],
+                "type":"compute",
+                "name":"compute"
+            },
+            {
+                "endpoints":[
+                {
+                    "adminURL":"http://cdn.admin-nets.local/v1.1/1",
+                    "region":"RegionOne",
+                    "internalURL":"http://127.0.0.1:7777/v1.1/1",
+                    "publicURL":"http://cdn.publicinternets.com/v1.1/1"
+                }
+                ],
+                "type":"object-store",
+                "name":"cdn"
+            }
+        ],
+        "user":{
+            "id":"1",
+            "roles":[
+                {
+                "tenantId":"1",
+                "id":"3",
+                "name":"Member"
+                }
+            ],
+            "name":"joeuser"
+        }
+    }
+}

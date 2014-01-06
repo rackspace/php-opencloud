@@ -40,6 +40,14 @@ abstract class Base
     private $logger;
 
     /**
+     * @return static
+     */
+    public static function getInstance()
+    {
+        return new static();
+    }
+
+    /**
      * Intercept non-existent method calls for dynamic getter/setter functionality.
      *
      * @param $method
