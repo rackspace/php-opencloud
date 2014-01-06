@@ -11,6 +11,7 @@
         <whitelist>
             <directory suffix=".php">./lib/OpenCloud</directory>
             <exclude>
+                <directory>./tests/OpenCloud/Tests</directory>
                 <directory suffix="Exception.php">./lib/OpenCloud/CloudMonitoring/Exception</directory>
                 <directory suffix="Error.php">./lib/OpenCloud/Common/Exceptions</directory>
                 <directory suffix="Exception.php">./lib/OpenCloud/Common/Exceptions</directory>
@@ -22,7 +23,7 @@
     </filter>
 
     <logging>
-        <log type="coverage-clover" target="./build/coverage/clover.xml" />
+        <log type="coverage-clover" target="./build/logs/clover.xml" />
     </logging>
 
 </phpunit>
