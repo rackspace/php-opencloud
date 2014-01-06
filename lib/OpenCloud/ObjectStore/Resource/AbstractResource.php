@@ -160,7 +160,12 @@ abstract class AbstractResource extends Base
      */
     public function saveMetadata(array $metadata)
     {
-        $headers = self::stockHeaders($metadata) + self::getJsonHeader();
+        $headers = self::stockHeaders($metadata) + array(
+            HeaderConst::CONTENT_TYPE => $this->contentType,
+            HeaderConst::LAST_MODIFIED => $this->lastModified,
+            HeaderConst::CONTENT_LENGTH => $this->contentLength,
+            HeaderConst::ETAG => $this->etag
+        );
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
