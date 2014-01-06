@@ -42,7 +42,7 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         $this->step('Add a metadata item');
         $metadata = $loadBalancer->metadata();
         $metadata->key = 'author';
-        $metadata->value = 'Glen Campbell';
+        $metadata->value = 'Jamie';
         $metadata->create();
 
         $this->step('Add a public IPv6 address');

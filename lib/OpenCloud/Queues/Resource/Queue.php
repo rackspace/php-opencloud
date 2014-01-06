@@ -242,8 +242,8 @@ class Queue extends PersistentObject
         if (null !== ($location = $response->getHeader('Location'))) {
             
             $parts = array_merge($this->getUrl()->getParts(), parse_url($location));
-            $url = Url::buildUrl($parts);
-            
+            $url = Url::factory(Url::buildUrl($parts));
+
             return $this->getService()->resourceList('Message', $url, $this);
         }
         
