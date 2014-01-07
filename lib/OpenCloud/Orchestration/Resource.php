@@ -9,14 +9,13 @@
 
 namespace OpenCloud\Orchestration;
 
-use OpenCloud\AbstractClass\PersistentObject;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * @codeCoverageIgnore
  */
 class Resource extends PersistentObject 
 {
-    
     protected $links;
     protected $logical_resource_id;
     protected $physical_resource_id;
