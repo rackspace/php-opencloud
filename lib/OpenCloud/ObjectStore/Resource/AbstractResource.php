@@ -22,19 +22,13 @@ abstract class AbstractResource extends Base
 {
     const GLOBAL_METADATA_PREFIX = 'X';
 
-    /**
-     * @var \OpenCloud\Common\Metadata
-     */
+    /** @var \OpenCloud\Common\Metadata*/
     protected $metadata;
 
-    /**
-     * @var string The FQCN of the metadata object used for the container.
-     */
+    /** @var string The FQCN of the metadata object used for the container. */
     protected $metadataClass = 'OpenCloud\\Common\\Metadata';
     
-    /**
-     * @var \OpenCloud\Common\Service\ServiceInterface The service object.
-     */
+    /** @var \OpenCloud\Common\Service\ServiceInterface The service object. */
     protected $service;
     
     public function  __construct(ServiceInterface $service)
@@ -155,12 +149,14 @@ abstract class AbstractResource extends Base
     /**
      * Push local metadata to the API, thereby executing a permanent save.
      *
-     * @param array $metadata
+     * @param array $metadata    The array of values you want to set as metadata
+     * @param bool  $stockPrefix Whether to prepend each array key with the metadata-specific prefix. For objects, this
+     *                           would be X-Object-Meta-Foo => Bar
      * @return mixed
      */
-    public function saveMetadata(array $metadata)
+    public function saveMetadata(array $metadata, $stockPrefix = true)
     {
-        $headers = self::stockHeaders($metadata);
+        $headers = ($stockPrefix === true) ? self::stockHeaders($metadata) : $metadata;
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
