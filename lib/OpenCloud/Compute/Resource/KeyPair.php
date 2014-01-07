@@ -14,14 +14,8 @@ use OpenCloud\Common\PersistentObject;
 use OpenCloud\Compute\Exception\KeyPairException;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 
-/**
- * Description of KeyPair
- * 
- * @link 
- */
 class KeyPair extends PersistentObject
 {
-    
     private $name;
     private $fingerprint;
     private $privateKey;
@@ -70,10 +64,7 @@ class KeyPair extends PersistentObject
         }
         return (object) array('keypair' => $object);
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function create($params = array())
     {
         $this->setPublicKey(null);
@@ -104,18 +95,12 @@ class KeyPair extends PersistentObject
         }
         return parent::create();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function update($params = array())
     {
         return $this->noUpdate();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     public function primaryKeyField()
     {
         return 'name';
