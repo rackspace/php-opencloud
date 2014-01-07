@@ -9,6 +9,7 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use OpenCloud\Smoke\Utils;
 use OpenCloud\Smoke\Enum;
 use OpenCloud\Common\Exceptions\CdnNotAvailableError;
@@ -159,7 +160,12 @@ class ObjectStore extends AbstractUnit implements UnitInterface
             }
 
             $this->stepInfo('Delete Container: %s', $container->getName());
-            $container->delete();
+
+            try {
+                $container->delete();
+            } catch (ClientErrorResponseException $e) {
+                echo sprintf("Error when deleting container. Response: %s", (string) $e->getResponse());
+            }
         }
     }
 }
