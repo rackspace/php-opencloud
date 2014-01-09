@@ -638,16 +638,13 @@ class Server extends PersistentObject
                         . " keypair's name"
                 ));
             }
-            if (empty($this->keypair['publicKey'])) {
+            if (empty($this->keypair['public_key'])) {
                 throw new Exceptions\InvalidParameterError(sprintf(
                     'If you want to specify a keypair, you need to specify the'
-                        . " keypair's publicKey value."
+                        . " keypair's public_key value."
                 ));
             }
-            $server->keypair = (object) array(
-                'name'       => $this->keypair['name'],
-                'public_key' => $this->keypair['publicKey']
-            );
+            $server->key_name = $this->keypair['name'],
         }
 
         return (object) array('server' => $server);
