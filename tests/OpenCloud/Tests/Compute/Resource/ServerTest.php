@@ -84,7 +84,7 @@ class ServerTest extends ComputeTestCase
         $this->service->server()->create(array(
             'keypair' => array(
                 'name'      => 'foo',
-                'publicKey' => 'bar'
+                'public_key' => 'bar'
             )
         ));
     }
