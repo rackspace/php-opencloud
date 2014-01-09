@@ -644,7 +644,7 @@ class Server extends PersistentObject
                         . " keypair's public_key value."
                 ));
             }
-            $server->key_name = $this->keypair['name'],
+            $server->key_name = $this->keypair['name'];
         }
 
         return (object) array('server' => $server);
