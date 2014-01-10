@@ -50,7 +50,7 @@ $compute = $client->computeService('nova', 'regionOne');
 
 The first argument is the __name__ of the service as it appears in the OpenStack service catalog. If in doubt, you can
 leave blank and it will revert to the default name for the service. The second argument is the region. The third and
-last argument is the type of URL; you may use either `publicUrl` or `internalUrl`.
+last argument is the type of URL; you may use either `publicURL` or `internalURL`.
 
 ### 3. Select your server image
 

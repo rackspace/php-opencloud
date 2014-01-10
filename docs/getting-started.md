@@ -73,7 +73,7 @@ leave blank and it will revert to the default name for the service. The second a
 - __HKG__ (Hong Kong)
 - __SYD__ (Sydney)
 
-The third and last argument is the type of URL; you may use either `publicUrl` or `internalUrl`. If you select `internalUrl`
+The third and last argument is the type of URL; you may use either `publicURL` or `internalURL`. If you select `internalUrl`
 all API traffic will use ServiceNet (internal IPs) and will receive a performance boost.
 
 ### 3. Select your server image
