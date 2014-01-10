@@ -254,7 +254,7 @@ class PaginatedIterator extends ResourceIterator implements Iterator
         if (!$url = $this->nextUrl) {
 
             $url = clone $this->getOption('baseUrl');
-            $query = array();
+            $query = $url->getQuery();
 
             if (isset($this->currentMarker)) {
                 $query[static::MARKER] = $this->currentMarker;
