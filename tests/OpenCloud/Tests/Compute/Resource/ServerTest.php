@@ -58,7 +58,7 @@ class ServerTest extends ComputeTestCase
         ));
         $this->assertNotNull($resp->getStatusCode());
     }
-    
+
     public function test_Create_With_KeyPair()
     {
         $this->service->server()->create(array(
