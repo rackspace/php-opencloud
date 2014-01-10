@@ -21,9 +21,7 @@ And you're good to go!
 
 # Quick deep-dive: building some cloud servers
 
-In this example, you will write code that will create two 1GB
-Cloud Servers running Ubuntu 13.04. You will need a text editor
-to enter and edit this code. Here is the complete program:
+In this example, you will write code that will create a Cloud Server running Ubuntu.
 
 ### 1. Setup the client and pass in your credentials
 

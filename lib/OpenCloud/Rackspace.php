@@ -170,15 +170,5 @@ class Rackspace extends OpenStack
             'urlType' => $urltype
         ));
     }
-
-    /**
-     * Creates a new Rackspace "Cloud Identity" service.
-     */
-    public function identityService()
-    {
-        $service = IdentityService::factory($this);
-        $this->authenticate();
-        return $service;
-    }
     
 }

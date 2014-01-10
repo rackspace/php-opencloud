@@ -511,4 +511,16 @@ class OpenStack extends Client
         ));
     }
 
+    /**
+     * Creates a new Rackspace "Cloud Identity" service.
+     *
+     * @return \OpenCloud\Identity\Service
+     */
+    public function identityService()
+    {
+        $service = IdentityService::factory($this);
+        $this->authenticate();
+        return $service;
+    }
+
 }
