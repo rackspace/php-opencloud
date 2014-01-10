@@ -134,7 +134,8 @@ class Server extends PersistentObject
 
     protected static $json_name = 'server';
     protected static $url_resource = 'servers';
-    
+
+    /** @var string|object Keypair or string representation of keypair name */
     public $keypair;
     
     /**
@@ -632,22 +633,13 @@ class Server extends PersistentObject
         
         // Keypairs
         if (!empty($this->keypair)) {
-            if (empty($this->keypair['name'])) {
-                throw new Exceptions\InvalidParameterError(sprintf(
-                    'If you want to specify a keypair, you need to specify the'
-                        . " keypair's name"
-                ));
+            if (is_string($this->keypair)) {
+                $server->key_name = $this->keypair;
+            } elseif (isset($this->keypair['name']) && is_string($this->keypair['name'])) {
+                $server->key_name = $this->keypair['name'];
+            } elseif ($this->keypair instanceof Keypair && $this->keypair->getName()) {
+                $server->key_name = $this->keypair->getName();
             }
-            if (empty($this->keypair['publicKey'])) {
-                throw new Exceptions\InvalidParameterError(sprintf(
-                    'If you want to specify a keypair, you need to specify the'
-                        . " keypair's publicKey value."
-                ));
-            }
-            $server->keypair = (object) array(
-                'name'       => $this->keypair['name'],
-                'public_key' => $this->keypair['publicKey']
-            );
         }
 
         return (object) array('server' => $server);

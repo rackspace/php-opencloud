@@ -59,26 +59,6 @@ class ServerTest extends ComputeTestCase
         $this->assertNotNull($resp->getStatusCode());
     }
     
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
-     */
-    public function test_Create_Fails_Without_KeyPair_Name()
-    {
-        $this->service->server()->create(array(
-            'keypair' => array('name' => null)
-        ));
-    }
-    
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
-     */
-    public function test_Create_Fails_Without_KeyPair_PublicKey()
-    {
-        $this->service->server()->create(array(
-            'keypair' => array('name' => 'foo')
-        ));
-    }
-
     public function test_Create_With_KeyPair()
     {
         $this->service->server()->create(array(
