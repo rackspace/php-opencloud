@@ -22,11 +22,11 @@
     },
     "require": {
         "php" : ">=5.3.3",
-        "guzzle/http" : "dev-master"
+        "guzzle/http" : "3.8.*@dev"
     },
     "require-dev" : {
-        "guzzle/plugin-mock": "dev-master",
-        "guzzle/plugin-log": "dev-master",
+        "guzzle/plugin-mock": "3.8.*@dev",
+        "guzzle/plugin-log": "3.8.*@dev",
         "psr/log": "1.0.*",
         "satooshi/php-coveralls": "0.6.*@dev"
     }
