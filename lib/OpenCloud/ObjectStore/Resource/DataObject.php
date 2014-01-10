@@ -256,7 +256,7 @@ class DataObject extends AbstractResource
      */
     public function getContentLength()
     {
-        return $this->contentLength ?: $this->content->getContentLength();
+        return $this->contentLength !== null ? $this->contentLength : $this->content->getContentLength();
     }
 
     /**
