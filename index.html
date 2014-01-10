@@ -71,75 +71,7 @@ language bindings, please file an issue via Github.</p>
 
 <p><a href="mailto:sdk-support@rackspace.com">sdk-support@rackspace.com</a></p>
 
-<p>You can also find assistance via IRC on #rackspace at freenode.net.</p>
-
-<h2>Getting Started with OpenStack/Rackspace</h2>
-
-<p>To sign up for a Rackspace Cloud account, go to
-<a href="http://www.rackspace.com/cloud">http://www.rackspace.com/cloud</a> and follow the prompts.</p>
-
-<p>If you are working with an OpenStack deployment, you can find more
-information at <a href="http://www.openstack.org">http://www.openstack.org</a>.</p>
-
-<h3>Requirements</h3>
-
-<p>We are not able to test and validate every possible combination of PHP
-versions and supporting libraries, but here's our recommended minimum
-version list:</p>
-
-<ul>
-<li>PHP 5.3 (note: Travis validates against 5.4 and 5.5 as well)</li>
-<li>CURL extensions to PHP</li>
-</ul><h3>Installation</h3>
-
-<p>In the .zip or .tar file in which you received the library, everything under
-the <code>lib/</code> directory should be installed in a location that is accessible. If you're not using a dependency manager like Composer, you will have to register the OpenCloud namespace for your app to use:</p>
-
-<pre><code>// Define the path to the library
-$libraryPath = '/path/to/php-opencloud';
-
-// Include the autoloader
-require_once $libraryPath . '/Autoload.php';
-
-// Register the root OpenCloud namespace
-$classLoader = new SplClassLoader('OpenCloud', $libraryPath . '/lib');
-$classLoader-&gt;register();
-</code></pre>
-
-<p>Once the OpenCloud namespace is registered, you will be able to access all functionality by referencing the class's namespace (in full PSR-0 compliance). For more information about namespaces, check out <a href="http://php.net/manual/en/language.namespaces.php">PHP's documentation</a>.</p>
-
-<h2>Contributing</h2>
-
-<p>If you'd like to contribute to <strong>php-opencloud</strong>, see the
-<a href="https://github.com/rackspace/php-opencloud/blob/master/HACKING.md">HACKING.md</a>
-file in the root directory.</p>
-
-<h2>Further Reading</h2>
-
-<p>The file
-<a href="https://github.com/rackspace/php-opencloud/blob/master/docs/quickref.md">docs/quickref.md</a>
-contains a Quick Reference
-guide to the
-<strong>php-opencloud</strong> library.</p>
-
-<p>The source for the "Getting Started with
-<strong>php-opencloud</strong>" document (the user guide) starts in
-<a href="https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/index.md">docs/userguide/index.md</a>.</p>
-
-<p>There is a complete (auto-generated) API reference manual in the
-docs/api directory. Start with docs/api/index.html.</p>
-
-<p>See the <a href="https://github.com/rackspace/php-opencloud/blob/master/HOWTO.md">HOWTO.md</a> file for instructions on
-regenerating the documentation and running tests.</p>
-
-<p>See the <a href="https://github.com/rackspace/php-opencloud/blob/master/smoketest.php">smoketest.php</a> file for some
-simple, working examples. This is a test we run before builds to ensure that all
-the core functionality is still working after code changes.</p>
-
-<p>The <a href="https://github.com/rackspace/php-opencloud/tree/master/samples/">samples/</a> directory has a collection
-of tested, working sample code. Note that these may create objects in your cloud
-for which you could be charged.</p>
-        </section>
+<p><strong>This page is being updated; please bear with us.</strong></p>
 
         <aside id="sidebar">
           <a href="https://github.com/rackspace/php-opencloud/zipball/master" class="button">
