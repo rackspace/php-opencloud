@@ -179,8 +179,6 @@ abstract class AbstractService extends Base implements ServiceInterface
         return PaginatedIterator::factory($parent, $options, $data);
     }
 
-    abstract function getUrl();
-
     /**
      * @deprecated
      */
