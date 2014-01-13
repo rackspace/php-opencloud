@@ -54,7 +54,7 @@ To delete a specific keypair:
 $keypair->delete();
 ```
 
-## Creating a server with keypair
+## Creating a server with a keypair
 
 In order to spawn an instance with a saved keypair (allowing you to SSH in without passwords), you create your server
 using the same operation as usual, with one extra parameter:
