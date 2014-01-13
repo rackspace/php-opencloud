@@ -10,7 +10,7 @@ branches:
     - working
 
 before_script:
-  - composer install
+  - composer install --prefer-source
 
 after_script:
   - php vendor/bin/coveralls -v
