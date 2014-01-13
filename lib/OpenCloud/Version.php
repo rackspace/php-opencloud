@@ -16,7 +16,6 @@ namespace OpenCloud;
  */
 class Version 
 {
-
     const VERSION = '1.9.1';
 
     /**

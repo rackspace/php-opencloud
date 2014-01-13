@@ -54,4 +54,19 @@ class Access extends SubResource
         return $this->noUpdate(); 
     }
 
+    protected function createJson()
+    {
+        $object = new \stdClass;
+
+        foreach ($this->createKeys as $item) {
+            $object->$item = $this->$item;
+        }
+
+        if ($top = $this->jsonName()) {
+            $object = array($top => array($object));
+        }
+
+        return $object;
+    }
+
 }
