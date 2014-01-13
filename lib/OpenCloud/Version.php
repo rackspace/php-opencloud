@@ -9,6 +9,9 @@
 
 namespace OpenCloud;
 
+use Guzzle\Http\Curl\CurlVersion;
+use Guzzle\Common\Version as GuzzleVersion;
+
 /**
  * Class Version
  *
@@ -24,6 +27,22 @@ class Version
     public static function getVersion()
     {
         return self::VERSION;
+    }
+
+    /**
+     * @return bool|float|string Indicate cURL's version.
+     */
+    public static function getCurlVersion()
+    {
+        return CurlVersion::getInstance()->get('version');
+    }
+
+    /**
+     * @return string Indicate Guzzle's version.
+     */
+    public static function getGuzzleVersion()
+    {
+        return GuzzleVersion::VERSION;
     }
 
 } 
