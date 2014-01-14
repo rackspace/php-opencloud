@@ -2,7 +2,7 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -244,7 +244,12 @@ class Queue extends PersistentObject
             $parts = array_merge($this->getUrl()->getParts(), parse_url($location));
             $url = Url::factory(Url::buildUrl($parts));
 
-            return $this->getService()->resourceList('Message', $url, $this);
+            $options = $this->makeResourceIteratorOptions(__NAMESPACE__ . '\\Message') + array(
+                'baseUrl'    => $url,
+                'limit.page' => 10
+            );
+
+            return PaginatedIterator::factory($this, $options);
         }
         
         return true;
@@ -284,9 +289,14 @@ class Queue extends PersistentObject
             $options['ids'] = implode(',', $options['ids']);
         }
         
-        $url = $this->url('messages', $options);
+        $url = $this->getUrl('messages', $options);
 
-        return $this->getService()->resourceList('Message', $url, $this);
+        $options = $this->makeResourceIteratorOptions(__NAMESPACE__ . '\\Message') + array(
+                'baseUrl'    => $url,
+                'limit.page' => 10
+            );
+
+        return PaginatedIterator::factory($this, $options);
     }
     
     /**

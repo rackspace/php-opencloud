@@ -2,7 +2,7 @@
 /**
  * Unit Tests
  *
- * @copyright 2012-2013 Rackspace Hosting, Inc.
+ * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
  * @version 1.0.0
@@ -57,26 +57,6 @@ class ServerTest extends ComputeTestCase
             'flavor' => $this->service->flavorList()->first()
         ));
         $this->assertNotNull($resp->getStatusCode());
-    }
-    
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
-     */
-    public function test_Create_Fails_Without_KeyPair_Name()
-    {
-        $this->service->server()->create(array(
-            'keypair' => array('name' => null)
-        ));
-    }
-    
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
-     */
-    public function test_Create_Fails_Without_KeyPair_PublicKey()
-    {
-        $this->service->server()->create(array(
-            'keypair' => array('name' => 'foo')
-        ));
     }
 
     public function test_Create_With_KeyPair()

@@ -2,7 +2,7 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -172,7 +172,7 @@ class PaginatedIterator extends ResourceIterator implements Iterator
 
     protected function shouldAppend()
     {
-        return $this->currentMarker && $this->getOption('limit.page') % ($this->position + 1) == 0;
+        return $this->currentMarker && $this->position % $this->getOption('limit.page') == 0;
     }
 
     /**

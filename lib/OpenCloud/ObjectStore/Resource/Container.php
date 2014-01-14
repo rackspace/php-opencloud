@@ -2,7 +2,7 @@
 /**
  * PHP OpenCloud library.
  *
- * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -150,7 +150,18 @@ class Container extends AbstractContainer
             $this->deleteAllObjects();
         }
 
-        return $this->getClient()->delete($this->getUrl())->send();
+        try {
+            $response = $this->getClient()->delete($this->getUrl())->send();
+        } catch (ClientErrorResponseException $e) {
+            if ($e->getResponse()->getStatusCode() == 409) {
+                throw new ContainerException(sprintf(
+                    'The API returned this error: %s. You might have to delete all existing objects before continuing.',
+                    (string) $e->getResponse()->getBody()
+                ));
+            } else {
+                throw $e;
+            }
+        }
     }
 
     /**

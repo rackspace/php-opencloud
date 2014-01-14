@@ -17,10 +17,12 @@ process accessing this Queue. This is basically a UUID that must be unique to ea
 an arbitrary string.
 
 ```php
-$service->setClientId(sha1(rand(1, 999999)));
+$service->setClientId();
 
 echo $service->getClientId();
 ```
+
+If you call `setClientId` without any parameters, a UUID is automatically generated for you.
 
 ## 4. List queues
 

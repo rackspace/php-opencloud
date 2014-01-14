@@ -2,7 +2,7 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  */
@@ -20,7 +20,7 @@ use OpenCloud\Common\Exceptions\UnsupportedVersionError;
  */ 
 class Client extends GuzzleClient
 {
-    const VERSION = '1.7.0';
+    const VERSION = '1.9.0';
     const MINIMUM_PHP_VERSION = '5.3.0';
 
     public function __construct($baseUrl = '', $config = null)

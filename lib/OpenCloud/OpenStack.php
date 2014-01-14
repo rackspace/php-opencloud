@@ -2,7 +2,7 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright 2013 Rackspace Hosting, Inc. See LICENSE for information.
+ * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -509,6 +509,18 @@ class OpenStack extends Client
             'region'  => $region, 
             'urlType' => $urltype
         ));
+    }
+
+    /**
+     * Creates a new Rackspace "Cloud Identity" service.
+     *
+     * @return \OpenCloud\Identity\Service
+     */
+    public function identityService()
+    {
+        $service = IdentityService::factory($this);
+        $this->authenticate();
+        return $service;
     }
 
 }

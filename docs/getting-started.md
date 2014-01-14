@@ -21,9 +21,7 @@ And you're good to go!
 
 # Quick deep-dive: building some cloud servers
 
-In this example, you will write code that will create two 1GB
-Cloud Servers running Ubuntu 13.04. You will need a text editor
-to enter and edit this code. Here is the complete program:
+In this example, you will write code that will create a Cloud Server running Ubuntu.
 
 ### 1. Setup the client and pass in your credentials
 
@@ -75,7 +73,7 @@ leave blank and it will revert to the default name for the service. The second a
 - __HKG__ (Hong Kong)
 - __SYD__ (Sydney)
 
-The third and last argument is the type of URL; you may use either `publicUrl` or `internalUrl`. If you select `internalUrl`
+The third and last argument is the type of URL; you may use either `publicURL` or `internalURL`. If you select `internalUrl`
 all API traffic will use ServiceNet (internal IPs) and will receive a performance boost.
 
 ### 3. Select your server image

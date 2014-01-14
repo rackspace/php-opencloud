@@ -2,7 +2,7 @@
 /**
  * PHP OpenCloud library.
  * 
- * @copyright Copyright 2013 Rackspace US, Inc. See COPYING for licensing information.
+ * @copyright Copyright 2014 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.6.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -52,6 +52,21 @@ class Access extends SubResource
     public function update($params = array()) 
     { 
         return $this->noUpdate(); 
+    }
+
+    protected function createJson()
+    {
+        $object = new \stdClass;
+
+        foreach ($this->createKeys as $item) {
+            $object->$item = $this->$item;
+        }
+
+        if ($top = $this->jsonName()) {
+            $object = array($top => array($object));
+        }
+
+        return $object;
     }
 
 }

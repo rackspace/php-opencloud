@@ -10,10 +10,10 @@ branches:
     - working
 
 before_script:
-  - composer install --no-interaction
+  - composer install
 
 after_script:
- - php vendor/bin/coveralls -v
+  - php vendor/bin/coveralls -v
 
 notifications:
   email:
