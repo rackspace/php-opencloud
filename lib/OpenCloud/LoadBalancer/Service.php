@@ -27,7 +27,7 @@ class Service extends NovaService
      *
      * @api
      * @param string $id the identifier of the load balancer
-     * @return LoadBalancerService\LoadBalancer
+     * @return Resource\LoadBalancer
      */
     public function loadBalancer($id = null) 
     {
@@ -42,7 +42,7 @@ class Service extends NovaService
      *      returned; otherwise, the minimal set (ID, name) are retrieved
      * @param array $filter if provided, a set of key/value pairs that are
      *      set as query string parameters to the query
-     * @return \OpenCloud\Collection
+     * @return \OpenCloud\Common\Collection
      */
     public function loadBalancerList($detail = true, $filter = array()) 
     {
@@ -54,7 +54,7 @@ class Service extends NovaService
      *
      * @api
      * @param string $id the identifier of the load balancer
-     * @return LoadBalancerService\LoadBalancer
+     * @return Resource\LoadBalancer
      */
     public function billableLoadBalancer($id = null) 
     {
@@ -69,7 +69,7 @@ class Service extends NovaService
      *      returned; otherwise, the minimal set (ID, name) are retrieved
      * @param array $filter if provided, a set of key/value pairs that are
      *      set as query string parameters to the query
-     * @return \OpenCloud\Collection
+     * @return \OpenCloud\Common\Collection
      */
     public function billableLoadBalancerList($detail = true, $filter = array()) 
     {
@@ -83,7 +83,7 @@ class Service extends NovaService
      *
      * @api
      * @param mixed $data either an array of values or null
-     * @return LoadBalancerService\AllowedDomain
+     * @return Resource\AllowedDomain
      */
     public function allowedDomain($data = null) 
     {
@@ -106,7 +106,7 @@ class Service extends NovaService
      *
      * Convenience method to be used by the ProtocolList Collection.
      *
-     * @return LoadBalancerService\Protocol
+     * @return Resource\Protocol
      */
     public function protocol($data = null) 
     {
@@ -117,7 +117,7 @@ class Service extends NovaService
      * a list of Protocol objects
      *
      * @api
-     * @return Collection
+     * @return \OpenCloud\Common\Collection
      */
     public function protocolList() 
     {
@@ -129,7 +129,7 @@ class Service extends NovaService
      *
      * convenience method used by the Collection factory
      *
-     * @return LoadBalancerService\Algorithm
+     * @return Resource\Algorithm
      */
     public function algorithm($data = null) 
     {
@@ -140,7 +140,7 @@ class Service extends NovaService
      * a list of Algorithm objects
      *
      * @api
-     * @return Collection
+     * @return \OpenCloud\Common\Collection
      */
     public function algorithmList() 
     {

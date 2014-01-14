@@ -23,7 +23,7 @@ class Service extends NovaService
 	 *
 	 * @api
 	 * @param string $id the Volume ID
-	 * @return VolumeService\Volume
+	 * @return Resource\Volume
 	 */
 	public function volume($id = null) 
 	{
@@ -35,8 +35,8 @@ class Service extends NovaService
 	 *
 	 * @api
 	 * @param boolean $details if TRUE, return all details
-	 * @param array $filters array of filter key/value pairs
-	 * @return Collection
+	 * @param array $filter array of filter key/value pairs
+	 * @return \OpenCloud\Common\Collection
 	 */
 	public function volumeList($details = true, $filter = array()) 
 	{
@@ -52,7 +52,7 @@ class Service extends NovaService
 	 *
 	 * @api
 	 * @param string $id the VolumeType ID
-	 * @return VolumeService\Volume
+	 * @return Resource\Volume
 	 */
 	public function volumeType($id = null) 
 	{
@@ -63,8 +63,8 @@ class Service extends NovaService
 	 * Returns a Collection of VolumeType objects
 	 *
 	 * @api
-	 * @param array $filters array of filter key/value pairs
-	 * @return Collection
+	 * @param array $filter array of filter key/value pairs
+	 * @return \OpenCloud\Common\Collection
 	 */
 	public function volumeTypeList($filter = array()) 
 	{
@@ -74,7 +74,7 @@ class Service extends NovaService
 	/**
 	 * returns a Snapshot object associated with this volume
 	 *
-	 * @return Snapshot
+	 * @return Resource\Snapshot
 	 */
 	public function snapshot($id = null) 
 	{
@@ -85,9 +85,8 @@ class Service extends NovaService
 	 * Returns a Collection of Snapshot objects
 	 *
 	 * @api
-	 * @param boolean $detail TRUE to return full details
-	 * @param array $filters array of filter key/value pairs
-	 * @return Collection
+	 * @param array $filter array of filter key/value pairs
+	 * @return \OpenCloud\Common\Collection
 	 */
 	public function snapshotList($filter = array()) 
 	{

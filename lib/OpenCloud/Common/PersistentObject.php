@@ -519,7 +519,7 @@ abstract class PersistentObject extends Base
      *
      * @api
      * @return string
-     * @throws NameError if attribute 'name' is not defined
+     * @throws Exceptions\NameError if attribute 'name' is not defined
      */
     public function name()
     {
@@ -563,7 +563,7 @@ abstract class PersistentObject extends Base
     /**
      * checks for `$alias` in extensions and throws an error if not present
      *
-     * @throws UnsupportedExtensionError
+     * @throws Exceptions\UnsupportedExtensionError
      */
     public function checkExtension($alias)
     {
@@ -643,7 +643,7 @@ abstract class PersistentObject extends Base
      * the top level document name (either "server" or "instance", in
      * these examples).
      *
-     * @throws DocumentError if not overridden
+     * @throws Exceptions\DocumentError if not overridden
      */
     public static function jsonName()
     {
@@ -702,7 +702,7 @@ abstract class PersistentObject extends Base
      * For example, a server is `/servers/`, a database instance is
      * `/instances/`. Must be overridden in child classes.
      *
-     * @throws UrlError
+     * @throws Exceptions\UrlError
      */
     public static function resourceName()
     {

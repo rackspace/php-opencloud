@@ -81,7 +81,7 @@ abstract class AbstractService extends Base implements ServiceInterface
      * Get all associated resources for this service.
      *
      * @access public
-     * @return void
+     * @return array
      */
     public function getResources()
     {
