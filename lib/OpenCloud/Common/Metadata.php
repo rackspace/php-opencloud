@@ -24,7 +24,7 @@ class Metadata extends Base implements \Countable
      * This setter overrides the base one, since the metadata key can be
      * anything
      *
-     * @param string $key
+     * @param string $property
      * @param string $value
      * @return void
      */

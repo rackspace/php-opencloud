@@ -37,11 +37,11 @@ class Network extends PersistentObject
      * NOTE: contains hacks to recognize the Rackspace public and private
      * networks. These are not really networks, but they show up in lists.
      *
-     * @param \OpenCloud\Compute $service The compute service associated with
+     * @param \OpenCloud\Compute\Service $service The compute service associated with
      *      the network
-     * @param string $id The ID of the network (this handles the pseudo-networks
+     * @param string|null $id The ID of the network (this handles the pseudo-networks
      *      Network::RAX_PUBLIC and Network::RAX_PRIVATE
-     * @return void
+     * @return Network
      */
     public function __construct(Service $service, $id = null) 
     {
@@ -66,7 +66,7 @@ class Network extends PersistentObject
     /**
      * Always throws an error; updates are not permitted
      *
-     * @throws NetworkUpdateError always
+     * @throws Exceptions\NetworkUpdateError always
      */
     public function update($params = array()) 
     {
