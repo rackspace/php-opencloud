@@ -95,7 +95,7 @@ class Service extends NovaService
      *      not having all the information you need.
      * @param array $filter - a set of key/value pairs that is passed to the
      *    servers list for filtering
-     * @returns Collection
+     * @returns \OpenCloud\Common\Collection
      */
     public function serverList($details = true, array $filter = array()) 
     {
@@ -108,7 +108,7 @@ class Service extends NovaService
      *
      * @api
      * @param string $id the network ID
-     * @return Compute\Network
+     * @return Resource\Network
      */
     public function network($id = null) 
     {
@@ -119,8 +119,8 @@ class Service extends NovaService
      * Returns a Collection of Network objects
      *
      * @api
-     * @param array $filters array of filter key/value pairs
-     * @return Collection
+     * @param array $filter array of filter key/value pairs
+     * @return \OpenCloud\Common\Collection
      */
     public function networkList($filter = array()) 
     {
@@ -135,7 +135,7 @@ class Service extends NovaService
      *
      * @api
      * @param string $id - if supplied, returns the image with the specified ID.
-     * @return Compute\Image object
+     * @return Resource\Image object
      */
     public function image($id = null) 
     {
@@ -157,7 +157,7 @@ class Service extends NovaService
      *      code and any extensions installed by your cloud provider;
      *      see http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
      *      for current filters available.
-     * @return Collection
+     * @return \OpenCloud\Common\Collection
      */
     public function imageList($details = true, array $filter = array()) 
     {

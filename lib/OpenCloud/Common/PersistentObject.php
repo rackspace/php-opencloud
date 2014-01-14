@@ -97,6 +97,7 @@ abstract class PersistentObject extends Base
      * Sets the service associated with this resource object.
      * 
      * @param \OpenCloud\Common\Service\ServiceInterface $service
+     * @return \OpenCloud\Common\PersistentObject
      */
     public function setService(ServiceInterface $service)
     {
@@ -109,6 +110,7 @@ abstract class PersistentObject extends Base
      * requests, etc. because it has direct access to the Connection.
      * 
      * @return \OpenCloud\Common\Service\ServiceInterface
+     * @throws \OpenCloud\Common\Exceptions\ServiceException
      */
     public function getService()
     {
@@ -124,6 +126,7 @@ abstract class PersistentObject extends Base
      * Set the parent object for this resource.
      * 
      * @param \OpenCloud\Common\PersistentObject $parent
+     * @return \OpenCloud\Common\PersistentObject
      */
     public function setParent(PersistentObject $parent)
     {
@@ -239,8 +242,11 @@ abstract class PersistentObject extends Base
      * Refreshes the object from the origin (useful when the server is
      * changing states)
      *
+     * @param string|null $id
+     * @param string|null $url
+     *
      * @return void
-     * @throws IdRequiredError
+     * @throws Exceptions\IdRequiredError
      */
     public function refresh($id = null, $url = null)
     {
@@ -384,8 +390,8 @@ abstract class PersistentObject extends Base
      *
      * @param $object - this will be encoded as json, and we handle all the JSON
      *     error-checking in one place
-     * @throws ServerIdError if server ID is not defined
-     * @throws ServerActionError on other errors
+     * @throws Exceptions\IdRequiredError if server ID is not defined
+     * @throws Exceptions\ServerActionError on other errors
      * @returns boolean; TRUE if successful, FALSE otherwise
      */
     protected function action($object)
@@ -456,7 +462,7 @@ abstract class PersistentObject extends Base
      * Returns an object for the Update() method JSON
      * Must be overridden in a child class.
      *
-     * @throws UpdateError if not overridden
+     * @throws Exceptions\UpdateError if not overridden
      */
     protected function updateJson($params = array())
     {
@@ -469,7 +475,7 @@ abstract class PersistentObject extends Base
     /**
      * throws a CreateError for subclasses that don't support Create
      *
-     * @throws CreateError
+     * @throws Exceptions\CreateError
      */
     protected function noCreate()
     {
@@ -482,7 +488,7 @@ abstract class PersistentObject extends Base
     /**
      * throws a DeleteError for subclasses that don't support Delete
      *
-     * @throws DeleteError
+     * @throws Exceptions\DeleteError
      */
     protected function noDelete()
     {
@@ -495,7 +501,7 @@ abstract class PersistentObject extends Base
     /**
      * throws a UpdateError for subclasses that don't support Update
      *
-     * @throws UpdateError
+     * @throws Exceptions\UpdateError
      */
     protected function noUpdate()
     {
@@ -513,7 +519,7 @@ abstract class PersistentObject extends Base
      *
      * @api
      * @return string
-     * @throws NameError if attribute 'name' is not defined
+     * @throws Exceptions\NameError if attribute 'name' is not defined
      */
     public function name()
     {
@@ -557,7 +563,7 @@ abstract class PersistentObject extends Base
     /**
      * checks for `$alias` in extensions and throws an error if not present
      *
-     * @throws UnsupportedExtensionError
+     * @throws Exceptions\UnsupportedExtensionError
      */
     public function checkExtension($alias)
     {
@@ -637,7 +643,7 @@ abstract class PersistentObject extends Base
      * the top level document name (either "server" or "instance", in
      * these examples).
      *
-     * @throws DocumentError if not overridden
+     * @throws Exceptions\DocumentError if not overridden
      */
     public static function jsonName()
     {
@@ -696,7 +702,7 @@ abstract class PersistentObject extends Base
      * For example, a server is `/servers/`, a database instance is
      * `/instances/`. Must be overridden in child classes.
      *
-     * @throws UrlError
+     * @throws Exceptions\UrlError
      */
     public static function resourceName()
     {
