@@ -241,7 +241,8 @@ class Server extends PersistentObject
         $object = (object) array(
             'rebuild' => (object) array(
                 'imageRef'  => $params['image']->id(),
-                'adminPass' => $params['adminPass']
+                'adminPass' => $params['adminPass'],
+                'name' => (array_key_exists('name', $params) ? $params['name'] : $this->name)
             )
         );
         
