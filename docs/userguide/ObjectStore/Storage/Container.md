@@ -3,12 +3,29 @@
 ```php
 use OpenCloud\Rackspace;
 
+// Create a client object to communicate with various Rackspace Cloud services.
 $client = new Rackspace(RACKSPACE_US, array(
-
+    'username' => 'Replace this with your Rackspace Cloud user name',
+    'apiKey' => 'Replace this with your Rackspace Cloud API key'
 ));
 
-$service = $client->objectStoreService('cloudFiles');
+// Create a service object to use the object store service. The sample code
+// creates the object store in the 'DFW' region.
+$service = $client->objectStoreService('cloudFiles', 'DFW');
 ```
+
+## Create container
+
+To create a new container, you just need to define its name:
+
+```php
+$container = $service->createContainer('my_amazing_container');
+```
+
+If the response returned is `FALSE`, there was an API error - most likely due to the fact you have a naming collision.
+
+Container names must be valid strings between 0 and 256 characters. Forward slashes are not currently permitted.
+
 
 ## List containers
 
@@ -18,7 +35,9 @@ $service = $client->objectStoreService('cloudFiles');
 $containerList = $service->listContainers();
 
 while ($container = $containerList->next()) {
-    // ... do stuff
+    // Do stuff; some examples below
+    printf("Container name: %s\n", $container->name);
+    printf("Number of objects within container: %d\n", $container->getObjectCount());
 }
 ```
 
@@ -64,18 +83,6 @@ echo $container->getObjectCount();
 echo $container->getBytesUsed();
 ```
 
-## Create container
-
-To create a new container, you just need to define its name:
-
-```php
-$container = $service->createContainer('my_amazing_container');
-```
-
-If the response returned is `FALSE`, there was an API error - most likely due to the fact you have a naming collision.
-
-Container names must be valid strings between 0 and 256 characters. Forward slashes are not currently permitted.
-
 ## Delete container
 
 Deleting a container is easy:
@@ -84,10 +91,17 @@ $container->delete();
 ```
 
 Please bear mind that you must delete all objects inside a container before deleting it. This is done for you if you
-set the `$deleteObjects` parameter to `TRUE`. You can also do it manually:
+set the `$deleteObjects` parameter to `TRUE` like so:
+
+```php
+$container->delete(TRUE);
+```
+
+You can also do it manually:
 
 ```php
 $container->deleteAllObjects();
+$container->delete();
 ```
 
 ## Create or update container metadata
