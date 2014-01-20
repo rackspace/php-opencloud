@@ -103,7 +103,7 @@ By default, 10,000 objects are returned as a maximum. To get around this, you ca
 result set. For a full specification of query parameters relating to collection filtering, see the [official docs](http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-objects.html).
 
 ```php
-$container->listObjects(array('prefix' => 'logFile_'));
+$container->objectList(array('prefix' => 'logFile_'));
 ```
 
 ## Get object
