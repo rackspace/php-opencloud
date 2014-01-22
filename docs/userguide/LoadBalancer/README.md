@@ -37,47 +37,50 @@ $loadBalancerService = $client->loadBalancerService('cloudLoadBalancers', 'DFW')
 ```
 
 4. Define a load balancer node for each server. In this example, each
-   node runs a service that listens on port 8080. Further, we want each node
-   to be enabled (i.e. ready to serve traffic) when the load balancer is created.
+node runs a service that listens on port 8080. Further, we want each node
+to be enabled (i.e. ready to serve traffic) when the load balancer is created.
 
-```php
-$loadBalancer = $loadBalancerService->loadBalancer();
+   ```php
+   $loadBalancer = $loadBalancerService->loadBalancer();
 
-$serverOneNode = $loadBalancer->node();
-$serverOneNode->address = $serverOne->addresses->private[0]->addr;
-$serverOneNode->port = 8080;
-$serverOneNode->condition = 'ENABLED';
+   $serverOneNode = $loadBalancer->node();
+   $serverOneNode->address = $serverOne->addresses->private[0]->addr;
+   $serverOneNode->port = 8080;
+   $serverOneNode->condition = 'ENABLED';
 
-$serverTwoNode = $loadBalancer->node();
-$serverTwoNode->address = $serverTwo->addresses->private[0]->addr;
-$serverTwoNode->port = 8080;
-$serverTwoNode->condition = 'ENABLED';
-```
+   $serverTwoNode = $loadBalancer->node();
+   $serverTwoNode->address = $serverTwo->addresses->private[0]->addr;
+   $serverTwoNode->port = 8080;
+   $serverTwoNode->condition = 'ENABLED';
+   ```
 
 5. Create the load balancer with the two nodes. In this example, the load
-   balancer has a virtual IP address that is accessible from the public Internet.
-   Also note that the port that the load balancer listens on does not need to
-   match the ports of its nodes, as shown in this example.
+balancer has a virtual IP address that is accessible from the public Internet.
+Also note that the port that the load balancer listens on does not need to
+match the ports of its nodes, as shown in this example.
 
-```php
-$loadBalancer->addVirtualIp('PUBLIC');
-$loadBalancer->create(array(
-    'name' => 'My smart load balancer',
-    'port' => 80,
-    'protocol' => 'HTTP',
-    'nodes' => array(
-        $serverOneNode,
-        $serverTwoNode
-        )
-    ));
-```
+   ```php
+   $loadBalancer->addVirtualIp('PUBLIC');
+   $loadBalancer->create(array(
+       'name' => 'My smart load balancer',
+       'port' => 80,
+       'protocol' => 'HTTP',
+       'nodes' => array(
+           $serverOneNode,
+           $serverTwoNode
+           )
+       ));
+   ```
 
 ## Next steps
+
 * Once you have created load balancers, you can add more nodes to them,
-  delete them, etc. You can learn more about such operations over [here]().
+delete them, etc. You can learn more about such operations over [here]().
+
 * By default a load balancer randomly distributes traffic amongst its nodes.
-  There are other distribution algorithms available as well. You can learn about
-  these algorithms over [here]().
+There are other distribution algorithms available as well. You can learn about
+these algorithms over [here]().
+
 * Load balancers have many optional features. For instance, they can monitor
-  the health of their nodes and decide whether to send traffic to them or not.
-  You can learn about these features overs [here]().
+the health of their nodes and decide whether to send traffic to them or not.
+You can learn about these features overs [here]().
