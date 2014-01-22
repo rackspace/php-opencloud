@@ -69,7 +69,7 @@ match the ports of its nodes, as shown in this example.
            $serverOneNode,
            $serverTwoNode
            )
-       ));
+   ));
    ```
 
 ## Next steps
