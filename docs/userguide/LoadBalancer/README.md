@@ -1,7 +1,7 @@
 # Load Balancers
 
-A load balancer is a device that distributes incoming network traffic amongst
-multiple back-end systems. These back-end systems are called the **nodes** of
+A *load balancer* is a device that distributes incoming network traffic amongst
+multiple back-end systems. These back-end systems are called the *nodes* of
 the load balancer.
 
 ## Getting started
