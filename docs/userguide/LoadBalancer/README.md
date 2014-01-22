@@ -8,15 +8,15 @@ the load balancer.
 
 1. Instantiate a Rackspace client.
 
-```php
+   ```php
 
-use OpenCloud\Rackspace;
+   use OpenCloud\Rackspace;
 
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-                            'username' => 'YOUR RACKSPACE CLOUD ACCOUNT USERNAME',
-                            'apiKey' =>   'YOUR RACKSPACE CLOUD ACCOUNT API KEY'
-                       ));
-```
+   $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+                               'username' => 'YOUR RACKSPACE CLOUD ACCOUNT USERNAME',
+                               'apiKey' =>   'YOUR RACKSPACE CLOUD ACCOUNT API KEY'
+                          ));
+   ```
 
 2. Retrieve the server instances you wish to add as nodes of the load balancer.
    In the example below I assume two server instances have already been created,
