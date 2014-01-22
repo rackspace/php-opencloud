@@ -4,11 +4,6 @@ A load balancer is a device that distributes incoming network traffic amongst
 multiple back-end systems. These back-end systems are called the **nodes** of
 the load balancer.
 
-A load balancer can distribute the incoming networking traffic amongst its
-nodes in a variety of ways. For instance, a load balancer may be configured to
-distribute the traffic amongst its nodes in a round-robin fashion. The
-distribution method configured on a load balancer is called its **algorithm**.
-
 # Getting started
 
 1. Instantiate a Rackspace client.
