@@ -19,18 +19,18 @@ the load balancer.
    ```
 
 2. Retrieve the server instances you wish to add as nodes of the load balancer.
-   In the example below I assume two server instances have already been created,
-   so I retrieve them using their IDs. You can learn how to create server instances
-   over [here]().
+In the example below I assume two server instances have already been created,
+so I retrieve them using their IDs. You can learn how to create server instances
+over [here]().
 
-```php
-$computeService = $client->computeService('cloudServersOpenStack', 'DFW');
-$serverOne = $computeService->server('e836fc4e-056d-4447-a80e-fefcaa640216');
-$serverTwo = $computeService->server('5399cd36-a23f-41a6-bdf7-20902aec0e74');
-```
+   ```php
+   $computeService = $client->computeService('cloudServersOpenStack', 'DFW');
+   $serverOne = $computeService->server('e836fc4e-056d-4447-a80e-fefcaa640216');
+   $serverTwo = $computeService->server('5399cd36-a23f-41a6-bdf7-20902aec0e74');
+   ```
 
 3. Obtain a Load Balancer service object from the client. This object will be used
-   to first define the load balancer nodes and then later create the load balancer itself.
+to first define the load balancer nodes and then later create the load balancer itself.
 
 ```php
 $loadBalancerService = $client->loadBalancerService('cloudLoadBalancers', 'DFW');
