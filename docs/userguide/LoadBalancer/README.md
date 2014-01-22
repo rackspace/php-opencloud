@@ -32,9 +32,9 @@ over [here]().
 3. Obtain a Load Balancer service object from the client. This object will be used
 to first define the load balancer nodes and then later create the load balancer itself.
 
-```php
-$loadBalancerService = $client->loadBalancerService('cloudLoadBalancers', 'DFW');
-```
+   ```php
+   $loadBalancerService = $client->loadBalancerService('cloudLoadBalancers', 'DFW');
+   ```
 
 4. Define a load balancer node for each server. In this example, each
 node runs a service that listens on port 8080. Further, we want each node
