@@ -4,7 +4,7 @@ A load balancer is a device that distributes incoming network traffic amongst
 multiple back-end systems. These back-end systems are called the **nodes** of
 the load balancer.
 
-# Getting started
+## Getting started
 
 1. Instantiate a Rackspace client.
 
@@ -72,7 +72,7 @@ $loadBalancer->create(array(
     ));
 ```
 
-# Next steps
+## Next steps
 * Once you have created load balancers, you can add more nodes to them,
 delete them, etc. You can learn more about such operations over [here]().
 * By default a load balancer randomly distributes traffic amongst its nodes.
