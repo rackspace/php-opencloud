@@ -76,7 +76,7 @@ match the ports of its nodes, as shown in this example.
 ## Next steps
 
 * Once you have created load balancers, you can add more nodes to them,
-delete them, etc. You can learn more about such operations over [here]().
+delete them, etc. You can learn more about such operations over [here](USECASES.md#basic-operations).
 
 * By default a load balancer randomly distributes traffic amongst its nodes.
 There are other distribution algorithms available as well. You can learn about
