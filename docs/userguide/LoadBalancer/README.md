@@ -80,8 +80,8 @@ delete them, etc. You can learn more about such operations over [here](USECASES.
 
 * By default a load balancer randomly distributes traffic amongst its nodes.
 There are other distribution algorithms available as well. You can learn about
-these algorithms over [here]().
+these algorithms over [here](USECASES.md#load-balancing-algorithms).
 
 * Load balancers have many optional features. For instance, they can monitor
 the health of their nodes and decide whether to send traffic to them or not.
-You can learn about these features overs [here]().
+You can learn about these features overs [here](USECASES.md#optional-features).
