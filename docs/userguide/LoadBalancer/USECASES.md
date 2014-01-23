@@ -1,16 +1,22 @@
-# Create a new load balancer
+# Basic operations
 
-# Add a node to a load balancer
+## Create a new load balancer
 
-# Delete a load balancer
+## Add a node to a load balancer
 
-# Retrieve a list of all load balancers
+## Delete a load balancer
 
-# Update a load balancer's name
+## Retrieve a list of all load balancers
 
-# Retrieve a list of all load balancing algorithms
+## Update a load balancer's name
 
-# Update a load balancer's algorithm
+# Load balancing algorithms
 
-# Configure a health check for a load balancer
+## Retrieve a list of all load balancing algorithms
+
+## Update a load balancer's algorithm
+
+# Optional features
+
+## Configure a health check for a load balancer
 
