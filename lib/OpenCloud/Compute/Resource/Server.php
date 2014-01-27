@@ -188,7 +188,7 @@ class Server extends PersistentObject
      * routed through a NAT device to be reached.
      *
      * @api
-     * @param integer $ip_type the type of IP version (4 or 6) to return
+     * @param integer $type the type of IP version (4 or 6) to return
      * @return string IP address
      */
     public function ip($type = null)
@@ -241,7 +241,8 @@ class Server extends PersistentObject
         $object = (object) array(
             'rebuild' => (object) array(
                 'imageRef'  => $params['image']->id(),
-                'adminPass' => $params['adminPass']
+                'adminPass' => $params['adminPass'],
+                'name' => (array_key_exists('name', $params) ? $params['name'] : $this->name)
             )
         );
         
@@ -275,7 +276,8 @@ class Server extends PersistentObject
      * @api
      * @param string $name The name of the new image
      * @param array $metadata Optional metadata to be stored on the image
-     * @return boolean TRUE on success; FALSE on failure
+     * @return boolean|Image New Image instance on success; FALSE on failure
+     * @throws Exceptions\ImageError
      */
     public function createImage($name, $metadata = array())
     {
@@ -310,7 +312,7 @@ class Server extends PersistentObject
      *      you want to schedule image backups and you would like to
      *      retain $retention backups.
      * @return mixed an object or FALSE on error
-     * @throws ServerImageScheduleError if an error is encountered
+     * @throws Exceptions\ServerImageScheduleError if an error is encountered
      */
     public function imageSchedule($retention = false)
     {
@@ -382,7 +384,7 @@ class Server extends PersistentObject
      * Sets the root password on the server
      *
      * @api
-     * @param string $newpasswd The new root password for the server
+     * @param string $newPassword The new root password for the server
      * @return boolean TRUE on success; FALSE on failure
      */
     public function setPassword($newPassword)
@@ -399,7 +401,7 @@ class Server extends PersistentObject
      * @api
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html
      * @return string the root password of the rescue server
-     * @throws ServerActionError if the server has no ID (i.e., has not
+     * @throws Exceptions\ServerActionError if the server has no ID (i.e., has not
      *      been created yet)
      */
     public function rescue()
@@ -426,7 +428,7 @@ class Server extends PersistentObject
      * @api
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/rescue_mode.html
      * @return HttpResponse
-     * @throws ServerActionError if the server has no ID (i.e., has not
+     * @throws Exceptions\ServerActionError if the server has no ID (i.e., has not
      *      been created yet)
      */
     public function unrescue()
@@ -450,8 +452,8 @@ class Server extends PersistentObject
      *
      * @api
      * @param string $key - the (optional) name of the metadata item to return
-     * @return OpenCloud\Compute\Metadata object
-     * @throws MetadataError
+     * @return ServerMetadata object
+     * @throws Exceptions\MetadataError
      */
     public function metadata($key = null)
     {
@@ -465,7 +467,7 @@ class Server extends PersistentObject
      * @param string $network - if supplied, then only the IP(s) for the
      *       specified network are returned. Otherwise, all IPs are returned.
      * @return object
-     * @throws ServerIpsError
+     * @throws Exceptions\ServerIpsError
      */
     public function ips($network = null)
     {

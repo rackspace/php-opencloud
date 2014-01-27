@@ -51,6 +51,7 @@ class Service extends CatalogService
     /**
      * Get an agent.
      *
+     * @param string|null $id
      * @return \OpenCloud\CloudMonitoring\Resource\Agent
      */
     public function getAgent($id = null)
@@ -250,7 +251,7 @@ class Service extends CatalogService
     /**
      * Get a changelog - either a general one or one catered for a particular entity.
      *
-     * @param string|null $entityId
+     * @param string|null $data
      * @return object|false
      */
     public function getChangelog($data = null)

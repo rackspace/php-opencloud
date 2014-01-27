@@ -46,7 +46,7 @@ abstract class AbstractService extends Base implements ServiceInterface
     protected $namespaces = array();
 
     /**
-     * @param Client $client
+     * @param ClientInterface $client
      */
     public function setClient(ClientInterface $client)
     {
@@ -70,7 +70,7 @@ abstract class AbstractService extends Base implements ServiceInterface
     }
 
     /**
-     * @return |OpenCloud\Common\Service\Endpoint
+     * @return \OpenCloud\Common\Service\Endpoint
      */
     public function getEndpoint()
     {
@@ -81,7 +81,7 @@ abstract class AbstractService extends Base implements ServiceInterface
      * Get all associated resources for this service.
      *
      * @access public
-     * @return void
+     * @return array
      */
     public function getResources()
     {
@@ -150,7 +150,7 @@ abstract class AbstractService extends Base implements ServiceInterface
      *
      * @param string      $resourceName
      * @param string|null $url
-     * @param string|null $service
+     * @param string|null $parent
      * @return OpenCloud\Common\Collection
      */
     public function resourceList($resourceName, $url = null, $parent = null)

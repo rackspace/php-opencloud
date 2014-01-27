@@ -1,6 +1,7 @@
 ## Setup
 
-You will need to instantiate the container object as [documented here](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/Storage/Container.md).
+Conceptually, a container contains objects (also known as files). In order to work with
+objects, you will need to instantiate a container object first as [documented here](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/Storage/Container.md).
 
 ## Note on object properties
 
@@ -16,72 +17,6 @@ setter methods:
 |Type of file|`getContentType`|
 |ETag checksum|`getEtag`|
 |Last modified date|`getLastModified`|
-
-## List objects in a container
-
-To return a list of objects:
-
-```php
-$files = $container->objectList();
-while ($file = $files->next()) {
-    // ... do something
-}
-```
-
-By default, 10,000 objects are returned as a maximum. To get around this, you can construct a query which refines your
-result set. For a full specification of query parameters relating to collection filtering, see the [official docs](http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-objects.html).
-
-```php
-$container->listObjects(array('prefix' => 'logFile_'));
-```
-
-## Get object
-
-To retrieve a specific file from Cloud Files:
-
-```php
-$file = $container->getObject('summer_vacation.mp4');
-```
-
-### Conditional requests
-
-You can also perform conditional requests according to [RFC 2616 specification](http://www.ietf.org/rfc/rfc2616.txt)
-(§§ 14.24-26). Supported headers are `If-Match`, `If-None-Match`, `If-Modified-Since` and `If-Unmodified-Since`.
-
-So, to retrieve a file's contents only if it's been recently changed
-
-```php
-$file = $container->getObject('error_log.txt', array(
-    'If-Modified-Since' => 'Tue, 15 Nov 1994 08:12:31 GMT'
-));
-
-if ($file->getContentLength()) {
-    echo 'Has been changed since the above date';
-} else {
-    echo 'Has not been changed';
-}
-```
-
-Retrieve a file only if it has NOT been modified (and expect a 412 on failure):
-
-```
-use Guzzle\Http\Exception\ClientErrorResponseException;
-
-try {
-    $oldImmutableFile = $container->getObject('payroll_2001.xlsx', array(
-        'If-Unmodified-Since' => 'Mon, 31 Dec 2001 23:00:00 GMT'
-    ));
-} catch (ClientErrorResponseException $e) {
-    echo 'This file has been modified...';
-}
-```
-
-Finally, you can specify a range - which will return a subset of bytes from the file specified. To return the last 20B
-of a file:
-
-```php
-$snippet = $container->getObject('output.log', array('range' => 'bytes=-20'));
-```
 
 ## Create an object
 
@@ -152,6 +87,72 @@ chunks, each of which is uploaded individually as a separate file (the filename 
 segment rather than the full file). After all parts are uploaded, a manifest is uploaded. When the end-user accesses
 the 5GB by its true filename, it actually references the manifest file which concatenates each segment into a streaming
 download.
+
+## List objects in a container
+
+To return a list of objects:
+
+```php
+$files = $container->objectList();
+while ($file = $files->next()) {
+    // ... do something
+}
+```
+
+By default, 10,000 objects are returned as a maximum. To get around this, you can construct a query which refines your
+result set. For a full specification of query parameters relating to collection filtering, see the [official docs](http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-objects.html).
+
+```php
+$container->listObjects(array('prefix' => 'logFile_'));
+```
+
+## Get object
+
+To retrieve a specific file from Cloud Files:
+
+```php
+$file = $container->getObject('summer_vacation.mp4');
+```
+
+### Conditional requests
+
+You can also perform conditional requests according to [RFC 2616 specification](http://www.ietf.org/rfc/rfc2616.txt)
+(§§ 14.24-26). Supported headers are `If-Match`, `If-None-Match`, `If-Modified-Since` and `If-Unmodified-Since`.
+
+So, to retrieve a file's contents only if it's been recently changed
+
+```php
+$file = $container->getObject('error_log.txt', array(
+    'If-Modified-Since' => 'Tue, 15 Nov 1994 08:12:31 GMT'
+));
+
+if ($file->getContentLength()) {
+    echo 'Has been changed since the above date';
+} else {
+    echo 'Has not been changed';
+}
+```
+
+Retrieve a file only if it has NOT been modified (and expect a 412 on failure):
+
+```
+use Guzzle\Http\Exception\ClientErrorResponseException;
+
+try {
+    $oldImmutableFile = $container->getObject('payroll_2001.xlsx', array(
+        'If-Unmodified-Since' => 'Mon, 31 Dec 2001 23:00:00 GMT'
+    ));
+} catch (ClientErrorResponseException $e) {
+    echo 'This file has been modified...';
+}
+```
+
+Finally, you can specify a range - which will return a subset of bytes from the file specified. To return the last 20B
+of a file:
+
+```php
+$snippet = $container->getObject('output.log', array('range' => 'bytes=-20'));
+```
 
 ## Update an existing object
 
