@@ -1,27 +1,24 @@
 # Load Balancers
 
-A *load balancer* is a device that distributes incoming network traffic amongst
-multiple back-end systems. These back-end systems are called the *nodes* of
+A **load balancer** is a device that distributes incoming network traffic amongst
+multiple back-end systems. These back-end systems are called the **nodes** of
 the load balancer.
 
 ## Getting started
 
-1. Instantiate a Rackspace client.
+### 1. Instantiate a Rackspace client.
 
    ```php
 
    use OpenCloud\Rackspace;
 
    $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-                               'username' => 'YOUR RACKSPACE CLOUD ACCOUNT USERNAME',
-                               'apiKey' =>   'YOUR RACKSPACE CLOUD ACCOUNT API KEY'
-                          ));
+       'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME'>,
+       'apiKey'   => '<YOUR RACKSPACE CLOUD ACCOUNT API KEY>'
+   ));
    ```
 
-2. Retrieve the server instances you wish to add as nodes of the load balancer.
-In the example below I assume two server instances have already been created,
-so I retrieve them using their IDs. You can learn how to create server instances
-over [here]().
+### 2. Retrieve the server instances you want to add as nodes of the load balancer.
 
    ```php
    $computeService = $client->computeService('cloudServersOpenStack', 'DFW');
@@ -30,16 +27,18 @@ over [here]().
    $serverTwo = $computeService->server('5399cd36-a23f-41a6-bdf7-20902aec0e74');
    ```
 
-3. Obtain a Load Balancer service object from the client. This object will be used
-to first define the load balancer nodes and later create the load balancer itself.
+The example above uses two server instances that have already been created. It
+retrieves the server instances using their IDs. See also: [creating server instances]().
+
+### 3. Obtain a Load Balancer service object from the client.
+
+This object will be used to first define the load balancer nodes and later create the load balancer itself.
 
    ```php
    $loadBalancerService = $client->loadBalancerService('cloudLoadBalancers', 'DFW');
    ```
 
-4. Define a load balancer node for each server. In this example, each
-node runs a service that listens on port 8080. Further, we want each node
-to be enabled (i.e. ready to serve traffic) when the load balancer is created.
+### 4. Define a load balancer node for each server.
 
    ```php
    $loadBalancer = $loadBalancerService->loadBalancer();
@@ -55,10 +54,11 @@ to be enabled (i.e. ready to serve traffic) when the load balancer is created.
    $serverTwoNode->condition = 'ENABLED';
    ```
 
-5. Create the load balancer with the two nodes. In this example, the load
-balancer has a virtual IP address that is accessible from the public Internet.
-Also note that the port that the load balancer listens on does not need to
-match the ports of its nodes, as shown in this example.
+In the example above, each node runs a service that listens on port 8080. Further, 
+each node will start out as `ENABLED`, which means it will be ready to receive
+network traffic from the load balancer as soon as it is created.
+
+### 5. Create the load balancer with the two nodes.
 
    ```php
    $loadBalancer->addVirtualIp('PUBLIC');
@@ -73,15 +73,19 @@ match the ports of its nodes, as shown in this example.
    ));
    ```
 
+In the example above, the load balancer will have a virtual IP address accessible 
+from the public Internet. Also notice that the port the load balancer listens
+on (80) does not need to match the ports of its nodes (8080).
+
 ## Next steps
 
 * Once you have created load balancers, you can add more nodes to them,
-delete them, etc. You can learn more about such operations over [here](USECASES.md#basic-operations).
+delete them, etc. See: [basic operations on load balancers](USECASES.md#basic-operations).
 
 * By default a load balancer randomly distributes traffic amongst its nodes.
-There are other distribution algorithms available as well. You can learn about
-these algorithms over [here](USECASES.md#load-balancing-algorithms).
+There are other distribution algorithms available as well. See: 
+[load balancing algorithms](USECASES.md#load-balancing-algorithms).
 
 * Load balancers have many optional features. For instance, they can monitor
 the health of their nodes and decide whether to send traffic to them or not.
-You can learn about these features overs [here](USECASES.md#optional-features).
+See [optional features of load balancers](USECASES.md#optional-features).
