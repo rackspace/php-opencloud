@@ -76,13 +76,8 @@ on (80) does not need to match the ports of its nodes (8080).
 
 ## Next steps
 
-* Once you have created load balancers, you can add more nodes to them,
-delete them, etc. See: [basic operations on load balancers](USECASES.md#basic-operations).
-
-* By default a load balancer randomly distributes traffic amongst its nodes.
-There are other distribution algorithms available as well. See: 
-[load balancing algorithms](USECASES.md#load-balancing-algorithms).
-
-* Load balancers have many optional features. For instance, they can monitor
-the health of their nodes and decide whether to send traffic to them or not.
-See [optional features of load balancers](USECASES.md#optional-features).
+Once you have created a load balancer, there is a lot you can do with it. You 
+can [add more nodes](USERGUIDE.md#add_nodes),
+[choose a load balancing algorithm](USERGUIDE.md#choose_a_load_balancing_algorithm), 
+[monitor the nodes' health](USERGUIDE.md#),
+and much more. See the [complete user guide for load balancers](USERGUIDE.md).
