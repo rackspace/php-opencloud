@@ -79,7 +79,7 @@ foreach ($loadBalancers as $loadBalancer) {
 You can update one or more of the following load balancer attributes:
 * `name`: The name of the load balancer
 * `algorithm`: The algorithm used by the load balancer to distribute traffic amongst its nodes. See also: [Load balancing algorithms](#algorithms).
-* `protocol`: The network protocol used by traffic coming in to the load balancer. See also [protocols](#protocols).
+* `protocol`: The network protocol used by traffic coming in to the load balancer. See also: [protocols](#protocols).
 * `port`: The network port on which the load balancer listens for incoming traffic.
 
 
