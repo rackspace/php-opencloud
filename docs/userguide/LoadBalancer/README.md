@@ -76,8 +76,5 @@ on (80) does not need to match the ports of its nodes (8080).
 
 ## Next steps
 
-Once you have created a load balancer, there is a lot you can do with it. You 
-can [add more nodes](USERGUIDE.md#add_nodes),
-[choose a load balancing algorithm](USERGUIDE.md#choose_a_load_balancing_algorithm), 
-[monitor the nodes' health](USERGUIDE.md#),
-and much more. See the [complete user guide for load balancers](USERGUIDE.md).
+Once you have created a load balancer, there is a lot you can do with it. See 
+the [complete user guide for load balancers](USERGUIDE.md).
