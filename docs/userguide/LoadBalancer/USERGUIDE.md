@@ -29,6 +29,10 @@ two cloud servers.
 
 ## Load Balancers
 
+A **load balancer** is a device that distributes incoming network traffic amongst
+multiple back-end systems. These back-end systems are called the **nodes** of
+the load balancer.
+
 ### Create Load Balancer
 
 ```php
@@ -81,7 +85,7 @@ You can update one or more of the following load balancer attributes:
 * `algorithm`: The algorithm used by the load balancer to distribute traffic amongst its nodes. See also: [Load balancing algorithms](#algorithms).
 * `protocol`: The network protocol used by traffic coming in to the load balancer. See also: [protocols](#protocols).
 * `port`: The network port on which the load balancer listens for incoming traffic.
-
+* TODO: More attributes `halfClosed`, `timeout`, `httpsRedirect`
 
 #### Updating just the name of the load balancer
 ```php
@@ -116,9 +120,48 @@ $loadBalancer->delete();
 
 ## Nodes
 
+A **node** is a backend device that provides a service on specified IP and port. An example of a load balancer node might be a web server serving HTTP traffic on port 8080.
+
+A load balancer typically has multiple nodes attached to it so it can distribute incoming network traffic amongst them.
+
 ### List Nodes
 
+You can list the nodes attached to a load balancer. An instance of `OpenCloud\Common\Collection\PaginatedIterator`
+is returned.
+
+```php
+$nodes = $loadBalancer->listNodes();
+foreach ($nodes as $node) {
+	var_dump($node); // instance of OpenCloud\LoadBalancer\Resource\Node}
+```
+
 ### Add Nodes
+
+You can attach additional nodes to a load balancer. Assume `$loadBalancer` already has two nodes attached to it - `$serverOne` and `$serverTwo` - and you want to attach a third node to it, say `$serverThree`, which provides a service on port 8080.
+
+```php
+$loadBalancer->addNode(
+    $serverThree->addresses->private[0]->addr,
+    8080
+);
+```
+
+The `addNode` method accepts three more optional arguments, in addition to the two required arguments shown above.
+
+#### Arguments to `addNode`
+
+| Position | Description | Required? | Default value |
+| ----------- | --------------- | -------------- | ----------------- |
+|  1           | IP address of node | Yes | - |
+|  2           | Port used by node's service | Yes | - |
+|  3           | Starting condition of node:
+* `ENABLED` – Node is ready to receive traffic from the load balancer
+* `DISABLED` – Node should not receive traffic from the load balancer
+* `DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer | No | `ENABLED` |
+|  4           | Type of node to add:
+* `PRIMARY – Nodes defined as PRIMARY are in the normal rotation to receive traffic from the load balancer.
+* SECONDARY – Nodes defined as SECONDARY are only in the rotation to receive traffic from the load balancer when all the primary nodes fail.  | No | `PRIMARY` |
+|  5           | Weight between 1 and 100 given to node when distributing traffic using either the `WEIGHTED_ROUND_ROBIN` or the `WEIGHTED_LEAST_CONNECTIONS` load balancing algorithm. | No | 1 |
 
 ### Modify Nodes
 
