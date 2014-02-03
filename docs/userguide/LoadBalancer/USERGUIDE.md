@@ -146,21 +146,14 @@ $loadBalancer->addNode(
 );
 ```
 
-The `addNode` method accepts three more optional arguments, in addition to the two required arguments shown above.
-
-#### Arguments to `addNode`
+The `addNode` method accepts three more optional parameters, in addition to the two shown above:
 
 | Position | Description | Required? | Default value |
 | ----------- | --------------- | -------------- | ----------------- |
 |  1           | IP address of node | Yes | - |
 |  2           | Port used by node's service | Yes | - |
-|  3           | Starting condition of node:
-* `ENABLED` – Node is ready to receive traffic from the load balancer
-* `DISABLED` – Node should not receive traffic from the load balancer
-* `DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer | No | `ENABLED` |
-|  4           | Type of node to add:
-* `PRIMARY – Nodes defined as PRIMARY are in the normal rotation to receive traffic from the load balancer.
-* SECONDARY – Nodes defined as SECONDARY are only in the rotation to receive traffic from the load balancer when all the primary nodes fail.  | No | `PRIMARY` |
+|  3           | Starting condition of node:<ul><li>`ENABLED` – Node is ready to receive traffic from the load balancer</li><li>`DISABLED` – Node should not receive traffic from the load balancer</li><li>`DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer</li></ul> | No | `ENABLED` |
+|  4           | Type of node to add:<ul><li>`PRIMARY` – Nodes defined as PRIMARY are in the normal rotation to receive traffic from the load balancer.</li><li>`SECONDARY` – Nodes defined as SECONDARY are only in the rotation to receive traffic from the load balancer when all the primary nodes fail.</li></ul> | No | `PRIMARY` |
 |  5           | Weight between 1 and 100 given to node when distributing traffic using either the `WEIGHTED_ROUND_ROBIN` or the `WEIGHTED_LEAST_CONNECTIONS` load balancing algorithm. | No | 1 |
 
 ### Modify Nodes
