@@ -152,28 +152,4 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('{tenant}', $this->client->getTenant());
     }
 
-    public function test_Import_Exported_Credentials()
-    {
-
-        // "Save" credentials
-        $this->client->authenticate();
-        $originalToken = $this->client->getToken();
-        $originalExpiration = $this->client->getExpiration();
-        $originalTenant = $this->client->getTenant();
-        $originalCatalog = $this->client->getCatalog();
-
-        // Export credentials
-        $exportedCredentials = $this->client->exportCredentials();
-
-        // Import the exported credentials
-        $this->client->importCredentials($exportedCredentials);
-
-        // Make sure the imported credentials match the saved original ones
-        $this->assertEquals($originalToken, $this->client->getToken());
-        $this->assertEquals($originalExpiration, $this->client->getExpiration());
-        $this->assertEquals($originalTenant, $this->client->getTenant());
-        $this->assertEquals(count($originalCatalog), count($this->client->getCatalog()));
-
-    }
-    
 }
