@@ -154,6 +154,12 @@ class Server extends PersistentObject
     private $flavorRef;
 
     /**
+     * Cloud-init boot executable code
+     * @var string
+     */
+    public $user_data;
+
+    /**
      * Creates a new Server object and associates it with a Compute service
      *
      * @param mixed $info
@@ -642,6 +648,11 @@ class Server extends PersistentObject
             } elseif ($this->keypair instanceof Keypair && $this->keypair->getName()) {
                 $server->key_name = $this->keypair->getName();
             }
+        }
+
+        // Cloud-init executable
+        if (!empty($this->user_data)) {
+           $server->user_data = $this->user_data;
         }
 
         return (object) array('server' => $server);

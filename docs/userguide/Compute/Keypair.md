@@ -53,3 +53,32 @@ To delete a specific keypair:
 ```php
 $keypair->delete();
 ```
+
+## Creating a server with a keypair
+
+In order to spawn an instance with a saved keypair (allowing you to SSH in without passwords), you create your server
+using the same operation as usual, with one extra parameter:
+
+```php
+use Guzzle\Http\Exception\BadResponseException;
+use OpenCloud\Compute\Constants\Network;
+
+$server = $compute->server();
+
+try {
+    $response = $server->create(array(
+        'name'     => 'New server',
+        'image'    => $ubuntuImage,
+        'flavor'   => $twoGbFlavor,
+        'networks' => array(
+            $compute->network(Network::RAX_PUBLIC),
+            $compute->network(Network::RAX_PRIVATE)
+        ),
+        'keypair' => 'jamie_macbook'
+    ));
+} catch (BadResponseException $e) {
+   // error...
+}
+```
+
+So, as you can see, you specify the **name** of an existing keypair that you previously created on the API.

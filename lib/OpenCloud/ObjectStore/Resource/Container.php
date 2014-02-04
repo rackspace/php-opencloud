@@ -18,6 +18,7 @@ use OpenCloud\Common\Constants\Size;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceInterface;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
+use OpenCloud\ObjectStore\Exception\ContainerException;
 use OpenCloud\ObjectStore\Upload\DirectorySync;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
 
