@@ -78,7 +78,7 @@ abstract class AbstractContainer extends AbstractResource
         }
 
         $url = $this->getService()->getUrl();
-        return $url->addPath($this->getName())->addPath($path)->setQuery($params);
+        return $url->addPath((string) $this->getName())->addPath($path)->setQuery($params);
     }
     
     protected function createRefreshRequest()
