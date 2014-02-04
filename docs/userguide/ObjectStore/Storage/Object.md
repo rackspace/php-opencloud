@@ -28,14 +28,22 @@ for you.
 ### To upload a single/basic file:
 
 ```php
+use OpenCloud\ObjectStore\Resource\DataObject;
+
 $data = fopen('/path/to/sample.mp3', 'r+');
 
 // alternatively, you can pass in a string as the file contents `$data` argument (instead of a resource)
 
-$container->uploadObject('sample.mp3', $data, array(
+$meta = array(
     'Author' => 'Camera Obscura',
     'Origin' => 'Glasgow'
-));
+);
+
+$metaHeaders = DataObject::stockHeaders($meta);
+$customHeaders = array();
+$allHeaders = $metaHeaders + $customHeaders;
+
+$container->uploadObject('sample.mp3', $data, $allHeaders);
 ```
 
 ### To upload multiple small-to-mid sized files:
