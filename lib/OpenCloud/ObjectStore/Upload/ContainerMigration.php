@@ -33,7 +33,7 @@ class ContainerMigration
 
         $migration->setOldContainer($old);
         $migration->setNewContainer($new);
-        $migration->setObjects($options);
+        $migration->setOptions($options);
 
         $migration->setupReadQueue();
         $migration->setupWriteQueue();
@@ -93,7 +93,7 @@ class ContainerMigration
     protected function sendGetRequests()
     {
         $this->enqueueGetRequests();
-        return $this->getClient()->send($this->readQueue);
+        return $this->readQueue->flush();
     }
 
     protected function createPutRequest(Response $response)
