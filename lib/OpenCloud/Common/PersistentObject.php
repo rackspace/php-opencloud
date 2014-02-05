@@ -326,7 +326,7 @@ abstract class PersistentObject extends Base
 
             // Does it have a primary key?
             if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {
-                $url->addPath($primaryKey);
+                $url->addPath((string) $primaryKey);
             }
         }
 
