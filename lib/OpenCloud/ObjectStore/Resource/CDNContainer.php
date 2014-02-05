@@ -10,6 +10,8 @@
 
 namespace OpenCloud\ObjectStore\Resource;
 
+use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
+
 /**
  * A container that has been CDN-enabled. Each CDN-enabled container has a unique 
  * Uniform Resource Locator (URL) that can be combined with its object names and 
@@ -90,5 +92,9 @@ class CDNContainer extends AbstractContainer
         $headers = array('X-Log-Retention' => 'False');
         return $this->getClient()->put($this->getUrl(), $headers)->send();
     }
-    
+
+    public function isCdnEnabled()
+    {
+        return $this->metadata->getProperty(HeaderConst::ENABLED) == 'True';
+    }
 }

@@ -112,23 +112,28 @@ class ContainerTest extends ObjectStoreTestCase
             'Guzzle\Http\Message\Response',
             $container->enableLogging()
         );
+
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $container->disableLogging()
         );
-        $container->enableCdn(500);
-        $this->assertInstanceOf(
-            'Guzzle\Http\Message\Response',
-            $container->disableCdn()
-        );
+
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $container->getCdn()->setStaticIndexPage('index.html')
         );
+
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $container->getCdn()->setStaticErrorPage('error.html')
         );
+
+        $this->assertInstanceOf(
+            'Guzzle\Http\Message\Response',
+            $container->disableCdn()
+        );
+
+        $container->enableCdn(500);
     }
     
     public function test_Get_Object()
@@ -277,7 +282,4 @@ class ContainerTest extends ObjectStoreTestCase
         $this->assertEquals('', (string) $object->getContent());
         $this->assertNotNull($object->getLastModified());
     }
-
-
-
 }

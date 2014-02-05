@@ -81,7 +81,7 @@ class Container extends AbstractContainer
      */
     public function getCdn()
     {
-        if (!$this->isCdnEnabled() || !$this->cdn) {
+        if (!$this->isCdnEnabled()) {
             throw new Exceptions\CdnNotAvailableError(
             	'Either this container is not CDN-enabled or the CDN is not available'
             );
@@ -497,4 +497,8 @@ class Container extends AbstractContainer
         $sync->execute();
     }
 
+    public function isCdnEnabled()
+    {
+        return ($this->cdn instanceof CDNContainer) && $this->cdn->isCdnEnabled();
+    }
 }
