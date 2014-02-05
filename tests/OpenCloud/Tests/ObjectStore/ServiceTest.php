@@ -129,5 +129,4 @@ class ServiceTest extends ObjectStoreTestCase
 
         $this->assertInstanceOf('OpenCloud\Common\Metadata', $account->getDetails());
     }
-    
 }
