@@ -89,7 +89,7 @@ class Instance extends PersistentObject
      */
     public function resize(Flavor $flavor) 
     {
-        return $this->action($this->resizeJson($flavor));
+        return $this->action($this->resizeJson($flavor->id));
     }
 
     /**

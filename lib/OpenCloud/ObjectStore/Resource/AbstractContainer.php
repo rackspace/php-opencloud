@@ -18,7 +18,6 @@ use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
  */
 abstract class AbstractContainer extends AbstractResource
 {
-
     protected $metadataClass = 'OpenCloud\\ObjectStore\\Resource\\ContainerMetadata';
     
     /**
@@ -42,20 +41,13 @@ abstract class AbstractContainer extends AbstractResource
         // Populate data if set
         $this->populate($data);
     }
-    
+
     public function getTransId()
     {
         return $this->metadata->getProperty(HeaderConst::TRANS_ID);
     }
-    
-    public function isCdnEnabled()
-    {
-        if ($this instanceof CDNContainer) {
-            return $this->metadata->getProperty(HeaderConst::ENABLED) == 'True';
-        } else {
-            return empty($this->cdn);
-        }
-    }
+
+    public abstract function isCdnEnabled();
     
     public function hasLogRetention()
     {
@@ -78,7 +70,8 @@ abstract class AbstractContainer extends AbstractResource
         }
 
         $url = $this->getService()->getUrl();
-        return $url->addPath($this->getName())->addPath($path)->setQuery($params);
+
+        return $url->addPath((string) $this->getName())->addPath((string) $path)->setQuery($params);
     }
     
     protected function createRefreshRequest()
@@ -121,5 +114,4 @@ abstract class AbstractContainer extends AbstractResource
         $headers = array('X-Container-Meta-Web-Error' => $page);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
-
 }

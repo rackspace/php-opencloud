@@ -94,5 +94,4 @@ class DataObjectTest extends ObjectStoreTestCase
         $this->assertNotNull($object->getPublicUrl(UrlType::STREAMING));
         $this->assertNotNull($object->getPublicUrl(UrlType::IOS_STREAMING));
     }
-    
 }

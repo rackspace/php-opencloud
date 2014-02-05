@@ -11,6 +11,7 @@
 namespace OpenCloud\ObjectStore;
 
 use Guzzle\Http\EntityBody;
+use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\Header;
 use OpenCloud\Common\Constants\Mime;
 use OpenCloud\Common\Exceptions;
@@ -20,6 +21,7 @@ use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\ObjectStore\Resource\Container;
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\ObjectStore\Upload\ContainerMigration;
 
 /**
  * The ObjectStore (Cloud Files) service.
@@ -186,5 +188,18 @@ class Service extends AbstractService
         
         return $response;
     }
-    
+
+    /**
+     * Allows files to be transferred from one container to another.
+     *
+     * @param Container $old Where you're moving files from
+     * @param Container $new Where you're moving files to
+     * @return array    Of PUT responses
+     */
+    public function migrateContainer(Container $old, Container $new, array $options = array())
+    {
+        $migration = ContainerMigration::factory($old, $new, $options);
+
+        return $migration->transfer();
+    }
 }

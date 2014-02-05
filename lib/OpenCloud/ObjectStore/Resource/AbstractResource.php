@@ -82,13 +82,18 @@ abstract class AbstractResource extends Base
         
         foreach ($headers as $header => $value) {
             // Only allow allow X-<keyword>-* headers to pass through after stripping them
-            $pattern = sprintf('#^%s\-#i', self::GLOBAL_METADATA_PREFIX);
-            if (preg_match($pattern, $header) && ($key = self::stripPrefix($header))) {
+            if (static::headerIsValidMetadata($header) && ($key = self::stripPrefix($header))) {
                 $output[$key] = (string) $value;
             }
         }
 
         return $output;
+    }
+
+    protected static function headerIsValidMetadata($header)
+    {
+        $pattern = sprintf('#^%s\-#i', self::GLOBAL_METADATA_PREFIX);
+        return preg_match($pattern, $header);
     }
 
     /**
@@ -97,7 +102,7 @@ abstract class AbstractResource extends Base
      * @param $header
      * @return mixed
      */
-    private static function stripPrefix($header)
+    protected static function stripPrefix($header)
     {
         $pattern = '#^' . self::GLOBAL_METADATA_PREFIX . '\-(' . static::METADATA_LABEL . '-)?(Meta-)?#i';
         return preg_replace($pattern, '', $header);

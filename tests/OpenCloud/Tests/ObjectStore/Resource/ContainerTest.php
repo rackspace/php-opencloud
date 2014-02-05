@@ -10,6 +10,7 @@
 
 namespace OpenCloud\Tests\ObjectStore\Resource;
 
+use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
@@ -112,23 +113,28 @@ class ContainerTest extends ObjectStoreTestCase
             'Guzzle\Http\Message\Response',
             $container->enableLogging()
         );
+
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $container->disableLogging()
         );
-        $container->enableCdn(500);
-        $this->assertInstanceOf(
-            'Guzzle\Http\Message\Response',
-            $container->disableCdn()
-        );
+
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $container->getCdn()->setStaticIndexPage('index.html')
         );
+
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $container->getCdn()->setStaticErrorPage('error.html')
         );
+
+        $this->assertInstanceOf(
+            'Guzzle\Http\Message\Response',
+            $container->disableCdn()
+        );
+
+        $container->enableCdn(500);
     }
     
     public function test_Get_Object()
@@ -143,7 +149,25 @@ class ContainerTest extends ObjectStoreTestCase
         );
         $this->assertEquals('foobar', $object->getName());
     }
-    
+
+    /**
+     * @expectedException \OpenCloud\ObjectStore\Exception\ObjectNotFoundException
+     */
+    public function test_Get_Object_404()
+    {
+        $this->addMockSubscriber(new Response(404));
+        $this->container->getObject('foobar');
+    }
+
+    /**
+     * @expectedException \Guzzle\Http\Exception\BadResponseException
+     */
+    public function test_Get_Object_500()
+    {
+        $this->addMockSubscriber(new Response(500));
+        $this->container->getObject('foobar');
+    }
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -277,7 +301,4 @@ class ContainerTest extends ObjectStoreTestCase
         $this->assertEquals('', (string) $object->getContent());
         $this->assertNotNull($object->getLastModified());
     }
-
-
-
 }
