@@ -334,7 +334,7 @@ abstract class PersistentObject extends Base
             $url = Url::factory($url);
         }
 
-        return $url->addPath($path)->setQuery($query);
+        return $url->addPath((string) $path)->setQuery($query);
     }
 
     /**

@@ -66,7 +66,7 @@ class Token extends PersistentObject
      */
     public function hasExpired()
     {
-        return time() >= $this->expires;
+        return time() >= strtotime($this->expires);
     }
 
 }
