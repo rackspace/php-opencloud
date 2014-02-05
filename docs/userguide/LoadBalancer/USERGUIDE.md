@@ -81,32 +81,25 @@ foreach ($loadBalancers as $loadBalancer) {
 ### Update Load Balancer Attributes
 
 You can update one or more of the following load balancer attributes:
+
 * `name`: The name of the load balancer
 * `algorithm`: The algorithm used by the load balancer to distribute traffic amongst its nodes. See also: [Load balancing algorithms](#algorithms).
 * `protocol`: The network protocol used by traffic coming in to the load balancer. See also: [protocols](#protocols).
 * `port`: The network port on which the load balancer listens for incoming traffic.
 * TODO: More attributes `halfClosed`, `timeout`, `httpsRedirect`
 
-#### Updating just the name of the load balancer
+#### Updating a single attribute of a load balancer
 ```php
 $loadBalancer->update(array(
     'name' => 'New name'
 ));
 ```
 
-#### Updating the name and algorithm of the load balancer
+#### Updating multiple attributes of a load balancer
 ```php
 $loadBalancer->update(array(
     'name' => 'New name',
     'algorithm' => 'ROUND_ROBIN'
-));
-```
-
-#### Updating the protocol and the port of the load balancer
-```php
-$loadBalancer->update(array(
-    'protocol' => 'HTTPS',
-    'port' => 443
 ));
 ```
 
@@ -139,11 +132,14 @@ foreach ($nodes as $node) {
 
 You can attach additional nodes to a load balancer. Assume `$loadBalancer` already has two nodes attached to it - `$serverOne` and `$serverTwo` - and you want to attach a third node to it, say `$serverThree`, which provides a service on port 8080.
 
+**Important:** Remember to call `$loadBalancer->addNodes()` after all the calls to `$loadBalancer->addNode()` as shown below.
+
 ```php
 $loadBalancer->addNode(
     $serverThree->addresses->private[0]->addr,
     8080
 );
+$loadBalancer->addNodes();
 ```
 
 The `addNode` method accepts three more optional parameters, in addition to the two shown above:
@@ -152,13 +148,50 @@ The `addNode` method accepts three more optional parameters, in addition to the 
 | ----------- | --------------- | -------------- | ----------------- |
 |  1           | IP address of node | Yes | - |
 |  2           | Port used by node's service | Yes | - |
-|  3           | Starting condition of node:<ul><li>`ENABLED` – Node is ready to receive traffic from the load balancer</li><li>`DISABLED` – Node should not receive traffic from the load balancer</li><li>`DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer</li></ul> | No | `ENABLED` |
+|  3           | Starting condition of node:<ul><li>`ENABLED` – Node is ready to receive traffic from the load balancer.</li><li>`DISABLED` – Node should not receive traffic from the load balancer.</li><li>`DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer.</li></ul> | No | `ENABLED` |
 |  4           | Type of node to add:<ul><li>`PRIMARY` – Nodes defined as PRIMARY are in the normal rotation to receive traffic from the load balancer.</li><li>`SECONDARY` – Nodes defined as SECONDARY are only in the rotation to receive traffic from the load balancer when all the primary nodes fail.</li></ul> | No | `PRIMARY` |
-|  5           | Weight between 1 and 100 given to node when distributing traffic using either the `WEIGHTED_ROUND_ROBIN` or the `WEIGHTED_LEAST_CONNECTIONS` load balancing algorithm. | No | 1 |
+|  5           | Weight, between 1 and 100, given to node when distributing traffic using either the `WEIGHTED_ROUND_ROBIN` or the `WEIGHTED_LEAST_CONNECTIONS` load balancing algorithm. | No | 1 |
 
 ### Modify Nodes
+You can modify one or more of the following node attributes:
+
+* `condition`: The condition of the load balancer:
+	* `ENABLED` – Node is ready to receive traffic from the load balancer.
+	* `DISABLED` – Node should not receive traffic from the load balancer.
+	* `DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer.
+* `type`: The type of the node:
+	* `PRIMARY` – Nodes defined as PRIMARY are in the normal rotation to receive traffic from the load balancer.
+	* `SECONDARY` – Nodes defined as SECONDARY are only in the rotation to receive traffic from the load balancer when all the primary nodes fail.
+* `weight`: The weight, between 1 and 100, given to node when distributing traffic using either the `WEIGHTED_ROUND_ROBIN` or the `WEIGHTED_LEAST_CONNECTIONS` load balancing algorithm.
+
+#### Modifying a single attribute of a node
+```php
+$node->update(array(
+    'condition' => 'DISABLED'
+));
+```
+
+#### Modifying multiple attributes of a node
+```php
+$node->update(array(
+    'condition' => 'DISABLED',
+    'type' => 'SECONDARY'
+));
+```
 
 ### Remove Nodes
+
+There are two ways to remove a node.
+
+#### Given an `OpenCloud\LoadBalancer\Resource\Node` instance
+```php
+$node->delete();
+```
+
+#### Given an `OpenCloud\LoadBalancer\Resource\LoadBalancer` instance and a node ID
+```php
+$loadBalancer->removeNode($nodeId);
+```
 
 ### View Node Service Events
 
