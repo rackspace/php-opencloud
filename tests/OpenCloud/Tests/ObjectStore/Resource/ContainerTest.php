@@ -10,6 +10,7 @@
 
 namespace OpenCloud\Tests\ObjectStore\Resource;
 
+use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
@@ -148,7 +149,25 @@ class ContainerTest extends ObjectStoreTestCase
         );
         $this->assertEquals('foobar', $object->getName());
     }
-    
+
+    /**
+     * @expectedException \OpenCloud\ObjectStore\Exception\ObjectNotFoundException
+     */
+    public function test_Get_Object_404()
+    {
+        $this->addMockSubscriber(new Response(404));
+        $this->container->getObject('foobar');
+    }
+
+    /**
+     * @expectedException \Guzzle\Http\Exception\BadResponseException
+     */
+    public function test_Get_Object_500()
+    {
+        $this->addMockSubscriber(new Response(500));
+        $this->container->getObject('foobar');
+    }
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */

@@ -11,6 +11,7 @@
 namespace OpenCloud\ObjectStore\Resource;
 
 use Guzzle\Http\EntityBody;
+use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
@@ -19,6 +20,7 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Service\ServiceInterface;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
 use OpenCloud\ObjectStore\Exception\ContainerException;
+use OpenCloud\ObjectStore\Exception\ObjectNotFoundException;
 use OpenCloud\ObjectStore\Upload\DirectorySync;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
 
@@ -322,9 +324,16 @@ class Container extends AbstractContainer
      */
     public function getObject($name, array $headers = array())
     {
-        $response = $this->getClient()
-            ->get($this->getUrl($name), $headers)
-            ->send();
+        try {
+            $response = $this->getClient()
+                ->get($this->getUrl($name), $headers)
+                ->send();
+        } catch (BadResponseException $e) {
+            if ($e->getResponse()->getStatusCode() == 404) {
+                throw ObjectNotFoundException::factory($name, $e);
+            }
+            throw $e;
+        }
 
         return $this->dataObject()
             ->populateFromResponse($response)

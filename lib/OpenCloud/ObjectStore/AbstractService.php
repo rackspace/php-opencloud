@@ -45,5 +45,4 @@ abstract class AbstractService extends CatalogService
     {
         return new Resource\Account($this);
     }
-    
 }
