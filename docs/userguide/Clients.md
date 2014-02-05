@@ -22,7 +22,14 @@ First, you need to select the Identity endpoint you want to authenticate against
 
 Then you need to find your username and apiKey. Your username will be visible at the top right of the Rackspace Control panel; and your API key can be retrieved by going to Account Settings. Once this is done:
 
-<script src="https://gist.github.com/ycombinator/8476807.js"></script>
+```php
+use OpenCloud\OpenStack;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    'username' => 'foo',
+    'apiKey'   => 'bar'
+));
+```
 
 ### OpenStack
 
