@@ -97,5 +97,4 @@ class CDNContainer extends AbstractContainer
     {
         return $this->metadata->getProperty(HeaderConst::ENABLED) == 'True';
     }
-
 }
