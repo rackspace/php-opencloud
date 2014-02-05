@@ -47,15 +47,8 @@ abstract class AbstractContainer extends AbstractResource
     {
         return $this->metadata->getProperty(HeaderConst::TRANS_ID);
     }
-    
-    public function isCdnEnabled()
-    {
-        if ($this instanceof CDNContainer) {
-            return $this->metadata->getProperty(HeaderConst::ENABLED) == 'True';
-        } else {
-            return empty($this->cdn);
-        }
-    }
+
+    public abstract function isCdnEnabled();
     
     public function hasLogRetention()
     {

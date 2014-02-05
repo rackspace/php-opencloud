@@ -497,4 +497,11 @@ class Container extends AbstractContainer
         $sync->execute();
     }
 
+    public function isCdnEnabled()
+    {
+        return !empty($this->cdn)
+            && ($this->cdn instanceof CDNContainer)
+            && ($this->cdn->isCdnEnabled());
+    }
+
 }
