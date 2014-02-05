@@ -270,6 +270,15 @@ class ServerTest extends ComputeTestCase
         $this->assertEquals(
             '/tmp/hello.txt', $obj->server->personality[0]->path);
     }
+
+    public function test_Create_UserData()
+    {
+        $new = new PublicServer($this->service);
+        $new->user_data = 'foo';
+        $obj = $new->createJson();
+
+        $this->assertEquals('foo', $obj->server->user_data);
+    }
     
     public function test_Image_Schedule()
     {

@@ -211,6 +211,8 @@ class DataObject extends AbstractResource
      */
     public function setContent($content)
     {
+        $this->etag = null;
+        $this->contentType = null;
         $this->content = EntityBody::factory($content);
         return $this;
     }
