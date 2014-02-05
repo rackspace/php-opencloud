@@ -196,9 +196,9 @@ class Service extends AbstractService
      * @param Container $new Where you're moving files to
      * @return array    Of PUT responses
      */
-    public function migrateContainer(Container $old, Container $new)
+    public function migrateContainer(Container $old, Container $new, array $options = array())
     {
-        $migration = ContainerMigration::factory($old, $new);
+        $migration = ContainerMigration::factory($old, $new, $options);
 
         return $migration->transfer();
     }

@@ -18,7 +18,6 @@ use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
  */
 abstract class AbstractContainer extends AbstractResource
 {
-
     protected $metadataClass = 'OpenCloud\\ObjectStore\\Resource\\ContainerMetadata';
     
     /**
@@ -42,7 +41,7 @@ abstract class AbstractContainer extends AbstractResource
         // Populate data if set
         $this->populate($data);
     }
-    
+
     public function getTransId()
     {
         return $this->metadata->getProperty(HeaderConst::TRANS_ID);
@@ -121,5 +120,4 @@ abstract class AbstractContainer extends AbstractResource
         $headers = array('X-Container-Meta-Web-Error' => $page);
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
-
 }
