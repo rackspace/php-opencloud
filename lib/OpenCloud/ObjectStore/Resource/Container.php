@@ -498,7 +498,9 @@ class Container extends AbstractContainer
 
     public function isCdnEnabled()
     {
-        return empty($this->cdn);
+        return !empty($this->cdn)
+            && ($this->cdn instanceof CDNContainer)
+            && ($this->cdn->isCdnEnabled());
     }
 
 }
