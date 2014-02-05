@@ -124,7 +124,8 @@ is returned.
 
 ```php
 $nodes = $loadBalancer->listNodes();
-foreach ($nodes as $node) {
+foreach ($nodes as $node)
+{
 	var_dump($node); // instance of OpenCloud\LoadBalancer\Resource\Node}
 ```
 
@@ -144,13 +145,13 @@ $loadBalancer->addNodes();
 
 The `addNode` method accepts three more optional parameters, in addition to the two shown above:
 
-| Position | Description | Required? | Default value |
-| ----------- | --------------- | -------------- | ----------------- |
-|  1           | IP address of node | Yes | - |
-|  2           | Port used by node's service | Yes | - |
-|  3           | Starting condition of node:<ul><li>`ENABLED` – Node is ready to receive traffic from the load balancer.</li><li>`DISABLED` – Node should not receive traffic from the load balancer.</li><li>`DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer.</li></ul> | No | `ENABLED` |
-|  4           | Type of node to add:<ul><li>`PRIMARY` – Nodes defined as PRIMARY are in the normal rotation to receive traffic from the load balancer.</li><li>`SECONDARY` – Nodes defined as SECONDARY are only in the rotation to receive traffic from the load balancer when all the primary nodes fail.</li></ul> | No | `PRIMARY` |
-|  5           | Weight, between 1 and 100, given to node when distributing traffic using either the `WEIGHTED_ROUND_ROBIN` or the `WEIGHTED_LEAST_CONNECTIONS` load balancing algorithm. | No | 1 |
+| Position | Description | Data type | Required? | Default value |
+| ----------- | --------------- | --------------| -------------- | ----------------- |
+|  1           | IP address of node | String | Yes | - |
+|  2           | Port used by node's service | Integer | Yes | - |
+|  3           | Starting condition of node:<ul><li>`ENABLED` – Node is ready to receive traffic from the load balancer.</li><li>`DISABLED` – Node should not receive traffic from the load balancer.</li><li>`DRAINING` – Node should process any traffic it is already receiving but should not receive any further traffic from the load balancer.</li></ul> | String | No | `ENABLED` |
+|  4           | Type of node to add:<ul><li>`PRIMARY` – Nodes defined as PRIMARY are in the normal rotation to receive traffic from the load balancer.</li><li>`SECONDARY` – Nodes defined as SECONDARY are only in the rotation to receive traffic from the load balancer when all the primary nodes fail.</li></ul> | String | No | `PRIMARY` |
+|  5           | Weight, between 1 and 100, given to node when distributing traffic using either the `WEIGHTED_ROUND_ROBIN` or the `WEIGHTED_LEAST_CONNECTIONS` load balancing algorithm. | Integer | No | 1 |
 
 ### Modify Nodes
 You can modify one or more of the following node attributes:
@@ -190,22 +191,64 @@ $node->delete();
 
 #### Given an `OpenCloud\LoadBalancer\Resource\LoadBalancer` instance and a node ID
 ```php
-$loadBalancer->removeNode($nodeId);
+$loadBalancer->removeNode(490639);
 ```
+
+The `removeNode` method, as shown above, accepts the following arguments:
+
+| Position | Description | Data type | Required? | Default value |
+| ----------- | --------------- | -------------- |-------------- | ----------------- |
+|  1           | ID of node | Integer | Yes | - |
 
 ### View Node Service Events
 You can view events associated with the activity between a node and a load balancer.  An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
 
 ```php
 $nodeEvents = $loadBalancer->nodeEventList();
-foreach ($nodeEvents as $nodeEvent) {
+foreach ($nodeEvents as $nodeEvent){
     var_dump($nodeEvent); // instance of OpenCloud\LoadBalancer\Resource\NodeEvent
 }
 ```
 
 ## Virtual IPs
+A **virtual IP (VIP)** makes a load balancer accessible by clients. The load balancing service supports either a public VIP address (`PUBLIC`), routable on the public Internet, or a ServiceNet VIP address (`SERVICENET`), routable only within the region in which the load balancer resides.
 
 ### List Virtual IPs
+
+You can list the VIPs associated with a load balancer. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
+
+```php
+$vips = $loadBalancer->virtualIpList();
+foreach ($vips as $vip)
+{
+    var_dump($vip); // instance of OpenCloud\LoadBalancer\Resource\VirtualIp}
+```
+
+### Add Virtual IPv6
+
+You can add additional IPv6 VIPs to a load balancer.
+
+```php
+$loadBalancer->addVirtualIp('PUBLIC', 6);
+```
+
+The `addVirtualIp` method, as shown above, accepts the following arguments:
+
+| Position | Description | Data type | Required? | Default value |
+| ----------- | --------------- | -------------- |-------------- | ----------------- |
+|  1           | Type of VIP:<ul><li>`PUBLIC` – An IP address that is routable on the public Internet.</li><li>`SERVICENET` – An IP address that is routable only on ServiceNet.</li></ul> | String | No | `PUBLIC` |
+|  2           | IP version: Must be `6` | Integer | Yes | - |
+
+
+### Remove Virtual IPs
+
+You can remove a VIP from a load balancer.
+
+```php
+$vip->remove();
+```
+
+Please note that a load balancer must have at least one VIP associated with it. If you try to remove a load balancer's last VIP, a `ClientErrorResponseException` will be thrown.
 
 ## Algorithms
 
