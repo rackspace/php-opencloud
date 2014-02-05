@@ -11,6 +11,7 @@ use OpenCloud\ObjectStore\Resource\Container;
 class ContainerMigration
 {
     protected $readQueue;
+
     protected $writeQueue;
 
     protected $oldContainer;
@@ -21,10 +22,8 @@ class ContainerMigration
 
     protected $defaults = array(
         'read.batchLimit'  => 1000,
-        'read.flushLimit'  => 1000,
-
-        'write.batchLimit' => 100,
-        'write.flushLimit' => 100
+        'read.pageLimit'   => 10000,
+        'write.batchLimit' => 100
     );
 
     public static function factory(Container $old, Container $new, array $options = array())
@@ -60,7 +59,6 @@ class ContainerMigration
     {
         $this->readQueue = BatchBuilder::factory()
             ->transferRequests($this->options->get('read.batchLimit'))
-            ->autoFlushAt($this->options->get('read.flushLimit'))
             ->build();
     }
 
@@ -68,7 +66,6 @@ class ContainerMigration
     {
         $this->writeQueue = BatchBuilder::factory()
             ->transferRequests($this->options->get('read.batchLimit'))
-            ->autoFlushAt($this->options->get('read.flushLimit'))
             ->build();
     }
 
@@ -80,7 +77,8 @@ class ContainerMigration
     protected function enqueueGetRequests()
     {
         $files = $this->oldContainer->objectList(array(
-            'limit.page' => $this->options->get('getLimit')
+            'limit.total' => false,
+            'limit.page'  => $this->options->get('read.pageLimit')
         ));
 
         foreach ($files as $file) {
