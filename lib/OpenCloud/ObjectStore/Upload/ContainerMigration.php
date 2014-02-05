@@ -20,8 +20,8 @@ class ContainerMigration
     protected $options = array();
 
     protected $defaults = array(
-        'read.batchLimit'  => 10000,
-        'read.flushLimit'  => 10000,
+        'read.batchLimit'  => 1000,
+        'read.flushLimit'  => 1000,
 
         'write.batchLimit' => 100,
         'write.flushLimit' => 100
@@ -79,9 +79,9 @@ class ContainerMigration
 
     protected function enqueueGetRequests()
     {
-        $files = $this->oldContainer->objectList([
+        $files = $this->oldContainer->objectList(array(
             'limit.page' => $this->options->get('getLimit')
-        ]);
+        ));
 
         foreach ($files as $file) {
             $this->readQueue->add(
@@ -114,12 +114,12 @@ class ContainerMigration
 
     public function transfer()
     {
-        $responses = $this->sendGetRequests();
+        $requests = $this->sendGetRequests();
         $this->readQueue = null;
 
-        foreach ($responses as $key => $response) {
-            $this->writeQueue->add($this->createPutRequest($response));
-            unset($responses[$key]);
+        foreach ($requests as $key => $request) {
+            $this->writeQueue->add($this->createPutRequest($request->getResponse()));
+            unset($requests[$key]);
         }
 
         return $this->writeQueue->flush();
