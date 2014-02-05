@@ -194,6 +194,14 @@ $loadBalancer->removeNode($nodeId);
 ```
 
 ### View Node Service Events
+You can view events associated with the activity between a node and a load balancer.  An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
+
+```php
+$nodeEvents = $loadBalancer->nodeEventList();
+foreach ($nodeEvents as $nodeEvent) {
+    var_dump($nodeEvent); // instance of OpenCloud\LoadBalancer\Resource\NodeEvent
+}
+```
 
 ## Virtual IPs
 
@@ -212,8 +220,6 @@ $loadBalancer->removeNode($nodeId);
 ### Manage Session Persistence
 
 ## Connections
-
-###
 
 ## Error Page
 
