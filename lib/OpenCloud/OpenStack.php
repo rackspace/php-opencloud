@@ -510,5 +510,4 @@ class OpenStack extends Client
             'urlType' => $urltype
         ));
     }
-
 }

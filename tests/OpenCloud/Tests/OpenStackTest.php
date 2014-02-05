@@ -178,5 +178,4 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('{expiration}', $this->client->getExpiration());
         $this->assertEquals($randomNumericTenant, $this->client->getTenant());
     }
-
 }
