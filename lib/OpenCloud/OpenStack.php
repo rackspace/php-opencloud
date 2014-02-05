@@ -193,7 +193,7 @@ class OpenStack extends Client
     {
         $identity = IdentityService::factory($this);
 
-        if (is_int($tenant)) {
+        if (is_numeric($tenant)) {
 
             if (!$this->tenant) {
                 $this->setTenantObject($identity->resource('Tenant'));
@@ -522,5 +522,4 @@ class OpenStack extends Client
         $this->authenticate();
         return $service;
     }
-
 }
