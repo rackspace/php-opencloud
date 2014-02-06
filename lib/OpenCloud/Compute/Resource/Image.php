@@ -11,6 +11,7 @@
 namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\PersistentObject;
+use OpenCloud\Images\Resource\ImageInterface;
 
 /**
  * A collection of files for a specific operating system (OS) that you use to 
@@ -22,7 +23,7 @@ use OpenCloud\Common\PersistentObject;
  * image store) directly, but it is currently not available to Rackspace 
  * customers, so we're using the /images resource on the servers API endpoint.
  */
-class Image extends PersistentObject 
+class Image extends PersistentObject implements ImageInterface
 {
     public $status;
     public $updated;

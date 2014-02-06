@@ -11,6 +11,7 @@
 namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\PersistentObject;
+use OpenCloud\Images\Resource\ImageInterface;
 use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
@@ -63,7 +64,7 @@ class Server extends PersistentObject
      * The Image for this server.
      * 
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
-     * @var type 
+     * @var ImageInterface
      */
     public $image;
     
@@ -582,10 +583,10 @@ class Server extends PersistentObject
         // Convert some values
         $this->metadata->sdk = $this->getService()->getClient()->getUserAgent();
         
-        if (!empty($this->image) && $this->image instanceof Image) {
+        if ($this->image instanceof ImageInterface) {
             $this->imageRef = $this->image->id;
         }
-        if (!empty($this->flavor) && $this->flavor instanceof Flavor) {
+        if ($this->flavor instanceof Flavor) {
             $this->flavorRef = $this->flavor->id;
         }
         
@@ -627,9 +628,7 @@ class Server extends PersistentObject
 
         // Personality files
         if (!empty($this->personality)) {
-
             $server->personality = array();
-
             foreach ($this->personality as $path => $data) {
                 // Stock personality array
                 $server->personality[] = (object) array(
@@ -662,5 +661,4 @@ class Server extends PersistentObject
     {
         return (object) array('server' => (object) $params);
     }
-
 }
