@@ -175,7 +175,6 @@ class Service extends NovaService
         return $this->resourceList('Image', $url);
     }
 
-    
     public function keypair($data = null)
     {
         return $this->resource('KeyPair', $data);
@@ -185,5 +184,4 @@ class Service extends NovaService
     {
         return $this->resourceList('KeyPair', null, $this);
     }
-    
 }

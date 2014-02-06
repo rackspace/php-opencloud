@@ -24,7 +24,6 @@ use OpenCloud\Common\PersistentObject;
  */
 class Image extends PersistentObject 
 {
-
     public $status;
     public $updated;
     public $links;
@@ -55,5 +54,4 @@ class Image extends PersistentObject
     { 
         return $this->noUpdate(); 
     }
-
 }
