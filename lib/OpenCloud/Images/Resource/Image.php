@@ -24,8 +24,7 @@ class Image extends PersistentObject implements ImageInterface
         foreach ($params as $propertyName => $value) {
 
             // find property object
-            if (null === ($property = $this->schema->getProperty($propertyName))) {
-
+            if (!($property = $this->schema->getProperty($propertyName))) {
                 // check whether additional properties are found
                 if (false === ($property ==$this->schema->getAdditionalProperty($value))) {
                     throw new \RuntimeException();
@@ -33,15 +32,17 @@ class Image extends PersistentObject implements ImageInterface
             }
 
             // do validation checks
-            $property->validateValue($value);
+            $property->setValue($value);
+            $property->validate();
 
             // create JSON-patch operation
-            $operation = JsonOperation::factory($this->schema, $propertyName, $value);
+            $operation = JsonOperation::factory($this->schema, $property);
 
             // add to JSON document
             $document->addOperation($operation);
         }
 
         // create request
+
     }
 }
