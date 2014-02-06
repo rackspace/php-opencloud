@@ -19,7 +19,7 @@ use Guzzle\Common\Version as GuzzleVersion;
  */
 class Version 
 {
-    const VERSION = '1.9.1';
+    const VERSION = '1.9.2';
 
     /**
      * @return string Indicate current SDK version.
