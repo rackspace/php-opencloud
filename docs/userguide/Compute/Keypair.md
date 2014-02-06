@@ -12,6 +12,7 @@ $keypair->create(array(
 ));
 
 echo $keypair->getPublicKey();
+echo $keypair->getPrivateKey(); // Save this to a file so you can use it to SSH into your server later.
 ```
 
 ## Upload existing keypair
