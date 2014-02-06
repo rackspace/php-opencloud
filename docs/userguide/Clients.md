@@ -26,7 +26,7 @@ Then you need to find your username and apiKey. Your username will be visible at
 use OpenCloud\OpenStack;
 
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-	'username' => 'foo',
+    'username' => 'foo',
     'apiKey'   => 'bar'
 ));
 ```

@@ -37,7 +37,7 @@ class LoadBalancer extends PersistentObject
     public $name;
 
     /**
-     * Port of the service which is being laod balanced.
+     * Port of the service which is being load balanced.
      *
      * @var string
      */
