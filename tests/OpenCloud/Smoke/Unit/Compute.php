@@ -26,6 +26,9 @@ class Compute extends AbstractUnit implements UnitInterface
     const SERVER_NAME  = 'FooServer';
     const SNAPSHOT_NAME = 'FooSnapshot';
 
+    const FLAVOR = 'performance1-2';
+    const IMAGE  = "046832f9-4549-4b38-a903-11acecac8cb9";
+
     public function setupService()
     {
         return $this->getConnection()->computeService('cloudServersOpenStack', Utils::getRegion());
@@ -47,9 +50,6 @@ class Compute extends AbstractUnit implements UnitInterface
         //$imageList->sort('name');
         foreach ($imageList as $image) {
             $this->stepInfo('%s; ID: [%s]; OS distro: [%s]', $image->name, $image->id, $image->metadata->os_distro);
-            if (isset($image->metadata->os_distro) && $image->metadata->os_distro == 'centos') {
-                $centos = $image;
-            }
         }
         
         // Create network
@@ -119,8 +119,8 @@ class Compute extends AbstractUnit implements UnitInterface
         $server->addFile('/var/test2', 'TEST 2');
         $server->create(array(
             'name'     => $this->prepend(self::SERVER_NAME . time()),
-            'image'    => $centos,
-            'flavor'   => $flavorList->first(),
+            'image'    => $this->getService()->image(self::IMAGE),
+            'flavor'   => $this->getService()->flavor(self::FLAVOR),
             'networks' => array(
                 $this->getService()->network(Network::RAX_PUBLIC),
                 $this->getService()->network(Network::RAX_PRIVATE)
@@ -188,6 +188,7 @@ class Compute extends AbstractUnit implements UnitInterface
         $this->step('Teardown');
         $servers = $this->getService()->serverList();
 
+        // Delete servers
         foreach ($servers as $server) {
             
             $attachments = $server->volumeAttachmentList();
@@ -204,12 +205,21 @@ class Compute extends AbstractUnit implements UnitInterface
                 $server->delete();
             }
         } 
-        
+
+        // Delete networks
         $networks = $this->getService()->networkList();
         foreach ($networks as $network) {
             if (!in_array($network->id, array(Network::RAX_PRIVATE, Network::RAX_PUBLIC))) {
                 $this->stepInfo('Deleting: %s %s', $network->id, $network->label);
                 $network->delete();
+            }
+        }
+
+        // Delete volumes
+        $volumes = $this->getService()->volumeList();
+        foreach ($volumes as $volume) {
+            if ($this->shouldDelete($volume->name)) {
+                $volume->delete();
             }
         }
     }
