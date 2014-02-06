@@ -50,10 +50,10 @@ $serverTwoNode->condition = 'ENABLED';
 
 $loadBalancer->addVirtualIp('PUBLIC');
 $loadBalancer->create(array(
-    'name' => 'My smart load balancer',
-    'port' => 80,
+    'name'     => 'My smart load balancer',
+    'port'     => 80,
     'protocol' => 'HTTP',
-    'nodes' => array($serverOneNode, $serverTwoNode)
+    'nodes'    => array($serverOneNode, $serverTwoNode)
 ));
 ```
 
@@ -63,7 +63,8 @@ You can retrieve a single load balancer's details by using its ID.
 
 ```php
 $loadBalancer = $loadBalancerService->loadBalancer('254889');
-var_dump($loadBalancer); // instance of OpenCloud\LoadBalancer\Resource\LoadBalancer
+
+/** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
 ```
 
 ### List Load Balancers
@@ -74,7 +75,7 @@ is returned.
 ```php
 $loadBalancers = $loadBalancerService->loadBalancerList();
 foreach ($loadBalancers as $loadBalancer) {
-    var_dump($loadBalancer); // instance of OpenCloud\LoadBalancer\Resource\LoadBalancer
+    /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
 }
 ```
 
@@ -100,7 +101,7 @@ $loadBalancer->update(array(
 #### Updating multiple attributes of a load balancer
 ```php
 $loadBalancer->update(array(
-    'name' => 'New name',
+    'name'      => 'New name',
     'algorithm' => 'ROUND_ROBIN'
 ));
 ```
@@ -126,9 +127,9 @@ is returned.
 
 ```php
 $nodes = $loadBalancer->listNodes();
-foreach ($nodes as $node)
-{
-	var_dump($node); // instance of OpenCloud\LoadBalancer\Resource\Node}
+foreach ($nodes as $node) {
+	/** @var $node OpenCloud\LoadBalancer\Resource\Node **/
+}
 ```
 
 ### Add Nodes
@@ -138,10 +139,8 @@ You can attach additional nodes to a load balancer. Assume `$loadBalancer` alrea
 **Important:** Remember to call `$loadBalancer->addNodes()` after all the calls to `$loadBalancer->addNode()` as shown below.
 
 ```php
-$loadBalancer->addNode(
-    $serverThree->addresses->private[0]->addr,
-    8080
-);
+$address = $serverThree->addresses->private[0]->addr;
+$loadBalancer->addNode($address, 8080);
 $loadBalancer->addNodes();
 ```
 
@@ -178,7 +177,7 @@ $node->update(array(
 ```php
 $node->update(array(
     'condition' => 'DISABLED',
-    'type' => 'SECONDARY'
+    'type'      => 'SECONDARY'
 ));
 ```
 
@@ -198,8 +197,8 @@ $loadBalancer->removeNode(490639);
 
 The `removeNode` method, as shown above, accepts the following arguments:
 
-| Position | Description | Data type | Required? | Default value |
-| ----------- | --------------- | -------------- |-------------- | ----------------- |
+|Position| Description | Data type | Required? | Default value |
+|----------- | --------------- | -------------- |-------------- | ----------------- |
 |  1           | ID of node | Integer | Yes | - |
 
 ### View Node Service Events
@@ -207,13 +206,14 @@ You can view events associated with the activity between a node and a load balan
 
 ```php
 $nodeEvents = $loadBalancer->nodeEventList();
-foreach ($nodeEvents as $nodeEvent){
-    var_dump($nodeEvent); // instance of OpenCloud\LoadBalancer\Resource\NodeEvent
+foreach ($nodeEvents as $nodeEvent) {
+    /** @var $nodeEvent OpenCloud\LoadBalancer\Resource\NodeEvent **/
 }
 ```
 
 ## Virtual IPs
-A **virtual IP (VIP)** makes a load balancer accessible by clients. The load balancing service supports either a public VIP address (`PUBLIC`), routable on the public Internet, or a ServiceNet VIP address (`SERVICENET`), routable only within the region in which the load balancer resides.
+
+A **virtual IP (VIP)** makes a load balancer accessible by clients. The load balancing service supports either a public VIP address (`PUBLIC`), routable on the public Internet, or a ServiceNet VIP address (`SERVICENET`), routable only within the region in which the load balancer resides.
 
 ### List Virtual IPs
 
@@ -221,9 +221,9 @@ You can list the VIPs associated with a load balancer. An instance of `OpenCloud
 
 ```php
 $vips = $loadBalancer->virtualIpList();
-foreach ($vips as $vip)
-{
-    var_dump($vip); // instance of OpenCloud\LoadBalancer\Resource\VirtualIp}
+foreach ($vips as $vip) {
+    /** @var $vip of OpenCloud\LoadBalancer\Resource\VirtualIp **/
+}
 ```
 
 ### Add Virtual IPv6
@@ -262,9 +262,9 @@ You can list all supported load balancing algorithms using a load balancer servi
 
 ```php
 $algorithms = $loadBalancerService->algorithmList();
-foreach ($algorithms as $algorithm)
-{
-	var_dump($algorithm); // instance of OpenCloud\LoadBalancer\Resource\Algorithm}
+foreach ($algorithms as $algorithm) {
+	/** @var $algorithm OpenCloud\LoadBalancer\Resource\Algorithm **/
+}
 ```
 
 ## Protocols
@@ -277,9 +277,9 @@ You can list all supported network protocols using a load balancer service objec
 
 ```php
 $protocols = $loadBalancerService->protocolList();
-foreach ($protocols as $protocol)
-{
-	var_dump($protocol); // instance of OpenCloud\LoadBalancer\Resource\Protocol}
+foreach ($protocols as $protocol) {
+	/** @var $protocol OpenCloud\LoadBalancer\Resource\Protocol **/
+}
 ```
 
 ## Sessions
