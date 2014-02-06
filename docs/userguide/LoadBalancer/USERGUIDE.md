@@ -88,7 +88,7 @@ You can update one or more of the following load balancer attributes:
 * `port`: The network port on which the load balancer listens for incoming traffic.
 * `halfClosed`: Enable or Disable Half-Closed support for the load balancer.
 * `timeout`: The timeout value for the load balancer to communicate with its nodes. 
-* `httpsRedirect`: Enable or disable HTTP to HTTPS redirection for the load balancer. When enabled, any HTTP request will return status code 301 (Moved Permanently), and the requestor will be redirected to the requested URL via the HTTPS protocol on port 443. For example, http://example.com/page.html would be redirected to https:// example.com/page.html. Only available for HTTPS protocol (port=443), or HTTP Protocol with a properly configured SSL Termination (secureTrafficOnly=true, securePort=443). See also: [SSL Termination](#ssl-termination).
+* `httpsRedirect`: Enable or disable HTTP to HTTPS redirection for the load balancer. When enabled, any HTTP request will return status code 301 (Moved Permanently), and the requestor will be redirected to the requested URL via the HTTPS protocol on port 443. For example, http://example.com/page.html would be redirected to https:// example.com/page.html. Only available for HTTPS protocol (`port` = 443), or HTTP Protocol with a properly configured SSL Termination (`secureTrafficOnly=true, securePort=443). See also: [SSL Termination](#ssl-termination).
 
 #### Updating a single attribute of a load balancer
 ```php
