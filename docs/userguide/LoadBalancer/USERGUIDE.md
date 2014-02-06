@@ -252,11 +252,33 @@ Please note that a load balancer must have at least one VIP associated with it. 
 
 ## Algorithms
 
+Load balancers use an **algorithm** to determine how incoming traffic is distributed amongst the back-end nodes. 
+
 ### List Load Balancing Algorithms
+
+You can list all supported load balancing algorithms using a load balancer service object. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
+
+```php
+$algorithms = $loadBalancerService->algorithmList();
+foreach ($algorithms as $algorithm)
+{
+	var_dump($algorithm); // instance of OpenCloud\LoadBalancer\Resource\Algorithm}
+```
 
 ## Protocols
 
+When a load balancer is created a network protocol must be specified. This network protocol should be based on the network protocol of the back-end service being load balanced. 
+
 ### List Load Balancing Protocols
+
+You can list all supported network protocols using a load balancer service object. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
+
+```php
+$protocols = $loadBalancerService->protocolList();
+foreach ($protocols as $protocol)
+{
+	var_dump($protocol); // instance of OpenCloud\LoadBalancer\Resource\Protocol}
+```
 
 ## Sessions
 
