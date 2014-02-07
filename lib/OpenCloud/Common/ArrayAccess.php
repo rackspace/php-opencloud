@@ -4,7 +4,7 @@ namespace OpenCloud\Common;
 
 class ArrayAccess implements \ArrayAccess
 {
-    private $elements;
+    protected $elements;
 
     public function __construct($data = array())
     {
@@ -22,7 +22,7 @@ class ArrayAccess implements \ArrayAccess
         if ($offset === null) {
             $this->elements[] = $value;
         } else {
-            $this->elements = $value;
+            $this->elements[$offset] = $value;
         }
     }
 
@@ -34,7 +34,7 @@ class ArrayAccess implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return array_key_exists($this->elements, $offset);
+        return array_key_exists($offset, $this->elements);
     }
 
     /**
