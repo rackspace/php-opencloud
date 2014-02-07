@@ -304,8 +304,8 @@ $sessionPersistenceType = $sessionPersistence->persistenceType;
 
 In the example above:
 
-* If session persistence is disabled, the value of `$sessionPersistenceType` is `null`.
 * If session persistence is enabled, the value of `$sessionPersistenceType` is the type of session persistence: either `HTTP_COOKIE` or `SOURCE_IP`.
+* If session persistence is disabled, the value of `$sessionPersistenceType` is `null`.
 
 ### Enable Session Persistence
 
@@ -337,8 +337,8 @@ $connectionLoggingEnabled = $sessionPersistence->enabled;
 ```
 In the example above:
 
-* If connection logging is disabled, the value of `$connectionLoggingEnabled` is `false`.
 * If connection logging is enabled, the value of `$connectionLoggingEnabled` is `true`.
+* If connection logging is disabled, the value of `$connectionLoggingEnabled` is `false`.
 
 ### Enable Connection Logging
 
@@ -359,6 +359,37 @@ $connectionLogging->update(array(
 ```
 
 ## Error Page
+
+An **error page** is the html file that is shown to the end user when an error in the service has been thrown. By default every virtual server is provided with the default error file. It is also possible to set a custom error page for a load balancer.
+
+### List Error Page Configuration
+
+```php
+$errorPage = $loadBalancer->errorPage();
+$errorPageContent = $errorPage->content;
+
+/** @var $errorPageContent string **/
+```
+
+In the example above:
+
+The value of `$errorPageContent` is the HTML for that page. This could either be the HTML of the default error page or of your custom error page.
+
+### Set Custom Error Page
+
+```php
+$errorPage = $loadBalancer->errorPage();
+$errorPage->update(array(
+    'content' => '<HTML content of custom error page>'
+));
+```
+
+### Delete Custom Error Page
+
+```php
+$errorPage = $loadBalancer->errorPage();
+$errorPage->delete();
+```
 
 ## Allowed Domains
 
