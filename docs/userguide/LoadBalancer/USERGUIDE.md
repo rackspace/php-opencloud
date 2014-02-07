@@ -371,9 +371,7 @@ $errorPageContent = $errorPage->content;
 /** @var $errorPageContent string **/
 ```
 
-In the example above:
-
-The value of `$errorPageContent` is the HTML for that page. This could either be the HTML of the default error page or of your custom error page.
+In the example above the value of `$errorPageContent` is the HTML for that page. This could either be the HTML of the default error page or of your custom error page.
 
 ### Set Custom Error Page
 
