@@ -11,6 +11,7 @@
 namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\NovaResource;
 use OpenCloud\Images\Resource\ImageInterface;
 use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
@@ -25,7 +26,7 @@ use OpenCloud\Common\Http\Message\Formatter;
  * @note This implementation supports extension attributes OS-DCF:diskConfig, 
  * RAX-SERVER:bandwidth, rax-bandwidth:bandwith.
  */
-class Server extends PersistentObject
+class Server extends NovaResource
 {
     /**
      * The server status. {@see \OpenCloud\Compute\Constants\ServerState} for supported types.

@@ -86,7 +86,7 @@ class QueueTest extends QueuesTestCase
     }
     
     /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     * @expectedException \InvalidArgumentException
      */
     public function test_SetMetadata_Fails_Without_Correct_Data()
     {

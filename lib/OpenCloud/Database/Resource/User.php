@@ -10,17 +10,16 @@
 
 namespace OpenCloud\Database\Resource;
 
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * This class represents a User in the Rackspace "Red Dwarf"
  * database-as-a-service product.
  */
-class User extends PersistentObject
+class User extends PersistentResource
 {
-
     /**
      * @var string $name the user name
      * @var string $password the user's password

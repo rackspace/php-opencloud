@@ -12,6 +12,7 @@ namespace OpenCloud\Queues\Resource;
 use Guzzle\Http\Url;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
+use OpenCloud\Common\Resource\PersistentResource;
 use OpenCloud\Queues\Exception;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Collection\PaginatedIterator;
@@ -22,7 +23,7 @@ use OpenCloud\Common\Http\Message\Formatter;
  * if you want to compress files, you would create a queue dedicated to this job. 
  * Any application that reads from this queue would only compress files.
  */
-class Queue extends PersistentObject
+class Queue extends PersistentResource
 {
     /**
      * Maximum number of messages that can be posted at once.
@@ -86,33 +87,6 @@ class Queue extends PersistentObject
     {
         return $this->name;
     }
-    
-    /**
-     * Sets the metadata for this Queue.
-     *
-     * @param $data
-     * @return $this
-     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
-     */
-    public function setMetadata($data)
-    {
-        // Check for either objects, arrays or Metadata objects
-        if ($data instanceof Metadata) {
-            $metadata = $data;
-        } elseif (is_array($data) || is_object($data)) {
-            $metadata = new Metadata();
-            $metadata->setArray($data);
-        } else {
-            throw new InvalidArgumentError(sprintf(
-                'You must specify either an array/object of parameters, or an '
-                . 'instance of Metadata. You provided: %s',
-                print_r($data, true)
-            ));
-        }
-
-        $this->metadata = $metadata;
-        return $this;
-    }
 
     /**
      * Save this metadata both to the local object and the API.
@@ -129,16 +103,6 @@ class Queue extends PersistentObject
         $json = json_encode((object) $this->getMetadata()->toArray());
 
         return $this->getClient()->put($this->getUrl('metadata'), self::getJsonHeader(), $json)->send();
-    }
-    
-    /**
-     * Returns the metadata associated with a Queue.md.
-     *
-     * @return Metadata|null
-     */
-    public function getMetadata()
-    {
-        return $this->metadata;
     }
 
     /**

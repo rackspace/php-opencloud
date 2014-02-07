@@ -522,4 +522,21 @@ class OpenStack extends Client
         $this->authenticate();
         return $service;
     }
+
+    /**
+     * Creates a new Glance service
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return Common\Service\ServiceInterface
+     */
+    public function imageService($name = null, $region = null, $urltype = null)
+    {
+        return ServiceBuilder::factory($this, 'OpenCloud\Images\Service', array(
+            'name'    => $name,
+            'region'  => $region,
+            'urlType' => $urltype
+        ));
+    }
 }
