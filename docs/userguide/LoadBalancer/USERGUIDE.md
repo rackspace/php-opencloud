@@ -282,9 +282,41 @@ foreach ($protocols as $protocol) {
 }
 ```
 
-## Sessions
+## Session Persistence
 
-### Manage Session Persistence
+**Session persistence** is a feature of the load balancing service that forces multiple requests, of the same protocol, from clients to be directed to the same node. This is common with many web applications that do not inherently share application state between back-end servers.
+
+There are two types (or modes) of session persistence:
+
+| Name | Description |
+| -------- | --------------- |
+| `HTTP_COOKIE` |  A session persistence mechanism that inserts an HTTP cookie and is used to determine the destination back-end node. This is supported for HTTP load balancing only. |
+| `SOURCE_IP` |  A session persistence mechanism that will keep track of the source IP address that is mapped and is able to determine the destination back-end node. This is supported for HTTPS pass-through and non-HTTP load balancing only. |
+
+### List Session Persistence Configuration
+
+```php
+$sessionPersistence = $loadBalancer->sessionPersistence();
+$sessionPersistenceType = $sessionPersistence->persistenceType;
+
+/** @var $sessionPersistenceType null | 'HTTP_COOKIE' | 'SOURCE_IP' **/
+```
+
+### Enable Session Persistence
+
+```php
+$sessionPersistence = $loadBalancer->sessionPersistence();
+$sessionPersistence->update(array(
+    'persistenceType' => 'HTTP_COOKIE'
+));
+```
+
+### Disable Session Persistence
+
+```php
+$sessionPersistence = $loadBalancer->sessionPersistence();
+$sessionPersistence->delete();
+```
 
 ## Connections
 
