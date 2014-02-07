@@ -2,13 +2,15 @@
 
 namespace OpenCloud\Images\Resource;
 
+use OpenCloud\Common\Constants\Header;
 use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\BaseResource;
 use OpenCloud\Images\Resource\JsonPatch\Document as JsonDocument;
 use OpenCloud\Images\Resource\JsonPatch\Operation as JsonOperation;
 use OpenCloud\Images\Resource\Schema\Property;
 use OpenCloud\Images\Resource\Schema\Schema;
 
-class Image implements ImageInterface
+class Image extends BaseResource implements ImageInterface
 {
     protected static $url_resource = 'images';
     protected static $json_collection_name = 'images';
@@ -43,8 +45,8 @@ class Image implements ImageInterface
         // create request
         $body = $document->toString();
 
-        $request = $this->getClient()->patch($this->getUrl(), self::getJsonHeader(), $body);
-
-        return $request->send();
+        return $this->getClient()
+            ->patch($this->getUrl(), $this->getService()->getPatchHeaders(), $body)
+            ->send();
     }
 }

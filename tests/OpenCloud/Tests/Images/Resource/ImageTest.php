@@ -18,7 +18,7 @@ class ImageTest extends OpenCloudTestCase
     {
         $this->addMockSubscriber(new Response(200));
 
-        $image = new Image();
+        $image = new Image($this->getClient()->imageService('cloudImages', 'IAD'));
 
         $schema = Schema::factory($this->getSchemaData());
         $config = array(
@@ -29,7 +29,5 @@ class ImageTest extends OpenCloudTestCase
         $response = $image->update($config, $schema);
 
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $response);
-
-        var_dump($response->getRequest());
     }
 } 

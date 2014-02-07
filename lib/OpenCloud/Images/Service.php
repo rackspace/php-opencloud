@@ -2,11 +2,22 @@
 
 namespace OpenCloud\Images;
 
+use OpenCloud\Common\Constants\Header;
 use OpenCloud\Common\Service\CatalogService;
 use OpenCloud\Images\Resource\Image;
 
 class Service extends CatalogService
 {
+    const DEFAULT_TYPE = 'image';
+    const DEFAULT_NAME = 'cloudImages';
+
+    const PATCH_CONTENT_TYPE = '';
+
+    public function getPatchHeaders()
+    {
+        return array(Header::CONTENT_LENGTH => self::PATCH_CONTENT_TYPE);
+    }
+
     public function listImages(array $params = array())
     {
         $url = clone $this->getUrl();
