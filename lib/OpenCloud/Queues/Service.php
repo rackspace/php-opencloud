@@ -66,13 +66,13 @@ class Service extends CatalogService implements EventSubscriberInterface
     }
 
     /**
-     * Append the Client-ID header to all requests for this service.
+     * Set the Client-ID header to all requests for this service.
      *
      * @param Event $event
      */
     public function appendClientIdToRequest(Event $event)
     {
-        $event['request']->addHeader('Client-ID', $this->getClientId());
+        $event['request']->setHeader('Client-ID', $this->getClientId());
     }
 
     /**
