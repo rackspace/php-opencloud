@@ -6,27 +6,25 @@ use OpenCloud\Common\PersistentObject;
 use OpenCloud\Images\Resource\JsonPatch\Document as JsonDocument;
 use OpenCloud\Images\Resource\JsonPatch\Operation as JsonOperation;
 use OpenCloud\Images\Resource\Schema\Property;
+use OpenCloud\Images\Resource\Schema\Schema;
 
-class Image extends PersistentObject implements ImageInterface
+class Image implements ImageInterface
 {
     protected static $url_resource = 'images';
     protected static $json_collection_name = 'images';
 
-    /** @var Schema */
-    protected $schema;
-
-    public function update(array $params)
+    public function update(array $params, Schema $schema = null)
     {
-        $this->schema = $this->getService()->getImageSchema();
+        $schema = $schema ?: $this->getService()->getImageSchema();
 
         $document = new JsonDocument();
 
         foreach ($params as $propertyName => $value) {
 
             // find property object
-            if (!($property = $this->schema->getProperty($propertyName))) {
+            if (!($property = $schema->getProperty($propertyName))) {
                 // check whether additional properties are found
-                if (false === ($property ==$this->schema->getAdditionalProperty($value))) {
+                if (false === ($property ==$schema->getAdditionalProperty($value))) {
                     throw new \RuntimeException();
                 }
             }
@@ -36,13 +34,17 @@ class Image extends PersistentObject implements ImageInterface
             $property->validate();
 
             // create JSON-patch operation
-            $operation = JsonOperation::factory($this->schema, $property);
+            $operation = JsonOperation::factory($schema, $property);
 
             // add to JSON document
             $document->addOperation($operation);
         }
 
         // create request
+        $body = $document->toString();
 
+        $request = $this->getClient()->patch($this->getUrl(), self::getJsonHeader(), $body);
+
+        return $request->send();
     }
 }

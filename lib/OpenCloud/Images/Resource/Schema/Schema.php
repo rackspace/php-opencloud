@@ -2,9 +2,10 @@
 
 namespace OpenCloud\Images\Resource\Schema;
 
-use OpenCloud\Common\ArrayAccess;
+use OpenCloud\Images\Enum\OperationType;
+use OpenCloud\Images\Enum\Schema as SchemaEnum;
 
-class Schema
+class Schema extends AbstractSchemaItem
 {
     protected $name;
     protected $properties;
@@ -15,10 +16,19 @@ class Schema
     {
         $schema = new self();
 
-        $schema->setName($data['name']);
-        $schema->setProperties($data['properties']);
-        $schema->setAdditionalProperties($data['additionalProperties']);
-        $schema->setLinks($data['links']);
+        $schema->setName(self::stockProperty($data, SchemaEnum::NAME));
+
+        if (isset($data[SchemaEnum::LINKS])) {
+            $schema->setLinks($data[SchemaEnum::LINKS]);
+        }
+
+        if (isset($data[SchemaEnum::PROPERTIES])) {
+            $schema->setProperties($data[SchemaEnum::PROPERTIES]);
+        }
+
+        if (isset($data[SchemaEnum::ADDITIONAL_PROPERTIES])) {
+            $schema->setAdditionalProperties($data[SchemaEnum::ADDITIONAL_PROPERTIES]);
+        }
 
         return $schema;
     }
@@ -28,11 +38,22 @@ class Schema
         $this->name = $name;
     }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
     public function setProperties(array $properties)
     {
         foreach ($properties as $name => $array) {
-            $this->properties[$name] = Property::factory($name, $array);
+            $array[SchemaEnum::NAME] = $name;
+            $this->properties[$name] = Property::factory($array);
         }
+    }
+
+    public function getProperties()
+    {
+        return $this->properties;
     }
 
     public function setAdditionalProperties(array $properties)
@@ -40,9 +61,23 @@ class Schema
         $this->additionalProperties = $properties;
     }
 
+    public function getAdditionalProperties()
+    {
+        if (!empty($this->additionalProperties)) {
+            return Property::factory($this->additionalProperties);
+        }
+
+        return false;
+    }
+
     public function setLinks(array $links)
     {
         $this->links = $links;
+    }
+
+    public function getLinks()
+    {
+        return $this->links;
     }
 
     public function propertyExists($property)
@@ -55,12 +90,10 @@ class Schema
         return $this->propertyExists($property) ? $this->properties[$property] : null;
     }
 
-    public function getAdditionalProperty($value)
+    public function decideOperationType(Property $property)
     {
-        if (!empty($this->additionalProperties)) {
-            return new Property($this->additionalProperties);
-        }
-        // no additional props allowed
-        return false;
+        $name = $property->getName();
+
+        return ($this->propertyExists($name)) ? OperationType::REPLACE : OperationType::ADD;
     }
 }
