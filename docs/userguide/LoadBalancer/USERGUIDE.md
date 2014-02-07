@@ -362,7 +362,7 @@ $connectionLogging->update(array(
 
 An **error page** is the html file that is shown to the end user when an error in the service has been thrown. By default every virtual server is provided with the default error file. It is also possible to set a custom error page for a load balancer.
 
-### List Error Page Configuration
+### View Error Page Content
 
 ```php
 $errorPage = $loadBalancer->errorPage();
