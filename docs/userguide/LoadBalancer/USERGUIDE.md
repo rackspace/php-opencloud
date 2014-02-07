@@ -302,6 +302,11 @@ $sessionPersistenceType = $sessionPersistence->persistenceType;
 /** @var $sessionPersistenceType null | 'HTTP_COOKIE' | 'SOURCE_IP' **/
 ```
 
+In the example above:
+
+* If session persistence is disabled, the value of `$sessionPersistenceType` is `null`.
+* If session persistence is enabled, the value of `$sessionPersistenceType` is the type of session persistence: either `HTTP_COOKIE` or `SOURCE_IP`.
+
 ### Enable Session Persistence
 
 ```php
@@ -318,7 +323,40 @@ $sessionPersistence = $loadBalancer->sessionPersistence();
 $sessionPersistence->delete();
 ```
 
-## Connections
+## Connection Logging
+
+The **connection logging** feature allows logs to be delivered to a Cloud Files account every hour. For HTTP-based protocol traffic, these are Apache-style access logs. For all other traffic, this is connection and transfer logging.
+
+### List Connection Logging Configuration
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLoggingEnabled = $sessionPersistence->enabled;
+
+/** @var $connectionLoggingEnabled boolean **/
+```
+In the example above:
+
+* If connection logging is disabled, the value of `$connectionLoggingEnabled` is `false`.
+* If connection logging is enabled, the value of `$connectionLoggingEnabled` is `true`.
+
+### Enable Connection Logging
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLogging->update(array(
+    'enabled' => true
+));
+```
+
+### Disable Connection Logging
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLogging->update(array(
+    'enabled' => false
+));
+```
 
 ## Error Page
 
