@@ -22,6 +22,7 @@
     },
     "require": {
         "php" : ">=5.3.3",
+        "ext-curl" : "*",
         "guzzle/http" : "3.8.*@dev"
     },
     "require-dev" : {
