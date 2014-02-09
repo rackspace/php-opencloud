@@ -391,7 +391,7 @@ $errorPage->delete();
 
 ## Allowed Domains
 
-Allowed domains are a restricted set of domain names that are allowed to add load balancer nodes.
+**Allowed domains** are a restricted set of domain names that are allowed to add load balancer nodes.
 
 ### List Allowed Domains
 
@@ -406,7 +406,7 @@ foreach ($allowedDomains as $allowedDomain) {
 
 ## Access Lists
 
-Access Lists allow fine-grained network access to a load balancer's VIP. Using access lists, network traffic to a load balancer's VIP can be allowed or denied from a single IP address, multiple IP addresses or entire network subnets.
+**Access Lists** allow fine-grained network access to a load balancer's VIP. Using access lists, network traffic to a load balancer's VIP can be allowed or denied from a single IP address, multiple IP addresses or entire network subnets.
 
 Note that `ALLOW` network items will take precedence over `DENY` network items in an access list.
 
