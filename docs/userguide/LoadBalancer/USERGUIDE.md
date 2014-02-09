@@ -406,6 +406,42 @@ foreach ($allowedDomains as $allowedDomain) {
 
 ## Access Lists
 
+Access Lists allow fine-grained network access to a load balancer's VIP. Using access lists, network traffic to a load balancer's VIP can be allowed or denied from a single IP address, multiple IP addresses or entire network subnets.
+
+Note that `ALLOW` network items will take precedence over `DENY` network items in an access list.
+
+To reject traffic from all network items except those with the `ALLOW` type, add a `DENY` network item with the address of `0.0.0.0/0`.
+
+### View Access List
+
+You can view a load balancer's access list. An instance of `OpenCloud\Common\Collection\PaginatedIterator`
+is returned.
+
+```php
+$accessList = $loadBalancer->accessList();
+foreach ($accessList as $networkItem) {
+    /** @var $networkItem OpenCloud\LoadBalancer\Resource\Access **/}
+```
+
+### Add Network Item To Access List
+
+You can add a network item to a load balancer's access list.
+
+```php
+$networkItem = $loadBalancer->access();
+$networkItem->type = 'ALLOW';
+$networkItem->address = '206.160.165.0/24';
+$networkItem->create();
+```
+
+### Remove Network Item From Access List
+
+You an remove a network item from a load balancer's access list.
+
+```php
+$networkItem->delete();
+```
+
 ## Content Caching
 
 ## SSL Termination
