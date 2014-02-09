@@ -402,7 +402,8 @@ is returned.
 $allowedDomains = $loadBalancerService->allowedDomainList();
 foreach ($allowedDomains as $allowedDomain) {
     /** @var $allowedDomain OpenCloud\LoadBalancer\Resource\AllowedDomain **/
-}```
+}
+```
 
 ## Access Lists
 
