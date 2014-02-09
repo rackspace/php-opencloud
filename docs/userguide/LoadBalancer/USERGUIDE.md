@@ -444,6 +444,39 @@ $networkItem->delete();
 
 ## Content Caching
 
+When **content caching** is enabled on a load balancer, recently-accessed files are stored on the load balancer for easy retrieval by web clients. Requests to the load balancer for these files are serviced by the load balancer itself, which reduces load off its back-end nodes and improves response times as well.
+
+### List Content Caching Configuration
+
+```php
+$contentCaching = $loadBalancer->contentCaching();
+$contentCachingEnabled = $contentCaching->enabled;
+
+/** @var $contentCachingEnabled boolean **/
+```
+In the example above:
+
+* If content caching is enabled, the value of `$contentCachingEnabled` is `true`.
+* If content caching is disabled, the value of `$contentCachingEnabled` is `false`.
+
+### Enable Content Caching
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLogging->update(array(
+    'enabled' => true
+));
+```
+
+### Disable Content Caching
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLogging->update(array(
+    'enabled' => false
+));
+```
+
 ## SSL Termination
 
 ## Metadata
