@@ -462,8 +462,8 @@ In the example above:
 ### Enable Content Caching
 
 ```php
-$connectionLogging = $loadBalancer->connectionLogging();
-$connectionLogging->update(array(
+$contentCaching = $loadBalancer->contentCaching();
+$contentCaching->update(array(
     'enabled' => true
 ));
 ```
@@ -471,8 +471,8 @@ $connectionLogging->update(array(
 ### Disable Content Caching
 
 ```php
-$connectionLogging = $loadBalancer->connectionLogging();
-$connectionLogging->update(array(
+$contentCaching = $loadBalancer->contentCaching();
+$contentCaching->update(array(
     'enabled' => false
 ));
 ```
