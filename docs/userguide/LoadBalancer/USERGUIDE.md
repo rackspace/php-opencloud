@@ -391,6 +391,19 @@ $errorPage->delete();
 
 ## Allowed Domains
 
+Allowed domains are a restricted set of domain names that are allowed to add load balancer nodes.
+
+### List Allowed Domains
+
+You can list all allowed domains using a load balancer service object. An instance of `OpenCloud\Common\Collection\PaginatedIterator`
+is returned.
+
+```php
+$allowedDomains = $loadBalancerService->allowedDomainList();
+foreach ($allowedDomains as $allowedDomain) {
+    /** @var $allowedDomain OpenCloud\LoadBalancer\Resource\AllowedDomain **/
+}```
+
 ## Access Lists
 
 ## Content Caching
