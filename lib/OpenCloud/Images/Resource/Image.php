@@ -69,7 +69,7 @@ class Image extends AbstractSchemaResource implements ImageInterface
         $url = clone $this->getUrl();
         $url->addPath(Member::resourceName())->setQuery($params);
 
-        return $this->resourceList('Image', $url);
+        return $this->getService()->resourceList('Member', $url, $this);
     }
 
     public function member($data)
@@ -100,5 +100,21 @@ class Image extends AbstractSchemaResource implements ImageInterface
     {
         $json = json_encode(array('member' => $tenantId));
         return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
+    }
+
+    public function addTag($tag)
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('tags')->addPath($tag);
+
+        return $this->getClient()->put($url)->send();
+    }
+
+    public function deleteTag($tag)
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('tags')->addPath($tag);
+
+        return $this->getClient()->delete($url)->send();
     }
 }
