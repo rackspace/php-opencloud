@@ -40,17 +40,21 @@ class Image extends PersistentObject implements ImageInterface
     protected static $json_name = 'image';
     protected static $url_resource = 'images';
 
-    /**
-     * {@inheritDoc}
-     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function create($params = array()) 
     { 
         return $this->noCreate(); 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function update($params = array()) 
     { 
         return $this->noUpdate(); 

@@ -585,7 +585,7 @@ class Server extends NovaResource
         $this->metadata->sdk = $this->getService()->getClient()->getUserAgent();
         
         if ($this->image instanceof ImageInterface) {
-            $this->imageRef = $this->image->id;
+            $this->imageRef = $this->image->getId();
         }
         if ($this->flavor instanceof Flavor) {
             $this->flavorRef = $this->flavor->id;
