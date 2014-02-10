@@ -2,6 +2,7 @@
 
 namespace OpenCloud\Common\Resource;
 
+use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Base;
 use OpenCloud\Common\Exceptions\DocumentError;
@@ -9,6 +10,7 @@ use OpenCloud\Common\Exceptions\ServiceException;
 use OpenCloud\Common\Exceptions\UrlError;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Service\ServiceInterface;
+use OpenCloud\Common\Http\Message\Formatter;
 
 abstract class BaseResource extends Base
 {
@@ -254,5 +256,20 @@ abstract class BaseResource extends Base
         }
 
         throw new UrlError('No URL path defined for this resource');
+    }
+
+    /**
+     * Parse a HTTP response for the required content
+     *
+     * @param Response $response
+     * @return mixed
+     */
+    public function parseResponse(Response $response)
+    {
+        $document = Formatter::decode($response);
+
+        $topLevelKey = $this->jsonName();
+
+        return ($topLevelKey && isset($document->$topLevelKey)) ? $document->$topLevelKey : $document;
     }
 }

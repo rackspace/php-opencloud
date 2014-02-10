@@ -2,7 +2,6 @@
 
 namespace OpenCloud\Common\Resource;
 
-use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\State;
 use OpenCloud\Common\Exceptions\CreateError;
@@ -11,7 +10,6 @@ use OpenCloud\Common\Exceptions\IdRequiredError;
 use OpenCloud\Common\Exceptions\NameError;
 use OpenCloud\Common\Exceptions\UnsupportedExtensionError;
 use OpenCloud\Common\Exceptions\UpdateError;
-use OpenCloud\Common\Http\Message\Formatter;
 
 abstract class PersistentResource extends BaseResource
 {
@@ -133,21 +131,6 @@ abstract class PersistentResource extends BaseResource
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }
-    }
-
-    /**
-     * Parse a HTTP response for the required content
-     *
-     * @param Response $response
-     * @return mixed
-     */
-    public function parseResponse(Response $response)
-    {
-        $document = Formatter::decode($response);
-
-        $topLevelKey = $this->jsonName();
-
-        return ($topLevelKey && isset($document->$topLevelKey)) ? $document->$topLevelKey : $document;
     }
 
     /**

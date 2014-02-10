@@ -425,5 +425,4 @@ abstract class Base
     {
         return array(HeaderConst::CONTENT_TYPE => MimeConst::JSON);
     }
-
 }

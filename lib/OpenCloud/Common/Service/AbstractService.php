@@ -136,6 +136,7 @@ abstract class AbstractService extends Base implements ServiceInterface
         $className = $this->resolveResourceClass($resourceName);
 
         $resource = new $className($this);
+
         if ($parent) {
             $resource->setParent($parent);
         }

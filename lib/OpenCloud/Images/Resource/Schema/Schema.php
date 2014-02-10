@@ -96,4 +96,14 @@ class Schema extends AbstractSchemaItem
 
         return ($this->propertyExists($name)) ? OperationType::REPLACE : OperationType::ADD;
     }
+
+    public function validateAdditionalProperty($value)
+    {
+        if ($property = $this->getAdditionalProperties()) {
+            $property->setValue($value);
+            return ($property->validate() === true) ? $property : false;
+        }
+
+        return false;
+    }
 }
