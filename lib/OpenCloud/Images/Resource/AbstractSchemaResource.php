@@ -25,6 +25,7 @@ use OpenCloud\Common\Resource\BaseResource;
  * SPL interface. This allows them to be accessed as arrays - which is very useful for undefined properties.
  *
  * @package OpenCloud\Images\Resource
+ * @codeCoverageIgnore
  */
 abstract class AbstractSchemaResource extends BaseResource implements \ArrayAccess
 {
