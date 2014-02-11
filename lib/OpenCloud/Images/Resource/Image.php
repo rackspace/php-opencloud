@@ -21,12 +21,27 @@ use OpenCloud\Images\Resource\JsonPatch\Document as JsonDocument;
 use OpenCloud\Images\Resource\JsonPatch\Operation as JsonOperation;
 use OpenCloud\Images\Resource\Schema\Schema;
 
+/**
+ * Class that represents a Glance Image. In more general terms, a virtual machine image is a single file which contains
+ * a virtual disk that has an installed bootable operating system. In the Cloud Images API, an image is represented by
+ * a JSON-encoded data structure (the image schema) and its raw binary data (the image file).
+ *
+ * @package OpenCloud\Images\Resource
+ */
 class Image extends AbstractSchemaResource implements ImageInterface
 {
     protected static $url_resource = 'images';
     protected static $json_name = '';
     protected static $json_collection_name = 'images';
 
+    /**
+     * Update this resource
+     *
+     * @param array  $params
+     * @param Schema $schema
+     * @return \Guzzle\Http\Message\Response
+     * @throws \RuntimeException
+     */
     public function update(array $params, Schema $schema = null)
     {
         $schema = $schema ?: $this->getService()->getImageSchema();
@@ -65,6 +80,11 @@ class Image extends AbstractSchemaResource implements ImageInterface
             ->send();
     }
 
+    /**
+     * Refresh this resource
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
     public function refresh()
     {
         $response = $this->getClient()->get($this->getUrl())->send();
@@ -74,11 +94,22 @@ class Image extends AbstractSchemaResource implements ImageInterface
         return $response;
     }
 
+    /**
+     * Delete this resource
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
     public function delete()
     {
         return $this->getClient()->delete($this->getUrl())->send();
     }
 
+    /**
+     * List the members of this image
+     *
+     * @param array $params
+     * @return mixed
+     */
     public function listMembers(array $params = array())
     {
         $url = clone $this->getUrl();
@@ -87,6 +118,12 @@ class Image extends AbstractSchemaResource implements ImageInterface
         return $this->getService()->resourceList('Member', $url, $this);
     }
 
+    /**
+     * Iterator use only
+     *
+     * @param $data
+     * @return mixed
+     */
     public function member($data)
     {
         $data = (array) $data;
@@ -101,6 +138,12 @@ class Image extends AbstractSchemaResource implements ImageInterface
         return $member;
     }
 
+    /**
+     * Get a member belonging to this image
+     *
+     * @param $memberId
+     * @return mixed
+     */
     public function getMember($memberId)
     {
         $url = clone $this->getUrl();
@@ -111,24 +154,42 @@ class Image extends AbstractSchemaResource implements ImageInterface
         return $this->member($data);
     }
 
+    /**
+     * Add a member to this image
+     *
+     * @param $tenantId
+     * @return \Guzzle\Http\Message\Response
+     */
     public function createMember($tenantId)
     {
         $json = json_encode(array('member' => $tenantId));
         return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
 
+    /**
+     * Add a tag to this image
+     *
+     * @param string $tag
+     * @return \Guzzle\Http\Message\Response
+     */
     public function addTag($tag)
     {
         $url = clone $this->getUrl();
-        $url->addPath('tags')->addPath($tag);
+        $url->addPath('tags')->addPath((string) $tag);
 
         return $this->getClient()->put($url)->send();
     }
 
+    /**
+     * Delete a tag from this image
+     *
+     * @param $tag
+     * @return \Guzzle\Http\Message\Response
+     */
     public function deleteTag($tag)
     {
         $url = clone $this->getUrl();
-        $url->addPath('tags')->addPath($tag);
+        $url->addPath('tags')->addPath((string) $tag);
 
         return $this->getClient()->delete($url)->send();
     }

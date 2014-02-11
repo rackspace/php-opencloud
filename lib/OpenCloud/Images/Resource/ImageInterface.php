@@ -17,9 +17,24 @@
 
 namespace OpenCloud\Images\Resource;
 
+/**
+ * Interface for a Glance image
+ *
+ * @package OpenCloud\Images\Resource
+ */
 interface ImageInterface
 {
+    /**
+     * Set the image ID
+     *
+     * @param $id
+     */
     public function setId($id);
 
+    /**
+     * Get the image ID
+     *
+     * @return string
+     */
     public function getId();
 } 

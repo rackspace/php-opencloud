@@ -19,13 +19,24 @@ namespace OpenCloud\Images\Resource\JsonPatch;
 
 use OpenCloud\Images\Enum\Document as DocumentEnum;
 
+/**
+ * Class that encodes a JSON document object into a flat string format
+ *
+ * @package OpenCloud\Images\Resource\JsonPatch
+ */
 class Encoder
 {
+    /** @var array Required transformations for reserved characters */
     protected static $transformations = array(
         '~' => '~0',
         '/' => '~1'
     );
 
+    /**
+     * Encode the
+     * @param array $operations
+     * @return string
+     */
     public static function encode(array $operations)
     {
         $lines = array();
@@ -42,6 +53,12 @@ class Encoder
         return sprintf('[%s]', implode($lines, ','));
     }
 
+    /**
+     * Search a given string and transform any reserved characters into their safe version
+     *
+     * @param $value
+     * @return string
+     */
     public static function transform($value)
     {
         return strtr((string) $value, self::$transformations);

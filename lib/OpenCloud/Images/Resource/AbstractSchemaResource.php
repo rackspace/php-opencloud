@@ -19,26 +19,48 @@ namespace OpenCloud\Images\Resource;
 
 use OpenCloud\Common\Resource\BaseResource;
 
+/**
+ * Class that represents abstracted functionality for JSON schema objects. Because the nature of these objects is so
+ * dynamic (i.e. their structure is determined by an API-generated schema document), they implement the \ArrayAccess
+ * SPL interface. This allows them to be accessed as arrays - which is very useful for undefined properties.
+ *
+ * @package OpenCloud\Images\Resource
+ */
 abstract class AbstractSchemaResource extends BaseResource implements \ArrayAccess
 {
+    /** @var string The ID of this resource */
     protected $id;
+
+    /** @var array The internal elements of this model */
     protected $data = array();
 
+    /**
+     * @param array $data
+     */
     public function setData(array $data)
     {
         $this->data = $data;
     }
 
+    /**
+     * @return array
+     */
     public function getData()
     {
         return $this->data;
     }
 
+    /**
+     * @param $id
+     */
     public function setId($id)
     {
         $this->id = (string) $id;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;

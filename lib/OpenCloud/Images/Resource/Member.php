@@ -22,18 +22,37 @@ use OpenCloud\Common\Exceptions\ForbiddenOperationException;
 use OpenCloud\Common\Exceptions\ResourceNotFoundException;
 use OpenCloud\Images\Enum\MemberStatus;
 
+/**
+ * Class that represents a Member which belongs to a Glance Image. In more general terms, an image member is a user who
+ * has been granted access to an image. Normally, if an image is not public, only the owner can boot from the image.
+ *
+ * @package OpenCloud\Images\Resource
+ */
 class Member extends AbstractSchemaResource
 {
     protected static $url_resource = 'members';
     protected static $json_name = '';
     protected static $json_collection_name = 'members';
 
+    /**
+     * @var array Enumerated types
+     */
     private $allowedStates = array(
         MemberStatus::ACCEPTED,
         MemberStatus::PENDING,
         MemberStatus::REJECTED
     );
 
+    /**
+     * Update the status of a member, allowing them to fully access an image after being invited
+     *
+     * @param $status The eventual status this member wants.
+     * @return \Guzzle\Http\Message\Response
+     * @throws \OpenCloud\Common\Exceptions\ForbiddenOperationException
+     * @throws \OpenCloud\Common\Exceptions\ResourceNotFoundException
+     * @throws \Guzzle\Http\Exception\BadResponseException
+     * @throws \InvalidArgumentException
+     */
     public function updateStatus($status)
     {
         if (!in_array($status, $this->allowedStates)) {
@@ -64,8 +83,11 @@ class Member extends AbstractSchemaResource
         }
     }
 
+    /**
+     * @return \Guzzle\Http\Message\Response
+     */
     public function delete()
     {
-        return $this->getClient()->delete($this->getUrl());
+        return $this->getClient()->delete($this->getUrl())->send();
     }
 }

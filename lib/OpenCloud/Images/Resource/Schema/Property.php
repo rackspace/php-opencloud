@@ -20,18 +20,40 @@ namespace OpenCloud\Images\Resource\Schema;
 use OpenCloud\Images\Enum\Schema as SchemaEnum;
 use OpenCloud\Images\Resource\JsonPatch\Encoder;
 
+/**
+ * Class that represents an individual property in a JSON schema
+ *
+ * @package OpenCloud\Images\Resource\Schema
+ */
 class Property extends AbstractSchemaItem
 {
     const DELIMETER = '#';
 
+    /** @var string Name of property */
     protected $name;
+
+    /** @var string Description of property */
     protected $description;
+
+    /** @var string Type of property (e.g. string, array) */
     protected $type;
+
+    /** @var array Enumerated types that values must adhere to */
     protected $enum;
+
+    /** @var string Regex pattern that values must adhere to */
     protected $pattern;
+
+    /** @var array Array items that this property may possess */
     protected $items;
+
+    /** @var mixed This property's value */
     protected $value;
 
+    /**
+     * @param array $data
+     * @return Property
+     */
     public static function factory(array $data = array())
     {
         $property = new self();
@@ -50,81 +72,134 @@ class Property extends AbstractSchemaItem
         return $property;
     }
 
+    /**
+     * @param $name
+     */
     public function setName($name)
     {
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param $description
+     */
     public function setDescription($description)
     {
         $this->description = $description;
     }
 
+    /**
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
     }
 
+    /**
+     * @param $type
+     */
     public function setType($type)
     {
         $this->type = $type;
     }
 
+    /**
+     * @return string
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @param $enum
+     */
     public function setEnum($enum)
     {
         $this->enum = $enum;
     }
 
+    /**
+     * @return array
+     */
     public function getEnum()
     {
         return $this->enum;
     }
 
+    /**
+     * @param $pattern
+     */
     public function setPattern($pattern)
     {
         $this->pattern = $pattern;
     }
 
+    /**
+     * @return string
+     */
     public function getPattern()
     {
         return $this->pattern;
     }
 
+    /**
+     * @param $value
+     */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * @return mixed
+     */
     public function getValue()
     {
         return $this->value;
     }
 
+    /**
+     * @param $data
+     */
     public function setItems($data)
     {
         $this->items = Schema::factory($data);
     }
 
+    /**
+     * @return array
+     */
     public function getItems()
     {
         return $this->items;
     }
 
+    /**
+     * Prepare the given pattern for Regex functions
+     *
+     * @param $pattern
+     * @return string
+     */
     protected function preparePattern($pattern)
     {
         return self::DELIMETER . (string) $pattern . self::DELIMETER;
     }
 
+    /**
+     * Validate the current value and ensure that it adheres to correct formatting, etc.
+     *
+     * @return bool
+     */
     public function validate()
     {
         // deal with enumerated types
@@ -145,7 +220,11 @@ class Property extends AbstractSchemaItem
         return true;
     }
 
-
+    /**
+     * Get the JSON pointer for this property
+     *
+     * @return string
+     */
     public function getPath()
     {
         return sprintf("/%s", Encoder::transform($this->name));

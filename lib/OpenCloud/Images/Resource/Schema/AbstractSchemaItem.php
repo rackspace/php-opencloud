@@ -17,8 +17,20 @@
 
 namespace OpenCloud\Images\Resource\Schema;
 
+/**
+ * Class that represents abstracted functionality for schema items
+ *
+ * @package OpenCloud\Images\Resource\Schema
+ */
 abstract class AbstractSchemaItem
 {
+    /**
+     * Stock a schema property only if set
+     *
+     * @param array $data
+     * @param       $property
+     * @return mixed
+     */
     protected static function stockProperty(array $data, $property)
     {
         return isset($data[$property]) ? $data[$property] : null;

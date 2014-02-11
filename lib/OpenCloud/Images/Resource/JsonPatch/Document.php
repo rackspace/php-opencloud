@@ -17,22 +17,41 @@
 
 namespace OpenCloud\Images\Resource\JsonPatch;
 
-use OpenCloud\Images\Enum\Document as DocumentEnum;
-
+/**
+ * Class which represents a JSON Patch document, which represents an array of objects. Each object represents a single
+ * operation to be applied to the target JSON document. See RFC 6902 for details.
+ *
+ * @see http://tools.ietf.org/html/rfc6902
+ * @package OpenCloud\Images\Resource\JsonPatch
+ */
 class Document 
 {
+    /** @var array JSON Patch operations */
     protected $operations;
 
+    /**
+     * @return array
+     */
     public function getOperations()
     {
         return $this->operations;
     }
 
+    /**
+     * Add a new JSON operation to the document
+     *
+     * @param Operation $operation
+     */
     public function addOperation(Operation $operation)
     {
         $this->operations[] = $operation;
     }
 
+    /**
+     * Encode all the operations into a flat structure for HTTP transfer
+     *
+     * @return string
+     */
     public function getResponseBody()
     {
         $this->validateOperations();
@@ -40,6 +59,9 @@ class Document
         return Encoder::encode($this->operations);
     }
 
+    /**
+     * Ensure each operation is valid
+     */
     protected function validateOperations()
     {
         foreach ($this->operations as $operation) {
@@ -47,6 +69,11 @@ class Document
         }
     }
 
+    /**
+     * Cast this document as a string
+     *
+     * @return string
+     */
     public function toString()
     {
         return (string) $this->getResponseBody();
