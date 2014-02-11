@@ -30,8 +30,8 @@ $service = $client->computeService('cloudServersOpenStack', 'DFW');
 
 As you will notice, each factory method accepts three arguments:
 
-Position|Name|Required?|Description
----|---|---|---
+Position|Name|Required?|Type|Description
+---|---|---|---|---
 1|Service name|Yes|string|The name of the service as it appears in the [Service Catalog](https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Clients.md#service-catalog)
 2|Region|Yes|string|The region you want your service to operate in
 3|URL type|No|enum|Each service has two different URL types for API transactions: a public URL (i.e. over the Internet) and a private URL (through Rackspace's private network). Private URL's are beneficial because they have lower latency and incur no bandwidth charges; the only condition is that you are communicating to the API from the **same geographic region** (i.e. from a Cloud Serve in the same region). <br><br>The accepted options you may pass in are either `OpenCloud\Common\Constants\Service::INTERNAL_URL` or `OpenCloud\Common\Constants\Service::PUBLIC_URL`.
