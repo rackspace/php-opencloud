@@ -17,7 +17,7 @@
 
 /**
  * @copyright Copyright 2012-2014 Rackspace US, Inc.
-  See COPYING for licensing information.
+ * See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.5.9
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -42,19 +42,19 @@ class KeyPairTest extends ComputeTestCase
             $this->service->listKeypairs()
         );
     }
-    
+
     public function test_Url()
     {
         $keypair = $this->service->keypair(array('name' => 'foo'));
-        $this->assertRegExp('#/os-keypairs/foo$#', (string) $keypair->getUrl());
+        $this->assertRegExp('#/os-keypairs/foo$#', (string)$keypair->getUrl());
     }
-    
+
     public function test_Create()
     {
         $keypair = $this->service->keypair(array('name' => 'foo'));
         $this->assertNotNull($keypair->create());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -62,20 +62,20 @@ class KeyPairTest extends ComputeTestCase
     {
         $this->service->keypair()->update();
     }
-    
+
     public function test_Upload()
     {
         $path = __DIR__ . '/test.key';
         $contents = file_get_contents($path);
-        
+
         $keypair = $this->service->keypair();
         $keypair->upload(array('path' => $path));
         $this->assertEquals($contents, $keypair->getPublicKey());
-        
+
         $keypair->upload(array('data' => $contents));
         $this->assertEquals($contents, $keypair->getPublicKey());
     }
-    
+
     /**
      * @expectedException OpenCloud\Compute\Exception\KeyPairException
      */
@@ -83,7 +83,7 @@ class KeyPairTest extends ComputeTestCase
     {
         $this->service->keypair()->upload(array('path' => 'foo'));
     }
-    
+
     /**
      * @expectedException OpenCloud\Compute\Exception\KeyPairException
      */
@@ -91,7 +91,7 @@ class KeyPairTest extends ComputeTestCase
     {
         $this->service->keypair()->upload();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -99,7 +99,7 @@ class KeyPairTest extends ComputeTestCase
     {
         $this->service->keypair()->setName('!!!');
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -107,5 +107,4 @@ class KeyPairTest extends ComputeTestCase
     {
         $this->service->keypair()->create(array('name' => '!!!'));
     }
-    
 }

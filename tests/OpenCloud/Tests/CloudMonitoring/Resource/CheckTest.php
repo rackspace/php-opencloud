@@ -29,7 +29,7 @@ class CheckTest extends CloudMonitoringTestCase
 
         $this->resource = $this->entity->getCheck();
     }
-    
+
     public function test_Create()
     {
         $this->addMockSubscriber(new Response(201));
@@ -39,7 +39,7 @@ class CheckTest extends CloudMonitoringTestCase
             'name' => 'TEST'
         ));
     }
-    
+
     public function test_Check_Class()
     {
         $this->assertInstanceOf('OpenCloud\\CloudMonitoring\\Resource\\Check', $this->resource);
@@ -106,7 +106,7 @@ class CheckTest extends CloudMonitoringTestCase
         $this->resource->setType('remote.http');
 
         $response = $this->resource->test();
-        
+
         $this->assertObjectHasAttribute('metrics', $response[0]);
         $this->assertObjectNotHasAttribute('debug_info', $response[0]);
         $this->assertEquals('mzxJ4L2IU', $response[0]->monitoring_zone_id);
@@ -121,5 +121,4 @@ class CheckTest extends CloudMonitoringTestCase
 
         $this->assertEquals($this->resource->getId(), 'chAAAA');
     }
-    
 }

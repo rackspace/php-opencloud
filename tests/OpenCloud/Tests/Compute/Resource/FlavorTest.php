@@ -17,7 +17,7 @@
 
 /**
  * @copyright Copyright 2012-2014 Rackspace US, Inc.
-  See COPYING for licensing information.
+ * See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.5.9
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -42,7 +42,7 @@ class FlavorTest extends ComputeTestCase
     public function test___construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Resource\Flavor', 
+            'OpenCloud\Compute\Resource\Flavor',
             $this->resource
         );
     }
@@ -56,7 +56,7 @@ class FlavorTest extends ComputeTestCase
     public function testService()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Service', 
+            'OpenCloud\Compute\Service',
             $this->resource->getService()
         );
     }
@@ -84,5 +84,4 @@ class FlavorTest extends ComputeTestCase
     {
         $this->resource->delete();
     }
-
 }

@@ -42,11 +42,11 @@ class ServerTest extends ComputeTestCase
     {
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841',
-            (string) $this->server->getUrl()
+            (string)$this->server->getUrl()
         );
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841/action',
-            (string) $this->server->getUrl('action')
+            (string)$this->server->getUrl('action')
         );
     }
 
@@ -73,7 +73,7 @@ class ServerTest extends ComputeTestCase
             )
         ));
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\RebuildError
      */
@@ -122,7 +122,7 @@ class ServerTest extends ComputeTestCase
     {
         $this->assertEquals(200, $this->server->reboot()->getStatusCode());
     }
-    
+
     /**
      * @expectedException Guzzle\Http\Exception\ClientErrorResponseException
      */
@@ -132,12 +132,12 @@ class ServerTest extends ComputeTestCase
         $resp = $this->server->createImage('EPIC-IMAGE', array('foo' => 'bar'));
         $this->assertFalse($resp);
     }
-    
+
     public function test_Create_Fails_Without_Response()
     {
         $this->assertFalse($this->server->createImage('foo'));
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\ImageError
      */
@@ -176,7 +176,7 @@ class ServerTest extends ComputeTestCase
     public function test_Metadata_More()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Resource\ServerMetadata', 
+            'OpenCloud\Compute\Resource\ServerMetadata',
             $this->server->Metadata()
         );
     }
@@ -204,7 +204,7 @@ class ServerTest extends ComputeTestCase
         $server->id = 'Bad-ID';
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/Bad-ID',
-            (string) $server->getUrl()
+            (string)$server->getUrl()
         );
     }
 
@@ -219,7 +219,7 @@ class ServerTest extends ComputeTestCase
         $blank = new Server($this->service);
         $blank->rescue(); // should trigger the exception
     }
-    
+
     /**
      * @expectedException \OpenCloud\Common\Exceptions\ServerActionError
      */
@@ -252,7 +252,7 @@ class ServerTest extends ComputeTestCase
     public function test_Volume_Attachment()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Resource\VolumeAttachment', 
+            'OpenCloud\Compute\Resource\VolumeAttachment',
             $this->server->volumeAttachment()
         );
     }
@@ -270,7 +270,7 @@ class ServerTest extends ComputeTestCase
         $new = new PublicServer($this->service);
         $new->addFile('/tmp/hello.txt', 'Hello, world!');
         $obj = $new->CreateJson();
-        
+
         $this->assertTrue(is_array($obj->server->personality));
         $this->assertEquals(
             '/tmp/hello.txt', $obj->server->personality[0]->path);
@@ -284,14 +284,14 @@ class ServerTest extends ComputeTestCase
 
         $this->assertEquals('foo', $obj->server->user_data);
     }
-    
+
     public function test_Image_Schedule()
     {
         // Get current backups
         $this->server->imageSchedule();
-        
+
         $this->server->imageSchedule(true);
-        
+
         $this->server->imageSchedule(0);
     }
 
@@ -307,7 +307,7 @@ class ServerTest extends ComputeTestCase
             )
         ));
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
      */
@@ -322,5 +322,4 @@ class ServerTest extends ComputeTestCase
             )
         ));
     }
-    
 }

@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Compute\Resource;
@@ -68,7 +68,7 @@ class NetworkTest extends ComputeTestCase
     {
         $this->assertEquals('public', $this->network->name());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
@@ -77,7 +77,7 @@ class NetworkTest extends ComputeTestCase
         $network = new Network($this->service, NetworkConst::RAX_PRIVATE);
         $network->delete();
     }
-    
+
     public function test_Deletes_With_Custom_Ip()
     {
         $this->addMockSubscriber($this->makeResponse());
@@ -88,7 +88,7 @@ class NetworkTest extends ComputeTestCase
 
     public function test_Paths()
     {
-        $this->assertStringEndsWith('os-networksv2', (string) $this->service->network()->getUrl());
+        $this->assertStringEndsWith('os-networksv2', (string)$this->service->network()->getUrl());
 
         $client = new OpenStack('http://identity.example.com/v2', array('username' => 'foo', 'password' => 'bar'));
 
@@ -96,7 +96,6 @@ class NetworkTest extends ComputeTestCase
         $client->addSubscriber(new MockSubscriber(array($response)));
 
         $service = $client->computeService('compute', 'RegionOne', 'publicURL');
-        $this->assertStringEndsWith('os-networks', (string) $service->network()->getUrl());
+        $this->assertStringEndsWith('os-networks', (string)$service->network()->getUrl());
     }
-    
 }

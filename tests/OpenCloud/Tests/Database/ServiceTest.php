@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Database;
@@ -33,7 +33,7 @@ class ServiceTest extends DatabaseTestCase
     public function test__construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Service', 
+            'OpenCloud\Database\Service',
             $this->getClient()->databaseService('cloudDatabases', 'DFW')
         );
     }
@@ -52,5 +52,4 @@ class ServiceTest extends DatabaseTestCase
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->InstanceList());
     }
-
 }

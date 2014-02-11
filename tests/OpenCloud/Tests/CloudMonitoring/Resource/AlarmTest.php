@@ -23,15 +23,15 @@ class AlarmTest extends CloudMonitoringTestCase
 {
 
     const ENTITY_ID = 'en5hw56rAh';
-    const ALARM_ID  = 'alAAAA';
-    
+    const ALARM_ID = 'alAAAA';
+
     public function setupObjects()
     {
         parent::setupObjects();
 
         $this->resource = $this->entity->getAlarm();
     }
-    
+
     public function testResourceClass()
     {
         $this->assertInstanceOf(
@@ -44,15 +44,15 @@ class AlarmTest extends CloudMonitoringTestCase
             $this->resource->getParent()
         );
     }
-    
+
     public function testUrl()
     {
         $this->assertEquals(
-            'https://monitoring.api.rackspacecloud.com/v1.0/123456/entities/'.self::ENTITY_ID.'/alarms',
-            (string) $this->resource->getUrl()
+            'https://monitoring.api.rackspacecloud.com/v1.0/123456/entities/' . self::ENTITY_ID . '/alarms',
+            (string)$this->resource->getUrl()
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -60,7 +60,7 @@ class AlarmTest extends CloudMonitoringTestCase
     {
         $this->resource->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -75,18 +75,18 @@ class AlarmTest extends CloudMonitoringTestCase
     public function testAlarmTesting()
     {
         $params = array();
-        
+
         // Set criteria
         $params['criteria'] = 'if (metric["code"] == "404") { return new AlarmStatus(CRITICAL, "not found"); } return new AlarmStatus(OK);';
-        
+
         // Data which needs to be tested
         $params['check_data'] = json_decode(file_get_contents(__DIR__ . '/test_existing.json'));
-        
+
         $response = $this->resource->test($params);
 
         $this->assertObjectHasAttribute('timestamp', $response[0]);
         $this->assertObjectHasAttribute('status', $response[0]);
-        
+
         $this->assertEquals('OK', $response[0]->state);
     }
 
@@ -104,14 +104,14 @@ class AlarmTest extends CloudMonitoringTestCase
     public function testGetAlarm()
     {
         $this->resource->refresh(self::ALARM_ID);
-        
+
         $this->assertEquals($this->resource->getId(), self::ALARM_ID);
         $this->assertEquals($this->resource->getParent()->getId(), self::ENTITY_ID);
-        
+
         $this->expectOutputRegex('/return new AlarmStatus\(OK\)/');
         echo $this->resource->getCriteria();
     }
-    
+
     public function testCreate()
     {
         $this->addMockSubscriber(new \Guzzle\Http\Message\Response(201));
@@ -120,7 +120,7 @@ class AlarmTest extends CloudMonitoringTestCase
             'notification_plan_id' => 'bar'
         ));
     }
-    
+
     /**
      * @expectedException OpenCloud\CloudMonitoring\Exception\AlarmException
      */
@@ -128,7 +128,7 @@ class AlarmTest extends CloudMonitoringTestCase
     {
         $this->resource->test();
     }
-    
+
     /**
      * @expectedException OpenCloud\CloudMonitoring\Exception\AlarmException
      */
@@ -136,5 +136,4 @@ class AlarmTest extends CloudMonitoringTestCase
     {
         $this->resource->test(array('criteria' => 'foobar'));
     }
-    
 }

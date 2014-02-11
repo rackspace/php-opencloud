@@ -85,5 +85,4 @@ class InstanceTest extends DatabaseTestCase
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->instance->userList());
     }
-
 }

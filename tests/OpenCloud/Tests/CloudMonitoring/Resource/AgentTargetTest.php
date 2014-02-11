@@ -27,7 +27,7 @@ class AgentTargetTest extends CloudMonitoringTestCase
 
         $this->resource = $this->service->resource('AgentTarget', null, $this->entity);
     }
-    
+
     public function testResourceClass()
     {
         $this->assertInstanceOf(
@@ -35,7 +35,7 @@ class AgentTargetTest extends CloudMonitoringTestCase
             $this->resource
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -43,7 +43,7 @@ class AgentTargetTest extends CloudMonitoringTestCase
     {
         $this->resource->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -59,14 +59,14 @@ class AgentTargetTest extends CloudMonitoringTestCase
     {
         $this->resource->setType('agent.filesystem');
         $this->assertEquals('agent.filesystem', $this->resource->getType());
-        
+
         $targetArray = $this->resource->listAll();
 
         $this->assertTrue($targetArray->valueExists('/'));
         $this->assertTrue($targetArray->valueExists('/sys/kernel/debug'));
         $this->assertTrue($targetArray->valueExists('/var/lock'));
     }
-    
+
     /**
      * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
      */
@@ -74,5 +74,4 @@ class AgentTargetTest extends CloudMonitoringTestCase
     {
         $this->resource->setType('foobar');
     }
-    
 }

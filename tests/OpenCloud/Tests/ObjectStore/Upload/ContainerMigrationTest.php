@@ -53,11 +53,11 @@ class ContainerMigrationTest extends ObjectStoreTestCase
     public function test_Transfer()
     {
         // collection
-        $response1 = new Response(200, array('Content-Type'=>'application/json'), '[{"name":"test_obj_1","hash":"4281c348eaf83e70ddce0e07221c3d28","bytes":14,"content_type":"application\/octet-stream","last_modified":"2009-02-03T05:26:32.612278"}]');
+        $response1 = new Response(200, array('Content-Type' => 'application/json'), '[{"name":"test_obj_1","hash":"4281c348eaf83e70ddce0e07221c3d28","bytes":14,"content_type":"application\/octet-stream","last_modified":"2009-02-03T05:26:32.612278"}]');
         $this->addMockSubscriber($response1);
 
         // individual GETs
-        $response2 = new Response(200, array('Content-Type'=>'application/json'), '');
+        $response2 = new Response(200, array('Content-Type' => 'application/json'), '');
         $this->addMockSubscriber($response2);
 
         // individual PUTs

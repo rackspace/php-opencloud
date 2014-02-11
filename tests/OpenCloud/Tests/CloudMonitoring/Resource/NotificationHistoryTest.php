@@ -21,11 +21,11 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class NotificationHistoryTest extends CloudMonitoringTestCase
 {
-    
+
     const ENTITY_ID = 'enAAAAA';
-    const ALARM_ID  = 'alAAAA';
-    const CHECK_ID  = 'chAAAA';
-    const NH_ID     = '646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26';
+    const ALARM_ID = 'alAAAA';
+    const CHECK_ID = 'chAAAA';
+    const NH_ID = '646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26';
 
     private $alarm;
 
@@ -62,7 +62,7 @@ class NotificationHistoryTest extends CloudMonitoringTestCase
             'OpenCloud\\CloudMonitoring\\Resource\\NotificationHistory',
             $first
         );
-        
+
         $this->assertEquals('sometransaction', $first->getTransactionId());
         $this->assertEquals('matched return statement on line 6', $first->getStatus());
     }
@@ -83,5 +83,4 @@ class NotificationHistoryTest extends CloudMonitoringTestCase
         $this->assertEquals(1320885544875, $item->getTimestamp());
         $this->assertEquals('WARNING', $item->getState());
     }
-    
 }

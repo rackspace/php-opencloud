@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Common;
@@ -54,27 +54,27 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testName()
     {
         $this->assertEquals('cloudServersOpenStack', $this->service->name());
-    } 
-    
+    }
+
     public function test_Endpoint()
     {
         $endpoint = $this->service->getEndpoint();
         $this->assertInstanceOf('OpenCloud\Common\Service\Endpoint', $endpoint);
         $this->assertEquals($this->service->getRegion(), $endpoint->getRegion());
     }
-    
+
     public function test_Catalog()
     {
         $catalog = $this->getClient()->getCatalog();
         $this->assertEquals($catalog, Catalog::factory($catalog));
-        
+
         foreach ($catalog->getItems() as $item) {
             $this->assertNotNull($item->getName());
             $this->assertNotNull($item->getType());
             $this->assertNotNull($item->getEndpoints());
         }
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\EndpointError
      */
@@ -150,5 +150,4 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         $client->dnsService('cloudDNS');
         $client->cloudMonitoringService();
     }
-
 }

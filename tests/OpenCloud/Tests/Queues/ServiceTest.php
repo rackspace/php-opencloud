@@ -19,7 +19,7 @@ namespace OpenCloud\Tests\Queues;
 
 class ServiceTest extends QueuesTestCase
 {
-    
+
     public function test_ClientId()
     {
         $rand = sha1(rand(1, 9999));
@@ -41,16 +41,16 @@ class ServiceTest extends QueuesTestCase
             '036b184b28fcb548349af623079119c6a966cbc',
             $first->getName()
         );
-        
+
         $this->assertNotNull($first->getHref());
     }
-    
+
     public function test_Get_Queue()
     {
         $queue = $this->service->getQueue();
         $this->assertInstanceOf('OpenCloud\Queues\Resource\Queue', $queue);
     }
-    
+
     public function test_Has_Queue()
     {
         $this->addMockSubscriber($this->makeResponse(null, 204));
@@ -58,7 +58,7 @@ class ServiceTest extends QueuesTestCase
         $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->assertFalse($this->service->hasQueue('foobar'));
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -66,5 +66,4 @@ class ServiceTest extends QueuesTestCase
     {
         $this->service->hasQueue(array());
     }
-
 }

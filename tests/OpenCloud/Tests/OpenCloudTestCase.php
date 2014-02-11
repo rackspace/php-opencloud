@@ -17,15 +17,14 @@
 
 namespace OpenCloud\Tests;
 
-use PHPUnit_Framework_TestCase;
-use OpenCloud\Rackspace;
 use Guzzle\Http\Message\Response;
-use Guzzle\Plugin\Log\LogPlugin;
+use OpenCloud\Rackspace;
+use PHPUnit_Framework_TestCase;
 
 abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
 {
     const COLLECTION_CLASS = 'OpenCloud\Common\Collection\ResourceIterator';
-    const RESPONSE_CLASS   = 'Guzzle\Http\Message\Response';
+    const RESPONSE_CLASS = 'Guzzle\Http\Message\Response';
 
     const ANNOTATION_FILE = 'mockFile';
     const ANNOTATION_PATH = 'mockPath';
@@ -91,12 +90,13 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
     {
         $pattern = sprintf('#\@%s\s(\w+)#', $annotation);
         preg_match($pattern, $string, $matches);
+
         return (isset($matches[1])) ? $matches[1] : false;
     }
 
     protected function getTestFilePath($file, $mockPath = null)
     {
-        $mockPath = $mockPath ?: $this->mockPath;
+        $mockPath = $mockPath ? : $this->mockPath;
 
         return ROOT_TEST_DIR . $mockPath . '/' . $this->testDir . $file . $this->testExt;
     }
@@ -107,11 +107,12 @@ abstract class OpenCloudTestCase extends PHPUnit_Framework_TestCase
         $this->getClient()->addSubscriber($this->currentMockSubscriber);
     }
 
-    public function setupObjects() {}
+    public function setupObjects()
+    {
+    }
 
     public function makeResponse($body = null, $status = 200)
     {
         return new Response($status, array('Content-Type' => 'application/json'), $body);
     }
-    
 }

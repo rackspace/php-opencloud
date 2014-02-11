@@ -21,7 +21,7 @@ class ServiceTest extends IdentityTestCase
 {
     public function test_Url()
     {
-        $this->assertEquals('https://identity.api.rackspacecloud.com/v2.0/', (string) $this->service->getUrl());
+        $this->assertEquals('https://identity.api.rackspacecloud.com/v2.0/', (string)$this->service->getUrl());
     }
 
     public function test_Get_Users()
@@ -72,5 +72,4 @@ class ServiceTest extends IdentityTestCase
         $this->assertInstanceOf('OpenCloud\Common\Collection\ResourceIterator', $tenants);
         $this->assertInstanceOf('OpenCloud\Identity\Resource\Tenant', $tenants->current());
     }
-
 }

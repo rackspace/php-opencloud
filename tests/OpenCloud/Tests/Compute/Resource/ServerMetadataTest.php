@@ -42,7 +42,7 @@ class ServerMetadataTest extends ComputeTestCase
     {
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/ef08aa7a-b5e4-4bb8-86df-5ac56230f841/metadata/foo',
-            (string) $this->metadata->getUrl()
+            (string)$this->metadata->getUrl()
         );
     }
 
@@ -76,7 +76,7 @@ class ServerMetadataTest extends ComputeTestCase
     {
         $this->metadata->delete();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\ServerUrlError
      */
@@ -86,5 +86,4 @@ class ServerMetadataTest extends ComputeTestCase
         $server->id = null;
         $server->metadata()->url();
     }
-        
 }

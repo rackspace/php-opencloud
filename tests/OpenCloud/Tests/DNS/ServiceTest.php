@@ -32,7 +32,7 @@ class ServiceTest extends DnsTestCase
     {
         $this->assertEquals(
             'https://dns.api.rackspacecloud.com/v1.0/123456',
-            (string) $this->service->getUrl()
+            (string)$this->service->getUrl()
         );
     }
 
@@ -63,7 +63,7 @@ class ServiceTest extends DnsTestCase
     public function testImport()
     {
         $this->assertInstanceOf(
-            'OpenCloud\DNS\Resource\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse',
             $this->service->Import('foo bar oops')
         );
     }
@@ -92,5 +92,4 @@ class ServiceTest extends DnsTestCase
 
         $this->assertTrue(in_array('RATE_LIMIT', $arr));
     }
-
 }

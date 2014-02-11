@@ -20,31 +20,31 @@ namespace OpenCloud\Tests;
 use OpenCloud\OpenStack;
 use OpenCloud\Rackspace;
 
-class OpenStackTest extends \PHPUnit_Framework_TestCase 
+class OpenStackTest extends \PHPUnit_Framework_TestCase
 {
-    
+
     private $client;
     private $credentials = array('username' => 'foo', 'password' => 'bar', 'tenantName' => 'baz');
-    
+
     public function __construct()
     {
         $this->client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, $this->credentials);
         $this->client->addSubscriber(new MockSubscriber());
     }
-    
+
     public function test__construct()
     {
         $client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, $this->credentials);
     }
-    
+
     public function test_Credentials()
     {
         $client = clone $this->client;
-        
+
         $this->assertEquals($this->credentials, $client->getSecret());
 
         $this->assertEquals(
-            json_encode(array('auth' => array('passwordCredentials' => array('username' => 'foo', 'password' => 'bar'), 'tenantName' => 'baz'))), 
+            json_encode(array('auth' => array('passwordCredentials' => array('username' => 'foo', 'password' => 'bar'), 'tenantName' => 'baz'))),
             $client->getCredentials()
         );
 
@@ -57,7 +57,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
             $client->getCredentials()
         );
     }
-    
+
     public function test_Auth_Methods()
     {
         $this->client->authenticate();
@@ -78,7 +78,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
         // misc
         $this->assertNotNull($this->client->getUrl());
     }
-    
+
     public function test_Logger()
     {
         $this->assertInstanceOf(
@@ -86,7 +86,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
             $this->client->getLogger()
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CredentialError
      */
@@ -95,27 +95,27 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
         $client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, array());
         $client->getCredentials();
     }
-    
+
     public function test_Auth_Url()
     {
-        $this->assertEquals(Rackspace::US_IDENTITY_ENDPOINT, (string) $this->client->getAuthUrl());
-        
+        $this->assertEquals(Rackspace::US_IDENTITY_ENDPOINT, (string)$this->client->getAuthUrl());
+
         $this->client->setAuthUrl(Rackspace::UK_IDENTITY_ENDPOINT);
-        $this->assertEquals(Rackspace::UK_IDENTITY_ENDPOINT, (string) $this->client->getAuthUrl());
+        $this->assertEquals(Rackspace::UK_IDENTITY_ENDPOINT, (string)$this->client->getAuthUrl());
     }
-    
+
     public function test_Factory_Methods()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Service', 
+            'OpenCloud\Compute\Service',
             $this->client->computeService('cloudServersOpenStack', 'DFW')
         );
         $this->assertInstanceOf(
-            'OpenCloud\ObjectStore\Service', 
+            'OpenCloud\ObjectStore\Service',
             $this->client->objectStoreService('cloudFiles', 'DFW')
         );
         $this->assertInstanceOf(
-            'OpenCloud\Volume\Service', 
+            'OpenCloud\Volume\Service',
             $this->client->volumeService('cloudBlockStorage', 'DFW')
         );
     }
@@ -140,16 +140,16 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
             'expiration' => '{expiration}',
             'tenant'     => '{tenant}',
             'catalog'    => array(
-                (object) array(
+                (object)array(
                     'endpoints' => array(
-                        (object) array(
+                        (object)array(
                             'region'      => 'DFW',
                             'publicURL'   => 'foo',
                             'internalURL' => 'bar'
                         )
                     ),
-                    'name' => 'testService',
-                    'type' => 'someServiceType'
+                    'name'      => 'testService',
+                    'type'      => 'someServiceType'
                 )
             )
         ));
@@ -161,22 +161,22 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 
     public function test_Import_Credentials_Numeric_Tenant()
     {
-        $randomNumericTenant = (string) mt_rand();
+        $randomNumericTenant = (string)mt_rand();
         $this->client->importCredentials(array(
             'token'      => '{token}',
             'expiration' => '{expiration}',
             'tenant'     => $randomNumericTenant,
             'catalog'    => array(
-                (object) array(
+                (object)array(
                     'endpoints' => array(
-                        (object) array(
+                        (object)array(
                             'region'      => 'DFW',
                             'publicURL'   => 'foo',
                             'internalURL' => 'bar'
                         )
                     ),
-                    'name' => 'testService',
-                    'type' => 'someServiceType'
+                    'name'      => 'testService',
+                    'type'      => 'someServiceType'
                 )
             )
         ));

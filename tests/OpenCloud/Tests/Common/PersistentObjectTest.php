@@ -21,14 +21,13 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Common;
 
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\Compute\Service as ComputeService;
 
 // make a real class from the abstract one
 class MyPersistentObject extends PersistentObject
@@ -53,12 +52,12 @@ class MyPersistentObject extends PersistentObject
     public $progress;
     public $adminPass;
     public $metadata;
-    
+
     protected static $json_name = 'instance';
     protected static $json_collection_name = 'instanceCollection';
     protected static $url_resource = 'instances';
 
-    public function Refresh($id = NULL, $url = NULL)
+    public function Refresh($id = null, $url = null)
     {
         return parent::Refresh($id, $url);
     }
@@ -87,7 +86,6 @@ class MyPersistentObject extends PersistentObject
     {
         return parent::CreateUrl();
     }
-
 }
 
 class NamelessObject extends PersistentObject
@@ -110,7 +108,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $inst = new MyPersistentObject($this->service);
         $this->assertInstanceOf('OpenCloud\Tests\Common\MyPersistentObject', $inst);
-        
+
         $inst = new MyPersistentObject($this->service, array('id' => '42'));
         $this->assertInstanceOf('OpenCloud\Tests\Common\MyPersistentObject', $inst);
     }
@@ -120,7 +118,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function test__construct2()
     {
-        $inst = new MyPersistentObject($this->service, FALSE);
+        $inst = new MyPersistentObject($this->service, false);
     }
 
     public function testUrl()
@@ -128,11 +126,11 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->instance->id = '12';
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances/12',
-            (string) $this->instance->getUrl()
+            (string)$this->instance->getUrl()
         );
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances/12/foobar?foo=BAZ',
-            (string) $this->instance->getUrl('foobar', array('foo' => 'BAZ'))
+            (string)$this->instance->getUrl('foobar', array('foo' => 'BAZ'))
         );
     }
 
@@ -143,7 +141,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $qstr = array('a' => 1, 'b' => 2);
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances/12/pogo?a=1&b=2',
-            (string) $this->instance->getUrl('pogo', $qstr)
+            (string)$this->instance->getUrl('pogo', $qstr)
         );
     }
 
@@ -156,7 +154,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->instance->refresh('ef08aa7a-b5e4-4bb8-86df-5ac56230f841');
         $this->assertObjectHasAttribute('status', $this->instance);
     }
-    
+
     /**
      * @covers OpenCloud\Common\PersistentObject::waitFor()
      */
@@ -172,7 +170,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $server->status = 'FOOBAR';
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\RuntimeException
      */
@@ -218,7 +216,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testJsonCollectionName()
     {
         $this->assertEquals(
-            'instanceCollection', 
+            'instanceCollection',
             MyPersistentObject::JsonCollectionName()
         );
     }
@@ -279,7 +277,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/instances',
-            (string) $this->instance->CreateUrl()
+            (string)$this->instance->CreateUrl()
         );
     }
 
@@ -287,7 +285,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertEquals('DFW', $this->instance->Region());
     }
-        
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\ServiceException
      */
@@ -296,7 +294,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $service = new MyPersistentObject;
         $service->getService();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\IdRequiredError
      */
@@ -305,7 +303,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->instance->id = null;
         $this->instance->refresh();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\NameError
      */
@@ -323,7 +321,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->instance->id = null;
         $this->instance->action(null);
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\ServerActionError
      */
@@ -337,14 +335,14 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $server = $this->instance;
         $server->links = array(
-            (object) array(
+            (object)array(
                 "href" => "https://dfw.servers.api.rackspacecloud.com/9999/servers/9bfd203a-0695-xxxx-yyyy-66c4194c967b",
                 "rel"  => "bookmark"
             )
         );
         $this->assertFalse($server->findLink());
     }
-    
+
     /**
      * @expectedException \OpenCloud\Common\Exceptions\DocumentError
      */
@@ -353,7 +351,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $server = new NamelessObject($this->service);
         $server->jsonName();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UrlError
      */
@@ -362,5 +360,4 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
         $server = new NamelessObject($this->service);
         $server->resourceName();
     }
-    
 }

@@ -21,13 +21,12 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Compute\Resource;
 
-use OpenCloud\Compute\Resource\Server;
 use OpenCloud\Tests\Compute\ComputeTestCase;
 
 class VolumeAttachmentTest extends ComputeTestCase
@@ -55,5 +54,4 @@ class VolumeAttachmentTest extends ComputeTestCase
     {
         $this->assertEquals('Attachment [4ab50df6-7480-45df-8604-b1ee39fe857c]', $this->attachment->Name());
     }
-
 }

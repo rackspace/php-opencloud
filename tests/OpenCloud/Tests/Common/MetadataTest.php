@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Common;
@@ -56,5 +56,4 @@ class MetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
         $this->metadata->setArray(array('X-one' => 1, 'X-two' => 2), 'X-');
         $this->assertEquals(2, $this->metadata->two);
     }
-
 }

@@ -21,12 +21,12 @@ use OpenCloud\Tests\OpenCloudTestCase;
 
 class AutoscaleTestCase extends OpenCloudTestCase
 {
-    const GROUP_ID   = '6742e741-cab6-42ff-abe5-458150afc9b1';
-    const POLICY_ID  = 'policyId';
+    const GROUP_ID = '6742e741-cab6-42ff-abe5-458150afc9b1';
+    const POLICY_ID = 'policyId';
     const WEBHOOK_ID = '23037efb-53a9-4ae5-bc33-e89a56b501b6';
 
     const CONFIG_CLASS = 'OpenCloud\Autoscale\Resource\GroupConfiguration';
-    const GROUP_CLASS  = 'OpenCloud\Autoscale\Resource\Group';
+    const GROUP_CLASS = 'OpenCloud\Autoscale\Resource\Group';
 
     protected $service;
     protected $group;

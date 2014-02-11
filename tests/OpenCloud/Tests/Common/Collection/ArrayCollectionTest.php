@@ -45,5 +45,4 @@ class ArrayCollectionTest extends OpenCloudTestCase
         unset($iterator[0]);
         $this->assertFalse($iterator->valueExists('foo'));
     }
-
 }

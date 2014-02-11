@@ -19,7 +19,7 @@ namespace OpenCloud\Tests\Autoscale;
 
 use OpenCloud\Tests\OpenCloudTestCase;
 
-class ServiceTest extends OpenCloudTestCase 
+class ServiceTest extends OpenCloudTestCase
 {
     public function setupObjects()
     {
@@ -30,7 +30,7 @@ class ServiceTest extends OpenCloudTestCase
     {
         $this->assertNotEmpty($this->service->getResources());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UnrecognizedServiceError
      */
@@ -38,5 +38,4 @@ class ServiceTest extends OpenCloudTestCase
     {
         $this->service->resource('FooBar');
     }
-    
 }

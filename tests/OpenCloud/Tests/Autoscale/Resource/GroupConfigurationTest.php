@@ -28,12 +28,12 @@ class GroupConfigurationTest extends AutoscaleTestCase
         $this->assertInstanceOf(self::CONFIG_CLASS, $config);
         $this->assertInstanceOf(self::GROUP_CLASS, $config->getParent());
     }
-    
+
     public function test_Manual_Instantiation()
     {
         $config = new GroupConfiguration($this->service);
         $config->setParent($this->service->group());
-        
+
         $this->assertInstanceOf(self::CONFIG_CLASS, $config);
         $this->assertInstanceOf(self::GROUP_CLASS, $config->getParent());
     }
@@ -61,14 +61,14 @@ class GroupConfigurationTest extends AutoscaleTestCase
     public function test_Launch_Config()
     {
         $config = $this->group->getLaunchConfig();
-        
+
         $this->assertEquals('launch_server', $config->getType());
-        
+
         $server = $config->getArgs()->server;
         $this->assertEquals('0d589460-f177-4b0f-81c1-8ab8903ac7d8', $server->imageRef);
         $this->assertEquals('VGhpcyBpcyBhIHRlc3QgZmlsZS4=', $server->personality[0]->contents);
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -76,7 +76,7 @@ class GroupConfigurationTest extends AutoscaleTestCase
     {
         $this->group->getGroupConfig()->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
@@ -84,7 +84,7 @@ class GroupConfigurationTest extends AutoscaleTestCase
     {
         $this->group->getGroupConfig()->delete();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -92,7 +92,7 @@ class GroupConfigurationTest extends AutoscaleTestCase
     {
         $this->group->getLaunchConfig()->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
@@ -100,5 +100,4 @@ class GroupConfigurationTest extends AutoscaleTestCase
     {
         $this->group->getLaunchConfig()->delete();
     }
-    
 }

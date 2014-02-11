@@ -63,5 +63,4 @@ class VolumeTypeTest extends VolumeTestCase
     {
         $this->assertEquals('types', $this->volumeType->ResourceName());
     }
-
 }

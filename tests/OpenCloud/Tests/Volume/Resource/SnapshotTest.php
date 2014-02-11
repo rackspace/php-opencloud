@@ -35,7 +35,7 @@ class SnapshotTest extends VolumeTestCase
     {
         $this->snapshot->create(array());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -59,5 +59,4 @@ class SnapshotTest extends VolumeTestCase
     {
         $this->assertEquals('snapshots', $this->snapshot->ResourceName());
     }
-
 }

@@ -48,7 +48,7 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->my = new MyBase;
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\RuntimeException
      */
@@ -56,7 +56,7 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertNull($this->my->fooBarMethod());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\RuntimeException
      */
@@ -76,21 +76,21 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $logger = $this->my->getLogger();
         $logger->setEnabled(true);
-        
+
         $logger->info("HELLO, WORLD!");
         $this->expectOutputRegex('/ELLO/');
     }
-    
+
     public function test_Metadata_Populate()
     {
         $object = $this->my;
-        $data = (object) array(
+        $data = (object)array(
             'metadata' => array(
                 'foo' => 'bar'
             )
         );
         $object->populate($data);
-        
+
         $this->assertInstanceOf('OpenCloud\Common\Metadata', $object->getMetadata());
     }
 
@@ -98,9 +98,8 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->my->setBar('hello');
         $this->assertEquals('hello!!!', $this->my->getBar());
-        
+
         $this->my->setBaz('goodbye');
         $this->assertEquals('goodbye', $this->my->getBaz());
     }
-
 }

@@ -22,9 +22,9 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class NotificationTypeTest extends CloudMonitoringTestCase
 {
-    
+
     const NT_ID = 'webhook';
-    
+
     public function setupObjects()
     {
         $this->service = $this->getClient()->cloudMonitoringService();
@@ -34,7 +34,7 @@ class NotificationTypeTest extends CloudMonitoringTestCase
 
         $this->resource = $this->service->getNotificationType(self::NT_ID);
     }
-    
+
     public function testResourceClass()
     {
         $this->assertInstanceOf(
@@ -42,15 +42,15 @@ class NotificationTypeTest extends CloudMonitoringTestCase
             $this->resource
         );
     }
-    
+
     public function testResourceUrl()
     {
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/123456/notification_types/webhook',
-            (string) $this->resource->getUrl()
+            (string)$this->resource->getUrl()
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -70,9 +70,9 @@ class NotificationTypeTest extends CloudMonitoringTestCase
             self::COLLECTION_CLASS,
             $list
         );
-        
+
         $first = $list->first();
-        
+
         $this->assertEquals('webhook', $first->getId());
         $fields = $first->getFields();
         $this->assertEquals('An HTTP or HTTPS URL to POST to', $fields[0]->description);
@@ -84,5 +84,4 @@ class NotificationTypeTest extends CloudMonitoringTestCase
         $this->assertEquals('url', $fields[0]->name);
         $this->assertFalse($fields[0]->optional);
     }
-    
 }

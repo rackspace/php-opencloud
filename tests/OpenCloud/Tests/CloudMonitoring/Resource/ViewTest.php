@@ -21,7 +21,7 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class ViewTest extends CloudMonitoringTestCase
 {
-    
+
     public function setupObjects()
     {
         $this->service = $this->getClient()->cloudMonitoringService();
@@ -29,22 +29,22 @@ class ViewTest extends CloudMonitoringTestCase
         $this->addMockSubscriber($this->getTestFilePath('View'));
         $this->resource = $this->service->getViews();
     }
-    
+
     public function testResourceClass()
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->resource);
 
         $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\View', $this->resource->first());
     }
-    
+
     public function testResourceUrl()
     {
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/123456/views/overview',
-            (string) $this->resource->first()->getUrl()
+            (string)$this->resource->first()->getUrl()
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -52,7 +52,7 @@ class ViewTest extends CloudMonitoringTestCase
     {
         $this->resource->first()->create();
     }
-    
+
     public function test_Values()
     {
         $item = $this->resource->first();
@@ -65,5 +65,4 @@ class ViewTest extends CloudMonitoringTestCase
         $this->assertInstanceOf(self::COLLECTION_CLASS, $item->getChecks());
         $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\Check', $item->getChecks()->first());
     }
-        
 }

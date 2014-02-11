@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\DNS\Resource;
@@ -51,9 +51,9 @@ class DomainTest extends DnsTestCase
     public function testUpdate()
     {
         $resp = $this->domain->update(array(
-            'id'           => 'TEST',
-            'name'         => 'FOO',
-            'emailAddress' => 'no-body@dontuseemail.com')
+                'id'           => 'TEST',
+                'name'         => 'FOO',
+                'emailAddress' => 'no-body@dontuseemail.com')
         );
         $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $resp);
     }
@@ -118,11 +118,11 @@ class DomainTest extends DnsTestCase
 
         $asr = $this->domain->cloneDomain('newdomain.io');
         $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $asr);
-        
+
         $this->assertNotNull($asr->url());
         $this->assertEquals('jobId', $asr->primaryKeyField());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -130,7 +130,7 @@ class DomainTest extends DnsTestCase
     {
         $this->domain->export()->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -146,5 +146,4 @@ class DomainTest extends DnsTestCase
     {
         $this->domain->export()->delete();
     }
-    
 }

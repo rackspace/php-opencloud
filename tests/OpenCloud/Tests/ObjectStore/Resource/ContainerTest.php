@@ -29,9 +29,10 @@ class ContainerTest extends ObjectStoreTestCase
         if (!file_exists($path)) {
             file_put_contents($path, '.');
         }
+
         return $path;
     }
-    
+
     public function test_Services()
     {
         $this->assertInstanceOf(
@@ -39,7 +40,7 @@ class ContainerTest extends ObjectStoreTestCase
             $this->container->getCDNService()
         );
     }
-    
+
     public function test_Get_Container()
     {
         $container = $this->container;
@@ -56,20 +57,20 @@ class ContainerTest extends ObjectStoreTestCase
         $this->assertTrue($cdn->isCdnEnabled());
 
         $this->assertEquals(
-            'https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.cf0.rackcdn.com', 
+            'https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.cf0.rackcdn.com',
             $cdn->getCdnSslUri()
         );
         $this->assertEquals(
-            'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com', 
+            'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com',
             $cdn->getCdnUri()
         );
         $this->assertEquals('259200', $cdn->getTtl());
         $this->assertEquals(
-            'http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.stream.cf0.rackcdn.com', 
+            'http://084cc2790632ccee0a12-346eb45fd42c58ca13011d659bfc1ac1.r49.stream.cf0.rackcdn.com',
             $cdn->getCdnStreamingUri()
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\NoNameError
      */
@@ -77,7 +78,7 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $container = $this->container;
         $container->name = '';
-        
+
         $container->getUrl();
     }
 
@@ -92,14 +93,14 @@ class ContainerTest extends ObjectStoreTestCase
         $container = $this->service->getContainer('foo');
         $container->getCdn();
     }
-    
+
     public function test_Delete()
     {
         $container = $this->container;
         $this->addMockSubscriber($this->makeResponse('[]', 200));
         $container->delete(true);
     }
-    
+
     public function test_Object_List()
     {
         $container = $this->container;
@@ -111,7 +112,7 @@ class ContainerTest extends ObjectStoreTestCase
         $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
         $this->assertEquals('test_obj_1', $list->first()->getName());
     }
-    
+
     public function test_Misc_Operations()
     {
         $container = $this->container;
@@ -143,7 +144,7 @@ class ContainerTest extends ObjectStoreTestCase
 
         $container->enableCdn(500);
     }
-    
+
     public function test_Get_Object()
     {
         $this->addMockSubscriber($this->makeResponse('b0dffe8254d152d8fd28f3c5e0404a10'));
@@ -151,8 +152,8 @@ class ContainerTest extends ObjectStoreTestCase
 
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $object);
         $this->assertEquals(
-            'b0dffe8254d152d8fd28f3c5e0404a10', 
-            (string) $object->getContent()
+            'b0dffe8254d152d8fd28f3c5e0404a10',
+            (string)$object->getContent()
         );
         $this->assertEquals('foobar', $object->getName());
     }
@@ -185,7 +186,7 @@ class ContainerTest extends ObjectStoreTestCase
             array('path' => '/foo')
         ));
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -196,7 +197,7 @@ class ContainerTest extends ObjectStoreTestCase
             array('name' => 'test', 'baz' => 'something')
         ));
     }
-    
+
     public function test_Upload_Multiple()
     {
         $container = $this->container;
@@ -210,7 +211,7 @@ class ContainerTest extends ObjectStoreTestCase
             array('name' => 'test', 'path' => $this->getFilePath())
         ));
     }
-    
+
     public function test_Upload()
     {
         $this->assertInstanceOf(
@@ -218,35 +219,35 @@ class ContainerTest extends ObjectStoreTestCase
             $this->container->uploadObject('foobar', 'data')
         );
     }
-    
+
     public function test_Large_Upload()
     {
         $options = array(
-            'name' => 'new_object',
-            'path' => $this->getFilePath(),
-            'metadata' => array('author' => 'Jamie'),
-            'partSize' => Size::MB * 20,
+            'name'        => 'new_object',
+            'path'        => $this->getFilePath(),
+            'metadata'    => array('author' => 'Jamie'),
+            'partSize'    => Size::MB * 20,
             'concurrency' => 3,
-            'progress' => function($options) {
-                var_dump($options);
-            } 
+            'progress'    => function ($options) {
+                    var_dump($options);
+                }
         );
-        
+
         $container = $this->container;
         $container->setupObjectTransfer($options);
     }
-    
+
     public function test_Large_Upload_With_Body()
     {
         $options = array(
             'name' => 'new_object',
             'body' => 'foo'
         );
-        
+
         $container = $this->container;
         $container->setupObjectTransfer($options);
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -255,11 +256,11 @@ class ContainerTest extends ObjectStoreTestCase
         $options = array(
             'path' => '/foo'
         );
-        
+
         $container = $this->container;
-        $container->setupObjectTransfer($options);  
+        $container->setupObjectTransfer($options);
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -267,13 +268,13 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $options = array(
             'name' => 'new_object',
-            'path' => '/' . rand(1,9999)
+            'path' => '/' . rand(1, 9999)
         );
-        
+
         $container = $this->container;
-        $container->setupObjectTransfer($options);  
+        $container->setupObjectTransfer($options);
     }
-    
+
     public function test_Metadata()
     {
         $metadata = $this->container->getMetadata();
@@ -283,7 +284,7 @@ class ContainerTest extends ObjectStoreTestCase
             $this->container->getMetadata()->getProperty('Subject'),
             $metadata->getProperty('Subject')
         );
-        
+
         $response = $this->container->unsetMetadataItem('Subject');
     }
 
@@ -305,7 +306,7 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $object = $this->container->getPartialObject('test.foo');
 
-        $this->assertEquals('', (string) $object->getContent());
+        $this->assertEquals('', (string)$object->getContent());
         $this->assertNotNull($object->getLastModified());
     }
 }

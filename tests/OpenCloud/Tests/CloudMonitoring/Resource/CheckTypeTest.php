@@ -41,5 +41,4 @@ class CheckTypeTest extends CloudMonitoringTestCase
         $this->assertEquals('remote.dns', $type->getId());
         $this->assertEquals('remote', $type->getType());
     }
-
 }

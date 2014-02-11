@@ -27,16 +27,16 @@ class TransferTest extends ObjectStoreTestCase
     public function test_Consecutive_Transfer()
     {
         $options = array('objectName' => 'NEW_OBJECT');
-        
+
         $transfer = TransferBuilder::newInstance()
             ->setOptions($options)
             ->setEntityBody(EntityBody::factory(str_repeat('A', 100)))
             ->setContainer($this->container)
             ->build();
-        
-        $this->assertCount(7, $transfer->getOptions());   
+
+        $this->assertCount(7, $transfer->getOptions());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -46,7 +46,6 @@ class TransferTest extends ObjectStoreTestCase
             ->setOptions(array('objectName' => false))
             ->setEntityBody(EntityBody::factory(str_repeat('A', 100)))
             ->setContainer($this->container)
-            ->build(); 
+            ->build();
     }
-    
 }

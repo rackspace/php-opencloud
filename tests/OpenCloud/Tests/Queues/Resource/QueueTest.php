@@ -17,7 +17,7 @@
 
 /**
  * @copyright Copyright 2012-2014 Rackspace US, Inc.
-  See COPYING for licensing information.
+ * See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.5.9
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -26,7 +26,6 @@
 
 namespace OpenCloud\Tests\Queues\Resource\Resource;
 
-use OpenCloud\Queues\Service;
 use OpenCloud\Common\Metadata;
 use OpenCloud\Tests\Queues\QueuesTestCase;
 
@@ -38,7 +37,7 @@ class QueueTest extends QueuesTestCase
         $this->addMockSubscriber($this->makeResponse(null, 201));
         $this->assertInstanceOf('OpenCloud\Queues\Resource\Queue', $this->service->createQueue('test'));
     }
-    
+
     /**
      * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */
@@ -47,7 +46,7 @@ class QueueTest extends QueuesTestCase
         $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->service->createQueue('baz');
     }
-    
+
     /**
      * @expectedException OpenCloud\Queues\Exception\QueueException
      */
@@ -55,7 +54,7 @@ class QueueTest extends QueuesTestCase
     {
         $this->service->createQueue('baz!!!*');
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -63,34 +62,34 @@ class QueueTest extends QueuesTestCase
     {
         $this->queue->update(array('name' => 'new name'));
     }
-    
+
     public function test_Delete()
     {
         $this->queue->setName('test');
         $this->queue->delete();
     }
-    
+
     public function test_Metadata()
     {
         $this->addMockSubscriber($this->makeResponse(null, 204));
 
         $this->queue->setName('test')
-                    ->saveMetadata(array(
-                        'new metadata' => 'bar'
-                    ));
-        
+            ->saveMetadata(array(
+                'new metadata' => 'bar'
+            ));
+
         $metadata = $this->queue->getMetadata();
 
         $this->assertInstanceOf('OpenCloud\Common\Metadata', $metadata);
         $this->assertEquals('bar', $metadata->{'new metadata'});
-        
+
         $newMetadata = new Metadata();
         $newMetadata->setArray(array(
             'foo' => 'bar'
         ));
         $this->queue->setMetadata($newMetadata);
     }
-    
+
     /**
      * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */
@@ -99,7 +98,7 @@ class QueueTest extends QueuesTestCase
         $this->addMockSubscriber($this->makeResponse(null, 404));
         $this->queue->retrieveMetadata();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -107,20 +106,20 @@ class QueueTest extends QueuesTestCase
     {
         $this->queue->setMetadata('');
     }
-            
+
     public function test_Stats()
     {
         $this->assertNotNull($this->queue->setName('foo')->getStats());
     }
-    
+
     public function test_Get_Message()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Queues\Resource\Message', 
+            'OpenCloud\Queues\Resource\Message',
             $this->queue->getMessage()
         );
     }
-    
+
     public function test_List_Message()
     {
         $this->assertInstanceOf(
@@ -130,14 +129,14 @@ class QueueTest extends QueuesTestCase
             ))
         );
     }
-    
+
     public function test_Delete_Message()
     {
         $this->assertTrue(
             $this->queue->setName('foo')->deleteMessages(array(100, 901, 58))
         );
     }
-            
+
     public function test_Claim_Messages()
     {
         $this->addMockSubscriber($this->makeResponse('[{"body":{"event":"BackupStarted"},"age":239,"href":"/v1/queues/demoqueue/messages/51db6f78c508f17ddc924357?claim_id=51db7067821e727dc24df754","ttl":300}]', 201));
@@ -146,7 +145,7 @@ class QueueTest extends QueuesTestCase
             $this->queue->setName('foo')->claimMessages()->first()
         );
     }
-    
+
     /**
      * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */
@@ -156,13 +155,12 @@ class QueueTest extends QueuesTestCase
 
         $this->queue->claimMessages();
     }
-    
+
     public function test_Getting_Claim()
     {
         $claim = $this->queue->getClaim();
-        
+
         $this->assertInstanceOf('OpenCloud\Queues\Resource\Claim', $claim);
         $this->assertEquals($this->queue, $claim->getParent());
     }
-    
 }

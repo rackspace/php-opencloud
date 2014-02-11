@@ -22,7 +22,7 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 class AgentTest extends CloudMonitoringTestCase
 {
 
-    const AGENT_ID      = '00-agent.example.com';
+    const AGENT_ID = '00-agent.example.com';
     const CONNECTION_ID = 'cntl4qsIbA';
 
     public function setupObjects()
@@ -30,7 +30,7 @@ class AgentTest extends CloudMonitoringTestCase
         $this->service = $this->getClient()->cloudMonitoringService();
         $this->resource = $this->service->getAgent();
     }
-    
+
     public function testResourceClass()
     {
         $this->assertInstanceOf(
@@ -38,7 +38,7 @@ class AgentTest extends CloudMonitoringTestCase
             $this->resource
         );
     }
-    
+
     public function testUrl()
     {
         $this->assertEquals(
@@ -46,7 +46,7 @@ class AgentTest extends CloudMonitoringTestCase
             (string)$this->resource->getUrl()
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -54,7 +54,7 @@ class AgentTest extends CloudMonitoringTestCase
     {
         $this->resource->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -88,23 +88,23 @@ class AgentTest extends CloudMonitoringTestCase
      * @mockFile Agent_Connection_List
      */
     public function testGetConnections()
-    {  
+    {
         $this->resource->setId(self::AGENT_ID);
         $list = $this->resource->getConnections();
-        
+
         $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
-        
+
         $first = $list->first();
-        
+
         $this->assertInstanceOf(
             'OpenCloud\\CloudMonitoring\\Resource\\AgentConnection',
             $first
         );
-        
+
         $this->assertEquals('cntl4qsIbA', $first->getId());
         $this->assertEquals('0b49b96d-24c9-45ca-c585-4040707f4880', $first->getGuid());
     }
-    
+
     /**
      * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
      */
@@ -121,13 +121,13 @@ class AgentTest extends CloudMonitoringTestCase
     {
         $this->resource->setId(self::AGENT_ID);
         $connection = $this->resource->getConnection(self::CONNECTION_ID);
-        
+
         $this->assertInstanceOf(
             'OpenCloud\\CloudMonitoring\\Resource\\AgentConnection',
             $connection
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\CloudMonitoring\Exception\AgentException
      */
@@ -136,5 +136,4 @@ class AgentTest extends CloudMonitoringTestCase
         $this->resource->setId(null);
         $this->resource->getConnection(null);
     }
-    
 }

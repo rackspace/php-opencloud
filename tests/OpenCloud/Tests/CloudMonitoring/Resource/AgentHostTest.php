@@ -34,7 +34,7 @@ class AgentHostTest extends CloudMonitoringTestCase
         $this->agent = $this->service->resource('Agent', self::AGENT_ID);
         $this->host = $this->service->resource('AgentHost', null, $this->agent);
     }
-    
+
     public function testResourceClass()
     {
         $this->assertInstanceOf(
@@ -42,7 +42,7 @@ class AgentHostTest extends CloudMonitoringTestCase
             $this->host
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -50,7 +50,7 @@ class AgentHostTest extends CloudMonitoringTestCase
     {
         $this->host->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -130,5 +130,4 @@ class AgentHostTest extends CloudMonitoringTestCase
     {
         $this->host->info('foobar');
     }
-    
 }

@@ -47,5 +47,4 @@ class ImageTest extends ComputeTestCase
         $image = $this->service->image();
         $image->update();
     }
-
 }

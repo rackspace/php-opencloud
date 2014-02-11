@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Compute;
@@ -33,11 +33,11 @@ class ServiceTest extends ComputeTestCase
     public function test__construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Compute\Service', 
+            'OpenCloud\Compute\Service',
             $this->getClient()->computeService('cloudServersOpenStack', 'DFW')
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UnsupportedVersionError
      */
@@ -76,5 +76,4 @@ class ServiceTest extends ComputeTestCase
         $this->assertNotContains('FOO', $this->service->namespaces());
         $this->assertContains('os-flavor-rxtx', $this->service->namespaces());
     }
-
 }

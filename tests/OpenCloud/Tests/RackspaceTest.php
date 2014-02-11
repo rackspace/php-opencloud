@@ -18,43 +18,42 @@
 namespace OpenCloud\Tests;
 
 
-class RackspaceTest extends OpenCloudTestCase 
+class RackspaceTest extends OpenCloudTestCase
 {
     const CREDENTIALS = <<<EOT
 {"auth":{"RAX-KSKEY:apiKeyCredentials":{"username":"foo","apiKey":"bar"}}}
 EOT;
-    
+
     public function test_Credentials()
     {
         $this->assertEquals(self::CREDENTIALS, $this->getClient()->getCredentials());
     }
-    
+
     public function test_Factory_Methods()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Service', 
+            'OpenCloud\Database\Service',
             $this->getClient()->databaseService('cloudDatabases', 'DFW')
         );
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Service', 
+            'OpenCloud\LoadBalancer\Service',
             $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW')
         );
         $this->assertInstanceOf(
-            'OpenCloud\DNS\Service', 
+            'OpenCloud\DNS\Service',
             $this->getClient()->dnsService('cloudDNS', 'DFW')
         );
         $this->assertInstanceOf(
-            'OpenCloud\CloudMonitoring\Service', 
+            'OpenCloud\CloudMonitoring\Service',
             $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW')
         );
         $this->assertInstanceOf(
-            'OpenCloud\Autoscale\Service', 
+            'OpenCloud\Autoscale\Service',
             $this->getClient()->autoscaleService('autoscale', 'DFW')
-        );    
+        );
         $this->assertInstanceOf(
-            'OpenCloud\Queues\Service', 
+            'OpenCloud\Queues\Service',
             $this->getClient()->queuesService('cloudQueues', 'ORD')
         );
     }
-    
 }

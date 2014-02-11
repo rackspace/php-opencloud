@@ -23,7 +23,7 @@ class ServiceTest extends VolumeTestCase
     public function test__construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Volume\Service', 
+            'OpenCloud\Volume\Service',
             $this->service
         );
     }
@@ -47,5 +47,4 @@ class ServiceTest extends VolumeTestCase
     {
         $this->assertInstanceOf('OpenCloud\Volume\Resource\Snapshot', $this->service->Snapshot());
     }
-
 }

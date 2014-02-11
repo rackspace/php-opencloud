@@ -21,15 +21,17 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Common;
 
 use OpenCloud\Common\Service\NovaService;
 
-class MyNova extends NovaService {}
+class MyNova extends NovaService
+{
+}
 
 class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
@@ -49,7 +51,7 @@ class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertEquals(
             'https://dfw.servers.api.rackspacecloud.com/v2/123456/foo',
-            (string) $this->nova->getUrl('foo')
+            (string)$this->nova->getUrl('foo')
         );
     }
 
@@ -62,5 +64,4 @@ class NovaTest extends \OpenCloud\Tests\OpenCloudTestCase
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->nova->flavorList());
     }
-
 }

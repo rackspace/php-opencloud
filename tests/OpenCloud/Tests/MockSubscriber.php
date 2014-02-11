@@ -18,14 +18,13 @@
 namespace OpenCloud\Tests;
 
 use Guzzle\Common\Event;
-use Guzzle\Plugin\Mock\MockPlugin;
 use Guzzle\Http\Message\Request;
 use Guzzle\Http\Message\Response;
+use Guzzle\Plugin\Mock\MockPlugin;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class MockSubscriber extends MockPlugin implements EventSubscriberInterface
 {
-
     public static function getSubscribedEvents()
     {
         return array(
@@ -40,7 +39,7 @@ class MockSubscriber extends MockPlugin implements EventSubscriberInterface
     {
         if (strpos($event['request']->getUrl(), 'tokens') !== false) {
             // auth request must pass
-            $message  = file_get_contents(__DIR__ . '/_response/Auth.resp');
+            $message = file_get_contents(__DIR__ . '/_response/Auth.resp');
             $response = Response::fromMessage($message);
             $event['request']->setResponse($response)->setState(Request::STATE_COMPLETE);
             $event->stopPropagation();
@@ -65,5 +64,4 @@ class MockSubscriber extends MockPlugin implements EventSubscriberInterface
             $event->stopPropagation();
         }
     }
-
-} 
+}

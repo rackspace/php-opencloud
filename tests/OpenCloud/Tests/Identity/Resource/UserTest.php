@@ -92,5 +92,4 @@ class UserTest extends IdentityTestCase
         $this->addMockSubscriber($this->makeResponse($body));
         $this->assertInstanceOf('OpenCloud\Common\Collection\ResourceIterator', $this->user->getRoles());
     }
-
 }

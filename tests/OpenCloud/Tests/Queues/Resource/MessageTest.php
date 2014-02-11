@@ -22,7 +22,7 @@ use OpenCloud\Tests\Queues\QueuesTestCase;
 class MessageTest extends QueuesTestCase
 {
     private $message;
-    
+
     public function setupObjects()
     {
         parent::setupObjects();
@@ -30,17 +30,17 @@ class MessageTest extends QueuesTestCase
         $this->addMockSubscriber($this->getTestFilePath('Message'));
         $this->message = $this->queue->getMessage('foo');
     }
-    
+
     public function test_SettingTtl()
     {
         $this->message->setBody('FOO BAR');
-        
+
         $this->message->setTtl(100);
         $this->assertEquals(100, $this->message->getTtl());
-        
+
         $this->message->setId('foo');
         $this->message->setBody('bar');
-        
+
         $this->assertEquals('foo', $this->message->getId());
         $this->assertEquals('bar', $this->message->getBody());
 
@@ -48,7 +48,7 @@ class MessageTest extends QueuesTestCase
         $this->assertNotEmpty($this->message->getAge());
         $this->assertNull($this->message->getClaimIdFromHref());
     }
-    
+
     public function test_Batch_Create()
     {
         $this->addMockSubscriber($this->makeResponse(null, 201));
@@ -65,7 +65,7 @@ class MessageTest extends QueuesTestCase
         ));
         $this->assertTrue($response);
     }
-    
+
     /**
      * @expectedException \Guzzle\Http\Exception\ClientErrorResponseException
      */

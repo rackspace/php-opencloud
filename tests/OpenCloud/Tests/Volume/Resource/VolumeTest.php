@@ -25,7 +25,7 @@ class VolumeTest extends VolumeTestCase
     {
         $this->addMockSubscriber($this->makeResponse('{"volume_type":{"id":"1","name":"SATA","extra_specs":{}}}'));
         $type = $this->service->volumeType('type_1');
-        
+
         $volume = $this->service->volume()->create(array(
             'snapshot_id'         => 1,
             'display_name'        => 2,
@@ -36,7 +36,7 @@ class VolumeTest extends VolumeTestCase
             'metadata'            => array('foo' => 'bar')
         ));
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -60,5 +60,4 @@ class VolumeTest extends VolumeTestCase
     {
         $this->assertEquals('volumes', $this->volume->ResourceName());
     }
-
 }

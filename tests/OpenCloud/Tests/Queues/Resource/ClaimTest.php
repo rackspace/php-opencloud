@@ -22,7 +22,7 @@ use OpenCloud\Tests\Queues\QueuesTestCase;
 class ClaimTest extends QueuesTestCase
 {
     private $claim;
-    
+
     public function setupObjects()
     {
         parent::setupObjects();
@@ -30,7 +30,7 @@ class ClaimTest extends QueuesTestCase
         $this->addMockSubscriber($this->getTestFilePath('Claim'));
         $this->claim = $this->queue->getClaim('foo');
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -38,14 +38,14 @@ class ClaimTest extends QueuesTestCase
     {
         $this->claim->create();
     }
-    
+
     public function test_Getting_Claim()
     {
         $this->assertNotNull($this->claim->getId());
         $this->assertNotNull($this->claim->getTtl());
         $this->assertNotNull($this->claim->getHref());
     }
-    
+
     public function test_Update()
     {
         $this->addMockSubscriber($this->makeResponse(null, 204));
@@ -54,10 +54,9 @@ class ClaimTest extends QueuesTestCase
             'grace' => 10,
             'ttl'   => 100
         ));
-        
+
         $this->claim->getAge();
         $this->claim->getId();
         $this->claim->getMessages();
     }
-    
 }

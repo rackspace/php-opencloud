@@ -21,15 +21,15 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\LoadBalancer;
 
 class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-    
+
     private $service;
 
     public function setupObjects()
@@ -40,7 +40,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function test__construct()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Service', 
+            'OpenCloud\LoadBalancer\Service',
             $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL')
         );
     }
@@ -48,7 +48,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testLoadBalancer()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\LoadBalancer', 
+            'OpenCloud\LoadBalancer\Resource\LoadBalancer',
             $this->service->loadBalancer()
         );
     }
@@ -64,7 +64,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testBillableLoadBalancer()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\BillableLoadBalancer', 
+            'OpenCloud\LoadBalancer\Resource\BillableLoadBalancer',
             $this->service->billableLoadBalancer()
         );
     }
@@ -80,7 +80,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testAllowedDomain()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\AllowedDomain', 
+            'OpenCloud\LoadBalancer\Resource\AllowedDomain',
             $this->service->allowedDomain()
         );
     }
@@ -96,7 +96,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testProtocol()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\Protocol', 
+            'OpenCloud\LoadBalancer\Resource\Protocol',
             $this->service->protocol()
         );
     }
@@ -112,7 +112,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testAlgorithm()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\Algorithm', 
+            'OpenCloud\LoadBalancer\Resource\Algorithm',
             $this->service->algorithm()
         );
     }
@@ -124,5 +124,4 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
             $this->service->algorithmList()
         );
     }
-
 }

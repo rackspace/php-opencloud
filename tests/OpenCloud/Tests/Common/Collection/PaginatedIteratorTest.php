@@ -17,8 +17,8 @@
 
 namespace OpenCloud\Tests\Common\Collection;
 
-use OpenCloud\Tests\OpenCloudTestCase;
 use OpenCloud\Common\Collection\PaginatedIterator;
+use OpenCloud\Tests\OpenCloudTestCase;
 
 class PaginatedIteratorTest extends OpenCloudTestCase
 {
@@ -157,5 +157,4 @@ class PaginatedIteratorTest extends OpenCloudTestCase
 
         $this->assertInstanceOf('OpenCloud\Autoscale\Resource\Group', $iterator->getElement(1));
     }
-
 }

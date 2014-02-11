@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\DNS\Resource;
@@ -58,7 +58,7 @@ class PtrRecordTest extends DnsTestCase
     {
         $this->assertEquals(
             'https://dns.api.rackspacecloud.com/v1.0/123456/rdns',
-            (string) $this->record->getUrl()
+            (string)$this->record->getUrl()
         );
     }
 
@@ -66,7 +66,7 @@ class PtrRecordTest extends DnsTestCase
     {
         $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
-            'OpenCloud\DNS\Resource\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse',
             $this->record->create(array('server' => $server))
         );
     }
@@ -75,7 +75,7 @@ class PtrRecordTest extends DnsTestCase
     {
         $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
-            'OpenCloud\DNS\Resource\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse',
             $this->record->update(array('server' => $server))
         );
     }
@@ -84,13 +84,13 @@ class PtrRecordTest extends DnsTestCase
     {
         $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->record->server = $server;
-        $this->record->data   = 12345;
+        $this->record->data = 12345;
         $this->assertInstanceOf(
-            'OpenCloud\DNS\Resource\AsyncResponse', 
+            'OpenCloud\DNS\Resource\AsyncResponse',
             $this->record->delete()
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -99,7 +99,7 @@ class PtrRecordTest extends DnsTestCase
         $object = new CustomRecord($this->service);
         $object->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -108,5 +108,4 @@ class PtrRecordTest extends DnsTestCase
         $object = new CustomRecord($this->service);
         $object->update();
     }
-
 }

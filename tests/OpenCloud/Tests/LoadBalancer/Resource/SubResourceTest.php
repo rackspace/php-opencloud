@@ -29,7 +29,7 @@ class SubResourceTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->access()->update();
     }
-    
+
     public function testConnectionCreateGoesToUpdate()
     {
         $this->loadBalancer->connectionLogging()->create();
@@ -39,7 +39,7 @@ class SubResourceTest extends LoadBalancerTestCase
         $this->loadBalancer->healthMonitor()->create();
         $this->loadBalancer->SSLTermination()->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
@@ -47,7 +47,7 @@ class SubResourceTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->connectionLogging()->delete();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
@@ -55,14 +55,14 @@ class SubResourceTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->contentCaching()->delete();
     }
-    
+
     public function testMetadata()
     {
         $metadata = $this->loadBalancer->metadata();
         $metadata->key = 'foo';
         $this->assertEquals('foo', $metadata->name());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
@@ -70,7 +70,7 @@ class SubResourceTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->nodeEvent()->create();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -78,7 +78,7 @@ class SubResourceTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->nodeEvent()->update();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
@@ -86,7 +86,7 @@ class SubResourceTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->nodeEvent()->delete();
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
@@ -94,10 +94,9 @@ class SubResourceTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->virtualIp()->update();
     }
-    
+
     public function test_Name()
     {
         $this->assertEquals('ContentCaching-2000', $this->loadBalancer->contentCaching()->name());
     }
-    
 }

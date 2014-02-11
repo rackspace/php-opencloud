@@ -45,11 +45,11 @@ class DataObjectTest extends ObjectStoreTestCase
         $this->assertEquals('text/html', $object->getContentType());
         $this->assertEquals(512000, $object->getContentLength());
         $this->assertNotNull($object->getEtag());
-        
+
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $object->update());
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $object->delete());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\NoNameError
      */
@@ -63,11 +63,11 @@ class DataObjectTest extends ObjectStoreTestCase
     {
         $object = $this->container->dataObject('foobar');
         $this->assertInstanceOf(
-            'Guzzle\Http\Message\Response', 
+            'Guzzle\Http\Message\Response',
             $object->copy('/new_container/new_object')
         );
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\NoNameError
      */
@@ -75,7 +75,7 @@ class DataObjectTest extends ObjectStoreTestCase
     {
         $this->container->dataObject()->copy(null);
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
      */
@@ -83,20 +83,20 @@ class DataObjectTest extends ObjectStoreTestCase
     {
         $this->container->dataObject('foobar')->getTemporaryUrl(1000, 'DELETE');
     }
-    
+
     public function test_Purge()
     {
         $object = $this->container->dataObject('foobar');
         $this->assertInstanceOf(
-            'Guzzle\Http\Message\Response', 
+            'Guzzle\Http\Message\Response',
             $object->purge('test@example.com')
         );
     }
-    
+
     public function test_Public_Urls()
     {
         $object = $this->container->dataObject('foobar');
-        
+
         $this->assertNotNull($object->getPublicUrl());
         $this->assertNotNull($object->getPublicUrl(UrlType::SSL));
         $this->assertNotNull($object->getPublicUrl(UrlType::STREAMING));

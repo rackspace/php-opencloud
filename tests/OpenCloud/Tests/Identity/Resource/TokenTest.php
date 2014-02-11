@@ -17,15 +17,13 @@
 
 namespace OpenCloud\Tests\Identity\Resource;
 
-use OpenCloud\Tests\Identity\IdentityTestCase;
-
-class TokenTest 
+class TokenTest
 {
     public function test_Methods()
     {
         $token = $this->service->
 
-        $tenant->setId(321);
+            $tenant->setId(321);
         $this->assertEquals(321, $tenant->getId());
 
         $tenant->setName('foo');

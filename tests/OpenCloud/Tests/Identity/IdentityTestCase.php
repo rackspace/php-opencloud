@@ -17,8 +17,8 @@
 
 namespace OpenCloud\Tests\Identity;
 
-use OpenCloud\Tests\OpenCloudTestCase;
 use OpenCloud\Identity\Service as IdentityService;
+use OpenCloud\Tests\OpenCloudTestCase;
 
 class IdentityTestCase extends OpenCloudTestCase
 {

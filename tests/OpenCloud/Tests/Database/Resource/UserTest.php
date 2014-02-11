@@ -21,8 +21,8 @@
  * @copyright 2012-2014 Rackspace Hosting, Inc.
  * See COPYING for licensing information
  *
- * @version 1.0.0
- * @author Glen Campbell <glen.campbell@rackspace.com>
+ * @version   1.0.0
+ * @author    Glen Campbell <glen.campbell@rackspace.com>
  */
 
 namespace OpenCloud\Tests\Database\Resource;
@@ -45,7 +45,7 @@ class UserTest extends DatabaseTestCase
         $this->assertInstanceOf(
             'OpenCloud\Database\Resource\User', $this->user
         );
-        
+
         $u = $this->instance->user('glen', array('one', 'two'));
         $this->assertEquals('glen', $u->name);
         $this->assertEquals(2, count($u->databases));
@@ -56,14 +56,14 @@ class UserTest extends DatabaseTestCase
         $this->user->name = 'TEST';
         $this->assertEquals(
             'https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/dcc5c518-73c7-4471-83e1-15fae67a98eb/users/TEST',
-            (string) $this->user->getUrl()
+            (string)$this->user->getUrl()
         );
     }
 
     public function testInstance()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Resource\Instance', 
+            'OpenCloud\Database\Resource\Instance',
             $this->user->getParent()
         );
     }
@@ -71,7 +71,7 @@ class UserTest extends DatabaseTestCase
     public function testService()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Database\Service', 
+            'OpenCloud\Database\Service',
             $this->user->getParent()->getService()
         );
     }
@@ -85,8 +85,8 @@ class UserTest extends DatabaseTestCase
     public function testCreate()
     {
         $response = $this->user->create(array(
-            'name'     => 'FOOBAR',
-            'password' => 'BAZ',
+            'name'      => 'FOOBAR',
+            'password'  => 'BAZ',
             'databases' => array(
                 'foo',
                 'baz'
@@ -111,7 +111,7 @@ class UserTest extends DatabaseTestCase
         $response = $this->user->delete();
         $this->assertLessThan(205, $response->getStatusCode());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\DatabaseNameError
      */
@@ -119,5 +119,4 @@ class UserTest extends DatabaseTestCase
     {
         $this->instance->user()->getName();
     }
-
 }

@@ -29,7 +29,7 @@ class AgentTokenTest extends OpenCloudTestCase
         $this->service = $this->getClient()->cloudMonitoringService('cloudMonitoring', 'DFW', 'publicURL');
         $this->resource = $this->service->resource('AgentToken');
     }
-    
+
     public function testResourceClass()
     {
         $this->assertInstanceOf(
@@ -37,25 +37,24 @@ class AgentTokenTest extends OpenCloudTestCase
             $this->resource
         );
     }
-    
+
     public function testUrl()
     {
         $this->assertEquals(
             'https://monitoring.api.rackspacecloud.com/v1.0/123456/agent_tokens',
-            (string) $this->resource->getUrl()
+            (string)$this->resource->getUrl()
         );
     }
-    
+
     public function testCollection()
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->resource->listAll());
     }
-    
+
     public function testGet()
     {
         $this->resource->refresh(self::TOKEN_ID);
-        
+
         $this->assertEquals($this->resource->getId(), self::TOKEN_ID);
     }
-    
 }

@@ -17,8 +17,6 @@
 
 namespace OpenCloud\Tests\CloudMonitoring;
 
-use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
-
 class ChangelogTest extends CloudMonitoringTestCase
 {
 
@@ -61,5 +59,4 @@ class ChangelogTest extends CloudMonitoringTestCase
         $this->assertEquals('4c5e28f0-0b3f-11e1-860d-c55c4705a286', $first->getId());
         $this->assertEquals('enPhid7noo', $first->getEntityId());
     }
-
 }
