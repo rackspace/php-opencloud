@@ -32,92 +32,72 @@ provides the special constants `RAX_PUBLIC` and `RAX_PRIVATE` to
 make using these networks easier (see [Create a server with an
 isolated network](#server) below).
 
-<a name="create"></a>
+
 ### Create a network
 
 A Cloud Network is identified by a *label* and must be defined with
 a network *CIDR* address range. For example, we can create a network
 used by our backend servers on the 192.168.0.0 network like this:
 
-	// assume $compute is our Compute service
-	$backend = $compute->network();		// new, empty network object
-	$backend->create(array(
-		'label' => 'Backend Network',	// label it
-		'cidr' => '192.168.0.0/16'	// this provides the address range
-    ));
+```php
+// Create instance of OpenCloud\Compute\Resource\Network
+$network = $compute->network();
 
-The ID of the network is now available in `$backend->id`.
+// Send to API
+$network->create(array(
+    'label' => 'Backend Network',
+    'cidr'  => '192.168.0.0/16'
+));
+```
 
-<a name="delete"></a>
 ### Delete a network
 
-To delete a network, use the `delete()` method:
+```php
+$network->delete();
+```
 
-	$backend->delete();
-
-Note that you cannot delete a network if there are still servers 
-attached to it.
+Note that you cannot delete a network if there are still servers attached to it.
 
 ### Listing networks
 
-The `Compute::networkList()` method returns a [Collection](collections.md) of
-`Network` objects:
+```
+$networks = $service->networkList();
 
-	$list = $compute->networkList();
-	$list->sort('label');
-	while($network = $list->next())
-		printf("%s: %s\n", $network->id, $network->label);
+foreach ($networks as $network) {
+    /** @param $network OpenCloud\Compute\Resource\Network */
+}
+```
 
-This displays the ID and label of all your available networks
-(including the `public` and `private` pseudo-networks).
+For more information about working with iterators, please see the
+[iterators documentation](Iterators.md).
 
-<a name="server"></a>
 ## Create a server with an isolated network
 
 When you create a new server, you can specify the networks to which
 it is attached via the `networks` attribute in the `Server::create()`
-method.
+method:
 
-* If you create the server without specifying its `networks`, then it is created
-  using the default `public` and `private` networks.
-* If you create the server and specify `networks`, it is created with *only* the
-  networks that you specify. That is, if you specify `networks`, then the
-  `public` and `private` networks are *not* attached to the server unless you
-  explicitly include them.
+use OpenCloud\Compute\Constants\Network;
 
-Example:
+// Create instance of OpenCloud\Compute\Resource\Server
+$server = $compute->server();
 
-    use OpenCloud\Compute\Constants\Network;
+// Send to API
+$server->create(array(
+    'name'     => 'My Server',
+    'flavor'   => $compute->flavor('<flavor_id>'),
+    'image'    => $compute->image('<image_id>'),
+    'networks' => array(
+        $network,
+        $compute->network(Network::RAX_PUBLIC)
+    )
+));
+```
 
-	// assuming the $backend network we created above
-	$server = $compute->server();			// create an empty server object
-	$server->create(array(
-		'name' => 'My Server',
-		'flavor' => $compute->flavor(2),
-		'image' => $compute->image('c195ef3b-9195-4474-b6f7-16e5bd86acd0'),
-		'networks' => array(				// associate our networks
-			$backend,
-			$compute->network(Network::RAX_PUBLIC))));
+In this example, the server `$server` is attached to the network that we
+created in the previous example. It is also attached to the Rackspace `public`
+network (the Internet). However, it is *not* attached to the Rackspace `private`
+network (ServiceNet).
 
-In this example, the server `$server` is attached to the `$backend`
-network that we created in the previous example. It is also attached
-to the Rackspace `public` network (the Internet). However, it is
-*not* attached to the Rackspace `private` network (ServiceNet).
-
-The `networks` attribute is an array of `Network` objects (and not
-just a UUID of the network). This example will fail:
-
-	$server->create(array(
-		...
-		'networks' => array(Network::RAX_PUBLIC, Network::RAX_PRIVATE)));
-
-because `Network::RAX_PUBLIC` and `Network::RAX_PRIVATE` are UUIDs, not networks. Use
-the `Compute::network()` method to convert a UUID into a network:
-
-	$server->create(array(
-		...
-		'networks' => array($compute->network(Network::RAX_PUBLIC),...)));
-
-## What next?
-
-Return to the [Table of Contents](toc.md).
+Note that the `networks` attribute is an array of `OpenCloud\Compute\Resource\Network`
+objects.
