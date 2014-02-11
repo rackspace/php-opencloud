@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,12 +10,10 @@
 
 namespace OpenCloud\Common;
 
-use OpenCloud\Common\Collection\PaginatedIterator;
-use OpenCloud\Common\Exceptions\JsonError;
-use OpenCloud\Common\Exceptions\UrlError;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Constants\Header as HeaderConst;
 use OpenCloud\Common\Constants\Mime as MimeConst;
+use OpenCloud\Common\Exceptions\JsonError;
 
 /**
  * The root class for all other objects used or defined by this SDK.
@@ -70,14 +68,14 @@ abstract class Base
         if ($this->propertyExists($property) && $prefix == 'set') {
             return $this->setProperty($property, $args[0]);
         }
-        
+
         throw new Exceptions\RuntimeException(sprintf(
-        	'No method %s::%s()', 
-        	get_class($this), 
-        	$method
-		));
+            'No method %s::%s()',
+            get_class($this),
+            $method
+        ));
     }
-        
+
     /**
      * We can set a property under three conditions:
      *
@@ -94,11 +92,10 @@ abstract class Base
         $setter = 'set' . $this->toCamel($property);
 
         if (method_exists($this, $setter)) {
-            
+
             return call_user_func(array($this, $setter), $value);
-            
-        } elseif (false !== ($propertyVal = $this->propertyExists($property))) { 
-            
+        } elseif (false !== ($propertyVal = $this->propertyExists($property))) {
+
             // Are we setting a public or private property?
             if ($this->isAccessible($propertyVal)) {
                 $this->$propertyVal = $value;
@@ -107,7 +104,6 @@ abstract class Base
             }
 
             return $this;
-
         } else {
 
             $this->getLogger()->warning(
@@ -150,12 +146,13 @@ abstract class Base
      * @param  bool $capitalise Optional flag which allows for word capitalization.
      * @return mixed
      */
-    function toCamel($string, $capitalise = true) 
+    function toCamel($string, $capitalise = true)
     {
         if ($capitalise) {
             $string = ucfirst($string);
         }
-        return preg_replace_callback('/_([a-z])/', function($char) {
+
+        return preg_replace_callback('/_([a-z])/', function ($char) {
             return strtoupper($char[1]);
         }, $string);
     }
@@ -166,10 +163,11 @@ abstract class Base
      * @param $string
      * @return mixed
      */
-    function toUnderscores($string) 
+    function toUnderscores($string)
     {
         $string = lcfirst($string);
-        return preg_replace_callback('/([A-Z])/', function($char) {
+
+        return preg_replace_callback('/([A-Z])/', function ($char) {
             return "_" . strtolower($char[1]);
         }, $string);
     }
@@ -184,7 +182,7 @@ abstract class Base
     {
         return array_key_exists($property, get_object_vars($this));
     }
-    
+
     /**
      * Checks the attribute $property and only permits it if the prefix is
      * in the specified $prefixes array
@@ -200,9 +198,10 @@ abstract class Base
             return false;
         }
         $prefix = strstr($property, ':', true);
+
         return in_array($prefix, $this->getService()->namespaces());
     }
-    
+
     /**
      * Grab value out of the data array.
      *
@@ -220,10 +219,10 @@ abstract class Base
         } elseif (false !== ($propertyVal = $this->propertyExists($property)) && $this->isAccessible($propertyVal)) {
             return $this->$propertyVal;
         }
-        
+
         return null;
     }
-    
+
     /**
      * Sets the logger.
      *
@@ -233,12 +232,13 @@ abstract class Base
     public function setLogger(Log\LoggerInterface $logger)
     {
         $this->logger = $logger;
+
         return $this;
     }
 
     /**
      * Returns the Logger object.
-     * 
+     *
      * @return \OpenCloud\Common\Log\AbstractLogger
      */
     public function getLogger()
@@ -246,6 +246,7 @@ abstract class Base
         if (null === $this->logger) {
             $this->setLogger(new Log\Logger);
         }
+
         return $this->logger;
     }
 
@@ -259,9 +260,9 @@ abstract class Base
 
     /**
      * Populates the current object based on an unknown data type.
-     * 
+     *
      * @param  mixed $info
-     * @param  bool
+     * @param        bool
      * @throws Exceptions\InvalidArgumentError
      */
     /**
@@ -274,28 +275,26 @@ abstract class Base
     public function populate($info, $setObjects = true)
     {
         if (is_string($info) || is_integer($info)) {
-            
+
             $this->setProperty($this->primaryKeyField(), $info);
             $this->refresh($info);
-            
         } elseif (is_object($info) || is_array($info)) {
 
             foreach ($info as $key => $value) {
-                
+
                 if ($key == 'metadata' || $key == 'meta') {
-                    
+
                     // Try retrieving existing value
                     if (null === ($metadata = $this->getProperty($key))) {
                         // If none exists, create new object
                         $metadata = new Metadata;
                     }
-                    
+
                     // Set values for metadata
                     $metadata->setArray($value);
-                    
+
                     // Set object property
                     $this->setProperty($key, $metadata);
-                    
                 } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
 
                     // Associated resource
@@ -305,9 +304,8 @@ abstract class Base
                         $resource->setParent($this);
 
                         $this->setProperty($key, $resource);
-
-                    } catch (Exception\ServiceException $e) {}
-   
+                    } catch (Exception\ServiceException $e) {
+                    }
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
 
                     // Associated collection
@@ -318,24 +316,21 @@ abstract class Base
                         $iterator = ResourceIterator::factory($this, $options, $value);
 
                         $this->setProperty($key, $iterator);
-
-                    } catch (Exception\ServiceException $e) {}
-                    
+                    } catch (Exception\ServiceException $e) {
+                    }
                 } elseif (!empty($this->aliases[$key])) {
 
                     // Sometimes we might want to preserve camelCase
                     // or covert `rax-bandwidth:bandwidth` to `raxBandwidth`
                     $this->setProperty($this->aliases[$key], $value);
-                    
                 } else {
                     // Normal key/value pair
                     $this->setProperty($key, $value);
                 }
-
             }
         } elseif (null !== $info) {
             throw new Exceptions\InvalidArgumentError(sprintf(
-                Lang::translate('Argument for [%s] must be string or object'), 
+                Lang::translate('Argument for [%s] must be string or object'),
                 get_class()
             ));
         }
@@ -371,7 +366,7 @@ abstract class Base
                 $jsonError = 'Unexpected JSON error';
                 break;
         }
-        
+
         if (isset($jsonError)) {
             throw new JsonError(Lang::translate($jsonError));
         }
@@ -418,6 +413,7 @@ abstract class Base
     public function stripNamespace($namespace)
     {
         $array = explode('\\', $namespace);
+
         return end($array);
     }
 
@@ -425,5 +421,4 @@ abstract class Base
     {
         return array(HeaderConst::CONTENT_TYPE => MimeConst::JSON);
     }
-
 }

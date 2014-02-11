@@ -25,18 +25,18 @@ use OpenCloud\ObjectStore\Upload\DirectorySync;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
 
 /**
- * A container is a storage compartment for your data and provides a way for you 
- * to organize your data. You can think of a container as a folder in Windows 
- * or a directory in Unix. The primary difference between a container and these 
+ * A container is a storage compartment for your data and provides a way for you
+ * to organize your data. You can think of a container as a folder in Windows
+ * or a directory in Unix. The primary difference between a container and these
  * other file system concepts is that containers cannot be nested.
- * 
+ *
  * A container can also be CDN-enabled (for public access), in which case you
  * will need to interact with a CDNContainer object instead of this one.
  */
 class Container extends AbstractContainer
 {
     const METADATA_LABEL = 'Container';
-    
+
     /**
      * This is the object that holds all the CDN functionality. This Container therefore acts as a simple wrapper and is
      * interested in storage concerns only.
@@ -61,17 +61,17 @@ class Container extends AbstractContainer
     /**
      * Factory method that instantiates an object from a Response object.
      *
-     * @param Response        $response
+     * @param Response         $response
      * @param ServiceInterface $service
      * @return static
      */
     public static function fromResponse(Response $response, ServiceInterface $service)
     {
         $self = parent::fromResponse($response, $service);
-        
+
         $segments = Url::factory($response->getEffectiveUrl())->getPathSegments();
         $self->name = end($segments);
-        
+
         return $self;
     }
 
@@ -85,10 +85,10 @@ class Container extends AbstractContainer
     {
         if (!$this->isCdnEnabled()) {
             throw new Exceptions\CdnNotAvailableError(
-            	'Either this container is not CDN-enabled or the CDN is not available'
+                'Either this container is not CDN-enabled or the CDN is not available'
             );
         }
-        
+
         return $this->cdn;
     }
 
@@ -118,6 +118,7 @@ class Container extends AbstractContainer
     public function setCountQuota($value)
     {
         $this->metadata->setProperty('Quota-Count', $value);
+
         return $this->saveMetadata($this->metadata->toArray());
     }
 
@@ -136,6 +137,7 @@ class Container extends AbstractContainer
     public function setBytesQuota($value)
     {
         $this->metadata->setProperty('Quota-Bytes', $value);
+
         return $this->saveMetadata($this->metadata->toArray());
     }
 
@@ -146,7 +148,7 @@ class Container extends AbstractContainer
     {
         return $this->metadata->getProperty('Quota-Bytes');
     }
-    
+
     public function delete($deleteObjects = false)
     {
         if ($deleteObjects === true) {
@@ -159,7 +161,7 @@ class Container extends AbstractContainer
             if ($e->getResponse()->getStatusCode() == 409) {
                 throw new ContainerException(sprintf(
                     'The API returned this error: %s. You might have to delete all existing objects before continuing.',
-                    (string) $e->getResponse()->getBody()
+                    (string)$e->getResponse()->getBody()
                 ));
             } else {
                 throw $e;
@@ -176,41 +178,42 @@ class Container extends AbstractContainer
     public function deleteAllObjects()
     {
         $requests = array();
-        
+
         $list = $this->objectList();
-        
+
         foreach ($list as $object) {
             $requests[] = $this->getClient()->delete($object->getUrl());
         }
 
         return $this->getClient()->send($requests);
     }
-    
+
     /**
      * Creates a Collection of objects in the container
      *
      * @param array $params associative array of parameter values.
-     * * account/tenant - The unique identifier of the account/tenant.
-     * * container- The unique identifier of the container.
-     * * limit (Optional) - The number limit of results.
-     * * marker (Optional) - Value of the marker, that the object names
-     *      greater in value than are returned.
-     * * end_marker (Optional) - Value of the marker, that the object names
-     *      less in value than are returned.
-     * * prefix (Optional) - Value of the prefix, which the returned object
-     *      names begin with.
-     * * format (Optional) - Value of the serialized response format, either
-     *      json or xml.
-     * * delimiter (Optional) - Value of the delimiter, that all the object
-     *      names nested in the container are returned.
-     * @link http://api.openstack.org for a list of possible parameter
-     *      names and values
+     *                      * account/tenant - The unique identifier of the account/tenant.
+     *                      * container- The unique identifier of the container.
+     *                      * limit (Optional) - The number limit of results.
+     *                      * marker (Optional) - Value of the marker, that the object names
+     *                      greater in value than are returned.
+     *                      * end_marker (Optional) - Value of the marker, that the object names
+     *                      less in value than are returned.
+     *                      * prefix (Optional) - Value of the prefix, which the returned object
+     *                      names begin with.
+     *                      * format (Optional) - Value of the serialized response format, either
+     *                      json or xml.
+     *                      * delimiter (Optional) - Value of the delimiter, that all the object
+     *                      names nested in the container are returned.
+     * @link   http://api.openstack.org for a list of possible parameter
+     *                      names and values
      * @return 'OpenCloud\Common\Collection
      * @throws ObjFetchError
      */
     public function objectList(array $params = array())
     {
         $params['format'] = 'json';
+
         return $this->getService()->resourceList('DataObject', $this->getUrl(null, $params), $this);
     }
 
@@ -247,7 +250,7 @@ class Container extends AbstractContainer
     {
         $headers = array('X-CDN-Enabled' => 'True');
         if ($ttl) {
-            $headers['X-TTL'] = (int) $ttl;
+            $headers['X-TTL'] = (int)$ttl;
         }
 
         $this->getClient()->put($this->getCdnService()->getUrl($this->name), $headers)->send();
@@ -255,9 +258,9 @@ class Container extends AbstractContainer
     }
 
     /**
-     * Disables the containers CDN function. Note that the container will still 
+     * Disables the containers CDN function. Note that the container will still
      * be available on the CDN until its TTL expires.
-     * 
+     *
      * @return \Guzzle\Http\Message\Response
      */
     public function disableCdn()
@@ -273,7 +276,7 @@ class Container extends AbstractContainer
     {
         $headers = $this->createRefreshRequest()->send()->getHeaders();
         $this->setMetadata($headers, true);
-        
+
         try {
             if (null !== ($cdnService = $this->getService()->getCDNService())) {
                 $cdn = new CDNContainer($cdnService);
@@ -288,7 +291,8 @@ class Container extends AbstractContainer
             } else {
                 $this->cdn = null;
             }
-        } catch (ClientErrorResponseException $e) {}   
+        } catch (ClientErrorResponseException $e) {
+        }
     }
 
     /**
@@ -301,25 +305,25 @@ class Container extends AbstractContainer
     {
         return new DataObject($this, $info);
     }
-    
+
     /**
-     * Retrieve an object from the API. Apart from using the name as an 
-     * identifier, you can also specify additional headers that will be used 
+     * Retrieve an object from the API. Apart from using the name as an
+     * identifier, you can also specify additional headers that will be used
      * fpr a conditional GET request. These are
-     * 
+     *
      * * `If-Match'
      * * `If-None-Match'
      * * `If-Modified-Since'
      * * `If-Unmodified-Since'
-     * * `Range'  For example: 
+     * * `Range'  For example:
      *      bytes=-5    would mean the last 5 bytes of the object
      *      bytes=10-15 would mean 5 bytes after a 10 byte offset
      *      bytes=32-   would mean all dat after first 32 bytes
-     * 
+     *
      * These are also documented in RFC 2616.
-     * 
+     *
      * @param string $name
-     * @param array $headers
+     * @param array  $headers
      * @return DataObject
      */
     public function getObject($name, array $headers = array())
@@ -390,10 +394,10 @@ class Container extends AbstractContainer
      * faster execution. This is a very useful procedure when you just have a bunch of unremarkable files to be
      * uploaded quickly. Each file must be under 5GB.
      *
-     * @param array $files With the following array structure:
-     *                      `name' Name that the file will be saved as in your container. Required.
-     *                      `path' Path to an existing file, OR
-     *                      `body' Either a string or stream representation of the file contents to be uploaded.
+     * @param array $files   With the following array structure:
+     *                       `name' Name that the file will be saved as in your container. Required.
+     *                       `path' Path to an existing file, OR
+     *                       `body' Either a string or stream representation of the file contents to be uploaded.
      * @param array $headers Optional headers that will be sent with the request (useful for object metadata).
      *
      * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
@@ -404,20 +408,19 @@ class Container extends AbstractContainer
         $requests = $entities = array();
 
         foreach ($files as $entity) {
-            
-            if (empty($entity['name'])) {
-	            throw new Exceptions\InvalidArgumentError('You must provide a name.');
-	        }
-            
-            if (!empty($entity['path']) && file_exists($entity['path'])) {
-            	$body = fopen($entity['path'], 'r+');
 
-	        } elseif (!empty($entity['body'])) {
-	            $body = $entity['body'];
-	        } else {
-	            throw new Exceptions\InvalidArgumentError('You must provide either a readable path or a body');
-	        }
-	        
+            if (empty($entity['name'])) {
+                throw new Exceptions\InvalidArgumentError('You must provide a name.');
+            }
+
+            if (!empty($entity['path']) && file_exists($entity['path'])) {
+                $body = fopen($entity['path'], 'r+');
+            } elseif (!empty($entity['body'])) {
+                $body = $entity['body'];
+            } else {
+                throw new Exceptions\InvalidArgumentError('You must provide either a readable path or a body');
+            }
+
             $entityBody = $entities[] = EntityBody::factory($body);
 
             // @codeCoverageIgnoreStart
@@ -471,13 +474,13 @@ class Container extends AbstractContainer
         } else {
             throw new Exceptions\InvalidArgumentError('You must provide either a readable path or a body');
         }
-        
+
         // Build upload
         $transfer = TransferBuilder::newInstance()
             ->setOption('objectName', $options['name'])
             ->setEntityBody(EntityBody::factory($body))
             ->setContainer($this);
-        
+
         // Add extra options
         if (!empty($options['metadata'])) {
             $transfer->setOption('metadata', $options['metadata']);

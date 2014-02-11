@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -11,7 +11,6 @@
 namespace OpenCloud\Database;
 
 use OpenCloud\Common\Service\NovaService;
-use OpenCloud\OpenStack;
 
 /**
  * The Rackspace Database As A Service (aka "Red Dwarf")
@@ -52,7 +51,7 @@ class Service extends NovaService
      *
      * @api
      * @param array $params array of parameters to pass to the request as
-     *      query strings
+     *                      query strings
      * @return Collection
      */
     public function instanceList($params = array())

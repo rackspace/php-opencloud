@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -20,10 +20,10 @@ class ServiceBuilder
 
     /**
      * Simple factory method for creating services.
-     * 
-     * @param Client $client The HTTP client object
-     * @param string $class  The class name of the service
-     * @param array $options The options.
+     *
+     * @param Client $client  The HTTP client object
+     * @param string $class   The class name of the service
+     * @param array  $options The options.
      * @return \OpenCloud\Common\Service\ServiceInterface
      * @throws ServiceException
      */
@@ -42,5 +42,4 @@ class ServiceBuilder
 
         return new $class($client, null, $name, $region, $urlType);
     }
-    
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -13,33 +13,33 @@ use OpenCloud\Common\Exceptions\LoggingException;
 
 /**
  * Basic logger for OpenCloud which extends FIG's PSR-3 standard logger.
- * 
+ *
  * @link https://github.com/php-fig/log
  */
 class Logger extends AbstractLogger
-{   
+{
     /**
      * Is this debug class enabled or not?
-     * 
+     *
      * @var bool
      */
     private $enabled;
-    
+
     /**
-     * These are the levels which will always be outputted - regardless of 
+     * These are the levels which will always be outputted - regardless of
      * user-imposed settings.
-     * 
-     * @var array 
+     *
+     * @var array
      */
     private $urgentLevels = array(
         LogLevel::EMERGENCY,
         LogLevel::ALERT,
         LogLevel::CRITICAL
     );
-    
+
     /**
      * Logging options.
-     * 
+     *
      * @var array
      */
     private $options = array(
@@ -61,7 +61,7 @@ class Logger extends AbstractLogger
 
     /**
      * Determines whether a log level needs to be outputted.
-     * 
+     *
      * @param  string $logLevel
      * @return bool
      */
@@ -69,12 +69,12 @@ class Logger extends AbstractLogger
     {
         return in_array($logLevel, $this->urgentLevels);
     }
-    
+
     /**
      * Interpolates context values into the message placeholders.
-     * 
+     *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return type
      */
     private function interpolate($message, array $context = array())
@@ -88,32 +88,33 @@ class Logger extends AbstractLogger
         // interpolate replacement values into the message and return
         return strtr($message, $replace);
     }
-    
+
     /**
      * Enable or disable the debug class.
-     * 
+     *
      * @param  bool $enabled
      * @return self
      */
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
+
         return $this;
     }
-    
+
     /**
      * Is the debug class enabled?
-     * 
+     *
      * @return bool
      */
     public function isEnabled()
     {
         return $this->enabled === true;
     }
-    
+
     /**
      * Set an array of options.
-     * 
+     *
      * @param array $options
      */
     public function setOptions(array $options = array())
@@ -121,22 +122,23 @@ class Logger extends AbstractLogger
         foreach ($options as $key => $value) {
             $this->setOption($key, $value);
         }
+
         return $this;
     }
-    
+
     /**
      * Get all options.
-     * 
+     *
      * @return array
      */
     public function getOptions()
     {
         return $this->options;
     }
-    
+
     /**
      * Set an individual option.
-     * 
+     *
      * @param string $key
      * @param string $value
      */
@@ -144,13 +146,14 @@ class Logger extends AbstractLogger
     {
         if ($this->optionExists($key)) {
             $this->options[$key] = $value;
+
             return $this;
         }
     }
-    
+
     /**
      * Get an individual option.
-     * 
+     *
      * @param  string $key
      * @return string|null
      */
@@ -160,10 +163,10 @@ class Logger extends AbstractLogger
             return $this->options[$key];
         }
     }
-    
+
     /**
      * Check whether an individual option exists.
-     * 
+     *
      * @param  string $key
      * @return bool
      */
@@ -171,10 +174,10 @@ class Logger extends AbstractLogger
     {
         return array_key_exists($key, $this->getOptions());
     }
-    
+
     /**
      * Outputs a log message if necessary.
-     * 
+     *
      * @param string $logLevel
      * @param string $message
      * @param string $context
@@ -185,30 +188,31 @@ class Logger extends AbstractLogger
             $this->dispatch($message, $context);
         }
     }
-    
+
     /**
      * Used to format the line outputted in the log file.
-     * 
+     *
      * @param  string $string
      * @return string
      */
     private function formatFileLine($string)
     {
         $format = $this->getOption('dateFormat') . $this->getOption('delimeter');
+
         return date($format) . $string;
     }
-    
+
     /**
      * Dispatch a log output message.
-     * 
+     *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @throws LoggingException
      */
     private function dispatch($message, $context)
     {
         $output = $this->interpolate($message, $context) . PHP_EOL;
-        
+
         if ($this->getOption('outputToFile') === true) {
             $file = $this->getOption('logFile');
 
@@ -217,7 +221,7 @@ class Logger extends AbstractLogger
                     'The log file either does not exist or is not writeable'
                 );
             }
-            
+
             // Output to file
             file_put_contents($file, $this->formatFileLine($output), FILE_APPEND);
         } else {
@@ -229,7 +233,7 @@ class Logger extends AbstractLogger
     public function deprecated($method, $new)
     {
         $string = sprintf('The %s method is deprecated, please use %s instead', $method, $new);
+
         return $this->warning($string);
     }
-    
 }

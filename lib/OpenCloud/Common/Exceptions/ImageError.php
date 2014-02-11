@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ImageError extends \Exception {}
+class ImageError extends \Exception
+{
+}

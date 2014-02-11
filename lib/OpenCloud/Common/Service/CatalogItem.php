@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -43,7 +43,7 @@ class CatalogItem
         $item->setName($object->name)
             ->setType($object->type)
             ->setEndpoints($object->endpoints);
-        
+
         return $item;
     }
 
@@ -54,6 +54,7 @@ class CatalogItem
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -83,6 +84,7 @@ class CatalogItem
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -110,6 +112,7 @@ class CatalogItem
     public function setEndpoints(array $endpoints)
     {
         $this->endpoints = $endpoints;
+
         return $this;
     }
 
@@ -142,5 +145,4 @@ class CatalogItem
             $region
         ));
     }
-    
 }

@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ServerImageScheduleError extends \Exception {}
+class ServerImageScheduleError extends \Exception
+{
+}

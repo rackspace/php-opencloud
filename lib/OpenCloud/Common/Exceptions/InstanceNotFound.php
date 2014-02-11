@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class InstanceNotFound extends \Exception {}
+class InstanceNotFound extends \Exception
+{
+}

@@ -68,5 +68,4 @@ class Token extends PersistentObject
     {
         return time() >= strtotime($this->expires);
     }
-
 }

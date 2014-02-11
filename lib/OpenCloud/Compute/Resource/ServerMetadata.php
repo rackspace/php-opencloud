@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,14 +10,14 @@
 
 namespace OpenCloud\Compute\Resource;
 
+use Guzzle\Http\Url;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Metadata;
-use OpenCloud\Common\Exceptions;
-use Guzzle\Http\Url;
-use OpenCloud\Common\Http\Message\Formatter;
 
 /**
- * This class handles specialized metadata for OpenStack Server objects (metadata 
+ * This class handles specialized metadata for OpenStack Server objects (metadata
  * items can be managed individually or in aggregate).
  *
  * Server metadata is a weird beast in that it has resource representations
@@ -27,14 +27,14 @@ use OpenCloud\Common\Http\Message\Formatter;
 class ServerMetadata extends Metadata
 {
     private $parent;
-    protected $key;    // the metadata item (if supplied)
-    private $url;      // the URL of this particular metadata item or block
+    protected $key; // the metadata item (if supplied)
+    private $url; // the URL of this particular metadata item or block
 
     /**
      * Contructs a Metadata object associated with a Server or Image object
      *
      * @param object $parent either a Server or an Image object
-     * @param string $key the (optional) key for the metadata item
+     * @param string $key    the (optional) key for the metadata item
      * @throws MetadataError
      */
     public function __construct(Server $parent, $key = null)
@@ -44,7 +44,7 @@ class ServerMetadata extends Metadata
 
         // set the URL according to whether or not we have a key
         if ($this->getParent()->getId()) {
-            
+
             $this->url = $this->getParent()->url('metadata');
             $this->key = $key;
 
@@ -73,6 +73,7 @@ class ServerMetadata extends Metadata
     public function setParent($parent)
     {
         $this->parent = $parent;
+
         return $this;
     }
 
@@ -153,7 +154,7 @@ class ServerMetadata extends Metadata
         // otherwise, just set it;
         parent::__set($key, $value);
     }
-    
+
     /**
      * Builds a metadata JSON string
      *
@@ -163,9 +164,9 @@ class ServerMetadata extends Metadata
      */
     private function getMetadataJson()
     {
-        $object = (object) array(
-            'meta'     => (object) array(),
-            'metadata' => (object) array()
+        $object = (object)array(
+            'meta'     => (object)array(),
+            'metadata' => (object)array()
         );
 
         // different element if only a key is set
@@ -174,14 +175,13 @@ class ServerMetadata extends Metadata
         } else {
             $object->metadata = new \stdClass();
             foreach ($this->keylist() as $key) {
-                $object->metadata->$key = (string) $this->$key;
+                $object->metadata->$key = (string)$this->$key;
             }
         }
 
         $json = json_encode($object);
         $this->checkJsonError();
-        
+
         return $json;
     }
-
 }

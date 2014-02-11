@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class NoContentTypeError extends \Exception {}
+class NoContentTypeError extends \Exception
+{
+}

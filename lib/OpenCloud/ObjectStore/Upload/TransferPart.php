@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -13,7 +13,6 @@ namespace OpenCloud\ObjectStore\Upload;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\Header;
-use OpenCloud\Common\Constants\Mime;
 
 /**
  * Represents an individual part of the EntityBody being uploaded.
@@ -26,17 +25,17 @@ class TransferPart
      * @var int Its position in the upload queue.
      */
     protected $partNumber;
-    
+
     /**
      * @var string This upload's ETag checksum.
      */
     protected $eTag;
-    
+
     /**
      * @var int The length of this upload in bytes.
      */
     protected $contentLength;
-    
+
     /**
      * @var string The API path of this upload.
      */
@@ -49,6 +48,7 @@ class TransferPart
     public function setContentLength($contentLength)
     {
         $this->contentLength = $contentLength;
+
         return $this;
     }
 
@@ -67,6 +67,7 @@ class TransferPart
     public function setETag($etag)
     {
         $this->etag = $etag;
+
         return $this;
     }
 
@@ -85,6 +86,7 @@ class TransferPart
     public function setPartNumber($partNumber)
     {
         $this->partNumber = $partNumber;
+
         return $this;
     }
 
@@ -103,6 +105,7 @@ class TransferPart
     public function setPath($path)
     {
         $this->path = $path;
+
         return $this;
     }
 
@@ -113,10 +116,10 @@ class TransferPart
     {
         return $this->path;
     }
-    
+
     /**
      * Create the request needed for this upload to the API.
-     * 
+     *
      * @param EntityBody $part    The entity body being uploaded
      * @param int        $number  Its number/position, needed for name
      * @param OpenStack  $client  Client responsible for issuing requests
@@ -126,24 +129,24 @@ class TransferPart
     public static function createRequest($part, $number, $client, $options)
     {
         $name = sprintf('%s/%s/%d', $options['objectName'], $options['prefix'], $number);
-        $url  = clone $options['containerUrl'];
+        $url = clone $options['containerUrl'];
         $url->addPath($name);
 
         $headers = array(
             Header::CONTENT_LENGTH => $part->getContentLength(),
             Header::CONTENT_TYPE   => $part->getContentType()
-		);
-        
+        );
+
         if ($options['doPartChecksum'] === true) {
             $headers['ETag'] = $part->getContentMd5();
         }
-        
+
         $request = $client->put($url, $headers, $part);
-        
+
         if (isset($options['progress'])) {
             $request->getCurlOptions()->add('progress', true);
             if (is_callable($options['progress'])) {
-	            $request->getCurlOptions()->add('progressCallback', $options['progress']);
+                $request->getCurlOptions()->add('progressCallback', $options['progress']);
             }
         }
 
@@ -160,15 +163,14 @@ class TransferPart
     public static function fromResponse(Response $response, $partNumber = 1)
     {
         $responseUri = Url::factory($response->getEffectiveUrl());
-        
+
         $object = new self();
-        
+
         $object->setPartNumber($partNumber)
             ->setContentLength($response->getHeader(Header::CONTENT_LENGTH))
             ->setETag($response->getHeader(Header::ETAG))
             ->setPath($responseUri->getPath());
-        
+
         return $object;
     }
-    
 }

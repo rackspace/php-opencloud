@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -19,8 +19,8 @@ use OpenCloud\Common\Service\CatalogService;
 abstract class AbstractService extends CatalogService
 {
     const MAX_CONTAINER_NAME_LENGTH = 256;
-    const MAX_OBJECT_NAME_LEN       = 1024;
-    const MAX_OBJECT_SIZE           = 5102410241025;
+    const MAX_OBJECT_NAME_LEN = 1024;
+    const MAX_OBJECT_SIZE = 5102410241025;
 
     /**
      * List all available containers. If called by a CDN service, it returns CDN-enabled; if called by a regular

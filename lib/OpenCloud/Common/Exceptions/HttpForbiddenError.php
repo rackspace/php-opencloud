@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class HttpForbiddenError extends \Exception {}
+class HttpForbiddenError extends \Exception
+{
+}

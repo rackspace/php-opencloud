@@ -13,7 +13,6 @@ use DirectoryIterator;
 use Guzzle\Http\EntityBody;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
-use OpenCloud\Common\Exceptions\IOError;
 use OpenCloud\ObjectStore\Resource\Container;
 
 /**
@@ -124,7 +123,6 @@ class DirectorySync
                         $entityBody
                     );
                 }
-
             } else {
                 // upload new file
                 $url = clone $this->container->getUrl();
@@ -206,12 +204,13 @@ class DirectorySync
     private function getCallback($name)
     {
         $name = trim($name, '/');
-        return function($remoteFile) use ($name) {
+
+        return function ($remoteFile) use ($name) {
             if ($remoteFile->getName() == $name) {
                 return true;
             }
+
             return false;
         };
     }
-
 }

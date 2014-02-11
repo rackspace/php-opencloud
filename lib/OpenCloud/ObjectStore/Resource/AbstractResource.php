@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -14,39 +14,39 @@ use OpenCloud\Common\Base;
 use OpenCloud\Common\Service\ServiceInterface;
 
 /**
- * Abstract base class which implements shared functionality of ObjectStore 
- * resources. Provides support, for example, for metadata-handling and other 
+ * Abstract base class which implements shared functionality of ObjectStore
+ * resources. Provides support, for example, for metadata-handling and other
  * features that are common to the ObjectStore components.
  */
 abstract class AbstractResource extends Base
 {
     const GLOBAL_METADATA_PREFIX = 'X';
 
-    /** @var \OpenCloud\Common\Metadata*/
+    /** @var \OpenCloud\Common\Metadata */
     protected $metadata;
 
     /** @var string The FQCN of the metadata object used for the container. */
     protected $metadataClass = 'OpenCloud\\Common\\Metadata';
-    
+
     /** @var \OpenCloud\Common\Service\ServiceInterface The service object. */
     protected $service;
-    
+
     public function  __construct(ServiceInterface $service)
     {
-        $this->service  = $service;
+        $this->service = $service;
         $this->metadata = new $this->metadataClass;
     }
-    
+
     public function getService()
     {
         return $this->service;
     }
-    
+
     public function getCdnService()
     {
         return $this->service->getCDNService();
     }
-    
+
     public function getClient()
     {
         return $this->service->getClient();
@@ -55,18 +55,18 @@ abstract class AbstractResource extends Base
     /**
      * Factory method that allows for easy instantiation from a Response object.
      *
-     * @param Response        $response
+     * @param Response         $response
      * @param ServiceInterface $service
      * @return static
      */
     public static function fromResponse(Response $response, ServiceInterface $service)
     {
         $object = new static($service);
-        
+
         if (null !== ($headers = $response->getHeaders())) {
             $object->setMetadata($headers, true);
         }
-        
+
         return $object;
     }
 
@@ -79,11 +79,11 @@ abstract class AbstractResource extends Base
     public static function trimHeaders($headers)
     {
         $output = array();
-        
+
         foreach ($headers as $header => $value) {
             // Only allow allow X-<keyword>-* headers to pass through after stripping them
             if (static::headerIsValidMetadata($header) && ($key = self::stripPrefix($header))) {
-                $output[$key] = (string) $value;
+                $output[$key] = (string)$value;
             }
         }
 
@@ -93,6 +93,7 @@ abstract class AbstractResource extends Base
     protected static function headerIsValidMetadata($header)
     {
         $pattern = sprintf('#^%s\-#i', self::GLOBAL_METADATA_PREFIX);
+
         return preg_match($pattern, $header);
     }
 
@@ -105,6 +106,7 @@ abstract class AbstractResource extends Base
     protected static function stripPrefix($header)
     {
         $pattern = '#^' . self::GLOBAL_METADATA_PREFIX . '\-(' . static::METADATA_LABEL . '-)?(Meta-)?#i';
+
         return preg_replace($pattern, '', $header);
     }
 
@@ -121,6 +123,7 @@ abstract class AbstractResource extends Base
             $prefix = self::GLOBAL_METADATA_PREFIX . '-' . static::METADATA_LABEL . '-Meta-';
             $output[$prefix . $header] = $value;
         }
+
         return $output;
     }
 
@@ -140,6 +143,7 @@ abstract class AbstractResource extends Base
         }
 
         $this->metadata = $data;
+
         return $this;
     }
 
@@ -162,6 +166,7 @@ abstract class AbstractResource extends Base
     public function saveMetadata(array $metadata, $stockPrefix = true)
     {
         $headers = ($stockPrefix === true) ? self::stockHeaders($metadata) : $metadata;
+
         return $this->getClient()->post($this->getUrl(), $headers)->send();
     }
 
@@ -175,8 +180,9 @@ abstract class AbstractResource extends Base
         $response = $this->getClient()
             ->head($this->getUrl())
             ->send();
-        
+
         $this->setMetadata($response->getHeaders(), true);
+
         return $this->metadata;
     }
 
@@ -188,7 +194,7 @@ abstract class AbstractResource extends Base
      */
     public function unsetMetadataItem($key)
     {
-        $header = sprintf('%s-Remove-%s-Meta-%s', self::GLOBAL_METADATA_PREFIX, 
+        $header = sprintf('%s-Remove-%s-Meta-%s', self::GLOBAL_METADATA_PREFIX,
             static::METADATA_LABEL, $key);
 
         $headers = array($header => 'True');
@@ -206,9 +212,8 @@ abstract class AbstractResource extends Base
      */
     public function appendToMetadata(array $values)
     {
-        return (!empty($this->metadata) && is_array($this->metadata)) 
+        return (!empty($this->metadata) && is_array($this->metadata))
             ? array_merge($this->metadata, $values)
             : $values;
     }
-    
 }

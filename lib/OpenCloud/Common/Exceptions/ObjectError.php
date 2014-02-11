@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ObjectError extends \Exception {}
+class ObjectError extends \Exception
+{
+}

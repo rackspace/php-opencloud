@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class NoNameError extends \Exception {}
+class NoNameError extends \Exception
+{
+}

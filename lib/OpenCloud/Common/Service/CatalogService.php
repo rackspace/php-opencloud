@@ -57,7 +57,7 @@ abstract class CatalogService extends AbstractService
     {
         $this->setClient($client);
 
-        $this->name = $name ?: static::DEFAULT_NAME;
+        $this->name = $name ? : static::DEFAULT_NAME;
 
         if ($this->regionless !== true && !($this->region = $region)) {
             throw new Exceptions\ServiceException(sprintf(
@@ -67,8 +67,8 @@ abstract class CatalogService extends AbstractService
             ));
         }
 
-        $this->type = $type ?: static::DEFAULT_TYPE;
-        $this->urlType = $urlType ?: static::DEFAULT_URL_TYPE;
+        $this->type = $type ? : static::DEFAULT_TYPE;
+        $this->urlType = $urlType ? : static::DEFAULT_URL_TYPE;
         $this->setEndpoint($this->findEndpoint());
 
         $this->client->setBaseUrl($this->getBaseUrl());
@@ -157,6 +157,7 @@ abstract class CatalogService extends AbstractService
     public function getExtensions()
     {
         $ext = $this->getMetaUrl('extensions');
+
         return (is_object($ext) && isset($ext->extensions)) ? $ext->extensions : array();
     }
 
@@ -168,6 +169,7 @@ abstract class CatalogService extends AbstractService
     public function limits()
     {
         $limits = $this->getMetaUrl('limits');
+
         return (is_object($limits)) ? $limits->limits : array();
     }
 
@@ -209,7 +211,7 @@ abstract class CatalogService extends AbstractService
      * URL and retrieves the resource.
      *
      * @param string $resource The resource requested; should NOT have slashes
-     *      at the beginning or end
+     *                         at the beginning or end
      * @return \stdClass object
      */
     private function getMetaUrl($resource)
@@ -218,6 +220,7 @@ abstract class CatalogService extends AbstractService
         $url->addPath($resource);
         try {
             $response = $this->getClient()->get($url)->send();
+
             return Formatter::decode($response);
         } catch (BadResponseException $e) {
             // @codeCoverageIgnoreStart
@@ -248,5 +251,4 @@ abstract class CatalogService extends AbstractService
 
         return $url;
     }
-
-} 
+}

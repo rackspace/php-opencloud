@@ -29,7 +29,7 @@ class User extends PersistentObject
     /** @var string The default region for this region. Can be ORD, DFW, IAD, LON, HKG or SYD */
     private $defaultRegion;
 
-    /** @var string  */
+    /** @var string */
     private $domainId;
 
     /** @var int The ID of this user */
@@ -57,7 +57,7 @@ class User extends PersistentObject
     );
 
     protected static $url_resource = 'users';
-    protected static $json_name    = 'user';
+    protected static $json_name = 'user';
 
     /**
      * @param $region Set the default region
@@ -192,7 +192,8 @@ class User extends PersistentObject
                 $array[$key] = $this->$key;
             }
         }
-        return (object) array('user' => $array);
+
+        return (object)array('user' => $array);
     }
 
     /**
@@ -204,11 +205,11 @@ class User extends PersistentObject
     public function updatePassword($newPassword)
     {
         $array = array(
-            'username' => $this->username,
+            'username'          => $this->username,
             'OS-KSADM:password' => $newPassword
         );
 
-        $json = json_encode((object) array('user' => $array));
+        $json = json_encode((object)array('user' => $array));
 
         return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
@@ -329,5 +330,4 @@ class User extends PersistentObject
 
         return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
-
 }

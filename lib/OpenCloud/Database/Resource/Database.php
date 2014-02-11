@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,9 +10,9 @@
 
 namespace OpenCloud\Database\Resource;
 
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * This class represents a Database in the Rackspace "Red Dwarf"
@@ -22,7 +22,7 @@ class Database extends PersistentObject
 {
     protected static $json_collection_name = 'databases';
     protected static $url_resource = 'databases';
-    
+
     public $name;
 
     /**
@@ -39,8 +39,8 @@ class Database extends PersistentObject
      * is not necessarily tied to an actual database.
      *
      * @param Instance $instance the parent DbService\Instance of the database
-     * @param mixed $info if an array or object, treated as properties to set;
-     *      if a string, treated as the database name
+     * @param mixed    $info     if an array or object, treated as properties to set;
+     *                           if a string, treated as the database name
      * @return void
      * @throws DatabaseNameError if `$info` is not a string, object, or array
      */
@@ -51,13 +51,14 @@ class Database extends PersistentObject
         if (is_string($info)) {
             $info = array('name' => $info);
         }
+
         return parent::__construct($instance->getService(), $info);
     }
-    
+
     /**
      * Returns name of this database. Because it's so important (i.e. as an
      * identifier), it will throw an error if not set/empty.
-     * 
+     *
      * @return type
      * @throws Exceptions\DatabaseNameError
      */
@@ -68,6 +69,7 @@ class Database extends PersistentObject
                 Lang::translate('The database does not have a Url yet')
             );
         }
+
         return $this->name;
     }
 
@@ -75,7 +77,7 @@ class Database extends PersistentObject
     {
         return 'name';
     }
-    
+
     /**
      * Returns the Instance of the database
      *
@@ -99,7 +101,7 @@ class Database extends PersistentObject
         $url = $this->getParent()->url('databases');
 
         if (isset($params['name'])) {
-        	$this->name = $params['name'];
+            $this->name = $params['name'];
         }
 
         $json = json_encode($this->createJson($params));
@@ -118,7 +120,7 @@ class Database extends PersistentObject
      */
     public function update($params = array())
     {
-    	return $this->noUpdate();
+        return $this->noUpdate();
     }
 
     /**
@@ -129,7 +131,7 @@ class Database extends PersistentObject
      */
     public function delete()
     {
-    	return $this->getClient()->delete($this->url())->send();
+        return $this->getClient()->delete($this->url())->send();
     }
 
     /**
@@ -137,11 +139,10 @@ class Database extends PersistentObject
      */
     protected function createJson(array $params = array())
     {
-        $database = (object) array_merge(array('name' => $this->getName(), $params));
+        $database = (object)array_merge(array('name' => $this->getName(), $params));
 
-        return (object) array(
+        return (object)array(
             'databases' => array($database)
         );
     }
-
 }

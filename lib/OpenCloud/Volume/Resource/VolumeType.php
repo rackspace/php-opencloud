@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,14 +10,14 @@
 
 namespace OpenCloud\Volume\Resource;
 
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * The VolumeType class represents a single block storage volume type
  */
-class VolumeType extends PersistentObject 
+class VolumeType extends PersistentObject
 {
 
     public $id;
@@ -32,7 +32,7 @@ class VolumeType extends PersistentObject
      *
      * @throws OpenCloud\CreateError always
      */
-    public function Create($params = array()) 
+    public function Create($params = array())
     {
         throw new Exceptions\CreateError(
             Lang::translate('VolumeType cannot be created')
@@ -44,7 +44,7 @@ class VolumeType extends PersistentObject
      *
      * @throws OpenCloud\UpdateError always
      */
-    public function Update($params = array()) 
+    public function Update($params = array())
     {
         throw new Exceptions\UpdateError(
             Lang::translate('VolumeType cannot be updated')
@@ -56,11 +56,10 @@ class VolumeType extends PersistentObject
      *
      * @throws OpenCloud\DeleteError
      */
-    public function Delete() 
+    public function Delete()
     {
         throw new Exceptions\DeleteError(
             Lang::translate('VolumeType cannot be deleted')
         );
     }
-
 }

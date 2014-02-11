@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class NameError extends \Exception {}
+class NameError extends \Exception
+{
+}

@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class HttpOverLimitError extends \Exception {}
+class HttpOverLimitError extends \Exception
+{
+}

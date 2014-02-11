@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -12,8 +12,8 @@ namespace OpenCloud\Common\Service;
 
 use Guzzle\Http\ClientInterface;
 use OpenCloud\Common\Base;
-use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Collection\PaginatedIterator;
+use OpenCloud\Common\Exceptions;
 
 /**
  * This class defines a cloud service; a relationship between a specific OpenStack
@@ -96,6 +96,7 @@ abstract class AbstractService extends Base implements ServiceInterface
     protected function getCurrentNamespace()
     {
         $namespace = get_class($this);
+
         return substr($namespace, 0, strrpos($namespace, '\\'));
     }
 
@@ -127,8 +128,8 @@ abstract class AbstractService extends Base implements ServiceInterface
      * Factory method for instantiating resource objects.
      *
      * @param  string $resourceName
-     * @param  mixed $info (default: null)
-     * @param  mixed $parent The parent object
+     * @param  mixed  $info   (default: null)
+     * @param  mixed  $parent The parent object
      * @return object
      */
     public function resource($resourceName, $info = null, $parent = null)
@@ -156,6 +157,7 @@ abstract class AbstractService extends Base implements ServiceInterface
     public function resourceList($resourceName, $url = null, $parent = null)
     {
         $className = $this->resolveResourceClass($resourceName);
+
         return $this->collection($className, $url, $parent);
     }
 

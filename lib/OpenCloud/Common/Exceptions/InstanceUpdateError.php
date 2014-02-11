@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class InstanceUpdateError extends \Exception {}
+class InstanceUpdateError extends \Exception
+{
+}

@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,19 +10,18 @@
 
 namespace OpenCloud\Common;
 
-use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\Response;
 use Guzzle\Http\Url;
 use OpenCloud\Common\Constants\State as StateConst;
-use OpenCloud\Common\Service\ServiceInterface;
 use OpenCloud\Common\Exceptions\RuntimeException;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Service\ServiceInterface;
 
 /**
  * Represents an object that can be retrieved, created, updated and deleted.
  *
- * This class abstracts much of the common functionality between: 
- *  
+ * This class abstracts much of the common functionality between:
+ *
  *  * Nova servers;
  *  * Swift containers and objects;
  *  * DBAAS instances;
@@ -30,15 +29,15 @@ use OpenCloud\Common\Http\Message\Formatter;
  *  * and various other objects that:
  *    * have a URL;
  *    * can be created, updated, deleted, or retrieved;
- *    * use a standard JSON format with a top-level element followed by 
+ *    * use a standard JSON format with a top-level element followed by
  *      a child object with attributes.
  *
  * In general, you can create a persistent object class by subclassing this
  * class and defining some protected, static variables:
- * 
+ *
  *  * $url_resource - the sub-resource value in the URL of the parent. For
  *    example, if the parent URL is `http://something/parent`, then setting this
- *    value to "another" would result in a URL for the persistent object of 
+ *    value to "another" would result in a URL for the persistent object of
  *    `http://something/parent/another`.
  *
  *  * $json_name - the top-level JSON object name. For example, if the
@@ -48,7 +47,7 @@ use OpenCloud\Common\Http\Message\Formatter;
  *  * $json_collection_name - optional; this value is the name of a collection
  *    of the persistent objects. If not provided, it defaults to `json_name`
  *    with an appended "s" (e.g., if `json_name` is "foo", then
- *    `json_collection_name` would be "foos"). Set this value if the collection 
+ *    `json_collection_name` would be "foos"). Set this value if the collection
  *    name doesn't follow this pattern.
  *
  *  * $json_collection_element - the common pattern for a collection is:
@@ -60,14 +59,14 @@ use OpenCloud\Common\Http\Message\Formatter;
  *    `{"allowedDomain":[{"allowedDomain":{"name":"foo"}}]}`,
  *    `json_collection_element` would be set to "allowedDomain".
  *
- * The PersistentObject class supports the standard CRUD methods; if these are 
- * not needed (i.e. not supported by  the service), the subclass should redefine 
- * these to call the `noCreate`, `noUpdate`, or `noDelete` methods, which will 
+ * The PersistentObject class supports the standard CRUD methods; if these are
+ * not needed (i.e. not supported by  the service), the subclass should redefine
+ * these to call the `noCreate`, `noUpdate`, or `noDelete` methods, which will
  * trigger an appropriate exception. For example, if an object cannot be created:
  *
- *    function create($params = array()) 
+ *    function create($params = array())
  *    { 
- *       $this->noCreate(); 
+ *       $this->noCreate();
  *    }
  */
 abstract class PersistentObject extends Base
@@ -87,28 +86,29 @@ abstract class PersistentObject extends Base
         if ($service instanceof ServiceInterface) {
             $this->setService($service);
         }
-        
+
         $this->metadata = new Metadata;
 
         $this->populate($info);
     }
-            
+
     /**
      * Sets the service associated with this resource object.
-     * 
+     *
      * @param \OpenCloud\Common\Service\ServiceInterface $service
      * @return \OpenCloud\Common\PersistentObject
      */
     public function setService(ServiceInterface $service)
     {
         $this->service = $service;
+
         return $this;
     }
-    
+
     /**
      * Returns the service object for this resource; required for making
      * requests, etc. because it has direct access to the Connection.
-     * 
+     *
      * @return \OpenCloud\Common\Service\ServiceInterface
      * @throws \OpenCloud\Common\Exceptions\ServiceException
      */
@@ -119,24 +119,26 @@ abstract class PersistentObject extends Base
                 'No service defined'
             );
         }
+
         return $this->service;
     }
-    
+
     /**
      * Set the parent object for this resource.
-     * 
+     *
      * @param \OpenCloud\Common\PersistentObject $parent
      * @return \OpenCloud\Common\PersistentObject
      */
     public function setParent(PersistentObject $parent)
     {
         $this->parent = $parent;
+
         return $this;
     }
-    
+
     /**
      * Returns the parent.
-     * 
+     *
      * @return \OpenCloud\Common\PersistentObject
      */
     public function getParent()
@@ -144,21 +146,22 @@ abstract class PersistentObject extends Base
         if (null === $this->parent) {
             $this->parent = $this->getService();
         }
+
         return $this->parent;
     }
-        
+
     public function getClient()
     {
         return $this->getService()->getClient();
     }
-    
+
     public function setMetadata($metadata)
     {
         $this->metadata = $metadata;
-        
+
         return $this;
     }
-    
+
     public function getMetadata()
     {
         return $this->metadata;
@@ -252,38 +255,38 @@ abstract class PersistentObject extends Base
     {
         $primaryKey = $this->primaryKeyField();
         $primaryKeyVal = $this->getProperty($primaryKey);
-        
+
         if (!$url) {
-            
-            if (!$id = $id ?: $primaryKeyVal) {
+
+            if (!$id = $id ? : $primaryKeyVal) {
                 throw new Exceptions\IdRequiredError(sprintf(
                     Lang::translate("%s has no %s; cannot be refreshed"),
                     get_class($this),
                     $primaryKey
                 ));
             }
-            
+
             if ($primaryKeyVal != $id) {
                 $this->setProperty($primaryKey, $id);
             }
-            
+
             $url = $this->getUrl();
         }
-        
+
         // reset status, if available
         if ($this->getProperty('status')) {
             $this->setProperty('status', null);
         }
 
         $response = $this->getClient()->get($url)->send();
-  
+
         if (null !== ($decoded = $this->parseResponse($response))) {
             $this->populate($decoded);
         }
-        
+
         return $response;
     }
-    
+
     /**
      * Deletes an object
      *
@@ -313,7 +316,7 @@ abstract class PersistentObject extends Base
      * This may have to be overridden in subclasses.
      *
      * @param string $subresource optional sub-resource string
-     * @param array $qstr optional k/v pairs for query strings
+     * @param array  $qstr        optional k/v pairs for query strings
      * @return string
      */
     public function getUrl($path = null, array $query = array())
@@ -326,7 +329,7 @@ abstract class PersistentObject extends Base
 
             // Does it have a primary key?
             if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {
-                $url->addPath((string) $primaryKey);
+                $url->addPath((string)$primaryKey);
             }
         }
 
@@ -334,7 +337,7 @@ abstract class PersistentObject extends Base
             $url = Url::factory($url);
         }
 
-        return $url->addPath((string) $path)->setQuery($query);
+        return $url->addPath((string)$path)->setQuery($query);
     }
 
     /**
@@ -345,42 +348,42 @@ abstract class PersistentObject extends Base
      * then the function returns.
      *
      * @api
-     * @param string $terminal the terminal state to wait for
-     * @param integer $timeout the max time (in seconds) to wait
+     * @param string   $terminal the terminal state to wait for
+     * @param integer  $timeout  the max time (in seconds) to wait
      * @param callable $callback a callback function that is invoked with
-     *      each repetition of the polling sequence. This can be used, for
-     *      example, to update a status display or to permit other operations
-     *      to continue
+     *                           each repetition of the polling sequence. This can be used, for
+     *                           example, to update a status display or to permit other operations
+     *                           to continue
      * @return void
      * @codeCoverageIgnore
      */
     public function waitFor($state = null, $timeout = null, $callback = null, $interval = null)
     {
-        $state    = $state ?: StateConst::ACTIVE;
-        $timeout  = $timeout ?: StateConst::DEFAULT_TIMEOUT;
-        $interval = $interval ?: StateConst::DEFAULT_INTERVAL;
+        $state = $state ? : StateConst::ACTIVE;
+        $timeout = $timeout ? : StateConst::DEFAULT_TIMEOUT;
+        $interval = $interval ? : StateConst::DEFAULT_INTERVAL;
 
         // save stats
         $startTime = time();
-        
+
         $states = array('ERROR', $state);
-        
+
         while (true) {
-            
+
             $this->refresh($this->getProperty($this->primaryKeyField()));
-            
+
             if ($callback) {
                 call_user_func($callback, $this);
             }
-            
+
             if (in_array($this->status(), $states) || (time() - $startTime) > $timeout) {
                 return;
             }
-            
+
             sleep($interval);
         }
     }
-    
+
     /**
      * Sends the json string to the /action resource
      *
@@ -389,7 +392,7 @@ abstract class PersistentObject extends Base
      * Since it can only be used on a live server, it checks for a valid ID.
      *
      * @param $object - this will be encoded as json, and we handle all the JSON
-     *     error-checking in one place
+     *                error-checking in one place
      * @throws Exceptions\IdRequiredError if server ID is not defined
      * @throws Exceptions\ServerActionError on other errors
      * @returns boolean; TRUE if successful, FALSE otherwise
@@ -417,7 +420,7 @@ abstract class PersistentObject extends Base
 
         // debug - save the request
         $this->getLogger()->info(Lang::translate('{class}::action [{json}]'), array(
-            'class' => get_class($this), 
+            'class' => get_class($this),
             'json'  => $json
         ));
 
@@ -428,7 +431,7 @@ abstract class PersistentObject extends Base
         return $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
     }
 
-     /**
+    /**
      * Returns an object for the Create() method JSON
      * Must be overridden in a child class.
      *
@@ -442,8 +445,8 @@ abstract class PersistentObject extends Base
                 get_class($this)
             ));
         }
-        
-        $element = (object) array();
+
+        $element = (object)array();
 
         foreach ($this->createKeys as $key) {
             if (null !== ($property = $this->getProperty($key))) {
@@ -452,10 +455,10 @@ abstract class PersistentObject extends Base
         }
 
         if (isset($this->metadata) && count($this->metadata)) {
-            $element->metadata = (object) $this->metadata->toArray();
+            $element->metadata = (object)$this->metadata->toArray();
         }
 
-        return (object) array($this->jsonName() => (object) $element);
+        return (object)array($this->jsonName() => (object)$element);
     }
 
     /**
@@ -510,7 +513,7 @@ abstract class PersistentObject extends Base
             get_class($this)
         ));
     }
-        
+
     /**
      * Returns the displayable name of the object
      *
@@ -573,7 +576,7 @@ abstract class PersistentObject extends Base
                 $alias
             ));
         }
-        
+
         return true;
     }
 
@@ -588,12 +591,12 @@ abstract class PersistentObject extends Base
     {
         return $this->getService()->Region();
     }
-    
+
     /**
      * Since each server can have multiple links, this returns the desired one
      *
      * @param string $type - 'self' is most common; use 'bookmark' for
-     *      the version-independent one
+     *                     the version-independent one
      * @return string the URL from the links block
      */
     public function findLink($type = 'self')
@@ -715,20 +718,19 @@ abstract class PersistentObject extends Base
             get_class()
         ));
     }
-    
+
     public function parseResponse(Response $response)
     {
         $body = Formatter::decode($response);
-        
+
         $top = $this->jsonName();
-            
+
         if ($top && isset($body->$top)) {
             $content = $body->$top;
         } else {
             $content = $body;
         }
-        
+
         return $content;
     }
-
 }

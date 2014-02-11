@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright Copyright 2014 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.6.0
@@ -14,7 +14,7 @@ namespace OpenCloud\LoadBalancer\Resource;
 /**
  * Sub-resource to manage Metadata
  */
-class Metadata extends SubResource 
+class Metadata extends SubResource
 {
 
     public $id;
@@ -26,13 +26,12 @@ class Metadata extends SubResource
     protected static $url_resource = 'metadata';
 
     protected $createKeys = array(
-        'key', 
+        'key',
         'value'
     );
 
-    public function name() 
+    public function name()
     {
         return $this->key;
     }
-
 }

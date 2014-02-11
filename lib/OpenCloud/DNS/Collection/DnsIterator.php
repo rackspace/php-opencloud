@@ -29,5 +29,4 @@ class DnsIterator extends PaginatedIterator
 
         return false;
     }
-
 }

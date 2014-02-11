@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,10 +10,8 @@
 
 namespace OpenCloud\ObjectStore;
 
-use OpenCloud\OpenStack;
-
 /**
- * This is the CDN version of the ObjectStore service. 
+ * This is the CDN version of the ObjectStore service.
  */
 class CDNService extends AbstractService
 {

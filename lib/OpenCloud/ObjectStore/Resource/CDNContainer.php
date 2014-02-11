@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -13,8 +13,8 @@ namespace OpenCloud\ObjectStore\Resource;
 use OpenCloud\ObjectStore\Constants\Header as HeaderConst;
 
 /**
- * A container that has been CDN-enabled. Each CDN-enabled container has a unique 
- * Uniform Resource Locator (URL) that can be combined with its object names and 
+ * A container that has been CDN-enabled. Each CDN-enabled container has a unique
+ * Uniform Resource Locator (URL) that can be combined with its object names and
  * openly distributed in web pages, emails, or other applications.
  */
 class CDNContainer extends AbstractContainer
@@ -68,7 +68,7 @@ class CDNContainer extends AbstractContainer
         $headers = $response->getHeaders();
         $this->setMetadata($headers, true);
 
-        return $headers;  
+        return $headers;
     }
 
     /**
@@ -79,6 +79,7 @@ class CDNContainer extends AbstractContainer
     public function enableCdnLogging()
     {
         $headers = array('X-Log-Retention' => 'True');
+
         return $this->getClient()->put($this->getUrl(), $headers)->send();
     }
 
@@ -90,6 +91,7 @@ class CDNContainer extends AbstractContainer
     public function disableCdnLogging()
     {
         $headers = array('X-Log-Retention' => 'False');
+
         return $this->getClient()->put($this->getUrl(), $headers)->send();
     }
 

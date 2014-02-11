@@ -9,11 +9,11 @@
 
 namespace OpenCloud\Compute\Constants;
 
-class ImageState 
+class ImageState
 {
-    const ACTIVE  = 'ACTIVE';
+    const ACTIVE = 'ACTIVE';
     const DELETED = 'DELETED';
-    const ERROR   = 'ERROR';
-    const SAVING  = 'SAVING';
+    const ERROR = 'ERROR';
+    const SAVING = 'SAVING';
     const UNKNOWN = 'UNKNOWN';
 } 

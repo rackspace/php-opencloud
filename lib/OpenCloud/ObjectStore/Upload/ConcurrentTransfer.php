@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -10,8 +10,8 @@
 
 namespace OpenCloud\ObjectStore\Upload;
 
-use Guzzle\Http\ReadLimitEntityBody;
 use Guzzle\Http\EntityBody;
+use Guzzle\Http\ReadLimitEntityBody;
 
 /**
  * A transfer type which executes in a concurrent fashion, i.e. with multiple workers uploading at once. Each worker is
@@ -24,22 +24,22 @@ class ConcurrentTransfer extends AbstractTransfer
 {
     public function transfer()
     {
-        $totalParts = (int) ceil($this->entityBody->getContentLength() / $this->partSize);
+        $totalParts = (int)ceil($this->entityBody->getContentLength() / $this->partSize);
         $workers = min($totalParts, $this->options['concurrency']);
         $parts = $this->collectParts($workers);
-        
+
         while ($this->transferState->count() < $totalParts) {
-            
+
             $completedParts = $this->transferState->count();
             $requests = array();
-            
+
             // Iterate over number of workers until total completed parts is what we need it to be
             for ($i = 0; $i < $workers && ($completedParts + $i) < $totalParts; $i++) {
-                
+
                 // Offset is the current pointer multiplied by the standard chunk length
                 $offset = ($completedParts + $i) * $this->partSize;
                 $parts[$i]->setOffset($offset);
-                
+
                 // If this segment is empty (i.e. buffering a half-full chunk), break the iteration
                 if ($parts[$i]->getContentLength() == 0) {
                     break;
@@ -47,9 +47,9 @@ class ConcurrentTransfer extends AbstractTransfer
 
                 // Add this to the request queue for later processing
                 $requests[] = TransferPart::createRequest(
-                    $parts[$i], 
-                    $this->transferState->count() + $i + 1, 
-                    $this->client, 
+                    $parts[$i],
+                    $this->transferState->count() + $i + 1,
+                    $this->client,
                     $this->options
                 );
             }
@@ -73,15 +73,14 @@ class ConcurrentTransfer extends AbstractTransfer
     private function collectParts($workers)
     {
         $uri = $this->entityBody->getUri();
-        
+
         $array = array(new ReadLimitEntityBody($this->entityBody, $this->partSize));
-        
+
         for ($i = 1; $i < $workers; $i++) {
-        	// Need to create a fresh EntityBody, otherwise you'll get weird 408 responses
+            // Need to create a fresh EntityBody, otherwise you'll get weird 408 responses
             $array[] = new ReadLimitEntityBody(new EntityBody(fopen($uri, 'r')), $this->partSize);
         }
 
         return $array;
     }
-    
 }

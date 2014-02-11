@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class SnapshotError extends \Exception {}
+class SnapshotError extends \Exception
+{
+}

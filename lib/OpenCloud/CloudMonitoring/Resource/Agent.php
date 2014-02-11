@@ -1,11 +1,18 @@
 <?php
 /**
- * PHP OpenCloud library.
- * 
- * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
- * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * Copyright 2012-2014 Rackspace US, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 namespace OpenCloud\CloudMonitoring\Resource;
@@ -30,7 +37,7 @@ class Agent extends ReadOnlyResource
      * @var int UTC timestamp of last connection.
      */
     private $last_connected;
-	
+
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'agents';
@@ -40,15 +47,15 @@ class Agent extends ReadOnlyResource
      * @throws \OpenCloud\CloudMonitoring\Exception\AgentException
      */
     public function getConnections()
-	{
-    	if (!$this->getId()) {
-        	throw new Exception\AgentException(
-        	   'Please specify an "ID" value'
-        	);
-    	}
+    {
+        if (!$this->getId()) {
+            throw new Exception\AgentException(
+                'Please specify an "ID" value'
+            );
+        }
 
-    	return $this->getService()->resourceList('AgentConnection', $this->getUrl('connections'));
-	}
+        return $this->getService()->resourceList('AgentConnection', $this->getUrl('connections'));
+    }
 
     /**
      * @param $connectionId
@@ -56,20 +63,19 @@ class Agent extends ReadOnlyResource
      * @throws \OpenCloud\CloudMonitoring\Exception\AgentException
      */
     public function getConnection($connectionId)
-	{
-    	if (!$this->getId()) {
-        	throw new Exception\AgentException(
-        	   'Please specify an "ID" value'
-        	);
-    	}
-    	
-    	$url = clone $this->getUrl();
+    {
+        if (!$this->getId()) {
+            throw new Exception\AgentException(
+                'Please specify an "ID" value'
+            );
+        }
+
+        $url = clone $this->getUrl();
         $url->addPath('connections')->addPath($connectionId);
 
-    	$response = $this->getClient()->get($url)->send();
+        $response = $this->getClient()->get($url)->send();
         $body = Formatter::decode($response);
 
-    	return $this->getService()->resource('AgentConnection', $body);
-	}
-	
+        return $this->getService()->resource('AgentConnection', $body);
+    }
 }

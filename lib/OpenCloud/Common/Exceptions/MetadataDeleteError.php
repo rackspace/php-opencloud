@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class MetadataDeleteError extends \Exception {}
+class MetadataDeleteError extends \Exception
+{
+}

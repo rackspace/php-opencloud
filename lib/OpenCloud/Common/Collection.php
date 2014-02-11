@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -36,10 +36,10 @@ class Collection extends Base
      * * It assumes that the factory method can take an array of values, and
      *   it passes that to the method.
      *
-     * @param Service $service - the service associated with the collection
-     * @param string $itemclass - the Class of each item in the collection
-     *      (assumed to be the name of the factory method)
-     * @param array $arr - the input array
+     * @param Service $service   - the service associated with the collection
+     * @param string  $itemclass - the Class of each item in the collection
+     *                           (assumed to be the name of the factory method)
+     * @param array   $arr       - the input array
      */
     public function __construct($service, $class, array $array = array())
     {
@@ -68,6 +68,7 @@ class Collection extends Base
     private function setItemList(array $array)
     {
         $this->itemList = $array;
+
         return $this;
     }
 
@@ -89,6 +90,7 @@ class Collection extends Base
     public function setService($service)
     {
         $this->service = $service;
+
         return $this;
     }
 
@@ -108,6 +110,7 @@ class Collection extends Base
     private function setItemClass($itemClass)
     {
         $this->itemClass = $itemClass;
+
         return $this;
     }
 
@@ -125,6 +128,7 @@ class Collection extends Base
     private function setSortKey($sortKey)
     {
         $this->sortKey = $sortKey;
+
         return $this;
     }
 
@@ -142,6 +146,7 @@ class Collection extends Base
     private function setNextPageClass($nextPageClass)
     {
         $this->nextPageClass = $nextPageClass;
+
         return $this;
     }
 
@@ -164,14 +169,15 @@ class Collection extends Base
      * and the `$url` should be the URL of the next page of results
      *
      * @param callable $callback the name of the function (or array of
-     *      object, function name)
-     * @param string $url the URL of the next page of results
+     *                           object, function name)
+     * @param string   $url      the URL of the next page of results
      * @return void
      */
     public function setNextPageCallback($callback, $url)
     {
         $this->nextPageCallback = $callback;
         $this->nextPageUrl = $url;
+
         return $this;
     }
 
@@ -238,6 +244,7 @@ class Collection extends Base
     public function first()
     {
         $this->reset();
+
         return $this->next();
     }
 
@@ -274,7 +281,7 @@ class Collection extends Base
             return false;
         }
 
-        $data  = $this->getItem($this->pointer++);
+        $data = $this->getItem($this->pointer++);
         $class = $this->getItemClass();
 
         // Are there specific methods in the parent/service that can be used to
@@ -338,9 +345,9 @@ class Collection extends Base
      *
      * @api
      * @param callable $testfunc a callback function that is passed each item
-     *      in turn. Note that `Select()` performs an explicit test for
-     *      `FALSE`, so functions like `strpos()` need to be cast into a
-     *      boolean value (and not just return the integer).
+     *                           in turn. Note that `Select()` performs an explicit test for
+     *                           `FALSE`, so functions like `strpos()` need to be cast into a
+     *                           boolean value (and not just return the integer).
      * @returns void
      * @throws DomainError if callback doesn't return a boolean value
      */
@@ -404,5 +411,4 @@ class Collection extends Base
             return 1;
         }
     }
-
 }

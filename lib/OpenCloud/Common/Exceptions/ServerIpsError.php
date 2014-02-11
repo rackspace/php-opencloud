@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ServerIpsError extends \Exception {}
+class ServerIpsError extends \Exception
+{
+}

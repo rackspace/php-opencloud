@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class UserNameError extends \Exception {}
+class UserNameError extends \Exception
+{
+}

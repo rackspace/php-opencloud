@@ -10,4 +10,6 @@
 
 namespace OpenCloud\ObjectStore\Resource;
 
-class ContainerMetadata extends \OpenCloud\Common\Metadata {}
+class ContainerMetadata extends \OpenCloud\Common\Metadata
+{
+}

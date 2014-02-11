@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class UnknownError extends \Exception {}
+class UnknownError extends \Exception
+{
+}

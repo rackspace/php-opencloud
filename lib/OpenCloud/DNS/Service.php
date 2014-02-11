@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,10 +10,9 @@
 
 namespace OpenCloud\DNS;
 
-use OpenCloud\Common\Service\CatalogService;
-use OpenCloud\OpenStack;
-use OpenCloud\Compute\Resource\Server;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Service\CatalogService;
+use OpenCloud\Compute\Resource\Server;
 use OpenCloud\DNS\Collection\DnsIterator;
 
 /**
@@ -31,7 +30,7 @@ class Service extends CatalogService
         $options = $this->makeResourceIteratorOptions($this->resolveResourceClass($class));
         $options['baseUrl'] = $url;
 
-        $parent = $parent ?: $this;
+        $parent = $parent ? : $this;
 
         return DnsIterator::factory($parent, $options, $data);
     }
@@ -58,6 +57,7 @@ class Service extends CatalogService
     public function domainList($filter = array())
     {
         $url = $this->getUrl(Resource\Domain::resourceName(), $filter);
+
         return $this->collection('OpenCloud\DNS\Resource\Domain', $url);
     }
 
@@ -76,7 +76,7 @@ class Service extends CatalogService
      * returns a Collection of PTR records for a given Server
      *
      * @param \OpenCloud\Compute\Resource\Server $server the server for which to
-     *      retrieve the PTR records
+     *                                                   retrieve the PTR records
      * @return \OpenCloud\Common\Collection
      */
     public function ptrRecordList(Server $server)
@@ -97,15 +97,16 @@ class Service extends CatalogService
      * an `AsyncResponse` object. This object can then be used to poll
      * for the status or to retrieve the final data as needed.
      *
-     * @param string $url the URL of the request
-     * @param string $method the HTTP method to use
-     * @param array $headers key/value pairs for headers to include
-     * @param string $body the body of the request (for PUT and POST)
+     * @param string $url     the URL of the request
+     * @param string $method  the HTTP method to use
+     * @param array  $headers key/value pairs for headers to include
+     * @param string $body    the body of the request (for PUT and POST)
      * @return Resource\AsyncResponse
      */
     public function asyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
         $response = $this->getClient()->createRequest($method, $url, $headers, $body)->send();
+
         return new Resource\AsyncResponse($this, Formatter::decode($response));
     }
 
@@ -126,9 +127,9 @@ class Service extends CatalogService
         // determine the URL
         $url = $this->url('domains/import');
 
-        $object = (object) array(
+        $object = (object)array(
             'domains' => array(
-                (object) array(
+                (object)array(
                     'contents'    => $data,
                     'contentType' => 'BIND_9'
                 )
@@ -167,7 +168,7 @@ class Service extends CatalogService
     {
         $response = $this->getClient()->get($this->getUrl('limits/types'))->send();
         $body = Formatter::decode($response);
+
         return $body->limitTypes;
     }
-
 }

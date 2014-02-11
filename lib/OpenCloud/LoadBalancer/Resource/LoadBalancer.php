@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright Copyright 2014 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.6.0
@@ -11,28 +11,27 @@
 
 namespace OpenCloud\LoadBalancer\Resource;
 
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\PersistentObject;
 
 /**
- * A load balancer is a logical device which belongs to a cloud account. It is 
- * used to distribute workloads between multiple back-end systems or services, 
+ * A load balancer is a logical device which belongs to a cloud account. It is
+ * used to distribute workloads between multiple back-end systems or services,
  * based on the criteria defined as part of its configuration.
- * 
- * 
+ *
+ *
  */
-class LoadBalancer extends PersistentObject 
+class LoadBalancer extends PersistentObject
 {
 
     public $id;
-    
+
     /**
-     * Name of the load balancer to create. The name must be 128 characters or 
+     * Name of the load balancer to create. The name must be 128 characters or
      * less in length, and all UTF-8 characters are valid.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $name;
 
@@ -42,62 +41,62 @@ class LoadBalancer extends PersistentObject
      * @var string
      */
     public $port;
-    
+
     /**
      * Protocol of the service which is being load balanced.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $protocol;
-    
+
     /**
      * Type of virtual IP to add along with the creation of a load balancer.
-     * 
+     *
      * @var array|Collection
      */
     public $virtualIps = array();
-    
+
     /**
      * Nodes to be added to the load balancer.
-     * 
+     *
      * @var array|Collection
      */
     public $nodes = array();
-    
+
     /**
-     * The access list management feature allows fine-grained network access 
+     * The access list management feature allows fine-grained network access
      * controls to be applied to the load balancer's virtual IP address.
-     * 
-     * @var Collection 
+     *
+     * @var Collection
      */
     public $accessList;
-    
+
     /**
      * Algorithm that defines how traffic should be directed between back-end nodes.
      *
      * @var Algorithm
      */
     public $algorithm;
-    
+
     /**
      * Current connection logging configuration.
-     * 
+     *
      * @var ConnectionLogging
      */
     public $connectionLogging;
-    
+
     /**
-     * Specifies limits on the number of connections per IP address to help 
+     * Specifies limits on the number of connections per IP address to help
      * mitigate malicious or abusive traffic to your applications.
-     * 
+     *
      * @var ConnectionThrottle
      */
     public $connectionThrottle;
-    
+
     /**
-     * The type of health monitor check to perform to ensure that the service is 
+     * The type of health monitor check to perform to ensure that the service is
      * performing properly.
-     * 
+     *
      * @var HealthMonitor
      */
     public $healthMonitor;
@@ -109,23 +108,23 @@ class LoadBalancer extends PersistentObject
      * @var SessionPersistance
      */
     public $sessionPersistence;
-    
+
     /**
-     * Information (metadata) that can be associated with each load balancer for 
+     * Information (metadata) that can be associated with each load balancer for
      * the client's personal use.
-     * 
-     * @var array|Metadata 
+     *
+     * @var array|Metadata
      */
     public $metadata = array();
-    
+
     /**
-     * The timeout value for the load balancer and communications with its nodes. 
+     * The timeout value for the load balancer and communications with its nodes.
      * Defaults to 30 seconds with a maximum of 120 seconds.
-     * 
-     * @var int 
+     *
+     * @var int
      */
     public $timeout;
-    
+
     public $created;
     public $updated;
     public $status;
@@ -177,27 +176,28 @@ class LoadBalancer extends PersistentObject
      * * for an existing LoadBalancer, you must call the AddNodes() method
      *
      * @api
-     * @param string $address the IP address of the node
-     * @param integer $port the port # of the node
+     * @param string  $address   the IP address of the node
+     * @param integer $port      the port # of the node
      * @param boolean $condition the initial condition of the node
-     * @param string $type either PRIMARY or SECONDARY
-     * @param integer $weight the node weight (for round-robin)
+     * @param string  $type      either PRIMARY or SECONDARY
+     * @param integer $weight    the node weight (for round-robin)
      * @throws \OpenCloud\DomainError if value is not valid
      * @return void
      */
     public function addNode(
-        $address, 
-        $port, 
+        $address,
+        $port,
         $condition = 'ENABLED',
-        $type = null, 
+        $type = null,
         $weight = null
-    ) {
+    )
+    {
         $node = $this->Node();
         $node->address = $address;
         $node->port = $port;
         $cond = strtoupper($condition);
 
-        switch($cond) {
+        switch ($cond) {
             case 'ENABLED':
             case 'DISABLED':
             case 'DRAINING':
@@ -205,20 +205,20 @@ class LoadBalancer extends PersistentObject
                 break;
             default:
                 throw new Exceptions\DomainError(sprintf(
-                    Lang::translate('Value [%s] for Node::condition is not valid'), 
+                    Lang::translate('Value [%s] for Node::condition is not valid'),
                     $condition
                 ));
         }
 
         if ($type !== null) {
-            switch(strtoupper($type)) {
+            switch (strtoupper($type)) {
                 case 'PRIMARY':
                 case 'SECONDARY':
                     $node->type = $type;
                     break;
                 default:
                     throw new Exceptions\DomainError(sprintf(
-                        Lang::translate('Value [%s] for Node::type is not valid'), 
+                        Lang::translate('Value [%s] for Node::type is not valid'),
                         $type
                     ));
             }
@@ -229,7 +229,7 @@ class LoadBalancer extends PersistentObject
                 $node->weight = $weight;
             } else {
                 throw new Exceptions\DomainError(sprintf(
-                    Lang::translate('Value [%s] for Node::weight must be integer'), 
+                    Lang::translate('Value [%s] for Node::weight must be integer'),
                     $weight
                 ));
             }
@@ -238,8 +238,8 @@ class LoadBalancer extends PersistentObject
         // queue it
         $this->nodes[] = $node;
     }
-    
-    public function addNodes() 
+
+    public function addNodes()
     {
         if (count($this->nodes) < 1) {
             throw new Exceptions\MissingValueError(
@@ -248,13 +248,13 @@ class LoadBalancer extends PersistentObject
         }
 
         // iterate through all the nodes
-        foreach($this->nodes as $node) {
+        foreach ($this->nodes as $node) {
             $resp = $node->Create();
         }
 
         return $resp;
     }
-    
+
     /**
      * Remove a node from this load-balancer
      *
@@ -275,19 +275,19 @@ class LoadBalancer extends PersistentObject
      * IP address.
      *
      * @api
-     * @param string $id either 'public' or 'servicenet' or an ID of an
-     *      existing IP address
+     * @param string  $id        either 'public' or 'servicenet' or an ID of an
+     *                           existing IP address
      * @param integer $ipVersion either null, 4, or 6 (both, IPv4, or IPv6)
      * @return void
      */
-    public function addVirtualIp($type = 'PUBLIC', $ipVersion = NULL) 
+    public function addVirtualIp($type = 'PUBLIC', $ipVersion = null)
     {
         $object = new \stdClass();
 
         /**
          * check for PUBLIC or SERVICENET
          */
-        switch(strtoupper($type)) {
+        switch (strtoupper($type)) {
             case 'PUBLIC':
             case 'SERVICENET':
                 $object->type = strtoupper($type);
@@ -298,7 +298,7 @@ class LoadBalancer extends PersistentObject
         }
 
         if ($ipVersion) {
-            switch($ipVersion) {
+            switch ($ipVersion) {
                 case 4:
                     $object->version = 'IPV4';
                     break;
@@ -307,7 +307,7 @@ class LoadBalancer extends PersistentObject
                     break;
                 default:
                     throw new Exceptions\DomainError(sprintf(
-                        Lang::translate('Value [%s] for ipVersion is not valid'), 
+                        Lang::translate('Value [%s] for ipVersion is not valid'),
                         $ipVersion
                     ));
             }
@@ -322,6 +322,7 @@ class LoadBalancer extends PersistentObject
             $virtualIp = $this->virtualIp();
             $virtualIp->type = $type;
             $virtualIp->ipVersion = $object->version;
+
             return $virtualIp->create();
         } else {
             // queue it
@@ -334,17 +335,18 @@ class LoadBalancer extends PersistentObject
     /**
      * returns a Node object
      */
-    public function node($id = null) 
+    public function node($id = null)
     {
         $resource = new Node($this->getService());
         $resource->setParent($this)->populate($id);
+
         return $resource;
     }
 
     /**
      * returns a Collection of Nodes
      */
-    public function nodeList() 
+    public function nodeList()
     {
         return $this->getService()->resourceList('Node', null, $this);
     }
@@ -352,17 +354,18 @@ class LoadBalancer extends PersistentObject
     /**
      * returns a NodeEvent object
      */
-    public function nodeEvent() 
+    public function nodeEvent()
     {
         $resource = new NodeEvent($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      * returns a Collection of NodeEvents
      */
-    public function nodeEventList() 
+    public function nodeEventList()
     {
         return $this->getParent()->resourceList('NodeEvent', null, $this);
     }
@@ -370,28 +373,29 @@ class LoadBalancer extends PersistentObject
     /**
      * returns a single Virtual IP (not called publicly)
      */
-    public function virtualIp($data = null) 
+    public function virtualIp($data = null)
     {
         $resource = new VirtualIp($this->getService(), $data);
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
-        
     }
 
     /**
      * returns  a Collection of Virtual Ips
      */
-    public function virtualIpList() 
+    public function virtualIpList()
     {
         return $this->getService()->resourceList('VirtualIp', null, $this);
     }
 
     /**
      */
-    public function sessionPersistence() 
+    public function sessionPersistence()
     {
         $resource = new SessionPersistence($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
@@ -401,10 +405,11 @@ class LoadBalancer extends PersistentObject
      * @api
      * @return ErrorPage
      */
-    public function errorPage() 
+    public function errorPage()
     {
         $resource = new ErrorPage($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
@@ -414,10 +419,11 @@ class LoadBalancer extends PersistentObject
      * @api
      * @return HealthMonitor
      */
-    public function healthMonitor() 
+    public function healthMonitor()
     {
         $resource = new HealthMonitor($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
@@ -429,86 +435,94 @@ class LoadBalancer extends PersistentObject
      * @api
      * @return Stats
      */
-    public function stats() 
+    public function stats()
     {
         $resource = new Stats($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function usage() 
+    public function usage()
     {
         $resource = new Usage($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function access($data = null) 
+    public function access($data = null)
     {
         $resource = new Access($this->getService(), $data);
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function accessList() 
+    public function accessList()
     {
         return $this->getService()->resourceList('Access', null, $this);
     }
 
     /**
      */
-    public function connectionThrottle() 
+    public function connectionThrottle()
     {
         $resource = new ConnectionThrottle($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function connectionLogging() 
+    public function connectionLogging()
     {
         $resource = new ConnectionLogging($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function contentCaching() 
+    public function contentCaching()
     {
         $resource = new ContentCaching($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function SSLTermination() 
+    public function SSLTermination()
     {
         $resource = new SSLTermination($this->getService());
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function metadata($data = null) 
+    public function metadata($data = null)
     {
         $resource = new Metadata($this->getService(), $data);
         $resource->setParent($this)->initialRefresh();
+
         return $resource;
     }
 
     /**
      */
-    public function metadataList() 
+    public function metadataList()
     {
         return $this->getService()->resourceList('Metadata', null, $this);
     }
@@ -518,31 +532,31 @@ class LoadBalancer extends PersistentObject
      *
      * @return stdClass
      */
-    protected function createJson() 
+    protected function createJson()
     {
-        $element = (object) array();
+        $element = (object)array();
 
         foreach ($this->createKeys as $key) {
             if ($key == 'nodes') {
                 foreach ($this->nodes as $node) {
-                    $nodeObject = (object) array();
+                    $nodeObject = (object)array();
                     foreach ($node->createKeys as $key) {
                         if (!empty($node->$key)) {
                             $nodeObject->$key = $node->$key;
                         }
                     }
-                    $element->nodes[] = (object) $nodeObject;
+                    $element->nodes[] = (object)$nodeObject;
                 }
-            } elseif($key == 'virtualIps') {
-                foreach ($this->virtualIps  as $virtualIp) {
+            } elseif ($key == 'virtualIps') {
+                foreach ($this->virtualIps as $virtualIp) {
                     $element->virtualIps[] = $virtualIp;
                 }
             } elseif (isset($this->$key)) {
                 $element->$key = $this->$key;
             }
         }
-        
-        $object = (object) array($this->jsonName() => $element);
+
+        $object = (object)array($this->jsonName() => $element);
 
         return $object;
     }
@@ -556,11 +570,11 @@ class LoadBalancer extends PersistentObject
     protected function updateJson($params = array())
     {
 
-        $updatableFields = array('name','algorithm','protocol','port','timeout','halfClosed');
+        $updatableFields = array('name', 'algorithm', 'protocol', 'port', 'timeout', 'halfClosed');
 
         //Validate supplied fields
         $fields = array_keys($params);
-        foreach($fields as $field) {
+        foreach ($fields as $field) {
             if (!in_array($field, $updatableFields)) {
                 throw new Exceptions\InvalidArgumentError("You cannot update $field.");
             }
@@ -568,9 +582,10 @@ class LoadBalancer extends PersistentObject
 
         $object = new \stdClass();
         $object->loadBalancer = new \stdClass();
-        foreach($params as $name => $value) {
+        foreach ($params as $name => $value) {
             $object->loadBalancer->$name = $this->$name;
         }
+
         return $object;
-    } 
+    }
 }

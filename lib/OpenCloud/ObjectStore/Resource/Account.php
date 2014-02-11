@@ -11,7 +11,7 @@ namespace OpenCloud\ObjectStore\Resource;
 
 /**
  * Represents an account that interacts with the CloudFiles API.
- * 
+ *
  * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Accounts-d1e421.html
  */
 class Account extends AbstractResource
@@ -22,7 +22,7 @@ class Account extends AbstractResource
      * @var string The temporary URL secret for this account
      */
     private $tempUrlSecret;
-    
+
     public function getUrl($path = null, array $query = array())
     {
         return $this->getService()->getUrl();
@@ -61,8 +61,8 @@ class Account extends AbstractResource
     {
         return $this->metadata->getProperty('Bytes-Used');
     }
-    
-    /** 
+
+    /**
      * Sets the secret value for the temporary URL.
      *
      * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/Set_Account_Metadata-d1a4460.html
@@ -70,16 +70,16 @@ class Account extends AbstractResource
      * @param null $secret The value to set the secret to. If left blank, a random hash is generated.
      * @return $this
      */
-    public function setTempUrlSecret($secret = null) 
+    public function setTempUrlSecret($secret = null)
     {
         if (!$secret) {
             $secret = sha1(rand(1, 99999));
         }
-        
+
         $this->tempUrlSecret = $secret;
-        
+
         $this->saveMetadata($this->appendToMetadata(array('Temp-Url-Key' => $secret)));
-        
+
         return $this;
     }
 
@@ -92,8 +92,7 @@ class Account extends AbstractResource
             $this->retrieveMetadata();
             $this->tempUrlSecret = $this->metadata->getProperty('Temp-Url-Key');
         }
-        
+
         return $this->tempUrlSecret;
     }
-    
 }

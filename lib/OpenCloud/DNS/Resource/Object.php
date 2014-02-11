@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,16 +10,16 @@
 
 namespace OpenCloud\DNS\Resource;
 
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * The DnsObject class is an extension of the PersistentObject class that
  * permits the asynchronous responses used by Cloud DNS
  */
-abstract class Object extends PersistentObject 
+abstract class Object extends PersistentObject
 {
 
     /**
@@ -28,9 +28,10 @@ abstract class Object extends PersistentObject
      * @param array $params array of key/value pairs
      * @return AsyncResponse
      */
-    public function create($params = array()) 
+    public function create($params = array())
     {
         $body = Formatter::decode(parent::create($params));
+
         return new AsyncResponse($this->getService(), $body);
     }
 
@@ -40,10 +41,11 @@ abstract class Object extends PersistentObject
      * @param array $params array of key/value pairs
      * @return AsyncResponse
      */
-    public function update($params = array()) 
+    public function update($params = array())
     {
         $response = parent::update($params);
         $body = Formatter::decode($response);
+
         return new AsyncResponse($this->getService(), $body);
     }
 
@@ -53,9 +55,10 @@ abstract class Object extends PersistentObject
      * @param array $params array of key/value pairs
      * @return AsyncResponse
      */
-    public function delete() 
+    public function delete()
     {
         $body = Formatter::decode(parent::delete());
+
         return new AsyncResponse($this->getService(), $body);
     }
 
@@ -64,7 +67,7 @@ abstract class Object extends PersistentObject
      *
      * @return stdClass
      */
-    protected function createJson() 
+    protected function createJson()
     {
         if (!$this->getCreateKeys()) {
             throw new Exceptions\CreateError(
@@ -72,7 +75,7 @@ abstract class Object extends PersistentObject
             );
         }
 
-        return (object) array(
+        return (object)array(
             self::jsonCollectionName() => array(
                 $this->getJson($this->getCreateKeys())
             )
@@ -84,13 +87,14 @@ abstract class Object extends PersistentObject
      *
      * @return stdClass
      */
-    protected function updateJson($params = array()) 
+    protected function updateJson($params = array())
     {
         if (!$this->getUpdateKeys()) {
             throw new Exceptions\UpdateError(
                 Lang::translate('Missing [updateKeys]')
             );
         }
+
         return $this->getJson($this->getUpdateKeys());
     }
 
@@ -100,35 +104,35 @@ abstract class Object extends PersistentObject
      * @param array $keys list of items to include
      * @return stdClass
      */
-    private function getJson($keys) 
+    private function getJson($keys)
     {
         $object = new \stdClass;
-        foreach($keys as $item) {
+        foreach ($keys as $item) {
             if (!empty($this->$item)) {
                 $object->$item = $this->$item;
             }
         }
+
         return $object;
     }
-    
+
     /**
      * Retrieve the keys which are required when the object is created.
-     * 
+     *
      * @return array|false
      */
     public function getCreateKeys()
     {
         return (!empty($this->createKeys)) ? $this->createKeys : false;
     }
-    
+
     /**
      * Retrieve the keys which are required when the object is updated.
-     *  
+     *
      * @return array|false
      */
     public function getUpdateKeys()
     {
         return (!empty($this->updateKeys)) ? $this->updateKeys : false;
     }
-    
 }

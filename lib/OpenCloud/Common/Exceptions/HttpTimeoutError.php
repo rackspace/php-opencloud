@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class HttpTimeoutError extends \Exception {}
+class HttpTimeoutError extends \Exception
+{
+}

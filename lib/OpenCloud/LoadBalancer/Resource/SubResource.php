@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright Copyright 2014 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.6.0
@@ -13,7 +13,6 @@ namespace OpenCloud\LoadBalancer\Resource;
 
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Lang;
 
 /**
  * SubResource is an abstract class that handles subresources of a
@@ -30,11 +29,11 @@ use OpenCloud\Common\Lang;
  *   anonymous, this defines the name of the element holding the object.
  * Of these, only the `$json_name` and `$url_resource` are required.
  */
-abstract class SubResource extends PersistentObject 
+abstract class SubResource extends PersistentObject
 {
     /**
      * This method needs attention.
-     * 
+     *
      * @codeCoverageIgnore
      */
     public function initialRefresh()
@@ -62,11 +61,11 @@ abstract class SubResource extends PersistentObject
         foreach ($this->createKeys as $item) {
             $object->$item = $this->$item;
         }
-        
+
         if ($top = $this->jsonName()) {
-            $object = (object) array($top => $object);
+            $object = (object)array($top => $object);
         }
-        
+
         return $object;
     }
 
@@ -76,7 +75,7 @@ abstract class SubResource extends PersistentObject
      * For these subresources, the update JSON is the same as the Create JSON
      * @return \stdClass
      */
-    protected function updateJson($params = array()) 
+    protected function updateJson($params = array())
     {
         return $this->createJson();
     }
@@ -89,10 +88,11 @@ abstract class SubResource extends PersistentObject
      * @api
      * @return string
      */
-    public function name() 
+    public function name()
     {
         $classArray = explode('\\', get_class($this));
-        return method_exists($this->getParent(), 'id') 
+
+        return method_exists($this->getParent(), 'id')
             ? sprintf('%s-%s', end($classArray), $this->getParent()->id())
             : parent::name();
     }
@@ -105,5 +105,4 @@ abstract class SubResource extends PersistentObject
             return false;
         }
     }
-
 }

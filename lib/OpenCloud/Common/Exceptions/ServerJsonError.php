@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ServerJsonError extends \Exception {}
+class ServerJsonError extends \Exception
+{
+}

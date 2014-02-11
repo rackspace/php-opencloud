@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -38,7 +38,7 @@ class AsyncResponse extends PersistentObject
      * string
      *
      * @param \OpenCloud\Service $service the calling service
-     * @param string $json the json response from the initial request
+     * @param string             $json    the json response from the initial request
      */
     public function __construct(ServiceInterface $service, $object = null)
     {
@@ -94,5 +94,4 @@ class AsyncResponse extends PersistentObject
     {
         return 'jobId';
     }
-
 }

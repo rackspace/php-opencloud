@@ -12,13 +12,13 @@ namespace OpenCloud\ObjectStore\Constants;
 /**
  * Constants for different request and metadata headers.
  */
-class Header 
+class Header
 {
     const OBJECT_COUNT = 'Object-Count';
-    const BYTES_USED   = 'Bytes-Used';
-    const ACCESS_LOGS  = 'Access-Log-Delivery';
+    const BYTES_USED = 'Bytes-Used';
+    const ACCESS_LOGS = 'Access-Log-Delivery';
 
     const TRANS_ID = 'Trans-Id';
-    const ENABLED  = 'Enabled';
+    const ENABLED = 'Enabled';
     const LOG_RETENTION = 'Log-Retention';
 } 

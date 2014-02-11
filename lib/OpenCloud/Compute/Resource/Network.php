@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -11,22 +11,21 @@
 namespace OpenCloud\Compute\Resource;
 
 use Guzzle\Http\Url;
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Compute\Service;
+use OpenCloud\Common\PersistentObject;
 use OpenCloud\Compute\Constants\Network as NetworkConst;
+use OpenCloud\Compute\Service;
 
 /**
  * The Network class represents a single virtual network
  */
-class Network extends PersistentObject 
+class Network extends PersistentObject
 {
 
     public $id;
     public $label;
     public $cidr;
-    
+
     protected static $json_name = 'network';
     protected static $url_resource = 'os-networksv2';
     protected static $openStackResourcePath = 'os-networks';
@@ -38,12 +37,12 @@ class Network extends PersistentObject
      * networks. These are not really networks, but they show up in lists.
      *
      * @param \OpenCloud\Compute\Service $service The compute service associated with
-     *      the network
-     * @param string|null $id The ID of the network (this handles the pseudo-networks
-     *      Network::RAX_PUBLIC and Network::RAX_PRIVATE
+     *                                            the network
+     * @param string|null                $id      The ID of the network (this handles the pseudo-networks
+     *                                            Network::RAX_PUBLIC and Network::RAX_PRIVATE
      * @return Network
      */
-    public function __construct(Service $service, $id = null) 
+    public function __construct(Service $service, $id = null)
     {
         $this->id = $id;
 
@@ -59,7 +58,7 @@ class Network extends PersistentObject
             default:
                 return parent::__construct($service, $id);
         }
-        
+
         return;
     }
 
@@ -68,7 +67,7 @@ class Network extends PersistentObject
      *
      * @throws Exceptions\NetworkUpdateError always
      */
-    public function update($params = array()) 
+    public function update($params = array())
     {
         throw new Exceptions\NetworkUpdateError('Isolated networks cannot be updated');
     }
@@ -80,7 +79,7 @@ class Network extends PersistentObject
      * @return \OpenCloud\HttpResponse
      * @throws NetworkDeleteError if HTTP status is not Success
      */
-    public function delete() 
+    public function delete()
     {
         switch ($this->id) {
             case NetworkConst::RAX_PUBLIC:
@@ -90,14 +89,14 @@ class Network extends PersistentObject
                 return parent::delete();
         }
     }
-    
+
     /**
      * returns the visible name (label) of the network
      *
      * @api
      * @return string
      */
-    public function name() 
+    public function name()
     {
         return $this->label;
     }
@@ -105,13 +104,13 @@ class Network extends PersistentObject
     /**
      * Creates the JSON object for the Create() method
      */
-    protected function createJson() 
+    protected function createJson()
     {
-        return (object) array(
-            'network' => (object) array(
-                'cidr'  => $this->cidr,
-                'label' => $this->label
-            )
+        return (object)array(
+            'network' => (object)array(
+                    'cidr'  => $this->cidr,
+                    'label' => $this->label
+                )
         );
     }
 
@@ -144,11 +143,10 @@ class Network extends PersistentObject
      */
     public function getResourcePath()
     {
-        if (strpos((string) $this->getService()->getUrl(), 'rackspacecloud.com') !== false) {
+        if (strpos((string)$this->getService()->getUrl(), 'rackspacecloud.com') !== false) {
             return self::$url_resource;
         } else {
             return self::$openStackResourcePath;
         }
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright Copyright 2014 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.6.0
@@ -12,88 +12,88 @@
 namespace OpenCloud\LoadBalancer\Resource;
 
 /**
- * Active health monitoring is a technique that uses synthetic transactions 
- * executed at periodic intervals to determine the condition of a node. One of 
- * the advantages of active health monitoring is that it does not require active 
- * transactions to be processed by the load balancer to determine whether or not 
- * a node is suitable for handling traffic. Active health monitoring is not 
+ * Active health monitoring is a technique that uses synthetic transactions
+ * executed at periodic intervals to determine the condition of a node. One of
+ * the advantages of active health monitoring is that it does not require active
+ * transactions to be processed by the load balancer to determine whether or not
+ * a node is suitable for handling traffic. Active health monitoring is not
  * applied by default and must be enabled per load balancer.
- * 
+ *
  * The active health monitor can use one of three types of probes:
- * 
+ *
  * * connect
  * * HTTP
  * * HTTPS
- * 
- * These probes are executed at configured intervals; in the event of a failure, 
- * the node status changes to OFFLINE and the node will not receive traffic. If, 
- * after running a subsequent test, the probe detects that the node has recovered, 
+ *
+ * These probes are executed at configured intervals; in the event of a failure,
+ * the node status changes to OFFLINE and the node will not receive traffic. If,
+ * after running a subsequent test, the probe detects that the node has recovered,
  * then the node's status is changed to ONLINE and it is capable of servicing requests.
  */
-class HealthMonitor extends SubResource 
+class HealthMonitor extends SubResource
 {
-    
+
     /**
      * Type of the health monitor. Can either be "connect", "HTTP" or "HTTPS"
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $type;
-    
+
     /**
-     * The minimum number of seconds to wait before executing the health monitor. 
+     * The minimum number of seconds to wait before executing the health monitor.
      * Must be a number between 1 and 3600.
-     * 
-     * @var int 
+     *
+     * @var int
      */
     public $delay;
-    
+
     /**
-     * Maximum number of seconds to wait for a connection to be established 
+     * Maximum number of seconds to wait for a connection to be established
      * before timing out. Must be a number between 1 and 300.
-     * 
-     * @var int 
+     *
+     * @var int
      */
     public $timeout;
-    
+
     /**
-     * Number of permissible monitor failures before removing a node from rotation. 
+     * Number of permissible monitor failures before removing a node from rotation.
      * Must be a number between 1 and 10.
-     * 
-     * @var int 
+     *
+     * @var int
      */
     public $attemptsBeforeDeactivation;
-    
+
     /**
-     * A regular expression that will be used to evaluate the contents of the 
+     * A regular expression that will be used to evaluate the contents of the
      * body of the response.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $bodyRegex;
-    
+
     /**
      * The name of a host for which the health monitors will check.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $hostHeader;
-    
+
     /**
      * The HTTP path that will be used in the sample request.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $path;
-    
+
     /**
-     * A regular expression that will be used to evaluate the HTTP status code 
+     * A regular expression that will be used to evaluate the HTTP status code
      * returned in the response.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $statusRegex;
-        
+
     protected static $json_name = 'healthMonitor';
     protected static $url_resource = 'healthmonitor';
     protected $createKeys = array(
@@ -116,9 +116,8 @@ class HealthMonitor extends SubResource
      *
      * @param array $params array of parameters
      */
-    public function create($params = array()) 
-    { 
-        return $this->update($params); 
+    public function create($params = array())
+    {
+        return $this->update($params);
     }
-
 }

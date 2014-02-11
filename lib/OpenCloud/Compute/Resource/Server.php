@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,123 +10,122 @@
 
 namespace OpenCloud\Compute\Resource;
 
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Lang;
-use OpenCloud\Compute\Service;
-use OpenCloud\Compute\Constants\ServerState;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Compute\Constants\ServerState;
+use OpenCloud\Compute\Service;
+use OpenCloud\Volume\Resource\Volume;
 
 /**
  * A virtual machine (VM) instance in the Cloud Servers environment.
  *
- * @note This implementation supports extension attributes OS-DCF:diskConfig, 
+ * @note This implementation supports extension attributes OS-DCF:diskConfig,
  * RAX-SERVER:bandwidth, rax-bandwidth:bandwith.
  */
 class Server extends PersistentObject
 {
     /**
      * The server status. {@see \OpenCloud\Compute\Constants\ServerState} for supported types.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $status;
-    
+
     /**
      * @var string The time stamp for the last update.
      */
     public $updated;
-    
+
     /**
-     * The compute provisioning algorithm has an anti-affinity property that 
-     * attempts to spread customer VMs across hosts. Under certain situations, 
-     * VMs from the same customer might be placed on the same host. $hostId 
-     * represents the host your server runs on and can be used to determine this 
+     * The compute provisioning algorithm has an anti-affinity property that
+     * attempts to spread customer VMs across hosts. Under certain situations,
+     * VMs from the same customer might be placed on the same host. $hostId
+     * represents the host your server runs on and can be used to determine this
      * scenario if it is relevant to your application.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     public $hostId;
-    
+
     /**
      * @var type Public and private IP addresses for this server.
      */
     public $addresses;
-    
+
     /**
      * @var array Server links.
      */
     public $links;
-    
+
     /**
      * The Image for this server.
-     * 
+     *
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
-     * @var type 
+     * @var type
      */
     public $image;
-    
+
     /**
      * The Flavor for this server.
-     * 
+     *
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Flavors-d1e4188.html
-     * @var type 
+     * @var type
      */
     public $flavor;
-    
+
     /**
-     * @var type 
+     * @var type
      */
     public $networks = array();
-    
+
     /**
      * @var string The server ID.
      */
     public $id;
-    
+
     /**
      * @var string The user ID.
      */
     public $user_id;
-    
+
     /**
      * @var string The server name.
      */
     public $name;
-    
+
     /**
      * @var string The time stamp for the creation date.
      */
     public $created;
-    
+
     /**
      * @var string The tenant ID.
      */
     public $tenant_id;
-    
-    /** 
+
+    /**
      * @var string The public IP version 4 access address.
      */
     public $accessIPv4;
-    
+
     /**
      * @var string The public IP version 6 access address.
      */
     public $accessIPv6;
-    
+
     /**
      * The build completion progress, as a percentage. Value is from 0 to 100.
-
-     * @var int 
+     * @var int
      */
     public $progress;
-    
+
     /**
      * @var string The root password (only populated on server creation).
      */
     public $adminPass;
-    
+
     /**
      * @var mixed Metadata key and value pairs.
      */
@@ -137,17 +136,17 @@ class Server extends PersistentObject
 
     /** @var string|object Keypair or string representation of keypair name */
     public $keypair;
-    
+
     /**
      * @var array Uploaded file attachments
      */
     private $personality = array();
-    
+
     /**
      * @var type Image reference (for create)
      */
     private $imageRef;
-    
+
     /**
      * @var type Flavor reference (for create)
      */
@@ -163,12 +162,12 @@ class Server extends PersistentObject
      * Creates a new Server object and associates it with a Compute service
      *
      * @param mixed $info
-     * * If NULL, an empty Server object is created
-     * * If an object, then a Server object is created from the data in the
+     *      * If NULL, an empty Server object is created
+     *      * If an object, then a Server object is created from the data in the
      *      object
-     * * If a string, then it's treated as a Server ID and retrieved from the
+     *      * If a string, then it's treated as a Server ID and retrieved from the
      *      service
-     * The normal use case for SDK clients is to treat it as either NULL or an
+     *      The normal use case for SDK clients is to treat it as either NULL or an
      *      ID. The object value parameter is a special case used to construct
      *      a Server object from a ServerList element to avoid a secondary
      *      call to the Service.
@@ -217,9 +216,9 @@ class Server extends PersistentObject
      */
     public function create($params = array())
     {
-        $this->id     = null;
+        $this->id = null;
         $this->status = null;
-        
+
         return parent::create($params);
     }
 
@@ -228,30 +227,30 @@ class Server extends PersistentObject
      *
      * @api
      * @param array $params - an associative array of key/value pairs of
-     *      attributes to set on the new server
+     *                      attributes to set on the new server
      */
     public function rebuild($params = array())
     {
-    	if (!isset($params['adminPass'])) {
-    		throw new Exceptions\RebuildError(
-    			Lang::Translate('adminPass required when rebuilding server')
+        if (!isset($params['adminPass'])) {
+            throw new Exceptions\RebuildError(
+                Lang::Translate('adminPass required when rebuilding server')
             );
         }
-        
+
         if (!isset($params['image'])) {
-    		throw new Exceptions\RebuildError(
-    			Lang::Translate('image required when rebuilding server')
+            throw new Exceptions\RebuildError(
+                Lang::Translate('image required when rebuilding server')
             );
         }
-        
-        $object = (object) array(
-            'rebuild' => (object) array(
-                'imageRef'  => $params['image']->id(),
-                'adminPass' => $params['adminPass'],
-                'name' => (array_key_exists('name', $params) ? $params['name'] : $this->name)
-            )
+
+        $object = (object)array(
+            'rebuild' => (object)array(
+                    'imageRef'  => $params['image']->id(),
+                    'adminPass' => $params['adminPass'],
+                    'name'      => (array_key_exists('name', $params) ? $params['name'] : $this->name)
+                )
         );
-        
+
         return $this->action($object);
     }
 
@@ -271,7 +270,7 @@ class Server extends PersistentObject
             $type = ServerState::REBOOT_STATE_HARD;
         }
 
-        $object = (object) array('reboot' => (object) array('type' => $type));
+        $object = (object)array('reboot' => (object)array('type' => $type));
 
         return $this->action($object);
     }
@@ -280,8 +279,8 @@ class Server extends PersistentObject
      * Creates a new image from a server
      *
      * @api
-     * @param string $name The name of the new image
-     * @param array $metadata Optional metadata to be stored on the image
+     * @param string $name     The name of the new image
+     * @param array  $metadata Optional metadata to be stored on the image
      * @return boolean|Image New Image instance on success; FALSE on failure
      * @throws Exceptions\ImageError
      */
@@ -289,18 +288,18 @@ class Server extends PersistentObject
     {
         if (empty($name)) {
             throw new Exceptions\ImageError(
-            	Lang::translate('Image name is required to create an image')
+                Lang::translate('Image name is required to create an image')
             );
         }
 
         // construct a createImage object for jsonization
-        $object = (object) array('createImage' => (object) array(
-            'name'     => $name, 
-            'metadata' => (object) $metadata
-        ));
+        $object = (object)array('createImage' => (object)array(
+                'name'     => $name,
+                'metadata' => (object)$metadata
+            ));
 
         $response = $this->action($object);
-        
+
         if (!$response || !($location = $response->getHeader('Location'))) {
             return false;
         }
@@ -313,10 +312,10 @@ class Server extends PersistentObject
      *
      * @api
      * @param mixed $retention - false (default) indicates you want to
-     *      retrieve the image schedule. $retention <= 0 indicates you
-     *      want to delete the current schedule. $retention > 0 indicates
-     *      you want to schedule image backups and you would like to
-     *      retain $retention backups.
+     *                         retrieve the image schedule. $retention <= 0 indicates you
+     *                         want to delete the current schedule. $retention > 0 indicates
+     *                         you want to schedule image backups and you would like to
+     *                         retain $retention backups.
      * @return mixed an object or FALSE on error
      * @throws Exceptions\ServerImageScheduleError if an error is encountered
      */
@@ -324,16 +323,16 @@ class Server extends PersistentObject
     {
         $url = $this->getUrl('rax-si-image-schedule');
 
-        if ($retention === false) { 
+        if ($retention === false) {
             // Get current retention
             $request = $this->getClient()->get($url);
-        } elseif ($retention <= 0) { 
+        } elseif ($retention <= 0) {
             // Delete image schedule
             $request = $this->getClient()->delete($url);
-        } else { 
+        } else {
             // Set image schedule
-            $object = (object) array('image_schedule' => 
-                (object) array('retention' => $retention)
+            $object = (object)array('image_schedule' =>
+                                        (object)array('retention' => $retention)
             );
             $body = json_encode($object);
             $request = $this->getClient()->post($url, self::getJsonHeader(), $body);
@@ -341,7 +340,7 @@ class Server extends PersistentObject
 
         $body = Formatter::decode($request->send());
 
-        return (isset($body->image_schedule)) ? $body->image_schedule : (object) array();
+        return (isset($body->image_schedule)) ? $body->image_schedule : (object)array();
     }
 
     /**
@@ -354,9 +353,10 @@ class Server extends PersistentObject
     public function resize(Flavor $flavorRef)
     {
         // construct a resize object for jsonization
-        $object = (object) array(
-            'resize' => (object) array('flavorRef' => $flavorRef->id)
+        $object = (object)array(
+            'resize' => (object)array('flavorRef' => $flavorRef->id)
         );
+
         return $this->action($object);
     }
 
@@ -368,9 +368,10 @@ class Server extends PersistentObject
      */
     public function resizeConfirm()
     {
-        $object = (object) array('confirmResize' => null);
+        $object = (object)array('confirmResize' => null);
         $response = $this->action($object);
         $this->refresh($this->id);
+
         return $response;
     }
 
@@ -382,7 +383,8 @@ class Server extends PersistentObject
      */
     public function resizeRevert()
     {
-        $object = (object) array('revertResize' => null);
+        $object = (object)array('revertResize' => null);
+
         return $this->action($object);
     }
 
@@ -395,9 +397,10 @@ class Server extends PersistentObject
      */
     public function setPassword($newPassword)
     {
-        $object = (object) array(
-            'changePassword' => (object) array('adminPass' => $newPassword)
+        $object = (object)array(
+            'changePassword' => (object)array('adminPass' => $newPassword)
         );
+
         return $this->action($object);
     }
 
@@ -420,11 +423,11 @@ class Server extends PersistentObject
             );
         }
 
-        $data = (object) array('rescue' => 'none');
+        $data = (object)array('rescue' => 'none');
 
         $response = $this->action($data);
         $body = Formatter::decode($response);
-        
+
         return (isset($body->adminPass)) ? $body->adminPass : false;
     }
 
@@ -445,7 +448,8 @@ class Server extends PersistentObject
             throw new Exceptions\ServerActionError(Lang::translate('Server has no ID; cannot Unescue()'));
         }
 
-        $object = (object) array('unrescue' => null);
+        $object = (object)array('unrescue' => null);
+
         return $this->action($object);
     }
 
@@ -471,19 +475,19 @@ class Server extends PersistentObject
      *
      * @api
      * @param string $network - if supplied, then only the IP(s) for the
-     *       specified network are returned. Otherwise, all IPs are returned.
+     *                        specified network are returned. Otherwise, all IPs are returned.
      * @return object
      * @throws Exceptions\ServerIpsError
      */
     public function ips($network = null)
     {
-        $url = Lang::noslash($this->Url('ips/'.$network));
+        $url = Lang::noslash($this->Url('ips/' . $network));
 
-        $response = $this->getClient()->get($url)->send();       
+        $response = $this->getClient()->get($url)->send();
         $body = Formatter::decode($response);
-        
+
         return (isset($body->addresses)) ? $body->addresses :
-            ((isset($body->network)) ? $body->network : (object) array());
+            ((isset($body->network)) ? $body->network : (object)array());
     }
 
     /**
@@ -494,18 +498,19 @@ class Server extends PersistentObject
      *
      * @api
      * @param OpenCloud\Volume\Resource\Volume $volume The volume to attach. If
-     *      "auto" is specified (the default), then the first available
-     *      device is used to mount the volume (for example, if the primary
-     *      disk is on `/dev/xvhda`, then the new volume would be attached
-     *      to `/dev/xvhdb`).
-     * @param string $device the device to which to attach it
+     *                                                 "auto" is specified (the default), then the first available
+     *                                                 device is used to mount the volume (for example, if the primary
+     *                                                 disk is on `/dev/xvhda`, then the new volume would be attached
+     *                                                 to `/dev/xvhdb`).
+     * @param string                           $device the device to which to attach it
      */
     public function attachVolume(Volume $volume, $device = 'auto')
     {
         $this->checkExtension('os-volumes');
+
         return $this->volumeAttachment()->create(array(
-            'volumeId'  => $volume->id,
-            'device'    => ($device == 'auto' ? null : $device)
+            'volumeId' => $volume->id,
+            'device'   => ($device == 'auto' ? null : $device)
         ));
     }
 
@@ -514,12 +519,12 @@ class Server extends PersistentObject
      *
      * Requires the os-volumes extension. This is a synonym for
      * `VolumeAttachment::delete()`
-
      * @param OpenCloud\Volume\Resource\Volume $volume The volume to remove
      */
     public function detachVolume(Volume $volume)
     {
         $this->checkExtension('os-volumes');
+
         return $this->volumeAttachment($volume->id)->delete();
     }
 
@@ -531,12 +536,12 @@ class Server extends PersistentObject
     {
         $resource = new VolumeAttachment($this->getService());
         $resource->setParent($this)->populate($id);
+
         return $resource;
     }
 
     /**
      * Returns a Collection of VolumeAttachment objects
-
      * @return Collection
      */
     public function volumeAttachmentList()
@@ -551,7 +556,7 @@ class Server extends PersistentObject
      *
      * @api
      * @param string $path The path where the file will be stored on the
-     *      target server (up to 255 characters)
+     *                     target server (up to 255 characters)
      * @param string $data the file contents (max size set by provider)
      * @return void
      */
@@ -560,18 +565,18 @@ class Server extends PersistentObject
         $this->personality[$path] = base64_encode($data);
     }
 
-	/**
-	 * Returns a console connection
+    /**
+     * Returns a console connection
      * Note: Where is this documented?
-     * 
+     *
      * @codeCoverageIgnore
-	 */
-    public function console($type = 'novnc') 
+     */
+    public function console($type = 'novnc')
     {
         $action = (strpos('spice', $type) !== false) ? 'os-getSPICEConsole' : 'os-getVNCConsole';
-        $object = (object) array($action => (object) array('type' => $type));
-        
-        $response  = $this->action($object);
+        $object = (object)array($action => (object)array('type' => $type));
+
+        $response = $this->action($object);
         $body = Formatter::decode($response);
 
         return (isset($body->console)) ? $body->console : false;
@@ -581,49 +586,49 @@ class Server extends PersistentObject
     {
         // Convert some values
         $this->metadata->sdk = $this->getService()->getClient()->getUserAgent();
-        
+
         if (!empty($this->image) && $this->image instanceof Image) {
             $this->imageRef = $this->image->id;
         }
         if (!empty($this->flavor) && $this->flavor instanceof Flavor) {
             $this->flavorRef = $this->flavor->id;
         }
-        
+
         // Base object
-        $server = (object) array(
-            'name'        => $this->name,
-            'imageRef'    => $this->imageRef,
-            'flavorRef'   => $this->flavorRef
+        $server = (object)array(
+            'name'      => $this->name,
+            'imageRef'  => $this->imageRef,
+            'flavorRef' => $this->flavorRef
         );
 
         if ($this->metadata->count()) {
             $server->metadata = $this->metadata->toArray();
         }
-        
+
         // Networks
-		if (is_array($this->networks) && count($this->networks)) {
+        if (is_array($this->networks) && count($this->networks)) {
 
             $server->networks = array();
 
-			foreach ($this->networks as $network) {
-				if (!$network instanceof Network) {
-					throw new Exceptions\InvalidParameterError(sprintf(
-						'When creating a server, the "networks" key must be an ' .
-						'array of OpenCloud\Compute\Network objects with valid ' .
+            foreach ($this->networks as $network) {
+                if (!$network instanceof Network) {
+                    throw new Exceptions\InvalidParameterError(sprintf(
+                        'When creating a server, the "networks" key must be an ' .
+                        'array of OpenCloud\Compute\Network objects with valid ' .
                         'IDs; variable passed in was a [%s]',
-						gettype($network)
-					));
-				}
+                        gettype($network)
+                    ));
+                }
                 if (empty($network->id)) {
-                    $this->getLogger()->warning('When creating a server, the ' 
+                    $this->getLogger()->warning('When creating a server, the '
                         . 'network objects passed in must have an ID'
                     );
                     continue;
                 }
                 // Stock networks array
-				$server->networks[] = (object) array('uuid' => $network->id);
-			}
-		}
+                $server->networks[] = (object)array('uuid' => $network->id);
+            }
+        }
 
         // Personality files
         if (!empty($this->personality)) {
@@ -632,13 +637,13 @@ class Server extends PersistentObject
 
             foreach ($this->personality as $path => $data) {
                 // Stock personality array
-                $server->personality[] = (object) array(
+                $server->personality[] = (object)array(
                     'path'     => $path,
                     'contents' => $data
                 );
             }
         }
-        
+
         // Keypairs
         if (!empty($this->keypair)) {
             if (is_string($this->keypair)) {
@@ -652,15 +657,14 @@ class Server extends PersistentObject
 
         // Cloud-init executable
         if (!empty($this->user_data)) {
-           $server->user_data = $this->user_data;
+            $server->user_data = $this->user_data;
         }
 
-        return (object) array('server' => $server);
+        return (object)array('server' => $server);
     }
 
     protected function updateJson($params = array())
     {
-        return (object) array('server' => (object) $params);
+        return (object)array('server' => (object)$params);
     }
-
 }

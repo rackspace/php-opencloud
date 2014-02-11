@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class InvalidIdTypeError extends \Exception {}
+class InvalidIdTypeError extends \Exception
+{
+}

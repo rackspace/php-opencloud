@@ -10,7 +10,6 @@
 namespace OpenCloud\Identity;
 
 use Guzzle\Http\ClientInterface;
-use Guzzle\Http\Url;
 use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Http\Message\Formatter;
@@ -121,6 +120,7 @@ class Service extends AbstractService
     {
         $user = $this->resource('User');
         $user->create($params);
+
         return $user;
     }
 
@@ -177,6 +177,7 @@ class Service extends AbstractService
     {
         $token = $this->resource('Token');
         $token->setId($tokenId);
+
         return $token->delete();
     }
 
@@ -199,5 +200,4 @@ class Service extends AbstractService
             ), $body->tenants);
         }
     }
-
 }

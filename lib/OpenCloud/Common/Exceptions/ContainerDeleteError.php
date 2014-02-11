@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ContainerDeleteError extends \Exception {}
+class ContainerDeleteError extends \Exception
+{
+}

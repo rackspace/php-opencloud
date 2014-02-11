@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class AttributeError extends \Exception {}
+class AttributeError extends \Exception
+{
+}

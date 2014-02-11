@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,9 +10,9 @@
 
 namespace OpenCloud\Database\Resource;
 
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * This class represents a User in the Rackspace "Red Dwarf"
@@ -22,14 +22,14 @@ class User extends PersistentObject
 {
 
     /**
-     * @var string $name the user name
-     * @var string $password the user's password
-     * @var array $databases a list of database names assigned to the user
+     * @var string $name      the user name
+     * @var string $password  the user's password
+     * @var array  $databases a list of database names assigned to the user
      */
     public $name;
     public $password;
     public $databases = array();
-    
+
     protected static $json_name = 'user';
     protected static $url_resource = 'users';
 
@@ -47,9 +47,9 @@ class User extends PersistentObject
      * is not necessarily tied to an actual database.
      *
      * @param Instance $instance the parent DbService\Instance of the database
-     * @param mixed $info if an array or object, treated as properties to set;
-     *      if a string, treated as the database name
-     * @param array $db a list of database names to associate with the User
+     * @param mixed    $info     if an array or object, treated as properties to set;
+     *                           if a string, treated as the database name
+     * @param array    $db       a list of database names to associate with the User
      * @return void
      * @throws UserNameError if `$info` is not a string, object, or array
      */
@@ -60,7 +60,7 @@ class User extends PersistentObject
         if (!empty($db)) {
             $this->databases = $db;
         }
-        
+
         // Lazy...
         if (is_string($info)) {
             $info = array('name' => $info);
@@ -68,11 +68,11 @@ class User extends PersistentObject
 
         return parent::__construct($instance->getService(), $info);
     }
-    
+
     /**
      * Returns name of this user. Because it's so important (i.e. as an
      * identifier), it will throw an error if not set/empty.
-     * 
+     *
      * @return type
      * @throws Exceptions\DatabaseNameError
      */
@@ -83,9 +83,10 @@ class User extends PersistentObject
                 Lang::translate('This user does not have a name yet')
             );
         }
+
         return $this->name;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -94,55 +95,55 @@ class User extends PersistentObject
         return 'name';
     }
 
-	/**
-	 * Adds a new database to the list of databases for the user
-	 *
-	 * @api
-	 * @param string $dbname the database name to be added
-	 * @return void
-	 */
-	public function addDatabase($dbname)
+    /**
+     * Adds a new database to the list of databases for the user
+     *
+     * @api
+     * @param string $dbname the database name to be added
+     * @return void
+     */
+    public function addDatabase($dbname)
     {
-		$this->databases[] = $dbname;
-	}
-    
-	/**
-	 * {@inheritDoc}
-	 */
-	public function update($params = array())
-    {
-		return $this->noUpdate();
-	}
+        $this->databases[] = $dbname;
+    }
 
-	/**
-	 * Deletes a database user
-	 *
-	 * @api
-	 * @return \OpenCloud\HttpResponse
-	 * @throws UserDeleteError if HTTP response is not Success
-	 */
-	public function delete()
+    /**
+     * {@inheritDoc}
+     */
+    public function update($params = array())
     {
-		return $this->getClient()->delete($this->url())->send();
-	}
+        return $this->noUpdate();
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function createJson()
-    {        
-        $user = (object) array(
+    /**
+     * Deletes a database user
+     *
+     * @api
+     * @return \OpenCloud\HttpResponse
+     * @throws UserDeleteError if HTTP response is not Success
+     */
+    public function delete()
+    {
+        return $this->getClient()->delete($this->url())->send();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function createJson()
+    {
+        $user = (object)array(
             'name'      => $this->name,
             'password'  => $this->password,
             'databases' => array()
         );
-        
-		foreach ($this->databases as $dbName) {
-			$user->databases[] = (object) array('name' => $dbName);
-		}
 
-		return (object) array(
+        foreach ($this->databases as $dbName) {
+            $user->databases[] = (object)array('name' => $dbName);
+        }
+
+        return (object)array(
             'users' => array($user)
         );
-	}
+    }
 }

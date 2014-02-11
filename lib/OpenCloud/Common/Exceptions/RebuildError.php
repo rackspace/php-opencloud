@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class RebuildError extends \Exception {}
+class RebuildError extends \Exception
+{
+}

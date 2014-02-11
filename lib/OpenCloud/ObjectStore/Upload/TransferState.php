@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -33,6 +33,7 @@ class TransferState
     public static function factory()
     {
         $self = new self();
+
         return $self->init();
     }
 
@@ -66,7 +67,7 @@ class TransferState
     public function init()
     {
         $this->running = true;
-        
+
         return $this;
     }
 
@@ -76,8 +77,7 @@ class TransferState
     public function cancel()
     {
         $this->running = false;
-        
+
         return $this;
     }
-    
 }

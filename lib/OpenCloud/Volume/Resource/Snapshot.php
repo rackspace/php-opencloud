@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -10,14 +10,13 @@
 
 namespace OpenCloud\Volume\Resource;
 
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\PersistentObject;
 
 /**
  * The Snapshot class represents a single block storage snapshot
  */
-class Snapshot extends PersistentObject 
+class Snapshot extends PersistentObject
 {
 
     public $id;
@@ -41,14 +40,13 @@ class Snapshot extends PersistentObject
         'force'
     );
 
-    public function update($params = array()) 
+    public function update($params = array())
     {
         return $this->noUpdate();
     }
 
-    public function name() 
+    public function name()
     {
         return $this->display_name;
     }
-
 }

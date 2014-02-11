@@ -34,7 +34,7 @@ class Tenant extends PersistentObject
     private $enabled;
 
     protected static $url_resource = 'tenants';
-    protected static $json_name    = 'tenants';
+    protected static $json_name = 'tenants';
 
     /**
      * @param $id Sets the ID
@@ -99,5 +99,4 @@ class Tenant extends PersistentObject
     {
         return $this->enabled === true;
     }
-
 }

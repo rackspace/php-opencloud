@@ -9,15 +9,15 @@
 
 namespace OpenCloud;
 
-use Guzzle\Http\Curl\CurlVersion;
 use Guzzle\Common\Version as GuzzleVersion;
+use Guzzle\Http\Curl\CurlVersion;
 
 /**
  * Class Version
  *
  * @package OpenCloud
  */
-class Version 
+class Version
 {
     const VERSION = '1.9.1';
 
@@ -44,5 +44,4 @@ class Version
     {
         return GuzzleVersion::VERSION;
     }
-
-} 
+}

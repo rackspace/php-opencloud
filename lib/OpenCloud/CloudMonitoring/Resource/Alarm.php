@@ -1,11 +1,18 @@
 <?php
 /**
- * PHP OpenCloud library.
- * 
- * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
- * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * Copyright 2012-2014 Rackspace US, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 namespace OpenCloud\CloudMonitoring\Resource;
@@ -47,16 +54,16 @@ class Alarm extends AbstractResource
      * @var string A friendly label for an alarm.
      */
     private $label;
-	
+
     protected static $json_name = false;
     protected static $json_collection_name = 'values';
     protected static $url_resource = 'alarms';
-    
+
     protected static $requiredKeys = array(
         'check_id',
         'notification_plan_id'
     );
-    
+
     protected static $emptyObject = array(
         'check_id',
         'notification_plan_id',
@@ -65,7 +72,7 @@ class Alarm extends AbstractResource
         'label',
         'metadata'
     );
-    
+
     public function test($params = array(), $debug = false)
     {
         if (!isset($params['criteria'])) {
@@ -73,15 +80,15 @@ class Alarm extends AbstractResource
                 'Please specify a "criteria" value'
             );
         }
-        
+
         if (!isset($params['check_data']) || !is_array($params['check_data'])) {
             throw new Exception\AlarmException(
                 'Please specify a "check_data" array'
             );
         }
-        
-        $url  = $this->getParent()->url('test-alarm');
-        $body = json_encode((object) $params);
+
+        $url = $this->getParent()->url('test-alarm');
+        $body = json_encode((object)$params);
 
         $response = $this->getService()
             ->getClient()
@@ -111,6 +118,7 @@ class Alarm extends AbstractResource
     public function getNotificationHistoryForCheck($checkId)
     {
         $url = $this->getHistoryUrl()->addPath($checkId);
+
         return $this->getService()->resourceList('NotificationHistory', $url, $this);
     }
 
@@ -134,5 +142,4 @@ class Alarm extends AbstractResource
     {
         return $this->getDisabled() === true;
     }
-	
 }

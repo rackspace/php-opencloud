@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class DomainError extends \Exception {}
+class DomainError extends \Exception
+{
+}

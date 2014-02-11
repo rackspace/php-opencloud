@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class JsonError extends \Exception {}
+class JsonError extends \Exception
+{
+}

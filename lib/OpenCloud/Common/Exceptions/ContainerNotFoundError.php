@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class ContainerNotFoundError extends \Exception {}
+class ContainerNotFoundError extends \Exception
+{
+}

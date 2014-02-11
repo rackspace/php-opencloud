@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class IdRequiredError extends \Exception {}
+class IdRequiredError extends \Exception
+{
+}

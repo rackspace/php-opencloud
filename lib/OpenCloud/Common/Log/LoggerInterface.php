@@ -1,17 +1,17 @@
 <?php
 /**
  * Copyright (c) 2012 PHP Framework Interoperability Group
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy 
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights 
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
- * copies of the Software, and to permit persons to whom the Software is 
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in 
+ *
+ * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -43,7 +43,7 @@ interface LoggerInterface
      * System is unusable.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function emergency($message, array $context = array());
@@ -55,7 +55,7 @@ interface LoggerInterface
      * trigger the SMS alerts and wake you up.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function alert($message, array $context = array());
@@ -66,7 +66,7 @@ interface LoggerInterface
      * Example: Application component unavailable, unexpected exception.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function critical($message, array $context = array());
@@ -76,7 +76,7 @@ interface LoggerInterface
      * be logged and monitored.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function error($message, array $context = array());
@@ -88,7 +88,7 @@ interface LoggerInterface
      * that are not necessarily wrong.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function warning($message, array $context = array());
@@ -97,7 +97,7 @@ interface LoggerInterface
      * Normal but significant events.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function notice($message, array $context = array());
@@ -108,7 +108,7 @@ interface LoggerInterface
      * Example: User logs in, SQL logs.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function info($message, array $context = array());
@@ -117,7 +117,7 @@ interface LoggerInterface
      * Detailed debug information.
      *
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function debug($message, array $context = array());
@@ -125,9 +125,9 @@ interface LoggerInterface
     /**
      * Logs with an arbitrary level.
      *
-     * @param mixed $level
+     * @param mixed  $level
      * @param string $message
-     * @param array $context
+     * @param array  $context
      * @return null
      */
     public function log($level, $message, array $context = array());

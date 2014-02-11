@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
@@ -41,7 +41,7 @@ class Endpoint
     public static function factory($object)
     {
         $endpoint = new self();
-        
+
         if (isset($object->publicURL)) {
             $endpoint->setPublicUrl($object->publicURL);
         }
@@ -62,6 +62,7 @@ class Endpoint
     public function setPublicUrl($publicUrl)
     {
         $this->publicUrl = Url::factory($publicUrl);
+
         return $this;
     }
 
@@ -80,6 +81,7 @@ class Endpoint
     public function setPrivateUrl($privateUrl)
     {
         $this->privateUrl = Url::factory($privateUrl);
+
         return $this;
     }
 
@@ -98,6 +100,7 @@ class Endpoint
     public function setRegion($region)
     {
         $this->region = $region;
+
         return $this;
     }
 
@@ -108,5 +111,4 @@ class Endpoint
     {
         return $this->region;
     }
-    
 }

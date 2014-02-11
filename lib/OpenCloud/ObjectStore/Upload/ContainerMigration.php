@@ -44,9 +44,9 @@ class ContainerMigration
     );
 
     /**
-     * @param Container $old      Source container
-     * @param Container $new      Target container
-     * @param array     $options  Options that configure process
+     * @param Container $old     Source container
+     * @param Container $new     Target container
+     * @param array     $options Options that configure process
      * @return ContainerMigration
      */
     public static function factory(Container $old, Container $new, array $options = array())
@@ -164,6 +164,7 @@ class ContainerMigration
     protected function sendGetRequests()
     {
         $this->enqueueGetRequests();
+
         return $this->readQueue->flush();
     }
 

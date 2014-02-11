@@ -1,18 +1,25 @@
 <?php
 /**
- * PHP OpenCloud library.
- * 
- * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
- * @license   https://www.apache.org/licenses/LICENSE-2.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
- * @author    Jamie Hannaford <jamie.hannaford@rackspace.com>
+ * Copyright 2012-2014 Rackspace US, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\PersistentObject;
 
 abstract class AbstractResource extends PersistentObject
 {
@@ -27,20 +34,20 @@ abstract class AbstractResource extends PersistentObject
         }
 
         $object = new \stdClass;
-        
+
         foreach (static::$emptyObject as $key) {
             if ($property = $this->getProperty($key)) {
                 $object->$key = $property;
             }
         }
-        
+
         return $object;
     }
 
     protected function updateJson($params = array())
     {
-        $object = (object) $params;       
-        
+        $object = (object)$params;
+
         foreach (static::$requiredKeys as $requiredKey) {
             if (!$this->getProperty($requiredKey)) {
                 throw new Exceptions\UpdateError(sprintf(
@@ -54,7 +61,7 @@ abstract class AbstractResource extends PersistentObject
 
     /**
      * Retrieves a collection of resource objects.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -65,15 +72,15 @@ abstract class AbstractResource extends PersistentObject
 
     /**
      * Test the validity of certain parameters for the resource.
-     * 
+     *
      * @access public
      * @param array $params (default: array())
-     * @param bool $debug (default: false)
+     * @param bool  $debug  (default: false)
      * @return void
      */
     public function testParams($params = array(), $debug = false)
     {
-        $json = json_encode((object) $params);
+        $json = json_encode((object)$params);
 
         // send the request
         $response = $this->getService()
@@ -86,7 +93,7 @@ abstract class AbstractResource extends PersistentObject
 
     /**
      * Test the validity of an existing resource.
-     * 
+     *
      * @access public
      * @param bool $debug (default: false)
      * @return void
@@ -102,5 +109,4 @@ abstract class AbstractResource extends PersistentObject
 
         return Formatter::decode($response);
     }
-   
 }

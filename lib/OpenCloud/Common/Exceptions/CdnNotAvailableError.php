@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class CdnNotAvailableError extends \Exception {}
+class CdnNotAvailableError extends \Exception
+{
+}

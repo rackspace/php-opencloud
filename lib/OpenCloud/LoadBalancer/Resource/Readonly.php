@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright Copyright 2014 Rackspace US, Inc. See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.6.0
@@ -16,22 +16,21 @@ namespace OpenCloud\LoadBalancer\Resource;
  * or deleted. Many subresources are like this, and this simplifies their
  * class definitions.
  */
-abstract class Readonly extends SubResource 
+abstract class Readonly extends SubResource
 {
-	
-	public function create($params = array()) 
-	{ 
-		return $this->noCreate(); 
-	}
 
-	public function update($params = array()) 
-	{ 
-		return $this->noUpdate(); 
-	}
+    public function create($params = array())
+    {
+        return $this->noCreate();
+    }
 
-	public function delete() 
-	{ 
-		return $this->noDelete(); 
-	}
+    public function update($params = array())
+    {
+        return $this->noUpdate();
+    }
 
+    public function delete()
+    {
+        return $this->noDelete();
+    }
 }

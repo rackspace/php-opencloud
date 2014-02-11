@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class AuthenticationError extends \Exception {}
+class AuthenticationError extends \Exception
+{
+}

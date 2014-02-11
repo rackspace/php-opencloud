@@ -2,11 +2,10 @@
 
 namespace OpenCloud\Identity\Constants;
 
-class User 
+class User
 {
 
-    const MODE_NAME  = 'name';
+    const MODE_NAME = 'name';
     const MODE_EMAIL = 'email';
-    const MODE_ID    = 'id';
-
-} 
+    const MODE_ID = 'id';
+}

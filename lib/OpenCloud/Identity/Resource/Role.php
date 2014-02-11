@@ -35,7 +35,7 @@ class Role extends PersistentObject
     private $description;
 
     protected static $url_resource = 'OS-KSADM/roles';
-    protected static $json_name    = 'role';
+    protected static $json_name = 'role';
 
     /**
      * @param $id Sets the ID
@@ -84,5 +84,4 @@ class Role extends PersistentObject
     {
         return $this->description;
     }
-
 }

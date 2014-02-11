@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP OpenCloud library.
- * 
+ *
  * @copyright 2014 Rackspace Hosting, Inc. See LICENSE for information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -12,7 +12,6 @@ namespace OpenCloud;
 
 use OpenCloud\Common\Exceptions\CredentialError;
 use OpenCloud\Common\Service\ServiceBuilder;
-use OpenCloud\Identity\Service as IdentityService;
 
 /**
  * Rackspace extends the OpenStack class with support for Rackspace's
@@ -63,7 +62,6 @@ class Rackspace extends OpenStack
             }
 
             return json_encode($credentials);
-
         } else {
             throw new CredentialError('Unrecognized credential secret');
         }
@@ -80,8 +78,8 @@ class Rackspace extends OpenStack
     public function databaseService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\Database\Service', array(
-            'name'    => $name, 
-            'region'  => $region, 
+            'name'    => $name,
+            'region'  => $region,
             'urlType' => $urltype
         ));
     }
@@ -97,8 +95,8 @@ class Rackspace extends OpenStack
     public function loadBalancerService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\LoadBalancer\Service', array(
-            'name'    => $name, 
-            'region'  => $region, 
+            'name'    => $name,
+            'region'  => $region,
             'urlType' => $urltype
         ));
     }
@@ -114,8 +112,8 @@ class Rackspace extends OpenStack
     public function dnsService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\DNS\Service', array(
-            'name'    => $name, 
-            'region'  => $region, 
+            'name'    => $name,
+            'region'  => $region,
             'urlType' => $urltype
         ));
     }
@@ -131,8 +129,8 @@ class Rackspace extends OpenStack
     public function cloudMonitoringService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\CloudMonitoring\Service', array(
-            'name'    => $name, 
-            'region'  => $region, 
+            'name'    => $name,
+            'region'  => $region,
             'urlType' => $urltype
         ));
     }
@@ -148,12 +146,12 @@ class Rackspace extends OpenStack
     public function autoscaleService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\Autoscale\Service', array(
-            'name'    => $name, 
-            'region'  => $region, 
+            'name'    => $name,
+            'region'  => $region,
             'urlType' => $urltype
         ));
     }
-    
+
     /**
      * Creates a new CloudQueues service. Note: this is a Rackspace-only feature.
      *
@@ -165,10 +163,9 @@ class Rackspace extends OpenStack
     public function queuesService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\Queues\Service', array(
-            'name'    => $name, 
-            'region'  => $region, 
+            'name'    => $name,
+            'region'  => $region,
             'urlType' => $urltype
         ));
     }
-    
 }

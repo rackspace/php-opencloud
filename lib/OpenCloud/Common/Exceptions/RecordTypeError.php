@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class RecordTypeError extends \Exception {}
+class RecordTypeError extends \Exception
+{
+}

@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class HttpUnauthorizedError extends \Exception {}
+class HttpUnauthorizedError extends \Exception
+{
+}

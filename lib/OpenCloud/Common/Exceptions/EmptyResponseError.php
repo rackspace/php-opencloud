@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class EmptyResponseError extends \Exception {}
+class EmptyResponseError extends \Exception
+{
+}

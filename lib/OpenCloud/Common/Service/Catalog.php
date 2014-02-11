@@ -46,7 +46,7 @@ class Catalog
                 print_r($config, true)
             ));
         }
-        
+
         return $catalog;
     }
 

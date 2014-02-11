@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class CollectionException extends \Exception {}
+class CollectionException extends \Exception
+{
+}

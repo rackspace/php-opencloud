@@ -9,14 +9,14 @@ class ObjectNotFoundException extends \RuntimeException
         $message = sprintf(
             "%s could not be found. The API returned this HTTP response:\n\n%s",
             $name,
-            (string) $exception->getResponse()
+            (string)$exception->getResponse()
         );
 
         $e = new self($message);
 
         $e->name = $name;
         $e->response = $exception->getResponse();
-        $e->request  = $exception->getRequest();
+        $e->request = $exception->getRequest();
 
         return $e;
     }

@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright Copyright 2012-2014 Rackspace US, Inc.
-  See COPYING for licensing information.
+ * See COPYING for licensing information.
  * @license   https://www.apache.org/licenses/LICENSE-2.0 Apache 2.0
  * @version   1.5.9
  * @author    Glen Campbell <glen.campbell@rackspace.com>
@@ -22,11 +22,11 @@ use OpenCloud\Common\Constants\Size;
  */
 class ConsecutiveTransfer extends AbstractTransfer
 {
-    
+
     public function transfer()
     {
         while (!$this->entityBody->isConsumed()) {
-            
+
             if ($this->entityBody->getContentLength() && $this->entityBody->isSeekable()) {
                 // Stream directly from the data
                 $body = new ReadLimitEntityBody($this->entityBody, $this->partSize, $this->entityBody->ftell());
@@ -46,16 +46,15 @@ class ConsecutiveTransfer extends AbstractTransfer
             }
 
             $request = TransferPart::createRequest(
-                $body, 
+                $body,
                 $this->transferState->count() + 1,
-                $this->client, 
+                $this->client,
                 $this->options
             );
-            
+
             $response = $request->send();
 
             $this->transferState->addPart(TransferPart::fromResponse($response));
         }
     }
-    
 }

@@ -2,4 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-class FlavorError extends \Exception {}
+class FlavorError extends \Exception
+{
+}
