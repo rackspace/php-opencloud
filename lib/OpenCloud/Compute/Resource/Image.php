@@ -18,7 +18,7 @@
 namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\PersistentObject;
-use OpenCloud\Images\Resource\ImageInterface;
+use OpenCloud\Image\Resource\ImageInterface;
 
 /**
  * A collection of files for a specific operating system (OS) that you use to

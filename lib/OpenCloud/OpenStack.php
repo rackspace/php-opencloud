@@ -542,7 +542,7 @@ class OpenStack extends Client
      */
     public function imageService($name = null, $region = null, $urltype = null)
     {
-        return ServiceBuilder::factory($this, 'OpenCloud\Images\Service', array(
+        return ServiceBuilder::factory($this, 'OpenCloud\Image\Service', array(
             'name'    => $name,
             'region'  => $region,
             'urlType' => $urltype
