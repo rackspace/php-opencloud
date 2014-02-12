@@ -144,6 +144,7 @@ abstract class AbstractService extends Base implements ServiceInterface
         $className = $this->resolveResourceClass($resourceName);
 
         $resource = new $className($this);
+
         if ($parent) {
             $resource->setParent($parent);
         }
@@ -159,7 +160,7 @@ abstract class AbstractService extends Base implements ServiceInterface
      * @param string      $resourceName
      * @param string|null $url
      * @param string|null $parent
-     * @return OpenCloud\Common\Collection
+     * @return PaginatedIterator
      */
     public function resourceList($resourceName, $url = null, $parent = null)
     {

@@ -19,13 +19,13 @@ namespace OpenCloud\Database\Resource;
 
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * This class represents a Database in the Rackspace "Red Dwarf"
  * database-as-a-service product.
  */
-class Database extends PersistentObject
+class Database extends PersistentResource
 {
     protected static $json_collection_name = 'databases';
     protected static $url_resource = 'databases';

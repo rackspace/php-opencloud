@@ -17,16 +17,15 @@
 
 namespace OpenCloud\Common\Collection;
 
-use ArrayAccess;
 use Countable;
+use OpenCloud\Common\ArrayAccess;
 
 /**
  * A generic, abstract collection class that allows collections to exhibit array functionality.
  *
  * @package OpenCloud\Common\Collection
- * @since   1.8.0
  */
-abstract class ArrayCollection implements ArrayAccess, Countable
+abstract class ArrayCollection extends ArrayAccess implements Countable
 {
     /**
      * @var array The elements being held by this iterator.
@@ -61,17 +60,6 @@ abstract class ArrayCollection implements ArrayAccess, Countable
     }
 
     /**
-     * Sets a value to a particular offset.
-     *
-     * @param mixed $offset
-     * @param mixed $value
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->elements[$offset] = $value;
-    }
-
-    /**
      * Appends a value to the container.
      *
      * @param $value
@@ -79,17 +67,6 @@ abstract class ArrayCollection implements ArrayAccess, Countable
     public function append($value)
     {
         $this->elements[] = $value;
-    }
-
-    /**
-     * Checks to see whether a particular offset key exists.
-     *
-     * @param mixed $offset
-     * @return bool
-     */
-    public function offsetExists($offset)
-    {
-        return isset($this->elements[$offset]);
     }
 
     /**
@@ -101,26 +78,5 @@ abstract class ArrayCollection implements ArrayAccess, Countable
     public function valueExists($value)
     {
         return array_search($value, $this->elements) !== false;
-    }
-
-    /**
-     * Unset a particular key.
-     *
-     * @param mixed $offset
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->elements[$offset]);
-    }
-
-    /**
-     * Get the value for a particular offset key.
-     *
-     * @param mixed $offset
-     * @return mixed|null
-     */
-    public function offsetGet($offset)
-    {
-        return $this->offsetExists($offset) ? $this->elements[$offset] : null;
     }
 }

@@ -161,7 +161,7 @@ class Node extends PersistentObject
      */
     public function metadata($data = null)
     {
-        return new Metadata($this, $data);
+        return $this->getService()->resource('Metadata', $data, $this);
     }
 
     /**

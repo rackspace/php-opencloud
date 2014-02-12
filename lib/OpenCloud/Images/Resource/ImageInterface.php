@@ -15,20 +15,26 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Common;
-
-use OpenCloud\Common\Resource\PersistentResource;
+namespace OpenCloud\Images\Resource;
 
 /**
- * This class is deprecated; its functionality has been split out into the following classes:
+ * Interface for a Glance image
  *
- * * {@see \OpenCloud\Common\Resource\BaseResource}
- * * {@see \OpenCloud\Common\Resource\NovaResource}
- * * {@see \OpenCloud\Common\Resource\PersistentResource}
- *
- * @deprecated
- * @package OpenCloud\Common
+ * @package OpenCloud\Images\Resource
  */
-abstract class PersistentObject extends PersistentResource
+interface ImageInterface
 {
-}
+    /**
+     * Set the image ID
+     *
+     * @param $id
+     */
+    public function setId($id);
+
+    /**
+     * Get the image ID
+     *
+     * @return string
+     */
+    public function getId();
+} 

@@ -183,7 +183,6 @@ class Service extends NovaService
         return $this->resourceList('Image', $url);
     }
 
-
     public function keypair($data = null)
     {
         return $this->resource('KeyPair', $data);

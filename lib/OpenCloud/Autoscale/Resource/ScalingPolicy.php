@@ -19,8 +19,6 @@ namespace OpenCloud\Autoscale\Resource;
 
 /**
  * Description of ScalingPolicy
- *
- * @link
  */
 class ScalingPolicy extends AbstractResource
 {
@@ -50,14 +48,7 @@ class ScalingPolicy extends AbstractResource
 
     public function getWebhook($id = null)
     {
-        $webhook = new Webhook();
-        $webhook->setParent($this);
-        $webhook->setService($this->getService());
-        if ($id) {
-            $webhook->populate($id);
-        }
-
-        return $webhook;
+        return $this->getService()->resource('Webhook', $id, $this);
     }
 
     public function execute()

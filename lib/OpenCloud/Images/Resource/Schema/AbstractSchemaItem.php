@@ -15,20 +15,24 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Common;
-
-use OpenCloud\Common\Resource\PersistentResource;
+namespace OpenCloud\Images\Resource\Schema;
 
 /**
- * This class is deprecated; its functionality has been split out into the following classes:
+ * Class that represents abstracted functionality for schema items
  *
- * * {@see \OpenCloud\Common\Resource\BaseResource}
- * * {@see \OpenCloud\Common\Resource\NovaResource}
- * * {@see \OpenCloud\Common\Resource\PersistentResource}
- *
- * @deprecated
- * @package OpenCloud\Common
+ * @package OpenCloud\Images\Resource\Schema
  */
-abstract class PersistentObject extends PersistentResource
+abstract class AbstractSchemaItem
 {
+    /**
+     * Stock a schema property only if set
+     *
+     * @param array $data
+     * @param       $property
+     * @return mixed
+     */
+    protected static function stockProperty(array $data, $property)
+    {
+        return isset($data[$property]) ? $data[$property] : null;
+    }
 }

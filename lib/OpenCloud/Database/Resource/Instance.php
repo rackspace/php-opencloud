@@ -17,10 +17,9 @@
 
 namespace OpenCloud\Database\Resource;
 
-use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Resource\NovaResource;
 use OpenCloud\Compute\Resource\Flavor;
 use OpenCloud\Database\Service;
 
@@ -28,9 +27,8 @@ use OpenCloud\Database\Service;
  * Instance represents an instance of DbService, similar to a Server in a
  * Compute service
  */
-class Instance extends PersistentObject
+class Instance extends NovaResource
 {
-
     public $id;
     public $name;
     public $status;

@@ -15,20 +15,14 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Common;
+namespace OpenCloud\Images\Enum;
 
-use OpenCloud\Common\Resource\PersistentResource;
-
-/**
- * This class is deprecated; its functionality has been split out into the following classes:
- *
- * * {@see \OpenCloud\Common\Resource\BaseResource}
- * * {@see \OpenCloud\Common\Resource\NovaResource}
- * * {@see \OpenCloud\Common\Resource\PersistentResource}
- *
- * @deprecated
- * @package OpenCloud\Common
- */
-abstract class PersistentObject extends PersistentResource
+class OperationType 
 {
+    const ADD = 'add';
+    const REMOVE = 'remove';
+    const REPLACE = 'replace';
+    const MOVE = 'move';
+    const COPY = 'copy';
+    const TEST = 'test';
 }

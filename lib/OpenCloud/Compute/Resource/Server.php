@@ -17,13 +17,15 @@
 
 namespace OpenCloud\Compute\Resource;
 
+use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\NovaResource;
+use OpenCloud\Images\Resource\ImageInterface;
+use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Compute\Constants\ServerState;
 use OpenCloud\Compute\Service;
-use OpenCloud\Volume\Resource\Volume;
 
 /**
  * A virtual machine (VM) instance in the Cloud Servers environment.
@@ -31,7 +33,7 @@ use OpenCloud\Volume\Resource\Volume;
  * @note This implementation supports extension attributes OS-DCF:diskConfig,
  * RAX-SERVER:bandwidth, rax-bandwidth:bandwith.
  */
-class Server extends PersistentObject
+class Server extends NovaResource
 {
     /**
      * The server status. {@see \OpenCloud\Compute\Constants\ServerState} for supported types.
@@ -70,7 +72,7 @@ class Server extends PersistentObject
      * The Image for this server.
      *
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Images-d1e4435.html
-     * @var type
+     * @var ImageInterface
      */
     public $image;
 
@@ -594,10 +596,10 @@ class Server extends PersistentObject
         // Convert some values
         $this->metadata->sdk = $this->getService()->getClient()->getUserAgent();
 
-        if (!empty($this->image) && $this->image instanceof Image) {
-            $this->imageRef = $this->image->id;
+        if ($this->image instanceof ImageInterface) {
+            $this->imageRef = $this->image->getId();
         }
-        if (!empty($this->flavor) && $this->flavor instanceof Flavor) {
+        if ($this->flavor instanceof Flavor) {
             $this->flavorRef = $this->flavor->id;
         }
 
@@ -639,9 +641,7 @@ class Server extends PersistentObject
 
         // Personality files
         if (!empty($this->personality)) {
-
             $server->personality = array();
-
             foreach ($this->personality as $path => $data) {
                 // Stock personality array
                 $server->personality[] = (object)array(

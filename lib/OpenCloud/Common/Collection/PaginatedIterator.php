@@ -72,11 +72,10 @@ class PaginatedIterator extends ResourceIterator implements Iterator
     /**
      * Basic factory method to easily instantiate a new ResourceIterator.
      *
-     * @param       $parent The parent object
-     * @param Url   $url    The base URL
-     * @param array $params Options for this iterator
+     * @param       $parent  The parent object
+     * @param array $options Iterator options
+     * @param array $data    Optional data to set initially
      * @return static
-     * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      */
     public static function factory($parent, array $options = array(), array $data = null)
     {

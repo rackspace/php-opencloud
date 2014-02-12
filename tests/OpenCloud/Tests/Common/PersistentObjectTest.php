@@ -28,11 +28,10 @@
 namespace OpenCloud\Tests\Common;
 
 use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\NovaResource;
 
-// make a real class from the abstract one
-class MyPersistentObject extends PersistentObject
+class MyPersistentObject extends NovaResource
 {
-
     public $status;
     public $updated;
     public $hostId;
@@ -88,7 +87,7 @@ class MyPersistentObject extends PersistentObject
     }
 }
 
-class NamelessObject extends PersistentObject
+class NamelessObject extends NovaResource
 {
 }
 
@@ -172,7 +171,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\RuntimeException
+     * @expectedException \RuntimeException
      */
     public function testCreate()
     {
@@ -184,7 +183,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
      */
     public function testUpdate()
     {
-        $this->instance->Update();
+        $this->instance->update();
     }
 
     public function testName()
@@ -287,15 +286,6 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\ServiceException
-     */
-    public function testGettingServiceFailsIfNotSet()
-    {
-        $service = new MyPersistentObject;
-        $service->getService();
-    }
-
-    /**
      * @expectedException OpenCloud\Common\Exceptions\IdRequiredError
      */
     public function testRefreshFailsWithoutId()
@@ -314,7 +304,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\IdRequiredError
+     * @expectedException \RuntimeException
      */
     public function testActionWhenNoId()
     {
@@ -323,7 +313,7 @@ class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\ServerActionError
+     * @expectedException \InvalidArgumentException
      */
     public function testActionFailsWhenNotValidObject()
     {
