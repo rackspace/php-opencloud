@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Common;
 
+use Guzzle\Http\Exception\BadResponseException;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Constants\Header as HeaderConst;
 use OpenCloud\Common\Constants\Mime as MimeConst;
@@ -426,6 +427,7 @@ abstract class Base
 
     protected static function getJsonHeader()
     {
+        BadResponseException::
         return array(HeaderConst::CONTENT_TYPE => MimeConst::JSON);
     }
 }
