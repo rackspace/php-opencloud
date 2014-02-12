@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use Guzzle\Http\Exception\BadResponseException;
 use OpenCloud\Compute\Constants\Network;
 use OpenCloud\Smoke\Utils;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -151,7 +152,7 @@ class Compute extends AbstractUnit implements UnitInterface
         $this->step('Rebuild the server');
         $server->rebuild(array(
             'adminPass' => $adminPassword,
-            'image'     => $centos
+            'image'     => $this->getService()->image(self::IMAGE)
         ));
 
         sleep(3);
@@ -207,12 +208,12 @@ class Compute extends AbstractUnit implements UnitInterface
                     $volumeAttachment->delete();
                 }
             }
-            
+
             if ($this->shouldDelete($server->name)) {
                 $this->stepInfo('Deleting %s', $server->id);
                 $server->delete();
             }
-        } 
+        }
 
         // Delete networks
         $networks = $this->getService()->networkList();
@@ -220,14 +221,6 @@ class Compute extends AbstractUnit implements UnitInterface
             if (!in_array($network->id, array(Network::RAX_PRIVATE, Network::RAX_PUBLIC))) {
                 $this->stepInfo('Deleting: %s %s', $network->id, $network->label);
                 $network->delete();
-            }
-        }
-
-        // Delete volumes
-        $volumes = $this->getService()->volumeList();
-        foreach ($volumes as $volume) {
-            if ($this->shouldDelete($volume->name)) {
-                $volume->delete();
             }
         }
     }
