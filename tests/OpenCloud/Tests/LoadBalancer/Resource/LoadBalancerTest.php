@@ -182,10 +182,15 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
     public function testAccessList()
     {
-        $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->loadBalancer->AccessList()
-        );
+
+        $loadBalancer = $this->loadBalancer;
+
+        $this->addMockSubscriber($this->makeResponse('{"accessList":[{"address":"206.160.163.21","id":23,"type":"DENY"}]}'));
+
+        $list = $loadBalancer->accessList();
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
+        $this->assertEquals(1, $list->count());
+        $this->assertEquals('206.160.163.21', $list->first()->getAddress());
     }
 
     public function testConnectionThrottle()

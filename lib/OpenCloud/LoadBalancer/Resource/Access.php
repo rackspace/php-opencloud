@@ -49,6 +49,7 @@ class Access extends SubResource
     public $address;
 
     protected static $json_name = "accessList";
+    protected static $json_collection_name = "accessList";
     protected static $url_resource = "accesslist";
     protected $createKeys = array(
         'type',
