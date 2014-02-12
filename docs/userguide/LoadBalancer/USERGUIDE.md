@@ -282,19 +282,201 @@ foreach ($protocols as $protocol) {
 }
 ```
 
-## Sessions
+## Session Persistence
 
-### Manage Session Persistence
+**Session persistence** is a feature of the load balancing service that forces multiple requests, of the same protocol, from clients to be directed to the same node. This is common with many web applications that do not inherently share application state between back-end servers.
 
-## Connections
+There are two types (or modes) of session persistence:
+
+| Name | Description |
+| -------- | --------------- |
+| `HTTP_COOKIE` |  A session persistence mechanism that inserts an HTTP cookie and is used to determine the destination back-end node. This is supported for HTTP load balancing only. |
+| `SOURCE_IP` |  A session persistence mechanism that will keep track of the source IP address that is mapped and is able to determine the destination back-end node. This is supported for HTTPS pass-through and non-HTTP load balancing only. |
+
+### List Session Persistence Configuration
+
+```php
+$sessionPersistence = $loadBalancer->sessionPersistence();
+$sessionPersistenceType = $sessionPersistence->persistenceType;
+
+/** @var $sessionPersistenceType null | 'HTTP_COOKIE' | 'SOURCE_IP' **/
+```
+
+In the example above:
+
+* If session persistence is enabled, the value of `$sessionPersistenceType` is the type of session persistence: either `HTTP_COOKIE` or `SOURCE_IP`.
+* If session persistence is disabled, the value of `$sessionPersistenceType` is `null`.
+
+### Enable Session Persistence
+
+```php
+$sessionPersistence = $loadBalancer->sessionPersistence();
+$sessionPersistence->update(array(
+    'persistenceType' => 'HTTP_COOKIE'
+));
+```
+
+### Disable Session Persistence
+
+```php
+$sessionPersistence = $loadBalancer->sessionPersistence();
+$sessionPersistence->delete();
+```
+
+## Connection Logging
+
+The **connection logging** feature allows logs to be delivered to a Cloud Files account every hour. For HTTP-based protocol traffic, these are Apache-style access logs. For all other traffic, this is connection and transfer logging.
+
+### List Connection Logging Configuration
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLoggingEnabled = $sessionPersistence->enabled;
+
+/** @var $connectionLoggingEnabled boolean **/
+```
+In the example above:
+
+* If connection logging is enabled, the value of `$connectionLoggingEnabled` is `true`.
+* If connection logging is disabled, the value of `$connectionLoggingEnabled` is `false`.
+
+### Enable Connection Logging
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLogging->update(array(
+    'enabled' => true
+));
+```
+
+### Disable Connection Logging
+
+```php
+$connectionLogging = $loadBalancer->connectionLogging();
+$connectionLogging->update(array(
+    'enabled' => false
+));
+```
 
 ## Error Page
 
+An **error page** is the html file that is shown to the end user when an error in the service has been thrown. By default every virtual server is provided with the default error file. It is also possible to set a custom error page for a load balancer.
+
+### View Error Page Content
+
+```php
+$errorPage = $loadBalancer->errorPage();
+$errorPageContent = $errorPage->content;
+
+/** @var $errorPageContent string **/
+```
+
+In the example above the value of `$errorPageContent` is the HTML for that page. This could either be the HTML of the default error page or of your custom error page.
+
+### Set Custom Error Page
+
+```php
+$errorPage = $loadBalancer->errorPage();
+$errorPage->update(array(
+    'content' => '<HTML content of custom error page>'
+));
+```
+
+### Delete Custom Error Page
+
+```php
+$errorPage = $loadBalancer->errorPage();
+$errorPage->delete();
+```
+
 ## Allowed Domains
+
+**Allowed domains** are a restricted set of domain names that are allowed to add load balancer nodes.
+
+### List Allowed Domains
+
+You can list all allowed domains using a load balancer service object. An instance of `OpenCloud\Common\Collection\PaginatedIterator`
+is returned.
+
+```php
+$allowedDomains = $loadBalancerService->allowedDomainList();
+foreach ($allowedDomains as $allowedDomain) {
+    /** @var $allowedDomain OpenCloud\LoadBalancer\Resource\AllowedDomain **/
+}
+```
 
 ## Access Lists
 
+**Access Lists** allow fine-grained network access to a load balancer's VIP. Using access lists, network traffic to a load balancer's VIP can be allowed or denied from a single IP address, multiple IP addresses or entire network subnets.
+
+Note that `ALLOW` network items will take precedence over `DENY` network items in an access list.
+
+To reject traffic from all network items except those with the `ALLOW` type, add a `DENY` network item with the address of `0.0.0.0/0`.
+
+### View Access List
+
+You can view a load balancer's access list. An instance of `OpenCloud\Common\Collection\PaginatedIterator`
+is returned.
+
+```php
+$accessList = $loadBalancer->accessList();
+foreach ($accessList as $networkItem) {
+    /** @var $networkItem OpenCloud\LoadBalancer\Resource\Access **/}
+```
+
+### Add Network Item To Access List
+
+You can add a network item to a load balancer's access list.
+
+```php
+$networkItem = $loadBalancer->access();
+$networkItem->type = 'ALLOW';
+$networkItem->address = '206.160.165.0/24';
+$networkItem->create();
+```
+
+### Remove Network Item From Access List
+
+You an remove a network item from a load balancer's access list.
+
+```php
+$networkItem->delete();
+```
+
 ## Content Caching
+
+When **content caching** is enabled on a load balancer, recently-accessed files are stored on the load balancer for easy retrieval by web clients. Requests to the load balancer for these files are serviced by the load balancer itself, which reduces load off its back-end nodes and improves response times as well.
+
+### List Content Caching Configuration
+
+```php
+$contentCaching = $loadBalancer->contentCaching();
+$contentCachingEnabled = $contentCaching->enabled;
+
+/** @var $contentCachingEnabled boolean **/
+```
+In the example above:
+
+* If content caching is enabled, the value of `$contentCachingEnabled` is `true`.
+* If content caching is disabled, the value of `$contentCachingEnabled` is `false`.
+
+### Enable Content Caching
+
+```php
+$contentCaching = $loadBalancer->contentCaching();
+$contentCaching->update(array(
+    'enabled' => true
+));
+```
+
+### Disable Content Caching
+
+```php
+$contentCaching = $loadBalancer->contentCaching();
+$contentCaching->update(array(
+    'enabled' => false
+));
+```
 
 ## SSL Termination
 

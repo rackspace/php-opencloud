@@ -12,6 +12,13 @@ $keypair->create(array(
 ));
 
 echo $keypair->getPublicKey();
+
+// Save private key to a file so you can use it to SSH into 
+// your server later.
+$sshPrivateKeyFilename = 'jamie_keypair_1_rsa';
+$privateKey = $keypair->getPrivateKey(); 
+file_put_contents($sshPrivateKeyFilename, $privateKey);
+chmod($sshPrivateKeyFilename, 0600);
 ```
 
 ## Upload existing keypair
