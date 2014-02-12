@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Database\Resource;
 
+use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Resource\NovaResource;
