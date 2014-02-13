@@ -55,13 +55,14 @@ class Operation
     /**
      * @param Schema   $schema
      * @param Property $property
+     * @param string $operationType
      * @return Operation
      */
-    public static function factory(Schema $schema, Property $property)
+    public static function factory(Schema $schema, Property $property, $operationType)
     {
         $operation = new self();
 
-        $operation->setType($schema->decideOperationType($property));
+        $operation->setType($operationType);
         $operation->setSchema($schema);
         $operation->setPath($property->getPath());
         $operation->setValue($property->getValue());

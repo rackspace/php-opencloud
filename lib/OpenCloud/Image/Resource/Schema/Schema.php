@@ -170,7 +170,6 @@ class Schema extends AbstractSchemaItem
     public function decideOperationType(Property $property)
     {
         $name = $property->getName();
-
         return ($this->propertyExists($name)) ? OperationType::REPLACE : OperationType::ADD;
     }
 

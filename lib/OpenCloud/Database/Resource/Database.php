@@ -27,33 +27,16 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class Database extends PersistentResource
 {
+    /** @var string */
+    public $name;
+
     protected static $json_collection_name = 'databases';
     protected static $url_resource = 'databases';
 
-    public $name;
-
-    /**
-     * Creates a new database object
-     *
-     * Unlike other objects (Servers, DataObjects, etc.), passing a database
-     * name to the constructor does *not* pull information from the database.
-     * For example, if you pass an ID to the `Server()` constructor, it will
-     * attempt to retrieve the information on that server from the service,
-     * and will return an error if it is not found. However, the Cloud
-     * Databases service does not permit retrieval of information on
-     * individual databases (only via Collection), and thus passing in a
-     * name via the `$info` parameter only creates an in-memory object that
-     * is not necessarily tied to an actual database.
-     *
-     * @param Instance $instance the parent DbService\Instance of the database
-     * @param mixed    $info     if an array or object, treated as properties to set;
-     *                           if a string, treated as the database name
-     * @return void
-     * @throws DatabaseNameError if `$info` is not a string, object, or array
-     */
     public function __construct(Instance $instance, $info = null)
     {
         $this->setParent($instance);
+
         // Catering for laziness
         if (is_string($info)) {
             $info = array('name' => $info);
@@ -128,17 +111,6 @@ class Database extends PersistentResource
     public function update($params = array())
     {
         return $this->noUpdate();
-    }
-
-    /**
-     * Deletes a database
-     *
-     * @api
-     * @return \OpenCloud\HttpResponseb
-     */
-    public function delete()
-    {
-        return $this->getClient()->delete($this->url())->send();
     }
 
     /**

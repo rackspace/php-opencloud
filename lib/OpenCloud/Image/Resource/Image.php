@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Image\Resource;
 
+use OpenCloud\Image\Enum\OperationType;
 use OpenCloud\Image\Resource\JsonPatch\Document as JsonDocument;
 use OpenCloud\Image\Resource\JsonPatch\Operation as JsonOperation;
 use OpenCloud\Image\Resource\Schema\Schema;
@@ -65,8 +66,17 @@ class Image extends AbstractSchemaResource implements ImageInterface
             $property->setValue($value);
             $property->validate();
 
+            // decide operation type
+            if (!$value) {
+                $operationType = OperationType::REMOVE;
+            } elseif ($this->offsetExists($propertyName)) {
+                $operationType = OperationType::REPLACE;
+            } else {
+                $operationType = $schema->decideOperationType($property);
+            }
+
             // create JSON-patch operation
-            $operation = JsonOperation::factory($schema, $property);
+            $operation = JsonOperation::factory($schema, $property, $operationType);
 
             // add to JSON document
             $document->addOperation($operation);

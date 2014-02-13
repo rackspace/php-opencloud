@@ -18,6 +18,7 @@
 namespace OpenCloud\Volume;
 
 use OpenCloud\Common\Service\NovaService;
+use OpenCloud\Volume\Resource\Snapshot;
 
 class Service extends NovaService
 {
@@ -27,19 +28,17 @@ class Service extends NovaService
     /**
      * Returns a Volume object
      *
-     * @api
      * @param string $id the Volume ID
      * @return Resource\Volume
      */
     public function volume($id = null)
     {
-        return new Resource\Volume($this, $id);
+        return $this->resource('Volume', $id);
     }
 
     /**
      * Returns a Collection of Volume objects
      *
-     * @api
      * @param boolean $details if TRUE, return all details
      * @param array   $filter  array of filter key/value pairs
      * @return \OpenCloud\Common\Collection
@@ -47,56 +46,60 @@ class Service extends NovaService
     public function volumeList($details = true, $filter = array())
     {
         $url = clone $this->getUrl(Resource\Volume::ResourceName());
-        if ($details) {
+
+        if ($details === true) {
             $url->addPath('detail');
         }
 
-        return $this->collection('OpenCloud\Volume\Resource\Volume', $url);
+        $url->setQuery($filter);
+
+        return $this->resourceList('Volume', $url);
     }
 
     /**
      * Returns a VolumeType object
      *
-     * @api
      * @param string $id the VolumeType ID
      * @return Resource\Volume
      */
     public function volumeType($id = null)
     {
-        return new Resource\VolumeType($this, $id);
+        return $this->resource('VolumeType', $id);
     }
 
     /**
      * Returns a Collection of VolumeType objects
      *
-     * @api
      * @param array $filter array of filter key/value pairs
      * @return \OpenCloud\Common\Collection
      */
     public function volumeTypeList($filter = array())
     {
-        return $this->collection('\OpenCloud\Volume\Resource\VolumeType');
+        return $this->resourceList('VolumeType');
     }
 
     /**
-     * returns a Snapshot object associated with this volume
+     * Returns a Snapshot object associated with this volume
      *
+     * @param null $id
      * @return Resource\Snapshot
      */
     public function snapshot($id = null)
     {
-        return new Resource\Snapshot($this, $id);
+        return $this->resource('Snapshot', $id);
     }
 
     /**
      * Returns a Collection of Snapshot objects
      *
-     * @api
      * @param array $filter array of filter key/value pairs
      * @return \OpenCloud\Common\Collection
      */
     public function snapshotList($filter = array())
     {
-        return $this->collection('OpenCloud\Volume\Resource\Snapshot');
+        $url = clone $this->getUrl();
+        $url->addPath(Snapshot::resourceName())->setQuery($filter);
+
+        return $this->resourceList('Snapshot', $url);
     }
 }

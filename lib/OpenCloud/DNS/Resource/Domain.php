@@ -27,7 +27,6 @@ use OpenCloud\Common\Http\Message\Formatter;
  */
 class Domain extends Object
 {
-
     public $id;
     public $accountId;
     public $ttl;
@@ -195,8 +194,7 @@ class Domain extends Object
         $comments = true,
         $email = true,
         $records = true
-    )
-    {
+    ) {
         $url = $this->url('clone', array(
             'cloneName'          => $newdomain,
             'cloneSubdomains'    => $sub,
@@ -211,7 +209,6 @@ class Domain extends Object
     /**
      * handles creation of multiple records at Create()
      *
-     * @api
      * @return \stdClass
      */
     protected function createJson()

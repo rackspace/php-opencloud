@@ -24,7 +24,6 @@ namespace OpenCloud\DNS\Resource;
  */
 class Record extends Object
 {
-
     public $ttl;
     public $updated;
     public $created;

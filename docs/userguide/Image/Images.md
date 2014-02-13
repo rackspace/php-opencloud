@@ -81,6 +81,15 @@ try {
 }
 ```
 
+There are three operations that can take place for each Image property:
+
+* If a `false` or `null` value is provided, a `REMOVE` operation will occur,
+removing the property from the JSON document
+* If a non-false value is provided and the property does not exist, an `ADD`
+operation will add it to the document
+* If a non-false value is provided and the property does exist, a `REPLACE`
+operation will modify the property in the document
+
 ## Delete image
 
 ```php

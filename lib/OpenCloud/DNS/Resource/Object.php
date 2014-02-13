@@ -20,21 +20,14 @@ namespace OpenCloud\DNS\Resource;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * The DnsObject class is an extension of the PersistentObject class that
  * permits the asynchronous responses used by Cloud DNS
  */
-abstract class Object extends PersistentObject
+abstract class Object extends PersistentResource
 {
-
-    /**
-     * Create() returns an asynchronous response
-     *
-     * @param array $params array of key/value pairs
-     * @return AsyncResponse
-     */
     public function create($params = array())
     {
         $body = Formatter::decode(parent::create($params));
@@ -42,12 +35,6 @@ abstract class Object extends PersistentObject
         return new AsyncResponse($this->getService(), $body);
     }
 
-    /**
-     * Update() returns an asynchronous response
-     *
-     * @param array $params array of key/value pairs
-     * @return AsyncResponse
-     */
     public function update($params = array())
     {
         $response = parent::update($params);
@@ -56,12 +43,6 @@ abstract class Object extends PersistentObject
         return new AsyncResponse($this->getService(), $body);
     }
 
-    /**
-     * Delete() returns an asynchronous response
-     *
-     * @param array $params array of key/value pairs
-     * @return AsyncResponse
-     */
     public function delete()
     {
         $body = Formatter::decode(parent::delete());
@@ -69,11 +50,6 @@ abstract class Object extends PersistentObject
         return new AsyncResponse($this->getService(), $body);
     }
 
-    /**
-     * creates the JSON for create
-     *
-     * @return stdClass
-     */
     protected function createJson()
     {
         if (!$this->getCreateKeys()) {
@@ -89,11 +65,6 @@ abstract class Object extends PersistentObject
         );
     }
 
-    /**
-     * creates the JSON for update
-     *
-     * @return stdClass
-     */
     protected function updateJson($params = array())
     {
         if (!$this->getUpdateKeys()) {

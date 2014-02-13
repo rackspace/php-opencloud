@@ -27,7 +27,6 @@ use OpenCloud\Common\Service\ServiceInterface;
  */
 class AsyncResponse extends PersistentObject
 {
-
     public $jobId;
     public $callbackUrl;
     public $status;

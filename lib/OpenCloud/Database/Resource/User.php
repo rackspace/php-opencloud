@@ -27,13 +27,13 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class User extends PersistentResource
 {
-    /**
-     * @var string $name      the user name
-     * @var string $password  the user's password
-     * @var array  $databases a list of database names assigned to the user
-     */
+    /** @var string The user name */
     public $name;
+
+    /** @var string The user's password  */
     public $password;
+
+    /** @var array A list of database names assigned to the user */
     public $databases = array();
 
     protected static $json_name = 'user';

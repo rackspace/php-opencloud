@@ -19,14 +19,13 @@ namespace OpenCloud\Volume\Resource;
 
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * The Volume class represents a single block storage volume
  */
-class Volume extends PersistentObject
+class Volume extends PersistentResource
 {
-
     public $id;
     public $status;
     public $display_name;
@@ -38,6 +37,7 @@ class Volume extends PersistentObject
     public $snapshot_id;
     public $attachments = array();
     public $created_at;
+    public $source_volid;
 
     protected static $json_name = 'volume';
     protected static $url_resource = 'volumes';
@@ -48,20 +48,51 @@ class Volume extends PersistentObject
         'display_description',
         'size',
         'volume_type',
-        'availability_zone'
+        'availability_zone',
+        'metadata',
+        'source_volid'
     );
 
-    // Normally we'd populate a sibling object when this one refreshes
-    // but there are times (i.e. during creation) when the NAME of the VolumeType
-    // is returned, instead of its primary key...
-    protected $associatedResources = array(//'volume_type' => 'VolumeType'
-    );
+    protected $associatedResources = array();
 
     public function update($params = array())
     {
         throw new Exceptions\UpdateError(
             Lang::translate('Block storage volumes cannot be updated')
         );
+    }
+
+    /**
+     * Rename either the `display_description` or the `display_name` properties
+     *
+     * @param array $params
+     * @return \Guzzle\Http\Message\Response
+     * @throws \InvalidArgumentException
+     */
+    public function rename(array $params = array())
+    {
+        $data = array();
+
+        $keys = array('display_description', 'display_name');
+
+        foreach ($params as $key => $value) {
+            if (isset($keys[$key])) {
+                $data[$key] = $value;
+            } else {
+                throw new \InvalidArgumentException(sprintf(
+                    'You cannot update the %s volume property. Valid keys are: %s',
+                    $key, implode($keys, ',')
+                ));
+            }
+        }
+
+        $json = json_encode(array(
+           'volume' => $data
+        ));
+
+        return $this->getClient()
+            ->put($this->getUrl(), self::getJsonHeader(), $json)
+            ->send();
     }
 
     public function name()
@@ -73,9 +104,7 @@ class Volume extends PersistentObject
     {
         $element = parent::createJson();
 
-        if ($this->propertyExists('volume_type')
-            && $this->getProperty('volume_type') instanceof VolumeType
-        ) {
+        if ($this->getProperty('volume_type') instanceof VolumeType) {
             $element->volume->volume_type = $this->volume_type->name();
         }
 

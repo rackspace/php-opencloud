@@ -18,15 +18,13 @@
 namespace OpenCloud\Volume\Resource;
 
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * The VolumeType class represents a single block storage volume type
  */
-class VolumeType extends PersistentObject
+class VolumeType extends PersistentResource
 {
-
     public $id;
     public $name;
     public $extra_specs;
@@ -34,39 +32,18 @@ class VolumeType extends PersistentObject
     protected static $json_name = 'volume_type';
     protected static $url_resource = 'types';
 
-    /**
-     * Creates are not permitted
-     *
-     * @throws OpenCloud\CreateError always
-     */
-    public function Create($params = array())
+    public function create($params = array())
     {
-        throw new Exceptions\CreateError(
-            Lang::translate('VolumeType cannot be created')
-        );
+        return $this->noCreate();
     }
 
-    /**
-     * updates are not permitted
-     *
-     * @throws OpenCloud\UpdateError always
-     */
-    public function Update($params = array())
+    public function update($params = array())
     {
-        throw new Exceptions\UpdateError(
-            Lang::translate('VolumeType cannot be updated')
-        );
+        return $this->noUpdate();
     }
 
-    /**
-     * deletes are not permitted
-     *
-     * @throws OpenCloud\DeleteError
-     */
-    public function Delete()
+    public function delete()
     {
-        throw new Exceptions\DeleteError(
-            Lang::translate('VolumeType cannot be deleted')
-        );
+        return $this->noDelete();
     }
 }

@@ -29,7 +29,6 @@ use OpenCloud\Common\Lang;
  */
 class PtrRecord extends Record
 {
-
     public $server;
 
     protected static $json_name = false;
@@ -39,9 +38,6 @@ class PtrRecord extends Record
     private $link_rel;
     private $link_href;
 
-    /**
-     * constructur ensures that the record type is PTR
-     */
     public function __construct($parent, $info = null)
     {
         $this->type = 'PTR';

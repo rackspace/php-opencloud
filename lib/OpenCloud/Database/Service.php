@@ -18,9 +18,10 @@
 namespace OpenCloud\Database;
 
 use OpenCloud\Common\Service\NovaService;
+use OpenCloud\Database\Resource\Instance;
 
 /**
- * The Rackspace Database As A Service (aka "Red Dwarf")
+ * The Rackspace Database service
  */
 class Service extends NovaService
 {
@@ -28,41 +29,27 @@ class Service extends NovaService
     const DEFAULT_NAME = 'cloudDatabases';
 
     /**
-     * Returns a list of flavors
+     * Returns an Instance
      *
-     * just call the parent FlavorList() method, but pass FALSE
-     * because the /flavors/detail resource is not supported
-     *
-     * @api
-     * @return \OpenCloud\Compute\FlavorList
-     */
-    public function flavorList($details = false, array $filter = array())
-    {
-        return parent::flavorList(false);
-    }
-
-    /**
-     * Creates a Instance object
-     *
-     * @api
      * @param string $id the ID of the instance to retrieve
-     * @return DbService\Instance
+     * @return \OpenCloud\Database\Resource\Instance
      */
     public function instance($id = null)
     {
-        return new Resource\Instance($this, $id);
+        return $this->resource('Instance', $id);
     }
 
     /**
-     * Creates a Collection of Instance objects
+     * Returns a Collection of Instance objects
      *
-     * @api
-     * @param array $params array of parameters to pass to the request as
-     *                      query strings
-     * @return Collection
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function instanceList($params = array())
     {
-        return $this->collection('OpenCloud\Database\Resource\Instance', null, null, $params);
+        $url = clone $this->getUrl();
+        $url->addPath(Instance::resourceName())->setQuery($params);
+
+        return $this->resourceList('Instance', $url);
     }
 }

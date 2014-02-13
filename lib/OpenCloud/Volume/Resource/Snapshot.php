@@ -18,14 +18,13 @@
 namespace OpenCloud\Volume\Resource;
 
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * The Snapshot class represents a single block storage snapshot
  */
-class Snapshot extends PersistentObject
+class Snapshot extends PersistentResource
 {
-
     public $id;
     public $display_name;
     public $display_description;

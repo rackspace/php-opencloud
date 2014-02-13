@@ -25,7 +25,6 @@ namespace OpenCloud\DNS\Resource;
  */
 class Subdomain extends Domain
 {
-
     protected static $json_name = false;
     protected static $json_collection_name = 'domains';
     protected static $url_resource = 'subdomains';
