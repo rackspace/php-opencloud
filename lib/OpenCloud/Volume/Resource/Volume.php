@@ -39,6 +39,12 @@ class Volume extends PersistentResource
     public $created_at;
     public $source_volid;
 
+    /**
+     * OpenStack only
+     */
+    public $imageRef;
+    public $bootable;
+
     protected static $json_name = 'volume';
     protected static $url_resource = 'volumes';
 
@@ -50,7 +56,9 @@ class Volume extends PersistentResource
         'volume_type',
         'availability_zone',
         'metadata',
-        'source_volid'
+        'source_volid',
+        'bootable',
+        'imageRef'
     );
 
     protected $associatedResources = array();

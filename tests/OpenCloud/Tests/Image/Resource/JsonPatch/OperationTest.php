@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Tests\Image\Resource\JsonPatch;
 
+use OpenCloud\Image\Enum\OperationType;
 use OpenCloud\Image\Resource\JsonPatch\Operation;
 use OpenCloud\Image\Resource\Schema\Property;
 use OpenCloud\Image\Resource\Schema\Schema;
@@ -48,7 +49,7 @@ class OperationTest extends OpenCloudTestCase
         $schema = Schema::factory($this->getSchemaData());
         $property = Property::factory($this->getPropertyData());
 
-        $operation = Operation::factory($schema, $property);
+        $operation = Operation::factory($schema, $property, OperationType::REPLACE);
 
         $this->assertEquals($schema, $operation->getSchema());
         $this->assertEquals($property->getPath(), $operation->getPath());
