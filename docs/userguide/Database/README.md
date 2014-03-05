@@ -9,8 +9,8 @@ resource sizes without the need to maintain and/or update MySQL.
 ### 1. Instantiate a Rackspace client.
 
 ```php
-
 use OpenCloud\Rackspace;
+use OpenCloud\Common\Constants\State;
 
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME>',
@@ -23,7 +23,7 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 ```php
 $databaseService = $client->databaseService('cloudDatabases', 'DFW');
 
-$twoGbFlavor = $databaseService->flavor(4);
+$twoGbFlavor = $databaseService->flavor(3);
 
 $dbInstance = $databaseService->instance();
 $dbInstance->name = 'Demo database instance';
