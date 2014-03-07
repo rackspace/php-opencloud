@@ -315,7 +315,7 @@ class ContainerTest extends ObjectStoreTestCase
      */
     public function test_Object_Exists_True()
     {
-        $this->assertEquals(true, $this->container->objectExists('test.foo'));
+        $this->assertTrue($this->container->objectExists('test.foo'));
     }
 
     /**
@@ -323,7 +323,6 @@ class ContainerTest extends ObjectStoreTestCase
      */
     public function test_Object_Exists_False()
     {
-        $this->assertEquals(false, $this->container->objectExists('test.foo'));
+        $this->assertFalse($this->container->objectExists('test.foo'));
     }
-
 }

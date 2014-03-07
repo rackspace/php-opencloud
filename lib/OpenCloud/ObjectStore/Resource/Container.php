@@ -381,24 +381,20 @@ class Container extends AbstractContainer
     public function objectExists($name)
     {
         try {
-
-            // Try to retrieve the object, but only its headers to save
-            // bandwidth and time.
-            $this->getPartialObject($name);
-    
-            // If we get this far, then the object exists
-            return true;
-
-        } catch (\Guzzle\Http\Exception\ClientErrorResponseException $e) {
-
+            // Send HEAD request to check resource existence
+            $url = clone $this->getUrl();
+            $url->addPath((string) $name);
+            $this->getClient()->head($url)->send();
+        } catch (ClientErrorResponseException $e) {
             // If a 404 was returned, then the object doesn't exist
-            if ( $e->getResponse()->getStatusCode() == 404 ) {
+            if ($e->getResponse()->getStatusCode() === 404) {
                 return false;
             } else {
                 throw $e;
             }
-
         }
+
+        return true;
     }
 
     /**
