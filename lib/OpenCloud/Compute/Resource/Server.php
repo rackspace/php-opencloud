@@ -17,9 +17,8 @@
 
 namespace OpenCloud\Compute\Resource;
 
-use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Resource\NovaResource;
-use OpenCloud\Images\Resource\ImageInterface;
+use OpenCloud\Image\Resource\ImageInterface;
 use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
