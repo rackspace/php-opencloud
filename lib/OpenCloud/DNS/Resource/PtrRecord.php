@@ -29,7 +29,8 @@ use OpenCloud\Common\Lang;
  */
 class PtrRecord extends Record
 {
-    public $server;
+    /** @var  */
+    public $parent;
 
     protected static $json_name = false;
     protected static $json_collection_name = 'records';
@@ -40,14 +41,9 @@ class PtrRecord extends Record
 
     public function __construct($parent, $info = null)
     {
-        $this->type = 'PTR';
         parent::__construct($parent, $info);
-        if ($this->type != 'PTR') {
-            throw new Exceptions\RecordTypeError(sprintf(
-                Lang::translate('Invalid record type [%s], must be PTR'),
-                $this->type
-            ));
-        }
+
+        $this->type = 'PTR';
     }
 
     /**
@@ -58,8 +54,9 @@ class PtrRecord extends Record
     public function create($params = array())
     {
         $this->populate($params);
-        $this->link_rel = $this->server->getService()->name();
-        $this->link_href = $this->server->url();
+
+        $this->link_rel = $this->parent->getService()->getName();
+        $this->link_href = (string) $this->parent->getUrl();
 
         return parent::create();
     }
@@ -70,8 +67,9 @@ class PtrRecord extends Record
     public function update($params = array())
     {
         $this->populate($params);
-        $this->link_rel = $this->server->getService()->Name();
-        $this->link_href = $this->server->Url();
+
+        $this->link_rel = $this->parent->getService()->getName();
+        $this->link_href = (string) $this->parent->getUrl();
 
         return parent::update();
     }
@@ -85,8 +83,8 @@ class PtrRecord extends Record
      */
     public function delete()
     {
-        $this->link_rel = $this->server->getService()->Name();
-        $this->link_href = $this->server->Url();
+        $this->link_rel = $this->parent->getService()->Name();
+        $this->link_href = (string) $this->parent->getUrl();
 
         $params = array('href' => $this->link_href);
         if (!empty($this->data)) {
@@ -108,9 +106,9 @@ class PtrRecord extends Record
      */
     protected function createJson()
     {
-        return (object)array(
+        return (object) array(
             'recordsList' => parent::createJson(),
-            'link'        => array(
+            'link' => array(
                 'href' => $this->link_href,
                 'rel'  => $this->link_rel
             )

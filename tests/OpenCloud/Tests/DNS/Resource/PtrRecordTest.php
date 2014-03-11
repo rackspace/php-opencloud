@@ -46,14 +46,6 @@ class PtrRecordTest extends DnsTestCase
         $this->assertEquals('PTR', $this->record->type);
     }
 
-    /**
-     * @expectedException \OpenCloud\Common\Exceptions\RecordTypeError
-     */
-    public function test__construct2()
-    {
-        $this->service->ptrRecord(array('type' => 'A'));
-    }
-
     public function testUrl()
     {
         $this->assertEquals(
