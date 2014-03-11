@@ -22,7 +22,7 @@ namespace OpenCloud\DNS\Resource;
  *
  * This is also used for PTR records.
  */
-class Record extends Object
+class Record extends AbstractResource
 {
     public $ttl;
     public $updated;

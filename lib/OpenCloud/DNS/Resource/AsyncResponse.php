@@ -100,4 +100,23 @@ class AsyncResponse extends PersistentObject
     {
         return 'jobId';
     }
+
+    public function waitUntilComplete()
+    {
+        $jobUrl = Url::factory($this->callbackUrl);
+        $jobUrl->setQuery(['showDetails' => 'true']);
+
+        $continue = true;
+
+        while ($continue) {
+
+            $body = $this->getClient()->get($jobUrl)->send()->json();
+
+            if ($body['status'] === 'COMPLETED') {
+                $continue = false;
+            }
+        }
+
+        return isset($body['response']) ? $body['response'] : false;
+    }
 }

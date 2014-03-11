@@ -20,7 +20,7 @@ Please consult the [client doc](docs/userguide/Client.md) for more information a
 $groups = $service->groupList();
 ```
 
-Please consult the [iterator doc](docs/userguide/Iterators.md) for more information about iterators.
+Please consult the [iterator documentation](docs/userguide/Iterators.md) for more information about iterators.
 
 ## Retrieve one group by ID
 

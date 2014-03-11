@@ -18,19 +18,16 @@
 namespace OpenCloud\LoadBalancer\Resource;
 
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\Lang;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
+use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 
 /**
  * A load balancer is a logical device which belongs to a cloud account. It is
  * used to distribute workloads between multiple back-end systems or services,
  * based on the criteria defined as part of its configuration.
- *
- *
  */
-class LoadBalancer extends PersistentObject
+class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
 {
-
     public $id;
 
     /**
@@ -211,7 +208,7 @@ class LoadBalancer extends PersistentObject
                 break;
             default:
                 throw new Exceptions\DomainError(sprintf(
-                    Lang::translate('Value [%s] for Node::condition is not valid'),
+                    'Value [%s] for Node::condition is not valid',
                     $condition
                 ));
         }
@@ -224,7 +221,7 @@ class LoadBalancer extends PersistentObject
                     break;
                 default:
                     throw new Exceptions\DomainError(sprintf(
-                        Lang::translate('Value [%s] for Node::type is not valid'),
+                        'Value [%s] for Node::type is not valid',
                         $type
                     ));
             }
@@ -235,7 +232,7 @@ class LoadBalancer extends PersistentObject
                 $node->weight = $weight;
             } else {
                 throw new Exceptions\DomainError(sprintf(
-                    Lang::translate('Value [%s] for Node::weight must be integer'),
+                    'Value [%s] for Node::weight must be integer',
                     $weight
                 ));
             }
@@ -249,7 +246,7 @@ class LoadBalancer extends PersistentObject
     {
         if (count($this->nodes) < 1) {
             throw new Exceptions\MissingValueError(
-                Lang::translate('Cannot add nodes; no nodes are defined')
+                'Cannot add nodes; no nodes are defined'
             );
         }
 
@@ -313,7 +310,7 @@ class LoadBalancer extends PersistentObject
                     break;
                 default:
                     throw new Exceptions\DomainError(sprintf(
-                        Lang::translate('Value [%s] for ipVersion is not valid'),
+                        'Value [%s] for ipVersion is not valid',
                         $ipVersion
                     ));
             }
