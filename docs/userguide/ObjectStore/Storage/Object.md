@@ -189,14 +189,23 @@ $object->delete();
 ```
 
 ## Get object metadata
+You can fetch just the object metadata without fetching the full content:
+```php
+$container->getPartialObject('summer_vacation.mp4');
+```
 
-Metadata will be automatically populated when the file is retrieved from the API. To access these populated values:
+In order to access the metadata on a partial or complete object, use:
 
 ```php
 $object->getMetadata();
 ```
 
-But, if for some reason, you'd like to retrieve the freshest data by executing a HTTP request to the API:
+You can turn a partial object into a full object to get the content after looking at the metadata:
+```php
+$object->refresh();
+```
+
+You can also update to get the latest metadata:
 
 ```php
 $object->retrieveMetadata();
