@@ -15,68 +15,53 @@
  * limitations under the License.
  */
 
-/**
- * Unit Tests
- *
- * @copyright 2012-2014 Rackspace Hosting, Inc.
- * See COPYING for licensing information
- *
- * @version   1.0.0
- * @author    Glen Campbell <glen.campbell@rackspace.com>
- */
-
 namespace OpenCloud\Tests\DNS\Resource;
 
-use OpenCloud\DNS\Resource\Object;
 use OpenCloud\Tests\DNS\DnsTestCase;
-
-class CustomRecord extends Object
-{
-    public $name = 'fooBar';
-}
 
 class PtrRecordTest extends DnsTestCase
 {
-    /**
-     * Tests
-     */
-    public function test__construct()
+    private function getServer()
     {
-        $this->record = $this->service->ptrRecord();
+        return $this->getClient()
+            ->computeService('cloudServersOpenStack', 'ORD')
+            ->server('foo');
+    }
+
+    public function test_Has_Correct_Type()
+    {
         $this->assertEquals('PTR', $this->record->type);
     }
 
-    public function testUrl()
+    public function test_Url()
     {
         $this->assertEquals(
             'https://dns.api.rackspacecloud.com/v1.0/123456/rdns',
-            (string)$this->record->getUrl()
+            (string) $this->record->getUrl()
         );
     }
 
-    public function testCreate()
+    public function test_Create()
     {
-        $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse',
-            $this->record->create(array('server' => $server))
+            $this->record->create(array('parent' => $this->getServer()))
         );
     }
 
-    public function testUpdate()
+    public function test_Update()
     {
-        $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse',
-            $this->record->update(array('server' => $server))
+            $this->record->update(array('parent' => $this->getServer()))
         );
     }
 
-    public function testDelete()
+    public function test_Delete()
     {
-        $server = $this->getClient()->computeService(null, 'ORD')->server(array('id' => 'foo'));
-        $this->record->server = $server;
+        $this->record->setDeviceParent($this->getServer());
         $this->record->data = 12345;
+
         $this->assertInstanceOf(
             'OpenCloud\DNS\Resource\AsyncResponse',
             $this->record->delete()
@@ -84,20 +69,24 @@ class PtrRecordTest extends DnsTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     * @expectedException \InvalidArgumentException
      */
-    public function testCreateFailsWithoutKeys()
+    public function test_Operation_Fails_Without_Parent_Device()
     {
-        $object = new CustomRecord($this->service);
-        $object->create();
+        $this->record->create();
     }
 
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\UpdateError
-     */
-    public function testUpdateFailsWithoutKeys()
+    public function test_Load_Balancer_Can_Have_PtrRecords()
     {
-        $object = new CustomRecord($this->service);
-        $object->update();
+        $lb = $this->getClient()
+            ->loadBalancerService('cloudLoadBalancers', 'ORD')
+            ->loadBalancer('foo');
+
+        $this->record->setDeviceParent($lb);
+
+        $this->assertInstanceOf(
+            'OpenCloud\DNS\Resource\HasPtrRecordsInterface',
+            $this->record->getDeviceParent()
+        );
     }
 }

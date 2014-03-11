@@ -29,8 +29,8 @@ use OpenCloud\Common\Lang;
  */
 class PtrRecord extends Record
 {
-    /** @var  */
-    public $parent;
+    /** @var HasPtrRecordsInterface The device which this record refers to */
+    public $server;
 
     protected static $json_name = false;
     protected static $json_collection_name = 'records';
@@ -39,52 +39,73 @@ class PtrRecord extends Record
     private $link_rel;
     private $link_href;
 
-    public function __construct($parent, $info = null)
+    public function __construct($service, $info = null)
     {
-        parent::__construct($parent, $info);
+        parent::__construct($service, $info);
 
         $this->type = 'PTR';
     }
 
     /**
-     * DNS PTR Create() method requires a server
+     * Used to internally populate this object with the appropriate type checks
      *
-     * Generally called as `Create(array('server'=>$server))`
+     * @param array $params
+     * @throws \InvalidArgumentException If no parent device set
      */
+    protected function populateRecord(array $params = array())
+    {
+        if (!isset($params['parent'])) {
+            throw new \InvalidArgumentException('You must set a `parent` device');
+        }
+
+        $this->setDeviceParent($params['parent']);
+        unset($params['parent']);
+
+        parent::populate($params);
+    }
+
+    /**
+     * Set the parent device
+     *
+     * @param HasPtrRecordsInterface $parent
+     */
+    public function setDeviceParent(HasPtrRecordsInterface $parent)
+    {
+        $this->server = $parent;
+    }
+
+    /**
+     * @return HasPtrRecordsInterface
+     */
+    public function getDeviceParent()
+    {
+        return $this->server;
+    }
+
     public function create($params = array())
     {
-        $this->populate($params);
+        $this->populateRecord($params);
 
-        $this->link_rel = $this->parent->getService()->getName();
-        $this->link_href = (string) $this->parent->getUrl();
+        $this->link_rel = $this->getDeviceParent()->getService()->getName();
+        $this->link_href = (string) $this->getDeviceParent()->getUrl();
 
         return parent::create();
     }
 
-    /**
-     * DNS PTR Update() method requires a server
-     */
     public function update($params = array())
     {
-        $this->populate($params);
+        $this->populateRecord($params);
 
-        $this->link_rel = $this->parent->getService()->getName();
-        $this->link_href = (string) $this->parent->getUrl();
+        $this->link_rel = $this->getDeviceParent()->getService()->getName();
+        $this->link_href = (string) $this->getDeviceParent()->getUrl();
 
         return parent::update();
     }
 
-    /**
-     * DNS PTR Delete() method requires a server
-     *
-     * Note that delete will remove ALL PTR records associated with the device
-     * unless you pass in the parameter ip={ip address}
-     *
-     */
     public function delete()
     {
-        $this->link_rel = $this->parent->getService()->Name();
-        $this->link_href = (string) $this->parent->getUrl();
+        $this->link_rel = $this->getDeviceParent()->getService()->Name();
+        $this->link_href = (string) $this->getDeviceParent()->getUrl();
 
         $params = array('href' => $this->link_href);
         if (!empty($this->data)) {
@@ -101,9 +122,6 @@ class PtrRecord extends Record
         return new AsyncResponse($this->getService(), Formatter::decode($response));
     }
 
-    /**
-     * Specialized JSON for DNS PTR creates and updates
-     */
     protected function createJson()
     {
         return (object) array(
@@ -115,12 +133,10 @@ class PtrRecord extends Record
         );
     }
 
-    /**
-     * The Update() JSON requires a record ID
-     */
     protected function updateJson($params = array())
     {
         $this->populate($params);
+
         $object = $this->createJson();
         $object->recordsList->records[0]->id = $this->id;
 
