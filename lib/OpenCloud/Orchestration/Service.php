@@ -34,24 +34,26 @@ class Service extends CatalogService
     const DEFAULT_NAME = 'cloudOrchestration';
 
     /**
-     * Returns a Stack object associated with this Orchestration service
+     * creates a new Stack object
      *
      * @api
-     * @param string $id - the stack with the ID is retrieved
-     * @returns Stack object
+     * @param string $id the identifer of the stack
+     * @return Resource\Stack
      */
     public function stack($id = null)
     {
-        return new Stack($this, $id);
+        return new Resource\Stack($this, $id);
     }
 
     /**
-     * Return namespaces.
+     * returns a Collection of Stack objects
      *
-     * @return array
+     * @api
+     * @return \OpenCloud\Common\Collection
      */
-    public function namespaces()
+    public function stackList()
     {
-        return array();
+        return $this->collection('OpenCloud\Orchestration\Resource\Stack');
     }
+
 }

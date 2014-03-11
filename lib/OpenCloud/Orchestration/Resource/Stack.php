@@ -15,27 +15,29 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Orchestration;
+namespace OpenCloud\Orchestration\Resource;
 
-use OpenCloud\Common\PersistentObject;
-use OpenCloud\Exceptions\CreateError;
+use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Lang;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
- * The Stack class requires a CloudFormation template and may contain additional
- * parameters for that template.
- *
- * A Stack is always associated with an (Orchestration) Service.
- *
- * @codeCoverageIgnore
+ * A stack is a group of resources (servers, load balancers, databases, and so 
+ * forth) combined to fulfill a useful purpose. Based on a template, Heat 
+ * orchestration engine creates an instantiated set of resources (a stack) to 
+ * run the application framework or component specified (in the template). A 
+ * stack is a running instance of a template. The result of creating a stack is
+ * a deployment of the application framework or component.
+ * 
  */
-class Stack extends PersistentObject
+class Stack extends PersistentResource
 {
     /**
      * Identifier of stack.
      *
      * @var string
      */
-    protected $id;
+    public $id;
 
     /**
      * The name associated with the stack. Must be unique within your account,
@@ -44,71 +46,55 @@ class Stack extends PersistentObject
      *
      * @var string
      */
-    protected $stack_name;
+    public $stack_name;
 
     /**
-     * A list of Parameter structures that specify input parameters for the stack.
-     *
-     * @var mixed
-     */
-    protected $parameters;
-
-    /**
-     * Structure containing the template body.
-     *
-     * @var string
-     */
-    protected $template;
-
-    /**
-     * Set to true to disable rollback of the stack if stack creation failed.
-     *
-     * @var bool
-     */
-    protected $disable_rollback;
-
-    /**
-     * Description of stack.
-     *
-     * @var string
-     */
-    protected $description;
-
-    /**
-     * @var type
-     */
-    protected $stack_status_reason;
-
-    /**
-     * @var type
-     */
-    protected $outputs;
-
-    /**
-     * @var type
-     */
-    protected $creation_time;
-
-    /**
-     * Array of stack lists.
+     * User-defined parameters to pass to the template.
      *
      * @var array
      */
-    protected $links;
+    public $parameters;
 
     /**
-     * The list of capabilities that you want to allow in the stack.
+     * Object representing the template used by the stack.
      *
-     * @var mixed
+     * @var \OpenCloud\Orchestration\Resource\Template
      */
-    protected $capabilities;
+    public $template;
 
     /**
-     * The Simple Notification Service topic ARNs to publish stack related events.
+     * Whether a failure during stack creation should delete all previously-
+     * created resources in that stack.
      *
-     * @var mixed
+     * @var boolean
      */
-    protected $notification_topics;
+    public $disable_rollback;
+
+    /**
+     * Reason why the stack is in the current status.
+     *
+     * @var string
+     */
+    public $stack_status_reason;
+
+    /**
+     * @var array
+     */
+    public $outputs;
+
+    /**
+     * When the stack was created.
+     *
+     * @var string
+     */
+    public $creation_time;
+
+    /**
+     * When the stack was last updated.
+     *
+     * @var string
+     */
+    public $updated_time;
 
     /**
      * The amount of time that can pass before the stack status becomes
@@ -117,89 +103,75 @@ class Stack extends PersistentObject
      *
      * @var string
      */
-    protected $timeout_mins;
+    public $timeout_mins;
 
     /**
-     * @var type
+     * State the stack is currently in.
+     *
+     * @var string
      */
-    protected $stack_status;
+    public $stack_status;
+
+    /*
+     * URL of the stack template. Will be ignored if template is also supplied.
+     *
+     * @var string
+     */
+    public $template_url;
+
+    /*
+     * @var array
+     */
+    public $environment;
 
     /**
-     * @var type
+     * @var array
      */
-    protected $updated_time;
+    public $files;
 
     /**
-     * @var type
+     * @var array
      */
-    protected $template_description;
+    protected $links;
 
     protected static $json_name = "stack";
     protected static $url_resource = "stacks";
     protected $createKeys = array(
+        'stack_name',
+        'template_url',
         'template',
-        'stack_name'
+        'environment',
+        'files',
+        'parameters',
+        'timeout_mins',
+        'disable_rollback'
+    );
+
+    protected $updateKeys = array(
+        'template_url',
+        'template',
+        'environment',
+        'files',
+        'parameters',
+        'timeout_mins',
+        'disable_rollback'
     );
 
     /**
      * {@inheritDoc}
      */
-    protected function createJson()
+    protected function updateJson($params = array())
     {
-        $pk = $this->primaryKeyField();
 
-        if (!empty($this->{$pk})) {
-            throw new CreateError(sprintf(
-                'Stack is already created and has ID of %s',
-                $this->$pk
-            ));
-        }
+        $object = (object)array();
 
-        $object = (object)array('disable_rollback' => false, 'timeout_mins' => 60);
-
-        foreach ($this->createKeys as $property) {
-            if (empty($this->$property)) {
-                throw new CreateError(sprintf(
-                    'Cannot create Stack with null %s',
-                    $property
-                ));
-            } else {
-                $object->$property = $this->$property;
+        foreach ($this->updateKeys as $key) {
+            if (isset($this->$key)) {
+                $object->$key = $this->$key;
             }
-        }
-
-        if (null !== $this->parameters) {
-            $object->parameters = $this->parameters;
         }
 
         return $object;
     }
 
-    public function name()
-    {
-        return $this->stack_name;
-    }
-
-    public function status()
-    {
-        return $this->stack_status;
-    }
-
-    public function resource($id = null)
-    {
-        $resource = new Resource($this->getService());
-        $resource->setParent($this);
-        $resource->populate($id);
-
-        return $resource;
-    }
-
-    public function resources()
-    {
-        return $this->getService()->collection(
-            'OpenCloud\Orchestration\Resource',
-            $this->url('resources'),
-            $this
-        );
-    }
 }
