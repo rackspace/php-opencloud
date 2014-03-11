@@ -18,6 +18,7 @@
 namespace OpenCloud\Compute\Resource;
 
 use OpenCloud\Common\Resource\NovaResource;
+use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 use OpenCloud\Image\Resource\ImageInterface;
 use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
@@ -32,7 +33,7 @@ use OpenCloud\Compute\Service;
  * @note This implementation supports extension attributes OS-DCF:diskConfig,
  * RAX-SERVER:bandwidth, rax-bandwidth:bandwith.
  */
-class Server extends NovaResource
+class Server extends NovaResource implements HasPtrRecordsInterface
 {
     /**
      * The server status. {@see \OpenCloud\Compute\Constants\ServerState} for supported types.
