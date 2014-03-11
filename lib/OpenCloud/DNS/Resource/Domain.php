@@ -25,7 +25,7 @@ use OpenCloud\Common\Http\Message\Formatter;
  * Note that the `Subdomain` class is defined in this same file because of
  * mutual dependencies.
  */
-class Domain extends Object
+class Domain extends AbstractResource
 {
     public $id;
     public $accountId;
@@ -153,7 +153,12 @@ class Domain extends Object
      */
     public function changes($since = null)
     {
-        $url = $this->url('changes', isset($since) ? array('since' => $since) : array());
+        $url = clone $this->getUrl();
+        $url->addPath('changes');
+
+        if ($since) {
+            $url->setQuery(array('since' => $since));
+        }
 
         $response = $this->getService()
             ->getClient()
@@ -170,7 +175,7 @@ class Domain extends Object
      */
     public function export()
     {
-        return $this->getService()->asyncRequest($this->url('export'));
+        return $this->getService()->asyncRequest($this->getUrl('export'));
     }
 
     /**
@@ -189,15 +194,17 @@ class Domain extends Object
      * @return AsyncResponse
      */
     public function cloneDomain(
-        $newdomain,
-        $sub = true,
+        $newDomainName,
+        $subdomains = true,
         $comments = true,
         $email = true,
         $records = true
     ) {
-        $url = $this->url('clone', array(
-            'cloneName'          => $newdomain,
-            'cloneSubdomains'    => $sub,
+        $url = $this->getUrl();
+        $url->addPath('clone');
+        $url->setQuery(array(
+            'cloneName'          => $newDomainName,
+            'cloneSubdomains'    => $subdomains,
             'modifyComment'      => $comments,
             'modifyEmailAddress' => $email,
             'modifyRecordData'   => $records
