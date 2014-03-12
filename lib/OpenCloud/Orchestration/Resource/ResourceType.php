@@ -27,10 +27,25 @@ use OpenCloud\Common\Resource\PersistentResource;
 class ResourceType extends PersistentResource
 {
 
+    /**
+     * Type of resource.
+     *
+     * @var string
+     */
     public $resource_type;
 
+    /**
+     * Attributes.
+     *
+     * @var object
+     */
     public $attributes;
 
+    /**
+     * Properties.
+     *
+     * @var object
+     */
     public $properties;
 
     protected static $json_name = "does_not_exist";
