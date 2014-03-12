@@ -21,6 +21,9 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Resource\PersistentResource;
 
+/**
+ * Information about the current Orchestration service build.
+ */
 class BuildInfo extends PersistentResource
 {
 
