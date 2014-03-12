@@ -17,23 +17,16 @@
 
 namespace OpenCloud\Tests\LoadBalancer\Resource;
 
-use Guzzle\Http\Message\Response;
 use OpenCloud\Tests\LoadBalancer\LoadBalancerTestCase;
 
 class LoadBalancerTest extends LoadBalancerTestCase
 {
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\DomainError
-     */
     public function test_Add_Node()
     {
         $lb = $this->service->LoadBalancer();
         $lb->addNode('1.1.1.1', 80);
 
         $this->assertEquals('1.1.1.1', $lb->nodes[0]->address);
-
-        // this should trigger an error
-        $lb->AddNode('1.1.1.2', 80, 'foobar');
     }
 
     public function test_Remove_Node()
@@ -47,21 +40,43 @@ class LoadBalancerTest extends LoadBalancerTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\MissingValueError
+     * @expectedException \OpenCloud\Common\Exceptions\MissingValueError
      */
     public function test_Adding_Nodes_Fails_When_Empty()
     {
         $this->service->loadBalancer()->addNodes();
     }
 
-    /**
-     * @ expectedException OpenCloud\Common\Exceptions\DomainError
-     */
     public function testAddVirtualIp()
     {
         $lb = $this->service->loadBalancer();
         $lb->addVirtualIp('public');
+
         $this->assertEquals('PUBLIC', $lb->virtualIps[0]->type);
+    }
+
+    /**
+     * @expectedException \OpenCloud\Common\Exceptions\DomainError
+     */
+    public function test_Add_VIP_Fails_With_Incorrect_Type_Arg()
+    {
+        $this->loadBalancer->addVirtualIp(1, 2, 'foo');
+    }
+
+    /**
+     * @expectedException \OpenCloud\Common\Exceptions\DomainError
+     */
+    public function test_Add_VIP_Fails_With_Incorrect_Condition_Arg()
+    {
+        $this->loadBalancer->addVirtualIp(1, 2, 'ENABLED', 'foo');
+    }
+
+    /**
+     * @expectedException \OpenCloud\Common\Exceptions\DomainError
+     */
+    public function test_Add_VIP_Fails_With_Incorrect_Weight_Arg()
+    {
+        $this->loadBalancer->addVirtualIp(1, 2, 'ENABLED', 'PRIMARY', 'foo');
     }
 
     public function testNode()
@@ -73,27 +88,24 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
         $this->assertInstanceOf(
             'OpenCloud\LoadBalancer\Resource\LoadBalancer',
-            $this->loadBalancer->Node('345')->getParent()
+            $this->loadBalancer->node('345')->getParent()
         );
 
         $this->assertEquals(
             'OpenCloud\LoadBalancer\Resource\Node[456]',
-            (string)$this->loadBalancer->Node('456')->Name()
+            (string)$this->loadBalancer->node('456')->name()
         );
 
         $this->assertInstanceOf(
             'OpenCloud\LoadBalancer\Resource\Metadata',
-            $this->loadBalancer->Node('456')->Metadata()
+            $this->loadBalancer->node('456')->metadata()
         );
 
-        $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->loadBalancer->Node('456')->MetadataList()
-        );
+        $this->isCollection($this->loadBalancer->node('456')->metadataList());
 
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/nodes/456',
-            (string)$this->loadBalancer->Node('456')->getUrl()
+            (string) $this->loadBalancer->Node('456')->getUrl()
         );
     }
 
@@ -103,40 +115,40 @@ class LoadBalancerTest extends LoadBalancerTestCase
         $lb->addVirtualIp('PUBLIC', 4);
         $lb->addNode('0.0.0.1', 1000);
         $lb->create(array('name' => 'foobar'));
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $lb->NodeList());
+        $this->isCollection($lb->nodeList());
     }
 
     public function testNodeEvent()
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/nodes/events',
-            (string)$this->loadBalancer->NodeEvent()->Url()
+            (string) $this->loadBalancer->nodeEvent()->getUrl()
         );
     }
 
     public function testNodeEventList()
     {
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->loadBalancer->NodeEventList());
+        $this->isCollection($this->loadBalancer->nodeEventList());
     }
 
     public function testVirtualIp()
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/virtualips',
-            (string)$this->loadBalancer->VirtualIp()->Url()
+            (string) $this->loadBalancer->virtualIp()->getUrl()
         );
     }
 
     public function testVirtualIpList()
     {
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->loadBalancer->virtualIpList());
+        $this->isCollection($this->loadBalancer->virtualIpList());
     }
 
     public function testSessionPersistence()
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/sessionpersistence',
-            (string)$this->loadBalancer->SessionPersistence()->Url()
+            (string) $this->loadBalancer->sessionPersistence()->getUrl()
         );
     }
 
@@ -144,7 +156,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/errorpage',
-            (string)$this->loadBalancer->ErrorPage()->Url()
+            (string) $this->loadBalancer->errorPage()->getUrl()
         );
     }
 
@@ -152,16 +164,13 @@ class LoadBalancerTest extends LoadBalancerTestCase
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/healthmonitor',
-            (string)$this->loadBalancer->HealthMonitor()->Url()
+            (string) $this->loadBalancer->healthMonitor()->getUrl()
         );
     }
 
     public function testStats()
     {
-        $this->loadBalancer->id = 1024;
-
-        $x = $this->loadBalancer->stats();
-        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resource\Stats', $x);
+        $this->assertInstanceOf('OpenCloud\LoadBalancer\Resource\Stats', $this->loadBalancer->stats());
     }
 
     public function testUsage()
@@ -173,7 +182,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/accesslist',
-            (string)$this->loadBalancer->Access()->Url()
+            (string) $this->loadBalancer->access()->getUrl()
         );
     }
 
@@ -184,16 +193,16 @@ class LoadBalancerTest extends LoadBalancerTestCase
         $this->addMockSubscriber($this->makeResponse('{"accessList":[{"address":"206.160.163.21","id":23,"type":"DENY"}]}'));
 
         $list = $loadBalancer->accessList();
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
+        $this->isCollection($list);
         $this->assertEquals(1, $list->count());
         $this->assertEquals('206.160.163.21', $list->first()->getAddress());
     }
 
-    public function testConnectionThrottle()
+    public function test_Connection_Throttle()
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/connectionthrottle',
-            (string)$this->loadBalancer->ConnectionThrottle()->Url()
+            (string) $this->loadBalancer->connectionThrottle()->getUrl()
         );
     }
 
@@ -208,7 +217,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
     public function test_Setting_Connection_Logging_Returns_Response()
     {
-        $this->isResponse($this->loadBalancer->setConnectionLogging(true));
+        $this->isResponse($this->loadBalancer->enableConnectionLogging(true));
     }
 
     public function test_Has_Content_Caching()
@@ -222,10 +231,10 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
     public function test_Setting_Content_Caching_Returns_Response()
     {
-        $this->isResponse($this->loadBalancer->setContentCaching(true));
+        $this->isResponse($this->loadBalancer->enableContentCaching(true));
     }
 
-    public function testSSLTermination()
+    public function test_SSL_Termination()
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/ssltermination',
@@ -233,7 +242,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
         );
     }
 
-    public function testMetadata()
+    public function test_Metadata()
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/metadata',
@@ -241,25 +250,20 @@ class LoadBalancerTest extends LoadBalancerTestCase
         );
     }
 
-    public function testMetadataList()
+    public function test_Metadata_List()
     {
-        $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->loadBalancer->MetadataList()
-        );
+        $this->isCollection($this->loadBalancer->metadataList());
     }
 
-    public function testUpdate()
+    public function test_Update()
     {
-        $lb = $this->service->LoadBalancer();
+        $lb = $this->service->loadBalancer();
 
-        $resp = $lb->Update(array(
+        $lb->update(array(
             'algorithm' => 'ROUND_ROBIN',
             'protocol'  => 'HTTP',
             'port'      => '8080'
         ));
-
-        $this->assertNotNull($resp->getStatusCode());
 
         $this->assertEquals('ROUND_ROBIN', $lb->algorithm);
         $this->assertEquals('HTTP', $lb->protocol);
@@ -267,35 +271,35 @@ class LoadBalancerTest extends LoadBalancerTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     * @expectedException \OpenCloud\Common\Exceptions\InvalidArgumentError
      */
     public function test_Update_Fails_Without_Correct_Fields()
     {
         $this->loadBalancer->update(array('foo' => 'bar'));
     }
 
-    public function testAddingNodeWithType()
+    public function test_Adding_Node_With_Type()
     {
         $this->loadBalancer->addNode('localhost', 8080, 'ENABLED', 'PRIMARY', 10);
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\DomainError
+     * @expectedException \InvalidArgumentException
      */
-    public function testAddingNodeFailsWithoutCorrectType()
+    public function test_Adding_Node_Fails_Without_Correct_Type()
     {
         $this->loadBalancer->addNode('localhost', 8080, 'ENABLED', 'foo');
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\DomainError
+     * @expectedException \InvalidArgumentException
      */
-    public function testAddingNodeFailsWithoutCorrectWeight()
+    public function test_Adding_Node_Fails_Without_Correct_Weight()
     {
         $this->loadBalancer->addNode('localhost', 8080, 'ENABLED', 'PRIMARY', 'baz');
     }
 
-    public function testAddingVirtualIp()
+    public function test_Adding_VIP()
     {
         $this->loadBalancer->id = 2000;
         $this->loadBalancer->addVirtualIp(123, 4);
@@ -303,9 +307,9 @@ class LoadBalancerTest extends LoadBalancerTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\DomainError
+     * @expectedException \OpenCloud\Common\Exceptions\DomainError
      */
-    public function testAddingVirtualIpFailsWithIncorrectIpType()
+    public function test_Adding_VIP_Fails_With_Incorrect_IP_Type()
     {
         $this->loadBalancer->addVirtualIp(123, 5);
     }

@@ -127,14 +127,15 @@ class Node extends PersistentResource
         return get_class() . '[' . $this->Id() . ']';
     }
 
-    protected function createJson()
+    public function createJson()
     {
-        $nodes = (object)array('node' => new \stdClass);
+        $nodes = array('node' => array());
+
         foreach ($this->createKeys as $key) {
-            $nodes->node->$key = $this->$key;
+            $nodes['node'][$key] = $this->$key;
         }
 
-        return (object)array('nodes' => array($nodes));
+        return array('nodes' => array($nodes));
     }
 
     protected function updateJson($params = array())

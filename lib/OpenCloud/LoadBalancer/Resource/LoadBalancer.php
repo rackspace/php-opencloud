@@ -20,6 +20,9 @@ namespace OpenCloud\LoadBalancer\Resource;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Resource\PersistentResource;
 use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
+use OpenCloud\LoadBalancer\Enum\NodeCondition;
+use OpenCloud\LoadBalancer\Enum\IpType;
+use OpenCloud\LoadBalancer\Enum\NodeType;
 
 /**
  * A load balancer is a logical device which belongs to a cloud account. It is
@@ -168,100 +171,92 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
 
     /**
      * This method creates a Node object and adds it to a list of Nodes
-     * to be added to the LoadBalancer. *Very important:* this method *NEVER*
-     * adds the nodes directly to the load balancer itself; it stores them
-     * on the object, and the nodes are added later, in one of two ways:
+     * to be added to the LoadBalancer. This method will not add the nodes
+     * directly to the load balancer itself; it stores them in an array and
+     * the nodes are added later, in one of two ways:
      *
-     * * for a new LoadBalancer, the Nodes are added as part of the Create()
-     *   method call.
-     * * for an existing LoadBalancer, you must call the AddNodes() method
+     * * for a new load balancer, the nodes are added as part of the create() method call
+     * * for an existing load balancer, you must call the addNodes() method
      *
-     * @api
      * @param string  $address   the IP address of the node
      * @param integer $port      the port # of the node
      * @param boolean $condition the initial condition of the node
      * @param string  $type      either PRIMARY or SECONDARY
      * @param integer $weight    the node weight (for round-robin)
-     * @throws \OpenCloud\DomainError if value is not valid
+     *
+     * @throws \InvalidArgumentException
      * @return void
      */
     public function addNode(
         $address,
         $port,
-        $condition = 'ENABLED',
+        $condition = NodeCondition::ENABLED,
         $type = null,
         $weight = null
-    )
-    {
-        $node = $this->Node();
-        $node->address = $address;
-        $node->port = $port;
-        $cond = strtoupper($condition);
+    ) {
+        $allowedConditions = array(
+            NodeCondition::ENABLED,
+            NodeCondition::DISABLED,
+            NodeCondition::DRAINING
+        );
 
-        switch ($cond) {
-            case 'ENABLED':
-            case 'DISABLED':
-            case 'DRAINING':
-                $node->condition = $cond;
-                break;
-            default:
-                throw new Exceptions\DomainError(sprintf(
-                    'Value [%s] for Node::condition is not valid',
-                    $condition
-                ));
+        if (!in_array($condition, $allowedConditions)) {
+            throw new \InvalidArgumentException(sprintf(
+                "Invalid condition. It must one of the following: %s",
+                implode(', ', $allowedConditions)
+            ));
         }
 
-        if ($type !== null) {
-            switch (strtoupper($type)) {
-                case 'PRIMARY':
-                case 'SECONDARY':
-                    $node->type = $type;
-                    break;
-                default:
-                    throw new Exceptions\DomainError(sprintf(
-                        'Value [%s] for Node::type is not valid',
-                        $type
-                    ));
-            }
+        $allowedTypes = array(NodeType::PRIMARY, NodeType::SECONDARY);
+        if ($type && !in_array($type, $allowedTypes)) {
+            throw new \InvalidArgumentException(sprintf(
+                "Invalid type. It must one of the following: %s",
+                implode(', ', $allowedTypes)
+            ));
         }
 
-        if ($weight !== null) {
-            if (is_integer($weight)) {
-                $node->weight = $weight;
-            } else {
-                throw new Exceptions\DomainError(sprintf(
-                    'Value [%s] for Node::weight must be integer',
-                    $weight
-                ));
-            }
+        if ($weight && !is_numeric($weight)) {
+            throw new \InvalidArgumentException('Invalid weight. You must supply a numeric type');
         }
 
         // queue it
-        $this->nodes[] = $node;
+        $this->nodes[] = $this->node(array(
+            'address'   => $address,
+            'port'      => $port,
+            'condition' => $condition,
+            'type'      => $type,
+            'weight'    => $weight
+        ));
     }
 
+    /**
+     * Creates currently added nodes by sending them to the API
+     *
+     * @return array of {@see \Guzzle\Http\Message\Response} objects
+     * @throws \OpenCloud\Common\Exceptions\MissingValueError
+     */
     public function addNodes()
     {
-        if (count($this->nodes) < 1) {
+        if (empty($this->nodes)) {
             throw new Exceptions\MissingValueError(
                 'Cannot add nodes; no nodes are defined'
             );
         }
 
-        // iterate through all the nodes
+        $requests = array();
+
         foreach ($this->nodes as $node) {
-            $resp = $node->create();
+            $requests[] = $this->getClient()->post($node->getUrl(), self::getJsonHeader(), $node->createJson());
         }
 
-        return $resp;
+        return $this->getClient()->send($requests);
     }
 
     /**
      * Remove a node from this load-balancer
      *
-     * @api
      * @param int $id id of the node
-     * @return mixed
+     * @return \Guzzle\Http\Message\Response
      */
     public function removeNode($nodeId)
     {
@@ -269,25 +264,22 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * adds a virtual IP to the load balancer
+     * Adds a virtual IP to the load balancer. You can use the strings 'PUBLIC'
+     * or 'SERVICENET' to indicate the public or internal networks, or you can
+     * pass the `Id` of an existing IP address.
      *
-     * You can use the strings `'PUBLIC'` or `'SERVICENET`' to indicate the
-     * public or internal networks, or you can pass the `Id` of an existing
-     * IP address.
-     *
-     * @api
      * @param string  $id        either 'public' or 'servicenet' or an ID of an
      *                           existing IP address
      * @param integer $ipVersion either null, 4, or 6 (both, IPv4, or IPv6)
      * @return void
      */
-    public function addVirtualIp($type = 'PUBLIC', $ipVersion = null)
+    public function addVirtualIp($type = IpType::PUBLIC_TYPE, $ipVersion = null)
     {
         $object = new \stdClass();
 
         switch (strtoupper($type)) {
-            case 'PUBLIC':
-            case 'SERVICENET':
+            case IpType::PUBLIC_TYPE:
+            case IpType::SERVICENET_TYPE:
                 $object->type = strtoupper($type);
                 break;
             default:
@@ -298,10 +290,10 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         if ($ipVersion) {
             switch ($ipVersion) {
                 case 4:
-                    $object->version = 'IPV4';
+                    $object->version = IpType::IPv4;
                     break;
                 case 6:
-                    $object->version = 'IPV6';
+                    $object->version = IpType::IPv6;
                     break;
                 default:
                     throw new Exceptions\DomainError(sprintf(
@@ -331,7 +323,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns a Node object
+     * Returns a Node
+     *
+     * @return Node
      */
     public function node($id = null)
     {
@@ -340,6 +334,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
 
     /**
      * returns a Collection of Nodes
+     *
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function nodeList()
     {
@@ -347,7 +343,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns a NodeEvent object
+     * Returns a NodeEvent object
+     *
+     * @return NodeEvent
      */
     public function nodeEvent()
     {
@@ -355,7 +353,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns a Collection of NodeEvents
+     * Returns a Collection of NodeEvents
+     *
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function nodeEventList()
     {
@@ -363,7 +363,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns a single Virtual IP (not called publicly)
+     * Returns a single Virtual IP (not called publicly)
+     *
+     * @return VirtualIp
      */
     public function virtualIp($data = null)
     {
@@ -371,7 +373,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns  a Collection of Virtual Ips
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function virtualIpList()
     {
@@ -379,6 +381,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * Return the session persistence resource
+     *
+     * @return SessionPersistence
      */
     public function sessionPersistence()
     {
@@ -386,9 +391,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns the load balancer's error page object
+     * Returns the load balancer's error page object
      *
-     * @api
      * @return ErrorPage
      */
     public function errorPage()
@@ -397,9 +401,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns the load balancer's health monitor object
+     * Returns the load balancer's health monitor object
      *
-     * @api
      * @return HealthMonitor
      */
     public function healthMonitor()
@@ -408,11 +411,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * returns statistics on the load balancer operation
+     * Returns statistics on the load balancer operation
      *
-     * cannot be created, updated, or deleted
-     *
-     * @api
      * @return Stats
      */
     public function stats()
@@ -421,6 +421,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function usage()
     {
@@ -428,6 +429,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * Return an access resource
+     *
+     * @return Access
      */
     public function access($data = null)
     {
@@ -435,6 +439,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function accessList()
     {
@@ -442,6 +447,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * Return a connection throttle resource
+     *
+     * @return ConnectionThrottle
      */
     public function connectionThrottle()
     {
@@ -468,9 +476,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      * Set the connection logging setting for this load balancer
      *
      * @param $bool  Set to TRUE to enable, FALSE to disable
-     * @return mixed
+     * @return \Guzzle\Http\Message\Response
      */
-    public function setConnectionLogging($bool)
+    public function enableConnectionLogging($bool)
     {
         $url = clone $this->getUrl();
         $url->addPath('connectionlogging');
@@ -485,7 +493,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function connectionLogging()
     {
-        $this->getLogger()->deprecated(__METHOD__, 'hasConnectionLogging or setConnectionLogging');
+        $this->getLogger()->deprecated(__METHOD__, 'hasConnectionLogging or enableConnectionLogging');
     }
 
     /**
@@ -508,9 +516,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      * Set the content caching setting for this load balancer
      *
      * @param $bool  Set to TRUE to enable, FALSE to disable
-     * @return mixed
+     * @return \Guzzle\Http\Message\Response
      */
-    public function setContentCaching($bool)
+    public function enableContentCaching($bool)
     {
         $url = clone $this->getUrl();
         $url->addPath('contentcaching');
@@ -529,6 +537,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * Return a SSL Termination resource
+     *
+     * @return SSLTermination
      */
     public function SSLTermination()
     {
@@ -536,6 +547,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * Return a metadata item
+     *
+     * @return Metadata
      */
     public function metadata($data = null)
     {
@@ -543,17 +557,15 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
+     * Return a collection of metadata items
+     *
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function metadataList()
     {
         return $this->getService()->resourceList('Metadata', null, $this);
     }
 
-    /**
-     * returns the JSON object for Create()
-     *
-     * @return stdClass
-     */
     protected function createJson()
     {
         $element = (object)array();
@@ -583,17 +595,10 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         return $object;
     }
 
-    /**
-     * returns the JSON object for Update()
-     *
-     * @return stdClass
-     * @throws \OpenCloud\Common\Exceptions\InvalidParameterError
-     */
     protected function updateJson($params = array())
     {
         $updatableFields = array('name', 'algorithm', 'protocol', 'port', 'timeout', 'halfClosed');
 
-        //Validate supplied fields
         $fields = array_keys($params);
         foreach ($fields as $field) {
             if (!in_array($field, $updatableFields)) {

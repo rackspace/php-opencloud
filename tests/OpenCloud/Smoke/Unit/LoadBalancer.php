@@ -163,7 +163,7 @@ class LoadBalancer extends AbstractUnit implements UnitInterface
         
         $this->step('Billable Load Balancers from %s to %s', $start, $end);
         
-        $list = $this->getService()->billableLoadBalancerList(true, array(
+        $list = $this->getService()->billableLoadBalancerList(array(
             'startTime' => $start, 
             'endTime'   => $end
         ));
