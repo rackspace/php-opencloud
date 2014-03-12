@@ -23,7 +23,7 @@ namespace OpenCloud\LoadBalancer\Resource;
  * applications. The attributes in the table that follows can be configured
  * based on the traffic patterns for your sites.
  */
-class ConnectionThrottle extends SubResource
+class ConnectionThrottle extends NonIdUriResource
 {
     /**
      * Allow at least this number of connections per IP address before applying
@@ -72,9 +72,6 @@ class ConnectionThrottle extends SubResource
         'rateInterval'
     );
 
-    /**
-     * create uses PUT like Update
-     */
     public function create($params = array())
     {
         return $this->update($params);

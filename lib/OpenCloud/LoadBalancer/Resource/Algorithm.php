@@ -42,10 +42,10 @@ namespace OpenCloud\LoadBalancer\Resource;
  *      proportions of traffic being directed to the back-end nodes. Weights
  *      must be defined as part of the load balancer's node configuration.
  */
-class Algorithm extends Readonly
+class Algorithm extends ReadOnlyResource
 {
-
     public $name;
+
     protected static $json_name = 'algorithm';
     protected static $url_resource = 'loadbalancers/algorithms';
 }

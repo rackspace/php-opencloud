@@ -21,9 +21,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  * This class will retrieve a list of events associated with the activity
  * between the node and the load balancer. The events report errors found with the node.
  */
-class NodeEvent extends Readonly
+class NodeEvent extends ReadOnlyResource
 {
-
     public $detailedMessage;
     public $nodeId;
     public $id;

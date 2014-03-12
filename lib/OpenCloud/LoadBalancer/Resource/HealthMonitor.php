@@ -36,9 +36,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  * after running a subsequent test, the probe detects that the node has recovered,
  * then the node's status is changed to ONLINE and it is capable of servicing requests.
  */
-class HealthMonitor extends SubResource
+class HealthMonitor extends NonIdUriResource
 {
-
     /**
      * Type of the health monitor. Can either be "connect", "HTTP" or "HTTPS"
      *
@@ -102,6 +101,7 @@ class HealthMonitor extends SubResource
 
     protected static $json_name = 'healthMonitor';
     protected static $url_resource = 'healthmonitor';
+
     protected $createKeys = array(
         'type',
         'delay',
@@ -113,15 +113,6 @@ class HealthMonitor extends SubResource
         'statusRegex'
     );
 
-    /**
-     * creates a new health monitor
-     *
-     * This calls the Update() method, since it requires a PUT to create
-     * a new error page. A POST request is not supported, since the URL
-     * resource is already defined.
-     *
-     * @param array $params array of parameters
-     */
     public function create($params = array())
     {
         return $this->update($params);

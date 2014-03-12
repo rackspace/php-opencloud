@@ -20,9 +20,8 @@ namespace OpenCloud\LoadBalancer\Resource;
 /**
  * Sub-resource to manage Metadata
  */
-class Metadata extends SubResource
+class Metadata extends AbstractResource
 {
-
     public $id;
     public $key;
     public $value;

@@ -23,9 +23,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  * Internet, or a ServiceNet address, routable only within the region in which
  * the load balancer resides.
  */
-class VirtualIp extends SubResource
+class VirtualIp extends NonIdUriResource
 {
-
     public $id;
 
     /**

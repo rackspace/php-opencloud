@@ -17,7 +17,7 @@
 
 namespace OpenCloud\LoadBalancer\Resource;
 
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * The nodes defined by the load balancer are responsible for servicing the
@@ -51,9 +51,8 @@ use OpenCloud\Common\PersistentObject;
  * if all the primary nodes fail, traffic can be redirected to secondary nodes.
  * The type attribute allows configuring the node as either PRIMARY or SECONDARY.
  */
-class Node extends PersistentObject
+class Node extends PersistentResource
 {
-
     public $id;
 
     /**
@@ -154,9 +153,8 @@ class Node extends PersistentObject
     }
 
     /**
-     * factory method to create a new Metadata child of the Node
+     * Returns a Metadata item
      *
-     * @api
      * @return Metadata
      */
     public function metadata($data = null)
@@ -165,16 +163,12 @@ class Node extends PersistentObject
     }
 
     /**
-     * factory method to create a Collection of Metadata object
+     * Returns a paginated collection of metadata
      *
-     * Note that these are metadata children of the Node, not of the
-     * LoadBalancer.
-     *
-     * @api
-     * @return Collection of Metadata
+     * @return PaginatedIterator
      */
     public function metadataList()
     {
-        return $this->getService()->collection('OpenCloud\LoadBalancer\Resource\Metadata', null, $this);
+        return $this->getService()->resourceList('Metadata', null, $this);
     }
 }

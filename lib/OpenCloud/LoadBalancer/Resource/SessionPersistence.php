@@ -33,7 +33,7 @@ namespace OpenCloud\LoadBalancer\Resource;
  *      back-end node. This is supported for HTTPS pass-through and non-HTTP
  *      load balancing only.
  */
-class SessionPersistence extends SubResource
+class SessionPersistence extends NonIdUriResource
 {
     /**
      * Mode in which session persistence mechanism operates. Can either be set
@@ -45,5 +45,6 @@ class SessionPersistence extends SubResource
 
     protected static $json_name = 'sessionPersistence';
     protected static $url_resource = 'sessionpersistence';
+
     protected $createKeys = array('persistenceType');
 }

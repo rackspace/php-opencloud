@@ -147,7 +147,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     );
 
     protected $associatedCollections = array(
-        //'nodes'      => 'Node',
+        'nodes'      => 'Node',
         'virtualIps' => 'VirtualIp',
         'accessList' => 'Access'
     );
@@ -167,8 +167,6 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     );
 
     /**
-     * adds a node to the load balancer
-     *
      * This method creates a Node object and adds it to a list of Nodes
      * to be added to the LoadBalancer. *Very important:* this method *NEVER*
      * adds the nodes directly to the load balancer itself; it stores them
@@ -252,7 +250,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
 
         // iterate through all the nodes
         foreach ($this->nodes as $node) {
-            $resp = $node->Create();
+            $resp = $node->create();
         }
 
         return $resp;
@@ -287,9 +285,6 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     {
         $object = new \stdClass();
 
-        /**
-         * check for PUBLIC or SERVICENET
-         */
         switch (strtoupper($type)) {
             case 'PUBLIC':
             case 'SERVICENET':
@@ -340,10 +335,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function node($id = null)
     {
-        $resource = new Node($this->getService());
-        $resource->setParent($this)->populate($id);
-
-        return $resource;
+        return $this->getService()->resource('Node', $id, $this);
     }
 
     /**
@@ -359,10 +351,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function nodeEvent()
     {
-        $resource = new NodeEvent($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('NodeEvent', null, $this);
     }
 
     /**
@@ -370,7 +359,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function nodeEventList()
     {
-        return $this->getParent()->resourceList('NodeEvent', null, $this);
+        return $this->getService()->resourceList('NodeEvent', null, $this);
     }
 
     /**
@@ -378,10 +367,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function virtualIp($data = null)
     {
-        $resource = new VirtualIp($this->getService(), $data);
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('VirtualIp', $data, $this);
     }
 
     /**
@@ -396,10 +382,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function sessionPersistence()
     {
-        $resource = new SessionPersistence($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('SessionPersistence', null, $this);
     }
 
     /**
@@ -410,10 +393,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function errorPage()
     {
-        $resource = new ErrorPage($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('ErrorPage', null, $this);
     }
 
     /**
@@ -424,10 +404,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function healthMonitor()
     {
-        $resource = new HealthMonitor($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('HealthMonitor', null, $this);
     }
 
     /**
@@ -440,30 +417,21 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function stats()
     {
-        $resource = new Stats($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('Stats', null, $this);
     }
 
     /**
      */
     public function usage()
     {
-        $resource = new Usage($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resourceList('UsageRecord', null, $this);
     }
 
     /**
      */
     public function access($data = null)
     {
-        $resource = new Access($this->getService(), $data);
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('Access', $data, $this);
     }
 
     /**
@@ -477,50 +445,101 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function connectionThrottle()
     {
-        $resource = new ConnectionThrottle($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('ConnectionThrottle', null, $this);
     }
 
     /**
+     * Find out whether connection logging is enabled for this load balancer
+     *
+     * @return bool Returns TRUE if enabled, FALSE if not
+     */
+    public function hasConnectionLogging()
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('connectionlogging');
+
+        $response = $this->getClient()->get($url)->send()->json();
+
+        return isset($response['connectionLogging']['enabled'])
+            && $response['connectionLogging']['enabled'] === true;
+    }
+
+    /**
+     * Set the connection logging setting for this load balancer
+     *
+     * @param $bool  Set to TRUE to enable, FALSE to disable
+     * @return mixed
+     */
+    public function setConnectionLogging($bool)
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('connectionlogging');
+
+        $body = array('connectionLogging' => (bool) $bool);
+
+        return $this->getClient()->put($url, self::getJsonHeader(), $body)->send();
+    }
+
+    /**
+     * @deprecated
      */
     public function connectionLogging()
     {
-        $resource = new ConnectionLogging($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        $this->getLogger()->deprecated(__METHOD__, 'hasConnectionLogging or setConnectionLogging');
     }
 
     /**
+     * Find out whether content caching is enabled for this load balancer
+     *
+     * @return bool Returns TRUE if enabled, FALSE if not
+     */
+    public function hasContentCaching()
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('contentcaching');
+
+        $response = $this->getClient()->get($url)->send()->json();
+
+        return isset($response['contentCaching']['enabled'])
+            && $response['contentCaching']['enabled'] === true;
+    }
+
+    /**
+     * Set the content caching setting for this load balancer
+     *
+     * @param $bool  Set to TRUE to enable, FALSE to disable
+     * @return mixed
+     */
+    public function setContentCaching($bool)
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('contentcaching');
+
+        $body = array('contentcaching' => (bool) $bool);
+
+        return $this->getClient()->put($url, self::getJsonHeader(), $body)->send();
+    }
+
+    /**
+     * @deprecated
      */
     public function contentCaching()
     {
-        $resource = new ContentCaching($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        $this->getLogger()->deprecated(__METHOD__, 'hasContentCaching or setContentCaching');
     }
 
     /**
      */
     public function SSLTermination()
     {
-        $resource = new SSLTermination($this->getService());
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('SSLTermination', null, $this);
     }
 
     /**
      */
     public function metadata($data = null)
     {
-        $resource = new Metadata($this->getService(), $data);
-        $resource->setParent($this)->initialRefresh();
-
-        return $resource;
+        return $this->getService()->resource('Metadata', $data, $this);
     }
 
     /**
@@ -572,7 +591,6 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     protected function updateJson($params = array())
     {
-
         $updatableFields = array('name', 'algorithm', 'protocol', 'port', 'timeout', 'halfClosed');
 
         //Validate supplied fields

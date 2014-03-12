@@ -18,11 +18,25 @@
 namespace OpenCloud\LoadBalancer\Resource;
 
 /**
- * Used to get a list of billable load balancers for a specific date range
+ * Represents a read-only resource: one that cannot be created, updated
+ * or deleted.
+ *
+ * @package OpenCloud\LoadBalancer\Resource
  */
-class BillableLoadBalancer extends Readonly
+abstract class ReadOnlyResource extends AbstractResource
 {
+    public function create($params = array())
+    {
+        return $this->noCreate();
+    }
 
-    protected static $url_resource = 'loadbalancers/billable';
-    protected static $json_name = null;
+    public function update($params = array())
+    {
+        return $this->noUpdate();
+    }
+
+    public function delete()
+    {
+        return $this->noDelete();
+    }
 }
