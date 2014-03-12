@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Orchestration;
+namespace OpenCloud\Orchestration\Resource;
 
 use OpenCloud\Common\Resource\PersistentResource;
 
