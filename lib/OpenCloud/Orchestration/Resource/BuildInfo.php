@@ -27,8 +27,18 @@ use OpenCloud\Common\Resource\PersistentResource;
 class BuildInfo extends PersistentResource
 {
 
+    /**
+     * Engine information.
+     *
+     * @var object
+     */
     public $engine;
 
+    /**
+     * API information.
+     *
+     * @var object
+     */
     public $api;
 
     protected static $json_name = "does_not_exist";
