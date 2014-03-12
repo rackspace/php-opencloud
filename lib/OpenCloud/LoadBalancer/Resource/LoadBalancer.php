@@ -325,7 +325,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Returns a Node
      *
-     * @return Node
+     * @return \OpenCloud\LoadBalancer\Resource\Node
      */
     public function node($id = null)
     {
@@ -345,7 +345,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Returns a NodeEvent object
      *
-     * @return NodeEvent
+     * @return \OpenCloud\LoadBalancer\Resource\NodeEvent
      */
     public function nodeEvent()
     {
@@ -365,7 +365,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Returns a single Virtual IP (not called publicly)
      *
-     * @return VirtualIp
+     * @return \OpenCloud\LoadBalancer\Resource\VirtualIp
      */
     public function virtualIp($data = null)
     {
@@ -383,7 +383,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Return the session persistence resource
      *
-     * @return SessionPersistence
+     * @return \OpenCloud\LoadBalancer\Resource\SessionPersistence
      */
     public function sessionPersistence()
     {
@@ -393,7 +393,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Returns the load balancer's error page object
      *
-     * @return ErrorPage
+     * @return \OpenCloud\LoadBalancer\Resource\ErrorPage
      */
     public function errorPage()
     {
@@ -403,7 +403,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Returns the load balancer's health monitor object
      *
-     * @return HealthMonitor
+     * @return \OpenCloud\LoadBalancer\Resource\HealthMonitor
      */
     public function healthMonitor()
     {
@@ -413,7 +413,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Returns statistics on the load balancer operation
      *
-     * @return Stats
+     * @return \OpenCloud\LoadBalancer\Resource\Stats
      */
     public function stats()
     {
@@ -431,7 +431,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Return an access resource
      *
-     * @return Access
+     * @return \OpenCloud\LoadBalancer\Resource\Access
      */
     public function access($data = null)
     {
@@ -449,7 +449,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Return a connection throttle resource
      *
-     * @return ConnectionThrottle
+     * @return \OpenCloud\LoadBalancer\Resource\ConnectionThrottle
      */
     public function connectionThrottle()
     {
@@ -539,7 +539,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Return a SSL Termination resource
      *
-     * @return SSLTermination
+     * @return \OpenCloud\LoadBalancer\Resource\SSLTermination
      */
     public function SSLTermination()
     {
@@ -549,7 +549,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Return a metadata item
      *
-     * @return Metadata
+     * @return \OpenCloud\LoadBalancer\Resource\Metadata
      */
     public function metadata($data = null)
     {

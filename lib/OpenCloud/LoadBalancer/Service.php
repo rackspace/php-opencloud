@@ -20,7 +20,9 @@ namespace OpenCloud\LoadBalancer;
 use OpenCloud\Common\Service\NovaService;
 
 /**
- * The Rackspace Cloud Load Balancers
+ * Class that encapsulates the Rackspace Cloud Load Balancers service
+ *
+ * @package OpenCloud\LoadBalancer
  */
 class Service extends NovaService
 {
@@ -31,7 +33,7 @@ class Service extends NovaService
      * Return a Load Balancer
      *
      * @param string $id
-     * @return Resource\LoadBalancer
+     * @return \OpenCloud\LoadBalancer\Resource\LoadBalancer
      */
     public function loadBalancer($id = null)
     {
@@ -73,7 +75,6 @@ class Service extends NovaService
      * between a certain period.
      *
      * @link http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/List_Usage-d1e3014.html
-     *
      * @param array $filter
      * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
@@ -88,11 +89,10 @@ class Service extends NovaService
     }
 
     /**
-     * returns allowed domain
+     * Returns an allowed domain
      *
-     * @api
      * @param mixed $data either an array of values or null
-     * @return Resource\AllowedDomain
+     * @return \OpenCloud\LoadBalancer\Resource\AllowedDomain
      */
     public function allowedDomain($data = null)
     {
@@ -100,10 +100,9 @@ class Service extends NovaService
     }
 
     /**
-     * returns Collection of AllowedDomain object
+     * Returns Collection of AllowedDomain object
      *
-     * @api
-     * @return Collection
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function allowedDomainList()
     {
@@ -115,7 +114,7 @@ class Service extends NovaService
      *
      * Convenience method to be used by the ProtocolList Collection.
      *
-     * @return Resource\Protocol
+     * @return \OpenCloud\LoadBalancer\Resource\Protocol
      */
     public function protocol($data = null)
     {
@@ -123,10 +122,9 @@ class Service extends NovaService
     }
 
     /**
-     * a list of Protocol objects
+     * Returns a list of Protocol objects
      *
-     * @api
-     * @return \OpenCloud\Common\Collection
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function protocolList()
     {
@@ -138,7 +136,7 @@ class Service extends NovaService
      *
      * convenience method used by the Collection factory
      *
-     * @return Resource\Algorithm
+     * @return \OpenCloud\LoadBalancer\Resource\Algorithm
      */
     public function algorithm($data = null)
     {
@@ -146,10 +144,9 @@ class Service extends NovaService
     }
 
     /**
-     * a list of Algorithm objects
+     * Return a list of Algorithm objects
      *
-     * @api
-     * @return \OpenCloud\Common\Collection
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function algorithmList()
     {
