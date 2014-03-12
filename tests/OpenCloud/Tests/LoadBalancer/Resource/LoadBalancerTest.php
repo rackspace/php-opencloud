@@ -17,11 +17,11 @@
 
 namespace OpenCloud\Tests\LoadBalancer\Resource;
 
+use Guzzle\Http\Message\Response;
 use OpenCloud\Tests\LoadBalancer\LoadBalancerTestCase;
 
 class LoadBalancerTest extends LoadBalancerTestCase
 {
-
     /**
      * @expectedException OpenCloud\Common\Exceptions\DomainError
      */
@@ -166,10 +166,7 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
     public function testUsage()
     {
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/usage',
-            (string)$this->loadBalancer->Usage()->Url()
-        );
+        $this->isCollection($this->loadBalancer->usage());
     }
 
     public function testAccess()
@@ -182,7 +179,6 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
     public function testAccessList()
     {
-
         $loadBalancer = $this->loadBalancer;
 
         $this->addMockSubscriber($this->makeResponse('{"accessList":[{"address":"206.160.163.21","id":23,"type":"DENY"}]}'));
@@ -201,20 +197,32 @@ class LoadBalancerTest extends LoadBalancerTestCase
         );
     }
 
-    public function testConnectionLogging()
+    public function test_Has_Connection_Logging()
     {
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/connectionlogging',
-            (string)$this->loadBalancer->ConnectionLogging()->Url()
-        );
+        $this->addMockSubscriber($this->makeResponse('{"connectionLogging": {"enabled": true}}'));
+        $this->assertTrue($this->loadBalancer->hasConnectionLogging());
+
+        $this->addMockSubscriber($this->makeResponse('{"connectionLogging": {"enabled": false}}'));
+        $this->assertFalse($this->loadBalancer->hasConnectionLogging());
     }
 
-    public function testContentCaching()
+    public function test_Setting_Connection_Logging_Returns_Response()
     {
-        $this->assertEquals(
-            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/contentcaching',
-            (string)$this->loadBalancer->ContentCaching()->Url()
-        );
+        $this->isResponse($this->loadBalancer->setConnectionLogging(true));
+    }
+
+    public function test_Has_Content_Caching()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"contentCaching": {"enabled": true}}'));
+        $this->assertTrue($this->loadBalancer->hasContentCaching());
+
+        $this->addMockSubscriber($this->makeResponse('{"contentCaching": {"enabled": false}}'));
+        $this->assertFalse($this->loadBalancer->hasContentCaching());
+    }
+
+    public function test_Setting_Content_Caching_Returns_Response()
+    {
+        $this->isResponse($this->loadBalancer->setContentCaching(true));
     }
 
     public function testSSLTermination()
