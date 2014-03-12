@@ -136,6 +136,7 @@ class Stack extends PersistentResource
 
     protected static $json_name = "stack";
     protected static $url_resource = "stacks";
+
     protected $createKeys = array(
         'stack_name',
         'template_url',
