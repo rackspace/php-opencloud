@@ -192,4 +192,16 @@ class Service extends NovaService
     {
         return $this->resourceList('KeyPair', null, $this);
     }
+
+    /**
+     * Retrieve the (read-only) hard-limits for the current tenant.
+     *
+     * @return stdClass
+     */
+    public function limits()
+    {
+        $url = $this->url('limits');
+        return json_decode($this->request($url)->httpBody())->limits;
+    }
+
 }
