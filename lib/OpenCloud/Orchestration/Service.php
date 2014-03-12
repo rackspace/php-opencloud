@@ -18,6 +18,7 @@
 namespace OpenCloud\Orchestration;
 
 use OpenCloud\Common\Service\CatalogService;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * The Orchestration class represents the OpenStack Heat service.
@@ -26,7 +27,6 @@ use OpenCloud\Common\Service\CatalogService;
  * the AWS CloudFormation template format, through both an OpenStack-native ReST
  * API and a CloudFormation-compatible Query API.
  *
- * @codeCoverageIgnore
  */
 class Service extends CatalogService
 {
@@ -34,10 +34,10 @@ class Service extends CatalogService
     const DEFAULT_NAME = 'cloudOrchestration';
 
     /**
-     * creates a new Stack object
+     * Creates a new Stack object
      *
      * @api
-     * @param string $id the identifer of the stack
+     * @param  string $id the identifer of the stack
      * @return Resource\Stack
      */
     public function stack($id = null)
@@ -46,7 +46,7 @@ class Service extends CatalogService
     }
 
     /**
-     * returns a Collection of Stack objects
+     * Returns a Collection of Stack objects
      *
      * @api
      * @return \OpenCloud\Common\Collection
@@ -54,6 +54,19 @@ class Service extends CatalogService
     public function stackList()
     {
         return $this->collection('OpenCloud\Orchestration\Resource\Stack');
+    }
+
+    /**
+     * Returns a BuildInfo object
+     *
+     * @api
+     * @return Resource\BuildInfo
+     */
+    public function buildInfo()
+    {
+        $buildInfo = new Resource\BuildInfo($this);
+        $buildInfo->refresh();
+        return $buildInfo;
     }
 
 }
