@@ -76,6 +76,20 @@ class Resource extends PersistentResource
      */
     public $updated_time;
 
+    /**
+     * A mapping of resource types to parameters used load the corresponding 
+     * resource. The each set of parameters is an array of 3 items:
+     *
+     *  - Service type ('Compute', 'Image', etc.)
+     *  - Service name ('nova', 'glance', etc.)
+     *  - Method name that will be passed the resources physical ID (e.g. 'server')
+     *
+     * @var array
+     */
+    public static $resource_type_mapping = array(
+        'AWS::EC2::Instance' => array('Compute', 'nova', 'server'),
+    );
+
     protected static $url_resource = 'resources';
     protected static $json_name = 'resource';
 
@@ -127,23 +141,25 @@ class Resource extends PersistentResource
         }
     }
 
-    public function get() 
+    /**
+     * Get the object this Stack Resource refers to.
+     *
+     * @return BaseResource Varies depending on the type of resource being fetched
+     */
+    public function get()
     {
-        $service = $this->getParent()->getService();
+        $orchService = $this->getService();
+        $connection  = $orchService->getConnection();
+        $region      = $orchService->region();
 
-        switch ($this->resource_type) {
-            case 'AWS::EC2::Instance':
-                $objSvc = 'Compute';
-                $method = 'Server';
-                $name = 'nova';
-                break;
-            default:
-                throw new Exception(sprintf(
-                    'Unknown resource type: %s',
-                    $this->resource_type
-                ));
+        if (!isset(self::$resource_type_mapping[$this->resource_type])) {
+            throw new \RuntimeException(sprintf("Cannot retrieve %s resource", $this->resource_type));
         }
 
-        return $service->connection()->$objSvc($name, $service->region())->$method($this->id());
+        list($serviceType, $serviceName, $method) = self::$resource_type_mapping[$this->resource_type];
+
+        $resourceService = $connection->service($serviceType, $serviceName, $region);
+
+        return $resourceService->$method($this->physical_resource_id);
     }
 }
