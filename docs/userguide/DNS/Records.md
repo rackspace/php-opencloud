@@ -35,7 +35,7 @@ Please consult the [iterator documentation](docs/userguide/Iterators.md) for mor
 You can pass in an array of query parameters for greater control over your search:
 
 Name|Data type|Default|Description
----|---|---
+---|---|---|---
 `type`|`string`|The record type
 `name`|`string`|The record name
 `data`|`string`|Data for this record
@@ -57,6 +57,8 @@ foreach ($records as $record) {
 
 ## Add record
 
+This call adds a new record to the specified domain:
+
 ```php
 $record = $domain->record(array(
     'type' => 'A',
@@ -64,14 +66,11 @@ $record = $domain->record(array(
     'data' => '192.0.2.17',
     'ttl'  => 3600
 ));
+
+$record->create();
 ```
 
-To have this new record added to a domain:
-
-```php
-$domain->addRecord($record);
-$domain->update();
-```
+Please be aware that records that are added with a different hostname than the parent domain might fail silently.
 
 ## Modify record
 

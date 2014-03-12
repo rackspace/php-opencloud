@@ -4,7 +4,7 @@ DNS usually determines an IP address associated with a domain name. Reverse DNS 
 
 ## Get PTR record
 
-PTR records refer to a parent device: either a Cloud Server (with public network access) or a Cloud Load Balancer. You must supply a fully formed resource object in order to retrieve either one's PTR record:
+PTR records refer to a parent device: either a Cloud Server or a Cloud Load Balancer with a public virtual IP address. You must supply a fully formed resource object in order to retrieve either one's PTR record:
 
 ```php
 /** @param $parent OpenCloud\DNS\Resource\HasPtrRecordsInterface */
@@ -45,6 +45,16 @@ $ptr = $dnsService->ptrRecord(array(
 
 $ptr->create();
 ```
+
+Here is a table that explains the above attributes:
+
+Name|Description|Required
+---|---|---
+type|Specifies the record type as "PTR".|Yes
+name|Specifies the name for the domain or subdomain. Must be a valid domain name.|Yes
+data|The data field for PTR records must be a valid IPv4 or IPv6 IP address.|Yes
+ttl|If specified, must be greater than 300. Defaults to 3600 if no TTL is specified.|No
+comment|If included, its length must be less than or equal to 160 characters.|No
 
 ## Modify PTR record
 
