@@ -22,11 +22,7 @@ use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Resource\PersistentResource;
 
-/**
- * The DnsObject class is an extension of the PersistentObject class that
- * permits the asynchronous responses used by Cloud DNS
- */
-abstract class Object extends PersistentResource
+abstract class AbstractResource extends PersistentResource
 {
     public function create($params = array())
     {

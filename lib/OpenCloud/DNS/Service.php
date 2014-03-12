@@ -44,9 +44,8 @@ class Service extends CatalogService
     }
 
     /**
-     * returns a DNS::Domain object
+     * Returns a domain
      *
-     * @api
      * @param mixed $info either the ID, an object, or array of parameters
      * @return Resource\Domain
      */
@@ -56,15 +55,16 @@ class Service extends CatalogService
     }
 
     /**
-     * returns a Collection of DNS::Domain objects
+     * Returns a collection of domains
      *
-     * @api
      * @param array $filter key/value pairs to use as query strings
      * @return \OpenCloud\Common\Collection
      */
     public function domainList($filter = array())
     {
-        $url = $this->getUrl(Resource\Domain::resourceName(), $filter);
+        $url = $this->getUrl(Resource\Domain::resourceName());
+        $url->setQuery($filter);
+
         return $this->resourceList('Domain', $url);
     }
 
@@ -117,21 +117,21 @@ class Service extends CatalogService
     }
 
     /**
-     * imports domain records
+     * Imports domain records
      *
      * Note that this function is called from the service (DNS) level, and
      * not (as you might suspect) from the Domain object. Because the function
      * return an AsyncResponse, the domain object will not actually exist
      * until some point after the import has occurred.
      *
-     * @api
      * @param string $data the BIND_9 formatted data to import
      * @return Resource\AsyncResponse
      */
     public function import($data)
     {
-        // determine the URL
-        $url = $this->getUrl('domains/import');
+        $url = clone $this->getUrl();
+        $url->addPath('domains');
+        $url->addPath('import');
 
         $object = (object)array(
             'domains' => array(
@@ -163,7 +163,7 @@ class Service extends CatalogService
         $response = $this->getClient()->get($url)->send();
         $body = Formatter::decode($response);
 
-        return ($body) ? $body : $body->limits;
+        return isset($body->limits) ? $body->limits : $body;
     }
 
     /**
