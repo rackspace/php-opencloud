@@ -17,21 +17,64 @@
 
 namespace OpenCloud\Orchestration;
 
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  * @codeCoverageIgnore
  */
-class Resource extends PersistentObject
+class Resource extends PersistentResource
 {
-    protected $links;
-    protected $logical_resource_id;
-    protected $physical_resource_id;
-    protected $resource_status;
-    protected $resource_status_reason;
-    protected $resource_type;
-    protected $resource_metadata;
-    protected $updated_time;
+    public $links;
+    /**
+     * The name associated with the resource within the stack. This is the same
+     * as the key in the `resources` object of your template.
+     *
+     * @var string
+     */
+    public $logical_resource_id;
+
+    /**
+     * The id of the resource within the OpenStack service that manages it
+     *
+     *  @var string
+     */
+    public $physical_resource_id;
+
+    /**
+     * The last status of this resource within the stack.
+     *
+     * @var string
+     */
+    public $resource_status;
+
+    /**
+     * The reason for this resource status.
+     *
+     * @var string
+     */
+    public $resource_status_reason;
+
+    /**
+     * The type of this resource
+     *
+     * @var string
+     */
+    public $resource_type;
+
+    /**
+     * Metadata associated with this resource. This is equivalent to the
+     * `metadata` property of the resource within the template.
+     *
+     * @var array
+     */
+    public $resource_metadata;
+
+    /**
+     * When the resource was last updated.
+     *
+     * @var string
+     */
+    public $updated_time;
 
     protected static $url_resource = 'resources';
     protected static $json_name = 'resource';
