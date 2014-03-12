@@ -57,6 +57,29 @@ class Service extends CatalogService
     }
 
     /**
+     * Returns a Collection of ResourceType objects
+     *
+     * @api
+     * @return Resource\ResourceType
+     */
+    public function resourceTypeList()
+    {
+        return $this->collection('OpenCloud\Orchestration\Resource\ResourceType');
+    }
+
+    /**
+     * Returns a ResourceType object
+     *
+     * @api
+     * @param  string $id the resource type
+     * @return Resource\ResourceType
+     */
+    public function resourceType($id)
+    {
+        return new Resource\ResourceType($this, $id);
+    }
+
+    /**
      * Returns a BuildInfo object
      *
      * @api
