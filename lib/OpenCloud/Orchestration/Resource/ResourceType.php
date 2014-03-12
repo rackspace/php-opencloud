@@ -21,6 +21,9 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Resource\PersistentResource;
 
+/**
+ * Supported template resource type.
+ */
 class ResourceType extends PersistentResource
 {
 
