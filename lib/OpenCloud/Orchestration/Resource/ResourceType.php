@@ -64,7 +64,8 @@ class ResourceType extends PersistentResource
      * implementation of the setProperty() method in the same
      * class. Sigh.
      */
-    protected function setProperties($properties) {
+    protected function setProperties($properties)
+    {
         $this->properties = $properties;
     }
 
