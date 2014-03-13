@@ -27,6 +27,9 @@ class IpType
     const PUBLIC_TYPE = 'PUBLIC';
     const SERVICENET_TYPE = 'SERVICENET';
 
+    const IP_4 = 4;
+    const IP_6 = 6;
+
     const IPv4 = 'IPV4';
     const IPv6 = 'IPV6';
 }
