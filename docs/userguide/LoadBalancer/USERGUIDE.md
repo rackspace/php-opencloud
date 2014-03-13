@@ -10,7 +10,7 @@ client object.
 use OpenCloud\Rackspace;
 
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME'>,
+    'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME>',
     'apiKey'   => '<YOUR RACKSPACE CLOUD ACCOUNT API KEY>'
 ));
 ```
@@ -168,16 +168,21 @@ You can modify one or more of the following node attributes:
 
 #### Modifying a single attribute of a node
 ```php
+use OpenCloud\LoadBalancer\Enum\NodeCondition;
+
 $node->update(array(
-    'condition' => 'DISABLED'
+    'condition' => NodeCondition::DISABLED
 ));
 ```
 
 #### Modifying multiple attributes of a node
 ```php
+use OpenCloud\LoadBalancer\Enum\NodeCondition;
+use OpenCloud\LoadBalancer\Enum\NodeType;
+
 $node->update(array(
-    'condition' => 'DISABLED',
-    'type'      => 'SECONDARY'
+    'condition' => NodeCondition::DISABLED,
+    'type'      => NodeType::SECONDARY
 ));
 ```
 
@@ -231,7 +236,9 @@ foreach ($vips as $vip) {
 You can add additional IPv6 VIPs to a load balancer.
 
 ```php
-$loadBalancer->addVirtualIp('PUBLIC', 6);
+use OpenCloud\LoadBalancer\Enum\IpType;
+
+$loadBalancer->addVirtualIp(IpType::PUBLIC, 6);
 ```
 
 The `addVirtualIp` method, as shown above, accepts the following arguments:
@@ -327,35 +334,28 @@ $sessionPersistence->delete();
 
 The **connection logging** feature allows logs to be delivered to a Cloud Files account every hour. For HTTP-based protocol traffic, these are Apache-style access logs. For all other traffic, this is connection and transfer logging.
 
-### List Connection Logging Configuration
+### Check Logging Configuration
 
 ```php
-$connectionLogging = $loadBalancer->connectionLogging();
-$connectionLoggingEnabled = $sessionPersistence->enabled;
+/** @var $connectionLogging bool **/
 
-/** @var $connectionLoggingEnabled boolean **/
+$connectionLogging = $loadBalancer->hasConnectionLogging();
 ```
 In the example above:
 
-* If connection logging is enabled, the value of `$connectionLoggingEnabled` is `true`.
-* If connection logging is disabled, the value of `$connectionLoggingEnabled` is `false`.
+* If connection logging is enabled, the value of `$connectionLogging` is `true`.
+* If connection logging is disabled, the value of `$connectionLogging` is `false`.
 
 ### Enable Connection Logging
 
 ```php
-$connectionLogging = $loadBalancer->connectionLogging();
-$connectionLogging->update(array(
-    'enabled' => true
-));
+$loadBalancer->enableConnectionLogging(true);
 ```
 
 ### Disable Connection Logging
 
 ```php
-$connectionLogging = $loadBalancer->connectionLogging();
-$connectionLogging->update(array(
-    'enabled' => false
-));
+$loadBalancer->enableConnectionLogging(false);
 ```
 
 ## Error Page
@@ -421,7 +421,8 @@ is returned.
 ```php
 $accessList = $loadBalancer->accessList();
 foreach ($accessList as $networkItem) {
-    /** @var $networkItem OpenCloud\LoadBalancer\Resource\Access **/}
+    /** @var $networkItem OpenCloud\LoadBalancer\Resource\Access **/
+}
 ```
 
 ### Add Network Item To Access List
@@ -447,43 +448,167 @@ $networkItem->delete();
 
 When **content caching** is enabled on a load balancer, recently-accessed files are stored on the load balancer for easy retrieval by web clients. Requests to the load balancer for these files are serviced by the load balancer itself, which reduces load off its back-end nodes and improves response times as well.
 
-### List Content Caching Configuration
+### Check Content Caching Configuration
 
 ```php
-$contentCaching = $loadBalancer->contentCaching();
-$contentCachingEnabled = $contentCaching->enabled;
+/** @var $contentCaching bool **/
 
-/** @var $contentCachingEnabled boolean **/
+$contentCaching = $loadBalancer->hasContentCaching();
 ```
 In the example above:
 
-* If content caching is enabled, the value of `$contentCachingEnabled` is `true`.
-* If content caching is disabled, the value of `$contentCachingEnabled` is `false`.
+* If content caching is enabled, the value of `$contentCaching` is `true`.
+* If content caching is disabled, the value of `$contentCaching` is `false`.
 
 ### Enable Content Caching
 
 ```php
-$contentCaching = $loadBalancer->contentCaching();
-$contentCaching->update(array(
-    'enabled' => true
-));
+$loadBalancer->enableContentCaching(true);
 ```
 
 ### Disable Content Caching
 
 ```php
-$contentCaching = $loadBalancer->contentCaching();
-$contentCaching->update(array(
-    'enabled' => false
-));
+$loadBalancer->enableContentCaching(false);
 ```
 
 ## SSL Termination
 
+The SSL Termination feature allows a load balancer user to terminate SSL traffic at the load balancer layer versus at the web server layer. A user may choose to configure SSL Termination using a key and an SSL certificate or an (Intermediate) SSL certificate.
+
+When SSL Termination is configured on a load balancer, a secure shadow server is created that listens only for secure traffic on a user-specified port. This shadow server is only visible to and manageable by the system. Existing or updated attributes on a load balancer with SSL Termination will also apply to its shadow server. For example, if Connection Logging is enabled on an SSL load balancer, it will also be enabled on the shadow server and Cloud Files logs will contain log files for both.
+
+### View current SSL termination config
+
+```php
+/** @var $sslConfig OpenCloud\LoadBalancer\Resource\SSLTermination **/
+
+$sslConfig = $loadBalancer->SSLTermination();
+```
+
+### Update SSL termination config
+
+```php
+$sslConfig->update(array(
+    'enabled'     => true,
+    'securePort'  => 443,
+    'privateKey'  => $key,
+    'certificate' => $cert
+));
+```
+
+For a full list, with explanations, of required and optional attributes, please consult the [official documentation](http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/SSLTermination-d1e2479.html)
+
+### Delete SSL termination config
+
+```php
+$sslConfig->delete();
+```
+
 ## Metadata
+
+Metadata can be associated with each load balancer and each node for the client's personal use. It is defined using key-value pairs where the key and value consist of alphanumeric characters. A key is unique per load balancer.
+
+### List metadata
+
+```php
+$metadataList = $loadBalancer->metadataList();
+
+foreach ($metadataList as $metadataItem) {
+    printf("Key: %s, Value: %s", $metadataItem->key, $metadataItem->value);
+}
+```
+
+Please consult the [iterator documentation](docs/userguide/Iterators.md) for more information about iterators.
+
+### Add metadata
+
+```php
+$metadataItem = $loadBalancer->metadata();
+$metadataItem->create(array(
+    'key'   => 'foo',
+    'value' => 'bar'
+));
+```
+
+### Modify metadata
+
+```php
+$metadataItem = $loadBalancer->metadata('foo');
+$metadataItem->update(array(
+    'value' => 'baz'
+));
+```
+
+### Remove metadata
+
+```php
+$metadataItem->delete();
+```
 
 ## Monitors
 
+The load balancing service includes a health monitoring operation which periodically checks your back-end nodes to ensure they are responding correctly. If a node is not responding, it is removed from rotation until the health monitor determines that the node is functional. In addition to being performed periodically, the health check also is performed against every node that is added to ensure that the node is operating properly before allowing it to service traffic. Only one health monitor is allowed to be enabled on a load balancer at a time.
+
+```php
+/** @var $healthMonitor OpenCloud\LoadBalancer\Resource\HealthMonitor **/
+
+$healthMonitor = $loadBalancer->healthMonitor();
+
+printf(
+    "Monitoring type: %s, delay: %s, timeout: %s, attempts before deactivation: %s",
+    $healthMonitor->type, $healthMonitor->delay, $healthMonitor->timeout
+);
+```
+
+For a full list, with explanations, of required and optional attributes, please consult the [official documentation](http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/Monitor_Connections-d1e3536.html)
+
+### Update or delete
+
+```php
+# Update
+$healthMonitor->update(array(
+    'delay' => 20
+));
+
+# Delete
+$healthMonitor->delete();
+```
+
 ## Statistics
 
+You can retrieve detailed stats about your load balancer, including the following information:
+
+- `connectTimeOut` – Connections closed by this load balancer because the 'connect_timeout' interval was exceeded.
+- `connectError` – Number of transaction or protocol errors in this load balancer.
+- `connectFailure` – Number of connection failures in this load balancer.
+- `dataTimedOut` – Connections closed by this load balancer because the 'timeout' interval was exceeded.
+- `keepAliveTimedOut` – Connections closed by this load balancer because the 'keepalive_timeout' interval was exceeded.
+- `maxConn` – Maximum number of simultaneous TCP connections this load balancer has processed at any one time.
+
+```php
+/** @var $stats OpenCloud\LoadBalancer\Resource\Stats **/
+
+$stats = $loadBalancer->stats();
+```
+
 ## Usage Reports
+
+The load balancer usage reports provide a view of all transfer activity, average number of connections, and number of virtual IPs associated with the load balancing service. Current usage represents all usage recorded within the preceding 24 hours. Values for both incomingTransfer and outgoingTransfer are expressed in bytes transferred.
+
+The optional startTime and endTime parameters can be used to filter all usage. If the startTime parameter is supplied but the endTime parameter is not, then all usage beginning with the startTime will be provided. Likewise, if the endTime parameter is supplied but the startTime parameter is not, then all usage will be returned up to the endTime specified.
+
+```php
+# View billable LBs
+$billable = $service->billableLoadBalancerList();
+
+foreach ($billable as $loadBalancer) {
+   /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
+
+   # View usage
+   /** @var $usage OpenCloud\LoadBalancer\Resource\UsageRecord **/
+   $usage = $loadBalancer->usage();
+
+   echo $usage->averageNumConnections, PHP_EOL;
+}
+```
