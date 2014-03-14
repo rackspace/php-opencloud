@@ -20,6 +20,8 @@ namespace OpenCloud\Orchestration\Resource;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Resource\PersistentResource;
+use OpenCloud\Orchestration\Enum\Action;
+use OpenCloud\Orchestration\Enum\Status;
 
 /**
  * A stack is a group of resources (servers, load balancers, databases, and so
@@ -33,68 +35,41 @@ use OpenCloud\Common\Resource\PersistentResource;
 class Stack extends PersistentResource
 {
     /**
-     * Identifier of stack.
-     *
-     * @var string
-     */
-    public $id;
-
-    /**
-     * The name associated with the stack. Must be unique within your account,
-     * contain only alphanumeric characters (case sensitive) and start with an
-     * alpha character. Maximum length of the name is 255 characters.
-     *
-     * @var string
-     */
-    public $stack_name;
-
-    /**
-     * User-defined parameters to pass to the template.
-     *
-     * @var array
-     */
-    public $parameters;
-
-    /**
-     * Object representing the template used by the stack.
-     *
-     * @var \OpenCloud\Orchestration\Resource\Template
-     */
-    public $template;
-
-    /**
      * Whether a failure during stack creation should delete all previously-
      * created resources in that stack.
      *
      * @var boolean
      */
-    public $disable_rollback;
+    protected $disable_rollback;
 
     /**
-     * Reason why the stack is in the current status.
-     *
      * @var string
      */
-    public $stack_status_reason;
+    protected $stack_status_reason;
 
     /**
      * @var array
      */
-    public $outputs;
+    protected $outputs;
 
     /**
-     * When the stack was created.
+     * The normalized output array
      *
+     * @var array
+     */
+    protected $_outputs;
+
+    /**
      * @var string
      */
-    public $creation_time;
+    protected $creation_time;
 
     /**
      * When the stack was last updated.
      *
      * @var string
      */
-    public $updated_time;
+    protected $updated_time;
 
     /**
      * The amount of time that can pass before the stack status becomes
@@ -103,36 +78,288 @@ class Stack extends PersistentResource
      *
      * @var string
      */
-    public $timeout_mins;
+    protected $timeout_mins;
 
     /**
-     * State the stack is currently in.
-     *
      * @var string
      */
-    public $stack_status;
+    protected $stack_status;
 
     /*
-     * URL of the stack template. Will be ignored if template is also supplied.
-     *
      * @var string
      */
-    public $template_url;
+    protected $template_url;
 
     /*
      * @var array
      */
-    public $environment;
+    protected $environment;
 
     /**
      * @var array
      */
-    public $files;
+    protected $files;
 
     /**
      * @var array
      */
     protected $links;
+
+    /**
+     * Identifier of stack.
+     *
+     * @var string
+     */
+    protected $id;
+
+    /**
+     * The name associated with the stack. Must be unique within your account,
+     * contain only alphanumeric characters (case sensitive) and start with an
+     * alpha character. Maximum length of the name is 255 characters.
+     *
+     * @var string
+     */
+    protected $stack_name;
+
+    /**
+     * User-defined parameters to pass to the template.
+     *
+     * @var array
+     */
+    protected $parameters;
+
+    /**
+     * @var \stdClass
+     */
+    protected $template;
+
+    /**
+     * When the stack was created.
+     *
+     * @return string
+     */
+    public function getCreationTime()
+    {
+        return $this->creation_time;
+    }
+
+    /**
+     * @param boolean $disable_rollback
+     */
+    public function setDisableRollback($disable_rollback)
+    {
+        $this->disable_rollback = $disable_rollback;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisableRollback()
+    {
+        return $this->disable_rollback;
+    }
+
+    /**
+     * @param mixed $environment
+     */
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
+
+    /**
+     * @param array $files
+     */
+    public function setFiles($files)
+    {
+        $this->files = $files;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the array of parameters (key-value pairs) that will be used by the stack.
+     * @param array $parameters
+     */
+    public function setParameters($parameters)
+    {
+        $this->parameters = $parameters;
+    }
+
+    /**
+     * Set an individual parameter to be used by the stack.
+     *
+     * @param $key
+     * @param $value
+     */
+    public function setParameter($key, $value)
+    {
+        $this->parameters[$key] = $value;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOutputs()
+    {
+        if (!isset($this->outputs) || !is_array($this->outputs)) {
+            return array();
+        }
+        if (!isset($this->_outputs)) {
+            $this->_outputs = array();
+            foreach ($this->outputs as $output) {
+                $this->_outputs[$output->output_key] = $output->output_value;
+            }
+        }
+        return $this->_outputs;
+    }
+
+    /**
+     * Get a specific output from the stack.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getOutput($key)
+    {
+        $outputs = $this->getOutputs();
+        return isset($outputs[$key]) ? $outputs[$key] : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
+     * @param string $stack_name
+     */
+    public function setName($stack_name)
+    {
+        $this->stack_name = $stack_name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->stack_name;
+    }
+
+    /**
+     * State the stack is currently in.
+     *
+     * @return string
+     * @see \OpenCloud\Orchestration\Enum\StackStatus
+     */
+    public function getStackStatus()
+    {
+        return $this->stack_status;
+    }
+
+    /**
+     * Reason why the stack is in the current status.
+     *
+     * @return string
+     */
+    public function getStatusReason()
+    {
+        return $this->stack_status_reason;
+    }
+
+    /**
+     * @param string $template_url
+     */
+    public function setTemplateUrl($template_url)
+    {
+        $this->template_url = $template_url;
+    }
+
+    /**
+     * URL of the stack template. Will be ignored if template is also supplied.
+     *
+     * @return string
+     */
+    public function getTemplateUrl()
+    {
+        return $this->template_url;
+    }
+
+    /**
+     * @param \OpenCloud\Orchestration\Resource\Template $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    }
+
+    /**
+     * Object representing the template used by the stack.
+     *
+     * @return \OpenCloud\Orchestration\Resource\Template
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param string $timeout_mins
+     */
+    public function setTimeoutMins($timeout_mins)
+    {
+        $this->timeout_mins = $timeout_mins;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimeoutMins()
+    {
+        return $this->timeout_mins;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUpdatedTime()
+    {
+        return $this->updated_time;
+    }
 
     protected static $json_name = "stack";
     protected static $url_resource = "stacks";
@@ -167,7 +394,10 @@ class Stack extends PersistentResource
         $object = (object)array();
 
         foreach ($this->updateKeys as $key) {
-            if (isset($this->$key)) {
+            if (isset($params[$key])) {
+                $object->$key = $params[$key];
+            }
+            elseif (isset($this->$key)) {
                 $object->$key = $this->$key;
             }
         }
@@ -175,15 +405,61 @@ class Stack extends PersistentResource
         return $object;
     }
 
-    public function output($key)
+    /**
+     * {@inheritDoc}
+     *
+     * The stack-create command does not nest stack properties under a top level "stack" key.
+     */
+    protected function createJson()
     {
-        if (!isset($this->output) || !is_array($this->outputs)) {
-            return;
-        }
-        foreach ($this->outputs as $output) {
-            if ($output->output_key === $key) {
-                return $output->output_value;
-            }
-        }
+        $data = parent::createJson();
+        return $data->{$this->jsonName()};
+    }
+
+    public function eventList()
+    {
+        /** @var \OpenCloud\Orchestration\Service $service */
+        return $this->resourceList('event');
+    }
+
+    public function getEvent($data)
+    {
+        return new Event($this->getService(), $data);
+    }
+
+    public function getResources()
+    {
+        return $this->resourceList('resource');
+    }
+
+    public function getResource($data)
+    {
+        return new Resource($this->getService(), $data);
+    }
+
+    public function getStatus()
+    {
+        return $this->stack_status;
+    }
+
+    /**
+     * Return boolean indicating whether the stack is in a FAILED state.
+     *
+     * @return bool
+     */
+    public function isFailed()
+    {
+        return strpos($this->getStatus(), 'FAILED') !== false;
+    }
+
+    /**
+     * @param $resourceName
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    protected function resourceList($resourceName)
+    {
+        /** @var \OpenCloud\Orchestration\Service $service */
+        $service = $this->getService();
+        return $service->resourceList($resourceName, null, $this);
     }
 }
