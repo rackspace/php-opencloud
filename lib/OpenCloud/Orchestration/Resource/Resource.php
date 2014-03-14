@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Orchestration\Resource;
 
+use OpenCloud\Common\Resource\BaseResource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
@@ -24,42 +25,37 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class Resource extends PersistentResource
 {
-    public $links;
     /**
      * The name associated with the resource within the stack. This is the same
      * as the key in the `resources` object of your template.
      *
      * @var string
      */
-    public $logical_resource_id;
+    protected $logical_resource_id;
 
     /**
-     * The id of the resource within the OpenStack service that manages it
-     *
      *  @var string
      */
-    public $physical_resource_id;
+    protected $physical_resource_id;
 
     /**
      * The last status of this resource within the stack.
      *
      * @var string
      */
-    public $resource_status;
+    protected $resource_status;
 
     /**
      * The reason for this resource status.
      *
      * @var string
      */
-    public $resource_status_reason;
+    protected $resource_status_reason;
 
     /**
-     * The type of this resource
-     *
      * @var string
      */
-    public $resource_type;
+    protected $resource_type;
 
     /**
      * Metadata associated with this resource. This is equivalent to the
@@ -67,40 +63,105 @@ class Resource extends PersistentResource
      *
      * @var array
      */
-    public $resource_metadata;
+    protected $resource_metadata;
+
+    /**
+     * @var string
+     */
+    protected $updated_time;
+
+    protected static $url_resource = 'resources';
+    protected static $json_name = 'resource';
+
+    protected $links;
+
+    /**
+     * @return mixed
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogicalId()
+    {
+        return $this->logical_resource_id;
+    }
+
+    /**
+     * The id of the resource within the OpenStack service that manages it
+     *
+     * @return string
+     */
+    public function getPhysicalId()
+    {
+        return $this->physical_resource_id;
+    }
+
+    /**
+     * The status string for the resource.
+     *
+     * @return string
+     * @see \OpenCloud\Orchestration\Enum\ResourceStatus
+     */
+    public function getStatus()
+    {
+        return $this->resource_status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusReason()
+    {
+        return $this->resource_status_reason;
+    }
+
+    /**
+     * The type of this resource
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->resource_type;
+    }
 
     /**
      * When the resource was last updated.
      *
-     * @var string
+     * @return string
      */
-    public $updated_time;
-
-    /**
-     * A mapping of resource types to parameters used load the corresponding 
-     * resource. The each set of parameters is an array of 3 items:
-     *
-     *  - Service type ('Compute', 'Image', etc.)
-     *  - Service name ('nova', 'glance', etc.)
-     *  - Method name that will be passed the resources physical ID (e.g. 'server')
-     *
-     * @var array
-     */
-    public static $resource_type_mapping = array(
-        'AWS::EC2::Instance' => array('Compute', 'nova', 'server'),
-    );
-
-    protected static $url_resource = 'resources';
-    protected static $json_name = 'resource';
+    public function getUpdatedTime()
+    {
+        return $this->updated_time;
+    }
 
     public function create($info = null)
     {
         $this->noCreate();
     }
 
+    /**
+     * Get the object this Stack Resource refers to.
+     *
+     * @return BaseResource Varies depending on the type of resource being fetched
+     */
+    public function get()
+    {
+        return $this->getService()->getConcreteResource($this);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return string
+     */
     public function id()
     {
-        return $this->physical_resource_id;
+        return $this->getPhysicalId();
     }
 
     protected function primaryKeyField()
@@ -108,22 +169,54 @@ class Resource extends PersistentResource
         return 'physical_resource_id';
     }
 
+    /**
+     * @deprecated
+     * @return string
+     */
     public function name()
     {
-        return $this->logical_resource_id;
+        return $this->getLogicalId();
     }
 
+    /**
+     * @deprecated
+     * @return string
+     */
     public function type()
     {
-        return $this->resource_type;
+        return $this->getType();
     }
 
+    /**
+     * @deprecated
+     * @return string
+     */
     public function status()
     {
         return $this->resource_status;
     }
 
     /**
+     * Return the resources metadata. Note that this metadata is specific to the orchestration service.
+     *
+     * @return \OpenCloud\Common\Metadata
+     */
+    public function getMetadata()
+    {
+        if (!isset($this->resource_metadata)) {
+            /** @var \OpenCloud\Orchestration\Service $service */
+            $service = $this->getService();
+            $this->resource_metadata = $service->resourceMetadata($this);
+            $response = $this->getClient()->get($this->getUrl('metadata'), self::getJsonHeader())->send();
+            $data = $response->json();
+            $this->resource_metadata = $data['metadata'];
+            $this->metadata->setArray($this->resource_metadata);
+        }
+        return $this->metadata;
+    }
+
+    /**
+     * @deprecated
      * @return object decoded metadata
      */
     public function metadata()
@@ -139,27 +232,5 @@ class Resource extends PersistentResource
         } else {
             return array();
         }
-    }
-
-    /**
-     * Get the object this Stack Resource refers to.
-     *
-     * @return BaseResource Varies depending on the type of resource being fetched
-     */
-    public function get()
-    {
-        $orchService = $this->getService();
-        $connection  = $orchService->getConnection();
-        $region      = $orchService->region();
-
-        if (!isset(self::$resource_type_mapping[$this->resource_type])) {
-            throw new \RuntimeException(sprintf("Cannot retrieve %s resource", $this->resource_type));
-        }
-
-        list($serviceType, $serviceName, $method) = self::$resource_type_mapping[$this->resource_type];
-
-        $resourceService = $connection->service($serviceType, $serviceName, $region);
-
-        return $resourceService->$method($this->physical_resource_id);
     }
 }
