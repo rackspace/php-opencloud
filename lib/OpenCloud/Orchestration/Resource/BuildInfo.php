@@ -32,14 +32,14 @@ class BuildInfo extends PersistentResource
      *
      * @var object
      */
-    public $engine;
+    protected $engine;
 
     /**
      * API information.
      *
      * @var object
      */
-    public $api;
+    protected $api;
 
     protected static $json_name = "does_not_exist";
     protected static $url_resource = "build_info";
@@ -62,6 +62,16 @@ class BuildInfo extends PersistentResource
     public function delete($params = array())
     {
         return $this->noDelete();
+    }
+
+    public function getEngine()
+    {
+        return $this->engine;
+    }
+
+    public function getApi()
+    {
+        return $this->api;
     }
 
 }
