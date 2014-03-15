@@ -37,7 +37,7 @@ class Stack extends PersistentResource
      *
      * @var string
      */
-    public $id;
+    protected $id;
 
     /**
      * The name associated with the stack. Must be unique within your account,
@@ -46,21 +46,21 @@ class Stack extends PersistentResource
      *
      * @var string
      */
-    public $stack_name;
+    protected $stack_name;
 
     /**
      * User-defined parameters to pass to the template.
      *
      * @var array
      */
-    public $parameters;
+    protected $parameters;
 
     /**
      * Object representing the template used by the stack.
      *
      * @var \OpenCloud\Orchestration\Resource\Template
      */
-    public $template;
+    protected $template;
 
     /**
      * Whether a failure during stack creation should delete all previously-
@@ -68,33 +68,33 @@ class Stack extends PersistentResource
      *
      * @var boolean
      */
-    public $disable_rollback;
+    protected $disable_rollback;
 
     /**
      * Reason why the stack is in the current status.
      *
      * @var string
      */
-    public $stack_status_reason;
+    protected $stack_status_reason;
 
     /**
      * @var array
      */
-    public $outputs;
+    protected $outputs;
 
     /**
      * When the stack was created.
      *
      * @var string
      */
-    public $creation_time;
+    protected $creation_time;
 
     /**
      * When the stack was last updated.
      *
      * @var string
      */
-    public $updated_time;
+    protected $updated_time;
 
     /**
      * The amount of time that can pass before the stack status becomes
@@ -103,31 +103,31 @@ class Stack extends PersistentResource
      *
      * @var string
      */
-    public $timeout_mins;
+    protected $timeout_mins;
 
     /**
      * State the stack is currently in.
      *
      * @var string
      */
-    public $stack_status;
+    protected $stack_status;
 
     /*
      * URL of the stack template. Will be ignored if template is also supplied.
      *
      * @var string
      */
-    public $template_url;
+    protected $template_url;
 
     /*
      * @var array
      */
-    public $environment;
+    protected $environment;
 
     /**
      * @var array
      */
-    public $files;
+    protected $files;
 
     /**
      * @var array

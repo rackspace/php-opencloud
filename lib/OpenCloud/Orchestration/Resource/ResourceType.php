@@ -32,21 +32,21 @@ class ResourceType extends PersistentResource
      *
      * @var string
      */
-    public $resource_type;
+    protected $resource_type;
 
     /**
      * Attributes.
      *
      * @var object
      */
-    public $attributes;
+    protected $attributes;
 
     /**
      * Properties.
      *
      * @var object
      */
-    public $properties;
+    protected $properties;
 
     protected static $json_name = "does_not_exist";
     protected static $json_collection_name = "resource_types";
@@ -70,6 +70,21 @@ class ResourceType extends PersistentResource
     public function delete($params = array())
     {
         return $this->noDelete();
+    }
+
+    public function getResourceType()
+    {
+        return $this->resource_type;
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    public function getProperties()
+    {
+        return $this->properties;
     }
 
     /**
