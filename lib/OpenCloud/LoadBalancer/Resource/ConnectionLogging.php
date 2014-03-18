@@ -22,9 +22,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  * account every hour. For HTTP-based protocol traffic, these are Apache-style
  * access logs. For all other traffic, this is connection and transfer logging.
  */
-class ConnectionLogging extends SubResource
+class ConnectionLogging extends AbstractResource
 {
-
     public $enabled;
 
     protected static $json_name = "connectionLogging";

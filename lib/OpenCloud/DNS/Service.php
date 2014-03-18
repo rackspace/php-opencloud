@@ -21,6 +21,7 @@ use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\CatalogService;
 use OpenCloud\Compute\Resource\Server;
 use OpenCloud\DNS\Collection\DnsIterator;
+use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 
 /**
  * DNS Service.
@@ -43,29 +44,28 @@ class Service extends CatalogService
     }
 
     /**
-     * returns a DNS::Domain object
+     * Returns a domain
      *
-     * @api
      * @param mixed $info either the ID, an object, or array of parameters
      * @return Resource\Domain
      */
     public function domain($info = null)
     {
-        return new Resource\Domain($this, $info);
+        return $this->resource('Domain', $info);
     }
 
     /**
-     * returns a Collection of DNS::Domain objects
+     * Returns a collection of domains
      *
-     * @api
      * @param array $filter key/value pairs to use as query strings
      * @return \OpenCloud\Common\Collection
      */
     public function domainList($filter = array())
     {
-        $url = $this->getUrl(Resource\Domain::resourceName(), $filter);
+        $url = $this->getUrl(Resource\Domain::resourceName());
+        $url->setQuery($filter);
 
-        return $this->collection('OpenCloud\DNS\Resource\Domain', $url);
+        return $this->resourceList('Domain', $url);
     }
 
     /**
@@ -76,7 +76,7 @@ class Service extends CatalogService
      */
     public function ptrRecord($info = null)
     {
-        return new Resource\PtrRecord($this, $info);
+        return $this->resource('PtrRecord', $info);
     }
 
     /**
@@ -86,14 +86,14 @@ class Service extends CatalogService
      *                                                   retrieve the PTR records
      * @return \OpenCloud\Common\Collection
      */
-    public function ptrRecordList(Server $server)
+    public function ptrRecordList(HasPtrRecordsInterface $parent)
     {
         $url = $this->getUrl()
             ->addPath('rdns')
-            ->addPath($server->getService()->name())
-            ->setQuery(array('href' => $server->url()));
+            ->addPath($parent->getService()->getName())
+            ->setQuery(array('href' => (string) $parent->getUrl()));
 
-        return $this->collection('OpenCloud\DNS\Resource\PtrRecord', $url);
+        return $this->resourceList('PtrRecord', $url);
     }
 
     /**
@@ -113,26 +113,25 @@ class Service extends CatalogService
     public function asyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
         $response = $this->getClient()->createRequest($method, $url, $headers, $body)->send();
-
         return new Resource\AsyncResponse($this, Formatter::decode($response));
     }
 
     /**
-     * imports domain records
+     * Imports domain records
      *
      * Note that this function is called from the service (DNS) level, and
      * not (as you might suspect) from the Domain object. Because the function
      * return an AsyncResponse, the domain object will not actually exist
      * until some point after the import has occurred.
      *
-     * @api
      * @param string $data the BIND_9 formatted data to import
      * @return Resource\AsyncResponse
      */
     public function import($data)
     {
-        // determine the URL
-        $url = $this->url('domains/import');
+        $url = clone $this->getUrl();
+        $url->addPath('domains');
+        $url->addPath('import');
 
         $object = (object)array(
             'domains' => array(
@@ -146,9 +145,6 @@ class Service extends CatalogService
         // encode it
         $json = json_encode($object);
 
-        // debug it
-        $this->getLogger()->info('Importing [{json}]', array('json' => $json));
-
         // perform the request
         return $this->asyncRequest($url, 'POST', array(), $json);
     }
@@ -158,12 +154,16 @@ class Service extends CatalogService
      */
     public function limits($type = null)
     {
-        $url = $this->url('limits') . ($type ? "/$type" : '');
+        $url = $this->getUrl('limits');
+
+        if ($type) {
+            $url->addPath($type);
+        }
 
         $response = $this->getClient()->get($url)->send();
         $body = Formatter::decode($response);
 
-        return ($body) ? $body : $body->limits;
+        return isset($body->limits) ? $body->limits : $body;
     }
 
     /**

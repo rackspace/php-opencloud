@@ -372,6 +372,32 @@ class Container extends AbstractContainer
     }
 
     /**
+     * Check if an object exists inside a container. Uses {@see getPartialObject()}
+     * to save on bandwidth and time.
+     *
+     * @param  $name    Object name
+     * @return boolean  True, if object exists in this container; false otherwise. 
+     */
+    public function objectExists($name)
+    {
+        try {
+            // Send HEAD request to check resource existence
+            $url = clone $this->getUrl();
+            $url->addPath((string) $name);
+            $this->getClient()->head($url)->send();
+        } catch (ClientErrorResponseException $e) {
+            // If a 404 was returned, then the object doesn't exist
+            if ($e->getResponse()->getStatusCode() === 404) {
+                return false;
+            } else {
+                throw $e;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Upload a single file to the API.
      *
      * @param       $name    Name that the file will be saved as in your container.

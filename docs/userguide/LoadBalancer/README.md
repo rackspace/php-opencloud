@@ -13,7 +13,7 @@ the load balancer.
 use OpenCloud\Rackspace;
 
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME'>,
+    'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME>',
     'apiKey'   => '<YOUR RACKSPACE CLOUD ACCOUNT API KEY>'
 ));
 ```

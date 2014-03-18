@@ -15,28 +15,21 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\LoadBalancer\Resource;
+namespace OpenCloud\LoadBalancer\Enum;
 
 /**
- * Sub-resource to manage Metadata
+ * Enumerated types for Load Balancer IPs
+ *
+ * @package OpenCloud\LoadBalancer\Enum
  */
-class Metadata extends AbstractResource
+class IpType 
 {
-    public $id;
-    public $key;
-    public $value;
+    const PUBLIC_TYPE = 'PUBLIC';
+    const SERVICENET_TYPE = 'SERVICENET';
 
-    protected static $json_name = 'meta';
-    protected static $json_collection_name = 'metadata';
-    protected static $url_resource = 'metadata';
+    const IP_4 = 4;
+    const IP_6 = 6;
 
-    protected $createKeys = array(
-        'key',
-        'value'
-    );
-
-    public function name()
-    {
-        return $this->key;
-    }
+    const IPv4 = 'IPV4';
+    const IPv6 = 'IPV6';
 }

@@ -18,6 +18,7 @@
 namespace OpenCloud\DNS\Resource;
 
 use Guzzle\Http\Url;
+use OpenCloud\Common\Constants\State;
 use OpenCloud\Common\PersistentObject;
 use OpenCloud\Common\Service\ServiceInterface;
 
@@ -27,6 +28,8 @@ use OpenCloud\Common\Service\ServiceInterface;
  */
 class AsyncResponse extends PersistentObject
 {
+    const DEFAULT_INTERVAL = 2;
+
     public $jobId;
     public $callbackUrl;
     public $status;
@@ -99,5 +102,36 @@ class AsyncResponse extends PersistentObject
     public function primaryKeyField()
     {
         return 'jobId';
+    }
+
+    public function waitFor($state = null, $timeout = null, $callback = null, $interval = null)
+    {
+        $state    = $state ?: 'COMPLETED';
+        $timeout  = $timeout ?: State::DEFAULT_TIMEOUT;
+        $interval = $interval ?: self::DEFAULT_INTERVAL;
+
+        $jobUrl = Url::factory($this->callbackUrl);
+        $jobUrl->setQuery(array('showDetails' => 'true'));
+
+        $continue = true;
+        $startTime = time();
+        $states = array('ERROR', $state);
+
+        while ($continue) {
+
+            $body = $this->getClient()->get($jobUrl)->send()->json();
+
+            if ($callback) {
+                call_user_func($callback, $body);
+            }
+
+            if (in_array($body['status'], $states) || (time() - $startTime) > $timeout) {
+                $continue = false;
+            }
+
+            sleep($interval);
+        }
+
+        return isset($body['response']) ? $body['response'] : false;
     }
 }

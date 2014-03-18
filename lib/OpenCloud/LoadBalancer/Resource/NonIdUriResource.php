@@ -18,25 +18,15 @@
 namespace OpenCloud\LoadBalancer\Resource;
 
 /**
- * This class will retrieve a list of events associated with the activity
- * between the node and the load balancer. The events report errors found with the node.
+ * Represents a resource that cannot be queried based on its ID. Instead, it
+ * uses its parent URL, plus a generic path name, to determine its state.
+ *
+ * @package OpenCloud\LoadBalancer\Resource
  */
-class NodeEvent extends ReadOnlyResource
+abstract class NonIdUriResource extends AbstractResource
 {
-    public $detailedMessage;
-    public $nodeId;
-    public $id;
-    public $type;
-    public $description;
-    public $category;
-    public $severity;
-    public $relativeUri;
-    public $accountId;
-    public $loadbalancerId;
-    public $title;
-    public $author;
-    public $created;
-
-    protected static $json_name = 'nodeServiceEvent';
-    protected static $url_resource = 'nodes/events';
+    public function refresh($id = null, $url = null)
+    {
+        return $this->refreshFromParent();
+    }
 }

@@ -309,4 +309,20 @@ class ContainerTest extends ObjectStoreTestCase
         $this->assertEquals('', (string)$object->getContent());
         $this->assertNotNull($object->getLastModified());
     }
+
+    /**
+     * @mockFile Object_Metadata
+     */
+    public function test_Object_Exists_True()
+    {
+        $this->assertTrue($this->container->objectExists('test.foo'));
+    }
+
+    /**
+     * @mockFile Object_Metadata_404
+     */
+    public function test_Object_Exists_False()
+    {
+        $this->assertFalse($this->container->objectExists('test.foo'));
+    }
 }

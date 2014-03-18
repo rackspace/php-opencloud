@@ -22,9 +22,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  *
  * @link http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/List_Load_Balancer_Stats-d1e1524.html
  */
-class Stats extends Readonly
+class Stats extends ReadOnlyResource
 {
-
     /**
      * Connections closed by this load balancer because the 'connect_timeout'
      * interval was exceeded.
@@ -73,4 +72,9 @@ class Stats extends Readonly
 
     protected static $json_name = false;
     protected static $url_resource = 'stats';
+
+    public function refresh($id = null, $url = null)
+    {
+        return $this->refreshFromParent();
+    }
 }

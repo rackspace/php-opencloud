@@ -15,28 +15,16 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\LoadBalancer\Resource;
+namespace OpenCloud\LoadBalancer\Enum;
 
 /**
- * This defines a read-only SubResource - one that cannot be created, updated,
- * or deleted. Many subresources are like this, and this simplifies their
- * class definitions.
+ * Enumerated types for node conditions
+ *
+ * @package OpenCloud\LoadBalancer\Enum
  */
-abstract class Readonly extends SubResource
+class NodeCondition
 {
-
-    public function create($params = array())
-    {
-        return $this->noCreate();
-    }
-
-    public function update($params = array())
-    {
-        return $this->noUpdate();
-    }
-
-    public function delete()
-    {
-        return $this->noDelete();
-    }
+    const ENABLED = 'ENABLED';
+    const DISABLED = 'DISABLED';
+    const DRAINING = 'DRAINING';
 }

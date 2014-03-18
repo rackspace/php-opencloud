@@ -15,28 +15,15 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\LoadBalancer\Resource;
+namespace OpenCloud\LoadBalancer\Enum;
 
 /**
- * Sub-resource to manage Metadata
+ * Enumerated types for node types
+ *
+ * @package OpenCloud\LoadBalancer\Enum
  */
-class Metadata extends AbstractResource
+class NodeType
 {
-    public $id;
-    public $key;
-    public $value;
-
-    protected static $json_name = 'meta';
-    protected static $json_collection_name = 'metadata';
-    protected static $url_resource = 'metadata';
-
-    protected $createKeys = array(
-        'key',
-        'value'
-    );
-
-    public function name()
-    {
-        return $this->key;
-    }
+    const PRIMARY = 'PRIMARY';
+    const SECONDARY = 'SECONDARY';
 }

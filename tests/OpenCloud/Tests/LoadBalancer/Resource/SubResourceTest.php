@@ -17,46 +17,29 @@
 
 namespace OpenCloud\Tests\LoadBalancer\Resource;
 
+use OpenCloud\LoadBalancer\Resource\Algorithm;
+use OpenCloud\LoadBalancer\Resource\AllowedDomain;
 use OpenCloud\Tests\LoadBalancer\LoadBalancerTestCase;
 
 class SubResourceTest extends LoadBalancerTestCase
 {
-
     /**
-     * @expectedException OpenCloud\Common\Exceptions\UpdateError
+     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */
-    public function testAccessUpdateFails()
+    public function test_Access_Update_Fails()
     {
         $this->loadBalancer->access()->update();
     }
 
-    public function testConnectionCreateGoesToUpdate()
+    public function test_Connection_Create_Goes_To_Update()
     {
-        $this->loadBalancer->connectionLogging()->create();
         $this->loadBalancer->connectionThrottle()->create();
-        $this->loadBalancer->contentCaching()->create();
         $this->loadBalancer->errorPage()->create();
         $this->loadBalancer->healthMonitor()->create();
         $this->loadBalancer->SSLTermination()->create();
     }
 
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\DeleteError
-     */
-    public function testConnectionDeleteFails()
-    {
-        $this->loadBalancer->connectionLogging()->delete();
-    }
-
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\DeleteError
-     */
-    public function testContentCachingDeleteFails()
-    {
-        $this->loadBalancer->contentCaching()->delete();
-    }
-
-    public function testMetadata()
+    public function test_Metadata()
     {
         $metadata = $this->loadBalancer->metadata();
         $metadata->key = 'foo';
@@ -64,39 +47,46 @@ class SubResourceTest extends LoadBalancerTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\CreateError
+     * @expectedException \OpenCloud\Common\Exceptions\CreateError
      */
-    public function testReadOnlyCreateFails()
+    public function test_Read_Only_Create_Fails()
     {
         $this->loadBalancer->nodeEvent()->create();
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\UpdateError
+     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */
-    public function testReadOnlyUpdateFails()
+    public function test_Read_Only_Update_Fails()
     {
         $this->loadBalancer->nodeEvent()->update();
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\DeleteError
+     * @expectedException \OpenCloud\Common\Exceptions\DeleteError
      */
-    public function testReadOnlyDeleteFails()
+    public function test_Read_Only_Delete_Fails()
     {
         $this->loadBalancer->nodeEvent()->delete();
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\UpdateError
+     * @expectedException \OpenCloud\Common\Exceptions\UpdateError
      */
-    public function testVirtualIPUpdateFails()
+    public function test_Virtual_IP_Update_Fails()
     {
         $this->loadBalancer->virtualIp()->update();
     }
 
-    public function test_Name()
+    public function test_Algorithm_Cannot_Refresh()
     {
-        $this->assertEquals('ContentCaching-2000', $this->loadBalancer->contentCaching()->name());
+        $resource = new Algorithm($this->service);
+        $this->assertFalse($resource->refresh());
+    }
+
+    public function test_Allowed_Domain_Cannot_Refresh()
+    {
+        $resource = new AllowedDomain($this->service);
+        $this->assertFalse($resource->refresh());
     }
 }
