@@ -197,6 +197,16 @@ class Resource extends PersistentResource
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function refresh($id = null, $url = null)
+    {
+        unset($this->metadata);
+        return parent::refresh($id, $url);
+    }
+
+
+    /**
      * Return the resources metadata. This incurs an HTTP request, and the results will be cached for future accesses.
      *
      * The metadata returned here is managed separately from other services metadata. For example, metadata added to a
