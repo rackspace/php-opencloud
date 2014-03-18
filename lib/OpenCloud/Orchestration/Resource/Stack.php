@@ -51,7 +51,7 @@ class Stack extends PersistentResource
     protected $outputs;
 
     /**
-     * The normalized output array
+     * The normalized output array. This is cached between calls to refresh
      *
      * @var array
      */
@@ -382,6 +382,12 @@ class Stack extends PersistentResource
         'timeout_mins',
         'disable_rollback'
     );
+
+    public function refresh($id = null, $url = null)
+    {
+        unset($this->_outputs);
+        return parent::refresh($id, $url);
+    }
 
     /**
      * {@inheritDoc}
