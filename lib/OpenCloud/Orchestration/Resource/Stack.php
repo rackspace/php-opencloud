@@ -414,7 +414,7 @@ class Stack extends PersistentResource
         return $data->{$this->jsonName()};
     }
 
-    public function eventList()
+    public function getEvents()
     {
         /** @var \OpenCloud\Orchestration\Service $service */
         return $this->resourceList('event');
