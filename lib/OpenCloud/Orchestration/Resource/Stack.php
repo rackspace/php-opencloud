@@ -20,8 +20,6 @@ namespace OpenCloud\Orchestration\Resource;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\Common\Resource\PersistentResource;
-use OpenCloud\Orchestration\Enum\Action;
-use OpenCloud\Orchestration\Enum\Status;
 
 /**
  * A stack is a group of resources (servers, load balancers, databases, and so

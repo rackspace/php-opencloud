@@ -1,5 +1,5 @@
 <?php
-namespace OpenCloud\Orchestration\Enum;
+namespace OpenCloud\Orchestration\Constants;
 
 class StackStatus
 {
