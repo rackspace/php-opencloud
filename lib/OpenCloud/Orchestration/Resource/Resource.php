@@ -197,13 +197,17 @@ class Resource extends PersistentResource
     }
 
     /**
-     * Return the resources metadata. Note that this metadata is specific to the orchestration service.
+     * Return the resources metadata. This incurs an HTTP request, and the results will be cached for future accesses.
      *
+     * The metadata returned here is managed separately from other services metadata. For example, metadata added to a
+     * server via the Compute service will not be reflected here, or vice-versa.
+     *
+     * @param bool $forceReload
      * @return \OpenCloud\Common\Metadata
      */
-    public function getMetadata()
+    public function getMetadata($forceReload = false)
     {
-        if (!isset($this->resource_metadata)) {
+        if ($forceReload || !isset($this->resource_metadata)) {
             /** @var \OpenCloud\Orchestration\Service $service */
             $service = $this->getService();
             $response = $this->getClient()->get($this->getUrl('metadata'), self::getJsonHeader())->send();
