@@ -134,8 +134,4 @@ class Service extends CatalogService
         $buildInfo->refresh();
         return $buildInfo;
     }
-
-    public function resourceMetadata(Resource\Resource $resource)
-    {
-    }
 }

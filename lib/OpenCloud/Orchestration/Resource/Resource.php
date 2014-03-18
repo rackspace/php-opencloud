@@ -206,7 +206,6 @@ class Resource extends PersistentResource
         if (!isset($this->resource_metadata)) {
             /** @var \OpenCloud\Orchestration\Service $service */
             $service = $this->getService();
-            $this->resource_metadata = $service->resourceMetadata($this);
             $response = $this->getClient()->get($this->getUrl('metadata'), self::getJsonHeader())->send();
             $data = $response->json();
             $this->resource_metadata = $data['metadata'];
