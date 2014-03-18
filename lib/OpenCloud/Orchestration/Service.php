@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Orchestration;
 
+use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Service\CatalogService;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 
@@ -30,8 +31,50 @@ use Guzzle\Http\Exception\ClientErrorResponseException;
  */
 class Service extends CatalogService
 {
-    const DEFAULT_TYPE = 'orchestration';
     const DEFAULT_NAME = 'cloudOrchestration';
+    const DEFAULT_TYPE = 'orchestration';
+
+
+    /**
+     * A mapping of resource types to parameters used load the corresponding
+     * resource. The each set of parameters is an array of 3 items:
+     *
+     *  - Service type ('Compute', 'Image', etc.)
+     *  - Service name ('nova', 'glance', etc.)
+     *  - Method name that will be passed the resources physical ID (e.g. 'server')
+     *
+     * @var array
+     */
+    protected $resourceTypeLoaders = array(
+        'AWS::EC2::Instance' => array('computeService', 'nova', 'server'),
+    );
+
+    public function registerResourceTypeLoader($type, $optionsOrCallback)
+    {
+        $this->resourceTypeLoaders[$type] = $optionsOrCallback;
+    }
+
+    public function getConcreteResource(Resource\Resource $resource)
+    {
+        $client       = $this->getClient();
+        $region       = $this->getRegion();
+        $resourceType = $resource->getType();
+
+        if (!isset($this->resourceTypeLoaders[$resourceType])) {
+            throw new \RuntimeException(sprintf("Cannot retrieve %s resource", $resourceType));
+        }
+
+        $optionsOrCallback = $this->resourceTypeLoaders[$resourceType];
+        if (is_array($optionsOrCallback) && count($optionsOrCallback) === 3) {
+            list($getServiceMethod, $serviceName, $getResourceMethod) = $optionsOrCallback;
+            $resourceService = $client->$getServiceMethod($serviceName, $region);
+            return $resourceService->$getResourceMethod($resource->getPhysicalId());
+        }
+        elseif (is_callable($optionsOrCallback)) {
+            return $optionsOrCallback($client, $region, $resourceType, $resource->getPhysicalId());
+        }
+
+    }
 
     /**
      * Creates a new Stack object
@@ -91,5 +134,4 @@ class Service extends CatalogService
         $buildInfo->refresh();
         return $buildInfo;
     }
-
 }
