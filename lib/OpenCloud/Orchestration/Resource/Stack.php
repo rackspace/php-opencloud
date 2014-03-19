@@ -459,7 +459,8 @@ class Stack extends PersistentResource
 
     public function abandon()
     {
-        // TODO
+        $stackAbandon = $this->getService()->resource('Abandon', null, $this);
+        $stackAbandon->delete();
     }
 
     // TODO: actions {resume, suspend}
