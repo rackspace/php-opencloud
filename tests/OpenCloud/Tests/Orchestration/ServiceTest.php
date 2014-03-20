@@ -45,4 +45,46 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
     }
 
+    public function testStack()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\Orchestration\Resource\Stack',
+            $this->service->stack()
+        );
+    }
+
+    public function testStackList()
+    {
+        $this->assertInstanceOf(
+            self::COLLECTION_CLASS,
+            $this->service->stackList()
+        );
+    }
+
+    public function testResourceTypeList()
+    {
+        $this->assertInstanceOf(
+            self::COLLECTION_CLASS,
+            $this->service->resourceTypeList()
+        );
+    }
+
+    public function testResourceType()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\Orchestration\Resource\ResourceType',
+            $this->service->resourceType('dummy')
+        );
+    }
+
+    public function testBuildInfo()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\Orchestration\Resource\BuildInfo',
+            $this->service->buildInfo()
+        );
+    }
+
+    // TODO: Validate template
+    
 }
