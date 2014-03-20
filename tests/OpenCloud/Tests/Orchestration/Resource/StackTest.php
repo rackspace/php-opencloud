@@ -137,4 +137,73 @@ class StackTest extends OrchestrationTestCase
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $this->stack->getResource('dummy'));
     }
 
+    public function testSetStackName()
+    {
+        $newStackName = 'foobar';
+        $this->stack->setStackName($newStackName);
+        $this->assertEquals($newStackName, $this->stack->getStackName());
+    }
+
+    public function testSetTemplateUrl()
+    {
+        $newTemplateUrl = 'http://dummytemplateurl.com';
+        $this->stack->setTemplateUrl($newTemplateUrl);
+        $this->assertEquals($newTemplateUrl, $this->stack->getTemplateUrl());
+    }
+
+    public function testSetTemplate()
+    {
+        $newTemplate = 'foobar';
+        $this->stack->setTemplate($newTemplate);
+        $this->assertEquals($newTemplate, $this->stack->getTemplate());
+    }
+
+    public function testSetEnvironment()
+    {
+        $newEnvironment = array(
+            'APP_ENV' => 'production'
+        );
+        $this->stack->setEnvironment($newEnvironment);
+        $this->assertEquals($newEnvironment, $this->stack->getEnvironment());
+    }
+
+    public function testSetFiles()
+    {
+        $newFiles = array(
+            'file1' => 'contents'
+        );
+        $this->stack->setFiles($newFiles);
+        $this->assertEquals($newFiles, $this->stack->getFiles());
+    }
+
+    public function testSetParameters()
+    {
+        $newParameters = array(
+            'foo' => 'bar'
+        );
+        $this->stack->setParameters($newParameters);
+        $this->assertEquals($newParameters, $this->stack->getParameters());
+    }
+
+    public function testSetParameter()
+    {
+        $currentParameters = $this->stack->getParameters();
+        $this->stack->setParameter('paramKey', 'paramValue');
+        $this->assertEquals(count($currentParameters) + 1, count($this->stack->getParameters()));
+    }
+
+    public function testSetTimeoutMins()
+    {
+        $newTimeoutMins = mt_rand(1,5);
+        $this->stack->setTimeoutMins($newTimeoutMins);
+        $this->assertEquals($newTimeoutMins, $this->stack->getTimeoutMins());
+    }
+
+    public function testSetDisableRollback()
+    {
+        $newDisableRollback = (boolean) mt_rand(0,1);
+        $this->stack->setDisableRollback($newDisableRollback);
+        $this->assertEquals($newDisableRollback, $this->stack->getDisableRollback());
+    }
+
 }
