@@ -417,7 +417,6 @@ class Stack extends PersistentResource
     protected function createJson()
     {
         $data = parent::createJson();
-        var_dump($data);
         return $data->{$this->jsonName()};
     }
 
