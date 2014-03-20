@@ -234,7 +234,7 @@ class Stack extends PersistentResource
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getEnvironment()
     {
@@ -242,7 +242,7 @@ class Stack extends PersistentResource
     }
 
     /**
-     * @param mixed $environment
+     * @param array $environment
      */
     public function setEnvironment($environment)
     {
