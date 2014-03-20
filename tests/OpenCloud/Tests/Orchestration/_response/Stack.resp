@@ -1,0 +1,34 @@
+HTTP/1.1 200 OK
+Status: 200 OK
+Date: Thu, 20 Mar 2014 01:33:57 GMT
+Content-Type: application/json; charset=UTF-8
+Content-Length: 779
+
+{
+    "stack": {
+        "capabilities": [],
+        "creation_time": "2014-03-20T01:32:33Z",
+        "description": "Dummy template description",
+        "disable_rollback": true,
+        "id": "2c50292c-912f-4bf0-9c56-bf9c38574c65",
+        "links": [
+            {
+                "href": "https://dfw.orchestration.api.rackspacecloud.com/v1/123456/stacks/my_first_stack/2c50292c-912f-4bf0-9c56-bf9c38574c65",
+                "rel": "self"
+            }
+        ],
+        "notification_topics": [],
+        "outputs": [],
+        "parameters": {
+            "AWS::Region": "ap-southeast-1",
+            "AWS::StackId": "arn:openstack:heat::881696:stacks/my_first_stack/2c50292c-912f-4bf0-9c56-bf9c38574c65",
+            "AWS::StackName": "my_first_stack"
+        },
+        "stack_name": "my_first_stack",
+        "stack_status": "CREATE_COMPLETE",
+        "stack_status_reason": "Stack CREATE completed successfully",
+        "template_description": "Dummy template description",
+        "timeout_mins": 60,
+        "updated_time": null
+    }
+}

@@ -275,7 +275,7 @@ class Stack extends PersistentResource
      */
     public function getParameters()
     {
-        return get_object_vars($this->parameters);
+        return ( is_object($this->parameters) ? get_object_vars($this->parameters) : array() );
     }
 
     /**
@@ -442,13 +442,12 @@ class Stack extends PersistentResource
 
     public function getEvents()
     {
-        /** @var \OpenCloud\Orchestration\Service $service */
-        return $this->resourceList('event');
+        return $this->getService()->resourceList('Event', null, $this);
     }
 
     public function getResources()
     {
-        return $this->resourceList('resource');
+        return $this->getService()->resourceList('Resource', null, $this);
     }
 
     public function getResource($data)
