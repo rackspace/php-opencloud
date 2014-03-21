@@ -115,7 +115,7 @@ class Resource extends PersistentResource
      *
      * @return string
      */
-    public function getPhysicaResourcelId()
+    public function getPhysicalResourcelId()
     {
         return $this->physical_resource_id;
     }
