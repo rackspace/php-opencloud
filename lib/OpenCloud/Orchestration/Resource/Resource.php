@@ -25,6 +25,14 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class Resource extends PersistentResource
 {
+
+    /**
+     * Resource name.
+     *
+     * @var string
+     */
+    protected $resource_name;
+
     /**
      * The name associated with the resource within the stack. This is the same
      * as the key in the `resources` object of your template.
@@ -70,10 +78,18 @@ class Resource extends PersistentResource
      */
     protected $updated_time;
 
+    /**
+     * @var array
+     */
+    protected $required_by;
+
+    /**
+     * @var array
+     */
+    protected $links;
+
     protected static $url_resource = 'resources';
     protected static $json_name = 'resource';
-
-    protected $links;
 
     /**
      * @return mixed
@@ -81,6 +97,14 @@ class Resource extends PersistentResource
     public function getLinks()
     {
         return $this->links;
+    }
+
+    /**
+     * @return string
+     */
+    public function getResourceName()
+    {
+        return $this->resource_name;
     }
 
     /**
@@ -140,9 +164,27 @@ class Resource extends PersistentResource
         return $this->updated_time;
     }
 
+    /**
+     * @return array
+     */
+    public function getRequiredBy()
+    {
+        return $this->required_by;
+    }
+
     public function create($info = null)
     {
         $this->noCreate();
+    }
+
+    public function update($info = null)
+    {
+        $this->noUpdate();
+    }
+
+    public function delete()
+    {
+        $this->noDelete();
     }
 
 }

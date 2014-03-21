@@ -15,25 +15,16 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Tests\Orchestration;
+namespace OpenCloud\Tests\Orchestration\Resource;
 
-use OpenCloud\Tests\OpenCloudTestCase;
+use OpenCloud\Tests\Orchestration\OrchestrationTestCase;
 
-class OrchestrationTestCase extends OpenCloudTestCase
+class ResourceTest extends OrchestrationTestCase
 {
-    protected $stack;
-    protected $resource;
 
-    protected $mockPath = 'Orchestration';
-
-    public function setupObjects()
+    public function test__construct()
     {
-        $this->service = $this->getClient()->orchestrationService();
-
-        $this->addMockSubscriber($this->getTestFilePath('Stack'));
-        $this->stack = $this->service->stack('dummy');
-
-        $this->addMockSubscriber($this->getTestFilePath('Resource'));
-        $this->resource = $this->stack->getResource('dummy');
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $this->resource);
     }
+
 }
