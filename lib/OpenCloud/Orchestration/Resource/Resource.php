@@ -21,7 +21,10 @@ use OpenCloud\Common\Resource\BaseResource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
- * @codeCoverageIgnore
+ * A resource is a template artifact that represents some component of your
+ * desired architecture (a Cloud Server, a group of scaled Cloud Servers, a
+ * load balancer, some configuration management system, and so forth).
+ *
  */
 class Resource extends PersistentResource
 {
@@ -92,14 +95,6 @@ class Resource extends PersistentResource
     protected static $json_name = 'resource';
 
     /**
-     * @return mixed
-     */
-    public function getLinks()
-    {
-        return $this->links;
-    }
-
-    /**
      * @return string
      */
     public function getResourceName()
@@ -110,7 +105,7 @@ class Resource extends PersistentResource
     /**
      * @return string
      */
-    public function getLogicalId()
+    public function getLogicalResourceId()
     {
         return $this->logical_resource_id;
     }
@@ -120,7 +115,7 @@ class Resource extends PersistentResource
      *
      * @return string
      */
-    public function getPhysicalId()
+    public function getPhysicaResourcelId()
     {
         return $this->physical_resource_id;
     }
@@ -131,7 +126,7 @@ class Resource extends PersistentResource
      * @return string
      * @see \OpenCloud\Orchestration\Enum\ResourceStatus
      */
-    public function getStatus()
+    public function getResourceStatus()
     {
         return $this->resource_status;
     }
@@ -139,7 +134,7 @@ class Resource extends PersistentResource
     /**
      * @return string
      */
-    public function getStatusReason()
+    public function getResourceStatusReason()
     {
         return $this->resource_status_reason;
     }
@@ -149,7 +144,7 @@ class Resource extends PersistentResource
      *
      * @return string
      */
-    public function getType()
+    public function getResourceType()
     {
         return $this->resource_type;
     }
@@ -170,6 +165,14 @@ class Resource extends PersistentResource
     public function getRequiredBy()
     {
         return $this->required_by;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLinks()
+    {
+        return $this->links;
     }
 
     public function create($info = null)
