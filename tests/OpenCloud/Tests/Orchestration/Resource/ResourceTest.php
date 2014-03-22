@@ -21,7 +21,6 @@ use OpenCloud\Tests\Orchestration\OrchestrationTestCase;
 
 class ResourceTest extends OrchestrationTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $this->resource);
@@ -65,15 +64,14 @@ class ResourceTest extends OrchestrationTestCase
     public function testGetRequiredBy()
     {
         $requiredBy = $this->resource->getRequiredBy();
-        $this->assertTrue(is_array($requiredBy));
-        $this->assertEquals(0, count($requiredBy));
+        $this->assertInternalType('array', $requiredBy);
+        $this->assertEmpty($requiredBy);
     }
 
     public function testGetLinks()
     {
         $links = $this->resource->getLinks();
-        $this->assertTrue(is_array($links));
-        $this->assertEquals(2, count($links));
+        $this->assertInternalType('array', $links);
+        $this->assertCount(2, $links);
     }
-
 }

@@ -29,7 +29,6 @@ namespace OpenCloud\Tests\Orchestration;
 
 class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
     private $service;
 
     public function setupObjects()
@@ -55,18 +54,12 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 
     public function testStackList()
     {
-        $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->service->stackList()
-        );
+        $this->isCollection($this->service->stackList());
     }
 
     public function testResourceTypeList()
     {
-        $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->service->resourceTypeList()
-        );
+        $this->isCollection($this->service->resourceTypeList());
     }
 
     public function testResourceType()
@@ -86,5 +79,4 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     }
 
     // TODO: Validate template
-    
 }

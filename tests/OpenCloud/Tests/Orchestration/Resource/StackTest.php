@@ -21,7 +21,6 @@ use OpenCloud\Tests\Orchestration\OrchestrationTestCase;
 
 class StackTest extends OrchestrationTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->stack);
@@ -30,8 +29,8 @@ class StackTest extends OrchestrationTestCase
     public function testGetCapabilities()
     {
         $capabilities = $this->stack->getCapabilities();
-        $this->assertTrue(is_array($capabilities));
-        $this->assertEquals(0, count($capabilities));
+        $this->assertInternalType('array', $capabilities);
+        $this->assertEmpty($capabilities);
     }
 
     public function testGetCreationTime()
@@ -46,7 +45,7 @@ class StackTest extends OrchestrationTestCase
 
     public function testGetDisableRollback()
     {
-        $this->assertEquals(true, $this->stack->getDisableRollback());
+        $this->assertTrue($this->stack->getDisableRollback());
     }
 
     public function testGetId()
@@ -57,33 +56,33 @@ class StackTest extends OrchestrationTestCase
     public function testGetLinks()
     {
         $links = $this->stack->getLinks();
-        $this->assertTrue(is_array($links));
-        $this->assertEquals(1, count($links));
+        $this->assertInternalType('array', $links);
+        $this->assertCount(1, $links);
 
         $onlyLink = $links[0];
-        $this->assertTrue(is_object($onlyLink));
+        $this->assertInternalType('object', $onlyLink);
         $this->assertEquals('self', $onlyLink->rel);
     }
 
     public function testGetNotificationTopics()
     {
         $notificationTopics = $this->stack->getNotificationTopics();
-        $this->assertTrue(is_array($notificationTopics));
-        $this->assertEquals(0, count($notificationTopics));
+        $this->assertInternalType('array', $notificationTopics);
+        $this->assertEmpty($notificationTopics);
     }
 
     public function testGetOutputs()
     {
         $outputs = $this->stack->getOutputs();
-        $this->assertTrue(is_array($outputs));
-        $this->assertEquals(0, count($outputs));
+        $this->assertInternalType('array', $outputs);
+        $this->assertEmpty($outputs);
     }
 
     public function testGetParameters()
     {
         $parameters = $this->stack->getParameters();
-        $this->assertTrue(is_array($parameters));
-        $this->assertEquals(3, count($parameters));
+        $this->assertInternalType('array', $parameters);
+        $this->assertCount(3, $parameters);
     }
 
     public function testGetStackName()
@@ -119,12 +118,12 @@ class StackTest extends OrchestrationTestCase
 
     public function testGetUpdatedTime()
     {
-        $this->assertEquals(null, $this->stack->getUpdatedTime());
+        $this->assertNull($this->stack->getUpdatedTime());
     }
 
     public function testGetEvents()
     {
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->stack->getEvents());
+        $this->isCollection($this->stack->getEvents());
     }
 
     public function testGetResources()
@@ -132,8 +131,8 @@ class StackTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->getTestFilePath('Resource_List'));
 
         $resources = $this->stack->getResources();
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $resources);
-        $this->assertEquals(1, count($resources));
+        $this->isCollection($resources);
+        $this->assertCount(1, $resources);
 
         $onlyResource = $resources->current();
         $this->assertEquals('my_instance', $onlyResource->getLogicalResourceId());
@@ -213,5 +212,4 @@ class StackTest extends OrchestrationTestCase
         $this->stack->setDisableRollback($newDisableRollback);
         $this->assertEquals($newDisableRollback, $this->stack->getDisableRollback());
     }
-
 }

@@ -26,7 +26,6 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class ResourceType extends PersistentResource
 {
-
     /**
      * Type of resource.
      *
@@ -98,5 +97,4 @@ class ResourceType extends PersistentResource
     {
         $this->properties = $properties;
     }
-
 }

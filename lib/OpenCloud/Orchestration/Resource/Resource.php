@@ -28,7 +28,6 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class Resource extends PersistentResource
 {
-
     /**
      * Resource name.
      *
@@ -189,5 +188,4 @@ class Resource extends PersistentResource
     {
         $this->noDelete();
     }
-
 }
