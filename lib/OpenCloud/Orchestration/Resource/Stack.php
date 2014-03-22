@@ -32,7 +32,6 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class Stack extends PersistentResource
 {
-
     /**
      * @var string
      */

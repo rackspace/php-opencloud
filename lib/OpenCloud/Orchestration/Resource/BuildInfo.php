@@ -26,7 +26,6 @@ use OpenCloud\Common\Resource\PersistentResource;
  */
 class BuildInfo extends PersistentResource
 {
-
     /**
      * Engine information.
      *
@@ -73,5 +72,4 @@ class BuildInfo extends PersistentResource
     {
         return $this->api;
     }
-
 }

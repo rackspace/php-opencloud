@@ -21,7 +21,6 @@ use OpenCloud\Common\Resource\PersistentResource;
 
 class Abandon extends PersistentResource
 {
-
   protected static $url_resource = "abandon";
 
   public function create($info = null)
@@ -38,5 +37,4 @@ class Abandon extends PersistentResource
   {
       $this->noRefresh();
   }
-
 }
