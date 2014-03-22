@@ -129,7 +129,15 @@ class StackTest extends OrchestrationTestCase
 
     public function testGetResources()
     {
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->stack->getResources());
+        $this->addMockSubscriber($this->getTestFilePath('Resource_List'));
+
+        $resources = $this->stack->getResources();
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $resources);
+        $this->assertEquals(1, count($resources));
+
+        $onlyResource = $resources->current();
+        $this->assertEquals('my_instance', $onlyResource->getLogicalResourceId());
+        $this->assertEquals('7fdb0a8a-6514-455c-b5cf-96a131b71352', $onlyResource->getPhysicalResourceId());
     }
 
     public function testGetResource()
