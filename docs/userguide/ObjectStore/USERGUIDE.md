@@ -122,20 +122,111 @@ $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData, $allHeaders);
 ```
 
-### Retrieve Object
 ### List Objects in a Container
-### Update Object
+You can list all the objects stored in a container. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
+
+
+```php
+$objects = $container->objectList();
+foreach ($objects as $object) {
+    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/	}
+```
+
+### Retrieve Object
+You can retrieve an object and its metadata, given the object's container and name.
+
+```php
+$objectName = 'blog_post_15349_image_2.png';
+$object = $container->getObject($objectName);
+
+/** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
+```
+
 ### Retrieve Object Metadata
+You can retrieve just an object's metadata without retrieving its contents.
+
+```php
+$objectName = 'blog_post_15349_image_2.png';
+$object = $container->getPartialObject($objectName);
+
+/** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
+```
+
+In the example above, while `$object` is an instance of `OpenCloud\ObjectStore\Resource\DataObject`, that instance is only partially populated. Specifically, only properties of the instance relating to object metadata are populated.
+
+### Update Object
+
+You can update an object's contents (as opposed to [updating its metadata](#update-object-metadata)) by simply re-[uploading the object](#upload-object) to its container using the same object name as before.
+
 ### Update Object Metadata
-### Copy Object to Another Container
+
+You can update an object's metadata after it has been uploaded to a container.
+
+```php
+$object->saveMetadata(array(
+    'author' => 'John Doe'
+));
+```
+
+### Copy Object
+
+You can copy an object from one container to another.
+
+```php
+$object->copy('some_other_container/object_new_name.png');
+```
+
+In the example above, both the name of the destination container (`some_other_container`)and the name of the destination object (`object_new_name.png`) have to be specified, separated by a `/`.
+
 ### Delete Object
 
+When you no longer need an object, you can delete it.
 
-## Accounts? Move higher up?
+```php
+$object->delete();
+```
+
+## Accounts
+[TODO: Redo introduction above to fit in accounts]
 
 ## CDN Containers
 
-<div class="note">
 *Note: The functionality described in this section is  available **only on the Rackspace cloud**. It will not work as described when working with a vanilla OpenStack cloud.*
-</div>
 
+## Other Features [TODO: Where to put these?]
+
+### Object Versioning
+
+### Large Objects
+
+#### Segment Objects
+
+#### Manifest Objects
+
+##### Static Large Objects
+
+##### Dynamic Large Objects
+
+### Assign CORS Headers to Objects
+
+### Use Content-Encoding Metadata
+
+### Use Content-Disposition Metadata
+
+### Schedule Objects for Deletion
+
+#### Delete Object at Specified Time
+
+#### Delete Object after Specified Interval
+
+### Pseudo-hierarchical Folders
+
+### Auto-extract Archive Files
+
+### Bulk Delete
+
+### Container Synchronization
+
+### Container Quotas
+
+### Temporary URLs
