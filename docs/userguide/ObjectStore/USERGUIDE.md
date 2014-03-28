@@ -1,14 +1,3 @@
-<style>
-<!--
-div.note {
-  background-color: #ee6363;
-  color: #fff;
-  margin: 0em 1em 0em 1em;
-  padding: 0.75em 1em 0.75em 1em;
-}
--->
-</style>
-
 # The Complete User Guide to the Object Store Service
 
 **Object Store** is an object-based storage system that stores content and metadata as objects in a cloud.
