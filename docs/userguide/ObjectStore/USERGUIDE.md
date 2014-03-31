@@ -2,8 +2,6 @@
 
 **Object Store** is an object-based storage system that stores content and metadata as objects in a cloud.
 
-Specifically, a cloud is made up of one or more regions. Each region can have several **containers**, created by a user. Each container can container several **objects** (sometimes referred to as files), uploaded by the user. [TODO: Where do **accounts** fit in? Should they be mentioned here?]
-
 ## Prerequisites
 
 ### Client
@@ -43,6 +41,10 @@ In the example above, you are connecting to the ``DFW`` region of the cloud. Any
 ## Containers
 A **container** defines a namespace for **objects**. An object with the same name in two different containers represents two different objects.
 
+For example, you may create a container called `blog_images` to hold all the image files for your blog.
+
+A container may contain zero or more objects in it.
+
 ### Create Container
 ```php
 $container = $objectStoreService->createContainer('blog_images');
@@ -68,8 +70,12 @@ foreach ($containers as $container) {
 }
 ```
 
-### Set or Edit Container Metadata
-[TODO]
+### Set or Update Container Metadata
+```php
+$container->saveMetadata(array(
+    'author' => 'John Doe'
+));
+```
 
 ### Delete Container
 When you no longer have a need for the container, you can remove it. 
@@ -82,7 +88,7 @@ $container->delete();
 
 If the container is not empty (that is, it has objects in it), you have two choices in how to remove it:
 
-* Individually remove each object in the container [TODO: link to delete object], then remove the container itself as shown above, or
+* [Individually remove each object](#delete-object) in the container, then remove the container itself as shown above, or
 
 * Remove the container and all the objects within it as shown below:
 
@@ -90,9 +96,31 @@ If the container is not empty (that is, it has objects in it), you have two choi
     $container->delete(true);
     ```
 
-## Objects (also referred to as Files)
+### Get Object Count
 
-An **object** is the unit of storage in an Object Store. An object stores data content, such as documents, images, and so on. You can also store custom metadata with an object.
+You can quickly find out how many objects are in a container.
+
+```php
+$containerObjectCount = $container->getObjectCount();
+```
+
+In the example above, `$containerObjectCount` will contain the number of objects in the container represented by `$container`.
+
+### Get Bytes Used
+
+You can quickly find out the space used by a container, in bytes.
+
+```php
+$containerSizeInBytes = $container->getBytesUsed();
+```
+
+In the example above, `$containerSizeInBytes` will contain the space used, in bytes, by the container represented by `$container`.
+
+## Objects
+
+An **object** (sometimes referred to as a file) is the unit of storage in an Object Store.  An object is a combination of content (data) and metadata.
+
+For example, you may upload an object named `blog_post_15349_image_2.png`, a PNG image file, to the `blog_images` container. Further, you may assign metadata to this object to indiciate that the author of this object was someone named Jane Doe.
 
 ### Upload Object
 
@@ -121,6 +149,59 @@ $allHeaders = $customHeaders + $metadataHeaders;
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData, $allHeaders);
 ```
+
+#### Pseudo-hierarchical Folders
+Although you cannot nest directories in an Object Store, you can simulate a hierarchical structure within a single container by adding forward slash characters (`/`) in the object name.
+
+```php
+$localFileName  = '/path/to/local/image_file.png';
+$remoteFileName = '15349/2/orig.png';
+
+$fileData = fopen($localFileName, 'r');
+$container->uploadObject($remoteFileName, $fileData);
+```
+
+In the example above, an image file from the local filesystem (`path/to/local/image_file.png`) is uploaded to a container in the Object Store. Within that container, the filename is `15349/2/orig.png`, where `15349/2/` is a pseudo-hierarchicial folder hierarchy.
+
+#### Upload Multiple Objects
+You can upload more than one object at a time to a container.
+
+```php
+$objects = array(
+    array(
+        'name' => 'image_1.png',
+        'path'   => '/path/to/local/image_file_1.png'
+    ),
+    array(
+        'name' => 'image_2.png',
+        'path'   => '/path/to/local/image_file_2.png'
+    ),
+    array(
+        'name' => 'image_3.png',
+        'path'   => '/path/to/local/image_file_3.png'
+    )
+);
+
+$container->uploadObjects($objects);
+```
+
+In the above example, the contents of three files present on the local filesystem are uploaded as objects to the container referenced by `$container`.
+
+Instead of specifying the `path` key in an element of the `$objects` array, you can specify a `body` key whose value is a string or a stream representation.
+
+Finally, you can pass headers as the second parameter to the `uploadObjects` method. These headers will be applied to every object that is uploaded.
+
+```
+$metadata = array('author' => 'Jane Doe');
+
+$customHeaders = array();
+$metadataHeaders = DataObject::stockHeaders($metadata);
+$allHeaders = $customHeaders + $metadataHeaders; 
+
+$container->uploadObjects($objects, $allHeaders);
+```
+
+In the example above, every object referenced within the `$objects` array will be uploaded with the same metadata.
 
 ### List Objects in a Container
 You can list all the objects stored in a container. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
@@ -186,47 +267,170 @@ When you no longer need an object, you can delete it.
 $object->delete();
 ```
 
-## Accounts
-[TODO: Redo introduction above to fit in accounts]
+### Bulk Delete
+
+While you can delete individual objects as shown above, you can also delete objects and empty containers in bulk.
+
+```php
+$objectStoreService->bulkDelete(array(
+    'some_container/object_a.png',
+    'some_other_container/object_z.png',
+    'some_empty_container'
+));
+```
+
+In the example above, two objects (`some_container/object_a.png`, `some_other_container/object_z.png`) and one empty container (`some_empty_container`) are all being deleted in bulk via a single command.
 
 ## CDN Containers
 
 *Note: The functionality described in this section is  available **only on the Rackspace cloud**. It will not work as described when working with a vanilla OpenStack cloud.*
 
-## Other Features [TODO: Where to put these?]
+### Enable CDN Container
 
-### Object Versioning
+[TODO]
 
-### Large Objects
+### Public URLs
 
-#### Segment Objects
+[TODO]
 
-#### Manifest Objects
+#### HTTP URL
 
-##### Static Large Objects
+[TODO]
 
-##### Dynamic Large Objects
+#### HTTPS URL
 
-### Assign CORS Headers to Objects
+[TODO]
 
-### Use Content-Encoding Metadata
+#### Streaming URL
 
-### Use Content-Disposition Metadata
+[TODO]
 
-### Schedule Objects for Deletion
+### Disable CDN Container
 
-#### Delete Object at Specified Time
+[TODO]
 
-#### Delete Object after Specified Interval
+## Accounts
+An **account** defines a namespace for **containers**. An account can have zero or more containers in it.
 
-### Pseudo-hierarchical Folders
+### Retrieve Account
+You must retrieve the account before performing any operations on it.
+
+```php
+$account = $objectStoreService->getAccount();
+```
+
+### Get Container Count
+
+You can quickly find out how many containers are in your account.
+
+```php
+$accountContainerCount = $account->getContainerCount();
+```
+
+### Get Object Count
+
+You can quickly find out how many objects are in your account.
+
+```php
+$accountObjectCount = $account->getObjectCount();
+```
+
+In the example above, `$accountObjectCount` will contain the number of objects in the account represented by `$account`.
+
+### Get Bytes Used
+
+You can quickly find out the space used by your account, in bytes.
+
+```php
+$accountSizeInBytes = $account->getBytesUsed();
+```
+
+In the example above, `$accountSizeInBytes` will contain the space used, in bytes, by the account represented by `$account`.
+
+
+## Other Features
 
 ### Auto-extract Archive Files
 
-### Bulk Delete
+You can upload a tar archive file and have the Object Store service automatically extract it into a container. 
+
+```php
+use OpenCloud\ObjectStore\Constants\UrlType;
+
+$localArchiveFileName  = '/path/to/local/image_files.tar.gz';
+$remotePath = 'images/';
+
+$fileData = fopen($localArchiveFileName, 'r');
+$objectStoreService->bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);
+```
+
+In the above example, a local archive file named `image_files.tar.gz` is uploaded to an Object Store container named `images` (defined by the `$remotePath` variable).
+
+The third parameter to `bulkExtract` is the type of the archive file being uploaded. The acceptable values for this are:
+
+* `UrlType::TAR` for tar archive files, *or*,
+* `UrlType:TAR_GZ` for tar archive files that are compressed with gzip, *or*
+* `UrlType::TAR_BZ` for tar archive file that are compressed with bzip
+ 
+Note that the value of `$remotePath` could have been a (pseudo-hierarchical folder)[#psuedo-hierarchical-folders] such as `images/blog` as well. 
+
+### Object Versioning
+
+[TODO]
+
+### Temporary URLs
+
+[TODO]
+
+### Large Objects
+
+[TODO]
+
+#### Segment Objects
+
+[TODO]
+
+#### Manifest Objects
+
+[TODO]
+
+##### Static Large Objects
+
+[TODO]
+
+##### Dynamic Large Objects
+
+[TODO]
+
+### Assign CORS Headers to Objects
+
+[TODO]
+
+### Use Content-Encoding Metadata
+
+[TODO]
+
+### Use Content-Disposition Metadata
+
+[TODO]
+
+### Schedule Objects for Deletion
+
+[TODO]
+
+#### Delete Object at Specified Time
+
+[TODO]
+
+#### Delete Object after Specified Interval
+
+[TODO]
 
 ### Container Synchronization
 
+[TODO]
+
 ### Container Quotas
 
-### Temporary URLs
+[TODO]
+
