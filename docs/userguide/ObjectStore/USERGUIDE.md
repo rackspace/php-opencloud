@@ -116,6 +116,14 @@ $containerSizeInBytes = $container->getBytesUsed();
 
 In the example above, `$containerSizeInBytes` will contain the space used, in bytes, by the container represented by `$container`.
 
+### Container Synchronization
+
+[TODO]
+
+### Container Quotas
+
+[TODO]
+
 ## Objects
 
 An **object** (sometimes referred to as a file) is the unit of storage in an Object Store.  An object is a combination of content (data) and metadata.
@@ -203,6 +211,55 @@ $container->uploadObjects($objects, $allHeaders);
 
 In the example above, every object referenced within the `$objects` array will be uploaded with the same metadata.
 
+
+### Large Objects
+
+[TODO]
+
+#### Segment Objects
+
+[TODO]
+
+#### Manifest Objects
+
+[TODO]
+
+##### Static Large Objects
+
+[TODO]
+
+##### Dynamic Large Objects
+
+[TODO]
+
+### Object Versioning
+
+[TODO]
+
+### Auto-extract Archive Files
+
+You can upload a tar archive file and have the Object Store service automatically extract it into a container. 
+
+```php
+use OpenCloud\ObjectStore\Constants\UrlType;
+
+$localArchiveFileName  = '/path/to/local/image_files.tar.gz';
+$remotePath = 'images/';
+
+$fileData = fopen($localArchiveFileName, 'r');
+$objectStoreService->bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);
+```
+
+In the above example, a local archive file named `image_files.tar.gz` is uploaded to an Object Store container named `images` (defined by the `$remotePath` variable).
+
+The third parameter to `bulkExtract` is the type of the archive file being uploaded. The acceptable values for this are:
+
+* `UrlType::TAR` for tar archive files, *or*,
+* `UrlType:TAR_GZ` for tar archive files that are compressed with gzip, *or*
+* `UrlType::TAR_BZ` for tar archive file that are compressed with bzip
+ 
+Note that the value of `$remotePath` could have been a (pseudo-hierarchical folder)[#psuedo-hierarchical-folders] such as `images/blog` as well. 
+
 ### List Objects in a Container
 You can list all the objects stored in a container. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
 
@@ -235,6 +292,10 @@ $object = $container->getPartialObject($objectName);
 
 In the example above, while `$object` is an instance of `OpenCloud\ObjectStore\Resource\DataObject`, that instance is only partially populated. Specifically, only properties of the instance relating to object metadata are populated.
 
+### Temporary URLs
+
+[TODO]
+
 ### Update Object
 
 You can update an object's contents (as opposed to [updating its metadata](#update-object-metadata)) by simply re-[uploading the object](#upload-object) to its container using the same object name as before.
@@ -248,6 +309,18 @@ $object->saveMetadata(array(
     'author' => 'John Doe'
 ));
 ```
+
+### Assign CORS Headers to Objects
+
+[TODO]
+
+### Use Content-Encoding Metadata
+
+[TODO]
+
+### Use Content-Disposition Metadata
+
+[TODO]
 
 ### Copy Object
 
@@ -280,6 +353,18 @@ $objectStoreService->bulkDelete(array(
 ```
 
 In the example above, two objects (`some_container/object_a.png`, `some_other_container/object_z.png`) and one empty container (`some_empty_container`) are all being deleted in bulk via a single command.
+
+### Schedule Objects for Deletion
+
+[TODO]
+
+#### Delete Object at Specified Time
+
+[TODO]
+
+#### Delete Object after Specified Interval
+
+[TODO]
 
 ## CDN Containers
 
@@ -379,91 +464,3 @@ $accountSizeInBytes = $account->getBytesUsed();
 ```
 
 In the example above, `$accountSizeInBytes` will contain the space used, in bytes, by the account represented by `$account`.
-
-
-## Other Features
-
-### Auto-extract Archive Files
-
-You can upload a tar archive file and have the Object Store service automatically extract it into a container. 
-
-```php
-use OpenCloud\ObjectStore\Constants\UrlType;
-
-$localArchiveFileName  = '/path/to/local/image_files.tar.gz';
-$remotePath = 'images/';
-
-$fileData = fopen($localArchiveFileName, 'r');
-$objectStoreService->bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);
-```
-
-In the above example, a local archive file named `image_files.tar.gz` is uploaded to an Object Store container named `images` (defined by the `$remotePath` variable).
-
-The third parameter to `bulkExtract` is the type of the archive file being uploaded. The acceptable values for this are:
-
-* `UrlType::TAR` for tar archive files, *or*,
-* `UrlType:TAR_GZ` for tar archive files that are compressed with gzip, *or*
-* `UrlType::TAR_BZ` for tar archive file that are compressed with bzip
- 
-Note that the value of `$remotePath` could have been a (pseudo-hierarchical folder)[#psuedo-hierarchical-folders] such as `images/blog` as well. 
-
-### Object Versioning
-
-[TODO]
-
-### Temporary URLs
-
-[TODO]
-
-### Large Objects
-
-[TODO]
-
-#### Segment Objects
-
-[TODO]
-
-#### Manifest Objects
-
-[TODO]
-
-##### Static Large Objects
-
-[TODO]
-
-##### Dynamic Large Objects
-
-[TODO]
-
-### Assign CORS Headers to Objects
-
-[TODO]
-
-### Use Content-Encoding Metadata
-
-[TODO]
-
-### Use Content-Disposition Metadata
-
-[TODO]
-
-### Schedule Objects for Deletion
-
-[TODO]
-
-#### Delete Object at Specified Time
-
-[TODO]
-
-#### Delete Object after Specified Interval
-
-[TODO]
-
-### Container Synchronization
-
-[TODO]
-
-### Container Quotas
-
-[TODO]
-
