@@ -116,13 +116,43 @@ $containerSizeInBytes = $container->getBytesUsed();
 
 In the example above, `$containerSizeInBytes` will contain the space used, in bytes, by the container represented by `$container`.
 
-### Container Synchronization
-
-[TODO]
-
 ### Container Quotas
 
-[TODO]
+#### Set Quota for Number of Objects
+
+You can set a quota for the maximum number of objects that may be stored in a container.
+
+```php
+$maximumNumberOfObjectsAllowedInContainer = 25;
+$container->setCountQuota($maximumNumberOfObjectsAllowedInContainer);
+```
+
+#### Set Quota for Total Size of Objects
+
+You can set a quota for the maximum total space (in bytes) used by objects in a container.
+
+```php
+use OpenCloud\Common\Constants\Size;
+
+$maximumTotalSizeOfObjectsInContainer = 5 * Size::GB;
+$container->setBytesQuota($maximumTotalSizeOfObjectsInContainer);
+```
+
+#### Get Quota for Number of Objects
+
+You can retrieve the quota for the maximum number of objects that may be stored in a container.
+
+```php
+$maximumNumberOfObjectsAllowedInContainer = $container->getCountQuota();
+```
+
+#### Get Quota for Total Size of Objects
+
+You can retrieve the quota for the maximum total space (in bytes) used by objects in a container.
+
+```php
+$maximumTotalSizeOfObjectsAllowedInContainer = $container->getBytesQuota();
+```
 
 ## Objects
 
