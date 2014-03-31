@@ -285,29 +285,62 @@ In the example above, two objects (`some_container/object_a.png`, `some_other_co
 
 *Note: The functionality described in this section is  available **only on the Rackspace cloud**. It will not work as described when working with a vanilla OpenStack cloud.*
 
+Any container can be converted to a CDN-enabled container. When this is done, the objects within the container can be accessed from anywhere on the Internet via a URL.
+
 ### Enable CDN Container
 
-[TODO]
+To take advantage of CDN capabilities for a container and its objects, you must CDN-enable that container.
+
+```php
+$container->enableCdn();
+```
 
 ### Public URLs
 
-[TODO]
+Once you have CDN-enabled a container, you can retrieve a publicly-accessible URL for any of its objects. There are four types of publicly-accessible URLs for each object. Each type of URL is meant for a different purpose. The sections below describe each of these URL types and how to retrieve them.
 
 #### HTTP URL
+You can use this type of URL to access the object over HTTP.
 
-[TODO]
+```
+$httpUrl = $object->getPublicUrl();
+```
 
-#### HTTPS URL
+#### Secure HTTP URL
+You can use this type of URL to access the object over HTTP + TLS/SSL.
 
-[TODO]
+```
+use OpenCloud\ObjectStore\Constants\UrlType;
+
+$httpsUrl = $object->getPublicUrl(UrlType::SSL);
+```
 
 #### Streaming URL
+You can use this type of URL to stream a video or audio object using Adobe's HTTP Dynamic Streaming.
 
-[TODO]
+```
+use OpenCloud\ObjectStore\Constants\UrlType;
+
+$httpsUrl = $object->getPublicUrl(UrlType::STREAMING);
+```
+
+#### IOS Streaming URL
+
+You can use this type of URL to stream an audio or video object to an iOS device.
+
+```
+use OpenCloud\ObjectStore\Constants\UrlType;
+
+$httpsUrl = $object->getPublicUrl(UrlType::IOS_STREAMING);
+```
 
 ### Disable CDN Container
 
-[TODO]
+If you no longer need CDN capabilities for a container, you can disable them.
+
+```php
+$container->disableCdn();
+```
 
 ## Accounts
 An **account** defines a namespace for **containers**. An account can have zero or more containers in it.
