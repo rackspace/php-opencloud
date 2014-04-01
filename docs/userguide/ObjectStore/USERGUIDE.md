@@ -241,30 +241,32 @@ $container->uploadObjects($objects, $allHeaders);
 
 In the example above, every object referenced within the `$objects` array will be uploaded with the same metadata.
 
-
 ### Large Objects
 
-[TODO]
+If you want to upload objects larger than 5GB in size, you must use a different upload process.
 
-#### Segment Objects
+```php
+$options = array(
+    'name' => 'san_diego_vacation_video.mp4',
+    'path'   => '/path/to/local/videos/san_diego_vacation.mp4'    
+);
+$objectTransfer = $container->setupObjectTransfer($options);
+$objectTransfer->upload();
+```
 
-[TODO]
+The process shown above will automatically partition your large object into small chunks and upload them concurrently to the container represented by `$container`.
 
-#### Manifest Objects
+You can tune the parameters of this process by specifying additional options in the `$options` array. Here is a complete listing of keys that can be specified in the `$options` array:
 
-[TODO]
-
-##### Static Large Objects
-
-[TODO]
-
-##### Dynamic Large Objects
-
-[TODO]
-
-### Object Versioning
-
-[TODO]
+| Key name | Description | Data Type | Required? | Default Value | Example |
+| -------------- | --------------- | ------------- | -------------- | ------------------ | ----------- |
+| `name` | Name of large object in container | String | Yes | - | `san_diego_vacation_video.mp4` |
+| `path`   | Path to file containing object data on local filesystem | String | One of `path` or `body` must be specified | - | `/path/to/local/videos/san_diego_vacation.mp4` |
+| `body` | String or stream representation of object data | String \| Stream | One of `path` or `body` must be specified | - | `... lots of data ...` |
+| `metadata` | Metadata for the object | Associative array of metadata key-value pairs | No | `array()` | `array( "Author" => "Jane Doe" )` |
+| `partSize` | The size, in bytes, of each chunk that the large object is partitioned into prior to uploading | Integer | No | `1073741824` (1GB) | `52428800` (50MB) |
+| `concurrency` | The number of concurrent transfers to execute as part of the upload | Integer | No | `1` (no concurrency; upload chunks serially) | `10` |
+| `progress` | A [callable function or method](http://us1.php.net/manual/en/language.types.callable.php) which is called to report progress of the the upload. See [`CURLOPT_PROGRESSFUNCTION` documentation](http://us2.php.net/curl_setopt) for details on parameters passed to this callable function or method. | String (callable function or method name) | No | None | `reportProgress` |
 
 ### Auto-extract Archive Files
 
@@ -324,7 +326,31 @@ In the example above, while `$object` is an instance of `OpenCloud\ObjectStore\R
 
 ### Temporary URLs
 
-[TODO]
+The Temporary URL feature allows you to create limited-time Internet addresses that allow you to grant limited access to your Object Store account. Using this feature, you can allow others to retrieve or place objects in your Object Store account for a specified amount of time. Access to the temporary URL is independent of whether or not your account is [CDN-enabled](#cdn-containers). Even if you do not CDN-enable a container, you can still grant temporary public access through a temporary URL.
+
+First, you must set the temporary URL secret on your account. This is a one-time operation; you only need to perform it the very first time you wish to use the temporary URLs feature.
+
+```php
+$account->setTempUrlSecret();
+```
+
+Note that this operation is carried out on `$account`, which is an instance of `OpenCloud\ObjectStore\Resource\Account`, a class representing [your object store account](#accounts).
+
+The above operation will generate a random secret and set it on your account. Instead of a random secret, if you wish to provide a secret, you can supply it as a parameter to the `setTempUrlSecret` method.
+
+```php
+$account->setTempUrlSecret('<SOME SECRET STRING>');
+```
+
+Once a temporary URL secret has been set on your account, you can generate a temporary URL for any object in your Object Store.
+
+```php
+$expirationTimeInSeconds = 3600; // one hour from now
+$httpMethodAllowed = 'GET';
+$tempUrl = $object->getTemporaryUrl($expirationTimeInSeconds, $httpMethodAllowed);
+```
+
+In the example above, a temporary URL for the object is generated. This temporary URL will provide public access to the object for an hour (3600 seconds), as specified by the `$expirationTimeInSeconds` variable. Further, only GET HTTP methods will be allowed on this URL, as specified by the `$httpMethodAllowed` variable. The other value allowed for the `$httpMethodAllowed` variable would be `PUT`.
 
 ### Update Object
 
@@ -339,18 +365,6 @@ $object->saveMetadata(array(
     'author' => 'John Doe'
 ));
 ```
-
-### Assign CORS Headers to Objects
-
-[TODO]
-
-### Use Content-Encoding Metadata
-
-[TODO]
-
-### Use Content-Disposition Metadata
-
-[TODO]
 
 ### Copy Object
 
@@ -383,18 +397,6 @@ $objectStoreService->bulkDelete(array(
 ```
 
 In the example above, two objects (`some_container/object_a.png`, `some_other_container/object_z.png`) and one empty container (`some_empty_container`) are all being deleted in bulk via a single command.
-
-### Schedule Objects for Deletion
-
-[TODO]
-
-#### Delete Object at Specified Time
-
-[TODO]
-
-#### Delete Object after Specified Interval
-
-[TODO]
 
 ## CDN Containers
 
