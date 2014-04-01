@@ -400,7 +400,7 @@ In the example above, two objects (`some_container/object_a.png`, `some_other_co
 
 ## CDN Containers
 
-*Note: The functionality described in this section is  available **only on the Rackspace cloud**. It will not work as described when working with a vanilla OpenStack cloud.*
+<strong><em>Note: The functionality described in this section is available only on the Rackspace cloud. It will not work as described when working with a vanilla OpenStack cloud.</em></strong>
 
 Any container can be converted to a CDN-enabled container. When this is done, the objects within the container can be accessed from anywhere on the Internet via a URL.
 
