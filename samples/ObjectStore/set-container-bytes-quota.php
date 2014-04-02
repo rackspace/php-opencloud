@@ -26,6 +26,7 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
+use OpenCloud\Common\Constants\Size;
 
 // 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
@@ -41,6 +42,5 @@ $objectStoreService = $client->objectStoreService(null, $region);
 $container = $objectStoreService->getContainer('logos');
 
 // 4. Set quota for total size of objects in container.
-use OpenCloud\Common\Constants\Size;
 $maximumTotalSizeOfObjectsInContainer = 5 * Size::GB;
 $container->setBytesQuota($maximumTotalSizeOfObjectsInContainer);
