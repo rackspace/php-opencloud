@@ -39,5 +39,5 @@ $objectStoreService = $client->objectStoreService(null, $region);
 $containers = $objectStoreService->listContainers();
 foreach ($containers as $container) {
     /** @var $container OpenCloud\ObjectStore\Resource\Container  **/
-    printf("Container name: %s\n", $container->name);
+    printf("Container name: %s\n", $container->getName());
 }
