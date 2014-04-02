@@ -39,5 +39,8 @@ $objectStoreService = $client->objectStoreService(null, $region);
 
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
-/** @var $container OpenCloud\ObjectStore\Resource\Container **/
-printf("Container name: %s\n", $container->name);
+
+// 4. Set container metadata.
+$container->saveMetadata(array(
+    'author' => 'John Doe'
+));

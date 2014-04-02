@@ -39,5 +39,7 @@ $objectStoreService = $client->objectStoreService(null, $region);
 
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
-/** @var $container OpenCloud\ObjectStore\Resource\Container **/
-printf("Container name: %s\n", $container->name);
+
+// 4. Get the space (in bytes) used by this container.
+$containerSizeInBytes = $container->getBytesUsed();
+printf("Space (in bytes) used by this container: %d\n", $containerSizeInBytes);

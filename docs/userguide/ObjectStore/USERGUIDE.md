@@ -33,7 +33,8 @@ To use the object store service, you must first instantiate a `OpenStack` or `Ra
 All operations on the object store are done via an object store service object.
 
 ```php
-$objectStoreService = $client->objectStoreService(null, 'DFW');
+$region = 'DFW';
+$objectStoreService = $client->objectStoreService(null, $region);
 ```
 
 In the example above, you are connecting to the ``DFW`` region of the cloud. Any containers and objects created with this `$objectStoreService` instance will be stored in that cloud region.
@@ -41,23 +42,25 @@ In the example above, you are connecting to the ``DFW`` region of the cloud. Any
 ## Containers
 A **container** defines a namespace for **objects**. An object with the same name in two different containers represents two different objects.
 
-For example, you may create a container called `blog_images` to hold all the image files for your blog.
+For example, you may create a container called `logos` to hold all the image files for your blog.
 
 A container may contain zero or more objects in it.
 
 ### Create Container
 ```php
-$container = $objectStoreService->createContainer('blog_images');
+$container = $objectStoreService->createContainer('logos');
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/create-container.php) ]
 
 ### Get Container Details
 You can retrieve a single container's details by using its name. An instance of `OpenCloud\ObjectStore\Resource\Container` is returned.
 
 ```php
-$container = $objectStoreService->getContainer('blog_images');
+$container = $objectStoreService->getContainer('logos');
 
 /** @var $container OpenCloud\ObjectStore\Resource\Container **/
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-container.php) ]
 
 ### List Containers
 You can retrieve a list of all your containers. An instance of `OpenCloud\Common\Collection\PaginatedIterator`
@@ -69,13 +72,26 @@ foreach ($containers as $container) {
     /** @var $container OpenCloud\ObjectStore\Resource\Container  **/
 }
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/list-containers.php) ]
 
 ### Set or Update Container Metadata
+You can set metadata on a container.
+
 ```php
 $container->saveMetadata(array(
     'author' => 'John Doe'
 ));
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/set-container-metadata.php) ]
+
+### Get Container Metadata
+You can retrieve the metadata for a container.
+
+```php
+$containerMetadata = $container->getMetadata();
+
+```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-container-metadata.php) ]
 
 ### Delete Container
 When you no longer have a need for the container, you can remove it. 
@@ -85,6 +101,7 @@ If the container is empty (that is, it has no objects in it), you can remove it 
 ```php
 $container->delete();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/delete-container.php) ]
 
 If the container is not empty (that is, it has objects in it), you have two choices in how to remove it:
 
@@ -95,6 +112,7 @@ If the container is not empty (that is, it has objects in it), you have two choi
     ```php
     $container->delete(true);
     ```
+    [ [Get the executable PHP script for this example](/samples/ObjectStore/delete-container-recursive.php) ]
 
 ### Get Object Count
 
@@ -103,6 +121,7 @@ You can quickly find out how many objects are in a container.
 ```php
 $containerObjectCount = $container->getObjectCount();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-container-object-count.php) ]
 
 In the example above, `$containerObjectCount` will contain the number of objects in the container represented by `$container`.
 
@@ -113,6 +132,7 @@ You can quickly find out the space used by a container, in bytes.
 ```php
 $containerSizeInBytes = $container->getBytesUsed();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-container-bytes-used.php) ]
 
 In the example above, `$containerSizeInBytes` will contain the space used, in bytes, by the container represented by `$container`.
 
@@ -126,6 +146,7 @@ You can set a quota for the maximum number of objects that may be stored in a co
 $maximumNumberOfObjectsAllowedInContainer = 25;
 $container->setCountQuota($maximumNumberOfObjectsAllowedInContainer);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/set-container-count-quota.php) ]
 
 #### Set Quota for Total Size of Objects
 
@@ -137,6 +158,7 @@ use OpenCloud\Common\Constants\Size;
 $maximumTotalSizeOfObjectsInContainer = 5 * Size::GB;
 $container->setBytesQuota($maximumTotalSizeOfObjectsInContainer);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/set-container-bytes-quota.php) ]
 
 #### Get Quota for Number of Objects
 
@@ -145,6 +167,7 @@ You can retrieve the quota for the maximum number of objects that may be stored 
 ```php
 $maximumNumberOfObjectsAllowedInContainer = $container->getCountQuota();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-container-count-quota.php) ]
 
 #### Get Quota for Total Size of Objects
 
@@ -153,31 +176,32 @@ You can retrieve the quota for the maximum total space (in bytes) used by object
 ```php
 $maximumTotalSizeOfObjectsAllowedInContainer = $container->getBytesQuota();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-container-bytes-quota.php) ]
 
 ## Objects
 
 An **object** (sometimes referred to as a file) is the unit of storage in an Object Store.  An object is a combination of content (data) and metadata.
 
-For example, you may upload an object named `blog_post_15349_image_2.png`, a PNG image file, to the `blog_images` container. Further, you may assign metadata to this object to indiciate that the author of this object was someone named Jane Doe.
+For example, you may upload an object named `php-elephant.jpg`, a JPEG image file, to the `logos` container. Further, you may assign metadata to this object to indicate that the author of this object was someone named Jane Doe.
 
 ### Upload Object
 
 Once you have created a container, you can upload objects to it.
 
 ```php
-$localFileName  = '/path/to/local/image_file.png';
-$remoteFileName = 'blog_post_15349_image_2.png';
+$localFileName  = '/path/to/local/php-elephant.jpg';
+$remoteFileName = 'php-elephant.jpg';
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
 ```
-In the example above, an image file from the local filesystem (`path/to/local/image_file.png`) is uploaded to a container in the Object Store. Note that the uploaded object is given a new name (`blog_post_15349_image_2.png`).
+In the example above, an image file from the local filesystem (`path/to/local/php-elephant.jpg`) is uploaded to a container in the Object Store.
 
 It is also possible to upload an object and associate metadata with it.
 
 ```php
-$localFileName  = '/path/to/local/image_file.png';
-$remoteFileName = 'blog_post_15349_image_2.png';
+$localFileName  = '/path/to/local/php-elephant.jpg';
+$remoteFileName = 'php-elephant.jpg';
 $metadata = array('author' => 'Jane Doe');
 
 $customHeaders = array();
@@ -192,14 +216,14 @@ $container->uploadObject($remoteFileName, $fileData, $allHeaders);
 Although you cannot nest directories in an Object Store, you can simulate a hierarchical structure within a single container by adding forward slash characters (`/`) in the object name.
 
 ```php
-$localFileName  = '/path/to/local/image_file.png';
-$remoteFileName = '15349/2/orig.png';
+$localFileName  = '/path/to/local/php-elephant.jpg';
+$remoteFileName = 'languages/php/elephant.jpg';
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
 ```
 
-In the example above, an image file from the local filesystem (`path/to/local/image_file.png`) is uploaded to a container in the Object Store. Within that container, the filename is `15349/2/orig.png`, where `15349/2/` is a pseudo-hierarchicial folder hierarchy.
+In the example above, an image file from the local filesystem (`/path/to/local/php-elephant.jpg`) is uploaded to a container in the Object Store. Within that container, the filename is `languages/php/elephant.jpg`, where `languages/php/` is a pseudo-hierarchical folder hierarchy.
 
 #### Upload Multiple Objects
 You can upload more than one object at a time to a container.
@@ -207,23 +231,20 @@ You can upload more than one object at a time to a container.
 ```php
 $objects = array(
     array(
-        'name' => 'image_1.png',
-        'path'   => '/path/to/local/image_file_1.png'
+        'name' => 'php-elephant.jpg',
+        'path'   => '/path/to/local/php-elephant.jpg'
     ),
     array(
-        'name' => 'image_2.png',
-        'path'   => '/path/to/local/image_file_2.png'
+        'name' => 'python-snake.jpg',
+        'path'   => '/path/to/local/python-snake.jpg'
     ),
-    array(
-        'name' => 'image_3.png',
-        'path'   => '/path/to/local/image_file_3.png'
-    )
+    a
 );
 
 $container->uploadObjects($objects);
 ```
 
-In the above example, the contents of three files present on the local filesystem are uploaded as objects to the container referenced by `$container`.
+In the above example, the contents of two files present on the local filesystem are uploaded as objects to the container referenced by `$container`.
 
 Instead of specifying the `path` key in an element of the `$objects` array, you can specify a `body` key whose value is a string or a stream representation.
 
@@ -299,7 +320,8 @@ You can list all the objects stored in a container. An instance of `OpenCloud\Co
 ```php
 $objects = $container->objectList();
 foreach ($objects as $object) {
-    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/	}
+    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/	
+}
 ```
 
 ### Retrieve Object

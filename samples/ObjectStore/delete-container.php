@@ -22,6 +22,7 @@
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
 // * There exists a container named 'logos' in your Object Store. Run
 //   create-container.php if you need to create one first.
+// * The 'logos' container is empty. That is, it has no objects in it.
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -39,5 +40,6 @@ $objectStoreService = $client->objectStoreService(null, $region);
 
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
-/** @var $container OpenCloud\ObjectStore\Resource\Container **/
-printf("Container name: %s\n", $container->name);
+
+// 4. Delete container.
+$container->delete();

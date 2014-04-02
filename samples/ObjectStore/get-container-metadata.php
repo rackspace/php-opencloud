@@ -22,6 +22,8 @@
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
 // * There exists a container named 'logos' in your Object Store. Run
 //   create-container.php if you need to create one first.
+// * The 'logos' container has a metadata filed named 'author' set on it. Run
+//   set-container-metadata.php if you need to set this field first.
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -39,5 +41,8 @@ $objectStoreService = $client->objectStoreService(null, $region);
 
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
-/** @var $container OpenCloud\ObjectStore\Resource\Container **/
-printf("Container name: %s\n", $container->name);
+
+// 4. Set container metadata.
+$containerMetadata = $container->getMetadata();
+/** @var $container $containerMetadata OpenCloud\ObjectStore\Resource\ContainerMetadata **/
+printf("Container author: %s\n", $containerMetadata->getProperty('author'));

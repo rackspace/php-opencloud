@@ -20,8 +20,6 @@
 // * Prior to running this script, you must setup the following environment variables:
 //   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
-// * There exists a container named 'logos' in your Object Store. Run
-//   create-container.php if you need to create one first.
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -37,7 +35,9 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 $region = 'DFW';
 $objectStoreService = $client->objectStoreService(null, $region);
 
-// 3. Get container.
-$container = $objectStoreService->getContainer('logos');
-/** @var $container OpenCloud\ObjectStore\Resource\Container **/
-printf("Container name: %s\n", $container->name);
+// 3. Get container list.
+$containers = $objectStoreService->listContainers();
+foreach ($containers as $container) {
+    /** @var $container OpenCloud\ObjectStore\Resource\Container  **/
+    printf("Container name: %s\n", $container->name);
+}
