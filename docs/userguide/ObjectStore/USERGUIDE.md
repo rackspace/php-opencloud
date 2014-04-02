@@ -195,6 +195,8 @@ $remoteFileName = 'php-elephant.jpg';
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/upload-object.php) ]
+
 In the example above, an image file from the local filesystem (`path/to/local/php-elephant.jpg`) is uploaded to a container in the Object Store.
 
 It is also possible to upload an object and associate metadata with it.
