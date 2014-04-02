@@ -21,25 +21,25 @@
  * - RAX_API_KEY:  Your Rackspace Cloud Account API Key
  */
 
-require __DIR__ . '/../../../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// Instantiate Rackspace client
+// 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => getenv('RAX_USERNAME'),
     'apiKey'   => getenv('RAX_API_KEY')
 ));
 
-// Instantiate Object Store service
+// 2. Obtain an Object Store service object from the client.
 $region = 'DFW';
 $objectStoreService = $client->objectStoreService(null, $region);
 
-// Create container
-$container = $objectStoreService->createContainer('sample_code');
+// 3. Create a container for your objects (also referred to as files).
+$container = $objectStoreService->createContainer('logos');
 
-// Upload this file to container
-$localFileName  = __DIR__ . '/upload-object.php';
-$remoteFileName = 'upload-object.php';
+// 4. Upload an object to the container.
+$localFileName  = __DIR__ . '/php-elephant.jpg';
+$remoteFileName = 'php-elephant.jpg';
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);

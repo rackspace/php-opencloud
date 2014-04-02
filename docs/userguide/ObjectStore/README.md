@@ -34,22 +34,23 @@ Choose one of the following two options:
 
 ### 2. Obtain an Object Store service object from the client.
 ```php
-$objectStoreService = $client->objectStoreService(null,'DFW');
+$region = 'DFW';
+$objectStoreService = $client->objectStoreService(null, $region);
 ```
 
 In the example above, you are connecting to the ``DFW`` region of the cloud. Any containers and objects created with this `$objectStoreService` instance will be stored in that cloud region.
 
-### 2. Create a container for your objects (also referred to as files).
+### 3. Create a container for your objects (also referred to as files).
 
 ```php
-$container = $objectStoreService->createContainer('blog_images');
+$container = $objectStoreService->createContainer('logos');
 ```
 
-### 3. Upload an object to the container.
+### 4. Upload an object to the container.
 
 ```php
-$localFileName  = '/path/to/local/image_file.png';
-$remoteFileName = 'blog_post_15349_image_2.png';
+$localFileName  = '/path/to/local/php-elephant.jpg';
+$remoteFileName = 'php-elephant.jpg';
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);

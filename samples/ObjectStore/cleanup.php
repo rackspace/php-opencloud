@@ -21,7 +21,7 @@
  * - RAX_API_KEY:  Your Rackspace Cloud Account API Key
  */
 
-require __DIR__ . '/../../../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
 // Instantiate Rackspace client
