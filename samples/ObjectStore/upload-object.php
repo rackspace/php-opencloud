@@ -15,11 +15,12 @@
  * limitations under the License.
  */
 
-/**
- * Prior to running this script, you must setup the following environment variables:
- * - RAX_USERNAME: Your Rackspace Cloud Account Username, and
- * - RAX_API_KEY:  Your Rackspace Cloud Account API Key
- */
+//
+// Pre-requisites:
+// * Prior to running this script, you must setup the following environment variables:
+//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
+//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
+//
 
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;

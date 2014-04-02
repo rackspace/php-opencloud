@@ -25,20 +25,15 @@
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// Instantiate Rackspace client
+// 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => getenv('RAX_USERNAME'),
     'apiKey'   => getenv('RAX_API_KEY')
 ));
 
-// Instantiate Object Store service
+// 2. Obtain an Object Store service object from the client.
 $region = 'DFW';
 $objectStoreService = $client->objectStoreService(null, $region);
 
-// Get all containers
-$containers = $objectStoreService->listContainers();
-
-// Delete them
-foreach ($containers as $container) {
-    $container->delete(true);
-}
+// 3. Create a container for your objects (also referred to as files).
+$container = $objectStoreService->createContainer('logos');

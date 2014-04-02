@@ -20,25 +20,24 @@
 // * Prior to running this script, you must setup the following environment variables:
 //   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
+// * There exists a container named 'logos' in your Object Store. Run
+//   create-container.php if you need to create one first.
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// Instantiate Rackspace client
+// 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => getenv('RAX_USERNAME'),
     'apiKey'   => getenv('RAX_API_KEY')
 ));
 
-// Instantiate Object Store service
+// 2. Obtain an Object Store service object from the client.
 $region = 'DFW';
 $objectStoreService = $client->objectStoreService(null, $region);
 
-// Get all containers
-$containers = $objectStoreService->listContainers();
+// 3. Get container.
+$container = $objectStoreService->getContainer('logos');
 
-// Delete them
-foreach ($containers as $container) {
-    $container->delete(true);
-}
+/** @var $container OpenCloud\ObjectStore\Resource\Container **/
