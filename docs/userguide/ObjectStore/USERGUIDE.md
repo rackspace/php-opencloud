@@ -236,8 +236,20 @@ $objectName = 'php-elephant.jpg';
 $object = $container->getObject($objectName);
 
 /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
+
+$objectContent = $object->getContent();
+
+/** @var $objectContent Guzzle\Http\EntityBody **/
+
+// Write object content to file on local filesystem.
+$objectContent->rewind();
+$stream = $objectContent->getStream();
+$localFilename = tempnam("/tmp", 'php-opencloud-');
+file_put_contents($localFilename, $stream);
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/get-object.php) ]
+
+In the example above, `$object` is the object named `php-elephant.jpg` in the container represented by `$container`. Further, `$objectContent` represents the contents of the object. It is of type [`Guzzle\Http\EntityBody`](http://api.guzzlephp.org/class-Guzzle.Http.EntityBody.html).
 
 ### Retrieve Object Metadata
 You can retrieve just an object's metadata without retrieving its contents.
