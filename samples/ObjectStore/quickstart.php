@@ -20,8 +20,6 @@
 // * Prior to running this script, you must setup the following environment variables:
 //   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
-// * There exists a container named 'logos' in your Object Store. Run
-//   create-container.php if you need to create one first.
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -37,8 +35,8 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 $region = 'DFW';
 $objectStoreService = $client->objectStoreService(null, $region);
 
-// 3. Get container.
-$container = $objectStoreService->getContainer('logos');
+// 3. Create a container for your objects (also referred to as files).
+$container = $objectStoreService->createContainer('logos');
 
 // 4. Upload an object to the container.
 $localFileName  = __DIR__ . '/php-elephant.jpg';

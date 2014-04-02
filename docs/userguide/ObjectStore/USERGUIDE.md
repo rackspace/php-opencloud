@@ -202,6 +202,8 @@ In the example above, an image file from the local filesystem (`path/to/local/ph
 It is also possible to upload an object and associate metadata with it.
 
 ```php
+use OpenCloud\ObjectStore\Resource\DataObject;
+
 $localFileName  = '/path/to/local/php-elephant.jpg';
 $remoteFileName = 'php-elephant.jpg';
 $metadata = array('author' => 'Jane Doe');
@@ -213,111 +215,10 @@ $allHeaders = $customHeaders + $metadataHeaders;
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData, $allHeaders);
 ```
-
-#### Pseudo-hierarchical Folders
-Although you cannot nest directories in an Object Store, you can simulate a hierarchical structure within a single container by adding forward slash characters (`/`) in the object name.
-
-```php
-$localFileName  = '/path/to/local/php-elephant.jpg';
-$remoteFileName = 'languages/php/elephant.jpg';
-
-$fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
-```
-
-In the example above, an image file from the local filesystem (`/path/to/local/php-elephant.jpg`) is uploaded to a container in the Object Store. Within that container, the filename is `languages/php/elephant.jpg`, where `languages/php/` is a pseudo-hierarchical folder hierarchy.
-
-#### Upload Multiple Objects
-You can upload more than one object at a time to a container.
-
-```php
-$objects = array(
-    array(
-        'name' => 'php-elephant.jpg',
-        'path'   => '/path/to/local/php-elephant.jpg'
-    ),
-    array(
-        'name' => 'python-snake.jpg',
-        'path'   => '/path/to/local/python-snake.jpg'
-    ),
-    a
-);
-
-$container->uploadObjects($objects);
-```
-
-In the above example, the contents of two files present on the local filesystem are uploaded as objects to the container referenced by `$container`.
-
-Instead of specifying the `path` key in an element of the `$objects` array, you can specify a `body` key whose value is a string or a stream representation.
-
-Finally, you can pass headers as the second parameter to the `uploadObjects` method. These headers will be applied to every object that is uploaded.
-
-```
-$metadata = array('author' => 'Jane Doe');
-
-$customHeaders = array();
-$metadataHeaders = DataObject::stockHeaders($metadata);
-$allHeaders = $customHeaders + $metadataHeaders; 
-
-$container->uploadObjects($objects, $allHeaders);
-```
-
-In the example above, every object referenced within the `$objects` array will be uploaded with the same metadata.
-
-### Large Objects
-
-If you want to upload objects larger than 5GB in size, you must use a different upload process.
-
-```php
-$options = array(
-    'name' => 'san_diego_vacation_video.mp4',
-    'path'   => '/path/to/local/videos/san_diego_vacation.mp4'    
-);
-$objectTransfer = $container->setupObjectTransfer($options);
-$objectTransfer->upload();
-```
-
-The process shown above will automatically partition your large object into small chunks and upload them concurrently to the container represented by `$container`.
-
-You can tune the parameters of this process by specifying additional options in the `$options` array. Here is a complete listing of keys that can be specified in the `$options` array:
-
-| Key name | Description | Data Type | Required? | Default Value | Example |
-| -------------- | --------------- | ------------- | -------------- | ------------------ | ----------- |
-| `name` | Name of large object in container | String | Yes | - | `san_diego_vacation_video.mp4` |
-| `path`   | Path to file containing object data on local filesystem | String | One of `path` or `body` must be specified | - | `/path/to/local/videos/san_diego_vacation.mp4` |
-| `body` | String or stream representation of object data | String \| Stream | One of `path` or `body` must be specified | - | `... lots of data ...` |
-| `metadata` | Metadata for the object | Associative array of metadata key-value pairs | No | `array()` | `array( "Author" => "Jane Doe" )` |
-| `partSize` | The size, in bytes, of each chunk that the large object is partitioned into prior to uploading | Integer | No | `1073741824` (1GB) | `52428800` (50MB) |
-| `concurrency` | The number of concurrent transfers to execute as part of the upload | Integer | No | `1` (no concurrency; upload chunks serially) | `10` |
-| `progress` | A [callable function or method](http://us1.php.net/manual/en/language.types.callable.php) which is called to report progress of the the upload. See [`CURLOPT_PROGRESSFUNCTION` documentation](http://us2.php.net/curl_setopt) for details on parameters passed to this callable function or method. | String (callable function or method name) | No | None | `reportProgress` |
-
-### Auto-extract Archive Files
-
-You can upload a tar archive file and have the Object Store service automatically extract it into a container. 
-
-```php
-use OpenCloud\ObjectStore\Constants\UrlType;
-
-$localArchiveFileName  = '/path/to/local/image_files.tar.gz';
-$remotePath = 'images/';
-
-$fileData = fopen($localArchiveFileName, 'r');
-$objectStoreService->bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);
-```
-
-In the above example, a local archive file named `image_files.tar.gz` is uploaded to an Object Store container named `images` (defined by the `$remotePath` variable).
-
-The third parameter to `bulkExtract` is the type of the archive file being uploaded. The acceptable values for this are:
-
-* `UrlType::TAR` for tar archive files, *or*,
-* `UrlType:TAR_GZ` for tar archive files that are compressed with gzip, *or*
-* `UrlType::TAR_BZ` for tar archive file that are compressed with bzip
- 
-Note that the value of `$remotePath` could have been a (pseudo-hierarchical folder)[#psuedo-hierarchical-folders] such as `images/blog` as well. 
+[ [Get the executable PHP script for this example](/samples/ObjectStore/upload-object-with-metadata.php) ]
 
 ### List Objects in a Container
 You can list all the objects stored in a container. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.
-
 
 ```php
 $objects = $container->objectList();
@@ -325,26 +226,29 @@ foreach ($objects as $object) {
     /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/	
 }
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/list-objects.php) ]
 
 ### Retrieve Object
 You can retrieve an object and its metadata, given the object's container and name.
 
 ```php
-$objectName = 'blog_post_15349_image_2.png';
+$objectName = 'php-elephant.jpg';
 $object = $container->getObject($objectName);
 
 /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-object.php) ]
 
 ### Retrieve Object Metadata
 You can retrieve just an object's metadata without retrieving its contents.
 
 ```php
-$objectName = 'blog_post_15349_image_2.png';
+$objectName = 'php-elephant.jpg';
 $object = $container->getPartialObject($objectName);
+$objectMetadata = $object->getMetadata();
 
-/** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
-```
+/** @var $objectMetadata \OpenCloud\Common\Metadata **/
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-object-metadata.php) ]
 
 In the example above, while `$object` is an instance of `OpenCloud\ObjectStore\Resource\DataObject`, that instance is only partially populated. Specifically, only properties of the instance relating to object metadata are populated.
 

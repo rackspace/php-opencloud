@@ -22,6 +22,8 @@
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
 // * There exists a container named 'logos' in your Object Store. Run
 //   create-container.php if you need to create one first.
+// * The 'logos' container contains an object named 'php-elephant.jpg' with metadata
+//   set on it. Run upload-object-with-metadata.php if you need to create it first.
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -40,9 +42,10 @@ $objectStoreService = $client->objectStoreService(null, $region);
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
 
-// 4. Upload an object to the container.
-$localFileName  = __DIR__ . '/php-elephant.jpg';
-$remoteFileName = 'php-elephant.jpg';
+// 4. Get object metadata.
+$objectName = 'php-elephant.jpg';
+$object = $container->getPartialObject($objectName);
+$objectMetadata = $object->getMetadata();
 
-$fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
+/** @var $objectMetadata \OpenCloud\Common\Metadata **/
+printf("Object author: %s\n", $objectMetadata->getProperty('author'));

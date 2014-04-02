@@ -26,6 +26,7 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
+use OpenCloud\ObjectStore\Constants\UrlType;
 
 // 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
@@ -37,12 +38,9 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 $region = 'DFW';
 $objectStoreService = $client->objectStoreService(null, $region);
 
-// 3. Get container.
-$container = $objectStoreService->getContainer('logos');
+// 3. Upload archive file for auto-extraction into objects.
+$localArchiveFileName  = __DIR__ . '/logos.tar.gz';
+$remotePath = 'logos/';
 
-// 4. Upload an object to the container.
-$localFileName  = __DIR__ . '/php-elephant.jpg';
-$remoteFileName = 'php-elephant.jpg';
-
-$fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
+$fileData = fopen($localArchiveFileName, 'r');
+$objectStoreService->bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);

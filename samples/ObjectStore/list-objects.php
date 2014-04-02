@@ -40,9 +40,9 @@ $objectStoreService = $client->objectStoreService(null, $region);
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
 
-// 4. Upload an object to the container.
-$localFileName  = __DIR__ . '/php-elephant.jpg';
-$remoteFileName = 'php-elephant.jpg';
-
-$fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
+// 4. Get list of objects in container.
+$objects = $container->objectList();
+foreach ($objects as $object) {
+    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/
+    printf("Object name: %s\n", $object->getName());
+}

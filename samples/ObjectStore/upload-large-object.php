@@ -18,8 +18,9 @@
 //
 // Pre-requisites:
 // * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
+//   * RAX_USERNAME:    Your Rackspace Cloud Account Username, and
+//   * RAX_API_KEY:     Your Rackspace Cloud Account API Key, and
+//   * LARGE_FILE_PATH: Path to large file (5GB+) on your local filesystem
 // * There exists a container named 'logos' in your Object Store. Run
 //   create-container.php if you need to create one first.
 //
@@ -40,9 +41,10 @@ $objectStoreService = $client->objectStoreService(null, $region);
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
 
-// 4. Upload an object to the container.
-$localFileName  = __DIR__ . '/php-elephant.jpg';
-$remoteFileName = 'php-elephant.jpg';
-
-$fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
+// 4. Upload large object to the container.
+$options = array(
+    'name' => 'large_object',
+    'path'   => getenv('LARGE_FILE_PATH')
+);
+$objectTransfer = $container->setupObjectTransfer($options);
+$objectTransfer->upload();

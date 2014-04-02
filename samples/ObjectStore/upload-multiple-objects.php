@@ -40,9 +40,16 @@ $objectStoreService = $client->objectStoreService(null, $region);
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
 
-// 4. Upload an object to the container.
-$localFileName  = __DIR__ . '/php-elephant.jpg';
-$remoteFileName = 'php-elephant.jpg';
+// 4. Upload multiple object to the container.
+$objects = array(
+    array(
+        'name' => 'php-elephant.jpg',
+        'path'   => __DIR__ . '/php-elephant.jpg'
+    ),
+    array(
+        'name' => 'python-snakes.jpg',
+        'path'   => __DIR__ . '/python-snakes.jpg'
+    )
+);
 
-$fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
+$container->uploadObjects($objects);

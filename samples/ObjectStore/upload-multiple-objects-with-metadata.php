@@ -26,6 +26,7 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
+use OpenCloud\ObjectStore\Resource\DataObject;
 
 // 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
@@ -40,9 +41,22 @@ $objectStoreService = $client->objectStoreService(null, $region);
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
 
-// 4. Upload an object to the container.
-$localFileName  = __DIR__ . '/php-elephant.jpg';
-$remoteFileName = 'php-elephant.jpg';
+// 4. Upload multiple object to the container.
+$objects = array(
+    array(
+        'name' => 'php-elephant.jpg',
+        'path'   => __DIR__ . '/php-elephant.jpg'
+    ),
+    array(
+        'name' => 'python-snakes.jpg',
+        'path'   => __DIR__ . '/python-snakes.jpg'
+    )
+);
 
-$fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
+$metadata = array('author' => 'Jane Doe');
+
+$customHeaders = array();
+$metadataHeaders = DataObject::stockHeaders($metadata);
+$allHeaders = $customHeaders + $metadataHeaders;
+
+$container->uploadObjects($objects, $allHeaders);

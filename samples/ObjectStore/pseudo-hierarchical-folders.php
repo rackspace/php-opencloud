@@ -42,7 +42,7 @@ $container = $objectStoreService->getContainer('logos');
 
 // 4. Upload an object to the container.
 $localFileName  = __DIR__ . '/php-elephant.jpg';
-$remoteFileName = 'php-elephant.jpg';
+$remoteFileName = 'languages/php/elephant.jpg';
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
