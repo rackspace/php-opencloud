@@ -54,7 +54,7 @@ $remoteFileName = 'blog_post_15349_image_2.png';
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
 ```
-[ [See sample code as standalone PHP script](samples/OpenCloud/ObjectStore/upload-object.php) ]
+[ [See sample code as standalone PHP script](/samples/OpenCloud/ObjectStore/upload-object.php) ]
 
 ## Next steps
 
