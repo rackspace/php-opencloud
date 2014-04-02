@@ -248,6 +248,7 @@ $object = $container->getPartialObject($objectName);
 $objectMetadata = $object->getMetadata();
 
 /** @var $objectMetadata \OpenCloud\Common\Metadata **/
+```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/get-object-metadata.php) ]
 
 In the example above, while `$object` is an instance of `OpenCloud\ObjectStore\Resource\DataObject`, that instance is only partially populated. Specifically, only properties of the instance relating to object metadata are populated.
