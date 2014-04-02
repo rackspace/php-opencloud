@@ -274,6 +274,7 @@ First, you must set the temporary URL secret on your account. This is a one-time
 ```php
 $account->setTempUrlSecret();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/set-account-temp-url-secret.php) ]
 
 Note that this operation is carried out on `$account`, which is an instance of `OpenCloud\ObjectStore\Resource\Account`, a class representing [your object store account](#accounts).
 
@@ -282,6 +283,7 @@ The above operation will generate a random secret and set it on your account. In
 ```php
 $account->setTempUrlSecret('<SOME SECRET STRING>');
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/set-account-temp-url-secret-specified.php) ]
 
 Once a temporary URL secret has been set on your account, you can generate a temporary URL for any object in your Object Store.
 
@@ -290,6 +292,7 @@ $expirationTimeInSeconds = 3600; // one hour from now
 $httpMethodAllowed = 'GET';
 $tempUrl = $object->getTemporaryUrl($expirationTimeInSeconds, $httpMethodAllowed);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-object-temporary-url.php) ]
 
 In the example above, a temporary URL for the object is generated. This temporary URL will provide public access to the object for an hour (3600 seconds), as specified by the `$expirationTimeInSeconds` variable. Further, only GET HTTP methods will be allowed on this URL, as specified by the `$httpMethodAllowed` variable. The other value allowed for the `$httpMethodAllowed` variable would be `PUT`.
 
@@ -306,16 +309,18 @@ $object->saveMetadata(array(
     'author' => 'John Doe'
 ));
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/update-object-metadata.php) ]
 
 ### Copy Object
 
-You can copy an object from one container to another.
+You can copy an object from one container to another, provided the destination container already exists.
 
 ```php
-$object->copy('some_other_container/object_new_name.png');
+$object->copy('logos_copy/php.jpg');
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/copy-object.php) ]
 
-In the example above, both the name of the destination container (`some_other_container`)and the name of the destination object (`object_new_name.png`) have to be specified, separated by a `/`.
+In the example above, both the name of the destination container (`logos_copy`)and the name of the destination object (`php.jpg`) have to be specified, separated by a `/`.
 
 ### Delete Object
 
@@ -324,6 +329,7 @@ When you no longer need an object, you can delete it.
 ```php
 $object->delete();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/delete-object.php) ]
 
 ### Bulk Delete
 
@@ -331,11 +337,12 @@ While you can delete individual objects as shown above, you can also delete obje
 
 ```php
 $objectStoreService->bulkDelete(array(
-    'some_container/object_a.png',
-    'some_other_container/object_z.png',
+    'logos/php-elephant.png',
+    'logos/python-snakes.png',
     'some_empty_container'
 ));
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/bulk-delete.php) ]
 
 In the example above, two objects (`some_container/object_a.png`, `some_other_container/object_z.png`) and one empty container (`some_empty_container`) are all being deleted in bulk via a single command.
 
@@ -352,6 +359,7 @@ To take advantage of CDN capabilities for a container and its objects, you must 
 ```php
 $container->enableCdn();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/enable-container-cdn.php) ]
 
 ### Public URLs
 
@@ -363,6 +371,7 @@ You can use this type of URL to access the object over HTTP.
 ```
 $httpUrl = $object->getPublicUrl();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-cdn-object-http-url.php) ]
 
 #### Secure HTTP URL
 You can use this type of URL to access the object over HTTP + TLS/SSL.
@@ -372,6 +381,7 @@ use OpenCloud\ObjectStore\Constants\UrlType;
 
 $httpsUrl = $object->getPublicUrl(UrlType::SSL);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-cdn-object-https-url.php) ]
 
 #### Streaming URL
 You can use this type of URL to stream a video or audio object using Adobe's HTTP Dynamic Streaming.
@@ -379,8 +389,9 @@ You can use this type of URL to stream a video or audio object using Adobe's HTT
 ```
 use OpenCloud\ObjectStore\Constants\UrlType;
 
-$httpsUrl = $object->getPublicUrl(UrlType::STREAMING);
+$streamingUrl = $object->getPublicUrl(UrlType::STREAMING);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-cdn-object-streaming-url.php) ]
 
 #### IOS Streaming URL
 
@@ -389,8 +400,9 @@ You can use this type of URL to stream an audio or video object to an iOS device
 ```
 use OpenCloud\ObjectStore\Constants\UrlType;
 
-$httpsUrl = $object->getPublicUrl(UrlType::IOS_STREAMING);
+$iosStreamingUrl = $object->getPublicUrl(UrlType::IOS_STREAMING);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-cdn-object-ios-streaming-url.php) ]
 
 ### Disable CDN Container
 
@@ -399,6 +411,7 @@ If you no longer need CDN capabilities for a container, you can disable them.
 ```php
 $container->disableCdn();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/disable-container-cdn.php) ]
 
 ## Accounts
 An **account** defines a namespace for **containers**. An account can have zero or more containers in it.
@@ -417,6 +430,7 @@ You can quickly find out how many containers are in your account.
 ```php
 $accountContainerCount = $account->getContainerCount();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-account-container-count.php) ]
 
 ### Get Object Count
 
@@ -425,6 +439,7 @@ You can quickly find out how many objects are in your account.
 ```php
 $accountObjectCount = $account->getObjectCount();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-account-object-count.php) ]
 
 In the example above, `$accountObjectCount` will contain the number of objects in the account represented by `$account`.
 
@@ -435,5 +450,6 @@ You can quickly find out the space used by your account, in bytes.
 ```php
 $accountSizeInBytes = $account->getBytesUsed();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-account-bytes-used.php) ]
 
 In the example above, `$accountSizeInBytes` will contain the space used, in bytes, by the account represented by `$account`.
