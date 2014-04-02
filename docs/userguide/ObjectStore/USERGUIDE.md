@@ -330,6 +330,26 @@ foreach ($objects as $object) {
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/list-objects.php) ]
 
+You can list only those objects in the container whose names start with a certain prefix.
+
+```php
+$options = array(
+    'prefix' => 'php'
+);
+
+$objects = $container->objectList($options);
+```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/list-objects-with-params.php) ]
+
+In general, the `objectList()` method described above takes an optional parameter (`$options` in the example above). This parameter is an associative array of various options. Here is a complete listing of keys that can be specified in the `$options` array:
+
+| Key name | Description | Data Type | Required? | Default Value | Example |
+| -------------- | --------------- | ------------- | -------------- | ------------------ | ----------- |
+| `prefix` | Given a string x, limits the results to object names beginning with x. | String | No | | `php` |
+| `limit` | Given an integer n, limits the number of results to at most n values. | Integer | No | | 10 |
+| `marker` | Given a string x, returns object names greater than the specified marker. | String | No | | `php-elephant.jpg` |
+| `end_marker` | Given a string x, returns object names less than the specified marker. | String | No | | `python-snakes.jpg` |
+
 ### Retrieve Object
 You can retrieve an object and its metadata, given the object's container and name.
 
