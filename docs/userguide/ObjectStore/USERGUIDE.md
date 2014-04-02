@@ -418,6 +418,13 @@ $tempUrl = $object->getTemporaryUrl($expirationTimeInSeconds, $httpMethodAllowed
 
 In the example above, a temporary URL for the object is generated. This temporary URL will provide public access to the object for an hour (3600 seconds), as specified by the `$expirationTimeInSeconds` variable. Further, only GET HTTP methods will be allowed on this URL, as specified by the `$httpMethodAllowed` variable. The other value allowed for the `$httpMethodAllowed` variable would be `PUT`.
 
+You can also retrieve the temporary URL secret that has been set on your account.
+
+```php
+$tempUrlSecret = $account->getTempUrlSecret();
+```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/get-account-temp-url-secret.php) ]
+
 ### Update Object
 
 You can update an object's contents (as opposed to [updating its metadata](#update-object-metadata)) by simply re-[uploading the object](#upload-object) to its container using the same object name as before.
