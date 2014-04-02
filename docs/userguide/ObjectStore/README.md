@@ -55,7 +55,7 @@ $remoteFileName = 'php-elephant.jpg';
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
 ```
-[ [See sample code as standalone PHP script](/samples/ObjectStore/upload-object.php) ]
+[ [Get the executable PHP script for this example](/samples/ObjectStore/upload-object.php) ]
 
 ## Next steps
 
