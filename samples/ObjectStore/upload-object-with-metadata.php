@@ -52,3 +52,6 @@ $allHeaders = $customHeaders + $metadataHeaders;
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData, $allHeaders);
+
+// Note that while we call fopen to open the file resource, we do not call fclose at the end.
+// The file resource is automatically closed inside the uploadObject call.

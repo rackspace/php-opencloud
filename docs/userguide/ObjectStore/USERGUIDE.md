@@ -199,6 +199,8 @@ $container->uploadObject($remoteFileName, $fileData);
 
 In the example above, an image file from the local filesystem (`path/to/local/php-elephant.jpg`) is uploaded to a container in the Object Store.
 
+Note that while we call `fopen` to open the file resource, we do not call `fclose` at the end. The file resource is automatically closed inside the `uploadObject` call.
+
 It is also possible to upload an object and associate metadata with it.
 
 ```php
@@ -217,6 +219,7 @@ $container->uploadObject($remoteFileName, $fileData, $allHeaders);
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/upload-object-with-metadata.php) ]
 
+Note that while we call `fopen` to open the file resource, we do not call `fclose` at the end. The file resource is automatically closed inside the `uploadObject` call.
 
 #### Pseudo-hierarchical Folders
 Although you cannot nest directories in an Object Store, you can simulate a hierarchical structure within a single container by adding forward slash characters (`/`) in the object name.
@@ -228,8 +231,11 @@ $remoteFileName = 'languages/php/elephant.jpg';
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/pseudo-hierarchical-folders.php) ]
 
 In the example above, an image file from the local filesystem (`/path/to/local/php-elephant.jpg`) is uploaded to a container in the Object Store. Within that container, the filename is `languages/php/elephant.jpg`, where `languages/php/` is a pseudo-hierarchical folder hierarchy.
+
+Note that while we call `fopen` to open the file resource, we do not call `fclose` at the end. The file resource is automatically closed inside the `uploadObject` call.
 
 #### Upload Multiple Objects
 You can upload more than one object at a time to a container.
@@ -249,6 +255,7 @@ $objects = array(
 
 $container->uploadObjects($objects);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/upload-multiple-objects.php) ]
 
 In the above example, the contents of two files present on the local filesystem are uploaded as objects to the container referenced by `$container`.
 
@@ -265,6 +272,7 @@ $allHeaders = $customHeaders + $metadataHeaders;
 
 $container->uploadObjects($objects, $allHeaders);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/upload-multiple-objects-with-metadata.php) ]
 
 In the example above, every object referenced within the `$objects` array will be uploaded with the same metadata.
 
@@ -280,6 +288,7 @@ $options = array(
 $objectTransfer = $container->setupObjectTransfer($options);
 $objectTransfer->upload();
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/upload-large-object.php) ]
 
 The process shown above will automatically partition your large object into small chunks and upload them concurrently to the container represented by `$container`.
 
@@ -308,8 +317,11 @@ $remotePath = 'images/';
 $fileData = fopen($localArchiveFileName, 'r');
 $objectStoreService->bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);
 ```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/auto-extract-archive-files.php) ]
 
 In the above example, a local archive file named `image_files.tar.gz` is uploaded to an Object Store container named `images` (defined by the `$remotePath` variable).
+
+Note that while we call `fopen` to open a file resource, we do not call `fclose` at the end. The file resource is automatically closed inside the `bulkExtract` call.
 
 The third parameter to `bulkExtract` is the type of the archive file being uploaded. The acceptable values for this are:
 

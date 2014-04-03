@@ -44,3 +44,6 @@ $remotePath = 'logos/';
 
 $fileData = fopen($localArchiveFileName, 'r');
 $objectStoreService->bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);
+
+// Note that while we call fopen to open the file resource, we do not call fclose at the end.
+// The file resource is automatically closed inside the bulkExtract call.
