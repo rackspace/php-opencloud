@@ -46,3 +46,6 @@ $remoteFileName = 'languages/php/elephant.jpg';
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData);
+
+// Note that while we call fopen to open the file resource, we do not call fclose at the end.
+// The file resource is automatically closed inside the uploadObject call.
