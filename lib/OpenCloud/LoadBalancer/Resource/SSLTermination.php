@@ -33,9 +33,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  *
  * @link http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/SSLTermination-d1e2479.html
  */
-class SSLTermination extends SubResource
+class SSLTermination extends NonIdUriResource
 {
-
     /**
      * The certificate used for SSL termination.
      *
@@ -83,6 +82,7 @@ class SSLTermination extends SubResource
 
     protected static $json_name = "sslTermination";
     protected static $url_resource = "ssltermination";
+
     protected $createKeys = array(
         'certificate',
         'enabled',

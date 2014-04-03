@@ -20,9 +20,8 @@ namespace OpenCloud\LoadBalancer\Resource;
 /**
  * Reports all usage for a Load Balancer recorded within the preceding 24 hours.
  */
-class Usage extends Readonly
+class UsageRecord extends ReadOnlyResource
 {
-
     public $id;
     public $averageNumConnections;
 
@@ -52,4 +51,9 @@ class Usage extends Readonly
 
     protected static $json_name = 'loadBalancerUsageRecord';
     protected static $url_resource = 'usage';
+
+    public function refresh($id = null, $url = null)
+    {
+        return $this->refreshFromParent();
+    }
 }

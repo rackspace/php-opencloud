@@ -77,8 +77,6 @@ class OpenStack extends Client
 
     public function __construct($url, array $secret, array $options = array())
     {
-        $this->getLogger()->info(Lang::translate('Initializing OpenStack client'));
-
         $this->setSecret($secret);
         $this->setAuthUrl($url);
 

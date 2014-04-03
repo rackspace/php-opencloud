@@ -64,7 +64,7 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
     public function testBillableLoadBalancer()
     {
         $this->assertInstanceOf(
-            'OpenCloud\LoadBalancer\Resource\BillableLoadBalancer',
+            'OpenCloud\LoadBalancer\Resource\LoadBalancer',
             $this->service->billableLoadBalancer()
         );
     }

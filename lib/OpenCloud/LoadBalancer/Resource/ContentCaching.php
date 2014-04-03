@@ -28,7 +28,7 @@ namespace OpenCloud\LoadBalancer\Resource;
  *
  * @todo Should this be a separate class, or a property of LoadBalancer?
  */
-class ContentCaching extends SubResource
+class ContentCaching extends AbstractResource
 {
     /**
      * @var bool

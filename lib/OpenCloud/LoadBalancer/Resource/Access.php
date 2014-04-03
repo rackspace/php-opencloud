@@ -26,9 +26,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  * except for those with the ALLOW type, add a networkItem with an address of
  * "0.0.0.0/0" and a DENY type.
  */
-class Access extends SubResource
+class Access extends NonIdUriResource
 {
-
     public $id;
 
     /**
@@ -51,6 +50,7 @@ class Access extends SubResource
     protected static $json_name = "accessList";
     protected static $json_collection_name = "accessList";
     protected static $url_resource = "accesslist";
+
     protected $createKeys = array(
         'type',
         'address'
@@ -59,20 +59,5 @@ class Access extends SubResource
     public function update($params = array())
     {
         return $this->noUpdate();
-    }
-
-    protected function createJson()
-    {
-        $object = new \stdClass;
-
-        foreach ($this->createKeys as $item) {
-            $object->$item = $this->$item;
-        }
-
-        if ($top = $this->jsonName()) {
-            $object = array($top => array($object));
-        }
-
-        return $object;
     }
 }

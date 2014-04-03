@@ -27,9 +27,8 @@ namespace OpenCloud\LoadBalancer\Resource;
  * and not of the load balancer object. It's included here for convenience,
  * since it matches the pattern of the other LB subresources.
  */
-class AllowedDomain extends Readonly
+class AllowedDomain extends ReadOnlyResource
 {
-
     public $name;
 
     protected static $json_name = 'allowedDomain';
