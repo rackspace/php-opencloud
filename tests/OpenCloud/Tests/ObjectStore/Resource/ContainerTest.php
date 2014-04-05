@@ -98,7 +98,8 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $container = $this->container;
         $this->addMockSubscriber($this->makeResponse('[]', 200));
-        $container->delete(true);
+        $response = $container->delete(true);
+        $this->isResponse($response);
     }
 
     public function test_Object_List()
