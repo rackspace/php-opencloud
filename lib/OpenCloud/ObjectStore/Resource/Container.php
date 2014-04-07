@@ -163,7 +163,7 @@ class Container extends AbstractContainer
         }
 
         try {
-            $response = $this->getClient()->delete($this->getUrl())->send();
+            return $this->getClient()->delete($this->getUrl())->send();
         } catch (ClientErrorResponseException $e) {
             if ($e->getResponse()->getStatusCode() == 409) {
                 throw new ContainerException(sprintf(
