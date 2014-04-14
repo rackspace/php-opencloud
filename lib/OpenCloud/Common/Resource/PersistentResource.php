@@ -202,7 +202,7 @@ abstract class PersistentResource extends BaseResource
 
         foreach ($this->createKeys as $key) {
             if (null !== ($property = $this->getProperty($key))) {
-                $element->$key = $property;
+                $element->{$this->getAlias($key)} = $property;
             }
         }
 
@@ -211,6 +211,22 @@ abstract class PersistentResource extends BaseResource
         }
 
         return (object) array($this->jsonName() => (object) $element);
+    }
+
+    /**
+     * Returns the alias configured for the given key. If no alias exists
+     * it returns the original key.
+     *
+     * @param  string $key
+     * @return string
+     */
+    protected function getAlias($key)
+    {
+        if (isset($this->aliases) && !empty($this->aliases) && in_array($key, $this->aliases)) {
+            return array_search($key, $this->aliases);
+        }
+
+        return $key;
     }
 
     /**
