@@ -55,10 +55,11 @@ class User extends PersistentObject
     /** @var string The string password for this user */
     private $password;
 
-    protected $createKeys = array('username', 'email', 'enabled');
+    protected $createKeys = array('username', 'email', 'enabled', 'password');
     protected $updateKeys = array('username', 'email', 'enabled', 'RAX-AUTH:defaultRegion', 'RAX-AUTH:domainId', 'id');
 
     protected $aliases = array(
+        'name'                   => 'username',
         'RAX-AUTH:defaultRegion' => 'defaultRegion',
         'RAX-AUTH:domainId'      => 'domainId',
         'OS-KSADM:password'      => 'password'
