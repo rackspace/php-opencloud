@@ -222,7 +222,7 @@ abstract class PersistentResource extends BaseResource
      */
     protected function getAlias($key)
     {
-        if (isset($this->aliases) && !empty($this->aliases) && in_array($key, $this->aliases)) {
+        if (!empty($this->aliases[$key])) {
             return array_search($key, $this->aliases);
         }
 
