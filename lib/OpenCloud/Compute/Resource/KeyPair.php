@@ -64,14 +64,14 @@ class KeyPair extends PersistentObject
      */
     public function createJson()
     {
-        $object = (object)array(
+        $object = (object) array(
             'name' => $this->getName()
         );
         if (null !== ($key = $this->getPublicKey())) {
             $object->public_key = $key;
         }
 
-        return (object)array('keypair' => $object);
+        return (object) array('keypair' => $object);
     }
 
     public function create($params = array())

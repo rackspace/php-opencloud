@@ -98,7 +98,7 @@ class Message extends PersistentObject
 
     public function createJson()
     {
-        return (object)array(
+        return (object) array(
             'ttl'  => $this->getTtl(),
             'body' => $this->getBody()
         );
@@ -143,7 +143,6 @@ class Message extends PersistentObject
 
         return true;
     }
-
 
     /**
      * If this message has been claimed, retrieve the claim id.

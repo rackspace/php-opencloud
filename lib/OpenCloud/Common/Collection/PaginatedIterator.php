@@ -300,7 +300,7 @@ class PaginatedIterator extends ResourceIterator implements Iterator
                 foreach ($body->$collectionKey as $item) {
                     $subValues = $item->$elementKey;
                     unset($item->$elementKey);
-                    $data[] = array_merge((array)$item, (array)$subValues);
+                    $data[] = array_merge((array) $item, (array) $subValues);
                 }
             } else {
                 // The object has a top-level collection name only

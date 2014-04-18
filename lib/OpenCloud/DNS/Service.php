@@ -113,6 +113,7 @@ class Service extends CatalogService
     public function asyncRequest($url, $method = 'GET', $headers = array(), $body = null)
     {
         $response = $this->getClient()->createRequest($method, $url, $headers, $body)->send();
+
         return new Resource\AsyncResponse($this, Formatter::decode($response));
     }
 
@@ -133,9 +134,9 @@ class Service extends CatalogService
         $url->addPath('domains');
         $url->addPath('import');
 
-        $object = (object)array(
+        $object = (object) array(
             'domains' => array(
-                (object)array(
+                (object) array(
                     'contents'    => $data,
                     'contentType' => 'BIND_9'
                 )

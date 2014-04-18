@@ -272,7 +272,7 @@ class Service extends CatalogService
         $url = $this->resource('Changelog')->getUrl();
 
         if ($data) {
-            $url->setQuery(array('entityId' => (string)$data));
+            $url->setQuery(array('entityId' => (string) $data));
         }
 
         return $this->resourceList('Changelog', $url);

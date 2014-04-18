@@ -162,7 +162,7 @@ class Service extends AbstractService
         $body = Formatter::decode($response);
 
         if (!empty($body->Errors)) {
-            throw new Exception\BulkOperationException((array)$body->Errors);
+            throw new Exception\BulkOperationException((array) $body->Errors);
         }
 
         return $response;
@@ -189,7 +189,7 @@ class Service extends AbstractService
         try {
             $body = Formatter::decode($response);
             if (!empty($body->Errors)) {
-                throw new Exception\BulkOperationException((array)$body->Errors);
+                throw new Exception\BulkOperationException((array) $body->Errors);
             }
         } catch (Exceptions\JsonError $e) {
         }

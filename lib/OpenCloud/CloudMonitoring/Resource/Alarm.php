@@ -88,7 +88,7 @@ class Alarm extends AbstractResource
         }
 
         $url = $this->getParent()->url('test-alarm');
-        $body = json_encode((object)$params);
+        $body = json_encode((object) $params);
 
         $response = $this->getService()
             ->getClient()

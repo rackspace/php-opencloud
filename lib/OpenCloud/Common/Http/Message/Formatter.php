@@ -28,7 +28,7 @@ class Formatter
     public static function decode(Response $response)
     {
         if (strpos($response->getHeader(Header::CONTENT_TYPE), Mime::JSON) !== false) {
-            $string = (string)$response->getBody();
+            $string = (string) $response->getBody();
             $response = json_decode($string);
             self::checkJsonError($string);
 

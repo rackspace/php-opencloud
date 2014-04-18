@@ -383,7 +383,7 @@ class Collection extends Base
      *
      *      $coll = $obj->Collection();
      *      do {
-     *          while($item = $coll->Next()) {
+     *          while ($item = $coll->Next()) {
      *              // do something with the item
      *          }
      *      } while ($coll = $coll->NextPage());

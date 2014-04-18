@@ -171,9 +171,9 @@ class ServerMetadata extends Metadata
      */
     private function getMetadataJson()
     {
-        $object = (object)array(
-            'meta'     => (object)array(),
-            'metadata' => (object)array()
+        $object = (object) array(
+            'meta'     => (object) array(),
+            'metadata' => (object) array()
         );
 
         // different element if only a key is set
@@ -182,7 +182,7 @@ class ServerMetadata extends Metadata
         } else {
             $object->metadata = new \stdClass();
             foreach ($this->keylist() as $key) {
-                $object->metadata->$key = (string)$this->$key;
+                $object->metadata->$key = (string) $this->$key;
             }
         }
 

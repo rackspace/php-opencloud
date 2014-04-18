@@ -17,7 +17,6 @@
 
 namespace OpenCloud\Volume\Resource;
 
-use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**

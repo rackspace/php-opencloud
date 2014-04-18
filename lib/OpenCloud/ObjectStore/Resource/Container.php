@@ -168,7 +168,7 @@ class Container extends AbstractContainer
             if ($e->getResponse()->getStatusCode() == 409) {
                 throw new ContainerException(sprintf(
                     'The API returned this error: %s. You might have to delete all existing objects before continuing.',
-                    (string)$e->getResponse()->getBody()
+                    (string) $e->getResponse()->getBody()
                 ));
             } else {
                 throw $e;
@@ -257,7 +257,7 @@ class Container extends AbstractContainer
     {
         $headers = array('X-CDN-Enabled' => 'True');
         if ($ttl) {
-            $headers['X-TTL'] = (int)$ttl;
+            $headers['X-TTL'] = (int) $ttl;
         }
 
         $this->getClient()->put($this->getCdnService()->getUrl($this->name), $headers)->send();

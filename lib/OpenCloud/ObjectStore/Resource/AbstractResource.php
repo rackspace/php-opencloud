@@ -91,7 +91,7 @@ abstract class AbstractResource extends Base
         foreach ($headers as $header => $value) {
             // Only allow allow X-<keyword>-* headers to pass through after stripping them
             if (static::headerIsValidMetadata($header) && ($key = self::stripPrefix($header))) {
-                $output[$key] = (string)$value;
+                $output[$key] = (string) $value;
             }
         }
 

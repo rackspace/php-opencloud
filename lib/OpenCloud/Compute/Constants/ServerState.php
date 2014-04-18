@@ -17,7 +17,6 @@
 
 namespace OpenCloud\Compute\Constants;
 
-
 class ServerState
 {
     /**
@@ -98,7 +97,6 @@ class ServerState
      * The server is waiting for the resize operation to be confirmed so that the original server can be removed.
      */
     const VERIFY_RESIZE = 'VERIFY_RESIZE';
-
 
     const REBOOT_STATE_HARD = 'HARD';
     const REBOOT_STATE_SOFT = 'SOFT';

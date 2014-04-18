@@ -99,7 +99,6 @@ abstract class Base
         $setter = 'set' . $this->toCamel($property);
 
         if (method_exists($this, $setter)) {
-
             return call_user_func(array($this, $setter), $value);
         } elseif (false !== ($propertyVal = $this->propertyExists($property))) {
 

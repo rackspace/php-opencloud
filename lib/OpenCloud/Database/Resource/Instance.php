@@ -203,8 +203,8 @@ class Instance extends NovaResource
             );
         }
 
-        return (object)array(
-            'instance' => (object)array(
+        return (object) array(
+            'instance' => (object) array(
                     'flavorRef' => $this->flavor->links[0]->href,
                     'name'      => $this->name,
                     'volume'    => $this->volume
@@ -217,7 +217,7 @@ class Instance extends NovaResource
      */
     private function restartJson()
     {
-        return (object)array('restart' => new \stdClass);
+        return (object) array('restart' => new \stdClass);
     }
 
     /**
@@ -225,8 +225,8 @@ class Instance extends NovaResource
      */
     private function resizeJson($flavorRef)
     {
-        return (object)array(
-            'resize' => (object)array('flavorRef' => $flavorRef)
+        return (object) array(
+            'resize' => (object) array('flavorRef' => $flavorRef)
         );
     }
 
@@ -235,9 +235,9 @@ class Instance extends NovaResource
      */
     private function resizeVolumeJson($size)
     {
-        return (object)array(
-            'resize' => (object)array(
-                    'volume' => (object)array('size' => $size)
+        return (object) array(
+            'resize' => (object) array(
+                    'volume' => (object) array('size' => $size)
                 )
         );
     }

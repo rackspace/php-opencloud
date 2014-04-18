@@ -96,6 +96,7 @@ class Service extends CatalogService
     protected function getSchemaUrl($path)
     {
         $url = clone $this->getUrl();
+
         return $url->addPath('schemas')->addPath($path);
     }
 
@@ -107,6 +108,7 @@ class Service extends CatalogService
     public function getImagesSchema()
     {
         $data = $this->getClient()->get($this->getSchemaUrl('images'))->send()->json();
+
         return Schema::factory($data);
     }
 
@@ -118,6 +120,7 @@ class Service extends CatalogService
     public function getImageSchema()
     {
         $data = $this->getClient()->get($this->getSchemaUrl('image'))->send()->json();
+
         return Schema::factory($data);
     }
 
@@ -129,6 +132,7 @@ class Service extends CatalogService
     public function getMembersSchema()
     {
         $data = $this->getClient()->get($this->getSchemaUrl('members'))->send()->json();
+
         return Schema::factory($data);
     }
 
@@ -140,6 +144,7 @@ class Service extends CatalogService
     public function getMemberSchema()
     {
         $data = $this->getClient()->get($this->getSchemaUrl('member'))->send()->json();
+
         return Schema::factory($data);
     }
 }

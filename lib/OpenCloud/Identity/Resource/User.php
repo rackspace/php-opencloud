@@ -201,7 +201,7 @@ class User extends PersistentObject
             }
         }
 
-        return (object)array('user' => $array);
+        return (object) array('user' => $array);
     }
 
     /**
@@ -217,7 +217,7 @@ class User extends PersistentObject
             'OS-KSADM:password' => $newPassword
         );
 
-        $json = json_encode((object)array('user' => $array));
+        $json = json_encode((object) array('user' => $array));
 
         return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
     }

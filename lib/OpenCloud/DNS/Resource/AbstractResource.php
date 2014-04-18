@@ -54,7 +54,7 @@ abstract class AbstractResource extends PersistentResource
             );
         }
 
-        return (object)array(
+        return (object) array(
             self::jsonCollectionName() => array(
                 $this->getJson($this->getCreateKeys())
             )

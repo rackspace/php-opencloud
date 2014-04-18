@@ -568,18 +568,18 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
 
     protected function createJson()
     {
-        $element = (object)array();
+        $element = (object) array();
 
         foreach ($this->createKeys as $key) {
             if ($key == 'nodes') {
                 foreach ($this->nodes as $node) {
-                    $nodeObject = (object)array();
+                    $nodeObject = (object) array();
                     foreach ($node->createKeys as $key) {
                         if (!empty($node->$key)) {
                             $nodeObject->$key = $node->$key;
                         }
                     }
-                    $element->nodes[] = (object)$nodeObject;
+                    $element->nodes[] = (object) $nodeObject;
                 }
             } elseif ($key == 'virtualIps') {
                 foreach ($this->virtualIps as $virtualIp) {
@@ -590,7 +590,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
             }
         }
 
-        $object = (object)array($this->jsonName() => $element);
+        $object = (object) array($this->jsonName() => $element);
 
         return $object;
     }

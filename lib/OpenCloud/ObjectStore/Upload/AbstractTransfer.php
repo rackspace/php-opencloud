@@ -218,7 +218,7 @@ class AbstractTransfer
         $parts = array();
 
         foreach ($this->transferState as $part) {
-            $parts[] = (object)array(
+            $parts[] = (object) array(
                 'path'       => $part->getPath(),
                 'etag'       => $part->getETag(),
                 'size_bytes' => $part->getContentLength()
