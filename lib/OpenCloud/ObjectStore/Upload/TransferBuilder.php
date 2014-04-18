@@ -121,7 +121,7 @@ class TransferBuilder
         // Create TransferState object for later use
         $transferState = TransferState::factory();
 
-        // Instantiate Concurrent-/ConsecutiveTransfer 
+        // Instantiate Concurrent-/ConsecutiveTransfer
         $transferClass = isset($this->options['concurrency']) && $this->options['concurrency'] > 1
             ? __NAMESPACE__ . '\\ConcurrentTransfer'
             : __NAMESPACE__ . '\\ConsecutiveTransfer';

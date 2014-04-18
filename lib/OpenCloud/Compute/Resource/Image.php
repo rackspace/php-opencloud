@@ -58,13 +58,13 @@ class Image extends PersistentObject implements ImageInterface
         return $this->id;
     }
 
-    public function create($params = array()) 
-    { 
-        return $this->noCreate(); 
+    public function create($params = array())
+    {
+        return $this->noCreate();
     }
 
-    public function update($params = array()) 
-    { 
+    public function update($params = array())
+    {
         return $this->noUpdate();
     }
 }

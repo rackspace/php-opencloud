@@ -376,7 +376,7 @@ class Container extends AbstractContainer
      * to save on bandwidth and time.
      *
      * @param  $name    Object name
-     * @return boolean  True, if object exists in this container; false otherwise. 
+     * @return boolean  True, if object exists in this container; false otherwise.
      */
     public function objectExists($name)
     {

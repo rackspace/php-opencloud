@@ -57,4 +57,4 @@ class ArrayAccess implements \ArrayAccess
     {
         return $this->offsetExists($offset) ? $this->elements[$offset] : null;
     }
-} 
+}

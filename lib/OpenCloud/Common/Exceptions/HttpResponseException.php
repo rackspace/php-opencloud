@@ -54,4 +54,4 @@ class HttpResponseException extends \Exception
     {
         return $this->response;
     }
-} 
+}

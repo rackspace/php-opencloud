@@ -55,7 +55,7 @@ abstract class AbstractContainer extends AbstractResource
         return $this->metadata->getProperty(HeaderConst::TRANS_ID);
     }
 
-    public abstract function isCdnEnabled();
+    abstract public function isCdnEnabled();
 
     public function hasLogRetention()
     {

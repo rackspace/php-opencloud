@@ -24,7 +24,7 @@ namespace OpenCloud\Image\Resource\JsonPatch;
  * @see http://tools.ietf.org/html/rfc6902
  * @package OpenCloud\Images\Resource\JsonPatch
  */
-class Document 
+class Document
 {
     /** @var array JSON Patch operations */
     protected $operations;
@@ -78,4 +78,4 @@ class Document
     {
         return (string) $this->getResponseBody();
     }
-} 
+}

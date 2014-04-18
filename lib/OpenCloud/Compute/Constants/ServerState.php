@@ -102,4 +102,4 @@ class ServerState
 
     const REBOOT_STATE_HARD = 'HARD';
     const REBOOT_STATE_SOFT = 'SOFT';
-} 
+}

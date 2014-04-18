@@ -21,4 +21,4 @@ class Mime
 {
     const JSON = 'application/json';
     const TEXT = 'text/plain';
-} 
+}

@@ -70,4 +70,4 @@ class Header
     const USER_AGENT = 'User-Agent';
     const VARY = 'Vary';
     const VIA = 'Via';
-} 
+}

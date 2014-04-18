@@ -48,4 +48,4 @@ abstract class NovaResource extends PersistentResource
         // POST the message
         return $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
     }
-} 
+}

@@ -37,4 +37,4 @@ interface ImageInterface
      * @return string
      */
     public function getId();
-} 
+}

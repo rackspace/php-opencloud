@@ -17,7 +17,7 @@
 
 namespace OpenCloud\Image\Enum;
 
-class OperationType 
+class OperationType
 {
     const ADD = 'add';
     const REMOVE = 'remove';

@@ -22,4 +22,4 @@ class Document
     const OP    = 'op';
     const PATH  = 'path';
     const VALUE = 'value';
-} 
+}

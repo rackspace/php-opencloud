@@ -39,7 +39,7 @@ abstract class AbstractResource extends Base
     /** @var \OpenCloud\Common\Service\ServiceInterface The service object. */
     protected $service;
 
-    public function  __construct(ServiceInterface $service)
+    public function __construct(ServiceInterface $service)
     {
         $this->service = $service;
         $this->metadata = new $this->metadataClass;
