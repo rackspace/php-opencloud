@@ -17,7 +17,6 @@
 
 namespace OpenCloud\Compute\Constants;
 
-
 class Network
 {
     /**

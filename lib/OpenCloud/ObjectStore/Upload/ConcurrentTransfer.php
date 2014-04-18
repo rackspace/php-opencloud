@@ -31,7 +31,7 @@ class ConcurrentTransfer extends AbstractTransfer
 {
     public function transfer()
     {
-        $totalParts = (int)ceil($this->entityBody->getContentLength() / $this->partSize);
+        $totalParts = (int) ceil($this->entityBody->getContentLength() / $this->partSize);
         $workers = min($totalParts, $this->options['concurrency']);
         $parts = $this->collectParts($workers);
 

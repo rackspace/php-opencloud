@@ -56,7 +56,7 @@ class Zone extends ReadOnlyResource
             );
         }
 
-        $params = (object)array(
+        $params = (object) array(
             'target'          => $options['target'],
             'target_resolver' => $options['target_resolver']
         );

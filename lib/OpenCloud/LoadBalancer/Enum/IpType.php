@@ -22,7 +22,7 @@ namespace OpenCloud\LoadBalancer\Enum;
  *
  * @package OpenCloud\LoadBalancer\Enum
  */
-class IpType 
+class IpType
 {
     const PUBLIC_TYPE = 'PUBLIC';
     const SERVICENET_TYPE = 'SERVICENET';

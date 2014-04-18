@@ -23,4 +23,4 @@ class State
     const ERROR = 'ERROR';
     const DEFAULT_TIMEOUT = 3600;
     const DEFAULT_INTERVAL = 10;
-} 
+}

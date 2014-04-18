@@ -99,7 +99,6 @@ abstract class Base
         $setter = 'set' . $this->toCamel($property);
 
         if (method_exists($this, $setter)) {
-
             return call_user_func(array($this, $setter), $value);
         } elseif (false !== ($propertyVal = $this->propertyExists($property))) {
 
@@ -153,7 +152,7 @@ abstract class Base
      * @param  bool $capitalise Optional flag which allows for word capitalization.
      * @return mixed
      */
-    function toCamel($string, $capitalise = true)
+    public function toCamel($string, $capitalise = true)
     {
         if ($capitalise) {
             $string = ucfirst($string);
@@ -170,7 +169,7 @@ abstract class Base
      * @param $string
      * @return mixed
      */
-    function toUnderscores($string)
+    public function toUnderscores($string)
     {
         $string = lcfirst($string);
 

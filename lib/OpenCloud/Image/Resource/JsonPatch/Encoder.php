@@ -63,4 +63,4 @@ class Encoder
     {
         return strtr((string) $value, self::$transformations);
     }
-} 
+}

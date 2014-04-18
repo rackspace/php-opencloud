@@ -150,7 +150,7 @@ class Node extends PersistentResource
             $params['weight'] = $this->weight;
         }
 
-        return (object)array('node' => (object)$params);
+        return (object) array('node' => (object) $params);
     }
 
     /**

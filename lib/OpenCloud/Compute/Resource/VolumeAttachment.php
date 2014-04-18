@@ -75,7 +75,7 @@ class VolumeAttachment extends PersistentObject
             }
         }
 
-        return (object)array(
+        return (object) array(
             $this->jsonName() => $object
         );
     }

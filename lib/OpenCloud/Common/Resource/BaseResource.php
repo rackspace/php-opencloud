@@ -56,6 +56,7 @@ abstract class BaseResource extends Base
     public function setService(ServiceInterface $service)
     {
         $this->service = $service;
+
         return $this;
     }
 
@@ -68,6 +69,7 @@ abstract class BaseResource extends Base
         if (null === $this->service) {
             throw new ServiceException('No service defined');
         }
+
         return $this->service;
     }
 
@@ -78,6 +80,7 @@ abstract class BaseResource extends Base
     public function setParent(BaseResource $parent)
     {
         $this->parent = $parent;
+
         return $this;
     }
 
@@ -89,6 +92,7 @@ abstract class BaseResource extends Base
         if (null === $this->parent) {
             $this->parent = $this->getService();
         }
+
         return $this->parent;
     }
 
@@ -122,6 +126,7 @@ abstract class BaseResource extends Base
         }
 
         $this->metadata = $metadata;
+
         return $this;
     }
 

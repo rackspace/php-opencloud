@@ -2,7 +2,6 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 
@@ -54,4 +53,4 @@ class HttpResponseException extends \Exception
     {
         return $this->response;
     }
-} 
+}

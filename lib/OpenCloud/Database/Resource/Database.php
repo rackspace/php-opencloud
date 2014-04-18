@@ -118,9 +118,9 @@ class Database extends PersistentResource
      */
     protected function createJson(array $params = array())
     {
-        $database = (object)array_merge(array('name' => $this->getName(), $params));
+        $database = (object) array_merge(array('name' => $this->getName(), $params));
 
-        return (object)array(
+        return (object) array(
             'databases' => array($database)
         );
     }

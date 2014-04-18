@@ -138,17 +138,17 @@ class User extends PersistentResource
      */
     protected function createJson()
     {
-        $user = (object)array(
+        $user = (object) array(
             'name'      => $this->name,
             'password'  => $this->password,
             'databases' => array()
         );
 
         foreach ($this->databases as $dbName) {
-            $user->databases[] = (object)array('name' => $dbName);
+            $user->databases[] = (object) array('name' => $dbName);
         }
 
-        return (object)array(
+        return (object) array(
             'users' => array($user)
         );
     }

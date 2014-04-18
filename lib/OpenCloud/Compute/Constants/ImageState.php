@@ -24,4 +24,4 @@ class ImageState
     const ERROR = 'ERROR';
     const SAVING = 'SAVING';
     const UNKNOWN = 'UNKNOWN';
-} 
+}

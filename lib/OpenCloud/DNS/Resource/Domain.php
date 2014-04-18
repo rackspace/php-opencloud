@@ -225,7 +225,7 @@ class Domain extends AbstractResource
         // add records, if any
         if (count($this->records)) {
 
-            $recordsObject = (object)array('records' => array());
+            $recordsObject = (object) array('records' => array());
 
             foreach ($this->records as $record) {
                 $recordObject = new \stdClass;
@@ -242,7 +242,7 @@ class Domain extends AbstractResource
         // add subdomains, if any
         if (count($this->subdomains)) {
 
-            $subdomainsObject = (object)array('domains' => array());
+            $subdomainsObject = (object) array('domains' => array());
 
             foreach ($this->subdomains as $subdomain) {
                 $subdomainObject = new \stdClass;
