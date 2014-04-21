@@ -98,9 +98,19 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $container = $this->container;
         $this->addMockSubscriber($this->makeResponse('[]', 200));
-        $container->delete(true);
+        $response = $container->delete(true);
+        $this->isResponse($response);
     }
 
+    /**
+     * @expectedException \OpenCloud\ObjectStore\Exception\ContainerException
+     */
+    public function test_Delete_NonEmpty_Container()
+    {
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 409));
+        $container->delete();
+    }
     public function test_Object_List()
     {
         $container = $this->container;
