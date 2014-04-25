@@ -21,6 +21,7 @@ use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Constants\Header as HeaderConst;
 use OpenCloud\Common\Constants\Mime as MimeConst;
 use OpenCloud\Common\Exceptions\JsonError;
+use Psr\Log\LoggerInterface;
 
 /**
  * The root class for all other objects used or defined by this SDK.
@@ -32,17 +33,25 @@ use OpenCloud\Common\Exceptions\JsonError;
 abstract class Base
 {
     /**
-     * @var array Holds all the properties added by overloading.
+     * Holds all the properties added by overloading.
+     *
+     * @var array
      */
     private $properties = array();
 
     /**
-     * Debug status.
+     * The logger instance
      *
-     * @var    LoggerInterface
-     * @access private
+     * @var LoggerInterface
      */
     private $logger;
+
+    /**
+     * The aliases configure for the properties of the instance.
+     *
+     * @var array
+     */
+    protected $aliases = array();
 
     /**
      * @return static
@@ -269,13 +278,6 @@ abstract class Base
      *
      * @param  mixed $info
      * @param        bool
-     * @throws Exceptions\InvalidArgumentError
-     */
-    /**
-     * @param  mixed $info       The data structure that is populating the object.
-     * @param  bool  $setObjects If set to TRUE, then this method will try to populate associated resources as objects
-     *                           rather than anonymous data types. So, a Server being populated might stock a Network
-     *                           object instead of a stdClass object.
      * @throws Exceptions\InvalidArgumentError
      */
     public function populate($info, $setObjects = true)
