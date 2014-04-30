@@ -16,8 +16,8 @@ Choose one of the following two options:
     use OpenCloud\OpenStack;
 
      $client = new OpenStack('<OPENSTACK CLOUD IDENTITY ENDPOINT URL>', array(
-         'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME>',
-         'apiKey'   => '<YOUR RACKSPACE CLOUD ACCOUNT API KEY>'
+         'username' => '<YOUR OPENSTACK USERNAME>',
+         'password' => '<YOUR OPENSTACK PASSWORD>'
      ));
     ```
 
