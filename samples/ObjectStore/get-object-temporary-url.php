@@ -44,9 +44,9 @@ $objectStoreService = $client->objectStoreService(null, $region);
 // 3. Get container.
 $container = $objectStoreService->getContainer('logos');
 
-// 4. Get object.
+// 4. Get object metadata.
 $objectName = 'php-elephant.jpg';
-$object = $container->getObject($objectName);
+$object = $container->getPartialObject($objectName);
 
 // 5. Get object's temporary URL.
 $expirationTimeInSeconds = 3600; // one hour from now
