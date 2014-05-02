@@ -260,6 +260,16 @@ class Queue extends PersistentResource
             $options['ids'] = implode(',', $options['ids']);
         }
 
+        // PHP will cast boolean values to integers (true => 1, false => 0) but
+        // the Queues REST API expects strings as query parameters ("true" and "false").
+        foreach ($options as $optionKey => $optionValue) {
+            if (true === $optionValue) {
+                $options[$optionKey] = "true";
+            } else if (false === $optionValue) {
+                $options[$optionKey] = "false";
+            }
+        }
+
         $url = $this->getUrl('messages', $options);
 
         $options = $this->makeResourceIteratorOptions(__NAMESPACE__ . '\\Message') + array(
