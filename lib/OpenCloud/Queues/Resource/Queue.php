@@ -265,7 +265,7 @@ class Queue extends PersistentResource
         foreach ($options as $optionKey => $optionValue) {
             if (true === $optionValue) {
                 $options[$optionKey] = "true";
-            } else if (false === $optionValue) {
+            } elseif (false === $optionValue) {
                 $options[$optionKey] = "false";
             }
         }
