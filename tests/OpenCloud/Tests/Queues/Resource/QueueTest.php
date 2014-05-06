@@ -163,4 +163,29 @@ class QueueTest extends QueuesTestCase
         $this->assertInstanceOf('OpenCloud\Queues\Resource\Claim', $claim);
         $this->assertEquals($this->queue, $claim->getParent());
     }
+
+    public function test_List_Messages_Boolean_Casting()
+    {
+
+        // Test true (boolean) casts to "true" (string)
+        $messages = $this->queue->listMessages(array('echo' => true));
+        $options = $messages->getOptions();
+        $this->assertEquals('true', $options['baseUrl']->getQuery()->get('echo'));
+
+        // Test "true" (string) casts to "true" (string)
+        $messages = $this->queue->listMessages(array('echo' => 'true'));
+        $options = $messages->getOptions();
+        $this->assertEquals('true', $options['baseUrl']->getQuery()->get('echo'));
+
+        // Test false (boolean) casts to "false" (string)
+        $messages = $this->queue->listMessages(array('echo' => false));
+        $options = $messages->getOptions();
+        $this->assertEquals('false', $options['baseUrl']->getQuery()->get('echo'));
+
+        // Test "false" (string) casts to "false" (string)
+        $messages = $this->queue->listMessages(array('echo' => 'false'));
+        $options = $messages->getOptions();
+        $this->assertEquals('false', $options['baseUrl']->getQuery()->get('echo'));
+
+    } 
 }
