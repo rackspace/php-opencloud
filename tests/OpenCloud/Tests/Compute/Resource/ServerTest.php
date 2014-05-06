@@ -32,7 +32,6 @@ class PublicServer extends Server
 
 class ServerTest extends ComputeTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\Compute\Resource\Server', $this->server);
@@ -56,12 +55,24 @@ class ServerTest extends ComputeTestCase
         $this->assertEquals('2001:4800:780e:0510:d87b:9cbc:ff04:513a', $this->server->ip(6));
     }
 
-    public function test_Create()
+    public function test_Create_With_Ids()
     {
-        $resp = $this->service->server()->create(array(
-            'flavor' => $this->service->flavorList()->first()
+        $response = $this->service->server()->create(array(
+            'flavorId' => 'foo',
+            'imageId'  => 'bar'
         ));
-        $this->assertNotNull($resp->getStatusCode());
+
+        $this->assertNotNull($response->getStatusCode());
+    }
+
+    public function test_Create_With_Objects()
+    {
+        $response = $this->service->server()->create(array(
+            'flavor' => $this->service->flavor(),
+            'image'  => $this->service->image()
+        ));
+
+        $this->assertNotNull($response->getStatusCode());
     }
 
     public function test_Create_With_KeyPair()
