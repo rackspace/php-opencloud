@@ -107,7 +107,7 @@ class Queue extends PersistentResource
             $this->setMetadata($params);
         }
 
-        $json = json_encode((object)$this->getMetadata()->toArray());
+        $json = json_encode((object) $this->getMetadata()->toArray());
 
         return $this->getClient()->put($this->getUrl('metadata'), self::getJsonHeader(), $json)->send();
     }
@@ -131,7 +131,7 @@ class Queue extends PersistentResource
 
     public function createJson()
     {
-        return (object)array(
+        return (object) array(
             'queue_name' => $this->getName(),
             'metadata'   => $this->getMetadata(false)
         );
@@ -260,6 +260,16 @@ class Queue extends PersistentResource
             $options['ids'] = implode(',', $options['ids']);
         }
 
+        // PHP will cast boolean values to integers (true => 1, false => 0) but
+        // the Queues REST API expects strings as query parameters ("true" and "false").
+        foreach ($options as $optionKey => $optionValue) {
+            if (true === $optionValue) {
+                $options[$optionKey] = "true";
+            } elseif (false === $optionValue) {
+                $options[$optionKey] = "false";
+            }
+        }
+
         $url = $this->getUrl('messages', $options);
 
         $options = $this->makeResourceIteratorOptions(__NAMESPACE__ . '\\Message') + array(
@@ -314,7 +324,7 @@ class Queue extends PersistentResource
         $grace = (isset($options['grace'])) ? $options['grace'] : Claim::GRACE_DEFAULT;
         $ttl = (isset($options['ttl'])) ? $options['ttl'] : Claim::TTL_DEFAULT;
 
-        $json = json_encode((object)array(
+        $json = json_encode((object) array(
             'grace' => $grace,
             'ttl'   => $ttl
         ));

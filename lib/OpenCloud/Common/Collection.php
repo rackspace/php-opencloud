@@ -342,7 +342,7 @@ class Collection extends Base
      * Example:
      * <code>
      * $services = $connection->ServiceList();
-     * $services->Select(function($item){ return $item->region=='ORD';});
+     * $services->Select(function ($item) { return $item->region=='ORD';});
      * // now the $services Collection only has items from the ORD region
      * </code>
      *
@@ -383,7 +383,7 @@ class Collection extends Base
      *
      *      $coll = $obj->Collection();
      *      do {
-     *          while($item = $coll->Next()) {
+     *          while ($item = $coll->Next()) {
      *              // do something with the item
      *          }
      *      } while ($coll = $coll->NextPage());

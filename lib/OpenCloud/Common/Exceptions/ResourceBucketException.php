@@ -17,8 +17,7 @@
 
 namespace OpenCloud\Common\Exceptions;
 
-
 class ResourceBucketException extends \Exception
 {
 
-} 
+}

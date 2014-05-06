@@ -17,7 +17,7 @@
 
 namespace OpenCloud\Image\Enum;
 
-class MemberStatus 
+class MemberStatus
 {
     const PENDING  = 'pending';
     const ACCEPTED = 'accepted';

@@ -55,10 +55,11 @@ class User extends PersistentObject
     /** @var string The string password for this user */
     private $password;
 
-    protected $createKeys = array('username', 'email', 'enabled');
+    protected $createKeys = array('username', 'email', 'enabled', 'password');
     protected $updateKeys = array('username', 'email', 'enabled', 'RAX-AUTH:defaultRegion', 'RAX-AUTH:domainId', 'id');
 
     protected $aliases = array(
+        'name'                   => 'username',
         'RAX-AUTH:defaultRegion' => 'defaultRegion',
         'RAX-AUTH:domainId'      => 'domainId',
         'OS-KSADM:password'      => 'password'
@@ -172,7 +173,7 @@ class User extends PersistentObject
     }
 
     /**
-     * @param $username Set the username
+     * @param $password Set the password
      */
     public function setPassword($password)
     {
@@ -180,13 +181,16 @@ class User extends PersistentObject
     }
 
     /**
-     * @return string Get the username
+     * @return string Get the password
      */
     public function getPassword()
     {
         return $this->password;
     }
 
+    /**
+     * @return string
+     */
     public function primaryKeyField()
     {
         return 'id';
@@ -201,11 +205,11 @@ class User extends PersistentObject
             }
         }
 
-        return (object)array('user' => $array);
+        return (object) array('user' => $array);
     }
 
     /**
-     * This operation will set this user's password to a new value.
+     * This operation will set the user's password to a new value.
      *
      * @param $newPassword The new password to use for this user
      * @return \Guzzle\Http\Message\Response
@@ -217,7 +221,7 @@ class User extends PersistentObject
             'OS-KSADM:password' => $newPassword
         );
 
-        $json = json_encode((object)array('user' => $array));
+        $json = json_encode((object) array('user' => $array));
 
         return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
     }

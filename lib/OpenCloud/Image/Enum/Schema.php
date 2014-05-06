@@ -17,7 +17,7 @@
 
 namespace OpenCloud\Image\Enum;
 
-class Schema 
+class Schema
 {
     const NAME = 'name';
     const PROPERTIES = 'properties';

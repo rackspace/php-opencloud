@@ -260,8 +260,8 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             );
         }
 
-        $object = (object)array(
-            'rebuild' => (object)array(
+        $object = (object) array(
+            'rebuild' => (object) array(
                     'imageRef'  => $params['image']->id(),
                     'adminPass' => $params['adminPass'],
                     'name'      => (array_key_exists('name', $params) ? $params['name'] : $this->name)
@@ -287,7 +287,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $type = ServerState::REBOOT_STATE_HARD;
         }
 
-        $object = (object)array('reboot' => (object)array('type' => $type));
+        $object = (object) array('reboot' => (object) array('type' => $type));
 
         return $this->action($object);
     }
@@ -310,9 +310,9 @@ class Server extends NovaResource implements HasPtrRecordsInterface
         }
 
         // construct a createImage object for jsonization
-        $object = (object)array('createImage' => (object)array(
+        $object = (object) array('createImage' => (object) array(
                 'name'     => $name,
-                'metadata' => (object)$metadata
+                'metadata' => (object) $metadata
             ));
 
         $response = $this->action($object);
@@ -348,8 +348,8 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $request = $this->getClient()->delete($url);
         } else {
             // Set image schedule
-            $object = (object)array('image_schedule' =>
-                                        (object)array('retention' => $retention)
+            $object = (object) array('image_schedule' =>
+                                        (object) array('retention' => $retention)
             );
             $body = json_encode($object);
             $request = $this->getClient()->post($url, self::getJsonHeader(), $body);
@@ -357,21 +357,21 @@ class Server extends NovaResource implements HasPtrRecordsInterface
 
         $body = Formatter::decode($request->send());
 
-        return (isset($body->image_schedule)) ? $body->image_schedule : (object)array();
+        return (isset($body->image_schedule)) ? $body->image_schedule : (object) array();
     }
 
     /**
      * Initiates the resize of a server
      *
      * @api
-     * @param Flavor $flavorRef a Flavor object indicating the new server size
+     * @param  Flavor  $flavorRef a Flavor object indicating the new server size
      * @return boolean TRUE on success; FALSE on failure
      */
     public function resize(Flavor $flavorRef)
     {
         // construct a resize object for jsonization
-        $object = (object)array(
-            'resize' => (object)array('flavorRef' => $flavorRef->id)
+        $object = (object) array(
+            'resize' => (object) array('flavorRef' => $flavorRef->id)
         );
 
         return $this->action($object);
@@ -385,7 +385,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      */
     public function resizeConfirm()
     {
-        $object = (object)array('confirmResize' => null);
+        $object = (object) array('confirmResize' => null);
         $response = $this->action($object);
         $this->refresh($this->id);
 
@@ -400,7 +400,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      */
     public function resizeRevert()
     {
-        $object = (object)array('revertResize' => null);
+        $object = (object) array('revertResize' => null);
 
         return $this->action($object);
     }
@@ -409,13 +409,13 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      * Sets the root password on the server
      *
      * @api
-     * @param string $newPassword The new root password for the server
+     * @param  string  $newPassword The new root password for the server
      * @return boolean TRUE on success; FALSE on failure
      */
     public function setPassword($newPassword)
     {
-        $object = (object)array(
-            'changePassword' => (object)array('adminPass' => $newPassword)
+        $object = (object) array(
+            'changePassword' => (object) array('adminPass' => $newPassword)
         );
 
         return $this->action($object);
@@ -440,7 +440,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             );
         }
 
-        $data = (object)array('rescue' => 'none');
+        $data = (object) array('rescue' => 'none');
 
         $response = $this->action($data);
         $body = Formatter::decode($response);
@@ -465,7 +465,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             throw new Exceptions\ServerActionError(Lang::translate('Server has no ID; cannot Unescue()'));
         }
 
-        $object = (object)array('unrescue' => null);
+        $object = (object) array('unrescue' => null);
 
         return $this->action($object);
     }
@@ -504,7 +504,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
         $body = Formatter::decode($response);
 
         return (isset($body->addresses)) ? $body->addresses :
-            ((isset($body->network)) ? $body->network : (object)array());
+            ((isset($body->network)) ? $body->network : (object) array());
     }
 
     /**
@@ -591,7 +591,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
     public function console($type = 'novnc')
     {
         $action = (strpos('spice', $type) !== false) ? 'os-getSPICEConsole' : 'os-getVNCConsole';
-        $object = (object)array($action => (object)array('type' => $type));
+        $object = (object) array($action => (object) array('type' => $type));
 
         $response = $this->action($object);
         $body = Formatter::decode($response);
@@ -612,7 +612,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
         }
 
         // Base object
-        $server = (object)array(
+        $server = (object) array(
             'name'      => $this->name,
             'imageRef'  => $this->imageRef,
             'flavorRef' => $this->flavorRef
@@ -643,7 +643,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
                     continue;
                 }
                 // Stock networks array
-                $server->networks[] = (object)array('uuid' => $network->id);
+                $server->networks[] = (object) array('uuid' => $network->id);
             }
         }
 
@@ -652,7 +652,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $server->personality = array();
             foreach ($this->personality as $path => $data) {
                 // Stock personality array
-                $server->personality[] = (object)array(
+                $server->personality[] = (object) array(
                     'path'     => $path,
                     'contents' => $data
                 );
@@ -675,11 +675,11 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $server->user_data = $this->user_data;
         }
 
-        return (object)array('server' => $server);
+        return (object) array('server' => $server);
     }
 
     protected function updateJson($params = array())
     {
-        return (object)array('server' => (object)$params);
+        return (object) array('server' => (object) $params);
     }
 }

@@ -155,7 +155,7 @@ class Stack extends PersistentObject
             ));
         }
 
-        $object = (object)array('disable_rollback' => false, 'timeout_mins' => 60);
+        $object = (object) array('disable_rollback' => false, 'timeout_mins' => 60);
 
         foreach ($this->createKeys as $property) {
             if (empty($this->$property)) {

@@ -113,8 +113,8 @@ class Network extends PersistentObject
      */
     protected function createJson()
     {
-        return (object)array(
-            'network' => (object)array(
+        return (object) array(
+            'network' => (object) array(
                     'cidr'  => $this->cidr,
                     'label' => $this->label
                 )
@@ -150,7 +150,7 @@ class Network extends PersistentObject
      */
     public function getResourcePath()
     {
-        if (strpos((string)$this->getService()->getUrl(), 'rackspacecloud.com') !== false) {
+        if (strpos((string) $this->getService()->getUrl(), 'rackspacecloud.com') !== false) {
             return self::$url_resource;
         } else {
             return self::$openStackResourcePath;

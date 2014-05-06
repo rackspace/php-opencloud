@@ -95,6 +95,14 @@ class ResourceIterator extends ArrayCollection implements Iterator
     }
 
     /**
+     * @return array Options for the resource iterator.
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
      * Set a particular option.
      *
      * @param $key

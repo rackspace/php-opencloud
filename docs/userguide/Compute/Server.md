@@ -52,7 +52,6 @@ There are a few parameter requirements when creating a server:
 * **name** - needs to be a string;
 - **flavor** - a `OpenCloud\Compute\Resource\Flavor` object, that is populated with the values of a real API flavor;
 * **image** - a `OpenCloud\Compute\Resource\Image` object, that is populated with the values of a real API image;
-* **networks** - an array of `OpenCloud\Compute\Resource\Network` objects which represent which networks you compute instance will be placed in.
 
 Firstly we need to find our flavor and image using their UUIDs. For more information about these concepts, including how to find flavor/image UUIDs, please consult §§ 3-4 in the [Getting Started guide](https://github.com/rackspace/php-opencloud/blob/master/docs/getting-started.md#3-select-your-server-image).
 
@@ -72,11 +71,7 @@ try {
     $response = $server->create(array(
         'name'     => 'My lovely server',
         'image'    => $ubuntuImage,
-        'flavor'   => $twoGbFlavor,
-        'networks' => array(
-            $compute->network(Network::RAX_PUBLIC),
-            $compute->network(Network::RAX_PRIVATE)
-        )
+        'flavor'   => $twoGbFlavor
     ));
 } catch (\Guzzle\Http\Exception\BadResponseException $e) {
 
@@ -99,7 +94,7 @@ name|The server name. The name that you specify in a create request becomes the 
 flavor|A populated `OpenCloud\Compute\Resource\Flavor` object representing your chosen flavor|object|Yes
 image|A populated `OpenCloud\Compute\Resource\Image` object representing your chosen image|object|Yes
 OS-DCF:diskConfig|The disk configuration value. You can use two options: `AUTO` or `MANUAL`. <br><br>`AUTO` means the server is built with a single partition the size of the target flavor disk. The file system is automatically adjusted to fit the entire partition. This keeps things simple and automated. `AUTO` is valid only for images and servers with a single partition that use the EXT3 file system. This is the default setting for applicable Rackspace base images.<br><br>`MANUAL` means the server is built using whatever partition scheme and file system is in the source image. If the target flavor disk is larger, the remaining disk space is left unpartitioned. This enables images to have non-EXT3 file systems, multiple partitions, and so on, and enables you to manage the disk configuration.|string|No
-networks|An array of populated `OpenCloud\Compute\Resource\Network` objects that indicate which networks your instance resides in.|array|Yes
+networks|An array of populated `OpenCloud\Compute\Resource\Network` objects that indicate which networks your instance resides in.|array|No
 metadata|An array of arbitrary data (key-value pairs) that adds additional meaning to your server.|array|No
 keypair|You can install a registered keypair onto your newly created instance, thereby providing scope for keypair-based authentication.|array|No
 personality|Files that you can upload to your newly created instance's filesystem.|array|No

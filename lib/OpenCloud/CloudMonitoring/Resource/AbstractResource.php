@@ -46,7 +46,7 @@ abstract class AbstractResource extends PersistentObject
 
     protected function updateJson($params = array())
     {
-        $object = (object)$params;
+        $object = (object) $params;
 
         foreach (static::$requiredKeys as $requiredKey) {
             if (!$this->getProperty($requiredKey)) {
@@ -80,7 +80,7 @@ abstract class AbstractResource extends PersistentObject
      */
     public function testParams($params = array(), $debug = false)
     {
-        $json = json_encode((object)$params);
+        $json = json_encode((object) $params);
 
         // send the request
         $response = $this->getService()

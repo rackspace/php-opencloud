@@ -22,7 +22,7 @@ namespace OpenCloud\CloudMonitoring\Resource;
  *
  * @extends AbstractResource
  */
-class ReadonlyResource extends AbstractResource
+class ReadOnlyResource extends AbstractResource
 {
 
     public function create($params = array())

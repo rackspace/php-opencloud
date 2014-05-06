@@ -123,7 +123,7 @@ class Claim extends PersistentObject
      */
     public function update($params = array())
     {
-        $object = (object)array(
+        $object = (object) array(
             'grace' => $this->getGrace(),
             'ttl'   => $this->getTtl()
         );

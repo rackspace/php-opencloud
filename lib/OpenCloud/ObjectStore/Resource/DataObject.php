@@ -136,10 +136,10 @@ class DataObject extends AbstractResource
         $headers = $response->getHeaders();
 
         return $this->setMetadata($headers, true)
-            ->setContentType((string)$headers[HeaderConst::CONTENT_TYPE])
-            ->setLastModified((string)$headers[HeaderConst::LAST_MODIFIED])
-            ->setContentLength((string)$headers[HeaderConst::CONTENT_LENGTH])
-            ->setEtag((string)$headers[HeaderConst::ETAG]);
+            ->setContentType((string) $headers[HeaderConst::CONTENT_TYPE])
+            ->setLastModified((string) $headers[HeaderConst::LAST_MODIFIED])
+            ->setContentLength((string) $headers[HeaderConst::CONTENT_LENGTH])
+            ->setEtag((string) $headers[HeaderConst::ETAG]);
     }
 
     public function refresh()
@@ -213,7 +213,7 @@ class DataObject extends AbstractResource
      */
     public function isDirectory()
     {
-        return (bool)$this->directory;
+        return (bool) $this->directory;
     }
 
     /**
@@ -345,7 +345,7 @@ class DataObject extends AbstractResource
         return $this->getService()
             ->getClient()
             ->createRequest('COPY', $this->getUrl(), array(
-                'Destination' => (string)$destination
+                'Destination' => (string) $destination
             ))
             ->send();
     }
@@ -370,7 +370,7 @@ class DataObject extends AbstractResource
     public function getTemporaryUrl($expires, $method)
     {
         $method = strtoupper($method);
-        $expiry = time() + (int)$expires;
+        $expiry = time() + (int) $expires;
 
         // check for proper method
         if ($method != 'GET' && $method != 'PUT') {

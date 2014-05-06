@@ -17,7 +17,6 @@
 
 namespace OpenCloud\Compute\Constants;
 
-
 class ServerState
 {
     /**
@@ -99,7 +98,6 @@ class ServerState
      */
     const VERIFY_RESIZE = 'VERIFY_RESIZE';
 
-
     const REBOOT_STATE_HARD = 'HARD';
     const REBOOT_STATE_SOFT = 'SOFT';
-} 
+}
