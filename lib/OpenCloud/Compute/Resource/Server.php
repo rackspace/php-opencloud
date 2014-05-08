@@ -228,6 +228,14 @@ class Server extends NovaResource implements HasPtrRecordsInterface
         $this->id = null;
         $this->status = null;
 
+        if (isset($params['imageId'])) {
+            $this->imageRef = $params['imageId'];
+        }
+
+        if (isset($params['flavorId'])) {
+            $this->flavorRef = $params['flavorId'];
+        }
+
         return parent::create($params);
     }
 
