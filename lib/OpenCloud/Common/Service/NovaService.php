@@ -50,7 +50,7 @@ abstract class NovaService extends CatalogService
         if ($details === true) {
             $path .= '/detail';
         }
-        
+
         return $this->collection('OpenCloud\Compute\Resource\Flavor', $this->getUrl($path, $filter));
     }
 
