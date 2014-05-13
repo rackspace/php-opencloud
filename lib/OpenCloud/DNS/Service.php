@@ -147,7 +147,7 @@ class Service extends CatalogService
         $json = json_encode($object);
 
         // perform the request
-        return $this->asyncRequest($url, 'POST', array(), $json);
+        return $this->asyncRequest($url, 'POST', self::getJsonHeader(), $json);
     }
 
     /**
