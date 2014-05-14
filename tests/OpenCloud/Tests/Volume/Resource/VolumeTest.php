@@ -60,4 +60,14 @@ class VolumeTest extends VolumeTestCase
     {
         $this->assertEquals('volumes', $this->volume->ResourceName());
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUpdateDisallowedProperties()
+    {
+      $this->volume->rename(array(
+          'size' => 314
+      ));      
+    }
 }
