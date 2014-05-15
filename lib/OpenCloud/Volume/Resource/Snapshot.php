@@ -46,6 +46,39 @@ class Snapshot extends PersistentResource
         'force'
     );
 
+    /**
+     * Rename either the `display_description` or the `display_name` properties
+     *
+     * @param array $params
+     * @return \Guzzle\Http\Message\Response
+     * @throws \InvalidArgumentException
+     */
+    public function rename(array $params = array())
+    {
+        $data = array();
+
+        $keys = array('display_description', 'display_name');
+
+        foreach ($params as $key => $value) {
+            if (in_array($key, $keys)) {
+                $data[$key] = $value;
+            } else {
+                throw new \InvalidArgumentException(sprintf(
+                    'You cannot update the %s snapshot property. Valid keys are: %s',
+                    $key, implode($keys, ',')
+                ));
+            }
+        }
+
+        $json = json_encode(array(
+           'snapshot' => $data
+        ));
+
+        return $this->getClient()
+            ->put($this->getUrl(), self::getJsonHeader(), $json)
+            ->send();
+    }
+
     public function update($params = array())
     {
         return $this->noUpdate();
