@@ -43,7 +43,8 @@ class ServiceTest extends ComputeTestCase
      */
     public function test_Deprecated_Endpoint()
     {
-        $this->getClient()->computeService('cloudServers', 'DFW');
+        $computeService = $this->getClient()->computeService('cloudServers', 'DFW');
+        var_dump($computeService->getUrl()->getPath());
     }
 
     public function testServer()
@@ -76,4 +77,24 @@ class ServiceTest extends ComputeTestCase
         $this->assertNotContains('FOO', $this->service->namespaces());
         $this->assertContains('os-flavor-rxtx', $this->service->namespaces());
     }
+
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\UnsupportedVersionError
+     */
+    public function testV1IsNotSupported()
+    {
+        $this->addMockSubscriber($this->getTestFilePath('Catalog_Compute_V1.0'));
+        $this->getClient()->authenticate();
+
+        $computeService = $this->getClient()->computeService(null, 'DFW');
+    }
+      
+    public function testV1Dot1IsSupported()
+    {
+        $this->addMockSubscriber($this->getTestFilePath('Catalog_Compute_V1.1'));
+        $this->getClient()->authenticate();
+
+        $computeService = $this->getClient()->computeService(null, 'DFW');
+        $this->assertStringStartsWith('/v1.1', $computeService->getUrl()->getPath());
+    }      
 }

@@ -1,0 +1,88 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Nov 2013 14:20:06 GMT
+Content-Length: 4504
+Content-Type: application/json
+X-Compute-Request-Id: req-201e302a-9618-4f3d-90e3-b83e141aae53
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "access": {
+        "serviceCatalog": [
+            {
+                "endpoints": [
+                    {
+                        "publicURL": "https://iad.servers.api.rackspacecloud.com/v1.1/987654",
+                        "region": "IAD",
+                        "tenantId": "987654",
+                        "versionId": "2",
+                        "versionInfo": "https://iad.servers.api.rackspacecloud.com/v1.1",
+                        "versionList": "https://iad.servers.api.rackspacecloud.com/"
+                    },
+                    {
+                        "publicURL": "https://dfw.servers.api.rackspacecloud.com/v1.1/987654",
+                        "region": "DFW",
+                        "tenantId": "987654",
+                        "versionId": "2",
+                        "versionInfo": "https://dfw.servers.api.rackspacecloud.com/v1.1",
+                        "versionList": "https://dfw.servers.api.rackspacecloud.com/"
+                    },
+                    {
+                        "publicURL": "https://syd.servers.api.rackspacecloud.com/v1.1/987654",
+                        "region": "SYD",
+                        "tenantId": "987654",
+                        "versionId": "2",
+                        "versionInfo": "https://syd.servers.api.rackspacecloud.com/v1.1",
+                        "versionList": "https://syd.servers.api.rackspacecloud.com/"
+                    },
+                    {
+                        "publicURL": "https://hkg.servers.api.rackspacecloud.com/v1.1/987654",
+                        "region": "HKG",
+                        "tenantId": "987654",
+                        "versionId": "2",
+                        "versionInfo": "https://hkg.servers.api.rackspacecloud.com/v1.1",
+                        "versionList": "https://hkg.servers.api.rackspacecloud.com/"
+                    },
+                    {
+                        "publicURL": "https://ord.servers.api.rackspacecloud.com/v1.1/987654",
+                        "region": "ORD",
+                        "tenantId": "987654",
+                        "versionId": "2",
+                        "versionInfo": "https://ord.servers.api.rackspacecloud.com/v1.1",
+                        "versionList": "https://ord.servers.api.rackspacecloud.com/"
+                    }
+                ],
+                "name": "cloudServersOpenStack",
+                "type": "compute"
+            }
+        ],
+        "token": {
+            "RAX-AUTH:authenticatedBy": [
+                "APIKEY"
+            ],
+            "expires": "2014-05-18T15:49:18.240Z",
+            "id": "abcdef0123456789abcdef0123456",
+            "tenant": {
+                "id": "987654",
+                "name": "987654"
+            }
+        },
+        "user": {
+            "RAX-AUTH:defaultRegion": "IAD",
+            "id": "1234567890qwertyuiop1234567",
+            "name": "mock_user",
+            "roles": [
+                {
+                    "description": "User Admin Role.",
+                    "id": "3",
+                    "name": "identity:user-admin"
+                },
+                {
+                    "description": "A Role that allows a user access to keystone Service methods",
+                    "id": "6",
+                    "name": "compute:default",
+                    "tenantId": "987654"
+                }
+            ]
+        }
+    }
+}
