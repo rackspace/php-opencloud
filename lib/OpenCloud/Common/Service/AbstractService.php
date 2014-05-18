@@ -33,7 +33,7 @@ use OpenCloud\Common\Exceptions;
 abstract class AbstractService extends Base implements ServiceInterface
 {
     /**
-     * @var OpenCloud\Common\Http\Client The client which interacts with the API.
+     * @var \OpenCloud\Common\Http\Client The client which interacts with the API.
      */
     protected $client;
 
@@ -61,7 +61,7 @@ abstract class AbstractService extends Base implements ServiceInterface
     }
 
     /**
-     * @return OpenCloud\Common\Http\Client
+     * @return \OpenCloud\Common\Http\Client
      */
     public function getClient()
     {
