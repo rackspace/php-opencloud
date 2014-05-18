@@ -44,7 +44,6 @@ class ServiceTest extends ComputeTestCase
     public function test_Deprecated_Endpoint()
     {
         $computeService = $this->getClient()->computeService('cloudServers', 'DFW');
-        var_dump($computeService->getUrl()->getPath());
     }
 
     public function testServer()
