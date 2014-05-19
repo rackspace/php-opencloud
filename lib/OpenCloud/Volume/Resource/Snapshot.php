@@ -57,10 +57,10 @@ class Snapshot extends PersistentResource
     {
         $data = array();
 
-        $keys = array('display_description', 'display_name');
+        $keys = array('display_description' => true, 'display_name' => true);
 
         foreach ($params as $key => $value) {
-            if (in_array($key, $keys)) {
+            if (isset($keys[$key])) {
                 $data[$key] = $value;
             } else {
                 throw new \InvalidArgumentException(sprintf(
