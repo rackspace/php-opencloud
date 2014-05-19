@@ -59,4 +59,14 @@ class SnapshotTest extends VolumeTestCase
     {
         $this->assertEquals('snapshots', $this->snapshot->ResourceName());
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUpdateDisallowedProperties()
+    {
+      $this->volume->rename(array(
+          'volume_id' => 'abcd-ef12'
+      ));      
+    }
 }

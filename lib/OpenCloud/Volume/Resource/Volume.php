@@ -84,7 +84,7 @@ class Volume extends PersistentResource
         $keys = array('display_description', 'display_name');
 
         foreach ($params as $key => $value) {
-            if (isset($keys[$key])) {
+            if (in_array($key, $keys)) {
                 $data[$key] = $value;
             } else {
                 throw new \InvalidArgumentException(sprintf(
