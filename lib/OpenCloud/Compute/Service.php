@@ -19,7 +19,6 @@ namespace OpenCloud\Compute;
 
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Client;
-use OpenCloud\Common\Lang;
 use OpenCloud\Common\Service\NovaService;
 
 /**
@@ -65,7 +64,7 @@ class Service extends NovaService
         // @see https://github.com/rackspace/php-opencloud/issues/353
         if (strpos($this->getUrl()->getPath(), '/v1.0/') !== false) {
             throw new Exceptions\UnsupportedVersionError(sprintf(
-                Lang::translate('Sorry; API version /v1.0 is not supported [%s]'),
+                'Sorry; API version /v1.0 is not supported [%s]',
                 $this->getUrl()
             ));
         }
