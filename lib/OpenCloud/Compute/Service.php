@@ -81,7 +81,7 @@ class Service extends NovaService
      *
      * @api
      * @param string $id - if specified, the server with the ID is retrieved
-     * @returns Compute\Server object
+     * @returns Resource\Server object
      */
     public function server($id = null)
     {
