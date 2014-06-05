@@ -113,7 +113,8 @@ class PtrRecord extends Record
         }
 
         $url = clone $this->getUrl();
-        $url->addPath('rdns')
+        $url->addPath('..')
+            ->normalizePath()
             ->addPath($this->link_rel)
             ->setQuery($params);
 
