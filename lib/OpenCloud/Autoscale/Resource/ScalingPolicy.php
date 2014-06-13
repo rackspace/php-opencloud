@@ -51,6 +51,20 @@ class ScalingPolicy extends AbstractResource
         return $this->getService()->resource('Webhook', $id, $this);
     }
 
+    public function createWebhooks(array $webhooks)
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('webhooks');
+
+        $body = json_encode($webhooks);
+        $this->checkJsonError();
+
+        return $this->getService()
+            ->getClient()
+            ->post($url, self::getJsonHeader(), $body)
+            ->send();
+    }
+
     public function execute()
     {
         return $this->getClient()->post($this->url('execute'))->send();

@@ -114,4 +114,19 @@ class GroupTest extends AutoscaleTestCase
     {
         $this->group->update();
     }
+
+    public function testCreatingScalingPolicies()
+    {
+        $this->addMockSubscriber($this->makeResponse(null, 201));
+        $response = $this->group->createScalingPolicies(array(
+            (object) array(
+                'name'     => 'My policy',
+                'change'   => 1,
+                'type'     => 'webhook',
+                'cooldown' => 360
+            )
+        ));
+
+        $this->isResponse($response);
+    }
 }

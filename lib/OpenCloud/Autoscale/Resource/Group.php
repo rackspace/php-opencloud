@@ -201,4 +201,18 @@ class Group extends AbstractResource
 
         return $config;
     }
+
+    public function createScalingPolicies(array $policies)
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('policies');
+
+        $body = json_encode($policies);
+        $this->checkJsonError();
+
+        return $this->getService()
+            ->getClient()
+            ->post($url, self::getJsonHeader(), $body)
+            ->send();
+    }
 }
