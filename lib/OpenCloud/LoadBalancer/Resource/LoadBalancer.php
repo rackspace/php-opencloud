@@ -543,7 +543,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         $url = clone $this->getUrl();
         $url->addPath('contentcaching');
 
-        $body = array('contentcaching' => (bool) $bool);
+        $body = array('contentCaching' => array('enabled' => (bool) $bool));
+        $body = json_encode($body);
+        $this->checkJsonError();
 
         return $this->getClient()->put($url, self::getJsonHeader(), $body)->send();
     }
