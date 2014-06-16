@@ -69,4 +69,21 @@ class ScalingPolicyTest extends AutoscaleTestCase
         $this->addMockSubscriber(new Response(201));
         $this->policy->getWebhook()->create(array('name' => 'New hook'));
     }
+
+    public function testCreatingWebhooks()
+    {
+        $this->addMockSubscriber($this->makeResponse(null, 201));
+
+        $response = $this->policy->createWebhooks(array(
+            (object) array(
+                'name'     => 'My webhook',
+                'metadata' => array(
+                    'firstKey'  => 'foo',
+                    'secondKey' => 'bar'
+                )
+            )
+        ));
+
+        $this->isResponse($response);
+    }
 }
