@@ -157,7 +157,8 @@ class Image extends AbstractSchemaResource implements ImageInterface
     public function getMember($memberId)
     {
         $url = clone $this->getUrl();
-        $url->addPath('members')->addPath((string) $memberId);
+        $url->addPath('members');
+        $url->addPath((string) $memberId);
 
         $data = $this->getClient()->get($url)->send()->json();
 
@@ -172,8 +173,26 @@ class Image extends AbstractSchemaResource implements ImageInterface
      */
     public function createMember($tenantId)
     {
+        $url = $this->getUrl();
+        $url->addPath('members');
+
         $json = json_encode(array('member' => $tenantId));
-        return $this->getClient()->post($this->getUrl(), self::getJsonHeader(), $json)->send();
+        return $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
+    }
+
+    /**
+     * Delete a member from this image
+     *
+     * @param $tenantId
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function deleteMember($tenantId)
+    {
+        $url = $this->getUrl();
+        $url->addPath('members');
+        $url->addPath((string)$tenantId);
+
+        return $this->getClient()->delete($url)->send();
     }
 
     /**
