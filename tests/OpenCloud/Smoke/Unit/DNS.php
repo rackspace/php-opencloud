@@ -26,6 +26,17 @@ class DNS extends AbstractUnit implements UnitInterface
         return $this->getConnection()->dnsService();
     }
 
+    public function getWaiterCallback()
+    {
+        return function($object) {
+            if (!empty($object->error)) {
+                var_dump($object->error); die;
+            } else {
+                $this->stepInfoDotter("Waiting...");
+            }
+        };
+    }
+
     public function main()
     {
         $domainName = 'domain-' . time() . '.com';
