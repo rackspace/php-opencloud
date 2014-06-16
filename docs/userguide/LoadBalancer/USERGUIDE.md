@@ -425,16 +425,25 @@ foreach ($accessList as $networkItem) {
 }
 ```
 
-### Add Network Item To Access List
+### Add Network Items To Access List
 
-You can add a network item to a load balancer's access list.
+You can add network items to a load balancer's access list very easily:
 
 ```php
-$networkItem = $loadBalancer->access();
-$networkItem->type = 'ALLOW';
-$networkItem->address = '206.160.165.0/24';
-$networkItem->create();
+$loadBalancer->createAccessList(array(
+    (object) array(
+        'type'    => 'ALLOW',
+        'address' => '206.160.165.1/24'
+    ),
+    (object) array(
+        'type'    => 'DENY',
+        'address' => '0.0.0.0/0'
+    )
+));
 ```
+
+In the above example, we allowed access for 1 IP address, and used the "0.0.0.0"
+ wildcard to blacklist all other traffic.
 
 ### Remove Network Item From Access List
 
@@ -566,12 +575,15 @@ For a full list, with explanations, of required and optional attributes, please 
 ### Update or delete
 
 ```php
-# Update
+// Update
 $healthMonitor->update(array(
-    'delay' => 20
+    'delay'   => 120,
+    'timeout' => 60,,
+    'type'    => 'CONNECT'
+    'attemptsBeforeDeactivation' => 3
 ));
 
-# Delete
+// Delete
 $healthMonitor->delete();
 ```
 
