@@ -578,7 +578,7 @@ For a full list, with explanations, of required and optional attributes, please 
 // Update
 $healthMonitor->update(array(
     'delay'   => 120,
-    'timeout' => 60,,
+    'timeout' => 60,
     'type'    => 'CONNECT'
     'attemptsBeforeDeactivation' => 3
 ));
