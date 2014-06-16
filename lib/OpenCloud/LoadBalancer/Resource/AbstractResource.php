@@ -45,10 +45,14 @@ abstract class AbstractResource extends PersistentResource
      */
     protected function refreshFromParent()
     {
-        $url = clone $this->getParent();
+        $url = clone $this->getParent()->getUrl();
         $url->addPath($this->resourceName());
 
-        $this->refresh(null, $url);
+        $response = $this->getClient()->get($url)->send();
+
+        if (null !== ($decoded = $this->parseResponse($response))) {
+            $this->populate($decoded);
+        }
     }
 
     protected function createJson()
