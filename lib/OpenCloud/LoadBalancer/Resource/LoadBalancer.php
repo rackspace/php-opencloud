@@ -155,7 +155,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         'accessList' => 'Access'
     );
 
-    private $createKeys = array(
+    protected $createKeys = array(
         'name',
         'port',
         'protocol',
@@ -290,10 +290,10 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         if ($ipVersion) {
             switch ($ipVersion) {
                 case 4:
-                    $object->version = IpType::IPv4;
+                    $object->ipVersion = IpType::IPv4;
                     break;
                 case 6:
-                    $object->version = IpType::IPv6;
+                    $object->ipVersion = IpType::IPv6;
                     break;
                 default:
                     throw new Exceptions\DomainError(sprintf(
@@ -311,8 +311,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         if ($this->Id()) {
             $virtualIp = $this->virtualIp();
             $virtualIp->type = $type;
-            $virtualIp->ipVersion = $object->version;
-
+            $virtualIp->ipVersion = $object->ipVersion;
             return $virtualIp->create();
         } else {
             // queue it
@@ -436,6 +435,27 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     public function access($data = null)
     {
         return $this->getService()->resource('Access', $data, $this);
+    }
+
+    /**
+     * Creates an access list. You must provide an array of \stdClass objects,
+     * each of which contains `type' and `address' properties. Valid types for
+     * the former are: "DENY" or "ALLOW". The address must be a valid IP
+     * address, either v4 or v6.
+     *
+     * @param stdClass[] $list
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function createAccessList(array $list)
+    {
+        $url = $this->getUrl();
+        $url->addPath('accesslist');
+
+        $json = json_encode($list);
+        $this->checkJsonError();
+
+        return $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
     }
 
     /**

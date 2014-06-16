@@ -313,4 +313,22 @@ class LoadBalancerTest extends LoadBalancerTestCase
     {
         $this->loadBalancer->addVirtualIp(123, 5);
     }
+
+    public function test_Creating_Access_List()
+    {
+        $this->addMockSubscriber($this->makeResponse());
+
+        $response = $this->loadBalancer->createAccessList(array(
+            (object) array(
+                'type'    => 'ALLOW',
+                'address' => '206.160.165.1/24'
+            ),
+            (object) array(
+                'type'    => 'DENY',
+                'address' => '0.0.0.0/0'
+            )
+        ));
+
+        $this->isResponse($response);
+    }
 }
