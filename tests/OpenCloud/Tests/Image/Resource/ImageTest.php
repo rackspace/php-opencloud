@@ -112,11 +112,18 @@ EOT;
         $this->assertInstanceOf('OpenCloud\Image\Resource\Member', $this->image->getMember('foo'));
     }
 
-    public function test_Create()
+    public function test_Create_Member()
     {
         $this->addMockSubscriber(new Response(201));
 
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $this->image->createMember(12345));
+    }
+
+    public function test_Delete_Member()
+    {
+        $this->addMockSubscriber(new Response(201));
+
+        $this->assertInstanceOf('Guzzle\Http\Message\Response', $this->image->deleteMember(12345));
     }
 
     public function test_Create_Tag()
