@@ -17,6 +17,7 @@
 
 namespace OpenCloud\Tests\LoadBalancer\Resource;
 
+use Guzzle\Http\Message\Response;
 use OpenCloud\Tests\LoadBalancer\LoadBalancerTestCase;
 
 class LoadBalancerTest extends LoadBalancerTestCase
@@ -330,5 +331,16 @@ class LoadBalancerTest extends LoadBalancerTestCase
         ));
 
         $this->isResponse($response);
+    }
+
+    public function test_Health_Monitor_Is_Refreshed_With_Bespoke_Method()
+    {
+        $body = '{"healthMonitor":{"type": "CONNECT","delay": 10,"timeout": 10,"attemptsBeforeDeactivation": 3}}';
+        $this->addMockSubscriber($this->makeResponse($body, 200));
+
+        $health = $this->loadBalancer->healthMonitor();
+        $health->refresh();
+
+        $this->assertEquals($health->type, 'CONNECT');
     }
 }
