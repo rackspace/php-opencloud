@@ -165,14 +165,14 @@ class PaginatedIterator extends ResourceIterator implements Iterator
 
     public function valid()
     {
-        if ($this->getOption('limit.total') !== false && $this->position >= $this->getOption('limit.total')) {
+        $totalLimit = $this->getOption('limit.total');
+        if ($totalLimit !== false && $this->position >= $totalLimit) {
             return false;
         } elseif (isset($this->elements[$this->position])) {
             return true;
         } elseif ($this->shouldAppend() === true) {
             $before = $this->count();
             $this->appendNewCollection();
-
             return ($this->count() > $before) ? true : false;
         }
 
@@ -181,7 +181,10 @@ class PaginatedIterator extends ResourceIterator implements Iterator
 
     protected function shouldAppend()
     {
-        return $this->currentMarker && $this->position % $this->getOption('limit.page') == 0;
+        return $this->currentMarker && (
+            $this->nextUrl ||
+            $this->position % $this->getOption('limit.page') == 0
+        );
     }
 
     /**
