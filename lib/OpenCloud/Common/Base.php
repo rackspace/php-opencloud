@@ -241,10 +241,11 @@ abstract class Base
     /**
      * Sets the logger.
      *
-     * @param Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
+     *
      * @return $this
      */
-    public function setLogger(Log\LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
 
@@ -254,7 +255,7 @@ abstract class Base
     /**
      * Returns the Logger object.
      *
-     * @return \OpenCloud\Common\Log\AbstractLogger
+     * @return LoggerInterface
      */
     public function getLogger()
     {

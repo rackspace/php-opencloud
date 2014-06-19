@@ -22,7 +22,6 @@ use OpenCloud\Rackspace;
 
 class OpenStackTest extends \PHPUnit_Framework_TestCase
 {
-
     private $client;
     private $credentials = array('username' => 'foo', 'password' => 'bar', 'tenantName' => 'baz');
 
@@ -82,7 +81,7 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
     public function test_Logger()
     {
         $this->assertInstanceOf(
-            'OpenCloud\Common\Log\LoggerInterface',
+            'Psr\Log\LoggerInterface',
             $this->client->getLogger()
         );
     }
