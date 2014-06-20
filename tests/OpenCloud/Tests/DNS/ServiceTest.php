@@ -92,4 +92,32 @@ class ServiceTest extends DnsTestCase
 
         $this->assertTrue(in_array('RATE_LIMIT', $arr));
     }
+
+    /**
+     * @mockFile AsyncJobs
+     */
+    public function testListingAsyncJobsReturnsIterator()
+    {
+        $jobs = $this->service->listAsyncJobs();
+        $this->assertInstanceOf('OpenCloud\DNS\Collection\DnsIterator', $jobs);
+
+        $count = 0;
+
+        foreach ($jobs as $job) {
+            $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $job);
+            $count++;
+        }
+
+        $this->assertEquals(2, $count);
+    }
+
+    /**
+     * @mockFile AsyncJob
+     */
+    public function testGettingJob()
+    {
+        $job = $this->service->getAsyncJob('foo');
+
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\AsyncResponse', $job);
+    }
 }
