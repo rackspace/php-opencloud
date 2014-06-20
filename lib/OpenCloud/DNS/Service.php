@@ -19,8 +19,9 @@ namespace OpenCloud\DNS;
 
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\CatalogService;
-use OpenCloud\Compute\Resource\Server;
 use OpenCloud\DNS\Collection\DnsIterator;
+use OpenCloud\DNS\Resource\AsyncResponse;
+use OpenCloud\DNS\Resource\Domain;
 use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 
 /**
@@ -62,7 +63,7 @@ class Service extends CatalogService
      */
     public function domainList($filter = array())
     {
-        $url = $this->getUrl(Resource\Domain::resourceName());
+        $url = $this->getUrl(Domain::resourceName());
         $url->setQuery($filter);
 
         return $this->resourceList('Domain', $url);
@@ -114,7 +115,7 @@ class Service extends CatalogService
     {
         $response = $this->getClient()->createRequest($method, $url, $headers, $body)->send();
 
-        return new Resource\AsyncResponse($this, Formatter::decode($response));
+        return new AsyncResponse($this, Formatter::decode($response));
     }
 
     /**
@@ -178,5 +179,30 @@ class Service extends CatalogService
         $body = Formatter::decode($response);
 
         return $body->limitTypes;
+    }
+
+    public function listAsyncJobs(array $query = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('status');
+        $url->setQuery($query);
+
+        return DnsIterator::factory($this, array(
+            'baseUrl'        => $url,
+            'resourceClass'  => 'AsyncResponse',
+            'key.collection' => 'asyncResponses'
+        ));
+    }
+
+    public function getAsyncJob($jobId, $showDetails = true)
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('status');
+        $url->addPath((string) $jobId);
+        $url->setQuery(array('showDetails' => ($showDetails) ? 'true' : 'false'));
+
+        $response = $this->getClient()->get($url)->send();
+
+        return new AsyncResponse($this, Formatter::decode($response));
     }
 }
