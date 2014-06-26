@@ -90,9 +90,8 @@ This call provides the BIND (Berkeley Internet Name Domain) 9 formatted contents
 
 ```php
 $asyncResponse = $domain->export();
-$body = $asyncResponse->waitUntilComplete();
-
-echo $body->contents;
+$body = $asyncResponse->waitFor('COMPLETE');
+echo $body['contents'];
 ```
 
 ## Create domain
