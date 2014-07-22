@@ -123,9 +123,12 @@ class Claim extends PersistentObject
      */
     public function update($params = array())
     {
+        $grace = (isset($params['grace'])) ? $params['grace'] : $this->getGrace();
+        $ttl = (isset($params['ttl'])) ? $params['ttl'] : $this->getGrace();
+
         $object = (object) array(
-            'grace' => $this->getGrace(),
-            'ttl'   => $this->getTtl()
+            'grace' => (int) $grace,
+            'ttl'   => (int) $ttl
         );
 
         $json = json_encode($object);
