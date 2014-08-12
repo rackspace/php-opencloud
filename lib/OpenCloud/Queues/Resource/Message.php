@@ -78,7 +78,7 @@ class Message extends PersistentObject
     public function setHref($href)
     {
         // We have to extract the ID out of the Href. Nice...
-        preg_match('#.+/([\w\d]+)\??#', $href, $match);
+        preg_match('#.+/([\w\d]+)#', $href, $match);
         if (!empty($match)) {
             $this->setId($match[1]);
         }
