@@ -74,7 +74,7 @@ Here's how you enable it:
 #### Install the plugin
 
 ```bash
-php composer.phar install guzzle/plugin-log:~3.8
+php composer.phar require guzzle/plugin-log:~3.8
 ```
 
 #### Add to your client

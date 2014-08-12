@@ -94,23 +94,11 @@ Results are ordered by age, oldest message first.
 A hash of options.
 
 |Name|Style|Type|Description|
-|----|-----|----|-----------|
-|marker|Query|​String|Specifies an opaque string that the client can use to request the next batch of messages. The marker
-parameter communicates to the server which messages the client has already received. If you do not specify a value, the
-API returns all messages at the head of the queue (up to the limit). Optional.|
-|limit|Query|​Integer|When more messages are available than can be returned in a single request, the client can pick up
-the next batch of messages by simply using the URI template parameters returned from the previous call in the "next" field.
-Specifies up to 10 messages (the default value) to return. If you do not specify a value for the limit parameter, the
-default value of 10 is used. Optional.|
-|echo|Query|​Boolean|Determines whether the API returns a client's own messages. The echo parameter is a Boolean value
-(true or false) that determines whether the API returns a client's own messages, as determined by the uuid portion of
-the User-Agent header. If you do not specify a value, echo uses the default value of false. If you are experimenting
-with the API, you might want to set echo=true in order to see the messages that you posted. The echo parameter is optional.
-|include_claimed|Query|​Boolean|Determines whether the API returns claimed messages and unclaimed messages. The
-include_claimed parameter is a Boolean value (true or false) that determines whether the API returns claimed messages
-and unclaimed messages. If you do not specify a value, include_claimed uses the default value of false
-(only unclaimed messages are returned). Optional.
-|----|-----|----|-----------|
+|----|----|----|----|
+|marker|Query|String|Specifies an opaque string that the client can use to request the next batch of messages. The marker parameter communicates to the server which messages the client has already received. If you do not specify a value, the API returns all messages at the head of the queue (up to the limit). Optional.|
+|limit|Query|Integer|When more messages are available than can be returned in a single request, the client can pick up the next batch of messages by simply using the URI template parameters returned from the previous call in the "next" field. Specifies up to 10 messages (the default value) to return. If you do not specify a value for the limit parameter, the default value of 10 is used. Optional.|
+|echo|Query|Boolean|Determines whether the API returns a client's own messages. The echo parameter is a Boolean value (true or false) that determines whether the API returns a client's own messages, as determined by the uuid portion of the User-Agent header. If you do not specify a value, echo uses the default value of false. If you are experimenting with the API, you might want to set echo=true in order to see the messages that you posted. The echo parameter is optional.
+|include_claimed|Query|​Boolean|Determines whether the API returns claimed messages and unclaimed messages. The include_claimed parameter is a Boolean value (true or false) that determines whether the API returns claimed messages and unclaimed messages. If you do not specify a value, include_claimed uses the default value of false (only unclaimed messages are returned). Optional.
 
 ### 4.3 Code sample
 
