@@ -186,6 +186,15 @@ class Server extends NovaResource implements HasPtrRecordsInterface
     public $user_data;
 
     /**
+     * {@inheritDoc}
+     */
+    protected $aliases = array(
+        'OS-EXT-STS:vm_state'    => 'extendedStatus',
+        'OS-EXT-STS:task_state'  => 'taskStatus',
+        'OS-EXT-STS:power_state' => 'powerStatus',
+    );
+
+    /**
      * Creates a new Server object and associates it with a Compute service
      *
      * @param mixed $info
