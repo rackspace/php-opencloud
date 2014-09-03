@@ -140,6 +140,24 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      */
     public $metadata;
 
+    /**
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ext_status.html
+     * @var string Virtual machine status.
+     */
+    public $extendedStatus;
+
+    /**
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ext_status.html
+     * @var string Status indicating a running task
+     */
+    public $taskStatus;
+
+    /**
+     * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ext_status.html
+     * @var int Power status of the VM
+     */
+    public $powerStatus;
+
     protected static $json_name = 'server';
     protected static $url_resource = 'servers';
 
