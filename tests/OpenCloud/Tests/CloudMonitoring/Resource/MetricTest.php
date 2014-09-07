@@ -101,6 +101,25 @@ class MetricTest extends CloudMonitoringTestCase
     }
 
     /**
+     * @mockFile Metrics_DataPoints
+     */
+    public function testDataPointsInfo()
+    {
+        $data = $this->check->fetchDataPoints(self::METRIC_NAME, array(
+            'resolution' => 'FULL',
+            'select'     => 'average',
+            'from'       => 1369756378450,
+            'to'         => 1369760279018
+        ));
+
+        foreach ($data as $info) {
+            $this->assertObjectHasAttribute('numPoints', $info);
+            $this->assertObjectHasAttribute('timestamp', $info);
+            $this->assertObjectHasAttribute('average', $info);
+        }
+    }
+
+    /**
      * @expectedException \OpenCloud\CloudMonitoring\Exception\MetricException
      */
     public function testFetchWithoutToFails()
