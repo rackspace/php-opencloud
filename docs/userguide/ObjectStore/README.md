@@ -46,6 +46,8 @@ In the example above, you are connecting to the ``DFW`` region of the cloud. Any
 $container = $objectStoreService->createContainer('logos');
 ```
 
+> Note: when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with `urlencode` before passing them in
+
 ### 4. Upload an object to the container.
 
 ```php
@@ -59,5 +61,5 @@ $container->uploadObject($remoteFileName, $fileData);
 
 ## Next steps
 
-There is a lot more you can do with containers and objects. See 
+There is a lot more you can do with containers and objects. See
 the [complete user guide to the Object Store service](USERGUIDE.md).
