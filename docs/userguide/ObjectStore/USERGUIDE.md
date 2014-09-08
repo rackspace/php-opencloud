@@ -46,7 +46,7 @@ For example, you may create a container called `logos` to hold all the image fil
 
 A container may contain zero or more objects in it.
 
-> Note: when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with `urlencode` before passing them in
+> **Note:** when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with `urlencode` before passing them in
 
 ### Create Container
 
@@ -187,7 +187,7 @@ An **object** (sometimes referred to as a file) is the unit of storage in an Obj
 
 For example, you may upload an object named `php-elephant.jpg`, a JPEG image file, to the `logos` container. Further, you may assign metadata to this object to indicate that the author of this object was someone named Jane Doe.
 
-> Note: when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with `urlencode` before passing them in
+> **Note:** when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with `urlencode` before passing them in
 
 ### Upload Object
 
