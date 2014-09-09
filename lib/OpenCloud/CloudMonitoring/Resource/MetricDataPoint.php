@@ -17,6 +17,6 @@
 
 namespace OpenCloud\CloudMonitoring\Resource;
 
-class MetricInfo extends Metric
+class MetricDataPoint extends Metric
 {
 }
