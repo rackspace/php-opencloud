@@ -156,21 +156,26 @@ class Stack extends PersistentResource
     protected static $json_name = "stack";
     protected static $url_resource = "stacks";
 
-    /**
-     * @return string
-     */
-    public function getStackName()
-    {
-        return $this->stack_name;
-    }
+    protected $createKeys = array(
+        'stack_name',
+        'template_url',
+        'template',
+        'environment',
+        'files',
+        'parameters',
+        'timeout_mins',
+        'disable_rollback'
+    );
 
-    /**
-     * @param string $stack_name
-     */
-    public function setStackName($stack_name)
-    {
-        $this->stack_name = $stack_name;
-    }
+    protected $updateKeys = array(
+        'template_url',
+        'template',
+        'environment',
+        'files',
+        'parameters',
+        'timeout_mins',
+        'disable_rollback'
+    );
 
     /**
      * @return string
