@@ -17,7 +17,9 @@
 
 namespace OpenCloud\Orchestration;
 
+use OpenCloud\Common\Metadata;
 use OpenCloud\Common\Service\CatalogService;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * The Orchestration class represents the OpenStack Heat service.
@@ -26,32 +28,70 @@ use OpenCloud\Common\Service\CatalogService;
  * the AWS CloudFormation template format, through both an OpenStack-native ReST
  * API and a CloudFormation-compatible Query API.
  *
- * @codeCoverageIgnore
  */
 class Service extends CatalogService
 {
-    const DEFAULT_TYPE = 'orchestration';
     const DEFAULT_NAME = 'cloudOrchestration';
+    const DEFAULT_TYPE = 'orchestration';
 
     /**
-     * Returns a Stack object associated with this Orchestration service
+     * Creates a new Stack object
      *
      * @api
-     * @param string $id - the stack with the ID is retrieved
-     * @returns Stack object
+     * @param  string $name the name of the stack
+     * @return Resource\Stack
      */
-    public function stack($id = null)
+    public function stack($name = null)
     {
-        return new Stack($this, $id);
+        return new Resource\Stack($this, $name);
     }
 
     /**
-     * Return namespaces.
+     * Returns a Collection of Stack objects
      *
-     * @return array
+     * @api
+     * @return \OpenCloud\Common\Collection
      */
-    public function namespaces()
+    public function stackList()
     {
-        return array();
+        return $this->collection('OpenCloud\Orchestration\Resource\Stack');
     }
+
+    /**
+     * Returns a Collection of ResourceType objects
+     *
+     * @api
+     * @return Resource\ResourceType
+     */
+    public function resourceTypeList()
+    {
+        return $this->collection('OpenCloud\Orchestration\Resource\ResourceType');
+    }
+
+    /**
+     * Returns a ResourceType object
+     *
+     * @api
+     * @param  string $id the resource type
+     * @return Resource\ResourceType
+     */
+    public function resourceType($id)
+    {
+        return new Resource\ResourceType($this, $id);
+    }
+
+    /**
+     * Returns a BuildInfo object
+     *
+     * @api
+     * @return Resource\BuildInfo
+     */
+    public function buildInfo()
+    {
+        $buildInfo = new Resource\BuildInfo($this);
+        $buildInfo->refresh();
+        return $buildInfo;
+    }
+
+    // TODO: Validate template
 }
