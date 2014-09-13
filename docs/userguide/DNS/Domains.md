@@ -214,7 +214,7 @@ $asyncResponse = $service->import($bind9Data);
 
 ## Modify domain
 
-This call modifies DNS domain(s) attributes only. Only the TTL, email address and comment attributes of a domain can be modified. Records cannot be added, modified, or removed through this API operation - you will need to use the [add records](https://github.com/jamiehannaford/php-opencloud/blob/dns-docs/docs/userguide/DNS/Records.md#add-record), [modify records](https://github.com/jamiehannaford/php-opencloud/blob/dns-docs/docs/userguide/DNS/Records.md#modify-record) or [remove records](https://github.com/jamiehannaford/php-opencloud/blob/dns-docs/docs/userguide/DNS/Records.md#delete-record) operations respectively.
+This call modifies DNS domain(s) attributes only. Only the TTL, email address and comment attributes of a domain can be modified. Records cannot be added, modified, or removed through this API operation - you will need to use the [add records](/docs/userguide/DNS/Records.md#add-record), [modify records](/docs/userguide/DNS/Records.md#modify-record) or [remove records](/docs/userguide/DNS/Records.md#delete-record) operations respectively.
 
 ```php
 $domain->update(array(
