@@ -27,7 +27,7 @@ $domains = $service->domainList();
 $domains = $service->domainList(true);
 ```
 
-Please consult the [iterator documentation](docs/userguide/Iterators.md) for more information about iterators.
+Please consult the [iterator documentation](/docs/userguide/Iterators.md) for more information about iterators.
 
 ### Filter parameters
 
