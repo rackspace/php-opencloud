@@ -20,6 +20,8 @@
 // * Prior to running this script, you must setup the following environment variables:
 //   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
+//   * STACK_NAME:   Name of stack
+//   * STACK_RESOURCE_NAME: Name of resource in stack
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -30,3 +32,19 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => getenv('RAX_USERNAME'),
     'apiKey'   => getenv('RAX_API_KEY')
 ));
+
+// 2. Obtain an Orchestration service object from the client.
+$region = 'DFW';
+$orchestrationService = $client->orchestrationService(null, $region);
+
+// 3. Get stack.
+$stack = $orchestrationService->getStack(getenv('STACK_NAME'));
+
+// 4. Get resource in stack.
+$stackResource = $stack->getResource(getenv('RESOURCE_NAME'));
+
+// 5. Get list of events for the stack resource.
+$stackResourceEvents = $stackResource->listEvents();
+foreach ($stackResourceEvents as $stackResourceEvent) {
+    /** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+}
