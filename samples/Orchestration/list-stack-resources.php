@@ -21,7 +21,7 @@
 //   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
 //   * STACK_NAME:   Name of stack
-//   * STACK_RESOURCE_NAME: Name of resource in stack
+//
 
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
@@ -39,11 +39,8 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Get stack.
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
-// 4. Get stack resource.
-$stackResource = $stack->getResource(getenv('RESOURCE_NAME'));
-
-// 5. Get list of events for the stack resource.
-$stackResourceEvents = $stackResource->listEvents();
-foreach ($stackResourceEvents as $stackResourceEvent) {
-    /** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+// 5. Get list of resources in the stack.
+$stackResources = $stack->listResources();
+foreach ($stackResources as $stackResource) {
+    /** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
 }
