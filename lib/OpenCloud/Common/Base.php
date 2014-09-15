@@ -245,7 +245,7 @@ abstract class Base
      *
      * @return $this
      */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(Log\LoggerInterface $logger = null)
     {
         $this->logger = $logger;
 
