@@ -246,7 +246,11 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         $requests = array();
 
         foreach ($this->nodes as $node) {
-            $requests[] = $this->getClient()->post($node->getUrl(), self::getJsonHeader(), $node->createJson());
+            // Only add the node if it is new
+            if (null === $node->getId()) {
+                $json = json_encode($node->createJson());
+                $requests[] = $this->getClient()->post($node->getUrl(), self::getJsonHeader(), $json);
+            }
         }
 
         return $this->getClient()->send($requests);
