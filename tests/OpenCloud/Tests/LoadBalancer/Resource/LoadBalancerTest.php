@@ -350,9 +350,5 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
         $lb->addNode('2.2.2.2', 80);
         $lb->addNodes();
-
-        $lb->removeNode(1040);
     }
-
-
 }
