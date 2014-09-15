@@ -343,4 +343,16 @@ class LoadBalancerTest extends LoadBalancerTestCase
 
         $this->assertEquals($health->type, 'CONNECT');
     }
+
+    public function testAddNodeToExistingLoadBalancer()
+    {
+        $lb = $this->loadBalancer;
+
+        $lb->addNode('2.2.2.2', 80);
+        $lb->addNodes();
+
+        $lb->removeNode(1040);
+    }
+
+
 }
