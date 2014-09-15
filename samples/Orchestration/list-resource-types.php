@@ -24,10 +24,10 @@
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
-use OpenCloud\Rackspace;
+use OpenCloud\OpenStack;
 
 // 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+$client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => getenv('OS_USERNAME'),
     'apiKey'   => getenv('NOVA_API_KEY')
 ));
