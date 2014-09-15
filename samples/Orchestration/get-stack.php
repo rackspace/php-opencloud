@@ -18,8 +18,9 @@
 //
 // Pre-requisites:
 // * Prior to running this script, you must setup the following environment variables:
-//   * OS_USERNAME: Your OpenStack Cloud Account Username, and
-//   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key
+//   * OS_USERNAME: Your OpenStack Cloud Account Username,
+//   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key,
+//   * OS_REGION: The OpenStack Cloud region you want to use, and
 //   * STACK_NAME:   Name of stack
 //
 
@@ -33,7 +34,7 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 ));
 
 // 2. Obtain an Orchestration service object from the client.
-$region = 'DFW';
+$region = getenv('OS_REGION');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Get stack.
