@@ -18,8 +18,8 @@
 //
 // Pre-requisites:
 // * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
+//   * OS_USERNAME: Your OpenStack Cloud Account Username, and
+//   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key
 //   * STACK_NAME:   Name of stack
 //
 
@@ -28,8 +28,8 @@ use OpenCloud\Rackspace;
 
 // 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+    'username' => getenv('OS_USERNAME'),
+    'apiKey'   => getenv('NOVA_API_KEY')
 ));
 
 // 2. Obtain an Orchestration service object from the client.
