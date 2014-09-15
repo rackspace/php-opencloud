@@ -3,7 +3,7 @@
     "description": "PHP SDK for Rackspace/OpenStack APIs",
     "keywords": ["rackspace", "openstack", "opencloud", "swift", "nova"],
     "type": "library",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Jamie Hannaford",
