@@ -210,6 +210,6 @@ class Check extends AbstractResource
 
         $url->setQuery($parts);
 
-        return $this->getService()->resourceList('Metric', $url, $this);
+        return $this->getService()->resourceList('MetricDataPoint', $url, $this);
     }
 }
