@@ -411,7 +411,7 @@ class OpenStack extends Client
         return array(
             'token'      => $this->getToken(),
             'expiration' => $this->getExpiration(),
-            'tenant'     => $this->getTenant(),
+            'tenantObj'  => $this->getTenantObject(),
             'catalog'    => $this->getCatalog()
         );
     }
@@ -430,8 +430,8 @@ class OpenStack extends Client
         if (!empty($values['expiration'])) {
             $this->setExpiration($values['expiration']);
         }
-        if (!empty($values['tenant'])) {
-            $this->setTenant($values['tenant']);
+        if (!empty($values['tenantObj'])) {
+            $this->setTenantObject($values['tenantObj']);
         }
         if (!empty($values['catalog'])) {
             $this->setCatalog($values['catalog']);
