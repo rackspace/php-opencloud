@@ -28,7 +28,7 @@
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\OpenStack;
 
-// 1. Instantiate a Rackspace client.
+// 1. Instantiate an OpenStack client.
 $client = new OpenStack(getenv('OS_AUTH_URL'), array(
     'username' => getenv('OS_USERNAME'),
     'apiKey'   => getenv('NOVA_API_KEY')
