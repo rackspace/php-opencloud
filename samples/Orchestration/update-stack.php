@@ -42,7 +42,7 @@ $orchestrationService = $client->orchestrationService(null, $region);
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Update stack.
-$orchestrationService->updateStack(array(
+$stack->update(array(
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
     'parameters'   => array(
         'flavor_id' => 'performance1_1',
