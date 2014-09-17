@@ -18,6 +18,7 @@
 //
 // Pre-requisites:
 // * Prior to running this script, you must setup the following environment variables:
+//   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
 //   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key,
 //   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
@@ -28,7 +29,7 @@ require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\OpenStack;
 
 // 1. Instantiate a Rackspace client.
-$client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, array(
+$client = new OpenStack(getenv('OS_AUTH_URL'), array(
     'username' => getenv('OS_USERNAME'),
     'apiKey'   => getenv('NOVA_API_KEY')
 ));
