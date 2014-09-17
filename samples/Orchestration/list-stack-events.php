@@ -44,5 +44,5 @@ $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 // 4. Get list of events for the stack.
 $stackEvents = $stack->listEvents();
 foreach ($stackEvents as $stackEvent) {
-    /** @var $stackEvent OpenCloud\Orchestration\Resource\StackEvent **/
+    /** @var $stackEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
 }
