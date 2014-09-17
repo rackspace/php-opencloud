@@ -43,7 +43,7 @@ $orchestrationService = $client->orchestrationService(null, $region);
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Get resource in stack.
-$stackResource = $stack->getResource(getenv('RESOURCE_NAME'));
+$stackResource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
 
 // 5. Get list of events for the stack resource.
 $stackResourceEvents = $stackResource->listEvents();
