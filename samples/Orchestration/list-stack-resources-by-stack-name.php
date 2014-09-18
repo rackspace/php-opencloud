@@ -22,7 +22,7 @@
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
 //   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key,
 //   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
-//   * RESOURCE_TYPE_NAME:   Name of resource type
+//   * STACK_NAME:   Name of stack
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -38,6 +38,11 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
-// 3. Get resource type.
-$resourceType = $orchestrationService->getResourceType(getenv('RESOURCE_TYPE_NAME'));
-/** @var $resourceType OpenCloud\Orchestration\Resource\ResourceType **/
+// 3. Get stack.
+$stack = $orchestrationService->getStack(getenv('STACK_NAME'));
+
+// 4. Get list of resources in the stack.
+$stackResources = $stack->listResources();
+foreach ($stackResources as $stackResource) {
+    /** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
+}
