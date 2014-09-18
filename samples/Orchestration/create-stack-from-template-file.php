@@ -43,3 +43,4 @@ $stack = $orchestrationService->createStack(array(
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
     'timeout_mins' => 3
 ));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/

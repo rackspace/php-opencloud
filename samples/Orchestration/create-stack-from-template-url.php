@@ -48,3 +48,4 @@ $stack = $orchestrationService->createStack(array(
     ),
     'timeout_mins' => 5
 ));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
