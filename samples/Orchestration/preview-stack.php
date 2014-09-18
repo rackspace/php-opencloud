@@ -38,9 +38,9 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Create a stack.
-$stackPreview = $orchestrationService->previewStack(array(
+$stack = $orchestrationService->previewStack(array(
     'stack_name'   => 'My Drupal Web Site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
     'timeout_mins' => 3
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\StackPreview **/
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
