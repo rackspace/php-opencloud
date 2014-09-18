@@ -23,6 +23,7 @@
 //   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key,
 //   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
 //   * STACK_NAME:   Name of stack
+//   * STACK_ID: ID of stack
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -38,6 +39,6 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
-// 3. Get stack.
-$stack = $orchestrationService->getStack(getenv('STACK_NAME'));
+// 3. Get stack using the stack name.
+$stack = $orchestrationService->getStack(getenv('STACK_NAME'), getenv('STACK_ID'));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
