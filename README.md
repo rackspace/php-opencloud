@@ -1,4 +1,4 @@
-**php-opencloud-fork**
+**php-opencloud**
 =============
 PHP SDK for OpenStack/Rackspace APIs
 
