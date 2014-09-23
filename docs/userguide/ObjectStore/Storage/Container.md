@@ -26,7 +26,7 @@ If the response returned is `FALSE`, there was an API error - most likely due to
 
 Container names must be valid strings between 0 and 256 characters. Forward slashes are not currently permitted.
 
-> **Note:** when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with `urlencode` before passing them in
+> **Note:** when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with [`urlencode`](http://php.net/urlencode) before passing them in
 
 ## List containers
 
