@@ -136,4 +136,12 @@ class AgentTest extends CloudMonitoringTestCase
         $this->resource->setId(null);
         $this->resource->getConnection(null);
     }
+
+    public function testGettingHostReturnsInstance()
+    {
+        $this->assertInstanceOf(
+            'OpenCloud\\CloudMonitoring\\Resource\\AgentHost',
+            $this->resource->getAgentHost()
+        );
+    }
 }

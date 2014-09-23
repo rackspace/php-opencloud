@@ -62,20 +62,11 @@ class AgentHostTest extends CloudMonitoringTestCase
     /**
      * @mockFile Agent_Host_CPU
      */
-    public function testCollection()
-    {
-        $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->host->info('cpus')
-        );
-    }
-
-    /**
-     * @mockFile Agent_Host_CPU
-     */
     public function testCPU()
     {
         $list = $this->host->info('cpus');
+
+        $this->isCollection($list);
 
         foreach ($list as $info) {
             $this->assertObjectHasAttribute('name', $info);
@@ -90,6 +81,9 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testDisks()
     {
         $list = $this->host->info('disks');
+
+        $this->isCollection($list);
+
         foreach ($list as $info) {
             $this->assertObjectHasAttribute('read_bytes', $info);
             $this->assertObjectHasAttribute('reads', $info);
@@ -103,10 +97,29 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testFilesystems()
     {
         $list = $this->host->info('filesystems');
+
+        $this->isCollection($list);
+
         foreach ($list as $info) {
             $this->assertObjectHasAttribute('dir_name', $info);
             $this->assertObjectHasAttribute('dev_name', $info);
             $this->assertObjectHasAttribute('free_files', $info);
+        }
+    }
+
+    /**
+     * @mockFile Agent_Host_Filesystems
+     */
+    public function testMemory()
+    {
+        $list = $this->host->info('memory');
+
+        $this->isCollection($list);
+
+        foreach ($list as $info) {
+            $this->assertObjectHasAttribute('actual_free', $info);
+            $this->assertObjectHasAttribute('actual_used', $info);
+            $this->assertObjectHasAttribute('free', $info);
         }
     }
 
@@ -116,10 +129,61 @@ class AgentHostTest extends CloudMonitoringTestCase
     public function testNetworkInterfaces()
     {
         $list = $this->host->info('network_interfaces');
+
+        $this->isCollection($list);
+
         foreach ($list as $info) {
             $this->assertObjectHasAttribute('name', $info);
             $this->assertObjectHasAttribute('type', $info);
             $this->assertObjectHasAttribute('netmask', $info);
+        }
+    }
+
+    /**
+     * @mockFile Agent_Host_Processes
+     */
+    public function testProcesses()
+    {
+        $list = $this->host->info('processes');
+
+        $this->isCollection($list);
+
+        foreach ($list as $info) {
+            $this->assertObjectHasAttribute('pid', $info);
+            $this->assertObjectHasAttribute('memory_size', $info);
+            $this->assertObjectHasAttribute('time_start_time', $info);
+        }
+    }
+
+    /**
+     * @mockFile Agent_Host_System
+     */
+    public function testSystem()
+    {
+        $list = $this->host->info('system');
+
+        $this->isCollection($list);
+
+        foreach ($list as $info) {
+            $this->assertObjectHasAttribute('name', $info);
+            $this->assertObjectHasAttribute('arch', $info);
+            $this->assertObjectHasAttribute('version', $info);
+        }
+    }
+
+    /**
+     * @mockFile Agent_Host_Who
+     */
+    public function testWho()
+    {
+        $list = $this->host->info('who');
+
+        $this->isCollection($list);
+
+        foreach ($list as $info) {
+            $this->assertObjectHasAttribute('user', $info);
+            $this->assertObjectHasAttribute('device', $info);
+            $this->assertObjectHasAttribute('time', $info);
         }
     }
 

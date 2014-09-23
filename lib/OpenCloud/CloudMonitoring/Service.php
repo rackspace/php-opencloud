@@ -72,9 +72,9 @@ class Service extends CatalogService
         return $this->resourceList('Agent');
     }
 
-    public function getAgentHost($id = null)
+    public function getAgentHost($agentId = null)
     {
-        return $this->resource('AgentHost', $id);
+        return $this->resource('AgentHost', null, $this->getAgent($agentId));
     }
 
     public function getAgentTargets()
