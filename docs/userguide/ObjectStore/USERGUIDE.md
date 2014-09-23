@@ -28,7 +28,7 @@ To use the object store service, you must first instantiate a `OpenStack` or `Ra
         'apiKey'   => '<YOUR RACKSPACE CLOUD ACCOUNT API KEY>'
     ));
     ```
-    
+
 ### Object Store Service
 All operations on the object store are done via an object store service object.
 
@@ -46,7 +46,10 @@ For example, you may create a container called `logos` to hold all the image fil
 
 A container may contain zero or more objects in it.
 
+> **Note:** when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with [`urlencode`](http://php.net/urlencode) before passing them in
+
 ### Create Container
+
 ```php
 $container = $objectStoreService->createContainer('logos');
 ```
@@ -94,7 +97,7 @@ $containerMetadata = $container->getMetadata();
 [ [Get the executable PHP script for this example](/samples/ObjectStore/get-container-metadata.php) ]
 
 ### Delete Container
-When you no longer have a need for the container, you can remove it. 
+When you no longer have a need for the container, you can remove it.
 
 If the container is empty (that is, it has no objects in it), you can remove it as shown below:
 
@@ -184,6 +187,8 @@ An **object** (sometimes referred to as a file) is the unit of storage in an Obj
 
 For example, you may upload an object named `php-elephant.jpg`, a JPEG image file, to the `logos` container. Further, you may assign metadata to this object to indicate that the author of this object was someone named Jane Doe.
 
+> **Note:** when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with [`urlencode`](http://php.net/urlencode) before passing them in
+
 ### Upload Object
 
 Once you have created a container, you can upload objects to it.
@@ -212,7 +217,7 @@ $metadata = array('author' => 'Jane Doe');
 
 $customHeaders = array();
 $metadataHeaders = DataObject::stockHeaders($metadata);
-$allHeaders = $customHeaders + $metadataHeaders; 
+$allHeaders = $customHeaders + $metadataHeaders;
 
 $fileData = fopen($localFileName, 'r');
 $container->uploadObject($remoteFileName, $fileData, $allHeaders);
@@ -337,7 +342,7 @@ You can list all the objects stored in a container. An instance of `OpenCloud\Co
 ```php
 $objects = $container->objectList();
 foreach ($objects as $object) {
-    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/	
+    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/
 }
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/list-objects.php) ]
