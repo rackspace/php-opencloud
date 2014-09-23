@@ -127,8 +127,19 @@ abstract class AbstractResource extends Base
     public static function stockHeaders(array $headers)
     {
         $output = array();
+        $prefix = null;
+        $corsHeaders = array(
+            'Access-Control-Allow-Origin',
+            'Access-Control-Expose-Headers',
+            'Access-Control-Max-Age',
+            'Access-Control-Allow-Credentials',
+            'Access-Control-Allow-Methods',
+            'Access-Control-Allow-Headers'
+        );
         foreach ($headers as $header => $value) {
-            $prefix = self::GLOBAL_METADATA_PREFIX . '-' . static::METADATA_LABEL . '-Meta-';
+            if (!in_array($header, $corsHeaders)) {
+                $prefix = self::GLOBAL_METADATA_PREFIX . '-' . static::METADATA_LABEL . '-Meta-';
+            }
             $output[$prefix . $header] = $value;
         }
 
