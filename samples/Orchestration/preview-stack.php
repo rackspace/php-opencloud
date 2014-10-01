@@ -37,7 +37,7 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
-// 3. Create a stack.
+// 3. Preview a stack.
 $stack = $orchestrationService->previewStack(array(
     'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
