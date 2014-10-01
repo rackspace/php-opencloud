@@ -338,11 +338,13 @@ class ServerTest extends ComputeTestCase
     {
         $new = new PublicServer($this->service);
         $new->volume = new Volume($this->service, '5286e0c0-4906-11e4-916c-0800200c9a66');
-        $obj = $new->createJson();
 
-        $this->assertEquals('5286e0c0-4906-11e4-916c-0800200c9a66', $obj->server->block_device_mapping_v2[0]->uuid);
-        $this->assertEquals('volume', $obj->server->block_device_mapping_v2[0]->source_type);
-        $this->assertEquals('volume', $obj->server->block_device_mapping_v2[0]->destination_type);
-        $this->assertEquals(0, $obj->server->block_device_mapping_v2[0]->boot_index);
+        $json = $new->createJson();
+        $obj = $json->server->block_device_mapping_v2[0];
+
+        $this->assertEquals('5286e0c0-4906-11e4-916c-0800200c9a66', $obj->uuid);
+        $this->assertEquals('volume', $obj->source_type);
+        $this->assertEquals('volume', $obj->destination_type);
+        $this->assertEquals(0, $obj->boot_index);
     }
 }
