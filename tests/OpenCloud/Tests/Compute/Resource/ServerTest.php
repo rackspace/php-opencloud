@@ -333,4 +333,18 @@ class ServerTest extends ComputeTestCase
             )
         ));
     }
+
+    public function test_Create_With_Bootable_Volume()
+    {
+        $new = new PublicServer($this->service);
+        $new->volume = new Volume($this->service, '5286e0c0-4906-11e4-916c-0800200c9a66');
+
+        $json = $new->createJson();
+        $obj = $json->server->block_device_mapping_v2[0];
+
+        $this->assertEquals('5286e0c0-4906-11e4-916c-0800200c9a66', $obj->uuid);
+        $this->assertEquals('volume', $obj->source_type);
+        $this->assertEquals('volume', $obj->destination_type);
+        $this->assertEquals(0, $obj->boot_index);
+    }
 }

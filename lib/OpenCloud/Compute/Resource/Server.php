@@ -77,6 +77,13 @@ class Server extends NovaResource implements HasPtrRecordsInterface
     public $image;
 
     /**
+     * The bootable volume for this server.
+     *
+     * @var Volume
+     */
+    public $volume;
+
+    /**
      * The Flavor for this server.
      *
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Flavors-d1e4188.html
@@ -647,6 +654,17 @@ class Server extends NovaResource implements HasPtrRecordsInterface
 
         if ($this->metadata->count()) {
             $server->metadata = $this->metadata->toArray();
+        }
+
+        // Boot from volume
+        if ($this->volume instanceof Volume) {
+            $server->block_device_mapping_v2 = array();
+            $server->block_device_mapping_v2[] = (object) array(
+                'source_type' => 'volume',
+                'destination_type' => 'volume',
+                'uuid' => $this->volume->id,
+                'boot_index' => 0
+            );
         }
 
         // Networks
