@@ -93,7 +93,7 @@ It's always best to be defensive when executing functionality over HTTP; you can
 There are a few parameter requirements when creating a server using a bootable volume:
 
 * **name** - needs to be a string;
-- **flavor** - a `OpenCloud\Compute\Resource\Flavor` object, that is populated with the values of a real API flavor;
+* **flavor** - a `OpenCloud\Compute\Resource\Flavor` object, that is populated with the values of a real API flavor;
 * **volume** - a `OpenCloud\Volume\Resource\Volume` object, that is populated with the values of a real API volume;
 
 Firstly we need to find our flavor and volume using their IDs.
