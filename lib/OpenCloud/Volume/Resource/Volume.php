@@ -38,10 +38,6 @@ class Volume extends PersistentResource
     public $attachments = array();
     public $created_at;
     public $source_volid;
-
-    /**
-     * OpenStack only
-     */
     public $imageRef;
     public $bootable;
 
