@@ -38,6 +38,6 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Validate template from file.
-$stack = $orchestrationService->validateTemplate(array(
+$orchestrationService->validateTemplate(array(
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml')
 ));
