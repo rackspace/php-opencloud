@@ -39,7 +39,7 @@ $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Create a stack.
 $stack = $orchestrationService->createStack(array(
-    'stack_name'   => 'My Drupal Web Site',
+    'stack_name'   => 'my-drupal-web-site',
     'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
     'parameters'   => array(
         'flavor_id' => 'performance1_1',

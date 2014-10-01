@@ -39,7 +39,7 @@ $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Create a stack.
 $stack = $orchestrationService->createStack(array(
-    'stack_name'   => 'My Drupal Web Site',
+    'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
     'timeout_mins' => 3
 ));

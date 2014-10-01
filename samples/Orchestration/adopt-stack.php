@@ -39,7 +39,7 @@ $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Adopt a stack.
 $stack = $orchestrationService->adoptStack(array(
-    'stack_name'   => 'My Drupal Web Site',
+    'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
     'adopt_stack_data' => file_get_contents(__DIR__ . '/sample_adopt_stack_data.json'),
     'timeout_mins' => 3
