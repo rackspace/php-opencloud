@@ -40,7 +40,6 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Preview a stack.
 $stack = $orchestrationService->previewStack(array(
     'stack_name'   => 'my-drupal-web-site',
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'timeout_mins' => 3
+    'template'     => file_get_contents(__DIR__ . '/sample_template.yml')
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
