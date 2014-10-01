@@ -47,7 +47,9 @@ RAX-SI:image_schedule|If scheduled images enabled or not. If the value is TRUE, 
 
 ## Create server
 
-There are a few parameter requirements when creating a server:
+### Using an image
+
+There are a few parameter requirements when creating a server using an image:
 
 * **name** - needs to be a string;
 - **flavor** - a `OpenCloud\Compute\Resource\Flavor` object, that is populated with the values of a real API flavor;
@@ -86,13 +88,52 @@ try {
 
 It's always best to be defensive when executing functionality over HTTP; you can achieve this best by wrapping calls in a try/catch block. It allows you to debug your failed operations in a graceful and efficient manner. 
 
+### Using a bootable volume
+
+There are a few parameter requirements when creating a server using a bootable volume:
+
+* **name** - needs to be a string;
+- **flavor** - a `OpenCloud\Compute\Resource\Flavor` object, that is populated with the values of a real API flavor;
+* **volume** - a `OpenCloud\Volume\Resource\Volume` object, that is populated with the values of a real API volume;
+
+Firstly we need to find our flavor and volume using their IDs.
+
+```php
+$volumeService = $client->volumeService();
+$bootableVolume = $volumeService->volume('<ID OF A BOOTABLE VOLUME>');
+$flavor = $compute->flavor('<ID OF A FLAVOR>');
+```
+
+Now we're ready to create our instance:
+
+```php
+use OpenCloud\Compute\Constants\Network;
+
+$server = $compute->server();
+
+try {
+    $response = $server->create(array(
+        'name'     => 'My lovely server',
+        'volume'   => $bootableVolume,
+        'flavor'   => $flavor
+    ));
+} catch (\Guzzle\Http\Exception\BadResponseException $e) {
+    // No! Something failed. Let's find out:
+    echo $e->getRequest() . PHP_EOL . PHP_EOL;
+    echo $e->getResponse();
+}
+```
+
+It's always best to be defensive when executing functionality over HTTP; you can achieve this best by wrapping calls in a try/catch block. It allows you to debug your failed operations in a graceful and efficient manner. 
+
 ### Create parameters
 
 Name|Description|Type|Required
 ---|---|---|---
 name|The server name. The name that you specify in a create request becomes the initial host name of the server. After the server is built, if you change the server name in the API or change the host name directly, the names are not kept in sync.|string|Yes
 flavor|A populated `OpenCloud\Compute\Resource\Flavor` object representing your chosen flavor|object|Yes
-image|A populated `OpenCloud\Compute\Resource\Image` object representing your chosen image|object|Yes
+image|A populated `OpenCloud\Compute\Resource\Image` object representing your chosen image|object|No, if volume is specified
+volume|A populated `OpenCloud\Volume\Resource\Volume` object representing your chosen bootable volume|object|No, if image is specified
 OS-DCF:diskConfig|The disk configuration value. You can use two options: `AUTO` or `MANUAL`. <br><br>`AUTO` means the server is built with a single partition the size of the target flavor disk. The file system is automatically adjusted to fit the entire partition. This keeps things simple and automated. `AUTO` is valid only for images and servers with a single partition that use the EXT3 file system. This is the default setting for applicable Rackspace base images.<br><br>`MANUAL` means the server is built using whatever partition scheme and file system is in the source image. If the target flavor disk is larger, the remaining disk space is left unpartitioned. This enables images to have non-EXT3 file systems, multiple partitions, and so on, and enables you to manage the disk configuration.|string|No
 networks|An array of populated `OpenCloud\Compute\Resource\Network` objects that indicate which networks your instance resides in.|array|No
 metadata|An array of arbitrary data (key-value pairs) that adds additional meaning to your server.|array|No
