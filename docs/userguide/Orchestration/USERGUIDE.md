@@ -14,7 +14,6 @@ To use the Orchestration service, you must first instantiate a `OpenStack` or `R
 * If you are working with a vanilla OpenStack cloud, instantiate an `OpenCloud\OpenStack` client as shown below.
 
     ```php
-    <?php
     use OpenCloud\OpenStack;
 
     $client = new OpenStack('<OPENSTACK CLOUD IDENTITY ENDPOINT URL>', array(
@@ -26,7 +25,6 @@ To use the Orchestration service, you must first instantiate a `OpenStack` or `R
 * If you are working with the Rackspace cloud, instantiate a `OpenCloud\Rackspace` client as shown below.
 
     ```php
-    <?php
     use OpenCloud\Rackspace;
 
     $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
@@ -39,7 +37,6 @@ To use the Orchestration service, you must first instantiate a `OpenStack` or `R
 All orchestration operations are done via an orchestration service object.
 
 ```php
-<?php
 $region = 'DFW';
 $orchestrationService = $client->orchestrationService(null, $region);
 ```
@@ -63,7 +60,6 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can validate it as shown below:
 
 ```php
-<?php
 $orchestrationService->validateTemplate(array(
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml')
 ));
@@ -78,7 +74,6 @@ If your template is stored in a remote location accessible via HTTP or HTTPS,
 as a JSON or YAML file, you can validate it as shown below:
 
 ```php
-<?php
 $orchestrationService->validateTemplate(array(
     'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml'
 ));
@@ -112,7 +107,6 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can use it to preview a stack as shown below:
 
 ```php
-<?php
 $stack = $orchestrationService->previewStack(array(
     'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
@@ -129,7 +123,6 @@ If your template is stored in a remote location accessible via HTTP or HTTPS,
 as a JSON or YAML file, you can use it to preview a stack as shown below:
 
 ```php
-<?php
 $stack = $orchestrationService->previewStack(array(
     'stack_name'   => 'my-drupal-web-site',
     'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml'
@@ -156,7 +149,6 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can use it to create a stack as shown below:
 
 ```php
-<?php
 $stack = $orchestrationService->createStack(array(
     'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
@@ -176,7 +168,6 @@ If your template is stored in a remote location accessible via HTTP or HTTPS,
 as a JSON or YAML file, you can use it to create a stack as shown below:
 
 ```php
-<?php
 $stack = $orchestrationService->createStack(array(
     'stack_name'   => 'my-drupal-web-site',
     'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
