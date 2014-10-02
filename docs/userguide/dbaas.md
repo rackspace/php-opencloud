@@ -46,6 +46,18 @@ $instance = $service->instance('<instance ID>');
 ```
 [ [Get the executable PHP script for this example](/samples/Database/get-instance.php) ]
 
+### Updating an instance
+An instance can be updated to use a specific [configuration](#configurations) as shown below.
+
+```php
+$instance->update(array(
+    'configuration' => '<configuration ID>'
+));
+```
+
+**Note:** If any parameters in the associated configuration require a restart, then
+you will need to [restart the instance](#restarting-an-instance) after the update.
+
 ### Deleting an instance
 
 ```php
@@ -166,3 +178,95 @@ This returns a regular `User` object with the `name` attribute set to `root` and
 `password` attribute set to an auto-generated password. 
 
 To check if the root user is enabled, use the `isRootEnabled()` method.
+
+## Configurations
+
+Configurations are groups of settings that can be [applied to instances](#updating-an-instance).
+
+### Creating a configuration
+You can create a new configuration as shown below:
+
+```php
+$configuration = $service->configuration();
+$configuration->create(array(
+    'name'   => 'example-configuration-name',
+    'description' => 'An example configuration',
+    'values' => array(
+        'collation_server' => 'latin1_swedish_ci',
+        'connect_timeout' => 120
+    )
+));
+/** @var $configuration OpenCloud\Database\Resource\Configuration **/
+```
+[ [Get the executable PHP script for this example](/samples/Database/create-configuration.php) ]
+
+### Listing configurations
+You can list out all the configurations you have created as shown below:
+
+```php
+$configurations = $service->configurationList();
+foreach ($configurations as $configuration) {
+    /** @var $configuration OpenCloud\Database\Resource\Configuration **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Database/list-configurations.php) ]
+
+### Retrieving a configuration
+You can retrieve a specific configuration, using its ID, as shown below:
+
+```php
+$configuration = $service->configuration(getenv('OS_DB_CONFIGURATION_ID'));
+/** @var OpenCloud\Database\Resource\Configuration **/
+```
+[ [Get the executable PHP script for this example](/samples/Database/get-configuration.php) ]
+
+### Updating a configuration
+You have two choices when updating a configuration:
+* You could [patch a configuration](#patching-a-configuration) to change only some configuration parameters, _or_
+* You could [entirely replace a configuration](#replacing-a-configuration) to replace all configuration parameters with new ones.
+
+#### Patching a configuration
+You can patch a configuration as shown below:
+
+```php
+$configuration->patch(array(
+    'values' => array(
+        'connect_timeout' => 30
+    )
+));
+```
+[ [Get the executable PHP script for this example](/samples/Database/patch-configuration.php) ]
+
+#### Replacing a configuration
+You can replace a configuration as shown below:
+
+```php
+$configuration->update(array(
+    'values' => array(
+        'collation_server' => 'utf8_general_ci',
+        'connect_timeout' => 60
+    )
+));
+```
+[ [Get the executable PHP script for this example](/samples/Database/replace-configuration.php) ]
+
+### Deleting a configuration
+You can delete a configuration as shown below:
+
+```php
+$configuration->delete();
+```
+[ [Get the executable PHP script for this example](/samples/Database/delete-configuration.php) ]
+
+**Note:** You cannot delete a configuration if it is in use by a running instance.
+
+### Listing instances using a configuration
+You can list all instances using a specific configuration, using its ID, as shown below:
+
+```php
+$instances = $configuration->instanceList();
+foreach ($instances as $instance) {
+    /** @var $instance OpenCloud\Database\Resource\Instance **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Database/list-configuration-instances.php) ]
