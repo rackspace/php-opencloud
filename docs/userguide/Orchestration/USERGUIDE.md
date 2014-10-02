@@ -101,7 +101,7 @@ If the template is invalid, a [`Guzzle\Http\Exception\ClientErrorResponseExcepti
 
 ## Stacks
 A stack is a running instance of a template. When a stack is created, the
-resources specified in the template are created.
+[resources](#stack-resources) specified in the template are created.
 
 ### Preview Stack
 Before _actually_ creating a stack from a template, you may want to simply
