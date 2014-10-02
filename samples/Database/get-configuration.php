@@ -40,4 +40,3 @@ $databaseService = $client->databaseService(null, $region);
 // 3. Retrieve the database configuration.
 $configuration = $databaseService->configuration(getenv('OS_DB_CONFIGURATION_ID'));
 /** @var OpenCloud\Database\Resource\Configuration **/
-var_dump($configuration);

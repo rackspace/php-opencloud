@@ -40,5 +40,4 @@ $databaseService = $client->databaseService(null, $region);
 $instances = $databaseService->instanceList();
 foreach ($instances as $instance) {
     /** @var $instance OpenCloud\Database\Resource\Instance **/
-    var_dump($instance);
 }

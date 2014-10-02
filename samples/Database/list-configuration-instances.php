@@ -44,5 +44,4 @@ $configuration = $databaseService->configuration(getenv('OS_DB_CONFIGURATION_ID'
 $instances = $configuration->instanceList();
 foreach ($instances as $instance) {
     /** @var $instance OpenCloud\Database\Resource\Instance **/
-    var_dump($instance);
 }
