@@ -270,3 +270,46 @@ foreach ($instances as $instance) {
 }
 ```
 [ [Get the executable PHP script for this example](/samples/Database/list-configuration-instances.php) ]
+
+## Datastores
+
+Datastores are technologies avaialable to persist data.
+
+### Listing datastores
+You can list out all the datastores available as shown below:
+
+```php
+$datastores = $service->datastoreList();
+foreach ($datastores as $datastore) {
+    /** @var $datastore OpenCloud\Database\Resource\Datastore **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Database/list-datastores.php) ]
+
+### Retrieving a datastore
+You can retrieve a specific datastore's information, using its ID, as shown below:
+
+```php
+$datastore = $service->datastore('<datastore ID>');
+/** @var OpenCloud\Database\Resource\Datastore **/
+```
+[ [Get the executable PHP script for this example](/samples/Database/get-datastore.php) ]
+
+### Listing datastore versions
+You can list out all the versions available for a specific datastore, as shown below:
+
+```php
+$versions = $datastore->versionList();
+foreach ($versions as $version) {
+    /** @var $version OpenCloud\Database\Resource\DatastoreVersion **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Database/list-datastore-versions.php) ]
+
+### Retrieving a datastore version
+You a retrieve a specific datastore version, using its ID, as shown below:
+
+```php
+$datastoreVersion = $datastore->version('<datastore version ID>');
+/** @var OpenCloud\Database\Resource\DatastoreVersion **/
+[ [Get the executable PHP script for this example](/samples/Database/get-datastore-version.php) ]
