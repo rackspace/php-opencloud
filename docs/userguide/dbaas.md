@@ -25,10 +25,10 @@ on a shared physical host machine. Also referred to as instance.
 
 ```php
 // Create an empty OpenCloud\Database\Resource\Instance object
-$database = $service->instance();
+$instance = $service->instance();
 
 // Send to the API
-$database->create(array(
+$instance->create(array(
     // Pass in a name for your database instance
     'name'   => '<instance_name>',
     // Pass in a particular flavor object
