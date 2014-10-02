@@ -62,4 +62,14 @@ class ServiceTest extends DatabaseTestCase
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->configurationList());
     }
+
+    public function testDatastore()
+    {
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Datastore', $this->service->Datastore());
+    }
+
+    public function testDatastoreList()
+    {
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->datastoreList());
+    }
 }
