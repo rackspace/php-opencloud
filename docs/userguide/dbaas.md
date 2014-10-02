@@ -29,6 +29,8 @@ $database = $service->instance();
 
 // Send to the API
 $database->create(array(
+    // Pass in a name for your database instance
+    'name'   => '<instance_name>',
     // Pass in a particular flavor object
     'flavor' => $service->flavor('<flavor_id>'),
     // Specify a 4GB volume
