@@ -19,9 +19,8 @@
 // Pre-requisites:
 // * Prior to running this script, you must setup the following environment variables:
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key,
-//   * OS_REGION_NAME: OpenStack Cloud region in which to create database instance, and
-//   * OS_DB_INSTANCE_ID: ID of database instance
+//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key, and
+//   * OS_REGION_NAME: OpenStack Cloud region where database instances are created
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -37,6 +36,9 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 $region = getenv('OS_REGION_NAME');
 $databaseService = $client->databaseService(null, $region);
 
-// 3. Retrieve the database instance.
-$instance = $databaseService->instance(getenv('OS_DB_INSTANCE_ID'));
-/** @var $instance OpenCloud\Database\Resource\Instance **/
+// 3. List instances.
+$instances = $databaseService->instanceList();
+foreach ($instances as $instance) {
+    /** @var $instance OpenCloud\Database\Resource\Instance **/
+    var_dump($instance);
+}

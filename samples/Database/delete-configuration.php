@@ -21,7 +21,7 @@
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
 //   * RAX_API_KEY:  Your Rackspace Cloud Account API Key,
 //   * OS_REGION_NAME: OpenStack Cloud region in which to create database instance, and
-//   * OS_DB_INSTANCE_ID: ID of database instance
+//   * OS_DB_CONFIGURATION_ID: ID of database configuration
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -37,6 +37,8 @@ $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
 $region = getenv('OS_REGION_NAME');
 $databaseService = $client->databaseService(null, $region);
 
-// 3. Retrieve the database instance.
-$instance = $databaseService->instance(getenv('OS_DB_INSTANCE_ID'));
-/** @var $instance OpenCloud\Database\Resource\Instance **/
+// 3. Retrieve the database configuration.
+$configuration = $databaseService->configuration(getenv('OS_DB_CONFIGURATION_ID'));
+
+// 4. Delete it.
+$configuration->delete();
