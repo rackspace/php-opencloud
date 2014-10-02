@@ -37,6 +37,14 @@ $instance->create(array(
     'volume' => array('size' => 4)
 ));
 ```
+[ [Get the executable PHP script for this example](/samples/Database/create-instance.php) ]
+
+### Retrieving an instance
+
+```php
+$instance = $service->instance('<instance ID>');
+```
+[ [Get the executable PHP script for this example](/samples/Database/get-instance.php) ]
 
 ### Deleting an instance
 
