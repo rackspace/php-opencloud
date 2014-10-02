@@ -32,5 +32,8 @@ class DatabaseTestCase extends OpenCloudTestCase
 
         $this->addMockSubscriber($this->getTestFilePath('Instance'));
         $this->instance = $this->service->instance('foo');
+
+        $this->addMockSubscriber($this->getTestFilePath('Configuration'));
+        $this->configuration = $this->service->configuration('005a8bb7-a8df-40ee-b0b7-fc144641abc2');
     }
 }

@@ -19,6 +19,7 @@ namespace OpenCloud\Database;
 
 use OpenCloud\Common\Service\NovaService;
 use OpenCloud\Database\Resource\Instance;
+use OpenCloud\Database\Resource\Configuration;
 
 /**
  * The Rackspace Database service
@@ -51,5 +52,30 @@ class Service extends NovaService
         $url->addPath(Instance::resourceName())->setQuery($params);
 
         return $this->resourceList('Instance', $url);
+    }
+
+    /**
+     * Returns a Configuration
+     *
+     * @param string $id the ID of the configuration to retrieve
+     * @return \OpenCloud\Database\Resource\Configuration
+     */
+    public function configuration($id = null)
+    {
+        return $this->resource('Configuration', $id);
+    }
+
+    /**
+     * Returns a Collection of Configuration objects
+     *
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function configurationList($params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath(Configuration::resourceName())->setQuery($params);
+
+        return $this->resourceList('Configuration', $url);
     }
 }

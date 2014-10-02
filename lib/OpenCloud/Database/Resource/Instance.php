@@ -64,19 +64,6 @@ class Instance extends NovaResource
     }
 
     /**
-     * Updates a database instance (not permitted)
-     *
-     * Update() is not supported by database instances; thus, this always
-     * throws an exception.
-     *
-     * @throws InstanceUpdateError always
-     */
-    public function update($params = array())
-    {
-        return $this->noUpdate();
-    }
-
-    /**
      * Restarts the database instance
      *
      * @api
@@ -209,6 +196,18 @@ class Instance extends NovaResource
                     'name'      => $this->name,
                     'volume'    => $this->volume
                 )
+        );
+    }
+
+    /**
+     * Generates the JSON string for update()
+     *
+     * @return \@stdClass
+     */
+    protected function updateJson($params = array())
+    {
+        return (object) array(
+            self::$json_name => $params
         );
     }
 
