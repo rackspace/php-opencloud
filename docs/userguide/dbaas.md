@@ -194,6 +194,10 @@ $configuration->create(array(
     'values' => array(
         'collation_server' => 'latin1_swedish_ci',
         'connect_timeout' => 120
+    ),
+    'datastore' => array(
+        'type' => '10000000-0000-0000-0000-000000000001',
+        'version' => '1379cc8b-4bc5-4c4a-9e9d-7a9ad27c0866'
     )
 ));
 /** @var $configuration OpenCloud\Database\Resource\Configuration **/
