@@ -84,6 +84,12 @@ class Server extends NovaResource implements HasPtrRecordsInterface
     public $volume;
 
     /**
+     * Whether to delete the bootable volume when the server is terminated (deleted).
+     * @var boolean
+     */
+     public $volumeDeleteOnTermination;
+
+    /**
      * The Flavor for this server.
      *
      * @link http://docs.rackspace.com/servers/api/v2/cs-devguide/content/List_Flavors-d1e4188.html
@@ -658,13 +664,18 @@ class Server extends NovaResource implements HasPtrRecordsInterface
 
         // Boot from volume
         if ($this->volume instanceof Volume) {
+
+            $this->checkExtension('os-block-device-mapping-v2-boot');
+
             $server->block_device_mapping_v2 = array();
             $server->block_device_mapping_v2[] = (object) array(
                 'source_type' => 'volume',
                 'destination_type' => 'volume',
                 'uuid' => $this->volume->id,
-                'boot_index' => 0
+                'boot_index' => 0,
+                'delete_on_termination' => (boolean) $this->volumeDeleteOnTermination
             );
+
         }
 
         // Networks
