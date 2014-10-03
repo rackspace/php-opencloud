@@ -27,12 +27,19 @@ class InstanceTest extends DatabaseTestCase
         $this->assertInstanceOf('OpenCloud\Database\Resource\Instance', $this->instance);
     }
 
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\UpdateError
-     */
-    public function testUpdate()
+    public function testUpdateJson()
     {
-        $this->instance->update();
+        $replacementValues = array(
+            'configuration' => '005a8bb7-a8df-40ee-b0b7-fc144641abc2'
+        );
+        
+        $method = new \ReflectionMethod('OpenCloud\Database\Resource\Instance', 'updateJson');
+        $method->setAccessible(true);
+        
+        $expected = (object) array(
+            'instance' => $replacementValues
+        );
+        $this->assertEquals($expected, $method->invoke($this->instance, $replacementValues));
     }
 
     public function testRestart()
