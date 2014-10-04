@@ -400,11 +400,46 @@ $stackResourceEvent = $stackResource->getEvent('c1342a0a-59e6-4413-9af5-07c9cae7
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource-event.php) ]
 
 ## Resource Types
+When defining a template, resource types supported by your Cloud must be used.
 
 ### List Resource Types
+You can list all supported resource types as shown below:
+
+```php
+$resourceTypes = $orchestrationService->listResourceTypes();
+foreach ($resourceTypes as $resourceType) {
+    /** @var $resourceType OpenCloud\Orchestration\Resource\ResourceType **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/list-resource-types.php) ]
+
 ### Get Resource Type
+You can retrieve a specific resource type's schema as shown below:
+
+```php
+$resourceType = $orchestrationService->getResourceType('OS::Nova::Server');
+/** @var $resourceType OpenCloud\Orchestration\Resource\ResourceType **/
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/get-resource-type.php) ]
+
 ### Get Resource Type Template
+You can retrieve a specific resource type's representation as it would appear
+in a template, as shown below:
+
+```php
+$resourceTypeTemplate = $resourceType->getTemplate();
+/** @var $resourceTypeTemplate string **/
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/get-resource-type-template.php) ]
 
 ## Build Info
 
 ### Get Build Info
+You can retrieve information about the current Orchestration service build as
+shown below:
+
+```php
+$buildInfo = $orchestrationService->getBuildInfo();
+/** @var $resourceType OpenCloud\Orchestration\Resource\BuildInfo **/
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/get-build-info.php) ]
