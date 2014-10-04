@@ -43,4 +43,4 @@ $resourceType = $orchestrationService->getResourceType(getenv('RESOURCE_TYPE_NAM
 
 // 4. Get template for resource type.
 $resourceTypeTemplate = $resourceType->getTemplate();
-/** @var $resourceTypeTemplate OpenCloud\Orchestration\Resource\ResourceTypeTemplate **/
+/** @var $resourceTypeTemplate string **/
