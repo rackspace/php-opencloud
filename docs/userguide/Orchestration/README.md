@@ -74,4 +74,4 @@ $stack = $orchestrationService->createStack(array(
 
 ## Next steps
 
-Once you have created a stack, there is more you can do with it. See [complete user guide for load balancers](USERGUIDE.md).
+Once you have created a stack, there is more you can do with it. See [complete user guide for orchestration](USERGUIDE.md).
