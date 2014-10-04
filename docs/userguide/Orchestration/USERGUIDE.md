@@ -222,6 +222,7 @@ This operation takes the following positional parameters:
 | 2 | ID of the stack | String | No | | `1ded0b2a-36b6-4f7b-9a8b-b45acf3b5619` |
 
 #### Get Stack by Name
+
 ```php
 $stack = $orchestrationService->getStack('my-drupal-stack');
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
@@ -229,6 +230,7 @@ $stack = $orchestrationService->getStack('my-drupal-stack');
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-by-name.php) ]
 
 #### Get Stack by Name and ID
+
 ```php
 $stack = $orchestrationService->getStack('my-drupal-stack', '1ded0b2a-36b6-4f7b-9a8b-b45acf3b5619');
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
@@ -239,6 +241,7 @@ $stack = $orchestrationService->getStack('my-drupal-stack', '1ded0b2a-36b6-4f7b-
 You can retrieve the template used to create a stack. Please note that a JSON
 string is returned, regardless of whether a JSON or YAML template was used to
 create the stack.
+
 ```php
 $stackTemplate = $stack->getTemplate();
 /** @var $stackTemplate string **/
@@ -382,6 +385,7 @@ foreach ($stackEvents as $stackEvent) {
 
 ### List Stack Resource Events
 You can list all events for a specific resource in a stack as shown below:
+
 ```php
 $stackResourceEvents = $stackResource->listEvents();
 foreach ($stackResourceEvents as $stackResourceEvent) {
@@ -393,6 +397,7 @@ foreach ($stackResourceEvents as $stackResourceEvent) {
 ### Get Stack Resource Event
 You can retrieve a specific event for a specific resource in a stack, by using
 the resource event's ID, as shown below:
+
 ```php
 $stackResourceEvent = $stackResource->getEvent('c1342a0a-59e6-4413-9af5-07c9cae7d729');
 /** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
