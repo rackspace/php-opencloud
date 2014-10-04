@@ -338,14 +338,66 @@ $stack = $orchestrationService->adoptStack(array(
 
 ## Stack Resources
 
+A stack is made up of zero or more resources. Examples of resources are databases,
+load balancers, servers or the software installed on servers.
+
 ### List stack Resources
+
+You can list all the resources for a stack as shown below:
+
+```php
+$stackResources = $stack->listResources();
+foreach ($stackResources as $stackResource) {
+    /** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-resources.php) ]
+
 ### Get stack Resource
 
+You can retrieve a specific resource in a stack using that resource's name, as shown
+below:
+
+```php
+// 4. Get resource in stack.
+$stackResource = $stack->getResource('load-balancer');
+/** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource.php) ]
+
 ## Stack Resource Events
+Operations on resources within a stack (such as creation of a resource) produce
+events.
 
 ### List Stack Events
+You can list all events for all resources in a stack as shown below:
+
+```php
+$stackEvents = $stack->listEvents();
+foreach ($stackEvents as $stackEvent) {
+    /** @var $stackEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-events.php) ]
+
 ### List Stack Resource Events
+You can list all events for a specific resource in a stack as shown below:
+```php
+$stackResourceEvents = $stackResource->listEvents();
+foreach ($stackResourceEvents as $stackResourceEvent) {
+    /** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+}
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-resource-events.php) ]
+
 ### Get Stack Resource Event
+You can retrieve a specific event for a specific resource in a stack, by using
+the resource event's ID, as shown below:
+```php
+$stackResourceEvent = $stackResource->getEvent('c1342a0a-59e6-4413-9af5-07c9cae7d729');
+/** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource-event.php) ]
 
 ## Resource Types
 
