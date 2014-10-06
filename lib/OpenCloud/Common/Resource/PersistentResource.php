@@ -132,6 +132,22 @@ abstract class PersistentResource extends BaseResource
         return $response;
     }
 
+
+    /**
+     * Causes resource to refresh based on parent's URL
+     */
+    protected function refreshFromParent()
+    {
+        $url = clone $this->getParent()->getUrl();
+        $url->addPath($this->resourceName());
+
+        $response = $this->getClient()->get($url)->send();
+
+        if (null !== ($decoded = $this->parseResponse($response))) {
+            $this->populate($decoded);
+        }
+    }
+
     /**
      * Given a `location` URL, refresh this resource
      *
