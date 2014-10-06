@@ -28,9 +28,13 @@ class ResourceType extends ReadOnlyResource
     protected static $json_name = '';
     protected static $json_collection_name = 'resource_types';
 
-    protected $resource_type;
+    protected $resourceType;
     protected $attributes;
     protected $_properties; // Named so because the Base class has a $properties member.
+
+    protected $aliases = array(
+        'resource_type' => 'resourceType'
+    );
 
     /**
      * Required to prevent the Base class from attempting to populate $this->properties.
@@ -43,11 +47,6 @@ class ResourceType extends ReadOnlyResource
     public function getProperties()
     {
         return $this->_properties;
-    }
-
-    public function getResourceType()
-    {
-        return $this->resource_type;
     }
 
     /**
