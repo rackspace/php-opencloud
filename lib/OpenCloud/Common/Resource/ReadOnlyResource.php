@@ -15,23 +15,28 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Orchestration\Resource;
-
-use OpenCloud\Common\Resource\ReadOnlyResource;
+namespace OpenCloud\Common\Resource;
 
 /**
+ * Represents a read-only resource: one that cannot be created, updated
+ * or deleted.
  *
+ * @package OpenCloud\Common\Resource
  */
-class BuildInfo extends ReadOnlyResource
+abstract class ReadOnlyResource extends PersistentResource
 {
-    protected static $url_resource = 'build_info';
-    protected static $json_name = '';
-
-    protected $api;
-    protected $engine;
-
-    public function refresh($id = null, $url = null)
+    public function create($params = array())
     {
-        return $this->refreshFromParent();
+        return $this->noCreate();
+    }
+
+    public function update($params = array())
+    {
+        return $this->noUpdate();
+    }
+
+    public function delete()
+    {
+        return $this->noDelete();
     }
 }
