@@ -123,12 +123,12 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can use it to preview a stack as shown below:
 
 ```php
-$stack = $orchestrationService->previewStack(array(
+$stack = $orchestrationService->stack();
+$stack->preview(array(
     'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
     'timeout_mins' => 3
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
 
 [ [Get the executable PHP script for this example](/samples/Orchestration/preview-stack-from-file.php) ]

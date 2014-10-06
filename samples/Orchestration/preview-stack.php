@@ -38,8 +38,8 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Preview a stack.
-$stack = $orchestrationService->previewStack(array(
+$stack = $orchestrationService->stack();
+$stack->preview(array(
     'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml')
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
