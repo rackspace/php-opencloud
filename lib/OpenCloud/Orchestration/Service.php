@@ -18,6 +18,8 @@
 namespace OpenCloud\Orchestration;
 
 use OpenCloud\Common\Service\CatalogService;
+use OpenCloud\Orchestration\Resource\Stack;
+use OpenCloud\Orchestration\Resource\ResourceType;
 
 /**
  * The Orchestration class represents the OpenStack Heat service.
@@ -36,13 +38,74 @@ class Service extends CatalogService
     /**
      * Returns a Stack object associated with this Orchestration service
      *
-     * @api
      * @param string $id - the stack with the ID is retrieved
      * @returns Stack object
      */
     public function stack($id = null)
     {
-        return new Stack($this, $id);
+        return $this->resource('Stack', $id);
+    }
+
+    /**
+     * Returns a Stack object associated with this Orchestration service
+     *
+     * @param string $id - the stack with the ID is retrieved
+     * @returns Stack object
+     */
+    public function getStack($id)
+    {
+        return $this->stack($id);
+    }
+
+    /**
+     * Returns a list of stacks you created
+     *
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function listStacks(array $params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath(Stack::resourceName())->setQuery($params);
+
+        return $this->resourceList('Stack', $url);
+    }
+
+    /**
+     * Returns a list of resource types available
+     *
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function listResourceTypes(array $params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath(ResourceType::resourceName())->setQuery($params);
+
+        return $this->resourceList('ResourceType', $url);
+    }
+
+    /**
+     * Returns a ResourceType object associated with this Orchestration service
+     *
+     * @param string $id - the resource type with the ID is retrieved
+     * @returns ResourceType object
+     */
+    public function getResourceType($id)
+    {
+        return $this->resource('ResourceType', $id);
+    }
+
+    /**
+     * Returns a BuildInfo object associated with this Orchestration service
+     *
+     * @returns BuildInfo object
+     */
+    public function getBuildInfo()
+    {
+        $buildInfo = $this->resource('BuildInfo');
+        $buildInfo->refresh();
+        return $buildInfo;        
     }
 
     /**
