@@ -28,9 +28,25 @@ class BuildInfo extends PersistentResource
     protected static $json_name = '';
 
     protected $api;
+    protected $engine;
 
     public function refresh($id = null, $url = null)
     {
         return $this->refreshFromParent();
+    }
+
+    public function create($params = array())
+    {
+        return $this->noCreate();
+    }
+
+    public function update($params = array())
+    {
+        return $this->noUpdate();
+    }
+
+    public function delete($params = array())
+    {
+        return $this->noDelete();
     }
 }

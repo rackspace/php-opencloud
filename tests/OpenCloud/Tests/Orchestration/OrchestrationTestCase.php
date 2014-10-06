@@ -25,10 +25,11 @@ class OrchestrationTestCase extends OpenCloudTestCase
     protected $service;
     protected $container;
 
-//    protected $mockPath = 'Orchestration';
-
     public function setupObjects()
     {
         $this->service = $this->getClient()->orchestrationService();
+
+        $this->addMockSubscriber($this->makeResponse('{"engine":{"revision":"2014.j3-20141003-1139"},"fusion-api":{"revision":"j1-20140915-10d9ee4-98"},"api":{"revision":"2014.j3-20141003-1139"}}'));
+        $this->buildInfo = $this->service->getBuildInfo();
     }
 } 
