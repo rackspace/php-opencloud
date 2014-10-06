@@ -40,12 +40,12 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Create a stack.
 $stack = $orchestrationService->stack();
 $stack->create(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
+    'name'         => 'my-drupal-web-site',
+    'templateUrl'  => 'https://github.com/ycombinator/drupal-multi/template.yml',
     'parameters'   => array(
         'flavor_id' => 'performance1_1',
         'db_name'   => 'drupaldb',
         'db_user'   => 'drupaldbuser'
     ),
-    'timeout_mins' => 5
+    'timeoutMins' => 5
 ));

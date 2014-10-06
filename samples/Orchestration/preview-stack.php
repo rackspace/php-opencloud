@@ -40,6 +40,6 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Preview a stack.
 $stack = $orchestrationService->stack();
 $stack->preview(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml')
+    'name'     => 'my-drupal-web-site',
+    'template' => file_get_contents(__DIR__ . '/sample_template.yml')
 ));

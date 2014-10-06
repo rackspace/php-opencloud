@@ -40,9 +40,9 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Adopt a stack.
 $stack = $orchestrationService->stack();
 $stack->create(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'adopt_stack_data' => file_get_contents(__DIR__ . '/sample_adopt_stack_data.json'),
-    'timeout_mins' => 3
+    'name'           => 'my-drupal-web-site',
+    'template'       => file_get_contents(__DIR__ . '/sample_template.yml'),
+    'adoptStackData' => file_get_contents(__DIR__ . '/sample_adopt_stack_data.json'),
+    'timeoutMins'    => 3
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/

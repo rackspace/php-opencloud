@@ -39,12 +39,12 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Create a stack.
 $stack = $orchestrationService->stack();
 $stack->create(array(
-    'stack_name'   => 'Cloud server with attached block storage',
-    'template_url' => 'https://raw.githubusercontent.com/openstack/heat-templates/master/hot/vm_with_cinder.yaml',
+    'name'         => 'Cloud server with attached block storage',
+    'templateUrl'  => 'https://raw.githubusercontent.com/openstack/heat-templates/master/hot/vm_with_cinder.yaml',
     'parameters'   => array(
         'key_name' => 'mine',
         'flavor'   => 'performance1_1',
         'image'    => '0112b238-4267-4a22-9785-fcf75814bc2f' // Ubuntu 14.04 LTS (Trusty Tahr)
     ),
-    'timeout_mins' => 5
+    'timeoutMins'  => 5
 ));

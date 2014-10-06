@@ -49,5 +49,5 @@ $stack->update(array(
         'db_name'   => 'drupaldb',
         'db_user'   => 'drupalweb'
     ),
-    'timeout_mins' => 5
+    'timeoutMins' => 5
 ));

@@ -91,7 +91,7 @@ as a JSON or YAML file, you can validate it as shown below:
 
 ```php
 $orchestrationService->validateTemplate(array(
-    'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml'
+    'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml'
 ));
 ```
 
@@ -113,8 +113,8 @@ This operation takes one parameter, an associative array, with the following key
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
 | `name` | Name of the stack | String. Must start with a alphabet. Must contain only alphanumeric, `_`, `-` or `.` characters. | Yes | | `my-drupal-web-site` |
-| `template` | Template contents | String, JSON or YAML | No, if `template_url` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
-| `template_url` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
+| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
+| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
 | `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('flavor_id' => 'performance1_1')` |
 
 #### Preview Stack from Template File
@@ -125,9 +125,9 @@ can use it to preview a stack as shown below:
 ```php
 $stack = $orchestrationService->stack();
 $stack->preview(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'timeout_mins' => 3
+    'name'        => 'my-drupal-web-site',
+    'template'    => file_get_contents(__DIR__ . '/sample_template.yml'),
+    'timeoutMins' => 3
 ));
 ```
 
@@ -140,8 +140,8 @@ as a JSON or YAML file, you can use it to preview a stack as shown below:
 
 ```php
 $stack = $orchestrationService->previewStack(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml'
+    'name'        => 'my-drupal-web-site',
+    'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml'
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
@@ -156,10 +156,10 @@ This operation takes one parameter, an associative array, with the following key
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
 | `name` | Name of the stack | String. Must start with a alphabet. Must contain only alphanumeric, `_`, `-` or `.` characters. | Yes | | `my-drupal-web-site` |
-| `template` | Template contents | String, JSON or YAML | No, if `template_url` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
-| `template_url` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
+| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
+| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
 | `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('flavor_id' => 'performance1_1')` |
-| `timeout_mins` | Duration, in minutes, after which stack creation should time out | Integer | Yes | | 5 |
+| `timeoutMins` | Duration, in minutes, after which stack creation should time out | Integer | Yes | | 5 |
 
 #### Create Stack from Template File
 
@@ -169,14 +169,14 @@ can use it to create a stack as shown below:
 ```php
 $stack = $orchestrationService->stack();
 $stack->create(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'parameters'   => array(
+    'name'          => 'my-drupal-web-site',
+    'template'      => file_get_contents(__DIR__ . '/sample_template.yml'),
+    'parameters'    => array(
         'flavor_id' => 'performance1_1',
         'db_name'   => 'drupaldb',
         'db_user'   => 'drupaldbuser'
     ),
-    'timeout_mins' => 3
+    'timeoutMins'   => 3
 ));
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-file.php) ]
@@ -188,14 +188,14 @@ as a JSON or YAML file, you can use it to create a stack as shown below:
 ```php
 $stack = $orchestrationService->stack();
 $stack->create(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
-    'parameters'   => array(
+    'name'          => 'my-drupal-web-site',
+    'templateUrl'   => 'https://github.com/ycombinator/drupal-multi/template.yml',
+    'parameters'    => array(
         'flavor_id' => 'performance1_1',
         'db_name'   => 'drupaldb',
         'db_user'   => 'drupaldbuser'
     ),
-    'timeout_mins' => 5
+    'timeoutMins'   => 5
 ));
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-url.php) ]
@@ -255,10 +255,10 @@ This operation takes one parameter, an associative array, with the following key
 
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `template` | Template contents | String, JSON or YAML | No, if `template_url` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
-| `template_url` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
+| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
+| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
 | `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('flavor_id' => 'performance1_1')` |
-| `timeout_mins` | Duration, in minutes, after which stack update should time out | Integer | Yes | | 5 |
+| `timeoutMins` | Duration, in minutes, after which stack update should time out | Integer | Yes | | 5 |
 
 #### Update Stack from Template File
 
@@ -267,13 +267,13 @@ can use it to update a stack as shown below:
 
 ```php
 $stack->update(array(
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'parameters'   => array(
+    'template'      => file_get_contents(__DIR__ . '/sample_template.yml'),
+    'parameters'    => array(
         'flavor_id' => 'performance1_1',
         'db_name'   => 'drupaldb',
         'db_user'   => 'drupalweb'
     ),
-    'timeout_mins' => 3
+    'timeoutMins'   => 3
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
@@ -286,13 +286,13 @@ as a JSON or YAML file, you can use it to update a stack as shown below:
 
 ```php
 $stack->update(array(
-    'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
-    'parameters'   => array(
+    'templateUrl'   => 'https://github.com/ycombinator/drupal-multi/template.yml',
+    'parameters'    => array(
         'flavor_id' => 'performance1_1',
         'db_name'   => 'drupaldb',
         'db_user'   => 'drupalweb'
     ),
-    'timeout_mins' => 3
+    'timeoutMins'   => 3
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
@@ -331,10 +331,10 @@ as shown below:
 ```php
 $stack = $orchestrationService->stack();
 $stack->create(array(
-    'stack_name'   => 'my-drupal-web-site',
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'adopt_stack_data' => $abandonStackData,
-    'timeout_mins' => 3
+    'name'           => 'my-drupal-web-site',
+    'template'       => file_get_contents(__DIR__ . '/sample_template.yml'),
+    'adoptStackData' => $abandonStackData,
+    'timeoutMins'    => 3
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```

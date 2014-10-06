@@ -39,5 +39,5 @@ $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Validate template from URL
 $orchestrationService->validateTemplate(array(
-    'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml'
+    'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml'
 ));
