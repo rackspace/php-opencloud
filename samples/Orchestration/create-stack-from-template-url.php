@@ -38,7 +38,8 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Create a stack.
-$stack = $orchestrationService->createStack(array(
+$stack = $orchestrationService->stack();
+$stack->create(array(
     'stack_name'   => 'my-drupal-web-site',
     'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
     'parameters'   => array(
@@ -48,4 +49,3 @@ $stack = $orchestrationService->createStack(array(
     ),
     'timeout_mins' => 5
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/

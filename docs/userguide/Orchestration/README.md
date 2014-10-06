@@ -58,7 +58,8 @@ In the example above, you are connecting to the ``DFW`` region of the cloud. Any
 
 ### 3. Create a stack from a template.
 ```php
-$stack = $orchestrationService->createStack(array(
+$stack = $orchestrationService->stack();
+$stack->create(array(
     'stack_name'   => 'Cloud server with attached block storage',
     'template_url' => 'https://raw.githubusercontent.com/openstack/heat-templates/master/hot/vm_with_cinder.yaml',
     'parameters'   => array(

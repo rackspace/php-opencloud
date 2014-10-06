@@ -167,7 +167,8 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can use it to create a stack as shown below:
 
 ```php
-$stack = $orchestrationService->createStack(array(
+$stack = $orchestrationService->stack();
+$stack->create(array(
     'stack_name'   => 'my-drupal-web-site',
     'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
     'parameters'   => array(
@@ -177,7 +178,6 @@ $stack = $orchestrationService->createStack(array(
     ),
     'timeout_mins' => 3
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-file.php) ]
 
@@ -186,7 +186,8 @@ If your template is stored in a remote location accessible via HTTP or HTTPS,
 as a JSON or YAML file, you can use it to create a stack as shown below:
 
 ```php
-$stack = $orchestrationService->createStack(array(
+$stack = $orchestrationService->stack();
+$stack->create(array(
     'stack_name'   => 'my-drupal-web-site',
     'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
     'parameters'   => array(
@@ -196,7 +197,6 @@ $stack = $orchestrationService->createStack(array(
     ),
     'timeout_mins' => 5
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-url.php) ]
 

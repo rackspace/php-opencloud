@@ -37,7 +37,8 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Create a stack.
-$stack = $orchestrationService->createStack(array(
+$stack = $orchestrationService->stack();
+$stack->create(array(
     'stack_name'   => 'Cloud server with attached block storage',
     'template_url' => 'https://raw.githubusercontent.com/openstack/heat-templates/master/hot/vm_with_cinder.yaml',
     'parameters'   => array(
