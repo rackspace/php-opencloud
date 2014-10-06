@@ -20,6 +20,7 @@ namespace OpenCloud\Orchestration;
 use OpenCloud\Common\Service\CatalogService;
 use OpenCloud\Orchestration\Resource\Stack;
 use OpenCloud\Orchestration\Resource\ResourceType;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 
 /**
  * The Orchestration class represents the OpenStack Heat service.
@@ -106,6 +107,26 @@ class Service extends CatalogService
         $buildInfo = $this->resource('BuildInfo');
         $buildInfo->refresh();
         return $buildInfo;        
+    }
+
+    /**
+     * Validates the given template
+     *
+     * @return Boolean True, if template is valid; False, otherwise
+     */
+    public function validateTemplate(array $params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('validate');
+
+        $json = json_encode($params);
+
+        try {
+            $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
+            return true;
+        } catch (ClientErrorResponseException $e) {
+            return false;
+        }
     }
 
     /**

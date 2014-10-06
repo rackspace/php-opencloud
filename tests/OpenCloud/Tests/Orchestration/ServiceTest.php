@@ -95,16 +95,16 @@ class ServiceTest extends OrchestrationTestCase
     }
 
 
-/**
     public function testValidateValidTemplate()
     {
+        $this->addMockSubscriber($this->makeResponse());
         $this->assertTrue($this->service->validateTemplate(array('template' => 'heat_template_version: 2013-05-23')));
     }
 
     public function testValidateInvalidTemplate()
     {
+        $this->addMockSubscriber($this->makeResponse(null, 400));
         $this->assertFalse($this->service->validateTemplate(array('template' => 'foobar: baz')));
     }
 
-**/
 }
