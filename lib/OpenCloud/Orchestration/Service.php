@@ -40,7 +40,7 @@ class Service extends CatalogService
      * Returns a Stack object associated with this Orchestration service
      *
      * @param string $id - the stack with the ID is retrieved
-     * @returns Stack object
+     * @return Stack object
      */
     public function stack($id = null)
     {
@@ -51,7 +51,7 @@ class Service extends CatalogService
      * Returns a Stack object associated with this Orchestration service
      *
      * @param string $id - the stack with the ID is retrieved
-     * @returns Stack object
+     * @return Stack object
      */
     public function getStack($id)
     {
@@ -90,7 +90,7 @@ class Service extends CatalogService
      * Returns a ResourceType object associated with this Orchestration service
      *
      * @param string $id - the resource type with the ID is retrieved
-     * @returns ResourceType object
+     * @return ResourceType object
      */
     public function getResourceType($id)
     {
@@ -100,7 +100,7 @@ class Service extends CatalogService
     /**
      * Returns a BuildInfo object associated with this Orchestration service
      *
-     * @returns BuildInfo object
+     * @return BuildInfo object
      */
     public function getBuildInfo()
     {
