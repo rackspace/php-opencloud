@@ -31,5 +31,8 @@ class OrchestrationTestCase extends OpenCloudTestCase
 
         $this->addMockSubscriber($this->makeResponse('{"engine":{"revision":"2014.j3-20141003-1139"},"fusion-api":{"revision":"j1-20140915-10d9ee4-98"},"api":{"revision":"2014.j3-20141003-1139"}}'));
         $this->buildInfo = $this->service->getBuildInfo();
+
+        $this->addMockSubscriber($this->makeResponse('{"attributes":{"an_attribute":{"description":"An attribute description ."}},"properties":{"a_property":{"update_allowed":false,"required":true,"type":"string","description":"A resource description."}},"resource_type":"OS::Nova::Server"}'));
+        $this->resourceType = $this->service->getResourceType("OS::Nova::Server");
     }
 } 

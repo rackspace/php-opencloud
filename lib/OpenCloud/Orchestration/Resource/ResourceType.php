@@ -17,12 +17,12 @@
 
 namespace OpenCloud\Orchestration\Resource;
 
-use OpenCloud\Common\Resource\PersistentResource;
+use OpenCloud\Common\Resource\ReadOnlyResource;
 
 /**
  *
  */
-class ResourceType extends PersistentResource
+class ResourceType extends ReadOnlyResource
 {
     protected static $url_resource = 'resource_types';
     protected static $json_name = '';
@@ -48,5 +48,19 @@ class ResourceType extends PersistentResource
     public function getResourceType()
     {
         return $this->resource_type;
+    }
+
+    /**
+     * Returns the template representation for this resource type.
+     *
+     * @return String template representation
+     */
+    public function getTemplate()
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('template');
+
+        $response = $this->getClient()->get($url)->send();
+        return $response->getBody();
     }
 }
