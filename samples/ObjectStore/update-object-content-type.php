@@ -44,14 +44,7 @@ $container = $objectStoreService->getContainer('logos');
 
 // 4. Get object.
 $objectName = 'php-elephant.jpg';
-$object = $container->getObject($objectName);
+$object = $container->getPartialObject($objectName);
 
-// 5. Update object metadata.
-$object->setContentType('image/jpeg');
-$object->update();
-
-// IMPORTANT NOTE: Even though you are only updating the content type of the
-// uploaded object, you are downloading the entire object first (via 
-// $container->getObject($objectName) and re-uploading it (via $object->update).
-// There is no other way to update the object's content type once it has
-// be uploaded.
+// 5. Update object content type.
+$object->saveMetadata(array('Content-Type' => 'image/jpeg'), false);
