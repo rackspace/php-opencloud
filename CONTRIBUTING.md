@@ -34,3 +34,11 @@ phpunit
 1. Make sure your [variables-order](http://www.php.net/manual/en/ini.core.php#ini.variables-order) is set to "EGCRS"
 2. Set your *PHP_OpenCloud_USERNAME* and *PHP_OpenCloud_API_KEY* variables
 3. Run: ```php tests/OpenCloud/Smoke/Runner.php```
+
+## Conventions
+
+* When working on a `Service` class (e.g. [`OpenCloud\Image\Service`](/lib/OpenCloud/Image/Service.php), name methods like so:
+
+  * Methods that return a single resource, say `Foo`, should be named `getFoo`. For example, [`getImage`](/lib/OpenCloud/Image/Service.php#L67).
+  * Methods that return a collection of resources, say `Foo`, should be named `listFoos`. For example, [`listImages`](/lib/OpenCloud/Image/Service.php#L53).
+  * Methods that create a new resource, say `Foo`, should be named `createFoo`. For example, [`createEntity`](/lib/OpenCloud/CloudMonitoring/Service.php#L105).
