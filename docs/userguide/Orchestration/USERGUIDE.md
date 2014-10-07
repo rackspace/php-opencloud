@@ -357,7 +357,7 @@ foreach ($stackResources as $stackResource) {
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-resources.php) ]
 
-### Get stack Resource
+### Get Stack Resource
 
 You can retrieve a specific resource in a stack using that resource's name, as shown
 below:
