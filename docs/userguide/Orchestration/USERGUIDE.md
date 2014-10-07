@@ -369,6 +369,17 @@ $stackResource = $stack->getResource('load-balancer');
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource.php) ]
 
+### Get Stack Resource Metadata
+
+You can retrieve the metadata for a specific resource in a stack as shown below:
+
+```php
+// Get stack resource metadata.
+$stackResourceMetadata = $stackResource->getMetadata();
+/** @var $stackResourceMetadata OpenCloud\Orchestration\Resource\StackResourceMetadata **/
+```
+[ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource-metadata.php) ]
+
 ## Stack Resource Events
 Operations on resources within a stack (such as creation of a resource) produce
 events.
