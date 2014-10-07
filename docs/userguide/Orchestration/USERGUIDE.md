@@ -363,7 +363,7 @@ You can retrieve a specific resource in a stack using that resource's name, as s
 below:
 
 ```php
-// 4. Get resource in stack.
+// Get resource in stack.
 $stackResource = $stack->getResource('load-balancer');
 /** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
 ```
