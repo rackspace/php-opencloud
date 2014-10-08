@@ -250,7 +250,22 @@ abstract class PersistentResource extends BaseResource
      */
     protected function updateJson($params = array())
     {
-        throw new UpdateError('updateJson() must be overriden in order for an update to happen');
+        if (!isset($this->updateKeys)) {
+            throw new \RuntimeException(sprintf(
+                'This resource object [%s] must have a visible updateKeys array',
+                get_class($this)
+            ));
+        }
+
+        $element = (object) array();
+
+        foreach ($this->updateKeys as $key) {
+            if (null !== ($property = $this->getProperty($key))) {
+                $element->{$this->getAlias($key)} = $property;
+            }
+        }
+
+        return (object) array($this->jsonName() => (object) $element);
     }
 
     /**
