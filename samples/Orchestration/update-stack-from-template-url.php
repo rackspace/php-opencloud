@@ -43,11 +43,11 @@ $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Update stack.
 $stack->update(array(
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'parameters'   => array(
-        'flavor_id' => 'performance1_1',
-        'db_name'   => 'drupaldb',
-        'db_user'   => 'drupalweb'
+    'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'parameters'    => array(
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
-    'timeoutMins' => 5
+    'timeoutMins'   => 5
 ));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/

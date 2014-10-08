@@ -20,10 +20,8 @@
 // * Prior to running this script, you must setup the following environment variables:
 //   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key,
-//   * OS_REGION_NAME: The OpenStack Cloud region you want to use,
-//   * STACK_NAME:   Name of stack,
-//   * STACK_RESOURCE_NAME: Name of resource in stack, and
+//   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key, and
+//   * OS_REGION_NAME: The OpenStack Cloud region you want to use
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -39,12 +37,14 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
-// 3. Get stack.
-$stack = $orchestrationService->getStack(getenv('STACK_NAME'));
-
-// 4. Get resource in stack.
-$stackResource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
-
-// 5. Get stack resource metadata.
-$stackResourceMetadata = $stackResource->getMetadata();
-/** @var $stackResourceMetadata \stdClass **/
+// 3. Preview a stack.
+$stack = $orchestrationService->previewStack(array(
+    'name'        => 'simple-lamp-setup',
+    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'parameters'   => array(
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+    ),
+    'timeoutMins' => 5
+));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/

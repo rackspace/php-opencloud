@@ -77,11 +77,11 @@ can validate it as shown below:
 
 ```php
 $orchestrationService->validateTemplate(array(
-    'template'     => file_get_contents(__DIR__ . '/sample_template.yml')
+    'template'     => file_get_contents(__DIR__ . '/lamp.yml')
 ));
 ```
 
-[ [Get the executable PHP script for this example](/samples/Orchestration/validate-template-from-url.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/validate-template-from-template-url.php) ]
 
 If the template is invalid, a [`Guzzle\Http\Exception\ClientErrorResponseException`](http://api.guzzlephp.org/class-Guzzle.Http.Exception.ClientErrorResponseException.html) will be thrown.
 
@@ -91,11 +91,11 @@ as a JSON or YAML file, you can validate it as shown below:
 
 ```php
 $orchestrationService->validateTemplate(array(
-    'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml'
+    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml'
 ));
 ```
 
-[ [Get the executable PHP script for this example](/samples/Orchestration/validate-template-from-url.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/validate-template-from-template-url.php) ]
 
 If the template is invalid, a [`Guzzle\Http\Exception\ClientErrorResponseException`](http://api.guzzlephp.org/class-Guzzle.Http.Exception.ClientErrorResponseException.html) will be thrown.
 
@@ -112,9 +112,9 @@ This operation takes one parameter, an associative array, with the following key
 
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `name` | Name of the stack | String. Must start with a alphabet. Must contain only alphanumeric, `_`, `-` or `.` characters. | Yes | | `my-drupal-web-site` |
-| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
-| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
+| `name` | Name of the stack | String. Must start with a alphabet. Must contain only alphanumeric, `_`, `-` or `.` characters. | Yes | | `simple-lamp-setup` |
+| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: LAMP server\n` |
+| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml` |
 | `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('flavor_id' => 'performance1_1')` |
 
 #### Preview Stack from Template File
@@ -123,15 +123,19 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can use it to preview a stack as shown below:
 
 ```php
-$stack = $orchestrationService->stack();
-$stack->preview(array(
-    'name'        => 'my-drupal-web-site',
-    'template'    => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'timeoutMins' => 3
+$stack = $orchestrationService->previewStack(array(
+    'name'        => 'simple-lamp-setup',
+    'template'    => file_get_contents(__DIR__ . '/lamp.yml'),
+    'parameters'   => array(
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+    ),
+    'timeoutMins' => 5
 ));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
 
-[ [Get the executable PHP script for this example](/samples/Orchestration/preview-stack-from-file.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/preview-stack-from-template-file.php) ]
 
 #### Preview Stack from Template URL
 
@@ -140,13 +144,18 @@ as a JSON or YAML file, you can use it to preview a stack as shown below:
 
 ```php
 $stack = $orchestrationService->previewStack(array(
-    'name'        => 'my-drupal-web-site',
-    'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml'
+    'name'        => 'simple-lamp-setup',
+    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'parameters'   => array(
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+    ),
+    'timeoutMins' => 5
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
 
-[ [Get the executable PHP script for this example](/samples/Orchestration/preview-stack-from-url.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/preview-stack-from-template-url.php) ]
 
 ### Create Stack
 You can create a stack from a template.
@@ -155,10 +164,10 @@ This operation takes one parameter, an associative array, with the following key
 
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `name` | Name of the stack | String. Must start with a alphabet. Must contain only alphanumeric, `_`, `-` or `.` characters. | Yes | | `my-drupal-web-site` |
-| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
-| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
-| `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('flavor_id' => 'performance1_1')` |
+| `name` | Name of the stack | String. Must start with a alphabet. Must contain only alphanumeric, `_`, `-` or `.` characters. | Yes | | `simple-lamp-setup` |
+| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: LAMP server\n` |
+| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml` |
+| `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('server_hostname' => 'web01')` |
 | `timeoutMins` | Duration, in minutes, after which stack creation should time out | Integer | Yes | | 5 |
 
 #### Create Stack from Template File
@@ -167,19 +176,18 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can use it to create a stack as shown below:
 
 ```php
-$stack = $orchestrationService->stack();
-$stack->create(array(
-    'name'          => 'my-drupal-web-site',
-    'template'      => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'parameters'    => array(
-        'flavor_id' => 'performance1_1',
-        'db_name'   => 'drupaldb',
-        'db_user'   => 'drupaldbuser'
+$stack = $orchestrationService->createStack(array(
+    'name'         => 'simple-lamp-setup',
+    'templateUrl'  => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'parameters'   => array(
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
-    'timeoutMins'   => 3
+    'timeoutMins' => 5
 ));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
-[ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-file.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-template-file.php) ]
 
 #### Create Stack from Template URL
 If your template is stored in a remote location accessible via HTTP or HTTPS,
@@ -188,17 +196,16 @@ as a JSON or YAML file, you can use it to create a stack as shown below:
 ```php
 $stack = $orchestrationService->stack();
 $stack->create(array(
-    'name'          => 'my-drupal-web-site',
-    'templateUrl'   => 'https://github.com/ycombinator/drupal-multi/template.yml',
+    'name'          => 'simple-lamp-setup',
+    'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
     'parameters'    => array(
-        'flavor_id' => 'performance1_1',
-        'db_name'   => 'drupaldb',
-        'db_user'   => 'drupaldbuser'
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
     'timeoutMins'   => 5
 ));
 ```
-[ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-url.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/create-stack-from-template-url.php) ]
 
 ### List Stacks
 You can list all the stacks that you have created as shown below:
@@ -218,13 +225,13 @@ This operation takes the following positional parameters:
 
 | Position | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| 1 | Name of the stack | String | Yes | | `my-drupal-web-site` |
+| 1 | Name of the stack | String | Yes | | `simple-lamp-setup` |
 | 2 | ID of the stack | String | No | | `1ded0b2a-36b6-4f7b-9a8b-b45acf3b5619` |
 
 #### Get Stack by Name
 
 ```php
-$stack = $orchestrationService->getStack('my-drupal-stack');
+$stack = $orchestrationService->getStack('simple-lamp-setup');
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-by-name.php) ]
@@ -232,7 +239,7 @@ $stack = $orchestrationService->getStack('my-drupal-stack');
 #### Get Stack by Name and ID
 
 ```php
-$stack = $orchestrationService->getStack('my-drupal-stack', '1ded0b2a-36b6-4f7b-9a8b-b45acf3b5619');
+$stack = $orchestrationService->getStack('simple-lamp-setup', '1ded0b2a-36b6-4f7b-9a8b-b45acf3b5619');
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-by-name-and-id.php) ]
@@ -255,8 +262,8 @@ This operation takes one parameter, an associative array, with the following key
 
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: My Drual Web Site\n` |
-| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://github.com/ycombinator/drupal-multi/template.yml` |
+| `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: LAMP server\n` |
+| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml` |
 | `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('flavor_id' => 'performance1_1')` |
 | `timeoutMins` | Duration, in minutes, after which stack update should time out | Integer | Yes | | 5 |
 
@@ -267,17 +274,16 @@ can use it to update a stack as shown below:
 
 ```php
 $stack->update(array(
-    'template'      => file_get_contents(__DIR__ . '/sample_template.yml'),
+    'template'      => file_get_contents(__DIR__ . '/lamp.yml'),
     'parameters'    => array(
-        'flavor_id' => 'performance1_1',
-        'db_name'   => 'drupaldb',
-        'db_user'   => 'drupalweb'
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
-    'timeoutMins'   => 3
+    'timeoutMins'   => 5
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
-[ [Get the executable PHP script for this example](/samples/Orchestration/update-stack-from-file.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/update-stack-from-template-file.php) ]
 
 #### Update Stack from Template URL
 
@@ -286,17 +292,16 @@ as a JSON or YAML file, you can use it to update a stack as shown below:
 
 ```php
 $stack->update(array(
-    'templateUrl'   => 'https://github.com/ycombinator/drupal-multi/template.yml',
+    'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
     'parameters'    => array(
-        'flavor_id' => 'performance1_1',
-        'db_name'   => 'drupaldb',
-        'db_user'   => 'drupalweb'
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
-    'timeoutMins'   => 3
+    'timeoutMins'   => 5
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
-[ [Get the executable PHP script for this example](/samples/Orchestration/update-stack-from-url.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/update-stack-from-template-url.php) ]
 
 ### Delete Stack
 
@@ -329,12 +334,11 @@ If you have data from an abandoned stack, you may adopt it and recreate the stac
 as shown below:
 
 ```php
-$stack = $orchestrationService->stack();
-$stack->create(array(
-    'name'           => 'my-drupal-web-site',
-    'template'       => file_get_contents(__DIR__ . '/sample_template.yml'),
+$stack = $orchestrationService->adoptStack(array(
+    'name'           => 'simple-lamp-setup',
+    'template'       => file_get_contents(__DIR__ . '/lamp.yml'),
     'adoptStackData' => $abandonStackData,
-    'timeoutMins'    => 3
+    'timeoutMins'    => 5
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
@@ -376,7 +380,7 @@ You can retrieve the metadata for a specific resource in a stack as shown below:
 ```php
 // Get stack resource metadata.
 $stackResourceMetadata = $stackResource->getMetadata();
-/** @var $stackResourceMetadata OpenCloud\Orchestration\Resource\StackResourceMetadata **/
+/** @var $stackResourceMetadata \stdClass **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource-metadata.php) ]
 

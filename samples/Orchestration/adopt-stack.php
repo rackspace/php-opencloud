@@ -38,11 +38,10 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Adopt a stack.
-$stack = $orchestrationService->stack();
-$stack->create(array(
-    'name'           => 'my-drupal-web-site',
-    'template'       => file_get_contents(__DIR__ . '/sample_template.yml'),
+$stack = $orchestrationService->adoptStack(array(
+    'name'           => 'simple-lamp-setup',
+    'template'       => file_get_contents(__DIR__ . '/lamp.yml'),
     'adoptStackData' => file_get_contents(__DIR__ . '/sample_adopt_stack_data.json'),
-    'timeoutMins'    => 3
+    'timeoutMins'    => 5
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/

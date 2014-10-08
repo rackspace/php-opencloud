@@ -21,9 +21,8 @@
 //   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
 //   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key,
-//   * OS_REGION_NAME: The OpenStack Cloud region you want to use,
-//   * STACK_NAME:   Name of stack,
-//   * STACK_RESOURCE_NAME: Name of resource in stack, and
+//   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
+//   * STACK_NAME:   Name of stack
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -42,9 +41,12 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Get stack.
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
-// 4. Get resource in stack.
-$stackResource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
-
-// 5. Get stack resource metadata.
-$stackResourceMetadata = $stackResource->getMetadata();
-/** @var $stackResourceMetadata \stdClass **/
+// 4. Update stack.
+$stack->update(array(
+    'template'      => file_get_contents(__DIR__ . '/lamp.yml'),
+    'parameters'    => array(
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+    ),
+    'timeoutMins'   => 5
+));

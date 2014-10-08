@@ -38,9 +38,13 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Create a stack.
-$stack = $orchestrationService->stack();
-$stack->create(array(
-    'name'        => 'my-drupal-web-site',
-    'template'    => file_get_contents(__DIR__ . '/sample_template.yml'),
-    'timeoutMins' => 3
+$stack = $orchestrationService->createStack(array(
+    'name'        => 'simple-lamp-setup',
+    'template'    => file_get_contents(__DIR__ . '/lamp.yml'),
+    'parameters'   => array(
+        'server_hostname' => 'web01',
+        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+    ),
+    'timeoutMins' => 5
 ));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/

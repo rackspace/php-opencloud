@@ -37,9 +37,7 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
-// 3. Preview a stack.
-$stack = $orchestrationService->stack();
-$stack->preview(array(
-    'name'     => 'my-drupal-web-site',
-    'template' => file_get_contents(__DIR__ . '/sample_template.yml')
+// 3. Validate template from URL
+$orchestrationService->validateTemplate(array(
+    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml'
 ));
