@@ -127,4 +127,16 @@ class StackTest extends OrchestrationTestCase
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $resource);
         $this->assertEquals('A MySQL DB instance', $resource->getDescription());
     }
+
+    public function testListEvents()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"events":[{"resource_name":"mysql_server","event_time":"2014-07-23T08:14:47Z","links":[{"href":"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/teststack/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/mysql_server/events/474bfdf0-a450-46ec-a78a-0c7faa404073","rel":"self"},{"href":"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/teststack/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/mysql_server","rel":"resource"},{"href":"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/teststack/db467ed1-50b5-4a3e-aeb1-396ff1d151c5","rel":"stack"}],"logical_resource_id":"mysql_server","resource_status":"CREATE_FAILED","resource_status_reason":"NotFound: Subnet f8a699d0-3537-429e-87a5-6b5a8d0c2bf0 could not be found","physical_resource_id":null,"id":"474bfdf0-a450-46ec-a78a-0c7faa404073"},{"resource_name":"mysql_server","event_time":"2014-07-23T08:14:47Z","links":[{"href":"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/teststack/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/mysql_server/events/66fa95b6-e6f8-4f05-b1af-e828f5aba04c","rel":"self"},{"href":"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/teststack/db467ed1-50b5-4a3e-aeb1-396ff1d151c5/resources/mysql_server","rel":"resource"},{"href":"http://192.168.123.200:8004/v1/dc4b074874244f7693dd65583733a758/stacks/teststack/db467ed1-50b5-4a3e-aeb1-396ff1d151c5","rel":"stack"}],"logical_resource_id":"mysql_server","resource_status":"CREATE_IN_PROGRESS","resource_status_reason":"state changed","physical_resource_id":null,"id":"66fa95b6-e6f8-4f05-b1af-e828f5aba04c"}]}'));
+
+        $events = $this->stack->listEvents();
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $events);
+
+        $firstEvent = $events->getElement(0);
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Event', $firstEvent);
+        $this->assertEquals('474bfdf0-a450-46ec-a78a-0c7faa404073', $firstEvent->getId());
+    }
 }

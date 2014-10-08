@@ -168,6 +168,28 @@ class Stack extends PersistentResource
         return $this->getService()->resourceList('Resource', $url, $this);
     }
 
+    /**
+     * Returns a list of Events associated with this Stack
+     *
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function listEvents(array $params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath(Event::resourceName())->setQuery($params);
+
+        return $this->getService()->resourceList('Event', $url, $this);
+    }
+
+    /**
+     * Iterator use only
+     */
+    public function event($id)
+    {
+        return $this->getService()->resource('Event', $id, $this);
+    }
+
     protected function previewUrl()
     {
         return $this->getParent()->url('preview');
