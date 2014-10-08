@@ -354,9 +354,9 @@ load balancers, servers or the software installed on servers.
 You can list all the resources for a stack as shown below:
 
 ```php
-$stackResources = $stack->listResources();
-foreach ($stackResources as $stackResource) {
-    /** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
+$resources = $stack->listResources();
+foreach ($resources as $resource) {
+    /** @var $resource OpenCloud\Orchestration\Resource\Resource **/
 }
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-resources.php) ]
@@ -368,8 +368,8 @@ below:
 
 ```php
 // Get resource in stack.
-$stackResource = $stack->getResource('load-balancer');
-/** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
+$resource = $stack->getResource('load-balancer');
+/** @var $resource OpenCloud\Orchestration\Resource\Resource **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource.php) ]
 
@@ -379,8 +379,8 @@ You can retrieve the metadata for a specific resource in a stack as shown below:
 
 ```php
 // Get stack resource metadata.
-$stackResourceMetadata = $stackResource->getMetadata();
-/** @var $stackResourceMetadata \stdClass **/
+$resourceMetadata = $resource->getMetadata();
+/** @var $resourceMetadata \stdClass **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource-metadata.php) ]
 
@@ -394,7 +394,7 @@ You can list all events for all resources in a stack as shown below:
 ```php
 $stackEvents = $stack->listEvents();
 foreach ($stackEvents as $stackEvent) {
-    /** @var $stackEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+    /** @var $stackEvent OpenCloud\Orchestration\Resource\ResourceEvent **/
 }
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-events.php) ]
@@ -403,9 +403,9 @@ foreach ($stackEvents as $stackEvent) {
 You can list all events for a specific resource in a stack as shown below:
 
 ```php
-$stackResourceEvents = $stackResource->listEvents();
-foreach ($stackResourceEvents as $stackResourceEvent) {
-    /** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+$resourceEvents = $resource->listEvents();
+foreach ($resourceEvents as $resourceEvent) {
+    /** @var $resourceEvent OpenCloud\Orchestration\Resource\ResourceEvent **/
 }
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-resource-events.php) ]
@@ -415,8 +415,8 @@ You can retrieve a specific event for a specific resource in a stack, by using
 the resource event's ID, as shown below:
 
 ```php
-$stackResourceEvent = $stackResource->getEvent('c1342a0a-59e6-4413-9af5-07c9cae7d729');
-/** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+$resourceEvent = $resource->getEvent('c1342a0a-59e6-4413-9af5-07c9cae7d729');
+/** @var $resourceEvent OpenCloud\Orchestration\Resource\ResourceEvent **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource-event.php) ]
 

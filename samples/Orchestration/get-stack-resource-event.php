@@ -44,8 +44,8 @@ $orchestrationService = $client->orchestrationService(null, $region);
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Get resource in stack.
-$stackResource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
+$resource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
 
 // 5. Get stack resource event.
-$stackResourceEvent = $stackResource->getEvent(getenv('STACK_RESOURCE_EVENT_ID'));
-/** @var $stackResourceEvent OpenCloud\Orchestration\Resource\StackResourceEvent **/
+$resourceEvent = $resource->getEvent(getenv('STACK_RESOURCE_EVENT_ID'));
+/** @var $resourceEvent OpenCloud\Orchestration\Resource\ResourceEvent **/

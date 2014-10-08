@@ -43,5 +43,5 @@ $orchestrationService = $client->orchestrationService(null, $region);
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Get resource in stack.
-$stackResource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
-/** @var $stackResource OpenCloud\Orchestration\Resource\StackResource **/
+$resource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
+/** @var $resource OpenCloud\Orchestration\Resource\Resource **/

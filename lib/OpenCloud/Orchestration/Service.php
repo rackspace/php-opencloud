@@ -48,6 +48,45 @@ class Service extends CatalogService
     }
 
     /**
+     * Previews a Stack from a template and returns it.
+     *
+     * @param array $params Stack preview parameters
+     * @return Stack Object representing previewed stack
+     */
+    public function previewStack($params = array())
+    {
+        $stack = $this->stack();
+        $stack->preview($params);
+        return $stack;
+    }
+
+    /**
+     * Creates a new Stack and returns it.
+     *
+     * @param array $params Stack creation parameters
+     * @return Stack Object representing created stack
+     */
+    public function createStack($params = array())
+    {
+        $stack = $this->stack();
+        $stack->create($params);
+        return $stack;
+    }
+
+    /**
+     * Adopts a Stack and returns it.
+     *
+     * @param array $params Stack adoption parameters
+     * @return Stack Object representing adopted stack
+     */
+    public function adoptStack($params = array())
+    {
+        $stack = $this->stack();
+        $stack->adopt($params);
+        return $stack;
+    }
+
+    /**
      * Returns a Stack object associated with this Orchestration service
      *
      * @param string $id - the stack with the ID is retrieved

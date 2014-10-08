@@ -34,5 +34,11 @@ class OrchestrationTestCase extends OpenCloudTestCase
 
         $this->addMockSubscriber($this->makeResponse('{"attributes":{"an_attribute":{"description":"An attribute description ."}},"properties":{"a_property":{"update_allowed":false,"required":true,"type":"string","description":"A resource description."}},"resource_type":"OS::Nova::Server"}'));
         $this->resourceType = $this->service->getResourceType("OS::Nova::Server");
+
+        $this->addMockSubscriber($this->makeResponse('{"stack":{"capabilities":[],"creation_time":"2014-06-03T20:59:46Z","description":"sample stack","disable_rollback":"True","id":"3095aefc-09fb-4bc7-b1f0-f21a304e864c","links":[{"href":"http://192.168.123.200:8004/v1/eb1c63a4f77141548385f113a28f0f52/stacks/simple_stack/3095aefc-09fb-4bc7-b1f0-f21a304e864c","rel":"self"}],"notification_topics":[],"outputs":[],"parameters":{"OS::stack_id":"3095aefc-09fb-4bc7-b1f0-f21a304e864c","OS::stack_name":"simple_stack"},"stack_name":"simple_stack","stack_status":"CREATE_COMPLETE","stack_status_reason":"Stack CREATE completed successfully","template_description":"sample stack","timeout_mins":"","updated_time":""}}'));
+        $this->stack = $this->service->getStack('simple_stack');
+
+        $this->addMockSubscriber($this->makeResponse('{"resource":{"resource_name":"MySqlCloudDatabaseServer","description":"","links":[{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxxx21-9xx9-4xxxe-bxxf-a7fxxxxx68/resources/MySqlCloudDatabaseServer","rel":"self"},{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxxx1-9xx9-4xxe-bxxf-a7fxxxxxx68","rel":"stack"}],"logical_resource_id":"MySqlCloudDatabaseServer","resource_status":"CREATE_COMPLETE","updated_time":"2014-02-05T19:20:31Z","required_by":[],"resource_status_reason":"state changed","physical_resource_id":"98xxx0-cxx8-4xxe-bxx5-3fxxxx11","resource_type":"OS::Trove::Instance"}}'));
+        $this->resource = $this->stack->getResource('MySqlCloudDatabaseServer');
     }
 } 

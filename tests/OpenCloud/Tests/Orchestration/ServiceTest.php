@@ -35,9 +35,27 @@ class ServiceTest extends OrchestrationTestCase
         $this->assertInstanceOf('OpenCloud\Orchestration\Service', $service);
     }
 
+    public function testPreviewStack()
+    {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->service->previewStack());
+    }
+
     public function testCreateStack()
     {
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->service->stack());
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->service->createStack());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAdoptStackWithoutAdoptStackData()
+    {
+        $this->service->adoptStack();
+    }
+
+    public function testAdoptStackWithAdoptStackData()
+    {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->service->adoptStack(array('adoptStackData' => 'foobar')));
     }
 
     public function testListStacks()

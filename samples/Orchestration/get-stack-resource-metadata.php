@@ -43,8 +43,8 @@ $orchestrationService = $client->orchestrationService(null, $region);
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Get resource in stack.
-$stackResource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
+$resource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
 
 // 5. Get stack resource metadata.
-$stackResourceMetadata = $stackResource->getMetadata();
-/** @var $stackResourceMetadata \stdClass **/
+$resourceMetadata = $resource->getMetadata();
+/** @var $resourceMetadata \stdClass **/
