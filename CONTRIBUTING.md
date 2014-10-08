@@ -42,3 +42,5 @@ phpunit
   * Methods that return a single resource, say `Foo`, should be named `getFoo`. For example, [`getImage`](/lib/OpenCloud/Image/Service.php#L67).
   * Methods that return a collection of resources, say `Foo`, should be named `listFoos`. For example, [`listImages`](/lib/OpenCloud/Image/Service.php#L53).
   * Methods that create a new resource, say `Foo`, should be named `createFoo`. For example, [`createEntity`](/lib/OpenCloud/CloudMonitoring/Service.php#L105).
+
+* When validating arguments to a method, please throw `\InvalidArgumentException` when an invalid argument is found. For example, see [here](/lib/OpenCloud/LoadBalancer/Resource/LoadBalancer.php#L212-L215).
