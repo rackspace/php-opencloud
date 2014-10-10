@@ -18,6 +18,7 @@
 namespace OpenCloud\Orchestration\Resource;
 
 use OpenCloud\Common\Resource\ReadOnlyResource;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  *
@@ -56,16 +57,15 @@ class Resource extends ReadOnlyResource
 
     public function getMetadata()
     {
-        $metadataUrl = $this->metadataUrl();
-        $response = $this->getClient()->get($metadataUrl)->send();
-        return json_decode($response->getBody(true));
-    }
 
-    protected function metadataUrl()
-    {
-        return $this->getParent()->url('metadata');
-    }
+        $url = clone $this->getUrl();
+        $url->addPath('metadata');
 
+        $response = $this->getClient()->get($url)->send();
+        $json = Formatter::decode($response);
+
+        return $json->metadata;
+    }
 
     /**
      * Returns a list of Events associated with this Resource
