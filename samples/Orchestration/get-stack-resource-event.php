@@ -48,4 +48,4 @@ $resource = $stack->getResource(getenv('STACK_RESOURCE_NAME'));
 
 // 5. Get stack resource event.
 $resourceEvent = $resource->getEvent(getenv('STACK_RESOURCE_EVENT_ID'));
-/** @var $resourceEvent OpenCloud\Orchestration\Resource\ResourceEvent **/
+/** @var $resourceEvent OpenCloud\Orchestration\Resource\Event **/

@@ -385,7 +385,7 @@ You can list all events for all resources in a stack as shown below:
 ```php
 $stackEvents = $stack->listEvents();
 foreach ($stackEvents as $stackEvent) {
-    /** @var $stackEvent OpenCloud\Orchestration\Resource\ResourceEvent **/
+    /** @var $stackEvent OpenCloud\Orchestration\Resource\Event **/
 }
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-events.php) ]
@@ -396,7 +396,7 @@ You can list all events for a specific resource in a stack as shown below:
 ```php
 $resourceEvents = $resource->listEvents();
 foreach ($resourceEvents as $resourceEvent) {
-    /** @var $resourceEvent OpenCloud\Orchestration\Resource\ResourceEvent **/
+    /** @var $resourceEvent OpenCloud\Orchestration\Resource\Event **/
 }
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/list-stack-resource-events.php) ]
@@ -407,7 +407,7 @@ the resource event's ID, as shown below:
 
 ```php
 $resourceEvent = $resource->getEvent('c1342a0a-59e6-4413-9af5-07c9cae7d729');
-/** @var $resourceEvent OpenCloud\Orchestration\Resource\ResourceEvent **/
+/** @var $resourceEvent OpenCloud\Orchestration\Resource\Event **/
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-resource-event.php) ]
 
