@@ -312,6 +312,8 @@ it as shown below:
 ```php
 $abandonStackData = $stack->abandon();
 /** @var $abandonStackData string **/
+
+file_put_contents(__DIR__ . '/sample_adopt_stack_data.json', $abandonStackData);
 ```
 [ [Get the executable PHP script for this example](/samples/Orchestration/abandon-stack.php) ]
 

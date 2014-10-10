@@ -45,3 +45,4 @@ $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 $abandonStackData = $stack->abandon();
 /** @var $abandonStackData string **/
 
+file_put_contents(__DIR__ . '/sample_adopt_stack_data.json', $abandonStackData);
