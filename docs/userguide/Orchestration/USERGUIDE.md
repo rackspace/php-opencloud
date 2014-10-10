@@ -33,8 +33,8 @@ To use the Orchestration service, you must first instantiate a `OpenStack` or `R
     use OpenCloud\OpenStack;
 
     $client = new OpenStack('<OPENSTACK CLOUD IDENTITY ENDPOINT URL>', array(
-        'username' => '<YOUR RACKSPACE CLOUD ACCOUNT USERNAME>',
-        'apiKey'   => '<YOUR RACKSPACE CLOUD ACCOUNT API KEY>'
+        'username' => '<YOUR OPENSTACK CLOUD ACCOUNT USERNAME>',
+        'password' => '<YOUR OPENSTACK CLOUD ACCOUNT PASSWORD>'
     ));
     ```
 
