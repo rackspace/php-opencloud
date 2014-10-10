@@ -31,10 +31,10 @@ Choose one of the following two options:
     ```php
     use OpenCloud\OpenStack;
 
-     $client = new OpenStack('<OPENSTACK CLOUD IDENTITY ENDPOINT URL>', array(
-         'username' => '<YOUR OPENSTACK USERNAME>',
-         'password' => '<YOUR OPENSTACK PASSWORD>'
-     ));
+    $client = new OpenStack('<OPENSTACK CLOUD IDENTITY ENDPOINT URL>', array(
+        'username' => '<YOUR OPENSTACK CLOUD ACCOUNT USERNAME>',
+        'password' => '<YOUR OPENSTACK CLOUD ACCOUNT PASSWORD>'
+    ));
     ```
 
 * If you are working with the Rackspace cloud, instantiate a `OpenCloud\Rackspace` client as shown below.
