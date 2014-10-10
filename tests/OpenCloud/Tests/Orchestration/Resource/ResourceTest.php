@@ -48,7 +48,7 @@ class ResourceTest extends OrchestrationTestCase
 
     public function testGetMetadata()
     {
-        $this->addMockSubscriber($this->makeResponse('{"foo":"bar","baz":17}'));
+        $this->addMockSubscriber($this->makeResponse('{"metadata":{"foo":"bar","baz":17}}'));
         $metadata = $this->resource->getMetadata();
         $this->assertEquals("bar", $metadata->foo);
     }
