@@ -62,4 +62,9 @@ class ResourceType extends ReadOnlyResource
         $response = $this->getClient()->get($url)->send();
         return $response->getBody();
     }
+
+    protected function primaryKeyField()
+    {
+        return 'resourceType';
+    }
 }
