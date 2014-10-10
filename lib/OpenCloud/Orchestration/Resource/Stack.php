@@ -207,7 +207,11 @@ class Stack extends PersistentResource
 
     protected function previewUrl()
     {
-        return $this->getParent()->url('preview');
+        $url = clone $this->getParent()->getUrl();
+        $url->addPath(self::resourceName());
+        $url->addPath('preview');
+
+        return $url;
     }
 
     protected function abandonUrl()
