@@ -254,7 +254,7 @@ This operation takes one parameter, an associative array, with the following key
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
 | `template` | Template contents | String, JSON or YAML | No, if `templateUrl` is specified | | `heat_template_version: 2013-05-23\ndescription: LAMP server\n` |
-| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml` |
+| `templateUrl` | URL of template file | String, HTTP or HTTPS URL | No, if `template` is specified | | `https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp-updated.yaml` |
 | `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | | `array('flavor_id' => 'performance1_1')` |
 | `timeoutMins` | Duration, in minutes, after which stack update should time out | Integer | Yes | | 5 |
 
@@ -265,7 +265,7 @@ can use it to update a stack as shown below:
 
 ```php
 $stack->update(array(
-    'template'      => file_get_contents(__DIR__ . '/lamp.yml'),
+    'template'      => file_get_contents(__DIR__ . '/lamp-updated.yml'),
     'parameters'    => array(
         'server_hostname' => 'web01',
         'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
@@ -283,7 +283,7 @@ as a JSON or YAML file, you can use it to update a stack as shown below:
 
 ```php
 $stack->update(array(
-    'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp-updated.yaml',
     'parameters'    => array(
         'server_hostname' => 'web01',
         'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
