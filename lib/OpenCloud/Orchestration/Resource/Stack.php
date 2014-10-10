@@ -216,7 +216,10 @@ class Stack extends PersistentResource
 
     protected function abandonUrl()
     {
-        return $this->getParent()->url('abandon');
+        $url = clone $this->getUrl();
+        $url->addPath('abandon');
+
+        return $url;
     }
 
     protected function primaryKeyField()
