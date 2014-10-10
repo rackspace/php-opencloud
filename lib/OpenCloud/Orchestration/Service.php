@@ -41,12 +41,12 @@ class Service extends CatalogService
     /**
      * Returns a Stack object associated with this Orchestration service
      *
-     * @param string $id - the stack with the ID is retrieved
+     * @param string $name Name of stack to retrieve
      * @return Stack object
      */
-    public function stack($id = null)
+    public function stack($name = null)
     {
-        return $this->resource('Stack', $id);
+        return $this->resource('Stack', $name);
     }
 
     /**
@@ -91,12 +91,12 @@ class Service extends CatalogService
     /**
      * Returns a Stack object associated with this Orchestration service
      *
-     * @param string $id - the stack with the ID is retrieved
+     * @param string $name Name of stack to retrieve
      * @return Stack object
      */
-    public function getStack($id)
+    public function getStack($name)
     {
-        return $this->stack($id);
+        return $this->stack($name);
     }
 
     /**

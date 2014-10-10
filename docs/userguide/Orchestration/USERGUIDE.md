@@ -227,30 +227,13 @@ foreach ($stacks as $stack) {
 [ [Get the executable PHP script for this example](/samples/Orchestration/list-stacks.php) ]
 
 ### Get Stack
-You can retrieve a specific stack either by its name OR by its name and ID.
-
-This operation takes the following positional parameters:
-
-| Position | Description | Data type | Required? | Default value | Example value |
-| ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| 1 | Name of the stack | String | Yes | | `simple-lamp-setup` |
-| 2 | ID of the stack | String | No | | `1ded0b2a-36b6-4f7b-9a8b-b45acf3b5619` |
-
-#### Get Stack by Name
+You can retrieve a specific stack using its name, as shown below:
 
 ```php
 $stack = $orchestrationService->getStack('simple-lamp-setup');
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
-[ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-by-name.php) ]
-
-#### Get Stack by Name and ID
-
-```php
-$stack = $orchestrationService->getStack('simple-lamp-setup', '1ded0b2a-36b6-4f7b-9a8b-b45acf3b5619');
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
-```
-[ [Get the executable PHP script for this example](/samples/Orchestration/get-stack-by-name-and-id.php) ]
+[ [Get the executable PHP script for this example](/samples/Orchestration/get-stack.php) ]
 
 ### Get Stack Template
 You can retrieve the template used to create a stack. Please note that a JSON
