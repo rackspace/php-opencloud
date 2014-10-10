@@ -20,7 +20,7 @@
 // * Prior to running this script, you must setup the following environment variables:
 //   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * NOVA_API_KEY:  Your OpenStack Cloud Account API Key, and
+//   * OS_PASSWORD:  Your OpenStack Cloud Account Password, and
 //   * OS_REGION_NAME: The OpenStack Cloud region you want to use
 //
 
@@ -30,7 +30,7 @@ use OpenCloud\OpenStack;
 // 1. Instantiate an OpenStack client.
 $client = new OpenStack(getenv('OS_AUTH_URL'), array(
     'username' => getenv('OS_USERNAME'),
-    'apiKey'   => getenv('NOVA_API_KEY')
+    'password'   => getenv('OS_PASSWORD')
 ));
 
 // 2. Obtain an Orchestration service object from the client.

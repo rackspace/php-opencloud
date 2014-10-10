@@ -19,7 +19,7 @@
 // Pre-requisites:
 // * Prior to running this script, you must setup the following environment variables:
 //   * OS_USERNAME: Your Rackspace Cloud Account Username,
-//   * NOVA_API_KEY:  Your Rackspace Cloud Account API Key, and
+//   * OS_PASSWORD:  Your Rackspace Cloud Account Password, and
 //   * OS_REGION_NAME: The Rackspace Cloud region you want to use
 //
 
@@ -29,7 +29,7 @@ use OpenCloud\Rackspace;
 // 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => getenv('OS_USERNAME'),
-    'apiKey'   => getenv('NOVA_API_KEY')
+    'password'   => getenv('OS_PASSWORD')
 ));
 
 // 2. Obtain an Orchestration service object from the client.
