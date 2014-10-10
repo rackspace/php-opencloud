@@ -76,28 +76,36 @@ If your template is stored on your local computer as a JSON or YAML file, you
 can validate it as shown below:
 
 ```php
-$orchestrationService->validateTemplate(array(
-    'template'     => file_get_contents(__DIR__ . '/lamp.yml')
-));
+use OpenCloud\Common\Exceptions\InvalidTemplateError;
+
+try {
+    $orchestrationService->validateTemplate(array(
+        'template'     => file_get_contents(__DIR__ . '/lamp.yaml')
+    ));
+} catch (InvalidTemplateError $e) {
+    // Use $e->getMessage() for explanation of why template is invalid
+}
 ```
 
 [ [Get the executable PHP script for this example](/samples/Orchestration/validate-template-from-template-url.php) ]
-
-If the template is invalid, a [`Guzzle\Http\Exception\ClientErrorResponseException`](http://api.guzzlephp.org/class-Guzzle.Http.Exception.ClientErrorResponseException.html) will be thrown.
 
 #### Validate Template from URL
 If your template is stored in a remote location accessible via HTTP or HTTPS,
 as a JSON or YAML file, you can validate it as shown below:
 
 ```php
-$orchestrationService->validateTemplate(array(
-    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml'
-));
+use OpenCloud\Common\Exceptions\InvalidTemplateError;
+
+try {
+    $orchestrationService->validateTemplate(array(
+        'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml'
+    ));
+} catch (InvalidTemplateError $e) {
+    // Use $e->getMessage() for explanation of why template is invalid
+}
 ```
 
 [ [Get the executable PHP script for this example](/samples/Orchestration/validate-template-from-template-url.php) ]
-
-If the template is invalid, a [`Guzzle\Http\Exception\ClientErrorResponseException`](http://api.guzzlephp.org/class-Guzzle.Http.Exception.ClientErrorResponseException.html) will be thrown.
 
 ## Stacks
 A stack is a running instance of a template. When a stack is created, the

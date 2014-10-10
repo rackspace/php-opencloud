@@ -26,6 +26,7 @@
 
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\OpenStack;
+use OpenCloud\Common\Exceptions\InvalidTemplateError;
 
 // 1. Instantiate an OpenStack client.
 $client = new OpenStack(getenv('OS_AUTH_URL'), array(
@@ -38,6 +39,10 @@ $region = getenv('OS_REGION_NAME');
 $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Validate template from URL
-$orchestrationService->validateTemplate(array(
-    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml'
-));
+try {
+    $orchestrationService->validateTemplate(array(
+        'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml'
+    ));
+} catch (InvalidTemplateError $e) {
+    // Use $e->getMessage() for explanation of why template is invalid
+}

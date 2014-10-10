@@ -17,7 +17,9 @@
 
 namespace OpenCloud\Orchestration;
 
+use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\CatalogService;
+use OpenCloud\Common\Exceptions\InvalidTemplateError;
 use OpenCloud\Orchestration\Resource\Stack;
 use OpenCloud\Orchestration\Resource\ResourceType;
 use Guzzle\Http\Exception\ClientErrorResponseException;
@@ -151,7 +153,7 @@ class Service extends CatalogService
     /**
      * Validates the given template
      *
-     * @return Boolean True, if template is valid; False, otherwise
+     * @throws InvalidTemplateError if template is invalid
      */
     public function validateTemplate(array $params = array())
     {
@@ -162,9 +164,9 @@ class Service extends CatalogService
 
         try {
             $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
-            return true;
         } catch (ClientErrorResponseException $e) {
-            return false;
+            $response = Formatter::decode($e->getResponse());
+            throw new InvalidTemplateError($response->explanation, $response->code);
         }
     }
 

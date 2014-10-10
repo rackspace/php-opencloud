@@ -25,6 +25,7 @@
 namespace OpenCloud\Tests\Orchestration;
 
 use OpenCloud\Orchestration\Service;
+use OpenCloud\Common\Exceptions\InvalidTemplateError;
 
 class ServiceTest extends OrchestrationTestCase
 {
@@ -112,17 +113,15 @@ class ServiceTest extends OrchestrationTestCase
         $this->assertEquals('2014.j3-20141003-1139', $buildInfo->getApi()->revision);
     }
 
-
-    public function testValidateValidTemplate()
-    {
-        $this->addMockSubscriber($this->makeResponse());
-        $this->assertTrue($this->service->validateTemplate(array('template' => 'heat_template_version: 2013-05-23')));
-    }
-
     public function testValidateInvalidTemplate()
     {
-        $this->addMockSubscriber($this->makeResponse(null, 400));
-        $this->assertFalse($this->service->validateTemplate(array('template' => 'foobar: baz')));
+        $this->addMockSubscriber($this->makeResponse('{"explanation":"Template version not specified","code":400}', 400));
+        try {
+            $this->service->validateTemplate(array('template' => 'foobar: baz'));
+            $this->fail("InvalidTemplateError exception should have been thrown!");
+        } catch (InvalidTemplateError $e) {
+            $this->assertEquals("Template version not specified", $e->getMessage());
+        }
     }
 
 }
