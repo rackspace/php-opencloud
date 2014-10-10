@@ -60,7 +60,7 @@ class ResourceType extends ReadOnlyResource
         $url->addPath('template');
 
         $response = $this->getClient()->get($url)->send();
-        return $response->getBody();
+        return $response->getBody(true);
     }
 
     protected function primaryKeyField()
