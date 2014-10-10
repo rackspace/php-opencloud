@@ -40,7 +40,7 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Adopt a stack.
 $stack = $orchestrationService->adoptStack(array(
     'name'           => 'simple-lamp-setup',
-    'template'       => file_get_contents(__DIR__ . '/lamp.yml'),
+    'template'       => file_get_contents(__DIR__ . '/lamp.yaml'),
     'adoptStackData' => file_get_contents(__DIR__ . '/sample_adopt_stack_data.json'),
     'timeoutMins'    => 5
 ));

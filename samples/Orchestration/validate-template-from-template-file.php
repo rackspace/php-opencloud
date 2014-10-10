@@ -39,5 +39,5 @@ $orchestrationService = $client->orchestrationService(null, $region);
 
 // 3. Validate template from file.
 $orchestrationService->validateTemplate(array(
-    'template'     => file_get_contents(__DIR__ . '/lamp.yml')
+    'template'     => file_get_contents(__DIR__ . '/lamp.yaml')
 ));

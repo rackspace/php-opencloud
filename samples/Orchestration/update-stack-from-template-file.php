@@ -43,7 +43,7 @@ $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Update stack.
 $stack->update(array(
-    'template'      => file_get_contents(__DIR__ . '/lamp.yml'),
+    'template'      => file_get_contents(__DIR__ . '/lamp.yaml'),
     'parameters'    => array(
         'server_hostname' => 'web01',
         'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
