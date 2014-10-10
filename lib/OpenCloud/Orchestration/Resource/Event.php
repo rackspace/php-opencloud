@@ -34,6 +34,7 @@ class Event extends ReadOnlyResource
     protected $resourcePhysicalId;
     protected $resourceStatus;
     protected $resourceStatusReason;
+    protected $resourceProperties;
     protected $resourceType;
     protected $links;
 
@@ -44,6 +45,7 @@ class Event extends ReadOnlyResource
         'physical_resource_id' => 'resourcePhysicalId',
         'resource_status' => 'resourceStatus',
         'resource_status_reason' => 'resourceStatusReason',
-        'resource_type' => 'resourceType'
+        'resource_type' => 'resourceType',
+        'resource_properties' => 'resourceProperties'
     );
 }
