@@ -35,6 +35,7 @@ class Event extends ReadOnlyResource
     protected $resourceStatus;
     protected $resourceStatusReason;
     protected $resourceType;
+    protected $links;
 
     protected $aliases = array(
         'event_time' => 'time',

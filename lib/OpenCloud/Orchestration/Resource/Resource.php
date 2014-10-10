@@ -36,6 +36,7 @@ class Resource extends ReadOnlyResource
     protected $requiredBy;
     protected $updatedTime;
     protected $type;
+    protected $links;
 
     protected $aliases = array(
         'resource_name' => 'name',

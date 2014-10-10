@@ -43,6 +43,7 @@ class Stack extends PersistentResource
     protected $templateUrl;
     protected $template;
     protected $adoptStackData;
+    protected $links;
 
     protected $aliases = array(
         'disable_rollback'    => 'disableRollback',
@@ -204,14 +205,4 @@ class Stack extends PersistentResource
     {
         return 'name';
     }
-
-    public function getUrl($path = NULL, array $query = array())
-    {
-        $url = parent::getUrl($path, $query);
-        if ($this->id) {
-            $url->addPath($this->id);
-        }
-        return $url;
-    }
-
 }
