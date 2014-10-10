@@ -191,6 +191,20 @@ class Stack extends PersistentResource
         return $this->getService()->resource('Event', $id, $this);
     }
 
+    /**
+     * Returns the template for this stack.
+     *
+     * @return String template
+     */
+    public function getStackTemplate()
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('template');
+
+        $response = $this->getClient()->get($url)->send();
+        return $response->getBody(true);
+    }
+
     protected function previewUrl()
     {
         return $this->getParent()->url('preview');

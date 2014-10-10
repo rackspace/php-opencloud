@@ -139,4 +139,14 @@ class StackTest extends OrchestrationTestCase
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Event', $firstEvent);
         $this->assertEquals('474bfdf0-a450-46ec-a78a-0c7faa404073', $firstEvent->getId());
     }
+
+    public function testGetTemplate()
+    {
+        $expectedTemplateStr = '{"description":"Heat Orchestration Template that spins up a single server","heat_template_version":"2013-05-23","parameters":{"compute_flavor":{"constraints":[{"allowed_values":["1 GB Performance","2 GB Performance","4 GB Performance","8 GB Performance","16 GB Performance"],"description":"Must be a valid Rackspace Cloud Server flavor."}],"default":"2 GB Performance","description":"flavor id for the compute instance","type":"String"},"compute_image":{"constraints":[{"allowed_values":["Ubuntu 13.10 (Saucy Salamander)","Ubuntu 12.10 (Quantal Quetzal)"],"description":"Must be a valid Rackspace Cloud Server image name."}],"default":"Ubuntu 13.10 (Saucy Salamander)","description":"The Image to use for the host OS.","type":"String"}},"resources":{"server_instance":{"type":"OS::Nova::Server","properties":{"flavor":{"get_param":"compute_flavor"},"image":{"get_param":"compute_image"},"name":"Single Node Compute Instance"}}}}';
+
+        $this->addMockSubscriber($this->makeResponse($expectedTemplateStr));
+
+        $actualTemplateStr = $this->stack->getStackTemplate();
+        $this->assertEquals($expectedTemplateStr, $actualTemplateStr);
+    }
 }

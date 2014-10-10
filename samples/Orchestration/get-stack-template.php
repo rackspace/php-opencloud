@@ -42,5 +42,5 @@ $orchestrationService = $client->orchestrationService(null, $region);
 $stack = $orchestrationService->getStack(getenv('STACK_NAME'));
 
 // 4. Get stack template.
-$stackTemplate = $stack->getTemplate();
+$stackTemplate = $stack->getStackTemplate();
 /** @var $stackTemplate string **/
