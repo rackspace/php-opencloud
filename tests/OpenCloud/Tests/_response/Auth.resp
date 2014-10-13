@@ -14,29 +14,29 @@ Front-End-Https: on
             {
                 "endpoints": [
                     {
-                        "publicURL": "https://cdn2.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "publicURL": "https://cdn2.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "ORD",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "publicURL": "https://cdn1.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "publicURL": "https://cdn1.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "DFW",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "publicURL": "https://cdn4.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "publicURL": "https://cdn4.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "SYD",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "publicURL": "https://cdn5.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "publicURL": "https://cdn5.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "IAD",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "publicURL": "https://cdn6.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "publicURL": "https://cdn6.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "HKG",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     }
                 ],
                 "name": "cloudFilesCDN",
@@ -45,34 +45,34 @@ Front-End-Https: on
             {
                 "endpoints": [
                     {
-                        "internalURL": "https://snet-storage101.ord1.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
-                        "publicURL": "https://storage101.ord1.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "internalURL": "https://snet-storage101.ord1.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "publicURL": "https://storage101.ord1.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "ORD",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "internalURL": "https://snet-storage101.syd2.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
-                        "publicURL": "https://storage101.syd2.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "internalURL": "https://snet-storage101.syd2.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "publicURL": "https://storage101.syd2.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "SYD",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "internalURL": "https://snet-storage101.dfw1.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
-                        "publicURL": "https://storage101.dfw1.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "internalURL": "https://snet-storage101.dfw1.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "publicURL": "https://storage101.dfw1.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "DFW",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "internalURL": "https://snet-storage101.iad3.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
-                        "publicURL": "https://storage101.iad3.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "internalURL": "https://snet-storage101.iad3.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "publicURL": "https://storage101.iad3.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "IAD",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     },
                     {
-                        "internalURL": "https://snet-storage101.hkg1.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
-                        "publicURL": "https://storage101.hkg1.clouddrive.com/v1/MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa",
+                        "internalURL": "https://snet-storage101.hkg1.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+                        "publicURL": "https://storage101.hkg1.clouddrive.com/v1/MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                         "region": "HKG",
-                        "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                        "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                     }
                 ],
                 "name": "cloudFiles",
@@ -355,7 +355,7 @@ Front-End-Https: on
                 "APIKEY"
             ],
             "expires": "2013-11-13T10:49:29.409Z",
-            "id": "cc81a27bf50249e5b5878d8b51f2eea6",
+            "id": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
             "tenant": {
                 "id": "123456",
                 "name": "123456"
@@ -380,7 +380,7 @@ Front-End-Https: on
                     "description": "A Role that allows a user access to keystone Service methods",
                     "id": "5",
                     "name": "object-store:default",
-                    "tenantId": "MossoCloudFS_b42b6e1f-9ec5-4003-91f6-a7667ac19cfa"
+                    "tenantId": "MossoCloudFS_XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
                 },
                 {
                     "description": "A Role that allows a user access to keystone Service methods",
