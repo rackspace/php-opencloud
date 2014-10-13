@@ -50,7 +50,14 @@ To use the Orchestration service, you must first instantiate a `OpenStack` or `R
     ```
 
 ### Orchestration Service
-All orchestration operations are done via an orchestration service object.
+All orchestration operations are done via an orchestration service object. To 
+instantiate this object, call the `orchestrationService` method on the `$client`
+object. This method takes two arguments:
+
+| Position | Description | Data type | Required? | Default value | Example value |
+| -------- | ----------- | ----------| --------- | ------------- | ------------- |
+|  1       | Name of the service, as it appears in the service catalog | String | No | `null`; automatically determined when possible | `cloudOrchestration` |
+|  2       | Cloud region | String | Yes | - | `DFW` |
 
 ```php
 $region = 'DFW';
