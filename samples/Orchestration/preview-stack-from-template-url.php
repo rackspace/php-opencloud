@@ -44,7 +44,6 @@ $stack = $orchestrationService->previewStack(array(
     'parameters'   => array(
         'server_hostname' => 'web01',
         'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
-    ),
-    'timeoutMins' => 5
+    )
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
