@@ -20,7 +20,10 @@ namespace OpenCloud\Orchestration\Resource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
+ * Class that represents a stack.
+ * @see http://developer.openstack.org/api-ref-orchestration-v1.html#stacks
  *
+ * @package OpenCloud\Orchestration\Resource
  */
 class Stack extends PersistentResource
 {

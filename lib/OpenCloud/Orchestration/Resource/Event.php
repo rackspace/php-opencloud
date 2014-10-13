@@ -20,7 +20,10 @@ namespace OpenCloud\Orchestration\Resource;
 use OpenCloud\Common\Resource\ReadOnlyResource;
 
 /**
+ * Class that represents an event associated with a resource in a stack.
+ * @see http://developer.openstack.org/api-ref-orchestration-v1.html#stack-events
  *
+ * @package OpenCloud\Orchestration\Resource
  */
 class Event extends ReadOnlyResource
 {

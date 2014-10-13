@@ -20,7 +20,10 @@ namespace OpenCloud\Orchestration\Resource;
 use OpenCloud\Common\Resource\ReadOnlyResource;
 
 /**
+ * Class that represents a type of resource that can be managed by the Orchestration service.
+ * @see http://developer.openstack.org/api-ref-orchestration-v1.html#stack-resources
  *
+ * @package OpenCloud\Orchestration\Resource
  */
 class ResourceType extends ReadOnlyResource
 {

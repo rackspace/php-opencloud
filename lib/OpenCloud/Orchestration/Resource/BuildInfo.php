@@ -20,7 +20,10 @@ namespace OpenCloud\Orchestration\Resource;
 use OpenCloud\Common\Resource\ReadOnlyResource;
 
 /**
+ * Class that represents the current Orchestration service build.
+ * @see http://developer.openstack.org/api-ref-orchestration-v1.html#build-info
  *
+ * @package OpenCloud\Orchestration\Resource
  */
 class BuildInfo extends ReadOnlyResource
 {

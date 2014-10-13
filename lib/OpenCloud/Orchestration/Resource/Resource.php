@@ -21,7 +21,10 @@ use OpenCloud\Common\Resource\ReadOnlyResource;
 use OpenCloud\Common\Http\Message\Formatter;
 
 /**
+ * Class that represents a resource in a stack.
+ * @see http://developer.openstack.org/api-ref-orchestration-v1.html#stack-resources
  *
+ * @package OpenCloud\Orchestration\Resource
  */
 class Resource extends ReadOnlyResource
 {
