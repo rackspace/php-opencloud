@@ -26,17 +26,17 @@ class ServiceTest extends OrchestrationTestCase
     public function test__construct()
     {
         $service = $this->getClient()->orchestrationService(null, 'DFW');
-        $this->assertInstanceOf('OpenCloud\Orchestration\Service', $service);
+        $this->assertIsService($service);
     }
 
     public function testPreviewStack()
     {
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->service->previewStack());
+        $this->assertIsStack($this->service->previewStack());
     }
 
     public function testCreateStack()
     {
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->service->createStack());
+        $this->assertIsStack($this->service->createStack());
     }
 
     /**
@@ -49,7 +49,7 @@ class ServiceTest extends OrchestrationTestCase
 
     public function testAdoptStackWithAdoptStackData()
     {
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $this->service->adoptStack(array('adoptStackData' => 'foobar')));
+        $this->assertIsStack($this->service->adoptStack(array('adoptStackData' => 'foobar')));
     }
 
     public function testListStacks()
@@ -58,7 +58,7 @@ class ServiceTest extends OrchestrationTestCase
 
         $stacks = $this->service->listStacks();
         $this->isCollection($stacks);
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $stacks->getElement(0));
+        $this->assertIsStack($stacks->getElement(0));
     }
 
     public function testGetStackByName()
@@ -66,7 +66,7 @@ class ServiceTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->makeResponse('{"stack":{"disable_rollback":true,"description":"MYSQL server cloud database instance running on Rackspace cloud","parameters":{"instance_name":"testdb","OS::stack_id":"87xxx21-9db9-49be-bc4f-a7f2exxxx68","OS::stack_name":"trove2"},"stack_status_reason":"Stack create completed successfully","stack_name":"trove2","outputs":[],"creation_time":"2014-02-05T19:18:56Z","links":[{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxx21-9db9-49be-bc4f-a7f2exxxx68","rel":"self"}],"capabilities":[],"notification_topics":[],"timeout_mins":60,"stack_status":"CREATE_COMPLETE","updated_time":"2014-02-05T19:20:31Z","id":"879xxx21-9db9-49be-bc4f-a7f2exxxx9068","template_description":"MYSQL server cloud database instance running on Rackspace cloud"}}'));
 
         $stack = $this->service->getStack('foobar');
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $stack);
+        $this->assertIsStack($stack);
         $this->assertEquals('MYSQL server cloud database instance running on Rackspace cloud', $stack->getDescription());
     }
 
@@ -75,7 +75,7 @@ class ServiceTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->makeResponse('{"stack":{"disable_rollback":true,"description":"MYSQL server cloud database instance running on Rackspace cloud","parameters":{"instance_name":"testdb","OS::stack_id":"87xxx21-9db9-49be-bc4f-a7f2exxxx68","OS::stack_name":"trove2"},"stack_status_reason":"Stack create completed successfully","stack_name":"trove2","outputs":[],"creation_time":"2014-02-05T19:18:56Z","links":[{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxx21-9db9-49be-bc4f-a7f2exxxx68","rel":"self"}],"capabilities":[],"notification_topics":[],"timeout_mins":60,"stack_status":"CREATE_COMPLETE","updated_time":"2014-02-05T19:20:31Z","id":"879xxx21-9db9-49be-bc4f-a7f2exxxx9068","template_description":"MYSQL server cloud database instance running on Rackspace cloud"}}'));
 
         $stack = $this->service->getStack('foobar', 1234);
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $stack);
+        $this->assertIsStack($stack);
         $this->assertEquals('MYSQL server cloud database instance running on Rackspace cloud', $stack->getDescription());
     }
 
@@ -85,7 +85,7 @@ class ServiceTest extends OrchestrationTestCase
 
         $resourceTypes = $this->service->listResourceTypes();
         $this->isCollection($resourceTypes);
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\ResourceType', $resourceTypes->getElement(0));
+        $this->assertIsResourceType($resourceTypes->getElement(0));
     }
 
     public function testGetResourceType()
@@ -93,7 +93,7 @@ class ServiceTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->makeResponse('{"attributes":{"an_attribute":{"description":"An attribute description ."}},"properties":{"a_property":{"update_allowed":false,"required":true,"type":"string","description":"A resource description."}},"resource_type":"OS::Nova::Server"}'));
 
         $resourceType = $this->service->getResourceType('OS::Nova::Server');
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\ResourceType', $resourceType);
+        $this->assertIsResourceType($resourceType);
         $this->assertEquals('OS::Nova::Server', $resourceType->getResourceType());
     }
 
@@ -102,7 +102,7 @@ class ServiceTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->makeResponse('{"engine":{"revision":"2014.j3-20141003-1139"},"fusion-api":{"revision":"j1-20140915-10d9ee4-98"},"api":{"revision":"2014.j3-20141003-1139"}}'));
 
         $buildInfo = $this->service->getBuildInfo();
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\BuildInfo', $buildInfo);
+        $this->assertIsBuildInfo($buildInfo);
         $this->assertEquals('2014.j3-20141003-1139', $buildInfo->getApi()->revision);
     }
 

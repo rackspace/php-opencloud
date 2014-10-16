@@ -112,7 +112,7 @@ class StackTest extends OrchestrationTestCase
         $this->isCollection($resources);
 
         $firstResource = $resources->getElement(0);
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $firstResource);
+        $this->assertIsResource($firstResource);
         $this->assertEquals('MySqlCloudDatabaseServer', $firstResource->getName());
     }
 
@@ -121,7 +121,7 @@ class StackTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->makeResponse('{"resource":{"resource_name":"MySqlCloudDatabaseServer","description":"A MySQL DB instance","links":[{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxxx21-9xx9-4xxxe-bxxf-a7fxxxxx68/resources/MySqlCloudDatabaseServer","rel":"self"},{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxxx1-9xx9-4xxe-bxxf-a7fxxxxxx68","rel":"stack"}],"logical_resource_id":"MySqlCloudDatabaseServer","resource_status":"CREATE_COMPLETE","updated_time":"2014-02-05T19:20:31Z","required_by":[],"resource_status_reason":"state changed","physical_resource_id":"98xxx0-cxx8-4xxe-bxx5-3fxxxx11","resource_type":"OS::Trove::Instance"}}'));
 
         $resource = $this->stack->getResource('MySqlCloudDatabaseServer');
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $resource);
+        $this->assertIsResource($resource);
         $this->assertEquals('A MySQL DB instance', $resource->getDescription());
     }
 
@@ -133,7 +133,7 @@ class StackTest extends OrchestrationTestCase
         $this->isCollection($events);
 
         $firstEvent = $events->getElement(0);
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Event', $firstEvent);
+        $this->assertIsEvent($firstEvent);
         $this->assertEquals('474bfdf0-a450-46ec-a78a-0c7faa404073', $firstEvent->getId());
     }
 

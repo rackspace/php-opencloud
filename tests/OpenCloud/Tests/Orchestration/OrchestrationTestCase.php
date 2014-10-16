@@ -44,4 +44,28 @@ class OrchestrationTestCase extends OpenCloudTestCase
         $this->addMockSubscriber($this->makeResponse('{"resource":{"resource_name":"MySqlCloudDatabaseServer","description":"","links":[{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxxx21-9xx9-4xxxe-bxxf-a7fxxxxx68/resources/MySqlCloudDatabaseServer","rel":"self"},{"href":"https://dfw.orchestration.rackspacecloud.com/v1/tenant_id/stacks/trove2/87xxxx1-9xx9-4xxe-bxxf-a7fxxxxxx68","rel":"stack"}],"logical_resource_id":"MySqlCloudDatabaseServer","resource_status":"CREATE_COMPLETE","updated_time":"2014-02-05T19:20:31Z","required_by":[],"resource_status_reason":"state changed","physical_resource_id":"98xxx0-cxx8-4xxe-bxx5-3fxxxx11","resource_type":"OS::Trove::Instance"}}'));
         $this->resource = $this->stack->getResource('MySqlCloudDatabaseServer');
     }
-} 
+
+    protected function assertIsService($object) {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Service', $object);
+    }
+
+    protected function assertIsBuildInfo($object) {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\BuildInfo', $object);
+    }
+
+    protected function assertIsEvent($object) {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Event', $object);
+    }
+
+    protected function assertIsResource($object) {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $object);
+    }
+
+    protected function assertIsResourceType($object) {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\ResourceType', $object);
+    }
+
+    protected function assertIsStack($object) {
+        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $object);
+    }
+}

@@ -61,7 +61,7 @@ class ResourceTest extends OrchestrationTestCase
         $this->isCollection($events);
 
         $firstEvent = $events->getElement(0);
-        $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Event', $firstEvent);
+        $this->assertIsEvent($firstEvent);
         $this->assertEquals('474bfdf0-a450-46ec-a78a-0c7faa404073', $firstEvent->getId());
     }
 
