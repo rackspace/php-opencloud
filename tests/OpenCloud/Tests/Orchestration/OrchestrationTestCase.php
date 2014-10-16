@@ -23,7 +23,10 @@ use OpenCloud\Tests\OpenCloudTestCase;
 class OrchestrationTestCase extends OpenCloudTestCase
 {
     protected $service;
-    protected $container;
+    protected $buildInfo;
+    protected $resourceType;
+    protected $stack;
+    protected $resource;
 
     public function setupObjects()
     {
