@@ -42,13 +42,13 @@ class Event extends ReadOnlyResource
     protected $links;
 
     protected $aliases = array(
-        'event_time' => 'time',
-        'resource_name' => 'resourceName',
-        'logical_resource_id' => 'resourceLogicalId',
-        'physical_resource_id' => 'resourcePhysicalId',
-        'resource_status' => 'resourceStatus',
+        'event_time'             => 'time',
+        'resource_name'          => 'resourceName',
+        'logical_resource_id'    => 'resourceLogicalId',
+        'physical_resource_id'   => 'resourcePhysicalId',
+        'resource_status'        => 'resourceStatus',
         'resource_status_reason' => 'resourceStatusReason',
-        'resource_type' => 'resourceType',
-        'resource_properties' => 'resourceProperties'
+        'resource_type'          => 'resourceType',
+        'resource_properties'    => 'resourceProperties'
     );
 }

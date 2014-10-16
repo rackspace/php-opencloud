@@ -31,7 +31,7 @@ use OpenCloud\Common\Exceptions\InvalidTemplateError;
 // 1. Instantiate an OpenStack client.
 $client = new OpenStack(getenv('OS_AUTH_URL'), array(
     'username' => getenv('OS_USERNAME'),
-    'password'   => getenv('OS_PASSWORD')
+    'password' => getenv('OS_PASSWORD')
 ));
 
 // 2. Obtain an Orchestration service object from the client.
@@ -41,7 +41,7 @@ $orchestrationService = $client->orchestrationService(null, $region);
 // 3. Validate template from file.
 try {
     $orchestrationService->validateTemplate(array(
-        'template'     => file_get_contents(__DIR__ . '/lamp.yaml')
+        'template' => file_get_contents(__DIR__ . '/lamp.yaml')
     ));
 } catch (InvalidTemplateError $e) {
     // Use $e->getMessage() for explanation of why template is invalid

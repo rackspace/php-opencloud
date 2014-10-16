@@ -86,7 +86,7 @@ use OpenCloud\Common\Exceptions\InvalidTemplateError;
 
 try {
     $orchestrationService->validateTemplate(array(
-        'template'     => file_get_contents(__DIR__ . '/lamp.yaml')
+        'template' => file_get_contents(__DIR__ . '/lamp.yaml')
     ));
 } catch (InvalidTemplateError $e) {
     // Use $e->getMessage() for explanation of why template is invalid
@@ -137,11 +137,11 @@ can use it to preview a stack as shown in the following example:
 
 ```php
 $stack = $orchestrationService->previewStack(array(
-    'name'        => 'simple-lamp-setup',
-    'template'    => file_get_contents(__DIR__ . '/lamp.yml'),
+    'name'         => 'simple-lamp-setup',
+    'template'     => file_get_contents(__DIR__ . '/lamp.yml'),
     'parameters'   => array(
         'server_hostname' => 'web01',
-        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     )
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
@@ -157,11 +157,11 @@ example:
 
 ```php
 $stack = $orchestrationService->previewStack(array(
-    'name'        => 'simple-lamp-setup',
-    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'name'         => 'simple-lamp-setup',
+    'templateUrl'  => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
     'parameters'   => array(
         'server_hostname' => 'web01',
-        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     )
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
@@ -193,9 +193,9 @@ $stack = $orchestrationService->createStack(array(
     'templateUrl'  => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
     'parameters'   => array(
         'server_hostname' => 'web01',
-        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
-    'timeoutMins' => 5
+    'timeoutMins'  => 5
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 ```
@@ -213,7 +213,7 @@ $stack->create(array(
     'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
     'parameters'    => array(
         'server_hostname' => 'web01',
-        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
     'timeoutMins'   => 5
 ));
@@ -272,7 +272,7 @@ $stack->update(array(
     'template'      => file_get_contents(__DIR__ . '/lamp-updated.yml'),
     'parameters'    => array(
         'server_hostname' => 'web01',
-        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
     'timeoutMins'   => 5
 ));
@@ -291,7 +291,7 @@ $stack->update(array(
     'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp-updated.yaml',
     'parameters'    => array(
         'server_hostname' => 'web01',
-        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
     'timeoutMins'   => 5
 ));

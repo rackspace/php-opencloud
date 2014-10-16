@@ -43,14 +43,14 @@ class Resource extends ReadOnlyResource
     protected $links;
 
     protected $aliases = array(
-        'resource_name' => 'name',
-        'resource_status' => 'status',
+        'resource_name'          => 'name',
+        'resource_status'        => 'status',
         'resource_status_reason' => 'statusReason',
-        'logical_resource_id' => 'logicalId',
-        'physical_resource_id' => 'physicalId',
-        'required_by' => 'requiredBy',
-        'updated_time' => 'updatedTime',
-        'resource_type' => 'type'
+        'logical_resource_id'    => 'logicalId',
+        'physical_resource_id'   => 'physicalId',
+        'required_by'            => 'requiredBy',
+        'updated_time'           => 'updatedTime',
+        'resource_type'          => 'type'
     );
 
     public function primaryKeyField()

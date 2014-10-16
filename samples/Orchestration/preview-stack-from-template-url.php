@@ -30,7 +30,7 @@ use OpenCloud\OpenStack;
 // 1. Instantiate an OpenStack client.
 $client = new OpenStack(getenv('OS_AUTH_URL'), array(
     'username' => getenv('OS_USERNAME'),
-    'password'   => getenv('OS_PASSWORD')
+    'password' => getenv('OS_PASSWORD')
 ));
 
 // 2. Obtain an Orchestration service object from the client.
@@ -41,9 +41,9 @@ $orchestrationService = $client->orchestrationService(null, $region);
 $stack = $orchestrationService->previewStack(array(
     'name'        => 'simple-lamp-setup',
     'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
-    'parameters'   => array(
+    'parameters'  => array(
         'server_hostname' => 'web01',
-        'image' => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     )
 ));
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/

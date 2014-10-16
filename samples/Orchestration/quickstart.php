@@ -29,7 +29,7 @@ use OpenCloud\Rackspace;
 // 1. Instantiate a Rackspace client.
 $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
     'username' => getenv('OS_USERNAME'),
-    'password'   => getenv('OS_PASSWORD')
+    'password' => getenv('OS_PASSWORD')
 ));
 
 // 2. Obtain an Orchestration service object from the client.
