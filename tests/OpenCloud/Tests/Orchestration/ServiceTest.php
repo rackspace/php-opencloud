@@ -64,7 +64,7 @@ class ServiceTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->makeResponse('{"stacks":[{"description":"HEAT template for deploying a multi-node wordpress deployment on Rackspace Cloud\nusing Cloud Servers, Cloud Load Balancers and Cloud Databases. This version uses\na user-defined template resource to specify the implementation of the web-heads\n","links":[{"href":"http:\/\/xxxxx\/v1\/xxxx\/stacks\/xxxx\/11cd9b5e-c7ff-43b5-bff8-b0e7429cd87e","rel":"self"}],"stack_status_reason":"Resource suspend failed: Error: State invalid for suspend","stack_name":"timswp6","creation_time":"2014-01-30T20:47:57Z","updated_time":"2014-02-03T18:04:39Z","stack_status":"SUSPEND_FAILED","id":"11cd9b5e-c7ff-43b5-bff8-b0e7429cd87e"},{"description":"HEAT template for deploying a multi-node wordpress deployment on Rackspace Cloud\nusing Cloud Servers, Cloud Load Balancers and Cloud Databases. This version uses\na user-defined template resource to specify the implementation of the web-heads\n","links":[{"href":"http:\/\/xxxx\/v1\/xxxx\/stacks\/xxxx\/1b2ed5de-9b8c-43fa-9392-1da17b5dee7c","rel":"self"}],"stack_status_reason":"Stack create completed successfully","stack_name":"timswp5","creation_time":"2014-01-30T18:18:12Z","updated_time":"2014-01-30T18:42:07Z","stack_status":"CREATE_COMPLETE","id":"1b2ed5de-9b8c-43fa-9392-1da17b5dee7c"}]}'));
 
         $stacks = $this->service->listStacks();
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $stacks);
+        $this->isCollection($stacks);
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $stacks->getElement(0));
     }
 
@@ -91,7 +91,7 @@ class ServiceTest extends OrchestrationTestCase
         $this->addMockSubscriber($this->makeResponse('{"resource_types":["OS::Nova::Server","OS::Heat::RandomString","OS::Swift::Container","Rackspace::Cloud::Server","OS::Heat::ChefSolo","Rackspace::AutoScale::WebHook","Rackspace::AutoScale::Group","Rackspace::Cloud::Network","OS::Cinder::Volume","Rackspace::Cloud::WinServer","Rackspace::Cloud::LoadBalancer","OS::Heat::ResourceGroup","Rackspace::AutoScale::ScalingPolicy","Rackspace::Cloud::DNS","OS::Trove::Instance","OS::Nova::FloatingIPAssociation","OS::Cinder::VolumeAttachment","OS::Nova::FloatingIP","OS::Nova::KeyPair"]}'));
 
         $resourceTypes = $this->service->listResourceTypes();
-        $this->assertInstanceOf(self::COLLECTION_CLASS, $resourceTypes);
+        $this->isCollection($resourceTypes);
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\ResourceType', $resourceTypes->getElement(0));
     }
 
