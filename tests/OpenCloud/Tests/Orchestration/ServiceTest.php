@@ -123,5 +123,4 @@ class ServiceTest extends OrchestrationTestCase
             $this->assertEquals("Template version not specified", $e->getMessage());
         }
     }
-
 }

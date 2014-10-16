@@ -60,7 +60,6 @@ class Resource extends ReadOnlyResource
 
     public function getMetadata()
     {
-
         $url = clone $this->getUrl();
         $url->addPath('metadata');
 

@@ -37,7 +37,6 @@ class StackTest extends OrchestrationTestCase
 {
     public function testCreateJson()
     {
-
         $createParams = array(
             'name' => 'foobar',
             'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml',
@@ -69,7 +68,6 @@ class StackTest extends OrchestrationTestCase
 
     public function testUpdateJson()
     {
-
         $updateParams = array(
             'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml',
             'parameters' => array(
@@ -99,7 +97,6 @@ class StackTest extends OrchestrationTestCase
 
     public function testAbandonStack()
     {
-
         $expectedAbandonStackData = '{"status":"COMPLETE","name":"g","dry_run":true,"template":{"outputs":{"instance_ip":{"value":{"str_replace":{"params":{"username":"ec2-user","hostname":{"get_attr":["server","first_address"]}},"template":"ssh username@hostname"}}}},"heat_template_version":"2013-05-23","resources":{"server":{"type":"OS::Nova::Server","properties":{"key_name":{"get_param":"key_name"},"image":{"get_param":"image"},"flavor":{"get_param":"flavor"}}}},"parameters":{"key_name":{"default":"heat_key","type":"string"},"image":{"default":"Ubuntu 12.04 LTS (Precise Pangolin)","type":"string"},"flavor":{"default":"1 GB Performance","type":"string"}}},"action":"CREATE","id":"16934ca3-40e0-4fb2-a289-a700662ec05a","resources":{"server":{"status":"COMPLETE","name":"server","resource_data":{},"resource_id":"39d5dad7-7d7a-4cc8-bd84-851e9e2ff4ea","action":"CREATE","type":"OS::Nova::Server","metadata":{}}}}';
         $this->addMockSubscriber($this->makeResponse($expectedAbandonStackData));
 
