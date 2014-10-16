@@ -25,7 +25,7 @@ class BuildInfoTest extends OrchestrationTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\CreateError
      */
-    public function testCreate()
+    public function testCannotCreate()
     {
         $this->buildInfo->create();
     }
@@ -33,7 +33,7 @@ class BuildInfoTest extends OrchestrationTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\UpdateError
      */
-    public function testUpdate()
+    public function testCannotUpdate()
     {
         $this->buildInfo->update();
     }
@@ -41,7 +41,7 @@ class BuildInfoTest extends OrchestrationTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\DeleteError
      */
-    public function testDelete()
+    public function testCannotDelete()
     {
         $this->buildInfo->delete();
     }
