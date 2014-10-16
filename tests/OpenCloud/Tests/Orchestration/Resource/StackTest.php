@@ -38,9 +38,9 @@ class StackTest extends OrchestrationTestCase
     public function testCreateJson()
     {
         $createParams = array(
-            'name' => 'foobar',
+            'name'        => 'foobar',
             'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml',
-            'parameters' => array(
+            'parameters'  => array(
                 'flavor_id' => 'performance1_1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupaldbuser'
@@ -53,9 +53,9 @@ class StackTest extends OrchestrationTestCase
         $createJson = $stack->createJson();
 
         $expectedObj = (object) array(
-            'stack_name' => 'foobar',
+            'stack_name'   => 'foobar',
             'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
-            'parameters' => array(
+            'parameters'   => array(
                 'flavor_id' => 'performance1_1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupaldbuser'
@@ -70,7 +70,7 @@ class StackTest extends OrchestrationTestCase
     {
         $updateParams = array(
             'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml',
-            'parameters' => array(
+            'parameters'  => array(
                 'flavor_id' => 'performance1_1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupalwebuser'
@@ -84,7 +84,7 @@ class StackTest extends OrchestrationTestCase
 
         $expectedObj = (object) array(
             'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
-            'parameters' => array(
+            'parameters'   => array(
                 'flavor_id' => 'performance1_1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupalwebuser'
