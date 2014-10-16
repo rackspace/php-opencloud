@@ -24,9 +24,9 @@ the resources specified in the template are created.
 
 ### 1. Instantiate an OpenStack or Rackspace client.
 
-Choose one of the following two options:
+To use the Orchestration service, you must first instantiate a `OpenStack` or `Rackspace` client object.
 
-* If you are working with a vanilla OpenStack cloud, instantiate an `OpenCloud\OpenStack` client as shown below.
+* If you are working with an OpenStack cloud, instantiate an `OpenCloud\OpenStack` client as follows:
 
     ```php
     use OpenCloud\OpenStack;
@@ -37,7 +37,7 @@ Choose one of the following two options:
     ));
     ```
 
-* If you are working with the Rackspace cloud, instantiate a `OpenCloud\Rackspace` client as shown below.
+* If you are working with the Rackspace cloud, instantiate a `OpenCloud\Rackspace` client as follows:
 
     ```php
     use OpenCloud\Rackspace;
@@ -49,12 +49,17 @@ Choose one of the following two options:
     ```
 
 ### 2. Obtain an Orchestration service object from the client.
+All Orchestration operations are done via an _orchestration service object_. To
+instantiate this object, call the `orchestrationService` method on the `$client`
+object as shown in the following example:
+
 ```php
 $region = '<CLOUD REGION NAME>';
 $orchestrationService = $client->orchestrationService(null, $region);
 ```
 
-In the example above, you are connecting to the ``DFW`` region of the cloud. Any stacks and resources created with this `$orchestrationService` instance will be stored in that cloud region.
+Any stacks and resources created with this `$orchestrationService` instance will
+be stored in the cloud region specified by `$region`.
 
 ### 3. Create a stack from a template.
 ```php

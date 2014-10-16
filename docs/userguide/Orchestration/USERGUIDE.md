@@ -59,14 +59,13 @@ object. This method takes two arguments:
 |  2       | Cloud region | String | Yes | - | `DFW` |
 
 
-In the following example, you are connecting to the ``DFW`` region of the cloud.
-Any resources and stacks created with this `$orchestrationService` instance are
-created in that region.
-
 ```php
-$region = 'DFW';
+$region = '<CLOUD REGION NAME>';
 $orchestrationService = $client->orchestrationService(null, $region);
 ```
+
+Any stacks and resources created with this `$orchestrationService` instance will
+be stored in the cloud region specified by `$region`.
 
 ## Templates
 An Orchestration template is a JSON or YAML document that
