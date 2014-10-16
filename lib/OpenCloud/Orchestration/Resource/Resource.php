@@ -17,8 +17,8 @@
 
 namespace OpenCloud\Orchestration\Resource;
 
-use OpenCloud\Common\Resource\ReadOnlyResource;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Resource\ReadOnlyResource;
 
 /**
  * Class that represents a resource in a stack.

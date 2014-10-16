@@ -17,12 +17,12 @@
 
 namespace OpenCloud\Orchestration;
 
+use Guzzle\Http\Exception\ClientErrorResponseException;
+use OpenCloud\Common\Exceptions\InvalidTemplateError;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\CatalogService;
-use OpenCloud\Common\Exceptions\InvalidTemplateError;
-use OpenCloud\Orchestration\Resource\Stack;
 use OpenCloud\Orchestration\Resource\ResourceType;
-use Guzzle\Http\Exception\ClientErrorResponseException;
+use OpenCloud\Orchestration\Resource\Stack;
 
 /**
  * The Orchestration class represents the OpenStack Heat service.
