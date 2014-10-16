@@ -58,6 +58,11 @@ class Resource extends ReadOnlyResource
         return 'name';
     }
 
+    /**
+     * Returns metadata properties associated with this Resource
+     *
+     * @return \stdClass
+     */
     public function getMetadata()
     {
         $url = clone $this->getUrl();
