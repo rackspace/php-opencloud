@@ -11,12 +11,12 @@ key concepts:
 
 * **Template**: A JSON or YAML document that describes how a set of resources should
 be assembled to produce a working deployment. The template specifies the resources
-to use, the attributes of these resources that are parameterizedn and the information
+to use, the attributes of these resources that are parameterized and the information
 that is sent to the user when a template is instantiated.
 
-* **Resource**: A template artifact that represents some component of your architecture
-(a cloud server, a group of scaled cloud servers, a load balancer, some configuration 
-management system, and so on).
+* **Resource**: Some component of your architecture (a cloud server, a group of scaled
+cloud servers, a load balancer, some configuration management system, and so on) that
+is defined in a template.
 
 * **Stack**: A running instance of a template. When a stack is created, the resources
 specified in the template are created.
