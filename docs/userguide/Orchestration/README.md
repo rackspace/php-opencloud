@@ -63,14 +63,12 @@ be stored in the cloud region specified by `$region`.
 
 ### 3. Create a stack from a template.
 ```php
-$stack = $orchestrationService->stack();
-$stack->create(array(
-    'name'         => 'Cloud server with attached block storage',
-    'templateUrl'  => 'https://raw.githubusercontent.com/openstack/heat-templates/master/hot/vm_with_cinder.yaml',
+$stack = $orchestrationService->createStack(array(
+    'name'         => 'simple-lamp-setup',
+    'templateUrl'  => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
     'parameters'   => array(
-        'key_name' => 'mine',
-        'flavor'   => 'performance1_1',
-        'image'    => '0112b238-4267-4a22-9785-fcf75814bc2f' // Ubuntu 14.04 LTS (Trusty Tahr)
+        'server_hostname' => 'web01',
+        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
     ),
     'timeoutMins'  => 5
 ));
