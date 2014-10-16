@@ -4,6 +4,47 @@ Orchestration is a service that you can use to create and manage cloud resources
 such as databases, load balancers, and servers, and the software installed on
 servers.
 
+## Table of Contents
+
+* [Concepts](#concepts)
+* [Prerequisites](#prerequisites)
+  * [Client](#client)
+  * [Orchestration service](#orchestration-service)
+* [Templates](#templates)
+  * [Validate template](#validate-template)
+    * [Validate a template from a file](#validate-a-template-from-a-file)
+    * [Validate Template from URL](#validate-template-from-url)
+* [Stacks](#stacks)
+  * [Preview stack](#preview-stack)
+    * [Preview a stack from a template file](#preview-a-stack-from-a-template-file)
+    * [Preview a stack from a template URL](#preview-a-stack-from-a-template-url)
+  * [Create stack](#create-stack)
+    * [Create a stack from a template file](#create-a-stack-from-a-template-file)
+    * [Create a stack from a template URL](#create-a-stack-from-a-template-url)
+  * [List stacks](#list-stacks)
+  * [Get stack](#get-stack)
+  * [Get stack template](#get-stack-template)
+  * [Update stack](#update-stack)
+    * [Update a stack from a template file](#update-a-stack-from-a-template-file)
+    * [Update Stack from Template URL](#update-stack-from-template-url)
+  * [Delete stack](#delete-stack)
+  * [Abandon Stack](#abandon-stack)
+  * [Adopt stack](#adopt-stack)
+* [Stack resources](#stack-resources)
+  * [List stack resources](#list-stack-resources)
+  * [Get stack resource](#get-stack-resource)
+  * [Get stack resource metadata](#get-stack-resource-metadata)
+* [Stack resource events](#stack-resource-events)
+  * [List stack events](#list-stack-events)
+  * [List stack resource events](#list-stack-resource-events)
+  * [Get stack resource event](#get-stack-resource-event)
+* [Resource types](#resource-types)
+  * [List resource types](#list-resource-types)
+  * [Get resource type](#get-resource-type)
+  * [Get resource type template](#get-resource-type-template)
+* [Build info](#build-info)
+  * [Get build info](#get-build-info)
+
 ## Concepts
 
 To use the Orchestration service effectively, you should understand the following 
