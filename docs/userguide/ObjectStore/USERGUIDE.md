@@ -351,7 +351,7 @@ $options = array(
 
 $objects = $container->objectList($options);
 ```
-[ [Get the executable PHP script for this example](/samples/ObjectStore/list-objects-with-params.php) ]
+[ [Get the executable PHP script for this example](/samples/ObjectStore/list-objects-with-prefix.php) ]
 
 In general, the `objectList()` method described above takes an optional parameter (`$options` in the example above). This parameter is an associative array of various options. Here is a complete listing of keys that can be specified in the `$options` array:
 
