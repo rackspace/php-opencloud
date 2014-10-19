@@ -27,8 +27,6 @@ use OpenCloud\Smoke\Utils;
 class Orchestration extends AbstractUnit implements UnitInterface
 {
 
-    const STACK_NAME   = 'PHPOpenCloudSmokeTestStack';
-
     protected $cleanupStackIds = array();
 
     public function setupService()
