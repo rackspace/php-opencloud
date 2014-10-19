@@ -160,6 +160,11 @@ class Service extends CatalogService
         $url = clone $this->getUrl();
         $url->addPath('validate');
 
+        // Aliases
+        if (array_key_exists('templateUrl', $params)) {
+            $params['template_url'] = $params['templateUrl'];
+        }
+
         $json = json_encode($params);
 
         try {
