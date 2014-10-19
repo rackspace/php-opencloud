@@ -49,7 +49,7 @@ class Enum
     const ENV_IDENTITY_ENDPOINT = 'IDENTITY_ENDPOINT';
     
     // Defaults
-    const DEFAULT_REGION = 'ORD';
+    const DEFAULT_REGION = 'IAD';
     
     // How many iterations do we want for resource lists? We don't have all day...
     const DISPLAY_ITER_LIMIT = 10;
