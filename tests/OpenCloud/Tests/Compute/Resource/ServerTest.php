@@ -116,6 +116,18 @@ class ServerTest extends ComputeTestCase
         $this->assertNotNull($resp->getStatusCode());
     }
 
+    public function test_Suspend()
+    {
+        $resp = $this->server->suspend();
+        $this->assertNotNull($resp->getStatusCode());
+    }
+
+    public function test_Resume()
+    {
+        $resp = $this->server->resume();
+        $this->assertNotNull($resp->getStatusCode());
+    }
+
     public function test_Delete()
     {
         $resp = $this->server->delete();
