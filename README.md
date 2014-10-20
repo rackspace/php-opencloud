@@ -28,7 +28,7 @@ You must install this library through Composer:
 curl -sS https://getcomposer.org/installer | php
 
 # Require php-opencloud as a dependency
-php composer.phar require rackspace/php-opencloud:dev-master
+php composer.phar require rackspace/php-opencloud
 ```
 
 Once you have installed the library, you will need to load Composer's autoloader (which registers all the required
