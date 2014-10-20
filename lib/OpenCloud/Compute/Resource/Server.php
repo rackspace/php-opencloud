@@ -751,7 +751,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      */
     public function suspend()
     {
-        // The resume action is only available when the os-admin-actions extension is installed.
+        // The suspend action is only available when the os-admin-actions extension is installed.
         $this->checkExtension('os-admin-actions');
 
         $object = (object) array('suspend' => 'none');
