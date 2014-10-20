@@ -84,6 +84,14 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public $algorithm;
 
+
+    /**
+     * Enables or disables HTTP to HTTPS redirection for the load balancer.
+     *
+     * @var bool
+     */
+    public $httpsRedirect;
+
     /**
      * Current connection logging configuration.
      *
@@ -623,7 +631,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
 
     protected function updateJson($params = array())
     {
-        $updatableFields = array('name', 'algorithm', 'protocol', 'port', 'timeout', 'halfClosed');
+        $updatableFields = array('name', 'algorithm', 'protocol', 'port', 'timeout', 'halfClosed', 'httpsRedirect');
 
         $fields = array_keys($params);
         foreach ($fields as $field) {

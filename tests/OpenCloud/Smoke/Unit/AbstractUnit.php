@@ -184,4 +184,10 @@ abstract class AbstractUnit
         return $step->output();
     }
     
+    protected function getResourceDir()
+    {
+        $className = get_class($this);
+        $className = join('', array_slice(explode('\\', $className), -1));
+        return __DIR__ . '/../Resource/' . $className;
+    }
 }

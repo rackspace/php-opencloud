@@ -29,6 +29,7 @@ use OpenCloud\Identity\Resource\Tenant;
 use OpenCloud\Identity\Resource\Token;
 use OpenCloud\Identity\Resource\User;
 use OpenCloud\Identity\Service as IdentityService;
+use Psr\Log\LoggerInterface;
 
 define('RACKSPACE_US', 'https://identity.api.rackspacecloud.com/v2.0/');
 define('RACKSPACE_UK', 'https://lon.identity.api.rackspacecloud.com/v2.0/');
@@ -61,7 +62,7 @@ class OpenStack extends Client
     private $catalog;
 
     /**
-     * @var \OpenCloud\Common\Log\LoggerInterface The object responsible for logging output
+     * @var LoggerInterface The object responsible for logging output
      */
     private $logger;
 
@@ -263,10 +264,11 @@ class OpenStack extends Client
     }
 
     /**
-     * @param Common\Log\LoggerInterface $logger
+     * @param LoggerInterface $logger
+     *
      * @return $this
      */
-    public function setLogger(Common\Log\LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
 
@@ -274,7 +276,7 @@ class OpenStack extends Client
     }
 
     /**
-     * @return Common\Log\LoggerInterface
+     * @return LoggerInterface
      */
     public function getLogger()
     {

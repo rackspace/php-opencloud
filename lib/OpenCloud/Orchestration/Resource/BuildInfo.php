@@ -15,19 +15,26 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Common\Log;
+namespace OpenCloud\Orchestration\Resource;
+
+use OpenCloud\Common\Resource\ReadOnlyResource;
 
 /**
- * Describes log levels
+ * Class that represents the current Orchestration service build.
+ * @see http://developer.openstack.org/api-ref-orchestration-v1.html#build-info
+ *
+ * @package OpenCloud\Orchestration\Resource
  */
-class LogLevel
+class BuildInfo extends ReadOnlyResource
 {
-    const EMERGENCY = 'emergency';
-    const ALERT = 'alert';
-    const CRITICAL = 'critical';
-    const ERROR = 'error';
-    const WARNING = 'warning';
-    const NOTICE = 'notice';
-    const INFO = 'info';
-    const DEBUG = 'debug';
+    protected static $url_resource = 'build_info';
+    protected static $json_name = '';
+
+    protected $api;
+    protected $engine;
+
+    public function refresh($id = null, $url = null)
+    {
+        return $this->refreshFromParent();
+    }
 }

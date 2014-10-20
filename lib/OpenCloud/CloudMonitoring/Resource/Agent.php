@@ -78,4 +78,15 @@ class Agent extends ReadOnlyResource
 
         return $this->getService()->resource('AgentConnection', $body);
     }
+
+    /**
+     * Retrieves the agent host object responsible for monitoring certain
+     * metrics for an agent.
+     *
+     * @return AgentHost
+     */
+    public function getAgentHost()
+    {
+        return $this->getService()->resource('AgentHost', null, $this);
+    }
 }

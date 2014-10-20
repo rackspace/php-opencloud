@@ -3,7 +3,7 @@
     "description": "PHP SDK for Rackspace/OpenStack APIs",
     "keywords": ["rackspace", "openstack", "opencloud", "swift", "nova"],
     "type": "library",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Jamie Hannaford",
@@ -22,11 +22,11 @@
     },
     "require": {
         "php" : ">=5.3.3",
-        "guzzle/http" : "~3.8"
+        "guzzle/http" : "~3.8",
+        "psr/log": "~1.0"
     },
     "require-dev" : {
         "guzzle/guzzle": "~3.8",
-        "psr/log": "~1.0",
         "satooshi/php-coveralls": "0.6.*@dev"
     }
 }

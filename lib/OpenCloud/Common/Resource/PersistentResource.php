@@ -132,6 +132,22 @@ abstract class PersistentResource extends BaseResource
         return $response;
     }
 
+
+    /**
+     * Causes resource to refresh based on parent's URL
+     */
+    protected function refreshFromParent()
+    {
+        $url = clone $this->getParent()->getUrl();
+        $url->addPath($this->resourceName());
+
+        $response = $this->getClient()->get($url)->send();
+
+        if (null !== ($decoded = $this->parseResponse($response))) {
+            $this->populate($decoded);
+        }
+    }
+
     /**
      * Given a `location` URL, refresh this resource
      *
@@ -234,7 +250,22 @@ abstract class PersistentResource extends BaseResource
      */
     protected function updateJson($params = array())
     {
-        throw new UpdateError('updateJson() must be overriden in order for an update to happen');
+        if (!isset($this->updateKeys)) {
+            throw new \RuntimeException(sprintf(
+                'This resource object [%s] must have a visible updateKeys array',
+                get_class($this)
+            ));
+        }
+
+        $element = (object) array();
+
+        foreach ($this->updateKeys as $key) {
+            if (null !== ($property = $this->getProperty($key))) {
+                $element->{$this->getAlias($key)} = $property;
+            }
+        }
+
+        return (object) array($this->jsonName() => (object) $element);
     }
 
     /**
