@@ -738,4 +738,44 @@ class Server extends NovaResource implements HasPtrRecordsInterface
     {
         return (object) array('server' => (object) $params);
     }
+
+    /**
+     * Suspend a server
+     *
+     * A suspend request suspend an instance, its VM state is stored on disk, all memory is written
+     * to disk, and the virtual machine is stopped. Suspending an instance is similar to placing a
+     * device in hibernation; memory and vCPUs become available to create other instances.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function suspend()
+    {
+        // The suspend action is only available when the os-admin-actions extension is installed.
+        $this->checkExtension('os-admin-actions');
+
+        $object = (object) array('suspend' => 'none');
+
+        return $this->action($object);
+    }
+
+    /**
+     * Resume a server
+     *
+     * A resume request resumes a suspended instance, its VM state was stored on disk, all memory was written
+     * to disk, and the virtual machine was stopped. Resuming a suspended instance is similar to resuming a
+     * device from hibernation.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function resume()
+    {
+        // The resume action is only available when the os-admin-actions extension is installed.
+        $this->checkExtension('os-admin-actions');
+
+        $object = (object) array('resume' => 'none');
+
+        return $this->action($object);
+    }
 }
