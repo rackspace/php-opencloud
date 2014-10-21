@@ -44,7 +44,7 @@ class Service extends NovaService
      * Return a paginated collection of load balancers
      *
      * @param bool $detail If TRUE, all details are returned; otherwise, a
-     *                     minimal set (ID, name) is retrieved
+     *                     minimal set (ID, name) is retrieved [DEPRECATED]
      * @param array $filter Optional query params used for search
      * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
@@ -52,9 +52,6 @@ class Service extends NovaService
     {
         $url = $this->getUrl();
         $url->addPath(Resource\LoadBalancer::resourceName());
-        if ($detail) {
-            $url->addPath('detail');
-        }
         $url->setQuery($filter);
 
         return $this->resourceList('LoadBalancer', $url);
