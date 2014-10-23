@@ -31,6 +31,7 @@ class Stack extends PersistentResource
     protected static $json_name = 'stack';
 
     protected $id;
+    protected $parentStack; // Named so because the Base class has a $parent member.
     protected $disableRollback;
     protected $description;
     protected $parameters;
@@ -49,6 +50,7 @@ class Stack extends PersistentResource
     protected $links;
 
     protected $aliases = array(
+        'parent'              => 'parentStack',
         'disable_rollback'    => 'disableRollback',
         'stack_name'          => 'name',
         'stack_status'        => 'status',
