@@ -126,6 +126,7 @@ class Orchestration extends AbstractUnit implements UnitInterface
         $this->stepInfo('%-25s | %s', 'Metadata key', 'Metadata value');
         foreach ($metadata as $key => $value) {
             $this->stepInfo('%-25s | %s', $key, $value);
+        }
 
         $this->step('List stack events');
         $events = $stack->listEvents();
