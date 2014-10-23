@@ -198,6 +198,7 @@ class Orchestration extends AbstractUnit implements UnitInterface
         $this->stepInfo('Abandon stack data: %s ', $abandonedStackData);
 
         $this->step('Adopt stack');
+        sleep(10); // For abandoned stack to get deleted.
         $stack = $this->getService()->adoptStack(array(
             'name'       => 'simple-lamp-setup-from-template-url',
             'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
