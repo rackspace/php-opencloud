@@ -33,24 +33,12 @@ class ResourceType extends ReadOnlyResource
 
     protected $resourceType;
     protected $attributes;
-    protected $_properties; // Named so because the Base class has a $properties member.
+    protected $resourceTypeProperties; // Named so because the Base class has a $properties member.
 
     protected $aliases = array(
-        'resource_type' => 'resourceType'
+        'resource_type' => 'resourceType',
+        'properties'    => 'resourceTypeProperties'
     );
-
-    /**
-     * Required to prevent the Base class from attempting to populate $this->properties.
-     */
-    protected function setProperties($properties)
-    {
-        $this->_properties = $properties;
-    }
-
-    public function getProperties()
-    {
-        return $this->_properties;
-    }
 
     /**
      * Returns the template representation for this resource type.
