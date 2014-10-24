@@ -27,6 +27,7 @@
     },
     "require-dev" : {
         "guzzle/guzzle": "~3.8",
-        "satooshi/php-coveralls": "0.6.*@dev"
+        "satooshi/php-coveralls": "0.6.*@dev",
+        "fabpot/php-cs-fixer": "1.0.*@dev"
     }
 }

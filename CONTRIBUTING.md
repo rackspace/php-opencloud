@@ -11,7 +11,7 @@ efforts. Here are a few general guidelines to follow:
    will need to write new test cases; if you're updating existing code, you will
    need to make sure the methods you're updating are still completely covered.
 
-3. Please abide by PSR code styling.
+3. Please abide by [PSR-2 code styling](#ensuring-psr-2-coding-style-compliance).
 
 4. Explaining your pull requests is appreciated. Unless you're fixing a
    minor typographical error, create a description which explains your changes
@@ -44,3 +44,11 @@ phpunit
   * Methods that create a new resource, say `Foo`, should be named `createFoo`. For example, [`createEntity`](/lib/OpenCloud/CloudMonitoring/Service.php#L105).
 
 * When validating arguments to a method, please throw `\InvalidArgumentException` when an invalid argument is found. For example, see [here](/lib/OpenCloud/LoadBalancer/Resource/LoadBalancer.php#L212-L215).
+
+## Ensuring PSR-2 coding style compliance
+
+The code in this library is compliant with the [PSR-2 Coding Style Guide](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md). To ensure that any code you contribute is also PSR-2 compliant, please run the following command from the base directory of this project _before_ submitting your contribution:
+
+    $ vendor/bin/php-cs-fixer fix --level psr2 .
+
+Running this command will _change_ your code to become PSR-2 compliant. You will need to _commit_ these changes and make them part of your pull request.
