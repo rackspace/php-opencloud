@@ -29,7 +29,6 @@ namespace OpenCloud\Tests\Database;
 
 class ServiceTest extends DatabaseTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf(

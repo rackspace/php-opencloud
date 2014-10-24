@@ -21,7 +21,6 @@ use OpenCloud\Tests\OpenCloudTestCase;
 
 class AgentTokenTest extends OpenCloudTestCase
 {
-
     const TOKEN_ID = 'someId';
 
     public function setupObjects()

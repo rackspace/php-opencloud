@@ -26,7 +26,6 @@ use OpenCloud\ObjectStore\Constants\UrlType;
 
 class ObjectStore extends AbstractUnit implements UnitInterface
 {
-    
     const OBJECT_NAME  = 'TestObject';
     const UPLOAD_COUNT = 50;
     const MASSIVE_FILE_PATH = '/tmp/massive.txt';
@@ -132,7 +131,6 @@ class ObjectStore extends AbstractUnit implements UnitInterface
         $containers = $this->getService()->listContainers();
 
         foreach ($containers as $container) {
-
             $step = $this->stepInfo('Container: %s', $container->getName());
             
             // List this container's objects
@@ -140,7 +138,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
             foreach ($containers as $container) {
                 $step->stepInfo('Object: %s', $object->getName());
             }
-        }        
+        }
     }
 
     public function teardown()
@@ -156,7 +154,8 @@ class ObjectStore extends AbstractUnit implements UnitInterface
             $this->stepInfo('Disable Container CDN');
             try {
                 $container->disableCDN();
-            } catch (CdnNotAvailableError $e) {}
+            } catch (CdnNotAvailableError $e) {
+            }
             
             $step = $this->stepInfo('Delete objects');
             $objects = $container->objectList();

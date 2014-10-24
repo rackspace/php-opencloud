@@ -21,7 +21,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class AgentTest extends CloudMonitoringTestCase
 {
-
     const AGENT_ID = '00-agent.example.com';
     const CONNECTION_ID = 'cntl4qsIbA';
 

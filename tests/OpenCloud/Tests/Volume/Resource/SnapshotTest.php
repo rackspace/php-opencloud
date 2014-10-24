@@ -21,7 +21,6 @@ use OpenCloud\Tests\Volume\VolumeTestCase;
 
 class SnapshotTest extends VolumeTestCase
 {
-
     private $snapshot;
 
     public function setupObjects()
@@ -65,8 +64,8 @@ class SnapshotTest extends VolumeTestCase
      */
     public function testUpdateDisallowedProperties()
     {
-      $this->volume->rename(array(
+        $this->volume->rename(array(
           'volume_id' => 'abcd-ef12'
-      ));      
+      ));
     }
 }

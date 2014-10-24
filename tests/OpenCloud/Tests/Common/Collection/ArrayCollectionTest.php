@@ -21,7 +21,6 @@ use OpenCloud\Tests\OpenCloudTestCase;
 
 class ArrayCollectionTest extends OpenCloudTestCase
 {
-
     public function test_Basic_Operations()
     {
         $iterator = $this->getMockForAbstractClass('OpenCloud\Common\Collection\ArrayCollection');

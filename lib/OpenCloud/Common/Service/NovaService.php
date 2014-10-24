@@ -24,7 +24,6 @@ use OpenCloud\Compute\Resource\Flavor;
  */
 abstract class NovaService extends CatalogService
 {
-
     /**
      * Returns a flavor from the service
      *

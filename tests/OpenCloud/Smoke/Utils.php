@@ -28,15 +28,14 @@ namespace OpenCloud\Smoke;
 
 /**
  * Description of Utils
- * 
- * @link 
+ *
+ * @link
  */
 class Utils
 {
-    
     /**
      * Basic logging function.
-     * 
+     *
      * @param string $string
      */
     public static function log($string)
@@ -53,7 +52,7 @@ class Utils
     }
     
     /**
-     * A logging function similar to sprintf(). Accepts a format string as a 
+     * A logging function similar to sprintf(). Accepts a format string as a
      * first argument, and an array as a second argument to stock the format.
      */
     public static function logf()
@@ -120,5 +119,4 @@ EOF;
             return \OpenCloud\Rackspace::US_IDENTITY_ENDPOINT;
         }
     }
-    
 }

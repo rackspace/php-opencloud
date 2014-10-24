@@ -36,4 +36,4 @@ class VersionTest extends OpenCloudTestCase
     {
         $this->assertNotNull(Version::getGuzzleVersion());
     }
-} 
+}

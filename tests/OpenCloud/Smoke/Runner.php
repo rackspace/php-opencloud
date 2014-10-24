@@ -30,8 +30,8 @@ class Runner
 {
     /**
      * These are the individual tests, or units, that can execute.
-     * 
-     * @var array 
+     *
+     * @var array
      */
     private $units = array(
         'Autoscale',
@@ -90,7 +90,7 @@ class Runner
     }
     
     private function handleArguments()
-    {        
+    {
         $options = getopt('D::H::E::I::A', array(
             'debug::',
             'help::',
@@ -174,7 +174,6 @@ class Runner
         $client = $this->createClient();
         
         foreach ($this->included as $unit) {
-            
             $class = __NAMESPACE__ . '\\Unit\\' . $unit;
             
             if (!class_exists($class)) {
@@ -197,10 +196,10 @@ class Runner
     
     private function createClient()
     {
-        Utils::log('Authenticate'); 
+        Utils::log('Authenticate');
         
         $secret = array(
-            'username' => Utils::getEnvVar(Enum::ENV_USERNAME), 
+            'username' => Utils::getEnvVar(Enum::ENV_USERNAME),
             'apiKey'   => Utils::getEnvVar(Enum::ENV_API_KEY)
         );
 
@@ -223,7 +222,6 @@ class Runner
         
         return $client;
     }
-        
 }
 
 require __DIR__ . '/../../bootstrap.php';

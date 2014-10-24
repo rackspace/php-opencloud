@@ -21,7 +21,6 @@ use OpenCloud\Tests\Database\DatabaseTestCase;
 
 class DatastoreVersionTest extends DatabaseTestCase
 {
-
     public function test_Class()
     {
         $this->assertInstanceOf('OpenCloud\Database\Resource\DatastoreVersion', $this->datastoreVersion);

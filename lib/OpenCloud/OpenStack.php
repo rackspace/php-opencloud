@@ -123,7 +123,6 @@ class OpenStack extends Client
         $identity = IdentityService::factory($this);
 
         if (is_string($token)) {
-
             if (!$this->token) {
                 $this->setTokenObject($identity->resource('Token'));
             }
@@ -198,7 +197,6 @@ class OpenStack extends Client
         $identity = IdentityService::factory($this);
 
         if (is_numeric($tenant)) {
-
             if (!$this->tenant) {
                 $this->setTenantObject($identity->resource('Tenant'));
             }
@@ -306,7 +304,6 @@ class OpenStack extends Client
     public function getCredentials()
     {
         if (!empty($this->secret['username']) && !empty($this->secret['password'])) {
-
             $credentials = array('auth' => array(
                 'passwordCredentials' => array(
                     'username' => $this->secret['username'],

@@ -19,7 +19,6 @@ namespace OpenCloud\Tests\Queues;
 
 class ServiceTest extends QueuesTestCase
 {
-
     public function test_ClientId()
     {
         $rand = sha1(rand(1, 9999));

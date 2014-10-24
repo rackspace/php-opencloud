@@ -22,7 +22,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class NotificationTypeTest extends CloudMonitoringTestCase
 {
-
     const NT_ID = 'webhook';
 
     public function setupObjects()

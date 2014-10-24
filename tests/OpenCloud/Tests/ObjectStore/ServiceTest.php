@@ -30,7 +30,6 @@ use OpenCloud\ObjectStore\Service;
 
 class ServiceTest extends ObjectStoreTestCase
 {
-
     public function test__construct()
     {
         $service = $this->getClient()->objectStoreService('cloudFiles', 'DFW');

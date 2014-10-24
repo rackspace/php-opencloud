@@ -35,4 +35,4 @@ class TokenTest
         $tenant->setEnabled(false);
         $this->assertFalse($tenant->isEnabled());
     }
-} 
+}

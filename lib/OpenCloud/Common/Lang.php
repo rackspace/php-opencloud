@@ -19,7 +19,6 @@ namespace OpenCloud\Common;
 
 class Lang
 {
-
     public static function translate($word = null)
     {
         return $word;

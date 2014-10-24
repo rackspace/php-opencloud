@@ -56,4 +56,4 @@ class ObjectStoreTestCase extends OpenCloudTestCase
 
         $this->container = $this->service->getContainer('foo');
     }
-} 
+}

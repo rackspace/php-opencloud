@@ -66,8 +66,8 @@ class VolumeTest extends VolumeTestCase
      */
     public function testUpdateDisallowedProperties()
     {
-      $this->volume->rename(array(
+        $this->volume->rename(array(
           'size' => 314
-      ));      
+      ));
     }
 }

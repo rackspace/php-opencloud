@@ -148,7 +148,6 @@ abstract class BaseResource extends Base
     public function getUrl($path = null, array $query = array())
     {
         if (!$url = $this->findLink('self')) {
-
             // ...otherwise construct a URL from parent and this resource's
             // "URL name". If no name is set, resourceName() throws an error.
             $url = $this->getParent()->getUrl($this->resourceName());

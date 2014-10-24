@@ -26,7 +26,6 @@ use OpenCloud\Common\PersistentObject;
  */
 class VolumeAttachment extends PersistentObject
 {
-
     public $id;
     public $device;
     public $serverId;

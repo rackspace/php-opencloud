@@ -19,7 +19,6 @@ namespace OpenCloud\Tests\CloudMonitoring;
 
 class ChangelogTest extends CloudMonitoringTestCase
 {
-
     const NT_ID = 'webhook';
 
     public function setupObjects()

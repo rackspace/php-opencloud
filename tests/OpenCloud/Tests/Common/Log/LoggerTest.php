@@ -22,7 +22,6 @@ use PHPUnit_Framework_TestCase;
 
 class LoggerTest extends PHPUnit_Framework_TestCase
 {
-
     public function __construct()
     {
         $this->logger = new Logger;

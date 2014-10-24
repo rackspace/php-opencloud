@@ -31,7 +31,6 @@ use OpenCloud\Tests\Compute\ComputeTestCase;
 
 class VolumeAttachmentTest extends ComputeTestCase
 {
-
     private $attachment;
 
     public function setupObjects()

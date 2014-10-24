@@ -94,7 +94,6 @@ class Database extends AbstractUnit implements UnitInterface
         
         $instances = $this->getService()->instanceList();
         foreach ($instances as $instance) {
-            
             // Users
             $users = $instance->userList();
             foreach ($users as $user) {
@@ -113,11 +112,11 @@ class Database extends AbstractUnit implements UnitInterface
                 }
             }
             
-            // Instance            
+            // Instance
             if ($this->shouldDelete($instance->name)) {
                 $this->stepInfo('Deleting instance: %s', $instance->id);
                 $instance->delete();
-            } 
+            }
         }
     }
 }

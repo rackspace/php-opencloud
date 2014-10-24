@@ -50,4 +50,4 @@ class DocumentTest extends OpenCloudTestCase
 
         $this->assertEquals('[{"op": "replace", "path": "/foo", "value": "bar"}]', $document->toString());
     }
-} 
+}

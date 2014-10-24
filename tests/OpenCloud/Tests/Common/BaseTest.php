@@ -22,7 +22,6 @@ use OpenCloud\Common\Lang;
 
 class MyBase extends Base
 {
-
     public $foo;
     protected $bar;
     private $baz;
@@ -41,7 +40,6 @@ class MyBase extends Base
 
 class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
     private $my;
 
     public function setupObjects()

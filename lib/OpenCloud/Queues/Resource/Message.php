@@ -28,7 +28,6 @@ use OpenCloud\Queues\Exception\DeleteMessageException;
  */
 class Message extends PersistentObject
 {
-
     /**
      * @var string
      */

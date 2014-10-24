@@ -30,8 +30,8 @@ use Exception;
 
 /**
  * Description of SmokeException
- * 
- * @link 
+ *
+ * @link
  */
 class SmokeException extends Exception
 {

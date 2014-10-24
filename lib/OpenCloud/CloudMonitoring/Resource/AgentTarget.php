@@ -24,7 +24,6 @@ use OpenCloud\CloudMonitoring\Exception;
  */
 class AgentTarget extends ReadOnlyResource
 {
-
     private $type = 'agent.filesystem';
 
     protected static $json_name = 'targets';

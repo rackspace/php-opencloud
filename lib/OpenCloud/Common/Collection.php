@@ -23,7 +23,6 @@ namespace OpenCloud\Common;
  */
 class Collection extends Base
 {
-
     private $service;
     private $itemClass;
     private $itemList = array();

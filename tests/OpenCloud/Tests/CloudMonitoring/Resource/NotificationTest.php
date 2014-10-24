@@ -22,7 +22,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class NotificationTest extends CloudMonitoringTestCase
 {
-
     const NOTIFICATION_ID = 'ntAAAA';
 
     public function setupObjects()

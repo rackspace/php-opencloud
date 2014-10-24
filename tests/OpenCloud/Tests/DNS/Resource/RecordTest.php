@@ -21,7 +21,6 @@ use OpenCloud\Tests\DNS\DnsTestCase;
 
 class RecordTest extends DnsTestCase
 {
-
     public function test__construct()
     {
         $record = $this->domain->record(array(
