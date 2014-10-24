@@ -36,13 +36,11 @@ class ConcurrentTransfer extends AbstractTransfer
         $parts = $this->collectParts($workers);
 
         while ($this->transferState->count() < $totalParts) {
-
             $completedParts = $this->transferState->count();
             $requests = array();
 
             // Iterate over number of workers until total completed parts is what we need it to be
             for ($i = 0; $i < $workers && ($completedParts + $i) < $totalParts; $i++) {
-
                 // Offset is the current pointer multiplied by the standard chunk length
                 $offset = ($completedParts + $i) * $this->partSize;
                 $parts[$i]->setOffset($offset);

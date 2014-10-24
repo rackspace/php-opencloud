@@ -22,7 +22,6 @@ use OpenCloud\Common\Exceptions\InvalidTemplateError;
 
 class ServiceTest extends OrchestrationTestCase
 {
-
     public function test__construct()
     {
         $service = $this->getClient()->orchestrationService(null, 'DFW');

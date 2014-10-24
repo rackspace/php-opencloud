@@ -265,7 +265,6 @@ class PaginatedIterator extends ResourceIterator implements Iterator
     public function constructNextUrl()
     {
         if (!$url = $this->nextUrl) {
-
             $url = clone $this->getOption('baseUrl');
             $query = $url->getQuery();
 

@@ -22,7 +22,6 @@ use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
 class DataObjectTest extends ObjectStoreTestCase
 {
-
     public function test_Pseudo_Dirs()
     {
         $this->addMockSubscriber($this->makeResponse('[{"subdir": "foo"}]'));

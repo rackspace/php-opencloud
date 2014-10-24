@@ -441,7 +441,6 @@ class Container extends AbstractContainer
         $requests = $entities = array();
 
         foreach ($files as $entity) {
-
             if (empty($entity['name'])) {
                 throw new Exceptions\InvalidArgumentError('You must provide a name.');
             }

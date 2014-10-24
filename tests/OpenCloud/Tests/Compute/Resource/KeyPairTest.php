@@ -30,7 +30,6 @@ use OpenCloud\Tests\Compute\ComputeTestCase;
 
 class KeyPairTest extends ComputeTestCase
 {
-
     public function test_Service_Methods()
     {
         $this->assertInstanceOf(

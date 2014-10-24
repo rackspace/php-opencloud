@@ -21,7 +21,6 @@ use OpenCloud\Tests\Identity\IdentityTestCase;
 
 class UserTest extends IdentityTestCase
 {
-
     public function setupObjects()
     {
         parent::setupObjects();

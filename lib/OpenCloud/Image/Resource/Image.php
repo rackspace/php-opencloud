@@ -50,7 +50,6 @@ class Image extends AbstractSchemaResource implements ImageInterface
         $document = new JsonDocument();
 
         foreach ($params as $propertyName => $value) {
-
             // find property object
             if (!($property = $schema->getProperty($propertyName))) {
                 // check whether additional properties are found

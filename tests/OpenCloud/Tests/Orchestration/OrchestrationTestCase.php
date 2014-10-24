@@ -45,27 +45,33 @@ class OrchestrationTestCase extends OpenCloudTestCase
         $this->resource = $this->stack->getResource('MySqlCloudDatabaseServer');
     }
 
-    protected function assertIsService($object) {
+    protected function assertIsService($object)
+    {
         $this->assertInstanceOf('OpenCloud\Orchestration\Service', $object);
     }
 
-    protected function assertIsBuildInfo($object) {
+    protected function assertIsBuildInfo($object)
+    {
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\BuildInfo', $object);
     }
 
-    protected function assertIsEvent($object) {
+    protected function assertIsEvent($object)
+    {
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Event', $object);
     }
 
-    protected function assertIsResource($object) {
+    protected function assertIsResource($object)
+    {
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Resource', $object);
     }
 
-    protected function assertIsResourceType($object) {
+    protected function assertIsResourceType($object)
+    {
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\ResourceType', $object);
     }
 
-    protected function assertIsStack($object) {
+    protected function assertIsStack($object)
+    {
         $this->assertInstanceOf('OpenCloud\Orchestration\Resource\Stack', $object);
     }
 }

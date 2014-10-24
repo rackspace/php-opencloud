@@ -21,7 +21,6 @@ use OpenCloud\Tests\Database\DatabaseTestCase;
 
 class InstanceTest extends DatabaseTestCase
 {
-
     public function test_Class()
     {
         $this->assertInstanceOf('OpenCloud\Database\Resource\Instance', $this->instance);

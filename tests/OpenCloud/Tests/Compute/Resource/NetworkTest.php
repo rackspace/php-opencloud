@@ -35,7 +35,6 @@ use OpenCloud\Tests\MockSubscriber;
 
 class NetworkTest extends ComputeTestCase
 {
-
     public function setupObjects()
     {
         parent::setupObjects();

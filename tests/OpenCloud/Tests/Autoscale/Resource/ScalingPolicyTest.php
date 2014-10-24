@@ -22,7 +22,6 @@ use OpenCloud\Tests\Autoscale\AutoscaleTestCase;
 
 class ScalingPolicyTest extends AutoscaleTestCase
 {
-
     public function setupObjects()
     {
         parent::setupObjects();

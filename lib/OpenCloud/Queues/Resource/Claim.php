@@ -25,7 +25,6 @@ use OpenCloud\Common\PersistentObject;
  */
 class Claim extends PersistentObject
 {
-
     const LIMIT_DEFAULT = 10;
     const GRACE_DEFAULT = 43200;
     const TTL_DEFAULT = 43200;

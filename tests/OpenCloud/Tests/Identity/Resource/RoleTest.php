@@ -31,4 +31,4 @@ class RoleTest extends IdentityTestCase
         $role->setDescription('bar');
         $this->assertEquals('bar', $role->getDescription());
     }
-} 
+}

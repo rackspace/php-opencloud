@@ -21,7 +21,6 @@ use OpenCloud\Tests\Database\DatabaseTestCase;
 
 class ConfigurationTest extends DatabaseTestCase
 {
-
     public function test_Class()
     {
         $this->assertInstanceOf('OpenCloud\Database\Resource\Configuration', $this->configuration);
@@ -51,6 +50,4 @@ class ConfigurationTest extends DatabaseTestCase
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->configuration->instanceList());
     }
-
-
 }

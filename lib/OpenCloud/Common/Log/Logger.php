@@ -235,7 +235,6 @@ class Logger extends AbstractLogger
             // Output to file
             file_put_contents($file, $this->formatFileLine($output), FILE_APPEND);
         } else {
-
             echo $output;
         }
     }

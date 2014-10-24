@@ -118,7 +118,6 @@ class AsyncResponse extends PersistentObject
         $states = array('ERROR', $state);
 
         while ($continue) {
-
             $body = $this->getClient()->get($jobUrl)->send()->json();
 
             if ($callback) {

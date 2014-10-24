@@ -51,7 +51,6 @@ class ServerMetadata extends Metadata
 
         // set the URL according to whether or not we have a key
         if ($this->getParent()->getId()) {
-
             $this->url = $this->getParent()->url('metadata');
             $this->key = $key;
 

@@ -24,7 +24,6 @@ namespace OpenCloud\CloudMonitoring\Resource;
  */
 class ReadOnlyResource extends AbstractResource
 {
-
     public function create($params = array())
     {
         return $this->noCreate();

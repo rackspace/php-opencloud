@@ -31,7 +31,6 @@ use OpenCloud\Tests\DNS\DnsTestCase;
 
 class DomainTest extends DnsTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->domain);

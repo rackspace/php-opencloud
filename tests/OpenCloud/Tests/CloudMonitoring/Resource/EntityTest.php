@@ -21,7 +21,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class EntityTest extends CloudMonitoringTestCase
 {
-
     public function testResourceClass()
     {
         $this->assertInstanceOf('OpenCloud\CloudMonitoring\Resource\Entity', $this->entity);

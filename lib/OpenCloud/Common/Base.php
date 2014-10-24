@@ -110,7 +110,6 @@ abstract class Base
         if (method_exists($this, $setter)) {
             return call_user_func(array($this, $setter), $value);
         } elseif (false !== ($propertyVal = $this->propertyExists($property))) {
-
             // Are we setting a public or private property?
             if ($this->isAccessible($propertyVal)) {
                 $this->$propertyVal = $value;
@@ -120,7 +119,6 @@ abstract class Base
 
             return $this;
         } else {
-
             $this->getLogger()->warning(
                 'Attempted to set {property} with value {value}, but the'
                 . ' property has not been defined. Please define first.',
@@ -284,15 +282,11 @@ abstract class Base
     public function populate($info, $setObjects = true)
     {
         if (is_string($info) || is_integer($info)) {
-
             $this->setProperty($this->primaryKeyField(), $info);
             $this->refresh($info);
         } elseif (is_object($info) || is_array($info)) {
-
             foreach ($info as $key => $value) {
-
                 if ($key == 'metadata' || $key == 'meta') {
-
                     // Try retrieving existing value
                     if (null === ($metadata = $this->getProperty($key))) {
                         // If none exists, create new object
@@ -305,10 +299,8 @@ abstract class Base
                     // Set object property
                     $this->setProperty($key, $metadata);
                 } elseif (!empty($this->associatedResources[$key]) && $setObjects === true) {
-
                     // Associated resource
                     try {
-
                         $resource = $this->getService()->resource($this->associatedResources[$key], $value);
                         $resource->setParent($this);
 
@@ -316,10 +308,8 @@ abstract class Base
                     } catch (Exception\ServiceException $e) {
                     }
                 } elseif (!empty($this->associatedCollections[$key]) && $setObjects === true) {
-
                     // Associated collection
                     try {
-
                         $className = $this->associatedCollections[$key];
                         $options = $this->makeResourceIteratorOptions($className);
                         $iterator = ResourceIterator::factory($this, $options, $value);
@@ -328,7 +318,6 @@ abstract class Base
                     } catch (Exception\ServiceException $e) {
                     }
                 } elseif (!empty($this->aliases[$key])) {
-
                     // Sometimes we might want to preserve camelCase
                     // or covert `rax-bandwidth:bandwidth` to `raxBandwidth`
                     $this->setProperty($this->aliases[$key], $value);

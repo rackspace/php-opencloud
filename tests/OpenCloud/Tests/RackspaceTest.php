@@ -17,7 +17,6 @@
 
 namespace OpenCloud\Tests;
 
-
 class RackspaceTest extends OpenCloudTestCase
 {
     const CREDENTIALS = <<<EOT

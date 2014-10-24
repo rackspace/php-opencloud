@@ -25,29 +25,29 @@ use OpenCloud\Smoke\Utils;
 
 /**
  * Description of AbstractUnit
- * 
- * @link 
+ *
+ * @link
  */
 abstract class AbstractUnit
 {
     /**
      * The credentials cache filename.
-     * 
-     * @var string 
+     *
+     * @var string
      */
     private $credentialsCacheFile;
     
     /**
      * The connection object which everything routes through.
-     * 
+     *
      * @var OpenCloud\OpenStack
      */
     protected $connection;
     
     /**
      * The particular service that each unit uses.
-     * 
-     * @var OpenCloud\Common\Service 
+     *
+     * @var OpenCloud\Common\Service
      */
     protected $service;
      
@@ -57,9 +57,9 @@ abstract class AbstractUnit
     protected $includedUnits;
     
     /**
-     * Factory method for instantiating the unit object, and executing its 
+     * Factory method for instantiating the unit object, and executing its
      * main algorithm.
-     * 
+     *
      * @return UnitInterface
      */
     public static function factory(OpenStack $connection, array $includedUnits)
@@ -118,9 +118,10 @@ abstract class AbstractUnit
         
     public function getWaiterCallback()
     {
-        return function($object) {
+        return function ($object) {
             if (!empty($object->error)) {
-                var_dump($object->error); die;
+                var_dump($object->error);
+                die;
             } else {
                 $this->stepInfoDotter(
                     "Waiting on %s/%-12s %4s%%",

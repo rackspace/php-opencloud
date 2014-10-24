@@ -25,7 +25,6 @@ use OpenCloud\Common\PersistentObject;
  */
 class Flavor extends PersistentObject
 {
-
     public $status;
     public $updated;
     public $vcpus;

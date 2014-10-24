@@ -28,7 +28,6 @@ use OpenCloud\Compute\Service;
  */
 class Network extends PersistentObject
 {
-
     public $id;
     public $label;
     public $cidr;
@@ -128,7 +127,6 @@ class Network extends PersistentObject
     public function getUrl($path = null, array $query = array())
     {
         if (!$url = $this->findLink('self')) {
-
             $url = $this->getParent()->getUrl($this->getResourcePath());
 
             if (null !== ($primaryKey = $this->getProperty($this->primaryKeyField()))) {

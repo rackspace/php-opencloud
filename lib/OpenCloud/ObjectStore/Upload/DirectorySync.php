@@ -112,7 +112,6 @@ class DirectorySync
 
         // Handle PUT requests (create/update files)
         foreach ($localFiles as $filename) {
-
             $callback = $this->getCallback($filename);
             $filePath = rtrim($this->basePath, '/') . '/' . $filename;
 

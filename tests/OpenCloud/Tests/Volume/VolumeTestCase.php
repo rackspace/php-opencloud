@@ -33,4 +33,4 @@ class VolumeTestCase extends OpenCloudTestCase
         $this->addMockSubscriber($this->getTestFilePath('Volume'));
         $this->volume = $this->service->volume('foo');
     }
-} 
+}

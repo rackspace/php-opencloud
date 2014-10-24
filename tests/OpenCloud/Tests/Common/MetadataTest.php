@@ -31,7 +31,6 @@ use OpenCloud\Common\Metadata;
 
 class MetadataTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
     private $metadata;
 
     public function __construct()

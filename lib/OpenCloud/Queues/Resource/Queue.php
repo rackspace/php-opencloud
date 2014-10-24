@@ -211,7 +211,6 @@ class Queue extends PersistentResource
             ->send();
 
         if (null !== ($location = $response->getHeader('Location'))) {
-
             $parts = array_merge($this->getUrl()->getParts(), parse_url($location));
             $url = Url::factory(Url::buildUrl($parts));
 
