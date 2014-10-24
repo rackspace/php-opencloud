@@ -17,6 +17,7 @@ branches:
 
 before_script:
   - composer install --prefer-source
+  - vendor/bin/parallel-lint --exclude vendor .
   - vendor/bin/php-cs-fixer fix --level psr2 .
 
 after_script:
