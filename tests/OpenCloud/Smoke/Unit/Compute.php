@@ -169,7 +169,7 @@ class Compute extends AbstractUnit implements UnitInterface
 
         // Suspend
         $this->step('Suspend the server');
-        $server->suspend()
+        $server->suspend();
         $server->waitFor('ACTIVE', 120, $this->getWaiterCallback());
 
         if ($server->status() == 'ERROR') {
@@ -181,7 +181,7 @@ class Compute extends AbstractUnit implements UnitInterface
 
         // Resume
         $this->step('Resume the server');
-        $server->resume()
+        $server->resume();
         $server->waitFor('ACTIVE', 120, $this->getWaiterCallback());
 
         if ($server->status() == 'ERROR') {
