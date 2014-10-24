@@ -126,7 +126,7 @@ You can list the nodes attached to a load balancer. An instance of `OpenCloud\Co
 is returned.
 
 ```php
-$nodes = $loadBalancer->listNodes();
+$nodes = $loadBalancer->nodeList();
 foreach ($nodes as $node) {
 	/** @var $node OpenCloud\LoadBalancer\Resource\Node **/
 }
