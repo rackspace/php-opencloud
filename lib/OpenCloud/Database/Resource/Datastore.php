@@ -36,7 +36,7 @@ class Datastore extends PersistentResource
     protected static $url_resource = 'datastores';
 
     protected $associatedCollections = array(
-        'version' => 'DatastoreVersion'    
+        'version' => 'DatastoreVersion'
     );
 
     /**

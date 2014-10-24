@@ -184,7 +184,6 @@ abstract class PersistentResource extends BaseResource
         $states = array('ERROR', $state);
 
         while (true) {
-
             $this->refresh($this->getProperty($this->primaryKeyField()));
 
             if ($callback) {

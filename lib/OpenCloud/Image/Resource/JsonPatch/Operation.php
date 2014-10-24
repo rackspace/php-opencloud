@@ -75,7 +75,7 @@ class Operation
      */
     public function setType($type)
     {
-       $this->type = $type;
+        $this->type = $type;
     }
 
     /**

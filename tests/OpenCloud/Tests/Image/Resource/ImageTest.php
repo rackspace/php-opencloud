@@ -139,4 +139,4 @@ EOT;
 
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $this->image->deleteTag(12345));
     }
-} 
+}

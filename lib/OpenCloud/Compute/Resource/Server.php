@@ -664,7 +664,6 @@ class Server extends NovaResource implements HasPtrRecordsInterface
 
         // Boot from volume
         if ($this->volume instanceof Volume) {
-
             $this->checkExtension('os-block-device-mapping-v2-boot');
 
             $server->block_device_mapping_v2 = array();
@@ -675,12 +674,10 @@ class Server extends NovaResource implements HasPtrRecordsInterface
                 'boot_index' => 0,
                 'delete_on_termination' => (boolean) $this->volumeDeleteOnTermination
             );
-
         }
 
         // Networks
         if (is_array($this->networks) && count($this->networks)) {
-
             $server->networks = array();
 
             foreach ($this->networks as $network) {

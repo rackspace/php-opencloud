@@ -22,7 +22,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class CheckTest extends CloudMonitoringTestCase
 {
-
     public function setupObjects()
     {
         parent::setupObjects();

@@ -21,7 +21,6 @@ use OpenCloud\Tests\Compute\ComputeTestCase;
 
 class ServerMetadataTest extends ComputeTestCase
 {
-
     private $metadata;
 
     public function setupObjects()

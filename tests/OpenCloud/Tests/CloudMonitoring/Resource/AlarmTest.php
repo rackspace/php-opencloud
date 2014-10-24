@@ -21,7 +21,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class AlarmTest extends CloudMonitoringTestCase
 {
-
     const ENTITY_ID = 'en5hw56rAh';
     const ALARM_ID = 'alAAAA';
 

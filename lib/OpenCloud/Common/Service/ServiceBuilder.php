@@ -25,7 +25,6 @@ use OpenCloud\Common\Exceptions\ServiceException;
  */
 class ServiceBuilder
 {
-
     /**
      * Simple factory method for creating services.
      *

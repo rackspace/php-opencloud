@@ -21,7 +21,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class NotificationHistoryTest extends CloudMonitoringTestCase
 {
-
     const ENTITY_ID = 'enAAAAA';
     const ALARM_ID = 'alAAAA';
     const CHECK_ID = 'chAAAA';

@@ -38,7 +38,6 @@ namespace OpenCloud\Autoscale\Resource;
  */
 class LaunchConfiguration extends AbstractResource
 {
-
     public $type;
     public $args;
 

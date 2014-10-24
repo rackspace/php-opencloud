@@ -21,8 +21,8 @@ use OpenCloud\Smoke\Utils;
 
 /**
  * Description of CloudMonitoring
- * 
- * @link 
+ *
+ * @link
  */
 class CloudMonitoring extends AbstractUnit implements UnitInterface
 {

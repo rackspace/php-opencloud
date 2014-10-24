@@ -29,11 +29,9 @@ use OpenCloud\Common\Constants\Size;
  */
 class ConsecutiveTransfer extends AbstractTransfer
 {
-
     public function transfer()
     {
         while (!$this->entityBody->isConsumed()) {
-
             if ($this->entityBody->getContentLength() && $this->entityBody->isSeekable()) {
                 // Stream directly from the data
                 $body = new ReadLimitEntityBody($this->entityBody, $this->partSize, $this->entityBody->ftell());

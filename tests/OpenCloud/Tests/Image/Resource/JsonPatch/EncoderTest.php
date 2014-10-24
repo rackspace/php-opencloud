@@ -60,4 +60,4 @@ class EncoderTest extends OpenCloudTestCase
         $this->assertEquals('A', Encoder::transform('A'));
         $this->assertEquals('!!!!', Encoder::transform('!!!!'));
     }
-} 
+}

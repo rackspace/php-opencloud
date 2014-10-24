@@ -21,7 +21,6 @@ use OpenCloud\Tests\CloudMonitoring\CloudMonitoringTestCase;
 
 class MetricTest extends CloudMonitoringTestCase
 {
-
     const CHECK_ID = 'chAAAA';
     const METRIC_NAME = 'mzdfw.available';
 

@@ -28,8 +28,8 @@ namespace OpenCloud\Smoke;
 
 /**
  * Description of Step
- * 
- * @link 
+ *
+ * @link
  */
 class Step
 {
@@ -43,7 +43,7 @@ class Step
     public $message;
     
     /**
-     * @var string  Either default, `spacer` or `dotter`. 
+     * @var string  Either default, `spacer` or `dotter`.
      */
     public $outputType;
     
@@ -58,7 +58,7 @@ class Step
     public $depth = 0;
     
     /**
-     * @var int  The count for this step. 
+     * @var int  The count for this step.
      */
     public $count = 1;
     
@@ -136,7 +136,7 @@ class Step
         switch ($this->getOutputType()) {
             default:
                 $leadingLine  = true;
-                $outputString = sprintf('%d. %s', $this->getCount(), $this->getMessage());  
+                $outputString = sprintf('%d. %s', $this->getCount(), $this->getMessage());
                 break;
             case self::TYPE_DOTTER:
                 $outputString = sprintf('... %s', $this->getMessage());
@@ -146,9 +146,9 @@ class Step
                 break;
         }
         
-        return ((isset($leadingLine)) ? PHP_EOL : '') 
+        return ((isset($leadingLine)) ? PHP_EOL : '')
             . $this->computeSpacePrefix() . $outputString;
-    }    
+    }
     
     private function computeSpacePrefix()
     {
@@ -198,5 +198,4 @@ class Step
             ->setCount($this->getCount() + 1)
             ->output();
     }
-    
 }

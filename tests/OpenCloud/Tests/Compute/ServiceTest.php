@@ -29,7 +29,6 @@ namespace OpenCloud\Tests\Compute;
 
 class ServiceTest extends ComputeTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf(
@@ -95,5 +94,5 @@ class ServiceTest extends ComputeTestCase
 
         $computeService = $this->getClient()->computeService(null, 'DFW');
         $this->assertStringStartsWith('/v1.1', $computeService->getUrl()->getPath());
-    }      
+    }
 }

@@ -29,7 +29,6 @@ namespace OpenCloud\Tests\LoadBalancer;
 
 class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
     private $service;
 
     public function setupObjects()

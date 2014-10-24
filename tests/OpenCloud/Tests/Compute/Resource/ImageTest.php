@@ -22,7 +22,6 @@ use OpenCloud\Tests\Compute\ComputeTestCase;
 
 class ImageTest extends ComputeTestCase
 {
-
     public function test_good_image()
     {
         $image = new Image($this->service);

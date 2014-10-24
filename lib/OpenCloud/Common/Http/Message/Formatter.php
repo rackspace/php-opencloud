@@ -24,7 +24,6 @@ use OpenCloud\Common\Exceptions\JsonError;
 
 class Formatter
 {
-
     public static function decode(Response $response)
     {
         if (strpos($response->getHeader(Header::CONTENT_TYPE), Mime::JSON) !== false) {

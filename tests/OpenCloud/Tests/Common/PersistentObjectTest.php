@@ -93,7 +93,6 @@ class NamelessObject extends NovaResource
 
 class PersistentObjectTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
     private $service;
     private $instance;
 

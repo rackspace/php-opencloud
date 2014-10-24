@@ -22,7 +22,6 @@ namespace OpenCloud\Smoke\Unit;
  */
 interface UnitInterface
 {
-
     /**
      * Method for executing the main algorithm of the test.
      */
@@ -34,9 +33,8 @@ interface UnitInterface
     public function setupService();
     
     /**
-     * Allows for the deletion of any persistent resources created during 
+     * Allows for the deletion of any persistent resources created during
      * execution.
      */
     public function teardown();
-    
 }

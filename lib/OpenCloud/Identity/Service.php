@@ -31,7 +31,6 @@ use OpenCloud\Identity\Constants\User as UserConst;
  */
 class Service extends AbstractService
 {
-
     /**
      * Factory method which allows for easy service creation
      *

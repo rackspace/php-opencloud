@@ -23,7 +23,6 @@ use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
 class TransferTest extends ObjectStoreTestCase
 {
-
     public function test_Consecutive_Transfer()
     {
         $options = array('objectName' => 'NEW_OBJECT');

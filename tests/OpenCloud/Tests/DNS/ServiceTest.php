@@ -22,7 +22,6 @@ use OpenCloud\Compute;
 
 class ServiceTest extends DnsTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf('OpenCloud\DNS\Service', $this->service);

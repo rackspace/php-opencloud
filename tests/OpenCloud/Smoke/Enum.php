@@ -28,12 +28,11 @@ namespace OpenCloud\Smoke;
 
 /**
  * Description of Enum
- * 
- * @link 
+ *
+ * @link
  */
 class Enum
 {
-    
     const USER_AGENT = 'PHP OpenCloud SMOKETEST';
     
     const CREDS_FILENAME = '.smoketestCredentials';
@@ -55,5 +54,4 @@ class Enum
     const DISPLAY_ITER_LIMIT = 10;
     
     const DIVIDER = '-------------';
-    
 }

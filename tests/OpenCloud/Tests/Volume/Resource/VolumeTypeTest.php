@@ -21,7 +21,6 @@ use OpenCloud\Tests\Volume\VolumeTestCase;
 
 class VolumeTypeTest extends VolumeTestCase
 {
-
     private $volumeType;
 
     public function setupObjects()

@@ -32,7 +32,6 @@ use OpenCloud\Common\Service\ServiceBuilder;
 
 class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
 {
-
     private $service;
 
     public function setupObjects()

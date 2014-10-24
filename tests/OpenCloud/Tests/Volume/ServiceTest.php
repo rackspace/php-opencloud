@@ -19,7 +19,6 @@ namespace OpenCloud\Tests\Volume;
 
 class ServiceTest extends VolumeTestCase
 {
-
     public function test__construct()
     {
         $this->assertInstanceOf(

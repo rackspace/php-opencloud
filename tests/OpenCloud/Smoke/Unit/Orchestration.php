@@ -21,12 +21,11 @@ use OpenCloud\Smoke\Utils;
 
 /**
  * Description of Orchestration
- * 
- * @link 
+ *
+ * @link
  */
 class Orchestration extends AbstractUnit implements UnitInterface
 {
-
     protected $cleanupStackIds = array();
 
     public function setupService()
@@ -36,7 +35,6 @@ class Orchestration extends AbstractUnit implements UnitInterface
 
     public function main()
     {
-
         $this->step('Validate template from a file');
         $this->getService()->validateTemplate(array(
             'template' => file_get_contents($this->getResourceDir() . '/lamp.yaml')
@@ -157,7 +155,7 @@ class Orchestration extends AbstractUnit implements UnitInterface
         $this->step('List resource types');
         $resourceTypes = $this->getService()->listResourceTypes();
         $this->stepInfo('Resource type');
-        $this->stepInfo(str_repeat('-', 40));        
+        $this->stepInfo(str_repeat('-', 40));
         foreach ($resourceTypes as $resourceType) {
             $this->stepInfo($resourceType->getResourceType());
             $lastResourceType = $resourceType->getResourceType();
@@ -176,7 +174,7 @@ class Orchestration extends AbstractUnit implements UnitInterface
         $this->stepInfo('Engine revision: ' . $buildInfo->getEngine()->revision);
 
         $this->step('Update stack from template file');
-        $stack->waitFor('CREATE_COMPLETE', null, function($s) {
+        $stack->waitFor('CREATE_COMPLETE', null, function ($s) {
             $this->stepInfo('Stack is still being created. Waiting...');
         });
         $stack->update(array(
@@ -191,7 +189,7 @@ class Orchestration extends AbstractUnit implements UnitInterface
 
         $this->step('Abandon stack');
         $stack = $this->getService()->getStack('simple-lamp-setup-from-template-url');
-        $stack->waitFor('CREATE_COMPLETE', null, function($s) {
+        $stack->waitFor('CREATE_COMPLETE', null, function ($s) {
             $this->stepInfo('Stack is still being created. Waiting...');
         });
         $abandonedStackData = $stack->abandon();

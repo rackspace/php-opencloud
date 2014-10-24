@@ -147,7 +147,7 @@ class Service extends CatalogService
     {
         $buildInfo = $this->resource('BuildInfo');
         $buildInfo->refresh();
-        return $buildInfo;        
+        return $buildInfo;
     }
 
     /**
