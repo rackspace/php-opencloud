@@ -17,6 +17,7 @@ branches:
 
 before_script:
   - composer install --prefer-source
+  - ./vendor/bin/parallel-lint --exclude vendor .
 
 after_script:
   - php vendor/bin/coveralls -v
