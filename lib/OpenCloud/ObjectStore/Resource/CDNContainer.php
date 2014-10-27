@@ -106,4 +106,17 @@ class CDNContainer extends AbstractContainer
     {
         return $this->metadata->getProperty(HeaderConst::ENABLED) == 'True';
     }
+
+    /**
+     * Set the TTL.
+     *
+     * @param $ttl The time-to-live in seconds.
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function setTtl($ttl)
+    {
+        $headers = array('X-Ttl' => $ttl);
+
+        return $this->getClient()->post($this->getUrl(), $headers)->send();
+    }
 }

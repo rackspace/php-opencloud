@@ -550,6 +550,15 @@ $iosStreamingUrl = $object->getPublicUrl(UrlType::IOS_STREAMING);
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/get-cdn-object-ios-streaming-url.php) ]
 
+### Update CDN Container TTL
+You can update the TTL of a CDN-enabled container.
+
+```php
+$cdnContainer = $container->getCdn();
+$cdnContainer->setTtl(<NEW TTL, IN SECONDS>);
+```
+[ [Get the executable PHP script for this example](/samples/ObjectStore/set-cdn-container-ttl.php) ]
+
 ### Disable CDN Container
 
 If you no longer need CDN capabilities for a container, you can disable them.
