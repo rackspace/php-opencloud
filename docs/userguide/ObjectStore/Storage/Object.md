@@ -22,8 +22,10 @@ setter methods:
 
 There are three ways to upload a new file, each of which has different business needs.
 
-__N.B__: Unlike previous versions, you do not need to manually specify your object's content type. The API will do this
+> **Note:** Unlike previous versions, you do not need to manually specify your object's content type. The API will do this
 for you.
+
+> **Note:** when working with names that contain non-standard alphanumerical characters (such as spaces or non-English characters), you must ensure they are encoded with [`urlencode`](http://php.net/urlencode) before passing them in
 
 ### To upload a single/basic file:
 
@@ -102,7 +104,8 @@ To return a list of objects:
 
 ```php
 $files = $container->objectList();
-while ($file = $files->next()) {
+
+foreach ($files as $file) {
     // ... do something
 }
 ```
