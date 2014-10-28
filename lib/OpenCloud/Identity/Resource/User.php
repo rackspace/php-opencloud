@@ -20,6 +20,7 @@ namespace OpenCloud\Identity\Resource;
 use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\PersistentObject;
+use OpenCloud\Rackspace;
 
 /**
  * User class which encapsulates functionality for a user.
@@ -67,6 +68,18 @@ class User extends PersistentObject
 
     protected static $url_resource = 'users';
     protected static $json_name = 'user';
+
+    public function createJson()
+    {
+        $json = parent::createJson();
+
+        if ($this->getClient() instanceof Rackspace) {
+            $json->user->username = $json->user->name;
+            unset($json->user->name);
+        }
+
+        return $json;
+    }
 
     /**
      * @param $region Set the default region
