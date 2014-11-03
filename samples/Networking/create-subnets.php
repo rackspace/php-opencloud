@@ -21,8 +21,9 @@
 //   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
 //   * OS_PASSWORD: Your OpenStack Cloud Account Password,
-//   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
-//   * NETWORK_ID: ID of network in which to create subnets
+//   * OS_REGION_NAME: The OpenStack Cloud region you want to use,
+//   * NETWORK_ID_1: ID of network in which to create port 1, and
+//   * NETWORK_ID_2: ID of network in which to create port 2
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -38,19 +39,18 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $networkingService = $client->networkingService(null, $region);
 
-// 3. Get network.
-$network = $networkingService->getNetwork(getenv('NETWORK_ID'));
-
-// 4. Create multiple subnets.
-$subnets = $network->createSubnets(array(
+// 3. Create multiple subnets.
+$subnets = $networkingService->createSubnets(array(
     array(
         'name' => 'My subnet #1',
-        'ip_version' => 4,
+        'networkId' => getenv('NETWORK_ID_1'),
+        'ipVersion' => 4,
         'cidr' => '192.168.199.0/24'
     ),
     array(
         'name' => 'My subnet #2',
-        'ip_version' => 4,
+        'networkId' => getenv('NETWORK_ID_2'),
+        'ipVersion' => 4,
         'cidr' => '10.56.4.0/22'
     )
 ));

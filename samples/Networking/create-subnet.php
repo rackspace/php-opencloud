@@ -38,13 +38,11 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $networkingService = $client->networkingService(null, $region);
 
-// 3. Get network.
-$network = $networkingService->getNetwork(getenv('NETWORK_ID'));
-
-// 4. Create a subnet.
+// 3. Create a subnet.
 $subnet = $networkingService->createSubnet(array(
     'name' => 'My subnet',
-    'ip_version' => 4,
+    'networkId' => getenv('NETWORK_ID'),
+    'ipVersion' => 4,
     'cidr' => '192.168.199.0/24'
 ));
 /** @var $subnet OpenCloud\Networking\Resource\Subnet **/

@@ -38,11 +38,9 @@ $client = new OpenStack(getenv('OS_AUTH_URL'), array(
 $region = getenv('OS_REGION_NAME');
 $networkingService = $client->networkingService(null, $region);
 
-// 3. Get network.
-$network = $networkingService->getNetwork(getenv('NETWORK_ID'));
-
-// 4. Create a port.
+// 3. Create a port.
 $port = $networkingService->createPort(array(
-    'name' => 'My port'
+    'name' => 'My port',
+    'networkId' => getenv('NETWORK_ID')
 ));
 /** @var $port OpenCloud\Networking\Resource\Port **/
