@@ -318,7 +318,7 @@ class CloudMonitoring extends AbstractUnit implements UnitInterface
         $zone = $this->getService()->getMonitoringZone($zoneId);
 
         // perform traceroute
-        $trace = $zone->traceroute(array('target' => self::TRACEROUTE_TARGET,'target_resolver' => 'IPv4'));
+        $trace = $zone->traceroute(array('target' => self::TRACEROUTE_TARGET, 'target_resolver' => 'IPv4'));
         $this->stepInfo('Traceroute: %s', print_r($trace, true));
     }
 

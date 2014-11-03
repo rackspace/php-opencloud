@@ -59,7 +59,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
     {
         // Container
         $this->step('Create Container');
-        $container = $this->getService()->createContainer($this->prepend(rand(1,99999)));
+        $container = $this->getService()->createContainer($this->prepend(rand(1, 99999)));
 
         // Upload normal file
         $this->step('Upload 1 file');
