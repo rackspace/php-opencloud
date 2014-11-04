@@ -545,4 +545,23 @@ class OpenStack extends Client
             'urlType' => $urltype
         ));
     }
+
+    /**
+     * Creates a new Networking (Neutron) service object
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Networking\Service
+     * @codeCoverageIgnore
+     */
+    public function networkingService($name = null, $region = null, $urltype = null)
+    {
+        return ServiceBuilder::factory($this, 'OpenCloud\Networking\Service', array(
+            'name'    => $name,
+            'region'  => $region,
+            'urlType' => $urltype
+        ));
+    }
+
 }
