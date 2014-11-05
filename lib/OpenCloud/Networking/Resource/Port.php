@@ -77,4 +77,14 @@ class Port extends PersistentResource
         'cidr',
         'tenantId'
     );
+
+    /**
+     * This method is inherited. The inherited method has protected scope
+     * but we are widening the scope to public so this method may be called
+     * from other classes such as OpenCloud\Networking\Service.
+     */
+    public function createJson()
+    {
+        return parent::createJson();
+    }
 }

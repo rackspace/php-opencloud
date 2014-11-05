@@ -30,7 +30,25 @@ class ServiceTest extends NetworkingTestCase
 
     public function testCreateNetwork()
     {
-        $this->assertIsNetwork($this->service->createNetwork());
+        $this->assertIsNetwork($this->service->createNetwork(array(
+            'name' => 'network1'
+        )));
+    }
+
+    public function testCreateNetworks()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"networks":[{"admin_state_up":true,"id":"e6031bc2-901a-4c66-82da-f4c32ed89406","name":"sample_network_1","shared":false,"status":"ACTIVE","subnets":[],"tenant_id":"d19231fc08ec4bc4829b668040d34512"},{"admin_state_up":false,"id":"64239a54-dcc4-4b39-920b-b37c2144effa","name":"sample_network_2","shared":false,"status":"ACTIVE","subnets":[],"tenant_id":"d19231fc08ec4bc4829b668040d34512"}]}'));
+
+        $createdNetworks = $this->service->createNetworks(array(
+            array(
+                'name' => 'sample_network_1'
+            ),
+            array(
+                'name' => 'sample_network_2'
+            )
+        ));
+        $this->isCollection($createdNetworks);
+        $this->assertIsNetwork($createdNetworks->getElement(0));
     }
 
     public function testListNetworks()
@@ -56,6 +74,22 @@ class ServiceTest extends NetworkingTestCase
         $this->assertIsSubnet($this->service->createSubnet());
     }
 
+    public function testCreateSubnets()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"subnets":[{"cidr":"192.168.199.0/24","ip_version":4,"network_id":"e6031bc2-901a-4c66-82da-f4c32ed89406"},{"cidr":"10.56.4.0/22","ip_version":4,"network_id":"64239a54-dcc4-4b39-920b-b37c2144effa"}]}'));
+
+        $createdSubnets = $this->service->createSubnets(array(
+            array(
+                'cidr' => '192.168.199.0/24'
+            ),
+            array(
+                'cidr' => '10.56.4.0/22'
+            )
+        ));
+        $this->isCollection($createdSubnets);
+        $this->assertIsSubnet($createdSubnets->getElement(0));
+    }
+
     public function testListSubnets()
     {
         $this->addMockSubscriber($this->makeResponse('{"subnets":[{"allocation_pools":[{"end":"192.168.9.254","start":"192.168.9.1"}],"cidr":"192.168.9.0/24","dns_nameservers":[],"enable_dhcp":false,"gateway_ip":null,"host_routes":[],"id":"f975defc-637d-4e2a-858b-c6cc4cec3951","ip_version":4,"name":"","network_id":"0ebf6a10-5fc1-4f13-aca9-be0a2a00b1ac","tenant_id":"123456"}]}'));
@@ -77,6 +111,22 @@ class ServiceTest extends NetworkingTestCase
     public function testCreatePort()
     {
         $this->assertIsPort($this->service->createPort());
+    }
+
+    public function testCreatePorts()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"ports":[{"admin_state_up":true,"device_id":"24df1d04-d5cb-41e1-8de5-61ed77c558df","name":"port1","network_id":"64239a54-dcc4-4b39-920b-b37c2144effa","security_groups":["dbc107f4-afcd-4d5a-9352-f68f82241d5b"]},{"admin_state_up":false,"name":"port2","network_id":"e6031bc2-901a-4c66-82da-f4c32ed89406","security_groups":["8bf3f7cc-8471-40b1-815f-9da47e79775b","dbc107f4-afcd-4d5a-9352-f68f82241d5b"]}]}'));
+
+        $createdPorts = $this->service->createPorts(array(
+            array(
+                'name' => 'port1'
+            ),
+            array(
+                'name' => 'port2'
+            )
+        ));
+        $this->isCollection($createdPorts);
+        $this->assertIsPort($createdPorts->getElement(0));
     }
 
     public function testListPorts()

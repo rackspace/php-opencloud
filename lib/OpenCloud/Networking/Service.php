@@ -18,6 +18,7 @@
 namespace OpenCloud\Networking;
 
 use OpenCloud\Common\Service\CatalogService;
+use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Networking\Resource\Network;
 use OpenCloud\Networking\Resource\Subnet;
 use OpenCloud\Networking\Resource\Port;
@@ -57,6 +58,42 @@ class Service extends CatalogService
         $network = $this->network();
         $network->create($params);
         return $network;
+    }
+
+    /**
+     * Creates multiple new Networks and returns their list.
+     *
+     * @param array $networksParams Array of network creation parameters' arrays
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function createNetworks($networksParams = array())
+    {
+        // Form URL
+        $url = clone $this->getUrl();
+        $url->addPath(Network::resourceName());
+
+        // Form JSON
+        $singleNetworkJsonName = Network::jsonName();
+        $networksJsonCollectionName = Network::jsonCollectionName();
+        $networks = array();
+        foreach ($networksParams as $networkParams) {
+            $network = $this->network();
+            $network->populate($networkParams);
+            $networks[] = $network->createJson()->$singleNetworkJsonName;
+        }
+        $json = json_encode(array(
+            $networksJsonCollectionName => $networks
+        ));
+
+        // Call the API
+        $response = $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
+
+        // Parse the response into a collection of created networks
+        $responseJson = Formatter::decode($response);
+        $createdNetworksJson = $responseJson->$networksJsonCollectionName;
+
+        // Return collection of created networks
+        return $this->collection('Network', $url, $this, $createdNetworksJson);
     }
 
     /**
@@ -109,6 +146,42 @@ class Service extends CatalogService
     }
 
     /**
+     * Creates multiple new Subnets and returns their list.
+     *
+     * @param array $subnetsParams Array of subnet creation parameters' arrays
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function createSubnets($subnetsParams = array())
+    {
+        // Form URL
+        $url = clone $this->getUrl();
+        $url->addPath(Subnet::resourceName());
+
+        // Form JSON
+        $singleSubnetJsonName = Subnet::jsonName();
+        $subnetsJsonCollectionName = Subnet::jsonCollectionName();
+        $subnets = array();
+        foreach ($subnetsParams as $subnetParams) {
+            $subnet = $this->subnet();
+            $subnet->populate($subnetParams);
+            $subnets[] = $subnet->createJson()->$singleSubnetJsonName;
+        }
+        $json = json_encode(array(
+            $subnetsJsonCollectionName => $subnets
+        ));
+
+        // Call the API
+        $response = $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
+
+        // Parse the response into a collection of created subnets
+        $responseJson = Formatter::decode($response);
+        $createdSubnetsJson = $responseJson->$subnetsJsonCollectionName;
+
+        // Return collection of created subnets
+        return $this->collection('Subnet', $url, $this, $createdSubnetsJson);
+    }
+
+    /**
      * Returns a Subnet object associated with this Networking service
      *
      * @param string $id ID of subnet to retrieve
@@ -155,6 +228,42 @@ class Service extends CatalogService
         $port = $this->port();
         $port->create($params);
         return $port;
+    }
+
+    /**
+     * Creates multiple new Ports and returns their list.
+     *
+     * @param array $portsParams Array of port creation parameters' arrays
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function createPorts($portsParams = array())
+    {
+        // Form URL
+        $url = clone $this->getUrl();
+        $url->addPath(Port::resourceName());
+
+        // Form JSON
+        $singlePortJsonName = Port::jsonName();
+        $portsJsonCollectionName = Port::jsonCollectionName();
+        $ports = array();
+        foreach ($portsParams as $portParams) {
+            $port = $this->port();
+            $port->populate($portParams);
+            $ports[] = $port->createJson()->$singlePortJsonName;
+        }
+        $json = json_encode(array(
+            $portsJsonCollectionName => $ports
+        ));
+
+        // Call the API
+        $response = $this->getClient()->post($url, self::getJsonHeader(), $json)->send();
+
+        // Parse the response into a collection of created ports
+        $responseJson = Formatter::decode($response);
+        $createdPortsJson = $responseJson->$portsJsonCollectionName;
+
+        // Return collection of created ports
+        return $this->collection('Port', $url, $this, $createdPortsJson);
     }
 
     /**
