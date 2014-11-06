@@ -80,7 +80,7 @@ class Port extends PersistentResource
     /**
      * This method is inherited. The inherited method has protected scope
      * but we are widening the scope to public so this method may be called
-     * from other classes such as OpenCloud\Networking\Service.
+     * from other classes such as {@see OpenCloud\Networking\Service}.
      */
     public function createJson()
     {
