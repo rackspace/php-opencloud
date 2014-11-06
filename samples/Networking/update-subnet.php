@@ -43,5 +43,12 @@ $subnet = $networkingService->getSubnet(getenv('SUBNET_ID'));
 
 // 4. Update subnet.
 $subnet->update(array(
-    'name' => 'My updated subnet'
+    'name' => 'My updated subnet',
+    'hostRoutes' => array(
+        array(
+            'destination' => '1.1.1.0/24',
+            'nexthop'     => '192.168.17.19'
+        )
+    ),
+    'gatewayIp' => '192.168.62.155'
 ));

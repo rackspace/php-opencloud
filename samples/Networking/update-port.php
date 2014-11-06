@@ -21,8 +21,10 @@
 //   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
 //   * OS_USERNAME: Your OpenStack Cloud Account Username,
 //   * OS_PASSWORD: Your OpenStack Cloud Account Password,
-//   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
-//   * PORT_ID: ID of port
+//   * OS_REGION_NAME: The OpenStack Cloud region you want to use,
+//   * PORT_ID: ID of port,
+//   * SUBNET_ID: ID of subnet for new fixed IP, and
+//   * IP_ADDRESS: IP address for new fixed IP
 //
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -43,5 +45,11 @@ $port = $networkingService->getPort(getenv('PORT_ID'));
 
 // 4. Update port.
 $port->update(array(
-    'name' => 'My updated port'
+    'name'     => 'My updated port',
+    'fixedIps' => array(
+        array(
+            'subnetId'  => getenv('SUBNET_ID'),
+            'ipAddress' => getenv('IP_ADDRESS')
+        )
+    )
 ));
