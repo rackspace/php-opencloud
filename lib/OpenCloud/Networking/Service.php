@@ -28,8 +28,6 @@ use OpenCloud\Networking\Resource\Port;
  *
  * Neutron is a service that provides networking between devices managed by other
  * OpenNetwork services (e.g. Compute).
- *
- * @codeCoverageIgnore
  */
 class Service extends CatalogService
 {
