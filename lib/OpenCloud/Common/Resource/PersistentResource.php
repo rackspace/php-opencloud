@@ -244,6 +244,14 @@ abstract class PersistentResource extends BaseResource
         return $key;
     }
 
+    /**
+     * Returns the given property value's alias, if configured; Else, the
+     * unchanged property value is returned. If the given property value
+     * is an array or an instance of \stdClass, it is aliases recursively.
+     *
+     * @param  mixed $propertyValue Array or \stdClass instance to alias
+     * @return mixed Property value, aliased recursively
+     */
     protected function recursivelyAliasPropertyValue($propertyValue)
     {
         if (is_array($propertyValue)) {
