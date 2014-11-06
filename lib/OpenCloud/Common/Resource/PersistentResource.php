@@ -217,7 +217,7 @@ abstract class PersistentResource extends BaseResource
 
         foreach ($this->createKeys as $key) {
             if (null !== ($property = $this->getProperty($key))) {
-                $element->{$this->getAlias($key)} = $property;
+                $element->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($property);
             }
         }
 
@@ -244,6 +244,30 @@ abstract class PersistentResource extends BaseResource
         return $key;
     }
 
+    protected function recursivelyAliasPropertyValue($propertyValue)
+    {
+        if (is_array($propertyValue)) {
+            foreach ($propertyValue as $key => $subValue) {
+                $aliasedSubValue = $this->recursivelyAliasPropertyValue($subValue);
+                if (is_numeric($key)) {
+                    $propertyValue[$key] = $aliasedSubValue;
+                } else {
+                    unset($propertyValue[$key]);
+                    $propertyValue[$this->getAlias($key)] = $aliasedSubValue;
+                }
+            }
+        }
+
+        elseif (is_object($propertyValue) && ($propertyValue instanceOf \stdClass)) {
+            foreach ($propertyValue as $key => $subValue) {
+                unset($propertyValue->$key);
+                $propertyValue->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($subValue);
+            }
+        }
+
+        return $propertyValue;
+    }
+
     /**
      * Provides JSON for update request body
      */
@@ -260,7 +284,7 @@ abstract class PersistentResource extends BaseResource
 
         foreach ($this->updateKeys as $key) {
             if (null !== ($property = $this->getProperty($key))) {
-                $element->{$this->getAlias($key)} = $property;
+                $element->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($property);
             }
         }
 
