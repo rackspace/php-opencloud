@@ -77,7 +77,7 @@ class Service extends CatalogService
         foreach ($networksParams as $networkParams) {
             $network = $this->network();
             $network->populate($networkParams);
-            $networks[] = $network->createJson()->$singleNetworkJsonName;
+            $networks[] = $network->createJson()->{$singleNetworkJsonName};
         }
         $json = json_encode(array(
             $networksJsonCollectionName => $networks
@@ -88,7 +88,7 @@ class Service extends CatalogService
 
         // Parse the response into a collection of created networks
         $responseJson = Formatter::decode($response);
-        $createdNetworksJson = $responseJson->$networksJsonCollectionName;
+        $createdNetworksJson = $responseJson->{$networksJsonCollectionName};
 
         // Return collection of created networks
         return $this->collection('Network', $url, $this, $createdNetworksJson);
@@ -162,7 +162,7 @@ class Service extends CatalogService
         foreach ($subnetsParams as $subnetParams) {
             $subnet = $this->subnet();
             $subnet->populate($subnetParams);
-            $subnets[] = $subnet->createJson()->$singleSubnetJsonName;
+            $subnets[] = $subnet->createJson()->{$singleSubnetJsonName};
         }
         $json = json_encode(array(
             $subnetsJsonCollectionName => $subnets
@@ -173,7 +173,7 @@ class Service extends CatalogService
 
         // Parse the response into a collection of created subnets
         $responseJson = Formatter::decode($response);
-        $createdSubnetsJson = $responseJson->$subnetsJsonCollectionName;
+        $createdSubnetsJson = $responseJson->{$subnetsJsonCollectionName};
 
         // Return collection of created subnets
         return $this->collection('Subnet', $url, $this, $createdSubnetsJson);
@@ -247,7 +247,7 @@ class Service extends CatalogService
         foreach ($portsParams as $portParams) {
             $port = $this->port();
             $port->populate($portParams);
-            $ports[] = $port->createJson()->$singlePortJsonName;
+            $ports[] = $port->createJson()->{$singlePortJsonName};
         }
         $json = json_encode(array(
             $portsJsonCollectionName => $ports
@@ -258,7 +258,7 @@ class Service extends CatalogService
 
         // Parse the response into a collection of created ports
         $responseJson = Formatter::decode($response);
-        $createdPortsJson = $responseJson->$portsJsonCollectionName;
+        $createdPortsJson = $responseJson->{$portsJsonCollectionName};
 
         // Return collection of created ports
         return $this->collection('Port', $url, $this, $createdPortsJson);
