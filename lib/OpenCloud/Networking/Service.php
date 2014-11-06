@@ -38,7 +38,7 @@ class Service extends CatalogService
      * Returns a Network object associated with this Networking service
      *
      * @param string $id ID of network to retrieve
-     * @return Network object
+     * @return \OpenCloud\Networking\Resource\Network object
      */
     public function network($id = null)
     {
@@ -49,7 +49,7 @@ class Service extends CatalogService
      * Creates a new Network and returns it.
      *
      * @param array $params Network creation parameters
-     * @return Network Object representing created network
+     * @return \OpenCloud\Networking\Resource\Network Object representing created network
      */
     public function createNetwork($params = array())
     {
@@ -98,7 +98,7 @@ class Service extends CatalogService
      * Returns a Network object associated with this Networking service
      *
      * @param string $id ID of network to retrieve
-     * @return Network object
+     * @return \OpenCloud\Networking\Resource\Network object
      */
     public function getNetwork($id)
     {
@@ -123,7 +123,7 @@ class Service extends CatalogService
      * Returns a Subnet object associated with this Networking service
      *
      * @param string $id ID of subnet to retrieve
-     * @return Subnet object
+     * @return \OpenCloud\Networking\Resource\Subnet object
      */
     public function subnet($id = null)
     {
@@ -134,7 +134,7 @@ class Service extends CatalogService
      * Creates a new Subnet and returns it.
      *
      * @param array $params Subnet creation parameters
-     * @return Subnet Object representing created subnet
+     * @return \OpenCloud\Networking\Resource\Subnet Object representing created subnet
      */
     public function createSubnet($params = array())
     {
@@ -183,7 +183,7 @@ class Service extends CatalogService
      * Returns a Subnet object associated with this Networking service
      *
      * @param string $id ID of subnet to retrieve
-     * @return Subnet object
+     * @return \OpenCloud\Networking\Resource\Subnet object
      */
     public function getSubnet($id)
     {
@@ -208,7 +208,7 @@ class Service extends CatalogService
      * Returns a Port object associated with this Networking service
      *
      * @param string $id ID of port to retrieve
-     * @return Port object
+     * @return \OpenCloud\Networking\Resource\Port object
      */
     public function port($id = null)
     {
@@ -219,7 +219,7 @@ class Service extends CatalogService
      * Creates a new Port and returns it.
      *
      * @param array $params Port creation parameters
-     * @return Port Object representing created port
+     * @return \OpenCloud\Networking\Resource\Port Object representing created port
      */
     public function createPort($params = array())
     {
@@ -268,7 +268,7 @@ class Service extends CatalogService
      * Returns a Port object associated with this Networking service
      *
      * @param string $id ID of port to retrieve
-     * @return Port object
+     * @return \OpenCloud\Networking\Resource\Port object
      */
     public function getPort($id)
     {
