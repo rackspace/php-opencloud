@@ -25,14 +25,14 @@ use OpenCloud\Smoke\Utils;
  * @link
  */
 class Networking extends AbstractUnit implements UnitInterface
-{     
+{
     protected $cleanupNetworkIds = array();
     protected $cleanupSubnetIds  = array();
     protected $cleanupPortIds    = array();
 
     public function setupService()
     {
-//        return $this->getConnection()->networkingService('cloudNetworks', Utils::getRegion());
+        //        return $this->getConnection()->networkingService('cloudNetworks', Utils::getRegion());
         return $this->getConnection()->networkingService('cloudNetworksPreprod', Utils::getRegion());
     }
 
@@ -268,6 +268,5 @@ class Networking extends AbstractUnit implements UnitInterface
             $network = $this->getService()->getNetwork($networkId);
             $network->delete();
         }
-
     }
 }
