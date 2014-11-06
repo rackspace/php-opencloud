@@ -5,6 +5,33 @@ such as servers to these networks.
 
 This user guide will introduce you the entities in the Networking service &mdash; networks, subnets, and ports &mdash; as well as show you how to create and manage these entities.
 
+## Table of Contents
+  * [Concepts](#concepts)
+  * [Prerequisites](#prerequisites)
+    * [Client](#client)
+    * [Networking service](#networking-service)
+  * [Networks](#networks)
+    * [Create a network](#create-a-network)
+    * [Create multiple networks](#create-multiple-networks)
+    * [List networks](#list-networks)
+    * [Get network](#get-network)
+    * [Update network](#update-network)
+    * [Delete network](#delete-network)
+  * [Subnets](#subnets)
+    * [Create a subnet](#create-a-subnet)
+    * [Create multiple subnets](#create-multiple-subnets)
+    * [List subnets](#list-subnets)
+    * [Get subnet](#get-subnet)
+    * [Update subnet](#update-subnet)
+    * [Delete subnet](#delete-subnet)
+  * [Ports](#ports)
+    * [Create a port](#create-a-port)
+    * [Create multiple ports](#create-multiple-ports)
+    * [List ports](#list-ports)
+    * [Get port](#get-port)
+    * [Update port](#update-port)
+    * [Delete port](#delete-port)
+
 ## Concepts
 
 To use the Networking service effectively, you should understand the following key concepts:
