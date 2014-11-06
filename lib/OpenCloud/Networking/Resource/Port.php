@@ -51,7 +51,9 @@ class Port extends PersistentResource
         'fixed_ips'        => 'fixedIps',
         'mac_address'      => 'macAddress',
         'security_groups'  => 'securityGroups',
-        'tenant_id'        => 'tenantId'
+        'tenant_id'        => 'tenantId',
+        'subnet_id'        => 'subnetId',
+        'ip_address'       => 'ipAddress'
     );
 
     protected $createKeys = array(
