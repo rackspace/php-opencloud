@@ -51,7 +51,7 @@ class Service extends CatalogService
      * @param array $params Network creation parameters
      * @return \OpenCloud\Networking\Resource\Network Object representing created network
      */
-    public function createNetwork($params = array())
+    public function createNetwork(array $params = array())
     {
         $network = $this->network();
         $network->create($params);
@@ -64,7 +64,7 @@ class Service extends CatalogService
      * @param array $networksParams Array of network creation parameters' arrays
      * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
-    public function createNetworks($networksParams = array())
+    public function createNetworks(array $networksParams = array())
     {
         // Form URL
         $url = clone $this->getUrl();
@@ -136,7 +136,7 @@ class Service extends CatalogService
      * @param array $params Subnet creation parameters
      * @return \OpenCloud\Networking\Resource\Subnet Object representing created subnet
      */
-    public function createSubnet($params = array())
+    public function createSubnet(array $params = array())
     {
         $subnet = $this->subnet();
         $subnet->create($params);
@@ -149,7 +149,7 @@ class Service extends CatalogService
      * @param array $subnetsParams Array of subnet creation parameters' arrays
      * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
-    public function createSubnets($subnetsParams = array())
+    public function createSubnets(array $subnetsParams = array())
     {
         // Form URL
         $url = clone $this->getUrl();
@@ -221,7 +221,7 @@ class Service extends CatalogService
      * @param array $params Port creation parameters
      * @return \OpenCloud\Networking\Resource\Port Object representing created port
      */
-    public function createPort($params = array())
+    public function createPort(array $params = array())
     {
         $port = $this->port();
         $port->create($params);
@@ -234,7 +234,7 @@ class Service extends CatalogService
      * @param array $portsParams Array of port creation parameters' arrays
      * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
-    public function createPorts($portsParams = array())
+    public function createPorts(array $portsParams = array())
     {
         // Form URL
         $url = clone $this->getUrl();
