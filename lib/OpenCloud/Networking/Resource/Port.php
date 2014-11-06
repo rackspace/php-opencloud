@@ -56,26 +56,23 @@ class Port extends PersistentResource
 
     protected $createKeys = array(
         'name',
-        'enableDhcp',
+        'adminStateUp',
         'networkId',
-        'allocationPools',
-        'hostRoutes',
-        'ipVersion',
-        'gatewayIp',
-        'cidr',
+        'deviceId',
+        'deviceOwner',
+        'fixedIps',
+        'macAddress',
+        'securityGroups',
         'tenantId'
     );
 
     protected $updateKeys = array(
         'name',
-        'enableDhcp',
-        'networkId',
-        'allocationPools',
-        'hostRoutes',
-        'ipVersion',
-        'gatewayIp',
-        'cidr',
-        'tenantId'
+        'adminStateUp',
+        'deviceId',
+        'deviceOwner',
+        'fixedIps',
+        'securityGroups'
     );
 
     /**

@@ -69,13 +69,8 @@ class Subnet extends PersistentResource
     protected $updateKeys = array(
         'name',
         'enableDhcp',
-        'networkId',
-        'allocationPools',
         'hostRoutes',
-        'ipVersion',
-        'gatewayIp',
-        'cidr',
-        'tenantId'
+        'gatewayIp'
     );
 
     /**

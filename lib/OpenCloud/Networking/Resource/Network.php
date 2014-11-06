@@ -54,8 +54,7 @@ class Network extends PersistentResource
     protected $updateKeys = array(
         'adminStateUp',
         'name',
-        'shared',
-        'tenantId'
+        'shared'
     );
 
     /**
