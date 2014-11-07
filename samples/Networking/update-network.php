@@ -43,5 +43,5 @@ $network = $networkingService->getNetwork(getenv('NETWORK_ID'));
 
 // 4. Update network.
 $network->update(array(
-    'name' => 'My updated virtual private network'
+    'name' => 'My updated private backend network'
 ));

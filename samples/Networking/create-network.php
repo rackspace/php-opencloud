@@ -39,6 +39,6 @@ $networkingService = $client->networkingService(null, $region);
 
 // 3. Create a network.
 $network = $networkingService->createNetwork(array(
-    'name' => 'My virtual private network'
+    'name' => 'My private backend network'
 ));
 /** @var $network OpenCloud\Networking\Resource\Network **/

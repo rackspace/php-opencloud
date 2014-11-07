@@ -40,10 +40,10 @@ $networkingService = $client->networkingService(null, $region);
 // 3. Create multiple networks.
 $networks = $networkingService->createNetworks(array(
     array(
-        'name' => 'My virtual private network #1'
+        'name' => 'My private backend network #1'
     ),
     array(
-        'name' => 'My virtual private network #2'
+        'name' => 'My private backend network #2'
     )
 ));
 
