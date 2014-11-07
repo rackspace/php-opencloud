@@ -181,10 +181,8 @@ class PaginatedIterator extends ResourceIterator implements Iterator
 
     protected function shouldAppend()
     {
-        return $this->currentMarker && (
-            $this->nextUrl ||
-            $this->position % $this->getOption('limit.page') == 0
-        );
+          return ($this->nextUrl
+              || ($this->position % $this->getOption('limit.page') == 0));
     }
 
     /**
