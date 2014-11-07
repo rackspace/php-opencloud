@@ -41,6 +41,7 @@ class Runner
         'Database',
         'Identity',
         'LoadBalancer',
+        'Networking',
         'ObjectStore',
         'Orchestration',
         'Queues',
