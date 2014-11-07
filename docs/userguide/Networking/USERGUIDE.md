@@ -99,7 +99,7 @@ This operation takes one parameter, an associative array, with the following key
 
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `name` | Human-readable name for the network. Might not be unique. | String | No | `null` | `backend_network` |
+| `name` | Human-readable name for the network. Might not be unique. | String | No | `null` | `My private backend network` |
 | `adminStateUp` | The administrative state of network. If `false` (down), the network does not forward packets. | Boolean | No | `true` | `true` |
 | `shared` | Specifies whether the network resource can be accessed by any tenant or not. | Boolean | No | `false` | `false` |
 | `tenantId` | Owner of network. Only admin users can specify a tenant ID other than their own. | String | No | Same as tenant creating the network | `123456` |
@@ -157,7 +157,7 @@ foreach ($networks as $network) {
 You can retrieve a specific network by using that network's ID, as shown in the following example:
 
 ```php
-$network = $networkingService->getNetwork(getenv('NETWORK_ID'));
+$network = $networkingService->getNetwork('eb60583c-57ea-41b9-8d5c-8fab2d22224c');
 /** @var $network OpenCloud\Networking\Resource\Network **/
 ```
 
@@ -169,7 +169,7 @@ This operation takes one parameter, an associative array, with the following key
 
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `name` | Human-readable name for the network. Might not be unique. | String | No | `null` | `backend_network` |
+| `name` | Human-readable name for the network. Might not be unique. | String | No | `null` | `My updated private backend network` |
 | `adminStateUp` | The administrative state of network. If `false` (down), the network does not forward packets. | Boolean | No | `true` | `true` |
 | `shared` | Specifies whether the network resource can be accessed by any tenant or not. | Boolean | No | `false` | `false` |
 
