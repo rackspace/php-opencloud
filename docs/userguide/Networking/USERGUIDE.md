@@ -282,17 +282,24 @@ This operation takes one parameter, an associative array, with the following key
 
 | Name | Description | Data type | Required? | Default value | Example value |
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `name` | Human-readable name for the subnet. Might not be unique. | String | No | `null` | `My subnet` |
-| `gatewayIp` | IP address of the default gateway used by devices on this subnet | String (IP address) | No | First IP address in CIDR | `192.168.199.128` |
+| `name` | Human-readable name for the subnet. Might not be unique. | String | No | `null` | `My updated subnet` |
+| `gatewayIp` | IP address of the default gateway used by devices on this subnet | String (IP address) | No | First IP address in CIDR | `192.168.62.155` |
 | `dnsNameservers` | DNS nameservers used by hosts in this subnet | Indexed array of strings | No | Empty array | `array('4.4.4.4', '8.8.8.8')` |
-| `hostRoutes` | Routes that should be used by devices with IPs from this subnet (not including local subnet route) | Indexed array of associative arrays | No | Empty array | `array(array('destination' => '1.1.1.0/24', 'nexthop' => '192.168.19.20'))` |
+| `hostRoutes` | Routes that should be used by devices with IPs from this subnet (not including local subnet route) | Indexed array of associative arrays | No | Empty array | `array(array('destination' => '1.1.1.0/24', 'nexthop' => '192.168.17.19'))` |
 | `enableDhcp` | Specifies whether DHCP is enabled for this subnet or not | Boolean | No | `true` | `false` |
 
 You can update a subnet as shown in the following example:
 
 ```php
 $subnet->update(array(
-    'name' => 'My updated private backend subnet'
+    'name' => 'My updated subnet',
+    'hostRoutes' => array(
+        array(
+            'destination' => '1.1.1.0/24',
+            'nexthop'     => '192.168.17.19'
+        )
+    ),
+    'gatewayIp' => '192.168.62.155'
 ));
 ```
 
