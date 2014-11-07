@@ -1,7 +1,6 @@
 # Complete User Guide for the Networking Service
 
-Networking is a service that you can use to create virtual networks and attach cloud devices
-such as servers to these networks.
+Networking is a service that you can use to create virtual networks and attach cloud devices such as servers to these networks.
 
 This user guide will introduce you the entities in the Networking service &mdash; networks, subnets, and ports &mdash; as well as show you how to create and manage these entities.
 
