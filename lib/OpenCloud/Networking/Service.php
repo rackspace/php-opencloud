@@ -48,7 +48,7 @@ class Service extends CatalogService
     /**
      * Creates a new Network and returns it.
      *
-     * @param array $params Network creation parameters
+     * @param array $params Network creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-network
      * @return \OpenCloud\Networking\Resource\Network Object representing created network
      */
     public function createNetwork(array $params = array())
@@ -133,7 +133,7 @@ class Service extends CatalogService
     /**
      * Creates a new Subnet and returns it.
      *
-     * @param array $params Subnet creation parameters
+     * @param array $params Subnet creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-subnet
      * @return \OpenCloud\Networking\Resource\Subnet Object representing created subnet
      */
     public function createSubnet(array $params = array())
@@ -218,7 +218,7 @@ class Service extends CatalogService
     /**
      * Creates a new Port and returns it.
      *
-     * @param array $params Port creation parameters
+     * @param array $params Port creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-port
      * @return \OpenCloud\Networking\Resource\Port Object representing created port
      */
     public function createPort(array $params = array())
