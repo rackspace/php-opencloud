@@ -91,17 +91,107 @@ be stored in the cloud region specified by `$region`.
 
 ## Networks
 
+A network is an isolated virtual layer-2 broadcast domain that is typically reserved for the tenant who created it unless you configure the network to be shared. The network is the main entity in the Networking service. Ports and subnets are always associated with a network.
+
 ### Create a network
+
+This operation takes one parameter, an associative array, with the following keys:
+
+| Name | Description | Data type | Required? | Default value | Example value |
+| ---- | ----------- | --------- | --------- | ------------- | ------------- |
+| `name` | Human-readable name for the network. Might not be unique. | String | No | `null` | `backend_network` |
+| `adminStateUp` | The administrative state of network. If `false` (down), the network does not forward packets. | Boolean | No | `true` | `true` |
+| `shared` | Specifies whether the network resource can be accessed by any tenant or not. | Boolean | No | `false` | `false` |
+| `tenantId` | Owner of network. Only admin users can specify a tenant ID other than their own. | String | No | Same as tenant creating the network | `123456` |
+
+You can create a network as shown in the following example:
+
+```php
+$network = $networkingService->createNetwork(array(
+    'name' => 'My private backend network'
+));
+/** @var $network OpenCloud\Networking\Resource\Network **/
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/create-network.php) ]
 
 ### Create multiple networks
 
+This operation takes one parameter, an indexed array. Each element of this array must
+be an associative array with the keys shown in [the table above](#create-a-network).
+
+You can create multiple networks as shown in the following example:
+
+```php
+$networks = $networkingService->createNetworks(array(
+    array(
+        'name' => 'My private backend network #1'
+    ),
+    array(
+        'name' => 'My private backend network #2'
+    )
+));
+
+foreach ($networks as $network) {
+    /** @var $network OpenCloud\Networking\Resource\Network **/
+}
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/create-networks.php) ]
+
 ### List networks
+
+You can list all the networks to which you have access as shown in the following example:
+
+```php
+$networks = $networkingService->listNetworks();
+foreach ($networks as $network) {
+    /** @var $network OpenCloud\Networking\Resource\Network **/
+}
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/list-networks.php) ]
 
 ### Get network
 
+You can retrieve a specific network by using that network's ID, as shown in the following example:
+
+```php
+$network = $networkingService->getNetwork(getenv('NETWORK_ID'));
+/** @var $network OpenCloud\Networking\Resource\Network **/
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/get-network.php) ]
+
 ### Update network
 
+This operation takes one parameter, an associative array, with the following keys:
+
+| Name | Description | Data type | Required? | Default value | Example value |
+| ---- | ----------- | --------- | --------- | ------------- | ------------- |
+| `name` | Human-readable name for the network. Might not be unique. | String | No | `null` | `backend_network` |
+| `adminStateUp` | The administrative state of network. If `false` (down), the network does not forward packets. | Boolean | No | `true` | `true` |
+| `shared` | Specifies whether the network resource can be accessed by any tenant or not. | Boolean | No | `false` | `false` |
+
+You can update a network as shown in the following example:
+
+```php
+$network->update(array(
+    'name' => 'My updated private backend network'
+));
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/update-network.php) ]
+
 ### Delete network
+
+You can delete a network as shown in the following example:
+
+```php
+$network->delete();
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/delete-network.php) ]
 
 ## Subnets
 
