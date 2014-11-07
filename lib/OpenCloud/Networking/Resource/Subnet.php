@@ -20,8 +20,8 @@ namespace OpenCloud\Networking\Resource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
- * A subnet represents an IP address block that can be used to assign IP 
- * addresses to virtual instances (such as servers created using the {@see 
+ * A subnet represents an IP address block that can be used to assign IP
+ * addresses to virtual instances (such as servers created using the {@see
  * \OpenCloud\Compute\Service}. Each subnet must have a CIDR and must be
  * associated with a network.
  *

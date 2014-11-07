@@ -20,12 +20,12 @@ namespace OpenCloud\Networking\Resource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
- * A network is an isolated virtual layer-2 broadcast domain that is typically 
- * reserved for the tenant who created it unless you configure the network to be 
+ * A network is an isolated virtual layer-2 broadcast domain that is typically
+ * reserved for the tenant who created it unless you configure the network to be
  * shared. The network is the main entity in the Networking service. Ports ({@see
  * \OpenCloud\Networking\Resource\Port}) and subnets ({@see
  * \OpenCloud\Networking\Resource\Subnet}) are always associated with a network.
- * 
+ *
  * @see http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Network
  *
  * @package OpenCloud\Networking\Resource

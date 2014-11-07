@@ -22,11 +22,11 @@ use OpenCloud\Common\Resource\PersistentResource;
 /**
  * A port represents a virtual switch port on a logical network switch, represented
  * by {@see \OpenCloud\Networking\Resource\Network}. Virtual instances (such as
- * servers created using the {@see \OpenCloud\Compute\Service}) attach their 
- * interfaces into ports. The port also defines the MAC address and the IP 
+ * servers created using the {@see \OpenCloud\Compute\Service}) attach their
+ * interfaces into ports. The port also defines the MAC address and the IP
  * address(es) to be assigned to the interfaces plugged into them. When IP addresses
- * are associated to a port, this also implies the port is associated with a {@see 
- * \OpenCloud\Networking\Resource\Subnet}, as the IP address is taken from the 
+ * are associated to a port, this also implies the port is associated with a {@see
+ * \OpenCloud\Networking\Resource\Subnet}, as the IP address is taken from the
  * allocation pool for a specific subnet.
  *
  * @see http://docs.openstack.org/api/openstack-network/2.0/content/Overview-d1e71.html#Port
