@@ -35,7 +35,7 @@ class Compute extends AbstractUnit implements UnitInterface
     const SERVER_NAME  = 'FooServer';
     const SNAPSHOT_NAME = 'FooSnapshot';
 
-    const FLAVOR = 'performance1-2';
+    const FLAVOR = 'general1-2';
     const IMAGE  = "046832f9-4549-4b38-a903-11acecac8cb9";
 
     public function setupService()

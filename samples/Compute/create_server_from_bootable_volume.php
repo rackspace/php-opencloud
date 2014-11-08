@@ -24,7 +24,7 @@
  * - RAX_API_KEY:  Your Rackspace Cloud Account API Key,
  * - RAX_REGION:   Rackspace Cloud region in which to create server; e.g.: DFW,
  * - RAX_BOOTABLE_VOLUME_ID: ID of bootable volume in Rackspace Cloud region, and
- * - RAX_FLAVOR_ID: ID of a compute flavor (performance or higher) in the Rackspace Cloud; e.g.: performance1-1.
+ * - RAX_FLAVOR_ID: ID of a compute flavor (general or higher) in the Rackspace Cloud; e.g.: general1-1.
  *
  * - You have an existing keypair. For this script, it will be called 'my_keypair'
  * but this will change depending on what you called yours.
