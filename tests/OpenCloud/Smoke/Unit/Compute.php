@@ -166,30 +166,6 @@ class Compute extends AbstractUnit implements UnitInterface
         }
 
         sleep(3);
-
-        // Suspend
-        $this->step('Suspend the server');
-        $server->suspend();
-        $server->waitFor('ACTIVE', 120, $this->getWaiterCallback());
-
-        if ($server->status() == 'ERROR') {
-            $this->stepInfo("Server suspension failed with ERROR\n");
-            return false;
-        }
-
-        sleep(3);
-
-        // Resume
-        $this->step('Resume the server');
-        $server->resume();
-        $server->waitFor('ACTIVE', 120, $this->getWaiterCallback());
-
-        if ($server->status() == 'ERROR') {
-            $this->stepInfo("Server resuming failed with ERROR\n");
-            return false;
-        }
-
-        sleep(3);
         
         // Attach volume
         $this->step('Attach the volume');
