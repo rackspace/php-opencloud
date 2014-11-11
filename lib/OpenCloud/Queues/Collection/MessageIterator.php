@@ -24,6 +24,6 @@ class MessageIterator extends PaginatedIterator
     protected function shouldAppend()
     {
         return $this->nextUrl ||
-            ( $this->position % $this->getOption('limit.page') == 0 );
+            ($this->position % $this->getOption('limit.page') == 0);
     }
 }
