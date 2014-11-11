@@ -22,6 +22,7 @@ use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Resource\PersistentResource;
 use OpenCloud\Queues\Exception;
+use OpenCloud\Queues\Collection\MessageIterator;
 use OpenCloud\Common\Metadata;
 
 /**
@@ -250,7 +251,7 @@ class Queue extends PersistentResource
      *      messages as well as unclaimed messages. If not specified, defaults
      *      to FALSE (i.e. only unclaimed messages are returned).
      *
-     * @return Collection
+     * @return \OpenCloud\Queues\Collection\MessageIterator
      */
     public function listMessages(array $options = array())
     {
@@ -276,7 +277,7 @@ class Queue extends PersistentResource
                 'limit.page' => 10
             );
 
-        return PaginatedIterator::factory($this, $options);
+        return MessageIterator::factory($this, $options);
     }
 
     /**
