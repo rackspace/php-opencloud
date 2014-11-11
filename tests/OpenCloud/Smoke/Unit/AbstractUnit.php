@@ -28,7 +28,7 @@ use OpenCloud\Smoke\Utils;
  *
  * @link
  */
-abstract class AbstractUnit
+abstract class AbstractUnit extends \PHPUnit_Framework_TestCase
 {
     /**
      * The credentials cache filename.

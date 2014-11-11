@@ -111,6 +111,7 @@ class Queues extends AbstractUnit implements UnitInterface
         }
         $this->stepInfo("Number of messages to be listed:    " . $numMessagesCreated);
         $this->stepInfo("Number of messages actually listed: " . $numMessagesListed);
+        $this->assertEquals($numMessagesCreated, $numMessagesListed);
 
         array_pop($ids);
     }

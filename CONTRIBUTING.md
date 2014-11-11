@@ -27,7 +27,7 @@ Test Instructions
 
 ### To run unit tests:
 ```bash
-phpunit
+vendor/bin/phpunit
 ```
 
 ### To run the full suite of acceptance tests:
