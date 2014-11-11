@@ -17,6 +17,8 @@
 
 namespace OpenCloud\Smoke\Unit;
 
+use OpenCloud\Queues\Resource\Queue;
+
 class Queues extends AbstractUnit implements UnitInterface
 {
     const QUEUE_NAME = 'test_queue';
@@ -71,6 +73,7 @@ class Queues extends AbstractUnit implements UnitInterface
         $this->step('Messages');
 
         // post
+        $numMessagesCreated = 0;
         $this->stepInfo('Create messages for queue %s', $this->queue->getName());
         $this->queue->createMessage(array(
             'body' => (object) array(
@@ -78,26 +81,36 @@ class Queues extends AbstractUnit implements UnitInterface
                 ),
             'ttl' => 300
         ));
+        ++$numMessagesCreated;
 
-        $this->queue->createMessages(array(
-            array(
-                'body' => (object) array('foo' => 'bar'),
-                'ttl'  => 700
-            ),
-            array(
-                'body' => (object) array('baz' => 'lol'),
-                'ttl'  => 600
-            )
-        ));
-
-        // list
-        $step = $this->stepInfo('List messages for queue %s', $this->queue->getName());
-        $messages = $this->queue->listMessages();
-        $ids = array();
-        foreach ($messages as $message) {
-            $step->stepInfo($message->getId());
-            $ids[] = $message->getId();
+        for ($creationBatch = 0; $creationBatch < 3; ++$creationBatch) {
+            $messages = array();
+            for ($messageIndex = 0; $messageIndex < Queue::MAX_POST_MESSAGES; ++$messageIndex) {
+                $messages[] = array(
+                    'body' => (object) array('message_number' => ($creationBatch * Queue::MAX_POST_MESSAGES) + $messageIndex + 1),
+                    'ttl'  => mt_rand(300, 600)
+                );
+                ++$numMessagesCreated;
+            }
+            $this->queue->createMessages($messages);
         }
+
+        // list ( 'echo' => true is needed to list client's own messages)
+        $step = $this->stepInfo('List messages for queue %s', $this->queue->getName());
+        $messages = $this->queue->listMessages(array(
+            'echo' => true
+        ));
+        $ids = array();
+        $numMessagesListed = 0;
+        $step->stepInfo("%-30s | %-40s", "Message ID", "Message body");
+        $step->stepInfo("%-30s | %-40s", str_repeat("-", 30), str_repeat("-", 40));
+        foreach ($messages as $message) {
+            $step->stepInfo("%-30s | %-40s", $message->getId(), json_encode($message->getBody()));
+            $ids[] = $message->getId();
+            ++$numMessagesListed;
+        }
+        $this->stepInfo("Number of messages to be listed:    " . $numMessagesCreated);
+        $this->stepInfo("Number of messages actually listed: " . $numMessagesListed);
 
         array_pop($ids);
     }

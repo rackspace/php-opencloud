@@ -122,7 +122,7 @@ class QueueTest extends QueuesTestCase
     public function test_List_Message()
     {
         $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
+            'OpenCloud\Queues\Collection\MessageIterator',
             $this->queue->setName('foo')->listMessages(array(
                 'ids' => array(100, 901, 58)
             ))
