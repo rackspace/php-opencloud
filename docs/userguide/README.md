@@ -1,3 +1,5 @@
+# Table of contents
+
 ## Auto Scale
 - [Groups](/docs/userguide/Autoscale/Groups.md)
 - [Policies](/docs/userguide/Autoscale/Policies.md)
