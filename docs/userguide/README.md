@@ -1,3 +1,5 @@
+# Table of contents
+
 ## Auto Scale
 - [Groups](/docs/userguide/Autoscale/Groups.md)
 - [Policies](/docs/userguide/Autoscale/Policies.md)
@@ -41,11 +43,11 @@
 
 ## Load Balancers
 - [Getting Started](/docs/userguide/LoadBalancer/README.md)
-- [Full userguide](/docs/userguide/LoadBalancer/USERGUIDE.md)
+- [Complete userguide](/docs/userguide/LoadBalancer/USERGUIDE.md)
 
 ## Networking
 - [Getting Started](/docs/userguide/Networking/README.md)
-- [Full userguide](/docs/userguide/Networking/USERGUIDE.md)
+- [Complete userguide](/docs/userguide/Networking/USERGUIDE.md)
 
 ## Object Store
 - [Objects](/docs/userguide/ObjectStore/Storage/Object.md)
@@ -58,7 +60,7 @@
 
 ## Orchestration
 - [Getting Started](/docs/userguide/Orchestration/README.md)
-- [Full userguide](/docs/userguide/Orchestration/USERGUIDE.md)
+- [Complete userguide](/docs/userguide/Orchestration/USERGUIDE.md)
 
 ## Queues
 - [Queues](/docs/userguide/Queues/Queue.md)
