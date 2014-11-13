@@ -32,8 +32,7 @@ class Networking extends AbstractUnit implements UnitInterface
 
     public function setupService()
     {
-        //        return $this->getConnection()->networkingService('cloudNetworks', Utils::getRegion());
-        return $this->getConnection()->networkingService('cloudNetworksPreprod', Utils::getRegion());
+        return $this->getConnection()->networkingService('cloudNetworks', Utils::getRegion());
     }
 
     public function main()
