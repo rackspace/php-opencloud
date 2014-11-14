@@ -174,7 +174,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         'connectionLogging',
         'connectionThrottle',
         'healthMonitor',
-        'sessionPersistence'
+        'sessionPersistence',
+        'httpsRedirect'
     );
 
     /**
