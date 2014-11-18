@@ -185,9 +185,9 @@ class OpenStack extends Client
     }
 
     /**
-     * Set the tenant. If an integer is passed in, the SDK assumes you want to set the ID of the full Tenant object
-     * and sets this property accordingly. For any other data type, it assumes you want to populate the Tenant object.
-     * This ambiguity arises due to backwards compatibility.
+     * Set the tenant. If an integer or string is passed in, the SDK assumes you want to set the ID of the full
+     * Tenant object and sets this property accordingly. For any other data type, it assumes you want to populate
+     * the Tenant object. This ambiguity arises due to backwards compatibility.
      *
      * @param  mixed $tenant
      * @return $this
