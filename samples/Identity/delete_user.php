@@ -33,15 +33,8 @@ $client = new Rackspace(getenv('RS_AUTH_URL'), array(
 // Set up Identity service
 $service = $client->identityService();
 
-// Retrieve existing user, either by name:
+// Retrieve existing user
 $user = $service->getUser('{username}');
-
-// by ID:
-$user = $service->getUser('{userId}', UserConst::MODE_ID);
-
-// or by email:
-$user = $service->getUser('{email}', UserConst::MODE_EMAIL);
-
 
 // And delete them...
 $user->delete();
