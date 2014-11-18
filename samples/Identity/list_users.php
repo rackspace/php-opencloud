@@ -38,5 +38,5 @@ $users = $service->getUsers();
 
 // Traverse the collection
 foreach ($users as $user) {
-  printf("User ID: %s, Name: %s\n", $user->getId(), $user->getUsername());
+    printf("User ID: %s, Name: %s\n", $user->getId(), $user->getUsername());
 }
