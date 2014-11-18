@@ -189,7 +189,7 @@ class OpenStack extends Client
      * and sets this property accordingly. For any other data type, it assumes you want to populate the Tenant object.
      * This ambiguity arises due to backwards compatibility.
      *
-     * @param  string $tenant
+     * @param  mixed $tenant
      * @return $this
      */
     public function setTenant($tenant)
