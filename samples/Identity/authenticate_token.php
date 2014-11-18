@@ -15,18 +15,14 @@
  * limitations under the License.
  */
 
-// Prior to running this script, you must setup the following environment variables:
-//  * RS_AUTH_URL: your Rackspace authentication URL
-//  * RS_USERNAME: your Rackspace username
-//  * RS_API_KEY: your Rackspace API key
-
 require dirname(__DIR__) . '/../vendor/autoload.php';
 
 use OpenCloud\Rackspace;
 
-$client = new Rackspace(getenv('RS_AUTH_URL'), array(
-    'username' => getenv('RS_USERNAME'),
-    'apiKey'   => getenv('RS_API_KEY'),
+// You can replace {authUrl} with Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // Authenticate with the above credentials
