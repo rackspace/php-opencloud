@@ -389,13 +389,13 @@ class ServerTest extends ComputeTestCase
 
     public function test_Start()
     {
-        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(204));
-        $this->assertEquals(204, $this->server->start()->getStatusCode());
+        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(202));
+        $this->assertEquals(202, $this->server->start()->getStatusCode());
     }
 
     public function test_Stop()
     {
-        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(204));
-        $this->assertEquals(204, $this->server->stop()->getStatusCode());
+        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(202));
+        $this->assertEquals(202, $this->server->stop()->getStatusCode());
     }
 }
