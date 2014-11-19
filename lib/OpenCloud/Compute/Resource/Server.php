@@ -796,4 +796,40 @@ class Server extends NovaResource implements HasPtrRecordsInterface
 
         return $body ?: (object) array();
     }
+
+    /**
+     * Start a server
+     *
+     * Starts a stopped server and changes its status to ACTIVE.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function start()
+    {
+        // The start action is only available when the os-server-start-stop extension is installed.
+        $this->checkExtension('os-server-start-stop');
+
+        $object = (object) array('os-start' => null);
+
+        return $this->action($object);
+    }
+
+    /**
+     * Stop a server
+     *
+     * Stops a running server and changes its status to STOPPED.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function stop()
+    {
+        // The stop action is only available when the os-server-start-stop extension is installed.
+        $this->checkExtension('os-server-start-stop');
+
+        $object = (object) array('os-stop' => null);
+
+        return $this->action($object);
+    }
 }

@@ -128,6 +128,14 @@ Server: Jetty(8.0.y.z-SNAPSHOT)
             "description": "Allow Admins to view server diagnostics through server action."
         },
         {
+            "updated": "2012-01-23T00:00:00+00:00",
+            "name": "ServerStartStop",
+            "links": [],
+            "namespace": "http://docs.openstack.org/compute/ext/servers/api/v1.1",
+            "alias": "os-server-start-stop",
+            "description": "Start/Stop instance compute API support."
+        },
+        {
             "updated": "2012-03-07T14:46:43Z",
             "name": "OSNetworksV2",
             "links": [],
