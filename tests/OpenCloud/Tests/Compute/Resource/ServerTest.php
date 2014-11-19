@@ -386,4 +386,16 @@ class ServerTest extends ComputeTestCase
         $this->assertEquals(-1, $diagnostics->vda_errors);
         $this->assertEquals(662, $diagnostics->vnet1_tx_packets);
     }
+
+    public function test_Start()
+    {
+        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(202));
+        $this->assertEquals(202, $this->server->start()->getStatusCode());
+    }
+
+    public function test_Stop()
+    {
+        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(202));
+        $this->assertEquals(202, $this->server->stop()->getStatusCode());
+    }
 }
