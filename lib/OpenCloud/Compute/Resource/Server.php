@@ -775,4 +775,25 @@ class Server extends NovaResource implements HasPtrRecordsInterface
 
         return $this->action($object);
     }
+
+    /**
+     * Get server diagnostics
+     *
+     * Gets basic usage data for a specified server.
+     *
+     * @api
+     * @return object
+     */
+    public function diagnostics()
+    {
+        // The diagnostics is only available when the os-server-diagnostics extension is installed.
+        $this->checkExtension('os-server-diagnostics');
+
+        $url = $this->getUrl('diagnostics');
+
+        $response = $this->getClient()->get($url)->send();
+        $body = Formatter::decode($response);
+
+        return $body ?: (object) array();
+    }
 }

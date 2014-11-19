@@ -376,4 +376,9 @@ class ServerTest extends ComputeTestCase
         $this->assertEquals(0, $obj->boot_index);
         $this->assertEquals(true, $obj->delete_on_termination);
     }
+
+    public function test_Diagnostics()
+    {
+        $this->assertTrue(is_object($this->server->diagnostics()));
+    }
 }
