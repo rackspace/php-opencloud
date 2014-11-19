@@ -185,18 +185,18 @@ class OpenStack extends Client
     }
 
     /**
-     * Set the tenant. If an integer is passed in, the SDK assumes you want to set the ID of the full Tenant object
-     * and sets this property accordingly. For any other data type, it assumes you want to populate the Tenant object.
-     * This ambiguity arises due to backwards compatibility.
+     * Set the tenant. If an integer or string is passed in, the SDK assumes you want to set the ID of the full
+     * Tenant object and sets this property accordingly. For any other data type, it assumes you want to populate
+     * the Tenant object. This ambiguity arises due to backwards compatibility.
      *
-     * @param  string $tenant
+     * @param  mixed $tenant
      * @return $this
      */
     public function setTenant($tenant)
     {
         $identity = IdentityService::factory($this);
 
-        if (is_numeric($tenant)) {
+        if (is_numeric($tenant) || is_string($tenant)) {
             if (!$this->tenant) {
                 $this->setTenantObject($identity->resource('Tenant'));
             }
