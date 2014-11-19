@@ -379,6 +379,11 @@ class ServerTest extends ComputeTestCase
 
     public function test_Diagnostics()
     {
-        $this->assertTrue(is_object($this->server->diagnostics()));
+        $this->addMockSubscriber($this->getTestFilePath('Diagnostics'));
+        $diagnostics = $this->server->diagnostics();
+        $this->assertInternalType('object', $diagnostics);
+        $this->assertEquals(524288, $diagnostics->memory);
+        $this->assertEquals(-1, $diagnostics->vda_errors);
+        $this->assertEquals(662, $diagnostics->vnet1_tx_packets);
     }
 }
