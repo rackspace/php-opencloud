@@ -376,4 +376,14 @@ class ServerTest extends ComputeTestCase
         $this->assertEquals(0, $obj->boot_index);
         $this->assertEquals(true, $obj->delete_on_termination);
     }
+
+    public function test_Diagnostics()
+    {
+        $this->addMockSubscriber($this->getTestFilePath('Diagnostics'));
+        $diagnostics = $this->server->diagnostics();
+        $this->assertInternalType('object', $diagnostics);
+        $this->assertEquals(524288, $diagnostics->memory);
+        $this->assertEquals(-1, $diagnostics->vda_errors);
+        $this->assertEquals(662, $diagnostics->vnet1_tx_packets);
+    }
 }

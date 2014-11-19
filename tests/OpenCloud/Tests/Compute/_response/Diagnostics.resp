@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Date: Fri, 15 Nov 2013 14:12:58 GMT
+Content-Length: 1364
+Content-Type: application/json
+X-Compute-Request-Id: req-164dc435-90c2-48ce-9d69-96f170c518c8
+Server: Jetty(8.0.y.z-SNAPSHOT)
+
+{
+    "cpu0_time": 17300000000,
+    "memory": 524288,
+    "vda_errors": -1,
+    "vda_read": 262144,
+    "vda_read_req": 112,
+    "vda_write": 5778432,
+    "vda_write_req": 488,
+    "vnet1_rx": 2070139,
+    "vnet1_rx_drop": 0,
+    "vnet1_rx_errors": 0,
+    "vnet1_rx_packets": 26701,
+    "vnet1_tx": 140208,
+    "vnet1_tx_drop": 0,
+    "vnet1_tx_errors": 0,
+    "vnet1_tx_packets": 662
+}
