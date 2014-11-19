@@ -1,7 +1,6 @@
 <?php
-
-/*
- * Copyright 2014 Rackspace US, Inc.
+/**
+ * Copyright 2012-2014 Rackspace US, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,18 +26,13 @@ $client = new Rackspace('{authUrl}', array(
     'apiKey'   => '{apiKey}',
 ));
 
-// 2. Create Compute service object
-$service = $client->computeService(null, '{region}');
+// 2. Obtain a Compute service object from the client.
+$computeService = $client->computeService(null, '{region}');
 
-// 3. Get empty keypair
-$keypair = $service->keypair();
+// 3. Get the list of flavors.
+$images = $service->flavorList();
 
-$payload = <<<EOT
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDx8nkQv/zgGgB4rMYmIf+6A4l6Rr+o/6lHBQdW5aYd44bd8JttDCE/F/pNRr0lRE+PiqSPO8nDPHw0010JeMH9gYgnnFlyY3/OcJ02RhIPyyxYpv9FhY+2YiUkpwFOcLImyrxEsYXpD/0d3ac30bNH6Sw9JD9UZHYcpSxsIbECHw== Example public key
-EOT;
-
-// 4. Create
-$keypair->create(array(
-    'name'      => 'new_public_key',
-    'publicKey' => $payload
-));
+// 4. Traverse
+foreach ($flavors as $flavor) {
+    printf("ID: %s, Name: %s\n", $flavor->id, $flavor->name);
+}

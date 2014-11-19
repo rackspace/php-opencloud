@@ -16,42 +16,25 @@
  * limitations under the License.
  */
 
-/**
- * Pre-requisites:
- *
- * Prior to running this script, you must setup the following environment variables:
- * - RAX_USERNAME: Your Rackspace Cloud Account Username, and
- * - RAX_API_KEY:  Your Rackspace Cloud Account API Key
- */
-
-require __DIR__ . '/../../vendor/autoload.php';
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
 use OpenCloud\Rackspace;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Create Volume service object
-$region = 'ORD';
-$volumeService  = $client->volumeService(null, $region);
+$volumeService  = $client->volumeService(null, '{region}');
 
 // 3. Get empty volume
 $myVolume = $volumeService->volume();
 
-// 4. Pick a volume type
-
-// Option a: traverse through list
-$volumeTypes = $volumeService->volumeTypeList();
-foreach ($volumeTypes as $volumeType) {
-    if ($volumeType->name == 'SSD') {
-        break;
-    }
-}
-
-// Option b: pass in UUID if you already know which one you want
+// 4. Pick a volume type by passing in UUID. If you do not know this, please
+// run the list_volume_types.php script.
 $volumeType = $volumeService->volumeType('{volumeTypeId}');
 
 // 5. Create
