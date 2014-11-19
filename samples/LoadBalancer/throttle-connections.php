@@ -26,9 +26,17 @@ $client = new Rackspace('{authUrl}', array(
 
 $service = $client->loadBalancerService(null, '{region}');
 
-$loadBalancers = $loadBalancerService->loadBalancerList();
+// Retrieve existing LB
+$lb = $service->loadBalancer('{loadBalancerId}');
 
-foreach ($loadBalancers as $loadBalancer) {
-    /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
-    var_dump($loadBalancer);
-}
+// Set up throttling
+$throttle = $lb->connectionThrottle();
+
+// Allow a maximum of 5,000 simultaneous connections (maxConnections) per
+// minute (rateInterval). Limit each IP to a maximum of 50 connections (maxConnectionRate).
+$throttle->create(array(
+    'maxConnections'    => 5000,
+    'minConnections'    => 10,
+    'rateInterval'      => 60,
+    'maxConnectionRate' => 50
+));

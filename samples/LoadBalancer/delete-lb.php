@@ -26,9 +26,8 @@ $client = new Rackspace('{authUrl}', array(
 
 $service = $client->loadBalancerService(null, '{region}');
 
-$loadBalancers = $loadBalancerService->loadBalancerList();
+// Retrieve existing LB
+$lb = $service->loadBalancer('{loadBalancerId}');
 
-foreach ($loadBalancers as $loadBalancer) {
-    /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
-    var_dump($loadBalancer);
-}
+// Delete
+$lb->delete();

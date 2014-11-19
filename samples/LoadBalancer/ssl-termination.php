@@ -26,9 +26,14 @@ $client = new Rackspace('{authUrl}', array(
 
 $service = $client->loadBalancerService(null, '{region}');
 
-$loadBalancers = $loadBalancerService->loadBalancerList();
+// Retrieve existing LB
+$lb = $service->loadBalancer('{loadBalancerId}');
 
-foreach ($loadBalancers as $loadBalancer) {
-    /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
-    var_dump($loadBalancer);
-}
+// Update SSL config
+$sslConfig = $lb->SSLTermination();
+$sslConfig->update(array(
+    'enabled'     => true,
+    'securePort'  => 443,
+    'privateKey'  => '{privateKey}',  // specify your private key
+    'certificate' => '{certificate}', // specify your SSL certificate
+));

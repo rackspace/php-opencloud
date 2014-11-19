@@ -26,9 +26,24 @@ $client = new Rackspace('{authUrl}', array(
 
 $service = $client->loadBalancerService(null, '{region}');
 
-$loadBalancers = $loadBalancerService->loadBalancerList();
+// Create empty object
+$lb = $service->loadBalancer();
 
-foreach ($loadBalancers as $loadBalancer) {
-    /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
-    var_dump($loadBalancer);
-}
+// Optional: add back-end nodes that need to be load balanced. These are
+// usually servers.
+$serverNode = $lb->node(array(
+    'address'   => '{ipAddress}', // substitute your server's IPv4 address
+    'port'      => 80,
+    'condition' => 'ENABLED',
+));
+
+// Configure the type of Virtual IP your LB will use
+$lb->addVirtualIp('PUBLIC');
+
+// Create it
+$lb->create(array(
+    'name'     => '{name}',
+    'port'     => 80,
+    'protocol' => 'HTTP',
+    'nodes'    => array($serverNode)
+));
