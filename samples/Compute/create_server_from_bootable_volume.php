@@ -16,54 +16,39 @@
  * limitations under the License.
  */
 
-/**
- * Pre-requisites:
- *
- * Prior to running this script, you must setup the following environment variables:
- * - RAX_USERNAME: Your Rackspace Cloud Account Username,
- * - RAX_API_KEY:  Your Rackspace Cloud Account API Key,
- * - RAX_REGION:   Rackspace Cloud region in which to create server; e.g.: DFW,
- * - RAX_BOOTABLE_VOLUME_ID: ID of bootable volume in Rackspace Cloud region, and
- * - RAX_FLAVOR_ID: ID of a compute flavor (general or higher) in the Rackspace Cloud; e.g.: general1-1.
- *
- * - You have an existing keypair. For this script, it will be called 'my_keypair'
- * but this will change depending on what you called yours.
- */
-
-require __DIR__ . '/../../vendor/autoload.php';
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
 use OpenCloud\Rackspace;
 use Guzzle\Http\Exception\BadResponseException;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Create Compute service
-$region = getenv('RAX_REGION');
-$computeService = $client->computeService(null, $region);
-$volumeService = $client->volumeService(null, $region);
+$computeService = $client->computeService(null, '{region}');
+$volumeService = $client->volumeService(null, '{region}');
 
 // 3. Get empty server
 $server = $computeService->server();
 
 // 4. Select bootable volume
-$bootableVolume = $volumeService->volume(getenv('RAX_BOOTABLE_VOLUME_ID'));
+$bootableVolume = $volumeService->volume('{volumeId}');
 
 // 5. Select a hardware flavor
-$flavor = $computeService->flavor(getenv('RAX_FLAVOR_ID'));
+$flavor = $computeService->flavor('{flavorId}');
 
-// 6. Create
+// 6. Create the server. If you do not know what imageId or flavorId to use,
+// please run the list_flavors.php and list_images.php scripts.
 try {
     $response = $server->create(array(
-        'name'     => 'My server created from a bootable volume',
-        'volume'   => $bootableVolume,
-        'flavor'   => $flavor
+        'name'     => '{serverName}',
+        'imageId'  => '{imageId}',
+        'flavorId' => '{flavorId}'
     ));
 } catch (BadResponseException $e) {
-    // No! Something failed. Let's find out:
-    echo $e->getRequest() . PHP_EOL . PHP_EOL;
     echo $e->getResponse();
 }

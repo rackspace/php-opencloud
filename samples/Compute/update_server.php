@@ -16,34 +16,22 @@
  * limitations under the License.
  */
 
-/**
- * Pre-requisites:
- *
- * Prior to running this script, you must setup the following environment variables:
- * - RAX_USERNAME: Your Rackspace Cloud Account Username, and
- * - RAX_API_KEY:  Your Rackspace Cloud Account API Key
- *
- * - There exists a server named 'my_server' and you know its ID. Run
- * create_server.php if you need to create one first.
- */
-
-require __DIR__ . '/../../vendor/autoload.php';
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
 use OpenCloud\Rackspace;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Create Compute service object
-$region = 'ORD';
-$service  = $client->computeService(null, $region);
+$service  = $client->computeService(null, '{region}');
 
 // 3. Get your existing server
-$serverId = '{serverId}';
-$server = $service->server($serverId);
+$server = $service->server('{serverId}');
 
 // 4. Update it - here we'll change its name, but you can also update its
 // `accessIPv4' and `accessIPv6' attributes.
