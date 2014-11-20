@@ -129,8 +129,8 @@ class Endpoint
      */
     protected function getVersionedUrl($url, $client)
     {
-      try {
-          // Make GET request to URL
+        try {
+            // Make GET request to URL
           $response = Formatter::decode($client->get($url)->send());
 
           // Attempt to parse response and determine URL for given $version
@@ -138,22 +138,21 @@ class Endpoint
               return $url;
           }
 
-          foreach ($response->versions as $version) {
-              if ($version->status == 'CURRENT') {
-                  foreach ($version->links as $link) {
-                      if ($link->rel == 'self') {
-                          return $link->href;
-                      }
-                  }
-              }
-          }
+            foreach ($response->versions as $version) {
+                if ($version->status == 'CURRENT') {
+                    foreach ($version->links as $link) {
+                        if ($link->rel == 'self') {
+                            return $link->href;
+                        }
+                    }
+                }
+            }
 
           // If we've reached this point, we could not find a versioned
           // URL in the response; return the original URL as-is
           return $url;
-
-      } catch (Exception $e) {
-          return $url;
-      }
+        } catch (Exception $e) {
+            return $url;
+        }
     }
 }
