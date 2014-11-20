@@ -18,6 +18,7 @@
 namespace OpenCloud\Common\Service;
 
 use Guzzle\Http\Url;
+use OpenCloud\Common\Http\Message\Formatter;
 
 /**
  * An endpoint serves as a location which receives and emits API interactions. It will therefore also host
@@ -44,17 +45,18 @@ class Endpoint
 
     /**
      * @param $object
+     * @param $client HTTP client
      * @return Endpoint
      */
-    public static function factory($object)
+    public static function factory($object, $client)
     {
         $endpoint = new self();
 
         if (isset($object->publicURL)) {
-            $endpoint->setPublicUrl($object->publicURL);
+            $endpoint->setPublicUrl($this->getVersionedUrl($object->publicURL, $client));
         }
         if (isset($object->internalURL)) {
-            $endpoint->setPrivateUrl($object->internalURL);
+            $endpoint->setPrivateUrl($this->getVersionedUrl($object->internalURL, $client));
         }
         if (isset($object->region)) {
             $endpoint->setRegion($object->region);
@@ -118,5 +120,40 @@ class Endpoint
     public function getRegion()
     {
         return $this->region;
+    }
+
+    /**
+     * @param string $url URL of endpoint
+     * @param object $client HTTP client
+     * @return string URL of endpoint, with version
+     */
+    protected function getVersionedUrl($url, $client)
+    {
+      try {
+          // Make GET request to URL
+          $response = Formatter::decode($client->get($url)->send());
+
+          // Attempt to parse response and determine URL for given $version
+          if (!property_exists($response, 'versions')) {
+              return $url;
+          }
+
+          foreach ($response->versions as $version) {
+              if ($version->status == 'CURRENT') {
+                  foreach ($version->links as $link) {
+                      if ($link->rel == 'self') {
+                          return $link->href;
+                      }
+                  }
+              }
+          }
+
+          // If we've reached this point, we could not find a versioned
+          // URL in the response; return the original URL as-is
+          return $url;
+
+      } catch (Exception $e) {
+          return $url;
+      }
     }
 }
