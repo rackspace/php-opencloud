@@ -19,14 +19,15 @@ namespace OpenCloud\Compute\Resource;
 
 use Guzzle\Http\Url;
 use OpenCloud\Common\Exceptions;
-use OpenCloud\Common\PersistentObject;
+use OpenCloud\Common\Resource\PersistentResource;
 use OpenCloud\Compute\Constants\Network as NetworkConst;
 use OpenCloud\Compute\Service;
+use OpenCloud\Networking\Resource\NetworkInterface;
 
 /**
  * The Network class represents a single virtual network
  */
-class Network extends PersistentObject
+class Network extends PersistentResource implements NetworkInterface
 {
     public $id;
     public $label;
@@ -153,5 +154,10 @@ class Network extends PersistentObject
         } else {
             return self::$openStackResourcePath;
         }
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }
