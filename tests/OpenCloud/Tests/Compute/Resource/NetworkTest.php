@@ -46,6 +46,7 @@ class NetworkTest extends ComputeTestCase
     {
         $this->assertEquals(NetworkConst::RAX_PUBLIC, $this->network->id);
         $this->assertInstanceOf('OpenCloud\Compute\Resource\Network', $this->network);
+        $this->assertInstanceOf('OpenCloud\Networking\Resource\NetworkInterface', $this->network);
     }
 
     public function test_Create()

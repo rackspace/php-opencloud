@@ -320,13 +320,18 @@ class ServerTest extends ComputeTestCase
 
     public function test_Create_With_Networks()
     {
+        $neutronService = $this->client->networkingService(null, 'IAD');
+        $neutronNetwork = $neutronService->network();
+        $neutronNetwork->setId('12345');
+
         $this->service->server()->create(array(
             'name'     => 'personality test 1',
             'image'    => $this->service->imageList()->first(),
             'flavor'   => $this->service->flavorList()->first(),
             'networks' => array(
                 $this->service->network(Network::RAX_PUBLIC),
-                $this->service->network()
+                $this->service->network(),
+                $neutronNetwork,
             )
         ));
     }
