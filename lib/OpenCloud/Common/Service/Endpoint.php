@@ -152,7 +152,8 @@ class Endpoint
         }
 
         foreach ($response->versions as $version) {
-            if ($version->status == 'CURRENT' && $version->id == $supportedServiceVersion) {
+            if (($version->status == 'CURRENT' || $version->status == 'SUPPORTED')
+                && $version->id == $supportedServiceVersion) {
                 foreach ($version->links as $link) {
                     if ($link->rel == 'self') {
                         return $link->href;
