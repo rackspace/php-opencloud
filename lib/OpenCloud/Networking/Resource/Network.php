@@ -30,7 +30,7 @@ use OpenCloud\Common\Resource\PersistentResource;
  *
  * @package OpenCloud\Networking\Resource
  */
-class Network extends PersistentResource
+class Network extends PersistentResource implements NetworkInterface
 {
     protected static $url_resource = 'networks';
     protected static $json_name = 'network';
@@ -70,5 +70,10 @@ class Network extends PersistentResource
     public function createJson()
     {
         return parent::createJson();
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }
