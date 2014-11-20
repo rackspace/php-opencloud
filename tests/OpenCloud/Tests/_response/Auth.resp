@@ -363,7 +363,7 @@ Front-End-Https: on
                         "publicURL": "https://dfw.networks.api.rackspacecloud.com/v2.0"
                     }
                 ],
-                "type": "networks"
+                "type": "network"
             }
         ],
         "token": {

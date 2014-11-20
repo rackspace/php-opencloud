@@ -32,7 +32,7 @@ use OpenCloud\Networking\Resource\Port;
 class Service extends CatalogService
 {
     const SUPPORTED_VERSION = 'v2.0';
-    const DEFAULT_TYPE = 'networks';
+    const DEFAULT_TYPE = 'network';
     const DEFAULT_NAME = 'cloudNetworks';
 
     /**
