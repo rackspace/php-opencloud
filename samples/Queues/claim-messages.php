@@ -46,5 +46,5 @@ $messages = $queue->claimMessages(array(
 
 // Iterate over your claimed messages in order to perform computation on them.
 foreach ($messages as $message) {
-  /** @var OpenCloud\Queues\Resource\Message */
+    /** @var OpenCloud\Queues\Resource\Message */
 }
