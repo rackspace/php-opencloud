@@ -38,7 +38,8 @@ $object = $container->getPartialObject('{objectName}');
 // 5. Set expiration (in seconds)
 $expirationTime = 3600; // one hour from now
 
-// 6. Set the allowed HTTP method
+// 6. Set the HTTP method allowed on the object in the container. If you want
+// to allow read-only access, use GET; for write-access, use POST.
 $httpMethod = 'GET';
 
 // 7. Get temp URL

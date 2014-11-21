@@ -36,4 +36,7 @@ $fileData = fopen('{localArchiveFilePath}', 'r');
 // 4. Upload archive for auto-extraction. Note that while we call fopen to open
 // the file resource, we do not call fclose at the end. The file resource is
 // automatically closed inside the bulkExtract call.
+//
+// For example, if you have a photo.jpg file inside a container named Photos,
+// then the remote path will be Photos/photo.jpg.
 $objectStoreService->bulkExtract('{remotePath}', $fileData, UrlType::TAR_GZ);

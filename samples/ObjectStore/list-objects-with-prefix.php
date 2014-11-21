@@ -32,7 +32,7 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 // 3. Get container.
 $container = $objectStoreService->getContainer('{containerName}');
 
-// 4. Get list of objects whose names start with a prefix
+// 4. Get list of objects whose names start with {prefix}
 $objects = $container->objectList(array(
   'prefix' => '{prefix}'
 ));

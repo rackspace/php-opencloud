@@ -30,13 +30,13 @@ $client = new Rackspace('{authUrl}', array(
 $objectStoreService = $client->objectStoreService(null, '{region}');
 
 // 3. Get container.
-$container = $objectStoreService->getContainer('{oldContainerName}');
+$container = $objectStoreService->getContainer('{sourceContainerName}');
 
 // 4. Get object.
 $object = $container->getObject('{objectName}');
 
 // 5. Create another container for object's copy.
-$objectStoreService->createContainer('{newContainerName}');
+$objectStoreService->createContainer('{destinationContainerName}');
 
 // 6. Copy object to another container.
-$object->copy('{newContainerName}/{objectName}');
+$object->copy('{destinationContainerName}/{objectName}');
