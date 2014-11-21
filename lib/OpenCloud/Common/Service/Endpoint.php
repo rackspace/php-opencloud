@@ -149,7 +149,7 @@ class Endpoint
         $response = Formatter::decode($client->get($url)->send());
 
         // Attempt to parse response and determine URL for given $version
-        if (!property_exists($response, 'versions')) {
+        if (!isset($response->versions) || !is_array($response->versions)) {
             throw new UnsupportedVersionError('Could not negotiate version with service.');
         }
 
