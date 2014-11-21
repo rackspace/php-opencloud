@@ -27,6 +27,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 abstract class CatalogService extends AbstractService
 {
     const DEFAULT_URL_TYPE = 'publicURL';
+    const SUPPORTED_VERSION = null;
 
     /**
      * @var string The type of this service, as set in Catalog.
@@ -208,7 +209,7 @@ abstract class CatalogService extends AbstractService
         // Search each service to find The One
         foreach ($catalog->getItems() as $service) {
             if ($service->hasType($this->type) && $service->hasName($this->name)) {
-                return Endpoint::factory($service->getEndpointFromRegion($this->region));
+                return Endpoint::factory($service->getEndpointFromRegion($this->region), static::SUPPORTED_VERSION, $this->getClient());
             }
         }
 
