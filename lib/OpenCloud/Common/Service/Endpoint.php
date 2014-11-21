@@ -72,7 +72,7 @@ class Endpoint
      * @param $publicUrl
      * @return $this
      */
-    public function setPublicUrl($publicUrl)
+    public function setPublicUrl(Url $publicUrl)
     {
         $this->publicUrl = $publicUrl;
 
@@ -91,7 +91,7 @@ class Endpoint
      * @param $privateUrl
      * @return $this
      */
-    public function setPrivateUrl($privateUrl)
+    public function setPrivateUrl(Url $privateUrl)
     {
         $this->privateUrl = $privateUrl;
 
