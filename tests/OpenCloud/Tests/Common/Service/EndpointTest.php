@@ -21,24 +21,23 @@ use OpenCloud\Common\Service\Endpoint;
 use OpenCloud\Tests\OpenCloudTestCase;
 use OpenCloud\Common\Http\Client;
 
-class PublicEndpoint extends Endpoint
-{
-    public function getVersionedUrl($url, $supportedServiceVersion, Client $client)
-    {
-        return parent::getVersionedUrl($url, $supportedServiceVersion, $client);
-    }
-}
-
 class EndpointTest extends OpenCloudTestCase
 {
     public function testGetVersionedUrlWithVersionLessEndpointSupportedVersionFound()
     {
         $this->addMockSubscriber($this->makeResponse('{"versions":[{"status":"CURRENT","id":"v2.0","links":[{"href":"http://hostport/v2.0","rel":"self" }]}]}', 200));
         
-        $e = new PublicEndpoint();
+        $endpoint = new Endpoint();
 
         $expectedUrl = "http://hostport/v2.0";
-        $this->assertEquals($expectedUrl, $e->getVersionedUrl("http://hostport", 'v2.0', $this->client));
+        $actualUrl   = $this->invokeMethod(
+            $endpoint,
+            'getVersionedUrl',
+            array('http://hostport', 'v2.0', $this->client)
+        );
+
+        $this->assertInstanceOf('Guzzle\Http\Url', $actualUrl);
+        $this->assertEquals($expectedUrl, $actualUrl);
     }
 
     /**
@@ -48,9 +47,13 @@ class EndpointTest extends OpenCloudTestCase
     {
         $this->addMockSubscriber($this->makeResponse('{"versions":[{"status":"CURRENT","id":"v2.0","links":[{"href":"http://hostport/v2.0","rel":"self" }]}]}', 200));
         
-        $e = new PublicEndpoint();
+        $endpoint = new Endpoint();
 
-        $e->getVersionedUrl("http://hostport", 'v2.1', $this->client);
+        $this->invokeMethod(
+            $endpoint,
+            'getVersionedUrl',
+            array('http://hostport', 'v2.1', $this->client)
+        );
     }
 
     /**
@@ -60,18 +63,43 @@ class EndpointTest extends OpenCloudTestCase
     {
         $this->addMockSubscriber($this->makeResponse('{}'));
         
-        $e = new PublicEndpoint();
+        $endpoint = new Endpoint();
 
-        $e->getVersionedUrl("http://hostport", 'v2.1', $this->client);
+        $this->invokeMethod(
+            $endpoint,
+            'getVersionedUrl',
+            array('http://hostport', 'v2.1', $this->client)
+        );
+    }
+
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\UnsupportedVersionError
+     */
+    public function testGetVersionedUrlWithVersionLessEndpointSupportedVersionNotSpecified()
+    {
+        $endpoint = new Endpoint();
+
+        $this->invokeMethod(
+            $endpoint,
+            'getVersionedUrl',
+            array('http://hostport', null, $this->client)
+        );
     }
 
     public function testGetVersionedUrlWithVersionedEndpointUrl()
     {
         $this->addMockSubscriber($this->makeResponse('{}', 200));
         
-        $e = new PublicEndpoint();
+        $endpoint = new Endpoint();
 
         $expectedUrl = "http://hostport/v1";
-        $this->assertEquals($expectedUrl, $e->getVersionedUrl("http://hostport/v1", 'unknown', $this->client));
+        $actualUrl   = $this->invokeMethod(
+            $endpoint,
+            'getVersionedUrl',
+            array("http://hostport/v1", null, $this->client)
+        );
+
+        $this->assertInstanceOf('Guzzle\Http\Url', $actualUrl);
+        $this->assertEquals($expectedUrl, $actualUrl);
     }
 }

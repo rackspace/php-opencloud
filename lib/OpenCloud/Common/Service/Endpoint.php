@@ -133,7 +133,7 @@ class Endpoint
      * @param OpenCloud\Common\Http\Client $client HTTP client
      * @return Guzzle/Http/Url Endpoint URL with version in it
      */
-    protected function getVersionedUrl($url, $supportedServiceVersion, Client $client)
+    private function getVersionedUrl($url, $supportedServiceVersion, Client $client)
     {
         $versionRegex = '/\/[vV][0-9][0-9\.]*/';
         if (1 === preg_match($versionRegex, $url)) {
