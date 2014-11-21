@@ -27,7 +27,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 abstract class CatalogService extends AbstractService
 {
     const DEFAULT_URL_TYPE = 'publicURL';
-    const SUPPORTED_VERSION = 'unknown';
+    const SUPPORTED_VERSION = null;
 
     /**
      * @var string The type of this service, as set in Catalog.

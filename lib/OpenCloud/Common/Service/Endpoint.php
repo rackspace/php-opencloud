@@ -141,6 +141,10 @@ class Endpoint
             return Url::factory($url);
         }
 
+        if (is_null($supportedServiceVersion)) {
+            throw new UnsupportedVersionError('Service version supported by SDK not specified.');
+        }
+
         // Make GET request to URL
         $response = Formatter::decode($client->get($url)->send());
 
