@@ -47,8 +47,8 @@ try {
         'flavorId' => '{flavorId}',
         'networks' => array(
           $customNetwork,
-          $computeService->network(Network::RAX_PRIVATE), // This is the internal Rackspace network - strongly recommended
-          $computeService->network(Network::RAX_PUBLIC),  // This is the public internet - strong recommended
+          $computeService->network(Network::RAX_PRIVATE), 
+          $computeService->network(Network::RAX_PUBLIC),
         ),
     ));
 } catch (BadResponseException $e) {
