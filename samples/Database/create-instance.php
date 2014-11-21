@@ -15,36 +15,24 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key,
-//   * OS_REGION_NAME: OpenStack Cloud region in which to create database instance,
-//   * OS_DB_INSTANCE_FLAVOR_ID: ID of flavor to use for database instance,
-//   * OS_DB_INSTANCE_NAME: Name of database instance, and
-//   * OS_DB_INSTANCE_SIZE: Size, in GB, of database instance volume
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('OS_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
-// 2. Obtain a Databae service object from the client.
-$region = getenv('OS_REGION_NAME');
-$databaseService = $client->databaseService(null, $region);
+// 2. Obtain a Database service object from the client.
+$databaseService = $client->databaseService(null, '{region}');
 
 // 3. Create a database instance.
 $dbInstance = $databaseService->instance();
 $dbInstance->create(array(
-    'name'   => getenv('OS_DB_INSTANCE_NAME'),
-    'flavor' => $databaseService->flavor(getenv('OS_DB_INSTANCE_FLAVOR_ID')),
-    'volume' => array(
-        'size' => getenv('OS_DB_INSTANCE_SIZE')
-    )
+    'name'   => '{name}',
+    'flavor' => $databaseService->flavor('{flavorId}'),
+    'volume' => array('size' => '{size}')
 ));

@@ -15,30 +15,22 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key,
-//   * OS_REGION_NAME: OpenStack Cloud region in which to create database version, and
-//   * OS_DB_DATASTORE_ID: ID of database datastore
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('OS_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
-// 2. Obtain a Databae service object from the client.
-$region = getenv('OS_REGION_NAME');
-$databaseService = $client->databaseService(null, $region);
+// 2. Obtain a Database service object from the client.
+$databaseService = $client->databaseService(null, '{region}');
 
 // 3. Retrieve the database datastore.
-$datastore = $databaseService->datastore(getenv('OS_DB_DATASTORE_ID'));
+$datastore = $databaseService->datastore('{datastoreId}');
 
 // 4. List versions using this datastore.
 $versions = $datastore->versionList();
