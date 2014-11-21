@@ -33,5 +33,6 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 $account = $objectStoreService->getAccount();
 
 // 4. Get the number of containers in the account.
+
+/** @var $accountContainerCount int */
 $accountContainerCount = $account->getContainerCount();
-printf("# of containers in account: %d\n", $accountContainerCount);

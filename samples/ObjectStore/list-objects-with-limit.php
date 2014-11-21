@@ -38,6 +38,5 @@ $objects = $container->objectList(array(
 ));
 
 foreach ($objects as $object) {
-    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/
-    printf("Object name: %s\n", $object->getName());
+    /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
 }

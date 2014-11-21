@@ -33,5 +33,6 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 $container = $objectStoreService->getContainer('{containerName}');
 
 // 4. Get the quota for number of objects in container.
-$maximumNumberOfObjectsAllowedInContainer = $container->getCountQuota();
-printf("Number of objects allowed in container: %d\n", $maximumNumberOfObjectsAllowedInContainer);
+
+/** @var $countQuota int */
+$countQuota = $container->getCountQuota();

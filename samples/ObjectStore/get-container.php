@@ -30,6 +30,5 @@ $client = new Rackspace('{authUrl}', array(
 $objectStoreService = $client->objectStoreService(null, '{region}');
 
 // 3. Get container.
-$container = $objectStoreService->getContainer('{containerName}');
 /** @var $container OpenCloud\ObjectStore\Resource\Container **/
-printf("Container name: %s\n", $container->getName());
+$container = $objectStoreService->getContainer('{containerName}');

@@ -32,7 +32,6 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 // 3. Get container.
 $container = $objectStoreService->getContainer('{containerName}');
 
-// 4. Set container metadata.
-$containerMetadata = $container->getMetadata();
-/** @var $container $containerMetadata OpenCloud\ObjectStore\Resource\ContainerMetadata **/
-printf("Container author: %s\n", $containerMetadata->getProperty('author'));
+// 4. Get container metadata.
+/** @var $metadata OpenCloud\ObjectStore\Resource\ContainerMetadata **/
+$metadata = $container->getMetadata();

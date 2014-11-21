@@ -37,6 +37,6 @@ $container = $objectStoreService->getContainer('{containerName}');
 $object = $container->getObject('{objectName}');
 
 // 5. Get object's publicly-accessible iOS streaming URL.
-$iosStreamingUrl = $object->getPublicUrl(UrlType::IOS_STREAMING);
 
-printf("Object's publicly accessible iOS streaming URL: %s\n", $iosStreamingUrl);
+/** @var $iosStreamingUrl string */
+$iosStreamingUrl = $object->getPublicUrl(UrlType::IOS_STREAMING);

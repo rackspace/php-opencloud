@@ -33,5 +33,6 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 $container = $objectStoreService->getContainer('{containerName}');
 
 // 4. Get the space (in bytes) used by this container.
-$containerSizeInBytes = $container->getBytesUsed();
-printf("Space (in bytes) used by this container: %d\n", $containerSizeInBytes);
+
+/** @var $bytesUsed int */
+$bytesUsed = $container->getBytesUsed();

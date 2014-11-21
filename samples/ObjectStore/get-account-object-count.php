@@ -33,5 +33,6 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 $account = $objectStoreService->getAccount();
 
 // 4. Get the number of objects in the account.
+
+/** @var $accountObjectCount int */
 $accountObjectCount = $account->getObjectCount();
-printf("# of objects in account: %d\n", $accountObjectCount);

@@ -33,6 +33,6 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 $account = $objectStoreService->getAccount();
 
 // 4. Get the temporary URL secret.
-$tempUrlSecret = $account->getTempUrlSecret();
 
-printf("Account temporary URL secret: %s\n", $tempUrlSecret);
+/** @var $tempUrlSecret string */
+$tempUrlSecret = $account->getTempUrlSecret();

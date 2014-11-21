@@ -37,16 +37,11 @@ $container = $objectStoreService->getContainer('{containerName}');
 /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
 $object = $container->getObject('{objectName}');
 
-printf("Object name: %s\n", $object->getName());
-
 /** @var $objectContent Guzzle\Http\EntityBody **/
 $objectContent = $object->getContent();
-
 
 // 5. Write object content to file on local filesystem.
 $objectContent->rewind();
 $stream = $objectContent->getStream();
 $localFilename = tempnam("/tmp", 'php-opencloud-');
 file_put_contents($localFilename, $stream);
-
-printf("Your object has been written to %s\n", $localFilename);

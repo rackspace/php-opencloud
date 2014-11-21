@@ -37,6 +37,6 @@ $container = $objectStoreService->getContainer('{containerName}');
 $object = $container->getObject('{objectName}');
 
 // 5. Get object's publicly-accessible streaming URL.
-$streamingUrl = $object->getPublicUrl(UrlType::STREAMING);
 
-printf("Object's publicly accessible streaming URL: %s\n", $streamingUrl);
+/** @var $streamingUrl string */
+$streamingUrl = $object->getPublicUrl(UrlType::STREAMING);

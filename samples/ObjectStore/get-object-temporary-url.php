@@ -43,6 +43,6 @@ $expirationTime = 3600; // one hour from now
 $httpMethod = 'GET';
 
 // 7. Get temp URL
-$tempUrl = $object->getTemporaryUrl($expirationTime, $httpMethod);
 
-printf("Object temporary URL: %s\n", $tempUrl);
+/** @param $tempUrl string */
+$tempUrl = $object->getTemporaryUrl($expirationTime, $httpMethod);

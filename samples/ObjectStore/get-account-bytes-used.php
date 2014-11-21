@@ -33,5 +33,6 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 $account = $objectStoreService->getAccount();
 
 // 4. Get the space (in bytes) used by the account.
+
+/** @var $accountSizeInBytes int */
 $accountSizeInBytes = $account->getBytesUsed();
-printf("Space (in bytes) used by this account: %d\n", $accountSizeInBytes);

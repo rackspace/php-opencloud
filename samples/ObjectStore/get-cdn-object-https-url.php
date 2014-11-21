@@ -37,6 +37,6 @@ $container = $objectStoreService->getContainer('{containerName}');
 $object = $container->getObject('{objectName}');
 
 // 5. Get object's publicly-accessible HTTPS URL.
-$httpsUrl = $object->getPublicUrl(UrlType::SSL);
 
-printf("Object's publicly accessible HTTPS URL: %s\n", $httpsUrl);
+/** @var $httpsUrl string */
+$httpsUrl = $object->getPublicUrl(UrlType::SSL);

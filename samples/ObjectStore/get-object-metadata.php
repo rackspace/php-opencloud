@@ -32,9 +32,12 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 // 3. Get container.
 $container = $objectStoreService->getContainer('{containerName}');
 
-// 4. Get object metadata.
+// 4. Retrieve information about the object.
 $object = $container->getPartialObject('{objectName}');
+
+// 5. Retrieve metadata.
+/** @var $objectMetadata \OpenCloud\Common\Metadata **/
 $objectMetadata = $object->getMetadata();
 
-/** @var $objectMetadata \OpenCloud\Common\Metadata **/
-printf("Object author: %s\n", $objectMetadata->getProperty('author'));
+/** @var $metadataItemValue mixed **/
+$metadataItemValue = $objectMetadata->getProperty('{key}');

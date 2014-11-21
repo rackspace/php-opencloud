@@ -33,5 +33,5 @@ $objectStoreService = $client->objectStoreService(null, '{region}');
 $container = $objectStoreService->getContainer('{containerName}');
 
 // 4. Get the number of objects in this container.
+/** @param $containerObjectCount int */
 $containerObjectCount = $container->getObjectCount();
-printf("# of objects in container: %d\n", $containerObjectCount);

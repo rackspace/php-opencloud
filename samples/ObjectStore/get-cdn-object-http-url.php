@@ -36,6 +36,6 @@ $container = $objectStoreService->getContainer('{containerName}');
 $object = $container->getObject('{objectName}');
 
 // 5. Get object's publicly-accessible HTTP URL.
-$httpUrl = $object->getPublicUrl();
 
-printf("Object's publicly accessible HTTP URL: %s\n", $httpUrl);
+/** @var $httpUrl string */
+$httpUrl = $object->getPublicUrl();
