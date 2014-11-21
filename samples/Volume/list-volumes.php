@@ -15,25 +15,17 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
-//
-
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
 // 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Obtain a Volume service object from the client.
-$region = 'DFW';
-$volumeService = $client->volumeService(null, $region);
+$volumeService = $client->volumeService(null, '{region}');
 
 // 3. Get volume list.
 $volumes = $volumeService->volumeList();
