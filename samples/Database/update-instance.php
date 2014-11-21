@@ -34,5 +34,5 @@ $instance = $databaseService->instance('{instanceId}');
 
 // 4. Update it with a configuration.
 $instance->update(array(
-    'configuration' => getenv('OS_DB_CONFIGURATION_ID')
+    'configuration' => '{configId}'
 ));
