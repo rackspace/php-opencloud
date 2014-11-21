@@ -15,42 +15,34 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
-// * There exists a container named 'logos' in your Object Store. Run
-//   create-container.php if you need to create one first.
-// * The 'logos' container contains an object named 'php-elephant.jpg'. Run
-//   upload-object.php if you need to create it first.
-// * The temporary URL secret has been set on the account. Run
-//   set-account-temp-url-secret.php if you need to set the secret first.
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Obtain an Object Store service object from the client.
-$region = 'DFW';
-$objectStoreService = $client->objectStoreService(null, $region);
+$objectStoreService = $client->objectStoreService(null, '{region}');
 
 // 3. Get container.
-$container = $objectStoreService->getContainer('logos');
+$container = $objectStoreService->getContainer('{containerName}');
 
 // 4. Get object metadata.
-$objectName = 'php-elephant.jpg';
-$object = $container->getPartialObject($objectName);
+$object = $container->getPartialObject('{objectName}');
 
-// 5. Get object's temporary URL.
-$expirationTimeInSeconds = 3600; // one hour from now
-$httpMethodAllowed = 'GET';
-$tempUrl = $object->getTemporaryUrl($expirationTimeInSeconds, $httpMethodAllowed);
+// 5. Set expiration (in seconds)
+$expirationTime = 3600; // one hour from now
 
-printf("Object temporary URL: %s\n", $tempUrl);
+// 6. Set the HTTP method allowed on the object in the container. If you want
+// to allow read-only access, use GET; for write-access, use POST.
+$httpMethod = 'GET';
+
+// 7. Get temp URL
+
+/** @param $tempUrl string */
+$tempUrl = $object->getTemporaryUrl($expirationTime, $httpMethod);
