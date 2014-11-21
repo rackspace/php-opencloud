@@ -135,12 +135,10 @@ class Endpoint
      */
     protected function getVersionedUrl($url, $supportedServiceVersion, Client $client)
     {
-        $urlObj = Url::factory($url);
-
         $versionRegex = '/\/[vV][0-9][0-9\.]*/';
         if (1 === preg_match($versionRegex, $url)) {
             // URL has version in it; use it as-is
-            return $urlObj;
+            return Url::factory($url);
         }
 
         // Make GET request to URL
