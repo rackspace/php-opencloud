@@ -15,26 +15,17 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username,
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key, and
-//   * RAX_BOOT_IMAGE_ID: ID of image with bootable operating system on it
-//
-
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
 // 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Obtain a Volume service object from the client.
-$region = 'DFW';
-$volumeService = $client->volumeService(null, $region);
+$volumeService = $client->volumeService(null, '{region}');
 
 // 3. Create the volume. Specify a name and size (in GB). You may optionally
 // specify a volume type, which is either 'SSD' (faster, more expensive), or
@@ -45,5 +36,5 @@ $volume->create(array(
     'size' => 1000,
     'volume_type' => 'SSD',
     'bootable' => true,
-    'imageRef' => getenv('RAX_BOOT_IMAGE_ID')
+    'imageRef' => '{imageId}'
 ));

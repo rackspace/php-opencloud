@@ -15,30 +15,20 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key, and
-//   * RAX_SNAPSHOT_ID: ID of the volume you want to get. Run create-volume.php if
-//     you need to create one first.
-//
-
 require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
 // 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Obtain a Volume service object from the client.
-$region = 'DFW';
-$volumeService = $client->volumeService(null, $region);
+$volumeService = $client->volumeService(null, '{region}');
 
 // 3. Get the volume.
-$snapshot = $volumeService->snapshot(getenv('RAX_SNAPSHOT_ID'));
+$snapshot = $volumeService->snapshot('{snapshotId}');
 
 /** @var $snapshot OpenCloud\Volume\Resource\Snapshot **/
 echo "ID: " . $snapshot->id() . " | " . "Name: " . $snapshot->name() . PHP_EOL;
