@@ -154,7 +154,7 @@ class Endpoint
                 && $version->id == $supportedServiceVersion) {
                 foreach ($version->links as $link) {
                     if ($link->rel == 'self') {
-                        return $link->href;
+                        return Url::factory($link->href);
                     }
                 }
             }
