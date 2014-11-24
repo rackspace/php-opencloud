@@ -15,35 +15,26 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
-//   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * OS_PASSWORD:  Your OpenStack Cloud Account Password, and
-//   * OS_REGION_NAME: The OpenStack Cloud region you want to use
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\OpenStack;
 
 // 1. Instantiate an OpenStack client.
-$client = new OpenStack(getenv('OS_AUTH_URL'), array(
-    'username' => getenv('OS_USERNAME'),
-    'password' => getenv('OS_PASSWORD')
+$client = new OpenStack('{authUrl}', array(
+    'username' => '{username}',
+    'password' => '{password}',
 ));
 
 // 2. Obtain an Orchestration service object from the client.
-$region = getenv('OS_REGION_NAME');
-$orchestrationService = $client->orchestrationService(null, $region);
+$orchestrationService = $client->orchestrationService(null, '{region}');
 
 // 3. Preview a stack.
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 $stack = $orchestrationService->previewStack(array(
-    'name'        => 'simple-lamp-setup',
+    'name'        => '{name}',
     'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
     'parameters'  => array(
-        'server_hostname' => 'web01',
-        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'server_hostname' => '{serverHost}',
+        'image'           => '{image}'
     )
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
