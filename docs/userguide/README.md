@@ -17,7 +17,7 @@
 - [Zones](/docs/userguide/CloudMonitoring/Zones.md)
 
 ## Compute
-- [Servers](/docs/userguide/Compute/Servers.md)
+- [Servers](/docs/userguide/Compute/Server.md)
 - [Images](/docs/userguide/Compute/Images.md)
 - [Flavors](/docs/userguide/flavors.md)
 - [Keypairs](/docs/userguide/Compute/Keypairs.md)
