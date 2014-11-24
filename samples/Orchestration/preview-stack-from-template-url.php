@@ -32,7 +32,7 @@ $orchestrationService = $client->orchestrationService(null, '{region}');
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 $stack = $orchestrationService->previewStack(array(
     'name'        => '{name}',
-    'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'templateUrl' => '{templateUrl}',
     'parameters'  => array(
         'server_hostname' => '{serverHost}',
         'image'           => '{image}'

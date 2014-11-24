@@ -34,7 +34,7 @@ $stack = $orchestrationService->getStack('{stackName}');
 // 4. Update stack.
 /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 $stack->update(array(
-    'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'templateUrl'   => '{templateUrl}',
     'parameters'    => array(
         'server_hostname' => '{serverHost}',
         'image'           => '{image}'

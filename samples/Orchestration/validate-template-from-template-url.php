@@ -32,7 +32,7 @@ $orchestrationService = $client->orchestrationService(null, '{region}');
 // 3. Validate template from URL
 try {
     $orchestrationService->validateTemplate(array(
-        'templateUrl' => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml'
+        'templateUrl' => '{templateUrl}'
     ));
 } catch (InvalidTemplateError $e) {
     // Use $e->getMessage() for explanation of why template is invalid
