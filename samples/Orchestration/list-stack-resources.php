@@ -33,7 +33,7 @@ $stack = $orchestrationService->getStack('{stackName}');
 
 // 4. Get list of resources in the stack.
 $resources = $stack->listResources();
-å
+
 foreach ($resources as $resource) {
     /** @var $resource OpenCloud\Orchestration\Resource\Resource **/
 }
