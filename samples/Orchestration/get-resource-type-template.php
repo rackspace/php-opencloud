@@ -15,32 +15,23 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
-//   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * OS_PASSWORD:  Your OpenStack Cloud Account Password,
-//   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
-//   * RESOURCE_TYPE_NAME:   Name of resource type
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\OpenStack;
 
 // 1. Instantiate an OpenStack client.
-$client = new OpenStack(getenv('OS_AUTH_URL'), array(
-    'username' => getenv('OS_USERNAME'),
-    'password' => getenv('OS_PASSWORD')
+$client = new OpenStack('{authUrl}', array(
+    'username' => '{username}',
+    'password' => '{password}',
 ));
 
 // 2. Obtain an Orchestration service object from the client.
-$region = getenv('OS_REGION_NAME');
-$orchestrationService = $client->orchestrationService(null, $region);
+$orchestrationService = $client->orchestrationService(null, '{region}');
 
 // 3. Get resource type.
-$resourceType = $orchestrationService->getResourceType(getenv('RESOURCE_TYPE_NAME'));
+$resourceType = $orchestrationService->getResourceType('{resourceTypeName}');
 
 // 4. Get template for resource type.
-$resourceTypeTemplate = $resourceType->getTemplate();
+
 /** @var $resourceTypeTemplate string **/
+$resourceTypeTemplate = $resourceType->getTemplate();
