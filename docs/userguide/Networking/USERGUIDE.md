@@ -430,7 +430,7 @@ $port = $networkingService->getPort('75906d20-6625-11e4-9803-0800200c9a66');
 
 [ [Get the executable PHP script for this example](/samples/Networking/get-port.php) ]
 
-### Update port
+### Update a port
 
 This operation takes one parameter, an associative array, with the following
 keys:
