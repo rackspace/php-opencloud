@@ -47,7 +47,7 @@ try {
         'flavorId' => '{flavorId}',
         'networks' => array(
           $customNetwork,
-          $computeService->network(Network::RAX_PRIVATE), 
+          $computeService->network(Network::RAX_PRIVATE),
           $computeService->network(Network::RAX_PUBLIC),
         ),
     ));
