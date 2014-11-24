@@ -17,7 +17,7 @@
 
 require dirname(__DIR__) . '/../vendor/autoload.php';
 
-use OpenCloud\Rackspace;
+use OpenCloud\OpenStack;
 
 // 1. Instantiate an OpenStack client.
 $client = new OpenStack('{authUrl}', array(
@@ -31,7 +31,7 @@ $orchestrationService = $client->orchestrationService(null, '{region}');
 // 3. Create a stack.
 $stack = $orchestrationService->createStack(array(
     'name'         => '{name}',
-    'templateUrl'  => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'templateUrl'  => '{templateUrl}',
     'parameters'   => array(
         'server_hostname' => '{serverHost}',
         'image'           => '{image}'
