@@ -189,7 +189,6 @@ class Container extends AbstractContainer
         $objects = $this->objectList();
 
         foreach ($objects as $object) {
-            $i++;
             $paths[] = sprintf('/%s/%s', $this->getName(), $object->getName());
         }
 
