@@ -159,7 +159,9 @@ class Container extends AbstractContainer
     public function delete($deleteObjects = false)
     {
         if ($deleteObjects === true) {
-            $this->deleteAllObjects();
+            if (!$this->deleteAllObjects()) {
+                throw new ContainerException('Could not delete all objects within container. Cannot delete container.');
+            }
         }
 
         try {
