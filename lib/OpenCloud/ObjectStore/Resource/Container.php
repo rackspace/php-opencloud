@@ -184,15 +184,39 @@ class Container extends AbstractContainer
      */
     public function deleteAllObjects()
     {
-        $requests = array();
+        $paths = array();
 
-        $list = $this->objectList();
+        $objects = $this->objectList();
 
-        foreach ($list as $object) {
-            $requests[] = $this->getClient()->delete($object->getUrl());
+        foreach ($objects as $object) {
+            $i++;
+            $paths[] = sprintf('/%s/%s', $this->getName(), $object->getName());
         }
 
-        return $this->getClient()->send($requests);
+        // Batch delete can only handle 10000 paths per request
+        $chunks = array_chunk($paths, 10000);
+        foreach ($chunks as $chunk) {
+            $this->getService()->bulkDelete($chunk);
+        }
+
+        // Poll the container for state change
+        $timeout = 60;
+        $currentTime = 0;
+
+        while (true) {
+            ++$currentTime;
+
+            if ($currentTime >= $timeout) {
+                return false;
+            }
+
+            $metadata = $this->retrieveMetadata();
+            if ($metadata->getProperty('Object-Count') === 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
