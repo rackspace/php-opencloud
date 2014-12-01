@@ -43,7 +43,6 @@ use OpenCloud\ObjectStore\Upload\TransferBuilder;
 class Container extends AbstractContainer
 {
     const METADATA_LABEL = 'Container';
-    const BATCH_DELETE_MAX = 10000;
 
     /**
      * This is the object that holds all the CDN functionality. This Container therefore acts as a simple wrapper and is
@@ -193,23 +192,32 @@ class Container extends AbstractContainer
             $paths[] = sprintf('/%s/%s', $this->getName(), $object->getName());
         }
 
-        // Batch delete can only handle 10000 paths per request
-        $chunks = array_chunk($paths, self::BATCH_DELETE_MAX);
-        foreach ($chunks as $chunk) {
-            $this->getService()->bulkDelete($chunk);
-        }
+        $this->getService()->batchDelete($paths);
 
-        // Poll the container for state change
-        $timeout = time() + 60;
-        while (time() < $timeout) {
-            if ($this->retrieveMetadata()->getProperty('Object-Count') === 0) {
-                return false;
+        return $this->waitUntilEmpty();
+    }
+
+    /**
+     * This is a method that makes batch deletions more convenient. It continually
+     * polls the resource, waiting for its state to change. If the loop exceeds the
+     * provided timeout, it breaks and returns FALSE.
+     *
+     * @param int $secondsToWait The number of seconds to run the loop
+     * @return bool
+     */
+    public function waitUntilEmpty($secondsToWait = 60, $interval = 1)
+    {
+        $endTime = time() + $secondsToWait;
+
+        while (time() < $endTime) {
+            if ((int) $this->retrieveMetadata()->getProperty('Object-Count') === 0) {
+                return true;
             }
 
-            sleep(1);
+            sleep($interval);
         }
 
-        return true;
+        return false;
     }
 
     /**
