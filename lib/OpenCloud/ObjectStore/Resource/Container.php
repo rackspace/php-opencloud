@@ -43,6 +43,7 @@ use OpenCloud\ObjectStore\Upload\TransferBuilder;
 class Container extends AbstractContainer
 {
     const METADATA_LABEL = 'Container';
+    const BATCH_DELETE_MAX = 10000;
 
     /**
      * This is the object that holds all the CDN functionality. This Container therefore acts as a simple wrapper and is
@@ -193,26 +194,19 @@ class Container extends AbstractContainer
         }
 
         // Batch delete can only handle 10000 paths per request
-        $chunks = array_chunk($paths, 10000);
+        $chunks = array_chunk($paths, self::BATCH_DELETE_MAX);
         foreach ($chunks as $chunk) {
             $this->getService()->bulkDelete($chunk);
         }
 
         // Poll the container for state change
-        $timeout = 60;
-        $currentTime = 0;
-
-        while (true) {
-            ++$currentTime;
-
-            if ($currentTime >= $timeout) {
+        $timeout = time() + 60;
+        while (time() < $timeout) {
+            if ($this->retrieveMetadata()->getProperty('Object-Count') === 0) {
                 return false;
             }
 
-            $metadata = $this->retrieveMetadata();
-            if ($metadata->getProperty('Object-Count') === 0) {
-                return false;
-            }
+            sleep(1);
         }
 
         return true;
