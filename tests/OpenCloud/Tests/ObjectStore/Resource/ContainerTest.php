@@ -335,4 +335,20 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $this->assertFalse($this->container->objectExists('test.foo'));
     }
+
+    public function test_Waiter_Returns_True_For_Empty_Container()
+    {
+        $response = new Response(204, array('X-Container-Object-Count' => 0));
+        $this->addMockSubscriber($response);
+
+        $this->assertTrue($this->container->waitUntilEmpty(2, 0));
+    }
+
+    public function test_Waiter_Returns_False_On_Timeout()
+    {
+        $response = new Response(204, array('X-Container-Object-Count' => 10));
+        $this->addMockSubscriber($response);
+
+        $this->assertFalse($this->container->waitUntilEmpty(0.1, 1));
+    }
 }

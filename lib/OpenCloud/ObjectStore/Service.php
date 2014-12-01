@@ -36,6 +36,7 @@ class Service extends AbstractService
 {
     const DEFAULT_NAME = 'cloudFiles';
     const DEFAULT_TYPE = 'object-store';
+    const BATCH_DELETE_MAX = 10000;
 
     /**
      * This holds the associated CDN service (for Rackspace public cloud)
@@ -169,14 +170,55 @@ class Service extends AbstractService
     }
 
     /**
-     * This method will delete multiple objects or containers from their account with a single request.
+     * @deprecated Please use {@see batchDelete()} instead.
+     */
+    public function bulkDelete(array $paths)
+    {
+        $this->getLogger()->deprecated(__METHOD__, '::batchDelete()');
+
+        return $this->executeBatchDeleteRequest($paths);
+    }
+
+    /**
+     * Batch delete will delete an array of object paths. By default,
+     * the API will only accept a maximum of 10,000 object deletions
+     * per request - so for arrays that exceed this size, it is chunked
+     * and sent as individual requests.
      *
-     * @param array $paths  A two-dimensional array of paths:
-     *                      array('container_a/file_1', 'container_b/file_78', 'container_c/file_40582')
+     * @param array $paths The objects you want to delete. Each path needs
+     *                     be formatted as /{containerName}/{objectName}. If
+     *                     you are deleting object_1 and object_2 from the
+     *                     photos_container, the array will be:
+     *
+     *                     array(
+     *                        '/photos_container/object_1',
+     *                        '/photos_container/object_2'
+     *                     )
+     *
+     * @return array The array of responses from the API
+     * @throws Exception\BulkOperationException
+     */
+    public function batchDelete(array $paths)
+    {
+        $chunks = array_chunk($paths, self::BATCH_DELETE_MAX);
+
+        $responses = array();
+
+        foreach ($chunks as $chunk) {
+            $responses[] = $this->executeBatchDeleteRequest($chunk);
+        }
+
+        return $responses;
+    }
+
+    /**
+     * Internal method for dispatching single batch delete requests.
+     *
+     * @param array $paths
      * @return \Guzzle\Http\Message\Response
      * @throws Exception\BulkOperationException
      */
-    public function bulkDelete(array $paths)
+    private function executeBatchDeleteRequest(array $paths)
     {
         $entity = EntityBody::factory(implode(PHP_EOL, $paths));
 

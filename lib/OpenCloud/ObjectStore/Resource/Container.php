@@ -184,15 +184,40 @@ class Container extends AbstractContainer
      */
     public function deleteAllObjects()
     {
-        $requests = array();
+        $paths = array();
 
-        $list = $this->objectList();
+        $objects = $this->objectList();
 
-        foreach ($list as $object) {
-            $requests[] = $this->getClient()->delete($object->getUrl());
+        foreach ($objects as $object) {
+            $paths[] = sprintf('/%s/%s', $this->getName(), $object->getName());
         }
 
-        return $this->getClient()->send($requests);
+        $this->getService()->batchDelete($paths);
+
+        return $this->waitUntilEmpty();
+    }
+
+    /**
+     * This is a method that makes batch deletions more convenient. It continually
+     * polls the resource, waiting for its state to change. If the loop exceeds the
+     * provided timeout, it breaks and returns FALSE.
+     *
+     * @param int $secondsToWait The number of seconds to run the loop
+     * @return bool
+     */
+    public function waitUntilEmpty($secondsToWait = 60, $interval = 1)
+    {
+        $endTime = time() + $secondsToWait;
+
+        while (time() < $endTime) {
+            if ((int) $this->retrieveMetadata()->getProperty('Object-Count') === 0) {
+                return true;
+            }
+
+            sleep($interval);
+        }
+
+        return false;
     }
 
     /**
