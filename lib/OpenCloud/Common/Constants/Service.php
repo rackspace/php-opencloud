@@ -19,6 +19,6 @@ namespace OpenCloud\Common\Constants;
 
 class Service
 {
-    const INTERNAL_URL = 'publicUrl';
-    const PUBLIC_URL = 'internalUrl';
+    const INTERNAL_URL = 'internalUrl';
+    const PUBLIC_URL = 'publicUrl';
 }
