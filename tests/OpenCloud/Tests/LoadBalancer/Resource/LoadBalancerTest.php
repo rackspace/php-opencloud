@@ -243,6 +243,18 @@ class LoadBalancerTest extends LoadBalancerTestCase
         );
     }
 
+    public function test_Certificate_Mapping()
+    {
+        $this->assertEquals(
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/ssltermination/certificatemappings',
+            (string)$this->loadBalancer->CertificateMappings()->Url()
+        );
+        $this->assertEquals(
+            'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/ssltermination/certificatemappings/1',
+            (string)$this->loadBalancer->CertificateMappings(1)->Url()
+        );
+    }
+
     public function test_Metadata()
     {
         $this->assertEquals(
