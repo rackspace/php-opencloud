@@ -247,11 +247,11 @@ class LoadBalancerTest extends LoadBalancerTestCase
     {
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/ssltermination/certificatemappings',
-            (string)$this->loadBalancer->certificateMappings()->Url()
+            (string)$this->loadBalancer->certificateMapping()->Url()
         );
         $this->assertEquals(
             'https://dfw.loadbalancers.api.rackspacecloud.com/v1.0/123456/loadbalancers/2000/ssltermination/certificatemappings/1',
-            (string)$this->loadBalancer->certificateMappings(1)->Url()
+            (string)$this->loadBalancer->certificateMapping(1)->Url()
         );
     }
 
