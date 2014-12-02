@@ -65,7 +65,7 @@ class CertificateMappings extends PersistentResource
     protected static $json_collection_name = 'certificateMappings';
     protected static $url_resource = 'ssltermination/certificatemappings';
 
-    public $createKeys = array(
+    protected $createKeys = array(
         'hostName',
         'certificate',
         'privateKey',
