@@ -97,5 +97,4 @@ class CertificateMappings extends PersistentResource
 
         return $object;
     }
-
 }
