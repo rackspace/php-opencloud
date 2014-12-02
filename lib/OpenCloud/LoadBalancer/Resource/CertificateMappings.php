@@ -28,7 +28,7 @@ use OpenCloud\Common\Resource\PersistentResource;
 class CertificateMappings extends PersistentResource
 {
     /**
-     * Id for the Load Balancer.
+     * Id for the Certificate Map.
      *
      * @var int
      */
