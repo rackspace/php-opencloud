@@ -397,6 +397,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     /**
      * Returns a Certificate Mapping.
      *
+     * @param int|array $id (Optional) Either a particular Certificate mapping ID, or an array of data about the
+     *                      mapping. An array can include these keys: hostName, privateKey, certificate,
+     *                      intermediateCertificate.
      * @return \OpenCloud\LoadBalancer\Resource\CertificateMappings
      */
     public function certificateMapping($id = null)
