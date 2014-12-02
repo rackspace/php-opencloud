@@ -479,9 +479,9 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      * @param int $id ID of the certificate mapping.
      * @return \Guzzle\Http\Message\Response
      */
-    public function removeCertificateMapping($certificateMappingId)
+    public function removeCertificateMapping($id)
     {
-        return $this->certificateMapping($certificateMappingId)->delete();
+        return $this->certificateMapping($id)->delete();
     }
 
     /**
