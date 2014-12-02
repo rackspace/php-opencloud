@@ -159,19 +159,20 @@ class Container extends AbstractContainer
     public function delete($deleteObjects = false)
     {
         if ($deleteObjects === true) {
-            $this->deleteWithObjects();
-        } else {
-            try {
-                return $this->getClient()->delete($this->getUrl())->send();
-            } catch (ClientErrorResponseException $e) {
-                if ($e->getResponse()->getStatusCode() == 409) {
-                    throw new ContainerException(sprintf(
-                        'The API returned this error: %s. You might have to delete all existing objects before continuing.',
-                        (string) $e->getResponse()->getBody()
-                    ));
-                } else {
-                    throw $e;
-                }
+            // Delegate to auxiliary method
+            return $this->deleteWithObjects();
+        }
+
+        try {
+            return $this->getClient()->delete($this->getUrl())->send();
+        } catch (ClientErrorResponseException $e) {
+            if ($e->getResponse()->getStatusCode() == 409) {
+                throw new ContainerException(sprintf(
+                    'The API returned this error: %s. You might have to delete all existing objects before continuing.',
+                    (string) $e->getResponse()->getBody()
+                ));
+            } else {
+                throw $e;
             }
         }
     }
