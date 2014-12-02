@@ -464,7 +464,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         $privateKey = null,
         $certificate = null,
         $intermediateCertificate = null
-    ){
+    ) {
         $certificateMapping = $this->certificateMapping($id);
         return $certificateMapping->update(
             array(
