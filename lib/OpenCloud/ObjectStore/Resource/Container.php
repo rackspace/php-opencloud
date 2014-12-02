@@ -191,17 +191,14 @@ class Container extends AbstractContainer
         $endTime = time() + $secondsToWait;
         $containerDeleted = false;
         while ((time() < $endTime) && !$containerDeleted) {
-            error_log("Time remaining: " . ($endTime - time()) . " seconds");
             $this->deleteAllObjects();
             try {
                 $this->delete();
                 $containerDeleted = true;
             } catch (ContainerException $e) {
-                error_log("Container delete exception caught");
                 // Ignore exception and try again
             } catch (ClientErrorResponseException $e) {
                 if ($e->getResponse()->getStatusCode() == 404) {
-                    error_log("Container 404 exception caught");
                     // Container has been deleted
                     $containerDeleted = true;
                 } else {
@@ -222,7 +219,6 @@ class Container extends AbstractContainer
      */
     public function deleteAllObjects()
     {
-        error_log("Deleting all objects...");
         $paths = array();
         $objects = $this->objectList();
         foreach ($objects as $object) {
