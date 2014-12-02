@@ -159,22 +159,48 @@ class Container extends AbstractContainer
     public function delete($deleteObjects = false)
     {
         if ($deleteObjects === true) {
-            if (!$this->deleteAllObjects()) {
-                throw new ContainerException('Could not delete all objects within container. Cannot delete container.');
+            $this->deleteWithObjects();
+        } else {
+            try {
+                return $this->getClient()->delete($this->getUrl())->send();
+            } catch (ClientErrorResponseException $e) {
+                if ($e->getResponse()->getStatusCode() == 409) {
+                    throw new ContainerException(sprintf(
+                        'The API returned this error: %s. You might have to delete all existing objects before continuing.',
+                        (string) $e->getResponse()->getBody()
+                    ));
+                } else {
+                    throw $e;
+                }
             }
         }
+    }
 
-        try {
-            return $this->getClient()->delete($this->getUrl())->send();
-        } catch (ClientErrorResponseException $e) {
-            if ($e->getResponse()->getStatusCode() == 409) {
-                throw new ContainerException(sprintf(
-                    'The API returned this error: %s. You might have to delete all existing objects before continuing.',
-                    (string) $e->getResponse()->getBody()
-                ));
-            } else {
-                throw $e;
+    public function deleteWithObjects($secondsToWait = 60)
+    {
+        $endTime = time() + $secondsToWait;
+        $containerDeleted = false;
+        while ((time() < $endTime) && !$containerDeleted) {
+            error_log("Time remaining: " . ($endTime - time()) . " seconds");
+            $this->deleteAllObjects();
+            try {
+                $this->delete();
+                $containerDeleted = true;
+            } catch (ContainerException $e) {
+                error_log("Container delete exception caught");
+                // Ignore exception and try again
+            } catch (ClientErrorResponseException $e) {
+                if ($e->getResponse()->getStatusCode() == 404) {
+                    error_log("Container 404 exception caught");
+                    // Container has been deleted
+                    $containerDeleted = true;
+                } else {
+                    throw $e;
+                }
             }
+        }
+        if (!$containerDeleted) {
+            throw new ContainerException('Container and all its objects cound not be deleted');
         }
     }
 
@@ -186,17 +212,13 @@ class Container extends AbstractContainer
      */
     public function deleteAllObjects()
     {
+        error_log("Deleting all objects...");
         $paths = array();
-
         $objects = $this->objectList();
-
         foreach ($objects as $object) {
             $paths[] = sprintf('/%s/%s', $this->getName(), $object->getName());
         }
-
-        $this->getService()->batchDelete($paths);
-
-        return $this->waitUntilEmpty();
+        return $this->getService()->batchDelete($paths);
     }
 
     /**
