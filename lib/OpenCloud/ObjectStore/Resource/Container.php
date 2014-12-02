@@ -177,8 +177,17 @@ class Container extends AbstractContainer
         }
     }
 
-    public function deleteWithObjects($secondsToWait = 60)
+    public function deleteWithObjects($secondsToWait = null)
     {
+
+        // If timeout (seconds to wait) is not specified by caller, try to
+        // estimate it based on number of objects in container
+        if (is_null($secondsToWait)) {
+            $numObjects = $this->getObjectCount();
+            $secondsToWait = $numObjects / 2;
+        }
+
+        // Attempt to delete all objects and container
         $endTime = time() + $secondsToWait;
         $containerDeleted = false;
         while ((time() < $endTime) && !$containerDeleted) {
