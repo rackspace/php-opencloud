@@ -395,8 +395,11 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * Returns a Certificate Mapping
+     * Returns a Certificate Mapping.
      *
+     * @param int|array $id (Optional) Either a particular Certificate mapping ID, or an array of data about the
+     *                      mapping. An array can include these keys: hostName, privateKey, certificate,
+     *                      intermediateCertificate.
      * @return \OpenCloud\LoadBalancer\Resource\CertificateMappings
      */
     public function certificateMapping($id = null)
@@ -405,7 +408,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * Returns a Collection of Certificate Mappings
+     * Returns a Collection of Certificate Mappings.
      *
      * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
@@ -415,17 +418,22 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * Creates a certificate mapping
+     * Creates a certificate mapping.
      *
-     * @return array of {@see \Guzzle\Http\Message\Response} objects
      * @throws \OpenCloud\Common\Exceptions\MissingValueError
+     *
+     * @param string $hostName                The domain name for the certificate.
+     * @param string $privateKey              The private key for the certificate
+     * @param string $certificate             The certificate itself.
+     * @param string $intermediateCertificate The intermediate certificate chain.
+     * @return array An array of \Guzzle\Http\Message\Response objects.
      */
     public function addCertificateMapping(
         $hostName,
         $privateKey,
         $certificate,
         $intermediateCertificate = null
-    ) {
+    ){
         $certificateMapping = $this->certificateMapping(
             array(
                 'hostName'                => $hostName,
@@ -441,10 +449,14 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * Updates a certificate mapping
+     * Updates a certificate mapping.
      *
-     * @return array of {@see \Guzzle\Http\Message\Response} objects
-     * @throws \OpenCloud\Common\Exceptions\MissingValueError
+     * @param int    $id                      ID of the certificate mapping.
+     * @param string $hostName                (Optional) The domain name of the certificate.
+     * @param string $privateKey              (Optional) The private key for the certificate.
+     * @param string $certificate             The certificate itself.
+     * @param string $intermediateCertificate The intermediate certificate chain.
+     * @return array An array of \Guzzle\Http\Message\Response objects.
      */
     public function updateCertificateMapping(
         $id,
@@ -452,7 +464,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         $privateKey = null,
         $certificate = null,
         $intermediateCertificate = null
-    ) {
+    ){
         $certificateMapping = $this->certificateMapping($id);
         return $certificateMapping->update(
             array(
@@ -465,14 +477,14 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     }
 
     /**
-     * Remove a certificate mapping
+     * Remove a certificate mapping.
      *
-     * @param int $id id of the certificate mapping
+     * @param int $id ID of the certificate mapping.
      * @return \Guzzle\Http\Message\Response
      */
-    public function removeCertificateMapping($certificateMappingId)
+    public function removeCertificateMapping($id)
     {
-        return $this->certificateMapping($certificateMappingId)->delete();
+        return $this->certificateMapping($id)->delete();
     }
 
     /**
