@@ -17,6 +17,7 @@
 
 namespace OpenCloud\LoadBalancer\Resource;
 
+use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
@@ -74,20 +75,27 @@ class CertificateMappings extends PersistentResource
 
     protected function updateJson($params = array())
     {
-        if ($params['hostName']) {
-            $updated_params['hostName'] = $params['hostName'];
-        }
-        if ($params['privateKey']) {
-            $updated_params['privateKey'] = $params['privateKey'];
-        }
-        if ($params['certificate']) {
-            $updated_params['certificate'] = $params['certificate'];
-        }
-        if ($params['intermediateCertificate']) {
-            $updated_params['intermediateCertificate'] = $params['intermediateCertificate'];
+        $update_fields = array(
+            'hostName',
+            'certificate',
+            'privateKey',
+            'intermediateCertificate',
+        );
+
+        $fields = array_keys($params);
+        foreach ($fields as $field) {
+            if (!in_array($field, $update_fields)) {
+                throw new InvalidArgumentError("You cannot update ${field}.");
+            }
         }
 
-        return (object) array('certificateMapping' => (object) $updated_params);
+        $object = new \stdClass();
+        $object->certificateMapping = new \stdClass();
+        foreach ($params as $name => $value) {
+            $object->certificateMapping->$name = $this->$name;
+        }
+
+        return $object;
     }
 
 }
