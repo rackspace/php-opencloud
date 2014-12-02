@@ -229,29 +229,6 @@ class Container extends AbstractContainer
     }
 
     /**
-     * This is a method that makes batch deletions more convenient. It continually
-     * polls the resource, waiting for its state to change. If the loop exceeds the
-     * provided timeout, it breaks and returns FALSE.
-     *
-     * @param int $secondsToWait The number of seconds to run the loop
-     * @return bool
-     */
-    public function waitUntilEmpty($secondsToWait = 60, $interval = 1)
-    {
-        $endTime = time() + $secondsToWait;
-
-        while (time() < $endTime) {
-            if ((int) $this->retrieveMetadata()->getProperty('Object-Count') === 0) {
-                return true;
-            }
-
-            sleep($interval);
-        }
-
-        return false;
-    }
-
-    /**
      * Creates a Collection of objects in the container
      *
      * @param array $params associative array of parameter values.
