@@ -193,7 +193,7 @@ class Container extends AbstractContainer
         while ((time() < $endTime) && !$containerDeleted) {
             $this->deleteAllObjects();
             try {
-                $this->delete();
+                $response = $this->delete();
                 $containerDeleted = true;
             } catch (ContainerException $e) {
                 // Ignore exception and try again
@@ -209,6 +209,7 @@ class Container extends AbstractContainer
         if (!$containerDeleted) {
             throw new ContainerException('Container and all its objects cound not be deleted');
         }
+        return $response;
     }
 
     /**
