@@ -30,7 +30,7 @@ class CertificateMappings extends PersistentResource
     /**
      * Id for the Load Balancer.
      *
-     * @var string
+     * @var int
      */
     public $id;
 
