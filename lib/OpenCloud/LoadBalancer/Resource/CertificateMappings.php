@@ -75,7 +75,7 @@ class CertificateMapping extends PersistentResource
 
     protected function updateJson($params = array())
     {
-        $update_fields = array(
+        $updateFields = array(
             'hostName',
             'certificate',
             'privateKey',
