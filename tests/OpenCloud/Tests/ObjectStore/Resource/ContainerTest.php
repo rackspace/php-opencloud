@@ -97,7 +97,13 @@ class ContainerTest extends ObjectStoreTestCase
     public function test_Delete()
     {
         $container = $this->container;
+
+        $objectCountResponse = $this->makeResponse(null, 204);
+        $objectCountResponse->setHeader('X-Container-Object-Count', 5);
+        $this->addMockSubscriber($objectCountResponse);
+
         $this->addMockSubscriber($this->makeResponse('[]', 200));
+
         $response = $container->delete(true);
         $this->isResponse($response);
     }
