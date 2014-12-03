@@ -179,7 +179,6 @@ class Container extends AbstractContainer
 
     public function deleteWithObjects($secondsToWait = null)
     {
-
         // If timeout (seconds to wait) is not specified by caller, try to
         // estimate it based on number of objects in container
         if (is_null($secondsToWait)) {
