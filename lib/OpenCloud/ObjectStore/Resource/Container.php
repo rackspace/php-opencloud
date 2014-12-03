@@ -182,7 +182,7 @@ class Container extends AbstractContainer
         // If timeout (seconds to wait) is not specified by caller, try to
         // estimate it based on number of objects in container
         if (null === $secondsToWait) {
-            $numObjects = $this->getObjectCount();
+            $numObjects = (int) $this->retrieveMetadata()->getProperty('Object-Count');
             $secondsToWait = (int) $numObjects / 2;
         }
 
