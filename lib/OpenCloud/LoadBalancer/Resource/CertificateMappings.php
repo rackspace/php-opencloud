@@ -25,7 +25,7 @@ use OpenCloud\Common\Resource\PersistentResource;
  * to a corresponding hostname, allowing multiple SSL certificates to
  * exist and be accurately utilized from a Load Balancer.
  */
-class CertificateMappings extends PersistentResource
+class CertificateMapping extends PersistentResource
 {
     /**
      * Id for the Certificate Map.
@@ -75,23 +75,19 @@ class CertificateMappings extends PersistentResource
 
     protected function updateJson($params = array())
     {
-        $update_fields = array(
+        $updateFields = array(
             'hostName',
             'certificate',
             'privateKey',
             'intermediateCertificate',
         );
 
-        $fields = array_keys($params);
-        foreach ($fields as $field) {
-            if (!in_array($field, $update_fields)) {
-                throw new InvalidArgumentError("You cannot update ${field}.");
-            }
-        }
-
         $object = new \stdClass();
         $object->certificateMapping = new \stdClass();
         foreach ($params as $name => $value) {
+            if (!in_array($name, $updateFields)) {
+                throw new InvalidArgumentError("You cannot update ${name}.");
+            }
             $object->certificateMapping->$name = $this->$name;
         }
 
