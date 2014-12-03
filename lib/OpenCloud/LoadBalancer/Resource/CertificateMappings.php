@@ -82,16 +82,12 @@ class CertificateMapping extends PersistentResource
             'intermediateCertificate',
         );
 
-        $fields = array_keys($params);
-        foreach ($fields as $field) {
-            if (!in_array($field, $update_fields)) {
-                throw new InvalidArgumentError("You cannot update ${field}.");
-            }
-        }
-
         $object = new \stdClass();
         $object->certificateMapping = new \stdClass();
         foreach ($params as $name => $value) {
+            if (!in_array($name, $updateFields)) {
+                throw new InvalidArgumentError("You cannot update ${name}.");
+            }
             $object->certificateMapping->$name = $this->$name;
         }
 
