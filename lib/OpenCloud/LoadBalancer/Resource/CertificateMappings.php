@@ -25,7 +25,7 @@ use OpenCloud\Common\Resource\PersistentResource;
  * to a corresponding hostname, allowing multiple SSL certificates to
  * exist and be accurately utilized from a Load Balancer.
  */
-class CertificateMappings extends PersistentResource
+class CertificateMapping extends PersistentResource
 {
     /**
      * Id for the Certificate Map.

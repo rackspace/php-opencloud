@@ -150,7 +150,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     protected static $url_resource = 'loadbalancers';
 
     protected $associatedResources = array(
-        'certificateMapping' => 'CertificateMappings',
+        'certificateMapping' => 'CertificateMapping',
         'node'               => 'Node',
         'virtualIp'          => 'VirtualIp',
         'connectionLogging'  => 'ConnectionLogging',
@@ -159,7 +159,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     );
 
     protected $associatedCollections = array(
-        'certificateMappings' => 'CertificateMappings',
+        'certificateMappings' => 'CertificateMapping',
         'nodes'               => 'Node',
         'virtualIps'          => 'VirtualIp',
         'accessList'          => 'Access'
@@ -400,11 +400,11 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      * @param int|array $id (Optional) Either a particular Certificate mapping ID, or an array of data about the
      *                      mapping. An array can include these keys: hostName, privateKey, certificate,
      *                      intermediateCertificate.
-     * @return \OpenCloud\LoadBalancer\Resource\CertificateMappings
+     * @return \OpenCloud\LoadBalancer\Resource\CertificateMapping
      */
     public function certificateMapping($id = null)
     {
-        return $this->getService()->resource('CertificateMappings', $id, $this);
+        return $this->getService()->resource('CertificateMapping', $id, $this);
     }
 
     /**
@@ -414,7 +414,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function certificateMappingList()
     {
-        return $this->getService()->resourceList('CertificateMappings', null, $this);
+        return $this->getService()->resourceList('CertificateMapping', null, $this);
     }
 
     /**
