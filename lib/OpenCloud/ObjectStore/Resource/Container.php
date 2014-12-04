@@ -183,7 +183,7 @@ class Container extends AbstractContainer
         // estimate it based on number of objects in container
         if (null === $secondsToWait) {
             $numObjects = (int) $this->retrieveMetadata()->getProperty('Object-Count');
-            $secondsToWait = (int) $numObjects / 2;
+            $secondsToWait = round($numObjects / 2);
         }
 
         // Attempt to delete all objects and container
