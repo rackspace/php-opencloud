@@ -62,3 +62,4 @@ If you are a core contributor to php-opencloud, you have the power to release ne
 4. [Create new release notes](https://github.com/rackspace/php-opencloud/releases/new).
 5. Publish release notes.
 6. Announce release via appropriate channels.
+7. Party :tada: :balloon:
