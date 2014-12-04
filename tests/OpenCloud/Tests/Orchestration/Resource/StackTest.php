@@ -41,7 +41,7 @@ class StackTest extends OrchestrationTestCase
             'name'        => 'foobar',
             'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml',
             'parameters'  => array(
-                'flavor_id' => 'performance1_1',
+                'flavor_id' => 'general1-1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupaldbuser'
             ),
@@ -56,7 +56,7 @@ class StackTest extends OrchestrationTestCase
             'stack_name'   => 'foobar',
             'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
             'parameters'   => array(
-                'flavor_id' => 'performance1_1',
+                'flavor_id' => 'general1-1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupaldbuser'
             ),
@@ -71,7 +71,7 @@ class StackTest extends OrchestrationTestCase
         $updateParams = array(
             'templateUrl' => 'https://github.com/ycombinator/drupal-multi/template.yml',
             'parameters'  => array(
-                'flavor_id' => 'performance1_1',
+                'flavor_id' => 'general1-1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupalwebuser'
             ),
@@ -85,7 +85,7 @@ class StackTest extends OrchestrationTestCase
         $expectedObj = (object) array(
             'template_url' => 'https://github.com/ycombinator/drupal-multi/template.yml',
             'parameters'   => array(
-                'flavor_id' => 'performance1_1',
+                'flavor_id' => 'general1-1',
                 'db_name'   => 'drupaldb',
                 'db_user'   => 'drupalwebuser'
             ),

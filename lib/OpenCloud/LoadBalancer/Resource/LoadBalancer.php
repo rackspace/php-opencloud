@@ -150,6 +150,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     protected static $url_resource = 'loadbalancers';
 
     protected $associatedResources = array(
+        'certificateMapping' => 'CertificateMapping',
         'node'               => 'Node',
         'virtualIp'          => 'VirtualIp',
         'connectionLogging'  => 'ConnectionLogging',
@@ -158,9 +159,10 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     );
 
     protected $associatedCollections = array(
-        'nodes'      => 'Node',
-        'virtualIps' => 'VirtualIp',
-        'accessList' => 'Access'
+        'certificateMappings' => 'CertificateMapping',
+        'nodes'               => 'Node',
+        'virtualIps'          => 'VirtualIp',
+        'accessList'          => 'Access'
     );
 
     protected $createKeys = array(
@@ -174,7 +176,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
         'connectionLogging',
         'connectionThrottle',
         'healthMonitor',
-        'sessionPersistence'
+        'sessionPersistence',
+        'httpsRedirect'
     );
 
     /**
@@ -389,6 +392,99 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
     public function virtualIpList()
     {
         return $this->getService()->resourceList('VirtualIp', null, $this);
+    }
+
+    /**
+     * Returns a Certificate Mapping.
+     *
+     * @param int|array $id (Optional) Either a particular Certificate mapping ID, or an array of data about the
+     *                      mapping. An array can include these keys: hostName, privateKey, certificate,
+     *                      intermediateCertificate.
+     * @return \OpenCloud\LoadBalancer\Resource\CertificateMapping
+     */
+    public function certificateMapping($id = null)
+    {
+        return $this->getService()->resource('CertificateMapping', $id, $this);
+    }
+
+    /**
+     * Returns a Collection of Certificate Mappings.
+     *
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function certificateMappingList()
+    {
+        return $this->getService()->resourceList('CertificateMapping', null, $this);
+    }
+
+    /**
+     * Creates a certificate mapping.
+     *
+     * @throws \OpenCloud\Common\Exceptions\MissingValueError
+     *
+     * @param string $hostName                The domain name for the certificate.
+     * @param string $privateKey              The private key for the certificate
+     * @param string $certificate             The certificate itself.
+     * @param string $intermediateCertificate The intermediate certificate chain.
+     * @return array An array of \Guzzle\Http\Message\Response objects.
+     */
+    public function addCertificateMapping(
+        $hostName,
+        $privateKey,
+        $certificate,
+        $intermediateCertificate = null
+    ) {
+        $certificateMapping = $this->certificateMapping(
+            array(
+                'hostName'                => $hostName,
+                'privateKey'              => $privateKey,
+                'certificate'             => $certificate,
+                'intermediateCertificate' => $intermediateCertificate
+            )
+        );
+        $json = json_encode($certificateMapping->createJson());
+        $request = $this->getClient()->post($certificateMapping->getUrl(), self::getJsonHeader(), $json);
+
+        return $this->getClient()->send($request);
+    }
+
+    /**
+     * Updates a certificate mapping.
+     *
+     * @param int    $id                      ID of the certificate mapping.
+     * @param string $hostName                (Optional) The domain name of the certificate.
+     * @param string $privateKey              (Optional) The private key for the certificate.
+     * @param string $certificate             The certificate itself.
+     * @param string $intermediateCertificate The intermediate certificate chain.
+     * @return array An array of \Guzzle\Http\Message\Response objects.
+     */
+    public function updateCertificateMapping(
+        $id,
+        $hostName = null,
+        $privateKey = null,
+        $certificate = null,
+        $intermediateCertificate = null
+    ) {
+        $certificateMapping = $this->certificateMapping($id);
+        return $certificateMapping->update(
+            array(
+                'hostName'                => $hostName,
+                'privateKey'              => $privateKey,
+                'certificate'             => $certificate,
+                'intermediateCertificate' => $intermediateCertificate
+            )
+        );
+    }
+
+    /**
+     * Remove a certificate mapping.
+     *
+     * @param int $id ID of the certificate mapping.
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function removeCertificateMapping($id)
+    {
+        return $this->certificateMapping($id)->delete();
     }
 
     /**

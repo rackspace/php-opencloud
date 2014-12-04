@@ -185,18 +185,18 @@ class OpenStack extends Client
     }
 
     /**
-     * Set the tenant. If an integer is passed in, the SDK assumes you want to set the ID of the full Tenant object
-     * and sets this property accordingly. For any other data type, it assumes you want to populate the Tenant object.
-     * This ambiguity arises due to backwards compatibility.
+     * Set the tenant. If an integer or string is passed in, the SDK assumes you want to set the ID of the full
+     * Tenant object and sets this property accordingly. For any other data type, it assumes you want to populate
+     * the Tenant object. This ambiguity arises due to backwards compatibility.
      *
-     * @param  string $tenant
+     * @param  mixed $tenant
      * @return $this
      */
     public function setTenant($tenant)
     {
         $identity = IdentityService::factory($this);
 
-        if (is_numeric($tenant)) {
+        if (is_numeric($tenant) || is_string($tenant)) {
             if (!$this->tenant) {
                 $this->setTenantObject($identity->resource('Tenant'));
             }
@@ -370,6 +370,10 @@ class OpenStack extends Client
      */
     public function authenticate()
     {
+        // OpenStack APIs will return a 401 if an expired X-Auth-Token is sent,
+        // so we need to reset the value before authenticating for another one.
+        $this->updateTokenHeader('');
+
         $identity = IdentityService::factory($this);
         $response = $identity->generateToken($this->getCredentials());
 
@@ -384,7 +388,7 @@ class OpenStack extends Client
         }
 
         // Set X-Auth-Token HTTP request header
-        $this->updateTokenHeader();
+        $this->updateTokenHeader($this->getToken());
     }
 
     /**
@@ -422,7 +426,7 @@ class OpenStack extends Client
     {
         if (!empty($values['token'])) {
             $this->setToken($values['token']);
-            $this->updateTokenHeader();
+            $this->updateTokenHeader($this->getToken());
         }
         if (!empty($values['expiration'])) {
             $this->setExpiration($values['expiration']);
@@ -438,13 +442,12 @@ class OpenStack extends Client
     /**
      * Sets the X-Auth-Token header. If no value is explicitly passed in, the current token is used.
      *
-     * @param  string $token Optional value of token.
+     * @param  string $token Value of header.
      * @return void
      */
-    private function updateTokenHeader($token = null)
+    private function updateTokenHeader($token)
     {
-        $token = $token ? : $this->getToken();
-        $this->setDefaultOption('headers/X-Auth-Token', (string)$token);
+        $this->setDefaultOption('headers/X-Auth-Token', (string) $token);
     }
 
     /**
@@ -540,6 +543,24 @@ class OpenStack extends Client
     public function imageService($name = null, $region = null, $urltype = null)
     {
         return ServiceBuilder::factory($this, 'OpenCloud\Image\Service', array(
+            'name'    => $name,
+            'region'  => $region,
+            'urlType' => $urltype
+        ));
+    }
+
+    /**
+     * Creates a new Networking (Neutron) service object
+     *
+     * @param string $name    The name of the service as it appears in the Catalog
+     * @param string $region  The region (DFW, IAD, ORD, LON, SYD)
+     * @param string $urltype The URL type ("publicURL" or "internalURL")
+     * @return \OpenCloud\Networking\Service
+     * @codeCoverageIgnore
+     */
+    public function networkingService($name = null, $region = null, $urltype = null)
+    {
+        return ServiceBuilder::factory($this, 'OpenCloud\Networking\Service', array(
             'name'    => $name,
             'region'  => $region,
             'urlType' => $urltype

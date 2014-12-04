@@ -15,39 +15,29 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * OS_AUTH_URL: Your OpenStack Cloud Authentication URL,
-//   * OS_USERNAME: Your OpenStack Cloud Account Username,
-//   * OS_PASSWORD:  Your OpenStack Cloud Account Password,
-//   * OS_REGION_NAME: The OpenStack Cloud region you want to use, and
-//   * STACK_NAME:   Name of stack
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\OpenStack;
 
 // 1. Instantiate an OpenStack client.
-$client = new OpenStack(getenv('OS_AUTH_URL'), array(
-    'username' => getenv('OS_USERNAME'),
-    'password' => getenv('OS_PASSWORD')
+$client = new OpenStack('{authUrl}', array(
+    'username' => '{username}',
+    'password' => '{password}',
 ));
 
 // 2. Obtain an Orchestration service object from the client.
-$region = getenv('OS_REGION_NAME');
-$orchestrationService = $client->orchestrationService(null, $region);
+$orchestrationService = $client->orchestrationService(null, '{region}');
 
 // 3. Get stack.
-$stack = $orchestrationService->getStack(getenv('STACK_NAME'));
+$stack = $orchestrationService->getStack('{stackName}');
 
 // 4. Update stack.
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
 $stack->update(array(
-    'templateUrl'   => 'https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml',
+    'templateUrl'   => '{templateUrl}',
     'parameters'    => array(
-        'server_hostname' => 'web01',
-        'image'           => 'Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)'
+        'server_hostname' => '{serverHost}',
+        'image'           => '{image}'
     ),
     'timeoutMins'   => 5
 ));
-/** @var $stack OpenCloud\Orchestration\Resource\Stack **/

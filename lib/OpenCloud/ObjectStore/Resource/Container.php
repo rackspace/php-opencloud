@@ -159,7 +159,8 @@ class Container extends AbstractContainer
     public function delete($deleteObjects = false)
     {
         if ($deleteObjects === true) {
-            $this->deleteAllObjects();
+            // Delegate to auxiliary method
+            return $this->deleteWithObjects();
         }
 
         try {
@@ -176,6 +177,40 @@ class Container extends AbstractContainer
         }
     }
 
+    public function deleteWithObjects($secondsToWait = null)
+    {
+        // If timeout (seconds to wait) is not specified by caller, try to
+        // estimate it based on number of objects in container
+        if (null === $secondsToWait) {
+            $numObjects = (int) $this->retrieveMetadata()->getProperty('Object-Count');
+            $secondsToWait = round($numObjects / 2);
+        }
+
+        // Attempt to delete all objects and container
+        $endTime = time() + $secondsToWait;
+        $containerDeleted = false;
+        while ((time() < $endTime) && !$containerDeleted) {
+            $this->deleteAllObjects();
+            try {
+                $response = $this->delete();
+                $containerDeleted = true;
+            } catch (ContainerException $e) {
+                // Ignore exception and try again
+            } catch (ClientErrorResponseException $e) {
+                if ($e->getResponse()->getStatusCode() == 404) {
+                    // Container has been deleted
+                    $containerDeleted = true;
+                } else {
+                    throw $e;
+                }
+            }
+        }
+        if (!$containerDeleted) {
+            throw new ContainerException('Container and all its objects cound not be deleted');
+        }
+        return $response;
+    }
+
     /**
      * Deletes all objects that this container currently contains. Useful when doing operations (like a delete) that
      * require an empty container first.
@@ -184,15 +219,12 @@ class Container extends AbstractContainer
      */
     public function deleteAllObjects()
     {
-        $requests = array();
-
-        $list = $this->objectList();
-
-        foreach ($list as $object) {
-            $requests[] = $this->getClient()->delete($object->getUrl());
+        $paths = array();
+        $objects = $this->objectList();
+        foreach ($objects as $object) {
+            $paths[] = sprintf('/%s/%s', $this->getName(), $object->getName());
         }
-
-        return $this->getClient()->send($requests);
+        return $this->getService()->batchDelete($paths);
     }
 
     /**

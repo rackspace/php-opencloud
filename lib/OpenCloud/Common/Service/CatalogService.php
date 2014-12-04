@@ -27,6 +27,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 abstract class CatalogService extends AbstractService
 {
     const DEFAULT_URL_TYPE = 'publicURL';
+    const SUPPORTED_VERSION = null;
 
     /**
      * @var string The type of this service, as set in Catalog.
@@ -44,7 +45,7 @@ abstract class CatalogService extends AbstractService
     private $region;
 
     /**
-     * @var string Either 'publicURL' or 'privateURL'.
+     * @var string Either 'publicURL' or 'internalURL'.
      */
     private $urlType;
 
@@ -66,7 +67,7 @@ abstract class CatalogService extends AbstractService
      * @param string $type    Service type (e.g. 'compute')
      * @param string $name    Service name (e.g. 'cloudServersOpenStack')
      * @param string $region  Service region (e.g. 'DFW', 'ORD', 'IAD', 'LON', 'SYD' or 'HKG')
-     * @param string $urlType Either 'publicURL' or 'privateURL'
+     * @param string $urlType Either 'publicURL' or 'internalURL'
      */
     public function __construct(ClientInterface $client, $type = null, $name = null, $region = null, $urlType = null)
     {
@@ -208,7 +209,7 @@ abstract class CatalogService extends AbstractService
         // Search each service to find The One
         foreach ($catalog->getItems() as $service) {
             if ($service->hasType($this->type) && $service->hasName($this->name)) {
-                return Endpoint::factory($service->getEndpointFromRegion($this->region));
+                return Endpoint::factory($service->getEndpointFromRegion($this->region), static::SUPPORTED_VERSION, $this->getClient());
             }
         }
 

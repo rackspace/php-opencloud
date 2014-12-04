@@ -27,7 +27,7 @@ Test Instructions
 
 ### To run unit tests:
 ```bash
-phpunit
+vendor/bin/phpunit
 ```
 
 ### To run the full suite of acceptance tests:
@@ -52,3 +52,14 @@ The code in this library is compliant with the [PSR-2 Coding Style Guide](https:
     $ vendor/bin/php-cs-fixer fix --level psr2 .
 
 Running this command will _change_ your code to become PSR-2 compliant. You will need to _commit_ these changes and make them part of your pull request.
+
+## Releasing a new version of php-opencloud
+If you are a core contributor to php-opencloud, you have the power to release new versions of it. Here are the steps to follow to ensure a proper release:
+
+1. Update the value of the the [`VERSION` constant](/lib/OpenCloud/Version.php#L30).
+2. Merge the `working` branch into the `master` branch.
+3. [Run the smoke tests](#to-run-the-full-suite-of-acceptance-tests). If they fail, make necessary changes and go to step 2.
+4. [Create new release notes](https://github.com/rackspace/php-opencloud/releases/new).
+5. Publish release notes.
+6. Announce release via appropriate channels.
+7. Party :tada: :balloon:

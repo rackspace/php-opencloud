@@ -15,48 +15,42 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
-// * There exists a container named 'logos' in your Object Store. Run
-//   create-container.php if you need to create one first.
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 use OpenCloud\ObjectStore\Resource\DataObject;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Obtain an Object Store service object from the client.
-$region = 'DFW';
-$objectStoreService = $client->objectStoreService(null, $region);
+$objectStoreService = $client->objectStoreService(null, '{region}');
 
 // 3. Get container.
-$container = $objectStoreService->getContainer('logos');
+$container = $objectStoreService->getContainer('{containerName}');
 
-// 4. Upload multiple object to the container.
+// 4. Specify the locations of the files you want to upload
 $objects = array(
     array(
-        'name' => 'php-elephant.jpg',
-        'path'   => __DIR__ . '/php-elephant.jpg'
+        'name' => '{objectName1}',
+        'path' => '{localFilePath1}'
     ),
     array(
-        'name' => 'python-snakes.jpg',
-        'path'   => __DIR__ . '/python-snakes.jpg'
+        'name' => '{objectName2}',
+        'path' => '{localFilePath2}'
     )
 );
 
-$metadata = array('author' => 'Jane Doe');
-
-$customHeaders = array();
+// 5. Specify any metadata you want your objects to have
+$metadata = array('{key}' => '{value}');
 $metadataHeaders = DataObject::stockHeaders($metadata);
-$allHeaders = $customHeaders + $metadataHeaders;
 
+// 6. Merge the metadata with any additional HTTP headers you want to set
+$allHttpHeaders = array('Content-Type' => '{contentType}') + $metadataHeaders;
+
+// 7. Upload them
 $container->uploadObjects($objects, $allHeaders);

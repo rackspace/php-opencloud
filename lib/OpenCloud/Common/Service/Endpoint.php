@@ -18,6 +18,9 @@
 namespace OpenCloud\Common\Service;
 
 use Guzzle\Http\Url;
+use OpenCloud\Common\Http\Client;
+use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Exceptions\UnsupportedVersionError;
 
 /**
  * An endpoint serves as a location which receives and emits API interactions. It will therefore also host
@@ -44,17 +47,19 @@ class Endpoint
 
     /**
      * @param $object
+     * @param string $supportedServiceVersion Service version supported by the SDK
+     * @param OpenCloud\Common\Http\Client $client HTTP client
      * @return Endpoint
      */
-    public static function factory($object)
+    public static function factory($object, $supportedServiceVersion, Client $client)
     {
         $endpoint = new self();
 
         if (isset($object->publicURL)) {
-            $endpoint->setPublicUrl($object->publicURL);
+            $endpoint->setPublicUrl($endpoint->getVersionedUrl($object->publicURL, $supportedServiceVersion, $client));
         }
         if (isset($object->internalURL)) {
-            $endpoint->setPrivateUrl($object->internalURL);
+            $endpoint->setPrivateUrl($endpoint->getVersionedUrl($object->internalURL, $supportedServiceVersion, $client));
         }
         if (isset($object->region)) {
             $endpoint->setRegion($object->region);
@@ -67,9 +72,9 @@ class Endpoint
      * @param $publicUrl
      * @return $this
      */
-    public function setPublicUrl($publicUrl)
+    public function setPublicUrl(Url $publicUrl)
     {
-        $this->publicUrl = Url::factory($publicUrl);
+        $this->publicUrl = $publicUrl;
 
         return $this;
     }
@@ -86,9 +91,9 @@ class Endpoint
      * @param $privateUrl
      * @return $this
      */
-    public function setPrivateUrl($privateUrl)
+    public function setPrivateUrl(Url $privateUrl)
     {
-        $this->privateUrl = Url::factory($privateUrl);
+        $this->privateUrl = $privateUrl;
 
         return $this;
     }
@@ -118,5 +123,52 @@ class Endpoint
     public function getRegion()
     {
         return $this->region;
+    }
+
+    /**
+     * Returns the endpoint URL with a version in it
+     *
+     * @param string $url Endpoint URL
+     * @param string $supportedServiceVersion Service version supported by the SDK
+     * @param OpenCloud\Common\Http\Client $client HTTP client
+     * @return Guzzle/Http/Url Endpoint URL with version in it
+     */
+    private function getVersionedUrl($url, $supportedServiceVersion, Client $client)
+    {
+        $versionRegex = '/\/[vV][0-9][0-9\.]*/';
+        if (1 === preg_match($versionRegex, $url)) {
+            // URL has version in it; use it as-is
+            return Url::factory($url);
+        }
+
+        if (is_null($supportedServiceVersion)) {
+            throw new UnsupportedVersionError('Service version supported by SDK not specified.');
+        }
+
+        // Make GET request to URL
+        $response = Formatter::decode($client->get($url)->send());
+
+        // Attempt to parse response and determine URL for given $version
+        if (!isset($response->versions) || !is_array($response->versions)) {
+            throw new UnsupportedVersionError('Could not negotiate version with service.');
+        }
+
+        foreach ($response->versions as $version) {
+            if (($version->status == 'CURRENT' || $version->status == 'SUPPORTED')
+                && $version->id == $supportedServiceVersion) {
+                foreach ($version->links as $link) {
+                    if ($link->rel == 'self') {
+                        return Url::factory($link->href);
+                    }
+                }
+            }
+        }
+
+        // If we've reached this point, we could not find a versioned
+        // URL in the response; throw an error
+        throw new UnsupportedVersionError(sprintf(
+            'SDK supports version %s which is not currently provided by service.',
+            $supportedServiceVersion
+        ));
     }
 }

@@ -20,6 +20,7 @@ namespace OpenCloud\Compute\Resource;
 use OpenCloud\Common\Resource\NovaResource;
 use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 use OpenCloud\Image\Resource\ImageInterface;
+use OpenCloud\Networking\Resource\NetworkInterface;
 use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
@@ -681,22 +682,22 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $server->networks = array();
 
             foreach ($this->networks as $network) {
-                if (!$network instanceof Network) {
+                if (!$network instanceof NetworkInterface) {
                     throw new Exceptions\InvalidParameterError(sprintf(
                         'When creating a server, the "networks" key must be an ' .
-                        'array of OpenCloud\Compute\Network objects with valid ' .
-                        'IDs; variable passed in was a [%s]',
+                        'array of objects which implement OpenCloud\Networking\Resource\NetworkInterface;' .
+                        'variable passed in was a [%s]',
                         gettype($network)
                     ));
                 }
-                if (empty($network->id)) {
+                if (!($networkId = $network->getId())) {
                     $this->getLogger()->warning('When creating a server, the '
                         . 'network objects passed in must have an ID'
                     );
                     continue;
                 }
                 // Stock networks array
-                $server->networks[] = (object) array('uuid' => $network->id);
+                $server->networks[] = (object) array('uuid' => $networkId);
             }
         }
 
@@ -772,6 +773,63 @@ class Server extends NovaResource implements HasPtrRecordsInterface
         $this->checkExtension('os-admin-actions');
 
         $object = (object) array('resume' => 'none');
+
+        return $this->action($object);
+    }
+
+    /**
+     * Get server diagnostics
+     *
+     * Gets basic usage data for a specified server.
+     *
+     * @api
+     * @return object
+     */
+    public function diagnostics()
+    {
+        // The diagnostics is only available when the os-server-diagnostics extension is installed.
+        $this->checkExtension('os-server-diagnostics');
+
+        $url = $this->getUrl('diagnostics');
+
+        $response = $this->getClient()->get($url)->send();
+        $body = Formatter::decode($response);
+
+        return $body ?: (object) array();
+    }
+
+    /**
+     * Start a server
+     *
+     * Starts a stopped server and changes its status to ACTIVE.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function start()
+    {
+        // The start action is only available when the os-server-start-stop extension is installed.
+        $this->checkExtension('os-server-start-stop');
+
+        $object = (object) array('os-start' => null);
+
+        return $this->action($object);
+    }
+
+    /**
+     * Stop a server
+     *
+     * Stops a running server and changes its status to STOPPED.
+     *
+     * @api
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function stop()
+    {
+        // The stop action is only available when the os-server-start-stop extension is installed.
+        $this->checkExtension('os-server-start-stop');
+
+        $object = (object) array('os-stop' => null);
 
         return $this->action($object);
     }

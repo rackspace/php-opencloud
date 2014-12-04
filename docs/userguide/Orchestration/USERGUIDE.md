@@ -169,7 +169,7 @@ This operation takes one parameter, an associative array, with the following key
 | `name` | Name of the stack | String. Must start with an alphabetic character, and must contain only alphanumeric, `_`, `-` or `.` characters | Yes | - | `simple-lamp-setup` |
 | `template` | Template contents | String. JSON or YAML | No, if `templateUrl` is specified | `null` | `heat_template_version: 2013-05-23\ndescription: LAMP server\n` |
 | `templateUrl` | URL of the template file | String. HTTP or HTTPS URL | No, if `template` is specified | `null` | `https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml` |
-| `parameters` | Arguments to the template, based on the template's parameters. For example, see the parameters in [this template section](https://github.com/rackspace-orchestration-templates/lamp/blob/master/lamp.yaml#L22) | Associative array | No | `null` | `array('flavor_id' => 'performance1_1')` |
+| `parameters` | Arguments to the template, based on the template's parameters. For example, see the parameters in [this template section](https://github.com/rackspace-orchestration-templates/lamp/blob/master/lamp.yaml#L22) | Associative array | No | `null` | `array('flavor_id' => 'general1-1')` |
 
 #### Preview a stack from a template file
 
@@ -300,7 +300,7 @@ This operation takes one parameter, an associative array, with the following key
 | ---- | ----------- | --------- | --------- | ------------- | ------------- |
 | `template` | Template contents | String. JSON or YAML | No, if `templateUrl` is specified | `null` | `heat_template_version: 2013-05-23\ndescription: LAMP server\n` |
 | `templateUrl` | URL of template file | String. HTTP or HTTPS URL | No, if `template` is specified | `null` | `https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp-updated.yaml` |
-| `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | `null`| `array('flavor_id' => 'performance1_1')` |
+| `parameters` | Arguments to the template, based on the template's parameters | Associative array | No | `null`| `array('flavor_id' => 'general1-1')` |
 | `timeoutMins` | Duration, in minutes, after which stack update should time out | Integer | Yes | - | 5 |
 
 #### Update a stack from a template file

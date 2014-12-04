@@ -35,7 +35,7 @@ class Compute extends AbstractUnit implements UnitInterface
     const SERVER_NAME  = 'FooServer';
     const SNAPSHOT_NAME = 'FooSnapshot';
 
-    const FLAVOR = 'performance1-2';
+    const FLAVOR = 'general1-2';
     const IMAGE  = "046832f9-4549-4b38-a903-11acecac8cb9";
 
     public function setupService()
@@ -162,30 +162,6 @@ class Compute extends AbstractUnit implements UnitInterface
 
         if ($server->status() == 'ERROR') {
             $this->stepInfo("Server rebuild failed with ERROR\n");
-            return false;
-        }
-
-        sleep(3);
-
-        // Suspend
-        $this->step('Suspend the server');
-        $server->suspend();
-        $server->waitFor('ACTIVE', 120, $this->getWaiterCallback());
-
-        if ($server->status() == 'ERROR') {
-            $this->stepInfo("Server suspension failed with ERROR\n");
-            return false;
-        }
-
-        sleep(3);
-
-        // Resume
-        $this->step('Resume the server');
-        $server->resume();
-        $server->waitFor('ACTIVE', 120, $this->getWaiterCallback());
-
-        if ($server->status() == 'ERROR') {
-            $this->stepInfo("Server resuming failed with ERROR\n");
             return false;
         }
 

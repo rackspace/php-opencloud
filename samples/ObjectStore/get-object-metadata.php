@@ -15,37 +15,29 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key
-// * There exists a container named 'logos' in your Object Store. Run
-//   create-container.php if you need to create one first.
-// * The 'logos' container contains an object named 'php-elephant.jpg' with metadata
-//   set on it. Run upload-object-with-metadata.php if you need to create it first.
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Obtain an Object Store service object from the client.
-$region = 'DFW';
-$objectStoreService = $client->objectStoreService(null, $region);
+$objectStoreService = $client->objectStoreService(null, '{region}');
 
 // 3. Get container.
-$container = $objectStoreService->getContainer('logos');
+$container = $objectStoreService->getContainer('{containerName}');
 
-// 4. Get object metadata.
-$objectName = 'php-elephant.jpg';
-$object = $container->getPartialObject($objectName);
+// 4. Retrieve information about the object.
+$object = $container->getPartialObject('{objectName}');
+
+// 5. Retrieve metadata.
+/** @var $objectMetadata \OpenCloud\Common\Metadata **/
 $objectMetadata = $object->getMetadata();
 
-/** @var $objectMetadata \OpenCloud\Common\Metadata **/
-printf("Object author: %s\n", $objectMetadata->getProperty('author'));
+/** @var $metadataItemValue mixed **/
+$metadataItemValue = $objectMetadata->getProperty('{key}');

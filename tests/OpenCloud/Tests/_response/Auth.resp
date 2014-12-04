@@ -348,6 +348,22 @@ Front-End-Https: on
                 ],
                 "name": "cloudOrchestration",
                 "type": "orchestration"
+            },
+            {
+                "name": "cloudNetworks",
+                "endpoints": [
+                    {
+                        "region": "IAD",
+                        "tenantId": "123456",
+                        "publicURL": "https://iad.networks.api.rackspacecloud.com/v2.0"
+                    },
+                    {
+                        "region": "DFW",
+                        "tenantId": "123456",
+                        "publicURL": "https://dfw.networks.api.rackspacecloud.com/v2.0"
+                    }
+                ],
+                "type": "network"
             }
         ],
         "token": {

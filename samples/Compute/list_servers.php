@@ -15,33 +15,24 @@
  * limitations under the License.
  */
 
-//
-// Pre-requisites:
-// * Prior to running this script, you must setup the following environment variables:
-//   * RAX_USERNAME: Your Rackspace Cloud Account Username, and
-//   * RAX_API_KEY:  Your Rackspace Cloud Account API Key, and
-//
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-require __DIR__ . '/../../vendor/autoload.php';
 use OpenCloud\Rackspace;
 
-// 1. Instantiate a Rackspace client.
-$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
-    'username' => getenv('RAX_USERNAME'),
-    'apiKey'   => getenv('RAX_API_KEY')
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
 ));
 
 // 2. Obtain a Compute service object from the client.
-$region = 'DFW';
-$computeService = $client->computeService(null, $region);
+$computeService = $client->computeService(null, '{region}');
 
 // 3. Get the list of servers.
 $serverList = $computeService->serverList();
 
+// 4. Traverse over the list and output key information.
 foreach ($serverList as $server) {
-    echo str_repeat("-", 80) . PHP_EOL;
-    echo "ID: " . $server->id() . " | "
-        . "Name: " . $server->name() . " | "
-        . "Image ID: " . $server->image->id . PHP_EOL;
-    echo str_repeat("-", 80) . PHP_EOL;
+    printf("ID: %s, Name: %s, Image ID: %s\n", $server->id(), $server->name(), $server->image->id);
 }

@@ -25,6 +25,7 @@
  */
 namespace OpenCloud\Tests\ObjectStore;
 
+use Guzzle\Http\Message\Response;
 use OpenCloud\ObjectStore\Constants\UrlType;
 use OpenCloud\ObjectStore\Service;
 
@@ -135,6 +136,19 @@ class ServiceTest extends ObjectStoreTestCase
     {
         $this->addMockSubscriber($this->makeResponse('{"Number Not Found":0,"Response Status":"400 Bad Request","Errors":[["/v1/AUTH_test/non_empty_container","409 Conflict"]],"Number Deleted":0,"Response Body":""}'));
         $this->service->bulkDelete(array('nonEmptyContainer'));
+    }
+
+    public function test_Batch_Delete_Returns_Array_Of_Responses()
+    {
+        $responses = array_fill(0, 2, new Response(200));
+
+        foreach ($responses as $response) {
+            $this->addMockSubscriber($response);
+        }
+
+        $paths = array_fill(0, 15000, '/foo/bar');
+
+        $this->assertEquals($responses, $this->service->batchDelete($paths));
     }
 
     public function test_Accounts()

@@ -320,13 +320,18 @@ class ServerTest extends ComputeTestCase
 
     public function test_Create_With_Networks()
     {
+        $neutronService = $this->client->networkingService(null, 'IAD');
+        $neutronNetwork = $neutronService->network();
+        $neutronNetwork->setId('12345');
+
         $this->service->server()->create(array(
             'name'     => 'personality test 1',
             'image'    => $this->service->imageList()->first(),
             'flavor'   => $this->service->flavorList()->first(),
             'networks' => array(
                 $this->service->network(Network::RAX_PUBLIC),
-                $this->service->network()
+                $this->service->network(),
+                $neutronNetwork,
             )
         ));
     }
@@ -375,5 +380,27 @@ class ServerTest extends ComputeTestCase
         $this->assertEquals('volume', $obj->destination_type);
         $this->assertEquals(0, $obj->boot_index);
         $this->assertEquals(true, $obj->delete_on_termination);
+    }
+
+    public function test_Diagnostics()
+    {
+        $this->addMockSubscriber($this->getTestFilePath('Diagnostics'));
+        $diagnostics = $this->server->diagnostics();
+        $this->assertInternalType('object', $diagnostics);
+        $this->assertEquals(524288, $diagnostics->memory);
+        $this->assertEquals(-1, $diagnostics->vda_errors);
+        $this->assertEquals(662, $diagnostics->vnet1_tx_packets);
+    }
+
+    public function test_Start()
+    {
+        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(202));
+        $this->assertEquals(202, $this->server->start()->getStatusCode());
+    }
+
+    public function test_Stop()
+    {
+        $this->addMockSubscriber(new \Guzzle\Http\Message\Response(202));
+        $this->assertEquals(202, $this->server->stop()->getStatusCode());
     }
 }
