@@ -159,9 +159,8 @@ class Container extends AbstractContainer
     public function delete($deleteObjects = false)
     {
         if ($deleteObjects === true) {
-            if (!$this->deleteAllObjects()) {
-                throw new ContainerException('Could not delete all objects within container. Cannot delete container.');
-            }
+            // Delegate to auxiliary method
+            return $this->deleteWithObjects();
         }
 
         try {
@@ -178,6 +177,40 @@ class Container extends AbstractContainer
         }
     }
 
+    public function deleteWithObjects($secondsToWait = null)
+    {
+        // If timeout (seconds to wait) is not specified by caller, try to
+        // estimate it based on number of objects in container
+        if (null === $secondsToWait) {
+            $numObjects = (int) $this->retrieveMetadata()->getProperty('Object-Count');
+            $secondsToWait = round($numObjects / 2);
+        }
+
+        // Attempt to delete all objects and container
+        $endTime = time() + $secondsToWait;
+        $containerDeleted = false;
+        while ((time() < $endTime) && !$containerDeleted) {
+            $this->deleteAllObjects();
+            try {
+                $response = $this->delete();
+                $containerDeleted = true;
+            } catch (ContainerException $e) {
+                // Ignore exception and try again
+            } catch (ClientErrorResponseException $e) {
+                if ($e->getResponse()->getStatusCode() == 404) {
+                    // Container has been deleted
+                    $containerDeleted = true;
+                } else {
+                    throw $e;
+                }
+            }
+        }
+        if (!$containerDeleted) {
+            throw new ContainerException('Container and all its objects cound not be deleted');
+        }
+        return $response;
+    }
+
     /**
      * Deletes all objects that this container currently contains. Useful when doing operations (like a delete) that
      * require an empty container first.
@@ -187,39 +220,11 @@ class Container extends AbstractContainer
     public function deleteAllObjects()
     {
         $paths = array();
-
         $objects = $this->objectList();
-
         foreach ($objects as $object) {
             $paths[] = sprintf('/%s/%s', $this->getName(), $object->getName());
         }
-
-        $this->getService()->batchDelete($paths);
-
-        return $this->waitUntilEmpty();
-    }
-
-    /**
-     * This is a method that makes batch deletions more convenient. It continually
-     * polls the resource, waiting for its state to change. If the loop exceeds the
-     * provided timeout, it breaks and returns FALSE.
-     *
-     * @param int $secondsToWait The number of seconds to run the loop
-     * @return bool
-     */
-    public function waitUntilEmpty($secondsToWait = 60, $interval = 1)
-    {
-        $endTime = time() + $secondsToWait;
-
-        while (time() < $endTime) {
-            if ((int) $this->retrieveMetadata()->getProperty('Object-Count') === 0) {
-                return true;
-            }
-
-            sleep($interval);
-        }
-
-        return false;
+        return $this->getService()->batchDelete($paths);
     }
 
     /**
