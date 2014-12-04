@@ -98,10 +98,7 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $container = $this->container;
 
-        $objectCountResponse = $this->makeResponse(null, 204);
-        $objectCountResponse->setHeader('X-Container-Object-Count', 5);
-        $this->addMockSubscriber($objectCountResponse);
-
+        $this->addMockSubscriber(new Response(204, array('X-Container-Object-Count' => 5)));
         $this->addMockSubscriber($this->makeResponse('[]', 200));
 
         $response = $container->delete(true);
