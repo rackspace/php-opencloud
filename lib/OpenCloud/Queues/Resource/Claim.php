@@ -114,7 +114,7 @@ class Claim extends PersistentObject
 
     /**
      * Updates the current Claim. It is recommended that you periodically renew
-     * claims during long-running batches of work to avoid loosing a claim in
+     * claims during long-running batches of work to avoid losing a claim in
      * the middle of processing a message. This is done by setting a new TTL for
      * the claim (which may be different from the original TTL). The server will
      * then reset the age of the claim and apply the new TTL.

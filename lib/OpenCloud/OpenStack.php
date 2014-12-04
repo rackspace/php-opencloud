@@ -145,7 +145,7 @@ class OpenStack extends Client
     }
 
     /**
-     * Set the full toke object
+     * Set the full token object
      */
     public function setTokenObject(Token $token)
     {

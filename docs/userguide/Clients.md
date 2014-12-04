@@ -2,7 +2,7 @@
 
 ## Overview
 
-A Client is the object responsibile for issuing HTTP requests and receiving responses from the API. In short, it forms the core of the SDK because it controls how functionality is executed. All services depend on the client to work.
+A Client is the object responsible for issuing HTTP requests and receiving responses from the API. In short, it forms the core of the SDK because it controls how functionality is executed. All services depend on the client to work.
 
 Users have access to two types of client: `OpenCloud\OpenStack` and `OpenCloud\Rackspace`. The latter extends the former, meaning that much of the functionality is shared between them. The OpenStack client extends functionality from other base classes, that trace all the way back to Guzzle's root class:
 
