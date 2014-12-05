@@ -32,7 +32,7 @@ use OpenCloud\Compute\Service;
  * A virtual machine (VM) instance in the Cloud Servers environment.
  *
  * @note This implementation supports extension attributes OS-DCF:diskConfig,
- * RAX-SERVER:bandwidth, rax-bandwidth:bandwith.
+ * RAX-SERVER:bandwidth, rax-bandwidth:bandwidth.
  */
 class Server extends NovaResource implements HasPtrRecordsInterface
 {

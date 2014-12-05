@@ -50,5 +50,5 @@ try {
 // 5. Wait for the server to become ACTIVE.
 $server->waitFor(ServerState::ACTIVE);
 
-// 6. Retreive the server's IP
+// 6. Retrieve the server's IP
 $ipv4Address = $server->accessIPv4;

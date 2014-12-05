@@ -8,7 +8,7 @@ workers from attempting to process the same messages.
 A Claim is initialized on its parent object, a Queue:
 
 ```php
-// To intialize an empty object:
+// To initialize an empty object:
 $claim = $queue->getClaim();
 
 // or retrieve a specific claim:

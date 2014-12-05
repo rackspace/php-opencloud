@@ -38,7 +38,7 @@ class ServerMetadata extends Metadata
     private $url; // the URL of this particular metadata item or block
 
     /**
-     * Contructs a Metadata object associated with a Server or Image object
+     * Constructs a Metadata object associated with a Server or Image object
      *
      * @param object $parent either a Server or an Image object
      * @param string $key    the (optional) key for the metadata item
