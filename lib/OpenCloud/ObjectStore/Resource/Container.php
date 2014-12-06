@@ -179,34 +179,38 @@ class Container extends AbstractContainer
 
     public function deleteWithObjects($secondsToWait = null)
     {
-        // If timeout (seconds to wait) is not specified by caller, try to
-        // estimate it based on number of objects in container
-        if (null === $secondsToWait) {
-            $numObjects = (int) $this->retrieveMetadata()->getProperty('Object-Count');
-            $secondsToWait = round($numObjects / 2);
-        }
-
-        // Attempt to delete all objects and container
-        $endTime = time() + $secondsToWait;
-        $containerDeleted = false;
-        while ((time() < $endTime) && !$containerDeleted) {
-            $this->deleteAllObjects();
-            try {
-                $response = $this->delete();
-                $containerDeleted = true;
-            } catch (ContainerException $e) {
-                // Ignore exception and try again
-            } catch (ClientErrorResponseException $e) {
-                if ($e->getResponse()->getStatusCode() == 404) {
-                    // Container has been deleted
+        // If container is empty, just delete it
+        $numObjects = (int) $this->retrieveMetadata()->getProperty('Object-Count');
+        if ($numObjects === 0) $response = $this->delete();
+        
+        // Else attempt to delete all objects first, then delete container
+        else {
+            // If timeout (seconds to wait) is not specified by caller, try to
+            // estimate it based on number of objects in container
+            if (null === $secondsToWait) $secondsToWait = round($numObjects / 2);
+        
+            // Attempt to delete all objects and container
+            $endTime = time() + $secondsToWait;
+            $containerDeleted = false;
+            while ((time() < $endTime) && !$containerDeleted) {
+                $this->deleteAllObjects();
+                try {
+                    $response = $this->delete();
                     $containerDeleted = true;
-                } else {
-                    throw $e;
+                } catch (ContainerException $e) {
+                    // Ignore exception and try again
+                } catch (ClientErrorResponseException $e) {
+                    if ($e->getResponse()->getStatusCode() == 404) {
+                        // Container has been deleted
+                        $containerDeleted = true;
+                    } else {
+                        throw $e;
+                    }
                 }
             }
-        }
-        if (!$containerDeleted) {
-            throw new ContainerException('Container and all its objects cound not be deleted');
+            if (!$containerDeleted) {
+                throw new ContainerException('Container and all its objects could not be deleted.');
+            }
         }
         return $response;
     }
