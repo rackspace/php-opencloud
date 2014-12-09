@@ -180,8 +180,8 @@ class Container extends AbstractContainer
     public function deleteWithObjects($secondsToWait = null)
     {
         // If container is empty, just delete it
-        $numObjects = $this->getObjectCount();
-        if ($numObjects === 0) {
+        $numObjects = (int) $this->retrieveMetadata()->getProperty('Object-Count');
+        if (0 === $numObjects) {
             return $this->delete();
         }
         // If timeout ($secondsToWait) is not specified by caller,
