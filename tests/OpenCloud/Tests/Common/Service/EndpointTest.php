@@ -72,18 +72,18 @@ class EndpointTest extends OpenCloudTestCase
         );
     }
 
-    /**
-     * @expectedException OpenCloud\Common\Exceptions\UnsupportedVersionError
-     */
     public function testGetVersionedUrlWithVersionLessEndpointSupportedVersionNotSpecified()
     {
         $endpoint = new Endpoint();
 
-        $this->invokeMethod(
+        $expectedUrl = "http://hostport";
+        $actualUrl   = $this->invokeMethod(
             $endpoint,
             'getVersionedUrl',
-            array('http://hostport', null, $this->client)
+            array($expectedUrl, null, $this->client)
         );
+
+        $this->assertEquals($expectedUrl, $actualUrl);
     }
 
     public function testGetVersionedUrlWithVersionedEndpointUrl()
