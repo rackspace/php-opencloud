@@ -334,7 +334,7 @@ The third parameter to `bulkExtract` is the type of the archive file being uploa
 * `UrlType:TAR_GZ` for tar archive files that are compressed with gzip, *or*
 * `UrlType::TAR_BZ` for tar archive file that are compressed with bzip
 
-Note that the value of `$remotePath` could have been a (pseudo-hierarchical folder)[#psuedo-hierarchical-folders] such as `images/blog` as well.
+Note that the value of `$remotePath` could have been a (pseudo-hierarchical folder)[#pseudo-hierarchical-folders] such as `images/blog` as well.
 
 ### List Objects in a Container
 You can list all the objects stored in a container. An instance of `OpenCloud\Common\Collection\PaginatedIterator` is returned.

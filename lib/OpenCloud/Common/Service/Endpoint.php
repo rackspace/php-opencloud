@@ -18,7 +18,7 @@
 namespace OpenCloud\Common\Service;
 
 use Guzzle\Http\Url;
-use OpenCloud\Common\Http\Client;
+use OpenCloud\OpenStack;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Exceptions\UnsupportedVersionError;
 
@@ -48,10 +48,10 @@ class Endpoint
     /**
      * @param $object
      * @param string $supportedServiceVersion Service version supported by the SDK
-     * @param OpenCloud\Common\Http\Client $client HTTP client
+     * @param OpenCloud\OpenStack $client OpenStack client
      * @return Endpoint
      */
-    public static function factory($object, $supportedServiceVersion, Client $client)
+    public static function factory($object, $supportedServiceVersion, OpenStack $client)
     {
         $endpoint = new self();
 
@@ -130,10 +130,10 @@ class Endpoint
      *
      * @param string $url Endpoint URL
      * @param string $supportedServiceVersion Service version supported by the SDK
-     * @param OpenCloud\Common\Http\Client $client HTTP client
+     * @param OpenCloud\OpenStack $client OpenStack client
      * @return Guzzle/Http/Url Endpoint URL with version in it
      */
-    private function getVersionedUrl($url, $supportedServiceVersion, Client $client)
+    private function getVersionedUrl($url, $supportedServiceVersion, OpenStack $client)
     {
         $versionRegex = '/\/[vV][0-9][0-9\.]*/';
         if (1 === preg_match($versionRegex, $url)) {
@@ -141,8 +141,11 @@ class Endpoint
             return Url::factory($url);
         }
 
+        // If there is no version in $url but no $supportedServiceVersion
+        // is specified, just return $url as-is but log a warning
         if (is_null($supportedServiceVersion)) {
-            throw new UnsupportedVersionError('Service version supported by SDK not specified.');
+            $client->getLogger()->warning('Service version supported by SDK not specified. Using versionless service URL as-is, without negotiating version.');
+            return Url::factory($url);
         }
 
         // Make GET request to URL
