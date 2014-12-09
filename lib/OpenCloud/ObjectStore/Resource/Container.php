@@ -212,7 +212,7 @@ class Container extends AbstractContainer
         }
 
         if (!$containerDeleted) {
-            throw new ContainerException('Container could not be deleted.');
+            throw new ContainerException('Container and all its objects could not be deleted.');
         }
 
         return $response;
