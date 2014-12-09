@@ -39,7 +39,7 @@ class ObjectStore extends AbstractUnit implements UnitInterface
     {
         $content = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 1000);
         for ($i = 1; $i <= 50; $i++) {
-            $fh = fopen($dir . self::OBJECT_NAME . "_$i", 'c+');
+            $fh = fopen($dir . '/' . self::OBJECT_NAME . "_$i", 'c+');
             fwrite($fh, $content);
             fclose($fh);
         }
