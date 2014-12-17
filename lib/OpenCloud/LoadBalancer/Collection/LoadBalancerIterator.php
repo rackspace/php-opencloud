@@ -24,7 +24,8 @@ use OpenCloud\Common\Collection\PaginatedIterator;
  *
  * @package OpenCloud\LoadBalancer\Collection
  */
-class LoadBalancerIterator extends PaginatedIterator {
+class LoadBalancerIterator extends PaginatedIterator
+{
 
     /**
      * Defaults for LoadBalancer request.
