@@ -26,7 +26,6 @@ use OpenCloud\Common\Collection\PaginatedIterator;
  */
 class LoadBalancerIterator extends PaginatedIterator
 {
-
     /**
      * Defaults for LoadBalancer request.
      *
