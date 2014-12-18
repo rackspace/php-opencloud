@@ -141,7 +141,7 @@ class CatalogItem
     public function getEndpointFromRegion($region)
     {
         foreach ($this->endpoints as $endpoint) {
-            if (!isset($endpoint->region) || $endpoint->region == $region) {
+            if (isset($endpoint->region) && $endpoint->region == $region) {
                 return $endpoint;
             }
         }
