@@ -28,6 +28,8 @@ use OpenCloud\Common\Exceptions\UpdateError;
 
 abstract class PersistentResource extends BaseResource
 {
+    const UPDATE_METHOD = 'PUT';
+
     /**
      * Create a new resource
      *
@@ -79,7 +81,16 @@ abstract class PersistentResource extends BaseResource
         $this->checkJsonError();
 
         // send the request
-        return $this->getClient()->put($this->getUrl(), self::getJsonHeader(), $json)->send();
+        return $this->makeUpdateRequest($json);
+    }
+
+    protected function makeUpdateRequest($json)
+    {
+        if ('PATCH' === static::UPDATE_METHOD) {
+            return $this->getClient()->patch($this->getUrl(), self::getJsonHeader(), $json)->send();
+        } else {
+            return $this->getClient()->put($this->getUrl(), self::getJsonHeader(), $json)->send();
+        }
     }
 
     /**
