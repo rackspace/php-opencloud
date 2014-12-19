@@ -37,6 +37,7 @@ class ServiceBuilder
     public static function factory(ClientInterface $client, $class, array $options = array())
     {
         $name = isset($options['name']) ? $options['name'] : null;
+        $type = isset($options['type']) ? $options['type'] : null;
         $urlType = isset($options['urlType']) ? $options['urlType'] : null;
 
         if (isset($options['region'])) {
@@ -47,6 +48,6 @@ class ServiceBuilder
             $region = null;
         }
 
-        return new $class($client, null, $name, $region, $urlType);
+        return new $class($client, $type, $name, $region, $urlType);
     }
 }
