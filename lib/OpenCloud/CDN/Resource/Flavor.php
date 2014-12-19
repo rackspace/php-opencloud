@@ -22,7 +22,7 @@ use OpenCloud\Common\Resource\PersistentResource;
 /**
  * A service represents your application that has its content cached to the
  * edge nodes.
- * 
+ *
  * @package OpenCloud\CDN\Resource
  */
 class Flavor extends PersistentResource
