@@ -20,8 +20,8 @@ namespace OpenCloud\CDN\Resource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
- * A service represents your application that has its content cached to the
- * edge nodes.
+ * A flavor is a configuration for the CDN service. A flavor enables you to
+ * choose from a generic setting that is powered by one or more CDN providers.
  *
  * @package OpenCloud\CDN\Resource
  */
