@@ -87,4 +87,10 @@ class Service extends PersistentResource
     {
         return 'name';
     }
+
+    protected function createJson()
+    {
+        $createJson = parent::createJson();
+        return $createJson->{self::$json_name};
+    }
 }
