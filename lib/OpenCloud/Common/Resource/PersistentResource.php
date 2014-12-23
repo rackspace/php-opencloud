@@ -276,7 +276,8 @@ abstract class PersistentResource extends BaseResource
                 }
             }
         } elseif (is_object($propertyValue) && ($propertyValue instanceof \stdClass)) {
-            foreach ($propertyValue as $key => $subValue) {
+            $objectVars = get_object_vars($propertyValue);
+            foreach ($objectVars as $key => $subValue) {
                 unset($propertyValue->$key);
                 $propertyValue->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($subValue);
             }
