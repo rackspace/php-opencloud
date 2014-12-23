@@ -32,6 +32,7 @@ class Service extends CatalogService
     const SUPPORTED_VERSION = 'v1.0';
     const DEFAULT_TYPE = 'cdn';
     const DEFAULT_NAME = 'rackCDN';
+    const MAX_LIMIT = 20;
 
     protected $regionless = true;
 
@@ -78,6 +79,8 @@ class Service extends CatalogService
      */
     public function listServices(array $params = array())
     {
+        $params['limit'] = isset($params['limit']) && $params['limit'] <= self::MAX_LIMIT ?: self::MAX_LIMIT;
+
         $url = clone $this->getUrl();
         $url->addPath(ServiceResource::resourceName())->setQuery($params);
 
