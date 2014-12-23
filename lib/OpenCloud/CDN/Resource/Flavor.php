@@ -44,4 +44,10 @@ class Flavor extends PersistentResource
     {
         return $this->noUpdate();
     }
+
+    protected function createJson()
+    {
+        $createJson = parent::createJson();
+        return $createJson->{self::$json_name};
+    }
 }
