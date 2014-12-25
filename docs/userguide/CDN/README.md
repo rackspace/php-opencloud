@@ -68,7 +68,7 @@ object. This method takes one argument:
 $cdnService = $client->cdnService();
 ```
 
-### 3. Create a service.
+### 3. Create a service (to represent your web application).
 ```php
 $service = $cdnService->createService(array(
     'name'     => 'acme_site',
