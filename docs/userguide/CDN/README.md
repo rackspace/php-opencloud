@@ -16,7 +16,7 @@ To use the CDN service effectively, you should understand the following key conc
 
 * **Flavor**: A flavor is a configuration option. A flavor enables you to choose from a generic setting that is powered by one or more CDN providers.
 
-* **Service**: A service represents your application that has its content cached to the edge nodes.
+* **Service**: A service represents your web application that has its content cached to the edge nodes.
 
 * **Status**: The status indicates the current state of the service. The time it takes for a service configuration to be distributed amongst a CDN provider cache can vary.
 
