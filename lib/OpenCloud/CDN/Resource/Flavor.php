@@ -31,12 +31,10 @@ class Flavor extends PersistentResource
     protected static $json_name = 'flavor';
 
     protected $id;
-    protected $limits;
     protected $providers;
 
     protected $createKeys = array(
         'id',
-        'limits',
         'providers'
     );
 

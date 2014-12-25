@@ -63,7 +63,7 @@ class ServiceTest extends CDNTestCase
 
     public function testListFlavors()
     {
-        $this->addMockSubscriber($this->makeResponse('{"flavors":[{"id":"cdn","limits":{"origins":{"min":1,"max":5},"domains":{"min":1,"max":5},"caching":{"min":3600,"max":604800,"incr":300}},"providers":[{"provider":"akamai","links":[{"href":"http://www.akamai.com","rel":"provider_url"}]}],"links":[{"href":"https://global.cdn.api.rackspacecloud.com/v1.0/flavors/cdn","rel":"self"}]} ]}'));
+        $this->addMockSubscriber($this->makeResponse('{"flavors":[{"id":"cdn","providers":[{"provider":"akamai","links":[{"href":"http://www.akamai.com","rel":"provider_url"}]}],"links":[{"href":"https://global.cdn.api.rackspacecloud.com/v1.0/flavors/cdn","rel":"self"}]} ]}'));
 
         $flavors = $this->service->listFlavors();
         $this->isCollection($flavors);
