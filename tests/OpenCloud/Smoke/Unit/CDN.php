@@ -16,6 +16,7 @@
  */
 
 namespace OpenCloud\Smoke\Unit;
+
 use Guzzle\Http\Exception\ClientErrorResponseException;
 
 class CDN extends AbstractUnit implements UnitInterface
@@ -26,7 +27,6 @@ class CDN extends AbstractUnit implements UnitInterface
         // TODO: Remove shim below to replace prod with preview endpoint
         $service->getEndpoint()->getPublicUrl()->setHost('preview.cdn.api.rackspacecloud.com');
         return $service;
-        
     }
 
     public function main()
