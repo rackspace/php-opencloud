@@ -11,9 +11,11 @@ CDN is a service that you can use to manage your CDN-enabled domains and the ori
     * [Create a service](#create-a-service-to-represent-your-web-application)
     * [List Services](#list-services)
     * [Get a service](#get-a-service)
-    * [Purge cached service assets](#purge-cached-service-assets)
     * [Update a service](#update-a-service)
     * [Delete a service](#delete-a-service)
+  * [Service Assets](#service-assets)
+    * [Purge all cached service assets](#purge-all-cached-service-assets)
+    * [Purge a specific cached service asset](#purge-a-specific-cached-service-asset)
   * [Flavors](#flavors)
     * [Create a flavor](#create-a-flavor)
     * [List flavors](#list-flavors)
@@ -190,6 +192,29 @@ $service->delete();
 ```
 
 [ [Get the executable PHP script for this example](/samples/CDN/delete-service.php) ]
+
+## Service Assets
+A service will have its assets distributed and cached across a CDN's edge nodes.
+
+### Purge all cached service assets
+
+You can purge all cached assets of a service as shown in the following example:
+
+```php
+$service->purgeAssets();
+```
+
+[ [Get the executable PHP script for this example](/samples/CDN/purge-cached-service-assets.php) ]
+
+### Purge a specific cached service asset
+
+You can purge a specific asset of a service by providing its relative URL, as shown in the following example:
+
+```php
+$service->purgeAssets('/images/logo.png');
+```
+
+[ [Get the executable PHP script for this example](/samples/CDN/purge-cached-service-asset.php) ]
 
 ## Flavors
 
