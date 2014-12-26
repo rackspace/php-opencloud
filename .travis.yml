@@ -6,6 +6,8 @@ php:
   - "5.3"
   - hhvm
 
+sudo: false
+
 matrix:
   allow_failures:
     - php: hhvm
