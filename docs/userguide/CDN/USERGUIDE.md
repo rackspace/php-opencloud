@@ -9,7 +9,7 @@ CDN is a service that you can use to manage your CDN-enabled domains and the ori
     * [CDN service](#cdn-service)
   * [Services](#services)
     * [Create a service](#create-a-service-to-represent-your-web-application)
-    * [List Services](#list-Services)
+    * [List Services](#list-services)
     * [Get a service](#get-a-service)
     * [Purge cached service assets](#purge-cached-service-assets)
     * [Update a service](#update-a-service)
