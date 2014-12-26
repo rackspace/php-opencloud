@@ -25,7 +25,7 @@ CDN is a service that you can use to manage your CDN-enabled domains and the ori
 To use the CDN service effectively, you should understand the following
 key concepts:
 
-* **Content delivery service**: A content delivery service (CDN) is a system of multiple computers that contains copies of data stored at various service nodes. A CDN is designed to improve performance of publicly distributed assets. Assets can be anything from website content, to web application components, to media such as videos, ads, and interactive experiences.  CDNs decrease the load time of these assets by caching them on edge servers, also called points of presence (PoPs).  Edge servers are distributed around the globe, meaning requests only travel to a local location to grab assets, rather than to and from a data center based far from the end user.
+* **Content delivery network**: A content delivery network (CDN) is a system of multiple computers that contains copies of data stored at various network nodes. A CDN is designed to improve performance of publicly distributed assets. Assets can be anything from website content, to web application components, to media such as videos, ads, and interactive experiences.  CDNs decrease the load time of these assets by caching them on edge servers, also called points of presence (PoPs).  Edge servers are distributed around the globe, meaning requests only travel to a local location to grab assets, rather than to and from a data center based far from the end user.
 
 * **Edge node**: CDN providers have many points of presence (PoP) servers around the world. These servers are known as edge nodes. These edge nodes cache the content and serve it directly to customers, thus reducing transit time to a customers location.
 
