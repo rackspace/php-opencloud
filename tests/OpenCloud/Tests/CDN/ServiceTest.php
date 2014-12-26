@@ -77,6 +77,8 @@ class ServiceTest extends CDNTestCase
         $flavor = $this->service->getFlavor('cdn');
         $this->assertIsFlavorResource($flavor);
         $this->assertEquals('cdn', $flavor->getId());
-        $this->assertEquals('akamai', $flavor->getProviders()[0]->provider);
+
+        $providers = $flavor->getProviders();
+        $this->assertEquals('akamai', $providers[0]->provider);
     }
 }
