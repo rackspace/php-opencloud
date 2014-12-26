@@ -234,7 +234,7 @@ This operation takes one parameter, an associative array, with the following key
 You can create a flavor as shown in the following example:
 
 ```php
-$Flavor = $CDNService->createFlavor(array(
+$flavor = $CDNService->createFlavor(array(
     'id' => 'cdn',
     'providers' => array(
         array(
