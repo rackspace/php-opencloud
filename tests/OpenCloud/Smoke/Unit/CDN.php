@@ -65,7 +65,8 @@ class CDN extends AbstractUnit implements UnitInterface
         $service = $this->getService()->getService('php-opencloud.com');
         $this->stepInfo('Service name: ' . $service->getName());
         $this->stepInfo('Status: ' . $service->getStatus());
-        $this->stepInfo('Origin: ' . $service->getOrigins()[0]->origin);
+        $origins = $service->getOrigins();
+        $this->stepInfo('Origin: ' . $origins[0]->origin);
 
         $this->step('Update service');
         $service->update(array(
