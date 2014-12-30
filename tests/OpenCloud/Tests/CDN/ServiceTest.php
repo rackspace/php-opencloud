@@ -81,4 +81,21 @@ class ServiceTest extends CDNTestCase
         $providers = $flavor->getProviders();
         $this->assertEquals('akamai', $providers[0]->provider);
     }
+
+    public function testGetHomeDocument()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"resources":{"rel/cdn":{"href-template":"services{?marker,limit}","href-vars":{"marker":"param/marker","limit":"param/limit"},"hints":{"allow":["GET"],"formats":{"application/json":{}}}}}}'));
+
+        $homeDocument = $this->service->getHomeDocument();
+        $this->assertNotEmpty($homeDocument);
+        $this->assertEquals("services{?marker,limit}", $homeDocument->resources->{"rel/cdn"}->{"href-template"});
+    }
+
+    public function testGetPing()
+    {
+        $this->addMockSubscriber($this->makeResponse(null, 204));
+
+        $ping = $this->service->getPing();
+        $this->assertEquals(204, $ping->getStatusCode());
+    }
 }
