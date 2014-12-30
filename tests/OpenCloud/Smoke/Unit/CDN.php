@@ -24,13 +24,19 @@ class CDN extends AbstractUnit implements UnitInterface
     public function setupService()
     {
         $service = $this->getConnection()->cdnService();
-        // TODO: Remove shim below to replace prod with preview endpoint
-        $service->getEndpoint()->getPublicUrl()->setHost('preview.cdn.api.rackspacecloud.com');
         return $service;
     }
 
     public function main()
     {
+        $this->step('Get home document');
+        $homeDocument = $this->getService()->getHomeDocument();
+        $this->stepInfo('Home document: %s', json_encode($homeDocument));
+
+        $this->step('Get ping');
+        $ping = $this->getService()->getPing();
+        $this->stepInfo('Ping successful');
+
         $this->step('List flavors');
         $flavors = $this->getService()->listFlavors();
         $this->stepInfo('%-40s | %s', 'Flavor ID', 'Number of providers');
