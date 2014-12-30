@@ -137,6 +137,30 @@ class Service extends CatalogService
     }
 
     /**
+     * Returns the home document for the CDN service
+     *
+     * @return \stdClass home document response
+     */
+    public function getHomeDocument()
+    {
+        $response = $this->getClient()->get($this->getUrl())->send();
+        return Formatter::decode($response);    
+    }
+
+    /**
+     * Returns the ping (status) response for the CDN service
+     *
+     * @return Guzzle\Http\Message\Response 
+     */
+    public function getPing()
+    {
+        $url = clone $this->getUrl();
+        $url->addPath('ping');
+       
+        return $this->getClient()->get($url)->send();
+    }
+
+    /**
      * Return namespaces.
      *
      * @return array
