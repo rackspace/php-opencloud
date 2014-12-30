@@ -75,6 +75,9 @@ class CDN extends AbstractUnit implements UnitInterface
         $this->stepInfo('Origin: ' . $origins[0]->origin);
 
         $this->step('Update service');
+        $service->waitFor('deployed', null, function ($s) {
+            $this->stepInfo('Service is still being created. Waiting...');
+        });
         $service->update(array(
             'origins' => array(
                 array( 'origin' => 'updated-origin.php-opencloud.com' )
@@ -82,6 +85,9 @@ class CDN extends AbstractUnit implements UnitInterface
         ));
 
         $this->step('Purge ALL cached service assets');
+        $service->waitFor('deployed', null, function ($s) {
+            $this->stepInfo('Service is still being updated. Waiting...');
+        });
         $service->purgeAssets();
 
         $this->step('Delete service');
