@@ -143,8 +143,15 @@ class Service extends CatalogService
      */
     public function getHomeDocument()
     {
-        $response = $this->getClient()->get($this->getUrl())->send();
-        return Formatter::decode($response);    
+        $url = clone $this->getUrl();
+
+        // This hack is necessary otherwise Guzzle will remove the trailing
+        // slash from the URL and the request will fail because the service
+        // expects the trailing slash :(
+        $url->setPath($url->getPath() . '/');
+
+        $response = $this->getClient()->get($url)->send();
+        return Formatter::decode($response);
     }
 
     /**
