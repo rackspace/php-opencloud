@@ -40,6 +40,7 @@ class Service extends PersistentResource
     protected $flavorId;
     protected $status;
     protected $links;
+    protected $errors;
 
     protected $aliases = array(
         'flavor_id' => 'flavorId',
