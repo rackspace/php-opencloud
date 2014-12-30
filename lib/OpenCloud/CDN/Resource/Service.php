@@ -74,7 +74,14 @@ class Service extends PersistentResource
             $assetsUrl->setQuery(array('url' => $assetUrl));
         }
 
-        return $this->getClient()->delete($assetsUrl)->send();
+        $request = $this->getClient()->delete($assetsUrl);
+
+        // This is necessary because the response does not include a body
+        // and fails with a 406 Not Acceptable if the default
+        // 'Accept: application/json' header is used in the request.
+        $request->removeHeader('Accept');
+
+        return $request->send();
     }
 
     protected function assetsUrl()

@@ -156,8 +156,15 @@ class Service extends CatalogService
     {
         $url = clone $this->getUrl();
         $url->addPath('ping');
-       
-        return $this->getClient()->get($url)->send();
+
+        $request = $this->getClient()->get($url);
+
+        // This is necessary because the response does not include a body
+        // and fails with a 406 Not Acceptable if the default
+        // 'Accept: application/json' header is used in the request.
+        $request->removeHeader('Accept');
+
+        return $request->send();
     }
 
     /**
