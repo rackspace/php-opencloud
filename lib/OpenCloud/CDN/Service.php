@@ -157,7 +157,7 @@ class Service extends CatalogService
     /**
      * Returns the ping (status) response for the CDN service
      *
-     * @return Guzzle\Http\Message\Response 
+     * @return Guzzle\Http\Message\Response
      */
     public function getPing()
     {
