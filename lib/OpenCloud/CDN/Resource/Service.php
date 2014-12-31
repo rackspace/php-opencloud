@@ -32,6 +32,7 @@ class Service extends PersistentResource
 
     const UPDATE_METHOD = 'PATCH';
 
+    protected $id;
     protected $name;
     protected $domains;
     protected $origins;
@@ -90,11 +91,6 @@ class Service extends PersistentResource
         $url->addPath('assets');
 
         return $url;
-    }
-
-    protected function primaryKeyField()
-    {
-        return 'name';
     }
 
     protected function createJson()

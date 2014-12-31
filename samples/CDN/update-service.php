@@ -30,7 +30,7 @@ $client = new Rackspace('{authUrl}', array(
 $cdnService = $client->cdnService();
 
 // 3. Get service.
-$service = $cdnService->getService('{name}');
+$service = $cdnService->getService('{id}');
 
 // 4. Update it.
 $service->update(array(
