@@ -146,10 +146,10 @@ foreach ($services as $service) {
 
 ### Get a service
 
-You can retrieve a specific service by using that service's name, as shown in the following example:
+You can retrieve a specific service by using that service's ID, as shown in the following example:
 
 ```php
-$service = $cdnService->getservice('acme_site');
+$service = $cdnService->getService('0e09ad12-2bfe-4607-80fd-116fa68d9c79');
 /** @var $service OpenCloud\CDN\Resource\Service **/
 ```
 

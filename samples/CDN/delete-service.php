@@ -30,7 +30,7 @@ $client = new Rackspace('{authUrl}', array(
 $cdnService = $client->cdnService();
 
 // 3. Get service.
-$service = $cdnService->getServices('{name}');
+$service = $cdnService->getServices('{id}');
 
 // 4. Delete it.
 $service->delete();

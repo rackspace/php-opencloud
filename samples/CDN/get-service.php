@@ -30,5 +30,5 @@ $client = new Rackspace('{authUrl}', array(
 $cdnService = $client->cdnService();
 
 // 3. Get service.
-$service = $cdnService->getService('{name}');
+$service = $cdnService->getService('{id}');
 /** @var $service OpenCloud\CDN\Resource\Service **/
