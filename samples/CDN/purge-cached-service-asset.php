@@ -30,7 +30,7 @@ $client = new Rackspace('{authUrl}', array(
 $cdnService = $client->cdnService();
 
 // 3. Get service.
-$service = $cdnService->getServices('{id}');
+$service = $cdnService->getService('{id}');
 
 // 4. Purge a specific asset belonging to service.
 $service->purgeAssets('{asset URL}');
