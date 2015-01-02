@@ -50,7 +50,8 @@ class Service extends CatalogService
     /**
      * Creates a new Service and returns it.
      *
-     * @param array $params Service creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/CDN/USERGUIDE.md#create-a-service
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/CDN/USERGUIDE.md#create-a-service
+     * @param array $params Service creation parameters.
      * @return \OpenCloud\CDN\Resource\Service Object representing created service
      */
     public function createService(array $params = array())
@@ -101,7 +102,8 @@ class Service extends CatalogService
     /**
      * Creates a new Flavor and returns it.
      *
-     * @param array $params Flavor creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/CDN/USERGUIDE.md#create-a-flavor
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/CDN/USERGUIDE.md#create-a-flavor
+     * @param array $params Flavor creation parameters.
      * @return \OpenCloud\CDN\Resource\Flavor Object representing created flavor
      */
     public function createFlavor(array $params = array())
