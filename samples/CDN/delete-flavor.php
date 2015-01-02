@@ -30,7 +30,7 @@ $client = new Rackspace('{authUrl}', array(
 $cdnService = $client->cdnService();
 
 // 3. Get flavor.
-$flavor = $cdnFlavor->getFlavors('{id}');
+$flavor = $cdnFlavor->getFlavor('{id}');
 
 // 4. Delete it.
 $flavor->delete();
