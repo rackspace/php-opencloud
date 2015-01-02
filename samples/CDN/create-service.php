@@ -33,10 +33,10 @@ $cdnService = $client->cdnService();
 $service = $cdnService->createService(array(
     'name'     => '{name}',
     'domains'  => array(
-        array( 'domain' => '{domain name}' )
+        array('domain' => '{domain name}')
     ),
     'origins'  => array(
-        array( 'origin' => '{origin address}' )
+        array('origin' => '{origin address}')
     ),
     'flavorId' => '{flavor ID}'
 ));
