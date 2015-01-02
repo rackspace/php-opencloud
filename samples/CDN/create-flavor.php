@@ -31,7 +31,7 @@ $cdnService = $client->cdnService();
 
 // 3. Create flavor.
 $flavor = $cdnFlavor->createFlavor(array(
-    'id'     => '{id}',
+    'id'     => '{flavorId}',
     'providers' => array(
         array(
             'provider' => 'akamai',

@@ -30,5 +30,5 @@ $client = new Rackspace('{authUrl}', array(
 $cdnService = $client->cdnService();
 
 // 3. Get flavor.
-$flavor = $cdnService->getFlavor('{flavor ID}');
+$flavor = $cdnService->getFlavor('{flavorId}');
 /** @var $flavor OpenCloud\CDN\Resource\Flavor **/
