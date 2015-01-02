@@ -86,11 +86,8 @@ abstract class PersistentResource extends BaseResource
 
     protected function makeUpdateRequest($json)
     {
-        if ('PATCH' === static::UPDATE_METHOD) {
-            return $this->getClient()->patch($this->getUrl(), self::getJsonHeader(), $json)->send();
-        } else {
-            return $this->getClient()->put($this->getUrl(), self::getJsonHeader(), $json)->send();
-        }
+        $updateMethod = ('PATCH' === static::UPDATE_METHOD) ? 'patch' : 'post';
+        return $this->getClient()->$updateMethod($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
 
     /**
