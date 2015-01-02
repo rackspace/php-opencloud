@@ -21,7 +21,9 @@ efforts. Here are a few general guidelines to follow:
    creating a work-in-progress (WIP) pull request. This lets us review your changes
    and provide feedback early and often rather than all at once when the entire pull
    request is ready. To denote a pull request as WIP, simply add the "PR: Work In Progress"
-   label to it.
+   label to it. When you are finished with your work in the pull request and
+   are ready for a final review and merge, please remove the "PR: Work In Progress"
+   label.
 
 6. Document your code!
 
