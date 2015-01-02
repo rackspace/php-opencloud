@@ -33,4 +33,4 @@ $cdnService = $client->cdnService();
 $service = $cdnService->getService('{serviceId}');
 
 // 4. Purge a specific asset belonging to service.
-$service->purgeAssets('{asset URL}');
+$service->purgeAssets('{assetUrl}');

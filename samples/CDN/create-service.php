@@ -33,11 +33,11 @@ $cdnService = $client->cdnService();
 $service = $cdnService->createService(array(
     'name'     => '{name}',
     'domains'  => array(
-        array('domain' => '{domain name}')
+        array('domain' => '{domainName}')
     ),
     'origins'  => array(
-        array('origin' => '{origin address}')
+        array('origin' => '{originAddress}')
     ),
-    'flavorId' => '{flavor ID}'
+    'flavorId' => '{flavorId}'
 ));
 /** @var $service OpenCloud\CDN\Resource\Service **/
