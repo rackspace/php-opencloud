@@ -127,7 +127,7 @@ This operation takes one parameter, an associative array, with the following key
 | `restrictions` | List of restrictions on where the service can be accessed from. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]` | Information about an access restriction. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['name']` | A human-readable name of the restriction. | String | No | `null` | `affiliate_sites_only` |
-| `restrictions[n]['rules']` | List of restrition rules. | Array of associative arrays | No | `null` | `array( ... )` |
+| `restrictions[n]['rules']` | List of restriction rules. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]` | Information about a restriction rule. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]['name']` | A human-readable name of the restriction rule. | String | No | `null` | `Wile E. Coyote's site` |
 | `restrictions[n]['rules'][n]['referrer']` | The domain from which the service can be accessed. | String | No | `null` | `www.wilecoyote.com` |
@@ -211,7 +211,7 @@ This operation takes one parameter, an associative array, with the following key
 | `restrictions` | List of restrictions on where the service can be accessed from. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]` | Information about an access restriction. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['name']` | A human-readable name of the restriction. | String | No | `null` | `affiliate_sites_only` |
-| `restrictions[n]['rules']` | List of restrition rules. | Array of associative arrays | No | `null` | `array( ... )` |
+| `restrictions[n]['rules']` | List of restriction rules. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]` | Information about a restriction rule. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]['name']` | A human-readable name of the restriction rule. | String | No | `null` | `Wile E. Coyote's site` |
 | `restrictions[n]['rules'][n]['referrer']` | The domain from which the service can be accessed. | String | No | `null` | `www.wilecoyote.com` |
