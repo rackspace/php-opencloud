@@ -110,12 +110,12 @@ This operation takes one parameter, an associative array, with the following key
 | `origins` | List of origin servers for your service.  | Array of associative arrays | Yes | - | `array( ... )` |
 | `origins[n]` | Information about an origin server for your service. | Associative array | Yes | - | `array( ... )` |
 | `origins[n]['origin']` | The origin server address, from where the CDN will pull your web site's assets. | String | Yes | - | `origin.acme.com` |
-| `origins[n]['origin']['port']` | The origin server's port. | Integer | No | 80 | `8080` |
-| `origins[n]['origin']['ssl']` | Whether origin server uses SSL. | Boolean | No | `false` | `true` |
-| `origins[n]['origin']['rules']` | List of rules defining the conditions when this origin should be accessed. | Array of associative arrays | No | `null` | `array( ... )` |
-| `origins[n]['origin']['rules'][n]` | Information about an access rule. | Associative array | No | `null` | `array( ... )` |
-| `origins[n]['origin']['rules'][n]['name']` | A human-readable name of the rule. | String | No | `null` | `images` |
-| `origins[n]['origin']['rules'][n]['request_url']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
+| `origins[n]['port']` | The origin server's port. | Integer | No | 80 | `8080` |
+| `origins[n]['ssl']` | Whether origin server uses SSL. | Boolean | No | `false` | `true` |
+| `origins[n]['rules']` | List of rules defining the conditions when this origin should be accessed. | Array of associative arrays | No | `null` | `array( ... )` |
+| `origins[n]['rules'][n]` | Information about an access rule. | Associative array | No | `null` | `array( ... )` |
+| `origins[n]['rules'][n]['name']` | A human-readable name of the rule. | String | No | `null` | `images` |
+| `origins[n]['rules'][n]['requestUrl']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
 | `caching` | List of TTL rules for assets of this service. | Array of associative arrays | No | `null` | `array( ... )` |
 | `caching[n]` | Information about a TTL rule. | Associative array | No | `null` | `array( ... )` |
 | `caching[n]['name']` | A human-readable name of the TTL rule. | String | No | `null` | `long_ttl` |
