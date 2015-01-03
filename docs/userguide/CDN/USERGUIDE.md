@@ -105,7 +105,7 @@ This operation takes one parameter, an associative array, with the following key
 | `flavorId` | The ID of the flavor to use for this service. | String | Yes | - | `cdn` |
 | `domains` | List of domain for your service. | Array of associative arrays | Yes | - | `array( ... )` |
 | `domains[n]` | Information about a domain for your service. | Associative array | Yes | - | `array( ... )` |
-| `domains[n]['domain']` | The domain name for your service. | String | Yes | - | 'www.acme.com' |
+| `domains[n]['domain']` | A domain name used by your service. | String | Yes | - | 'www.acme.com' |
 | `domains[n]['protocol']` | The protocol used by your service web site, `http` or `https`. | String | No | `http` | `http` |
 | `origins` | List of origin servers for your service.  | Array of associative arrays | Yes | - | `array( ... )` |
 | `origins[n]` | Information about an origin server for your service. | Associative array | Yes | - | `array( ... )` |
