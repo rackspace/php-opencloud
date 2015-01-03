@@ -45,7 +45,8 @@ class Service extends PersistentResource
 
     protected $aliases = array(
         'flavor_id' => 'flavorId',
-        'http_host' => 'httpHost'
+        'http_host' => 'httpHost',
+        'request_url' => 'requestUrl'
     );
 
     protected $createKeys = array(
