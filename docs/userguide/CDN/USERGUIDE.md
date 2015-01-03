@@ -124,13 +124,13 @@ This operation takes one parameter, an associative array, with the following key
 | `caching[n]['rules'][n]` | Information about a TTL rule. | Associative array | No | `null` | `array( ... )` |
 | `caching[n]['rules'][n]['name']` | A human-readable name of the TTL rule. | No | `null` | `images` | 
 | `caching[n]['rules'][n]['requestUrl']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
-| `restrictions` | List of restrictions on who can access new service. | Array of associative arrays | No | `null` | `array( ... )` |
+| `restrictions` | List of restrictions on where the service can be accessed from. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]` | Information about an access restriction. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['name']` | A human-readable name of the restriction. | String | No | `null` | `affiliate_sites_only` |
 | `restrictions[n]['rules']` | List of restrition rules. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]` | Information about a restriction rule. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]['name']` | A human-readable name of the restriction rule. | String | No | `null` | `Wile E. Coyote's site` |
-| `restrictions[n]['rules'][n]['referrer']` | The domain from which the new service can be accessed. | String | No | `null` | `www.wilecoyote.com` |
+| `restrictions[n]['rules'][n]['referrer']` | The domain from which the service can be accessed. | String | No | `null` | `www.wilecoyote.com` |
 
 You can create a service as shown in the following example:
 
@@ -208,13 +208,13 @@ This operation takes one parameter, an associative array, with the following key
 | `caching[n]['rules'][n]` | Information about a TTL rule. | Associative array | No | `null` | `array( ... )` |
 | `caching[n]['rules'][n]['name']` | A human-readable name of the TTL rule. | No | `null` | `images` | 
 | `caching[n]['rules'][n]['requestUrl']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
-| `restrictions` | List of restrictions on who can access new service. | Array of associative arrays | No | `null` | `array( ... )` |
+| `restrictions` | List of restrictions on where the service can be accessed from. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]` | Information about an access restriction. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['name']` | A human-readable name of the restriction. | String | No | `null` | `affiliate_sites_only` |
 | `restrictions[n]['rules']` | List of restrition rules. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]` | Information about a restriction rule. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['rules'][n]['name']` | A human-readable name of the restriction rule. | String | No | `null` | `Wile E. Coyote's site` |
-| `restrictions[n]['rules'][n]['referrer']` | The domain from which the new service can be accessed. | String | No | `null` | `www.wilecoyote.com` |
+| `restrictions[n]['rules'][n]['referrer']` | The domain from which the service can be accessed. | String | No | `null` | `www.wilecoyote.com` |
 
 You can update a service as shown in the following example:
 
