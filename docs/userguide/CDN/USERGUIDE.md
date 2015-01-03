@@ -123,7 +123,7 @@ This operation takes one parameter, an associative array, with the following key
 | `caching[n]['rules']` | List of rules that determine if this TTL should be applied to an asset. | Array of associative arrays | No | `null` | `array( ... )` |
 | `caching[n]['rules'][n]` | Information about a TTL rule. | Associative array | No | `null` | `array( ... )` |
 | `caching[n]['rules'][n]['name']` | A human-readable name of the TTL rule. | No | `null` | `images` | 
-| `caching[n]['rules'][n]['request_url']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
+| `caching[n]['rules'][n]['requestUrl']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
 | `restrictions` | List of restrictions on who can access new service. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]` | Information about an access restriction. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['name']` | A human-readable name of the restriction. | String | No | `null` | `affiliate_sites_only` |
@@ -199,7 +199,7 @@ This operation takes one parameter, an associative array, with the following key
 | `origins[n]['origin']['rules']` | List of rules defining the conditions when this origin should be accessed. | Array of associative arrays | No | `null` | `array( ... )` |
 | `origins[n]['origin']['rules'][n]` | Information about an access rule. | Associative array | No | `null` | `array( ... )` |
 | `origins[n]['origin']['rules'][n]['name']` | A human-readable name of the rule. | String | No | `null` | `images` |
-| `origins[n]['origin']['rules'][n]['request_url']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
+| `origins[n]['origin']['rules'][n]['requestUrl']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
 | `caching` | List of TTL rules for assets of this service. | Array of associative arrays | No | `null` | `array( ... )` |
 | `caching[n]` | Information about a TTL rule. | Associative array | No | `null` | `array( ... )` |
 | `caching[n]['name']` | A human-readable name of the TTL rule. | String | No | `null` | `long_ttl` |
@@ -207,7 +207,7 @@ This operation takes one parameter, an associative array, with the following key
 | `caching[n]['rules']` | List of rules that determine if this TTL should be applied to an asset. | Array of associative arrays | No | `null` | `array( ... )` |
 | `caching[n]['rules'][n]` | Information about a TTL rule. | Associative array | No | `null` | `array( ... )` |
 | `caching[n]['rules'][n]['name']` | A human-readable name of the TTL rule. | No | `null` | `images` | 
-| `caching[n]['rules'][n]['request_url']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
+| `caching[n]['rules'][n]['requestUrl']` | The request URL this rule should match (regex supported). | String | No | `null` | `^/images/.+$` |
 | `restrictions` | List of restrictions on who can access new service. | Array of associative arrays | No | `null` | `array( ... )` |
 | `restrictions[n]` | Information about an access restriction. | Associative array | No | `null` | `array( ... )` |
 | `restrictions[n]['name']` | A human-readable name of the restriction. | String | No | `null` | `affiliate_sites_only` |
