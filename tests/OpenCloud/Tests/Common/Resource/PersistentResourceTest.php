@@ -31,6 +31,16 @@ class PublicPersistentResource extends PersistentResource
     {
         return parent::recursivelyAliasPropertyValue($propertyValue);
     }
+
+    public function getPropertiesAsArray()
+    {
+        return parent::getPropertiesAsArray();
+    }
+
+    public function generateJsonPatch($updateParams)
+    {
+        return parent::generateJsonPatch($updateParams);
+    }
 }
 
 class PersistentResourceTest extends OpenCloudTestCase
@@ -105,5 +115,69 @@ class PersistentResourceTest extends OpenCloudTestCase
 
         $this->assertEquals($obj3Expected,
             $this->persistentResource->recursivelyAliasPropertyValue($obj3));
+    }
+
+    public function testGetPropertiesAsArray()
+    {
+        $this->persistentResource->id = 17;
+        $this->persistentResource->tags = array('foo', 'bar');
+        $this->persistentResource->domains = array(
+            (object) array('domain' => 'foo.phpopencloud.com'),
+            array('domain' => 'bar.phpopencloud.com')
+        );
+        $this->persistentResource->origins = array(
+            array('origin' => 'origin1.phpopencloud.com')
+        );
+        $this->persistentResource->status = (object) array('message' => 'Creation in progress');
+
+        $expectedArray = array(
+            'id' => 17,
+            'tags' => array('foo', 'bar'),
+            'domains' => array(
+                (object) array('domain' => 'foo.phpopencloud.com'),
+                array('domain' => 'bar.phpopencloud.com')
+            ),
+            'origins' => array(
+                array('origin' => 'origin1.phpopencloud.com'),
+            ),
+            'status' => (object) array('message' => 'Creation in progress'),
+        );
+
+        $this->assertEquals($expectedArray, $this->persistentResource->getPropertiesAsArray());
+    }
+
+    public function testGenerateJsonPatch()
+    {
+        $this->persistentResource->id = 17;
+        $this->persistentResource->tags = array('foo', 'bar');
+        $this->persistentResource->domains = array(
+            array('domain' => 'foo.phpopencloud.com'),
+            array('domain' => 'bar.phpopencloud.com')
+        );
+        $this->persistentResource->origins = array(
+            array('origin' => 'origin1.phpopencloud.com')
+        );
+        $this->persistentResource->status = array('message' => 'Creation in progress');
+
+        $updateParams = array(
+            'tags'    => array('foo', 'qux', 'baz'),
+            'domains' => array(
+                array('domain' => 'foo.phpopencloud.com')
+            ),
+            'origins' => array(
+                array('origin' => 'origin1.phpopencloud.com'),
+                array('origin' => 'origin2.phpopencloud.com')
+            )
+        );
+
+        $expectedJsonPatch = json_encode(array(
+            array('op' => 'add', 'path' => '/tags/2', 'value' => 'baz'),
+            array('op' => 'replace', 'path' => '/tags/1', 'value' => 'qux'),
+            array('op' => 'remove', 'path' => '/domains/1'),
+            array('op' => 'add', 'path' => '/origins/1', 'value' => array("origin" => "origin2.phpopencloud.com"))
+        ));
+
+        $actualJsonPatch = $this->persistentResource->generateJsonPatch($updateParams);
+        $this->assertEquals($expectedJsonPatch, $actualJsonPatch);
     }
 }
