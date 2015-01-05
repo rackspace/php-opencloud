@@ -30,8 +30,6 @@ class Service extends PersistentResource
     protected static $url_resource = 'services';
     protected static $json_name = 'service';
 
-    const UPDATE_METHOD = 'PATCH';
-
     protected $id;
     protected $name;
     protected $domains;
@@ -98,5 +96,20 @@ class Service extends PersistentResource
     {
         $createJson = parent::createJson();
         return $createJson->{self::$json_name};
+    }
+
+    /**
+     * Update this resource
+     *
+     * @param array $params
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function update($params = array())
+    {
+        $json = $this->generateJsonPatch($params);
+
+        return $this->getClient()
+            ->patch($this->getUrl(), $this->getPatchHeaders(), $json)
+            ->send();
     }
 }
