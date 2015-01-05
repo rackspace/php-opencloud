@@ -13,6 +13,11 @@
         {
             "name": "Glen Campbell",
             "email": "glen.campbell@rackspace.com"
+        },
+        {
+            "name": "Shaunak Kashyap",
+            "email": "shaunak.kashyap@rackspace.com",
+            "homepage": "https://github.com/ycombinator"
         }
     ],
     "autoload": {
