@@ -36,6 +36,11 @@ class MyBase extends Base
     {
         return $this->bar;
     }
+
+    public static function getPatchHeaders()
+    {
+        return parent::getPatchHeaders();
+    }
 }
 
 class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
@@ -99,5 +104,15 @@ class BaseTest extends \OpenCloud\Tests\OpenCloudTestCase
 
         $this->my->setBaz('goodbye');
         $this->assertEquals('goodbye', $this->my->getBaz());
+    }
+
+    public function testGetPatchHeaders()
+    {
+        $expectedHeaders = array(
+            'Content-Type' => 'application/json-patch+json'
+        );
+
+        $my = $this->my;
+        $this->assertEquals($expectedHeaders, $my::getPatchHeaders());
     }
 }
