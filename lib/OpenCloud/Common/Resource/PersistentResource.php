@@ -25,6 +25,7 @@ use OpenCloud\Common\Exceptions\IdRequiredError;
 use OpenCloud\Common\Exceptions\NameError;
 use OpenCloud\Common\Exceptions\UnsupportedExtensionError;
 use OpenCloud\Common\Exceptions\UpdateError;
+use mikemccabe\JsonPatch\JsonPatch;
 
 abstract class PersistentResource extends BaseResource
 {
@@ -343,6 +344,48 @@ abstract class PersistentResource extends BaseResource
         }
 
         return true;
+    }
+
+    /**
+     * Returns the object's properties as an array
+     */
+    protected function getPropertiesAsArray()
+    {
+        $properties = get_object_vars($this);
+
+        $propertiesToRemove = array('aliases', 'service', 'parent', 'metadata');
+        foreach ($propertiesToRemove as $property) {
+            unset($properties[$property]);
+        }
+
+        return $properties;
+    }
+
+    /**
+     * Generates a JSON Patch representation and return its
+     *
+     * @param mixed $updatedProperties Properties of the resource to update
+     * @return String JSON Patch representation for updates
+     */
+    protected function generateJsonPatch($updatedProperties)
+    {
+        // Normalize current and updated properties into nested arrays
+        $currentProperties = json_decode(json_encode($this->getPropertiesAsArray()), true);
+        $updatedProperties = json_decode(json_encode($updatedProperties), true);
+
+        // Add any properties that haven't changed to generate the correct patch
+        // (otherwise unchanging properties are marked as removed in the patch)
+        foreach ($currentProperties as $key => $value) {
+            if (!array_key_exists($key, $updatedProperties)) {
+                $updatedProperties[$key] = $value;
+            }
+        }
+
+        // Generate JSON Patch representation
+        $json = json_encode(JsonPatch::diff($currentProperties, $updatedProperties));
+        $this->checkJsonError();
+
+        return $json;
     }
 
     /********  DEPRECATED METHODS ********/
