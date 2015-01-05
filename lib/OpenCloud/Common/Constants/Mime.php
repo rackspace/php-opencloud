@@ -21,4 +21,5 @@ class Mime
 {
     const JSON = 'application/json';
     const TEXT = 'text/plain';
+    const JSON_PATCH = 'application/json-patch+json';
 }
