@@ -29,8 +29,6 @@ use mikemccabe\JsonPatch\JsonPatch;
 
 abstract class PersistentResource extends BaseResource
 {
-    const UPDATE_METHOD = 'PUT';
-
     /**
      * Create a new resource
      *
@@ -82,13 +80,7 @@ abstract class PersistentResource extends BaseResource
         $this->checkJsonError();
 
         // send the request
-        return $this->makeUpdateRequest($json);
-    }
-
-    protected function makeUpdateRequest($json)
-    {
-        $updateMethod = ('PATCH' === static::UPDATE_METHOD) ? 'patch' : 'post';
-        return $this->getClient()->$updateMethod($this->getUrl(), self::getJsonHeader(), $json)->send();
+        return $this->getClient()->put($this->getUrl(), self::getJsonHeader(), $json)->send();
     }
 
     /**
