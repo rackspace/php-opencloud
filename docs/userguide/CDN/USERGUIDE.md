@@ -17,10 +17,8 @@ CDN is a service that you can use to manage your CDN-enabled domains and the ori
     * [Purge all cached service assets](#purge-all-cached-service-assets)
     * [Purge a specific cached service asset](#purge-a-specific-cached-service-asset)
   * [Flavors](#flavors)
-    * [Create a flavor](#create-a-flavor)
     * [List flavors](#list-flavors)
     * [Get a flavor](#get-a-flavor)
-    * [Delete a flavor](#delete-a-flavor)
 
 ## Concepts
 
@@ -269,37 +267,6 @@ $service->purgeAssets('/images/logo.png');
 
 A flavor is a configuration option. A flavor enables you to choose from a generic setting that is powered by one or more CDN providers.
 
-### Create a flavor
-
-<strong><em>Note: When working with the Rackspace Cloud, this operation requires the `cdn:operator` role.</em></strong>
-
-This operation takes one parameter, an associative array, with the following keys:
-
-| Name | Description | Data type | Required? | Default value | Example value |
-| ---- | ----------- | --------- | --------- | ------------- | ------------- |
-| `id` | ID of flavor. This ID must be unique. | String | Yes | `null` | `cdn` |
-| `providers` | An array of associative arrays, each representing a CDN provider. | Array of associative arrays | Yes | `null` | `array( array( 'provider' => 'akamai', 'links' => array( array( 'rel' => 'provider_url', 'href' => 'http://www.akamai.com' ) ) ) )` |
-
-You can create a flavor as shown in the following example:
-
-```php
-$flavor = $cdnService->createFlavor(array(
-    'id' => 'cdn',
-    'providers' => array(
-        array(
-            'name'  => 'akamai',
-            'links' => array(
-                 'rel'  => 'provider_url',
-                 'href' => 'http://www.akamai.com'
-            )
-        )
-    )
-));
-/** @var $flavor OpenCloud\CDN\Resource\Flavor **/
-```
-
-[ [Get the executable PHP script for this example](/samples/CDN/create-flavor.php) ]
-
 ### List flavors
 
 You can list all available flavors as shown in the following example:
@@ -324,15 +291,3 @@ $flavor = $cdnService->getFlavor('cdn');
 ```
 
 [ [Get the executable PHP script for this example](/samples/CDN/get-flavor.php) ]
-
-### Delete a flavor
-
-<strong><em>Note: When working with the Rackspace Cloud, this operation requires the `cdn:operator` role.</em></strong>
-
-You can delete a flavor as shown in the following example:
-
-```php
-$flavor->delete();
-```
-
-[ [Get the executable PHP script for this example](/samples/CDN/delete-flavor.php) ]
