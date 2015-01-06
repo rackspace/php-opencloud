@@ -341,16 +341,18 @@ abstract class PersistentResource extends BaseResource
     /**
      * Returns the object's properties as an array
      */
-    protected function getPropertiesAsArray()
+    protected function getUpdateablePropertiesAsArray()
     {
         $properties = get_object_vars($this);
 
-        $propertiesToRemove = array('aliases', 'service', 'parent', 'metadata');
-        foreach ($propertiesToRemove as $property) {
-            unset($properties[$property]);
+        $propertiesToKeep = array();
+        foreach ($this->updateKeys as $key) {
+            if (isset($properties[$key])) {
+                $propertiesToKeep[$key] = $properties[$key];
+            }
         }
 
-        return $properties;
+        return $propertiesToKeep;
     }
 
     /**
@@ -362,7 +364,7 @@ abstract class PersistentResource extends BaseResource
     protected function generateJsonPatch($updatedProperties)
     {
         // Normalize current and updated properties into nested arrays
-        $currentProperties = json_decode(json_encode($this->getPropertiesAsArray()), true);
+        $currentProperties = json_decode(json_encode($this->getUpdateablePropertiesAsArray()), true);
         $updatedProperties = json_decode(json_encode($updatedProperties), true);
 
         // Add any properties that haven't changed to generate the correct patch
