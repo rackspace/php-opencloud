@@ -22,11 +22,19 @@ use OpenCloud\Image\Resource\Image;
 use OpenCloud\Image\Resource\Schema\Schema;
 use OpenCloud\Tests\OpenCloudTestCase;
 
+class PublicImage extends Image
+{
+    public static function getPatchHeaders()
+    {
+        return parent::getPatchHeaders();
+    }
+}
+
 class ImageTest extends OpenCloudTestCase
 {
     public function setupObjects()
     {
-        $this->image = new Image($this->getClient()->imageService('cloudImages', 'IAD'));
+        $this->image = new PublicImage($this->getClient()->imageService('cloudImages', 'IAD'));
     }
 
     protected function getSchemaData()
@@ -138,5 +146,15 @@ EOT;
         $this->addMockSubscriber(new Response(204));
 
         $this->assertInstanceOf('Guzzle\Http\Message\Response', $this->image->deleteTag(12345));
+    }
+
+    public function testGetPatchHeaders()
+    {
+        $expectedHeaders = array(
+            'Content-Type' => 'application/openstack-images-v2.1-json-patch'
+        );
+
+        $image = $this->image;
+        $this->assertEquals($expectedHeaders, $image::getPatchHeaders());
     }
 }
