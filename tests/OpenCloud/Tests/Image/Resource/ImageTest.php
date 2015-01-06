@@ -154,6 +154,7 @@ EOT;
             'Content-Type' => 'application/openstack-images-v2.1-json-patch'
         );
 
-        $this->assertEquals($expectedHeaders, $this->image->getPatchHeaders());
+        $image = $this->image;
+        $this->assertEquals($expectedHeaders, $image::getPatchHeaders());
     }
 }
