@@ -27,14 +27,22 @@ class PublicPersistentResource extends PersistentResource
         'foo_bar' => 'fooBar'
     );
 
+    protected $updateKeys = array(
+        'baz',
+        'tags',
+        'domains',
+        'origins',
+        'status'
+    );
+
     public function recursivelyAliasPropertyValue($propertyValue)
     {
         return parent::recursivelyAliasPropertyValue($propertyValue);
     }
 
-    public function getPropertiesAsArray()
+    public function getUpdateablePropertiesAsArray()
     {
-        return parent::getPropertiesAsArray();
+        return parent::getUpdateablePropertiesAsArray();
     }
 
     public function generateJsonPatch($updateParams)
@@ -117,7 +125,7 @@ class PersistentResourceTest extends OpenCloudTestCase
             $this->persistentResource->recursivelyAliasPropertyValue($obj3));
     }
 
-    public function testGetPropertiesAsArray()
+    public function testGetUpdateablePropertiesAsArray()
     {
         $this->persistentResource->id = 17;
         $this->persistentResource->tags = array('foo', 'bar');
@@ -131,7 +139,6 @@ class PersistentResourceTest extends OpenCloudTestCase
         $this->persistentResource->status = (object) array('message' => 'Creation in progress');
 
         $expectedArray = array(
-            'id' => 17,
             'tags' => array('foo', 'bar'),
             'domains' => array(
                 (object) array('domain' => 'foo.phpopencloud.com'),
@@ -140,10 +147,10 @@ class PersistentResourceTest extends OpenCloudTestCase
             'origins' => array(
                 array('origin' => 'origin1.phpopencloud.com'),
             ),
-            'status' => (object) array('message' => 'Creation in progress'),
+            'status' => (object) array('message' => 'Creation in progress')
         );
 
-        $this->assertEquals($expectedArray, $this->persistentResource->getPropertiesAsArray());
+        $this->assertEquals($expectedArray, $this->persistentResource->getUpdateablePropertiesAsArray());
     }
 
     public function testGenerateJsonPatch()
