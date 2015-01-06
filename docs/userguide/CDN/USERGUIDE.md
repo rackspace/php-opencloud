@@ -149,7 +149,8 @@ $service = $cdnService->createService(array(
         )
     ),
     'flavorId' => 'cdn'
-));```
+));
+```
 
 [ [Get the executable PHP script for this example](/samples/CDN/create-service.php) ]
 
