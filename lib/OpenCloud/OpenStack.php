@@ -165,7 +165,8 @@ class OpenStack extends Client
      */
     public function setExpiration($expiration)
     {
-        $this->getLogger()->deprecated(__METHOD__, '::getTokenObject()->setExpires()');
+        $this->getLogger()->warning(sprintf(
+            'The %s method is deprecated, please use %s instead',__METHOD__, '::getTokenObject()->setExpires()'));
         if ($this->getTokenObject()) {
             $this->getTokenObject()->setExpires($expiration);
         }
@@ -178,7 +179,8 @@ class OpenStack extends Client
      */
     public function getExpiration()
     {
-        $this->getLogger()->deprecated(__METHOD__, '::getTokenObject()->getExpires()');
+        $this->getLogger()->warning(sprintf(
+            'The %s method is deprecated, please use %s instead',__METHOD__, '::getTokenObject()->getExpires()'));
         if ($this->getTokenObject()) {
             return $this->getTokenObject()->getExpires();
         }
@@ -290,7 +292,8 @@ class OpenStack extends Client
      */
     public function hasExpired()
     {
-        $this->getLogger()->deprecated(__METHOD__, 'getTokenObject()->hasExpired()');
+        $this->getLogger()->warning(sprintf(
+            'The %s method is deprecated, please use %s instead', __METHOD__, 'getTokenObject()->hasExpired()'));
 
         return $this->getTokenObject() && $this->getTokenObject()->hasExpired();
     }
