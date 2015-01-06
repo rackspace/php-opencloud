@@ -165,6 +165,7 @@ class PersistentResourceTest extends OpenCloudTestCase
             array('origin' => 'origin1.phpopencloud.com')
         );
         $this->persistentResource->status = array('message' => 'Creation in progress');
+        $this->persistentResource->baz = (object) array( 'fooBar' => 'barbar');
 
         $updateParams = array(
             'tags'    => array('foo', 'qux', 'baz'),
@@ -174,10 +175,12 @@ class PersistentResourceTest extends OpenCloudTestCase
             'origins' => array(
                 array('origin' => 'origin1.phpopencloud.com'),
                 array('origin' => 'origin2.phpopencloud.com')
-            )
+            ),
+            'baz' => array('fooBar' => 'barbarbar')
         );
 
         $expectedJsonPatch = json_encode(array(
+            array('op' => 'replace', 'path' => '/baz/foo_bar', 'value' => 'barbarbar'),
             array('op' => 'add', 'path' => '/tags/2', 'value' => 'baz'),
             array('op' => 'replace', 'path' => '/tags/1', 'value' => 'qux'),
             array('op' => 'remove', 'path' => '/domains/1'),

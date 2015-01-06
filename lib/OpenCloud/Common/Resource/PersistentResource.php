@@ -375,6 +375,10 @@ abstract class PersistentResource extends BaseResource
             }
         }
 
+        // Recursively alias current and updated properties
+        $currentProperties = $this->recursivelyAliasPropertyValue($currentProperties);
+        $updatedProperties = $this->recursivelyAliasPropertyValue($updatedProperties);
+
         // Generate JSON Patch representation
         $json = json_encode(JsonPatch::diff($currentProperties, $updatedProperties));
         $this->checkJsonError();
