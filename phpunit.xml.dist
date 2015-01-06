@@ -27,6 +27,7 @@
 
     <php>
       <ini name="memory_limit" value="256M" />
+      <ini name="zend.enable_gc" value="0" />
     </php>
 
 </phpunit>
