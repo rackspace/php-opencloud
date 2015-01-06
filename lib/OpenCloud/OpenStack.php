@@ -23,6 +23,7 @@ use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Http\Message\RequestSubscriber;
 use OpenCloud\Common\Lang;
+use OpenCloud\Common\Log\Logger;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\Identity\Resource\Tenant;
@@ -165,8 +166,7 @@ class OpenStack extends Client
      */
     public function setExpiration($expiration)
     {
-        $this->getLogger()->warning(sprintf(
-            'The %s method is deprecated, please use %s instead',__METHOD__, '::getTokenObject()->setExpires()'));
+        $this->getLogger()->warning(Logger::deprecated(__METHOD__, '::getTokenObject()->setExpires()'));
         if ($this->getTokenObject()) {
             $this->getTokenObject()->setExpires($expiration);
         }
@@ -179,8 +179,7 @@ class OpenStack extends Client
      */
     public function getExpiration()
     {
-        $this->getLogger()->warning(sprintf(
-            'The %s method is deprecated, please use %s instead',__METHOD__, '::getTokenObject()->getExpires()'));
+        $this->getLogger()->warning(Logger::deprecated(__METHOD__, '::getTokenObject()->getExpires()'));
         if ($this->getTokenObject()) {
             return $this->getTokenObject()->getExpires();
         }
@@ -292,8 +291,7 @@ class OpenStack extends Client
      */
     public function hasExpired()
     {
-        $this->getLogger()->warning(sprintf(
-            'The %s method is deprecated, please use %s instead', __METHOD__, 'getTokenObject()->hasExpired()'));
+        $this->getLogger()->warning(Logger::deprecated(__METHOD__, 'getTokenObject()->hasExpired()'));
 
         return $this->getTokenObject() && $this->getTokenObject()->hasExpired();
     }
