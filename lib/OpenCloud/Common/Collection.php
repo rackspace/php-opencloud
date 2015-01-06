@@ -50,7 +50,8 @@ class Collection extends Base
      */
     public function __construct($service, $class, array $array = array())
     {
-        $service->getLogger()->deprecated(__METHOD__, 'OpenCloud\Common\Collection\CollectionBuilder');
+        $service->getLogger()->warning(sprintf(
+            'The %s method is deprecated, please use %s instead', __METHOD__, 'OpenCloud\Common\Collection\CollectionBuilder'));
 
         $this->setService($service);
 

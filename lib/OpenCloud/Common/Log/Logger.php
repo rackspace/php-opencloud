@@ -239,6 +239,10 @@ class Logger extends AbstractLogger
         }
     }
 
+    /**
+     * @deprecated use warning for deprecated messages
+     * @see http://www.php-fig.org/psr/psr-3/
+     */
     public function deprecated($method, $new)
     {
         $string = sprintf('The %s method is deprecated, please use %s instead', $method, $new);
