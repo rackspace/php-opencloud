@@ -364,6 +364,17 @@ Front-End-Https: on
                     }
                 ],
                 "type": "network"
+            },
+            {
+                "name": "rackCDN",
+                "endpoints": [
+                    {
+                        "tenantId": "123456",
+                        "publicURL": "https://global.cdn.api.rackspacecloud.com/v1.0/123456",
+                        "internalURL": "https://global.cdn.api.rackspacecloud.com/v1.0/123456"
+                    }
+                ],
+                "type": "rax:cdn"
             }
         ],
         "token": {
