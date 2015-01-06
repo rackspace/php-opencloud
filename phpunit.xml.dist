@@ -26,7 +26,7 @@
     </logging>
 
     <php>
-      <ini name="memory_limit" value="256M" />
+      <ini name="memory_limit" value="512M" />
       <ini name="zend.enable_gc" value="0" />
     </php>
 
