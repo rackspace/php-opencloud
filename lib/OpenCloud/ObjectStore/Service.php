@@ -174,7 +174,8 @@ class Service extends AbstractService
      */
     public function bulkDelete(array $paths)
     {
-        $this->getLogger()->deprecated(__METHOD__, '::batchDelete()');
+        $this->getLogger()->warning(sprintf(
+            'The %s method is deprecated, please use %s instead', __METHOD__, '::batchDelete()'));
 
         return $this->executeBatchDeleteRequest($paths);
     }

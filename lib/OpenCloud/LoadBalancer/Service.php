@@ -62,7 +62,8 @@ class Service extends NovaService
      */
     public function billableLoadBalancer($id = null)
     {
-        $this->getLogger()->deprecated(__METHOD__, 'loadBalancer');
+        $this->getLogger()->warning(sprintf(
+            'The %s method is deprecated, please use %s instead', __METHOD__, 'loadBalancer'));
 
         return $this->resource('LoadBalancer', $id);
     }
