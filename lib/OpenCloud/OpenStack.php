@@ -79,6 +79,10 @@ class OpenStack extends Client
 
     public function __construct($url, array $secret, array $options = array())
     {
+        if (isset($options['logger']) && $options['logger'] instanceof LoggerInterface) {
+            $this->setLogger($options['logger']);
+        }
+
         $this->setSecret($secret);
         $this->setAuthUrl($url);
 
@@ -284,6 +288,14 @@ class OpenStack extends Client
         }
 
         return $this->logger;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasLogger()
+    {
+        return (null !== $this->logger);
     }
 
     /**

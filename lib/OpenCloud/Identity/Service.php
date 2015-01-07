@@ -18,11 +18,13 @@
 namespace OpenCloud\Identity;
 
 use Guzzle\Http\ClientInterface;
+use OpenCloud\Common\Base;
 use OpenCloud\Common\Collection\PaginatedIterator;
 use OpenCloud\Common\Collection\ResourceIterator;
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\AbstractService;
 use OpenCloud\Identity\Constants\User as UserConst;
+use OpenCloud\OpenStack;
 
 /**
  * Class responsible for working with Rackspace's Cloud Identity service.
@@ -40,6 +42,11 @@ class Service extends AbstractService
     public static function factory(ClientInterface $client)
     {
         $identity = new self();
+
+        if (($client instanceof Base || $client instanceof OpenStack) && $client->hasLogger()) {
+            $identity->setLogger($client->getLogger());
+        }
+
         $identity->setClient($client);
         $identity->setEndpoint(clone $client->getAuthUrl());
 

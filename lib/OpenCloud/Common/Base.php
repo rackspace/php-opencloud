@@ -265,6 +265,14 @@ abstract class Base
     }
 
     /**
+     * @return bool
+     */
+    public function hasLogger()
+    {
+        return (null !== $this->logger);
+    }
+
+    /**
      * @deprecated
      */
     public function url($path = null, array $query = array())
