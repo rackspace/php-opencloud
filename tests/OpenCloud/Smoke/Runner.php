@@ -37,6 +37,7 @@ class Runner
         'Autoscale',
         'Compute',
         'CloudMonitoring',
+        'CDN',
         'DNS',
         'Database',
         'Identity',

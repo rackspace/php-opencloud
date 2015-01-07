@@ -35,6 +35,8 @@ class Image extends AbstractSchemaResource implements ImageInterface
     protected static $json_name = '';
     protected static $json_collection_name = 'images';
 
+    const PATCH_CONTENT_TYPE = 'application/openstack-images-v2.1-json-patch';
+
     /**
      * Update this resource
      *
@@ -85,7 +87,7 @@ class Image extends AbstractSchemaResource implements ImageInterface
         $body = $document->toString();
 
         return $this->getClient()
-            ->patch($this->getUrl(), $this->getService()->getPatchHeaders(), $body)
+            ->patch($this->getUrl(), $this->getPatchHeaders(), $body)
             ->send();
     }
 

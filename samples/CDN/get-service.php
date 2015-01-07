@@ -15,11 +15,20 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Common\Constants;
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-class Mime
-{
-    const JSON = 'application/json';
-    const TEXT = 'text/plain';
-    const JSON_PATCH = 'application/json-patch+json';
-}
+use OpenCloud\Rackspace;
+
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
+));
+
+// 2. Obtain an CDN service object from the client.
+$cdnService = $client->cdnService();
+
+// 3. Get service.
+$service = $cdnService->getService('{serviceId}');
+/** @var $service OpenCloud\CDN\Resource\Service **/
