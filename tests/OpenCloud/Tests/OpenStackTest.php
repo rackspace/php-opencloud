@@ -184,4 +184,39 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('{expiration}', $this->client->getExpiration());
         $this->assertEquals($randomNumericTenant, $this->client->getTenant());
     }
+
+    public function testLoggerServiceInjection()
+    {
+        // Create a new client, pass stub via constructor options argument
+        $stubLogger = $this->getMock('Psr\Log\NullLogger');
+        $client = new OpenStack(Rackspace::US_IDENTITY_ENDPOINT, $this->credentials, array(
+            'logger' => $stubLogger,
+        ));
+        $client->addSubscriber(new MockSubscriber());
+
+        // Test all OpenStack factory methods on proper Logger service injection
+        $service = $client->objectStoreService('cloudFiles', 'DFW');
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+
+        $service = $service->getCdnService();
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+
+        $service = $client->computeService('cloudServersOpenStack', 'DFW');
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+
+        $service = $client->orchestrationService(null, 'DFW');
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+
+        $service = $client->volumeService('cloudBlockStorage', 'DFW');
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+
+        $service = $client->identityService();
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+
+        $service = $client->imageService('cloudImages', 'IAD');
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+
+        $service = $client->networkingService(null, 'IAD');
+        $this->assertContains("Mock_NullLogger", get_class($service->getLogger()));
+    }
 }
