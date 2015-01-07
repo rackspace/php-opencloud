@@ -55,6 +55,11 @@ You can see in the first example that the constant `Rackspace::US_IDENTITY_ENDPO
 Rackspace's identity endpoint (`https://identity.api.rackspacecloud.com/v2.0/`). Another difference is that Rackspace
 uses API key for authentication, whereas OpenStack uses a generic password.
 
+#### 1.2 Logger injection
+As the `Rackspace` client extends the `OpenStack` client, they both support passing `$options` as an array via the constructor's third parameter. The options are passed as a config to the `Guzzle` client, but also allow to inject your own `Logger`. 
+
+Your logger should implement the `Psr\Log\LoggerInterface` [as defined in PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md). Example of a compatible logger is [`Monolog`](https://github.com/Seldaek/monolog). When the client does create a service, it will inject the logger if one is available.
+
 ### 2. Pick what service you want to use
 
 In this case, we want to use the Compute (Nova) service:
