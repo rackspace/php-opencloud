@@ -145,7 +145,11 @@ class PaginatedIterator extends ResourceIterator implements Iterator
         }
 
         $element = $this->elements[$this->position];
+        $this->setMarkerFromElement($element);
+    }
 
+    protected function setMarkerFromElement($element)
+    {
         $key = $this->getOption('key.marker');
 
         if (isset($element->$key)) {
