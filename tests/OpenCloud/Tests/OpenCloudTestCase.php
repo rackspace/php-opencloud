@@ -38,17 +38,10 @@ abstract class OpenCloudTestCase extends \PHPUnit_Framework_TestCase
 
     public function newClient()
     {
-        $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+        return new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
             'username' => 'foo',
             'apiKey'   => 'bar'
         ));
-
-        $client->addSubscriber(new MockSubscriber());
-        //$client->addSubscriber(LogPlugin::getDebugPlugin());
-
-        $client->authenticate();
-
-        return $client;
     }
 
     public function getClient()
@@ -59,6 +52,10 @@ abstract class OpenCloudTestCase extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->client = $this->newClient();
+
+        $this->client->addSubscriber(new MockSubscriber());
+        $this->client->authenticate();
+
         $this->setupObjects();
         $this->handleMockSubscribers();
     }
