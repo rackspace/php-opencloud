@@ -11,7 +11,7 @@ Users have access to two types of client: `OpenCloud\OpenStack` and `OpenCloud\R
 3. `OpenCloud\OpenStack`
 4. `OpenCloud\Rackspace`
 
-## Initializing a client
+## 1. Initializing a client
 
 ### Rackspace
 
@@ -44,7 +44,29 @@ $client = new OpenStack('http://identity.my-openstack.com/v2.0', array(
 ));
 ```
 
-## Authentication
+#### 1.2 Logger injection
+As the `Rackspace` client extends the `OpenStack` client, they both support passing `$options` as an array via the constructor's third parameter. The options are passed as a config to the `Guzzle` client, but also allow to inject your own `Logger`. 
+
+Your logger should implement the `Psr\Log\LoggerInterface` [as defined in PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md). Example of a compatible logger is [`Monolog`](https://github.com/Seldaek/monolog). When the client does create a service, it will inject the logger if one is available.
+
+To inject a `LoggerInterface` compatible logger into a new `Client`:
+
+```php
+use Monolog\Logger;
+use OpenCloud\OpenStack;
+
+// create a log channel
+$log = new Logger('name');
+
+$client = new OpenStack('http://identity.my-openstack.com/v2.0', array(
+	'username' => 'foo',
+	'password' => 'bar'
+), array(
+	'logger' => $log,
+));
+```
+
+## 2. Authentication
 
 The Client does not automatically authenticate against the API on object creation - it waits for an API call. When this happens, it checks whether the current "token" has expired, and (re-)authenticates if necessary.
 
@@ -56,7 +78,7 @@ $client->authenticate();
 
 If the credentials are incorrect, a `401` error will be returned. If credentials are correct, a `200` status is returned with your Service Catalog.
 
-## Service Catalog
+## 3. Service Catalog
 
 The Service Catalog is returned on successful authentication, and is composed of all the different API services available to the current tenant. All of this functionality is encapsulated in the `Catalog` object, which allows you greater control and interactivity.
 
@@ -86,7 +108,7 @@ foreach ($catalog->getItems() as $catalogItem) {
 
 As you can see, you have access to each Service's name, type and list of endpoints. Each endpoint provides access to the specific region, along with its public and private endpoint URLs.
 
-## Default HTTP headers
+## 4. Default HTTP headers
 
 To set default HTTP headers:
 
@@ -94,6 +116,6 @@ To set default HTTP headers:
 $client->setDefaultOption('headers/X-Custom-Header', 'FooBar');
 ```
 
-## Other functionality
+## 5. Other functionality
 
 For a full list of functionality provided by Guzzle, please consult the [official documentation](http://docs.guzzlephp.org/en/latest/http-client/client.html).

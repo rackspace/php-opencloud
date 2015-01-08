@@ -253,7 +253,7 @@ class Container extends AbstractContainer
      *                      names nested in the container are returned.
      * @link   http://api.openstack.org for a list of possible parameter
      *                      names and values
-     * @return 'OpenCloud\Common\Collection
+     * @return \OpenCloud\Common\Collection
      * @throws ObjFetchError
      */
     public function objectList(array $params = array())

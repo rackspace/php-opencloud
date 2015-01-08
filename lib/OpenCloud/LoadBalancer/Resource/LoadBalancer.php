@@ -18,6 +18,7 @@
 namespace OpenCloud\LoadBalancer\Resource;
 
 use OpenCloud\Common\Exceptions;
+use OpenCloud\Common\Log\Logger;
 use OpenCloud\Common\Resource\PersistentResource;
 use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 use OpenCloud\LoadBalancer\Enum\NodeCondition;
@@ -621,7 +622,7 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function connectionLogging()
     {
-        $this->getLogger()->deprecated(__METHOD__, 'hasConnectionLogging or enableConnectionLogging');
+        $this->getLogger()->warning(Logger::deprecated(__METHOD__, 'hasConnectionLogging or enableConnectionLogging'));
     }
 
     /**
@@ -663,7 +664,8 @@ class LoadBalancer extends PersistentResource implements HasPtrRecordsInterface
      */
     public function contentCaching()
     {
-        $this->getLogger()->deprecated(__METHOD__, 'hasContentCaching or setContentCaching');
+        $this->getLogger()->warning(sprintf(
+            'The %s method is deprecated, please use %s instead', __METHOD__, 'hasContentCaching or setContentCaching'));
     }
 
     /**

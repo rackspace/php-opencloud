@@ -24,6 +24,7 @@ use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Exceptions\InvalidArgumentError;
 use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\Common\Log\Logger;
 use OpenCloud\Common\Service\ServiceBuilder;
 use OpenCloud\ObjectStore\Constants\UrlType;
 use OpenCloud\ObjectStore\Resource\Container;
@@ -174,7 +175,7 @@ class Service extends AbstractService
      */
     public function bulkDelete(array $paths)
     {
-        $this->getLogger()->deprecated(__METHOD__, '::batchDelete()');
+        $this->getLogger()->warning(Logger::deprecated(__METHOD__, '::batchDelete()'));
 
         return $this->executeBatchDeleteRequest($paths);
     }
