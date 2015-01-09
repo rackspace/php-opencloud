@@ -79,7 +79,7 @@ class ServiceTest extends LoadBalancerTestCase
 
         // Check our assumptions
         $this->isCollection($lbs);
-        $this->assertEquals($ids, array(1,2,3,4,5));
+        $this->assertEquals($ids, array(1, 2, 3, 4, 5));
     }
 
     public function testBillableLoadBalancer()
