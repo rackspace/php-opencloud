@@ -1,0 +1,9 @@
+.. include:: ../common/rs-client.sample.rst
+
+Now, set up the Database service:
+
+.. code-block:: php
+
+  $service = $client->databaseService('{catalogName}', '{region}', '{urlType}');
+
+.. include:: ../common/service-args.rst

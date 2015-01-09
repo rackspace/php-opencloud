@@ -1,0 +1,1014 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Complete User Guide to the Object Store Service &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>The Complete User Guide to the Object Store Service</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/USERGUIDE.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="the-complete-user-guide-to-the-object-store-service">
+<h1>The Complete User Guide to the Object Store Service<a class="headerlink" href="#the-complete-user-guide-to-the-object-store-service" title="Permalink to this headline">¶</a></h1>
+<p><strong>Object Store</strong> is an object-based storage system that stores content
+and metadata as objects in a cloud.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="client">
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
+<p>To use the object store service, you must first instantiate a
+<tt class="docutils literal"><span class="pre">OpenStack</span></tt> or <tt class="docutils literal"><span class="pre">Rackspace</span></tt> client object.</p>
+<ul>
+<li><p class="first">If you are working with a vanilla OpenStack cloud, instantiate an
+<tt class="docutils literal"><span class="pre">OpenCloud\OpenStack</span></tt> client as shown below.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\OpenStack;
+
+$client = new OpenStack(&#39;&lt;OPENSTACK CLOUD IDENTITY ENDPOINT URL&gt;&#39;, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+));
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you are working with the Rackspace cloud, instantiate a
+<tt class="docutils literal"><span class="pre">OpenCloud\Rackspace</span></tt> client as shown below.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+));
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="object-store-service">
+<h3>Object Store Service<a class="headerlink" href="#object-store-service" title="Permalink to this headline">¶</a></h3>
+<p>All operations on the object store are done via an object store service
+object.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$region = &#39;DFW&#39;;
+$objectStoreService = $client-&gt;objectStoreService(null, $region);
+</pre></div>
+</div>
+<p>In the example above, you are connecting to the <tt class="docutils literal"><span class="pre">DFW</span></tt> region of the
+cloud. Any containers and objects created with this
+<tt class="docutils literal"><span class="pre">$objectStoreService</span></tt> instance will be stored in that cloud region.</p>
+</div>
+</div>
+<div class="section" id="containers">
+<h2>Containers<a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>container</strong> defines a namespace for <strong>objects</strong>. An object with the
+same name in two different containers represents two different objects.</p>
+<p>For example, you may create a container called <tt class="docutils literal"><span class="pre">logos</span></tt> to hold all the
+image files for your blog.</p>
+<p>A container may contain zero or more objects in it.</p>
+<blockquote>
+<div><strong>Note:</strong> when working with names that contain non-standard
+alphanumerical characters (such as spaces or non-English
+characters), you must ensure they are encoded with
+<tt class="docutils literal"><span class="pre">`urlencode</span></tt> &lt;<a class="reference external" href="http://php.net/urlencode">http://php.net/urlencode</a>&gt;`__ before passing them in</div></blockquote>
+<div class="section" id="create-container">
+<h3>Create Container<a class="headerlink" href="#create-container" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$container = $objectStoreService-&gt;createContainer(&#39;logos&#39;);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/create-container.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-container-details">
+<h3>Get Container Details<a class="headerlink" href="#get-container-details" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a single container&#8217;s details by using its name. An
+instance of <tt class="docutils literal"><span class="pre">OpenCloud\ObjectStore\Resource\Container</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container = $objectStoreService-&gt;getContainer(&#39;logos&#39;);
+
+/** @var $container OpenCloud\ObjectStore\Resource\Container **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-container.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="list-containers">
+<h3>List Containers<a class="headerlink" href="#list-containers" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a list of all your containers. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$containers = $objectStoreService-&gt;listContainers();
+foreach ($containers as $container) {
+    /** @var $container OpenCloud\ObjectStore\Resource\Container  **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/list-containers.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="set-or-update-container-metadata">
+<h3>Set or Update Container Metadata<a class="headerlink" href="#set-or-update-container-metadata" title="Permalink to this headline">¶</a></h3>
+<p>You can set metadata on a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;saveMetadata(array(
+    &#39;author&#39; =&gt; &#39;John Doe&#39;
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/set-container-metadata.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-container-metadata">
+<h3>Get Container Metadata<a class="headerlink" href="#get-container-metadata" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve the metadata for a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$containerMetadata = $container-&gt;getMetadata();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-container-metadata.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="delete-container">
+<h3>Delete Container<a class="headerlink" href="#delete-container" title="Permalink to this headline">¶</a></h3>
+<p>When you no longer have a need for the container, you can remove it.</p>
+<p>If the container is empty (that is, it has no objects in it), you can
+remove it as shown below:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;delete();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/delete-container.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>If the container is not empty (that is, it has objects in it), you have
+two choices in how to remove it:</p>
+<ul>
+<li><p class="first"><a class="reference external" href="#delete-object">Individually remove each object</a> in the
+container, then remove the container itself as shown above, or</p>
+</li>
+<li><p class="first">Remove the container and all the objects within it as shown below:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;delete(true);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/delete-container-recursive.php">Get the executable PHP script for this
+example</a> ]</p>
+</li>
+</ul>
+</div>
+<div class="section" id="get-object-count">
+<h3>Get Object Count<a class="headerlink" href="#get-object-count" title="Permalink to this headline">¶</a></h3>
+<p>You can quickly find out how many objects are in a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$containerObjectCount = $container-&gt;getObjectCount();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-container-object-count.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, <tt class="docutils literal"><span class="pre">$containerObjectCount</span></tt> will contain the number
+of objects in the container represented by <tt class="docutils literal"><span class="pre">$container</span></tt>.</p>
+</div>
+<div class="section" id="get-bytes-used">
+<h3>Get Bytes Used<a class="headerlink" href="#get-bytes-used" title="Permalink to this headline">¶</a></h3>
+<p>You can quickly find out the space used by a container, in bytes.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$containerSizeInBytes = $container-&gt;getBytesUsed();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-container-bytes-used.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, <tt class="docutils literal"><span class="pre">$containerSizeInBytes</span></tt> will contain the space
+used, in bytes, by the container represented by <tt class="docutils literal"><span class="pre">$container</span></tt>.</p>
+</div>
+<div class="section" id="container-quotas">
+<h3>Container Quotas<a class="headerlink" href="#container-quotas" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="set-quota-for-number-of-objects">
+<h4>Set Quota for Number of Objects<a class="headerlink" href="#set-quota-for-number-of-objects" title="Permalink to this headline">¶</a></h4>
+<p>You can set a quota for the maximum number of objects that may be stored
+in a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$maximumNumberOfObjectsAllowedInContainer = 25;
+$container-&gt;setCountQuota($maximumNumberOfObjectsAllowedInContainer);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/set-container-count-quota.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="set-quota-for-total-size-of-objects">
+<h4>Set Quota for Total Size of Objects<a class="headerlink" href="#set-quota-for-total-size-of-objects" title="Permalink to this headline">¶</a></h4>
+<p>You can set a quota for the maximum total space (in bytes) used by
+objects in a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Constants\Size;
+
+$maximumTotalSizeOfObjectsInContainer = 5 * Size::GB;
+$container-&gt;setBytesQuota($maximumTotalSizeOfObjectsInContainer);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/set-container-bytes-quota.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-quota-for-number-of-objects">
+<h4>Get Quota for Number of Objects<a class="headerlink" href="#get-quota-for-number-of-objects" title="Permalink to this headline">¶</a></h4>
+<p>You can retrieve the quota for the maximum number of objects that may be
+stored in a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$maximumNumberOfObjectsAllowedInContainer = $container-&gt;getCountQuota();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-container-count-quota.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-quota-for-total-size-of-objects">
+<h4>Get Quota for Total Size of Objects<a class="headerlink" href="#get-quota-for-total-size-of-objects" title="Permalink to this headline">¶</a></h4>
+<p>You can retrieve the quota for the maximum total space (in bytes) used
+by objects in a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$maximumTotalSizeOfObjectsAllowedInContainer = $container-&gt;getBytesQuota();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-container-bytes-quota.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+</div>
+<div class="section" id="objects">
+<h2>Objects<a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h2>
+<p>An <strong>object</strong> (sometimes referred to as a file) is the unit of storage
+in an Object Store. An object is a combination of content (data) and
+metadata.</p>
+<p>For example, you may upload an object named <tt class="docutils literal"><span class="pre">php-elephant.jpg</span></tt>, a JPEG
+image file, to the <tt class="docutils literal"><span class="pre">logos</span></tt> container. Further, you may assign metadata
+to this object to indicate that the author of this object was someone
+named Jane Doe.</p>
+<blockquote>
+<div><strong>Note:</strong> when working with names that contain non-standard
+alphanumerical characters (such as spaces or non-English
+characters), you must ensure they are encoded with
+<tt class="docutils literal"><span class="pre">`urlencode</span></tt> &lt;<a class="reference external" href="http://php.net/urlencode">http://php.net/urlencode</a>&gt;`__ before passing them in</div></blockquote>
+<div class="section" id="upload-object">
+<h3>Upload Object<a class="headerlink" href="#upload-object" title="Permalink to this headline">¶</a></h3>
+<p>Once you have created a container, you can upload objects to it.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$localFileName  = &#39;/path/to/local/php-elephant.jpg&#39;;
+$remoteFileName = &#39;php-elephant.jpg&#39;;
+
+$fileData = fopen($localFileName, &#39;r&#39;);
+$container-&gt;uploadObject($remoteFileName, $fileData);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/upload-object.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, an image file from the local filesystem
+(<tt class="docutils literal"><span class="pre">path/to/local/php-elephant.jpg</span></tt>) is uploaded to a container in the
+Object Store.</p>
+<p>Note that while we call <tt class="docutils literal"><span class="pre">fopen</span></tt> to open the file resource, we do not
+call <tt class="docutils literal"><span class="pre">fclose</span></tt> at the end. The file resource is automatically closed
+inside the <tt class="docutils literal"><span class="pre">uploadObject</span></tt> call.</p>
+<p>It is also possible to upload an object and associate metadata with it.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\ObjectStore\Resource\DataObject;
+
+$localFileName  = &#39;/path/to/local/php-elephant.jpg&#39;;
+$remoteFileName = &#39;php-elephant.jpg&#39;;
+$metadata = array(&#39;author&#39; =&gt; &#39;Jane Doe&#39;);
+
+$customHeaders = array();
+$metadataHeaders = DataObject::stockHeaders($metadata);
+$allHeaders = $customHeaders + $metadataHeaders;
+
+$fileData = fopen($localFileName, &#39;r&#39;);
+$container-&gt;uploadObject($remoteFileName, $fileData, $allHeaders);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/upload-object-with-metadata.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>Note that while we call <tt class="docutils literal"><span class="pre">fopen</span></tt> to open the file resource, we do not
+call <tt class="docutils literal"><span class="pre">fclose</span></tt> at the end. The file resource is automatically closed
+inside the <tt class="docutils literal"><span class="pre">uploadObject</span></tt> call.</p>
+<div class="section" id="pseudo-hierarchical-folders">
+<h4>Pseudo-hierarchical Folders<a class="headerlink" href="#pseudo-hierarchical-folders" title="Permalink to this headline">¶</a></h4>
+<p>Although you cannot nest directories in an Object Store, you can
+simulate a hierarchical structure within a single container by adding
+forward slash characters (<tt class="docutils literal"><span class="pre">/</span></tt>) in the object name.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$localFileName  = &#39;/path/to/local/php-elephant.jpg&#39;;
+$remoteFileName = &#39;languages/php/elephant.jpg&#39;;
+
+$fileData = fopen($localFileName, &#39;r&#39;);
+$container-&gt;uploadObject($remoteFileName, $fileData);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/pseudo-hierarchical-folders.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, an image file from the local filesystem
+(<tt class="docutils literal"><span class="pre">/path/to/local/php-elephant.jpg</span></tt>) is uploaded to a container in the
+Object Store. Within that container, the filename is
+<tt class="docutils literal"><span class="pre">languages/php/elephant.jpg</span></tt>, where <tt class="docutils literal"><span class="pre">languages/php/</span></tt> is a
+pseudo-hierarchical folder hierarchy.</p>
+<p>Note that while we call <tt class="docutils literal"><span class="pre">fopen</span></tt> to open the file resource, we do not
+call <tt class="docutils literal"><span class="pre">fclose</span></tt> at the end. The file resource is automatically closed
+inside the <tt class="docutils literal"><span class="pre">uploadObject</span></tt> call.</p>
+</div>
+<div class="section" id="upload-multiple-objects">
+<h4>Upload Multiple Objects<a class="headerlink" href="#upload-multiple-objects" title="Permalink to this headline">¶</a></h4>
+<p>You can upload more than one object at a time to a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$objects = array(
+    array(
+        &#39;name&#39; =&gt; &#39;php-elephant.jpg&#39;,
+        &#39;path&#39;   =&gt; &#39;/path/to/local/php-elephant.jpg&#39;
+    ),
+    array(
+        &#39;name&#39; =&gt; &#39;python-snake.jpg&#39;,
+        &#39;path&#39;   =&gt; &#39;/path/to/local/python-snake.jpg&#39;
+    ),
+    a
+);
+
+$container-&gt;uploadObjects($objects);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/upload-multiple-objects.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the above example, the contents of two files present on the local
+filesystem are uploaded as objects to the container referenced by
+<tt class="docutils literal"><span class="pre">$container</span></tt>.</p>
+<p>Instead of specifying the <tt class="docutils literal"><span class="pre">path</span></tt> key in an element of the <tt class="docutils literal"><span class="pre">$objects</span></tt>
+array, you can specify a <tt class="docutils literal"><span class="pre">body</span></tt> key whose value is a string or a
+stream representation.</p>
+<p>Finally, you can pass headers as the second parameter to the
+<tt class="docutils literal"><span class="pre">uploadObjects</span></tt> method. These headers will be applied to every object
+that is uploaded.</p>
+<div class="highlight-python"><div class="highlight"><pre>$metadata = array(&#39;author&#39; =&gt; &#39;Jane Doe&#39;);
+
+$customHeaders = array();
+$metadataHeaders = DataObject::stockHeaders($metadata);
+$allHeaders = $customHeaders + $metadataHeaders;
+
+$container-&gt;uploadObjects($objects, $allHeaders);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/upload-multiple-objects-with-metadata.php">Get the executable PHP script for this
+example</a>
+]</p>
+<p>In the example above, every object referenced within the <tt class="docutils literal"><span class="pre">$objects</span></tt>
+array will be uploaded with the same metadata.</p>
+</div>
+</div>
+<div class="section" id="large-objects">
+<h3>Large Objects<a class="headerlink" href="#large-objects" title="Permalink to this headline">¶</a></h3>
+<p>If you want to upload objects larger than 5GB in size, you must use a
+different upload process.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$options = array(
+    &#39;name&#39; =&gt; &#39;san_diego_vacation_video.mp4&#39;,
+    &#39;path&#39;   =&gt; &#39;/path/to/local/videos/san_diego_vacation.mp4&#39;
+);
+$objectTransfer = $container-&gt;setupObjectTransfer($options);
+$objectTransfer-&gt;upload();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/upload-large-object.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>The process shown above will automatically partition your large object
+into small chunks and upload them concurrently to the container
+represented by <tt class="docutils literal"><span class="pre">$container</span></tt>.</p>
+<p>You can tune the parameters of this process by specifying additional
+options in the <tt class="docutils literal"><span class="pre">$options</span></tt> array. Here is a complete listing of keys
+that can be specified in the <tt class="docutils literal"><span class="pre">$options</span></tt> array:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="58%" />
+<col width="9%" />
+<col width="9%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key name</th>
+<th class="head">Description</th>
+<th class="head">Data Type</th>
+<th class="head">Required?</th>
+<th class="head">Default Value</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>Name of large object in container</td>
+<td>String</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">san_diego_vacation_video.mp4</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">path</span></tt></td>
+<td>Path to file containing object data on local filesystem</td>
+<td>String</td>
+<td>One of <tt class="docutils literal"><span class="pre">path</span></tt> or <tt class="docutils literal"><span class="pre">body</span></tt> must be specified</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">/path/to/local/videos/san_diego_vacation.mp4</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">body</span></tt></td>
+<td>String or stream representation of object data</td>
+<td>String | Stream</td>
+<td>One of <tt class="docutils literal"><span class="pre">path</span></tt> or <tt class="docutils literal"><span class="pre">body</span></tt> must be specified</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">...</span> <span class="pre">lots</span> <span class="pre">of</span> <span class="pre">data</span> <span class="pre">...</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">metadata</span></tt></td>
+<td>Metadata for the object</td>
+<td>Associative array of metadata key-value pairs</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">array()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">array(</span> <span class="pre">&quot;Author&quot;</span> <span class="pre">=&gt;</span> <span class="pre">&quot;Jane</span> <span class="pre">Doe&quot;</span> <span class="pre">)</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">partSize</span></tt></td>
+<td>The size, in bytes, of each chunk that the large object is partitioned into prior to uploading</td>
+<td>Integer</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">1073741824</span></tt> (1GB)</td>
+<td><tt class="docutils literal"><span class="pre">52428800</span></tt> (50MB)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">concurrency</span></tt></td>
+<td>The number of concurrent transfers to execute as part of the upload</td>
+<td>Integer</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">1</span></tt> (no concurrency; upload chunks serially)</td>
+<td><tt class="docutils literal"><span class="pre">10</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">progress</span></tt></td>
+<td>A <a class="reference external" href="http://us1.php.net/manual/en/language.types.callable.php">callable function or method</a> which is called to report progress of the the upload. See <tt class="docutils literal"><span class="pre">`CURLOPT_PROGRESSFUNCTION</span></tt> documentation &lt;<a class="reference external" href="http://us2.php.net/curl_setopt">http://us2.php.net/curl_setopt</a>&gt;`__ for details on parameters passed to this callable function or method.</td>
+<td>String (callable function or method name)</td>
+<td>No</td>
+<td>None</td>
+<td><tt class="docutils literal"><span class="pre">reportProgress</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="auto-extract-archive-files">
+<h3>Auto-extract Archive Files<a class="headerlink" href="#auto-extract-archive-files" title="Permalink to this headline">¶</a></h3>
+<p>You can upload a tar archive file and have the Object Store service
+automatically extract it into a container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\ObjectStore\Constants\UrlType;
+
+$localArchiveFileName  = &#39;/path/to/local/image_files.tar.gz&#39;;
+$remotePath = &#39;images/&#39;;
+
+$fileData = fopen($localArchiveFileName, &#39;r&#39;);
+$objectStoreService-&gt;bulkExtract($remotePath, $fileData, UrlType::TAR_GZ);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/auto-extract-archive-files.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the above example, a local archive file named <tt class="docutils literal"><span class="pre">image_files.tar.gz</span></tt>
+is uploaded to an Object Store container named <tt class="docutils literal"><span class="pre">images</span></tt> (defined by
+the <tt class="docutils literal"><span class="pre">$remotePath</span></tt> variable).</p>
+<p>Note that while we call <tt class="docutils literal"><span class="pre">fopen</span></tt> to open a file resource, we do not
+call <tt class="docutils literal"><span class="pre">fclose</span></tt> at the end. The file resource is automatically closed
+inside the <tt class="docutils literal"><span class="pre">bulkExtract</span></tt> call.</p>
+<p>The third parameter to <tt class="docutils literal"><span class="pre">bulkExtract</span></tt> is the type of the archive file
+being uploaded. The acceptable values for this are:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">UrlType::TAR</span></tt> for tar archive files, <em>or</em>,</li>
+<li><tt class="docutils literal"><span class="pre">UrlType:TAR_GZ</span></tt> for tar archive files that are compressed with
+gzip, <em>or</em></li>
+<li><tt class="docutils literal"><span class="pre">UrlType::TAR_BZ</span></tt> for tar archive file that are compressed with
+bzip</li>
+</ul>
+<p>Note that the value of <tt class="docutils literal"><span class="pre">$remotePath</span></tt> could have been a
+(pseudo-hierarchical folder)[#pseudo-hierarchical-folders] such as
+<tt class="docutils literal"><span class="pre">images/blog</span></tt> as well.</p>
+</div>
+<div class="section" id="list-objects-in-a-container">
+<h3>List Objects in a Container<a class="headerlink" href="#list-objects-in-a-container" title="Permalink to this headline">¶</a></h3>
+<p>You can list all the objects stored in a container. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$objects = $container-&gt;objectList();
+foreach ($objects as $object) {
+    /** @var $object OpenCloud\ObjectStore\Resource\DataObject  **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/list-objects.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>You can list only those objects in the container whose names start with
+a certain prefix.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$options = array(
+    &#39;prefix&#39; =&gt; &#39;php&#39;
+);
+
+$objects = $container-&gt;objectList($options);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/list-objects-with-prefix.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In general, the <tt class="docutils literal"><span class="pre">objectList()</span></tt> method described above takes an
+optional parameter (<tt class="docutils literal"><span class="pre">$options</span></tt> in the example above). This parameter
+is an associative array of various options. Here is a complete listing
+of keys that can be specified in the <tt class="docutils literal"><span class="pre">$options</span></tt> array:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="47%" />
+<col width="8%" />
+<col width="8%" />
+<col width="10%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Key name</th>
+<th class="head">Description</th>
+<th class="head">Data Type</th>
+<th class="head">Required?</th>
+<th class="head">Default Value</th>
+<th class="head">Example</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">prefix</span></tt></td>
+<td>Given a string x, limits the results to object names beginning with x.</td>
+<td>String</td>
+<td>No</td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal"><span class="pre">php</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">limit</span></tt></td>
+<td>Given an integer n, limits the number of results to at most n values.</td>
+<td>Integer</td>
+<td>No</td>
+<td>&nbsp;</td>
+<td>10</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">marker</span></tt></td>
+<td>Given a string x, returns object names greater than the specified marker.</td>
+<td>String</td>
+<td>No</td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal"><span class="pre">php-elephant.jpg</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">end_marker</span></tt></td>
+<td>Given a string x, returns object names less than the specified marker.</td>
+<td>String</td>
+<td>No</td>
+<td>&nbsp;</td>
+<td><tt class="docutils literal"><span class="pre">python-snakes.jpg</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="retrieve-object">
+<h3>Retrieve Object<a class="headerlink" href="#retrieve-object" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve an object and its metadata, given the object&#8217;s
+container and name.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$objectName = &#39;php-elephant.jpg&#39;;
+$object = $container-&gt;getObject($objectName);
+
+/** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
+
+$objectContent = $object-&gt;getContent();
+
+/** @var $objectContent Guzzle\Http\EntityBody **/
+
+// Write object content to file on local filesystem.
+$objectContent-&gt;rewind();
+$stream = $objectContent-&gt;getStream();
+$localFilename = tempnam(&quot;/tmp&quot;, &#39;php-opencloud-&#39;);
+file_put_contents($localFilename, $stream);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-object.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, <tt class="docutils literal"><span class="pre">$object</span></tt> is the object named
+<tt class="docutils literal"><span class="pre">php-elephant.jpg</span></tt> in the container represented by <tt class="docutils literal"><span class="pre">$container</span></tt>.
+Further, <tt class="docutils literal"><span class="pre">$objectContent</span></tt> represents the contents of the object. It is
+of type
+<tt class="docutils literal"><span class="pre">`Guzzle\Http\EntityBody</span></tt> &lt;<a class="reference external" href="http://api.guzzlephp.org/class-Guzzle.Http.EntityBody.html">http://api.guzzlephp.org/class-Guzzle.Http.EntityBody.html</a>&gt;`__.</p>
+</div>
+<div class="section" id="retrieve-object-metadata">
+<h3>Retrieve Object Metadata<a class="headerlink" href="#retrieve-object-metadata" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve just an object&#8217;s metadata without retrieving its
+contents.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$objectName = &#39;php-elephant.jpg&#39;;
+$object = $container-&gt;getPartialObject($objectName);
+$objectMetadata = $object-&gt;getMetadata();
+
+/** @var $objectMetadata \OpenCloud\Common\Metadata **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-object-metadata.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, while <tt class="docutils literal"><span class="pre">$object</span></tt> is an instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\ObjectStore\Resource\DataObject</span></tt>, that instance is only
+partially populated. Specifically, only properties of the instance
+relating to object metadata are populated.</p>
+</div>
+<div class="section" id="temporary-urls">
+<h3>Temporary URLs<a class="headerlink" href="#temporary-urls" title="Permalink to this headline">¶</a></h3>
+<p>The Temporary URL feature allows you to create limited-time Internet
+addresses that allow you to grant limited access to your Object Store
+account. Using this feature, you can allow others to retrieve or place
+objects in your Object Store account for a specified amount of time.
+Access to the temporary URL is independent of whether or not your
+account is <a class="reference external" href="#cdn-containers">CDN-enabled</a>. Even if you do not
+CDN-enable a container, you can still grant temporary public access
+through a temporary URL.</p>
+<p>First, you must set the temporary URL secret on your account. This is a
+one-time operation; you only need to perform it the very first time you
+wish to use the temporary URLs feature.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$account-&gt;setTempUrlSecret();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/set-account-temp-url-secret.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>Note that this operation is carried out on <tt class="docutils literal"><span class="pre">$account</span></tt>, which is an
+instance of <tt class="docutils literal"><span class="pre">OpenCloud\ObjectStore\Resource\Account</span></tt>, a class
+representing <a class="reference external" href="#accounts">your object store account</a>.</p>
+<p>The above operation will generate a random secret and set it on your
+account. Instead of a random secret, if you wish to provide a secret,
+you can supply it as a parameter to the <tt class="docutils literal"><span class="pre">setTempUrlSecret</span></tt> method.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$account-&gt;setTempUrlSecret(&#39;&lt;SOME SECRET STRING&gt;&#39;);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/set-account-temp-url-secret-specified.php">Get the executable PHP script for this
+example</a>
+]</p>
+<p>Once a temporary URL secret has been set on your account, you can
+generate a temporary URL for any object in your Object Store.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$expirationTimeInSeconds = 3600; // one hour from now
+$httpMethodAllowed = &#39;GET&#39;;
+$tempUrl = $object-&gt;getTemporaryUrl($expirationTimeInSeconds, $httpMethodAllowed);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-object-temporary-url.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, a temporary URL for the object is generated. This
+temporary URL will provide public access to the object for an hour (3600
+seconds), as specified by the <tt class="docutils literal"><span class="pre">$expirationTimeInSeconds</span></tt> variable.
+Further, only GET HTTP methods will be allowed on this URL, as specified
+by the <tt class="docutils literal"><span class="pre">$httpMethodAllowed</span></tt> variable. The other value allowed for the
+<tt class="docutils literal"><span class="pre">$httpMethodAllowed</span></tt> variable would be <tt class="docutils literal"><span class="pre">PUT</span></tt>.</p>
+<p>You can also retrieve the temporary URL secret that has been set on your
+account.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$tempUrlSecret = $account-&gt;getTempUrlSecret();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-account-temp-url-secret.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="update-object">
+<h3>Update Object<a class="headerlink" href="#update-object" title="Permalink to this headline">¶</a></h3>
+<p>You can update an object&#8217;s contents (as opposed to <a class="reference external" href="#update-object-metadata">updating its
+metadata</a>) by simply re-<a class="reference external" href="#upload-object">uploading the
+object</a> to its container using the same object name
+as before.</p>
+</div>
+<div class="section" id="update-object-metadata">
+<h3>Update Object Metadata<a class="headerlink" href="#update-object-metadata" title="Permalink to this headline">¶</a></h3>
+<p>You can update an object&#8217;s metadata after it has been uploaded to a
+container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;saveMetadata(array(
+    &#39;author&#39; =&gt; &#39;John Doe&#39;
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/update-object-metadata.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="copy-object">
+<h3>Copy Object<a class="headerlink" href="#copy-object" title="Permalink to this headline">¶</a></h3>
+<p>You can copy an object from one container to another, provided the
+destination container already exists.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;copy(&#39;logos_copy/php.jpg&#39;);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/copy-object.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, both the name of the destination container
+(<tt class="docutils literal"><span class="pre">logos_copy</span></tt>)and the name of the destination object (<tt class="docutils literal"><span class="pre">php.jpg</span></tt>)
+have to be specified, separated by a <tt class="docutils literal"><span class="pre">/</span></tt>.</p>
+</div>
+<div class="section" id="delete-object">
+<h3>Delete Object<a class="headerlink" href="#delete-object" title="Permalink to this headline">¶</a></h3>
+<p>When you no longer need an object, you can delete it.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;delete();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/delete-object.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="bulk-delete">
+<h3>Bulk Delete<a class="headerlink" href="#bulk-delete" title="Permalink to this headline">¶</a></h3>
+<p>While you can delete individual objects as shown above, you can also
+delete objects and empty containers in bulk.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$objectStoreService-&gt;bulkDelete(array(
+    &#39;logos/php-elephant.png&#39;,
+    &#39;logos/python-snakes.png&#39;,
+    &#39;some_empty_container&#39;
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/bulk-delete.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, two objects (<tt class="docutils literal"><span class="pre">some_container/object_a.png</span></tt>,
+<tt class="docutils literal"><span class="pre">some_other_container/object_z.png</span></tt>) and one empty container
+(<tt class="docutils literal"><span class="pre">some_empty_container</span></tt>) are all being deleted in bulk via a single
+command.</p>
+</div>
+</div>
+<div class="section" id="cdn-containers">
+<h2>CDN Containers<a class="headerlink" href="#cdn-containers" title="Permalink to this headline">¶</a></h2>
+<p>Note: The functionality described in this section is available only on
+the Rackspace cloud. It will not work as described when working with a
+vanilla OpenStack cloud.</p>
+<p>Any container can be converted to a CDN-enabled container. When this is
+done, the objects within the container can be accessed from anywhere on
+the Internet via a URL.</p>
+<div class="section" id="enable-cdn-container">
+<h3>Enable CDN Container<a class="headerlink" href="#enable-cdn-container" title="Permalink to this headline">¶</a></h3>
+<p>To take advantage of CDN capabilities for a container and its objects,
+you must CDN-enable that container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;enableCdn();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/enable-container-cdn.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="public-urls">
+<h3>Public URLs<a class="headerlink" href="#public-urls" title="Permalink to this headline">¶</a></h3>
+<p>Once you have CDN-enabled a container, you can retrieve a
+publicly-accessible URL for any of its objects. There are four types of
+publicly-accessible URLs for each object. Each type of URL is meant for
+a different purpose. The sections below describe each of these URL types
+and how to retrieve them.</p>
+<div class="section" id="http-url">
+<h4>HTTP URL<a class="headerlink" href="#http-url" title="Permalink to this headline">¶</a></h4>
+<p>You can use this type of URL to access the object over HTTP.</p>
+<div class="highlight-python"><div class="highlight"><pre>$httpUrl = $object-&gt;getPublicUrl();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-cdn-object-http-url.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="secure-http-url">
+<h4>Secure HTTP URL<a class="headerlink" href="#secure-http-url" title="Permalink to this headline">¶</a></h4>
+<p>You can use this type of URL to access the object over HTTP + TLS/SSL.</p>
+<div class="highlight-python"><div class="highlight"><pre>use OpenCloud\ObjectStore\Constants\UrlType;
+
+$httpsUrl = $object-&gt;getPublicUrl(UrlType::SSL);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-cdn-object-https-url.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="streaming-url">
+<h4>Streaming URL<a class="headerlink" href="#streaming-url" title="Permalink to this headline">¶</a></h4>
+<p>You can use this type of URL to stream a video or audio object using
+Adobe&#8217;s HTTP Dynamic Streaming.</p>
+<div class="highlight-python"><div class="highlight"><pre>use OpenCloud\ObjectStore\Constants\UrlType;
+
+$streamingUrl = $object-&gt;getPublicUrl(UrlType::STREAMING);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-cdn-object-streaming-url.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="ios-streaming-url">
+<h4>IOS Streaming URL<a class="headerlink" href="#ios-streaming-url" title="Permalink to this headline">¶</a></h4>
+<p>You can use this type of URL to stream an audio or video object to an
+iOS device.</p>
+<div class="highlight-python"><div class="highlight"><pre>use OpenCloud\ObjectStore\Constants\UrlType;
+
+$iosStreamingUrl = $object-&gt;getPublicUrl(UrlType::IOS_STREAMING);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-cdn-object-ios-streaming-url.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="update-cdn-container-ttl">
+<h3>Update CDN Container TTL<a class="headerlink" href="#update-cdn-container-ttl" title="Permalink to this headline">¶</a></h3>
+<p>You can update the TTL of a CDN-enabled container.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$cdnContainer = $container-&gt;getCdn();
+$cdnContainer-&gt;setTtl(&lt;NEW TTL, IN SECONDS&gt;);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/set-cdn-container-ttl.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="disable-cdn-container">
+<h3>Disable CDN Container<a class="headerlink" href="#disable-cdn-container" title="Permalink to this headline">¶</a></h3>
+<p>If you no longer need CDN capabilities for a container, you can disable
+them.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;disableCdn();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/disable-container-cdn.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="accounts">
+<h2>Accounts<a class="headerlink" href="#accounts" title="Permalink to this headline">¶</a></h2>
+<p>An <strong>account</strong> defines a namespace for <strong>containers</strong>. An account can
+have zero or more containers in it.</p>
+<div class="section" id="retrieve-account">
+<h3>Retrieve Account<a class="headerlink" href="#retrieve-account" title="Permalink to this headline">¶</a></h3>
+<p>You must retrieve the account before performing any operations on it.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$account = $objectStoreService-&gt;getAccount();
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-container-count">
+<h3>Get Container Count<a class="headerlink" href="#get-container-count" title="Permalink to this headline">¶</a></h3>
+<p>You can quickly find out how many containers are in your account.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$accountContainerCount = $account-&gt;getContainerCount();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-account-container-count.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="id1">
+<h3>Get Object Count<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>You can quickly find out how many objects are in your account.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$accountObjectCount = $account-&gt;getObjectCount();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-account-object-count.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, <tt class="docutils literal"><span class="pre">$accountObjectCount</span></tt> will contain the number of
+objects in the account represented by <tt class="docutils literal"><span class="pre">$account</span></tt>.</p>
+</div>
+<div class="section" id="id2">
+<h3>Get Bytes Used<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>You can quickly find out the space used by your account, in bytes.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$accountSizeInBytes = $account-&gt;getBytesUsed();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/get-account-bytes-used.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>In the example above, <tt class="docutils literal"><span class="pre">$accountSizeInBytes</span></tt> will contain the space
+used, in bytes, by the account represented by <tt class="docutils literal"><span class="pre">$account</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

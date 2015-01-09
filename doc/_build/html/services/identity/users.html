@@ -1,0 +1,464 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Users &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Identity v2" href="index.html"/>
+        <link rel="next" title="Tenants" href="tenants.html"/>
+        <link rel="prev" title="Tokens" href="tokens.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Identity v2</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#setup">Setup</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Identity v2</a> &raquo;</li>
+      
+    <li>Users</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/identity/users.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="users">
+<h1>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="object-properties-methods">
+<h2>Object properties/methods<a class="headerlink" href="#object-properties-methods" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="65%" />
+<col width="9%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Description</th>
+<th class="head">Getter</th>
+<th class="head">Setter</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>The unique ID for this user</td>
+<td><tt class="docutils literal"><span class="pre">getId()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setId()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>username</td>
+<td>Username for this user</td>
+<td><tt class="docutils literal"><span class="pre">getUsername()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setUsername()</span></tt></td>
+</tr>
+<tr class="row-even"><td>email</td>
+<td>User&#8217;s email address</td>
+<td><tt class="docutils literal"><span class="pre">getEmail()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setEmail()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>enabled</td>
+<td>Whether or not this user can consume API functionality</td>
+<td><tt class="docutils literal"><span class="pre">getEnabled()</span></tt> or <tt class="docutils literal"><span class="pre">isEnabled()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setEnabled()</span></tt></td>
+</tr>
+<tr class="row-even"><td>password</td>
+<td>Either a user-defined string, or an automatically generated one, that provides security when authenticating.</td>
+<td><tt class="docutils literal"><span class="pre">getPassword()</span></tt> only valid on creation</td>
+<td><tt class="docutils literal"><span class="pre">setPassword()</span></tt> to set local property only. To set password on API (retention), use <tt class="docutils literal"><span class="pre">updatePassword()</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>defaultRegion</td>
+<td>Default region associates a user with a specific regional datacenter. If a default region has been assigned for this user and that user has <strong>NOT</strong> explicitly specified a region when creating a service object, the user will obtain the service from the default region.</td>
+<td><tt class="docutils literal"><span class="pre">getDefaultRegion()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setDefaultRegion()</span></tt></td>
+</tr>
+<tr class="row-even"><td>domainId</td>
+<td>Domain ID associates a user with a specific domain which was assigned when the user was created or updated. A domain establishes an administrative boundary for a customer and a container for a customer&#8217;s tenants (accounts) and users. Generally, a domainId is the same as the primary tenant id of your cloud account.</td>
+<td><tt class="docutils literal"><span class="pre">getDomainId()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setDomainId()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="list-users">
+<h2>List users<a class="headerlink" href="#list-users" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$users</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getUsers</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$users</span> <span class="k">as</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/list_users.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="retrieve-a-user-by-username">
+<h2>Retrieve a user by username<a class="headerlink" href="#retrieve-a-user-by-username" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$user</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getUser</span><span class="p">(</span><span class="s1">&#39;jamie&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/get_user_by_name.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="retrieve-a-user-by-user-id">
+<h2>Retrieve a user by user ID<a class="headerlink" href="#retrieve-a-user-by-user-id" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Identity\Constants\User</span> <span class="k">as</span> <span class="nx">UserConst</span><span class="p">;</span>
+
+<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getUser</span><span class="p">(</span><span class="s1">&#39;{userId}&#39;</span><span class="p">,</span> <span class="nx">UserConst</span><span class="o">::</span><span class="na">MODE_ID</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/get_user_by_id.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="retrieve-a-user-by-email-address">
+<h2>Retrieve a user by email address<a class="headerlink" href="#retrieve-a-user-by-email-address" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Identity\Constants\User</span> <span class="k">as</span> <span class="nx">UserConst</span><span class="p">;</span>
+
+<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getUser</span><span class="p">(</span><span class="s1">&#39;{emailAddress}&#39;</span><span class="p">,</span> <span class="nx">UserConst</span><span class="o">::</span><span class="na">MODE_EMAIL</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/get_user_by_email.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="create-user">
+<h2>Create user<a class="headerlink" href="#create-user" title="Permalink to this headline">¶</a></h2>
+<p>There are a few things to bear in mind when creating a user:</p>
+<ul class="simple">
+<li>This operation is available only to users who hold the
+<tt class="docutils literal"><span class="pre">identity:user-admin</span></tt> role. This admin can create a user who holds
+the <tt class="docutils literal"><span class="pre">identity:default</span></tt> user role.</li>
+<li>The created user <strong>will</strong> have access to APIs but <strong>will not</strong> have
+access to the Cloud Control Panel.</li>
+<li>A maximum of 100 account users can be added per account.</li>
+<li>If you attempt to add a user who already exists, an HTTP error 409
+results.</li>
+</ul>
+<p>The <tt class="docutils literal"><span class="pre">username</span></tt> and <tt class="docutils literal"><span class="pre">email</span></tt> properties are required for creating a
+user. Providing a <tt class="docutils literal"><span class="pre">password</span></tt> is optional; if omitted, one will be
+automatically generated and provided in the response.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">Guzzle\Http\Exception\ClientErrorResponseException</span><span class="p">;</span>
+
+ <span class="nv">$user</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">createUser</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;newUser&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;email&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;foo@bar.com&#39;</span>
+ <span class="p">));</span>
+
+<span class="c1">// show generated password</span>
+<span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">getPassword</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/add_user.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="update-user">
+<h2>Update user<a class="headerlink" href="#update-user" title="Permalink to this headline">¶</a></h2>
+<p>When updating a user, specify which attribute/property you want to
+update:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+   <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new_email@bar.com&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-a-user-password">
+<h2>Updating a user password<a class="headerlink" href="#updating-a-user-password" title="Permalink to this headline">¶</a></h2>
+<p>Updating a user password requires calling a distinct method:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">updatePassword</span><span class="p">(</span><span class="s1">&#39;password123&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-user">
+<h2>Delete user<a class="headerlink" href="#delete-user" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/delete_user.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="list-credentials">
+<h2>List credentials<a class="headerlink" href="#list-credentials" title="Permalink to this headline">¶</a></h2>
+<p>This operation allows you to see your non-password credential types for
+all authentication methods available.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$creds</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">getOtherCredentials</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-user-api-key">
+<h2>Get user API key<a class="headerlink" href="#get-user-api-key" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">getApiKey</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reset-user-api-key">
+<h2>Reset user API key<a class="headerlink" href="#reset-user-api-key" title="Permalink to this headline">¶</a></h2>
+<p>When resetting an API key, a new one will be automatically generated for
+you:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">resetApiKey</span><span class="p">();</span>
+<span class="k">echo</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">getApiKey</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/reset_api_key.php">Get the executable PHP script for this example</a></p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tenants.html" class="btn btn-neutral float-right" title="Tenants"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tokens.html" class="btn btn-neutral" title="Tokens"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Migrating containers (across regions) &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Migrating containers (across regions)</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/Migrating.md.storage.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="migrating-containers-across-regions">
+<h1>Migrating containers (across regions)<a class="headerlink" href="#migrating-containers-across-regions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Currently, there exists no single API operation to copy containers
+across geographic endpoints. Although the API offers a <tt class="docutils literal"><span class="pre">COPY</span></tt>
+operation for individual files, this does not work for cross-region
+copying. The SDK, however, does offer this functionality.</p>
+<p>You <strong>will</strong> be charged for bandwidth between regions, so it&#8217;s advisable
+to use ServiceNet where possible (which is free).</p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>You must install the full Guzzle package, so that the process can
+take advantage of Guzzle&#8217;s batching functionality (it allows parallel
+requests to be batched for greater efficiency). You can do this by
+running:</li>
+</ul>
+<div class="code bash highlight-python"><div class="highlight"><pre>php composer.phar install --dev
+</pre></div>
+</div>
+<ul class="simple">
+<li>Depending on the size and number of transfer items, you will need to
+raise PHP&#8217;s memory limit:</li>
+</ul>
+<div class="code php highlight-python"><div class="highlight"><pre><span class="n">ini_set</span><span class="p">(</span><span class="s">&#39;memory_limit&#39;</span><span class="p">,</span> <span class="s">&#39;512M&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>You will need to enact some kind of backoff/retry strategy for rate
+limits. Guzzle comes with a convenient feature that just needs to be
+added as a normal subscriber:</li>
+</ul>
+<div class="code php highlight-python"><div class="highlight"><pre>use Guzzle\Plugin\Backoff\BackoffPlugin;
+
+$client-&gt;addSubscriber(BackoffPlugin::getExponentialBackoff(10, array(500, 503, 408)));
+</pre></div>
+</div>
+<p>This tells the client to retry up to <tt class="docutils literal"><span class="pre">10</span></tt> times for failed requests
+have resulted in these HTTP status codes: <tt class="docutils literal"><span class="pre">500</span></tt>, <tt class="docutils literal"><span class="pre">503</span></tt> or <tt class="docutils literal"><span class="pre">408</span></tt>.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>You can access all this functionality by executing:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$ordService = $client-&gt;objectStoreService(&#39;cloudFiles&#39;, &#39;ORD&#39;);
+$iadService = $client-&gt;objectStoreService(&#39;cloudFiles&#39;, &#39;IAD&#39;);
+
+$oldContainer = $ordService-&gt;getContainer(&#39;old_container&#39;);
+$newContainer = $iadService-&gt;getContainer(&#39;new_container&#39;);
+
+$iadService-&gt;migrateContainer($oldContainer, $newContainer);
+</pre></div>
+</div>
+<p>It&#8217;s advisable to do this process in a Cloud Server in one of the two
+regions you&#8217;re migrating to/from. This allows you to use <tt class="docutils literal"><span class="pre">privateURL</span></tt>
+as the third argument in the <tt class="docutils literal"><span class="pre">objectStoreService</span></tt> methods like this:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$client-&gt;objectStoreService(&#39;cloudFiles&#39;, &#39;IAD&#39;, &#39;privateURL&#39;);
+</pre></div>
+</div>
+<p>This will ensure that traffic between your server and your new IAD
+container will be held over the internal Rackspace network which is
+free.</p>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p>You can pass in an array of arguments to the method:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$options = array(
+    &#39;read.batchLimit&#39;  =&gt; 100,
+    &#39;read.pageLimit&#39;   =&gt; 100,
+    &#39;write.batchLimit&#39; =&gt; 50
+);
+
+$iadService-&gt;migrateContainer($oldContainer, $newContainer, $options);
+</pre></div>
+</div>
+<div class="section" id="options-explained">
+<h3>Options explained<a class="headerlink" href="#options-explained" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="91%" />
+<col width="3%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">read.pageLimit</span></tt></td>
+<td>When the process begins, it has to collect all the files that exist in the old container. It does this through a conventional <tt class="docutils literal"><span class="pre">objectList</span></tt> method, which calls the <tt class="docutils literal"><span class="pre">PaginatedIterator</span></tt>. This iterator has the option to specify the page size for the collection (i.e. how many items are contained per page in responses from the API)</td>
+<td>10,000</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">read.batchLimit</span></tt></td>
+<td>After the data objects are collected, the process needs to send an individual GET request to ascertain more information. In order to make this process faster, these individual GET requests are batched together and sent in parallel. This limit refers to how many of these GET requests are batched together.</td>
+<td>1,000</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">write.batchLimit</span></tt></td>
+<td>Once each file has been retrieved from the API, a PUT request is executed against the new container. Similar to above, these PUT requests are batched - and this number refers to the amount of PUT requests batched together.</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

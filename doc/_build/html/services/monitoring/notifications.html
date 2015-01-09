@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Notifications &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Monitoring v1" href="index.html"/>
+        <link rel="next" title="Views" href="views.html"/>
+        <link rel="prev" title=" Metrics" href="metrics.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Monitoring v1</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#setup">Setup</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Monitoring v1</a> &raquo;</li>
+      
+    <li>Notifications</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/notifications.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="notifications">
+<h1>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h1>
+<p>A notification is a destination to send an alarm; it can be a variety of
+different types, and will evolve over time.</p>
+<p>For instance, with a webhook type notification, Cloud Monitoring posts
+JSON formatted data to a user-specified URL on an alert condition (Check
+goes from <tt class="docutils literal"><span class="pre">OK</span></tt> -&gt; <tt class="docutils literal"><span class="pre">CRITICAL</span></tt> and so on).</p>
+<div class="section" id="get-notification">
+<h2>Get notification<a class="headerlink" href="#get-notification" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$notification</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getNotification</span><span class="p">(</span><span class="s1">&#39;{id}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once you have access to a <tt class="docutils literal"><span class="pre">OpenCloud\Monitoring\Resource\Notification</span></tt> object,
+these are the attributes available for use:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="45%" />
+<col width="36%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>details</td>
+<td>A hash of notification specific details based on the notification type.</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getDetails()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Friendly name for the notification.</td>
+<td>String (1..255 chars)</td>
+<td><tt class="docutils literal"><span class="pre">getLabel()</span></tt></td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>The notification type to send.</td>
+<td>String. Either <tt class="docutils literal"><span class="pre">webhook</span></tt>, <tt class="docutils literal"><span class="pre">email</span></tt>, or <tt class="docutils literal"><span class="pre">pagerduty</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getType()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="creating-notifications">
+<h2>Creating notifications<a class="headerlink" href="#creating-notifications" title="Permalink to this headline">¶</a></h2>
+<p>The first thing to do when creating a new notification is configure the
+parameters which will define the behaviour of your resource:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My webhook #1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;type&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;webhook&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;details&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com&#39;</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="test-parameters">
+<h3>Test parameters<a class="headerlink" href="#test-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Once this is done, it is often useful to test them out to check whether they
+will result in a successful creation:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// Test it</span>
+<span class="nv">$response</span> <span class="o">=</span> <span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">testParams</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="na">status</span> <span class="o">==</span> <span class="s1">&#39;Success&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="send-parameters">
+<h3>Send parameters<a class="headerlink" href="#send-parameters" title="Permalink to this headline">¶</a></h3>
+<p>When you&#8217;re happy with the parameters you&#8217;ve defined, you can complete the
+operation by sending them to the API like so:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="test-existing-notification">
+<h2>Test existing notification<a class="headerlink" href="#test-existing-notification" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$response</span> <span class="o">=</span> <span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">testExisting</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">debug_info</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-notifications">
+<h2>List Notifications<a class="headerlink" href="#list-notifications" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$notifications</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getNotifications</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$notifications</span> <span class="k">as</span> <span class="nv">$notification</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-a-notification">
+<h2>Update a Notification<a class="headerlink" href="#update-a-notification" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;New notification label&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-a-notification">
+<h2>Delete a Notification<a class="headerlink" href="#delete-a-notification" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="notification-types">
+<h1>Notification types<a class="headerlink" href="#notification-types" title="Permalink to this headline">¶</a></h1>
+<p>Rackspace Cloud Monitoring currently supports the following notification types:</p>
+<p>Industry-standard web hooks, where JSON is posted to a configurable URL.
+It has these attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="62%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>address</td>
+<td>Email address to send notifications to</td>
+<td>Valid email</td>
+</tr>
+</tbody>
+</table>
+<p>Email alerts where the message is delivered to a specified address. It
+has these attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="63%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>url</td>
+<td>An HTTP or HTTPS URL to POST to</td>
+<td>Valid URL</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;ve already set up a main Notification object, and want to access
+functionality for this Notification&#8217;s particular Notification Type, you
+can access its property:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$type</span> <span class="o">=</span> <span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">getNotificationType</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Alternatively, you can retrieve an independent resource using the ID:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$typeId</span> <span class="o">=</span> <span class="s1">&#39;pagerduty&#39;</span><span class="p">;</span>
+<span class="nv">$type</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getNotificationType</span><span class="p">(</span><span class="nv">$typeId</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-all-possible-notification-types">
+<h2>List all possible notification types<a class="headerlink" href="#list-all-possible-notification-types" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$types</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getNotificationTypes</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$types</span> <span class="k">as</span> <span class="nv">$type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">&#39;%s %s&#39;</span><span class="p">,</span> <span class="nv">$type</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">(),</span> <span class="nv">$type</span><span class="o">-&gt;</span><span class="na">getDescription</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="notification-plans">
+<h1>Notification plans<a class="headerlink" href="#notification-plans" title="Permalink to this headline">¶</a></h1>
+<p>A notification plan contains a set of notification actions that
+Rackspace Cloud Monitoring executes when triggered by an alarm.
+Rackspace Cloud Monitoring currently supports webhook and email
+notifications.</p>
+<p>Each notification state can contain multiple notification actions. For
+example, you can create a notification plan that hits a webhook/email to
+notify your operations team if a warning occurs. However, if the warning
+escalates to an Error, the notification plan could be configured to hit
+a different webhook/email that triggers both email and SMS messages to
+the operations team. The notification plan supports the following
+states:</p>
+<ul class="simple">
+<li>Critical</li>
+<li>Warning</li>
+<li>OK</li>
+</ul>
+<p>A notification plan, <tt class="docutils literal"><span class="pre">npTechnicalContactsEmail</span></tt>, is provided by
+default which will email all of the technical contacts on file for an
+account whenever there is a state change.</p>
+<div class="section" id="get-a-notification-plan">
+<h2>Get a notification plan<a class="headerlink" href="#get-a-notification-plan" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$plan</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getNotificationPlan</span><span class="p">(</span><span class="s1">&#39;{planId}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once you have access to a <tt class="docutils literal"><span class="pre">OpenCloud\\Monitoring\\Resource\\NotificationPlan</span></tt>
+object, you can access these resources:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="45%" />
+<col width="9%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Required?</th>
+<th class="head">Data type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>label</td>
+<td>Friendly name for the notification plan.</td>
+<td>Required</td>
+<td>String (1..255 chars)</td>
+<td><tt class="docutils literal"><span class="pre">getLabel()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>critical_state</td>
+<td>The notification list to send to when the state is <tt class="docutils literal"><span class="pre">CRITICAL</span></tt>.</td>
+<td>Optional</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getCriticalState()</span></tt></td>
+</tr>
+<tr class="row-even"><td>ok_state</td>
+<td>The notification list to send to when the state is <tt class="docutils literal"><span class="pre">OK</span></tt>.</td>
+<td>Optional</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getOkState()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>warning_state</td>
+<td>The notification list to send to when the state is <tt class="docutils literal"><span class="pre">WARNING</span></tt>.</td>
+<td>Optional</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getWarningState()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="create-notification-plan">
+<h2>Create Notification Plan<a class="headerlink" href="#create-notification-plan" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$plan</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;label&#39;</span>          <span class="o">=&gt;</span> <span class="s1">&#39;New Notification Plan&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;critical_state&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ntAAAA&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;ok_state&#39;</span>       <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ntBBBB&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;warning_state&#39;</span>  <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;ntCCCC&#39;</span><span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-notification-plan">
+<h2>Update notification plan<a class="headerlink" href="#update-notification-plan" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$plan</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;New label for my plan&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-notification-plan">
+<h2>Delete notification plan<a class="headerlink" href="#delete-notification-plan" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$plan</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="alarm-notification-history">
+<h1>Alarm Notification History<a class="headerlink" href="#alarm-notification-history" title="Permalink to this headline">¶</a></h1>
+<p>The monitoring service keeps a record of notifications sent for each
+alarm. This history is further subdivided by the check on which the
+notification occurred. Every attempt to send a notification is recorded,
+making this history a valuable tool in diagnosing issues with unreceived
+notifications, in addition to offering a means of viewing the history of
+an alarm&#8217;s statuses.</p>
+<p>Alarm notification history is accessible as a Time Series Collection. By
+default alarm notification history is stored for 30 days and the API
+queries the last 7 days of information.</p>
+<div class="section" id="id1">
+<h2>Setup<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>In order to interact with this feature, you must first retrieve an entity by
+its ID:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$entity</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getEntity</span><span class="p">(</span><span class="s1">&#39;{entityId}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>and then a particular check, about which you can configure alarms:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$check</span> <span class="o">=</span> <span class="nv">$entity</span><span class="o">-&gt;</span><span class="na">getCheck</span><span class="p">(</span><span class="s1">&#39;{checkId}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>and finally, retrieve the alarm:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$alarm</span> <span class="o">=</span> <span class="nv">$check</span><span class="o">-&gt;</span><span class="na">getAlarm</span><span class="p">(</span><span class="s1">&#39;{alarmId}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>For more information about these resource types, please consult the documentation
+about <a class="reference external" href="entities">entities</a> and <a class="reference external" href="checks">checks</a>.</p>
+</div>
+<div class="section" id="discover-which-checks-have-a-notification-history">
+<h2>Discover which Checks have a Notification History<a class="headerlink" href="#discover-which-checks-have-a-notification-history" title="Permalink to this headline">¶</a></h2>
+<p>This operation list checks for which alarm notification history is
+available:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$checks</span> <span class="o">=</span> <span class="nv">$alarm</span><span class="o">-&gt;</span><span class="na">getRecordedChecks</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-alarm-notification-history-for-a-particular-check">
+<h2>List Alarm Notification History for a particular Check<a class="headerlink" href="#list-alarm-notification-history-for-a-particular-check" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$checkHistory</span> <span class="o">=</span> <span class="nv">$alarm</span><span class="o">-&gt;</span><span class="na">getNotificationHistoryForCheck</span><span class="p">(</span><span class="s1">&#39;chAAAA&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-a-particular-notification-history-item">
+<h2>Get a particular Notification History item<a class="headerlink" href="#get-a-particular-notification-history-item" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$checkId</span>  <span class="o">=</span> <span class="s1">&#39;chAAAA&#39;</span><span class="p">;</span>
+<span class="nv">$itemUuid</span> <span class="o">=</span> <span class="s1">&#39;646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26&#39;</span><span class="p">;</span>
+
+<span class="nv">$singleItem</span> <span class="o">=</span> <span class="nv">$history</span><span class="o">-&gt;</span><span class="na">getNotificationHistoryItem</span><span class="p">(</span><span class="nv">$checkId</span><span class="p">,</span> <span class="nv">$itemUuid</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="views.html" class="btn btn-neutral float-right" title="Views"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="metrics.html" class="btn btn-neutral" title=" Metrics"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

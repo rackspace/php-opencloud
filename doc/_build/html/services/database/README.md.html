@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Databases &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Databases</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/database/README.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="databases">
+<h1>Databases<a class="headerlink" href="#databases" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>cloud database</strong> is a MySQL relational database service that allows
+customers to programatically provision database instances of varying
+virtual resource sizes without the need to maintain and/or update MySQL.</p>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="instantiate-a-rackspace-client">
+<h3>1. Instantiate a Rackspace client.<a class="headerlink" href="#instantiate-a-rackspace-client" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+use OpenCloud\Common\Constants\State;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-database-server-instance">
+<h3>2. Create a database server instance.<a class="headerlink" href="#create-a-database-server-instance" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$databaseService = $client-&gt;databaseService(&#39;cloudDatabases&#39;, &#39;DFW&#39;);
+
+$twoGbFlavor = $databaseService-&gt;flavor(3);
+
+$dbInstance = $databaseService-&gt;instance();
+$dbInstance-&gt;name = &#39;Demo database instance&#39;;
+$dbInstance-&gt;volume = new stdClass();
+$dbInstance-&gt;volume-&gt;size = 20; // GB
+$dbInstance-&gt;flavor = $twoGbFlavor;
+$dbInstance-&gt;create();
+
+$dbInstance-&gt;waitFor(State::ACTIVE, null, function ($dbInstance) {
+
+    printf(&quot;Database instance build status: %s\n&quot;, $dbInstance-&gt;status);
+
+});
+</pre></div>
+</div>
+<p>The example above creates a database server instance with 20GB of disk
+space and 2GB of memory, then waits for it to become ACTIVE.</p>
+</div>
+<div class="section" id="create-a-database-on-the-database-server-instance">
+<h3>3. Create a database on the database server instance.<a class="headerlink" href="#create-a-database-on-the-database-server-instance" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$db = $dbInstance-&gt;database();
+$db-&gt;name = &#39;demo_db&#39;;
+
+$db-&gt;create();
+</pre></div>
+</div>
+<p>The example above creates a database named <tt class="docutils literal"><span class="pre">demo_db</span></tt> on the database
+server instance created in the previous step.</p>
+</div>
+<div class="section" id="create-database-user-and-give-it-access-to-database">
+<h3>4. Create database user and give it access to database.<a class="headerlink" href="#create-database-user-and-give-it-access-to-database" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$user = $dbInstance-&gt;user();
+$user-&gt;name = &#39;demo_user&#39;;
+$user-&gt;password = &#39;h@X0r!&#39;;
+$user-&gt;databases = array(&#39;demo_db&#39;);
+
+$user-&gt;create();
+</pre></div>
+</div>
+<p>The example above creates a database user named <tt class="docutils literal"><span class="pre">demo_user</span></tt>, sets its
+password and gives it access to the <tt class="docutils literal"><span class="pre">demo_db</span></tt> database created in the
+previous step.</p>
+</div>
+<div class="section" id="optional-step-create-a-load-balancer-to-allow-access-to-the-database-from-the-internet">
+<h3>5. Optional step: Create a load balancer to allow access to the database from the Internet.<a class="headerlink" href="#optional-step-create-a-load-balancer-to-allow-access-to-the-database-from-the-internet" title="Permalink to this headline">¶</a></h3>
+<p>The database created in the previous step can only be accessed from the
+Rackspace private network (aka <tt class="docutils literal"><span class="pre">SERVICENET</span></tt>). If you have a cloud
+server instance in the same region as the database server instance, you
+will be able to connect to the database from that cloud server instance.</p>
+<p>If, however, you would like to access the database from the Internet,
+you will need to create a load balancer with an IP address that is
+routable from the Internet and attach the database server instance as a
+back-end node of this load balancer.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancerService = $client-&gt;loadBalancerService(&#39;cloudLoadBalancers&#39;, &#39;DFW&#39;);
+
+$loadBalancer = $loadBalancerService-&gt;loadBalancer();
+
+$loadBalancer-&gt;name = &#39;Load balancer - DB&#39;;
+$loadBalancer-&gt;addNode($dbInstance-&gt;hostname, 3306);
+$loadBalancer-&gt;port = 3306;
+$loadBalancer-&gt;protocol = &#39;MYSQL&#39;;
+$loadBalancer-&gt;addVirtualIp(&#39;PUBLIC&#39;);
+
+$loadBalancer-&gt;create();
+
+$loadBalancer-&gt;waitFor(State::ACTIVE, null, function ($lb) {
+    printf(&quot;Load balancer build status: %s\n&quot;, $lb-&gt;status);
+});
+
+foreach ($loadBalancer-&gt;virtualIps as $vip) {
+    if ($vip-&gt;type == &#39;PUBLIC&#39;) {
+        printf(&quot;Load balancer public %s address: %s\n&quot;, $vip-&gt;ipVersion, $vip-&gt;address);
+    }
+}
+</pre></div>
+</div>
+<p>In the example above, a load balancer is created with the database
+server instance as its only back-end node. Further, this load balancer
+is configured to listen for MySQL connections on port 3306. Finally a
+virtual IP address (VIP) is configured in the <tt class="docutils literal"><span class="pre">PUBLIC</span></tt> network address
+space so that this load balancer may receive connections from the
+Internet.</p>
+<p>Once the load balancer is created and becomes <tt class="docutils literal"><span class="pre">ACTIVE</span></tt>, it&#8217;s
+Internet-accessible IP addresses are printed out. If you connect to any
+of these IP addresses on port 3306 using the MySQL protocol, you will be
+connected to the database created in step 3.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

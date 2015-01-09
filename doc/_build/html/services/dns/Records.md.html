@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Records &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Records</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/dns/Records.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="records">
+<h1>Records<a class="headerlink" href="#records" title="Permalink to this headline">¶</a></h1>
+<p>A DNS record belongs to a particular domain and is used to specify
+information about the domain.</p>
+<p>There are several types of DNS records. Examples include mail exchange
+(MX) records, which specify the mail server for a particular domain, and
+name server (NS) records, which specify the authoritative name servers
+for a domain.</p>
+<p>It is represented by the <tt class="docutils literal"><span class="pre">OpenCloud\DNS\Resource\Record</span></tt> class.
+Records belong to a <a class="reference external" href="Domains.md">Domain</a>.</p>
+<div class="section" id="get-record">
+<h2>Get record<a class="headerlink" href="#get-record" title="Permalink to this headline">¶</a></h2>
+<p>In order to retrieve details for a specific DNS record, you will need
+its <strong>id</strong>:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$record = $domain-&gt;record(&#39;NS-1234567&#39;);
+</pre></div>
+</div>
+<p>If you do not have this ID at your disposal, you can traverse the record
+collection and do a string comparison (detailed below).</p>
+</div>
+<div class="section" id="list-records">
+<h2>List records<a class="headerlink" href="#list-records" title="Permalink to this headline">¶</a></h2>
+<p>This call lists all records configured for the specified domain.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$records = $domain-&gt;recordList();
+
+foreach ($records as $record) {
+    printf(&quot;Record name: %s, ID: %s, TTL: %s\n&quot;, $record-&gt;name, $record-&gt;id, $record-&gt;ttl);
+}
+</pre></div>
+</div>
+<p>Please consult the <a class="reference external" href="docs/userguide/Iterators.md">iterator
+documentation</a> for more information
+about iterators.</p>
+<div class="section" id="query-parameters">
+<h3>Query parameters<a class="headerlink" href="#query-parameters" title="Permalink to this headline">¶</a></h3>
+<p>You can pass in an array of query parameters for greater control over
+your search:</p>
+</div>
+<div class="section" id="find-a-record-id-from-its-name">
+<h3>Find a record ID from its name<a class="headerlink" href="#find-a-record-id-from-its-name" title="Permalink to this headline">¶</a></h3>
+<p>For example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$records = $domain-&gt;recordList(array(
+    &#39;name&#39; =&gt; &#39;imap.example.com&#39;,
+    &#39;type&#39; =&gt; &#39;MX&#39;
+));
+
+foreach ($records as $record) {
+    $recordId = $record-&gt;id;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="add-record">
+<h2>Add record<a class="headerlink" href="#add-record" title="Permalink to this headline">¶</a></h2>
+<p>This call adds a new record to the specified domain:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$record = $domain-&gt;record(array(
+    &#39;type&#39; =&gt; &#39;A&#39;,
+    &#39;name&#39; =&gt; &#39;example.com&#39;,
+    &#39;data&#39; =&gt; &#39;192.0.2.17&#39;,
+    &#39;ttl&#39;  =&gt; 3600
+));
+
+$record-&gt;create();
+</pre></div>
+</div>
+<p>Please be aware that records that are added with a different hostname
+than the parent domain might fail silently.</p>
+</div>
+<div class="section" id="modify-record">
+<h2>Modify record<a class="headerlink" href="#modify-record" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$record = $domain-&gt;record(123456);
+$record-&gt;ttl -= 100;
+$record-&gt;update();
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-record">
+<h2>Delete record<a class="headerlink" href="#delete-record" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$record-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

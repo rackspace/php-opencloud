@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Introduction &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>1. Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/queues/Claim.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="introduction">
+<h1>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>Claim</strong> is the process of a worker checking out a message to perform
+a task. Claiming a message prevents other workers from attempting to
+process the same messages.</p>
+</div>
+<div class="section" id="setup">
+<h1>2. Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<p>A Claim is initialized on its parent object, a Queue:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>// To initialize an empty object:
+$claim = $queue-&gt;getClaim();
+
+// or retrieve a specific claim:
+$claim = $queue-&gt;getClaim(&#39;51db7067821e727dc24df754&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="claim-messages">
+<h1>3. Claim messages<a class="headerlink" href="#claim-messages" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2>3.1 Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>This operation claims a set of messages (up to the value of the limit
+parameter) from oldest to newest and skips any messages that are already
+claimed. If no unclaimed messages are available, the API returns a
+<tt class="docutils literal"><span class="pre">204</span> <span class="pre">No</span> <span class="pre">Content</span></tt> message.</p>
+<p>When a client (worker) finishes processing a message, it should delete
+the message before the claim expires to ensure that the message is
+processed only once. As part of the delete operation, workers should
+specify the claim ID (which is best done by simply using the provided
+href). If workers perform these actions, then if a claim simply expires,
+the server can return an error and notify the worker of the race
+condition. This action gives the worker a chance to roll back its own
+processing of the given message because another worker can claim the
+message and process it.</p>
+<p>The age given for a claim is relative to the server&#8217;s clock. The claim&#8217;s
+age is useful for determining how quickly messages are getting processed
+and whether a given message&#8217;s claim is about to expire.</p>
+<p>When a claim expires, it is released. If the original worker failed to
+process the message, another client worker can then claim the message.</p>
+</div>
+<div class="section" id="attributes">
+<h2>3.2 Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">ttl</span></tt> attribute specifies how long the server waits before
+releasing the claim. The ttl value must be between 60 and 43200 seconds
+(12 hours). You must include a value for this attribute in your request.</p>
+<p>The <tt class="docutils literal"><span class="pre">grace</span></tt> attribute specifies the message grace period in seconds.
+The value of grace value must be between 60 and 43200 seconds (12
+hours). You must include a value for this attribute in your request. To
+deal with workers that have stopped responding (for up to 1209600
+seconds or 14 days, including claim lifetime), the server extends the
+lifetime of claimed messages to be at least as long as the lifetime of
+the claim itself, plus the specified grace period. If a claimed message
+would normally live longer than the grace period, its expiration is not
+adjusted.</p>
+<p>The <tt class="docutils literal"><span class="pre">limit</span></tt> attribute specifies the number of messages to return, up
+to 20 messages. If limit is not specified, limit defaults to 10. The
+limit parameter is optional.</p>
+</div>
+<div class="section" id="code">
+<h2>3.3 Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Constants\Datetime;
+
+$queue-&gt;claimMessages(array(
+    &#39;limit&#39; =&gt; 15,
+    &#39;grace&#39; =&gt; 5 * Datetime::MINUTE,
+    &#39;ttl&#39;   =&gt; 5 * Datetime::MINUTE
+));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="query-claim">
+<h1>4. Query claim<a class="headerlink" href="#query-claim" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>4.1 Description<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>This operation queries the specified claim for the specified queue.
+Claims with malformed IDs or claims that are not found by ID are
+ignored.</p>
+</div>
+<div class="section" id="id2">
+<h2>4.2 Attributes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Claim ID.</p>
+</div>
+<div class="section" id="id3">
+<h2>4.3 Code<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$claim = $queue-&gt;getClaim(&#39;51db7067821e727dc24df754&#39;);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="update-claim">
+<h1>5. Update claim<a class="headerlink" href="#update-claim" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id4">
+<h2>5.1 Description<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>This operation updates the specified claim for the specified queue.
+Claims with malformed IDs or claims that are not found by ID are
+ignored.</p>
+<p>Clients should periodically renew claims during long-running batches of
+work to avoid losing a claim while processing a message. The client can
+renew a claim by executing this method on a specific <strong>Claim</strong> and
+including a new TTL. The API will then reset the age of the claim and
+apply the new TTL.</p>
+</div>
+<div class="section" id="id5">
+<h2>5.2 Attributes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>See section 4.2.</p>
+</div>
+<div class="section" id="id6">
+<h2>5.3 Code<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Constants\Datetime;
+
+$claim-&gt;update(array(
+    &#39;ttl&#39; =&gt; 10 * Datetime::MINUTE
+));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="release-claim">
+<h1>6. Release claim<a class="headerlink" href="#release-claim" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id7">
+<h2>6.1 Description<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>This operation immediately releases a claim, making any remaining
+undeleted messages that are associated with the claim available to other
+workers. Claims with malformed IDs or claims that are not found by ID
+are ignored.</p>
+<p>This operation is useful when a worker is performing a graceful
+shutdown, fails to process one or more messages, or is taking longer
+than expected to process messages, and wants to make the remainder of
+the messages available to other workers.</p>
+</div>
+<div class="section" id="id8">
+<h2>6.2 Attributes<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>See section 4.2.</p>
+</div>
+<div class="section" id="id9">
+<h2>6.3 Code<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$message-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

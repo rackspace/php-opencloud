@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sharing images &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Sharing images</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/image/Sharing.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="sharing-images">
+<h1>Sharing images<a class="headerlink" href="#sharing-images" title="Permalink to this headline">¶</a></h1>
+<p>Images can be created and deleted by image producers, updated by image
+consumers, and listed by both image producers and image consumers:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="36%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operation</th>
+<th class="head">Producer can?</th>
+<th class="head">Consumer can?</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Created</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>Deleted</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>Updated</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>Listed</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The producer shares an image with the consumer by making the consumer a
+<em>member</em> of that image. The consumer then accepts or rejects the image
+by changing the member status. Once accepted, the image appears in the
+consumer&#8217;s image list.</p>
+<div class="section" id="typical-workflow">
+<h2>Typical workflow<a class="headerlink" href="#typical-workflow" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>The producer posts the availability of specific images on a public
+website.</li>
+<li>A potential consumer provides the producer with his/her tenant ID and
+email address.</li>
+<li>The producer <a href="#id1"><span class="problematic" id="id2">`creates a new Image Member &lt;&gt;`__</span></a> with the consumer&#8217;s
+details</li>
+<li>The producer notifies the consumer via email that the image has been
+shared and provides the image&#8217;s ID.</li>
+<li>If the consumer wishes the image to appear in his/her image list, the
+consumer <a href="#id1"><span class="problematic" id="id3">`updates their own Member status &lt;&gt;`__</span></a> to <tt class="docutils literal"><span class="pre">ACCEPTED</span></tt>.</li>
+</ol>
+<div class="section" id="additional-notes">
+<h3>Additional notes<a class="headerlink" href="#additional-notes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>If the consumer subsequently wishes to hide the image, the consumer
+can change their Member status to <tt class="docutils literal"><span class="pre">REJECTED</span></tt>.</li>
+<li>If the consumer wishes to hide the image, but is open to the
+possibility of being reminded by the producer that the image is
+available, the consumer can change their Member status to
+<tt class="docutils literal"><span class="pre">PENDING</span></tt>.</li>
+<li>Image producers add or remove image members, but may not modify the
+member status of an image member.</li>
+<li>Image consumers change their own member status, but may not add or
+remove themselves as an image member.</li>
+<li>Image consumers can boot from any image shared by the image producer,
+regardless of the member status, as long as the image consumer knows
+the image ID.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>All member operations are executed against an <a class="reference external" href="Images.md">Image</a>, so
+you will need to set this up first.</p>
+</div>
+<div class="section" id="list-image-members">
+<h2>List image members<a class="headerlink" href="#list-image-members" title="Permalink to this headline">¶</a></h2>
+<p>This operation is available for both producers and consumers.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$members = $image-&gt;listMembers();
+
+foreach ($members as $member) {
+    /** @param $member OpenCloud\Image\Resource\Member */
+}
+</pre></div>
+</div>
+<p>For more information about working with iterators, please see the
+<a class="reference external" href="../Iterators.md">iterators documentation</a>.</p>
+</div>
+<div class="section" id="create-image-member">
+<h2>Create image member<a class="headerlink" href="#create-image-member" title="Permalink to this headline">¶</a></h2>
+<p>This operation is only available for producers.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$tenantId = 12345;
+
+/** @param $response Guzzle\Http\Message\Response */
+$response = $image-&gt;createMember($tenantId);
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-image-member">
+<h2>Delete image member<a class="headerlink" href="#delete-image-member" title="Permalink to this headline">¶</a></h2>
+<p>This operation is only available for producers.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$tenantId = 12345;
+
+/** @param $member OpenCloud\Image\Resource\Member */
+$member = $image-&gt;getMember($tenantId);
+
+$member-&gt;delete();
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-image-member-status">
+<h2>Update image member status<a class="headerlink" href="#update-image-member-status" title="Permalink to this headline">¶</a></h2>
+<p>This operation is only available for consumers.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Images\Enum\MemberStatus;
+
+$tenantId = 12345;
+
+/** @param $member OpenCloud\Image\Resource\Member */
+$member = $image-&gt;getMember($tenantId);
+
+$member-&gt;updateStatus(MemberStatus::ACCEPTED);
+</pre></div>
+</div>
+<p>The acceptable states you may pass in are made available to you through
+the constants defined in the <tt class="docutils literal"><span class="pre">OpenCloud\Images\Enum\MemberStatus</span></tt>
+class.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

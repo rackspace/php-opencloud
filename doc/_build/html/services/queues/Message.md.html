@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Introduction &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>1. Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/queues/Message.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="introduction">
+<h1>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>Message</strong> is a task, a notification, or any meaningful data that a
+producer or publisher sends to the queue. A message exists until it is
+deleted by a recipient or automatically by the system based on a TTL
+(time-to-live) value.</p>
+</div>
+<div class="section" id="setup">
+<h1>2. Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<p>A message is initialized from its parent object, a Queue:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>// Setup an empty object
+$message = $queue-&gt;getMessage();
+
+// or retrieve an existing one
+$message = $queue-&gt;getMessage(&#39;&lt;message_id&gt;&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-message">
+<h1>3. Post message<a class="headerlink" href="#post-message" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2>3.1 Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>This operation posts the specified message or messages. You can submit
+up to 10 messages in a single request.</p>
+<p>When posting new messages, you specify only the <tt class="docutils literal"><span class="pre">body</span></tt> and <tt class="docutils literal"><span class="pre">ttl</span></tt> for
+the message. The API will insert metadata, such as ID and age.</p>
+</div>
+<div class="section" id="parameters">
+<h2>3.2 Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>How you pass through the array structure depends on whether you are
+executing multiple (3.3.2) or single (3.3.3) posts, but the keys are the
+same.</p>
+<p>The <tt class="docutils literal"><span class="pre">body</span></tt> attribute specifies an arbitrary document that constitutes
+the body of the message being sent. The size of this body is limited to
+256 KB, excluding whitespace.</p>
+<p>The <tt class="docutils literal"><span class="pre">ttl</span></tt> attribute specifies how long the server waits before marking
+the message as expired and removing it from the queue. The value of ttl
+must be between 60 and 1209600 seconds (14 days). Note that the server
+might not actually delete the message until its age has reached up to
+(ttl + 60) seconds, to allow for flexibility in storage implementations.</p>
+</div>
+<div class="section" id="code-samples">
+<h2>3.3 Code samples<a class="headerlink" href="#code-samples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="posting-a-single-message">
+<h3>3.3.1 Posting a single message<a class="headerlink" href="#posting-a-single-message" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Constants\Datetime;
+
+$queue-&gt;createMessage(array(
+    &#39;body&#39; =&gt; (object) array(
+        &#39;event&#39;    =&gt; &#39;BackupStarted&#39;,
+        &#39;deadline&#39; =&gt; &#39;26.12.2013
+    ),
+    &#39;ttl&#39;  =&gt; 2 * Datetime::DAY
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="post-a-batch-of-messages">
+<h3>3.3.2 Post a batch of messages<a class="headerlink" href="#post-a-batch-of-messages" title="Permalink to this headline">¶</a></h3>
+<p>Please note that the list of messages will be truncated at 10. For more,
+please execute another method call.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Constants\Datetime;
+
+$messages = array(
+    array(
+        &#39;body&#39; =&gt; (object) array(
+            &#39;play&#39; =&gt; &#39;football&#39;
+        ),
+        &#39;ttl&#39;  =&gt; 2 * Datetime::DAY
+    ),
+    array(
+        &#39;body&#39; =&gt; (object) array(
+            &#39;play&#39; =&gt; &#39;tennis&#39;
+        ),
+        &#39;ttl&#39;  =&gt; 50 * Datetime::HOUR
+    )
+);
+
+$queue-&gt;createMessages($messages);
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="get-messages">
+<h1>4. Get messages<a class="headerlink" href="#get-messages" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>4.1 Description<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>This operation gets the message or messages in the specified queue.</p>
+<p>Message IDs and markers are opaque strings. Clients should make no
+assumptions about their format or length. Furthermore, clients should
+assume that there is no relationship between markers and message IDs
+(that is, one cannot be derived from the other). This allows for a wide
+variety of storage driver implementations.</p>
+<p>Results are ordered by age, oldest message first.</p>
+</div>
+<div class="section" id="id2">
+<h2>4.2 Parameters<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>A hash of options.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="2%" />
+<col width="2%" />
+<col width="92%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Style</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>marker</td>
+<td>Query</td>
+<td>String</td>
+<td>Specifies an opaque string that the client can use to request the next batch of messages. The marker parameter communicates to the server which messages the client has already received. If you do not specify a value, the API returns all messages at the head of the queue (up to the limit). Optional.</td>
+</tr>
+<tr class="row-odd"><td>limit</td>
+<td>Query</td>
+<td>Integer</td>
+<td>When more messages are available than can be returned in a single request, the client can pick up the next batch of messages by simply using the URI template parameters returned from the previous call in the &#8220;next&#8221; field. Specifies up to 10 messages (the default value) to return. If you do not specify a value for the limit parameter, the default value of 10 is used. Optional.</td>
+</tr>
+<tr class="row-even"><td>echo</td>
+<td>Query</td>
+<td>Boolean</td>
+<td>Determines whether the API returns a client&#8217;s own messages. The echo parameter is a Boolean value (true or false) that determines whether the API returns a client&#8217;s own messages, as determined by the uuid portion of the User-Agent header. If you do not specify a value, echo uses the default value of false. If you are experimenting with the API, you might want to set echo=true in order to see the messages that you posted. The echo parameter is optional.</td>
+</tr>
+<tr class="row-odd"><td>include_claimed</td>
+<td>Query</td>
+<td>​Boolean</td>
+<td>Determines whether the API returns claimed messages and unclaimed messages. The include_claimed parameter is a Boolean value (true or false) that determines whether the API returns claimed messages and unclaimed messages. If you do not specify a value, include_claimed uses the default value of false (only unclaimed messages are returned). Optional.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="code-sample">
+<h2>4.3 Code sample<a class="headerlink" href="#code-sample" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$messages = $queue-&gt;listMessages(array(
+    &#39;marker&#39; =&gt; &#39;51db6f78c508f17ddc924357&#39;,
+    &#39;limit&#39;  =&gt; 20,
+    &#39;echo&#39;   =&gt; true
+));
+
+while ($message = $messages-&gt;next()) {
+    echo $message-&gt;getId() . PHP_EOL;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="get-a-set-of-messages-by-id">
+<h1>5. Get a set of messages by ID<a class="headerlink" href="#get-a-set-of-messages-by-id" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id3">
+<h2>5.1 Description<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>This operation provides a more efficient way to query multiple messages
+compared to using a series of individual GET. Note that the list of IDs
+cannot exceed 20. If a malformed ID or a nonexistent message ID is
+provided, it is ignored, and the remaining messages are returned.</p>
+</div>
+<div class="section" id="id4">
+<h2>5.2 Parameters<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>A hash of options.</p>
+<p>|Name|Style|Type|Description| |&#8212;-|&#8212;&#8211;|&#8212;-|&#8212;&#8212;&#8212;&#8211;|
+|ids|Query|String|Specifies the IDs of the messages to get. Format
+multiple message ID values by separating them with commas
+(comma-separated). Optional.| |claim_id|Query|​String|Specifies
+the claim ID with which the message is associated. Optional.|
+|&#8212;-|&#8212;&#8211;|&#8212;-|&#8212;&#8212;&#8212;&#8211;|</p>
+</div>
+<div class="section" id="id5">
+<h2>5.3 Code sample<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$ids = array(&#39;51db6f78c508f17ddc924357&#39;, &#39;f5b8c8a7c62b0150b68a50d6&#39;);
+
+$messages = $queue-&gt;listMessages(array(&#39;ids&#39; =&gt; $ids));
+
+while ($message = $messages-&gt;next()) {
+    echo $message-&gt;getId() . PHP_EOL;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delete-a-set-of-messages-by-id">
+<h1>6. Delete a set of messages by ID<a class="headerlink" href="#delete-a-set-of-messages-by-id" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id6">
+<h2>6.1 Description<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>This operation immediately deletes the specified messages. If any of the
+message IDs are malformed or non-existent, they are ignored. The
+remaining valid messages IDs are deleted.</p>
+</div>
+<div class="section" id="id7">
+<h2>6.2 Parameters<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>An array of IDs.</p>
+</div>
+<div class="section" id="id8">
+<h2>6.3 Code sample<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$ids = array(&#39;51db6f78c508f17ddc924357&#39;, &#39;f5b8c8a7c62b0150b68a50d6&#39;);
+
+$response = $queue-&gt;deleteMessages($ids);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="get-a-specific-message">
+<h1>7. Get a specific message<a class="headerlink" href="#get-a-specific-message" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id9">
+<h2>7.1 Description<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>This operation gets the specified message from the specified queue.</p>
+</div>
+<div class="section" id="id10">
+<h2>7.2 Parameters<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>Message ID.</p>
+</div>
+<div class="section" id="object-properties">
+<h2>7.3 Object properties<a class="headerlink" href="#object-properties" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">href</span></tt> is an opaque relative URI that the client can use to uniquely
+identify a message resource and interact with it.</p>
+<p><tt class="docutils literal"><span class="pre">ttl</span></tt> is the TTL that was set on the message when it was posted. The
+message expires after (ttl - age) seconds.</p>
+<p><tt class="docutils literal"><span class="pre">age</span></tt> is the number of seconds relative to the server&#8217;s clock.</p>
+<p><tt class="docutils literal"><span class="pre">body</span></tt> is the arbitrary document that was submitted with the original
+request to post the message.</p>
+</div>
+<div class="section" id="id11">
+<h2>7.4 Code sample<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$message = $queue-&gt;getMessage(&#39;51db6f78c508f17ddc924357&#39;);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delete-message">
+<h1>8. Delete message<a class="headerlink" href="#delete-message" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id12">
+<h2>8.1 Description<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>This operation immediately deletes the specified message.</p>
+</div>
+<div class="section" id="id13">
+<h2>8.2 Parameters<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="id14">
+<h2>8.3 Code sample<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$message-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

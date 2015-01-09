@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="groups.html">Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group-config.html">Group configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html">Scaling Policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webhooks.html">Webhooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/images.html">Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/flavors.html">Flavors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/servers.html">Servers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/keypairs.html">Keypairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/instances.html">Instances</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/databases.html">Databases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/users.html">Users</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/datastores.html">Datastores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/datastores.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/datastores.html#listing-datastores">Listing datastores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/datastores.html#retrieving-a-datastore">Retrieving a datastore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/datastores.html#listing-datastore-versions">Listing datastore versions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/datastores.html#retrieving-a-datastore-version">Retrieving a datastore version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/autoscale/service.sample.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <p>The first thing to do is pass in your credentials and instantiate a Rackspace
+client:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">OpenCloud\Rackspace</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rackspace</span><span class="p">(</span><span class="nx">Rackspace</span><span class="o">::</span><span class="na">US_IDENTITY_ENDPOINT</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{username}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;apiKey&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;{apiKey}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Now, set up the Auto Scale service:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$service</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">autoscaleService</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">{catalogName}</span></tt> is the <strong>name</strong> of the service, as it appears in the service
+catalog. For Rackspace users, a default will be provided if you pass <tt class="docutils literal"><span class="pre">null</span></tt>
+in for this argument. For OpenStack users, you cannot do this: you must instead
+set your own value since it can depend on your environment setup.</p>
+<p><tt class="docutils literal"><span class="pre">{region}</span></tt> is the Compute region the service will operate in. For Rackspace
+users, you can select one of the following from the <a class="reference external" href="/regions">supported regions page</a>.</p>
+<p><tt class="docutils literal"><span class="pre">{urlType}</span></tt> is the type of URL to use, depending on what endpoints your
+catalog provides. For Rackspace, you may use either <tt class="docutils literal"><span class="pre">internalURL</span></tt> or
+<tt class="docutils literal"><span class="pre">publicURL</span></tt>. The former will execute HTTP transactions over the internal
+network configured for your service, possibly reducing latency and the overall
+bandwidth cost - the caveat is that all of your resources must be in same region.
+<tt class="docutils literal"><span class="pre">publicURL</span></tt>, however, which is the default, will operate over the public
+Internet and is to be used for multi-region installations.</p>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Keypairs &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Keypairs</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/compute/keypair.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="keypairs">
+<h1>Keypairs<a class="headerlink" href="#keypairs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>The first thing to do is pass in your credentials and instantiate a Rackspace
+client:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">OpenCloud\Rackspace</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rackspace</span><span class="p">(</span><span class="nx">Rackspace</span><span class="o">::</span><span class="na">US_IDENTITY_ENDPOINT</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{username}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;apiKey&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;{apiKey}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Now, set up the Auto Scale service:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$service</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">computeService</span><span class="p">(</span><span class="s1">&#39;{catalogType}&#39;</span><span class="p">,</span> <span class="s1">&#39;{region}&#39;</span><span class="p">,</span> <span class="s1">&#39;{urlType}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><cite>{catalogType}</cite> is the <strong>name</strong> of the service, as it appears in the service
+catalog. For Rackspace users, this will default to <cite>cloudServersOpenStack</cite>; for
+OpenStack users, you must set your own value since it can depend on your
+environment setup.</p>
+<p><cite>{region}</cite> is the Compute region the service will operate in. For Rackspace
+users, you can select one of the following from the <cite>supported regions page</cite>.</p>
+<p><cite>{urlType}</cite> is the type of URL to use, depending on what endpoints your
+catalog provides. For Rackspace, you may use either <cite>internalURL</cite> or <cite>publicURL</cite>.
+The former will execute HTTP transactions over the internal Rackspace network,
+reducing latency and the overall bandwidth cost - the caveat is that all of your
+resources must be in same region. <cite>publicURL</cite>, however, which is the default,
+will operate over the public Internet and is to be used for multi-region
+installations.</p>
+</div>
+<div class="section" id="generate-a-new-keypair">
+<h2>Generate a new keypair<a class="headerlink" href="#generate-a-new-keypair" title="Permalink to this headline">¶</a></h2>
+<p>This operation creates a new keypair under a provided name; the public key
+value is automatically generated for you.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>// Instantiate empty object
+$keypair = $service-&gt;keypair();
+
+// Send to API
+$keypair-&gt;create(array(
+   &#39;name&#39; =&gt; &#39;jamie_keypair_1&#39;
+));
+
+// Save these!
+$pubKey = $keypair-&gt;getPublicKey();
+$priKey = $keypair-&gt;getPrivateKey();
+</pre></div>
+</div>
+</div>
+<div class="section" id="upload-existing-keypair">
+<h2>Upload existing keypair<a class="headerlink" href="#upload-existing-keypair" title="Permalink to this headline">¶</a></h2>
+<p>This operation creates a new keypair according to a provided name and public
+key value. This is useful when the public key already exists on your local
+filesystem.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$keypair = $service-&gt;keypair();
+
+// $key needs to be the string content of the key file, not the filename
+$content = file_get_contents(&#39;~/.ssh/id_rsa.pub&#39;);
+
+$keypair-&gt;create(array(
+   &#39;name&#39;      =&gt; &#39;main_key&#39;,
+   &#39;publicKey&#39; =&gt; $content
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-keypairs">
+<h2>List keypairs<a class="headerlink" href="#list-keypairs" title="Permalink to this headline">¶</a></h2>
+<p>To list all existing keypairs:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$keys = $service-&gt;listKeypairs();
+
+foreach ($keys as $key) {
+
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-keypairs">
+<h2>Delete keypairs<a class="headerlink" href="#delete-keypairs" title="Permalink to this headline">¶</a></h2>
+<p>To delete a specific keypair:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$keypair-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

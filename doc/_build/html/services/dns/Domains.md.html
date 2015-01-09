@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Domains &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Domains</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/dns/Domains.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="domains">
+<h1>Domains<a class="headerlink" href="#domains" title="Permalink to this headline">¶</a></h1>
+<p>A domain is an entity/container of all DNS-related information
+containing one or more records.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Limit methods will be called on the DNS service, an instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\DNS\Service</span></tt>. Please see the <a class="reference external" href="Service.md">DNS service</a>
+documentation for setup instructions.</p>
+</div>
+<div class="section" id="get-domain">
+<h2>Get domain<a class="headerlink" href="#get-domain" title="Permalink to this headline">¶</a></h2>
+<p>To retrieve a specific domain, you will need the domain&#8217;s <strong>id</strong>, not
+its domain name.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$domain = $service-&gt;domain(12345);
+</pre></div>
+</div>
+<p>If you are having trouble remembering or accessing the domain ID, you
+can do a domain list search for your domain and then access its ID.</p>
+</div>
+<div class="section" id="list-domains">
+<h2>List domains<a class="headerlink" href="#list-domains" title="Permalink to this headline">¶</a></h2>
+<p>These calls provide a list of all DNS domains manageable by a given
+account. The resulting list is flat, and does not break the domains down
+hierarchically by subdomain. All representative domains are included in
+the list, even if a domain is conceptually a subdomain of another domain
+in the list.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$domains = $service-&gt;domainList();
+
+# Return detailed information for each domain
+$domains = $service-&gt;domainList(true);
+</pre></div>
+</div>
+<p>Please consult the <a class="reference external" href="/docs/userguide/Iterators.md">iterator
+documentation</a> for more information
+about iterators.</p>
+<div class="section" id="filter-parameters">
+<h3>Filter parameters<a class="headerlink" href="#filter-parameters" title="Permalink to this headline">¶</a></h3>
+<p>You can filter the aforementioned search by using the <tt class="docutils literal"><span class="pre">name</span></tt> parameter
+in a key/value array supplied as a method argument. For example,
+providing <tt class="docutils literal"><span class="pre">array('name'</span> <span class="pre">=&gt;</span> <span class="pre">'hoola.com')</span></tt> will return hoola.com and
+similar names such as main.hoola.com and sub.hoola.com.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$hoolaDomains = $service-&gt;domainList(array(
+    &#39;name&#39; =&gt; &#39;hoola.com&#39;
+));
+</pre></div>
+</div>
+<p>Filter criteria may consist of:</p>
+<ul class="simple">
+<li>Any letter (A-Za-z)</li>
+<li>Numbers (0-9)</li>
+<li>Hyphen (&#8220;-&#8221;)</li>
+<li>1 to 63 characters</li>
+</ul>
+<p>Filter criteria should not include any of the following characters:</p>
+<blockquote>
+<div>&#8216; + , | ! &#8221; £ $ % &amp; / ( ) = ? ^ * ç ° § ; : _ &gt; ] [ &#64; à, é, ò</div></blockquote>
+</div>
+<div class="section" id="finding-a-domain-id">
+<h3>Finding a domain ID<a class="headerlink" href="#finding-a-domain-id" title="Permalink to this headline">¶</a></h3>
+<p>If you know a domain&#8217;s name, but not its unique identifier, you can do
+this:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$domains = $service-&gt;domainList(array(
+    &#39;name&#39; =&gt; &#39;foo.com&#39;
+));
+
+foreach ($domains as $domain) {
+    $id = $domain-&gt;id;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="list-domain-changes">
+<h2>List domain changes<a class="headerlink" href="#list-domain-changes" title="Permalink to this headline">¶</a></h2>
+<p>This call shows all changes to the specified domain since the specified
+date/time. The since parameter is optional and defaults to midnight of
+the current day.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$changes = $domain-&gt;changes();
+
+# Changes since last week
+$since = date(&#39;c&#39;, strtotime(&#39;last week&#39;));
+$changes = $domain-&gt;changes($since);
+
+foreach ($changes-&gt;changes as $change) {
+    printf(&quot;Domain: %s\nAction: %s\nTarget: %s&quot;, $change-&gt;domain, $change-&gt;action, $change-&gt;targetType);
+
+    foreach ($change-&gt;changeDetails as $detail) {
+        printf(&quot;Details: %s was changed from %s to %s&quot;, $detail-&gt;field, $detail-&gt;oldValue, $detail-&gt;newValue);
+    }
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="export-domain">
+<h2>Export domain<a class="headerlink" href="#export-domain" title="Permalink to this headline">¶</a></h2>
+<p>This call provides the BIND (Berkeley Internet Name Domain) 9 formatted
+contents of the requested domain. This call is for a single domain only,
+and as such, does not traverse up or down the domain hierarchy for
+details (that is, no subdomain information is provided).</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$asyncResponse = $domain-&gt;export();
+$body = $asyncResponse-&gt;waitFor(&#39;COMPLETED&#39;);
+echo $body[&#39;contents&#39;];
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-domain">
+<h2>Create domain<a class="headerlink" href="#create-domain" title="Permalink to this headline">¶</a></h2>
+<p>A domain is composed of DNS records (e.g. <tt class="docutils literal"><span class="pre">A</span></tt>, <tt class="docutils literal"><span class="pre">CNAME</span></tt> or <tt class="docutils literal"><span class="pre">MX</span></tt>
+records) and an optional list of sub-domains. You will need to specify
+these before creating the domain itself:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>// get empty object
+$domain = $service-&gt;domain();
+
+// add A record
+$aRecord = $domain-&gt;record(array(
+    &#39;type&#39; =&gt; &#39;A&#39;,
+    &#39;name&#39; =&gt; &#39;example.com&#39;,
+    &#39;data&#39; =&gt; &#39;192.0.2.17&#39;,
+    &#39;ttl&#39;  =&gt; 3600
+));
+$domain-&gt;addRecord($aRecord);
+
+// add optional C record
+$cRecord = $domain-&gt;record(array(
+    &#39;type&#39; =&gt; &#39;CNAME&#39;,
+    &#39;name&#39; =&gt; &#39;www.example.com&#39;,
+    &#39;data&#39; =&gt; &#39;example.com&#39;,
+    &#39;ttl&#39;  =&gt; 3600
+));
+$domain-&gt;addRecord($cRecord);
+
+// add optional MX record
+$mxRecord = $domain-&gt;record(array(
+    &#39;type&#39; =&gt; &#39;MX&#39;,
+    &#39;data&#39; =&gt; &#39;mail.example.com&#39;,
+    &#39;name&#39; =&gt; &#39;example.com&#39;,
+    &#39;ttl&#39;  =&gt; 3600,
+    &#39;priority&#39; =&gt; 5
+));
+$domain-&gt;addRecord($mxRecord);
+
+// add optional NS records
+$nsRecord1 = $domain-&gt;record(array(
+    &#39;type&#39; =&gt; &#39;NS&#39;,
+    &#39;data&#39; =&gt; &#39;dns1.stabletransit.com&#39;,
+    &#39;name&#39; =&gt; &#39;example.com&#39;,
+    &#39;ttl&#39;  =&gt; 5400
+));
+$domain-&gt;addRecord($nsRecord1);
+
+$nsRecord2 = $domain-&gt;record(array(
+    &#39;type&#39; =&gt; &#39;NS&#39;,
+    &#39;data&#39; =&gt; &#39;dns2.stabletransit.com&#39;,
+    &#39;name&#39; =&gt; &#39;example.com&#39;,
+    &#39;ttl&#39;  =&gt; 5400
+));
+$domain-&gt;addRecord($nsRecord2);
+
+// add optional subdomains
+$sub1 = $domain-&gt;subdomain(array(
+    &#39;emailAddress&#39; =&gt; &#39;foo@example.com&#39;,
+    &#39;name&#39;         =&gt; &#39;dev.example.com&#39;,
+    &#39;comment&#39;      =&gt; &#39;Dev portal&#39;
+));
+$domain-&gt;addSubdomain($sub1);
+
+// send to API
+$domain-&gt;create(array(
+    &#39;emailAddress&#39; =&gt; &#39;webmaster@example.com&#39;,
+    &#39;ttl&#39;          =&gt; 3600,
+    &#39;name&#39;         =&gt; &#39;example.com&#39;,
+    &#39;comment&#39;      =&gt; &#39;Optional comment&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="clone-domain">
+<h2>Clone domain<a class="headerlink" href="#clone-domain" title="Permalink to this headline">¶</a></h2>
+<p>This call will duplicate a single existing domain configuration with a
+new domain name for the specified Cloud account. By default, all records
+and, optionally, subdomain(s) are duplicated as well.</p>
+<p>The method signature you will need to use is:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>cloneDomain ( string $newDomainName [, bool $subdomains [, bool $comments [, bool $email [, bool $records ]]]] )
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="6%" />
+<col width="5%" />
+<col width="79%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Data type</th>
+<th class="head">Default</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">$newDomainName</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">string</span></tt></td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>The new name for your cloned domain</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">$subdomains</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">bool</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td>Set to <tt class="docutils literal"><span class="pre">TRUE</span></tt> to clone all the subdomains for this domain</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">$comments</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">bool</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td>Set to <tt class="docutils literal"><span class="pre">TRUE</span></tt> to replace occurrences of the reference domain name with the new domain name in comments on the cloned (new) domain.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">$email</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">bool</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td>Set to <tt class="docutils literal"><span class="pre">TRUE</span></tt> to replace occurrences of the reference domain name with the new domain name in data fields (of records) on the cloned (new) domain. Does not affect NS records.</td>
+</tr>
+</tbody>
+</table>
+<p>For example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$asyncResponse = $domain-&gt;cloneDomain(&#39;new-name.com&#39;, true);
+</pre></div>
+</div>
+</div>
+<div class="section" id="import-domain">
+<h2>Import domain<a class="headerlink" href="#import-domain" title="Permalink to this headline">¶</a></h2>
+<p>This call provisions a new DNS domain under the account specified by the
+BIND 9 formatted file configuration contents defined in the request
+object.</p>
+<p>You will need to ensure that the BIND 9 formatted file configuration
+contents are valid by adhering to the following rules:</p>
+<ul>
+<li><p class="first">Each record starts on a new line and on the first column. If a record
+will not fit on one line, use the BIND_9 line continuation
+convention where you put a left parenthesis and continue the one
+record on the next line and put a right parenthesis when the record
+ends. For example,</p>
+<blockquote>
+<div><p>example2.net. 3600 IN SOA dns1.stabletransit.com. (
+<a class="reference external" href="mailto:sample&#37;&#52;&#48;rackspace&#46;com">sample<span>&#64;</span>rackspace<span>&#46;</span>com</a>. 1308874739 3600 3600 3600 3600)</p>
+</div></blockquote>
+</li>
+<li><p class="first">The attribute values of a record must be separated by a single blank
+or tab. No other white space characters.</p>
+</li>
+<li><p class="first">If there are any NS records, the data field should not be
+dns1.stabletransit.com or dns2.stabletransit.com. They will result in
+&#8220;duplicate record&#8221; errors.</p>
+</li>
+</ul>
+<p>For example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$bind9Data = &lt;&lt;&lt;EOT
+\nexample.net. 3600 IN SOA dns1.stabletransit.com. sample@rackspace.com. 1308874739 3600 3600 3600 3600\nexample.net. 86400 IN A 110.11.12.16\nexample.net. 3600 IN MX 5 mail2.example.net.\nwww.example.net. 5400 IN CNAME example.net.\n
+EOT;
+
+$asyncResponse = $service-&gt;import($bind9Data);
+</pre></div>
+</div>
+</div>
+<div class="section" id="modify-domain">
+<h2>Modify domain<a class="headerlink" href="#modify-domain" title="Permalink to this headline">¶</a></h2>
+<p>This call modifies DNS domain(s) attributes only. Only the TTL, email
+address and comment attributes of a domain can be modified. Records
+cannot be added, modified, or removed through this API operation - you
+will need to use the <a class="reference external" href="/docs/userguide/DNS/Records.md#add-record">add
+records</a>, <a class="reference external" href="/docs/userguide/DNS/Records.md#modify-record">modify
+records</a> or <a class="reference external" href="/docs/userguide/DNS/Records.md#delete-record">remove
+records</a> operations
+respectively.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$domain-&gt;update(array(
+    &#39;ttl&#39;          =&gt; ($domain-&gt;ttl + 100),
+    &#39;emailAddress&#39; =&gt; &#39;new_dev@foo.com&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-domain">
+<h2>Remove domain<a class="headerlink" href="#remove-domain" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$domain-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

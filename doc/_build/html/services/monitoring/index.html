@@ -1,0 +1,517 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Monitoring v1 &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="next" title=" Entities" href="entities.html"/>
+        <link rel="prev" title="Statistics and Usage Reports" href="../load-balancer/stats.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Monitoring v1</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/index.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="monitoring-v1">
+<h1>Monitoring v1<a class="headerlink" href="#monitoring-v1" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This service is only available for Rackspace users.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to pass in your credentials and set up a client. For
+Rackspace users, you will need your username and API key:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Rackspace</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rackspace</span><span class="p">(</span><span class="nx">Rackspace</span><span class="o">::</span><span class="na">US_IDENTITY_ENDPOINT</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{username}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;apiKey&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;{apiKey}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="section" id="monitoring-service">
+<h3>Monitoring service<a class="headerlink" href="#monitoring-service" title="Permalink to this headline">¶</a></h3>
+<p>Now to instantiate the Monitoring service:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$service</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">monitoringService</span><span class="p">(</span><span class="s1">&#39;{catalogName}&#39;</span><span class="p">,</span> <span class="s1">&#39;{region}&#39;</span><span class="p">,</span> <span class="s1">&#39;{urlType}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">{catalogName}</span></tt> is the name of the service as it appears in the service
+catalog. OpenStack users <em>must</em> set this value. For Rackspace users, a
+default will be provided if you pass in <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">{region}</span></tt> is the region the service will operate in. For Rackspace
+users, you can select one of the following from the <a class="reference external" href="/regions">supported regions page</a>.</li>
+<li><tt class="docutils literal"><span class="pre">{urlType}</span></tt> is the <a class="reference external" href="/url-types">type of URL</a> to use, depending on which
+endpoints your catalog provides. If omitted, it will default to the public
+network.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="entities.html">&nbsp;Entities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#create-entity">Create Entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#retrive-an-entity">Retrive an entity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="entities.html#attributes">Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#update-an-entity">Update an entity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="entities.html#delete-entity">Delete entity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="checks.html">Checks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#create-a-check">Create a check</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="checks.html#attributes">Attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checks.html#optional-attributes-to-be-used-with-remote-checks">Optional attributes to be used with remote checks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#test-parameters">Test parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="checks.html#send-parameters">Send parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#test-existing-check">Test existing Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#list-checks">List Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#update-check">Update Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#delete-check">Delete check</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="checks.html#check-types">Check types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#find-an-existing-check-s-type">Find an existing check&#8217;s type</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#list-all-possible-check-types">List all possible check types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#retrieve-details-about-a-type-by-its-id">Retrieve details about a Type by its ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="checks.html#id1">Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="alarms.html">Alarms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="alarms.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.html#retrieve-alarm">Retrieve alarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.html#create-alarm">Create Alarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.html#list-alarms">List Alarms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.html#update-alarm">Update Alarm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="alarms.html#delete-alarm">Delete alarm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#retrieve-details-about-an-agent">Retrieve details about an agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#list-agents">List agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#list-connections">List connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#get-connection">Get connection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html#agent-tokens">Agent tokens</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#retrieve-an-agent-token">Retrieve an agent token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#create-agent-token">Create agent token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#list-agent-tokens">List agent tokens</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#update-agent-token">Update agent token</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#id1">Update agent token</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html#agent-host-information">Agent Host Information</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#get-some-metrics">Get some metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html#agent-targets">Agent targets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="agents.html#list-agent-targets">List agent targets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelogs.html">Changelogs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelogs.html#view-changelog">View Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">&nbsp;Metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#data-granularity">Data Granularity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#specifying-resolution-to-retrieve-data-in-48-hour-period">Specifying resolution to retrieve data in 48 hour period</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#specifying-number-of-points-to-retrieve-data-in-48-hour-period">Specifying number of points to retrieve data in 48 hour period</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metrics.html#data-point-expiration">Data Point Expiration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#list-all-metrics">List all metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html#fetch-data-points">Fetch data points</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html">Notifications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#get-notification">Get notification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#creating-notifications">Creating notifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notifications.html#test-parameters">Test parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notifications.html#send-parameters">Send parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#test-existing-notification">Test existing notification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#list-notifications">List Notifications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#update-a-notification">Update a Notification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#delete-a-notification">Delete a Notification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html#notification-types">Notification types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#list-all-possible-notification-types">List all possible notification types</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html#notification-plans">Notification plans</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#get-a-notification-plan">Get a notification plan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#create-notification-plan">Create Notification Plan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#update-notification-plan">Update notification plan</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#delete-notification-plan">Delete notification plan</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="notifications.html#alarm-notification-history">Alarm Notification History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#id1">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#discover-which-checks-have-a-notification-history">Discover which Checks have a Notification History</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#list-alarm-notification-history-for-a-particular-check">List Alarm Notification History for a particular Check</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notifications.html#get-a-particular-notification-history-item">Get a particular Notification History item</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="views.html#list-all-views">List all Views</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="zones.html">Zones</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="zones.html#get-details-about-a-zone">Get details about a zone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zones.html#list-all-zones">&nbsp;List all zones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="zones.html#perform-a-traceroute">Perform a traceroute</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-agent">agent</dt>
+<dd>A monitoring daemon that resides on the server being monitored. The agent
+gathers metrics based on agent checks and pushes them to Cloud Monitoring.
+The agent provides insight into your servers with checks for information
+such as load average and network usage. The agent acts as a single small
+service that runs scheduled checks and pushes metrics to the rest of Cloud
+Monitoring so the metrics can be analyzed, trigger alerts, and be archived.
+These metrics are gathered via checks using agent check types, and can be
+used with the other Cloud Monitoring primitives such as alarms.</dd>
+<dt id="term-agent-token">agent token</dt>
+<dd>An authentication token used to identify the agent when it communicates
+with Cloud Monitoring.</dd>
+<dt id="term-alarm">alarm</dt>
+<dd>An alarm contains a set of rules that determine when the monitoring system
+sends a notification. You can create multiple alarms for the different
+checks types associated with an entity. For example, if your entity is a
+web server that hosts your company&#8217;s website, you can create one alarm to
+monitor the server itself, and another alarm to monitor the website.</dd>
+<dt id="term-check">check</dt>
+<dd>Checks explicitly specify how you want to monitor an entity. Once you&#8217;ve
+created an entity, you can configure one or more checks for it. A check is
+the foundational building block of the monitoring system, and is always
+associated with an entity. The check specifies the parts or pieces of the
+entity that you want to monitor, the monitoring frequency, how many
+monitoring zones are launching the check, and so on. It contains the
+specific details of how you are monitoring the entity.</dd>
+<dt id="term-entity">entity</dt>
+<dd>The object or resource that you want to monitor. It can be any object or
+device that you want to monitor. It&#8217;s commonly a web server, but it might
+also be a website, a web page or a web service.</dd>
+<dt id="term-monitoring-zone">monitoring zone</dt>
+<dd>A monitoring zone is the &#8220;launch point&#8221; of a check. When you create a
+check, you specify which monitoring zone(s) you want to launch the check
+from. This concept of a monitoring zone is similar to that of a datacenter,
+however in the monitoring system, you can think of it more as a geographical
+region.</dd>
+<dt id="term-notification">notification</dt>
+<dd>A notification is an informational message  sent to one or more addresses
+by the monitoring system when an alarm is triggered. You can set up
+notifications to alert a single individual or an entire team. Rackspace
+Cloud Monitoring currently supports webhooks and email for sending
+notifications.</dd>
+<dt id="term-notification-plan">notification plan</dt>
+<dd>A notification plan contains a set of notification rules to execute when an
+alarm is triggered. A notification plan can contain multiple notifications
+for each of the following states:</dd>
+</dl>
+</div>
+<div class="section" id="further-links">
+<h2>Further links<a class="headerlink" href="#further-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.rackspace.com/cm/api/v1.0/cm-getting-started/content/Introduction.html">Getting Started Guide for the API</a></li>
+<li><a class="reference external" href="http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/overview.html">API Developer Guide</a></li>
+<li><a class="reference external" href="http://docs.rackspace.com/cm/api/v1.0/cm-releasenotes/content/cmv1.10.html">API release history</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="entities.html" class="btn btn-neutral float-right" title=" Entities"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../load-balancer/stats.html" class="btn btn-neutral" title="Statistics and Usage Reports"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Customizing Clients &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="index.html"/>
+        <link rel="prev" title="URL types" href="url-types.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="services/autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Customizing Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#logger-injection">Logger injection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#service-catalog">Service Catalog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Customizing Clients</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/customizing-clients.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="customizing-clients">
+<h1>Customizing Clients<a class="headerlink" href="#customizing-clients" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="logger-injection">
+<h2>Logger injection<a class="headerlink" href="#logger-injection" title="Permalink to this headline">¶</a></h2>
+<p>As the <tt class="docutils literal"><span class="pre">Rackspace</span></tt> client extends the <tt class="docutils literal"><span class="pre">OpenStack</span></tt> client, they both support
+passing <tt class="docutils literal"><span class="pre">$options</span></tt> as an array via the constructor&#8217;s third parameter. The
+options are passed as a config to the <cite>Guzzle</cite> client, but also allow to inject
+your own logger.</p>
+<p>Your logger should implement the <tt class="docutils literal"><span class="pre">Psr\Log\LoggerInterface</span></tt> <a class="reference external" href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md">as defined in
+PSR-3</a>.
+One example of a compatible logger is <a class="reference external" href="https://github.com/Seldaek/monolog">Monolog</a>.
+When the client does create a service, it will inject the logger if one is
+available.</p>
+<p>To inject a <tt class="docutils literal"><span class="pre">LoggerInterface</span></tt> compatible logger into a new client:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">Monolog\Logger</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">OpenCloud\OpenStack</span><span class="p">;</span>
+
+<span class="c1">// create a log channel</span>
+<span class="nv">$logger</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Logger</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OpenStack</span><span class="p">(</span><span class="s1">&#39;http://identity.my-openstack.com/v2.0&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">),</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;logger&#39;</span> <span class="o">=&gt;</span> <span class="nv">$logger</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>The client does not automatically authenticate against the API when it is
+instantiated - it waits for an API call. When this happens, it checks
+whether the current “token” has expired, and (re-)authenticates if
+necessary.</p>
+<p>You can force authentication, by calling:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">authenticate</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>If the credentials are incorrect, a <tt class="docutils literal"><span class="pre">401</span></tt> error will be returned. If
+credentials are correct, a <tt class="docutils literal"><span class="pre">200</span></tt> status is returned with your Service
+Catalog.</p>
+</div>
+<div class="section" id="service-catalog">
+<h2>Service Catalog<a class="headerlink" href="#service-catalog" title="Permalink to this headline">¶</a></h2>
+<p>The Service Catalog is returned on successful authentication, and is
+composed of all the different API services available to the current
+tenant. All of this functionality is encapsulated in the <tt class="docutils literal"><span class="pre">Catalog</span></tt>
+object, which allows you greater control and interactivity.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @var OpenCloud\Common\Service\Catalog */</span>
+<span class="nv">$catalog</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getCatalog</span><span class="p">();</span>
+
+<span class="c1">// Return a list of OpenCloud\Common\Service\CatalogItem objects</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$catalog</span><span class="o">-&gt;</span><span class="na">getItems</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$catalogItem</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="nv">$name</span> <span class="o">=</span> <span class="nv">$catalogItem</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
+    <span class="nv">$type</span> <span class="o">=</span> <span class="nv">$catalogItem</span><span class="o">-&gt;</span><span class="na">getType</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$name</span> <span class="o">==</span> <span class="s1">&#39;cloudServersOpenStack&#39;</span> <span class="o">&amp;&amp;</span> <span class="nv">$type</span> <span class="o">==</span> <span class="s1">&#39;compute&#39;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Array of OpenCloud\Common\Service\Endpoint objects</span>
+    <span class="nv">$endpoints</span> <span class="o">=</span> <span class="nv">$catalogItem</span><span class="o">-&gt;</span><span class="na">getEndpoints</span><span class="p">();</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$endpoints</span> <span class="k">as</span> <span class="nv">$endpoint</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$endpoint</span><span class="o">-&gt;</span><span class="na">getRegion</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;DFW&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$endpoint</span><span class="o">-&gt;</span><span class="na">getPublicUrl</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As you can see, you have access to each Service’s name, type and list of
+endpoints. Each endpoint provides access to the specific region, along
+with its public and private endpoint URLs.</p>
+</div>
+<div class="section" id="default-http-headers">
+<h2>Default HTTP headers<a class="headerlink" href="#default-http-headers" title="Permalink to this headline">¶</a></h2>
+<p>To set default HTTP headers:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">setDefaultOption</span><span class="p">(</span><span class="s1">&#39;headers/X-Custom-Header&#39;</span><span class="p">,</span> <span class="s1">&#39;FooBar&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="user-agents">
+<h2>User agents<a class="headerlink" href="#user-agents" title="Permalink to this headline">¶</a></h2>
+<p>php-opencloud will send a default <tt class="docutils literal"><span class="pre">User-Agent</span></tt> header for every HTTP
+request, unless a custom value is provided by the end-user. The default
+header will be in this format:</p>
+<blockquote>
+<div>User-Agent: OpenCloud/xxx cURL/yyy PHP/zzz</div></blockquote>
+<p>where <tt class="docutils literal"><span class="pre">xxx</span></tt> is the current version of the SDK, <tt class="docutils literal"><span class="pre">yyy</span></tt> is the current
+version of cURL, and <tt class="docutils literal"><span class="pre">zzz</span></tt> is the current PHP version. To override
+this default, you must run:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">setUserAgent</span><span class="p">(</span><span class="s1">&#39;MyCustomUserAgent&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>which will result in:</p>
+<blockquote>
+<div>User-Agent: MyCustomUserAgent</div></blockquote>
+<p>If you want to set a <em>prefix</em> for the user agent, but retain the default
+<tt class="docutils literal"><span class="pre">User-Agent</span></tt> as a suffix, you must run:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">setUserAgent</span><span class="p">(</span><span class="s1">&#39;MyPrefix&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>which will result in:</p>
+<blockquote>
+<div>User-Agent: MyPrefix OpenCloud/xxx cURL/yyy PHP/zzz</div></blockquote>
+<p>where <tt class="docutils literal"><span class="pre">$client</span></tt> is an instance of <tt class="docutils literal"><span class="pre">OpenCloud\OpenStack</span></tt> or
+<tt class="docutils literal"><span class="pre">OpenCloud\Rackspace</span></tt>.</p>
+</div>
+<div class="section" id="other-functionality">
+<h2>Other functionality<a class="headerlink" href="#other-functionality" title="Permalink to this headline">¶</a></h2>
+<p>For a full list of functionality provided by Guzzle, please consult the
+<a class="reference external" href="http://docs.guzzlephp.org/en/latest/http-client/client.html">official documentation</a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="url-types.html" class="btn btn-neutral" title="URL types"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

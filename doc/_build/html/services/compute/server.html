@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Servers &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Servers</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/compute/server.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="servers">
+<h1>Servers<a class="headerlink" href="#servers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>The first thing to do is pass in your credentials and instantiate a Rackspace
+client:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">OpenCloud\Rackspace</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rackspace</span><span class="p">(</span><span class="nx">Rackspace</span><span class="o">::</span><span class="na">US_IDENTITY_ENDPOINT</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{username}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;apiKey&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;{apiKey}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Now, set up the Auto Scale service:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$service</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">computeService</span><span class="p">(</span><span class="s1">&#39;{catalogType}&#39;</span><span class="p">,</span> <span class="s1">&#39;{region}&#39;</span><span class="p">,</span> <span class="s1">&#39;{urlType}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><cite>{catalogType}</cite> is the <strong>name</strong> of the service, as it appears in the service
+catalog. For Rackspace users, this will default to <cite>cloudServersOpenStack</cite>; for
+OpenStack users, you must set your own value since it can depend on your
+environment setup.</p>
+<p><cite>{region}</cite> is the Compute region the service will operate in. For Rackspace
+users, you can select one of the following from the <cite>supported regions page</cite>.</p>
+<p><cite>{urlType}</cite> is the type of URL to use, depending on what endpoints your
+catalog provides. For Rackspace, you may use either <cite>internalURL</cite> or <cite>publicURL</cite>.
+The former will execute HTTP transactions over the internal Rackspace network,
+reducing latency and the overall bandwidth cost - the caveat is that all of your
+resources must be in same region. <cite>publicURL</cite>, however, which is the default,
+will operate over the public Internet and is to be used for multi-region
+installations.</p>
+</div>
+<div class="section" id="get-server">
+<h2>Get server<a class="headerlink" href="#get-server" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to retrieve a specific server is by its unique ID:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$server = $service-&gt;server(&#39;{serverId}&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-servers">
+<h2>List servers<a class="headerlink" href="#list-servers" title="Permalink to this headline">¶</a></h2>
+<p>You can list servers in two different ways:</p>
+<ul class="simple">
+<li>return an <em>overview</em> of each server (ID, name and links)</li>
+<li>return <em>detailed information</em> for each server</li>
+</ul>
+<p>Knowing which option to use might help save unnecessary bandwidth and
+reduce latency.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>// overview
+$servers = $service-&gt;serverList();
+
+// detailed
+$servers = $service-&gt;serverList(true);
+</pre></div>
+</div>
+<div class="section" id="url-parameters-for-filtering-servers">
+<h3>URL parameters for filtering servers<a class="headerlink" href="#url-parameters-for-filtering-servers" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="80%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>image</td>
+<td>The image ID</td>
+<td>string</td>
+</tr>
+<tr class="row-odd"><td>flavor</td>
+<td>The flavor ID</td>
+<td>string</td>
+</tr>
+<tr class="row-even"><td>name</td>
+<td>The server name</td>
+<td>string</td>
+</tr>
+<tr class="row-odd"><td>status</td>
+<td>The server status. Servers contain a status attribute that indicates the current server state. You can filter on the server status when you complete a list servers request, and the server status is returned in the response body. For a full list, please consult <tt class="docutils literal"><span class="pre">OpenCloud\Compute\Constants\ServerState</span></tt></td>
+<td>string</td>
+</tr>
+<tr class="row-even"><td>changes-since</td>
+<td>Value for checking for changes since a previous request</td>
+<td>A valid ISO 8601 dateTime (2011-01-24T17:08Z)</td>
+</tr>
+<tr class="row-odd"><td>RAX-SI:image_schedule</td>
+<td>If scheduled images enabled or not. If the value is TRUE, the list contains all servers that have an image schedule resource set on them. If the value is set to FALSE, the list contains all servers that do not have an image schedule.</td>
+<td>bool</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="create-server">
+<h2>Create server<a class="headerlink" href="#create-server" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="using-an-image">
+<h3>Using an image<a class="headerlink" href="#using-an-image" title="Permalink to this headline">¶</a></h3>
+<p>Now we&#8217;re ready to create our instance:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$server = $compute-&gt;server();
+
+$server-&gt;create(array(
+    &#39;name&#39;     =&gt; &#39;My lovely server&#39;,
+    &#39;imageId&#39;  =&gt; &#39;{imageId}&#39;,
+    &#39;flavorId&#39; =&gt; &#39;{flavorId}&#39;,
+));
+</pre></div>
+</div>
+<p>It&#8217;s always best to be defensive when executing functionality over HTTP;
+you can achieve this best by wrapping calls in a try/catch block. It
+allows you to debug your failed operations in a graceful and efficient
+manner.</p>
+</div>
+<div class="section" id="using-a-bootable-volume">
+<h3>Using a bootable volume<a class="headerlink" href="#using-a-bootable-volume" title="Permalink to this headline">¶</a></h3>
+<p>Firstly we need to find our volume using their IDs.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$bootableVolume = $client-&gt;volumeService()-&gt;volume(&#39;{volumeId}&#39;);
+</pre></div>
+</div>
+<p>Now we&#8217;re ready to create our instance:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$server = $compute-&gt;server();
+
+$response = $server-&gt;create(array(
+    &#39;name&#39;     =&gt; &#39;My lovely server&#39;,
+    &#39;volume&#39;   =&gt; $bootableVolume,
+    &#39;flavorId&#39; =&gt; &#39;{flavorId}&#39;
+));
+</pre></div>
+</div>
+<p>It&#8217;s always best to be defensive when executing functionality over HTTP;
+you can achieve this best by wrapping calls in a try/catch block. It
+allows you to debug your failed operations in a graceful and efficient
+manner.</p>
+</div>
+<div class="section" id="create-parameters">
+<h3>Create parameters<a class="headerlink" href="#create-parameters" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="92%" />
+<col width="1%" />
+<col width="4%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+<th class="head">Required</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>The server name. The name that you specify in a create request becomes the initial host name of the server. After the server is built, if you change the server name in the API or change the host name directly, the names are not kept in sync.</td>
+<td>string</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>flavor</td>
+<td>A populated <tt class="docutils literal"><span class="pre">OpenCloud\Compute\Resource\Flavor</span></tt> object representing your chosen flavor</td>
+<td>object</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>image</td>
+<td>A populated <tt class="docutils literal"><span class="pre">OpenCloud\Compute\Resource\Image</span></tt> object representing your chosen image</td>
+<td>object</td>
+<td>No, if volume is specified</td>
+</tr>
+<tr class="row-odd"><td>volume</td>
+<td>A populated <tt class="docutils literal"><span class="pre">OpenCloud\Volume\Resource\Volume</span></tt> object representing your chosen bootable volume</td>
+<td>object</td>
+<td>No, if image is specified</td>
+</tr>
+<tr class="row-even"><td>volumeDeleteOnTermination</td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt> if the bootable volume should be deleted when the server is terminated; <tt class="docutils literal"><span class="pre">false</span></tt>, otherwise</td>
+<td>boolean</td>
+<td>No; default = <tt class="docutils literal"><span class="pre">false</span></tt></td>
+</tr>
+<tr class="row-odd"><td>OS-DCF:diskConfig</td>
+<td>The disk configuration value. You can use two options: <tt class="docutils literal"><span class="pre">AUTO</span></tt> or <tt class="docutils literal"><span class="pre">MANUAL</span></tt>. <tt class="docutils literal"><span class="pre">AUTO</span></tt> means the server is built with a single partition the size of the target flavor disk. The file system is automatically adjusted to fit the entire partition. This keeps things simple and automated. <tt class="docutils literal"><span class="pre">AUTO</span></tt> is valid only for images and servers with a single partition that use the EXT3 file system. This is the default setting for applicable Rackspace base images.<tt class="docutils literal"><span class="pre">MANUAL</span></tt> means the server is built using whatever partition scheme and file system is in the source image. If the target flavor disk is larger, the remaining disk space is left unpartitioned. This enables images to have non-EXT3 file systems, multiple partitions, and so on, and enables you to manage the disk configuration.</td>
+<td>string</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>networks</td>
+<td>An array of populated <tt class="docutils literal"><span class="pre">OpenCloud\Compute\Resource\Network</span></tt> objects that indicate which networks your instance resides in.</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>metadata</td>
+<td>An array of arbitrary data (key-value pairs) that adds additional meaning to your server.</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>keypair</td>
+<td>You can install a registered keypair onto your newly created instance, thereby providing scope for keypair-based authentication.</td>
+<td>array</td>
+<td>No</td>
+</tr>
+<tr class="row-odd"><td>personality</td>
+<td>Files that you can upload to your newly created instance&#8217;s filesystem.</td>
+<td>array</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="creating-a-server-with-keypairs">
+<h3>Creating a server with keypairs<a class="headerlink" href="#creating-a-server-with-keypairs" title="Permalink to this headline">¶</a></h3>
+<p>In order to provision an instance with a saved keypair (allowing you to SSH
+in without passwords), you create your server using the same operation
+as usual, with one extra parameter:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$server = $compute-&gt;server();
+
+$server-&gt;create(array(
+    &#39;name&#39;     =&gt; &#39;New server&#39;,
+    &#39;imageId&#39;  =&gt; &#39;{imageId}&#39;,
+    &#39;flavorId&#39; =&gt; &#39;{flavorId}&#39;,
+    &#39;keypair&#39;  =&gt; &#39;main_key&#39;
+));
+</pre></div>
+</div>
+<p>So, as you can see, you specify the <strong>name</strong> of an existing keypair that
+you previously created on the API.</p>
+</div>
+<div class="section" id="creating-a-server-with-personality-files">
+<h3>Creating a server with personality files<a class="headerlink" href="#creating-a-server-with-personality-files" title="Permalink to this headline">¶</a></h3>
+<p>Before you execute the create operation, you can add &#8220;personality&#8221; files
+to your <tt class="docutils literal"><span class="pre">OpenCloud\Compute\Resource\Server</span></tt> object. These files are
+structured as a flat array.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$server-&gt;addFile(&#39;/var/test_file&#39;, &#39;FILE CONTENT&#39;);
+</pre></div>
+</div>
+<p>As you can see, the first parameter represents the filename, and the
+second is a string representation of its content. When the server is
+created these files will be created on its local filesystem. For more
+information about server personality files, please consult the <a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Server_Personality-d1e2543.html">official
+documentation</a>.</p>
+</div>
+</div>
+<div class="section" id="update-server">
+<h2>Update server<a class="headerlink" href="#update-server" title="Permalink to this headline">¶</a></h2>
+<p>You can update certain attributes of an existing server instance. These
+attributes are detailed in the next section.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$server-&gt;update(array(
+   &#39;name&#39; =&gt; &#39;NEW SERVER NAME&#39;
+));
+</pre></div>
+</div>
+<div class="section" id="updatable-attributes">
+<h3>Updatable attributes<a class="headerlink" href="#updatable-attributes" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">name</th>
+<th class="head">description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>name</td>
+<td>The name of the server. If you edit the server name, the server host name does not change. Also, server names are not guaranteed to be unique.</td>
+</tr>
+<tr class="row-odd"><td>accessIPv4</td>
+<td>The IP version 4 address.</td>
+</tr>
+<tr class="row-even"><td>accessIPv6</td>
+<td>The IP version 6 address.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="delete-server">
+<h2>Delete server<a class="headerlink" href="#delete-server" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$server-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

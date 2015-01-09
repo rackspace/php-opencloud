@@ -1,0 +1,365 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to php-opencloud! &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="#"/>
+        <link rel="next" title="Auto Scale v2" href="services/autoscale/index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="#" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="services/autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="#">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+      
+    <li>Welcome to php-opencloud!</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="welcome-to-php-opencloud">
+<h1>Welcome to php-opencloud!<a class="headerlink" href="#welcome-to-php-opencloud" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>You must install this library through Composer:</p>
+<div class="highlight-bash"><div class="highlight"><pre>composer require rackspace/php-opencloud
+</pre></div>
+</div>
+<p>If you do not have Composer installed, please consult the <a class="reference external" href="https://getcomposer.org/doc/00-intro.md">official docs</a>.</p>
+<p>Once you have installed the library, you will need to load Composer&#8217;s autoloader
+(which registers all the required namespaces). To do this, place the following
+line of PHP code at the top of your application&#8217;s PHP files:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This assumes your application&#8217;s PHP files are located in the same folder as
+<tt class="docutils literal"><span class="pre">vendor/</span></tt>. If your files are located elsewhere, please supply the path to
+<tt class="docutils literal"><span class="pre">vendor/autoload.php</span></tt> in the require statement above.</p>
+<p>Read the <a class="reference internal" href="getting-started-with-openstack.html"><em>Getting Started with OpenStack</em></a> or
+<a class="reference internal" href="getting-started-with-rackspace.html"><em>Getting Started with Rackspace</em></a> to help you get started with basic
+Compute operations.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are running PHP 5.3, please see our <a class="reference internal" href="using-php-5.3.html"><em>Using the SDK with PHP v5.3</em></a> guide.</p>
+</div>
+</div>
+<div class="section" id="services">
+<h2>Services<a class="headerlink" href="#services" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="services/autoscale/index.html">Auto Scale v2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/compute/index.html">Compute v2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/database/index.html">Databases v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/dns/index.html">DNS v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/identity/index.html">Identity v2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/image/index.html">Images v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/load-balancer/index.html">Load Balancer v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/monitoring/index.html">Monitoring v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/networking/index.html">Networking v2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/object-store/index.html">Object Store v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/orchestration/index.html">Orchestration v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/queues/index.html">Queues v1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services/volume/index.html">Volumes v1</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="usage-tips">
+<h2>Usage tips<a class="headerlink" href="#usage-tips" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="caching-creds.html">Caching credentials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="iterators.html">Iterators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="url-types.html">URL types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http-clients.html">HTTP Clients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">Authentication</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="help-and-support">
+<h2>Help and support<a class="headerlink" href="#help-and-support" title="Permalink to this headline">¶</a></h2>
+<p>If you have specific problems or bugs with this SDK, please file an issue on
+our official <a class="reference external" href="https://github.com/rackspace/php-opencloud">Github</a>. We also
+have a <a class="reference external" href="https://groups.google.com/forum/#!forum/php-opencloud">mailing list</a>,
+so feel free to join to keep up to date with all the latest changes and
+announcements to the library.</p>
+<p>For general feedback and support requests, send an email to
+<a class="reference external" href="mailto:sdk-support&#37;&#52;&#48;rackspace&#46;com">sdk-support<span>&#64;</span>rackspace<span>&#46;</span>com</a>.</p>
+<p>You can also find assistance via IRC on #rackspace at freenode.net.</p>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;d like to contribute to the project, or require help running the
+unit/acceptance tests, please view the <a class="reference external" href="https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md">contributing guidelines</a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="services/autoscale/index.html" class="btn btn-neutral float-right" title="Auto Scale v2"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

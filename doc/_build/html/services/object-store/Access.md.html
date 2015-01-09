@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Setup</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/Access.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(RACKSPACE_US, array(
+
+));
+
+$service = $client-&gt;objectStoreService(&#39;cloudFiles&#39;, &#39;IAD&#39;); # Second argument is the region you want
+</pre></div>
+</div>
+</div>
+<div class="section" id="temporary-urls">
+<h1>Temporary URLs<a class="headerlink" href="#temporary-urls" title="Permalink to this headline">¶</a></h1>
+<p>Temporary URLs allow you to create time-limited Internet addresses that
+allow you to grant access to your Cloud Files account. Using Temporary
+URL, you may allow others to retrieve or place objects in your
+containers - regardless of whether they&#8217;re CDN-enabled.</p>
+<div class="section" id="set-temporary-url-metadata-key">
+<h2>Set &#8220;temporary URL&#8221; metadata key<a class="headerlink" href="#set-temporary-url-metadata-key" title="Permalink to this headline">¶</a></h2>
+<p>You must set this &#8220;secret&#8221; value on your account, where it can be used
+in a global state:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$account = $service-&gt;getAccount();
+$account-&gt;setTempUrlSecret(&#39;my_secret&#39;);
+
+echo $account-&gt;getTempUrlSecret();
+</pre></div>
+</div>
+<p>The string argument of <tt class="docutils literal"><span class="pre">setTempUrlSecret()</span></tt> is optional - if left out,
+the SDK will generate a random hashed secret for you.</p>
+</div>
+<div class="section" id="create-a-temporary-url">
+<h2>Create a temporary URL<a class="headerlink" href="#create-a-temporary-url" title="Permalink to this headline">¶</a></h2>
+<p>Once you&#8217;ve set an account secret, you can create a temporary URL for
+your object. To allow GET access to your object for 1 minute:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;getTemporaryUrl(60, &#39;GET&#39;);
+</pre></div>
+</div>
+<p>To allow PUT access for 1 hour:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;getTemporaryUrl(360, &#39;PUT&#39;);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="hosting-websites-on-cloudfiles">
+<h1>Hosting websites on CloudFiles<a class="headerlink" href="#hosting-websites-on-cloudfiles" title="Permalink to this headline">¶</a></h1>
+<p>To host a static (i.e. HTML) website on CloudFiles, you must follow
+these steps:</p>
+<ol class="arabic simple">
+<li>CDN-enable a container</li>
+<li>Upload all HTML content. You can use nested directory structures.</li>
+<li>Tell CloudFiles what to use for your default index page like this:</li>
+</ol>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;setStaticIndexPage(&#39;index.html&#39;);
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>(Optional) Tell CloudFiles which error page to use by default:</li>
+</ol>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;setStaticErrorPage(&#39;error.html&#39;);
+</pre></div>
+</div>
+<p>Bear in mind that steps 3 &amp; 4 do not upload content, but rather specify
+a reference to an existing page/CloudFiles object.</p>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

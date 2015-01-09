@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Notifications &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Notifications</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/Notifications.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="notifications">
+<h1>Notifications<a class="headerlink" href="#notifications" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="info">
+<h2>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>A notification is a destination to send an alarm; it can be a variety of
+different types, and will evolve over time.</p>
+<p>For instance, with a webhook type notification, Cloud Monitoring posts
+JSON formatted data to a user-specified URL on an alert condition (Check
+goes from <tt class="docutils literal"><span class="pre">OK</span></tt> -&gt; <tt class="docutils literal"><span class="pre">CRITICAL</span></tt> and so on).</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$id = &#39;ntAAAA&#39;;
+$notification = $service-&gt;getNotification($id);
+</pre></div>
+</div>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="45%" />
+<col width="36%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>details</td>
+<td>A hash of notification specific details based on the notification type.</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getDetails()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>Friendly name for the notification.</td>
+<td>String (1..255 chars)</td>
+<td><tt class="docutils literal"><span class="pre">getLabel()</span></tt></td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>The notification type to send.</td>
+<td>String. Either <tt class="docutils literal"><span class="pre">webhook</span></tt>, <tt class="docutils literal"><span class="pre">email</span></tt>, or <tt class="docutils literal"><span class="pre">pagerduty</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getType()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="test-parameters">
+<h2>Test parameters<a class="headerlink" href="#test-parameters" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$params = array(
+    &#39;label&#39; =&gt; &#39;My webhook #1&#39;,
+    &#39;type&#39;  =&gt; &#39;webhook&#39;,
+    &#39;details&#39; =&gt; array(
+        &#39;url&#39; =&gt; &#39;http://example.com&#39;
+    )
+);
+
+// Test it
+$response = $notification-&gt;testParams($params);
+
+if ($response-&gt;status == &#39;Success&#39;) {
+    echo $response-&gt;message;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-notification">
+<h2>Create Notification<a class="headerlink" href="#create-notification" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$notification-&gt;create($params);
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-existing-notification">
+<h2>Test existing notification<a class="headerlink" href="#test-existing-notification" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$response = $notification-&gt;testExisting(true);
+echo $response-&gt;debug_info;
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-notifications">
+<h2>List Notifications<a class="headerlink" href="#list-notifications" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$notifications = $service-&gt;getNotifications();
+
+foreach ($notifications as $notification) {
+    echo $notification-&gt;getId();
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-and-delete-notifications">
+<h2>Update and delete Notifications<a class="headerlink" href="#update-and-delete-notifications" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>// Update
+$notification-&gt;update(array(
+    &#39;label&#39; =&gt; &#39;New notification label&#39;
+));
+
+// Delete
+$notification-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="notification-types">
+<h1>Notification types<a class="headerlink" href="#notification-types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Info<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Pretty self-explanatory. Rackspace Cloud Monitoring currently supports
+the following notification types:</p>
+<div class="section" id="webhook">
+<h3>Webhook<a class="headerlink" href="#webhook" title="Permalink to this headline">¶</a></h3>
+<p>Industry-standard web hooks, where JSON is posted to a configurable URL.
+It has these attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="62%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>address</td>
+<td>Email address to send notifications to</td>
+<td>Valid email</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="email">
+<h3>Email<a class="headerlink" href="#email" title="Permalink to this headline">¶</a></h3>
+<p>Email alerts where the message is delivered to a specified address. It
+has these attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="63%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>url</td>
+<td>An HTTP or HTTPS URL to POST to</td>
+<td>Valid URL</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Setup<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>If you&#8217;ve already set up a main Notification object, and want to access
+functionality for this Notification&#8217;s particular Notification Type, you
+can access its property:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$type = $notification-&gt;getNotificationType();
+</pre></div>
+</div>
+<p>Alternatively, you can retrieve an independent resource using the ID:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$typeId = &#39;pagerduty&#39;;
+$type = $service-&gt;getNotificationType($typeId);
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-all-possible-notification-types">
+<h2>List all possible notification types<a class="headerlink" href="#list-all-possible-notification-types" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$types = $service-&gt;getNotificationTypes();
+
+foreach ($types as $type) {
+    echo sprintf(&#39;%s %s&#39;, $type-&gt;getName(), $type-&gt;getDescription());
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="notification-plans">
+<h1>Notification plans<a class="headerlink" href="#notification-plans" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id3">
+<h2>Info<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>A notification plan contains a set of notification actions that
+Rackspace Cloud Monitoring executes when triggered by an alarm.
+Rackspace Cloud Monitoring currently supports webhook and email
+notifications.</p>
+<p>Each notification state can contain multiple notification actions. For
+example, you can create a notification plan that hits a webhook/email to
+notify your operations team if a warning occurs. However, if the warning
+escalates to an Error, the notification plan could be configured to hit
+a different webhook/email that triggers both email and SMS messages to
+the operations team. The notification plan supports the following
+states:</p>
+<ul class="simple">
+<li>Critical</li>
+<li>Warning</li>
+<li>OK</li>
+</ul>
+<p>A notification plan, <tt class="docutils literal"><span class="pre">npTechnicalContactsEmail</span></tt>, is provided by
+default which will email all of the technical contacts on file for an
+account whenever there is a state change.</p>
+</div>
+<div class="section" id="id4">
+<h2>Setup<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$planId = &#39;npAAAA&#39;;
+$plan = $service-&gt;getNotificationPlan();
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>Attributes<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="45%" />
+<col width="9%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Required?</th>
+<th class="head">Data type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>label</td>
+<td>Friendly name for the notification plan.</td>
+<td>Required</td>
+<td>String (1..255 chars)</td>
+<td><tt class="docutils literal"><span class="pre">getLabel()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>critical_state</td>
+<td>The notification list to send to when the state is <tt class="docutils literal"><span class="pre">CRITICAL</span></tt>.</td>
+<td>Optional</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getCriticalState()</span></tt></td>
+</tr>
+<tr class="row-even"><td>ok_state</td>
+<td>The notification list to send to when the state is <tt class="docutils literal"><span class="pre">OK</span></tt>.</td>
+<td>Optional</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getOkState()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>warning_state</td>
+<td>The notification list to send to when the state is <tt class="docutils literal"><span class="pre">WARNING</span></tt>.</td>
+<td>Optional</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getWarningState()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="create-notification-plan">
+<h2>Create Notification Plan<a class="headerlink" href="#create-notification-plan" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$plan-&gt;create(array(
+    &#39;label&#39;          =&gt; &#39;New Notification Plan&#39;,
+    &#39;critical_state&#39; =&gt; array(&#39;ntAAAA&#39;),
+    &#39;ok_state&#39;       =&gt; array(&#39;ntBBBB&#39;),
+    &#39;warning_state&#39;  =&gt; array(&#39;ntCCCC&#39;)
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-and-delete-notification-plan">
+<h2>Update and delete Notification Plan<a class="headerlink" href="#update-and-delete-notification-plan" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>// Update
+$plan-&gt;update(array(
+    &#39;label&#39; =&gt; &#39;New label for my plan&#39;
+));
+
+// Delete
+$plan-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="alarm-notification-history">
+<h1>Alarm Notification History<a class="headerlink" href="#alarm-notification-history" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id6">
+<h2>Info<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>The monitoring service keeps a record of notifications sent for each
+alarm. This history is further subdivided by the check on which the
+notification occurred. Every attempt to send a notification is recorded,
+making this history a valuable tool in diagnosing issues with unreceived
+notifications, in addition to offering a means of viewing the history of
+an alarm&#8217;s statuses.</p>
+<p>Alarm notification history is accessible as a Time Series Collection. By
+default alarm notification history is stored for 30 days and the API
+queries the last 7 days of information.</p>
+</div>
+<div class="section" id="id7">
+<h2>&nbsp;Setup<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>Notification History is a sub-resource of an Alarm. For more information
+about working with Alarms, please consult the relevant
+<a class="reference external" href="Alarms.md">documentation</a>.</p>
+</div>
+<div class="section" id="discover-which-checks-have-a-notification-history">
+<h2>Discover which Checks have a Notification History<a class="headerlink" href="#discover-which-checks-have-a-notification-history" title="Permalink to this headline">¶</a></h2>
+<p>This operation list checks for which alarm notification history is
+available:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$checks = $alarm-&gt;getRecordedChecks();
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-alarm-notification-history-for-a-particular-check">
+<h2>List Alarm Notification History for a particular Check<a class="headerlink" href="#list-alarm-notification-history-for-a-particular-check" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$checkHistory = $alarm-&gt;getNotificationHistoryForCheck(&#39;chAAAA&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-a-particular-notification-history-item">
+<h2>Get a particular Notification History item<a class="headerlink" href="#get-a-particular-notification-history-item" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$checkId  = &#39;chAAAA&#39;;
+$itemUuid = &#39;646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26&#39;;
+
+$singleItem = $history-&gt;getNotificationHistoryItem($checkId, $itemUuid);
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

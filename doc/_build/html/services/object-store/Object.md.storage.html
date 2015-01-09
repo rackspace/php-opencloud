@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Setup</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/Object.md.storage.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<p>Conceptually, a container contains objects (also known as files). In
+order to work with objects, you will need to instantiate a container
+object first as <a class="reference external" href="https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/Storage/Container.md">documented
+here</a>.</p>
+</div>
+<div class="section" id="note-on-object-properties">
+<h1>Note on object properties<a class="headerlink" href="#note-on-object-properties" title="Permalink to this headline">¶</a></h1>
+<p>Please be aware that you cannot directly access the properties of
+DataObject anymore, you <strong>must</strong> use appropriate getter/ setter methods:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="52%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Parent container</td>
+<td><tt class="docutils literal"><span class="pre">getContainer</span></tt></td>
+</tr>
+<tr class="row-odd"><td>Name</td>
+<td><tt class="docutils literal"><span class="pre">getName</span></tt></td>
+</tr>
+<tr class="row-even"><td>Body of file</td>
+<td><tt class="docutils literal"><span class="pre">getContent</span></tt></td>
+</tr>
+<tr class="row-odd"><td>Size of file</td>
+<td><tt class="docutils literal"><span class="pre">getContentLength</span></tt></td>
+</tr>
+<tr class="row-even"><td>Type of file</td>
+<td><tt class="docutils literal"><span class="pre">getContentType</span></tt></td>
+</tr>
+<tr class="row-odd"><td>ETag checksum</td>
+<td><tt class="docutils literal"><span class="pre">getEtag</span></tt></td>
+</tr>
+<tr class="row-even"><td>Last modified date</td>
+<td><tt class="docutils literal"><span class="pre">getLastModified</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="create-an-object">
+<h1>Create an object<a class="headerlink" href="#create-an-object" title="Permalink to this headline">¶</a></h1>
+<p>There are three ways to upload a new file, each of which has different
+business needs.</p>
+<blockquote>
+<div><p><strong>Note:</strong> Unlike previous versions, you do not need to manually
+specify your object&#8217;s content type. The API will do this for you.</p>
+<p><strong>Note:</strong> when working with names that contain non-standard
+alphanumerical characters (such as spaces or non-English
+characters), you must ensure they are encoded with
+<tt class="docutils literal"><span class="pre">`urlencode</span></tt> &lt;<a class="reference external" href="http://php.net/urlencode">http://php.net/urlencode</a>&gt;`__ before passing them in</p>
+</div></blockquote>
+<div class="section" id="to-upload-a-single-basic-file">
+<h2>To upload a single/basic file:<a class="headerlink" href="#to-upload-a-single-basic-file" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\ObjectStore\Resource\DataObject;
+
+$data = fopen(&#39;/path/to/sample.mp3&#39;, &#39;r+&#39;);
+
+// alternatively, you can pass in a string as the file contents `$data` argument (instead of a resource)
+
+$meta = array(
+    &#39;Author&#39; =&gt; &#39;Camera Obscura&#39;,
+    &#39;Origin&#39; =&gt; &#39;Glasgow&#39;
+);
+
+$metaHeaders = DataObject::stockHeaders($meta);
+$customHeaders = array();
+$allHeaders = $metaHeaders + $customHeaders;
+
+$container-&gt;uploadObject(&#39;sample.mp3&#39;, $data, $allHeaders);
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-upload-multiple-small-to-mid-sized-files">
+<h2>To upload multiple small-to-mid sized files:<a class="headerlink" href="#to-upload-multiple-small-to-mid-sized-files" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$files = array(
+    array(
+        &#39;name&#39; =&gt; &#39;apache.log&#39;,
+        &#39;path&#39; =&gt; &#39;/etc/httpd/logs/error_log&#39;
+    ),
+    array(
+        &#39;name&#39; =&gt; &#39;mysql.log&#39;,
+        &#39;body&#39; =&gt; fopen(&#39;/tmp/mysql.log&#39;, &#39;r+&#39;)
+    ),
+    array(
+        &#39;name&#39; =&gt; &#39;to_do_list.txt&#39;,
+        &#39;body&#39; =&gt; &#39;PHONE HOME&#39;
+    )
+);
+
+$container-&gt;uploadObjects($files);
+</pre></div>
+</div>
+<p>As you can see, the <tt class="docutils literal"><span class="pre">name</span></tt> key is required for every file. You must
+also specify <em>either</em> a path key (to an existing file), or a <tt class="docutils literal"><span class="pre">body</span></tt>.
+The <tt class="docutils literal"><span class="pre">body</span></tt> can either be a PHP resource or a string representation of
+the content you want to upload.</p>
+</div>
+<div class="section" id="to-upload-large-files">
+<h2>To upload large files<a class="headerlink" href="#to-upload-large-files" title="Permalink to this headline">¶</a></h2>
+<p>For files over 5GB, you will need to use the
+<tt class="docutils literal"><span class="pre">OpenCloud\ObjectStore\Upload\TransferBuilder</span></tt> factory to build your
+transfer, upon which you can execute your upload functionality. For your
+convenience, the Container resource object contains a simple method to
+do this heavy lifting for you:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$transfer = $container-&gt;setupObjectTransfer(array(
+    &#39;name&#39; =&gt; &#39;video.mov&#39;,
+    &#39;path&#39; =&gt; &#39;/home/jamie/video.mov&#39;,
+    &#39;metadata&#39; =&gt; array(
+        &#39;Author&#39; =&gt; &#39;Jamie&#39;
+    ),
+    &#39;concurrency&#39; =&gt; 4,
+    &#39;partSize&#39;    =&gt; 1.5 * Size::GB
+));
+
+$transfer-&gt;upload();
+</pre></div>
+</div>
+<p>You can specify how many concurrent cURL connections are used to upload
+parts of your file. The file is fragmented into chunks, each of which is
+uploaded individually as a separate file (the filename of each part will
+indicate that it&#8217;s a segment rather than the full file). After all parts
+are uploaded, a manifest is uploaded. When the end-user accesses the 5GB
+by its true filename, it actually references the manifest file which
+concatenates each segment into a streaming download.</p>
+</div>
+</div>
+<div class="section" id="list-objects-in-a-container">
+<h1>List objects in a container<a class="headerlink" href="#list-objects-in-a-container" title="Permalink to this headline">¶</a></h1>
+<p>To return a list of objects:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$files = $container-&gt;objectList();
+
+foreach ($files as $file) {
+    // ... do something
+}
+</pre></div>
+</div>
+<p>By default, 10,000 objects are returned as a maximum. To get around
+this, you can construct a query which refines your result set. For a
+full specification of query parameters relating to collection filtering,
+see the <a class="reference external" href="http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-objects.html">official
+docs</a>.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;objectList(array(&#39;prefix&#39; =&gt; &#39;logFile_&#39;));
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-object">
+<h1>Get object<a class="headerlink" href="#get-object" title="Permalink to this headline">¶</a></h1>
+<p>To retrieve a specific file from Cloud Files:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$file = $container-&gt;getObject(&#39;summer_vacation.mp4&#39;);
+</pre></div>
+</div>
+<div class="section" id="conditional-requests">
+<h2>Conditional requests<a class="headerlink" href="#conditional-requests" title="Permalink to this headline">¶</a></h2>
+<p>You can also perform conditional requests according to <a class="reference external" href="http://www.ietf.org/rfc/rfc2616.txt">RFC 2616
+specification</a> (§§ 14.24-26).
+Supported headers are <tt class="docutils literal"><span class="pre">If-Match</span></tt>, <tt class="docutils literal"><span class="pre">If-None-Match</span></tt>,
+<tt class="docutils literal"><span class="pre">If-Modified-Since</span></tt> and <tt class="docutils literal"><span class="pre">If-Unmodified-Since</span></tt>.</p>
+<p>So, to retrieve a file&#8217;s contents only if it&#8217;s been recently changed</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$file = $container-&gt;getObject(&#39;error_log.txt&#39;, array(
+    &#39;If-Modified-Since&#39; =&gt; &#39;Tue, 15 Nov 1994 08:12:31 GMT&#39;
+));
+
+if ($file-&gt;getContentLength()) {
+    echo &#39;Has been changed since the above date&#39;;
+} else {
+    echo &#39;Has not been changed&#39;;
+}
+</pre></div>
+</div>
+<p>Retrieve a file only if it has NOT been modified (and expect a 412 on
+failure):</p>
+<div class="highlight-python"><div class="highlight"><pre>use Guzzle\Http\Exception\ClientErrorResponseException;
+
+try {
+    $oldImmutableFile = $container-&gt;getObject(&#39;payroll_2001.xlsx&#39;, array(
+        &#39;If-Unmodified-Since&#39; =&gt; &#39;Mon, 31 Dec 2001 23:00:00 GMT&#39;
+    ));
+} catch (ClientErrorResponseException $e) {
+    echo &#39;This file has been modified...&#39;;
+}
+</pre></div>
+</div>
+<p>Finally, you can specify a range - which will return a subset of bytes
+from the file specified. To return the last 20B of a file:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$snippet = $container-&gt;getObject(&#39;output.log&#39;, array(&#39;range&#39; =&gt; &#39;bytes=-20&#39;));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="update-an-existing-object">
+<h1>Update an existing object<a class="headerlink" href="#update-an-existing-object" title="Permalink to this headline">¶</a></h1>
+<p>Updating content is easy:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$file-&gt;setContent(fopen(&#39;/path/to/new/content&#39;, &#39;r+&#39;));
+$file-&gt;update();
+</pre></div>
+</div>
+<p>Bear in mind that updating a file name will result in a new file being
+generated (under the new name). You will need to delete the old file.</p>
+</div>
+<div class="section" id="copy-object">
+<h1>Copy object<a class="headerlink" href="#copy-object" title="Permalink to this headline">¶</a></h1>
+<p>To copy a file to another location, you need to specify a string-based
+destination path:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;copy(&#39;/container_2/new_object_name&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-object">
+<h1>Delete object<a class="headerlink" href="#delete-object" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;delete();
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-object-metadata">
+<h1>Get object metadata<a class="headerlink" href="#get-object-metadata" title="Permalink to this headline">¶</a></h1>
+<p>You can fetch just the object metadata without fetching the full
+content:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;getPartialObject(&#39;summer_vacation.mp4&#39;);
+</pre></div>
+</div>
+<p>In order to access the metadata on a partial or complete object, use:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;getMetadata();
+</pre></div>
+</div>
+<p>You can turn a partial object into a full object to get the content
+after looking at the metadata:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;refresh();
+</pre></div>
+</div>
+<p>You can also update to get the latest metadata:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;retrieveMetadata();
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-object-metadata">
+<h1>Update object metadata<a class="headerlink" href="#update-object-metadata" title="Permalink to this headline">¶</a></h1>
+<p>Similarly, with setting metadata there are two options: you can update
+the metadata values of the local object (i.e. no HTTP request) if you
+anticipate you&#8217;ll be executing one soon (an update operation for
+example):</p>
+<div class="code php highlight-python"><div class="highlight"><pre>// There&#39;s no need to execute a HTTP request, because we&#39;ll soon do one anyway for the update operation
+$object-&gt;setMetadata(array(
+    &#39;Author&#39; =&gt; &#39;Hemingway&#39;
+));
+
+// ... code here
+
+$object-&gt;update();
+</pre></div>
+</div>
+<p>Alternatively, you can update the API straight away - so that everything
+is retained:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$object-&gt;saveMetadata(array(
+    &#39;Author&#39; =&gt; &#39;Hemingway&#39;
+));
+</pre></div>
+</div>
+<p>Please be aware that these methods override and wipe existing values. If
+you want to append values to your metadata, use the correct method:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$metadata = $object-&gt;appendToMetadata(array(
+  &#39;Author&#39; =&gt; &#39;Hemingway&#39;
+));
+
+$object-&gt;saveMetadata($metadata);
+</pre></div>
+</div>
+</div>
+<div class="section" id="extract-archive">
+<h1>Extract archive<a class="headerlink" href="#extract-archive" title="Permalink to this headline">¶</a></h1>
+<p>CloudFiles provides you the ability to extract uploaded archives to
+particular destinations. The archive will be extracted and its contents
+will populate the particular area specified. To upload file (which might
+represent a directory structure) into a particular container:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\ObjectStore\Constants\UrlType;
+
+$service-&gt;bulkExtract(&#39;container_1&#39;, fopen(&#39;/home/jamie/files.tar.gz&#39;,&#39;r&#39;), UrlType::TAR_GZ);
+</pre></div>
+</div>
+<p>You can also omit the container name (i.e. provide an empty string as
+the first argument). If you do this, the API will create the containers
+necessary to house the extracted files - this is done based on the
+filenames inside the archive.</p>
+</div>
+<div class="section" id="bulk-delete">
+<h1>Bulk delete<a class="headerlink" href="#bulk-delete" title="Permalink to this headline">¶</a></h1>
+<p>Bulk delete a set of paths:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$pathsToBeDeleted = array(&#39;/container_1/old_file&#39;, &#39;/container_2/notes.txt&#39;, &#39;/container_1/older_file.log&#39;);
+
+$service-&gt;bulkDelete($pathsToBeDeleted);
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

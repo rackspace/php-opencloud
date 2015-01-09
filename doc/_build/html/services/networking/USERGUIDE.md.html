@@ -1,0 +1,1021 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Complete User Guide for the Networking Service &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Complete User Guide for the Networking Service</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/networking/USERGUIDE.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="complete-user-guide-for-the-networking-service">
+<h1>Complete User Guide for the Networking Service<a class="headerlink" href="#complete-user-guide-for-the-networking-service" title="Permalink to this headline">¶</a></h1>
+<p>Networking is a service that you can use to create virtual networks and
+attach cloud devices such as servers to these networks.</p>
+<p>This user guide introduces you the entities in the Networking service —
+networks, subnets, and ports — and shows you how to create and manage
+these entities.</p>
+<div class="section" id="table-of-contents">
+<h2>Table of contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="#concepts">Concepts</a></li>
+<li><a class="reference external" href="#prerequisites">Prerequisites</a><ul>
+<li><a class="reference external" href="#client">Client</a></li>
+<li><a class="reference external" href="#networking-service">Networking service</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#networks">Networks</a><ul>
+<li><a class="reference external" href="#create-a-network">Create a network</a></li>
+<li><a class="reference external" href="#create-multiple-networks">Create multiple networks</a></li>
+<li><a class="reference external" href="#list-networks">List networks</a></li>
+<li><a class="reference external" href="#get-a-network">Get a network</a></li>
+<li><a class="reference external" href="#update-a-network">Update a network</a></li>
+<li><a class="reference external" href="#delete-a-network">Delete a network</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#subnets">Subnets</a><ul>
+<li><a class="reference external" href="#create-a-subnet">Create a subnet</a></li>
+<li><a class="reference external" href="#create-multiple-subnets">Create multiple subnets</a></li>
+<li><a class="reference external" href="#list-subnets">List subnets</a></li>
+<li><a class="reference external" href="#get-a-subnet">Get a subnet</a></li>
+<li><a class="reference external" href="#update-a-subnet">Update a subnet</a></li>
+<li><a class="reference external" href="#delete-a-subnet">Delete a subnet</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#ports">Ports</a><ul>
+<li><a class="reference external" href="#create-a-port">Create a port</a></li>
+<li><a class="reference external" href="#create-multiple-ports">Create multiple ports</a></li>
+<li><a class="reference external" href="#list-ports">List ports</a></li>
+<li><a class="reference external" href="#get-a-port">Get a port</a></li>
+<li><a class="reference external" href="#update-a-port">Update a port</a></li>
+<li><a class="reference external" href="#delete-a-port">Delete a port</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<p>To use the Networking service effectively, you should understand the
+following key concepts:</p>
+<ul class="simple">
+<li><strong>Network</strong>: An isolated virtual layer-2 broadcast domain that is
+typically reserved for the tenant who created it unless it is
+configured to be shared. The network is the main entity in the
+Networking service. Ports and subnets are always associated with a
+network.</li>
+<li><strong>Subnet</strong>: An IP address block that can be used to assign IP
+addresses to virtual instances (such as servers created using the
+Compute service). Each subnet must have a CIDR and must be associated
+with a network.</li>
+<li><strong>Port</strong>: A virtual switch port on a logical network switch. Virtual
+instances (such as servers created using the Compute service) attach
+their interfaces into ports. The port also defines the MAC address
+and the IP address or addresses to be assigned to the interfaces
+plugged into them. When IP addresses are associated with a port, this
+also implies the port is associated with a subnet because the IP
+address is taken from the allocation pool for a specific subnet.</li>
+</ul>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="client">
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
+<p>To use the Networking service, you must first instantiate a
+<tt class="docutils literal"><span class="pre">OpenStack</span></tt> or <tt class="docutils literal"><span class="pre">Rackspace</span></tt> client object.</p>
+<ul>
+<li><p class="first">If you are working with an OpenStack cloud, instantiate an
+<tt class="docutils literal"><span class="pre">OpenCloud\OpenStack</span></tt> client as follows:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\OpenStack;
+
+$client = new OpenStack(&#39;&lt;OPENSTACK CLOUD IDENTITY ENDPOINT URL&gt;&#39;, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR OPENSTACK CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;password&#39; =&gt; &#39;&lt;YOUR OPENSTACK CLOUD ACCOUNT PASSWORD&gt;&#39;
+));
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you are working with the Rackspace cloud, instantiate an
+<tt class="docutils literal"><span class="pre">OpenCloud\Rackspace</span></tt> client as follows:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+));
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="networking-service">
+<h3>Networking service<a class="headerlink" href="#networking-service" title="Permalink to this headline">¶</a></h3>
+<p>All Networking operations are done via a <em>networking service object</em>. To
+instantiate this object, call the <tt class="docutils literal"><span class="pre">networkingService</span></tt> method on the
+<tt class="docutils literal"><span class="pre">$client</span></tt> object. This method takes the following arguments:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="35%" />
+<col width="8%" />
+<col width="8%" />
+<col width="30%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Position</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>Name of the service, as it appears in the service catalog</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt>; automatically determined when possible</td>
+<td><tt class="docutils literal"><span class="pre">cloudNetworks</span></tt></td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>Cloud region</td>
+<td>String</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">DFW</span></tt></td>
+</tr>
+</tbody>
+</table>
+<div class="code php highlight-python"><div class="highlight"><pre>$region = &#39;&lt;CLOUD REGION NAME&gt;&#39;;
+$networkingService = $client-&gt;networkingService(null, $region);
+</pre></div>
+</div>
+<p>Any networks, subnets, and ports created with this
+<tt class="docutils literal"><span class="pre">$networkingService</span></tt> instance are stored in the cloud region specified
+by <tt class="docutils literal"><span class="pre">$region</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="networks">
+<h2>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h2>
+<p>A network is an isolated virtual layer-2 broadcast domain that is
+typically reserved for the tenant who created it unless it is configured
+to be shared. The network is the main entity in the Networking service.
+Ports and subnets are always associated with a network.</p>
+<div class="section" id="create-a-network">
+<h3>Create a network<a class="headerlink" href="#create-a-network" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="45%" />
+<col width="6%" />
+<col width="6%" />
+<col width="18%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>A human-readable name for the network. This name might not be unique.</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">My</span> <span class="pre">private</span> <span class="pre">backend</span> <span class="pre">network</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">adminStateUp</span></tt></td>
+<td>The administrative state of network. If <tt class="docutils literal"><span class="pre">false</span></tt> (down), the network does not forward packets.</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">shared</span></tt></td>
+<td>Specifies whether the network resource can be accessed by any tenant.</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">false</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">false</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">tenantId</span></tt></td>
+<td>Owner of network. Only admin users can specify a tenant ID other than their own.</td>
+<td>String</td>
+<td>No</td>
+<td>Same as tenant creating the network</td>
+<td><tt class="docutils literal"><span class="pre">123456</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>You can create a network as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$network = $networkingService-&gt;createNetwork(array(
+    &#39;name&#39; =&gt; &#39;My private backend network&#39;
+));
+/** @var $network OpenCloud\Networking\Resource\Network **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/create-network.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="create-multiple-networks">
+<h3>Create multiple networks<a class="headerlink" href="#create-multiple-networks" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an indexed array. Each element of
+this array must be an associative array with the keys shown in <a class="reference external" href="#create-a-network">the
+preceding table</a>.</p>
+<p>You can create multiple networks as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$networks = $networkingService-&gt;createNetworks(array(
+    array(
+        &#39;name&#39; =&gt; &#39;My private backend network #1&#39;
+    ),
+    array(
+        &#39;name&#39; =&gt; &#39;My private backend network #2&#39;
+    )
+));
+
+foreach ($networks as $network) {
+    /** @var $network OpenCloud\Networking\Resource\Network **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/create-networks.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="list-networks">
+<h3>List networks<a class="headerlink" href="#list-networks" title="Permalink to this headline">¶</a></h3>
+<p>You can list all the networks to which you have access as shown in the
+following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$networks = $networkingService-&gt;listNetworks();
+foreach ($networks as $network) {
+    /** @var $network OpenCloud\Networking\Resource\Network **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/list-networks.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-a-network">
+<h3>Get a network<a class="headerlink" href="#get-a-network" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific network by using that network&#8217;s ID, as shown
+in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$network = $networkingService-&gt;getNetwork(&#39;eb60583c-57ea-41b9-8d5c-8fab2d22224c&#39;);
+/** @var $network OpenCloud\Networking\Resource\Network **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/get-network.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="update-a-network">
+<h3>Update a network<a class="headerlink" href="#update-a-network" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="49%" />
+<col width="6%" />
+<col width="6%" />
+<col width="8%" />
+<col width="21%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>A human-readable name for the network. This name might not be unique.</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">My</span> <span class="pre">updated</span> <span class="pre">private</span> <span class="pre">backend</span> <span class="pre">network</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">adminStateUp</span></tt></td>
+<td>The administrative state of network. If <tt class="docutils literal"><span class="pre">false</span></tt> (down), the network does not forward packets.</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">shared</span></tt></td>
+<td>Specifies whether the network resource can be accessed by any tenant.</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">false</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">false</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>You can update a network as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$network-&gt;update(array(
+    &#39;name&#39; =&gt; &#39;My updated private backend network&#39;
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/update-network.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="delete-a-network">
+<h3>Delete a network<a class="headerlink" href="#delete-a-network" title="Permalink to this headline">¶</a></h3>
+<p>You can delete a network as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$network-&gt;delete();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/delete-network.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="subnets">
+<h2>Subnets<a class="headerlink" href="#subnets" title="Permalink to this headline">¶</a></h2>
+<p>A subnet represents an IP address block that can be used to assign IP
+addresses to virtual instances (such as servers created using the
+Compute service). Each subnet must have a CIDR and must be associated
+with a network.</p>
+<div class="section" id="create-a-subnet">
+<h3>Create a subnet<a class="headerlink" href="#create-a-subnet" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="34%" />
+<col width="11%" />
+<col width="4%" />
+<col width="21%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">networkId</span></tt></td>
+<td>Network this subnet is associated with</td>
+<td>String</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">eb60583c-57ea-41b9-8d5c-8fab2d22224c</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">ipVersion</span></tt></td>
+<td>IP version</td>
+<td>Integer (<tt class="docutils literal"><span class="pre">4</span></tt> or <tt class="docutils literal"><span class="pre">6</span></tt>)</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">4</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">cidr</span></tt></td>
+<td>CIDR representing the IP address range for this subnet</td>
+<td>String (CIDR)</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">192.168.199.0/25</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>A human-readable name for the subnet. This name might not be unique.</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">My</span> <span class="pre">subnet</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">gatewayIp</span></tt></td>
+<td>IP address of the default gateway used by devices on this subnet</td>
+<td>String (IP address)</td>
+<td>No</td>
+<td>First IP address in CIDR</td>
+<td><tt class="docutils literal"><span class="pre">192.168.199.128</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">dnsNameservers</span></tt></td>
+<td>DNS nameservers used by hosts in this subnet</td>
+<td>Indexed array of strings</td>
+<td>No</td>
+<td>Empty array</td>
+<td><tt class="docutils literal"><span class="pre">array('4.4.4.4',</span> <span class="pre">'8.8.8.8')</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">allocationPools</span></tt></td>
+<td>Subranges of the CIDR available for dynamic allocation to ports</td>
+<td>Indexed array of associative arrays</td>
+<td>No</td>
+<td>Every IP address in CIDR, excluding gateway IP address if configured</td>
+<td><tt class="docutils literal"><span class="pre">array(array('start'</span> <span class="pre">=&gt;</span> <span class="pre">'192.168.199.2',</span> <span class="pre">'end'</span> <span class="pre">=&gt;</span> <span class="pre">'192.168.199.127'))</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">hostRoutes</span></tt></td>
+<td>Routes that should be used by devices with IP addresses from this subnet (not including the local subnet route)</td>
+<td>Indexed array of associative arrays</td>
+<td>No</td>
+<td>Empty array</td>
+<td><tt class="docutils literal"><span class="pre">array(array('destination'</span> <span class="pre">=&gt;</span> <span class="pre">'1.1.1.0/24',</span> <span class="pre">'nexthop'</span> <span class="pre">=&gt;</span> <span class="pre">'192.168.19.20'))</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">enableDhcp</span></tt></td>
+<td>Specifies whether DHCP is enabled for this subnet</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">false</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">tenantId</span></tt></td>
+<td>Owner of the subnet. Only admin users can specify a tenant ID other than their own.</td>
+<td>String</td>
+<td>No</td>
+<td>Same as tenant creating the subnet</td>
+<td><tt class="docutils literal"><span class="pre">123456</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>You can create a subnet as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$subnet = $networkingService-&gt;createSubnet(array(
+    &#39;name&#39; =&gt; &#39;My subnet&#39;,
+    &#39;networkId&#39; =&gt; &#39;eb60583c-57ea-41b9-8d5c-8fab2d22224c&#39;,
+    &#39;ipVersion&#39; =&gt; 4,
+    &#39;cidr&#39; =&gt; &#39;192.168.199.0/25&#39;
+));
+/** @var $subnet OpenCloud\Networking\Resource\Subnet **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/create-subnet.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="create-multiple-subnets">
+<h3>Create multiple subnets<a class="headerlink" href="#create-multiple-subnets" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an indexed array. Each element of
+this array must be an associative array with the keys shown in <a class="reference external" href="#create-a-subnet">the
+preceding table</a>.</p>
+<p>You can create multiple subnets as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$subnets = $networkingService-&gt;createSubnets(array(
+    array(
+        &#39;name&#39; =&gt; &#39;My subnet #1&#39;
+    ),
+    array(
+        &#39;name&#39; =&gt; &#39;My subnet #2&#39;
+    )
+));
+
+foreach ($subnets as $subnet) {
+    /** @var $subnet OpenCloud\Networking\Resource\Subnet **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/create-subnets.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="list-subnets">
+<h3>List subnets<a class="headerlink" href="#list-subnets" title="Permalink to this headline">¶</a></h3>
+<p>You can list all the subnets to which you have access as shown in the
+following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$subnets = $networkingService-&gt;listSubnets();
+foreach ($subnets as $subnet) {
+    /** @var $subnet OpenCloud\Networking\Resource\Subnet **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/list-subnets.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-a-subnet">
+<h3>Get a subnet<a class="headerlink" href="#get-a-subnet" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific subnet by using that subnet&#8217;s ID, as shown
+in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$subnet = $networkingService-&gt;getSubnet(&#39;d3f15879-fb11-49bd-a30b-7704fb98ab1e&#39;);
+/** @var $subnet OpenCloud\Networking\Resource\Subnet **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/get-subnet.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="update-a-subnet">
+<h3>Update a subnet<a class="headerlink" href="#update-a-subnet" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="38%" />
+<col width="13%" />
+<col width="4%" />
+<col width="9%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>A human-readable name for the subnet. This name might not be unique.</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">My</span> <span class="pre">updated</span> <span class="pre">subnet</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">gatewayIp</span></tt></td>
+<td>IP address of the default gateway used by devices on this subnet</td>
+<td>String (IP address)</td>
+<td>No</td>
+<td>First IP address in CIDR</td>
+<td><tt class="docutils literal"><span class="pre">192.168.62.155</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">dnsNameservers</span></tt></td>
+<td>DNS nameservers used by hosts in this subnet</td>
+<td>Indexed array of strings</td>
+<td>No</td>
+<td>Empty array</td>
+<td><tt class="docutils literal"><span class="pre">array('4.4.4.4',</span> <span class="pre">'8.8.8.8')</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">hostRoutes</span></tt></td>
+<td>Routes that should be used by devices with IP adresses from this subnet (not including the local subnet route)</td>
+<td>Indexed array of associative arrays</td>
+<td>No</td>
+<td>Empty array</td>
+<td><tt class="docutils literal"><span class="pre">array(array('destination'</span> <span class="pre">=&gt;</span> <span class="pre">'1.1.1.0/24',</span> <span class="pre">'nexthop'</span> <span class="pre">=&gt;</span> <span class="pre">'192.168.17.19'))</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">enableDhcp</span></tt></td>
+<td>Specifies whether DHCP is enabled for this subnet</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">false</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>You can update a subnet as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$subnet-&gt;update(array(
+    &#39;name&#39; =&gt; &#39;My updated subnet&#39;,
+    &#39;hostRoutes&#39; =&gt; array(
+        array(
+            &#39;destination&#39; =&gt; &#39;1.1.1.0/24&#39;,
+            &#39;nexthop&#39;     =&gt; &#39;192.168.17.19&#39;
+        )
+    ),
+    &#39;gatewayIp&#39; =&gt; &#39;192.168.62.155&#39;
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/update-subnet.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="delete-a-subnet">
+<h3>Delete a subnet<a class="headerlink" href="#delete-a-subnet" title="Permalink to this headline">¶</a></h3>
+<p>You can delete a subnet as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$subnet-&gt;delete();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/delete-subnet.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="ports">
+<h2>Ports<a class="headerlink" href="#ports" title="Permalink to this headline">¶</a></h2>
+<p>A port represents a virtual switch port on a logical network switch.
+Virtual instances (such as servers created using the Compute service)
+attach their interfaces into ports. The port also defines the MAC
+address and the IP address or addresses to be assigned to the interfaces
+plugged into them. When IP addresses are associated with a port, this
+also implies the port is associated with a subnet because the IP address
+is taken from the allocation pool for a specific subnet.</p>
+<div class="section" id="create-a-port">
+<h3>Create a port<a class="headerlink" href="#create-a-port" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="28%" />
+<col width="18%" />
+<col width="4%" />
+<col width="12%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">networkId</span></tt></td>
+<td>Network this port is associated with</td>
+<td>String</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">eb60583c-57ea-41b9-8d5c-8fab2d22224c</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>A human-readable name for the port. This name might not be unique.</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">My</span> <span class="pre">port</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">adminStateUp</span></tt></td>
+<td>The administrative state of port. If <tt class="docutils literal"><span class="pre">false</span></tt> (down), the port does not forward packets.</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">macAddress</span></tt></td>
+<td>MAC address to use on this port</td>
+<td>String (MAC address in 6-octet form separated by colons)</td>
+<td>No</td>
+<td>Generated</td>
+<td><tt class="docutils literal"><span class="pre">0F:5A:6F:70:E9:5C</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">fixedIps</span></tt></td>
+<td>IP addresses for this port</td>
+<td>Indexed array of associative arrays</td>
+<td>No</td>
+<td>Automatically allocated from the pool</td>
+<td><tt class="docutils literal"><span class="pre">array(array('subnetId'</span> <span class="pre">=&gt;</span> <span class="pre">'75906d20-6625-11e4-9803-0800200c9a66',</span> <span class="pre">'ipAddress'</span> <span class="pre">=&gt;</span> <span class="pre">'192.168.199.17'))</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">deviceId</span></tt></td>
+<td>Identifies the device (for example, virtual server) using this port</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">5e3898d7-11be-483e-9732-b2f5eccd2b2e</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">deviceOwner</span></tt></td>
+<td>Identifies the entity (for example, DHCP agent) using this port</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">network:router_interface</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">securityGroups</span></tt></td>
+<td>Specifies the IDs of any security groups associated with this port</td>
+<td>Indexed array of strings</td>
+<td>No</td>
+<td>Empty array</td>
+<td><tt class="docutils literal"><span class="pre">array('f0ac4394-7e4a-4409-9701-ba8be283dbc3')</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">tenantId</span></tt></td>
+<td>Owner of the port. Only admin users can specify a tenant ID other than their own.</td>
+<td>String</td>
+<td>No</td>
+<td>Same as the tenant creating the port</td>
+<td><tt class="docutils literal"><span class="pre">123456</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>You can create a port as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$port = $networkingService-&gt;createPort(array(
+    &#39;name&#39; =&gt; &#39;My port&#39;,
+    &#39;networkId&#39; =&gt; &#39;eb60583c-57ea-41b9-8d5c-8fab2d22224c&#39;
+));
+/** @var $port OpenCloud\Networking\Resource\Port **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/create-port.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="create-multiple-ports">
+<h3>Create multiple ports<a class="headerlink" href="#create-multiple-ports" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an indexed array. Each element of
+this array must be an associative array with the keys shown in <a class="reference external" href="#create-a-port">the
+preceding table</a>.</p>
+<p>You can create multiple ports as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$ports = $networkingService-&gt;createPorts(array(
+    array(
+        &#39;name&#39; =&gt; &#39;My port #1&#39;,
+        &#39;networkId&#39; =&gt; &#39;eb60583c-57ea-41b9-8d5c-8fab2d22224c&#39;
+    ),
+    array(
+        &#39;name&#39; =&gt; &#39;My port #2&#39;,
+        &#39;networkId&#39; =&gt; &#39;eb60583c-57ea-41b9-8d5c-8fab2d22224c&#39;
+    )
+));
+
+foreach ($ports as $port) {
+    /** @var $port OpenCloud\Networking\Resource\Port **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/create-ports.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="list-ports">
+<h3>List ports<a class="headerlink" href="#list-ports" title="Permalink to this headline">¶</a></h3>
+<p>You can list all the ports to which you have access as shown in the
+following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$ports = $networkingService-&gt;listPorts();
+foreach ($ports as $port) {
+    /** @var $port OpenCloud\Networking\Resource\Port **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/list-ports.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-a-port">
+<h3>Get a port<a class="headerlink" href="#get-a-port" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific port by using that port&#8217;s ID, as shown in
+the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$port = $networkingService-&gt;getPort(&#39;75906d20-6625-11e4-9803-0800200c9a66&#39;);
+/** @var $port OpenCloud\Networking\Resource\Port **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/get-port.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="update-a-port">
+<h3>Update a port<a class="headerlink" href="#update-a-port" title="Permalink to this headline">¶</a></h3>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="30%" />
+<col width="12%" />
+<col width="4%" />
+<col width="13%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>A human-readable name for the port. This name might not be unique.</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">My</span> <span class="pre">port</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">adminStateUp</span></tt></td>
+<td>The administrative state of port. If <tt class="docutils literal"><span class="pre">false</span></tt> (down), the port does not forward packets.</td>
+<td>Boolean</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">true</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">fixedIps</span></tt></td>
+<td>IP addresses for this port</td>
+<td>Indexed array of associative arrays</td>
+<td>No</td>
+<td>Automatically allocated from the pool</td>
+<td><tt class="docutils literal"><span class="pre">array(array('subnetId'</span> <span class="pre">=&gt;</span> <span class="pre">'75906d20-6625-11e4-9803-0800200c9a66',</span> <span class="pre">'ipAddress'</span> <span class="pre">=&gt;</span> <span class="pre">'192.168.199.59'))</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">deviceId</span></tt></td>
+<td>Identifies the device (for example, virtual server) using this port</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">5e3898d7-11be-483e-9732-b2f5eccd2b2e</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">deviceOwner</span></tt></td>
+<td>Identifies the entity (for example, DHCP agent) using this port</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">network:router_interface</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">securityGroups</span></tt></td>
+<td>Specifies the IDs of any security groups associated with this port</td>
+<td>Indexed array of strings</td>
+<td>No</td>
+<td>Empty array</td>
+<td><tt class="docutils literal"><span class="pre">array('f0ac4394-7e4a-4409-9701-ba8be283dbc3')</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>You can update a port as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$port-&gt;update(array(
+    &#39;fixedIps&#39; =&gt; array(
+        array(
+            &#39;subnetId&#39;  =&gt; &#39;75906d20-6625-11e4-9803-0800200c9a66&#39;,
+            &#39;ipAddress&#39; =&gt; &#39;192.168.199.59&#39;
+        )
+    )
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/update-port.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="delete-a-port">
+<h3>Delete a port<a class="headerlink" href="#delete-a-port" title="Permalink to this headline">¶</a></h3>
+<p>You can delete a port as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$port-&gt;delete();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Networking/delete-port.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

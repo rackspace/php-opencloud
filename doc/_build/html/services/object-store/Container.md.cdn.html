@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Setup</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/Container.md.cdn.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(RACKSPACE_US, array(
+
+));
+
+$service = $client-&gt;objectStoreService(&#39;cloudFiles&#39;);
+</pre></div>
+</div>
+<p>To access the CDN functionality of a particular container:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container = $service-&gt;getContainer(&#39;foo_bar&#39;);
+
+$cdn = $container-&gt;getCdn();
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-cdn-enabled-container">
+<h1>List CDN-enabled container<a class="headerlink" href="#list-cdn-enabled-container" title="Permalink to this headline">¶</a></h1>
+<p>To list CDN-only containers, follow the same operation for Storage which
+lists all containers. The only difference is which service object you
+execute the method on:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$cdnService = $service-&gt;getCdnService();
+$cdnContainers = $cdnService-&gt;listContainers();
+
+foreach ($cdnContainers as $cdnContainer) {
+
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="cdn-enable-and-disable-a-container">
+<h1>CDN-enable and -disable a container<a class="headerlink" href="#cdn-enable-and-disable-a-container" title="Permalink to this headline">¶</a></h1>
+<p>Before a container can be CDN-enabled, it must exist in the storage
+system. When a container is CDN-enabled, any objects stored in it are
+publicly accessible over the Content Delivery Network by combining the
+container&#8217;s CDN URL with the object name.</p>
+<p>Any CDN-accessed objects are cached in the CDN for the specified amount
+of time called the TTL. The default TTL value is 259200 seconds, or 72
+hours. Each time the object is accessed after the TTL expires, the CDN
+refetches and caches the object for the TTL period.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;enableCdn();
+$container-&gt;disableCdn();
+</pre></div>
+</div>
+</div>
+<div class="section" id="serving-containers-through-ssl">
+<h1>Serving containers through SSL<a class="headerlink" href="#serving-containers-through-ssl" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>$cdn-&gt;getCdnSslUri();
+</pre></div>
+</div>
+</div>
+<div class="section" id="streaming-cdn-enabled-containers">
+<h1>Streaming CDN-enabled containers<a class="headerlink" href="#streaming-cdn-enabled-containers" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>$cdn-&gt;getCdnStreamingUri();
+</pre></div>
+</div>
+</div>
+<div class="section" id="ios-streaming">
+<h1>iOS streaming<a class="headerlink" href="#ios-streaming" title="Permalink to this headline">¶</a></h1>
+<p>The Cloud Files CDN allows you to stream video to iOS devices without
+needing to convert your video. Once you CDN-enable your container, you
+have the tools necessary for streaming media to multiple devices.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$cdn-&gt;getIosStreamingUri();
+</pre></div>
+</div>
+</div>
+<div class="section" id="cdn-logging">
+<h1>CDN logging<a class="headerlink" href="#cdn-logging" title="Permalink to this headline">¶</a></h1>
+<p>To enable and disable logging for your CDN:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$cdn-&gt;enableCdnLogging();
+$cdn-&gt;disableCdnLogging();
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Setup</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/Container.md.storage.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="setup">
+<h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+// Create a client object to communicate with various Rackspace Cloud services.
+$client = new Rackspace(RACKSPACE_US, array(
+    &#39;username&#39; =&gt; &#39;Replace this with your Rackspace Cloud user name&#39;,
+    &#39;apiKey&#39; =&gt; &#39;Replace this with your Rackspace Cloud API key&#39;
+));
+
+// Create a service object to use the object store service. The sample code
+// creates the object store in the &#39;DFW&#39; region.
+$service = $client-&gt;objectStoreService(&#39;cloudFiles&#39;, &#39;DFW&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-container">
+<h1>Create container<a class="headerlink" href="#create-container" title="Permalink to this headline">¶</a></h1>
+<p>To create a new container, you just need to define its name:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container = $service-&gt;createContainer(&#39;my_amazing_container&#39;);
+</pre></div>
+</div>
+<p>If the response returned is <tt class="docutils literal"><span class="pre">FALSE</span></tt>, there was an API error - most
+likely due to the fact you have a naming collision.</p>
+<p>Container names must be valid strings between 0 and 256 characters.
+Forward slashes are not currently permitted.</p>
+<blockquote>
+<div><strong>Note:</strong> when working with names that contain non-standard
+alphanumerical characters (such as spaces or non-English
+characters), you must ensure they are encoded with
+<tt class="docutils literal"><span class="pre">`urlencode</span></tt> &lt;<a class="reference external" href="http://php.net/urlencode">http://php.net/urlencode</a>&gt;`__ before passing them in</div></blockquote>
+</div>
+<div class="section" id="list-containers">
+<h1>List containers<a class="headerlink" href="#list-containers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="return-a-list-of-containers">
+<h2>Return a list of containers<a class="headerlink" href="#return-a-list-of-containers" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$containerList = $service-&gt;listContainers();
+
+while ($container = $containerList-&gt;next()) {
+    // Do stuff; some examples below
+    printf(&quot;Container name: %s\n&quot;, $container-&gt;name);
+    printf(&quot;Number of objects within container: %d\n&quot;, $container-&gt;getObjectCount());
+}
+</pre></div>
+</div>
+<p>Container names are sorted based on a binary comparison, a single
+built-in collating sequence that compares string data using SQLite&#8217;s
+memcmp() function, regardless of text encoding.</p>
+<p>The list is limited to 10,000 containers at a time. See 1.3 for ways to
+limit and navigate this list.</p>
+</div>
+<div class="section" id="return-a-formatted-list-of-containers">
+<h2>Return a formatted list of containers<a class="headerlink" href="#return-a-formatted-list-of-containers" title="Permalink to this headline">¶</a></h2>
+<p>Currently, the SDK only supports JSON-formatted responses.</p>
+</div>
+<div class="section" id="controlling-a-large-list-of-containers">
+<h2>Controlling a large list of containers<a class="headerlink" href="#controlling-a-large-list-of-containers" title="Permalink to this headline">¶</a></h2>
+<p>You may limit and control this list of results by using the <tt class="docutils literal"><span class="pre">marker</span></tt>
+and <tt class="docutils literal"><span class="pre">end_marker</span></tt> parameters. The former parameter (<tt class="docutils literal"><span class="pre">marker</span></tt>) tells
+the API where to begin the list, and the latter (<tt class="docutils literal"><span class="pre">end_marker</span></tt>) tells
+it where to end the list. You may use either of them independently or
+together. You may also use the <tt class="docutils literal"><span class="pre">limit</span></tt> parameter to fix the number of
+containers returned.</p>
+<p>To list a set of containers between two fixed points:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$someContainers = $service-&gt;listContainers(array(
+    &#39;marker&#39;     =&gt; &#39;container_55&#39;,
+    &#39;end_marker&#39; =&gt; &#39;container_2001&#39;
+));
+</pre></div>
+</div>
+<p>Or to return a limited set:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$someContainers = $service-&gt;listContainers(array(&#39;limit&#39; =&gt; 560));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="get-container">
+<h1>Get container<a class="headerlink" href="#get-container" title="Permalink to this headline">¶</a></h1>
+<p>To retrieve a certain container, either to access its object or
+metadata:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container = $service-&gt;getContainer(&#39;container_name&#39;);
+
+echo $container-&gt;getObjectCount();
+echo $container-&gt;getBytesUsed();
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-container">
+<h1>Delete container<a class="headerlink" href="#delete-container" title="Permalink to this headline">¶</a></h1>
+<p>Deleting a container is easy:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;delete();
+</pre></div>
+</div>
+<p>Please bear mind that you must delete all objects inside a container
+before deleting it. This is done for you if you set the
+<tt class="docutils literal"><span class="pre">$deleteObjects</span></tt> parameter to <tt class="docutils literal"><span class="pre">TRUE</span></tt> like so:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;delete(TRUE);
+</pre></div>
+</div>
+<p>You can also do it manually:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;deleteAllObjects();
+$container-&gt;delete();
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-or-update-container-metadata">
+<h1>Create or update container metadata<a class="headerlink" href="#create-or-update-container-metadata" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;saveMetadata(array(
+    &#39;Author&#39; =&gt; &#39;Virginia Woolf&#39;,
+    &#39;Published&#39; =&gt; &#39;1931&#39;
+));
+</pre></div>
+</div>
+<p>Please bear in mind that this action will set metadata to this array -
+overriding existing values and wiping those left out. To <em>append</em> values
+to the current metadata:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$metadata = $container-&gt;appendToMetadata(array(
+    &#39;Publisher&#39; =&gt; &#39;Hogarth&#39;
+));
+</pre></div>
+</div>
+<p>If you only want to set the metadata to the local object, and not
+immediately retain these values on the API, you can use a standard
+setter method - which can contribute to eventual actions like an update:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;setMetadata(array(&#39;Foo&#39; =&gt; &#39;Bar&#39;));
+</pre></div>
+</div>
+</div>
+<div class="section" id="container-quotas">
+<h1>Container quotas<a class="headerlink" href="#container-quotas" title="Permalink to this headline">¶</a></h1>
+<p>The container_quotas middleware implements simple quotas that can be
+imposed on Cloud Files containers by a user. Setting container quotas
+can be useful for limiting the scope of containers that are delegated to
+non-admin users, exposed to formpost uploads, or just as a self-imposed
+sanity check.</p>
+<p>To set quotas for a container:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Constants\Size;
+
+$container-&gt;setCountQuota(1000);
+$container-&gt;setBytesQuota(2.5 * Size::GB);
+</pre></div>
+</div>
+<p>And to retrieve them:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>echo $container-&gt;getCountQuota();
+echo $container-&gt;getBytesQuota();
+</pre></div>
+</div>
+</div>
+<div class="section" id="access-log-delivery">
+<h1>Access log delivery<a class="headerlink" href="#access-log-delivery" title="Permalink to this headline">¶</a></h1>
+<p>To view your object access, turn on Access Log Delivery. You can use
+access logs to analyze the number of people who access your objects,
+where they come from, how many requests for each object you receive, and
+time-based usage patterns (such as monthly or seasonal usage).</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;enableLogging();
+$container-&gt;disableLogging();
+</pre></div>
+</div>
+</div>
+<div class="section" id="syncing-containers">
+<h1>Syncing containers<a class="headerlink" href="#syncing-containers" title="Permalink to this headline">¶</a></h1>
+<p>You can synchronize local directories with your CloudFiles/Swift
+containers very easily. When you do this, the container will mirror
+exactly the nested file structure within your local directory:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$container-&gt;uploadDirectory(&#39;/home/Jamie/blog&#39;);
+</pre></div>
+</div>
+<p>There are four scenarios you should be aware of:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="23%" />
+<col width="22%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Local</th>
+<th class="head">Remote</th>
+<th class="head">Comparison</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>File exists</td>
+<td>File exists</td>
+<td>Identical checksum</td>
+<td>No action</td>
+</tr>
+<tr class="row-odd"><td>File exists</td>
+<td>File exists</td>
+<td>Different checksum</td>
+<td>Local file overwrites remote</td>
+</tr>
+<tr class="row-even"><td>File exists</td>
+<td>File does not exist</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>Local file created in Swift</td>
+</tr>
+<tr class="row-odd"><td>Files does not exist</td>
+<td>File exists</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>Remote file deleted</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Containers &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Object Store v1" href="index.html"/>
+        <link rel="next" title="Objects" href="objects.html"/>
+        <link rel="prev" title="Account Details" href="account.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Object Store v1</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#setup">Setup</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Object Store v1</a> &raquo;</li>
+      
+    <li>Containers</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/containers.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="containers">
+<h1>Containers<a class="headerlink" href="#containers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="create-container">
+<h2>Create container<a class="headerlink" href="#create-container" title="Permalink to this headline">¶</a></h2>
+<p>To create a new container, you just need to define its name:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">createContainer</span><span class="p">(</span><span class="s1">&#39;my_amazing_container&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If the response returned is <tt class="docutils literal"><span class="pre">FALSE</span></tt>, there was an API error - most
+likely due to the fact you have a naming collision.</p>
+<p>Container names must be valid strings between 0 and 256 characters.
+Forward slashes are not currently permitted.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When working with names that contain non-standard alphanumerical characters
+(such as spaces or non-English characters), you must ensure they are encoded
+with <a class="reference external" href="http://php.net/urlencode">urlencode</a> before passing them in</p>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/create-container.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="list-containers">
+<h2>List containers<a class="headerlink" href="#list-containers" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$containers</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">listContainers</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$containers</span> <span class="k">as</span> <span class="nv">$container</span><span class="p">)</span> <span class="p">{</span>
+    <span class="sd">/** @param $container OpenCloud\ObjectStore\Resource\Container */</span>
+    <span class="nb">printf</span><span class="p">(</span><span class="s2">&quot;Container name: %s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">);</span>
+    <span class="nb">printf</span><span class="p">(</span><span class="s2">&quot;Number of objects within container: %d</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getObjectCount</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Container names are sorted based on a binary comparison, a single
+built-in collating sequence that compares string data using SQLite&#8217;s
+memcmp() function, regardless of text encoding.</p>
+<p>The list is limited to 10,000 containers at a time. To work with larger
+collections, please read the next section.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-containers.php">Get the executable PHP script for this example</a></p>
+<div class="section" id="filtering-large-collections">
+<h3>Filtering large collections<a class="headerlink" href="#filtering-large-collections" title="Permalink to this headline">¶</a></h3>
+<p>When you need more control over collections of containers, you can filter the
+results and return back a subset of the total collection by using the <tt class="docutils literal"><span class="pre">marker</span></tt>
+and <tt class="docutils literal"><span class="pre">end_marker</span></tt> parameters. The former parameter (<tt class="docutils literal"><span class="pre">marker</span></tt>) tells
+the API where to begin the list, and the latter (<tt class="docutils literal"><span class="pre">end_marker</span></tt>) tells
+it where to end the list. You may use either of them independently or
+together.</p>
+<p>You may also use the <tt class="docutils literal"><span class="pre">limit</span></tt> parameter to fix the number of
+containers returned.</p>
+<p>To list a set of containers between two fixed points:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$someContainers</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">listContainers</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;marker&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;container_55&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;end_marker&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;container_2001&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Or to return a limited set:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$someContainers</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">listContainers</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">560</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="get-container">
+<h2>Get container<a class="headerlink" href="#get-container" title="Permalink to this headline">¶</a></h2>
+<p>To retrieve a certain container:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $container OpenCloud\ObjectStore\Resource\Container */</span>
+<span class="nv">$container</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">(</span><span class="s1">&#39;{containerName}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container.php">Get the executable PHP script for this example</a></p>
+<div class="section" id="retrieve-a-container-s-name">
+<h3>Retrieve a container&#8217;s name<a class="headerlink" href="#retrieve-a-container-s-name" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieve-a-container-s-object-count">
+<h3>Retrieve a container&#8217;s object count<a class="headerlink" href="#retrieve-a-container-s-object-count" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$count</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getObjectCount</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-object-count.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="retrieve-a-container-s-total-bytes-used">
+<h3>Retrieve a container&#8217;s total bytes used<a class="headerlink" href="#retrieve-a-container-s-total-bytes-used" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$bytes</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getBytesUsed</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-bytes-used.php">Get the executable PHP script for this example</a></p>
+</div>
+</div>
+<div class="section" id="delete-container">
+<h2>Delete container<a class="headerlink" href="#delete-container" title="Permalink to this headline">¶</a></h2>
+<p>Deleting an empty container is easy:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Please bear mind that you must delete all objects inside a container
+before deleting it. This is done for you if you set the
+<tt class="docutils literal"><span class="pre">$deleteObjects</span></tt> parameter to <tt class="docutils literal"><span class="pre">TRUE</span></tt> like so:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also <a class="reference external" href="#deleting-all-objects-inside-a-container">delete all objects</a>
+first, and then call <tt class="docutils literal"><span class="pre">delete</span></tt>.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-container.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="deleting-all-objects-inside-a-container">
+<h2>Deleting all objects inside a container<a class="headerlink" href="#deleting-all-objects-inside-a-container" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">deleteAllObjects</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-container-recursive.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="create-or-update-container-metadata">
+<h2>Create or update container metadata<a class="headerlink" href="#create-or-update-container-metadata" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">saveMetadata</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Virginia Woolf&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Published&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1931&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Please bear in mind that this action will set metadata to this array -
+overriding existing values and wiping those left out. To <em>append</em> values
+to the current metadata:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$metadata</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">appendToMetadata</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Publisher&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hogarth&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/set-container-metadata.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="container-quotas">
+<h2>Container quotas<a class="headerlink" href="#container-quotas" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">container_quotas</span></tt> middleware implements simple quotas that can be
+imposed on Cloud Files containers by a user. Setting container quotas
+can be useful for limiting the scope of containers that are delegated to
+non-admin users, exposed to formpost uploads, or just as a self-imposed
+sanity check.</p>
+<p>To set quotas for a container:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Common\Constants\Size</span><span class="p">;</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setCountQuota</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setBytesQuota</span><span class="p">(</span><span class="mf">2.5</span> <span class="o">*</span> <span class="nx">Size</span><span class="o">::</span><span class="na">GB</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>And to retrieve them:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">echo</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getCountQuota</span><span class="p">();</span>
+<span class="k">echo</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getBytesQuota</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Get the executable PHP scripts for this example:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-bytes-quota.php">Set bytes quota</a></li>
+<li><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-count-quota.php">Set count quota</a></li>
+</ul>
+</div>
+<div class="section" id="access-log-delivery">
+<h2>Access log delivery<a class="headerlink" href="#access-log-delivery" title="Permalink to this headline">¶</a></h2>
+<p>To view your object access, turn on Access Log Delivery. You can use
+access logs to analyze the number of people who access your objects,
+where they come from, how many requests for each object you receive, and
+time-based usage patterns (such as monthly or seasonal usage).</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">enableLogging</span><span class="p">();</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">disableLogging</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="syncing-containers">
+<h2>Syncing containers<a class="headerlink" href="#syncing-containers" title="Permalink to this headline">¶</a></h2>
+<p>You can synchronize local directories with your CloudFiles/Swift
+containers very easily. When you do this, the container will mirror
+exactly the nested file structure within your local directory:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">uploadDirectory</span><span class="p">(</span><span class="s1">&#39;/home/user/my-blog&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>There are four scenarios you should be aware of:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="23%" />
+<col width="22%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Local</th>
+<th class="head">Remote</th>
+<th class="head">Comparison</th>
+<th class="head">Action</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>File exists</td>
+<td>File exists</td>
+<td>Identical checksum</td>
+<td>No action</td>
+</tr>
+<tr class="row-odd"><td>File exists</td>
+<td>File exists</td>
+<td>Different checksum</td>
+<td>Local file overwrites remote</td>
+</tr>
+<tr class="row-even"><td>File exists</td>
+<td>File does not exist</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>Local file created in Swift</td>
+</tr>
+<tr class="row-odd"><td>Files does not exist</td>
+<td>File exists</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>Remote file deleted</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="objects.html" class="btn btn-neutral float-right" title="Objects"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="account.html" class="btn btn-neutral" title="Account Details"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

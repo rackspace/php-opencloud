@@ -1,0 +1,259 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Object Store &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Object Store</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/README.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="object-store">
+<h1>Object Store<a class="headerlink" href="#object-store" title="Permalink to this headline">¶</a></h1>
+<p><strong>Object Store</strong> is an object-based storage system that stores content
+and metadata as objects in a cloud.</p>
+<p>Specifically, a cloud is made up of one or more regions. Each region can
+have several <strong>containers</strong>, created by a user. Each container can
+container several <strong>objects</strong> (sometimes referred to as files), uploaded
+by the user.</p>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="instantiate-an-openstack-or-rackspace-client">
+<h3>1. Instantiate an OpenStack or Rackspace client.<a class="headerlink" href="#instantiate-an-openstack-or-rackspace-client" title="Permalink to this headline">¶</a></h3>
+<p>Choose one of the following two options:</p>
+<ul>
+<li><p class="first">If you are working with a vanilla OpenStack cloud, instantiate an
+<tt class="docutils literal"><span class="pre">OpenCloud\OpenStack</span></tt> client as shown below.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\OpenStack;
+
+ $client = new OpenStack(&#39;&lt;OPENSTACK CLOUD IDENTITY ENDPOINT URL&gt;&#39;, array(
+     &#39;username&#39; =&gt; &#39;&lt;YOUR OPENSTACK USERNAME&gt;&#39;,
+     &#39;password&#39; =&gt; &#39;&lt;YOUR OPENSTACK PASSWORD&gt;&#39;
+ ));
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you are working with the Rackspace cloud, instantiate a
+<tt class="docutils literal"><span class="pre">OpenCloud\Rackspace</span></tt> client as shown below.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+ ));
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="obtain-an-object-store-service-object-from-the-client">
+<h3>2. Obtain an Object Store service object from the client.<a class="headerlink" href="#obtain-an-object-store-service-object-from-the-client" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$region = &#39;DFW&#39;;
+$objectStoreService = $client-&gt;objectStoreService(null, $region);
+</pre></div>
+</div>
+<p>In the example above, you are connecting to the <tt class="docutils literal"><span class="pre">DFW</span></tt> region of the
+cloud. Any containers and objects created with this
+<tt class="docutils literal"><span class="pre">$objectStoreService</span></tt> instance will be stored in that cloud region.</p>
+</div>
+<div class="section" id="create-a-container-for-your-objects-also-referred-to-as-files">
+<h3>3. Create a container for your objects (also referred to as files).<a class="headerlink" href="#create-a-container-for-your-objects-also-referred-to-as-files" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$container = $objectStoreService-&gt;createContainer(&#39;logos&#39;);
+
+**Note:** when working with names that contain non-standard
+alphanumerical characters (such as spaces or non-English
+characters), you must ensure they are encoded with
+```urlencode`` &lt;http://php.net/urlencode&gt;`__ before passing them in
+</pre></div>
+</div>
+</div>
+<div class="section" id="upload-an-object-to-the-container">
+<h3>4. Upload an object to the container.<a class="headerlink" href="#upload-an-object-to-the-container" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$localFileName  = &#39;/path/to/local/php-elephant.jpg&#39;;
+$remoteFileName = &#39;php-elephant.jpg&#39;;
+
+$fileData = fopen($localFileName, &#39;r&#39;);
+$container-&gt;uploadObject($remoteFileName, $fileData);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/ObjectStore/quickstart.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>There is a lot more you can do with containers and objects. See the
+<a class="reference external" href="USERGUIDE.md">complete user guide to the Object Store service</a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

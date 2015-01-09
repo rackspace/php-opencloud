@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reverse DNS &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Reverse DNS</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/dns/Reverse-DNS.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="reverse-dns">
+<h1>Reverse DNS<a class="headerlink" href="#reverse-dns" title="Permalink to this headline">¶</a></h1>
+<p>DNS usually determines an IP address associated with a domain name.
+Reverse DNS is the opposite process: resolving a domain name from an IP
+address. This is usually achieved with a domain name pointer.</p>
+<div class="section" id="get-ptr-record">
+<h2>Get PTR record<a class="headerlink" href="#get-ptr-record" title="Permalink to this headline">¶</a></h2>
+<p>PTR records refer to a parent device: either a Cloud Server or a Cloud
+Load Balancer with a public virtual IP address. You must supply a fully
+formed resource object in order to retrieve either one&#8217;s PTR record:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @param $parent OpenCloud\DNS\Resource\HasPtrRecordsInterface */
+
+$ptr = $service-&gt;ptrRecord(array(
+    &#39;parent&#39; =&gt; $parent
+));
+</pre></div>
+</div>
+<p>So, in the above example, a <tt class="docutils literal"><span class="pre">$parent</span></tt> could be an instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Compute\Resource\Server</span></tt> or
+<tt class="docutils literal"><span class="pre">OpenCloud\LoadBalancer\Resource\LoadBalancer</span></tt> - because they both
+implement <tt class="docutils literal"><span class="pre">OpenCloud\DNS\Resource\HadPtrRecordsInterface</span></tt>. Please
+consult the <a class="reference external" href="../Compute/Server.md">server documentation</a> and <a class="reference external" href="../LoadBalancer/USERGUIDE.md">load
+balancer documentation</a> for more
+detailed usage instructions.</p>
+</div>
+<div class="section" id="list-ptr-records">
+<h2>List PTR records<a class="headerlink" href="#list-ptr-records" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @param $parent OpenCloud\DNS\Resource\HasPtrRecordsInterface */
+
+$ptrRecords = $service-&gt;ptrRecordList($parent);
+
+foreach ($ptrRecords as $ptrRecord) {
+
+}
+</pre></div>
+</div>
+<p>Please consult the <a class="reference external" href="docs/userguide/Iterators.md">iterator
+documentation</a> for more information
+about iterators.</p>
+</div>
+<div class="section" id="add-ptr-record">
+<h2>Add PTR record<a class="headerlink" href="#add-ptr-record" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$parent = $computeService-&gt;server(&#39;foo-server-id&#39;);
+
+$ptr = $dnsService-&gt;ptrRecord(array(
+    &#39;parent&#39; =&gt; $parent,
+    &#39;ttl&#39;    =&gt; 3600,
+    &#39;name&#39;   =&gt; &#39;example.com&#39;,
+    &#39;type&#39;   =&gt; &#39;PTR&#39;,
+    &#39;data&#39;   =&gt; &#39;192.0.2.7&#39;
+));
+
+$ptr-&gt;create();
+</pre></div>
+</div>
+<p>Here is a table that explains the above attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="79%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Required</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>Specifies the record type as &#8220;PTR&#8221;.</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>Specifies the name for the domain or subdomain. Must be a valid domain name.</td>
+<td>Yes</td>
+</tr>
+<tr class="row-even"><td>data</td>
+<td>The data field for PTR records must be a valid IPv4 or IPv6 IP address.</td>
+<td>Yes</td>
+</tr>
+<tr class="row-odd"><td>ttl</td>
+<td>If specified, must be greater than 300. Defaults to 3600 if no TTL is specified.</td>
+<td>No</td>
+</tr>
+<tr class="row-even"><td>comment</td>
+<td>If included, its length must be less than or equal to 160 characters.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="modify-ptr-record">
+<h2>Modify PTR record<a class="headerlink" href="#modify-ptr-record" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$ptr-&gt;update(array(
+    &#39;ttl&#39; =&gt; $ptr-&gt;ttl * 2
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-ptr-record">
+<h2>Delete PTR record<a class="headerlink" href="#delete-ptr-record" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$ptr-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

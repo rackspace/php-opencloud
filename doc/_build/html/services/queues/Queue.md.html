@@ -1,0 +1,353 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Introduction &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>1. Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/queues/Queue.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="introduction">
+<h1>1. Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>A Queue is an entity that holds messages. Ideally, a queue is created
+per work type. For example, if you want to compress files, you would
+create a queue dedicated to this job. Any application that reads from
+this queue would only compress files.</p>
+</div>
+<div class="section" id="setup">
+<h1>2. Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<div class="code php highlight-python"><div class="highlight"><pre>$service = $client-&gt;queuesService(&#39;cloudQueues&#39;, &#39;ORD&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="client-ids">
+<h1>3. Client IDs<a class="headerlink" href="#client-ids" title="Permalink to this headline">¶</a></h1>
+<p>With most of Marconi&#8217;s operation, you must specify a <strong>Client ID</strong> which
+will be used as a unique identifier for the process accessing this
+Queue. This is basically a UUID that must be unique to each client
+accessing the API - it can be an arbitrary string.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$service-&gt;setClientId();
+
+echo $service-&gt;getClientId();
+</pre></div>
+</div>
+<p>If you call <tt class="docutils literal"><span class="pre">setClientId</span></tt> without any parameters, a UUID is
+automatically generated for you.</p>
+</div>
+<div class="section" id="list-queues">
+<h1>4. List queues<a class="headerlink" href="#list-queues" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<h2>4.1 Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>This operation lists queues for the project. The queues are sorted
+alphabetically by name.</p>
+</div>
+<div class="section" id="parameters">
+<h2>4.2 Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>|Name|Style|Type|Description| |&#8212;-|&#8212;&#8211;|&#8212;-|&#8212;&#8212;&#8212;&#8211;|
+|marker|Query|​String|Specifies the name of the last queue received
+in a previous request, or none to get the first page of results.
+Optional.| |limit|Query|Integer|Specifies the number of queues to
+return. The default value for the number of queues returned is 10. If
+you do not specify this parameter, the default number of queues is
+returned. Optional.| |detailed|Query|​Boolean|Determines whether
+queue metadata is included in the response. The default value for this
+parameter is false, which excludes the metadata. Optional.|
+|&#8212;-|&#8212;&#8211;|&#8212;-|&#8212;&#8212;&#8212;&#8211;|</p>
+</div>
+<div class="section" id="code-sample">
+<h2>4.3 Code sample<a class="headerlink" href="#code-sample" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$queues = $service-&gt;listQueues();
+
+while ($queue = $queues-&gt;next()) {
+    echo $queue-&gt;getName() . PHP_EOL;
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="create-queue">
+<h1>5. Create queue<a class="headerlink" href="#create-queue" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>5.1 Description<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>This operation creates a new queue.</p>
+</div>
+<div class="section" id="id2">
+<h2>5.2 Parameters<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>A string representation of the name for your new Queue. The name must
+not exceed 64 bytes in length, and it is limited to US-ASCII letters,
+digits, underscores, and hyphens.</p>
+</div>
+<div class="section" id="id3">
+<h2>5.3 Code sample<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$queue = $service-&gt;createQueue(&#39;new_queue&#39;);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="retrieve-queue">
+<h1>6. Retrieve queue<a class="headerlink" href="#retrieve-queue" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id4">
+<h2>6.1 Description<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Returns a <tt class="docutils literal"><span class="pre">Queue</span></tt> object for use.</p>
+</div>
+<div class="section" id="id5">
+<h2>6.2 Parameters<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Queue name.</p>
+</div>
+<div class="section" id="id6">
+<h2>6.3 Code sample<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$queue = $service-&gt;getQueue(&#39;new_queue&#39;);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="check-queue-existence">
+<h1>7. Check queue existence<a class="headerlink" href="#check-queue-existence" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id7">
+<h2>7.1 Description<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>This operation verifies whether the specified queue exists by returning
+<tt class="docutils literal"><span class="pre">TRUE</span></tt> or <tt class="docutils literal"><span class="pre">FALSE</span></tt>.</p>
+</div>
+<div class="section" id="id8">
+<h2>7.2 Parameters<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id9">
+<h2>7.3 Code sample<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>if ($service-&gt;hasQueue(&#39;new_queue&#39;)) {
+    // do something
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="update-queue-metadata-permanently-to-the-api">
+<h1>8. Update queue metadata (permanently to the API)<a class="headerlink" href="#update-queue-metadata-permanently-to-the-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id10">
+<h2>4.1 Description<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>This operation replaces any existing metadata document in its entirety.
+Ensure that you do not accidentally overwrite existing metadata that you
+want to retain. If you want to <em>append</em> metadata, ensure you merge a new
+array to the existing values.</p>
+</div>
+<div class="section" id="id11">
+<h2>4.2 Parameters<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>Hash of key pairs.</p>
+</div>
+<div class="section" id="id12">
+<h2>4.3 Code sample<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$queue-&gt;saveMetadata(array(
+    &#39;foo&#39; =&gt; &#39;bar&#39;
+));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="retrieve-the-queue-metadata-fresh-from-the-api">
+<h1>9. Retrieve the queue metadata (fresh from the API)<a class="headerlink" href="#retrieve-the-queue-metadata-fresh-from-the-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id13">
+<h2>4.1 Description<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>This operation returns metadata, such as message TTL, for the queue.</p>
+</div>
+<div class="section" id="id14">
+<h2>4.2 Parameters<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="id15">
+<h2>4.3 Code sample<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$metadata = $queue-&gt;retrieveMetadata();
+
+print_r($metadata-&gt;toArray());
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="get-queue-stats">
+<h1>10. Get queue stats<a class="headerlink" href="#get-queue-stats" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id16">
+<h2>4.1 Description<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<p>This operation returns queue statistics, including how many messages are
+in the queue, categorized by status.</p>
+</div>
+<div class="section" id="id17">
+<h2>4.2 Parameters<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="id18">
+<h2>4.3 Code sample<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$queue-&gt;getStats();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

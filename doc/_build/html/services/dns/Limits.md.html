@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Limits &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Limits</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/dns/Limits.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="limits">
+<h1>Limits<a class="headerlink" href="#limits" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Limit methods will be called on the DNS service, an instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\DNS\Service</span></tt>. Please see the <a class="reference external" href="Service.md">DNS service</a>
+documentation for setup instructions.</p>
+</div>
+<div class="section" id="list-all-limits">
+<h2>List all limits<a class="headerlink" href="#list-all-limits" title="Permalink to this headline">¶</a></h2>
+<p>This call provides a list of all applicable limits for the specified
+account.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$limits = $service-&gt;limits();
+</pre></div>
+</div>
+<div class="section" id="absolute-limits">
+<h3>Absolute limits<a class="headerlink" href="#absolute-limits" title="Permalink to this headline">¶</a></h3>
+<p>There are some absolute limits imposed on your account - such as how
+many domains you can create and how many records you can create for each
+domain:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$absoluteLimits = $limits-&gt;absolute;
+
+# Domain limit
+echo $absoluteLimits-&gt;domains;
+
+# Record limit per domain
+echo $absoluteLimits-&gt;{&#39;records per domain&#39;};
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="list-limit-types">
+<h2>List limit types<a class="headerlink" href="#list-limit-types" title="Permalink to this headline">¶</a></h2>
+<p>To find out the different limit types you can query, run:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$limitTypes = $service-&gt;limitTypes();
+</pre></div>
+</div>
+<p>will return:</p>
+<div class="highlight-python"><div class="highlight"><pre>array(3) {
+  [0] =&gt;
+  string(10) &quot;RATE_LIMIT&quot;
+  [1] =&gt;
+  string(12) &quot;DOMAIN_LIMIT&quot;
+  [2] =&gt;
+  string(19) &quot;DOMAIN_RECORD_LIMIT&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="query-a-specific-limit">
+<h2>Query a specific limit<a class="headerlink" href="#query-a-specific-limit" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$limit = $service-&gt;limits(&#39;DOMAIN_LIMIT&#39;);
+
+echo $limit-&gt;absolute-&gt;limits-&gt;value;
+
+&gt;&gt;&gt; 500
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

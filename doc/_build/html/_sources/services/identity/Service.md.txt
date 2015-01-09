@@ -1,0 +1,13 @@
+Identity service
+================
+
+Intro
+-----
+
+The Identity service is regionless, so you do not need to specify a
+region when instantiating the service object. Although this was
+primarily based on Rackspace's implementation of Cloud Identity, it
+should also work for OpenStack Keystone.
+
+A note on object creation
+-------------------------

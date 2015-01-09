@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compute Images &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="simple">
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Compute Images</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/compute/Images.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="compute-images">
+<h1>Compute Images<a class="headerlink" href="#compute-images" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>An image is a collection of files for a specific operating system that
+you use to create or rebuild a server. Rackspace provides prebuilt
+images. You can also create custom images from servers that you have
+launched.</p>
+<p>In addition to creating images manually, you can also schedule images of
+your server automatically. Please consult the <a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/scheduled_images.html">official
+docs</a>
+for more information about this extension, including enabling and
+disabling scheduled images and showing scheduled images.</p>
+<p>With standard servers, the entire disk (OS and data) is captured in the
+image. With Performance servers, only the system disk is captured in the
+image. The data disks should be backed up using Cloud Backup or Cloud
+Block Storage to ensure availability in case you need to rebuild or
+restore a server.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>You first need to setup a Compute service. For information, please
+consult the <a class="reference external" href="Service.md">Compute service</a> documentation.</p>
+</div>
+<div class="section" id="list-images">
+<h2>List images<a class="headerlink" href="#list-images" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$images = $service-&gt;imageList();
+
+foreach ($images as $image) {
+
+}
+</pre></div>
+</div>
+<p>For more information about <a class="reference external" href="docs/userguide/Iterators.md">iterators</a>,
+please consult the official documentation.</p>
+<div class="section" id="query-parameters">
+<h3>Query parameters<a class="headerlink" href="#query-parameters" title="Permalink to this headline">¶</a></h3>
+<p>You can also refine the list of images returned by providing specific
+URL parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="95%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>server</td>
+<td>Filters the list of images by server. Specify the server reference by ID or by full URL.</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>Filters the list of images by image name.</td>
+</tr>
+<tr class="row-even"><td>status</td>
+<td>Filters the list of images by status. In-flight images have a status of <tt class="docutils literal"><span class="pre">SAVING</span></tt> and the conditional progress element contains a value from 0 to 100, which indicates the percentage completion. For a full list, please consult the <tt class="docutils literal"><span class="pre">OpenCloud\Compute\Constants\ImageState</span></tt> class. Images with an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> status are available for use.</td>
+</tr>
+<tr class="row-odd"><td>changes-since</td>
+<td>Filters the list of images to those that have changed since the changes-since time. See the <a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ChangesSince.html">official docs</a> for more information.</td>
+</tr>
+<tr class="row-even"><td>marker</td>
+<td>The ID of the last item in the previous list. See the <a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Paginated_Collections-d1e664.html">official docs</a> for more information.</td>
+</tr>
+<tr class="row-odd"><td>limit</td>
+<td>Sets the page size. See the <a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/Paginated_Collections-d1e664.html">official docs</a> for more information.</td>
+</tr>
+<tr class="row-even"><td>type</td>
+<td>Filters base Rackspace images or any custom server images that you have created. Can either be <tt class="docutils literal"><span class="pre">BASE</span></tt> or <tt class="docutils literal"><span class="pre">SNAPSHOT</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>You can return more information about each image by setting the
+<tt class="docutils literal"><span class="pre">$details</span></tt> argument to <tt class="docutils literal"><span class="pre">true</span></tt>. The second argument can be an array
+of query parameters:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Compute\Constants\ImageState;
+
+$list = $service-&gt;imageList(true, array(
+    &#39;server&#39; =&gt; &#39;fooBar&#39;,
+    &#39;status&#39; =&gt; ImageState::ACTIVE
+));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="get-an-image">
+<h2>Get an image<a class="headerlink" href="#get-an-image" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$imageId = &#39;3afe97b2-26dc-49c5-a2cc-a2fc8d80c001&#39;;
+$image = $service-&gt;image($imageId);
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-an-image">
+<h2>Delete an image<a class="headerlink" href="#delete-an-image" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$image-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

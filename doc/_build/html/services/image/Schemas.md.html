@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JSON schemas &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>JSON schemas</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/image/Schemas.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="json-schemas">
+<h1>JSON schemas<a class="headerlink" href="#json-schemas" title="Permalink to this headline">¶</a></h1>
+<p>The Cloud Images API supplies json documents describing the JSON-encoded
+data structures that represent domain objects, so that a client knows
+exactly what to expect in an API response.</p>
+<p>A JSON Schema is represented by the
+<tt class="docutils literal"><span class="pre">OpenCloud\Image\Resource\Schema\Schema</span></tt> class.</p>
+<div class="section" id="schema-types">
+<h2>Schema types<a class="headerlink" href="#schema-types" title="Permalink to this headline">¶</a></h2>
+<p>There are currently four types of schema: Images schema, Image schema,
+Members schema, and Member schema.</p>
+</div>
+<div class="section" id="example-response-from-the-api">
+<h2>Example response from the API<a class="headerlink" href="#example-response-from-the-api" title="Permalink to this headline">¶</a></h2>
+<p>A sample response from the API, for an Images schema might be:</p>
+<div class="code json highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;images&quot;</span><span class="p">,</span>
+    <span class="s">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;images&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;array&quot;</span><span class="p">,</span>
+                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;image&quot;</span><span class="p">,</span>
+                <span class="s">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;visibility&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;enum&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s">&quot;public&quot;</span><span class="p">,</span> <span class="s">&quot;private&quot;</span><span class="p">]},</span>
+                    <span class="s">&quot;status&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;protected&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;boolean&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;array&quot;</span><span class="p">,</span>
+                        <span class="s">&quot;items&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">}</span>
+                    <span class="p">},</span>
+                    <span class="s">&quot;checksum&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;size&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;integer&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;created_at&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;updated_at&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;file&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;self&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                    <span class="s">&quot;schema&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">}</span>
+                <span class="p">},</span>
+                <span class="s">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+                <span class="s">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="p">{</span><span class="s">&quot;href&quot;</span><span class="p">:</span> <span class="s">&quot;{self}&quot;</span><span class="p">,</span> <span class="s">&quot;rel&quot;</span><span class="p">:</span> <span class="s">&quot;self&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s">&quot;href&quot;</span><span class="p">:</span> <span class="s">&quot;{file}&quot;</span><span class="p">,</span> <span class="s">&quot;rel&quot;</span><span class="p">:</span> <span class="s">&quot;enclosure&quot;</span><span class="p">},</span>
+                    <span class="p">{</span><span class="s">&quot;href&quot;</span><span class="p">:</span> <span class="s">&quot;{schema}&quot;</span><span class="p">,</span> <span class="s">&quot;rel&quot;</span><span class="p">:</span> <span class="s">&quot;describedby&quot;</span><span class="p">}</span>
+                <span class="p">]</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="s">&quot;schema&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+        <span class="s">&quot;next&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">},</span>
+        <span class="s">&quot;first&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="s">&quot;string&quot;</span><span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s">&quot;links&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="s">&quot;href&quot;</span><span class="p">:</span> <span class="s">&quot;{first}&quot;</span><span class="p">,</span> <span class="s">&quot;rel&quot;</span><span class="p">:</span> <span class="s">&quot;first&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&quot;href&quot;</span><span class="p">:</span> <span class="s">&quot;{next}&quot;</span><span class="p">,</span> <span class="s">&quot;rel&quot;</span><span class="p">:</span> <span class="s">&quot;next&quot;</span><span class="p">},</span>
+        <span class="p">{</span><span class="s">&quot;href&quot;</span><span class="p">:</span> <span class="s">&quot;{schema}&quot;</span><span class="p">,</span> <span class="s">&quot;rel&quot;</span><span class="p">:</span> <span class="s">&quot;describedby&quot;</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The top-level schema is called <tt class="docutils literal"><span class="pre">images</span></tt>, and contains an array of
+links and a properties object. Inside this properties object we see the
+structure of this top-level <tt class="docutils literal"><span class="pre">images</span></tt> object. So we know that it will
+take this form:</p>
+<div class="code json highlight-python"><div class="highlight"><pre><span class="p">{</span>
+   <span class="s">&quot;images&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">something</span><span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Within this object, we can see that it contains an array of anonymous
+objects, each of which is called <tt class="docutils literal"><span class="pre">image</span></tt> and has its own set of nested
+properties:</p>
+<div class="code json highlight-python"><div class="highlight"><pre>{
+    &quot;images&quot;: [
+        {
+            [object 1...]
+        },
+        {
+            [object 2...]
+        },
+        {
+            [object 3...]
+        }
+    ]
+}
+</pre></div>
+</div>
+<p>The structure of these nested objects are defined as another schema -
+i.e. a <em>subschema</em>. We know that each object has an ID property
+(string), a name property (string), a visibility property (can either be
+<tt class="docutils literal"><span class="pre">private</span></tt> or <tt class="docutils literal"><span class="pre">public</span></tt>), etc.</p>
+<div class="code json highlight-python"><div class="highlight"><pre>{
+    &quot;images&quot;: [
+        {
+            &quot;id&quot;: &quot;foo&quot;,
+            &quot;name&quot;: &quot;bar&quot;,
+            &quot;visibility&quot;: &quot;private&quot;,
+            // etc.
+        },
+        {
+            &quot;id&quot;: &quot;foo&quot;,
+            &quot;name&quot;: &quot;bar&quot;,
+            &quot;visibility&quot;: &quot;private&quot;,
+            // etc.
+        },
+        {
+            &quot;id&quot;: &quot;foo&quot;,
+            &quot;name&quot;: &quot;bar&quot;,
+            &quot;visibility&quot;: &quot;private&quot;,
+            // etc.
+        }
+    ]
+}
+</pre></div>
+</div>
+<p>Each nested property of a schema is represented by the
+<tt class="docutils literal"><span class="pre">OpenCloud\Image\Resource\Schema\Property</span></tt> class.</p>
+<p>If you would like to find out more about schemas, Guzzle has good
+documentation about <a class="reference external" href="http://docs.guzzlephp.org/en/latest/webservice-client/guzzle-service-descriptions.html">service
+descriptions</a>,
+which is fairly analogous.</p>
+</div>
+<div class="section" id="json-patch">
+<h2>JSON Patch<a class="headerlink" href="#json-patch" title="Permalink to this headline">¶</a></h2>
+<p>The Glance API has a unique way of updating certain dynamic resources:
+they use JSON Patch method, as outlined in <a class="reference external" href="http://tools.ietf.org/html/rfc6902">RFC
+6902</a>.</p>
+<p>Requests need to use the
+<tt class="docutils literal"><span class="pre">application/openstack-images-v2.1-json-patch</span></tt> content-type.</p>
+<p>In order for the operation to occur, the request entity body needs to
+contain a very particular structure:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>
+    <span class="p">{</span><span class="s">&quot;op&quot;</span><span class="p">:</span> <span class="s">&quot;replace&quot;</span><span class="p">,</span> <span class="s">&quot;path&quot;</span><span class="p">:</span> <span class="s">&quot;/name&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="p">:</span> <span class="s">&quot;Fedora 17&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s">&quot;op&quot;</span><span class="p">:</span> <span class="s">&quot;replace&quot;</span><span class="p">,</span> <span class="s">&quot;path&quot;</span><span class="p">:</span> <span class="s">&quot;/tags&quot;</span><span class="p">,</span> <span class="s">&quot;value&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s">&quot;fedora&quot;</span><span class="p">,</span> <span class="s">&quot;beefy&quot;</span><span class="p">]}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">op</span></tt> key refers to the type of Operation (see
+<tt class="docutils literal"><span class="pre">OpenCloud\Image\Enum\OperationType</span></tt> for a full list).</p>
+<p>The <tt class="docutils literal"><span class="pre">path</span></tt> key is a JSON pointer to the document property you want to
+modify or insert. JSON pointers are defined in <a class="reference external" href="http://tools.ietf.org/html/rfc6901">RFC
+6901</a>.</p>
+<p>The <tt class="docutils literal"><span class="pre">value</span></tt> key is the value.</p>
+<p>Because this is all handled for you behind the scenes, we will not go
+into exhaustive depth about how this operation is handled. You can
+browse the source code, consult the various RFCs and the <a class="reference external" href="http://docs.rackspace.com/images/api/v2/ci-devguide/content/patch-method.html">official
+documentation</a>
+for additional information.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
