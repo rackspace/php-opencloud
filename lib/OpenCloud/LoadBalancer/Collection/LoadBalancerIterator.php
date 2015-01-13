@@ -30,12 +30,8 @@ class LoadBalancerIterator extends PaginatedIterator
         $response = parent::parseResponseBody($body);
 
         if (count($response) >= $this->getOption('limit.page')) {
-            // Save last element (we will need it for the next marker)
-            $this->nextElement = end($response);
-
-            // Since we previously asked for n+1 elements, pop the unwanted element
-            array_pop($response);
-            reset($response);
+            // Pop last element and save (we will need it for the next marker)
+            $this->nextElement = array_pop($response);
         }
 
         return $response;
