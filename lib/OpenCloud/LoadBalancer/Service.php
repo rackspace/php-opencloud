@@ -63,7 +63,7 @@ class Service extends NovaService
         $url->addPath(Resource\LoadBalancer::resourceName());
         $url->setQuery($filter);
 
-        $options += array('baseUrl' => $url, 'key.marker' => 'id');
+        $options = array_merge($options, array('baseUrl' => $url, 'key.marker' => 'id'));
 
         return LoadBalancerIterator::factory($this, $options);
     }
