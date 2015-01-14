@@ -141,6 +141,8 @@ class CatalogItem
     public function getEndpointFromRegion($region)
     {
         foreach ($this->endpoints as $endpoint) {
+            // Return the endpoint if it is regionless OR if the endpoint's
+            // region matches the $region supplied by the caller.
             if (!isset($endpoint->region) || $endpoint->region == $region) {
                 return $endpoint;
             }
