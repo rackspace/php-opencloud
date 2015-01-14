@@ -81,7 +81,7 @@ class Service extends NovaService
      *
      * @api
      * @param string $id - if specified, the server with the ID is retrieved
-     * @returns Resource\Server object
+     * @return Resource\Server object
      */
     public function server($id = null)
     {
@@ -102,7 +102,7 @@ class Service extends NovaService
      *                         not having all the information you need.
      * @param array   $filter  - a set of key/value pairs that is passed to the
      *                         servers list for filtering
-     * @returns \OpenCloud\Common\Collection\PaginatedIterator
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function serverList($details = true, array $filter = array())
     {
