@@ -17,6 +17,7 @@
 
 namespace OpenCloud\LoadBalancer;
 
+use OpenCloud\Common\Log\Logger;
 use OpenCloud\Common\Service\NovaService;
 
 /**
@@ -62,7 +63,7 @@ class Service extends NovaService
      */
     public function billableLoadBalancer($id = null)
     {
-        $this->getLogger()->deprecated(__METHOD__, 'loadBalancer');
+        $this->getLogger()->warning(Logger::deprecated(__METHOD__, 'loadBalancer'));
 
         return $this->resource('LoadBalancer', $id);
     }

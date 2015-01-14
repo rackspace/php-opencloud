@@ -20,8 +20,10 @@ namespace OpenCloud\Common\Service;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Url;
+use OpenCloud\Common\Base;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
+use OpenCloud\OpenStack;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class CatalogService extends AbstractService
@@ -71,6 +73,10 @@ abstract class CatalogService extends AbstractService
      */
     public function __construct(ClientInterface $client, $type = null, $name = null, $region = null, $urlType = null)
     {
+        if (($client instanceof Base || $client instanceof OpenStack) && $client->hasLogger()) {
+            $this->setLogger($client->getLogger());
+        }
+
         $this->setClient($client);
 
         $this->name = $name ? : static::DEFAULT_NAME;
