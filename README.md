@@ -32,11 +32,14 @@ php composer.phar require rackspace/php-opencloud
 ```
 
 Once you have installed the library, you will need to load Composer's autoloader (which registers all the required
-namespaces):
+namespaces). To do this, place the following line of PHP code at the top of your application's PHP files:
 
 ```php
 require 'vendor/autoload.php';
 ```
+
+**Note**: this assumes your application's PHP files are located in the same folder as `vendor/`. If your files are located
+elsewhere, please supply the path to `vendor/autoload.php` in the `require` statement above.
 
 And you're ready to go!
 
