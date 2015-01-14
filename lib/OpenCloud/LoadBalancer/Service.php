@@ -19,6 +19,7 @@ namespace OpenCloud\LoadBalancer;
 
 use OpenCloud\Common\Log\Logger;
 use OpenCloud\Common\Service\NovaService;
+use OpenCloud\LoadBalancer\Collection\LoadBalancerIterator;
 
 /**
  * Class that encapsulates the Rackspace Cloud Load Balancers service
@@ -29,6 +30,25 @@ class Service extends NovaService
 {
     const DEFAULT_NAME = 'cloudLoadBalancers';
     const DEFAULT_TYPE = 'rax:load-balancer';
+
+    /**
+     * Get a collection of LoadBalancer objects.
+     *
+     * @param string $class  The class name.
+     * @param string $url    (Optional) The url where the collection can be found. Defaults to null.
+     * @param string $parent (Optional) The parent class. Defaults to null.
+     * @param array  $data   (Optional) Data to include with the collection. Defaults to null.
+     * @return \OpenCloud\LoadBalancer\Collection\LoadBalancerIterator
+     */
+    public function collection($class, $url = null, $parent = null, $data = null)
+    {
+        $options            = $this->makeResourceIteratorOptions($this->resolveResourceClass($class));
+        $options['baseUrl'] = $url;
+
+        $parent = $parent ?: $this;
+
+        return LoadBalancerIterator::factory($parent, $options, $data);
+    }
 
     /**
      * Return a Load Balancer
