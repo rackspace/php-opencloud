@@ -67,6 +67,19 @@ class Service extends AbstractService
     }
 
     /**
+     * List all available containers. If called by a CDN service, it returns CDN-enabled; if called by a regular
+     * service, normal containers are returned.
+     *
+     * @param array $filter
+     * @return Container
+     */
+    public function listContainers(array $filter = array())
+    {
+        $filter['format'] = 'json';
+        return $this->resourceList('Container', $this->getUrl(null, $filter), $this);
+    }
+
+    /**
      * @param $data
      * @return Container
      */
