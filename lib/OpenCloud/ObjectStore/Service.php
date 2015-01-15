@@ -67,6 +67,18 @@ class Service extends AbstractService
     }
 
     /**
+     * List all available containers.
+     *
+     * @param array $filter
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function listContainers(array $filter = array())
+    {
+        $filter['format'] = 'json';
+        return $this->resourceList('Container', $this->getUrl(null, $filter), $this);
+    }
+
+    /**
      * @param $data
      * @return Container
      */
