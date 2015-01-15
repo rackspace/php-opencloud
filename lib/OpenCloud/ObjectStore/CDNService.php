@@ -16,6 +16,8 @@
  */
 
 namespace OpenCloud\ObjectStore;
+use OpenCloud\ObjectStore\Resource\CDNContainer;
+use OpenCloud\ObjectStore\Resource\ContainerMetadata;
 
 /**
  * This is the CDN version of the ObjectStore service.
@@ -24,4 +26,37 @@ class CDNService extends AbstractService
 {
     const DEFAULT_NAME = 'cloudFilesCDN';
     const DEFAULT_TYPE = 'rax:object-cdn';
+
+    /**
+     * List all available containers. If called by a CDN service, it returns CDN-enabled; if called by a regular
+     * service, normal containers are returned.
+     *
+     * @param array $filter
+     * @return CDNContainer
+     */
+    public function listContainers(array $filter = array())
+    {
+        $filter['format'] = 'json';
+        return $this->resourceList('CDNContainer', $this->getUrl(null, $filter), $this);
+    }
+
+    public function cdnContainer($data)
+    {
+        $container = new CDNContainer($this, $data);
+
+        $metadata = new ContainerMetadata();
+        $metadata->setArray(array(
+            'Streaming-Uri' => $data->cdn_streaming_uri,
+            'Ios-Uri' => $data->cdn_ios_uri,
+            'Ssl-Uri' => $data->cdn_ssl_uri,
+            'Enabled' => $data->cdn_enabled,
+            'Ttl' => $data->ttl,
+            'Log-Retention' => $data->log_retention,
+            'Uri' => $data->cdn_uri,
+        ));
+
+        $container->setMetadata($metadata);
+
+        return $container;
+    }
 }
