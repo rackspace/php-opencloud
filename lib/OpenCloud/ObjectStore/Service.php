@@ -67,11 +67,10 @@ class Service extends AbstractService
     }
 
     /**
-     * List all available containers. If called by a CDN service, it returns CDN-enabled; if called by a regular
-     * service, normal containers are returned.
+     * List all available containers.
      *
      * @param array $filter
-     * @return Container
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function listContainers(array $filter = array())
     {

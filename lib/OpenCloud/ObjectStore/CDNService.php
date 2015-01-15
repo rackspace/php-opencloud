@@ -16,6 +16,7 @@
  */
 
 namespace OpenCloud\ObjectStore;
+
 use OpenCloud\ObjectStore\Resource\CDNContainer;
 use OpenCloud\ObjectStore\Resource\ContainerMetadata;
 
@@ -28,11 +29,10 @@ class CDNService extends AbstractService
     const DEFAULT_TYPE = 'rax:object-cdn';
 
     /**
-     * List all available containers. If called by a CDN service, it returns CDN-enabled; if called by a regular
-     * service, normal containers are returned.
+     * List CDN-enabled containers.
      *
      * @param array $filter
-     * @return CDNContainer
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
      */
     public function listContainers(array $filter = array())
     {
