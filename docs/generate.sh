@@ -1,25 +1,39 @@
-#!/bin/bash
-# (c)2013 Rackspace Hosting. See COPYING for license.
+#!/bin/sh
 
-DOC_DIR=docs/api
-LIB_DIR=lib
-BIN_FILE=vendor/bin/apigen.php
+# Script to be used by Travis CI builds to generate the php-opencloud SDK API
+# reference and publish it to the gh-pages branch of the rackerlabs/php-opencloud
+# repository.
 
-if [ ! -f $BIN_FILE ]; then
-    rm composer.lock
-    php composer.phar require apigen/apigen:dev-master --dev
+SOURCE_DIR=lib
+WORK_DIR=build/api
+API_DOCS_DIR=docs/api
+REPO_REMOTE_URL=https://$GH_TOKEN@github.com/rackspace/php-opencloud
+
+# We want our generated API reference to reflect what is 
+# on the master branch. So if we aren't currently on
+# the master branch, or we aren't part of a PR targetted
+# to the master branch, do nothing.
+if [ "$TRAVIS_BRANCH" != "master" ]; then
+  exit 0
 fi
 
-if [ ! -d $DOC_DIR ]; then
-    mkdir $DOC_DIR
-fi
+# Generate the API references
+rm -rf $API_DOCS_DIR && \
+./vendor/bin/apigen generate \
+    --source $SOURCE_DIR \
+    --destination $WORK_DIR
 
-if [ ! -d docs ]; then
-    echo "No docs/ directory found; run this script from the top directory"
-    exit;
-fi
+# Switch the branch to gh-pages
+git checkout gh-pages
 
-rm -rf DOCS_DIR
+# Commit the generated API references
+rm -rf $API_DOCS_DIR
+mv $WORK_DIR $API_DOCS_DIR
+git add -f $API_DOCS_DIR
+git commit -m "Re-generated API documentation"
 
-# regenerate all the docs!
-php $BIN_FILE -s $LIB_DIR -d $DOC_DIR --title="PHP OpenCloud API" --groups="namespaces" --download --progressbar
+# Push to the remote gh-pages branch so
+# changes show up on php-opencloud.com
+git push $REPO_REMOTE_URL gh-pages
+
+git checkout master
