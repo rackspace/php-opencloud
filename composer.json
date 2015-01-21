@@ -37,6 +37,6 @@
         "satooshi/php-coveralls": "0.6.*@dev",
         "jakub-onderka/php-parallel-lint": "0.*",
         "fabpot/php-cs-fixer": "1.0.*@dev",
-        "apigen/apigen": "~4.0"
+        "apigen/apigen": "~2.8"
     }
 }
