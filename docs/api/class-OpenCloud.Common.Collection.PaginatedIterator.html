@@ -210,6 +210,11 @@
 
 						<ul>
 				<li>
+					<a href="namespace-OpenCloud.LoadBalancer.Collection.html">
+						Collection					</a>
+
+						</li>
+				<li>
 					<a href="namespace-OpenCloud.LoadBalancer.Enum.html">
 						Enum					</a>
 
@@ -406,6 +411,7 @@ query parameters (marker) are updated based on the current value.</p>
 		<h4>Direct known subclasses</h4>
 			<a href="class-OpenCloud.CloudMonitoring.Collection.MonitoringIterator.html">OpenCloud\CloudMonitoring\Collection\MonitoringIterator</a>, 
 			<a href="class-OpenCloud.DNS.Collection.DnsIterator.html">OpenCloud\DNS\Collection\DnsIterator</a>, 
+			<a href="class-OpenCloud.LoadBalancer.Collection.LoadBalancerIterator.html">OpenCloud\LoadBalancer\Collection\LoadBalancerIterator</a>, 
 			<a href="class-OpenCloud.Queues.Collection.MessageIterator.html">OpenCloud\Queues\Collection\MessageIterator</a>
 	</div>
 
@@ -422,7 +428,7 @@ query parameters (marker) are updated based on the current value.</p>
 
 				<b>Since:</b>
 				1.8.0<br>
-			<b>Located at</b> <a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#25-325" title="Go to source code">OpenCloud/Common/Collection/PaginatedIterator.php</a>
+			<b>Located at</b> <a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#25-329" title="Go to source code">OpenCloud/Common/Collection/PaginatedIterator.php</a>
 		<br>
 	</div>
 
@@ -638,7 +644,7 @@ Also update the current marker.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateMarkerToCurrent">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#137-154" title="Go to source code">updateMarkerToCurrent</a>( )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#137-149" title="Go to source code">updateMarkerToCurrent</a>( )</code>
 
 		<div class="description short">
 			<p>Update the current marker based on the current element. The marker will be based on a particular property of this
@@ -648,6 +654,36 @@ current element, so you must retrieve it first.</p>
 		<div class="description detailed hidden">
 			<p>Update the current marker based on the current element. The marker will be based on a particular property of this
 current element, so you must retrieve it first.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setMarkerFromElement" id="_setMarkerFromElement">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setMarkerFromElement">#</a>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#151-158" title="Go to source code">setMarkerFromElement</a>( <span> <var>$element</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
 
 
 
@@ -670,7 +706,7 @@ current element, so you must retrieve it first.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_rewind">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#156-164" title="Go to source code">rewind</a>( )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#160-168" title="Go to source code">rewind</a>( )</code>
 
 		<div class="description short">
 			<p>Reset the pointer and current marker.
@@ -706,7 +742,7 @@ Also reset current marker.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_valid">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#166-180" title="Go to source code">valid</a>( )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#170-184" title="Go to source code">valid</a>( )</code>
 
 		<div class="description short">
 			<p>This method is called after self::rewind() and self::next() to check if the current position is valid.</p>
@@ -744,7 +780,7 @@ Also reset current marker.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_shouldAppend">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#182-188" title="Go to source code">shouldAppend</a>( )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#186-192" title="Go to source code">shouldAppend</a>( )</code>
 
 		<div class="description short">
 			
@@ -774,7 +810,7 @@ Also reset current marker.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_appendElements">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#190-201" title="Go to source code">appendElements</a>( <span>array <var>$elements</var></span> )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#194-205" title="Go to source code">appendElements</a>( <span>array <var>$elements</var></span> )</code>
 
 		<div class="description short">
 			<p>Append an array of standard objects to the current collection.</p>
@@ -813,7 +849,7 @@ Also reset current marker.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_appendNewCollection">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#203-234" title="Go to source code">appendNewCollection</a>( )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#207-238" title="Go to source code">appendNewCollection</a>( )</code>
 
 		<div class="description short">
 			<p>Retrieve a new page of elements from the API (based on a new request), parse its response, and append them to the
@@ -849,7 +885,7 @@ collection.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_extractNextLink">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#236-258" title="Go to source code">extractNextLink</a>( <span> <var>$body</var></span> )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#240-262" title="Go to source code">extractNextLink</a>( <span> <var>$body</var></span> )</code>
 
 		<div class="description short">
 			<p>Based on the response body, extract the explicitly set "link" value if provided.</p>
@@ -888,7 +924,7 @@ collection.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_constructNextUrl">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#260-283" title="Go to source code">constructNextUrl</a>( )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#264-287" title="Go to source code">constructNextUrl</a>( )</code>
 
 		<div class="description short">
 			<p>Make the next page URL.</p>
@@ -922,7 +958,7 @@ collection.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseResponseBody">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#285-314" title="Go to source code">parseResponseBody</a>( <span> <var>$body</var></span> )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#289-318" title="Go to source code">parseResponseBody</a>( <span> <var>$body</var></span> )</code>
 
 		<div class="description short">
 			<p>Based on the response from the API, parse it for the data we need (i.e. an meaningful array of elements).</p>
@@ -961,7 +997,7 @@ collection.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_populateAll">#</a>
-		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#316-324" title="Go to source code">populateAll</a>( )</code>
+		<code><a href="source-class-OpenCloud.Common.Collection.PaginatedIterator.html#320-328" title="Go to source code">populateAll</a>( )</code>
 
 		<div class="description short">
 			<p>Walk the entire collection, populating everything.</p>

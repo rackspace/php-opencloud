@@ -210,6 +210,11 @@
 
 						<ul>
 				<li>
+					<a href="namespace-OpenCloud.LoadBalancer.Collection.html">
+						Collection					</a>
+
+						</li>
+				<li>
 					<a href="namespace-OpenCloud.LoadBalancer.Enum.html">
 						Enum					</a>
 
@@ -413,7 +418,7 @@
 		<b>Namespace:</b> <a href="namespace-OpenCloud.html">OpenCloud</a>\<a href="namespace-OpenCloud.ObjectStore.html">ObjectStore</a><br>
 		
 
-			<b>Located at</b> <a href="source-class-OpenCloud.ObjectStore.Service.html#33-256" title="Go to source code">OpenCloud/ObjectStore/Service.php</a>
+			<b>Located at</b> <a href="source-class-OpenCloud.ObjectStore.Service.html#33-268" title="Go to source code">OpenCloud/ObjectStore/Service.php</a>
 		<br>
 	</div>
 
@@ -505,6 +510,45 @@ the criteria, then an exception is thrown.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="listContainers" id="_listContainers">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-OpenCloud.Common.Collection.PaginatedIterator.html">OpenCloud\Common\Collection\PaginatedIterator</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_listContainers">#</a>
+		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#69-79" title="Go to source code">listContainers</a>( <span>array <var>$filter</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>List all available containers.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>List all available containers.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$filter</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-OpenCloud.Common.Collection.PaginatedIterator.html">OpenCloud\Common\Collection\PaginatedIterator</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="getContainer" id="_getContainer">
 
 		<td class="attributes"><code>
@@ -517,7 +561,7 @@ the criteria, then an exception is thrown.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContainer">#</a>
-		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#69-76" title="Go to source code">getContainer</a>( <span> <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#81-88" title="Go to source code">getContainer</a>( <span> <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -556,7 +600,7 @@ the criteria, then an exception is thrown.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createContainer">#</a>
-		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#78-100" title="Go to source code">createContainer</a>( <span> <var>$name</var></span>, <span>array <var>$metadata</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#90-112" title="Go to source code">createContainer</a>( <span> <var>$name</var></span>, <span>array <var>$metadata</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Create a container for this service.</p>
@@ -597,7 +641,7 @@ the criteria, then an exception is thrown.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkContainerName">#</a>
-		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#102-128" title="Go to source code">checkContainerName</a>( <span> <var>$name</var></span> )</code>
+		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#114-140" title="Go to source code">checkContainerName</a>( <span> <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Check the validity of a potential container name.</p>
@@ -640,7 +684,7 @@ the criteria, then an exception is thrown.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_bulkExtract">#</a>
-		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#130-171" title="Go to source code">bulkExtract</a>( <span> <var>$path</var></span>, <span> <var>$archive</var></span>, <span>string <var>$archiveType</var> = OpenCloud\ObjectStore\UrlType::TAR_GZ</span> )</code>
+		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#142-183" title="Go to source code">bulkExtract</a>( <span> <var>$path</var></span>, <span> <var>$archive</var></span>, <span>string <var>$archiveType</var> = OpenCloud\ObjectStore\UrlType::TAR_GZ</span> )</code>
 
 		<div class="description short">
 			<p>Perform a bulk extraction, expanding an archive file. If the $path is an empty string, containers will be
@@ -694,7 +738,7 @@ files will be uploaded. Empty directories, symlinks, and so on, will not be uplo
 
 		<td class="name"><div>
 		<a class="anchor" href="#_batchDelete">#</a>
-		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#183-213" title="Go to source code">batchDelete</a>( <span>array <var>$paths</var></span> )</code>
+		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#195-225" title="Go to source code">batchDelete</a>( <span>array <var>$paths</var></span> )</code>
 
 		<div class="description short">
 			<p>Batch delete will delete an array of object paths. By default,
@@ -752,7 +796,7 @@ and sent as individual requests.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_migrateContainer">#</a>
-		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#243-255" title="Go to source code">migrateContainer</a>( <span><code><a href="class-OpenCloud.ObjectStore.Resource.Container.html">OpenCloud\ObjectStore\Resource\Container</a></code> <var>$old</var></span>, <span><code><a href="class-OpenCloud.ObjectStore.Resource.Container.html">OpenCloud\ObjectStore\Resource\Container</a></code> <var>$new</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+		<code><a href="source-class-OpenCloud.ObjectStore.Service.html#255-267" title="Go to source code">migrateContainer</a>( <span><code><a href="class-OpenCloud.ObjectStore.Resource.Container.html">OpenCloud\ObjectStore\Resource\Container</a></code> <var>$old</var></span>, <span><code><a href="class-OpenCloud.ObjectStore.Resource.Container.html">OpenCloud\ObjectStore\Resource\Container</a></code> <var>$new</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
 
 		<div class="description short">
 			<p>Allows files to be transferred from one container to another.</p>
@@ -789,8 +833,7 @@ and sent as individual requests.</p>
 	<caption>Methods inherited from <a href="class-OpenCloud.ObjectStore.AbstractService.html#methods">OpenCloud\ObjectStore\AbstractService</a></caption>
 	<tr>
 		<td><code>
-			<a href="class-OpenCloud.ObjectStore.AbstractService.html#_getAccount">getAccount()</a>, 
-			<a href="class-OpenCloud.ObjectStore.AbstractService.html#_listContainers">listContainers()</a>
+			<a href="class-OpenCloud.ObjectStore.AbstractService.html#_getAccount">getAccount()</a>
 		</code></td>
 	</tr>
 	</table>
