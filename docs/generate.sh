@@ -27,6 +27,10 @@ rm -rf $API_DOCS_DIR && \
 git checkout gh-pages
 git pull $REPO_REMOTE_URL gh-pages
 
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
 # Commit the generated API references
 rm -rf $API_DOCS_DIR
 mv $WORK_DIR $API_DOCS_DIR
