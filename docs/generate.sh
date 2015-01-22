@@ -25,6 +25,7 @@ rm -rf $API_DOCS_DIR && \
 
 # Switch the branch to gh-pages
 git checkout gh-pages
+git pull $REPO_REMOTE_URL gh-pages
 
 # Commit the generated API references
 rm -rf $API_DOCS_DIR
