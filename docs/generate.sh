@@ -25,7 +25,7 @@ rm -rf $API_DOCS_DIR && \
 
 # Switch the branch to gh-pages
 git checkout gh-pages
-git pull $REPO_REMOTE_URL gh-pages
+git pull --commit $REPO_REMOTE_URL gh-pages
 
 if [ $? -ne 0 ]; then
   exit 1
