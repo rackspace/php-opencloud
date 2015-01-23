@@ -18,7 +18,6 @@ if [ "$TRAVIS_BRANCH" != "master" ]; then
 fi
 
 # Generate the API references
-rm -rf $API_DOCS_DIR && \
 ./vendor/bin/apigen generate \
     --source $SOURCE_DIR \
     --destination $WORK_DIR
