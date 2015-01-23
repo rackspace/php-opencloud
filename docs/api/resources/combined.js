@@ -1,6 +1,6 @@
 
 var ApiGen = ApiGen || {};
-ApiGen.config = {"options":{"elementDetailsCollapsed":true,"elementsOrder":"natural"},"name":"ApiGen theme","templatesPath":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default","resources":{"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/resources":"resources"},"templates":{"overview":{"filename":"index.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/overview.latte"},"combined":{"filename":"resources\/combined.js","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/combined.js.latte"},"elementlist":{"filename":"elementlist.js","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/elementlist.js.latte"},"404":{"filename":"404.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/404.latte"},"package":{"filename":"package-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/package.latte"},"namespace":{"filename":"namespace-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/namespace.latte"},"class":{"filename":"class-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/class.latte"},"constant":{"filename":"constant-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/constant.latte"},"function":{"filename":"function-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/function.latte"},"source":{"filename":"source-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/source.latte"},"tree":{"filename":"tree.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/tree.latte"},"deprecated":{"filename":"deprecated.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/deprecated.latte"},"todo":{"filename":"todo.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/todo.latte"},"sitemap":{"filename":"sitemap.xml","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/sitemap.xml.latte"},"opensearch":{"filename":"opensearch.xml","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/opensearch.xml.latte"},"robots":{"filename":"robots.txt","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/default\/robots.txt.latte"}}};
+ApiGen.config = {"options":{"elementDetailsCollapsed":true,"elementsOrder":"natural"},"name":"Twitter Bootstrap theme","templatesPath":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap","resources":{"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/resources":"resources"},"templates":{"overview":{"filename":"index.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/overview.latte"},"combined":{"filename":"resources\/combined.js","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/combined.js.latte"},"elementlist":{"filename":"elementlist.js","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/elementlist.js.latte"},"404":{"filename":"404.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/404.latte"},"package":{"filename":"package-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/package.latte"},"namespace":{"filename":"namespace-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/namespace.latte"},"class":{"filename":"class-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/class.latte"},"constant":{"filename":"constant-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/constant.latte"},"function":{"filename":"function-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/function.latte"},"source":{"filename":"source-%s.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/source.latte"},"tree":{"filename":"tree.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/tree.latte"},"deprecated":{"filename":"deprecated.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/deprecated.latte"},"todo":{"filename":"todo.html","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/todo.latte"},"sitemap":{"filename":"sitemap.xml","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/sitemap.xml.latte"},"opensearch":{"filename":"opensearch.xml","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/opensearch.xml.latte"},"robots":{"filename":"robots.txt","template":"\/Users\/shau7246\/development\/personal\/php-opencloud\/vendor\/apigen\/apigen\/src\/templates\/bootstrap\/robots.txt.latte"}}};
 
 
 	/*! jQuery v1.10.2 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
@@ -1022,6 +1022,8 @@ jQuery.fn.sortElements = (function(){
 })();
 	$(window).load(function() {
 	var $document = $(document);
+	var $navigation = $('#navigation');
+	var navigationHeight = $navigation.height();
 	var $left = $('#left');
 	var $right = $('#right');
 	var $rightInner = $('#rightInner');
@@ -1090,9 +1092,7 @@ jQuery.fn.sortElements = (function(){
 					return $(this).width();
 				}));
 				// 10px padding
-				$list
-					.width(Math.max(maxWidth + 10, $search.innerWidth()))
-					.css('left', $search.offset().left + $search.outerWidth() - $list.outerWidth());
+				$list.width(Math.max(maxWidth + 10, $search.innerWidth()));
 			}
 		}).result(function(event, data) {
 			autocompleteFound = true;
@@ -1128,7 +1128,7 @@ jQuery.fn.sortElements = (function(){
 	// Switch between natural and alphabetical order
 	var $caption = $('table.summary', $content)
 		.filter(':has(tr[data-order])')
-			.find('caption');
+			.prev('h2');
 	$caption
 		.click(function() {
 			var $this = $(this);
@@ -1138,7 +1138,7 @@ jQuery.fn.sortElements = (function(){
 			$.cookie('order', order, {expires: 365});
 			var attr = 'alphabetical' === order ? 'data-order' : 'data-order-natural';
 			$this
-				.closest('table')
+				.next('table')
 					.find('tr').sortElements(function(a, b) {
 						return $(a).attr(attr) > $(b).attr(attr) ? 1 : -1;
 					});
@@ -1171,6 +1171,13 @@ jQuery.fn.sortElements = (function(){
 		$left.width(position);
 		$right.css('margin-left', position + splitterWidth);
 		$splitter.css('left', position);
+	}
+	function setNavigationPosition()
+	{
+		var height = $(window).height() - navigationHeight;
+		$left.height(height);
+		$splitter.height(height);
+		$right.height(height);
 	}
 	function setContentWidth()
 	{
@@ -1222,8 +1229,11 @@ jQuery.fn.sortElements = (function(){
 	if (null !== splitterPosition) {
 		setSplitterPosition(splitterPosition);
 	}
+	setNavigationPosition();
 	setContentWidth();
-	$(window).resize(setContentWidth);
+	$(window)
+		.resize(setNavigationPosition)
+		.resize(setContentWidth);
 
 	// Select selected lines
 	var matches = window.location.hash.substr(1).match(/^\d+(?:-\d+)?(?:,\d+(?:-\d+)?)*$/);
