@@ -30,3 +30,6 @@ notifications:
     - jamie.hannaford@rackspace.com
     - glen.campbell@rackspace.com
     - shaunak.kashyap@rackspace.com
+
+env:
+  - secure: "bdrUeYb3nSGgBB+QtDZxUHVPw6B/wjb3KXLm8TgonWrQm4GPeWKK29qhmDnFZmQjwQPfuebe7wAk1ZxGoZKbEiELVpJJ+8XYVOt6W/6V53H31JL6FqiIE5+7qBwDe+9ziveM6GcTXHT1GI5mUeACIbeBDPZaNubIJH3U6MPim64="
