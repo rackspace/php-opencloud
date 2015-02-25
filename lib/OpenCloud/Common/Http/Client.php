@@ -41,6 +41,7 @@ class Client extends GuzzleClient
         }
         // @codeCoverageIgnoreEnd
 
+        $this->userAgentPrefix = null;
         parent::__construct($baseUrl, $config);
     }
 
@@ -54,5 +55,10 @@ class Client extends GuzzleClient
     public function getUserAgent()
     {
         return $this->userAgent;
+    }
+
+    public function prefixUserAgent($prefix)
+    {
+        $this->userAgent = trim($prefix . ' ' . $this->userAgent);
     }
 }
