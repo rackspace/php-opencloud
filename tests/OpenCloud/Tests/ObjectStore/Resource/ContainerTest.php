@@ -20,6 +20,7 @@ namespace OpenCloud\Tests\ObjectStore\Resource;
 use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
+use OpenCloud\ObjectStore\Enum\ReturnType;
 
 class ContainerTest extends ObjectStoreTestCase
 {
@@ -223,6 +224,19 @@ class ContainerTest extends ObjectStoreTestCase
         $container->uploadObjects(array(
             array('name' => 'test', 'path' => $this->getFilePath())
         ));
+    }
+
+    public function test_Upload_Multiple_Return_DataObject_Array()
+    {
+        $container = $this->container;
+
+        $dataObjects = $container->uploadObjects(array(
+            array('name' => 'test', 'body' => 'FOOBAR')
+        ), array(), ReturnType::DATA_OBJECT_ARRAY);
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[0]);
+        $this->assertEquals('test', $dataObjects[0]->getName());
+        $this->assertInstanceOf('Guzzle\Http\EntityBody', $dataObjects[0]->getContent());
+        $this->assertEquals('FOOBAR', (string) $dataObjects[0]->getContent());
     }
 
     public function test_Upload()

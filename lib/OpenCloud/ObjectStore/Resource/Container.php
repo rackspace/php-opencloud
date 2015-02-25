@@ -30,6 +30,7 @@ use OpenCloud\ObjectStore\Exception\ContainerException;
 use OpenCloud\ObjectStore\Exception\ObjectNotFoundException;
 use OpenCloud\ObjectStore\Upload\DirectorySync;
 use OpenCloud\ObjectStore\Upload\TransferBuilder;
+use OpenCloud\ObjectStore\Enum\ReturnType;
 
 /**
  * A container is a storage compartment for your data and provides a way for you
@@ -475,7 +476,7 @@ class Container extends AbstractContainer
      * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      * @return \Guzzle\Http\Message\Response
      */
-    public function uploadObjects(array $files, array $commonHeaders = array())
+    public function uploadObjects(array $files, array $commonHeaders = array(), $returnType = ReturnType::RESPONSE_ARRAY)
     {
         $requests = $entities = array();
 
@@ -514,11 +515,23 @@ class Container extends AbstractContainer
 
         $responses = $this->getClient()->send($requests);
 
-        foreach ($entities as $entity) {
-            $entity->close();
+        if (ReturnType::RESPONSE_ARRAY === $returnType) {
+            foreach ($entities as $entity) {
+                $entity->close();
+            }
+            return $responses;
+        } else {
+            // Convert responses to DataObjects before returning
+            $dataObjects = array();
+            foreach ($responses as $index => $response) {
+                $dataObject = $this->dataObject()
+                            ->populateFromResponse($response)
+                            ->setName($files[$index]['name'])
+                            ->setContent($entities[$index]);
+                $dataObjects[] = $dataObject;
+            }
+            return $dataObjects;
         }
-
-        return $responses;
     }
 
     /**
