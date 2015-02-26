@@ -229,7 +229,6 @@ class ContainerTest extends ObjectStoreTestCase
     public function test_Upload_Multiple_Return_DataObject_Array()
     {
         $tempFileName = tempnam(sys_get_temp_dir(), "php-opencloud-test-");
-        echo $tempFileName;
         try {
             $tempFile = fopen($tempFileName, 'w+');
             fwrite($tempFile, 'BAZQUX');
