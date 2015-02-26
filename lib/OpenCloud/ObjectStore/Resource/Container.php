@@ -527,11 +527,10 @@ class Container extends AbstractContainer
             // Convert responses to DataObjects before returning
             $dataObjects = array();
             foreach ($responses as $index => $response) {
-                $dataObject = $this->dataObject()
-                            ->populateFromResponse($response)
-                            ->setName($files[$index]['name'])
-                            ->setContent($entities[$index]);
-                $dataObjects[] = $dataObject;
+                $dataObjects[] = $this->dataObject()
+                               ->populateFromResponse($response)
+                               ->setName($files[$index]['name'])
+                               ->setContent($entities[$index]);
             }
             return $dataObjects;
         }
