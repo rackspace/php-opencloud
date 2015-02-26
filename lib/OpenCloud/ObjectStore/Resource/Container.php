@@ -472,9 +472,12 @@ class Container extends AbstractContainer
      *                       `path' Path to an existing file, OR
      *                       `body' Either a string or stream representation of the file contents to be uploaded.
      * @param array $headers Optional headers that will be sent with the request (useful for object metadata).
+     * @param string $returnType One of OpenCloud\ObjectStore\Enum\ReturnType::RESPONSE_ARRAY (to return an array of
+     *                           Guzzle\Http\Message\Response objects) or OpenCloud\ObjectStore\Enum\ReturnType::DATA_OBJECT_ARRAY
+     *                           (to return an array of OpenCloud\ObjectStore\Resource\DataObject objects).
      *
      * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
-     * @return \Guzzle\Http\Message\Response
+     * @return Guzzle\Http\Message\Response[] or OpenCloud\ObjectStore\Resource\DataObject[] depending on $returnType
      */
     public function uploadObjects(array $files, array $commonHeaders = array(), $returnType = ReturnType::RESPONSE_ARRAY)
     {
