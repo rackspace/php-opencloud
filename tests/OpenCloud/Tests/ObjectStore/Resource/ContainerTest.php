@@ -228,15 +228,38 @@ class ContainerTest extends ObjectStoreTestCase
 
     public function test_Upload_Multiple_Return_DataObject_Array()
     {
-        $container = $this->container;
+        $tempFileName = tempnam(sys_get_temp_dir(), "php-opencloud-test-");
+        echo $tempFileName;
+        try {
+            $tempFile = fopen($tempFileName, 'w+');
+            fwrite($tempFile, 'BAZQUX');
 
-        $dataObjects = $container->uploadObjects(array(
-            array('name' => 'test', 'body' => 'FOOBAR')
-        ), array(), ReturnType::DATA_OBJECT_ARRAY);
+            $container = $this->container;
+
+            $dataObjects = $container->uploadObjects(array(
+                array('name' => 'test1', 'body' => 'FOOBAR'),
+                array('name' => 'test2', 'path' => $tempFileName),
+                array('name' => 'test2', 'body' => 'BARBAR')
+            ), array(), ReturnType::DATA_OBJECT_ARRAY);
+        } finally {
+            fclose($tempFile);
+            unlink($tempFileName);
+        }
+
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[0]);
-        $this->assertEquals('test', $dataObjects[0]->getName());
+        $this->assertEquals('test1', $dataObjects[0]->getName());
         $this->assertInstanceOf('Guzzle\Http\EntityBody', $dataObjects[0]->getContent());
         $this->assertEquals('FOOBAR', (string) $dataObjects[0]->getContent());
+
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[1]);
+        $this->assertEquals('test2', $dataObjects[1]->getName());
+        $this->assertInstanceOf('Guzzle\Http\EntityBody', $dataObjects[1]->getContent());
+        $this->assertEquals('BAZQUX', (string) $dataObjects[1]->getContent());
+
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[2]);
+        $this->assertEquals('test2', $dataObjects[2]->getName());
+        $this->assertInstanceOf('Guzzle\Http\EntityBody', $dataObjects[2]->getContent());
+        $this->assertEquals('BARBAR', (string) $dataObjects[2]->getContent());
     }
 
     public function test_Upload()
