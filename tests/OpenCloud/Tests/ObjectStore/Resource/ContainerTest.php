@@ -229,23 +229,19 @@ class ContainerTest extends ObjectStoreTestCase
     public function test_Upload_Multiple_Return_DataObject_Array()
     {
         $tempFileName = tempnam(sys_get_temp_dir(), "php-opencloud-test-");
-        try {
-            $tempFile = fopen($tempFileName, 'w+');
-            fwrite($tempFile, 'BAZQUX');
 
-            $container = $this->container;
+        $tempFile = fopen($tempFileName, 'w+');
+        fwrite($tempFile, 'BAZQUX');
 
-            $dataObjects = $container->uploadObjects(array(
-                array('name' => 'test1', 'body' => 'FOOBAR'),
-                array('name' => 'test2', 'path' => $tempFileName),
-                array('name' => 'test2', 'body' => 'BARBAR')
-            ), array(), ReturnType::DATA_OBJECT_ARRAY);
-        } catch (Exception $e) {
-            throw $e;
-        } finally {
-            fclose($tempFile);
-            unlink($tempFileName);
-        }
+        $container = $this->container;
+
+        $dataObjects = $container->uploadObjects(array(
+            array('name' => 'test1', 'body' => 'FOOBAR'),
+            array('name' => 'test2', 'path' => $tempFileName),
+            array('name' => 'test2', 'body' => 'BARBAR')
+        ), array(), ReturnType::DATA_OBJECT_ARRAY);
+        fclose($tempFile);
+        unlink($tempFileName);
 
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[0]);
         $this->assertEquals('test1', $dataObjects[0]->getName());
