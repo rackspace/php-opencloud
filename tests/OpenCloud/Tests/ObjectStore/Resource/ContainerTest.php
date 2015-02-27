@@ -240,6 +240,8 @@ class ContainerTest extends ObjectStoreTestCase
                 array('name' => 'test2', 'path' => $tempFileName),
                 array('name' => 'test2', 'body' => 'BARBAR')
             ), array(), ReturnType::DATA_OBJECT_ARRAY);
+        } catch (Exception $e) {
+            throw $e;
         } finally {
             fclose($tempFile);
             unlink($tempFileName);
