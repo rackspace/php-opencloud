@@ -20,6 +20,7 @@ namespace OpenCloud\Tests\ObjectStore\Resource;
 use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Constants\Size;
 use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
+use OpenCloud\ObjectStore\Enum\ReturnType;
 
 class ContainerTest extends ObjectStoreTestCase
 {
@@ -223,6 +224,39 @@ class ContainerTest extends ObjectStoreTestCase
         $container->uploadObjects(array(
             array('name' => 'test', 'path' => $this->getFilePath())
         ));
+    }
+
+    public function test_Upload_Multiple_Return_DataObject_Array()
+    {
+        $tempFileName = tempnam(sys_get_temp_dir(), "php-opencloud-test-");
+
+        $tempFile = fopen($tempFileName, 'w+');
+        fwrite($tempFile, 'BAZQUX');
+
+        $container = $this->container;
+
+        $dataObjects = $container->uploadObjects(array(
+            array('name' => 'test1', 'body' => 'FOOBAR'),
+            array('name' => 'test2', 'path' => $tempFileName),
+            array('name' => 'test2', 'body' => 'BARBAR')
+        ), array(), ReturnType::DATA_OBJECT_ARRAY);
+        fclose($tempFile);
+        unlink($tempFileName);
+
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[0]);
+        $this->assertEquals('test1', $dataObjects[0]->getName());
+        $this->assertInstanceOf('Guzzle\Http\EntityBody', $dataObjects[0]->getContent());
+        $this->assertEquals('FOOBAR', (string) $dataObjects[0]->getContent());
+
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[1]);
+        $this->assertEquals('test2', $dataObjects[1]->getName());
+        $this->assertInstanceOf('Guzzle\Http\EntityBody', $dataObjects[1]->getContent());
+        $this->assertEquals('BAZQUX', (string) $dataObjects[1]->getContent());
+
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $dataObjects[2]);
+        $this->assertEquals('test2', $dataObjects[2]->getName());
+        $this->assertInstanceOf('Guzzle\Http\EntityBody', $dataObjects[2]->getContent());
+        $this->assertEquals('BARBAR', (string) $dataObjects[2]->getContent());
     }
 
     public function test_Upload()

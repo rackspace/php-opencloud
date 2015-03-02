@@ -198,7 +198,8 @@ $localFileName  = '/path/to/local/php-elephant.jpg';
 $remoteFileName = 'php-elephant.jpg';
 
 $fileData = fopen($localFileName, 'r');
-$container->uploadObject($remoteFileName, $fileData);
+$object = $container->uploadObject($remoteFileName, $fileData);
+/** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/upload-object.php) ]
 
@@ -258,7 +259,10 @@ $objects = array(
     a
 );
 
-$container->uploadObjects($objects);
+$responses = $container->uploadObjects($objects);
+foreach ($responses as $response) {
+    /** @var $response \Guzzle\Http\Message\Response **/
+}
 ```
 [ [Get the executable PHP script for this example](/samples/ObjectStore/upload-multiple-objects.php) ]
 
@@ -266,7 +270,7 @@ In the above example, the contents of two files present on the local filesystem 
 
 Instead of specifying the `path` key in an element of the `$objects` array, you can specify a `body` key whose value is a string or a stream representation.
 
-Finally, you can pass headers as the second parameter to the `uploadObjects` method. These headers will be applied to every object that is uploaded.
+You can pass headers as the second parameter to the `uploadObjects` method. These headers will be applied to every object that is uploaded.
 
 ```
 $metadata = array('author' => 'Jane Doe');
@@ -280,6 +284,17 @@ $container->uploadObjects($objects, $allHeaders);
 [ [Get the executable PHP script for this example](/samples/ObjectStore/upload-multiple-objects-with-metadata.php) ]
 
 In the example above, every object referenced within the `$objects` array will be uploaded with the same metadata.
+
+Finally, if you want the `uploadObjects` method to return an array of `OpenCloud\ObjectStore\Resource\DataObject` objects instead of an array of `Guzzle\Http\Message\Response` objects, you can specify a third parameter to the `uploadObjects` method:
+
+```
+use OpenCloud\ObjectStore\Enum\ReturnType;
+
+$dataObjects = $container->uploadObjects($objects, $allHeaders, ReturnType::DATA_OBJECT_ARRAY);
+foreach ($dataObjects as $dataObject) {
+    /** @var $dataObject OpenCloud\ObjectStore\Resource\DataObject **/
+}
+```
 
 ### Large Objects
 
