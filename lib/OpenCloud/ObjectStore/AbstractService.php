@@ -30,7 +30,9 @@ abstract class AbstractService extends CatalogService
     const MAX_OBJECT_SIZE = 5102410241025;
 
     /**
-     * @return Resource\Account
+     * Returns the Object Store account associated with the service.
+     *
+     * @return Resource\Account Object Store account
      */
     public function getAccount()
     {
