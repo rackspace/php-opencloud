@@ -1,14 +1,10 @@
 Group configurations
 ====================
 
-.. contents::
-
 Setup
 -----
 
-.. include:: service.sample.rst
-
-Finally, in order to interact with the functionality of a group's configuration,
+In order to interact with the functionality of a group's configuration,
 you must first retrieve the details of the group itself. To do this, you must
 substitute `{groupId}` for your group's ID:
 

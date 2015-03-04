@@ -4,9 +4,7 @@ Webhooks
 Setup
 -----
 
-.. include:: service.sample.rst
-
-Finally, in order to interact with webhooks, you must first retrieve the
+In order to interact with webhooks, you must first retrieve the
 details of the group and scaling policy you want to execute:
 
 .. code-block:: php

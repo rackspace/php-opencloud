@@ -1,11 +1,6 @@
 Servers
 =======
 
-Setup
------
-
-.. include:: service.sample.rst
-
 Get server
 ----------
 

@@ -1,12 +1,30 @@
 Auto Scale v2
 =============
 
+Setup
+-----
+
+.. include:: ../common/rs-client.sample.rst
+
+Now, set up the Auto Scale service:
+
+.. code-block:: php
+
+  $service = $client->autoscaleService();
+
+.. include:: ../common/service-args.rst
+
+
+Operations
+----------
+
 .. toctree::
 
   groups
   group-config
   policies
   webhooks
+
 
 Glossary
 --------
