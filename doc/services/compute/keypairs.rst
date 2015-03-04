@@ -1,12 +1,6 @@
 Keypairs
 ========
 
-Setup
------
-
-.. include:: service.sample.rst
-
-
 Generate a new keypair
 ----------------------
 

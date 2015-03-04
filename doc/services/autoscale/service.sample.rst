@@ -1,7 +1,0 @@
-.. include:: ../common/rs-client.sample.rst
-
-Now, set up the Auto Scale service:
-
-.. code-block:: php
-
-  $service = $client->autoscaleService();
