@@ -4,9 +4,7 @@ Scaling Policies
 Setup
 -----
 
-.. include:: service.sample.rst
-
-Finally, in order to interact with the functionality of a group's scaling
+In order to interact with the functionality of a group's scaling
 policies, you must first retrieve the details of the group itself. To do this,
 you must substitute `{groupId}` for your group's ID:
 

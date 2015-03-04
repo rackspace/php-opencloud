@@ -9,11 +9,6 @@ Images
   Cloud Backup or Cloud Block Storage to ensure availability in case you need
   to rebuild or restore a server.
 
-Setup
------
-
-.. include:: service.sample.rst
-
 
 List images
 -----------

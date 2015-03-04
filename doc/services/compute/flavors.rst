@@ -1,12 +1,6 @@
 Flavors
 =======
 
-Setup
------
-
-.. include:: service.sample.rst
-
-
 Get a flavor
 ------------
 

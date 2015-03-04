@@ -1,15 +1,6 @@
 Groups
 ======
 
-.. contents::
-
-
-Setup
------
-
-.. include:: service.sample.rst
-
-
 List all groups
 ---------------
 
