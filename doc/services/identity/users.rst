@@ -1,26 +1,9 @@
 Users
 =====
 
-Intro
------
 
-A user is a digital representation of a person, system, or service who
-consumes cloud services. Users have credentials and may be assigned
-tokens; based on these credentials and tokens, the authentication
-service validates that incoming requests are being made by the user who
-claims to be making the request, and that the user has the right to
-access the requested resources. Users may be directly assigned to a
-particular tenant and behave as if they are contained within that
-tenant.
-
-Setup
------
-
-User objects are instantiated from the Identity service. For more
-details, see the `Service <Service.md>`__ docs.
-
-Useful object properties/methods
---------------------------------
+Object properties/methods
+-------------------------
 
 +-----------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+---------------------------------------------------------------------------------------------------------------+
 | Property        | Description                                                                                                                                                                                                                                                                                                                   | Getter                                     | Setter                                                                                                        |
@@ -43,74 +26,78 @@ Useful object properties/methods
 List users
 ----------
 
-.. code:: php
+.. code-block:: php
 
-    $users = $service->getUsers();
+  $users = $service->getUsers();
 
-    foreach ($users as $user) {
-       // ...
-    }
+  foreach ($users as $user) {
+     // ...
+  }
 
-For more information about how to use iterators, see the
-`documentation <../Iterators.md>`__.
 
-Get user
---------
+Retrieve a user by username
+---------------------------
 
-There are various ways to get a specific user: by name, ID and email
-address.
+.. code-block:: php
 
-.. code:: php
+  $user = $service->getUser('jamie');
 
-    use OpenCloud\Identity\Constants\User as UserConst;
 
-    // Get user by name
-    $user1 = $service->getUser('jamie');
+Retrieve a user by user ID
+--------------------------
 
-    // Get user by ID
-    $user2 = $service->getUser(123456, UserConst::MODE_ID);
+.. code-block:: php
 
-    // Get user by email
-    $user3 = $service->getUser('jamie.hannaford@rackspace.com', UserConst::MODE_EMAIL);
+  use OpenCloud\Identity\Constants\User as UserConst;
+
+  $user = $service->getUser('{userId}', UserConst::MODE_ID);
+
+
+Retrieve a user by email address
+--------------------------------
+
+.. code-block:: php
+
+  use OpenCloud\Identity\Constants\User as UserConst;
+
+  $user = $service->getUser('{emailAddress}', UserConst::MODE_EMAIL);
+
 
 Create user
 -----------
 
-There are a few things to remember when creating a user:
+There are a few things to bear in mind when creating a user:
 
--  This operation is available only to users who hold the
+*  This operation is available only to users who hold the
    ``identity:user-admin`` role. This admin can create a user who holds
    the ``identity:default`` user role.
 
--  The created user **will** have access to APIs but **will not** have
+*  The created user **will** have access to APIs but **will not** have
    access to the Cloud Control Panel.
 
--  Within an account, a maximum of 100 account users can be added.
+*  A maximum of 100 account users can be added per account.
 
--  If you attempt to add a user who already exists, an HTTP error 409
+*  If you attempt to add a user who already exists, an HTTP error 409
    results.
+
 
 The ``username`` and ``email`` properties are required for creating a
 user. Providing a ``password`` is optional; if omitted, one will be
 automatically generated and provided in the response.
 
-.. code:: php
 
-    use Guzzle\Http\Exception\ClientErrorResponseException;
+.. code-block:: php
 
-    try {
-       // execute operation
-       $user = $service->createUser(array(
-          'username' => 'newUser',
-          'email'    => 'foo@bar.com'
-       ));
-    } catch (ClientErrorResponseException $e) {
-       // catch 4xx HTTP errors
-       echo $e->getResponse()->toString();
-    }
+  use Guzzle\Http\Exception\ClientErrorResponseException;
 
-    // show generated password
-    echo $user->getPassword();
+   $user = $service->createUser(array(
+      'username' => 'newUser',
+      'email'    => 'foo@bar.com'
+   ));
+
+  // show generated password
+  echo $user->getPassword();
+
 
 Update user
 -----------
@@ -118,27 +105,30 @@ Update user
 When updating a user, specify which attribute/property you want to
 update:
 
-.. code:: php
+.. code-block:: php
 
-    $user->update(array(
-       'email' => 'new_email@bar.com'
-    ));
+  $user->update(array(
+     'email' => 'new_email@bar.com'
+  ));
+
 
 Updating a user password
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
 Updating a user password requires calling a distinct method:
 
-.. code:: php
+.. code-block:: php
 
-    $user->updatePassword('password123');
+  $user->updatePassword('password123');
+
 
 Delete user
 -----------
 
-.. code:: php
+.. code-block:: php
 
-    $user->delete();
+  $user->delete();
+
 
 List credentials
 ----------------
@@ -146,16 +136,18 @@ List credentials
 This operation allows you to see your non-password credential types for
 all authentication methods available.
 
-.. code:: php
+.. code-block:: php
 
-    $creds = $user->getOtherCredentials();
+  $creds = $user->getOtherCredentials();
+
 
 Get user API key
 ----------------
 
-.. code:: php
+.. code-block:: php
 
-    echo $user->getApiKey();
+  echo $user->getApiKey();
+
 
 Reset user API key
 ------------------
@@ -163,8 +155,7 @@ Reset user API key
 When resetting an API key, a new one will be automatically generated for
 you:
 
-.. code:: php
+.. code-block:: php
 
-    $user->resetApiKey();
-    echo $user->getApiKey();
-
+  $user->resetApiKey();
+  echo $user->getApiKey();
