@@ -1,9 +1,6 @@
 Reverse DNS
 ===========
 
-DNS usually determines an IP address associated with a domain name.
-Reverse DNS is the opposite process: resolving a domain name from an IP
-address. This is usually achieved with a domain name pointer.
 
 Get PTR record
 --------------
@@ -20,13 +17,14 @@ formed resource object in order to retrieve either one's PTR record:
         'parent' => $parent
     ));
 
-So, in the above example, a ``$parent`` could be an instance of
+So, in the above example, the ``$parent`` object could be an instance of
 ``OpenCloud\Compute\Resource\Server`` or
 ``OpenCloud\LoadBalancer\Resource\LoadBalancer`` - because they both
 implement ``OpenCloud\DNS\Resource\HadPtrRecordsInterface``. Please
-consult the `server documentation <../Compute/Server.md>`__ and `load
-balancer documentation <../LoadBalancer/USERGUIDE.md>`__ for more
+consult the `server documentation <../compute>`__ and `load
+balancer documentation <../load-balancer>`__ for more
 detailed usage instructions.
+
 
 List PTR records
 ----------------
@@ -41,9 +39,6 @@ List PTR records
 
     }
 
-Please consult the `iterator
-documentation <docs/userguide/Iterators.md>`__ for more information
-about iterators.
 
 Add PTR record
 --------------
@@ -78,19 +73,20 @@ Here is a table that explains the above attributes:
 | comment   | If included, its length must be less than or equal to 160 characters.              | No         |
 +-----------+------------------------------------------------------------------------------------+------------+
 
+
 Modify PTR record
 -----------------
 
 .. code:: php
 
-    $ptr->update(array(
-        'ttl' => $ptr->ttl * 2
-    ));
+  $ptr->update(array(
+      'ttl' => $ptr->ttl * 2
+  ));
+
 
 Delete PTR record
 -----------------
 
 .. code:: php
 
-    $ptr->delete();
-
+  $ptr->delete();
