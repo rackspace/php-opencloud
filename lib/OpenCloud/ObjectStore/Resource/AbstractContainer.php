@@ -50,13 +50,28 @@ abstract class AbstractContainer extends AbstractResource
         $this->populate($data);
     }
 
+    /**
+     * Return the transaction ID for an HTTP API operation. Useful for debugging.
+     *
+     * @return string Transaction ID
+     */
     public function getTransId()
     {
         return $this->metadata->getProperty(HeaderConst::TRANS_ID);
     }
 
+    /**
+     * Returns whether this container is CDN-enabled or not.
+     *
+     * @return boolean true if this container is CDN-enabled; false, otherwise.
+     */
     abstract public function isCdnEnabled();
 
+    /**
+     * Returns whether this container has log retention enabled or not.
+     *
+     * @return boolean true if this container has log retention enabled; false, otherwise.
+     */
     public function hasLogRetention()
     {
         if ($this instanceof CDNContainer) {
@@ -66,11 +81,23 @@ abstract class AbstractContainer extends AbstractResource
         }
     }
 
+    /**
+     * For internal use only
+     *
+     * @return string Name of the primary key field for this resource
+     */
     public function primaryKeyField()
     {
         return 'name';
     }
 
+    /**
+     * For internal use only
+     *
+     * @param string $path Path to add to URL. Optional.
+     * @param array $params Query parameters to add to URL. Optional.
+     * @return Url URL of this container + path + query parameters.
+     */
     public function getUrl($path = null, array $params = array())
     {
         if (strlen($this->getName()) == 0) {
@@ -91,7 +118,7 @@ abstract class AbstractContainer extends AbstractResource
      * This method will enable your CDN-enabled container to serve out HTML content like a website.
      *
      * @param $indexPage The data object name (i.e. a .html file) that will serve as the main index page.
-     * @return \Guzzle\Http\Message\Response
+     * @return \Guzzle\Http\Message\Response The HTTP response for this API operation.
      */
     public function setStaticIndexPage($page)
     {
@@ -110,7 +137,7 @@ abstract class AbstractContainer extends AbstractResource
      * Set the default error page for your static site.
      *
      * @param $name The data object name (i.e. a .html file) that will serve as the main error page.
-     * @return \Guzzle\Http\Message\Response
+     * @return \Guzzle\Http\Message\Response The HTTP response for this operation.
      */
     public function setStaticErrorPage($page)
     {
