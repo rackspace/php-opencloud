@@ -63,66 +63,64 @@ Additional notes
 Setup
 -----
 
-All member operations are executed against an `Image <Images.md>`__, so
-you will need to set this up first.
+All member operations are executed against an `Image <images>`__, so you will
+need to set one up first:
+
+.. code-block:: php
+
+  $image = $service->getImage('{imageId}');
+
 
 List image members
 ------------------
 
 This operation is available for both producers and consumers.
 
-.. code:: php
+.. code-block:: php
 
-    $members = $image->listMembers();
+  $members = $image->listMembers();
 
-    foreach ($members as $member) {
-        /** @param $member OpenCloud\Image\Resource\Member */
-    }
+  foreach ($members as $member) {
+      /** @param $member OpenCloud\Image\Resource\Member */
+  }
 
-For more information about working with iterators, please see the
-`iterators documentation <../Iterators.md>`__.
 
 Create image member
 -------------------
 
 This operation is only available for producers.
 
-.. code:: php
+.. code-block:: php
 
-    $tenantId = 12345;
+  /** @param $response Guzzle\Http\Message\Response */
+  $response = $image->createMember('{tenantId}');
 
-    /** @param $response Guzzle\Http\Message\Response */
-    $response = $image->createMember($tenantId);
 
 Delete image member
 -------------------
 
 This operation is only available for producers.
 
-.. code:: php
+.. code-block:: php
 
-    $tenantId = 12345;
+  /** @param $member OpenCloud\Image\Resource\Member */
+  $member = $image->getMember('{tenantId}');
+  $member->delete();
 
-    /** @param $member OpenCloud\Image\Resource\Member */
-    $member = $image->getMember($tenantId);
-
-    $member->delete();
 
 Update image member status
 --------------------------
 
 This operation is only available for consumers.
 
-.. code:: php
+.. code-block:: php
 
-    use OpenCloud\Images\Enum\MemberStatus;
+  use OpenCloud\Images\Enum\MemberStatus;
 
-    $tenantId = 12345;
+  /** @param $member OpenCloud\Image\Resource\Member */
+  $member = $image->getMember('{tenantId}');
 
-    /** @param $member OpenCloud\Image\Resource\Member */
-    $member = $image->getMember($tenantId);
-
-    $member->updateStatus(MemberStatus::ACCEPTED);
+  $member->updateStatus(MemberStatus::ACCEPTED);
 
 The acceptable states you may pass in are made available to you through
 the constants defined in the ``OpenCloud\Images\Enum\MemberStatus``
