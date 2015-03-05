@@ -1,13 +1,6 @@
 JSON schemas
 ============
 
-The Cloud Images API supplies json documents describing the JSON-encoded
-data structures that represent domain objects, so that a client knows
-exactly what to expect in an API response.
-
-A JSON Schema is represented by the
-``OpenCloud\Image\Resource\Schema\Schema`` class.
-
 Schema types
 ------------
 
@@ -19,7 +12,7 @@ Example response from the API
 
 A sample response from the API, for an Images schema might be:
 
-.. code:: json
+.. code-block:: json
 
     {
         "name": "images",
@@ -70,7 +63,7 @@ links and a properties object. Inside this properties object we see the
 structure of this top-level ``images`` object. So we know that it will
 take this form:
 
-.. code:: json
+.. code-block:: json
 
     {
        "images": [something...]
@@ -80,7 +73,7 @@ Within this object, we can see that it contains an array of anonymous
 objects, each of which is called ``image`` and has its own set of nested
 properties:
 
-.. code:: json
+.. code-block:: json
 
     {
         "images": [
@@ -101,7 +94,7 @@ i.e. a *subschema*. We know that each object has an ID property
 (string), a name property (string), a visibility property (can either be
 ``private`` or ``public``), etc.
 
-.. code:: json
+.. code-block:: json
 
     {
         "images": [
@@ -147,21 +140,21 @@ Requests need to use the
 In order for the operation to occur, the request entity body needs to
 contain a very particular structure:
 
-::
+.. code-block:: json
 
     [
         {"op": "replace", "path": "/name", "value": "Fedora 17"},
         {"op": "replace", "path": "/tags", "value": ["fedora", "beefy"]}
     ]
 
-The ``op`` key refers to the type of Operation (see
-``OpenCloud\Image\Enum\OperationType`` for a full list).
+* The ``op`` key refers to the type of Operation (see
+  ``OpenCloud\Image\Enum\OperationType`` for a full list).
 
-The ``path`` key is a JSON pointer to the document property you want to
-modify or insert. JSON pointers are defined in `RFC
-6901 <http://tools.ietf.org/html/rfc6901>`__.
+* The ``path`` key is a JSON pointer to the document property you want to
+  modify or insert. JSON pointers are defined in `RFC
+  6901 <http://tools.ietf.org/html/rfc6901>`__.
 
-The ``value`` key is the value.
+* The ``value`` key is the value.
 
 Because this is all handled for you behind the scenes, we will not go
 into exhaustive depth about how this operation is handled. You can
