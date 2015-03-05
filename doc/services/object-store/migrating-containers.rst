@@ -1,8 +1,5 @@
-Migrating containers (across regions)
-=====================================
-
-Introduction
-------------
+Migrating containers across regions
+===================================
 
 Currently, there exists no single API operation to copy containers
 across geographic endpoints. Although the API offers a ``COPY``
@@ -12,6 +9,7 @@ copying. The SDK, however, does offer this functionality.
 You **will** be charged for bandwidth between regions, so it's advisable
 to use ServiceNet where possible (which is free).
 
+
 Requirements
 ------------
 
@@ -20,71 +18,84 @@ Requirements
    requests to be batched for greater efficiency). You can do this by
    running:
 
-.. code:: bash
+.. code-block:: bash
 
-    php composer.phar install --dev
+  composer require guzzle/guzzle
 
 -  Depending on the size and number of transfer items, you will need to
    raise PHP's memory limit:
 
-.. code:: php
+.. code-block:: php
 
-    ini_set('memory_limit', '512M');
+  ini_set('memory_limit', '512M');
 
 -  You will need to enact some kind of backoff/retry strategy for rate
    limits. Guzzle comes with a convenient feature that just needs to be
    added as a normal subscriber:
 
-.. code:: php
+.. code-block:: php
 
     use Guzzle\Plugin\Backoff\BackoffPlugin;
 
-    $client->addSubscriber(BackoffPlugin::getExponentialBackoff(10, array(500, 503, 408)));
+    // set timeout in secs
+    $timeout = 10;
+
+    // set HTTP error codes
+    $httpErrors = array(500, 503, 408);
+
+    $backoffPlugin = BackoffPlugin::getExponentialBackoff($timeout, $httpErrors);
+    $client->addSubscriber($backoffPlugin);
+
 
 This tells the client to retry up to ``10`` times for failed requests
 have resulted in these HTTP status codes: ``500``, ``503`` or ``408``.
+
 
 Setup
 -----
 
 You can access all this functionality by executing:
 
-.. code:: php
+.. code-block:: php
 
-    $ordService = $client->objectStoreService('cloudFiles', 'ORD');
-    $iadService = $client->objectStoreService('cloudFiles', 'IAD');
+  $ordService = $client->objectStoreService('cloudFiles', 'ORD');
+  $iadService = $client->objectStoreService('cloudFiles', 'IAD');
 
-    $oldContainer = $ordService->getContainer('old_container');
-    $newContainer = $iadService->getContainer('new_container');
+  $oldContainer = $ordService->getContainer('old_container');
+  $newContainer = $iadService->getContainer('new_container');
 
-    $iadService->migrateContainer($oldContainer, $newContainer);
+  $iadService->migrateContainer($oldContainer, $newContainer);
+
 
 It's advisable to do this process in a Cloud Server in one of the two
 regions you're migrating to/from. This allows you to use ``privateURL``
 as the third argument in the ``objectStoreService`` methods like this:
 
-.. code:: php
+.. code-block:: php
 
-    $client->objectStoreService('cloudFiles', 'IAD', 'privateURL');
+  $client->objectStoreService('cloudFiles', 'IAD', 'privateURL');
+
 
 This will ensure that traffic between your server and your new IAD
 container will be held over the internal Rackspace network which is
 free.
+
 
 Options
 -------
 
 You can pass in an array of arguments to the method:
 
-.. code:: php
+.. code-block:: php
 
-    $options = array(
-        'read.batchLimit'  => 100,
-        'read.pageLimit'   => 100,
-        'write.batchLimit' => 50
-    );
+  $options = array(
+      'read.batchLimit'  => 100,
+      'read.pageLimit'   => 100,
+      'write.batchLimit' => 50
+  );
 
-    $iadService->migrateContainer($oldContainer, $newContainer, $options);
+  $iadService->migrateContainer($oldContainer, $newContainer, $options);
+
 
 Options explained
 ~~~~~~~~~~~~~~~~~
@@ -98,4 +109,3 @@ Options explained
 +------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+
 | ``write.batchLimit``   | Once each file has been retrieved from the API, a PUT request is executed against the new container. Similar to above, these PUT requests are batched - and this number refers to the amount of PUT requests batched together.                                                                                                                | 100       |
 +------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-----------+
-
