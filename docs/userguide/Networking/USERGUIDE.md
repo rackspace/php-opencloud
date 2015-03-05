@@ -33,6 +33,16 @@ these entities.
     * [Get a port](#get-a-port)
     * [Update a port](#update-a-port)
     * [Delete a port](#delete-a-port)
+  * [Security Groups](#security-groups)
+    * [Create a security group](#create-a-security-group)
+    * [List security groups](#list-security-groups)
+    * [Get a security group](#get-a-security-group)
+    * [Delete a security group](#delete-a-security-group)
+  * [Security group rule Rules](#security-group-rules)
+    * [Create a security group rule](#create-a-security-group-rule)
+    * [List security group rules](#list-security-group-rules)
+    * [Get a security group rule](#get-a-security-group-rule)
+    * [Delete a security group rule](#delete-a-security-group-rule)
 
 ## Concepts
 
@@ -54,6 +64,10 @@ ports. The port also defines the MAC address and the IP address or addresses to
 be assigned to the interfaces plugged into them. When IP addresses are
 associated with a port, this also implies the port is associated with a subnet
 because the IP address is taken from the allocation pool for a specific subnet.
+
+* **Security Group**: TODO
+
+* **Security Group Rule**: TODO
 
 ## Prerequisites
 
@@ -468,3 +482,136 @@ $port->delete();
 ```
 
 [ [Get the executable PHP script for this example](/samples/Networking/delete-port.php) ]
+
+## Security Groups
+
+TODO: Add description
+
+### Create a security group
+
+This operation takes one parameter, an associative array, with the following keys:
+
+| Name | Description | Data type | Required? | Default value | Example value |
+| ---- | ----------- | --------- | --------- | ------------- | ------------- |
+| `name` | A human-readable name for the security group. This name might not be unique. | String | Yes | - | `new-webservers` |
+| `description` | Description of the security group. | String | No | `null` | `security group for webservers` |
+
+You can create a security group as shown in the following example:
+
+```php
+$securityGroup = $networkingService->createSecurityGroup(array(
+    'name' => 'new-webservers',
+    'description' => 'security group for webservers'
+));
+/** @var $securityGroup OpenCloud\Networking\Resource\SecurityGroup **/
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/create-security-group.php) ]
+
+### List security groups
+
+You can list all the security groups to which you have access as shown in the following
+example:
+
+```php
+$securityGroups = $networkingService->listSecurityGroups();
+foreach ($securityGroups as $securityGroup) {
+    /** @var $securityGroup OpenCloud\Networking\Resource\SecurityGroup **/
+}
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/list-security-groups.php) ]
+
+### Get a security group
+
+You can retrieve a specific security group by using that security group's ID, as shown in the
+following example:
+
+```php
+$securityGroup = $networkingService->getSecurityGroup('2076db17-a522-4506-91de-c6dd8e837028');
+/** @var $securityGroup OpenCloud\Networking\Resource\SecurityGroup **/
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/get-security-group.php) ]
+
+### Delete a security group
+
+You can delete a security group as shown in the following example:
+
+```php
+$securityGroup->delete();
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/delete-security-group.php) ]
+
+## Security Group Rules
+
+TODO: Add description
+
+### Create a security group rule
+
+This operation takes one parameter, an associative array, with the following keys:
+
+| Name | Description | Data type | Required? | Default value | Example value |
+| ---- | ----------- | --------- | --------- | ------------- | ------------- |
+| `securityGroupId` | The security group ID to associate with this security group rule. | String | Yes | - | `2076db17-a522-4506-91de-c6dd8e837028` |
+| `direction` | The direction in which the security group rule is applied. For a compute instance, an ingress security group rule is applied to incoming (ingress) traffic for that instance. An egress rule is applied to traffic leaving the instance. | String (`ingress` or `egress`) | Yes | - | `ingress` |
+| `ethertype` | Must be IPv4 or IPv6, and addresses represented in CIDR must match the ingress or egress rules. | String (`IPv4` or `IPv6`) | No | `IPv4` | `IPv6` |
+| `portRangeMin` | The minimum port number in the range that is matched by the security group rule. If the protocol is TCP or UDP, this value must be less than or equal to the value of the `portRangeMax` attribute. If the protocol is ICMP, this value must be an ICMP type. | Integer | No | `null` | `80` |
+| `portRangeMax` | The maximum port number in the range that is matched by the security group rule. The port_range_min attribute constrains the attribute. If the protocol is ICMP, this value must be an ICMP type. | Integer | No | `null` | `80` |
+| `protocol` | The protocol that is matched by the security group rule. | String (`tcp`, `udp`, `icmp`) | No | `null` | `tcp` |
+| `remoteGroupId` | The remote group ID to be associated with this security group rule. You can specify either `remoteGroupId` or `remoteGroupPrefix`. | String | Optional | `null` | `85cc3048-abc3-43cc-89b3-377341426ac5` |
+| `remoteIpPrefix` | The remote IP prefix to be associated with this security group rule. You can specify either `remoteGroupId` or `remoteGroupPrefix`. | String | Optional | `null` | `192.168.5.0` |
+
+You can create a security group rule as shown in the following example:
+
+```php
+$securityGroupRule = $networkingService->createSecurityGroupRule(array(
+    'securityGroupId' => '2076db17-a522-4506-91de-c6dd8e837028',
+    'direction'       => 'egress',
+    'ethertype'       => 'IPv4',
+    'portRangeMin'    => 80,
+    'portRangeMax'    => 80,
+    'protocol'        => 'tcp',
+    'remoteGroupId'   => '85cc3048-abc3-43cc-89b3-377341426ac5'
+));
+/** @var $securityGroupRule OpenCloud\Networking\Resource\SecurityGroupRule **/
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/create-security-group-rule.php) ]
+
+### List security group rules
+
+You can list all the security group rules to which you have access as shown in the following
+example:
+
+```php
+$securityGroupRules = $networkingService->listSecurityGroupRules();
+foreach ($securityGroupRules as $securityGroupRule) {
+    /** @var $securityGroupRule OpenCloud\Networking\Resource\SecurityGroupRule **/
+}
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/list-security-group-rules.php) ]
+
+### Get a security group rule
+
+You can retrieve a specific security group rule by using that security group rule's ID, as shown in the
+following example:
+
+```php
+$securityGroupRule = $networkingService->getSecurityGroupRule('');
+/** @var $securityGroupRule OpenCloud\Networking\Resource\SecurityGroupRule **/
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/get-security-group-rule.php) ]
+
+### Delete a security group rule
+
+You can delete a security group rule as shown in the following example:
+
+```php
+$securityGroupRule->delete();
+```
+
+[ [Get the executable PHP script for this example](/samples/Networking/delete-security-group-rule.php) ]
