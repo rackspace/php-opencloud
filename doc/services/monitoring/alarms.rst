@@ -1,9 +1,6 @@
 Alarms
 ======
 
-Info
-----
-
 Alarms bind alerting rules, entities, and notification plans into a
 logical unit. Alarms are responsible for determining a state (``OK``,
 ``WARNING`` or ``CRITICAL``) based on the result of a Check, and
@@ -15,25 +12,39 @@ documentation <http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/alerts-
 Setup
 -----
 
-Alarms are sub-resources of Entities:
+In order to interact with this feature, you must first retrieve an entity by
+its ID:
 
-.. code:: php
+.. code-block:: php
 
-    $alarmId = 'alAAAA';
-    $alarm = $check->getAlarm();
+  $entity = $service->getEntity('{entityId}');
 
-For more information about working with Checks, please see the
-`appropriate documentation <Checks.md>`__.
+and then a particular check, about which you can configure alarms:
 
-Attributes
-----------
+.. code-block:: php
+
+  $check = $entity->getCheck('{checkId}');
+
+For more information about these resource types, please consult the documentation
+about `entities <entities>`_ and `checks <checks>`_.
+
+Retrieve alarm
+--------------
+
+.. code-block:: php
+
+  $alarm = $check->getAlarm('{alarmId}');
+
+
+Once you have access to a ``OpenCloud\Monitoring\Resource\Alarm`` object, these
+are the attributes you can access:
 
 +--------------------------+-----------------------------------------------------------------------------+-------------+---------------------------------+
 | Name                     | Description                                                                 | Required?   | Method                          |
 +==========================+=============================================================================+=============+=================================+
-| check\_id                | The ID of the check to alert on.                                            | Required    | ``getCheckId()``                |
+| check_id                 | The ID of the check to alert on.                                            | Required    | ``getCheckId()``                |
 +--------------------------+-----------------------------------------------------------------------------+-------------+---------------------------------+
-| notification\_plan\_id   | The ID of the notification plan to execute when the state changes.          | Optional    | ``getNotificationPlanId()``     |
+| notification_plan_id     | The ID of the notification plan to execute when the state changes.          | Optional    | ``getNotificationPlanId()``     |
 +--------------------------+-----------------------------------------------------------------------------+-------------+---------------------------------+
 | criteria                 | The alarm DSL for describing alerting conditions and their output states.   | Optional    | ``getCriteria()``               |
 +--------------------------+-----------------------------------------------------------------------------+-------------+---------------------------------+
@@ -44,38 +55,45 @@ Attributes
 | metadata                 | Arbitrary key/value pairs.                                                  | Optional    | ``getMetadata()``               |
 +--------------------------+-----------------------------------------------------------------------------+-------------+---------------------------------+
 
+
 Create Alarm
 ------------
 
-.. code:: php
+.. code-block:: php
 
-    $alarm->create(array(
-        'check_id' => 'chAAAA',
-        'criteria' => 'if (metric["duration"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);',
-        'notification_plan_id' => 'npAAAAA'
-    ));
+  $alarm = $check->getAlarm();
+  $alarm->create(array(
+      'check_id' => 'chAAAA',
+      'criteria' => 'if (metric["duration"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);',
+      'notification_plan_id' => 'npAAAAA'
+  ));
+
 
 List Alarms
 -----------
 
-.. code:: php
+.. code-block:: php
 
-    $alarms = $entity->getAlarms();
+  $alarms = $entity->getAlarms();
 
-    foreach ($alarms as $alarm) {
-        echo $alarm->getId();
-    }
+  foreach ($alarms as $alarm) {
+      echo $alarm->getId();
+  }
 
-Update and delete Alarm
------------------------
 
-.. code:: php
+Update Alarm
+------------
 
-    // Update
-    $alarm->update(array(
-        'criteria' => 'if (metric["duration"] >= 5) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);'
-    ));
+.. code-block:: php
 
-    // Delete
-    $alarm->delete();
+  $alarm->update(array(
+      'criteria' => 'if (metric["duration"] >= 5) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);'
+  ));
 
+
+Delete alarm
+------------
+
+.. code-block:: php
+
+  $alarm->delete();
