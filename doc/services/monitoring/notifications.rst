@@ -1,9 +1,6 @@
 Notifications
 =============
 
-Info
-----
-
 A notification is a destination to send an alarm; it can be a variety of
 different types, and will evolve over time.
 
@@ -11,16 +8,15 @@ For instance, with a webhook type notification, Cloud Monitoring posts
 JSON formatted data to a user-specified URL on an alert condition (Check
 goes from ``OK`` -> ``CRITICAL`` and so on).
 
-Setup
------
+Get notification
+----------------
 
-.. code:: php
+.. code-block:: php
 
-    $id = 'ntAAAA';
-    $notification = $service->getNotification($id);
+  $notification = $service->getNotification('{id}');
 
-Attributes
-----------
+Once you have access to a ``OpenCloud\Monitoring\Resource\Notification`` object,
+these are the attributes available for use:
 
 +-----------+---------------------------------------------------------------------------+-----------------------------------------------------------+--------------------+
 | Name      | Description                                                               | Data type                                                 | Method             |
@@ -32,76 +28,96 @@ Attributes
 | type      | The notification type to send.                                            | String. Either ``webhook``, ``email``, or ``pagerduty``   | ``getType()``      |
 +-----------+---------------------------------------------------------------------------+-----------------------------------------------------------+--------------------+
 
+Creating notifications
+----------------------
+
+The first thing to do when creating a new notification is configure the
+parameters which will define the behaviour of your resource:
+
+.. code-block:: php
+
+  $params = array(
+      'label' => 'My webhook #1',
+      'type'  => 'webhook',
+      'details' => array(
+          'url' => 'http://example.com'
+      )
+  );
+
+
 Test parameters
----------------
+~~~~~~~~~~~~~~~
 
-.. code:: php
+Once this is done, it is often useful to test them out to check whether they
+will result in a successful creation:
 
-    $params = array(
-        'label' => 'My webhook #1',
-        'type'  => 'webhook',
-        'details' => array(
-            'url' => 'http://example.com'
-        )
-    );
+.. code-block:: php
 
-    // Test it
-    $response = $notification->testParams($params);
+  // Test it
+  $response = $notification->testParams($params);
 
-    if ($response->status == 'Success') {
-        echo $response->message;
-    }
+  if ($response->status == 'Success') {
+      echo $response->message;
+  }
 
-Create Notification
--------------------
 
-.. code:: php
+Send parameters
+~~~~~~~~~~~~~~~
 
-    $notification->create($params);
+When you're happy with the parameters you've defined, you can complete the
+operation by sending them to the API like so:
+
+.. code-block:: php
+
+  $notification->create($params);
+
 
 Test existing notification
 --------------------------
 
-.. code:: php
+.. code-block:: php
 
-    $response = $notification->testExisting(true);
-    echo $response->debug_info;
+  $response = $notification->testExisting(true);
+  echo $response->debug_info;
+
 
 List Notifications
 ------------------
 
-.. code:: php
+.. code-block:: php
 
-    $notifications = $service->getNotifications();
+  $notifications = $service->getNotifications();
 
-    foreach ($notifications as $notification) {
-        echo $notification->getId();
-    }
+  foreach ($notifications as $notification) {
+      echo $notification->getId();
+  }
 
-Update and delete Notifications
--------------------------------
 
-.. code:: php
+Update a Notification
+---------------------
 
-    // Update
-    $notification->update(array(
-        'label' => 'New notification label'
-    ));
+.. code-block:: php
 
-    // Delete
-    $notification->delete();
+  $notification->update(array(
+      'label' => 'New notification label'
+  ));
+
+
+Delete a Notification
+---------------------
+
+.. code-block:: php
+
+  $notification->delete();
+
 
 Notification types
 ==================
 
-Info
-----
-
-Pretty self-explanatory. Rackspace Cloud Monitoring currently supports
-the following notification types:
+Rackspace Cloud Monitoring currently supports the following notification types:
 
 Webhook
-^^^^^^^
+~~~~~~~
 
 Industry-standard web hooks, where JSON is posted to a configurable URL.
 It has these attributes:
@@ -113,7 +129,7 @@ It has these attributes:
 +-----------+------------------------------------------+---------------+
 
 Email
-^^^^^
+~~~~~
 
 Email alerts where the message is delivered to a specified address. It
 has these attributes:
@@ -124,6 +140,7 @@ has these attributes:
 | url    | An HTTP or HTTPS URL to POST to   | Valid URL   |
 +--------+-----------------------------------+-------------+
 
+
 Setup
 -----
 
@@ -131,33 +148,32 @@ If you've already set up a main Notification object, and want to access
 functionality for this Notification's particular Notification Type, you
 can access its property:
 
-.. code:: php
+.. code-block:: php
 
-    $type = $notification->getNotificationType();
+  $type = $notification->getNotificationType();
 
 Alternatively, you can retrieve an independent resource using the ID:
 
-.. code:: php
+.. code-block:: php
 
-    $typeId = 'pagerduty';
-    $type = $service->getNotificationType($typeId);
+  $typeId = 'pagerduty';
+  $type = $service->getNotificationType($typeId);
+
 
 List all possible notification types
 ------------------------------------
 
-.. code:: php
+.. code-block:: php
 
-    $types = $service->getNotificationTypes();
+  $types = $service->getNotificationTypes();
 
-    foreach ($types as $type) {
-        echo sprintf('%s %s', $type->getName(), $type->getDescription());
-    }
+  foreach ($types as $type) {
+      echo sprintf('%s %s', $type->getName(), $type->getDescription());
+  }
+
 
 Notification plans
 ==================
-
-Info
-----
 
 A notification plan contains a set of notification actions that
 Rackspace Cloud Monitoring executes when triggered by an alarm.
@@ -180,59 +196,61 @@ A notification plan, ``npTechnicalContactsEmail``, is provided by
 default which will email all of the technical contacts on file for an
 account whenever there is a state change.
 
-Setup
------
+Get a notification plan
+-----------------------
 
-.. code:: php
+.. code-block:: php
 
-    $planId = 'npAAAA';
-    $plan = $service->getNotificationPlan();
+  $plan = $service->getNotificationPlan('{planId}');
 
-Attributes
-----------
+Once you have access to a ``OpenCloud\\Monitoring\\Resource\\NotificationPlan``
+object, you can access these resources:
 
 +-------------------+--------------------------------------------------------------------+-------------+-------------------------+--------------------------+
 | Name              | Description                                                        | Required?   | Data type               | Method                   |
 +===================+====================================================================+=============+=========================+==========================+
 | label             | Friendly name for the notification plan.                           | Required    | String (1..255 chars)   | ``getLabel()``           |
 +-------------------+--------------------------------------------------------------------+-------------+-------------------------+--------------------------+
-| critical\_state   | The notification list to send to when the state is ``CRITICAL``.   | Optional    | Array                   | ``getCriticalState()``   |
+| critical_state    | The notification list to send to when the state is ``CRITICAL``.   | Optional    | Array                   | ``getCriticalState()``   |
 +-------------------+--------------------------------------------------------------------+-------------+-------------------------+--------------------------+
-| ok\_state         | The notification list to send to when the state is ``OK``.         | Optional    | Array                   | ``getOkState()``         |
+| ok_state          | The notification list to send to when the state is ``OK``.         | Optional    | Array                   | ``getOkState()``         |
 +-------------------+--------------------------------------------------------------------+-------------+-------------------------+--------------------------+
-| warning\_state    | The notification list to send to when the state is ``WARNING``.    | Optional    | Array                   | ``getWarningState()``    |
+| warning_state     | The notification list to send to when the state is ``WARNING``.    | Optional    | Array                   | ``getWarningState()``    |
 +-------------------+--------------------------------------------------------------------+-------------+-------------------------+--------------------------+
 
 Create Notification Plan
 ------------------------
 
-.. code:: php
+.. code-block:: php
 
-    $plan->create(array(
-        'label'          => 'New Notification Plan',
-        'critical_state' => array('ntAAAA'),
-        'ok_state'       => array('ntBBBB'),
-        'warning_state'  => array('ntCCCC')
-    ));
+  $plan->create(array(
+      'label'          => 'New Notification Plan',
+      'critical_state' => array('ntAAAA'),
+      'ok_state'       => array('ntBBBB'),
+      'warning_state'  => array('ntCCCC')
+  ));
 
-Update and delete Notification Plan
------------------------------------
 
-.. code:: php
+Update notification plan
+------------------------
 
-    // Update
-    $plan->update(array(
-        'label' => 'New label for my plan'
-    ));
+.. code-block:: php
 
-    // Delete
-    $plan->delete();
+  $plan->update(array(
+      'label' => 'New label for my plan'
+  ));
+
+
+Delete notification plan
+------------------------
+
+.. code-block:: php
+
+  $plan->delete();
+
 
 Alarm Notification History
 ==========================
-
-Info
-----
 
 The monitoring service keeps a record of notifications sent for each
 alarm. This history is further subdivided by the check on which the
@@ -245,12 +263,31 @@ Alarm notification history is accessible as a Time Series Collection. By
 default alarm notification history is stored for 30 days and the API
 queries the last 7 days of information.
 
- Setup
+Setup
 ------
 
-Notification History is a sub-resource of an Alarm. For more information
-about working with Alarms, please consult the relevant
-`documentation <Alarms.md>`__.
+In order to interact with this feature, you must first retrieve an entity by
+its ID:
+
+.. code-block:: php
+
+  $entity = $service->getEntity('{entityId}');
+
+and then a particular check, about which you can configure alarms:
+
+.. code-block:: php
+
+  $check = $entity->getCheck('{checkId}');
+
+and finally, retrieve the alarm:
+
+.. code-block:: php
+
+  $alarm = $check->getAlarm('{alarmId}');
+
+For more information about these resource types, please consult the documentation
+about `entities <entities>`_ and `checks <checks>`_.
+
 
 Discover which Checks have a Notification History
 -------------------------------------------------
@@ -258,24 +295,25 @@ Discover which Checks have a Notification History
 This operation list checks for which alarm notification history is
 available:
 
-.. code:: php
+.. code-block:: php
 
-    $checks = $alarm->getRecordedChecks();
+  $checks = $alarm->getRecordedChecks();
+
 
 List Alarm Notification History for a particular Check
 ------------------------------------------------------
 
-.. code:: php
+.. code-block:: php
 
-    $checkHistory = $alarm->getNotificationHistoryForCheck('chAAAA');
+  $checkHistory = $alarm->getNotificationHistoryForCheck('chAAAA');
+
 
 Get a particular Notification History item
 ------------------------------------------
 
-.. code:: php
+.. code-block:: php
 
-    $checkId  = 'chAAAA';
-    $itemUuid = '646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26';
+  $checkId  = 'chAAAA';
+  $itemUuid = '646ac7b0-0b34-11e1-a0a1-0ff89fa2fa26';
 
-    $singleItem = $history->getNotificationHistoryItem($checkId, $itemUuid);
-
+  $singleItem = $history->getNotificationHistoryItem($checkId, $itemUuid);

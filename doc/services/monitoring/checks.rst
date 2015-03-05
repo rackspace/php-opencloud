@@ -1,8 +1,6 @@
 Checks
 ======
 
-Info
-----
 
 A check is one of the foundational building blocks of the monitoring
 system. The check determines the parts or pieces of the entity that you
@@ -23,18 +21,31 @@ servers stops responding) or multiple alarms off of a single check.
 (e.g. ensure both that a HTTPS server is responding and that it has a
 valid certificate).
 
-Setup
------
+Create a check
+--------------
 
-Checks are sub-resources of Entities:
+There are various attributes available to you when creating a new monitoring
+check:
 
-.. code:: php
+.. code-block:: php
 
-    $checkId = 'chAAAA';
-    $check = $entity->getCheck($checkId);
+  $params = array(
+      'type'   => 'remote.http',
+      'details' => array(
+          'url'    => 'http://example.com',
+          'method' => 'GET'
+      ),
+      'monitoring_zones_poll' => array('mzlon'),
+      'period' => '100',
+      'timeout' => '30',
+      'target_alias' => 'default',
+      'label'  => 'Website check 1'
+  );
+
+For a full list of available attributes, consult the list below.
 
 Attributes
-----------
+~~~~~~~~~~
 
 +------------+-------------------------------------------------------------------------------------------------------------+-------------+------------------------------------------+
 | Name       | Description                                                                                                 | Required?   | Data type                                |
@@ -54,91 +65,89 @@ Attributes
 | timeout    | The timeout in seconds for a check. This has to be less than the period.                                    | Optional    | Integer (2..1800)                        |
 +------------+-------------------------------------------------------------------------------------------------------------+-------------+------------------------------------------+
 
-Attributes used for remote Checks
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Optional attributes to be used with remote checks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+------------------------------------------------------------+
 | Name                      | Description                                                                                                                                            | Required?   | Data type                                                  |
 +===========================+========================================================================================================================================================+=============+============================================================+
-| monitoring\_zones\_poll   | List of monitoring zones to poll from. Note: This argument is only required for remote (non-agent) checks                                              | Optional    | Array                                                      |
+| monitoring_zones_poll     | List of monitoring zones to poll from. Note: This argument is only required for remote (non-agent) checks                                              | Optional    | Array                                                      |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+------------------------------------------------------------+
-| target\_alias             | A key in the entity's ``ip_addresses`` hash used to resolve this check to an IP address. This parameter is mutually exclusive with target\_hostname.   | Optional    | String (1..64 chars)                                       |
+| target_alias              | A key in the entity's ``ip_addresses`` hash used to resolve this check to an IP address. This parameter is mutually exclusive with target\_hostname.   | Optional    | String (1..64 chars)                                       |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+------------------------------------------------------------+
-| target\_hostname          | The hostname this check should target. This parameter is mutually exclusive with ``target_alias``.                                                     | Optional    | Valid FQDN, IPv4 or IPv6 address. String (1..256 chars).   |
+| target_hostname           | The hostname this check should target. This parameter is mutually exclusive with ``target_alias``.                                                     | Optional    | Valid FQDN, IPv4 or IPv6 address. String (1..256 chars).   |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+------------------------------------------------------------+
-| target\_resolver          | Determines how to resolve the check target.                                                                                                            | Optional    | ``IPv4`` or ``IPv6``                                       |
+| target_resolver           | Determines how to resolve the check target.                                                                                                            | Optional    | ``IPv4`` or ``IPv6``                                       |
 +---------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+------------------------------------------------------------+
 
-Test parameters (before create)
--------------------------------
 
-.. code:: php
+Test parameters
+---------------
 
-    $params = array(
-        'type'   => 'remote.http',
-        'details' => array(
-            'url'    => 'http://example.com',
-            'method' => 'GET'
-        ),
-        'monitoring_zones_poll' => array('mzlon'),
-        'period' => '100',
-        'timeout' => '30',
-        'target_alias' => 'default',
-        'label'  => 'Website check 1'
-    );
+Sometimes it can be useful to test out the parameters before sending them as a
+create call. To do this, pass in the ``$params`` like so:
 
-    // You can do a test to see what would happen 
-    // if a Check is launched with these params
-    $response = $entity->testNewCheckParams($params);
+.. code-block:: php
 
-    echo $response->timestamp; // When was it executed?
-    echo $response->available; // Was it available?
-    echo $response->status;    // Status code
+  $response = $entity->testNewCheckParams($params);
 
-Create a Check
---------------
+  echo $response->timestamp; // When was it executed?
+  echo $response->available; // Was it available?
+  echo $response->status;    // Status code
 
-.. code:: php
 
-    $entity->createCheck($params);
+Send parameters
+~~~~~~~~~~~~~~~
+
+Once you are satisfied with your configuration parameters, you can complete the
+operation and send it to the API like so:
+
+.. code-block:: php
+
+  $entity->createCheck($params);
+
 
 Test existing Check
 -------------------
 
-.. code:: php
+.. code-block:: php
 
-    // Set arg to TRUE for debug information
-    $response = $check->test(true);
+  // Set arg to TRUE for debug information
+  $response = $check->test(true);
 
-    echo $response->debug_info;
+  echo $response->debug_info;
+
 
 List Checks
 -----------
 
-.. code:: php
+.. code-block:: php
 
-    $checks = $entity->getChecks();
+  $checks = $entity->getChecks();
 
-    foreach ($checks as $check) {
-        echo $check->getId();
-    }
+  foreach ($checks as $check) {
+      echo $check->getId();
+  }
 
-Update and delete Check
-~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code:: php
+Update Check
+------------
 
-    // Update
-    $check->update(array('period' => 500));
+.. code-block:: php
 
-    // Delete
-    $check->delete();
+  $check->update(array('period' => 500));
+
+
+Delete check
+------------
+
+.. code-block:: php
+
+  $check->delete();
+
 
 Check types
 ===========
-
-Info
-----
 
 Each check within the Rackspace Cloud Monitoring has a designated check
 type. The check type instructs the monitoring system how to check the
@@ -168,25 +177,45 @@ using the 'extract' attribute on the remote.http check, however the
 default metrics will always be present. To determine the exact metrics
 available, the Test Check API is provided.
 
-Setup
------
+Find an existing check's type
+-----------------------------
 
-If you want to see the type for an existing Check:
+If you want to see the type for an existing Check resource:
 
-.. code:: php
+.. code-block:: php
 
-    /** @var \OpenCloud\CloudMonitoring\Resource\CheckType */
-    $checkType = $check->getCheckType();
+  /** @var \OpenCloud\CloudMonitoring\Resource\CheckType */
+  $checkType = $check->getCheckType();
+
+
+List all possible check types
+-----------------------------
+
+.. code-block:: php
+
+  $checkTypes = $service->getCheckTypes();
+
+  foreach ($checkTypes as $checkType) {
+     echo $checkType->getId();
+  }
+
+
+Retrieve details about a Type by its ID
+---------------------------------------
 
 Alternatively, you can retrieve a specific type based on its ID:
 
-.. code:: php
+.. code-block:: php
 
-    $checkTypeId = 'remote.dns';
-    $checkType = $service->getCheckType($checkTypeId);
+  $checkTypeId = 'remote.dns';
+  $checkType = $service->getCheckType($checkTypeId);
+
 
 Attributes
 ----------
+
+Once you have access to a ``OpenCloud\CloudMonitoring\Resource\CheckType`` object,
+you can query these attributes:
 
 +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+-------------------------------+
 | Name                   | Description                                                                                                                                                                              | Data type   | Method                        |
@@ -195,17 +224,5 @@ Attributes
 +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+-------------------------------+
 | fields                 | Check type fields.                                                                                                                                                                       | Array       | ``getFields()``               |
 +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+-------------------------------+
-| supported\_platforms   | Platforms on which an agent check type is supported. This is advisory information only - the check may still work on other platforms, or report that check execution failed at runtime   | Array       | ``getSupportedPlatforms()``   |
+| supported_platforms    | Platforms on which an agent check type is supported. This is advisory information only - the check may still work on other platforms, or report that check execution failed at runtime   | Array       | ``getSupportedPlatforms()``   |
 +------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+-------------------------------+
-
-List all possible check types
------------------------------
-
-.. code:: php
-
-    $checkTypes = $service->getCheckTypes();
-
-    foreach ($checkTypes as $checkType) {
-       echo $checkType->getId();
-    }
-

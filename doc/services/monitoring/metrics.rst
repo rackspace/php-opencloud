@@ -1,9 +1,6 @@
  Metrics
 ========
 
-Info
-----
-
 When Monitoring checks run, they generate metrics. These metrics are
 stored as full resolution data points in the Cloud Monitoring system.
 Full resolution data points are periodically rolled up (condensed) into
@@ -12,6 +9,7 @@ coarser data points.
 Depending on your needs, you can use the metrics API to fetch individual
 data points (fine-grained) or rolled up data points (coarse-grained)
 over a period of time.
+
 
 Data Granularity
 ----------------
@@ -42,7 +40,7 @@ elapsed since January 1, 1970** ). The following table shows the number
 of points that the API returns for a given resolution.
 
 Specifying resolution to retrieve data in 48 hour period
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +-----------------------------+-------------------------+
 | You specify resolution...   | API returns points...   |
@@ -61,7 +59,7 @@ Specifying resolution to retrieve data in 48 hour period
 +-----------------------------+-------------------------+
 
 Specifying number of points to retrieve data in 48 hour period
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +--------------------------------------+-----------------------------+
 | You specify points in the range...   | API calculates resolution   |
@@ -80,7 +78,7 @@ Specifying number of points to retrieve data in 48 hour period
 +--------------------------------------+-----------------------------+
 
 Data Point Expiration
-^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~
 
 Cloud Monitoring expires data points according to the following
 schedule:
@@ -101,31 +99,45 @@ schedule:
 | MIN1440      | 365 days     |
 +--------------+--------------+
 
- Setup
+Setup
 ------
 
-Metrics are sub-resources of Checks. For more information about working
-with Checks, please see the `relevant documentation <Checks.md>`__.
+In order to interact with this feature, you must first retrieve an entity by
+its ID:
+
+.. code-block:: php
+
+  $entity = $service->getEntity('{entityId}');
+
+and then a particular check, about which you can configure alarms:
+
+.. code-block:: php
+
+  $check = $entity->getCheck('{checkId}');
+
+For more information about these resource types, please consult the documentation
+about `entities <entities>`_ and `checks <checks>`_.
+
 
 List all metrics
 ----------------
 
-.. code:: php
+.. code-block:: php
 
-    $metrics = $check->getMetrics();
+  $metrics = $check->getMetrics();
 
-    foreach ($metrics as $metric) {
-        echo $metric->getName();
-    }
+  foreach ($metrics as $metric) {
+      echo $metric->getName();
+  }
+
 
 Fetch data points
 -----------------
 
-.. code:: php
+.. code-block:: php
 
-    $data = $check->fetchDataPoints('mzdfw.available', array(
-        'resolution' => 'FULL',
-        'from'       => 1369756378450,
-        'to'         => 1369760279018
-    ));
-
+  $data = $check->fetchDataPoints('mzdfw.available', array(
+      'resolution' => 'FULL',
+      'from'       => 1369756378450,
+      'to'         => 1369760279018
+  ));
