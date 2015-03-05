@@ -1,28 +1,18 @@
-1. Introduction
----------------
+Claims
+======
 
-A **Claim** is the process of a worker checking out a message to perform
-a task. Claiming a message prevents other workers from attempting to
-process the same messages.
+Setup
+-----
 
-2. Setup
---------
+In order to work with messages, you must first retrieve a queue by its name:
 
-A Claim is initialized on its parent object, a Queue:
+.. code-block:: php
 
-.. code:: php
+  $queue = $service->getQueue('{queueName}');
 
-    // To initialize an empty object:
-    $claim = $queue->getClaim();
 
-    // or retrieve a specific claim:
-    $claim = $queue->getClaim('51db7067821e727dc24df754');
-
-3. Claim messages
------------------
-
-3.1 Description
-~~~~~~~~~~~~~~~
+Claim messages
+--------------
 
 This operation claims a set of messages (up to the value of the limit
 parameter) from oldest to newest and skips any messages that are already
@@ -46,8 +36,8 @@ and whether a given message's claim is about to expire.
 When a claim expires, it is released. If the original worker failed to
 process the message, another client worker can then claim the message.
 
-3.2 Attributes
-~~~~~~~~~~~~~~
+Parameters
+~~~~~~~~~~
 
 The ``ttl`` attribute specifies how long the server waits before
 releasing the claim. The ttl value must be between 60 and 43200 seconds
@@ -67,46 +57,30 @@ The ``limit`` attribute specifies the number of messages to return, up
 to 20 messages. If limit is not specified, limit defaults to 10. The
 limit parameter is optional.
 
-3.3 Code
-~~~~~~~~
+.. code-block:: php
 
-.. code:: php
+  use OpenCloud\Common\Constants\Datetime;
 
-    use OpenCloud\Common\Constants\Datetime;
+  $queue->claimMessages(array(
+      'limit' => 15,
+      'grace' => 5 * Datetime::MINUTE,
+      'ttl'   => 5 * Datetime::MINUTE
+  ));
 
-    $queue->claimMessages(array(
-        'limit' => 15,
-        'grace' => 5 * Datetime::MINUTE,
-        'ttl'   => 5 * Datetime::MINUTE
-    ));
 
-4. Query claim
---------------
+Query claim
+-----------
 
-4.1 Description
-~~~~~~~~~~~~~~~
+This operation queries the specified claim for the specified queue. Claims with
+malformed IDs or claims that are not found by ID are ignored.
 
-This operation queries the specified claim for the specified queue.
-Claims with malformed IDs or claims that are not found by ID are
-ignored.
+.. code-block:: php
 
-4.2 Attributes
-~~~~~~~~~~~~~~
+  $claim = $queue->getClaim('{claimId}');
 
-Claim ID.
 
-4.3 Code
-~~~~~~~~
-
-.. code:: php
-
-    $claim = $queue->getClaim('51db7067821e727dc24df754');
-
-5. Update claim
----------------
-
-5.1 Description
-~~~~~~~~~~~~~~~
+Update claim
+------------
 
 This operation updates the specified claim for the specified queue.
 Claims with malformed IDs or claims that are not found by ID are
@@ -118,27 +92,17 @@ renew a claim by executing this method on a specific **Claim** and
 including a new TTL. The API will then reset the age of the claim and
 apply the new TTL.
 
-5.2 Attributes
-~~~~~~~~~~~~~~
+.. code-block:: php
 
-See section 4.2.
+  use OpenCloud\Common\Constants\Datetime;
 
-5.3 Code
-~~~~~~~~
+  $claim->update(array(
+      'ttl' => 10 * Datetime::MINUTE
+  ));
 
-.. code:: php
 
-    use OpenCloud\Common\Constants\Datetime;
-
-    $claim->update(array(
-        'ttl' => 10 * Datetime::MINUTE
-    ));
-
-6. Release claim
-----------------
-
-6.1 Description
-~~~~~~~~~~~~~~~
+Release claim
+-------------
 
 This operation immediately releases a claim, making any remaining
 undeleted messages that are associated with the claim available to other
@@ -150,15 +114,6 @@ shutdown, fails to process one or more messages, or is taking longer
 than expected to process messages, and wants to make the remainder of
 the messages available to other workers.
 
-6.2 Attributes
-~~~~~~~~~~~~~~
+.. code-block:: php
 
-See section 4.2.
-
-6.3 Code
-~~~~~~~~
-
-.. code:: php
-
-    $message->delete();
-
+  $message->delete();
