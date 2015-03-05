@@ -26,9 +26,11 @@ use OpenCloud\Smoke\Utils;
  */
 class Networking extends AbstractUnit implements UnitInterface
 {
-    protected $cleanupNetworkIds = array();
-    protected $cleanupSubnetIds  = array();
-    protected $cleanupPortIds    = array();
+    protected $cleanupNetworkIds           = array();
+    protected $cleanupSubnetIds            = array();
+    protected $cleanupPortIds              = array();
+    protected $cleanupSecurityGroupIds     = array();
+    protected $cleanupSecurityGroupRuleIds = array();
 
     public function setupService()
     {
@@ -40,6 +42,8 @@ class Networking extends AbstractUnit implements UnitInterface
         $this->testNetworkOperations();
         $this->testSubnetOperations();
         $this->testPortOperations();
+        $this->testSecurityGroupOperations();
+        $this->testSecurityGroupRuleOperations();
     }
 
     protected function testNetworkOperations()
@@ -251,8 +255,78 @@ class Networking extends AbstractUnit implements UnitInterface
         ));
     }
 
+    protected function testSecurityGroupOperations()
+    {
+        $this->step('Create security group');
+        $security group = $this->getService()->createSecurityGroup(array(
+            'name' => 'new-webservers',
+            'description' => 'security group for webservers'
+        ));
+        $this->stepInfo('Security Group ID: ' . $securityGroup->getId());
+        $this->stepInfo('Security Group Name: ' . $securityGroup->getName());
+        $this->cleanupSecurityGroupIds[] = $securityGroup->getId();
+
+        $this->step('List security groups');
+        $securityGroups = $this->getService()->listSecurityGroups();
+        $this->stepInfo('%-40s | %s', 'Security Group ID', 'Security Group name');
+        $this->stepInfo('%-40s | %s', str_repeat('-', 40), str_repeat('-', 40));
+        foreach ($securityGroups as $securityGroup) {
+            $this->stepInfo('%-40s | %s', $securityGroup->getId(), $securityGroup->getName());
+        }
+
+        $this->step('Get security group');
+        $security group = $this->getService()->getSecurityGroup($securityGroup->getId());
+        $this->stepInfo('Security Group ID: ' . $securityGroup->getId());
+        $this->stepInfo('Security Group Name: ' . $securityGroup->getName());
+    }
+
+    protected function testSecurityGroupRuleOperations()
+    {
+        $securityGroup1 = $this->getService()->createSecurityGroup(array(
+            'name' => 'test_security_group_for_test_security_group_rule'
+        ));
+        $this->cleanupSecurityGroupIds[] = $securityGroup1->getId();
+
+        $this->step('Create security group rule');
+        $security group rule = $this->getService()->createSecurityGroupRule(array(
+            'securityGroupId' => $securityGroup1->getId(),
+            'direction'       => 'egress',
+            'ethertype'       => 'IPv4',
+            'portRangeMin'    => 80,
+            'portRangeMax'    => 80,
+            'protocol'        => 'tcp',
+            'remoteGroupId'   => '85cc3048-abc3-43cc-89b3-377341426ac5'
+        ));
+        $this->stepInfo('Security Group Rule ID: ' . $securityGroupRule->getId());
+        $this->stepInfo('Security Group Rule Direction: ' . $securityGroupRule->getDirection());
+        $this->cleanupSecurityGroupRuleIds[] = $securityGroupRule->getId();
+
+        $this->step('List security group rules');
+        $securityGroupRules = $this->getService()->listSecurityGroupRules();
+        $this->stepInfo('%-40s | %s', 'Security Group Rule ID', 'Security Group Rule name');
+        $this->stepInfo('%-40s | %s', str_repeat('-', 40), str_repeat('-', 40));
+        foreach ($securityGroupRules as $securityGroupRule) {
+            $this->stepInfo('%-40s | %s', $securityGroupRule->getId(), $securityGroupRule->getName());
+        }
+
+        $this->step('Get security group rule');
+        $security group rule = $this->getService()->getSecurityGroupRule($securityGroupRule->getId());
+        $this->stepInfo('Security Group Rule ID: ' . $securityGroupRule->getId());
+        $this->stepInfo('Security Group Rule Name: ' . $securityGroupRule->getName());
+    }
+
     public function teardown()
     {
+        foreach ($this->cleanupSecurityGroupRuleIds as $securityGroupRuleId) {
+            $securityGroupRule = $this->getService()->getSecurityGroupRule($securityGroupRuleId);
+            $securityGroupRule->delete();
+        }
+
+        foreach ($this->cleanupSecurityGroupIds as $securityGroupId) {
+            $securityGroup = $this->getService()->getSecurityGroup($securityGroupId);
+            $securityGroup->delete();
+        }
+
         foreach ($this->cleanupPortIds as $portId) {
             $port = $this->getService()->getPort($portId);
             $port->delete();
