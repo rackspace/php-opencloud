@@ -245,13 +245,7 @@ class Networking extends AbstractUnit implements UnitInterface
 
         $this->step('Update port');
         $port->update(array(
-            'name'     => 'updated_test_port',
-            'fixedIps' => array(
-                array(
-                    'subnetId'  => $subnet1->getId(),
-                    'ipAddress' => '192.168.62.17'
-                )
-            )
+            'name'     => 'updated_test_port'
         ));
     }
 
