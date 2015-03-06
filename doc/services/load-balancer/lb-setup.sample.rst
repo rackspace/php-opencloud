@@ -6,4 +6,4 @@ load balancer, like so:
 
 .. code-block:: php
 
-    $loadBalancer = $service->loadBalancer('{id}');
+  $loadBalancer = $service->loadBalancer('{id}');
