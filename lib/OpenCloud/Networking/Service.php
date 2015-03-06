@@ -51,8 +51,10 @@ class Service extends CatalogService
     /**
      * Creates a new Network and returns it.
      *
-     * @param array $params Network creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-network
+     * @param array $params Network creation parameters.
      * @return \OpenCloud\Networking\Resource\Network Object representing created network
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-network
      */
     public function createNetwork(array $params = array())
     {
@@ -136,8 +138,10 @@ class Service extends CatalogService
     /**
      * Creates a new Subnet and returns it.
      *
-     * @param array $params Subnet creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-subnet
+     * @param array $params Subnet creation parameters.
      * @return \OpenCloud\Networking\Resource\Subnet Object representing created subnet
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-subnet
      */
     public function createSubnet(array $params = array())
     {
@@ -221,8 +225,10 @@ class Service extends CatalogService
     /**
      * Creates a new Port and returns it.
      *
-     * @param array $params Port creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-port
+     * @param array $params Port creation parameters.
      * @return \OpenCloud\Networking\Resource\Port Object representing created port
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-port
      */
     public function createPort(array $params = array())
     {
@@ -306,8 +312,10 @@ class Service extends CatalogService
     /**
      * Creates a new SecurityGroup and returns it.
      *
-     * @param array $params SecurityGroup creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-security-group
+     * @param array $params SecurityGroup creation parameters.
      * @return \OpenCloud\Networking\Resource\SecurityGroup Object representing created security group
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-security-group
      */
     public function createSecurityGroup(array $params = array())
     {
@@ -355,8 +363,10 @@ class Service extends CatalogService
     /**
      * Creates a new SecurityGroupRule and returns it.
      *
-     * @param array $params SecurityGroupRule creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-security-group-rule
+     * @param array $params SecurityGroupRule creation parameters.
      * @return \OpenCloud\Networking\Resource\SecurityGroupRule Object representing created security group rule
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-security-group-rule
      */
     public function createSecurityGroupRule(array $params = array())
     {
