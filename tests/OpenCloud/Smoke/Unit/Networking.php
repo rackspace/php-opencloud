@@ -296,16 +296,16 @@ class Networking extends AbstractUnit implements UnitInterface
 
         $this->step('List security group rules');
         $securityGroupRules = $this->getService()->listSecurityGroupRules();
-        $this->stepInfo('%-40s | %s', 'Security Group Rule ID', 'Security Group Rule name');
+        $this->stepInfo('%-40s | %s', 'Security Group Rule ID', 'Security Group Rule direction');
         $this->stepInfo('%-40s | %s', str_repeat('-', 40), str_repeat('-', 40));
         foreach ($securityGroupRules as $securityGroupRule) {
-            $this->stepInfo('%-40s | %s', $securityGroupRule->getId(), $securityGroupRule->getName());
+            $this->stepInfo('%-40s | %s', $securityGroupRule->getId(), $securityGroupRule->getDirection());
         }
 
         $this->step('Get security group rule');
-        $security group rule = $this->getService()->getSecurityGroupRule($securityGroupRule->getId());
+        $securityGroupRule = $this->getService()->getSecurityGroupRule($securityGroupRule->getId());
         $this->stepInfo('Security Group Rule ID: ' . $securityGroupRule->getId());
-        $this->stepInfo('Security Group Rule Name: ' . $securityGroupRule->getName());
+        $this->stepInfo('Security Group Rule Direction: ' . $securityGroupRule->getDirection());
     }
 
     public function teardown()
