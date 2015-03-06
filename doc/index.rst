@@ -1,12 +1,37 @@
-.. php-opencloud documentation master file, created by
-   sphinx-quickstart on Tue Mar  3 12:28:19 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Welcome to php-opencloud!
+=========================
 
-Welcome to php-opencloud's documentation!
-=========================================
+Installation
+------------
 
-Contents:
+You must install this library through Composer:
+
+.. code-block:: bash
+
+  composer require rackspace/php-opencloud
+
+
+If you do not have Composer installed, please consult the `official docs
+<https://getcomposer.org/doc/00-intro.md>`_.
+
+Once you have installed the library, you will need to load Composer's autoloader
+(which registers all the required namespaces). To do this, place the following
+line of PHP code at the top of your application's PHP files:
+
+.. code-block:: php
+
+  require 'vendor/autoload.php';
+
+This assumes your application's PHP files are located in the same folder as
+``vendor/``. If your files are located elsewhere, please supply the path to
+``vendor/autoload.php`` in the require statement above.
+
+Read the `OpenStack Getting Started guide </getting-started-with-openstack>`_
+or `Rackspace Getting Started guide </getting-started-with-rackspace>`_ to help
+you get started with basic Compute operations.
+
+Services
+--------
 
 .. toctree::
   :glob:
@@ -14,10 +39,35 @@ Contents:
 
   services/**/index
 
+Usage tips
+----------
 
-Indices and tables
-==================
+.. toctree::
+  :maxdepth: 1
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+  debugging
+  caching-creds
+  iterators
+  regions
+  url-types
+
+Help and support
+----------------
+
+If you have specific problems or bugs with this SDK, please file an issue on
+our official `Github <https://github.com/rackspace/php-opencloud>`_. We also
+have a `mailing list <https://groups.google.com/forum/#!forum/php-opencloud>`_,
+so feel free to join to keep up to date with all the latest changes and
+announcements to the library.
+
+For general feedback and support requests, send an email to
+sdk-support@rackspace.com.
+
+You can also find assistance via IRC on #rackspace at freenode.net.
+
+Contributing
+------------
+
+If you'd like to contribute to the project, or require help running the
+unit/acceptance tests, please view the `contributing guidelines
+<https://github.com/rackspace/php-opencloud/blob/master/CONTRIBUTING.md>`_.

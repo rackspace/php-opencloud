@@ -36,38 +36,40 @@ If you're trying to retrieve a Swift resource, such as a Data Object,
 and you're not completely certain that it exists, it makes sense to wrap
 your call in a try/catch block:
 
-.. code:: php
+.. code-block:: php
 
-    use Guzzle\Http\Exception\ClientErrorResponseException;
+  use Guzzle\Http\Exception\ClientErrorResponseException;
 
-    try {
-        return $service->getObject('foo.jpg');
-    } catch (ClientErrorResponseException $e) {
-        // Okay, the resource probably does not exist
+  try {
+      return $service->getObject('foo.jpg');
+  } catch (ClientErrorResponseException $e) {
+      if ($e->getResponse()->getStatusCode() == 404) {
+        // Okay, the resource does not exist
         return false;
-    } catch (\Exception $e) {
-        // Some other exception was thrown, probably critical
-        $this->logException($e);
-        $this->alertDevs();
-    }
+      }
+  } catch (\Exception $e) {
+      // Some other exception was thrown...
+  }
+
 
 Both ``ClientErrorResponseException`` and
 ``ServerErrorResponseException`` have two methods that allow you to
 access the HTTP transaction:
 
-.. code:: php
+.. code-block:: php
 
-    // Find out the faulty request
-    $request = $e->getRequest();
+  // Find out the faulty request
+  $request = $e->getRequest();
 
-    // Display everything by casting as string
-    echo (string) $request;
+  // Display everything by casting as string
+  echo (string) $request;
 
-    // Find out the HTTP response
-    $response = $e->getResponse();
+  // Find out the HTTP response
+  $response = $e->getResponse();
 
-    // Output that too
-    echo (string) $response;
+  // Output that too
+  echo (string) $response;
+
 
 Strategy 2: Wire logging
 ------------------------
@@ -80,20 +82,22 @@ don't know what's going on.
 Here's how you enable it:
 
 Install the plugin
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
-.. code:: bash
+.. code-block:: bash
 
-    php composer.phar require guzzle/plugin-log:~3.8
+  composer require guzzle/guzzle
+
 
 Add to your client
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
-.. code:: php
+.. code-block:: php
 
-    use Guzzle\Plugin\Log\LogPlugin;
+  use Guzzle\Plugin\Log\LogPlugin;
 
-    $client->addSubscriber(LogPlugin::getDebugPlugin());
+  $client->addSubscriber(LogPlugin::getDebugPlugin());
+
 
 The above will add a generic logging subscriber to your client, which
-will be notified every time a relevant HTTP event is fired off.
+will output every HTTP transaction to `STDOUT`.
