@@ -252,7 +252,7 @@ class Networking extends AbstractUnit implements UnitInterface
     protected function testSecurityGroupOperations()
     {
         $this->step('Create security group');
-        $security group = $this->getService()->createSecurityGroup(array(
+        $securityGroup = $this->getService()->createSecurityGroup(array(
             'name' => 'new-webservers',
             'description' => 'security group for webservers'
         ));
@@ -269,7 +269,7 @@ class Networking extends AbstractUnit implements UnitInterface
         }
 
         $this->step('Get security group');
-        $security group = $this->getService()->getSecurityGroup($securityGroup->getId());
+        $securityGroup = $this->getService()->getSecurityGroup($securityGroup->getId());
         $this->stepInfo('Security Group ID: ' . $securityGroup->getId());
         $this->stepInfo('Security Group Name: ' . $securityGroup->getName());
     }
@@ -282,7 +282,7 @@ class Networking extends AbstractUnit implements UnitInterface
         $this->cleanupSecurityGroupIds[] = $securityGroup1->getId();
 
         $this->step('Create security group rule');
-        $security group rule = $this->getService()->createSecurityGroupRule(array(
+        $securityGroupRule = $this->getService()->createSecurityGroupRule(array(
             'securityGroupId' => $securityGroup1->getId(),
             'direction'       => 'egress',
             'ethertype'       => 'IPv4',
