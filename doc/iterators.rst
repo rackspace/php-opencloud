@@ -1,9 +1,6 @@
 Iterators
 =========
 
-Intro
------
-
 Iterators allow you to traverse over collections of your resources in an
 efficient and easy way. Currently there are two Iterators provided by
 the SDK:
@@ -27,27 +24,27 @@ the SDK:
 Common behaviour
 ----------------
 
-.. code:: php
+.. code-block:: php
 
     $iterator = $computeService->flavorList();
 
 There are two ways to traverse an iterator. The first is the longer,
 more traditional way:
 
-.. code:: php
+.. code-block:: php
 
     while ($iterator->valid()) {
         $flavor = $iterator->current();
-        
+
         // do stuff..
         echo $flavor->id;
-        
+
         $iterator->next();
     }
 
 There is also a shorter and more intuitive version:
 
-.. code:: php
+.. code-block:: php
 
     foreach ($iterator as $flavor) {
         // do stuff...
@@ -63,7 +60,7 @@ Very important note
 
 Until now, users have been expected to do this:
 
-.. code:: php
+.. code-block:: php
 
     while ($flavor = $iterator->next()) {
        // ...
@@ -119,7 +116,7 @@ precedence.
 Setting up a PaginatedIterator
 ------------------------------
 
-.. code:: php
+.. code-block:: php
 
     use OpenCloud\Common\Collection\PaginatedIterator;
 
@@ -175,4 +172,3 @@ needs to work. These are:
 +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+------------+---------------+
 | request.curlOptions     | Additional cURL options to use when making API calls for new pages                                                                                                                                                                                | array                        | No         | ``array()``   |
 +-------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------+------------+---------------+
-
