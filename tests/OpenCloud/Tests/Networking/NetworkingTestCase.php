@@ -48,4 +48,14 @@ class NetworkingTestCase extends OpenCloudTestCase
     {
         $this->assertInstanceOf('OpenCloud\Networking\Resource\Port', $object);
     }
+
+    protected function assertIsSecurityGroup($object)
+    {
+        $this->assertInstanceOf('OpenCloud\Networking\Resource\SecurityGroup', $object);
+    }
+
+    protected function assertIsSecurityGroupRule($object)
+    {
+        $this->assertInstanceOf('OpenCloud\Networking\Resource\SecurityGroupRule', $object);
+    }
 }
