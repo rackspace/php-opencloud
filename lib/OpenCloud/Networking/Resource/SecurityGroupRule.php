@@ -21,6 +21,10 @@ use OpenCloud\Common\Resource\PersistentResource;
 
 /**
  *
+ * Security group rules provide users the ability to specify the types of traffic that are allowed
+ * to pass through to and from ports (represented by {@see \OpenCloud\Networking\Resource\Port})
+ * on a virtual server instance.
+ *
  * @see http://developer.openstack.org/api-ref-networking-v2.html#security_groups
  *
  * @package OpenCloud\Networking\Resource
