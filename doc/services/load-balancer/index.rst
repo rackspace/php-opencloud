@@ -1,17 +1,13 @@
 Load Balancer v1
 ================
 
-.. note::
-
-  This service is only available for Rackspace users.
+.. include:: ../common/rs-only.sample.rst
 
 
-Setup
------
+Load Balancer service
+~~~~~~~~~~~~~~~~~~~~~
 
-.. include:: ../common/rs-client.sample.rst
-
-Now, set up the Load Balancer service:
+Now to instantiate the Load Balancer service:
 
 .. code-block:: php
 

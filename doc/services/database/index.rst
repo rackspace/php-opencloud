@@ -1,12 +1,12 @@
 Databases v1
 ============
 
-Setup
------
+.. include:: ../common/clients.sample.rst
 
-.. include:: ../common/rs-client.sample.rst
+Databases service
+~~~~~~~~~~~~~~~~~
 
-Now, set up the Database service:
+Now to instantiate the Databases service:
 
 .. code-block:: php
 
