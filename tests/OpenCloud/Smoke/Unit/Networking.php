@@ -288,8 +288,7 @@ class Networking extends AbstractUnit implements UnitInterface
             'ethertype'       => 'IPv4',
             'portRangeMin'    => 80,
             'portRangeMax'    => 80,
-            'protocol'        => 'tcp',
-            'remoteGroupId'   => '85cc3048-abc3-43cc-89b3-377341426ac5'
+            'protocol'        => 'tcp'
         ));
         $this->stepInfo('Security Group Rule ID: ' . $securityGroupRule->getId());
         $this->stepInfo('Security Group Rule Direction: ' . $securityGroupRule->getDirection());
