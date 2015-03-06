@@ -198,4 +198,4 @@ $server->delete();
 Consult our [documentation](https://github.com/rackspace/php-opencloud/tree/master/docs/userguide) about other services
 you can use, like [Keystone](https://github.com/rackspace/php-opencloud/tree/master/docs/userguide/Identity) or
 [Swift](https://github.com/rackspace/php-opencloud/tree/master/docs/userguide/ObjectStore). If you have any questions or
-troubles, feel free to e-mail sdk-support@rackspace.com or open a Github issue with details.
+troubles, feel free to contact us at https://developer.rackspace.com/support/ or open a Github issue with details.
