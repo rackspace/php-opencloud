@@ -25,6 +25,7 @@ Operations
   resources
   resource-types
   build-info
+  events
 
 
 Glossary
@@ -48,3 +49,11 @@ Glossary
   stack
     A stack is a running instance of a template. When a stack
     is created, the resources specified in the template are created.
+
+
+Further links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/orchestration/api/v1/orchestration-getting-started/content/DB_Overview.html>`_
+- `API Developer Guide <http://docs.rackspace.com/orchestration/api/v1/orchestration-devguide/content/overview.html>`_
+- `API release history <http://docs.rackspace.com/orchestration/api/v1/orchestration-getting-started/content/DB_Doc_Change_History.html>`_
