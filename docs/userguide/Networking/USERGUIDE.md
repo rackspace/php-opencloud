@@ -485,7 +485,7 @@ $port->delete();
 
 ## Security Groups
 
-TODO: Add description
+A security group is a named container for [security group rules](#security-group-rules).
 
 ### Create a security group
 
@@ -546,7 +546,7 @@ $securityGroup->delete();
 
 ## Security Group Rules
 
-TODO: Add description
+A security group rule provides users the ability to specify the types of traffic that are allowed to pass through to and from ports on a virtual server instance.
 
 ### Create a security group rule
 
