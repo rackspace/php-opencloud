@@ -20,7 +20,7 @@ namespace OpenCloud\Networking\Resource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
- * A security group is a named container for security group rules, each of which is 
+ * A security group is a named container for security group rules, each of which is
  * represented by {@see \OpenCloud\Networking\Resource\SecurityGroupRule}.
  *
  * @see http://developer.openstack.org/api-ref-networking-v2.html#security_groups
