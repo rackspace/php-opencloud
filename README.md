@@ -63,7 +63,7 @@ Your feedback is appreciated! If you have specific problems or bugs with this SD
 also have a [mailing list](https://groups.google.com/forum/#!forum/php-opencloud), so feel free to join to keep up to
 date with all the latest changes and announcements to the library.
 
-For general feedback and support requests, send an email to sdk-support@rackspace.com.
+For general feedback and support requests, contact us at https://developer.rackspace.com/support/
 
 You can also find assistance via IRC on #rackspace at freenode.net.
 
