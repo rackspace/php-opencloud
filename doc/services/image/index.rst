@@ -1,10 +1,12 @@
 Images v1
 =========
 
-Setup
------
+.. include:: ../common/clients.sample.rst
 
-.. include:: ../common/rs-client.sample.rst
+Images service
+~~~~~~~~~~~~~~
+
+Now to instantiate the Images service:
 
 .. code-block:: php
 

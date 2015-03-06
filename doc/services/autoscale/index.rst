@@ -1,12 +1,12 @@
 Auto Scale v2
 =============
 
-Setup
------
+.. include:: ../common/rs-only.sample.rst
 
-.. include:: ../common/rs-client.sample.rst
+Auto Scale service
+~~~~~~~~~~~~~~~~~~
 
-Now, set up the Auto Scale service:
+Now to instantiate the Auto Scale service:
 
 .. code-block:: php
 

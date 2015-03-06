@@ -1,12 +1,12 @@
 Object Store v1
 ===============
 
-Setup
------
+.. include:: ../common/clients.sample.rst
 
-.. include:: ../common/rs-client.sample.rst
+Object Store service
+~~~~~~~~~~~~~~~~~~~~
 
-Now, set up the Object Store service:
+Now to instantiate the Object Store service:
 
 .. code-block:: php
 
@@ -38,7 +38,7 @@ Glossary
     account is your portion of it.
 
   container
-    A storage compartment that provides a way for you to organize data. A 
+    A storage compartment that provides a way for you to organize data. A
     container is similar to a folder in Windows or a directory in UNIX. The
     primary difference between a container and these other file system concepts
     is that containers cannot be nested.

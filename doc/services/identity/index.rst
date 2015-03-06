@@ -1,10 +1,12 @@
 Identity v2
 ===========
 
-Setup
------
+.. include:: ../common/clients.sample.rst
 
-.. include:: ../common/rs-client.sample
+Identity service
+~~~~~~~~~~~~~~~~
+
+Now to instantiate the Identity service:
 
 .. code-block:: php
 

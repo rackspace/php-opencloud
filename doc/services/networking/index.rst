@@ -1,12 +1,12 @@
 Networking v2
 =============
 
-Setup
------
+.. include:: ../common/clients.sample.rst
 
-.. include:: rs-client.sample.rst
+Networking service
+~~~~~~~~~~~~~~~~~~
 
-Now, set up the Cloud Monitoring service:
+Now to instantiate the Networking service:
 
 .. code-block:: php
 

@@ -1,10 +1,10 @@
 Queues v1
 =========
 
-Setup
------
+.. include:: ../common/clients.sample.rst
 
-.. include:: ../common/rs-client.sample.rst
+Queues service
+~~~~~~~~~~~~~~
 
 Now to instantiate the Queues service:
 

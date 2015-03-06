@@ -1,17 +1,12 @@
 Compute v2
 ==========
 
-.. note::
+.. include:: ../common/clients.sample.rst
 
-  This is a joint service that supports both Rackspace Cloud Servers v2 API, and
-  OpenStack Nova v2 API.
+Compute service
+~~~~~~~~~~~~~~~
 
-Setup
------
-
-.. include:: ../common/rs-client.sample.rst
-
-Now, set up the Compute service:
+Now to instantiate the Compute service:
 
 .. code-block:: php
 

@@ -1,12 +1,12 @@
 Monitoring v1
 =============
 
-Setup
------
+.. include:: ../common/rs-only.sample.rst
 
-.. include:: ../common/rs-client.sample.rst
+Monitoring service
+~~~~~~~~~~~~~~~~~~
 
-Now, set up the Cloud Monitoring service:
+Now to instantiate the Monitoring service:
 
 .. code-block:: php
 
