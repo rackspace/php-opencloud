@@ -1,12 +1,12 @@
 DNS v1
 ======
 
-Setup
------
+.. include:: ../common/rs-only.sample.rst
 
-.. include:: ../common/rs-client.sample.rst
+DNS service
+~~~~~~~~~~~
 
-Now, set up the DNS service:
+Now to instantiate the DNS service:
 
 .. code-block:: php
 

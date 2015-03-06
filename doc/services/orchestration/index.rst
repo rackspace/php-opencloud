@@ -1,12 +1,12 @@
 Orchestration v1
 ================
 
-Setup
------
+.. include:: ../common/clients.sample.rst
 
-.. include:: rs-client.sample.rst
+Orchestration service
+~~~~~~~~~~~~~~~~~~~~~
 
-Now set up the Orchestration service:
+Now to instantiate the Orchestration service:
 
 .. code-block:: php
 

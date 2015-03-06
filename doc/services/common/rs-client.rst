@@ -1,11 +1,7 @@
-The first thing to do is pass in your credentials and instantiate a Rackspace
-client:
+The first step is to pass in your credentials and set up a client. For
+Rackspace users, you will need your username and API key:
 
 .. code-block:: php
-
-  <?php
-
-  require 'vendor/autoload.php';
 
   use OpenCloud\Rackspace;
 
