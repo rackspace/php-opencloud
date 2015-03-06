@@ -65,9 +65,9 @@ be assigned to the interfaces plugged into them. When IP addresses are
 associated with a port, this also implies the port is associated with a subnet
 because the IP address is taken from the allocation pool for a specific subnet.
 
-* **Security Group**: TODO
+* **Security Group**: A named container for security group rules.
 
-* **Security Group Rule**: TODO
+* **Security Group Rule**: Provide users the ability to specify the types of traffic that are allowed to pass through to and from ports on a virtual server instance.
 
 ## Prerequisites
 
