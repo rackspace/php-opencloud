@@ -49,3 +49,11 @@ Glossary
     DNS usually determines an IP address associated with a domain name.
     Reverse DNS is the opposite process: resolving a domain name from an IP
     address. This is usually achieved with a domain name pointer.
+
+
+Further Links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/cdb/api/v1.0/cdb-getting-started/content/DB_Overview.html>`_
+- `API Developer Guide <http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/overview.html>`_
+- `API release history <http://docs.rackspace.com/cdns/api/v1.0/cdns-releasenotes/content/doc_change_history.html>`_

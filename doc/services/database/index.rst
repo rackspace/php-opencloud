@@ -67,3 +67,11 @@ Glossary
     for increased performance, scalability, availability and manageability.
     Applications with high I/O demands are performance optimized and data is
     protected through both local and network RAID-10.
+
+
+Further Links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/cdb/api/v1.0/cdb-getting-started/content/DB_Overview.html>`_
+- `API Developer Guide <http://docs.rackspace.com/cdb/api/v1.0/cdb-devguide/content/overview.html>`_
+- `API release history <http://docs.rackspace.com/cdb/api/v1.0/cdb-getting-started/content/DB_Doc_Change_History.html>`_

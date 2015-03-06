@@ -21,7 +21,7 @@ Operations
 
 .. toctree::
 
-  load-balancers
+  load-balancer
   nodes
   virtual-ips
   access
@@ -87,3 +87,10 @@ Glossary
     (``PUBLIC``), routable on the public Internet, or a ServiceNet VIP
     address (``SERVICENET``), routable only within the region in which the
     load balancer resides.
+
+
+Further Links
+-------------
+
+- `API Developer Guide <http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/Overview-d1e82.html>`_
+- `API release history <http://docs.rackspace.com/loadbalancers/api/v1.0/clb-getting-started/content/DB_Doc_Change_History.html>`_
