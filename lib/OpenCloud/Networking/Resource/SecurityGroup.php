@@ -20,7 +20,7 @@ namespace OpenCloud\Networking\Resource;
 use OpenCloud\Common\Resource\PersistentResource;
 
 /**
- * 
+ *
  * @see http://developer.openstack.org/api-ref-networking-v2.html#security_groups
  *
  * @package OpenCloud\Networking\Resource
