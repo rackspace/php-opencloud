@@ -46,4 +46,10 @@ Glossary
   server
     A server is a virtual machine instance in the Cloud Servers environment.
 
-  keypair
+
+Further Links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/servers/api/v2/cs-gettingstarted/content/overview.html>`_
+- `API Developer Guide <http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_preface.html>`_
+- `API release history <http://docs.rackspace.com/servers/api/v2/cs-releasenotes/content/ch_preface.html>`_

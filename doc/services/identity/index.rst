@@ -46,3 +46,10 @@ Glossary
     access the requested resources. Users may be directly assigned to a
     particular tenant and behave as if they are contained within that
     tenant.
+
+
+Further Links
+-------------
+
+- `Quickstart for the API <http://docs.rackspace.com/auth/api/v2.0/auth-client-devguide/content/QuickStart-000.html>`_
+- `API Developer Guide <http://docs.rackspace.com/auth/api/v2.0/auth-client-devguide/content/Overview-d1e65.html>`_

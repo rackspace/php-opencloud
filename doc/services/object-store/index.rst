@@ -55,3 +55,11 @@ Glossary
   object
     An object (sometimes referred to as a file) is the unit of storage in an
     Object Store. An object is a combination of content (data) and metadata.
+
+
+Further links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/files/api/v1/cf-getting-started/content/Overview-d1e01.html>`_
+- `API Developer Guide <http://docs.rackspace.com/files/api/v1/cf-devguide/content/Overview-d1e70.html>`_
+- `API release history <http://docs.rackspace.com/files/api/v1/cf-getting-started/content/Doc_Change_History.html>`_

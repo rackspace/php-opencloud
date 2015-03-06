@@ -41,3 +41,11 @@ Glossary
 
   snapshot
     A snapshot is a point-in-time copy of the data contained in a volume.
+
+
+Further links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/cbs/api/v1.0/cbs-getting-started/content/Doc_change_history_d1e060.html>`_
+- `API Developer Guide <http://docs.rackspace.com/cbs/api/v1.0/cbs-devguide/content/overview.html>`_
+- `API release history <http://docs.rackspace.com/cbs/api/v1.0/cbs-releasenotes/content/preface.html>`_

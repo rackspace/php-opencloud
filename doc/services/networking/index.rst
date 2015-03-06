@@ -48,3 +48,11 @@ Glossary
     When IP addresses are associated to a port, this also implies the port is
     associated with a subet, as the IP address is taken from the allocation
     pool for a specific subnet.
+
+
+Further links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/networks/api/v2/cn-gettingstarted/content/ch_preface.html>`_
+- `API Developer Guide <http://docs.rackspace.com/networks/api/v2/cn-devguide/content/ch_preface.html>`_
+- `API release history <http://docs.rackspace.com/networks/api/v2/cn-releasenotes/content/ch_preface.html>`_

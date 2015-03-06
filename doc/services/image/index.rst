@@ -41,3 +41,10 @@ Glossary
   tag
     An image tag is a string of characters used to identify a specific image
     or images.
+
+
+Further Links
+-------------
+
+  - `Getting Started Guide for the API <http://docs.rackspace.com/images/api/v2/ci-gettingstarted/content/ch_image_preface.html>`_
+  - `API Developer Guide <http://docs.rackspace.com/images/api/v2/ci-devguide/content/ch_image_preface.html>`_

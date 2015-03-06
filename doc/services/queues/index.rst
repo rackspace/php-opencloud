@@ -46,3 +46,11 @@ Glossary
     producer or publisher sends to the queue. A message exists until it is
     deleted by a recipient or automatically by the system based on a TTL
     (time-to-live) value.
+
+
+Further links
+-------------
+
+- `Getting Started Guide for the API <http://docs.rackspace.com/queues/api/v1.0/cq-gettingstarted/content/DB_Overview.html>`_
+- `API Developer Guide <http://docs.rackspace.com/queues/api/v1.0/cq-devguide/content/overview.html>`_
+- `API release history <http://docs.rackspace.com/queues/api/v1.0/cq-gettingstarted/content/doc-change-history.html>`_
