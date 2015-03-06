@@ -284,7 +284,7 @@ class Networking extends AbstractUnit implements UnitInterface
         $this->step('Create security group rule');
         $securityGroupRule = $this->getService()->createSecurityGroupRule(array(
             'securityGroupId' => $securityGroup1->getId(),
-            'direction'       => 'egress',
+            'direction'       => 'ingress',
             'ethertype'       => 'IPv4',
             'portRangeMin'    => 80,
             'portRangeMax'    => 80,
