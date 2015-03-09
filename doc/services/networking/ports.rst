@@ -39,7 +39,7 @@ You can create a port as shown in the following example:
   ));
 
 
-`Get the executable PHP script for this example </samples/Networking/create-port.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/create-port.php>`_
 
 
 Create multiple ports
@@ -68,7 +68,7 @@ You can create multiple ports as shown in the following example:
       /** @var $port OpenCloud\Networking\Resource\Port **/
   }
 
-`Get the executable PHP script for this example </samples/Networking/create-ports.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/create-ports.php>`_
 
 
 List ports
@@ -84,7 +84,7 @@ You can list all the ports to which you have access as shown in the following ex
       /** @var $port OpenCloud\Networking\Resource\Port **/
   }
 
-`Get the executable PHP script for this example </samples/Networking/list-ports.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/list-ports.php>`_
 
 
 Get a port
@@ -98,7 +98,7 @@ the following example:
   /** @var $port OpenCloud\Networking\Resource\Port **/
   $port = $networkingService->getPort('{portId}');
 
-`Get the executable PHP script for this example </samples/Networking/get-port.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/get-port.php>`_
 
 
 Update a port
@@ -135,7 +135,7 @@ You can update a port as shown in the following example:
       )
   ));
 
-`Get the executable PHP script for this example </samples/Networking/update-port.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/update-port.php>`_
 
 
 Delete a port
@@ -147,4 +147,4 @@ You can delete a port as shown in the following example:
 
   $port->delete();
 
-`Get the executable PHP script for this example </samples/Networking/delete-port.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/delete-port.php>`_

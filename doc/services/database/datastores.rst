@@ -13,7 +13,7 @@ You can list out all the datastores available as shown below:
       /** @var $datastore OpenCloud\Database\Resource\Datastore **/
   }
 
-`Get the executable PHP script for this example </samples/Database/list-datastores.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/list-datastores.php>`__
 
 
 Retrieving a datastore
@@ -27,7 +27,7 @@ shown below:
   /** @var OpenCloud\Database\Resource\Datastore **/
   $datastore = $service->datastore('{datastoreId}');
 
-`Get the executable PHP script for this example </samples/Database/get-datastore.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/get-datastore.php>`__
 
 
 Listing datastore versions
@@ -43,7 +43,7 @@ shown below:
       /** @var $version OpenCloud\Database\Resource\DatastoreVersion **/
   }
 
-`Get the executable PHP script for this example </samples/Database/list-datastore-versions.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/list-datastore-versions.php>`__
 
 
 Retrieving a datastore version
@@ -56,4 +56,4 @@ below:
 
   $datastoreVersion = $datastore->version('{versionId}');
 
-`Get the executable PHP script for this example </samples/Database/get-datastore-version.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/get-datastore-version.php>`__

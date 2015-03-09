@@ -42,7 +42,7 @@ You can create a subnet as shown in the following example:
       'cidr' => '192.168.199.0/25'
   ));
 
-`Get the executable PHP script for this example </samples/Networking/create-subnet.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/create-subnet.php>`_
 
 
 Create multiple subnets
@@ -69,7 +69,7 @@ You can create multiple subnets as shown in the following example:
       /** @var $subnet OpenCloud\Networking\Resource\Subnet **/
   }
 
-`Get the executable PHP script for this example </samples/Networking/create-subnets.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/create-subnets.php>`_
 
 
 List subnets
@@ -85,7 +85,7 @@ following example:
       /** @var $subnet OpenCloud\Networking\Resource\Subnet **/
   }
 
-`Get the executable PHP script for this example </samples/Networking/list-subnets.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/list-subnets.php>`_
 
 
 Get a subnet
@@ -99,7 +99,7 @@ in the following example:
   /** @var $subnet OpenCloud\Networking\Resource\Subnet **/
   $subnet = $networkingService->getSubnet('{subnetId}');
 
-`Get the executable PHP script for this example </samples/Networking/get-subnet.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/get-subnet.php>`_
 
 
 Update a subnet
@@ -137,7 +137,7 @@ You can update a subnet as shown in the following example:
       'gatewayIp' => '192.168.62.155'
   ));
 
-`Get the executable PHP script for this example </samples/Networking/update-subnet.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/update-subnet.php>`_
 
 
 Delete a subnet
@@ -149,4 +149,4 @@ You can delete a subnet as shown in the following example:
 
   $subnet->delete();
 
-`Get the executable PHP script for this example </samples/Networking/delete-subnet.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/delete-subnet.php>`_
