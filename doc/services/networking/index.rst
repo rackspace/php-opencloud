@@ -23,6 +23,8 @@ Operations
   networks
   subnets
   ports
+  security-groups
+  security-group-rules
 
 Glossary
 --------
@@ -48,6 +50,14 @@ Glossary
     When IP addresses are associated to a port, this also implies the port is
     associated with a subet, as the IP address is taken from the allocation
     pool for a specific subnet.
+
+  security group
+    A security group is a named container for security group rules.
+
+  security group rule
+    A security group rule provides users the ability to specify the types of
+    traffic that are allowed to pass through to and from ports on a virtual
+    server instance.
 
 
 Further links
