@@ -19,7 +19,7 @@ example:
       /** @var $resource OpenCloud\Orchestration\Resource\Resource **/
   }
 
-`Get the executable PHP script for this example </samples/Orchestration/list-stack-resources.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/list-stack-resources.php>`_
 
 
 Get stack resource
@@ -33,7 +33,7 @@ name, as shown in the following example:
   /** @var $resource OpenCloud\Orchestration\Resource\Resource **/
   $resource = $stack->getResource('load-balancer');
 
-`Get the executable PHP script for this example </samples/Orchestration/get-stack-resource.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/get-stack-resource.php>`_
 
 
 Get stack resource metadata
@@ -47,4 +47,4 @@ shown in the following example:
   /** @var $resourceMetadata \stdClass **/
   $resourceMetadata = $resource->getMetadata();
 
-`Get the executable PHP script for this example </samples/Orchestration/get-stack-resource-metadata.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/get-stack-resource-metadata.php>`_

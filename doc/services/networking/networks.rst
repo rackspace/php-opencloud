@@ -28,7 +28,7 @@ You can create a network as shown in the following example:
       'name' => 'My private backend network'
   ));
 
-`Get the executable PHP script for this example </samples/Networking/create-network.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/create-network.php>`__
 
 
 Create multiple networks
@@ -55,7 +55,7 @@ You can create multiple networks as shown in the following example:
       /** @var $network OpenCloud\Networking\Resource\Network **/
   }
 
-`Get the executable PHP script for this example </samples/Networking/create-networks.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/create-networks.php>`_
 
 List networks
 -------------
@@ -72,7 +72,7 @@ following example:
   }
 
 
-`Get the executable PHP script for this example </samples/Networking/list-networks.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/list-networks.php>`_
 
 
 Get a network
@@ -86,7 +86,7 @@ in the following example:
   /** @var $network OpenCloud\Networking\Resource\Network **/
   $network = $networkingService->getNetwork('{networkId}');
 
-`Get the executable PHP script for this example </samples/Networking/get-network.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/get-network.php>`_
 
 
 Update a network
@@ -113,7 +113,7 @@ You can update a network as shown in the following example:
       'name' => 'My updated private backend network'
   ));
 
-`Get the executable PHP script for this example </samples/Networking/update-network.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/update-network.php>`_
 
 
 Delete a network
@@ -125,4 +125,4 @@ You can delete a network as shown in the following example:
 
   $network->delete();
 
-`Get the executable PHP script for this example </samples/Networking/delete-network.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/delete-network.php>`_

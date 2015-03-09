@@ -19,7 +19,7 @@ shown in the following example:
       /** @var $stackEvent OpenCloud\Orchestration\Resource\Event **/
   }
 
-`Get the executable PHP script for this example </samples/Orchestration/list-stack-events.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/list-stack-events.php>`_
 
 
 List stack resource events
@@ -36,7 +36,7 @@ shown in the following example:
       /** @var $resourceEvent OpenCloud\Orchestration\Resource\Event **/
   }
 
-`Get the executable PHP script for this example </samples/Orchestration/list-stack-resource-events.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/list-stack-resource-events.php>`_
 
 
 Get stack resource event
@@ -50,4 +50,4 @@ using the resource event's ID, as shown in the following example:
   /** @var $resourceEvent OpenCloud\Orchestration\Resource\Event **/
   $resourceEvent = $resource->getEvent('c1342a0a-59e6-4413-9af5-07c9cae7d729');
 
-`Get the executable PHP script for this example </samples/Orchestration/get-stack-resource-event.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/get-stack-resource-event.php>`_
