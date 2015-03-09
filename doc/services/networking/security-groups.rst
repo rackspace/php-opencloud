@@ -40,7 +40,7 @@ in the following example:
       /** @var $securityGroup OpenCloud\Networking\Resource\SecurityGroup **/
   }
 
-`Get the executable PHP script for this example </samples/Networking/list-security-groups.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/working/samples/Networking/list-security-groups.php>`_
 
 Get a security group
 ~~~~~~~~~~~~~~~~~~~~
@@ -53,7 +53,7 @@ group’s ID, as shown in the following example:
   /** @var $securityGroup OpenCloud\Networking\Resource\SecurityGroup **/
   $securityGroup = $networkingService->getSecurityGroup('{secGroupId}');
 
-`Get the executable PHP script for this example </samples/Networking/get-security-group.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/working/samples/Networking/get-security-group.php>`_
 
 Delete a security group
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -64,4 +64,4 @@ You can delete a security group as shown in the following example:
 
   $securityGroup->delete();
 
-`Get the executable PHP script for this example </samples/Networking/delete-security-group.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/working/samples/Networking/delete-security-group.php>`_
