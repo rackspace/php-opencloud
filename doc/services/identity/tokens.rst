@@ -76,7 +76,7 @@ Interacting with users
   $user = $service->resource('User', $data);
 
 To see which methods you can call on ``$user`` (which implements
-``OpenCloud\Identity\Resource\User``), see our `user documentation <users>`_
+``OpenCloud\Identity\Resource\User``), see our :doc:`user documentation <users>`
 which accompanies this guide.
 
 
@@ -89,7 +89,7 @@ Interacting with tenants
   $tenant = $service->resource('Tenant', $data);
 
 To see which methods you can call on ``$tenant`` (which implements
-``OpenCloud\Identity\Resource\Tenant``), see our `user documentation <tenant>`_
+``OpenCloud\Identity\Resource\Tenant``), see our :doc:`user documentation <tenant>`
 which accompanies this guide.
 
 
