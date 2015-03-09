@@ -16,7 +16,7 @@ Create a new instance
       'volume' => array('size' => 4)               // 4GB of volume disk
   ));
 
-`Get the executable PHP script for this sample </samples/Database/create-instance.php>`__
+`Get the executable PHP script for this sample <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/create-instance.php>`__
 
 
 Waiting for the instance to build
@@ -96,7 +96,7 @@ Retrieving an instance
 
     $instance = $service->instance('{instanceId}');
 
-`Get the executable PHP script for this example </samples/Database/get-instance.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/get-instance.php>`__
 
 
 Updating an instance

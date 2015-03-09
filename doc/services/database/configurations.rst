@@ -22,7 +22,7 @@ Creating a configuration
       )
   ));
 
-`Get the executable PHP script for this example </samples/Database/create-configuration.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/create-configuration.php>`__
 
 
 Listing configurations
@@ -37,7 +37,7 @@ You can list out all the configurations you have created as shown below:
       /** @var $configuration OpenCloud\Database\Resource\Configuration **/
   }
 
-`Get the executable PHP script for this example </samples/Database/list-configurations.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/list-configurations.php>`__
 
 
 Retrieving a configuration
@@ -50,7 +50,7 @@ You can retrieve a specific configuration, using its ID, as shown below:
   $configuration = $service->configuration('{configId}');
   /** @var OpenCloud\Database\Resource\Configuration **/
 
-`Get the executable PHP script for this example </samples/Database/get-configuration.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/get-configuration.php>`__
 
 
 Updating a configuration
@@ -77,7 +77,7 @@ You can patch a configuration as shown below:
       )
   ));
 
-`Get the executable PHP script for this example </samples/Database/patch-configuration.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/patch-configuration.php>`__
 
 
 Replacing a configuration
@@ -94,7 +94,7 @@ You can replace a configuration as shown below:
       )
   ));
 
-`Get the executable PHP script for this example </samples/Database/replace-configuration.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/replace-configuration.php>`__
 
 
 Deleting a configuration
@@ -104,7 +104,7 @@ Deleting a configuration
 
   $configuration->delete();
 
-`Get the executable PHP script for this example </samples/Database/delete-configuration.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/delete-configuration.php>`__
 
 .. note::
 
@@ -124,4 +124,4 @@ as shown below:
       /** @var $instance OpenCloud\Database\Resource\Instance **/
   }
 
-`Get the executable PHP script for this example </samples/Database/list-configuration-instances.php>`__
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Database/list-configuration-instances.php>`__

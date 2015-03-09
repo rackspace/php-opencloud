@@ -17,7 +17,7 @@ example:
       /** @var $resourceType OpenCloud\Orchestration\Resource\ResourceType **/
   }
 
-`Get the executable PHP script for this example </samples/Orchestration/list-resource-types.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/list-resource-types.php>`_
 
 
 Get resource type
@@ -31,7 +31,7 @@ following example:
   /** @var $resourceType OpenCloud\Orchestration\Resource\ResourceType **/
   $resourceType = $orchestrationService->getResourceType('OS::Nova::Server');
 
-`Get the executable PHP script for this example </samples/Orchestration/get-resource-type.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/get-resource-type.php>`_
 
 
 Get resource type template
@@ -45,4 +45,4 @@ appear in a template, as shown in the following example:
   /** @var $resourceTypeTemplate string **/
   $resourceTypeTemplate = $resourceType->getTemplate();
 
-`Get the executable PHP script for this example </samples/Orchestration/get-resource-type-template.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/get-resource-type-template.php>`_

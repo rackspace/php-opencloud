@@ -31,7 +31,7 @@ file, you can validate it as shown in the following example:
       // Use $e->getMessage() for explanation of why template is invalid
   }
 
-`Get the executable PHP script for this example </samples/Orchestration/validate-template-from-template-url.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/validate-template-from-template-url.php>`_
 
 Validate Template from URL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,4 +52,4 @@ following example:
       // Use $e->getMessage() for explanation of why template is invalid
   }
 
-`Get the executable PHP script for this example </samples/Orchestration/validate-template-from-template-url.php>`_
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Orchestration/validate-template-from-template-url.php>`_
