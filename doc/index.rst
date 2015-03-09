@@ -26,9 +26,9 @@ This assumes your application's PHP files are located in the same folder as
 ``vendor/``. If your files are located elsewhere, please supply the path to
 ``vendor/autoload.php`` in the require statement above.
 
-Read the `OpenStack Getting Started guide <getting-started-with-openstack.html>`_
-or `Rackspace Getting Started guide <getting-started-with-rackspace.html>`_ to help
-you get started with basic Compute operations.
+Read the :doc:`getting-started-with-openstack` or
+:doc:`getting-started-with-rackspace` to help you get started with basic
+Compute operations.
 
 Services
 --------

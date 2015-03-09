@@ -36,6 +36,7 @@ This call lists the global roles available within a specified service.
      // ...
   }
 
+
 Get role
 --------
 
