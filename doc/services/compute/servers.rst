@@ -49,6 +49,9 @@ URL parameters for filtering servers
 | RAX-SI:image_schedule    | If scheduled images enabled or not. If the value is TRUE, the list contains all servers that have an image schedule resource set on them. If the value is set to FALSE, the list contains all servers that do not have an image schedule.                                                                          | bool                                            |
 +--------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------+
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/list_servers.php>`_
+
+
 Create server
 -------------
 
@@ -59,18 +62,21 @@ Now we're ready to create our instance:
 
 .. code-block:: php
 
-    $server = $compute->server();
+  $server = $compute->server();
 
-    $server->create(array(
-        'name'     => 'My lovely server',
-        'imageId'  => '{imageId}',
-        'flavorId' => '{flavorId}',
-    ));
+  $server->create(array(
+      'name'     => 'My lovely server',
+      'imageId'  => '{imageId}',
+      'flavorId' => '{flavorId}',
+  ));
 
 It's always best to be defensive when executing functionality over HTTP;
 you can achieve this best by wrapping calls in a try/catch block. It
 allows you to debug your failed operations in a graceful and efficient
 manner.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/create_server.php>`_
+
 
 Using a bootable volume
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,6 +103,9 @@ It's always best to be defensive when executing functionality over HTTP;
 you can achieve this best by wrapping calls in a try/catch block. It
 allows you to debug your failed operations in a graceful and efficient
 manner.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/create_server_with_bootable_volume.php>`_
+
 
 Create parameters
 ~~~~~~~~~~~~~~~~~
@@ -146,6 +155,8 @@ as usual, with one extra parameter:
 So, as you can see, you specify the **name** of an existing keypair that
 you previously created on the API.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/create_server_with_keypair.php>`_
+
 
 Creating a server with personality files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -176,6 +187,10 @@ attributes are detailed in the next section.
      'name' => 'NEW SERVER NAME'
   ));
 
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/update_server.php>`_
+
+
 Updatable attributes
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -195,3 +210,5 @@ Delete server
 .. code-block:: php
 
   $server->delete();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/delete_server.php>`_

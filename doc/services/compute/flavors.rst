@@ -20,6 +20,8 @@ List flavors
       /** @param $flavor OpenCloud\Common\Resource\FlavorInterface */
   }
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/list_flavors.php>`_
+
 
 Detailed results
 ~~~~~~~~~~~~~~~~

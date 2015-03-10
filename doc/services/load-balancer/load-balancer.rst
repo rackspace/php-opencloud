@@ -51,9 +51,11 @@ port number, before submitting to the API:
 For a full list of available `protocols <#protocols>`_ and `algorithms <#algorithms>`_
 please see the sections below.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/LoadBalancer/create-lb.php>`_
 
-List Load Balancer Details
---------------------------
+
+Get Load Balancer Details
+-------------------------
 
 You can retrieve a single load balancer's details by using its ID:
 
@@ -64,7 +66,7 @@ You can retrieve a single load balancer's details by using its ID:
 
 
 List Load Balancers
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 You can retrieve a list of all your load balancers:
 
@@ -75,6 +77,8 @@ You can retrieve a list of all your load balancers:
   foreach ($loadBalancers as $loadBalancer) {
       /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
   }
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/LoadBalancer/list-load-balancers.php>`_
 
 
 Update a Load Balancer
@@ -121,6 +125,8 @@ When you no longer have a need for the load balancer, you can remove it:
 
   $loadBalancer->delete();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/LoadBalancer/delete-lb.php>`_
+
 
 Protocols
 ---------
@@ -159,7 +165,7 @@ You can programmatically list all supported load balancing algorithms:
 .. code-block:: php
 
   $algorithms = $service->algorithmList();
-  
+
   foreach ($algorithms as $algorithm) {
       /** @var $algorithm OpenCloud\LoadBalancer\Resource\Algorithm **/
   }

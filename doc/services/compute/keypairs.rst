@@ -21,6 +21,8 @@ value is automatically generated for you.
   $pubKey = $keypair->getPublicKey();
   $priKey = $keypair->getPrivateKey();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/create_new_keypair.php>`_
+
 
 Upload existing keypair
 -----------------------
@@ -40,6 +42,9 @@ filesystem.
      'name'      => 'main_key',
      'publicKey' => $content
   ));
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/upload_existing_keypair.php>`_
+
 
 List keypairs
 -------------

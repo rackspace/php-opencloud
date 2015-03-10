@@ -50,6 +50,8 @@ Posting a single message
       'ttl'  => 2 * Datetime::DAY
   ));
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Queues/add-message.php>`_
+
 
 Post a batch of messages
 ~~~~~~~~~~~~~~~~~~~~~~~~
