@@ -43,6 +43,8 @@ its path:
 The resource handle will be automatically closed by Guzzle in its destructor,
 so there is no need to execute ``fclose``.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-object.php>`_
+
 
 Upload a single file (under 5GB) with metadata
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,6 +82,8 @@ file handle resource, or a string representation of object content (a temporary
 resource will be created in memory), and the third is an array of additional
 headers.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-object-with-metadata.php>`_
+
 
 Batch upload multiple files (each under 5GB)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,6 +111,8 @@ As you can see, the ``name`` key is required for every file. You must
 also specify *either* a path key (to an existing file), or a ``body``.
 The ``body`` can either be a PHP resource or a string representation of
 the content you want to upload.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-multiple-objects-with-metadata.php>`_
 
 
 Upload large files (over 5GB)
@@ -142,6 +148,8 @@ In Swift terminology, the name for this process is *Dynamic Large Object (DLO)*.
 To find out more details, please consult the `official documentation
 <http://docs.rackspace.com/files/api/v1/cf-devguide/content/Large_Object_Creation-d1e2019.html>`_.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-large-object.php>`_
+
 
 List objects in a container
 ---------------------------
@@ -165,6 +173,8 @@ docs <http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-ob
 .. code-block:: php
 
   $container->objectList(array('prefix' => 'logFile_'));
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-objects.php>`_
 
 
 Get object
@@ -313,6 +323,8 @@ destination path:
 Where ``container_2`` is the name of the container, and ``new_object_name`` is
 the name of the object inside the container that does not exist yet.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/copy-object.php>`_
+
 
 Get object metadata
 -------------------
@@ -345,6 +357,8 @@ You can also update to get the latest metadata:
 .. code-block:: php
 
   $object->retrieveMetadata();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-object-metadata.php>`_
 
 
 Update object metadata
@@ -386,6 +400,8 @@ you want to append values to your metadata, use the correct method:
 
   $object->saveMetadata($metadata);
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/update-object-metadata.php>`_
+
 
 Extract archive
 ---------------
@@ -406,6 +422,8 @@ the first argument). If you do this, the API will create the containers
 necessary to house the extracted files - this is done based on the
 filenames inside the archive.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/auto-extract-archive-files.php>`_
+
 
 Delete object
 -------------
@@ -413,6 +431,8 @@ Delete object
 .. code-block:: php
 
   $object->delete();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-object.php>`_
 
 
 Delete multiple objects
@@ -425,3 +445,5 @@ Bulk delete a set of paths:
   $pathsToBeDeleted = array('/container_1/old_file', '/container_2/notes.txt', '/container_1/older_file.log');
 
   $service->bulkDelete($pathsToBeDeleted);
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/bulk-delete.php>`_
