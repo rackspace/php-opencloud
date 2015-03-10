@@ -19,6 +19,9 @@ parameters are optional:
       'display_description' => 'Used for large object storage'
   ));
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Volume/create-volume.php>`_
+
+
 List volumes
 ------------
 
@@ -29,6 +32,8 @@ List volumes
   foreach ($volumes as $volume) {
       /** @param $volumeType OpenCloud\Volume\Resource\Volume */
   }
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Volume/list-volumes.php>`_
 
 
 Get details on a single volume
@@ -42,6 +47,8 @@ information on the specified volume:
   $volume = $dallas->volume('<volume_id>');
   echo $volume->size;
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Volume/get-volume.php>`_
+
 
 To delete a volume
 ------------------
@@ -49,6 +56,8 @@ To delete a volume
 .. code-block:: php
 
   $volume->delete();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Volume/delete-volume.php>`_
 
 
 Attach a volume to a server

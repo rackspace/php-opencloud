@@ -23,6 +23,11 @@ in a global state:
 The string argument of ``setTempUrlSecret()`` is optional - if left out,
 the SDK will generate a random hashed secret for you.
 
+Get the executable PHP script for this example:
+
+* `Specify a URL secret <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/set-account-temp-url-secret-specified.php>`_
+* `Generate random URL secret <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/set-account-temp-url-secret.php>`_
+
 
 Create a temporary URL
 ----------------------
@@ -32,14 +37,16 @@ your object. To allow GET access to your object for 1 minute:
 
 .. code-block:: php
 
-    $object->getTemporaryUrl(60, 'GET');
+  $object->getTemporaryUrl(60, 'GET');
 
 
 To allow PUT access for 1 hour:
 
 .. code-block:: php
 
-    $object->getTemporaryUrl(360, 'PUT');
+  $object->getTemporaryUrl(360, 'PUT');
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/create-object-temporary-url.php>`_
 
 
 Hosting HTML sites on CDN

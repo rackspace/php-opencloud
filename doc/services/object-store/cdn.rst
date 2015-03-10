@@ -29,6 +29,8 @@ execute the method on:
     /** @var $cdnContainer OpenCloud\ObjectStore\Resource\CDNContainer */
   }
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-cdn-containers.php>`_
+
 
 CDN-enable a container
 ----------------------
@@ -47,6 +49,8 @@ refetches and caches the object for the TTL period.
 
   $container->enableCdn();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/enable-container-cdn.php>`_
+
 
 CDN-disable a container
 -----------------------
@@ -54,6 +58,8 @@ CDN-disable a container
 .. code-block:: php
 
   $container->disableCdn();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/disable-container-cdn.php>`_
 
 
 Operations on CDN-enabled containers

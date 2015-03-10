@@ -67,6 +67,8 @@ limit parameter is optional.
       'ttl'   => 5 * Datetime::MINUTE
   ));
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Queues/claim-messages.php>`_
+
 
 Query claim
 -----------

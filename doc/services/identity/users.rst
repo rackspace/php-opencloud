@@ -34,6 +34,8 @@ List users
      // ...
   }
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/list_users.php>`_
+
 
 Retrieve a user by username
 ---------------------------
@@ -41,6 +43,8 @@ Retrieve a user by username
 .. code-block:: php
 
   $user = $service->getUser('jamie');
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/get_user_by_name.php>`_
 
 
 Retrieve a user by user ID
@@ -52,6 +56,8 @@ Retrieve a user by user ID
 
   $user = $service->getUser('{userId}', UserConst::MODE_ID);
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/get_user_by_id.php>`_
+
 
 Retrieve a user by email address
 --------------------------------
@@ -61,6 +67,8 @@ Retrieve a user by email address
   use OpenCloud\Identity\Constants\User as UserConst;
 
   $user = $service->getUser('{emailAddress}', UserConst::MODE_EMAIL);
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/get_user_by_email.php>`_
 
 
 Create user
@@ -98,6 +106,8 @@ automatically generated and provided in the response.
   // show generated password
   echo $user->getPassword();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/add_user.php>`_
+
 
 Update user
 -----------
@@ -129,6 +139,8 @@ Delete user
 
   $user->delete();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/delete_user.php>`_
+
 
 List credentials
 ----------------
@@ -159,3 +171,5 @@ you:
 
   $user->resetApiKey();
   echo $user->getApiKey();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Identity/reset_api_key.php>`_
