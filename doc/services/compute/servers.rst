@@ -204,6 +204,42 @@ Updatable attributes
 | accessIPv6   | The IP version 6 address.                                                                                                                        |
 +--------------+--------------------------------------------------------------------------------------------------------------------------------------------------+
 
+
+Updating the access IP address(es)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For example, you may have a private cloud with internal addresses in the
+10.1.x range. However, you can access a server via a firewall device at
+address 50.57.94.244. In this case, you can change the ``accessIPv4``
+attribute to point to the firewall:
+
+.. code-block:: php
+
+  $server->update(array('accessIPv4' => '50.57.94.244'));
+
+When a client application retrieves the server’s information, it will
+know that it needs to use the ``accessIPv4`` address to connect to the
+server, and *not* the IP address assigned to one of the network
+interfaces.
+
+
+Retrieving the server’s IP address
+----------------------------------
+
+The ``Server::ip()`` method is used to retrieve the server’s IP address.
+It has one optional parameter: the format (either IPv4 or IPv6) of the
+address to return (by default, it returns the IPv4 address):
+
+.. code-block:: php
+
+  // IPv4
+  echo $server->ip();
+  echo $server->ip(4);
+
+  // IPv6
+  echo $server->ip(6);
+
+
 Delete server
 -------------
 
