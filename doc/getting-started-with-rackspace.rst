@@ -138,7 +138,7 @@ Okay, you're ready to spin up a server:
 
 .. code-block:: php
 
-use Guzzle\Http\Exception\BadResponseException;
+  use Guzzle\Http\Exception\BadResponseException;
 
   $server = $compute->server();
 
