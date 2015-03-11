@@ -272,6 +272,30 @@ class Networking extends AbstractUnit implements UnitInterface
         $securityGroup = $this->getService()->getSecurityGroup($securityGroup->getId());
         $this->stepInfo('Security Group ID: ' . $securityGroup->getId());
         $this->stepInfo('Security Group Name: ' . $securityGroup->getName());
+
+        $network1 = $this->getService()->createNetwork(array(
+            'name' => 'test_network_for_test_port_sg'
+        ));
+        $this->cleanupNetworkIds[] = $network1->getId();
+
+        $subnet1 = $this->getService()->createSubnet(array(
+            'cidr'      => '192.165.66.0/25',
+            'networkId' => $network1->getId(),
+            'ipVersion'  => 4,
+            'name'      => 'test_subnet_for_test_port_sg'
+        ));
+        $this->cleanupSubnetIds[] = $subnet1->getId();
+
+        $port1 = $this->getService()->createPort(array(
+            'networkId' => $network1->getId(),
+            'name'      => 'test_port_for_test_port_sg'
+        ));
+        $this->cleanupPortIds[] = $port1->getId();
+
+        $this->step('Apply security group to port');
+        $port1->update(array(
+            'securityGroups' => array($securityGroup->getId())
+        ));
     }
 
     protected function testSecurityGroupRuleOperations()
