@@ -29,6 +29,8 @@ Retrieve total container count
 
   $account->getContainerCount();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-account-container-count.php>`_
+
 
 Retrieve total object count
 ---------------------
@@ -37,6 +39,8 @@ Retrieve total object count
 
   $account->getObjectCount();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-account-object-count.php>`_
+
 
 Retrieve total bytes used
 -------------------------
@@ -44,3 +48,5 @@ Retrieve total bytes used
 .. code-block:: php
 
   $account->getBytesUsed();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-account-bytes-used.php>`_

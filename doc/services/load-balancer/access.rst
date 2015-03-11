@@ -68,6 +68,11 @@ You can add network items to a load balancer's access list very easily:
 In the above example, we allowed access for 1 IP address, and used the
 "0.0.0.0" wildcard to blacklist all other traffic.
 
+Get the executable PHP scripts for this example:
+
+* `Blacklist IP range <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/LoadBalancer/blacklist-ip-range.php>`_
+* `Limit access to 1 IP <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/LoadBalancer/limit-access-to-1-ip.php>`_
+
 
 Remove Network Item From Access List
 ------------------------------------
@@ -76,4 +81,4 @@ You an remove a network item from a load balancer's access list:
 
 .. code-block:: php
 
-    $networkItem->delete();
+  $networkItem->delete();

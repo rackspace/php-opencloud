@@ -43,6 +43,8 @@ For a full list, with explanations, of required and optional attributes,
 please consult the `official
 documentation <http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/SSLTermination-d1e2479.html>`__
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/LoadBalancer/ssl-termination.php>`_
+
 
 Delete configuration
 --------------------

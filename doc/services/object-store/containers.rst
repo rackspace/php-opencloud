@@ -22,6 +22,9 @@ Forward slashes are not currently permitted.
   (such as spaces or non-English characters), you must ensure they are encoded
   with `urlencode <http://php.net/urlencode>`_ before passing them in
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/create-container.php>`_
+
+
 List containers
 ---------------
 
@@ -41,6 +44,8 @@ memcmp() function, regardless of text encoding.
 
 The list is limited to 10,000 containers at a time. To work with larger
 collections, please read the next section.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-containers.php>`_
 
 
 Filtering large collections
@@ -82,6 +87,8 @@ To retrieve a certain container:
   /** @param $container OpenCloud\ObjectStore\Resource\Container */
   $container = $service->getContainer('{containerName}');
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container.php>`_
+
 
 Retrieve a container's name
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,6 +105,8 @@ Retrieve a container's object count
 
   $count = $container->getObjectCount();
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-object-count.php>`_
+
 
 Retrieve a container's total bytes used
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -105,6 +114,8 @@ Retrieve a container's total bytes used
 .. code-block:: php
 
   $bytes = $container->getBytesUsed();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-bytes-used.php>`_
 
 
 Delete container
@@ -129,6 +140,8 @@ before deleting it. This is done for you if you set the
 You can also `delete all objects <#deleting-all-objects-inside-a-container>`_
 first, and then call ``delete``.
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-container.php>`_
+
 
 Deleting all objects inside a container
 ---------------------------------------
@@ -136,6 +149,8 @@ Deleting all objects inside a container
 .. code-block:: php
 
   $container->deleteAllObjects();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-container-recursive.php>`_
 
 
 Create or update container metadata
@@ -157,6 +172,8 @@ to the current metadata:
   $metadata = $container->appendToMetadata(array(
       'Publisher' => 'Hogarth'
   ));
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/set-container-metadata.php>`_
 
 
 Container quotas
@@ -183,6 +200,11 @@ And to retrieve them:
 
   echo $container->getCountQuota();
   echo $container->getBytesQuota();
+
+Get the executable PHP scripts for this example:
+
+* `Set bytes quota <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-bytes-quota.php>`_
+* `Set count quota <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-container-count-quota.php>`_
 
 
 Access log delivery

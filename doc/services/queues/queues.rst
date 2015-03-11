@@ -64,6 +64,8 @@ digits, underscores, and hyphens.
 
   $queue = $service->createQueue('new_queue');
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Queues/create-queue.php>`_
+
 
 Find queue details
 ------------------
@@ -122,3 +124,12 @@ in the queue, categorized by status.
 .. code-block:: php
 
   $queue->getStats();
+
+Delete queue
+------------
+
+.. code-block:: php
+
+  $queue->delete();
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Queues/delete-queue.php>`_

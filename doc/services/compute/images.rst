@@ -23,6 +23,9 @@ Below is the simplest usage for retrieving a list of images:
 
   }
 
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Compute/list_images.php>`_
+
+
 Detailed results
 ~~~~~~~~~~~~~~~~
 
