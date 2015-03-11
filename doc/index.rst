@@ -50,6 +50,9 @@ Usage tips
   iterators
   regions
   url-types
+  logging
+  http-clients
+  auth
 
 Help and support
 ----------------
