@@ -48,9 +48,20 @@ In this case, we want to use the Nova service:
 $compute = $client->computeService('nova', 'regionOne');
 ```
 
-The first argument is the __name__ of the service as it appears in the OpenStack service catalog. If in doubt, you can
-leave blank and it will revert to the default name for the service. The second argument is the region. The third and
-last argument is the type of URL; you may use either `publicURL` or `internalURL`.
+The first argument is the __name__ of the service as it appears in the OpenStack service catalog. For OpenStack users, this must be retrieved and entered in your code. If you are unsure how to retrieve the service name, follow these steps:
+
+1. Setup the `$client` object, as above
+2. Copy and run this code:
+
+   ```php
+   $client->authenticate();
+
+   print_r($client->getCatalog()->getItems());
+   ``` 
+
+3. This will output all the items in your service catalog. Go through the outputted list and find your service, making note of the "name" field. This is the name you will need to enter as the first argument. You will also be able to see the available regions.
+
+The second argument is the region. The third and last argument is the type of URL; you may use either `publicURL` or `internalURL`.
 
 ### 3. Select your server image
 
@@ -187,4 +198,4 @@ $server->delete();
 Consult our [documentation](https://github.com/rackspace/php-opencloud/tree/master/docs/userguide) about other services
 you can use, like [Keystone](https://github.com/rackspace/php-opencloud/tree/master/docs/userguide/Identity) or
 [Swift](https://github.com/rackspace/php-opencloud/tree/master/docs/userguide/ObjectStore). If you have any questions or
-troubles, feel free to e-mail sdk-support@rackspace.com or open a Github issue with details.
+troubles, feel free to contact us at https://developer.rackspace.com/support/ or open a Github issue with details.

@@ -85,4 +85,12 @@ class LoggerTest extends PHPUnit_Framework_TestCase
 
         $this->logger->emergency('Can anyone see this?');
     }
+
+    public function testDeprecationMessage()
+    {
+        $this->assertEquals(
+            'The OpenCloud\Tests\Common\Log\LoggerTest::testDeprecationMessage method is deprecated, please use testMethod instead',
+            $this->logger->deprecated(__METHOD__, 'testMethod')
+        );
+    }
 }

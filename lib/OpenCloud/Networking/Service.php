@@ -22,6 +22,8 @@ use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Networking\Resource\Network;
 use OpenCloud\Networking\Resource\Subnet;
 use OpenCloud\Networking\Resource\Port;
+use OpenCloud\Networking\Resource\SecurityGroup;
+use OpenCloud\Networking\Resource\SecurityGroupRule;
 
 /**
  * The Networking class represents the OpenNetwork Neutron service.
@@ -49,8 +51,10 @@ class Service extends CatalogService
     /**
      * Creates a new Network and returns it.
      *
-     * @param array $params Network creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-network
+     * @param array $params Network creation parameters.
      * @return \OpenCloud\Networking\Resource\Network Object representing created network
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-network
      */
     public function createNetwork(array $params = array())
     {
@@ -134,8 +138,10 @@ class Service extends CatalogService
     /**
      * Creates a new Subnet and returns it.
      *
-     * @param array $params Subnet creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-subnet
+     * @param array $params Subnet creation parameters.
      * @return \OpenCloud\Networking\Resource\Subnet Object representing created subnet
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-subnet
      */
     public function createSubnet(array $params = array())
     {
@@ -219,8 +225,10 @@ class Service extends CatalogService
     /**
      * Creates a new Port and returns it.
      *
-     * @param array $params Port creation parameters. @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-port
+     * @param array $params Port creation parameters.
      * @return \OpenCloud\Networking\Resource\Port Object representing created port
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-port
      */
     public function createPort(array $params = array())
     {
@@ -288,6 +296,108 @@ class Service extends CatalogService
         $url->addPath(Port::resourceName())->setQuery($params);
 
         return $this->resourceList('Port', $url);
+    }
+
+    /**
+     * Returns a SecurityGroup object associated with this Networking service
+     *
+     * @param string $id ID of security group to retrieve
+     * @return \OpenCloud\Networking\Resource\SecurityGroup object
+     */
+    public function securityGroup($id = null)
+    {
+        return $this->resource('SecurityGroup', $id);
+    }
+
+    /**
+     * Creates a new SecurityGroup and returns it.
+     *
+     * @param array $params SecurityGroup creation parameters.
+     * @return \OpenCloud\Networking\Resource\SecurityGroup Object representing created security group
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-security-group
+     */
+    public function createSecurityGroup(array $params = array())
+    {
+        $securityGroup = $this->securityGroup();
+        $securityGroup->create($params);
+        return $securityGroup;
+    }
+
+    /**
+     * Returns a SecurityGroup object associated with this Networking service
+     *
+     * @param string $id ID of security group to retrieve
+     * @return \OpenCloud\Networking\Resource\SecurityGroup object
+     */
+    public function getSecurityGroup($id)
+    {
+        return $this->securityGroup($id);
+    }
+
+    /**
+     * Returns a list of security groups you created
+     *
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function listSecurityGroups(array $params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath(SecurityGroup::resourceName())->setQuery($params);
+
+        return $this->resourceList('SecurityGroup', $url);
+    }
+
+    /**
+     * Returns a SecurityGroupRule object associated with this Networking service
+     *
+     * @param string $id ID of security group rule to retrieve
+     * @return \OpenCloud\Networking\Resource\SecurityGroupRule object
+     */
+    public function securityGroupRule($id = null)
+    {
+        return $this->resource('SecurityGroupRule', $id);
+    }
+
+    /**
+     * Creates a new SecurityGroupRule and returns it.
+     *
+     * @param array $params SecurityGroupRule creation parameters.
+     * @return \OpenCloud\Networking\Resource\SecurityGroupRule Object representing created security group rule
+     *
+     * @see https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/Networking/USERGUIDE.md#create-a-security-group-rule
+     */
+    public function createSecurityGroupRule(array $params = array())
+    {
+        $securityGroupRule = $this->securityGroupRule();
+        $securityGroupRule->create($params);
+        return $securityGroupRule;
+    }
+
+    /**
+     * Returns a SecurityGroupRule object associated with this Networking service
+     *
+     * @param string $id ID of security group rule to retrieve
+     * @return \OpenCloud\Networking\Resource\SecurityGroupRule object
+     */
+    public function getSecurityGroupRule($id)
+    {
+        return $this->securityGroupRule($id);
+    }
+
+    /**
+     * Returns a list of security group rules you created
+     *
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function listSecurityGroupRules(array $params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath(SecurityGroupRule::resourceName())->setQuery($params);
+
+        return $this->resourceList('SecurityGroupRule', $url);
     }
 
     /**

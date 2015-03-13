@@ -13,6 +13,11 @@
         {
             "name": "Glen Campbell",
             "email": "glen.campbell@rackspace.com"
+        },
+        {
+            "name": "Shaunak Kashyap",
+            "email": "shaunak.kashyap@rackspace.com",
+            "homepage": "https://github.com/ycombinator"
         }
     ],
     "autoload": {
@@ -22,14 +27,14 @@
     },
     "require": {
         "php" : ">=5.3.3",
-        "guzzle/http" : "~3.8",
+        "guzzle/guzzle" : "~3.8",
         "psr/log": "~1.0"
     },
     "require-dev" : {
         "phpunit/phpunit": "4.3.*",
-        "guzzle/guzzle": "~3.8",
         "satooshi/php-coveralls": "0.6.*@dev",
         "jakub-onderka/php-parallel-lint": "0.*",
-        "fabpot/php-cs-fixer": "1.0.*@dev"
+        "fabpot/php-cs-fixer": "1.0.*@dev",
+        "apigen/apigen": "~2.8"
     }
 }

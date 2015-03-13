@@ -57,9 +57,7 @@ class Network extends PersistentResource implements NetworkInterface
     );
 
     protected $updateKeys = array(
-        'adminStateUp',
-        'name',
-        'shared'
+        'name'
     );
 
     /**

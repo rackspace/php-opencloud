@@ -21,7 +21,16 @@ $cdn = $container->getCdn();
 ## List CDN-enabled container
 
 To list CDN-only containers, follow the same operation for Storage which lists all containers. The only difference is
-which service object you execute the method on.
+which service object you execute the method on:
+
+```php
+$cdnService = $service->getCdnService();
+$cdnContainers = $cdnService->listContainers();
+
+foreach ($cdnContainers as $cdnContainer) {
+
+}
+```
 
 ## CDN-enable and -disable a container
 

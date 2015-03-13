@@ -17,7 +17,9 @@
 
 namespace OpenCloud\LoadBalancer;
 
+use OpenCloud\Common\Log\Logger;
 use OpenCloud\Common\Service\NovaService;
+use OpenCloud\LoadBalancer\Collection\LoadBalancerIterator;
 
 /**
  * Class that encapsulates the Rackspace Cloud Load Balancers service
@@ -50,11 +52,20 @@ class Service extends NovaService
      */
     public function loadBalancerList($detail = true, array $filter = array())
     {
+        $options = $this->makeResourceIteratorOptions($this->resolveResourceClass('LoadBalancer'));
+
+        if (isset($filter['limit'])) {
+            $options['limit.page'] = $filter['limit'];
+            unset($filter['limit']);
+        }
+
         $url = $this->getUrl();
         $url->addPath(Resource\LoadBalancer::resourceName());
         $url->setQuery($filter);
 
-        return $this->resourceList('LoadBalancer', $url);
+        $options = array_merge($options, array('baseUrl' => $url, 'key.marker' => 'id'));
+
+        return LoadBalancerIterator::factory($this, $options);
     }
 
     /**
@@ -62,7 +73,7 @@ class Service extends NovaService
      */
     public function billableLoadBalancer($id = null)
     {
-        $this->getLogger()->deprecated(__METHOD__, 'loadBalancer');
+        $this->getLogger()->warning(Logger::deprecated(__METHOD__, 'loadBalancer'));
 
         return $this->resource('LoadBalancer', $id);
     }

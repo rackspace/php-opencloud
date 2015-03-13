@@ -223,7 +223,7 @@ class ResourceIterator extends ArrayCollection implements Iterator
      */
     public function first()
     {
-        Logger::newInstance()->deprecated(__METHOD__, 'getElement');
+        Logger::newInstance()->warning(Logger::deprecated(__METHOD__, 'getElement'));
 
         return $this->getElement(0);
     }

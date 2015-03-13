@@ -17,7 +17,15 @@ efforts. Here are a few general guidelines to follow:
    minor typographical error, create a description which explains your changes
    and, where relevant, references the existing issue you're hoping to fix.
 
-5. Document your code!
+5. If your pull request introduces a large change or addition, please consider
+   creating a work-in-progress (WIP) pull request. This lets us review your changes
+   and provide feedback early and often rather than all at once when the entire pull
+   request is ready. To denote a pull request as WIP, simply add the "PR: Work In Progress"
+   label to it. When you are finished with your work in the pull request and
+   are ready for a final review and merge, please remove the "PR: Work In Progress"
+   label.
+
+6. Document your code!
 
 If you submit code, please add your name and email address to the
 CONTRIBUTORS file.

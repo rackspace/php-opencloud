@@ -27,15 +27,13 @@
 
 namespace OpenCloud\Tests\LoadBalancer;
 
-class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
+use Guzzle\Http\Message\Response;
+use Guzzle\Plugin\Mock\MockPlugin;
+use OpenCloud\Rackspace;
+use OpenCloud\Tests\MockSubscriber;
+
+class ServiceTest extends LoadBalancerTestCase
 {
-    private $service;
-
-    public function setupObjects()
-    {
-        $this->service = $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW', 'publicURL');
-    }
-
     public function test__construct()
     {
         $this->assertInstanceOf(
@@ -52,12 +50,36 @@ class ServiceTest extends \OpenCloud\Tests\OpenCloudTestCase
         );
     }
 
-    public function testLoadBalancerList()
+    public function test_Listing_Load_Balancers()
     {
-        $this->assertInstanceOf(
-            self::COLLECTION_CLASS,
-            $this->service->loadBalancerList()
-        );
+        // Load JSON HTTP data
+        $authData = file_get_contents($this->getTestFilePath('Auth', './'));
+        $data1 = file_get_contents($this->getTestFilePath('LoadBalancers1'));
+        $data2 = file_get_contents($this->getTestFilePath('LoadBalancers2'));
+        $data3 = file_get_contents($this->getTestFilePath('LoadBalancers3'));
+
+        // Populate mock response queue
+        $mock = new MockPlugin();
+        $mock->addResponse(Response::fromMessage($authData))
+            ->addResponse(Response::fromMessage($data1))
+            ->addResponse(Response::fromMessage($data2))
+            ->addResponse(Response::fromMessage($data3));
+
+        // We need to define our own setup because *jazz hands*
+        $client = $this->newClient();
+        $client->addSubscriber($mock);
+        $service = $client->loadBalancerService(null, 'IAD');
+
+        // Ensure that a series of paginated calls return a holistic collection
+        $lbs = $service->loadBalancerList(false, array('limit' => 2));
+        $ids = array();
+        foreach ($lbs as $lb) {
+            $ids[] = $lb->id;
+        }
+
+        // Check our assumptions
+        $this->isCollection($lbs);
+        $this->assertEquals($ids, array(1, 2, 3, 4, 5));
     }
 
     public function testBillableLoadBalancer()
