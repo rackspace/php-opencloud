@@ -74,7 +74,7 @@ class ServiceTest extends DatabaseTestCase
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->datastoreList());
     }
 
-    public function testClientUsesTLSv1CipherSuite()
+    public function testClientUsesCustomCipherSuite()
     {
         $client = $this->service->getClient();
         $curlOptions = $client->getConfig('curl.options');
