@@ -121,7 +121,7 @@ class Service extends NovaService
         $curlOptions['CURLOPT_SSL_CIPHER_LIST'] = static::getSslCipherList();
         $client->getConfig()->set('curl.options', $curlOptions);
 
-        $logMessage = 'The SDK is using the TLSv1 cipher suite when connecting '
+        $logMessage = 'The SDK is using a custom cipher suite when connecting '
                     . 'to the Rackspace Cloud Databases service. This suite contains '
                     . 'a weak cipher (RC4) so please use at your own risk. See '
                     . 'https://github.com/rackspace/php-opencloud/issues/560 for details.';
