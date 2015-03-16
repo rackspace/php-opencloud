@@ -130,6 +130,9 @@ class Service extends NovaService
         $this->client = $client;
     }
 
+    /**
+     * @see https://github.com/rackspace/php-opencloud/issues/560#issuecomment-81790778
+     */
     public static function getSslCipherList()
     {
         return 'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:'
