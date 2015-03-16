@@ -118,7 +118,10 @@ class Service extends NovaService
         // cipher. For more information, see https://github.com/rackspace/php-opencloud/issues/560
 
         $curlOptions = $client->getConfig()->get('curl.options');
-        $curlOptions['CURLOPT_SSL_CIPHER_LIST'] = 'TLSv1';
+        $curlOptions['CURLOPT_SSL_CIPHER_LIST'] = 'ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:'
+                                                . 'ECDH+AES128:DH+AES:ECDH+HIGH:DH+HIGH:ECDH+3DES:'
+                                                . 'DH+3DES:RSA+AESGCM:RSA+AES:RSA+HIGH:RSA+3DES:'
+                                                . 'ECDH+RC4:DH+RC4:RSA+RC4:!aNULL:!eNULL:!MD5';
         $client->getConfig()->set('curl.options', $curlOptions);
 
         $logMessage = 'The SDK is using the TLSv1 cipher suite when connecting '
