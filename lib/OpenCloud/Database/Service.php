@@ -18,7 +18,6 @@
 namespace OpenCloud\Database;
 
 use Guzzle\Http\ClientInterface;
-use Psr\Log\LogLevel;
 use OpenCloud\Common\Service\NovaService;
 use OpenCloud\Database\Resource\Instance;
 use OpenCloud\Database\Resource\Configuration;
