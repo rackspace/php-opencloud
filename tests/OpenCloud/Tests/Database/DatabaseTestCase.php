@@ -18,22 +18,7 @@
 namespace OpenCloud\Tests\Database;
 
 use OpenCloud\Tests\OpenCloudTestCase;
-use OpenCloud\Common\Log\Logger;
-
-class UnitTestLogger extends Logger
-{
-    protected $criticalLogMessage;
-
-    public function critical($message, array $context = array())
-    {
-        ++$this->criticalLogMessage;
-    }
-
-    public function getCriticalLogMessage()
-    {
-        return $this->criticalLogMessage;
-    }
-}
+use OpenCloud\Tests\MockLogger;
 
 class DatabaseTestCase extends OpenCloudTestCase
 {
@@ -45,7 +30,7 @@ class DatabaseTestCase extends OpenCloudTestCase
     public function setupObjects()
     {
         $client = $this->getClient();
-        $client->setLogger(new UnitTestLogger());
+        $client->setLogger(new MockLogger());
         $this->service = $client->databaseService();
 
         $this->addMockSubscriber($this->getTestFilePath('Instance'));
