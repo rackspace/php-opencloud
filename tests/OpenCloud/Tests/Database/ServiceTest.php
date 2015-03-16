@@ -27,6 +27,8 @@
 
 namespace OpenCloud\Tests\Database;
 
+use OpenCloud\Database\Service;
+
 class ServiceTest extends DatabaseTestCase
 {
     public function test__construct()
@@ -70,5 +72,13 @@ class ServiceTest extends DatabaseTestCase
     public function testDatastoreList()
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->service->datastoreList());
+    }
+
+    public function testClientUsesCustomCipherSuite()
+    {
+        $client = $this->service->getClient();
+        $curlOptions = $client->getConfig('curl.options');
+        $this->assertEquals(Service::getSslCipherList(), $curlOptions['CURLOPT_SSL_CIPHER_LIST']);
+        $this->assertCriticalMessageWasLogged();
     }
 }
