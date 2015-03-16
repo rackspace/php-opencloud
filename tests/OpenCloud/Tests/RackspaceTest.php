@@ -17,6 +17,8 @@
 
 namespace OpenCloud\Tests;
 
+use OpenCloud\Tests\MockLogger;
+
 class RackspaceTest extends OpenCloudTestCase
 {
     const CREDENTIALS = <<<EOT
@@ -30,10 +32,18 @@ EOT;
 
     public function test_Factory_Methods()
     {
+        // Inject mock logger
+        $oldLogger = $this->getClient()->getLogger();
+        $this->getClient()->setLogger(new MockLogger());
+
         $this->assertInstanceOf(
             'OpenCloud\Database\Service',
             $this->getClient()->databaseService('cloudDatabases', 'DFW')
         );
+
+        // Re-inject old logger
+        $this->getClient()->setLogger($oldLogger);
+
         $this->assertInstanceOf(
             'OpenCloud\LoadBalancer\Service',
             $this->getClient()->loadBalancerService('cloudLoadBalancers', 'DFW')
