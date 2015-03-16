@@ -77,5 +77,6 @@ class ServiceTest extends DatabaseTestCase
         $client = $this->service->getClient();
         $curlOptions = $client->getConfig('curl.options');
         $this->assertEquals(CURL_SSLVERSION_TLSv1, $curlOptions['CURLOPT_SSL_CIPHER_LIST']);
+        $this->assertCriticalMessageWasLogged();
     }
 }
