@@ -17,6 +17,8 @@
 
 namespace OpenCloud\Database;
 
+use Guzzle\Http\ClientInterface;
+use Psr\Log\LogLevel;
 use OpenCloud\Common\Service\NovaService;
 use OpenCloud\Database\Resource\Instance;
 use OpenCloud\Database\Resource\Configuration;
@@ -103,5 +105,25 @@ class Service extends NovaService
         $url->addPath(Datastore::resourceName())->setQuery($params);
 
         return $this->resourceList('Datastore', $url);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setClient(ClientInterface $client)
+    {
+        // The Rackspace Cloud Databases service only supports the
+        // RC4 SSL cipher which is not supported by modern OpenSSL clients.
+        // Until the service can support additional, more modern and secure
+        // ciphers, this SDK has to ask curl to allow using the weaker
+        // cipher. For more information, see https://github.com/rackspace/php-opencloud/issues/560
+
+        $curlOptions = $client->getConfig()->get('curl.options');
+        $curlOptions['CURLOPT_SSL_CIPHER_LIST'] = CURL_SSLVERSION_TLSv1;
+        $client->getConfig()->set('curl.options', $curlOptions);
+
+        $client->getLogger()->critical('The SDK is using the TLSv1 cipher suite when connecting to the Rackspace Cloud Databases service. This suite contains a weak cipher (RC4) so please use at your own risk. See https://github.com/rackspace/php-opencloud/issues/560 for details.');
+
+        $this->client = $client;
     }
 }
