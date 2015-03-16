@@ -27,6 +27,8 @@
 
 namespace OpenCloud\Tests\Database;
 
+use OpenCloud\Database\Service;
+
 class ServiceTest extends DatabaseTestCase
 {
     public function test__construct()
@@ -76,7 +78,7 @@ class ServiceTest extends DatabaseTestCase
     {
         $client = $this->service->getClient();
         $curlOptions = $client->getConfig('curl.options');
-        $this->assertEquals(CURL_SSLVERSION_TLSv1, $curlOptions['CURLOPT_SSL_CIPHER_LIST']);
+        $this->assertEquals(Service::SSL_CIPHER_LIST, $curlOptions['CURLOPT_SSL_CIPHER_LIST']);
         $this->assertCriticalMessageWasLogged();
     }
 }
