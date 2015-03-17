@@ -1,11 +1,5 @@
 # DNS Service
 
-To instantiate a Compute service object, you first need to setup a
-Rackspace/OpenStack client. To do this, or for more information, please consult
-the [Clients documentation](../Clients.md).
+Our docs have moved! Please visit the below link:
 
-You will then need to run:
-
-```php
-$service = $client->dnsService();
-```
+http://docs.php-opencloud.com/en/latest/services/dns/index.html
