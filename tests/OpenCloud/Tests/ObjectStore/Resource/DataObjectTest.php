@@ -101,4 +101,21 @@ class DataObjectTest extends ObjectStoreTestCase
         $this->assertNotNull($object->getPublicUrl(UrlType::STREAMING));
         $this->assertNotNull($object->getPublicUrl(UrlType::IOS_STREAMING));
     }
+    
+    public function test_Symlink()
+    {
+        $object = $this->container->dataObject('foobar');
+        $this->assertInstanceOf(
+            'Guzzle\Http\Message\Response',
+            $object->symlink('/new_container/new_object')
+        );
+    }
+    
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\NoNameError
+     */
+    public function test_Symlink_Fails()
+    {
+        $this->container->dataObject()->symlink(null);
+    }
 }

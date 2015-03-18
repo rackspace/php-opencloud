@@ -76,6 +76,11 @@ class DataObject extends AbstractResource
      * @var string Etag.
      */
     protected $etag;
+    
+    /**
+     * @var string Manifest. Can be null so we use false to mean unset.
+     */
+    protected $manifest = false;
 
     /**
      * Also need to set Container parent and handle pseudo-directories.
@@ -139,7 +144,9 @@ class DataObject extends AbstractResource
             ->setContentType((string) $headers[HeaderConst::CONTENT_TYPE])
             ->setLastModified((string) $headers[HeaderConst::LAST_MODIFIED])
             ->setContentLength((string) $headers[HeaderConst::CONTENT_LENGTH])
-            ->setEtag((string) $headers[HeaderConst::ETAG]);
+            ->setEtag((string) $headers[HeaderConst::ETAG])
+            // do not cast to a string to allow for null (i.e. no header)
+            ->setManifest($headers[HeaderConst::X_OBJECT_MANIFEST]);
     }
 
     public function refresh()
@@ -293,6 +300,26 @@ class DataObject extends AbstractResource
     {
         return $this->etag ? : $this->content->getContentMd5();
     }
+    
+    /**
+     * @param $manifest
+     * @return $this
+     */
+    public function setManifest($manifest)
+    {
+        $this->manifest = $manifest;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getManifest()
+    {
+        // only make a request if manifest has not been set (is false)
+        return $this->manifest !== false ? $this->manifest : $this->getManifestHeader();
+    }
 
     public function setLastModified($lastModified)
     {
@@ -327,10 +354,11 @@ class DataObject extends AbstractResource
 
         // merge specific properties with metadata
         $metadata += array(
-            HeaderConst::CONTENT_TYPE   => $this->contentType,
-            HeaderConst::LAST_MODIFIED  => $this->lastModified,
-            HeaderConst::CONTENT_LENGTH => $this->contentLength,
-            HeaderConst::ETAG           => $this->etag
+            HeaderConst::CONTENT_TYPE      => $this->contentType,
+            HeaderConst::LAST_MODIFIED     => $this->lastModified,
+            HeaderConst::CONTENT_LENGTH    => $this->contentLength,
+            HeaderConst::ETAG              => $this->etag,
+            HeaderConst::X_OBJECT_MANIFEST => $this->manifest
         );
 
         return $this->container->uploadObject($this->name, $this->content, $metadata);
@@ -353,6 +381,26 @@ class DataObject extends AbstractResource
     public function delete($params = array())
     {
         return $this->getService()->getClient()->delete($this->getUrl())->send();
+    }
+    
+    /**
+     * @param string $source Path (`container/object') of other object to symlink this object to
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function symlink($source)
+    {
+        $response = $this->getService()
+            ->getClient()
+            ->createRequest('PUT', $this->getUrl(), array(
+                HeaderConst::X_OBJECT_MANIFEST => (string) $source
+            ))
+            ->send();
+        
+        if ($response->getStatusCode() == 201) {
+            $this->setManifest($source);
+        }
+
+        return $response;
     }
 
     /**
@@ -448,5 +496,22 @@ class DataObject extends AbstractResource
         $pattern = sprintf('#^%s-%s-Meta-#i', self::GLOBAL_METADATA_PREFIX, self::METADATA_LABEL);
 
         return preg_match($pattern, $header);
+    }
+    
+    /**
+     * @return null|string
+     */
+    protected function getManifestHeader()
+    {
+        $response = $this->getService()
+            ->getClient()
+            ->head($this->getUrl())
+            ->send();
+            
+        $manifest = $response->getHeader(HeaderConst::X_OBJECT_MANIFEST);
+        
+        $this->setManifest($manifest);
+        
+        return $manifest;
     }
 }
