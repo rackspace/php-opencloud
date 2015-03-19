@@ -101,21 +101,37 @@ class DataObjectTest extends ObjectStoreTestCase
         $this->assertNotNull($object->getPublicUrl(UrlType::STREAMING));
         $this->assertNotNull($object->getPublicUrl(UrlType::IOS_STREAMING));
     }
-    
-    public function test_Symlink()
+
+    public function test_Symlink_To()
     {
         $object = $this->container->dataObject('foobar');
-        $this->assertInstanceOf(
-            'Guzzle\Http\Message\Response',
-            $object->symlink('/new_container/new_object')
-        );
+        $this->assertInstanceOf('Guzzle\Http\Message\Response', $object->createSymlinkTo('new_container/new_object'));
+        // @todo getManifest should return the manifest not null
+        //$this->assertEquals('new_container/new_object', $object->getManifest());
     }
-    
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\NoNameError
      */
-    public function test_Symlink_Fails()
+    public function test_Symlink_To_Fails()
     {
-        $this->container->dataObject()->symlink(null);
+        $object = $this->container->dataObject()->createSymlinkTo(null);
+    }
+
+    public function test_Symlink_From()
+    {
+        $object = $this->container->dataObject('foobar');
+        $symlink = $object->createSymlinkFrom('new_container/new_object');
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $symlink);
+        // @todo getManifest should return the manifest not null
+        //$this->assertEquals('new_container/new_object', $symlink->getManifest());
+    }
+
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\NoNameError
+     */
+    public function test_Symlink_From_Fails()
+    {
+        $object = $this->container->dataObject()->createSymlinkFrom(null);
     }
 }
