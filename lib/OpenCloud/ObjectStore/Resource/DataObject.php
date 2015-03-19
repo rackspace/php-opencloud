@@ -302,10 +302,10 @@ class DataObject extends AbstractResource
     }
     
     /**
-     * @param $manifest
+     * @param string $manifest Path (`container/object') to set as the value to X-Object-Manifest
      * @return $this
      */
-    public function setManifest($manifest)
+    protected function setManifest($manifest)
     {
         $this->manifest = $manifest;
 
@@ -313,7 +313,7 @@ class DataObject extends AbstractResource
     }
 
     /**
-     * @return null|string
+     * @return null|string Path (`container/object') from X-Object-Manifest header or null if the header does not exist
      */
     public function getManifest()
     {
@@ -384,23 +384,60 @@ class DataObject extends AbstractResource
     }
     
     /**
-     * @param string $source Path (`container/object') of other object to symlink this object to
-     * @return \Guzzle\Http\Message\Response
+     * @param string $destination Path (`container/object') of other object to symlink this object to
+     * @return null|\Guzzle\Http\Message\Response The response or null if $this is not empty
      */
-    public function symlink($source)
+    public function createSymlinkTo($destination)
     {
-        $response = $this->getService()
-            ->getClient()
-            ->createRequest('PUT', $this->getUrl(), array(
-                HeaderConst::X_OBJECT_MANIFEST => (string) $source
-            ))
-            ->send();
-        
-        if ($response->getStatusCode() == 201) {
-            $this->setManifest($source);
+        if (!$this->name) {
+            throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
         }
 
-        return $response;
+        if ($this->getContentLength() == 0) {
+            $response = $this->getService()
+                ->getClient()
+                ->createRequest('PUT', $this->getUrl(), array(
+                    HeaderConst::X_OBJECT_MANIFEST => (string) $destination
+                ))
+                ->send();
+
+            if ($response->getStatusCode() == 201) {
+                $this->setManifest($source);
+            }
+
+            return $response;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $source Path (`container/object') of other object to symlink this object from
+     * @return null|DataObject The symlinked object or null if object already exists and is not empty
+     */
+    public function createSymlinkFrom($source)
+    {
+        if (!strlen($source)) {
+            throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
+        }
+
+        // Use ltrim to remove leading slash from source
+        list($containerName, $resourceName) = explode("/", ltrim($source, '/'), 2);
+
+        $container = $this->getService()->getContainer($containerName);
+
+        if ($unsafe = $container->objectExists($resourceName)) {
+            $object = $container->getPartialObject($source);
+            $unsafe = $object->getContentLength() > 0;
+        }
+
+        if (!$unsafe) {
+            return $container->uploadObject($resourceName, 'data', array(
+                HeaderConst::X_OBJECT_MANIFEST => (string) $this->getUrl()
+            ));
+        }
+
+        return null;
     }
 
     /**
