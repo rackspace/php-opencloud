@@ -20,6 +20,7 @@ namespace OpenCloud\Tests\ObjectStore\Resource;
 use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Constants\Header;
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\ObjectStore\Exception\ObjectNotEmptyException;
 use OpenCloud\Tests\MockSubscriber;
 use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
@@ -117,9 +118,18 @@ class DataObjectTest extends ObjectStoreTestCase
     /**
      * @expectedException OpenCloud\Common\Exceptions\NoNameError
      */
-    public function test_Symlink_To_Fails()
+    public function test_Symlink_To_Fails_With_NoName()
     {
         $object = $this->container->dataObject()->createSymlinkTo(null);
+    }
+
+    /**
+     * @expectedException OpenCloud\ObjectStore\Exception\ObjectNotEmptyException
+     */
+    public function test_Symlink_To_Fails_With_NotEmpty()
+    {
+        $this->addMockSubscriber(new Response(200, array(Header::CONTENT_LENGTH => 100)));
+        $object = $this->container->dataObject('foobar')->createSymlinkTo('new_container/new_object');
     }
 
     public function test_Symlink_From()
@@ -144,14 +154,35 @@ class DataObjectTest extends ObjectStoreTestCase
 
         $object = $this->container->dataObject('foobar')->createSymlinkFrom($symlinkName);
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $object);
-        $this->assertEquals($symlinkName, $object->getManifest());
     }
 
     /**
      * @expectedException OpenCloud\Common\Exceptions\NoNameError
      */
-    public function test_Symlink_From_Fails()
+    public function test_Symlink_From_Fails_With_NoName()
     {
         $object = $this->container->dataObject()->createSymlinkFrom(null);
+    }
+
+    /**
+     * @expectedException OpenCloud\ObjectStore\Exception\ObjectNotEmptyException
+     */
+    public function test_Symlink_From_Fails_With_NotEmpty()
+    {
+        // We have to fill the mock response queue to properly get the correct Content-Length header
+        // Container\dataObject( )
+        //  - Container\refresh( )
+        $this->addMockSubscriber(new Response(200));
+        // DataObject\createSymlinkFrom( )
+        //  - Container\createRefreshRequest( )
+        $this->addMockSubscriber(new Response(200));
+        //  - CDNContainer\createRefreshRequest( )
+        $this->addMockSubscriber(new Response(200));
+        //  - Container\objectExists( )
+        $this->addMockSubscriber(new Response(200));
+        //  - Container\getPartialObject( )
+        $this->addMockSubscriber(new Response(200, array(Header::CONTENT_LENGTH => 100)));
+
+        $object = $this->container->dataObject('foobar')->createSymlinkFrom('new_container/new_object');
     }
 }

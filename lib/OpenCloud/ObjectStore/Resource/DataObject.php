@@ -24,6 +24,7 @@ use OpenCloud\Common\Constants\Header as HeaderConst;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\ObjectStore\Exception\ObjectNotEmptyException;
 
 /**
  * Objects are the basic storage entities in Cloud Files. They represent the
@@ -393,22 +394,22 @@ class DataObject extends AbstractResource
             throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
         }
 
-        if ($this->getContentLength() == 0) {
-            $response = $this->getService()
-                ->getClient()
-                ->createRequest('PUT', $this->getUrl(), array(
-                    HeaderConst::X_OBJECT_MANIFEST => (string) $destination
-                ))
-                ->send();
-
-            if ($response->getStatusCode() == 201) {
-                $this->setManifest($source);
-            }
-
-            return $response;
+        if ($this->getContentLength()) {
+            throw new ObjectNotEmptyException($this->getContainer()->getName() . '/' . $this->getName());
         }
 
-        return null;
+        $response = $this->getService()
+            ->getClient()
+            ->createRequest('PUT', $this->getUrl(), array(
+                HeaderConst::X_OBJECT_MANIFEST => (string) $destination
+            ))
+            ->send();
+
+        if ($response->getStatusCode() == 201) {
+            $this->setManifest($source);
+        }
+
+        return $response;
     }
 
     /**
@@ -423,21 +424,18 @@ class DataObject extends AbstractResource
 
         // Use ltrim to remove leading slash from source
         list($containerName, $resourceName) = explode("/", ltrim($source, '/'), 2);
-
         $container = $this->getService()->getContainer($containerName);
 
-        if ($unsafe = $container->objectExists($resourceName)) {
+        if ($container->objectExists($resourceName)) {
             $object = $container->getPartialObject($source);
-            $unsafe = $object->getContentLength() > 0;
+            if ($object->getContentLength() > 0) {
+                throw new ObjectNotEmptyException($source);
+            }
         }
 
-        if (!$unsafe) {
-            return $container->uploadObject($resourceName, 'data', array(
-                HeaderConst::X_OBJECT_MANIFEST => (string) $this->getUrl()
-            ));
-        }
-
-        return null;
+        return $container->uploadObject($resourceName, 'data', array(
+            HeaderConst::X_OBJECT_MANIFEST => (string) $this->getUrl()
+        ));
     }
 
     /**
