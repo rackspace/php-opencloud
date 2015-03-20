@@ -204,8 +204,8 @@ Get file name
 
 .. code-block:: php
 
-  /** @param $container OpenCloud\ObjectStore\Resource\Container */
-  $container = $object->getContainer();
+  /** @param $name string */
+  $name = $object->getName();
 
 
 Get file size
