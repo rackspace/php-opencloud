@@ -326,6 +326,41 @@ the name of the object inside the container that does not exist yet.
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/copy-object.php>`_
 
 
+Symlinking to this object from another location
+-----------------------------------------------
+
+To create a symlink to this file in another location you need to specify
+a string-based source
+
+.. code-block:: php
+
+  $object->createSymlinkFrom('/container_2/new_object_name');
+
+Where ``container_2`` is the name of the container, and ``new_object_name`` is
+the name of the object inside the container that either does not exist yet or
+is an empty file.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/symlink-object.php>`_
+
+
+Setting this object to symlink to another location
+--------------------------------------------------
+
+To set this file to symlink to another location you need to specify
+a string-based destination
+
+.. code-block:: php
+
+  $object->createSymlinkTo('/container_2/new_object_name');
+
+Where ``container_2`` is the name of the container, and ``new_object_name`` is
+the name of the object inside the container.
+
+The object must be an empty file.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/symlink-object.php>`_
+
+
 Get object metadata
 -------------------
 
