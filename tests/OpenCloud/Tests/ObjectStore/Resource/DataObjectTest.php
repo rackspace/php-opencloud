@@ -17,7 +17,10 @@
 
 namespace OpenCloud\Tests\ObjectStore\Resource;
 
+use Guzzle\Http\Message\Response;
+use OpenCloud\Common\Constants\Header;
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\Tests\MockSubscriber;
 use OpenCloud\Tests\ObjectStore\ObjectStoreTestCase;
 
 class DataObjectTest extends ObjectStoreTestCase
@@ -104,10 +107,11 @@ class DataObjectTest extends ObjectStoreTestCase
 
     public function test_Symlink_To()
     {
+        $targetName = 'new_container/new_object';
+        $this->addMockSubscriber(new Response(200, array(Header::X_OBJECT_MANIFEST => $targetName)));
         $object = $this->container->dataObject('foobar');
-        $this->assertInstanceOf('Guzzle\Http\Message\Response', $object->createSymlinkTo('new_container/new_object'));
-        // @todo getManifest should return the manifest not null
-        //$this->assertEquals('new_container/new_object', $object->getManifest());
+        $this->assertInstanceOf('Guzzle\Http\Message\Response', $object->createSymlinkTo($targetName));
+        $this->assertEquals($targetName, $object->getManifest());
     }
 
     /**
@@ -120,11 +124,27 @@ class DataObjectTest extends ObjectStoreTestCase
 
     public function test_Symlink_From()
     {
-        $object = $this->container->dataObject('foobar');
-        $symlink = $object->createSymlinkFrom('new_container/new_object');
-        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $symlink);
-        // @todo getManifest should return the manifest not null
-        //$this->assertEquals('new_container/new_object', $symlink->getManifest());
+        $symlinkName = 'new_container/new_object';
+
+        // We have to fill the mock response queue to properly get the correct X-Object-Manifest header
+        // Container\dataObject( )
+        //  - Container\refresh( )
+        $this->addMockSubscriber(new Response(200));
+        // DataObject\createSymlinkFrom( )
+        //  - Container\createRefreshRequest( )
+        $this->addMockSubscriber(new Response(200));
+        //  - CDNContainer\createRefreshRequest( )
+        $this->addMockSubscriber(new Response(200));
+        //  - Container\objectExists( )
+        $this->addMockSubscriber(new Response(200));
+        //  - Container\getPartialObject( )
+        $this->addMockSubscriber(new Response(200));
+        //  - Container\uploadObject( )
+        $this->addMockSubscriber(new Response(200, array(Header::X_OBJECT_MANIFEST => $symlinkName)));
+
+        $object = $this->container->dataObject('foobar')->createSymlinkFrom($symlinkName);
+        $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\DataObject', $object);
+        $this->assertEquals($symlinkName, $object->getManifest());
     }
 
     /**
