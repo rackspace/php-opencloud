@@ -177,6 +177,42 @@ docs <http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-ob
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-objects.php>`_
 
 
+List over 10,000 objects
+------------------------
+
+To retrieve more than 10,000 objects (the default limit), you'll need to use
+the built-in paging which uses a 'marker' parameter to fetch the next page of data.
+
+.. code-block:: php
+
+    $containerObjects = array();
+    $marker = '';
+
+    while ($marker !== null) {
+        $params = array(
+            'marker' => $marker,
+        );
+
+        $objects = $container->objectList($params);
+        $total = $objects->count();
+        $count = 0;
+
+        if ($total == 0) {
+            break;
+        }
+
+        while ($object = $objects->next()) {
+            /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
+            $containerObjects[] = $object->getName();
+            $count++;
+
+            $marker = ($count == $total) ? $object->getName() : null;
+        }
+    }
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-objects-over-10000.php>`_
+
+
 Get object
 ----------
 
