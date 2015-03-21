@@ -201,7 +201,7 @@ the built-in paging which uses a 'marker' parameter to fetch the next page of da
             break;
         }
 
-        while ($object = $objects->next()) {
+        foreach ($objects as $object) {
             /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
             $containerObjects[] = $object->getName();
             $count++;
