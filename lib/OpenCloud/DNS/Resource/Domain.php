@@ -107,6 +107,7 @@ class Domain extends AbstractResource
      *
      * @param array $filter key/value pairs for query string parameters
      *                      return \OpenCloud\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function subdomainList($filter = array())
     {
