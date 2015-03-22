@@ -181,6 +181,13 @@ class Service extends CatalogService
         return $body->limitTypes;
     }
 
+    /**
+     * List asynchronous responses' statuses.
+     * @see http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/viewing_status_all_asynch_jobs.html
+     *
+     * @param array $query Any query parameters. Optional.
+     * @return OpenCloud\DNS\Collection\DnsIterator
+     */
     public function listAsyncJobs(array $query = array())
     {
         $url = clone $this->getUrl();
