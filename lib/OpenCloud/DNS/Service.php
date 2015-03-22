@@ -59,7 +59,7 @@ class Service extends CatalogService
      * Returns a collection of domains
      *
      * @param array $filter key/value pairs to use as query strings
-     * @return \OpenCloud\Common\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function domainList($filter = array())
     {
@@ -85,7 +85,7 @@ class Service extends CatalogService
      *
      * @param \OpenCloud\Compute\Resource\Server $server the server for which to
      *                                                   retrieve the PTR records
-     * @return \OpenCloud\Common\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function ptrRecordList(HasPtrRecordsInterface $parent)
     {

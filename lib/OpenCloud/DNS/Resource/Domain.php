@@ -76,7 +76,7 @@ class Domain extends AbstractResource
      * returns a Collection of Record objects
      *
      * @param array $filter query-string parameters
-     * @return \OpenCloud\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function recordList($filter = array())
     {
