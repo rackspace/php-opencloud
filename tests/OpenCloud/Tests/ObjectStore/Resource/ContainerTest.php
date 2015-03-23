@@ -51,6 +51,8 @@ class ContainerTest extends ObjectStoreTestCase
         $this->assertEquals('3846773', $container->getBytesUsed());
         $this->assertFalse($container->hasLogRetention());
 
+        $this->setupCdnContainerMockResponse();
+
         $cdn = $container->getCdn();
         $this->assertInstanceOf('OpenCloud\ObjectStore\Resource\CDNContainer', $cdn);
         $this->assertEquals('tx82a6752e00424edb9c46fa2573132e2c', $cdn->getTransId());
@@ -115,12 +117,12 @@ class ContainerTest extends ObjectStoreTestCase
         $this->addMockSubscriber($this->makeResponse('[]', 409));
         $container->delete();
     }
+
     public function test_Object_List()
     {
         $container = $this->container;
 
         $this->addMockSubscriber($this->makeResponse('[{"name":"test_obj_1","hash":"4281c348eaf83e70ddce0e07221c3d28","bytes":14,"content_type":"application\/octet-stream","last_modified":"2009-02-03T05:26:32.612278"},{"name":"test_obj_2","hash":"b039efe731ad111bc1b0ef221c3849d0","bytes":64,"content_type":"application\/octet-stream","last_modified":"2009-02-03T05:26:32.612278"}]', 200));
-
 
         $list = $container->objectList();
         $this->assertInstanceOf(self::COLLECTION_CLASS, $list);
@@ -140,6 +142,8 @@ class ContainerTest extends ObjectStoreTestCase
             'Guzzle\Http\Message\Response',
             $container->disableLogging()
         );
+
+        $this->setupCdnContainerMockResponse();
 
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',

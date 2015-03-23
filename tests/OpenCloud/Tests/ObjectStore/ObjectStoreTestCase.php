@@ -42,7 +42,12 @@ class ObjectStoreTestCase extends OpenCloudTestCase
 
         $this->addMockSubscriber($response1);
 
-        $response2 = new Response(204, array(
+        $this->container = $this->service->getContainer('foo');
+    }
+
+    protected function setupCdnContainerMockResponse()
+    {
+        $response = new Response(204, array(
             'X-Cdn-Ssl-Uri'       => 'https://83c49b9a2f7ad18250b3-346eb45fd42c58ca13011d659bfc1ac1.ssl.cf0.rackcdn.com',
             'X-Ttl'               => '259200',
             'X-Cdn-Uri'           => 'http://081e40d3ee1cec5f77bf-346eb45fd42c58ca13011d659bfc1ac1.r49.cf0.rackcdn.com',
@@ -52,8 +57,6 @@ class ObjectStoreTestCase extends OpenCloudTestCase
             'X-Trans-Id'          => 'tx82a6752e00424edb9c46fa2573132e2c'
         ));
 
-        $this->addMockSubscriber($response2);
-
-        $this->container = $this->service->getContainer('foo');
+        $this->addMockSubscriber($response);
     }
 }
