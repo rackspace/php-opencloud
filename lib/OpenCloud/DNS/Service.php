@@ -59,7 +59,7 @@ class Service extends CatalogService
      * Returns a collection of domains
      *
      * @param array $filter key/value pairs to use as query strings
-     * @return \OpenCloud\Common\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function domainList($filter = array())
     {
@@ -85,7 +85,7 @@ class Service extends CatalogService
      *
      * @param \OpenCloud\Compute\Resource\Server $server the server for which to
      *                                                   retrieve the PTR records
-     * @return \OpenCloud\Common\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function ptrRecordList(HasPtrRecordsInterface $parent)
     {
@@ -181,6 +181,13 @@ class Service extends CatalogService
         return $body->limitTypes;
     }
 
+    /**
+     * List asynchronous responses' statuses.
+     * @see http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/viewing_status_all_asynch_jobs.html
+     *
+     * @param array $query Any query parameters. Optional.
+     * @return OpenCloud\DNS\Collection\DnsIterator
+     */
     public function listAsyncJobs(array $query = array())
     {
         $url = clone $this->getUrl();
