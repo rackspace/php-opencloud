@@ -385,8 +385,12 @@ class DataObject extends AbstractResource
     }
     
     /**
+     * Create a symlink to another named object from this object. Requires this object to be empty.
+     *
      * @param string $destination Path (`container/object') of other object to symlink this object to
-     * @return null|\Guzzle\Http\Message\Response The response or null if $this is not empty
+     * @return \Guzzle\Http\Message\Response The response
+     * @throws \OpenCloud\Common\Exceptions\NoNameError if a destination name is not provided
+     * @throws \OpenCloud\ObjectStore\Exception\ObjectNotEmptyException if $this is not an empty object
      */
     public function createSymlinkTo($destination)
     {
@@ -413,8 +417,12 @@ class DataObject extends AbstractResource
     }
 
     /**
+     * Create a symlink to this object from another named object. Requires the other object to either not exist or be empty.
+     *
      * @param string $source Path (`container/object') of other object to symlink this object from
-     * @return null|DataObject The symlinked object or null if object already exists and is not empty
+     * @return DataObject The symlinked object
+     * @throws \OpenCloud\Common\Exceptions\NoNameError if a source name is not provided
+     * @throws \OpenCloud\ObjectStore\Exception\ObjectNotEmptyException  if object already exists and is not empty
      */
     public function createSymlinkFrom($source)
     {
