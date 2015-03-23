@@ -323,23 +323,6 @@ class Container extends AbstractContainer
     {
         $headers = $this->createRefreshRequest()->send()->getHeaders();
         $this->setMetadata($headers, true);
-
-        try {
-            if (null !== ($cdnService = $this->getService()->getCDNService())) {
-                $cdn = new CDNContainer($cdnService);
-                $cdn->setName($this->name);
-
-                $response = $cdn->createRefreshRequest()->send();
-
-                if ($response->isSuccessful()) {
-                    $this->cdn = $cdn;
-                    $this->cdn->setMetadata($response->getHeaders(), true);
-                }
-            } else {
-                $this->cdn = null;
-            }
-        } catch (ClientErrorResponseException $e) {
-        }
     }
 
     /**
@@ -597,6 +580,30 @@ class Container extends AbstractContainer
 
     public function isCdnEnabled()
     {
+        // If CDN object is not already populated, try to populate it.
+        if (null === $this->cdn) {
+            $this->refreshCdnObject();
+        }
         return ($this->cdn instanceof CDNContainer) && $this->cdn->isCdnEnabled();
+    }
+
+    protected function refreshCdnObject()
+    {
+        try {
+            if (null !== ($cdnService = $this->getService()->getCDNService())) {
+                $cdn = new CDNContainer($cdnService);
+                $cdn->setName($this->name);
+
+                $response = $cdn->createRefreshRequest()->send();
+
+                if ($response->isSuccessful()) {
+                    $this->cdn = $cdn;
+                    $this->cdn->setMetadata($response->getHeaders(), true);
+                }
+            } else {
+                $this->cdn = null;
+            }
+        } catch (ClientErrorResponseException $e) {
+        }
     }
 }

@@ -86,6 +86,7 @@ class DataObjectTest extends ObjectStoreTestCase
     public function test_Purge()
     {
         $object = $this->container->dataObject('foobar');
+        $this->setupCdnContainerMockResponse();
         $this->assertInstanceOf(
             'Guzzle\Http\Message\Response',
             $object->purge('test@example.com')
@@ -96,6 +97,7 @@ class DataObjectTest extends ObjectStoreTestCase
     {
         $object = $this->container->dataObject('foobar');
 
+        $this->setupCdnContainerMockResponse();
         $this->assertNotNull($object->getPublicUrl());
         $this->assertNotNull($object->getPublicUrl(UrlType::SSL));
         $this->assertNotNull($object->getPublicUrl(UrlType::STREAMING));
