@@ -178,8 +178,6 @@ class DataObjectTest extends ObjectStoreTestCase
         // DataObject\createSymlinkFrom( )
         //  - Container\createRefreshRequest( )
         $this->addMockSubscriber(new Response(200));
-        //  - CDNContainer\createRefreshRequest( )
-        $this->addMockSubscriber(new Response(200));
         //  - Container\objectExists( )
         $this->addMockSubscriber(new Response(200));
         //  - Container\getPartialObject( )
