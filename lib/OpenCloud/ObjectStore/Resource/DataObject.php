@@ -24,6 +24,7 @@ use OpenCloud\Common\Constants\Header as HeaderConst;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Lang;
 use OpenCloud\ObjectStore\Constants\UrlType;
+use OpenCloud\ObjectStore\Exception\ObjectNotEmptyException;
 
 /**
  * Objects are the basic storage entities in Cloud Files. They represent the
@@ -76,6 +77,11 @@ class DataObject extends AbstractResource
      * @var string Etag.
      */
     protected $etag;
+    
+    /**
+     * @var string Manifest. Can be null so we use false to mean unset.
+     */
+    protected $manifest = false;
 
     /**
      * Also need to set Container parent and handle pseudo-directories.
@@ -139,7 +145,9 @@ class DataObject extends AbstractResource
             ->setContentType((string) $headers[HeaderConst::CONTENT_TYPE])
             ->setLastModified((string) $headers[HeaderConst::LAST_MODIFIED])
             ->setContentLength((string) $headers[HeaderConst::CONTENT_LENGTH])
-            ->setEtag((string) $headers[HeaderConst::ETAG]);
+            ->setEtag((string) $headers[HeaderConst::ETAG])
+            // do not cast to a string to allow for null (i.e. no header)
+            ->setManifest($headers[HeaderConst::X_OBJECT_MANIFEST]);
     }
 
     public function refresh()
@@ -293,6 +301,26 @@ class DataObject extends AbstractResource
     {
         return $this->etag ? : $this->content->getContentMd5();
     }
+    
+    /**
+     * @param string $manifest Path (`container/object') to set as the value to X-Object-Manifest
+     * @return $this
+     */
+    protected function setManifest($manifest)
+    {
+        $this->manifest = $manifest;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string Path (`container/object') from X-Object-Manifest header or null if the header does not exist
+     */
+    public function getManifest()
+    {
+        // only make a request if manifest has not been set (is false)
+        return $this->manifest !== false ? $this->manifest : $this->getManifestHeader();
+    }
 
     public function setLastModified($lastModified)
     {
@@ -327,10 +355,11 @@ class DataObject extends AbstractResource
 
         // merge specific properties with metadata
         $metadata += array(
-            HeaderConst::CONTENT_TYPE   => $this->contentType,
-            HeaderConst::LAST_MODIFIED  => $this->lastModified,
-            HeaderConst::CONTENT_LENGTH => $this->contentLength,
-            HeaderConst::ETAG           => $this->etag
+            HeaderConst::CONTENT_TYPE      => $this->contentType,
+            HeaderConst::LAST_MODIFIED     => $this->lastModified,
+            HeaderConst::CONTENT_LENGTH    => $this->contentLength,
+            HeaderConst::ETAG              => $this->etag,
+            HeaderConst::X_OBJECT_MANIFEST => $this->manifest
         );
 
         return $this->container->uploadObject($this->name, $this->content, $metadata);
@@ -353,6 +382,68 @@ class DataObject extends AbstractResource
     public function delete($params = array())
     {
         return $this->getService()->getClient()->delete($this->getUrl())->send();
+    }
+    
+    /**
+     * Create a symlink to another named object from this object. Requires this object to be empty.
+     *
+     * @param string $destination Path (`container/object') of other object to symlink this object to
+     * @return \Guzzle\Http\Message\Response The response
+     * @throws \OpenCloud\Common\Exceptions\NoNameError if a destination name is not provided
+     * @throws \OpenCloud\ObjectStore\Exception\ObjectNotEmptyException if $this is not an empty object
+     */
+    public function createSymlinkTo($destination)
+    {
+        if (!$this->name) {
+            throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
+        }
+
+        if ($this->getContentLength()) {
+            throw new ObjectNotEmptyException($this->getContainer()->getName() . '/' . $this->getName());
+        }
+
+        $response = $this->getService()
+            ->getClient()
+            ->createRequest('PUT', $this->getUrl(), array(
+                HeaderConst::X_OBJECT_MANIFEST => (string) $destination
+            ))
+            ->send();
+
+        if ($response->getStatusCode() == 201) {
+            $this->setManifest($source);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Create a symlink to this object from another named object. Requires the other object to either not exist or be empty.
+     *
+     * @param string $source Path (`container/object') of other object to symlink this object from
+     * @return DataObject The symlinked object
+     * @throws \OpenCloud\Common\Exceptions\NoNameError if a source name is not provided
+     * @throws \OpenCloud\ObjectStore\Exception\ObjectNotEmptyException  if object already exists and is not empty
+     */
+    public function createSymlinkFrom($source)
+    {
+        if (!strlen($source)) {
+            throw new Exceptions\NoNameError(Lang::translate('Object has no name'));
+        }
+
+        // Use ltrim to remove leading slash from source
+        list($containerName, $resourceName) = explode("/", ltrim($source, '/'), 2);
+        $container = $this->getService()->getContainer($containerName);
+
+        if ($container->objectExists($resourceName)) {
+            $object = $container->getPartialObject($source);
+            if ($object->getContentLength() > 0) {
+                throw new ObjectNotEmptyException($source);
+            }
+        }
+
+        return $container->uploadObject($resourceName, 'data', array(
+            HeaderConst::X_OBJECT_MANIFEST => (string) $this->getUrl()
+        ));
     }
 
     /**
@@ -448,5 +539,22 @@ class DataObject extends AbstractResource
         $pattern = sprintf('#^%s-%s-Meta-#i', self::GLOBAL_METADATA_PREFIX, self::METADATA_LABEL);
 
         return preg_match($pattern, $header);
+    }
+    
+    /**
+     * @return null|string
+     */
+    protected function getManifestHeader()
+    {
+        $response = $this->getService()
+            ->getClient()
+            ->head($this->getUrl())
+            ->send();
+            
+        $manifest = $response->getHeader(HeaderConst::X_OBJECT_MANIFEST);
+        
+        $this->setManifest($manifest);
+        
+        return $manifest;
     }
 }
