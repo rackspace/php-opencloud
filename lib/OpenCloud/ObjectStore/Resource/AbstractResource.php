@@ -77,7 +77,7 @@ abstract class AbstractResource extends Base
 
     /**
      * Factory method that allows for easy instantiation from a Response object.
-     * 
+     *
      * For internal use only.
      *
      * @param Response         $response HTTP response from an API operation.
