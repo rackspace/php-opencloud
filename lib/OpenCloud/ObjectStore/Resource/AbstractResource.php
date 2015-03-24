@@ -45,16 +45,31 @@ abstract class AbstractResource extends Base
         $this->metadata = new $this->metadataClass;
     }
 
+    /**
+     * For internal use only.
+     *
+     * @return Service The ObjectStore service associated with this ObjectStore resource.
+     */
     public function getService()
     {
         return $this->service;
     }
 
+    /**
+     * For internal use only.
+     *
+     * @return Service The CDN version of the ObjectStore service associated with this ObjectStore resource.
+     */
     public function getCdnService()
     {
         return $this->service->getCDNService();
     }
 
+    /**
+     * For internal use only.
+     *
+     * @return Client The HTTP client associated with the associated ObjectStore service.
+     */
     public function getClient()
     {
         return $this->service->getClient();
@@ -63,9 +78,11 @@ abstract class AbstractResource extends Base
     /**
      * Factory method that allows for easy instantiation from a Response object.
      *
-     * @param Response         $response
-     * @param ServiceInterface $service
-     * @return static
+     * For internal use only.
+     *
+     * @param Response         $response HTTP response from an API operation.
+     * @param ServiceInterface $service  The ObjectStore service to associate with this ObjectStore resource object.
+     * @return AbstractResource A concrete sub-class of `AbstractResource`.
      */
     public static function fromResponse(Response $response, ServiceInterface $service)
     {
@@ -81,8 +98,10 @@ abstract class AbstractResource extends Base
     /**
      * Trim headers of their resource-specific prefixes.
      *
-     * @param  $headers
-     * @return array
+     * For internal use only.
+     *
+     * @param  array $headers Headers as returned from an HTTP response
+     * @return array Trimmed headers
      */
     public static function trimHeaders($headers)
     {
@@ -121,8 +140,8 @@ abstract class AbstractResource extends Base
     /**
      * Prepend/stock the header names with a resource-specific prefix.
      *
-     * @param array $headers
-     * @return array
+     * @param array $headers Headers to use on ObjectStore resource.
+     * @return array Headers returned with appropriate prefix as expected by ObjectStore service.
      */
     public static function stockHeaders(array $headers)
     {
@@ -147,11 +166,12 @@ abstract class AbstractResource extends Base
     }
 
     /**
-     * Set the metadata (local-only) for this object.
+     * Set the metadata (local-only) for this object. You must call saveMetadata
+     * to actually persist the metadata using the ObjectStore service.
      *
-     * @param      $data
-     * @param bool $constructFromResponse
-     * @return $this
+     * @param array $data Object/container metadata key/value pair array.
+     * @param bool $constructFromResponse Whether the metadata key/value pairs were obtiained from an HTTP response of an ObjectStore API operation.
+     * @return AbstractResource This object, with metadata set.
      */
     public function setMetadata($data, $constructFromResponse = false)
     {
@@ -167,7 +187,9 @@ abstract class AbstractResource extends Base
     }
 
     /**
-     * @return \OpenCloud\Common\Metadata
+     * Returns metadata for this object.
+     *
+     * @return \OpenCloud\Common\Metadata Metadata set on this object.
      */
     public function getMetadata()
     {
@@ -180,7 +202,7 @@ abstract class AbstractResource extends Base
      * @param array $metadata    The array of values you want to set as metadata
      * @param bool  $stockPrefix Whether to prepend each array key with the metadata-specific prefix. For objects, this
      *                           would be X-Object-Meta-Foo => Bar
-     * @return mixed
+     * @return Response HTTP response from API operation.
      */
     public function saveMetadata(array $metadata, $stockPrefix = true)
     {
@@ -192,7 +214,7 @@ abstract class AbstractResource extends Base
     /**
      * Retrieve metadata from the API. This method will then set and return this value.
      *
-     * @return \OpenCloud\Common\Metadata
+     * @return \OpenCloud\Common\Metadata Metadata returned from the ObjectStore service for this object/container.
      */
     public function retrieveMetadata()
     {
@@ -208,8 +230,8 @@ abstract class AbstractResource extends Base
     /**
      * To delete or unset a particular metadata item.
      *
-     * @param $key
-     * @return mixed
+     * @param $key Metadata key to unset
+     * @return Response HTTP response returned from API operation to unset metadata item.
      */
     public function unsetMetadataItem($key)
     {
@@ -224,10 +246,12 @@ abstract class AbstractResource extends Base
     }
 
     /**
-     * Append a particular array of values to the existing metadata. Analogous to a merge.
+     * Append a particular array of values to the existing metadata. Analogous
+     * to a merge. You must call to actually persist the metadata using the
+     * ObjectStore service.
      *
-     * @param array $values
-     * @return array
+     * @param array $values The array of values you want to append to metadata.
+     * @return array Metadata, after `$values` are appended.
      */
     public function appendToMetadata(array $values)
     {
