@@ -268,8 +268,8 @@ Modify domain
 
 Only the TTL, email address and comment attributes of a domain can be modified.
 Records cannot be added, modified, or removed through this API operation - you
-will need to use the `add records <records#add-record>`__, `modify records
-<records#modify-record>`__ or `remove records <records#delete-record>`__
+will need to use the `add records <records.html#add-record>`__, `modify records
+<records.html#modify-record>`__ or `remove records <records.html#delete-record>`__
 operations respectively.
 
 .. code-block:: php
