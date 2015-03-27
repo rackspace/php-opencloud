@@ -50,6 +50,15 @@ class ServiceTest extends DnsTestCase
     }
 
     /**
+     * @expectedException OpenCloud\Common\Exceptions\DomainNotFoundException
+     */
+    public function testDomainByNameWhenDomainNotFound()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"domains":[],"totalEntries":114}', 200));
+        $domain = $this->service->domainByName("region2.example.net");
+    }
+
+    /**
      * @mockFile Domain_List
      */
     public function testDomainList()
