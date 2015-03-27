@@ -738,8 +738,8 @@ class Server extends NovaResource implements HasPtrRecordsInterface
 
         // Availability zone
         if (!empty($this->availabilityZone)) {
-          $this->checkExtension('OS-EXT-AZ');
-          $server->availability_zone = $this->availabilityZone;
+            $this->checkExtension('OS-EXT-AZ');
+            $server->availability_zone = $this->availabilityZone;
         }
 
         return (object) array('server' => $server);
