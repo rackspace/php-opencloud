@@ -19,6 +19,7 @@ namespace OpenCloud\DNS;
 
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\CatalogService;
+use OpenCloud\Common\Exceptions\DomainNotFoundException;
 use OpenCloud\DNS\Collection\DnsIterator;
 use OpenCloud\DNS\Resource\AsyncResponse;
 use OpenCloud\DNS\Resource\Domain;
@@ -54,6 +55,24 @@ class Service extends CatalogService
     {
         return $this->resource('Domain', $info);
     }
+
+    /**
+     * Returns a domain, given a domain name
+     *
+     * @param string $domainName Domain name
+     * @return Domain the domain object
+     */
+    public function domainByName($domainName)
+    {
+        $domainList = $this->domainList(array("name" => $domainName));
+
+        if (count($domainList) != 1) {
+            throw new DomainNotFoundException();
+        }
+
+        return $this->resource('Domain', $domainList[0]);
+    }
+
 
     /**
      * Returns a collection of domains
