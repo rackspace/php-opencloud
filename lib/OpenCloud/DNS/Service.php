@@ -19,6 +19,7 @@ namespace OpenCloud\DNS;
 
 use OpenCloud\Common\Http\Message\Formatter;
 use OpenCloud\Common\Service\CatalogService;
+use OpenCloud\Common\Exceptions\DomainNotFoundException;
 use OpenCloud\DNS\Collection\DnsIterator;
 use OpenCloud\DNS\Resource\AsyncResponse;
 use OpenCloud\DNS\Resource\Domain;
@@ -56,10 +57,28 @@ class Service extends CatalogService
     }
 
     /**
+     * Returns a domain, given a domain name
+     *
+     * @param string $domainName Domain name
+     * @return Domain the domain object
+     */
+    public function domainByName($domainName)
+    {
+        $domainList = $this->domainList(array("name" => $domainName));
+
+        if (count($domainList) != 1) {
+            throw new DomainNotFoundException();
+        }
+
+        return $this->resource('Domain', $domainList[0]);
+    }
+
+
+    /**
      * Returns a collection of domains
      *
      * @param array $filter key/value pairs to use as query strings
-     * @return \OpenCloud\Common\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function domainList($filter = array())
     {
@@ -85,7 +104,7 @@ class Service extends CatalogService
      *
      * @param \OpenCloud\Compute\Resource\Server $server the server for which to
      *                                                   retrieve the PTR records
-     * @return \OpenCloud\Common\Collection
+     * @return OpenCloud\DNS\Collection\DnsIterator
      */
     public function ptrRecordList(HasPtrRecordsInterface $parent)
     {
@@ -181,6 +200,13 @@ class Service extends CatalogService
         return $body->limitTypes;
     }
 
+    /**
+     * List asynchronous responses' statuses.
+     * @see http://docs.rackspace.com/cdns/api/v1.0/cdns-devguide/content/viewing_status_all_asynch_jobs.html
+     *
+     * @param array $query Any query parameters. Optional.
+     * @return OpenCloud\DNS\Collection\DnsIterator
+     */
     public function listAsyncJobs(array $query = array())
     {
         $url = clone $this->getUrl();

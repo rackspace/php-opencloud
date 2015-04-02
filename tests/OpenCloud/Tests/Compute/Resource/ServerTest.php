@@ -403,4 +403,13 @@ class ServerTest extends ComputeTestCase
         $this->addMockSubscriber(new \Guzzle\Http\Message\Response(202));
         $this->assertEquals(202, $this->server->stop()->getStatusCode());
     }
+
+    public function test_Create_Availability_Zone()
+    {
+        $new = new PublicServer($this->service);
+        $new->setAvailabilityZone('AZ1');
+        $obj = $new->CreateJson();
+
+        $this->assertEquals('AZ1', $obj->server->availability_zone);
+    }
 }

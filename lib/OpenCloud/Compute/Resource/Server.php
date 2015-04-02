@@ -172,6 +172,12 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      */
     public $powerStatus;
 
+    /**
+     * @link http://developer.openstack.org/api-ref-compute-v2-ext.html#ext-os-ext-az
+     * @var string Availability zone of the VM
+     */
+    public $availabilityZone;
+
     protected static $json_name = 'server';
     protected static $url_resource = 'servers';
 
@@ -206,6 +212,7 @@ class Server extends NovaResource implements HasPtrRecordsInterface
         'OS-EXT-STS:vm_state'    => 'extendedStatus',
         'OS-EXT-STS:task_state'  => 'taskStatus',
         'OS-EXT-STS:power_state' => 'powerStatus',
+        'OS-EXT-AZ:availability_zone' => 'availabilityZone'
     );
 
     /**
@@ -727,6 +734,12 @@ class Server extends NovaResource implements HasPtrRecordsInterface
         // Cloud-init executable
         if (!empty($this->user_data)) {
             $server->user_data = $this->user_data;
+        }
+
+        // Availability zone
+        if (!empty($this->availabilityZone)) {
+            $this->checkExtension('OS-EXT-AZ');
+            $server->availability_zone = $this->availabilityZone;
         }
 
         return (object) array('server' => $server);

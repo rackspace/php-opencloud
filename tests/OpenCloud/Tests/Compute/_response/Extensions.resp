@@ -16,6 +16,14 @@ Server: Jetty(8.0.y.z-SNAPSHOT)
             "description": "Disk Management Extension."
         },
         {
+            "updated": "2013-01-30T00:00:00Z",
+            "name": "ExtendedAvailabilityZone",
+            "links": [],
+            "namespace": "http://docs.openstack.org/compute/ext/extended_availability_zone/api/v2",
+            "alias": "OS-EXT-AZ",
+            "description": "Extended Availability Zone support."
+        },
+        {
             "updated": "2013-02-19T00:00:00Z",
             "name": "ImageSize",
             "links": [],

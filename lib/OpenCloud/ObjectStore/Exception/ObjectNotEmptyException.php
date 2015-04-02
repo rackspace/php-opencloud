@@ -15,27 +15,21 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\ObjectStore;
+namespace OpenCloud\ObjectStore\Exception;
 
-use OpenCloud\Common\Service\CatalogService;
-
-/**
- * An abstract base class for common code shared between ObjectStore\Service
- * (container) and ObjectStore\CDNService (CDN containers).
- */
-abstract class AbstractService extends CatalogService
+class ObjectNotEmptyException extends \RuntimeException
 {
-    const MAX_CONTAINER_NAME_LENGTH = 256;
-    const MAX_OBJECT_NAME_LEN = 1024;
-    const MAX_OBJECT_SIZE = 5102410241025;
-
-    /**
-     * Returns the Object Store account associated with the service.
-     *
-     * @return Resource\Account Object Store account
-     */
-    public function getAccount()
+    public static function factory($name)
     {
-        return new Resource\Account($this);
+        $message = sprintf(
+            "%s could not be overwritten as it contains content.",
+            $name
+        );
+
+        $e = new self($message);
+
+        $e->name = $name;
+
+        return $e;
     }
 }
