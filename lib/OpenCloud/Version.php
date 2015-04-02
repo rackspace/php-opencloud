@@ -27,7 +27,7 @@ use Guzzle\Http\Curl\CurlVersion;
  */
 class Version
 {
-    const VERSION = '1.12.2';
+    const VERSION = '1.13.0';
 
     /**
      * @return string Indicate current SDK version.

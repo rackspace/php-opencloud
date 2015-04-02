@@ -16,8 +16,10 @@ so that you can still use the SDK with a pure OpenStack instance
 
 Requirements
 ------------
-* PHP >=5.3.3
+* PHP >=5.4
 * cURL extension for PHP
+
+**Note**: Since PHP 5.3 has reached [end of life](http://php.net/eol.php) and is no longer officially supported, we are moving to 5.4 as a minimum requirement. If upgrading is not an option and you still need a stable version of the SDK for 5.3, please follow [this guide](http://docs.php-opencloud.com/en/latest/using-php-5.3).
 
 Installation
 ------------
