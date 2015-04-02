@@ -26,13 +26,12 @@
         }
     },
     "require": {
-        "php" : ">=5.3.3",
+        "php" : ">=5.4",
         "guzzle/http" : "~3.8",
         "psr/log": "~1.0",
         "mikemccabe/json-patch-php": "~0.1"
-    },
+    ,
     "require-dev" : {
-        "php": ">=5.4",
         "phpunit/phpunit": "4.3.*",
         "satooshi/php-coveralls": "0.6.*@dev",
         "jakub-onderka/php-parallel-lint": "0.*",
