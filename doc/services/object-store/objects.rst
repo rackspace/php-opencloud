@@ -259,7 +259,7 @@ Get content of file
 .. code-block:: php
 
   /** @param $content Guzzle\Http\EntityBody */
-  $content = $object->getContainer();
+  $content = $object->getContent();
 
 
 Get type of file
