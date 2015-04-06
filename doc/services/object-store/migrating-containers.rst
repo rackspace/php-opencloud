@@ -37,13 +37,13 @@ Requirements
 
     use Guzzle\Plugin\Backoff\BackoffPlugin;
 
-    // set timeout in secs
-    $timeout = 10;
+    // maximum number of retries
+    $maxRetries = 10;
 
     // set HTTP error codes
     $httpErrors = array(500, 503, 408);
 
-    $backoffPlugin = BackoffPlugin::getExponentialBackoff($timeout, $httpErrors);
+    $backoffPlugin = BackoffPlugin::getExponentialBackoff($maxRetries, $httpErrors);
     $client->addSubscriber($backoffPlugin);
 
 
