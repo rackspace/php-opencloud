@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title> Metrics &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>&nbsp;Metrics</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/Metrics.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="metrics">
+<h1>&nbsp;Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="info">
+<h2>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>When Monitoring checks run, they generate metrics. These metrics are
+stored as full resolution data points in the Cloud Monitoring system.
+Full resolution data points are periodically rolled up (condensed) into
+coarser data points.</p>
+<p>Depending on your needs, you can use the metrics API to fetch individual
+data points (fine-grained) or rolled up data points (coarse-grained)
+over a period of time.</p>
+</div>
+<div class="section" id="data-granularity">
+<h2>Data Granularity<a class="headerlink" href="#data-granularity" title="Permalink to this headline">¶</a></h2>
+<p>Cloud Monitoring supports several granularities of data: full resolution
+data and rollups computed at 5, 20, 60, 240 and 1440 minute intervals.</p>
+<p>When you fetch metrics data points, you specify several parameters to
+control the granularity of data returned:</p>
+<ul class="simple">
+<li>A time range for the points</li>
+<li>Either the number of points you want returned OR the resolution of
+the data you want returned</li>
+</ul>
+<p>When you query by points, the API selects the resolution that will
+return you the number of points you requested. The API makes the
+assumption of a 30 second frequency, performs the calculation, and
+selects the appropriate resolution.</p>
+<p><strong>Note:</strong> Because the API performs calculations to determine the points
+returned for a particular resolution, the number of points returned may
+differ from the specific number of points you request.</p>
+<p>Consider that you want to query data for a 48-hour time range between
+the timestamps <tt class="docutils literal"><span class="pre">from=1354647221000</span></tt> and <tt class="docutils literal"><span class="pre">to=1358794421000</span></tt> (
+<strong>specified in Unix time, based on the number of milliseconds that have
+elapsed since January 1, 1970</strong> ). The following table shows the number
+of points that the API returns for a given resolution.</p>
+<div class="section" id="specifying-resolution-to-retrieve-data-in-48-hour-period">
+<h3>Specifying resolution to retrieve data in 48 hour period<a class="headerlink" href="#specifying-resolution-to-retrieve-data-in-48-hour-period" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="54%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">You specify resolution...</th>
+<th class="head">API returns points...</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FULL</td>
+<td>5760</td>
+</tr>
+<tr class="row-odd"><td>MIN5</td>
+<td>576</td>
+</tr>
+<tr class="row-even"><td>MIN20</td>
+<td>144</td>
+</tr>
+<tr class="row-odd"><td>MIN60</td>
+<td>48</td>
+</tr>
+<tr class="row-even"><td>MIN240</td>
+<td>12</td>
+</tr>
+<tr class="row-odd"><td>MIN1440</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="specifying-number-of-points-to-retrieve-data-in-48-hour-period">
+<h3>Specifying number of points to retrieve data in 48 hour period<a class="headerlink" href="#specifying-number-of-points-to-retrieve-data-in-48-hour-period" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="57%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">You specify points in the range...</th>
+<th class="head">API calculates resolution</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>3168-∞</td>
+<td>FULL</td>
+</tr>
+<tr class="row-odd"><td>360-3167</td>
+<td>MIN5</td>
+</tr>
+<tr class="row-even"><td>96-359</td>
+<td>MIN20</td>
+</tr>
+<tr class="row-odd"><td>30-95</td>
+<td>MIN60</td>
+</tr>
+<tr class="row-even"><td>7-29</td>
+<td>MIN240</td>
+</tr>
+<tr class="row-odd"><td>0-6</td>
+<td>MIN1440</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="data-point-expiration">
+<h3>Data Point Expiration<a class="headerlink" href="#data-point-expiration" title="Permalink to this headline">¶</a></h3>
+<p>Cloud Monitoring expires data points according to the following
+schedule:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Resolution</th>
+<th class="head">Expiration</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FULL</td>
+<td>2 days</td>
+</tr>
+<tr class="row-odd"><td>MIN5</td>
+<td>7 days</td>
+</tr>
+<tr class="row-even"><td>MIN20</td>
+<td>15 days</td>
+</tr>
+<tr class="row-odd"><td>MIN60</td>
+<td>30 days</td>
+</tr>
+<tr class="row-even"><td>MIN240</td>
+<td>60 days</td>
+</tr>
+<tr class="row-odd"><td>MIN1440</td>
+<td>365 days</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>&nbsp;Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Metrics are sub-resources of Checks. For more information about working
+with Checks, please see the <a class="reference external" href="Checks.md">relevant documentation</a>.</p>
+</div>
+<div class="section" id="list-all-metrics">
+<h2>List all metrics<a class="headerlink" href="#list-all-metrics" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$metrics = $check-&gt;getMetrics();
+
+foreach ($metrics as $metric) {
+    echo $metric-&gt;getName();
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="fetch-data-points">
+<h2>Fetch data points<a class="headerlink" href="#fetch-data-points" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$data = $check-&gt;fetchDataPoints(&#39;mzdfw.available&#39;, array(
+    &#39;resolution&#39; =&gt; &#39;FULL&#39;,
+    &#39;from&#39;       =&gt; 1369756378450,
+    &#39;to&#39;         =&gt; 1369760279018
+));
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

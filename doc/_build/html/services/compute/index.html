@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compute v2 &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="next" title="Images" href="images.html"/>
+        <link rel="prev" title="Webhooks" href="../autoscale/webhooks.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Compute v2</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/compute/index.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="compute-v2">
+<h1>Compute v2<a class="headerlink" href="#compute-v2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="rackspace-setup">
+<h3>Rackspace setup<a class="headerlink" href="#rackspace-setup" title="Permalink to this headline">¶</a></h3>
+<p>The first step is to pass in your credentials and set up a client. For
+Rackspace users, you will need your username and API key:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Rackspace</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rackspace</span><span class="p">(</span><span class="nx">Rackspace</span><span class="o">::</span><span class="na">US_IDENTITY_ENDPOINT</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{username}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;apiKey&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;{apiKey}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="openstack-setup">
+<h3>OpenStack setup<a class="headerlink" href="#openstack-setup" title="Permalink to this headline">¶</a></h3>
+<p>If you&#8217;re an OpenStack user, you will also need to prove a few other
+configuration parameters:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OpenCloud\OpenStack</span><span class="p">(</span><span class="s1">&#39;{keystoneUrl}&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{username}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{apiKey}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;tenantId&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{tenantId}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="compute-service">
+<h3>Compute service<a class="headerlink" href="#compute-service" title="Permalink to this headline">¶</a></h3>
+<p>Now to instantiate the Compute service:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$service</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">computeService</span><span class="p">(</span><span class="s1">&#39;{catalogName}&#39;</span><span class="p">,</span> <span class="s1">&#39;{region}&#39;</span><span class="p">,</span> <span class="s1">&#39;{urlType}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">{catalogName}</span></tt> is the name of the service as it appears in the service
+catalog. OpenStack users <em>must</em> set this value. For Rackspace users, a
+default will be provided if you pass in <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">{region}</span></tt> is the region the service will operate in. For Rackspace
+users, you can select one of the following from the <a class="reference external" href="/regions">supported regions page</a>.</li>
+<li><tt class="docutils literal"><span class="pre">{urlType}</span></tt> is the <a class="reference external" href="/url-types">type of URL</a> to use, depending on which
+endpoints your catalog provides. If omitted, it will default to the public
+network.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="images.html">Images</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="images.html#list-images">List images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="images.html#detailed-results">Detailed results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="images.html#filtering">Filtering</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="images.html#retrieve-details-about-an-image">Retrieve details about an image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="images.html#delete-an-image">Delete an image</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="flavors.html">Flavors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="flavors.html#get-a-flavor">Get a flavor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flavors.html#list-flavors">List flavors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="flavors.html#detailed-results">Detailed results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="flavors.html#filtering">Filtering</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="servers.html">Servers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="servers.html#get-server">Get server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="servers.html#list-servers">List servers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#url-parameters-for-filtering-servers">URL parameters for filtering servers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="servers.html#create-server">Create server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#using-an-image">Using an image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#using-a-bootable-volume">Using a bootable volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#create-parameters">Create parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#creating-a-server-with-keypairs">Creating a server with keypairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#creating-a-server-with-personality-files">Creating a server with personality files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="servers.html#update-server">Update server</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#updatable-attributes">Updatable attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="servers.html#updating-the-access-ip-address-es">Updating the access IP address(es)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="servers.html#retrieving-the-servers-ip-address">Retrieving the server’s IP address</a></li>
+<li class="toctree-l2"><a class="reference internal" href="servers.html#delete-server">Delete server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="keypairs.html">Keypairs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="keypairs.html#generate-a-new-keypair">Generate a new keypair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keypairs.html#upload-existing-keypair">Upload existing keypair</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keypairs.html#list-keypairs">List keypairs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keypairs.html#delete-keypairs">Delete keypairs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-image">image</dt>
+<dd>An image is a collection of files for a specific operating system that you
+use to create or rebuild a server. Rackspace provides prebuilt images. You
+can also create custom images from servers that you have launched.</dd>
+<dt id="term-flavor">flavor</dt>
+<dd>A flavor is a named definition of certain server parameters such as
+the amount of RAM and disk space available. (There are other parameters
+set via the flavor, such as the amount of disk space and the number of
+virtual CPUs, but a discussion of those is too in-depth for a simple
+Getting Started Guide like this one.)</dd>
+<dt id="term-server">server</dt>
+<dd>A server is a virtual machine instance in the Cloud Servers environment.</dd>
+</dl>
+</div>
+<div class="section" id="further-links">
+<h2>Further Links<a class="headerlink" href="#further-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-gettingstarted/content/overview.html">Getting Started Guide for the API</a></li>
+<li><a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-devguide/content/ch_preface.html">API Developer Guide</a></li>
+<li><a class="reference external" href="http://docs.rackspace.com/servers/api/v2/cs-releasenotes/content/ch_preface.html">API release history</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="images.html" class="btn btn-neutral float-right" title="Images"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../autoscale/webhooks.html" class="btn btn-neutral" title="Webhooks"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

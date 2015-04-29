@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title> Entities &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>&nbsp;Entities</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/Entities.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="entities">
+<h1>&nbsp;Entities<a class="headerlink" href="#entities" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="info">
+<h2>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>An entity is the target of what you are monitoring. For example, you can
+create an entity to monitor your website, a particular web service, or
+your Rackspace server. Note that an entity represents only one item in
+the monitoring system &#8211; if you wanted to monitor each server in a
+cluster, you would create an entity for each of the servers. You would
+not create a single entity to represent the entire cluster.</p>
+<p>An entity can have multiple checks associated with it. This allows you
+to check multiple services on the same host by creating multiple checks
+on the same entity, instead of multiple entities each with a single
+check.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$entity = $service-&gt;getEntity();
+</pre></div>
+</div>
+<p>For more information about setting up the <tt class="docutils literal"><span class="pre">$service</span></tt> object, please
+see the userguide tutorial for <a class="reference external" href="Service.md">services</a>.</p>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="41%" />
+<col width="7%" />
+<col width="29%" />
+<col width="13%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Required?</th>
+<th class="head">Data type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>label</td>
+<td>Defines a name for the entity.</td>
+<td>Required</td>
+<td>String (1..255 chars)</td>
+<td><tt class="docutils literal"><span class="pre">getLabel()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>agent_id</td>
+<td>Agent to which this entity is bound to.</td>
+<td>Optional</td>
+<td>String matching the regex: <tt class="docutils literal"><span class="pre">/^[-\.\w]{1,255}$/</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getAgentId()</span></tt></td>
+</tr>
+<tr class="row-even"><td>ip_addresses</td>
+<td>Hash of IP addresses that can be referenced by checks on this entity.</td>
+<td>Optional</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getIpAddresses()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>metadata</td>
+<td>Arbitrary key/value pairs that are passed during the alerting phase.</td>
+<td>Optional</td>
+<td><tt class="docutils literal"><span class="pre">OpenCloud\Common\Metadata</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getMetadata()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="create-entity">
+<h2>Create Entity<a class="headerlink" href="#create-entity" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$service-&gt;createEntity(array(
+    &#39;label&#39; =&gt; &#39;Brand New Entity&#39;,
+    &#39;ip_addresses&#39; =&gt; array(
+        &#39;default&#39; =&gt; &#39;127.0.0.4&#39;,
+        &#39;b&#39;       =&gt; &#39;127.0.0.5&#39;,
+        &#39;c&#39;       =&gt; &#39;127.0.0.6&#39;,
+        &#39;test&#39;    =&gt; &#39;127.0.0.7&#39;
+    ),
+    &#39;metadata&#39; =&gt; array(
+        &#39;all&#39;  =&gt; &#39;kinds&#39;,
+        &#39;of&#39;   =&gt; &#39;stuff&#39;,
+        &#39;can&#39;  =&gt; &#39;go&#39;,
+        &#39;here&#39; =&gt; &#39;null is not a valid value&#39;
+    )
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-and-delete-entity">
+<h2>Update and delete Entity<a class="headerlink" href="#update-and-delete-entity" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>// Update
+$entity-&gt;update(array(
+    &#39;label&#39; =&gt; &#39;New label for my entity&#39;
+));
+
+// Delete
+$entity-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting Started with Rackspace &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="services/autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Getting Started with Rackspace</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/getting-started-with-rackspace.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="getting-started-with-rackspace">
+<h1>Getting Started with Rackspace<a class="headerlink" href="#getting-started-with-rackspace" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing-the-sdk">
+<h2>Installing the SDK<a class="headerlink" href="#installing-the-sdk" title="Permalink to this headline">¶</a></h2>
+<p>You must install through Composer, because this library has a few
+dependencies:</p>
+<div class="highlight-bash"><div class="highlight"><pre>composer require rackspace/php-opencloud
+</pre></div>
+</div>
+<p>Once you have installed the library, you will need to load Composer&#8217;s
+autoloader (which registers all the required namespaces):</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>And you&#8217;re good to go!</p>
+</div>
+<div class="section" id="quick-deep-dive-building-some-nova-instances">
+<h2>Quick deep-dive: building some Nova instances<a class="headerlink" href="#quick-deep-dive-building-some-nova-instances" title="Permalink to this headline">¶</a></h2>
+<p>In this example, you will write code that will create a Cloud Servers instance
+running Ubuntu.</p>
+<div class="section" id="setup-the-client-and-pass-in-your-credentials">
+<h3>1. Setup the client and pass in your credentials<a class="headerlink" href="#setup-the-client-and-pass-in-your-credentials" title="Permalink to this headline">¶</a></h3>
+<p>To authenticate against the Rackspace API and use its services:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">require</span> <span class="s1">&#39;vendor/autoload.php&#39;</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">OpenCloud\Rackspace</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rackspace</span><span class="p">(</span><span class="nx">Rackspace</span><span class="o">::</span><span class="na">US_IDENTITY_ENDPOINT</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;apiKey&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;bar&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>You can see in the first example that the constant
+<tt class="docutils literal"><span class="pre">Rackspace::US_IDENTITY_ENDPOINT</span></tt> is just a string representation of
+Rackspace&#8217;s identity endpoint
+(<tt class="docutils literal"><span class="pre">https://identity.api.rackspacecloud.com/v2.0/</span></tt>). Another difference
+is that Rackspace uses API key for authentication, whereas OpenStack
+uses a generic password.</p>
+</div>
+<div class="section" id="pick-what-service-you-want-to-use">
+<h3>2. Pick what service you want to use<a class="headerlink" href="#pick-what-service-you-want-to-use" title="Permalink to this headline">¶</a></h3>
+<p>In this case, we want to use the Compute (Nova) service:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$compute</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">computeService</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="s1">&#39;ORD&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The first argument is the <strong>name</strong> of the service as it appears in the
+OpenStack service catalog. If in doubt, you can leave blank and it will
+revert to the default name for the service. The second argument is the
+region; you may use:</p>
+<ul class="simple">
+<li><strong>DFW</strong> (Dallas)</li>
+<li><strong>ORD</strong> (Chicago)</li>
+<li><strong>IAD</strong> (Virginia)</li>
+<li><strong>LON</strong> (London)</li>
+<li><strong>HKG</strong> (Hong Kong)</li>
+<li><strong>SYD</strong> (Sydney)</li>
+</ul>
+<p>The third and last argument is the type of URL; you may use either
+<tt class="docutils literal"><span class="pre">publicURL</span></tt> or <tt class="docutils literal"><span class="pre">internalURL</span></tt>. If you select <tt class="docutils literal"><span class="pre">internalUrl</span></tt> all API
+traffic will use ServiceNet (internal IPs) and will receive a
+performance boost.</p>
+</div>
+<div class="section" id="select-your-server-image">
+<h3>3. Select your server image<a class="headerlink" href="#select-your-server-image" title="Permalink to this headline">¶</a></h3>
+<p>Servers are based on &#8220;images&#8221;, which are effectively just the type of
+operating system you want. Let&#8217;s go through the list and find an Ubuntu
+one:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$images</span> <span class="o">=</span> <span class="nv">$compute</span><span class="o">-&gt;</span><span class="na">imageList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$images</span> <span class="k">as</span> <span class="nv">$image</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$image</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">,</span> <span class="s1">&#39;Ubuntu&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$ubuntu</span> <span class="o">=</span> <span class="nv">$image</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Alternatively, if you already know the image ID, you can do this much
+easier:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$ubuntu</span> <span class="o">=</span> <span class="nv">$compute</span><span class="o">-&gt;</span><span class="na">image</span><span class="p">(</span><span class="s1">&#39;868a0966-0553-42fe-b8b3-5cadc0e0b3c5&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="select-your-flavor">
+<h2>4. Select your flavor<a class="headerlink" href="#select-your-flavor" title="Permalink to this headline">¶</a></h2>
+<p>There are different server specs - some which offer 1GB RAM, others
+which offer a much higher spec. The &#8216;flavor&#8217; of a server is its hardware
+configuration. So if you want a 2GB instance but don&#8217;t know the ID, you
+have to traverse the list:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$flavors</span> <span class="o">=</span> <span class="nv">$compute</span><span class="o">-&gt;</span><span class="na">flavorList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$flavors</span> <span class="k">as</span> <span class="nv">$flavor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">strpos</span><span class="p">(</span><span class="nv">$flavor</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">,</span> <span class="s1">&#39;2GB&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$twoGbFlavor</span> <span class="o">=</span> <span class="nv">$flavor</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Again, it&#8217;s much easier if you know the ID:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$twoGbFlavor</span> <span class="o">=</span> <span class="nv">$compute</span><span class="o">-&gt;</span><span class="na">flavor</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="thunderbirds-are-go">
+<h2>5. Thunderbirds are go!<a class="headerlink" href="#thunderbirds-are-go" title="Permalink to this headline">¶</a></h2>
+<p>Okay, you&#8217;re ready to spin up a server:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">Guzzle\Http\Exception\BadResponseException</span><span class="p">;</span>
+
+<span class="nv">$server</span> <span class="o">=</span> <span class="nv">$compute</span><span class="o">-&gt;</span><span class="na">server</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$server</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;name&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;My lovely server&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;image&#39;</span>  <span class="o">=&gt;</span> <span class="nv">$ubuntu</span><span class="p">,</span>
+        <span class="s1">&#39;flavor&#39;</span> <span class="o">=&gt;</span> <span class="nv">$twoGbFlavor</span>
+    <span class="p">));</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// No! Something failed. Let&#39;s find out:</span>
+    <span class="nb">printf</span><span class="p">(</span><span class="s2">&quot;Request: %s</span><span class="se">\n\n</span><span class="s2">Response: %s&quot;</span><span class="p">,</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">(),</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getResponse</span><span class="p">());</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can also call a polling function that checks on the build process:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Compute\Constants\ServerState</span><span class="p">;</span>
+
+<span class="nv">$callback</span> <span class="o">=</span> <span class="k">function</span><span class="p">(</span><span class="nv">$server</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$server</span><span class="o">-&gt;</span><span class="na">error</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nb">var_dump</span><span class="p">(</span><span class="nv">$server</span><span class="o">-&gt;</span><span class="na">error</span><span class="p">);</span>
+        <span class="k">exit</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="nb">sprintf</span><span class="p">(</span>
+            <span class="s2">&quot;Waiting on %s/%-12s %4s%%&quot;</span><span class="p">,</span>
+            <span class="nv">$server</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">(),</span>
+            <span class="nv">$server</span><span class="o">-&gt;</span><span class="na">status</span><span class="p">(),</span>
+            <span class="nb">isset</span><span class="p">(</span><span class="nv">$server</span><span class="o">-&gt;</span><span class="na">progress</span><span class="p">)</span> <span class="o">?</span> <span class="nv">$server</span><span class="o">-&gt;</span><span class="na">progress</span> <span class="o">:</span> <span class="mi">0</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="nv">$server</span><span class="o">-&gt;</span><span class="na">waitFor</span><span class="p">(</span><span class="nx">ServerState</span><span class="o">::</span><span class="na">ACTIVE</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="nv">$callback</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>So, the server will be polled until it is in an <tt class="docutils literal"><span class="pre">ACTIVE</span></tt> state, with a
+timeout of 600 seconds. When the poll happens, the callback function is
+executed - which in this case just logs some output.</p>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Read our docs for the <a class="reference external" href="services/compute">Compute v2</a> service.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

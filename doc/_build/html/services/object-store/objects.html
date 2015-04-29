@@ -1,0 +1,644 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Objects &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Object Store v1" href="index.html"/>
+        <link rel="next" title="CDN Containers" href="cdn.html"/>
+        <link rel="prev" title="Containers" href="containers.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Object Store v1</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#setup">Setup</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Object Store v1</a> &raquo;</li>
+      
+    <li>Objects</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/object-store/objects.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="objects">
+<h1>Objects<a class="headerlink" href="#objects" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>In order to interact with this feature, you must first retrieve a particular
+container using its unique name:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">(</span><span class="s1">&#39;{containerName}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-an-object">
+<h2>Create an object<a class="headerlink" href="#create-an-object" title="Permalink to this headline">¶</a></h2>
+<p>There are three ways to upload a new file, each of which has different
+business needs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unlike previous versions, you do not need to manually specify your object&#8217;s
+content type. The API will do this for you.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When working with names that contain non-standard alphanumerical characters
+(such as spaces or non-English characters), you must ensure they are encoded
+with <a class="reference external" href="http://php.net/urlencode">urlencode</a> before passing them in.</p>
+</div>
+<div class="section" id="upload-a-single-file-under-5gb">
+<h3>Upload a single file (under 5GB)<a class="headerlink" href="#upload-a-single-file-under-5gb" title="Permalink to this headline">¶</a></h3>
+<p>The simplest way to upload a local object, without additional metadata, is by
+its path:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">uploadObject</span><span class="p">(</span><span class="s1">&#39;example.txt&#39;</span><span class="p">,</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;/path/to/file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>The resource handle will be automatically closed by Guzzle in its destructor,
+so there is no need to execute <tt class="docutils literal"><span class="pre">fclose</span></tt>.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-object.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="upload-a-single-file-under-5gb-with-metadata">
+<h3>Upload a single file (under 5GB) with metadata<a class="headerlink" href="#upload-a-single-file-under-5gb-with-metadata" title="Permalink to this headline">¶</a></h3>
+<p>Although the previous section handles most use cases, there are times when you
+want greater control over what is being uploaded. For example, you might want
+to control the object&#8217;s metadata, or supply additional HTTP headers to coerce
+browsers to handle the download a certain way. To add metadata to a new object:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\ObjectStore\Resource\DataObject</span><span class="p">;</span>
+
+<span class="c1">// specify optional metadata</span>
+<span class="nv">$metadata</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Camera Obscura&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Origin&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Glasgow&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="c1">// specify optional HTTP headers</span>
+<span class="nv">$httpHeaders</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Content-Type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="c1">// merge the two</span>
+<span class="nv">$allHeaders</span> <span class="o">=</span> <span class="nb">array_merge</span><span class="p">(</span><span class="nx">DataObject</span><span class="o">::</span><span class="na">stockHeaders</span><span class="p">(</span><span class="nv">$metadata</span><span class="p">),</span> <span class="nv">$httpHeaders</span><span class="p">);</span>
+
+<span class="c1">// upload as usual</span>
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">uploadObject</span><span class="p">(</span><span class="s1">&#39;example.txt&#39;</span><span class="p">,</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;/path/to/file.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">),</span> <span class="nv">$allHeaders</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>As you will notice, the first argument to <tt class="docutils literal"><span class="pre">uploadObject</span></tt> is the remote object
+name, i.e. the name it will be uploaded as. The second argument is either a
+file handle resource, or a string representation of object content (a temporary
+resource will be created in memory), and the third is an array of additional
+headers.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-object-with-metadata.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="batch-upload-multiple-files-each-under-5gb">
+<h3>Batch upload multiple files (each under 5GB)<a class="headerlink" href="#batch-upload-multiple-files-each-under-5gb" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$files</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;apache.log&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;/etc/httpd/logs/error_log&#39;</span>
+    <span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysql.log&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;/tmp/mysql.log&#39;</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span>
+    <span class="p">),</span>
+    <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;to_do_list.txt&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;body&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;PHONE HOME&#39;</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+
+<span class="nv">$container</span><span class="o">-&gt;</span><span class="na">uploadObjects</span><span class="p">(</span><span class="nv">$files</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>As you can see, the <tt class="docutils literal"><span class="pre">name</span></tt> key is required for every file. You must
+also specify <em>either</em> a path key (to an existing file), or a <tt class="docutils literal"><span class="pre">body</span></tt>.
+The <tt class="docutils literal"><span class="pre">body</span></tt> can either be a PHP resource or a string representation of
+the content you want to upload.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-multiple-objects-with-metadata.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="upload-large-files-over-5gb">
+<h3>Upload large files (over 5GB)<a class="headerlink" href="#upload-large-files-over-5gb" title="Permalink to this headline">¶</a></h3>
+<p>For files over 5GB, you will need to use the
+<tt class="docutils literal"><span class="pre">OpenCloud\ObjectStore\Upload\TransferBuilder</span></tt> factory to build and execute your
+transfer. For your convenience, the Container resource object contains a simple
+method to do this heavy lifting for you:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$transfer</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">setupObjectTransfer</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;name&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;video.mov&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;path&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;/home/user/video.mov&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;metadata&#39;</span>    <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Jamie&#39;</span><span class="p">),</span>
+    <span class="s1">&#39;concurrency&#39;</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="s1">&#39;partSize&#39;</span>    <span class="o">=&gt;</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="nx">Size</span><span class="o">::</span><span class="na">GB</span>
+<span class="p">));</span>
+
+<span class="nv">$transfer</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can specify how many concurrent cURL connections are used to upload
+parts of your file. The file is fragmented into chunks, each of which is
+uploaded individually as a separate file (the filename of each part will
+indicate that it&#8217;s a segment rather than the full file). After all parts
+are uploaded, a manifestfile is uploaded. When the end-user accesses the 5GB
+by its true filename, it actually references the manifest file which
+concatenates each segment into a streaming download.</p>
+<p>In Swift terminology, the name for this process is <em>Dynamic Large Object (DLO)</em>.
+To find out more details, please consult the <a class="reference external" href="http://docs.rackspace.com/files/api/v1/cf-devguide/content/Large_Object_Creation-d1e2019.html">official documentation</a>.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/upload-large-object.php">Get the executable PHP script for this example</a></p>
+</div>
+</div>
+<div class="section" id="list-objects-in-a-container">
+<h2>List objects in a container<a class="headerlink" href="#list-objects-in-a-container" title="Permalink to this headline">¶</a></h2>
+<p>To return a list of objects:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$files</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">objectList</span><span class="p">();</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$files</span> <span class="k">as</span> <span class="nv">$file</span><span class="p">)</span> <span class="p">{</span>
+    <span class="sd">/** @var $file OpenCloud\ObjectStore\Resource\DataObject */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By default, 10,000 objects are returned as a maximum. To get around
+this, you can construct a query which refines your result set. For a
+full specification of query parameters relating to collection filtering,
+see the <a class="reference external" href="http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-objects.html">official
+docs</a>.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">objectList</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;prefix&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;logFile_&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-objects.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="get-object">
+<h2>Get object<a class="headerlink" href="#get-object" title="Permalink to this headline">¶</a></h2>
+<p>To retrieve a specific file from Cloud Files:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @var $file OpenCloud\ObjectStore\Resource\DataObject */</span>
+<span class="nv">$file</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getObject</span><span class="p">(</span><span class="s1">&#39;summer_vacation.mp4&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once you have access to this <tt class="docutils literal"><span class="pre">OpenCloud\ObjectStore\Resource\DataObject</span></tt>
+object, you can access these attributes:</p>
+<div class="section" id="get-object-s-parent-container">
+<h3>Get object&#8217;s parent container<a class="headerlink" href="#get-object-s-parent-container" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $container OpenCloud\ObjectStore\Resource\Container */</span>
+<span class="nv">$container</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-file-name">
+<h3>Get file name<a class="headerlink" href="#get-file-name" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $name string */</span>
+<span class="nv">$name</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-file-size">
+<h3>Get file size<a class="headerlink" href="#get-file-size" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $size int */</span>
+<span class="nv">$size</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getContentLength</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-content-of-file">
+<h3>Get content of file<a class="headerlink" href="#get-content-of-file" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $content Guzzle\Http\EntityBody */</span>
+<span class="nv">$content</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-type-of-file">
+<h3>Get type of file<a class="headerlink" href="#get-type-of-file" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $type string */</span>
+<span class="nv">$type</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getContentType</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-file-checksum">
+<h3>Get file checksum<a class="headerlink" href="#get-file-checksum" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $etag string */</span>
+<span class="nv">$etag</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getEtag</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-last-modified-date-of-file">
+<h3>Get last modified date of file<a class="headerlink" href="#get-last-modified-date-of-file" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="sd">/** @param $lastModified string */</span>
+<span class="nv">$lastModified</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getLastModified</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conditional-requests">
+<h3>Conditional requests<a class="headerlink" href="#conditional-requests" title="Permalink to this headline">¶</a></h3>
+<p>You can also perform conditional requests according to <a class="reference external" href="http://www.ietf.org/rfc/rfc2616.txt">RFC 2616
+specification</a> (§§ 14.24-26).
+Supported headers are <tt class="docutils literal"><span class="pre">If-Match</span></tt>, <tt class="docutils literal"><span class="pre">If-None-Match</span></tt>,
+<tt class="docutils literal"><span class="pre">If-Modified-Since</span></tt> and <tt class="docutils literal"><span class="pre">If-Unmodified-Since</span></tt>.</p>
+<p>So, to retrieve a file&#8217;s contents only if it&#8217;s been recently changed</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$file</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getObject</span><span class="p">(</span><span class="s1">&#39;error_log.txt&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;If-Modified-Since&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Tue, 15 Nov 1994 08:12:31 GMT&#39;</span>
+<span class="p">));</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">getContentLength</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Has been changed since the above date&#39;</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Has not been changed&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Retrieve a file only if it has NOT been modified (and expect a 412 on
+failure):</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">Guzzle\Http\Exception\ClientErrorResponseException</span><span class="p">;</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$oldImmutableFile</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getObject</span><span class="p">(</span><span class="s1">&#39;payroll_2001.xlsx&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;If-Unmodified-Since&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Mon, 31 Dec 2001 23:00:00 GMT&#39;</span>
+    <span class="p">));</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">ClientErrorResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;This file has been modified...&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, you can specify a range - which will return a subset of bytes
+from the file specified. To return the last 20B of a file:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$snippet</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getObject</span><span class="p">(</span><span class="s1">&#39;output.log&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;range&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bytes=-20&#39;</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="update-an-existing-object">
+<h2>Update an existing object<a class="headerlink" href="#update-an-existing-object" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$file</span><span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;/path/to/new/content&#39;</span><span class="p">,</span> <span class="s1">&#39;r+&#39;</span><span class="p">));</span>
+<span class="nv">$file</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Bear in mind that updating a file name will result in a new file being
+generated (under the new name). You will need to delete the old file.</p>
+</div>
+<div class="section" id="copy-object-to-new-location">
+<h2>Copy object to new location<a class="headerlink" href="#copy-object-to-new-location" title="Permalink to this headline">¶</a></h2>
+<p>To copy a file to another location, you need to specify a string-based
+destination path:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">copy</span><span class="p">(</span><span class="s1">&#39;/container_2/new_object_name&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Where <tt class="docutils literal"><span class="pre">container_2</span></tt> is the name of the container, and <tt class="docutils literal"><span class="pre">new_object_name</span></tt> is
+the name of the object inside the container that does not exist yet.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/copy-object.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="get-object-metadata">
+<h2>Get object metadata<a class="headerlink" href="#get-object-metadata" title="Permalink to this headline">¶</a></h2>
+<p>You can fetch just the object metadata without fetching the full
+content:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$container</span><span class="o">-&gt;</span><span class="na">getPartialObject</span><span class="p">(</span><span class="s1">&#39;summer_vacation.mp4&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In order to access the metadata on a partial or complete object, use:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">getMetadata</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can turn a partial object into a full object to get the content
+after looking at the metadata:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">refresh</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>You can also update to get the latest metadata:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">retrieveMetadata</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/get-object-metadata.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="update-object-metadata">
+<h2>Update object metadata<a class="headerlink" href="#update-object-metadata" title="Permalink to this headline">¶</a></h2>
+<p>Similarly, with setting metadata there are two options: you can update
+the metadata values of the local object (i.e. no HTTP request) if you
+anticipate you&#8217;ll be executing one soon (an update operation for
+example):</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// There&#39;s no need to execute a HTTP request, because we&#39;ll soon do one anyway for the update operation</span>
+<span class="nv">$object</span><span class="o">-&gt;</span><span class="na">setMetadata</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hemingway&#39;</span>
+<span class="p">));</span>
+
+<span class="c1">// ... code here</span>
+
+<span class="nv">$object</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Alternatively, you can update the API straight away - so that everything
+is retained:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">saveMetadata</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;Author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hemingway&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Please be aware that these methods override and wipe existing values. If
+you want to append values to your metadata, use the correct method:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$metadata</span> <span class="o">=</span> <span class="nv">$object</span><span class="o">-&gt;</span><span class="na">appendToMetadata</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;Author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hemingway&#39;</span>
+<span class="p">));</span>
+
+<span class="nv">$object</span><span class="o">-&gt;</span><span class="na">saveMetadata</span><span class="p">(</span><span class="nv">$metadata</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/update-object-metadata.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="extract-archive">
+<h2>Extract archive<a class="headerlink" href="#extract-archive" title="Permalink to this headline">¶</a></h2>
+<p>CloudFiles provides you the ability to extract uploaded archives to
+particular destinations. The archive will be extracted and its contents
+will populate the particular area specified. To upload file (which might
+represent a directory structure) into a particular container:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\ObjectStore\Constants\UrlType</span><span class="p">;</span>
+
+<span class="nv">$service</span><span class="o">-&gt;</span><span class="na">bulkExtract</span><span class="p">(</span><span class="s1">&#39;container_1&#39;</span><span class="p">,</span> <span class="nb">fopen</span><span class="p">(</span><span class="s1">&#39;/home/jamie/files.tar.gz&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">),</span> <span class="nx">UrlType</span><span class="o">::</span><span class="na">TAR_GZ</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also omit the container name (i.e. provide an empty string as
+the first argument). If you do this, the API will create the containers
+necessary to house the extracted files - this is done based on the
+filenames inside the archive.</p>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/auto-extract-archive-files.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="delete-object">
+<h2>Delete object<a class="headerlink" href="#delete-object" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$object</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-object.php">Get the executable PHP script for this example</a></p>
+</div>
+<div class="section" id="delete-multiple-objects">
+<h2>Delete multiple objects<a class="headerlink" href="#delete-multiple-objects" title="Permalink to this headline">¶</a></h2>
+<p>Bulk delete a set of paths:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$pathsToBeDeleted</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;/container_1/old_file&#39;</span><span class="p">,</span> <span class="s1">&#39;/container_2/notes.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;/container_1/older_file.log&#39;</span><span class="p">);</span>
+
+<span class="nv">$service</span><span class="o">-&gt;</span><span class="na">bulkDelete</span><span class="p">(</span><span class="nv">$pathsToBeDeleted</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/bulk-delete.php">Get the executable PHP script for this example</a></p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cdn.html" class="btn btn-neutral float-right" title="CDN Containers"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="containers.html" class="btn btn-neutral" title="Containers"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

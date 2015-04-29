@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Images &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Images</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/image/Images.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="images">
+<h1>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h1>
+<p>A virtual machine image is a single file which contains a virtual disk
+that has an installed bootable operating system. In the Cloud Images
+API, an image is represented by a JSON-encoded data structure (the image
+schema) and its raw binary data (the image file).</p>
+<p>An Image is represented by the <tt class="docutils literal"><span class="pre">OpenCloud\Image\Resource\Image</span></tt> class.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>You instantiate an Image object from its <tt class="docutils literal"><span class="pre">OpenCloud\Image\Service</span></tt>
+class, which is available from the OpenStack/Rackspace client:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$service = $client-&gt;imageService(&#39;cloudImages&#39;, &#39;IAD&#39;);
+</pre></div>
+</div>
+<p>View the guides for more information about <a class="reference external" href="../Clients.md">clients</a>
+or <a class="reference external" href="../Services.md">services</a>.</p>
+</div>
+<div class="section" id="list-images">
+<h2>List images<a class="headerlink" href="#list-images" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$images = $service-&gt;listImages();
+
+foreach ($images as $image) {
+   /** @param $image OpenCloud\Image\Resource\Image */
+}
+</pre></div>
+</div>
+<p>For more information about working with iterators, please see the
+<a class="reference external" href="../Iterators.md">iterators documentation</a>.</p>
+</div>
+<div class="section" id="get-image-details">
+<h2>Get image details<a class="headerlink" href="#get-image-details" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @param $image OpenCloud\Image\Resource\Image */
+$image = $service-&gt;getImage(&#39;&lt;image_id&gt;&#39;);
+</pre></div>
+</div>
+<div class="section" id="a-note-on-schema-classes">
+<h3>A note on schema classes<a class="headerlink" href="#a-note-on-schema-classes" title="Permalink to this headline">¶</a></h3>
+<p>Both <tt class="docutils literal"><span class="pre">OpenCloud\Image\Resource\Image</span></tt> and
+<tt class="docutils literal"><span class="pre">OpenCloud\Image\Resource\Member</span></tt> extend the
+<tt class="docutils literal"><span class="pre">AbstractSchemaResource</span></tt> abstract class, which offers some unique
+functionality.</p>
+<p>Because these resources are inherently dynamic - i.e. they are modelled
+on dynamic JSON schema - you need to access their state in a way
+different than conventional getter/setter methods, and even class
+properties. For this reason, they implement SPL&#8217;s native
+<tt class="docutils literal"><span class="pre">`ArrayAccess</span></tt> &lt;<a class="reference external" href="http://www.php.net/manual/en/class.arrayaccess.php">http://www.php.net/manual/en/class.arrayaccess.php</a>&gt;`__
+interface which allows you to access their state as a conventional
+array:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$image = $service-&gt;getImage(&#39;&lt;image_id&gt;&#39;);
+
+$id = $image[&#39;id&#39;];
+$tags = $image[&#39;tags&#39;];
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="update-image">
+<h2>Update image<a class="headerlink" href="#update-image" title="Permalink to this headline">¶</a></h2>
+<p>You can only update your own custom images - you cannot update or delete
+base images. The way in which you may update your image is dictated by
+its <a class="reference external" href="Schemas.md">schema</a>.</p>
+<p>Although you should be able to add new and replace existing properties,
+always prepare yourself for a situation where it might be forbidden:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Exceptions\ForbiddenOperationException;
+
+try {
+    $image-&gt;update(array(
+        &#39;name&#39;        =&gt; &#39;foo&#39;,
+        &#39;newProperty&#39; =&gt; &#39;bar&#39;
+    ));
+} catch (ForbiddenOperationException $e) {
+    // A 403 Forbidden was returned
+}
+</pre></div>
+</div>
+<p>There are three operations that can take place for each Image property:</p>
+<ul class="simple">
+<li>If a <tt class="docutils literal"><span class="pre">false</span></tt> or <tt class="docutils literal"><span class="pre">null</span></tt> value is provided, a <tt class="docutils literal"><span class="pre">REMOVE</span></tt> operation
+will occur, removing the property from the JSON document</li>
+<li>If a non-false value is provided and the property does not exist, an
+<tt class="docutils literal"><span class="pre">ADD</span></tt> operation will add it to the document</li>
+<li>If a non-false value is provided and the property does exist, a
+<tt class="docutils literal"><span class="pre">REPLACE</span></tt> operation will modify the property in the document</li>
+</ul>
+</div>
+<div class="section" id="delete-image">
+<h2>Delete image<a class="headerlink" href="#delete-image" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$image-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

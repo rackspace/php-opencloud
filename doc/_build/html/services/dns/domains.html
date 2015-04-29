@@ -1,0 +1,545 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Domains &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="up" title="DNS v1" href="index.html"/>
+        <link rel="next" title="Limits" href="limits.html"/>
+        <link rel="prev" title="Records" href="records.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DNS v1</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#setup">Setup</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">DNS v1</a> &raquo;</li>
+      
+    <li>Domains</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/dns/domains.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="domains">
+<h1>Domains<a class="headerlink" href="#domains" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="get-domain">
+<h2>Get domain<a class="headerlink" href="#get-domain" title="Permalink to this headline">¶</a></h2>
+<p>To retrieve a specific domain, you will need the domain&#8217;s <strong>id</strong>, not
+its domain name:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$domain</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">domain</span><span class="p">(</span><span class="s1">&#39;{domainId}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>If you are having trouble remembering or accessing the domain ID, you
+can do a domain list search for your domain and then access its ID.</p>
+</div>
+<div class="section" id="list-domains">
+<h2>List domains<a class="headerlink" href="#list-domains" title="Permalink to this headline">¶</a></h2>
+<p>These calls provide a list of all DNS domains manageable by a given
+account. The resulting list is flat, and does not break the domains down
+hierarchically by subdomain. All representative domains are included in
+the list, even if a domain is conceptually a subdomain of another domain
+in the list.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$domains</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">domainList</span><span class="p">();</span>
+
+<span class="c1"># Return detailed information for each domain</span>
+<span class="nv">$domains</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">domainList</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="filter-parameters">
+<h3>Filter parameters<a class="headerlink" href="#filter-parameters" title="Permalink to this headline">¶</a></h3>
+<p>You can filter the search by using the <tt class="docutils literal"><span class="pre">name</span></tt> parameter in a key/value array
+supplied as a method argument. For example, to retrieve domains named <tt class="docutils literal"><span class="pre">foo.com</span></tt>,
+along with any subdomains like <tt class="docutils literal"><span class="pre">bar.foo.com</span></tt>:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$hoolaDomains</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">domainList</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo.com&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<p>Filter criteria may consist of:</p>
+<ul class="simple">
+<li>Any letter (A-Za-z)</li>
+<li>Numbers (0-9)</li>
+<li>Hyphen (&#8220;-&#8221;)</li>
+<li>1 to 63 characters</li>
+</ul>
+<p>Filter criteria should not include any of the following characters:</p>
+<blockquote>
+<div>&#8216; + , | ! &#8221; £ $ % &amp; / ( ) = ? ^ * ç ° § ; : _ &gt; ] [ &#64; à, é, ò</div></blockquote>
+</div>
+<div class="section" id="finding-a-domain-id">
+<h3>Finding a domain ID<a class="headerlink" href="#finding-a-domain-id" title="Permalink to this headline">¶</a></h3>
+<p>Once you have a list of domains, to retrieve a domain&#8217;s ID:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">foreach</span> <span class="p">(</span><span class="nv">$domains</span> <span class="k">as</span> <span class="nv">$domain</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$id</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="list-domain-changes">
+<h2>List domain changes<a class="headerlink" href="#list-domain-changes" title="Permalink to this headline">¶</a></h2>
+<p>This call shows all changes to the specified domain since the specified
+date/time. To list all available changes for a domain for the current day:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$changes</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">changes</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>For more granular control, you can manually define the <tt class="docutils literal"><span class="pre">since</span></tt> parameter like
+so:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$since</span> <span class="o">=</span> <span class="nb">date</span><span class="p">(</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="nb">strtotime</span><span class="p">(</span><span class="s1">&#39;last week&#39;</span><span class="p">));</span>
+<span class="nv">$changes</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">changes</span><span class="p">(</span><span class="nv">$since</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once you have a set of changes, you can iterate over them like so:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">foreach</span> <span class="p">(</span><span class="nv">$changes</span><span class="o">-&gt;</span><span class="na">changes</span> <span class="k">as</span> <span class="nv">$change</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">printf</span><span class="p">(</span><span class="s2">&quot;Domain: %s</span><span class="se">\n</span><span class="s2">Action: %s</span><span class="se">\n</span><span class="s2">Target: %s&quot;</span><span class="p">,</span> <span class="nv">$change</span><span class="o">-&gt;</span><span class="na">domain</span><span class="p">,</span> <span class="nv">$change</span><span class="o">-&gt;</span><span class="na">action</span><span class="p">,</span> <span class="nv">$change</span><span class="o">-&gt;</span><span class="na">targetType</span><span class="p">);</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$change</span><span class="o">-&gt;</span><span class="na">changeDetails</span> <span class="k">as</span> <span class="nv">$detail</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">printf</span><span class="p">(</span><span class="s2">&quot;Details: %s was changed from %s to %s&quot;</span><span class="p">,</span> <span class="nv">$detail</span><span class="o">-&gt;</span><span class="na">field</span><span class="p">,</span> <span class="nv">$detail</span><span class="o">-&gt;</span><span class="na">oldValue</span><span class="p">,</span> <span class="nv">$detail</span><span class="o">-&gt;</span><span class="na">newValue</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-domain">
+<h2>Create domain<a class="headerlink" href="#create-domain" title="Permalink to this headline">¶</a></h2>
+<p>The first thing you will need to do is instantiate a new object and set the
+primary <tt class="docutils literal"><span class="pre">A</span></tt> record for the DNS domain, like so:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// get empty object</span>
+<span class="nv">$domain</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">domain</span><span class="p">();</span>
+
+<span class="c1">// add A record</span>
+<span class="nv">$aRecord</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">record</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;192.0.2.17&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span>  <span class="o">=&gt;</span> <span class="mi">3600</span>
+<span class="p">));</span>
+
+<span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">addRecord</span><span class="p">(</span><span class="nv">$aRecord</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You also have the option of adding more types of DNS records such as <tt class="docutils literal"><span class="pre">CNAME</span></tt>,
+<tt class="docutils literal"><span class="pre">MX</span></tt> and <tt class="docutils literal"><span class="pre">NS</span></tt> records. This step is completely optional and depends on
+your requirements:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="c1">// add CNAME record</span>
+<span class="nv">$cRecord</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">record</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;CNAME&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;www.example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span>  <span class="o">=&gt;</span> <span class="mi">3600</span>
+<span class="p">));</span>
+<span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">addRecord</span><span class="p">(</span><span class="nv">$cRecord</span><span class="p">);</span>
+
+<span class="c1">// add MX record</span>
+<span class="nv">$mxRecord</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">record</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;MX&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mail.example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span>  <span class="o">=&gt;</span> <span class="mi">3600</span><span class="p">,</span>
+    <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">5</span>
+<span class="p">));</span>
+<span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">addRecord</span><span class="p">(</span><span class="nv">$mxRecord</span><span class="p">);</span>
+
+<span class="c1">// add NS record</span>
+<span class="nv">$nsRecord</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">record</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;NS&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;dns1.stabletransit.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span>  <span class="o">=&gt;</span> <span class="mi">5400</span>
+<span class="p">));</span>
+<span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">addRecord</span><span class="p">(</span><span class="nv">$nsRecord</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>You can also add sub-domains to your new DNS domain. Again, this is completely
+optional:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$subdomain</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">subdomain</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;emailAddress&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo@example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span>         <span class="o">=&gt;</span> <span class="s1">&#39;dev.example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;comment&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;Dev portal&#39;</span>
+<span class="p">));</span>
+<span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">addSubdomain</span><span class="p">(</span><span class="nv">$subdomain</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Once you&#8217;ve finished configuring how your DNS domain will work, you&#8217;re ready
+to specify the essential details and send it to the API for creation:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;emailAddress&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;webmaster@example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ttl&#39;</span>          <span class="o">=&gt;</span> <span class="mi">3600</span><span class="p">,</span>
+    <span class="s1">&#39;name&#39;</span>         <span class="o">=&gt;</span> <span class="s1">&#39;example.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;comment&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;Optional comment&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="clone-domain">
+<h2>Clone domain<a class="headerlink" href="#clone-domain" title="Permalink to this headline">¶</a></h2>
+<p>This call will duplicate an existing domain under a new name. By default, all
+records and, optionally, subdomains are duplicated as well.</p>
+<p>The method signature you will need to use is:</p>
+<dl class="function">
+<dt id="cloneDomain">
+<tt class="descname">cloneDomain</tt><big>(</big><em>$newDomainName</em><span class="optional">[</span>, <em>$subdomains</em><span class="optional">[</span>, <em>$comments</em><span class="optional">[</span>, <em>$email</em><span class="optional">[</span>, <em>$records</em><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#cloneDomain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clone a domain</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>$newDomainName</strong> (<em>string</em>) &#8211; The name of the new domain entry</li>
+<li><strong>$subdomains</strong> (<em>bool</em>) &#8211; Set to <tt class="docutils literal"><span class="pre">true</span></tt> to clone all the subdomains for this domain</li>
+<li><strong>$comments</strong> (<em>bool</em>) &#8211; Set to <tt class="docutils literal"><span class="pre">true</span></tt> to replace occurrences of the reference domain name with the new domain name in comments on the cloned (new) domain.</li>
+<li><strong>$email</strong> (<em>bool</em>) &#8211; Set to <tt class="docutils literal"><span class="pre">true</span></tt> to replace occurrences of the reference domain name with the new domain name in data fields (of records) on the cloned (new) domain. Does not affect NS records.</li>
+<li><strong>$records</strong> (<em>bool</em>) &#8211; Set to <tt class="docutils literal"><span class="pre">true</span></tt> to replace occurrences of the reference domain name with the new domain name in data fields (of records) on the cloned (new) domain. Does not affect NS records.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p>For example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$asyncResponse</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">cloneDomain</span><span class="p">(</span><span class="s1">&#39;new-name.com&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="export-domain">
+<h2>Export domain<a class="headerlink" href="#export-domain" title="Permalink to this headline">¶</a></h2>
+<p>This call provides access to the <a class="reference external" href="http://www.isc.org/downloads/bind/">BIND</a>
+(Berkeley Internet Name Domain) 9 for the requested domain. This call is for a
+single domain only, and as such, does not traverse up or down the domain
+hierarchy for details:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$asyncResponse</span> <span class="o">=</span> <span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">export</span><span class="p">();</span>
+
+<span class="nv">$body</span> <span class="o">=</span> <span class="nv">$asyncResponse</span><span class="o">-&gt;</span><span class="na">waitFor</span><span class="p">(</span><span class="s1">&#39;COMPLETED&#39;</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$body</span><span class="p">[</span><span class="s1">&#39;contents&#39;</span><span class="p">];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="import-domain">
+<h2>Import domain<a class="headerlink" href="#import-domain" title="Permalink to this headline">¶</a></h2>
+<p>This operation will create a new DNS domain according to a <a class="reference external" href="http://www.isc.org/downloads/bind/">BIND</a>
+(Berkeley Internet Name Domain) 9 formatted value.</p>
+<p>In order for the BIND value to be considered valid, it needs to adhere to the
+following rules:</p>
+<ul>
+<li><p class="first">Each record starts on a new line and on the first column. If a record will
+not fit on one line, use the BIND_9 line continuation convention where you put
+a left parenthesis and continue the one record on the next line and put a right
+parenthesis when the record ends. For example:</p>
+<blockquote>
+<div><p>example2.net. 3600 IN SOA dns1.stabletransit.com. (<a class="reference external" href="mailto:sample&#37;&#52;&#48;rackspace&#46;com">sample<span>&#64;</span>rackspace<span>&#46;</span>com</a>. 1308874739 3600 3600 3600 3600)</p>
+</div></blockquote>
+</li>
+<li><p class="first">The attribute values of a record must be separated by a single blank or tab.
+No other white space characters.</p>
+</li>
+<li><p class="first">If there are any NS records, the data field should not be
+<tt class="docutils literal"><span class="pre">dns1.stabletransit.com</span></tt> or <tt class="docutils literal"><span class="pre">dns2.stabletransit.com</span></tt>. They will result in
+&#8220;duplicate record&#8221; errors.</p>
+</li>
+</ul>
+<p>For example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$bind9Data</span> <span class="o">=</span> <span class="s">&lt;&lt;&lt;EOT</span>
+
+<span class="s">example.net. 3600 IN SOA dns1.stabletransit.com. sample@rackspace.com. 1308874739 3600 3600 3600 3600</span>
+<span class="s">example.net. 86400 IN A 110.11.12.16</span>
+<span class="s">example.net. 3600 IN MX 5 mail2.example.net.</span>
+<span class="s">www.example.net. 5400 IN CNAME example.net.</span>
+
+<span class="s">EOT;</span>
+
+<span class="nv">$asyncResponse</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="nv">$bind9Data</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modify-domain">
+<h2>Modify domain<a class="headerlink" href="#modify-domain" title="Permalink to this headline">¶</a></h2>
+<p>Only the TTL, email address and comment attributes of a domain can be modified.
+Records cannot be added, modified, or removed through this API operation - you
+will need to use the <a class="reference external" href="records#add-record">add records</a>, <a class="reference external" href="records#modify-record">modify records</a> or <a class="reference external" href="records#delete-record">remove records</a>
+operations respectively.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;ttl&#39;</span>          <span class="o">=&gt;</span> <span class="p">(</span><span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">ttl</span> <span class="o">+</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="s1">&#39;emailAddress&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;new_dev@foo.com&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-domain">
+<h2>Delete domain<a class="headerlink" href="#delete-domain" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$domain</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="limits.html" class="btn btn-neutral float-right" title="Limits"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="records.html" class="btn btn-neutral" title="Records"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

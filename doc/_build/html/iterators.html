@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Iterators &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="index.html"/>
+        <link rel="next" title="Rackspace regions" href="regions.html"/>
+        <link rel="prev" title="Caching credentials" href="caching-creds.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="services/autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="services/volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services/volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Iterators</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/iterators.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="iterators">
+<h1>Iterators<a class="headerlink" href="#iterators" title="Permalink to this headline">¶</a></h1>
+<p>Iterators allow you to traverse over collections of your resources in an
+efficient and easy way. Currently there are two Iterators provided by
+the SDK:</p>
+<ul class="simple">
+<li><strong>ResourceIterator</strong>. The standard iterator class that implements
+SPL&#8217;s standard
+<a class="reference external" href="http://php.net/manual/en/class.iterator.php">Iterator</a>,
+<a class="reference external" href="http://www.php.net/manual/en/class.arrayaccess.php">ArrayAccess</a>
+and <a class="reference external" href="http://php.net/manual/en/class.countable.php">Countable</a>
+interfaces. In short, this allows you to traverse this object (using
+<tt class="docutils literal"><span class="pre">foreach</span></tt>), count its internal elements like an array (using
+<tt class="docutils literal"><span class="pre">count</span></tt> or <tt class="docutils literal"><span class="pre">sizeof</span></tt>), and access its internal elements like an
+array (using <tt class="docutils literal"><span class="pre">$iterator[1]</span></tt>).</li>
+<li><strong>PaginatedIterator</strong>. This is a child of ResourceIterator, and as
+such inherits all of its functionality. The difference however is
+that when it reaches the end of the current collection, it attempts
+to construct a URL to access the API based on predictive paginated
+collection templates.</li>
+</ul>
+<div class="section" id="common-behaviour">
+<h2>Common behaviour<a class="headerlink" href="#common-behaviour" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$iterator</span> <span class="o">=</span> <span class="nv">$computeService</span><span class="o">-&gt;</span><span class="na">flavorList</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>There are two ways to traverse an iterator. The first is the longer,
+more traditional way:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span><span class="nv">$iterator</span><span class="o">-&gt;</span><span class="na">valid</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nv">$flavor</span> <span class="o">=</span> <span class="nv">$iterator</span><span class="o">-&gt;</span><span class="na">current</span><span class="p">();</span>
+
+    <span class="c1">// do stuff..</span>
+    <span class="k">echo</span> <span class="nv">$flavor</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+
+    <span class="nv">$iterator</span><span class="o">-&gt;</span><span class="na">next</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>There is also a shorter and more intuitive version:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">foreach</span> <span class="p">(</span><span class="nv">$iterator</span> <span class="k">as</span> <span class="nv">$flavor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// do stuff...</span>
+    <span class="k">echo</span> <span class="nv">$flavor</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Because the iterator implements PHP&#8217;s native <tt class="docutils literal"><span class="pre">Iterator</span></tt> interface, it
+can inherit all the native functionality of traversible data structures
+with <tt class="docutils literal"><span class="pre">foreach</span></tt>.</p>
+</div>
+<div class="section" id="very-important-note">
+<h2>Very important note<a class="headerlink" href="#very-important-note" title="Permalink to this headline">¶</a></h2>
+<p>Until now, users have been expected to do this:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">while</span> <span class="p">(</span><span class="nv">$flavor</span> <span class="o">=</span> <span class="nv">$iterator</span><span class="o">-&gt;</span><span class="na">next</span><span class="p">())</span> <span class="p">{</span>
+   <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>which is <strong>incorrect</strong>. The single responsibility of <tt class="docutils literal"><span class="pre">next</span></tt> is to move
+the internal pointer forward. It is the job of <tt class="docutils literal"><span class="pre">current</span></tt> to retrieve
+the current element.</p>
+<p>For your convenience, these two Iterator classes are fully backward
+compatible: they exhibit all the functionality you&#8217;d expect from a
+correctly implemented iterator, but they also allow previous behaviour.</p>
+</div>
+<div class="section" id="using-paginated-collections">
+<h2>Using paginated collections<a class="headerlink" href="#using-paginated-collections" title="Permalink to this headline">¶</a></h2>
+<p>For large collections, such as retrieving DataObjects from
+CloudFiles/Swift, you need to use pagination. Each resource will have a
+different limit per page; so once that page is traversed, there needs to
+be another API call to retrieve to <em>next</em> page&#8217;s resources.</p>
+<p>There are two key concepts:</p>
+<ul class="simple">
+<li><strong>limit</strong> is the amount of resources returned per page</li>
+<li><strong>marker</strong> is the way you define a starting point. It is some form of
+identifier that allows the collection to begin from a specific
+resource</li>
+</ul>
+<div class="section" id="resource-classes">
+<h3>Resource classes<a class="headerlink" href="#resource-classes" title="Permalink to this headline">¶</a></h3>
+<p>When the iterator returns a current element in the internal list, it
+populates the relevant resource class with all the data returned to the
+API. In most cases, a <tt class="docutils literal"><span class="pre">stdClass</span></tt> object will become an instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\PersistentObject</span></tt>.</p>
+<p>In order for this instantiation to happen, the <tt class="docutils literal"><span class="pre">resourceClass</span></tt> option
+must correspond to some method in the parent class that creates the
+resource. For example, if we specify &#8216;ScalingPolicy&#8217; as the
+<tt class="docutils literal"><span class="pre">resourceClass</span></tt>, the parent object (in this case
+<tt class="docutils literal"><span class="pre">OpenCloud\Autoscale\Group</span></tt>, needs to have some method will allows the
+iterator to instantiate the child resource class. These are all valid:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">Group::scalingGroup($data);</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Group::getScalingGroup($data);</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">Group::resource('ScalingGroup',</span> <span class="pre">$data);</span></tt></li>
+</ol>
+<p>where <tt class="docutils literal"><span class="pre">$data</span></tt> is the standard object. This list runs in order of
+precedence.</p>
+</div>
+</div>
+<div class="section" id="setting-up-a-paginatediterator">
+<h2>Setting up a PaginatedIterator<a class="headerlink" href="#setting-up-a-paginatediterator" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Common\Collection\PaginatedIterator</span><span class="p">;</span>
+
+<span class="nv">$service</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">computeService</span><span class="p">();</span>
+
+<span class="nv">$flavors</span> <span class="o">=</span> <span class="nx">PaginatedIterator</span><span class="o">::</span><span class="na">factory</span><span class="p">(</span><span class="nv">$service</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;resourceClass&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Flavor&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;baseUrl&#39;</span>        <span class="o">=&gt;</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getUrl</span><span class="p">(</span><span class="s1">&#39;flavors&#39;</span><span class="p">)</span>
+    <span class="s1">&#39;limit.total&#39;</span>    <span class="o">=&gt;</span> <span class="mi">350</span><span class="p">,</span>
+    <span class="s1">&#39;limit.page&#39;</span>     <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">&#39;key.collection&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;flavors&#39;</span>
+<span class="p">));</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$flavors</span> <span class="k">as</span> <span class="nv">$flavor</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$flavor</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As you can see, there are a lot of configuration parameters to pass in -
+and getting it right can be quite fiddly, involving a lot of API
+research. For this reason, using the convenience methods like
+<tt class="docutils literal"><span class="pre">flavorList</span></tt> is recommended because it hides the complexity.</p>
+<div class="section" id="paginatediterator-options">
+<h3>PaginatedIterator options<a class="headerlink" href="#paginatediterator-options" title="Permalink to this headline">¶</a></h3>
+<p>There are certain configuration options that the paginated iterator
+needs to work. These are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="75%" />
+<col width="9%" />
+<col width="4%" />
+<col width="5%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+<th class="head">Required</th>
+<th class="head">Default</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>resourceClass</td>
+<td>The resource class that is instantiated when the current element is retrieved. This is relative to the parent/service which called the iterator.</td>
+<td>string</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>baseUrl</td>
+<td>The base URL that is used for making new calls to the API for new pages</td>
+<td><tt class="docutils literal"><span class="pre">Guzzle\Http\Url</span></tt></td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>limit.total</td>
+<td>The total amount of resources you want to traverse in your collection. The iterator will stop as this limit is reached, regardless if there are more items in the list</td>
+<td>int</td>
+<td>No</td>
+<td>10000</td>
+</tr>
+<tr class="row-odd"><td>limit.page</td>
+<td>The amount of resources each page contains</td>
+<td>int</td>
+<td>No</td>
+<td>100</td>
+</tr>
+<tr class="row-even"><td>key.links</td>
+<td>Often, API responses will contain &#8220;links&#8221; that allow easy access to the next page of a resource collection. This option specifies what that JSON element is called (its key). For example, for Rackspace Compute images it is <tt class="docutils literal"><span class="pre">images_links</span></tt>.</td>
+<td>string</td>
+<td>No</td>
+<td>links</td>
+</tr>
+<tr class="row-odd"><td>key.collection</td>
+<td>The top-level key for the array of resources. For example, servers are returned with this data structure: <tt class="docutils literal"><span class="pre">{&quot;servers&quot;:</span> <span class="pre">[...]}</span></tt>. The <strong>key.collection</strong> value in this case would be <tt class="docutils literal"><span class="pre">servers</span></tt>.</td>
+<td>string</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+</tr>
+<tr class="row-even"><td>key.collectionElement</td>
+<td>Rarely used. But it indicates the key name for each nested resource element. KeyPairs, for example, are listed like this: <tt class="docutils literal"><span class="pre">{&quot;keypairs&quot;:</span> <span class="pre">[</span> <span class="pre">{&quot;keypair&quot;:</span> <span class="pre">{...}}</span> <span class="pre">]</span> <span class="pre">}</span></tt>. So in this case the collectionElement key would be <tt class="docutils literal"><span class="pre">keypair</span></tt>.</td>
+<td>string</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+</tr>
+<tr class="row-odd"><td>key.marker</td>
+<td>The value used as the marker. It needs to represent a valid property in the JSON resource objects. Often it is <tt class="docutils literal"><span class="pre">id</span></tt> or <tt class="docutils literal"><span class="pre">name</span></tt>.</td>
+<td>string</td>
+<td>No</td>
+<td>name</td>
+</tr>
+<tr class="row-even"><td>request.method</td>
+<td>The HTTP method used when making API calls for new pages</td>
+<td>string</td>
+<td>No</td>
+<td>GET</td>
+</tr>
+<tr class="row-odd"><td>request.headers</td>
+<td>The HTTP headers to send when making API calls for new pages</td>
+<td>array</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">array()</span></tt></td>
+</tr>
+<tr class="row-even"><td>request.body</td>
+<td>The HTTP entity body to send when making API calls for new pages</td>
+<td><tt class="docutils literal"><span class="pre">Guzzle\Http\EntityBody</span></tt></td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+</tr>
+<tr class="row-odd"><td>request.curlOptions</td>
+<td>Additional cURL options to use when making API calls for new pages</td>
+<td>array</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">array()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="regions.html" class="btn btn-neutral float-right" title="Rackspace regions"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="caching-creds.html" class="btn btn-neutral" title="Caching credentials"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

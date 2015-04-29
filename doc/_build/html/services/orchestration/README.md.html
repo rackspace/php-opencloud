@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Orchestration &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Orchestration</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/orchestration/README.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="orchestration">
+<h1>Orchestration<a class="headerlink" href="#orchestration" title="Permalink to this headline">¶</a></h1>
+<p><strong>Orchestration</strong> is a service that can be used to create and manage
+cloud resources. Examples of such resources are databases, load
+balancers, servers and software installed on them.</p>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<p>To use the Orchestration service effectively, you should understand
+several key concepts:</p>
+<ul class="simple">
+<li><strong>Template</strong>: An Orchestration template is a JSON or YAML document
+that describes how a set of resources should be assembled to produce
+a working deployment. The template specifies what resources should be
+used, what attributes of these resources are parameterized and what
+information is output to the user when a template is instantiated.</li>
+<li><strong>Resource</strong>: A resource is a template artifact that represents some
+component of your desired architecture (a Cloud Server, a group of
+scaled Cloud Servers, a load balancer, some configuration management
+system, and so forth).</li>
+<li><strong>Stack</strong>: A stack is a running instance of a template. When a stack
+is created, the resources specified in the template are created.</li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="instantiate-an-openstack-or-rackspace-client">
+<h3>1. Instantiate an OpenStack or Rackspace client.<a class="headerlink" href="#instantiate-an-openstack-or-rackspace-client" title="Permalink to this headline">¶</a></h3>
+<p>To use the Orchestration service, you must first instantiate a
+<tt class="docutils literal"><span class="pre">OpenStack</span></tt> or <tt class="docutils literal"><span class="pre">Rackspace</span></tt> client object.</p>
+<ul>
+<li><p class="first">If you are working with an OpenStack cloud, instantiate an
+<tt class="docutils literal"><span class="pre">OpenCloud\OpenStack</span></tt> client as follows:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\OpenStack;
+
+$client = new OpenStack(&#39;&lt;OPENSTACK CLOUD IDENTITY ENDPOINT URL&gt;&#39;, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR OPENSTACK CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;password&#39; =&gt; &#39;&lt;YOUR OPENSTACK CLOUD ACCOUNT PASSWORD&gt;&#39;
+));
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you are working with the Rackspace cloud, instantiate a
+<tt class="docutils literal"><span class="pre">OpenCloud\Rackspace</span></tt> client as follows:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+ ));
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="obtain-an-orchestration-service-object-from-the-client">
+<h3>2. Obtain an Orchestration service object from the client.<a class="headerlink" href="#obtain-an-orchestration-service-object-from-the-client" title="Permalink to this headline">¶</a></h3>
+<p>All Orchestration operations are done via an <em>orchestration service
+object</em>. To instantiate this object, call the <tt class="docutils literal"><span class="pre">orchestrationService</span></tt>
+method on the <tt class="docutils literal"><span class="pre">$client</span></tt> object as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$region = &#39;&lt;CLOUD REGION NAME&gt;&#39;;
+$orchestrationService = $client-&gt;orchestrationService(null, $region);
+</pre></div>
+</div>
+<p>Any stacks and resources created with this <tt class="docutils literal"><span class="pre">$orchestrationService</span></tt>
+instance will be stored in the cloud region specified by <tt class="docutils literal"><span class="pre">$region</span></tt>.</p>
+</div>
+<div class="section" id="create-a-stack-from-a-template">
+<h3>3. Create a stack from a template.<a class="headerlink" href="#create-a-stack-from-a-template" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack = $orchestrationService-&gt;createStack(array(
+    &#39;name&#39;         =&gt; &#39;simple-lamp-setup&#39;,
+    &#39;templateUrl&#39;  =&gt; &#39;https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml&#39;,
+    &#39;parameters&#39;   =&gt; array(
+        &#39;server_hostname&#39; =&gt; &#39;web01&#39;,
+        &#39;image&#39;           =&gt; &#39;Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)&#39;
+    ),
+    &#39;timeoutMins&#39;  =&gt; 5
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/quickstart.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Once you have created a stack, there is more you can do with it. See
+<a class="reference external" href="USERGUIDE.md">complete user guide for orchestration</a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

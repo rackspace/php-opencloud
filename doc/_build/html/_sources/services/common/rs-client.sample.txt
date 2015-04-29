@@ -1,0 +1,29 @@
+Rackspace setup
+~~~~~~~~~~~~~~~
+
+The first step is to pass in your credentials and set up a client. For
+Rackspace users, you will need your username and API key:
+
+.. code-block:: php
+
+  use OpenCloud\Rackspace;
+
+  $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
+  ));
+
+
+OpenStack setup
+~~~~~~~~~~~~~~~
+
+If you're an OpenStack user, you will also need to prove a few other
+configuration parameters:
+
+.. code-block:: php
+
+  $client = new OpenCloud\OpenStack('{keystoneUrl}', array(
+    'username' => '{username}',
+    'password' => '{apiKey}',
+    'tenantId' => '{tenantId}',
+  ));

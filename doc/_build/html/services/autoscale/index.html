@@ -1,0 +1,409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Auto Scale v2 &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="next" title="Groups" href="groups.html"/>
+        <link rel="prev" title="Welcome to php-opencloud!" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../monitoring/index.html">Monitoring v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monitoring/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Auto Scale v2</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/autoscale/index.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="auto-scale-v2">
+<h1>Auto Scale v2<a class="headerlink" href="#auto-scale-v2" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This service is only available for Rackspace users.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to pass in your credentials and set up a client. For
+Rackspace users, you will need your username and API key:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="k">use</span> <span class="nx">OpenCloud\Rackspace</span><span class="p">;</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rackspace</span><span class="p">(</span><span class="nx">Rackspace</span><span class="o">::</span><span class="na">US_IDENTITY_ENDPOINT</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;{username}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;apiKey&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;{apiKey}&#39;</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+<div class="section" id="auto-scale-service">
+<h3>Auto Scale service<a class="headerlink" href="#auto-scale-service" title="Permalink to this headline">¶</a></h3>
+<p>Now to instantiate the Auto Scale service:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$service</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">autoscaleService</span><span class="p">();</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">{catalogName}</span></tt> is the name of the service as it appears in the service
+catalog. OpenStack users <em>must</em> set this value. For Rackspace users, a
+default will be provided if you pass in <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">{region}</span></tt> is the region the service will operate in. For Rackspace
+users, you can select one of the following from the <a class="reference external" href="/regions">supported regions page</a>.</li>
+<li><tt class="docutils literal"><span class="pre">{urlType}</span></tt> is the <a class="reference external" href="/url-types">type of URL</a> to use, depending on which
+endpoints your catalog provides. If omitted, it will default to the public
+network.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="operations">
+<h2>Operations<a class="headerlink" href="#operations" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="groups.html">Groups</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#list-all-groups">List all groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#retrieve-group-by-id">Retrieve group by ID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#create-a-new-group">Create a new group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#delete-a-group">Delete a group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="groups.html#get-the-current-state-of-the-scaling-group">Get the current state of the scaling group</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="group-config.html">Group configurations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="group-config.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group-config.html#get-group-configuration">Get group configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group-config.html#edit-group-configuration">Edit group configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group-config.html#get-launch-configuration">Get launch configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="group-config.html#edit-group-launch-configuration">Edit group/launch configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="policies.html">Scaling Policies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="policies.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html#get-all-policies">Get all policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html#create-new-scaling-policies">Create new scaling policies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html#get-an-existing-scaling-policy">Get an existing scaling policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html#update-a-scaling-policy">Update a scaling policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html#delete-a-scaling-policy">Delete a scaling policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="policies.html#execute-a-scaling-policy">Execute a scaling policy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="webhooks.html">Webhooks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="webhooks.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webhooks.html#get-all-webhooks">Get all webhooks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webhooks.html#create-a-new-webhook">Create a new webhook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webhooks.html#get-webhook">Get webhook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webhooks.html#update-webhook">Update webhook</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webhooks.html#delete-webhook">Delete webhook</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-group">group</dt>
+<dd>The scaling group is at the heart of an Auto Scale deployment. The scaling
+group specifies the basic elements of the Auto Scale configuration. It
+manages how many servers can participate in the scaling group. It also
+specifies information related to load balancers if your configuration uses
+a load balancer.</dd>
+<dt id="term-group-configuration">group configuration</dt>
+<dd>Outlines the basic elements of the Auto Scale configuration. The group
+configuration manages how many servers can participate in the scaling group.
+It sets a minimum and maximum limit for the number of entities that can be
+used in the scaling process. It also specifies information related to load
+balancers.</dd>
+<dt id="term-launch-configuration">launch configuration</dt>
+<dd>Creates a blueprint for how new servers will be created. The launch
+configuration specifies what type of server image will be started on
+launch, what flavor the new server is, and which load balancer the new
+server connects to.</dd>
+<dt id="term-policy">policy</dt>
+<dd>Auto Scale uses policies to define the scaling activity that will take
+place, as well as when and how that scaling activity will take place.
+Scaling policies specify how to modify the scaling group and its behavior.
+You can specify multiple policies to manage a scaling group.</dd>
+<dt id="term-webhook">webhook</dt>
+<dd>A webhook is a reachable endpoint that when visited will execute a scaling
+policy for a particular scaling group.</dd>
+</dl>
+</div>
+<div class="section" id="further-links">
+<h2>Further Links<a class="headerlink" href="#further-links" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://docs.rackspace.com/cas/api/v1.0/autoscale-gettingstarted/content/Overview.html">Getting Started Guide for the API</a></li>
+<li><a class="reference external" href="http://docs.rackspace.com/cas/api/v1.0/autoscale-devguide/content/Overview.html">API Developer Guide</a></li>
+<li><a class="reference external" href="http://docs.rackspace.com/cas/api/v1.0/autoscale-releasenotes/content/v2.html">API release history</a></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="groups.html" class="btn btn-neutral float-right" title="Groups"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../index.html" class="btn btn-neutral" title="Welcome to php-opencloud!"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

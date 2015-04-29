@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Agents &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Agents</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/Agents.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="agents">
+<h1>Agents<a class="headerlink" href="#agents" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>The Monitoring Agent resides on the host server being monitored. The
+agent allows you to gather on-host metrics based on agent checks and
+push them to Cloud Monitoring where you can analyze them, use them with
+the Cloud Monitoring infrastructure (such as alarms), and archive them.</p>
+<p>For more information about this feature, including a brief overview of
+its core design principles and security layers, see the <a class="reference external" href="http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/service-agent.html">official API
+documentation</a>.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$agentId = &#39;00-agent.example.com&#39;;
+$agent   = $service-&gt;getAgent($agentId);
+</pre></div>
+</div>
+<p>You can view the <a class="reference external" href="Service.md">service page</a> for more information
+about setting up the Cloud Monitoring service.</p>
+</div>
+<div class="section" id="list-agents">
+<h2>List agents<a class="headerlink" href="#list-agents" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$agents = $service-&gt;getAgents();
+
+foreach ($agents as $agent) {
+   echo $agent-&gt;getLastConnected();
+}
+</pre></div>
+</div>
+<p>Please consult the <a class="reference external" href="docs/userguide/Iterators.md">iterator doc</a> for
+more information about iterators.</p>
+</div>
+<div class="section" id="list-connections">
+<h2>List connections<a class="headerlink" href="#list-connections" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$connections = $agent-&gt;getConnections();
+</pre></div>
+</div>
+<p>Please consult the <a class="reference external" href="docs/userguide/Iterators.md">iterator doc</a> for
+more information about iterators.</p>
+</div>
+<div class="section" id="get-connection">
+<h2>Get connection<a class="headerlink" href="#get-connection" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @var \OpenCloud\CloudMonitoring\Resource\AgentConnection */
+$connection = $agent-&gt;getConnection(&#39;cntl4qsIbA&#39;);
+</pre></div>
+</div>
+<div class="section" id="agent-connection-properties">
+<h3>Agent Connection properties<a class="headerlink" href="#agent-connection-properties" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="21%" />
+<col width="11%" />
+<col width="39%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">getId()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>guid</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">getGuid()</span></tt></td>
+</tr>
+<tr class="row-even"><td>agent_id</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">getAgentId()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>endpoint</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">getEndpoint()</span></tt></td>
+</tr>
+<tr class="row-even"><td>process_version</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">getProcessVersion()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>bundle_version</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">getBundleVersion()</span></tt></td>
+</tr>
+<tr class="row-even"><td>agent_ip</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">getAgentIp()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="agent-tokens">
+<h1>Agent tokens<a class="headerlink" href="#agent-tokens" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Intro<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Agent tokens are used to authenticate Monitoring agents to the
+Monitoring Service. Multiple agents can share a single token.</p>
+</div>
+<div class="section" id="id2">
+<h2>Setup<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$tokenId = &#39;4c5e28f0-0b3f-11e1-860d-c55c4705a286:1234&#39;;
+$agentToken = $service-&gt;getAgentToken($tokenId);
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-agent-token">
+<h2>Create agent token<a class="headerlink" href="#create-agent-token" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$newToken = $service-&gt;getAgentToken();
+$newToken-&gt;create(array(&#39;label&#39; =&gt; &#39;Foobar&#39;));
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-agent-tokens">
+<h2>List agent tokens<a class="headerlink" href="#list-agent-tokens" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$agentTokens = $service-&gt;getAgentTokens();
+
+foreach ($agentTokens as $token) {
+    echo $token-&gt;getLabel();
+}
+</pre></div>
+</div>
+<p>Please consult the <a class="reference external" href="docs/userguide/Iterators.md">iterator doc</a> for
+more information about iterators.</p>
+</div>
+<div class="section" id="update-and-delete-agent-token">
+<h2>Update and delete Agent Token<a class="headerlink" href="#update-and-delete-agent-token" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>// Update
+$token-&gt;update(array(
+    &#39;label&#39; =&gt; &#39;New label&#39;
+));
+
+// Delete
+$token-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="agent-host-information">
+<h1>Agent Host Information<a class="headerlink" href="#agent-host-information" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="info">
+<h2>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>An agent can gather host information, such as process lists, network
+configuration, and memory usage, on demand. You can use the
+host-information API requests to gather this information for use in
+dashboards or other utilities.</p>
+</div>
+<div class="section" id="id3">
+<h2>Setup<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$host = $monitoringService-&gt;getAgentHost();
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-some-metrics">
+<h2>Get some metrics<a class="headerlink" href="#get-some-metrics" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$cpuInfo        = $host-&gt;info(&#39;cpus&#39;);
+$diskInfo       = $host-&gt;info(&#39;disks&#39;);
+$filesystemInfo = $host-&gt;info(&#39;filesystems&#39;);
+$memoryInfo     = $host-&gt;info(&#39;memory&#39;);
+$networkIntInfo = $host-&gt;info(&#39;network_interfaces&#39;);
+$processesInfo  = $host-&gt;info(&#39;processes&#39;);
+$systemInfo     = $host-&gt;info(&#39;system&#39;);
+$userInfo       = $host-&gt;info(&#39;who&#39;);
+
+// What CPU models do we have?
+foreach ($cpuInfo as $cpuMetric) {
+    echo $cpuMetric-&gt;model, PHP_EOL;
+}
+
+// How many disks do we have?
+echo $diskInfo-&gt;count();
+
+// What&#39;s the available space on our ext4 filesystem?
+foreach ($filesystemInfo as $filesystemMetric) {
+    if ($filesystemMetric-&gt;sys_type_name == &#39;ext4&#39;) {
+        echo $filesystemMetric-&gt;avail;
+    }
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="agent-targets">
+<h1>Agent targets<a class="headerlink" href="#agent-targets" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id4">
+<h2>Info<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Each agent check type gathers data for a related set of target devices
+on the server where the agent is installed. For example,
+<tt class="docutils literal"><span class="pre">agent.network</span></tt> gathers data for network devices. The actual list of
+target devices is specific to the configuration of the host server. By
+focusing on specific targets, you can efficiently narrow the metric data
+that the agent gathers.</p>
+<div class="section" id="list-agent-targets">
+<h3>List agent targets<a class="headerlink" href="#list-agent-targets" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$targets = $service-&gt;getAgentTargets();
+
+foreach ($targets as $target) {
+    echo $target-&gt;getType();
+}
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

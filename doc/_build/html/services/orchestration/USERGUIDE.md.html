@@ -1,0 +1,921 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Complete User Guide for the Orchestration Service &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Complete User Guide for the Orchestration Service</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/orchestration/USERGUIDE.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="complete-user-guide-for-the-orchestration-service">
+<h1>Complete User Guide for the Orchestration Service<a class="headerlink" href="#complete-user-guide-for-the-orchestration-service" title="Permalink to this headline">¶</a></h1>
+<p>Orchestration is a service that you can use to create and manage cloud
+resources such as databases, load balancers, and servers, and the
+software installed on servers.</p>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="#concepts">Concepts</a></li>
+<li><a class="reference external" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference external" href="#client">Client</a></li>
+<li><a class="reference external" href="#orchestration-service">Orchestration service</a></li>
+<li><a class="reference external" href="#templates">Templates</a></li>
+<li><a class="reference external" href="#validate-template">Validate template</a><ul>
+<li><a class="reference external" href="#validate-a-template-from-a-file">Validate a template from a
+file</a></li>
+<li><a class="reference external" href="#validate-template-from-url">Validate Template from URL</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#stacks">Stacks</a></li>
+<li><a class="reference external" href="#preview-stack">Preview stack</a><ul>
+<li><a class="reference external" href="#preview-a-stack-from-a-template-file">Preview a stack from a template
+file</a></li>
+<li><a class="reference external" href="#preview-a-stack-from-a-template-url">Preview a stack from a template
+URL</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#create-stack">Create stack</a><ul>
+<li><a class="reference external" href="#create-a-stack-from-a-template-file">Create a stack from a template
+file</a></li>
+<li><a class="reference external" href="#create-a-stack-from-a-template-url">Create a stack from a template
+URL</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#list-stacks">List stacks</a></li>
+<li><a class="reference external" href="#get-stack">Get stack</a></li>
+<li><a class="reference external" href="#get-stack-template">Get stack template</a></li>
+<li><a class="reference external" href="#update-stack">Update stack</a><ul>
+<li><a class="reference external" href="#update-a-stack-from-a-template-file">Update a stack from a template
+file</a></li>
+<li><a class="reference external" href="#update-stack-from-template-url">Update Stack from Template
+URL</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#delete-stack">Delete stack</a></li>
+<li><a class="reference external" href="#abandon-stack">Abandon Stack</a></li>
+<li><a class="reference external" href="#adopt-stack">Adopt stack</a></li>
+<li><a class="reference external" href="#stack-resources">Stack resources</a></li>
+<li><a class="reference external" href="#list-stack-resources">List stack resources</a></li>
+<li><a class="reference external" href="#get-stack-resource">Get stack resource</a></li>
+<li><a class="reference external" href="#get-stack-resource-metadata">Get stack resource metadata</a></li>
+<li><a class="reference external" href="#stack-resource-events">Stack resource events</a></li>
+<li><a class="reference external" href="#list-stack-events">List stack events</a></li>
+<li><a class="reference external" href="#list-stack-resource-events">List stack resource events</a></li>
+<li><a class="reference external" href="#get-stack-resource-event">Get stack resource event</a></li>
+<li><a class="reference external" href="#resource-types">Resource types</a></li>
+<li><a class="reference external" href="#list-resource-types">List resource types</a></li>
+<li><a class="reference external" href="#get-resource-type">Get resource type</a></li>
+<li><a class="reference external" href="#get-resource-type-template">Get resource type template</a></li>
+<li><a class="reference external" href="#build-info">Build info</a></li>
+<li><a class="reference external" href="#get-build-info">Get build info</a></li>
+</ul>
+</div>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<p>To use the Orchestration service effectively, you should understand the
+following key concepts:</p>
+<ul class="simple">
+<li><strong>Template</strong>: A JSON or YAML document that describes how a set of
+resources should be assembled to produce a working deployment. The
+template specifies the resources to use, the attributes of these
+resources that are parameterized and the information that is sent to
+the user when a template is instantiated.</li>
+<li><strong>Resource</strong>: Some component of your architecture (a cloud server, a
+group of scaled cloud servers, a load balancer, some configuration
+management system, and so on) that is defined in a template.</li>
+<li><strong>Stack</strong>: A running instance of a template. When a stack is created,
+the resources specified in the template are created.</li>
+</ul>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="client">
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
+<p>To use the Orchestration service, you must first instantiate a
+<tt class="docutils literal"><span class="pre">OpenStack</span></tt> or <tt class="docutils literal"><span class="pre">Rackspace</span></tt> client object.</p>
+<ul>
+<li><p class="first">If you are working with an OpenStack cloud, instantiate an
+<tt class="docutils literal"><span class="pre">OpenCloud\OpenStack</span></tt> client as follows:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\OpenStack;
+
+$client = new OpenStack(&#39;&lt;OPENSTACK CLOUD IDENTITY ENDPOINT URL&gt;&#39;, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR OPENSTACK CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;password&#39; =&gt; &#39;&lt;YOUR OPENSTACK CLOUD ACCOUNT PASSWORD&gt;&#39;
+));
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you are working with the Rackspace cloud, instantiate a
+<tt class="docutils literal"><span class="pre">OpenCloud\Rackspace</span></tt> client as follows:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+));
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="orchestration-service">
+<h3>Orchestration service<a class="headerlink" href="#orchestration-service" title="Permalink to this headline">¶</a></h3>
+<p>All Orchestration operations are done via an <em>orchestration service
+object</em>. To instantiate this object, call the <tt class="docutils literal"><span class="pre">orchestrationService</span></tt>
+method on the <tt class="docutils literal"><span class="pre">$client</span></tt> object. This method takes two arguments:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="34%" />
+<col width="7%" />
+<col width="7%" />
+<col width="29%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Position</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>Name of the service, as it appears in the service catalog</td>
+<td>String</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt>; automatically determined when possible</td>
+<td><tt class="docutils literal"><span class="pre">cloudOrchestration</span></tt></td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>Cloud region</td>
+<td>String</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">DFW</span></tt></td>
+</tr>
+</tbody>
+</table>
+<div class="code php highlight-python"><div class="highlight"><pre>$region = &#39;&lt;CLOUD REGION NAME&gt;&#39;;
+$orchestrationService = $client-&gt;orchestrationService(null, $region);
+</pre></div>
+</div>
+<p>Any stacks and resources created with this <tt class="docutils literal"><span class="pre">$orchestrationService</span></tt>
+instance will be stored in the cloud region specified by <tt class="docutils literal"><span class="pre">$region</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="templates">
+<h2>Templates<a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>An Orchestration template is a JSON or YAML document that describes how
+a set of resources should be assembled to produce a working deployment
+(known as a <a class="reference external" href="#stacks">stack</a>). The template specifies the resources
+to use, the attributes of these resources that are parameterized and the
+information that is sent to the user when a template is instantiated.</p>
+<div class="section" id="validate-template">
+<h3>Validate template<a class="headerlink" href="#validate-template" title="Permalink to this headline">¶</a></h3>
+<p>Before you use a template to create a stack, you might want to validate
+it.</p>
+<div class="section" id="validate-a-template-from-a-file">
+<h4>Validate a template from a file<a class="headerlink" href="#validate-a-template-from-a-file" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored on your local computer as a JSON or YAML
+file, you can validate it as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Exceptions\InvalidTemplateError;
+
+try {
+    $orchestrationService-&gt;validateTemplate(array(
+        &#39;template&#39; =&gt; file_get_contents(__DIR__ . &#39;/lamp.yaml&#39;)
+    ));
+} catch (InvalidTemplateError $e) {
+    // Use $e-&gt;getMessage() for explanation of why template is invalid
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/validate-template-from-template-url.php">Get the executable PHP script for this
+example</a>
+]</p>
+</div>
+<div class="section" id="validate-template-from-url">
+<h4>Validate Template from URL<a class="headerlink" href="#validate-template-from-url" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored as a JSON or YAML file in a remote location
+accessible via HTTP or HTTPS, you can validate it as shown in the
+following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Exceptions\InvalidTemplateError;
+
+try {
+    $orchestrationService-&gt;validateTemplate(array(
+        &#39;templateUrl&#39; =&gt; &#39;https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml&#39;
+    ));
+} catch (InvalidTemplateError $e) {
+    // Use $e-&gt;getMessage() for explanation of why template is invalid
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/validate-template-from-template-url.php">Get the executable PHP script for this
+example</a>
+]</p>
+</div>
+</div>
+</div>
+<div class="section" id="stacks">
+<h2>Stacks<a class="headerlink" href="#stacks" title="Permalink to this headline">¶</a></h2>
+<p>A stack is a running instance of a template. When a stack is created,
+the <a class="reference external" href="#stack-resources">resources</a> specified in the template are
+created.</p>
+<div class="section" id="preview-stack">
+<h3>Preview stack<a class="headerlink" href="#preview-stack" title="Permalink to this headline">¶</a></h3>
+<p>Before you create a stack from a template, you might want to see what
+that stack will look like. This is called <em>previewing the stack</em>.</p>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="42%" />
+<col width="24%" />
+<col width="8%" />
+<col width="3%" />
+<col width="19%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>Name of the stack</td>
+<td>String. Must start with an alphabetic character, and must contain only alphanumeric, <tt class="docutils literal"><span class="pre">_</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt> or <tt class="docutils literal"><span class="pre">.</span></tt> characters</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">simple-lamp-setup</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">template</span></tt></td>
+<td>Template contents</td>
+<td>String. JSON or YAML</td>
+<td>No, if <tt class="docutils literal"><span class="pre">templateUrl</span></tt> is specified</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">heat_template_version:</span> <span class="pre">2013-05-23\ndescription:</span> <span class="pre">LAMP</span> <span class="pre">server\n</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">templateUrl</span></tt></td>
+<td>URL of the template file</td>
+<td>String. HTTP or HTTPS URL</td>
+<td>No, if <tt class="docutils literal"><span class="pre">template</span></tt> is specified</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">parameters</span></tt></td>
+<td>Arguments to the template, based on the template&#8217;s parameters. For example, see the parameters in <a class="reference external" href="https://github.com/rackspace-orchestration-templates/lamp/blob/master/lamp.yaml#L22">this template section</a></td>
+<td>Associative array</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">array('flavor_id'</span> <span class="pre">=&gt;</span> <span class="pre">'general1-1')</span></tt></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="preview-a-stack-from-a-template-file">
+<h4>Preview a stack from a template file<a class="headerlink" href="#preview-a-stack-from-a-template-file" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored on your local computer as a JSON or YAML
+file, you can use it to preview a stack as shown in the following
+example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack = $orchestrationService-&gt;previewStack(array(
+    &#39;name&#39;         =&gt; &#39;simple-lamp-setup&#39;,
+    &#39;template&#39;     =&gt; file_get_contents(__DIR__ . &#39;/lamp.yml&#39;),
+    &#39;parameters&#39;   =&gt; array(
+        &#39;server_hostname&#39; =&gt; &#39;web01&#39;,
+        &#39;image&#39;           =&gt; &#39;Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)&#39;
+    )
+));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/preview-stack-from-template-file.php">Get the executable PHP script for this
+example</a>
+]</p>
+</div>
+<div class="section" id="preview-a-stack-from-a-template-url">
+<h4>Preview a stack from a template URL<a class="headerlink" href="#preview-a-stack-from-a-template-url" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored as a JSON or YAML file in a remote location
+accessible via HTTP or HTTPS, you can use it to preview a stack as shown
+in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack = $orchestrationService-&gt;previewStack(array(
+    &#39;name&#39;         =&gt; &#39;simple-lamp-setup&#39;,
+    &#39;templateUrl&#39;  =&gt; &#39;https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml&#39;,
+    &#39;parameters&#39;   =&gt; array(
+        &#39;server_hostname&#39; =&gt; &#39;web01&#39;,
+        &#39;image&#39;           =&gt; &#39;Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)&#39;
+    )
+));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/preview-stack-from-template-url.php">Get the executable PHP script for this
+example</a>
+]</p>
+</div>
+</div>
+<div class="section" id="create-stack">
+<h3>Create stack<a class="headerlink" href="#create-stack" title="Permalink to this headline">¶</a></h3>
+<p>You can create a stack from a template.</p>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="5%" />
+<col width="19%" />
+<col width="34%" />
+<col width="11%" />
+<col width="5%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>Name of the stack</td>
+<td>String. Must start with an alphabetic character, and must contain only alphanumeric, <tt class="docutils literal"><span class="pre">_</span></tt>, <tt class="docutils literal"><span class="pre">-</span></tt> or <tt class="docutils literal"><span class="pre">.</span></tt> characters.</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td><tt class="docutils literal"><span class="pre">simple-lamp-setup</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">template</span></tt></td>
+<td>Template contents</td>
+<td>String. JSON or YAML</td>
+<td>No, if <tt class="docutils literal"><span class="pre">templateUrl</span></tt> is specified</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">heat_template_version:</span> <span class="pre">2013-05-23\ndescription:</span> <span class="pre">LAMP</span> <span class="pre">server\n</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">templateUrl</span></tt></td>
+<td>URL of template file</td>
+<td>String. HTTP or HTTPS URL</td>
+<td>No, if <tt class="docutils literal"><span class="pre">template</span></tt> is specified</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">parameters</span></tt></td>
+<td>Arguments to the template, based on the template&#8217;s parameters</td>
+<td>Associative array</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">array('server_hostname'</span> <span class="pre">=&gt;</span> <span class="pre">'web01')</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">timeoutMins</span></tt></td>
+<td>Duration, in minutes, after which stack creation should time out</td>
+<td>Integer</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="create-a-stack-from-a-template-file">
+<h4>Create a stack from a template file<a class="headerlink" href="#create-a-stack-from-a-template-file" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored on your local computer as a JSON or YAML
+file, you can use it to create a stack as shown in the following
+example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack = $orchestrationService-&gt;createStack(array(
+    &#39;name&#39;         =&gt; &#39;simple-lamp-setup&#39;,
+    &#39;templateUrl&#39;  =&gt; &#39;https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml&#39;,
+    &#39;parameters&#39;   =&gt; array(
+        &#39;server_hostname&#39; =&gt; &#39;web01&#39;,
+        &#39;image&#39;           =&gt; &#39;Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)&#39;
+    ),
+    &#39;timeoutMins&#39;  =&gt; 5
+));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/create-stack-from-template-file.php">Get the executable PHP script for this
+example</a>
+]</p>
+</div>
+<div class="section" id="create-a-stack-from-a-template-url">
+<h4>Create a stack from a template URL<a class="headerlink" href="#create-a-stack-from-a-template-url" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored as a JSON or YAML file in a remote location
+accessible via HTTP or HTTPS, you can use it to create a stack as shown
+in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack = $orchestrationService-&gt;stack();
+$stack-&gt;create(array(
+    &#39;name&#39;          =&gt; &#39;simple-lamp-setup&#39;,
+    &#39;templateUrl&#39;   =&gt; &#39;https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp.yaml&#39;,
+    &#39;parameters&#39;    =&gt; array(
+        &#39;server_hostname&#39; =&gt; &#39;web01&#39;,
+        &#39;image&#39;           =&gt; &#39;Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)&#39;
+    ),
+    &#39;timeoutMins&#39;   =&gt; 5
+));
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/create-stack-from-template-url.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="list-stacks">
+<h3>List stacks<a class="headerlink" href="#list-stacks" title="Permalink to this headline">¶</a></h3>
+<p>You can list all the stacks that you have created as shown in the
+following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stacks = $orchestrationService-&gt;listStacks();
+foreach ($stacks as $stack) {
+    /** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/list-stacks.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-stack">
+<h3>Get stack<a class="headerlink" href="#get-stack" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific stack using its name, as shown in the
+following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack = $orchestrationService-&gt;getStack(&#39;simple-lamp-setup&#39;);
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-stack.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-stack-template">
+<h3>Get stack template<a class="headerlink" href="#get-stack-template" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve the template used to create a stack. Note that a JSON
+string is returned, regardless of whether a JSON or YAML template was
+used to create the stack.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stackTemplate = $stack-&gt;getTemplate();
+/** @var $stackTemplate string **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-stack-template.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="update-stack">
+<h3>Update stack<a class="headerlink" href="#update-stack" title="Permalink to this headline">¶</a></h3>
+<p>You can update a running stack.</p>
+<p>This operation takes one parameter, an associative array, with the
+following keys:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="24%" />
+<col width="11%" />
+<col width="14%" />
+<col width="6%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+<th class="head">Example value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">template</span></tt></td>
+<td>Template contents</td>
+<td>String. JSON or YAML</td>
+<td>No, if <tt class="docutils literal"><span class="pre">templateUrl</span></tt> is specified</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">heat_template_version:</span> <span class="pre">2013-05-23\ndescription:</span> <span class="pre">LAMP</span> <span class="pre">server\n</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">templateUrl</span></tt></td>
+<td>URL of template file</td>
+<td>String. HTTP or HTTPS URL</td>
+<td>No, if <tt class="docutils literal"><span class="pre">template</span></tt> is specified</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp-updated.yaml</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">parameters</span></tt></td>
+<td>Arguments to the template, based on the template&#8217;s parameters</td>
+<td>Associative array</td>
+<td>No</td>
+<td><tt class="docutils literal"><span class="pre">null</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">array('flavor_id'</span> <span class="pre">=&gt;</span> <span class="pre">'general1-1')</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">timeoutMins</span></tt></td>
+<td>Duration, in minutes, after which stack update should time out</td>
+<td>Integer</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="update-a-stack-from-a-template-file">
+<h4>Update a stack from a template file<a class="headerlink" href="#update-a-stack-from-a-template-file" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored on your local computer as a JSON or YAML
+file, you can use it to update a stack as shown in the following
+example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack-&gt;update(array(
+    &#39;template&#39;      =&gt; file_get_contents(__DIR__ . &#39;/lamp-updated.yml&#39;),
+    &#39;parameters&#39;    =&gt; array(
+        &#39;server_hostname&#39; =&gt; &#39;web01&#39;,
+        &#39;image&#39;           =&gt; &#39;Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)&#39;
+    ),
+    &#39;timeoutMins&#39;   =&gt; 5
+));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/update-stack-from-template-file.php">Get the executable PHP script for this
+example</a>
+]</p>
+</div>
+<div class="section" id="update-stack-from-template-url">
+<h4>Update Stack from Template URL<a class="headerlink" href="#update-stack-from-template-url" title="Permalink to this headline">¶</a></h4>
+<p>If your template is stored as a JSON or YAML file in a remote location
+accessible via HTTP or HTTPS, you can use it to update a stack as shown
+in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack-&gt;update(array(
+    &#39;templateUrl&#39;   =&gt; &#39;https://raw.githubusercontent.com/rackspace-orchestration-templates/lamp/master/lamp-updated.yaml&#39;,
+    &#39;parameters&#39;    =&gt; array(
+        &#39;server_hostname&#39; =&gt; &#39;web01&#39;,
+        &#39;image&#39;           =&gt; &#39;Ubuntu 14.04 LTS (Trusty Tahr) (PVHVM)&#39;
+    ),
+    &#39;timeoutMins&#39;   =&gt; 5
+));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/update-stack-from-template-url.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="delete-stack">
+<h3>Delete stack<a class="headerlink" href="#delete-stack" title="Permalink to this headline">¶</a></h3>
+<p>If you no longer need a stack and all its resources, you can delete the
+stack <em>and</em> the resources as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack-&gt;delete();
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/delete-stack.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="abandon-stack">
+<h3>Abandon Stack<a class="headerlink" href="#abandon-stack" title="Permalink to this headline">¶</a></h3>
+<p>If you want to delete a stack but preserve all its resources, you can
+abandon the stack as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$abandonStackData = $stack-&gt;abandon();
+/** @var $abandonStackData string **/
+
+file_put_contents(__DIR__ . &#39;/sample_adopt_stack_data.json&#39;, $abandonStackData);
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/abandon-stack.php">Get the executable PHP script for this
+example</a> ]</p>
+<p>Note that this operation returns data about the abandoned stack as a
+string. You can use this data to recreate the stack by using the <a class="reference external" href="#adopt-stack">adopt
+stack</a> operation.</p>
+</div>
+<div class="section" id="adopt-stack">
+<h3>Adopt stack<a class="headerlink" href="#adopt-stack" title="Permalink to this headline">¶</a></h3>
+<p>If you have data from an abandoned stack, you can re-create the stack as
+shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stack = $orchestrationService-&gt;adoptStack(array(
+    &#39;name&#39;           =&gt; &#39;simple-lamp-setup&#39;,
+    &#39;template&#39;       =&gt; file_get_contents(__DIR__ . &#39;/lamp.yml&#39;),
+    &#39;adoptStackData&#39; =&gt; $abandonStackData,
+    &#39;timeoutMins&#39;    =&gt; 5
+));
+/** @var $stack OpenCloud\Orchestration\Resource\Stack **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/adopt-stack.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="stack-resources">
+<h2>Stack resources<a class="headerlink" href="#stack-resources" title="Permalink to this headline">¶</a></h2>
+<p>A stack is made up of zero or more resources such as databases, load
+balancers, and servers, and the software installed on servers.</p>
+<div class="section" id="list-stack-resources">
+<h3>List stack resources<a class="headerlink" href="#list-stack-resources" title="Permalink to this headline">¶</a></h3>
+<p>You can list all the resources for a stack as shown in the following
+example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resources = $stack-&gt;listResources();
+foreach ($resources as $resource) {
+    /** @var $resource OpenCloud\Orchestration\Resource\Resource **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/list-stack-resources.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-stack-resource">
+<h3>Get stack resource<a class="headerlink" href="#get-stack-resource" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific resource in a stack bt using that resource&#8217;s
+name, as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resource = $stack-&gt;getResource(&#39;load-balancer&#39;);
+/** @var $resource OpenCloud\Orchestration\Resource\Resource **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-stack-resource.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-stack-resource-metadata">
+<h3>Get stack resource metadata<a class="headerlink" href="#get-stack-resource-metadata" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve the metadata for a specific resource in a stack as
+shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resourceMetadata = $resource-&gt;getMetadata();
+/** @var $resourceMetadata \stdClass **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-stack-resource-metadata.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="stack-resource-events">
+<h2>Stack resource events<a class="headerlink" href="#stack-resource-events" title="Permalink to this headline">¶</a></h2>
+<p>Operations on resources within a stack (such as the creation of a
+resource) produce events.</p>
+<div class="section" id="list-stack-events">
+<h3>List stack events<a class="headerlink" href="#list-stack-events" title="Permalink to this headline">¶</a></h3>
+<p>You can list all of the events for all of the resources in a stack as
+shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$stackEvents = $stack-&gt;listEvents();
+foreach ($stackEvents as $stackEvent) {
+    /** @var $stackEvent OpenCloud\Orchestration\Resource\Event **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/list-stack-events.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="list-stack-resource-events">
+<h3>List stack resource events<a class="headerlink" href="#list-stack-resource-events" title="Permalink to this headline">¶</a></h3>
+<p>You can list all of the events for a specific resource in a stack as
+shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resourceEvents = $resource-&gt;listEvents();
+foreach ($resourceEvents as $resourceEvent) {
+    /** @var $resourceEvent OpenCloud\Orchestration\Resource\Event **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/list-stack-resource-events.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-stack-resource-event">
+<h3>Get stack resource event<a class="headerlink" href="#get-stack-resource-event" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific event for a specific resource in a stack, by
+using the resource event&#8217;s ID, as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resourceEvent = $resource-&gt;getEvent(&#39;c1342a0a-59e6-4413-9af5-07c9cae7d729&#39;);
+/** @var $resourceEvent OpenCloud\Orchestration\Resource\Event **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-stack-resource-event.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="resource-types">
+<h2>Resource types<a class="headerlink" href="#resource-types" title="Permalink to this headline">¶</a></h2>
+<p>When you define a template, you must use resource types supported by
+your cloud.</p>
+<div class="section" id="list-resource-types">
+<h3>List resource types<a class="headerlink" href="#list-resource-types" title="Permalink to this headline">¶</a></h3>
+<p>You can list all supported resource types as shown in the following
+example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resourceTypes = $orchestrationService-&gt;listResourceTypes();
+foreach ($resourceTypes as $resourceType) {
+    /** @var $resourceType OpenCloud\Orchestration\Resource\ResourceType **/
+}
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/list-resource-types.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-resource-type">
+<h3>Get resource type<a class="headerlink" href="#get-resource-type" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific resource type&#8217;s schema as shown in the
+following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resourceType = $orchestrationService-&gt;getResourceType(&#39;OS::Nova::Server&#39;);
+/** @var $resourceType OpenCloud\Orchestration\Resource\ResourceType **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-resource-type.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+<div class="section" id="get-resource-type-template">
+<h3>Get resource type template<a class="headerlink" href="#get-resource-type-template" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a specific resource type&#8217;s representation as it would
+appear in a template, as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$resourceTypeTemplate = $resourceType-&gt;getTemplate();
+/** @var $resourceTypeTemplate string **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-resource-type-template.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+<div class="section" id="build-info">
+<h2>Build info<a class="headerlink" href="#build-info" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-build-info">
+<h3>Get build info<a class="headerlink" href="#get-build-info" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve information about the current Orchestration service
+build as shown in the following example:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$buildInfo = $orchestrationService-&gt;getBuildInfo();
+/** @var $resourceType OpenCloud\Orchestration\Resource\BuildInfo **/
+</pre></div>
+</div>
+<p>[ <a class="reference external" href="/samples/Orchestration/get-build-info.php">Get the executable PHP script for this
+example</a> ]</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title> Entities &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Monitoring v1" href="index.html"/>
+        <link rel="next" title="Checks" href="checks.html"/>
+        <link rel="prev" title="Monitoring v1" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../image/index.html">Images v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../load-balancer/index.html">Load Balancer v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../load-balancer/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Monitoring v1</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#setup">Setup</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../networking/index.html">Networking v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../networking/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../object-store/index.html">Object Store v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../object-store/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../orchestration/index.html">Orchestration v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../orchestration/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../queues/index.html">Queues v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../queues/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../volume/index.html">Volumes v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../volume/index.html#further-links">Further links</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../debugging.html">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-1-meaningful-exception-handling">Strategy 1: Meaningful exception handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../debugging.html#strategy-2-wire-logging">Strategy 2: Wire logging</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../caching-creds.html">Caching credentials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../caching-creds.html#filesystem-example">Filesystem example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../iterators.html">Iterators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#common-behaviour">Common behaviour</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#very-important-note">Very important note</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#using-paginated-collections">Using paginated collections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../iterators.html#setting-up-a-paginatediterator">Setting up a PaginatedIterator</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../regions.html">Rackspace regions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../url-types.html">URL types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#internalurl">internalURL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../url-types.html#publicurl">publicURL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../logging.html">Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../logging.html#logger-injection">Logger injection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-clients.html">HTTP Clients</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#default-http-headers">Default HTTP headers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#user-agents">User agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../http-clients.html#other-functionality">Other functionality</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../auth.html">Authentication</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auth.html#service-catalog">Service Catalog</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Monitoring v1</a> &raquo;</li>
+      
+    <li>&nbsp;Entities</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/entities.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="entities">
+<h1>&nbsp;Entities<a class="headerlink" href="#entities" title="Permalink to this headline">¶</a></h1>
+<p>An entity is the target of what you are monitoring. For example, you can
+create an entity to monitor your website, a particular web service, or
+your Rackspace server. Note that an entity represents only one item in
+the monitoring system &#8211; if you wanted to monitor each server in a
+cluster, you would create an entity for each of the servers. You would
+not create a single entity to represent the entire cluster.</p>
+<p>An entity can have multiple checks associated with it. This allows you
+to check multiple services on the same host by creating multiple checks
+on the same entity, instead of multiple entities each with a single
+check.</p>
+<div class="section" id="create-entity">
+<h2>Create Entity<a class="headerlink" href="#create-entity" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$service</span><span class="o">-&gt;</span><span class="na">createEntity</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Brand New Entity&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ip_addresses&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;127.0.0.4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;b&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;127.0.0.5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;c&#39;</span>       <span class="o">=&gt;</span> <span class="s1">&#39;127.0.0.6&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;test&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;127.0.0.7&#39;</span>
+    <span class="p">),</span>
+    <span class="s1">&#39;metadata&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;all&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;kinds&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;of&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;stuff&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;can&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;here&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;null is not a valid value&#39;</span>
+    <span class="p">)</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrive-an-entity">
+<h2>Retrive an entity<a class="headerlink" href="#retrive-an-entity" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$entity</span> <span class="o">=</span> <span class="nv">$service</span><span class="o">-&gt;</span><span class="na">getEntity</span><span class="p">(</span><span class="s1">&#39;{entityId}&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="44%" />
+<col width="32%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>label</td>
+<td>Defines a name for the entity.</td>
+<td>String (1..255 chars)</td>
+<td><tt class="docutils literal"><span class="pre">getLabel()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>agent_id</td>
+<td>Agent to which this entity is bound to.</td>
+<td>String matching the regex: <tt class="docutils literal"><span class="pre">/^[-\.\w]{1,255}$/</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getAgentId()</span></tt></td>
+</tr>
+<tr class="row-even"><td>ip_addresses</td>
+<td>Hash of IP addresses that can be referenced by checks on this entity.</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getIpAddresses()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>metadata</td>
+<td>Arbitrary key/value pairs that are passed during the alerting phase.</td>
+<td><tt class="docutils literal"><span class="pre">OpenCloud\Common\Metadata</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">getMetadata()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="update-an-entity">
+<h2>Update an entity<a class="headerlink" href="#update-an-entity" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$entity</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;New label for my entity&#39;</span>
+<span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-entity">
+<h2>Delete entity<a class="headerlink" href="#delete-entity" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-php"><div class="highlight"><pre><span class="nv">$entity</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="checks.html" class="btn btn-neutral float-right" title="Checks"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Monitoring v1"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

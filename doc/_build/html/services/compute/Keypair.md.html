@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Keypairs &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="simple">
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Keypairs</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/compute/Keypair.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="keypairs">
+<h1>Keypairs<a class="headerlink" href="#keypairs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="generate-new-keypair">
+<h2>Generate new keypair<a class="headerlink" href="#generate-new-keypair" title="Permalink to this headline">¶</a></h2>
+<p>This operation creates a new keypair under a provided name; the public
+key value is automatically generated for you.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$keypair = $service-&gt;keypair();
+
+$keypair-&gt;create(array(
+   &#39;name&#39; =&gt; &#39;jamie_keypair_1&#39;
+));
+
+echo $keypair-&gt;getPublicKey();
+
+// Save private key to a file so you can use it to SSH into
+// your server later.
+$sshPrivateKeyFilename = &#39;jamie_keypair_1_rsa&#39;;
+$privateKey = $keypair-&gt;getPrivateKey();
+file_put_contents($sshPrivateKeyFilename, $privateKey);
+chmod($sshPrivateKeyFilename, 0600);
+</pre></div>
+</div>
+</div>
+<div class="section" id="upload-existing-keypair">
+<h2>Upload existing keypair<a class="headerlink" href="#upload-existing-keypair" title="Permalink to this headline">¶</a></h2>
+<p>This operation creates a new keypair under a provided name using a
+provided public key value. This public key will probably exist on your
+local filesystem, and so provide easy access to your server when
+uploaded.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$keypair = $service-&gt;keypair();
+
+$key = &lt;&lt;&lt;EOT
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQDx8nkQv/zgGgB4rMYmIf+6A4l6Rr+o/6lHBQdW5aYd44bd8JttDCE/F/pNRr0lRE+PiqSPO8nDPHw0010JeMH9gYgnnFlyY3/OcJ02RhIPyyxYpv9FhY+2YiUkpwFOcLImyrxEsYXpD/0d3ac30bNH6Sw9JD9UZHYcpSxsIbECHw== Example public key
+EOT;
+
+$keypair-&gt;create(array(
+   &#39;name&#39;      =&gt; &#39;jamie_macbook&#39;,
+   &#39;publicKey&#39; =&gt; $key
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-keypairs">
+<h2>List keypairs<a class="headerlink" href="#list-keypairs" title="Permalink to this headline">¶</a></h2>
+<p>To list all existing keypairs:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$keys = $service-&gt;listKeypairs();
+
+foreach ($keys as $key) {
+   // ...
+}
+</pre></div>
+</div>
+<p>For more information about iterators, please see <a class="reference external" href="../Iterators.md">the
+docs</a>.</p>
+</div>
+<div class="section" id="delete-keypairs">
+<h2>Delete keypairs<a class="headerlink" href="#delete-keypairs" title="Permalink to this headline">¶</a></h2>
+<p>To delete a specific keypair:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$keypair-&gt;delete();
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-a-server-with-a-keypair">
+<h2>Creating a server with a keypair<a class="headerlink" href="#creating-a-server-with-a-keypair" title="Permalink to this headline">¶</a></h2>
+<p>In order to spawn an instance with a saved keypair (allowing you to SSH
+in without passwords), you create your server using the same operation
+as usual, with one extra parameter:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use Guzzle\Http\Exception\BadResponseException;
+use OpenCloud\Compute\Constants\Network;
+
+$server = $compute-&gt;server();
+
+try {
+    $response = $server-&gt;create(array(
+        &#39;name&#39;     =&gt; &#39;New server&#39;,
+        &#39;image&#39;    =&gt; $ubuntuImage,
+        &#39;flavor&#39;   =&gt; $twoGbFlavor,
+        &#39;networks&#39; =&gt; array(
+            $compute-&gt;network(Network::RAX_PUBLIC),
+            $compute-&gt;network(Network::RAX_PRIVATE)
+        ),
+        &#39;keypair&#39; =&gt; &#39;jamie_macbook&#39;
+    ));
+} catch (BadResponseException $e) {
+   // error...
+}
+</pre></div>
+</div>
+<p>So, as you can see, you specify the <strong>name</strong> of an existing keypair that
+you previously created on the API.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

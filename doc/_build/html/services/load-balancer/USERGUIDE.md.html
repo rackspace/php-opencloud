@@ -1,0 +1,959 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Complete User Guide to Load Balancers &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>The Complete User Guide to Load Balancers</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/load-balancer/USERGUIDE.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="the-complete-user-guide-to-load-balancers">
+<h1>The Complete User Guide to Load Balancers<a class="headerlink" href="#the-complete-user-guide-to-load-balancers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="client">
+<h3>Client<a class="headerlink" href="#client" title="Permalink to this headline">¶</a></h3>
+<p>To use the load balancers service, you must first instantiate a
+<tt class="docutils literal"><span class="pre">Rackspace</span></tt> client object.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="load-balancer-service">
+<h3>Load Balancer Service<a class="headerlink" href="#load-balancer-service" title="Permalink to this headline">¶</a></h3>
+<p>All operations on load balancers are done via a load balancer service
+object.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancerService = $client-&gt;loadBalancerService(&#39;cloudLoadBalancers&#39;, &#39;DFW&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="cloud-servers">
+<h3>Cloud Servers<a class="headerlink" href="#cloud-servers" title="Permalink to this headline">¶</a></h3>
+<p>Many of the examples in this document use two cloud servers as nodes for
+the load balancer. The variables <tt class="docutils literal"><span class="pre">$serverOne</span></tt> and <tt class="docutils literal"><span class="pre">$serverTwo</span></tt> refer
+to these two cloud servers.</p>
+</div>
+</div>
+<div class="section" id="load-balancers">
+<h2>Load Balancers<a class="headerlink" href="#load-balancers" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>load balancer</strong> is a device that distributes incoming network
+traffic amongst multiple back-end systems. These back-end systems are
+called the <strong>nodes</strong> of the load balancer.</p>
+<div class="section" id="create-load-balancer">
+<h3>Create Load Balancer<a class="headerlink" href="#create-load-balancer" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer = $loadBalancerService-&gt;loadBalancer();
+
+$serverOneNode = $loadBalancer-&gt;node();
+$serverOneNode-&gt;address = $serverOne-&gt;addresses-&gt;private[0]-&gt;addr;
+$serverOneNode-&gt;port = 8080;
+$serverOneNode-&gt;condition = &#39;ENABLED&#39;;
+
+$serverTwoNode = $loadBalancer-&gt;node();
+$serverTwoNode-&gt;address = $serverTwo-&gt;addresses-&gt;private[0]-&gt;addr;
+$serverTwoNode-&gt;port = 8080;
+$serverTwoNode-&gt;condition = &#39;ENABLED&#39;;
+
+$loadBalancer-&gt;addVirtualIp(&#39;PUBLIC&#39;);
+$loadBalancer-&gt;create(array(
+    &#39;name&#39;     =&gt; &#39;My smart load balancer&#39;,
+    &#39;port&#39;     =&gt; 80,
+    &#39;protocol&#39; =&gt; &#39;HTTP&#39;,
+    &#39;nodes&#39;    =&gt; array($serverOneNode, $serverTwoNode)
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-load-balancer-details">
+<h3>List Load Balancer Details<a class="headerlink" href="#list-load-balancer-details" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a single load balancer&#8217;s details by using its ID.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer = $loadBalancerService-&gt;loadBalancer(&#39;254889&#39;);
+
+/** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-load-balancers">
+<h3>List Load Balancers<a class="headerlink" href="#list-load-balancers" title="Permalink to this headline">¶</a></h3>
+<p>You can retrieve a list of all your load balancers. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancers = $loadBalancerService-&gt;loadBalancerList();
+foreach ($loadBalancers as $loadBalancer) {
+    /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-load-balancer-attributes">
+<h3>Update Load Balancer Attributes<a class="headerlink" href="#update-load-balancer-attributes" title="Permalink to this headline">¶</a></h3>
+<p>You can update one or more of the following load balancer attributes:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">name</span></tt>: The name of the load balancer</li>
+<li><tt class="docutils literal"><span class="pre">algorithm</span></tt>: The algorithm used by the load balancer to distribute
+traffic amongst its nodes. See also: <a class="reference external" href="#algorithms">Load balancing
+algorithms</a>.</li>
+<li><tt class="docutils literal"><span class="pre">protocol</span></tt>: The network protocol used by traffic coming in to the
+load balancer. See also: <a class="reference external" href="#protocols">Protocols</a>.</li>
+<li><tt class="docutils literal"><span class="pre">port</span></tt>: The network port on which the load balancer listens for
+incoming traffic.</li>
+<li><tt class="docutils literal"><span class="pre">halfClosed</span></tt>: Enable or Disable Half-Closed support for the load
+balancer.</li>
+<li><tt class="docutils literal"><span class="pre">timeout</span></tt>: The timeout value for the load balancer to communicate
+with its nodes.</li>
+<li><tt class="docutils literal"><span class="pre">httpsRedirect</span></tt>: Enable or disable HTTP to HTTPS redirection for
+the load balancer. When enabled, any HTTP request will return status
+code 301 (Moved Permanently), and the requestor will be redirected to
+the requested URL via the HTTPS protocol on port 443. For example,
+<a class="reference external" href="http://example.com/page.html">http://example.com/page.html</a> would be redirected to <a class="reference external" href="https://">https://</a>
+example.com/page.html. Only available for HTTPS protocol (<tt class="docutils literal"><span class="pre">port</span></tt> =
+443), or HTTP Protocol with a properly configured SSL Termination
+(`secureTrafficOnly=true, securePort=443). See also: <a class="reference external" href="#ssl-termination">SSL
+Termination</a>.</li>
+</ul>
+<div class="section" id="updating-a-single-attribute-of-a-load-balancer">
+<h4>Updating a single attribute of a load balancer<a class="headerlink" href="#updating-a-single-attribute-of-a-load-balancer" title="Permalink to this headline">¶</a></h4>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;update(array(
+    &#39;name&#39; =&gt; &#39;New name&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-multiple-attributes-of-a-load-balancer">
+<h4>Updating multiple attributes of a load balancer<a class="headerlink" href="#updating-multiple-attributes-of-a-load-balancer" title="Permalink to this headline">¶</a></h4>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;update(array(
+    &#39;name&#39;      =&gt; &#39;New name&#39;,
+    &#39;algorithm&#39; =&gt; &#39;ROUND_ROBIN&#39;
+));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="remove-load-balancer">
+<h3>Remove Load Balancer<a class="headerlink" href="#remove-load-balancer" title="Permalink to this headline">¶</a></h3>
+<p>When you no longer have a need for the load balancer, you can remove it.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="nodes">
+<h2>Nodes<a class="headerlink" href="#nodes" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>node</strong> is a backend device that provides a service on specified IP
+and port. An example of a load balancer node might be a web server
+serving HTTP traffic on port 8080.</p>
+<p>A load balancer typically has multiple nodes attached to it so it can
+distribute incoming network traffic amongst them.</p>
+<div class="section" id="list-nodes">
+<h3>List Nodes<a class="headerlink" href="#list-nodes" title="Permalink to this headline">¶</a></h3>
+<p>You can list the nodes attached to a load balancer. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$nodes = $loadBalancer-&gt;nodeList();
+foreach ($nodes as $node) {
+    /** @var $node OpenCloud\LoadBalancer\Resource\Node **/
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-nodes">
+<h3>Add Nodes<a class="headerlink" href="#add-nodes" title="Permalink to this headline">¶</a></h3>
+<p>You can attach additional nodes to a load balancer. Assume
+<tt class="docutils literal"><span class="pre">$loadBalancer</span></tt> already has two nodes attached to it - <tt class="docutils literal"><span class="pre">$serverOne</span></tt>
+and <tt class="docutils literal"><span class="pre">$serverTwo</span></tt> - and you want to attach a third node to it, say
+<tt class="docutils literal"><span class="pre">$serverThree</span></tt>, which provides a service on port 8080.</p>
+<p><strong>Important:</strong> Remember to call <tt class="docutils literal"><span class="pre">$loadBalancer-&gt;addNodes()</span></tt> after all
+the calls to <tt class="docutils literal"><span class="pre">$loadBalancer-&gt;addNode()</span></tt> as shown below.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$address = $serverThree-&gt;addresses-&gt;private[0]-&gt;addr;
+$loadBalancer-&gt;addNode($address, 8080);
+$loadBalancer-&gt;addNodes();
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">addNode</span></tt> method accepts three more optional parameters, in
+addition to the two shown above:</p>
+<div class="line-block">
+<div class="line">Position | Description | Data type | Required? | Default value |</div>
+<div class="line">&#8212;&#8212;&#8212;&#8211; | &#8212;&#8212;&#8212;&#8212;&#8212; | &#8212;&#8212;&#8212;&#8212;&#8211;| &#8212;&#8212;&#8212;&#8212;&#8211; |</div>
+</div>
+<p>&#8212;&#8212;&#8212;&#8212;&#8212;&#8211; |
+| &nbsp;1 | IP address of node | String | Yes | - |
+| &nbsp;2 | Port used by node&#8217;s service | Integer | Yes | - |
+| &nbsp;3 | Starting condition of node:
+| &nbsp;4 | Type of node to add:
+| &nbsp;5 | Weight, between 1 and 100, given to node when distributing
+traffic using either the <tt class="docutils literal"><span class="pre">WEIGHTED_ROUND_ROBIN</span></tt> or the
+<tt class="docutils literal"><span class="pre">WEIGHTED_LEAST_CONNECTIONS</span></tt> load balancing algorithm. | Integer |
+No | 1 |</p>
+</div>
+<div class="section" id="modify-nodes">
+<h3>Modify Nodes<a class="headerlink" href="#modify-nodes" title="Permalink to this headline">¶</a></h3>
+<p>You can modify one or more of the following node attributes:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">condition</span></tt>: The condition of the load balancer:<ul>
+<li><tt class="docutils literal"><span class="pre">ENABLED</span></tt> – Node is ready to receive traffic from the load
+balancer.</li>
+<li><tt class="docutils literal"><span class="pre">DISABLED</span></tt> – Node should not receive traffic from the load
+balancer.</li>
+<li><tt class="docutils literal"><span class="pre">DRAINING</span></tt> – Node should process any traffic it is already
+receiving but should not receive any further traffic from the load
+balancer.</li>
+</ul>
+</li>
+<li><tt class="docutils literal"><span class="pre">type</span></tt>: The type of the node:<ul>
+<li><tt class="docutils literal"><span class="pre">PRIMARY</span></tt> – Nodes defined as PRIMARY are in the normal rotation
+to receive traffic from the load balancer.</li>
+<li><tt class="docutils literal"><span class="pre">SECONDARY</span></tt> – Nodes defined as SECONDARY are only in the
+rotation to receive traffic from the load balancer when all the
+primary nodes fail.</li>
+</ul>
+</li>
+<li><tt class="docutils literal"><span class="pre">weight</span></tt>: The weight, between 1 and 100, given to node when
+distributing traffic using either the <tt class="docutils literal"><span class="pre">WEIGHTED_ROUND_ROBIN</span></tt> or the
+<tt class="docutils literal"><span class="pre">WEIGHTED_LEAST_CONNECTIONS</span></tt> load balancing algorithm.</li>
+</ul>
+<div class="section" id="modifying-a-single-attribute-of-a-node">
+<h4>Modifying a single attribute of a node<a class="headerlink" href="#modifying-a-single-attribute-of-a-node" title="Permalink to this headline">¶</a></h4>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\LoadBalancer\Enum\NodeCondition;
+
+$node-&gt;update(array(
+    &#39;condition&#39; =&gt; NodeCondition::DISABLED
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="modifying-multiple-attributes-of-a-node">
+<h4>Modifying multiple attributes of a node<a class="headerlink" href="#modifying-multiple-attributes-of-a-node" title="Permalink to this headline">¶</a></h4>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\LoadBalancer\Enum\NodeCondition;
+use OpenCloud\LoadBalancer\Enum\NodeType;
+
+$node-&gt;update(array(
+    &#39;condition&#39; =&gt; NodeCondition::DISABLED,
+    &#39;type&#39;      =&gt; NodeType::SECONDARY
+));
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="remove-nodes">
+<h3>Remove Nodes<a class="headerlink" href="#remove-nodes" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to remove a node.</p>
+<div class="section" id="given-an-opencloud-loadbalancer-resource-node-instance">
+<h4>Given an <tt class="docutils literal"><span class="pre">OpenCloud\LoadBalancer\Resource\Node</span></tt> instance<a class="headerlink" href="#given-an-opencloud-loadbalancer-resource-node-instance" title="Permalink to this headline">¶</a></h4>
+<div class="code php highlight-python"><div class="highlight"><pre>$node-&gt;delete();
+</pre></div>
+</div>
+</div>
+<div class="section" id="given-an-opencloud-loadbalancer-resource-loadbalancer-instance-and-a-node-id">
+<h4>Given an <tt class="docutils literal"><span class="pre">OpenCloud\LoadBalancer\Resource\LoadBalancer</span></tt> instance and a node ID<a class="headerlink" href="#given-an-opencloud-loadbalancer-resource-loadbalancer-instance-and-a-node-id" title="Permalink to this headline">¶</a></h4>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;removeNode(490639);
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">removeNode</span></tt> method, as shown above, accepts the following
+arguments:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="21%" />
+<col width="19%" />
+<col width="19%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Position</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Required?</th>
+<th class="head">Default value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>ID of node</td>
+<td>Integer</td>
+<td>Yes</td>
+<td><ul class="first last simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="view-node-service-events">
+<h3>View Node Service Events<a class="headerlink" href="#view-node-service-events" title="Permalink to this headline">¶</a></h3>
+<p>You can view events associated with the activity between a node and a
+load balancer. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$nodeEvents = $loadBalancer-&gt;nodeEventList();
+foreach ($nodeEvents as $nodeEvent) {
+    /** @var $nodeEvent OpenCloud\LoadBalancer\Resource\NodeEvent **/
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="virtual-ips">
+<h2>Virtual IPs<a class="headerlink" href="#virtual-ips" title="Permalink to this headline">¶</a></h2>
+<p>A <strong>virtual IP (VIP)</strong> makes a load balancer accessible by clients. The
+load balancing service supports either a public VIP address
+(<tt class="docutils literal"><span class="pre">PUBLIC</span></tt>), routable on the public Internet, or a ServiceNet VIP
+address (<tt class="docutils literal"><span class="pre">SERVICENET</span></tt>), routable only within the region in which the
+load balancer resides.</p>
+<div class="section" id="list-virtual-ips">
+<h3>List Virtual IPs<a class="headerlink" href="#list-virtual-ips" title="Permalink to this headline">¶</a></h3>
+<p>You can list the VIPs associated with a load balancer. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$vips = $loadBalancer-&gt;virtualIpList();
+foreach ($vips as $vip) {
+    /** @var $vip of OpenCloud\LoadBalancer\Resource\VirtualIp **/
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-virtual-ipv6">
+<h3>Add Virtual IPv6<a class="headerlink" href="#add-virtual-ipv6" title="Permalink to this headline">¶</a></h3>
+<p>You can add additional IPv6 VIPs to a load balancer.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\LoadBalancer\Enum\IpType;
+
+$loadBalancer-&gt;addVirtualIp(IpType::PUBLIC, 6);
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">addVirtualIp</span></tt> method, as shown above, accepts the following
+arguments:</p>
+<div class="line-block">
+<div class="line">Position | Description | Data type | Required? | Default value |</div>
+<div class="line">&#8212;&#8212;&#8212;&#8211; | &#8212;&#8212;&#8212;&#8212;&#8212; | &#8212;&#8212;&#8212;&#8212;&#8211; |&#8212;&#8212;&#8212;&#8212;&#8211; |</div>
+</div>
+<p>&#8212;&#8212;&#8212;&#8212;&#8212;&#8211; |
+| &nbsp;1 | Type of VIP:
+| &nbsp;2 | IP version: Must be <tt class="docutils literal"><span class="pre">6</span></tt> | Integer | Yes | - |</p>
+</div>
+<div class="section" id="remove-virtual-ips">
+<h3>Remove Virtual IPs<a class="headerlink" href="#remove-virtual-ips" title="Permalink to this headline">¶</a></h3>
+<p>You can remove a VIP from a load balancer.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$vip-&gt;remove();
+</pre></div>
+</div>
+<p>Please note that a load balancer must have at least one VIP associated
+with it. If you try to remove a load balancer&#8217;s last VIP, a
+<tt class="docutils literal"><span class="pre">ClientErrorResponseException</span></tt> will be thrown.</p>
+</div>
+</div>
+<div class="section" id="algorithms">
+<h2>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">¶</a></h2>
+<p>Load balancers use an <strong>algorithm</strong> to determine how incoming traffic is
+distributed amongst the back-end nodes.</p>
+<div class="section" id="list-load-balancing-algorithms">
+<h3>List Load Balancing Algorithms<a class="headerlink" href="#list-load-balancing-algorithms" title="Permalink to this headline">¶</a></h3>
+<p>You can list all supported load balancing algorithms using a load
+balancer service object. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$algorithms = $loadBalancerService-&gt;algorithmList();
+foreach ($algorithms as $algorithm) {
+    /** @var $algorithm OpenCloud\LoadBalancer\Resource\Algorithm **/
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="protocols">
+<h2>Protocols<a class="headerlink" href="#protocols" title="Permalink to this headline">¶</a></h2>
+<p>When a load balancer is created a network protocol must be specified.
+This network protocol should be based on the network protocol of the
+back-end service being load balanced.</p>
+<div class="section" id="list-load-balancing-protocols">
+<h3>List Load Balancing Protocols<a class="headerlink" href="#list-load-balancing-protocols" title="Permalink to this headline">¶</a></h3>
+<p>You can list all supported network protocols using a load balancer
+service object. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$protocols = $loadBalancerService-&gt;protocolList();
+foreach ($protocols as $protocol) {
+    /** @var $protocol OpenCloud\LoadBalancer\Resource\Protocol **/
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="session-persistence">
+<h2>Session Persistence<a class="headerlink" href="#session-persistence" title="Permalink to this headline">¶</a></h2>
+<p><strong>Session persistence</strong> is a feature of the load balancing service that
+forces multiple requests, of the same protocol, from clients to be
+directed to the same node. This is common with many web applications
+that do not inherently share application state between back-end servers.</p>
+<p>There are two types (or modes) of session persistence:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="92%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">HTTP_COOKIE</span></tt></td>
+<td>A session persistence mechanism that inserts an HTTP cookie and is used to determine the destination back-end node. This is supported for HTTP load balancing only.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">SOURCE_IP</span></tt></td>
+<td>A session persistence mechanism that will keep track of the source IP address that is mapped and is able to determine the destination back-end node. This is supported for HTTPS pass-through and non-HTTP load balancing only.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="list-session-persistence-configuration">
+<h3>List Session Persistence Configuration<a class="headerlink" href="#list-session-persistence-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$sessionPersistence = $loadBalancer-&gt;sessionPersistence();
+$sessionPersistenceType = $sessionPersistence-&gt;persistenceType;
+
+/** @var $sessionPersistenceType null | &#39;HTTP_COOKIE&#39; | &#39;SOURCE_IP&#39; **/
+</pre></div>
+</div>
+<p>In the example above:</p>
+<ul class="simple">
+<li>If session persistence is enabled, the value of
+<tt class="docutils literal"><span class="pre">$sessionPersistenceType</span></tt> is the type of session persistence:
+either <tt class="docutils literal"><span class="pre">HTTP_COOKIE</span></tt> or <tt class="docutils literal"><span class="pre">SOURCE_IP</span></tt>.</li>
+<li>If session persistence is disabled, the value of
+<tt class="docutils literal"><span class="pre">$sessionPersistenceType</span></tt> is <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="enable-session-persistence">
+<h3>Enable Session Persistence<a class="headerlink" href="#enable-session-persistence" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$sessionPersistence = $loadBalancer-&gt;sessionPersistence();
+$sessionPersistence-&gt;update(array(
+    &#39;persistenceType&#39; =&gt; &#39;HTTP_COOKIE&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="disable-session-persistence">
+<h3>Disable Session Persistence<a class="headerlink" href="#disable-session-persistence" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$sessionPersistence = $loadBalancer-&gt;sessionPersistence();
+$sessionPersistence-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="connection-logging">
+<h2>Connection Logging<a class="headerlink" href="#connection-logging" title="Permalink to this headline">¶</a></h2>
+<p>The <strong>connection logging</strong> feature allows logs to be delivered to a
+Cloud Files account every hour. For HTTP-based protocol traffic, these
+are Apache-style access logs. For all other traffic, this is connection
+and transfer logging.</p>
+<div class="section" id="check-logging-configuration">
+<h3>Check Logging Configuration<a class="headerlink" href="#check-logging-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @var $connectionLogging bool **/
+
+$connectionLogging = $loadBalancer-&gt;hasConnectionLogging();
+</pre></div>
+</div>
+<p>In the example above:</p>
+<ul class="simple">
+<li>If connection logging is enabled, the value of <tt class="docutils literal"><span class="pre">$connectionLogging</span></tt>
+is <tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+<li>If connection logging is disabled, the value of
+<tt class="docutils literal"><span class="pre">$connectionLogging</span></tt> is <tt class="docutils literal"><span class="pre">false</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="enable-connection-logging">
+<h3>Enable Connection Logging<a class="headerlink" href="#enable-connection-logging" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;enableConnectionLogging(true);
+</pre></div>
+</div>
+</div>
+<div class="section" id="disable-connection-logging">
+<h3>Disable Connection Logging<a class="headerlink" href="#disable-connection-logging" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;enableConnectionLogging(false);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="error-page">
+<h2>Error Page<a class="headerlink" href="#error-page" title="Permalink to this headline">¶</a></h2>
+<p>An <strong>error page</strong> is the html file that is shown to the end user when an
+error in the service has been thrown. By default every virtual server is
+provided with the default error file. It is also possible to set a
+custom error page for a load balancer.</p>
+<div class="section" id="view-error-page-content">
+<h3>View Error Page Content<a class="headerlink" href="#view-error-page-content" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$errorPage = $loadBalancer-&gt;errorPage();
+$errorPageContent = $errorPage-&gt;content;
+
+/** @var $errorPageContent string **/
+</pre></div>
+</div>
+<p>In the example above the value of <tt class="docutils literal"><span class="pre">$errorPageContent</span></tt> is the HTML for
+that page. This could either be the HTML of the default error page or of
+your custom error page.</p>
+</div>
+<div class="section" id="set-custom-error-page">
+<h3>Set Custom Error Page<a class="headerlink" href="#set-custom-error-page" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$errorPage = $loadBalancer-&gt;errorPage();
+$errorPage-&gt;update(array(
+    &#39;content&#39; =&gt; &#39;&lt;HTML content of custom error page&gt;&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-custom-error-page">
+<h3>Delete Custom Error Page<a class="headerlink" href="#delete-custom-error-page" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$errorPage = $loadBalancer-&gt;errorPage();
+$errorPage-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="allowed-domains">
+<h2>Allowed Domains<a class="headerlink" href="#allowed-domains" title="Permalink to this headline">¶</a></h2>
+<p><strong>Allowed domains</strong> are a restricted set of domain names that are
+allowed to add load balancer nodes.</p>
+<div class="section" id="list-allowed-domains">
+<h3>List Allowed Domains<a class="headerlink" href="#list-allowed-domains" title="Permalink to this headline">¶</a></h3>
+<p>You can list all allowed domains using a load balancer service object.
+An instance of <tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is
+returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$allowedDomains = $loadBalancerService-&gt;allowedDomainList();
+foreach ($allowedDomains as $allowedDomain) {
+    /** @var $allowedDomain OpenCloud\LoadBalancer\Resource\AllowedDomain **/
+}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="access-lists">
+<h2>Access Lists<a class="headerlink" href="#access-lists" title="Permalink to this headline">¶</a></h2>
+<p><strong>Access Lists</strong> allow fine-grained network access to a load balancer&#8217;s
+VIP. Using access lists, network traffic to a load balancer&#8217;s VIP can be
+allowed or denied from a single IP address, multiple IP addresses or
+entire network subnets.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">ALLOW</span></tt> network items will take precedence over <tt class="docutils literal"><span class="pre">DENY</span></tt>
+network items in an access list.</p>
+<p>To reject traffic from all network items except those with the <tt class="docutils literal"><span class="pre">ALLOW</span></tt>
+type, add a <tt class="docutils literal"><span class="pre">DENY</span></tt> network item with the address of <tt class="docutils literal"><span class="pre">0.0.0.0/0</span></tt>.</p>
+<div class="section" id="view-access-list">
+<h3>View Access List<a class="headerlink" href="#view-access-list" title="Permalink to this headline">¶</a></h3>
+<p>You can view a load balancer&#8217;s access list. An instance of
+<tt class="docutils literal"><span class="pre">OpenCloud\Common\Collection\PaginatedIterator</span></tt> is returned.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$accessList = $loadBalancer-&gt;accessList();
+foreach ($accessList as $networkItem) {
+    /** @var $networkItem OpenCloud\LoadBalancer\Resource\Access **/
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-network-items-to-access-list">
+<h3>Add Network Items To Access List<a class="headerlink" href="#add-network-items-to-access-list" title="Permalink to this headline">¶</a></h3>
+<p>You can add network items to a load balancer&#8217;s access list very easily:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;createAccessList(array(
+    (object) array(
+        &#39;type&#39;    =&gt; &#39;ALLOW&#39;,
+        &#39;address&#39; =&gt; &#39;206.160.165.1/24&#39;
+    ),
+    (object) array(
+        &#39;type&#39;    =&gt; &#39;DENY&#39;,
+        &#39;address&#39; =&gt; &#39;0.0.0.0/0&#39;
+    )
+));
+</pre></div>
+</div>
+<p>In the above example, we allowed access for 1 IP address, and used the
+&#8220;0.0.0.0&#8221; wildcard to blacklist all other traffic.</p>
+</div>
+<div class="section" id="remove-network-item-from-access-list">
+<h3>Remove Network Item From Access List<a class="headerlink" href="#remove-network-item-from-access-list" title="Permalink to this headline">¶</a></h3>
+<p>You an remove a network item from a load balancer&#8217;s access list.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$networkItem-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="content-caching">
+<h2>Content Caching<a class="headerlink" href="#content-caching" title="Permalink to this headline">¶</a></h2>
+<p>When <strong>content caching</strong> is enabled on a load balancer,
+recently-accessed files are stored on the load balancer for easy
+retrieval by web clients. Requests to the load balancer for these files
+are serviced by the load balancer itself, which reduces load off its
+back-end nodes and improves response times as well.</p>
+<div class="section" id="check-content-caching-configuration">
+<h3>Check Content Caching Configuration<a class="headerlink" href="#check-content-caching-configuration" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @var $contentCaching bool **/
+
+$contentCaching = $loadBalancer-&gt;hasContentCaching();
+</pre></div>
+</div>
+<p>In the example above:</p>
+<ul class="simple">
+<li>If content caching is enabled, the value of <tt class="docutils literal"><span class="pre">$contentCaching</span></tt> is
+<tt class="docutils literal"><span class="pre">true</span></tt>.</li>
+<li>If content caching is disabled, the value of <tt class="docutils literal"><span class="pre">$contentCaching</span></tt> is
+<tt class="docutils literal"><span class="pre">false</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="enable-content-caching">
+<h3>Enable Content Caching<a class="headerlink" href="#enable-content-caching" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;enableContentCaching(true);
+</pre></div>
+</div>
+</div>
+<div class="section" id="disable-content-caching">
+<h3>Disable Content Caching<a class="headerlink" href="#disable-content-caching" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;enableContentCaching(false);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ssl-termination">
+<h2>SSL Termination<a class="headerlink" href="#ssl-termination" title="Permalink to this headline">¶</a></h2>
+<p>The SSL Termination feature allows a load balancer user to terminate SSL
+traffic at the load balancer layer versus at the web server layer. A
+user may choose to configure SSL Termination using a key and an SSL
+certificate or an (Intermediate) SSL certificate.</p>
+<p>When SSL Termination is configured on a load balancer, a secure shadow
+server is created that listens only for secure traffic on a
+user-specified port. This shadow server is only visible to and
+manageable by the system. Existing or updated attributes on a load
+balancer with SSL Termination will also apply to its shadow server. For
+example, if Connection Logging is enabled on an SSL load balancer, it
+will also be enabled on the shadow server and Cloud Files logs will
+contain log files for both.</p>
+<div class="section" id="view-current-ssl-termination-config">
+<h3>View current SSL termination config<a class="headerlink" href="#view-current-ssl-termination-config" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @var $sslConfig OpenCloud\LoadBalancer\Resource\SSLTermination **/
+
+$sslConfig = $loadBalancer-&gt;SSLTermination();
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-ssl-termination-config">
+<h3>Update SSL termination config<a class="headerlink" href="#update-ssl-termination-config" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$sslConfig-&gt;update(array(
+    &#39;enabled&#39;     =&gt; true,
+    &#39;securePort&#39;  =&gt; 443,
+    &#39;privateKey&#39;  =&gt; $key,
+    &#39;certificate&#39; =&gt; $cert
+));
+</pre></div>
+</div>
+<p>For a full list, with explanations, of required and optional attributes,
+please consult the <a class="reference external" href="http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/SSLTermination-d1e2479.html">official
+documentation</a></p>
+</div>
+<div class="section" id="delete-ssl-termination-config">
+<h3>Delete SSL termination config<a class="headerlink" href="#delete-ssl-termination-config" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$sslConfig-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="metadata">
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
+<p>Metadata can be associated with each load balancer and each node for the
+client&#8217;s personal use. It is defined using key-value pairs where the key
+and value consist of alphanumeric characters. A key is unique per load
+balancer.</p>
+<div class="section" id="list-metadata">
+<h3>List metadata<a class="headerlink" href="#list-metadata" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$metadataList = $loadBalancer-&gt;metadataList();
+
+foreach ($metadataList as $metadataItem) {
+    printf(&quot;Key: %s, Value: %s&quot;, $metadataItem-&gt;key, $metadataItem-&gt;value);
+}
+</pre></div>
+</div>
+<p>Please consult the <a class="reference external" href="docs/userguide/Iterators.md">iterator
+documentation</a> for more information
+about iterators.</p>
+</div>
+<div class="section" id="add-metadata">
+<h3>Add metadata<a class="headerlink" href="#add-metadata" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$metadataItem = $loadBalancer-&gt;metadata();
+$metadataItem-&gt;create(array(
+    &#39;key&#39;   =&gt; &#39;foo&#39;,
+    &#39;value&#39; =&gt; &#39;bar&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="modify-metadata">
+<h3>Modify metadata<a class="headerlink" href="#modify-metadata" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$metadataItem = $loadBalancer-&gt;metadata(&#39;foo&#39;);
+$metadataItem-&gt;update(array(
+    &#39;value&#39; =&gt; &#39;baz&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-metadata">
+<h3>Remove metadata<a class="headerlink" href="#remove-metadata" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$metadataItem-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="monitors">
+<h2>Monitors<a class="headerlink" href="#monitors" title="Permalink to this headline">¶</a></h2>
+<p>The load balancing service includes a health monitoring operation which
+periodically checks your back-end nodes to ensure they are responding
+correctly. If a node is not responding, it is removed from rotation
+until the health monitor determines that the node is functional. In
+addition to being performed periodically, the health check also is
+performed against every node that is added to ensure that the node is
+operating properly before allowing it to service traffic. Only one
+health monitor is allowed to be enabled on a load balancer at a time.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @var $healthMonitor OpenCloud\LoadBalancer\Resource\HealthMonitor **/
+
+$healthMonitor = $loadBalancer-&gt;healthMonitor();
+
+printf(
+    &quot;Monitoring type: %s, delay: %s, timeout: %s, attempts before deactivation: %s&quot;,
+    $healthMonitor-&gt;type, $healthMonitor-&gt;delay, $healthMonitor-&gt;timeout
+);
+</pre></div>
+</div>
+<p>For a full list, with explanations, of required and optional attributes,
+please consult the <a class="reference external" href="http://docs.rackspace.com/loadbalancers/api/v1.0/clb-devguide/content/Monitor_Connections-d1e3536.html">official
+documentation</a></p>
+<div class="section" id="update-or-delete">
+<h3>Update or delete<a class="headerlink" href="#update-or-delete" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>// Update
+$healthMonitor-&gt;update(array(
+    &#39;delay&#39;   =&gt; 120,
+    &#39;timeout&#39; =&gt; 60,
+    &#39;type&#39;    =&gt; &#39;CONNECT&#39;
+    &#39;attemptsBeforeDeactivation&#39; =&gt; 3
+));
+
+// Delete
+$healthMonitor-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="statistics">
+<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<p>You can retrieve detailed stats about your load balancer, including the
+following information:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">connectTimeOut</span></tt> – Connections closed by this load balancer because
+the &#8216;connect_timeout&#8217; interval was exceeded.</li>
+<li><tt class="docutils literal"><span class="pre">connectError</span></tt> – Number of transaction or protocol errors in this
+load balancer.</li>
+<li><tt class="docutils literal"><span class="pre">connectFailure</span></tt> – Number of connection failures in this load
+balancer.</li>
+<li><tt class="docutils literal"><span class="pre">dataTimedOut</span></tt> – Connections closed by this load balancer because
+the &#8216;timeout&#8217; interval was exceeded.</li>
+<li><tt class="docutils literal"><span class="pre">keepAliveTimedOut</span></tt> – Connections closed by this load balancer
+because the &#8216;keepalive_timeout&#8217; interval was exceeded.</li>
+<li><tt class="docutils literal"><span class="pre">maxConn</span></tt> – Maximum number of simultaneous TCP connections this
+load balancer has processed at any one time.</li>
+</ul>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @var $stats OpenCloud\LoadBalancer\Resource\Stats **/
+
+$stats = $loadBalancer-&gt;stats();
+</pre></div>
+</div>
+</div>
+<div class="section" id="usage-reports">
+<h2>Usage Reports<a class="headerlink" href="#usage-reports" title="Permalink to this headline">¶</a></h2>
+<p>The load balancer usage reports provide a view of all transfer activity,
+average number of connections, and number of virtual IPs associated with
+the load balancing service. Current usage represents all usage recorded
+within the preceding 24 hours. Values for both incomingTransfer and
+outgoingTransfer are expressed in bytes transferred.</p>
+<p>The optional startTime and endTime parameters can be used to filter all
+usage. If the startTime parameter is supplied but the endTime parameter
+is not, then all usage beginning with the startTime will be provided.
+Likewise, if the endTime parameter is supplied but the startTime
+parameter is not, then all usage will be returned up to the endTime
+specified.</p>
+<div class="code php highlight-python"><div class="highlight"><pre># View billable LBs
+$billable = $service-&gt;billableLoadBalancerList();
+
+foreach ($billable as $loadBalancer) {
+   /** @var $loadBalancer OpenCloud\LoadBalancer\Resource\LoadBalancer **/
+
+   # View usage
+   /** @var $usage OpenCloud\LoadBalancer\Resource\UsageRecord **/
+   $usage = $loadBalancer-&gt;usage();
+
+   echo $usage-&gt;averageNumConnections, PHP_EOL;
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

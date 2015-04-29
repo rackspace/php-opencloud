@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Alarms &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Alarms</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/Alarms.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="alarms">
+<h1>Alarms<a class="headerlink" href="#alarms" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="info">
+<h2>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>Alarms bind alerting rules, entities, and notification plans into a
+logical unit. Alarms are responsible for determining a state (<tt class="docutils literal"><span class="pre">OK</span></tt>,
+<tt class="docutils literal"><span class="pre">WARNING</span></tt> or <tt class="docutils literal"><span class="pre">CRITICAL</span></tt>) based on the result of a Check, and
+executing a notification plan whenever that state changes. You create
+alerting rules by using the alarm DSL. For information about using the
+alarm language, refer to the <a class="reference external" href="http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/alerts-language.html">reference
+documentation</a>.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Alarms are sub-resources of Entities:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$alarmId = &#39;alAAAA&#39;;
+$alarm = $check-&gt;getAlarm();
+</pre></div>
+</div>
+<p>For more information about working with Checks, please see the
+<a class="reference external" href="Checks.md">appropriate documentation</a>.</p>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="52%" />
+<col width="9%" />
+<col width="22%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Required?</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>check_id</td>
+<td>The ID of the check to alert on.</td>
+<td>Required</td>
+<td><tt class="docutils literal"><span class="pre">getCheckId()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>notification_plan_id</td>
+<td>The ID of the notification plan to execute when the state changes.</td>
+<td>Optional</td>
+<td><tt class="docutils literal"><span class="pre">getNotificationPlanId()</span></tt></td>
+</tr>
+<tr class="row-even"><td>criteria</td>
+<td>The alarm DSL for describing alerting conditions and their output states.</td>
+<td>Optional</td>
+<td><tt class="docutils literal"><span class="pre">getCriteria()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>disabled</td>
+<td>Disable processing and alerts on this alarm</td>
+<td>Optional</td>
+<td><tt class="docutils literal"><span class="pre">isDisabled()</span></tt> &lt;<tt class="docutils literal"><span class="pre">bool</span></tt>&gt;</td>
+</tr>
+<tr class="row-even"><td>label</td>
+<td>A friendly label for an alarm.</td>
+<td>Optional</td>
+<td><tt class="docutils literal"><span class="pre">getLabel()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>metadata</td>
+<td>Arbitrary key/value pairs.</td>
+<td>Optional</td>
+<td><tt class="docutils literal"><span class="pre">getMetadata()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="create-alarm">
+<h2>Create Alarm<a class="headerlink" href="#create-alarm" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$alarm-&gt;create(array(
+    &#39;check_id&#39; =&gt; &#39;chAAAA&#39;,
+    &#39;criteria&#39; =&gt; &#39;if (metric[&quot;duration&quot;] &gt;= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);&#39;,
+    &#39;notification_plan_id&#39; =&gt; &#39;npAAAAA&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-alarms">
+<h2>List Alarms<a class="headerlink" href="#list-alarms" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$alarms = $entity-&gt;getAlarms();
+
+foreach ($alarms as $alarm) {
+    echo $alarm-&gt;getId();
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-and-delete-alarm">
+<h2>Update and delete Alarm<a class="headerlink" href="#update-and-delete-alarm" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>// Update
+$alarm-&gt;update(array(
+    &#39;criteria&#39; =&gt; &#39;if (metric[&quot;duration&quot;] &gt;= 5) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);&#39;
+));
+
+// Delete
+$alarm-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

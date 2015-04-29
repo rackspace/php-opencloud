@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tokens &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Tokens</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/identity/Tokens.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="tokens">
+<h1>Tokens<a class="headerlink" href="#tokens" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>A token is an opaque string that represents an authorization to access
+cloud resources. Tokens may be revoked at any time and are valid for a
+finite duration.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Token objects are instantiated from the Identity service. For more
+details, see the <a class="reference external" href="Service.md">Service</a> docs.</p>
+</div>
+<div class="section" id="useful-object-properties-methods">
+<h2>Useful object properties/methods<a class="headerlink" href="#useful-object-properties-methods" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="37%" />
+<col width="35%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Description</th>
+<th class="head">Getter</th>
+<th class="head">Setter</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>The unique ID of the token</td>
+<td><tt class="docutils literal"><span class="pre">getId()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setId()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>expires</td>
+<td>Timestamp of when the token will expire</td>
+<td><tt class="docutils literal"><span class="pre">getExpires()</span></tt> or <tt class="docutils literal"><span class="pre">hasExpired()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setExpires()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="create-token-authenticate">
+<h2>Create token (authenticate)<a class="headerlink" href="#create-token-authenticate" title="Permalink to this headline">¶</a></h2>
+<p>In order to generate a token, you must pass in the JSON template that is
+sent to the API. This is because Rackspace&#8217;s operation expects a
+slightly different entity body than OpenStack Keystone.</p>
+<p>Request body for Rackspace&#8217;s generate token operation:</p>
+<div class="code json highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;RAX-KSKEY:apiKeyCredentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="s">&quot;foo&quot;</span><span class="p">,</span>
+            <span class="s">&quot;apiKey&quot;</span><span class="p">:</span> <span class="s">&quot;aaaaa-bbbbb-ccccc-12345678&quot;</span>
+        <span class="p">},</span>
+        <span class="s">&quot;tenantId&quot;</span><span class="p">:</span> <span class="s">&quot;1100111&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Request body for Keystone&#8217;s generate token operation:</p>
+<div class="code json highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="s">&quot;auth&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s">&quot;passwordCredentials&quot;</span><span class="p">:{</span>
+            <span class="s">&quot;username&quot;</span><span class="p">:</span><span class="s">&quot;demoauthor&quot;</span><span class="p">,</span>
+            <span class="s">&quot;password&quot;</span><span class="p">:</span><span class="s">&quot;theUsersPassword&quot;</span>
+        <span class="p">},</span>
+        <span class="s">&quot;tenantId&quot;</span><span class="p">:</span> <span class="s">&quot;12345678&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The only real differences you&#8217;ll notice is the name of the object key
+(<tt class="docutils literal"><span class="pre">RAX-KSKEY:apiKeyCredentials</span></tt>/<tt class="docutils literal"><span class="pre">passwordCredentials</span></tt>) and the secret
+(<tt class="docutils literal"><span class="pre">apiKey</span></tt>/<tt class="docutils literal"><span class="pre">password</span></tt>). The <tt class="docutils literal"><span class="pre">tenantId</span></tt> property in both templates
+are optional. You can also add <tt class="docutils literal"><span class="pre">tenantName</span></tt> too.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Common\Http\Message\Formatter;
+
+$template = sprintf(
+   &#39;{&quot;auth&quot;: {&quot;RAX-KSKEY:apiKeyCredentials&quot;:{&quot;username&quot;: &quot;%s&quot;, &quot;apiKey&quot;: &quot;%s&quot;}}}&#39;,
+   &#39;my_username&#39;,
+   &#39;my_api_key&#39;
+);
+
+$response = $service-&gt;generateToken($template);
+
+$body = Formatter::decode($response);
+
+// service catalog
+$catalog = $body-&gt;access-&gt;serviceCatalog;
+
+// token
+$token = $body-&gt;access-&gt;token;
+
+// user
+$user = $body-&gt;access-&gt;user;
+</pre></div>
+</div>
+<p>As you will notice, these variables will be stdClass objects - for fully
+fledged functionality, let the client authenticate by itself because it
+ends up stocking the necessary models for you.</p>
+<p>To see the response body structure, consult the <a class="reference external" href="http://docs.rackspace.com/auth/api/v2.0/auth-client-devguide/content/POST_authenticate_v2.0_tokens_Token_Calls.html">official
+docs</a>.</p>
+</div>
+<div class="section" id="revoke-token-destroy-session">
+<h2>Revoke token (destroy session)<a class="headerlink" href="#revoke-token-destroy-session" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$tokenId = &#39;1234567&#39;;
+$service-&gt;revokeToken($tokenId);
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

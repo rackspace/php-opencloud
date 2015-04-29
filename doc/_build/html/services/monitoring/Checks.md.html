@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Checks &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Checks</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/monitoring/Checks.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="checks">
+<h1>Checks<a class="headerlink" href="#checks" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="info">
+<h2>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>A check is one of the foundational building blocks of the monitoring
+system. The check determines the parts or pieces of the entity that you
+want to monitor, the monitoring frequency, how many monitoring zones are
+originating the check, and so on. When you create a new check in the
+monitoring system, you specify the following information:</p>
+<ul class="simple">
+<li>A name for the check</li>
+<li>The check&#8217;s parent entity</li>
+<li>The type of check you&#8217;re creating</li>
+<li>Details of the check</li>
+<li>The monitoring zones that will launch the check</li>
+</ul>
+<p>The check, as created, will not trigger alert messages until you create
+an alarm to generate notifications, to enable the creation of a single
+alarm that acts upon multiple checks (e.g. alert if any of ten different
+servers stops responding) or multiple alarms off of a single check.
+(e.g. ensure both that a HTTPS server is responding and that it has a
+valid certificate).</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Checks are sub-resources of Entities:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$checkId = &#39;chAAAA&#39;;
+$check = $entity-&gt;getCheck($checkId);
+</pre></div>
+</div>
+</div>
+<div class="section" id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="62%" />
+<col width="7%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Required?</th>
+<th class="head">Data type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>The type of check.</td>
+<td>Required</td>
+<td>Valid check type. String (1..25 chars)</td>
+</tr>
+<tr class="row-odd"><td>details</td>
+<td>Details specific to the check type.</td>
+<td>Optional</td>
+<td>Array</td>
+</tr>
+<tr class="row-even"><td>disabled</td>
+<td>Disables the check.</td>
+<td>Optional</td>
+<td>Boolean</td>
+</tr>
+<tr class="row-odd"><td>label</td>
+<td>A friendly label for a check.</td>
+<td>Optional</td>
+<td>String (1..255 chars)</td>
+</tr>
+<tr class="row-even"><td>metadata</td>
+<td>Arbitrary key/value pairs.</td>
+<td>Optional</td>
+<td>Array</td>
+</tr>
+<tr class="row-odd"><td>period</td>
+<td>The period in seconds for a check. The value must be greater than the minimum period set on your account.</td>
+<td>Optional</td>
+<td>Integer (30..1800)</td>
+</tr>
+<tr class="row-even"><td>timeout</td>
+<td>The timeout in seconds for a check. This has to be less than the period.</td>
+<td>Optional</td>
+<td>Integer (2..1800)</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="attributes-used-for-remote-checks">
+<h3>Attributes used for remote Checks<a class="headerlink" href="#attributes-used-for-remote-checks" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="60%" />
+<col width="5%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Required?</th>
+<th class="head">Data type</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>monitoring_zones_poll</td>
+<td>List of monitoring zones to poll from. Note: This argument is only required for remote (non-agent) checks</td>
+<td>Optional</td>
+<td>Array</td>
+</tr>
+<tr class="row-odd"><td>target_alias</td>
+<td>A key in the entity&#8217;s <tt class="docutils literal"><span class="pre">ip_addresses</span></tt> hash used to resolve this check to an IP address. This parameter is mutually exclusive with target_hostname.</td>
+<td>Optional</td>
+<td>String (1..64 chars)</td>
+</tr>
+<tr class="row-even"><td>target_hostname</td>
+<td>The hostname this check should target. This parameter is mutually exclusive with <tt class="docutils literal"><span class="pre">target_alias</span></tt>.</td>
+<td>Optional</td>
+<td>Valid FQDN, IPv4 or IPv6 address. String (1..256 chars).</td>
+</tr>
+<tr class="row-odd"><td>target_resolver</td>
+<td>Determines how to resolve the check target.</td>
+<td>Optional</td>
+<td><tt class="docutils literal"><span class="pre">IPv4</span></tt> or <tt class="docutils literal"><span class="pre">IPv6</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="test-parameters-before-create">
+<h2>Test parameters (before create)<a class="headerlink" href="#test-parameters-before-create" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$params = array(
+    &#39;type&#39;   =&gt; &#39;remote.http&#39;,
+    &#39;details&#39; =&gt; array(
+        &#39;url&#39;    =&gt; &#39;http://example.com&#39;,
+        &#39;method&#39; =&gt; &#39;GET&#39;
+    ),
+    &#39;monitoring_zones_poll&#39; =&gt; array(&#39;mzlon&#39;),
+    &#39;period&#39; =&gt; &#39;100&#39;,
+    &#39;timeout&#39; =&gt; &#39;30&#39;,
+    &#39;target_alias&#39; =&gt; &#39;default&#39;,
+    &#39;label&#39;  =&gt; &#39;Website check 1&#39;
+);
+
+// You can do a test to see what would happen
+// if a Check is launched with these params
+$response = $entity-&gt;testNewCheckParams($params);
+
+echo $response-&gt;timestamp; // When was it executed?
+echo $response-&gt;available; // Was it available?
+echo $response-&gt;status;    // Status code
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-a-check">
+<h2>Create a Check<a class="headerlink" href="#create-a-check" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$entity-&gt;createCheck($params);
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-existing-check">
+<h2>Test existing Check<a class="headerlink" href="#test-existing-check" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>// Set arg to TRUE for debug information
+$response = $check-&gt;test(true);
+
+echo $response-&gt;debug_info;
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-checks">
+<h2>List Checks<a class="headerlink" href="#list-checks" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$checks = $entity-&gt;getChecks();
+
+foreach ($checks as $check) {
+    echo $check-&gt;getId();
+}
+</pre></div>
+</div>
+<div class="section" id="update-and-delete-check">
+<h3>Update and delete Check<a class="headerlink" href="#update-and-delete-check" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>// Update
+$check-&gt;update(array(&#39;period&#39; =&gt; 500));
+
+// Delete
+$check-&gt;delete();
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="check-types">
+<h1>Check types<a class="headerlink" href="#check-types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Info<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Each check within the Rackspace Cloud Monitoring has a designated check
+type. The check type instructs the monitoring system how to check the
+monitored resource. <strong>Note:</strong> Users cannot create, update or delete
+check types.</p>
+<p>Check types for commonly encountered web protocols, such as HTTP
+(<tt class="docutils literal"><span class="pre">remote.http</span></tt>), IMAP (<tt class="docutils literal"><span class="pre">remote.imap-banner</span></tt>) , SMTP
+(<tt class="docutils literal"><span class="pre">remote.stmp</span></tt>), and DNS (<tt class="docutils literal"><span class="pre">remote.dns</span></tt>) are provided. Monitoring
+commonly encountered infrastructure servers like MySQL
+(<tt class="docutils literal"><span class="pre">remote.mysql-banner</span></tt>) and PostgreSQL (<tt class="docutils literal"><span class="pre">remote.postgresql-banner</span></tt>)
+are also available. Monitoring custom server uptime can be accomplished
+with the remote.tcp banner check to check for a protocol-defined banner
+at the beginning of a connection. Gathering metrics from server software
+to create alerts against can be accomplished using the remote.http check
+type and the &#8216;extract&#8217; attribute to define the format.</p>
+<p>In addition to the standard Cloud Monitoring check types, you can also
+use agent check types if the Monitoring Agent is installed on the server
+you are monitoring. For a list of available check types, see the
+<a class="reference external" href="http://docs.rackspace.com/cm/api/v1.0/cm-devguide/content/appendix-check-types.html">official API
+documentation</a>.</p>
+<p>Checks generate metrics that alarms will alert based upon. The metrics
+generated often times depend on the check&#8217;s parameters. For example,
+using the &#8216;extract&#8217; attribute on the remote.http check, however the
+default metrics will always be present. To determine the exact metrics
+available, the Test Check API is provided.</p>
+</div>
+<div class="section" id="id2">
+<h2>Setup<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>If you want to see the type for an existing Check:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>/** @var \OpenCloud\CloudMonitoring\Resource\CheckType */
+$checkType = $check-&gt;getCheckType();
+</pre></div>
+</div>
+<p>Alternatively, you can retrieve a specific type based on its ID:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$checkTypeId = &#39;remote.dns&#39;;
+$checkType = $service-&gt;getCheckType($checkTypeId);
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Attributes<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="73%" />
+<col width="5%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+<th class="head">Data type</th>
+<th class="head">Method</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>The name of the supported check type.</td>
+<td>String</td>
+<td><tt class="docutils literal"><span class="pre">getType()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>fields</td>
+<td>Check type fields.</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getFields()</span></tt></td>
+</tr>
+<tr class="row-even"><td>supported_platforms</td>
+<td>Platforms on which an agent check type is supported. This is advisory information only - the check may still work on other platforms, or report that check execution failed at runtime</td>
+<td>Array</td>
+<td><tt class="docutils literal"><span class="pre">getSupportedPlatforms()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="list-all-possible-check-types">
+<h2>List all possible check types<a class="headerlink" href="#list-all-possible-check-types" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$checkTypes = $service-&gt;getCheckTypes();
+
+foreach ($checkTypes as $checkType) {
+   echo $checkType-&gt;getId();
+}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

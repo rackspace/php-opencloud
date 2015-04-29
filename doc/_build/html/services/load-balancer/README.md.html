@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Load Balancers &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../identity/index.html">Identity v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../identity/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Load Balancers</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/load-balancer/README.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="load-balancers">
+<h1>Load Balancers<a class="headerlink" href="#load-balancers" title="Permalink to this headline">¶</a></h1>
+<p>A <strong>load balancer</strong> is a device that distributes incoming network
+traffic amongst multiple back-end systems. These back-end systems are
+called the <strong>nodes</strong> of the load balancer.</p>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="instantiate-a-rackspace-client">
+<h3>1. Instantiate a Rackspace client.<a class="headerlink" href="#instantiate-a-rackspace-client" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Rackspace;
+
+$client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, array(
+    &#39;username&#39; =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT USERNAME&gt;&#39;,
+    &#39;apiKey&#39;   =&gt; &#39;&lt;YOUR RACKSPACE CLOUD ACCOUNT API KEY&gt;&#39;
+));
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieve-the-server-instances-you-want-to-add-as-nodes-of-the-load-balancer">
+<h3>2. Retrieve the server instances you want to add as nodes of the load balancer.<a class="headerlink" href="#retrieve-the-server-instances-you-want-to-add-as-nodes-of-the-load-balancer" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$computeService = $client-&gt;computeService(&#39;cloudServersOpenStack&#39;, &#39;DFW&#39;);
+
+$serverOne = $computeService-&gt;server(&#39;e836fc4e-056d-4447-a80e-fefcaa640216&#39;);
+$serverTwo = $computeService-&gt;server(&#39;5399cd36-a23f-41a6-bdf7-20902aec0e74&#39;);
+</pre></div>
+</div>
+<p>The example above uses two server instances that have already been
+created. It retrieves the server instances using their IDs. See also:
+<a href="#id1"><span class="problematic" id="id2">`creating server instances &lt;&gt;`__</span></a>.</p>
+</div>
+<div class="section" id="obtain-a-load-balancer-service-object-from-the-client">
+<h3>3. Obtain a Load Balancer service object from the client.<a class="headerlink" href="#obtain-a-load-balancer-service-object-from-the-client" title="Permalink to this headline">¶</a></h3>
+<p>This object will be used to first define the load balancer nodes and
+later create the load balancer itself.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancerService = $client-&gt;loadBalancerService(&#39;cloudLoadBalancers&#39;, &#39;DFW&#39;);
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-a-load-balancer-node-for-each-server">
+<h3>4. Define a load balancer node for each server.<a class="headerlink" href="#define-a-load-balancer-node-for-each-server" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer = $loadBalancerService-&gt;loadBalancer();
+
+$serverOneNode = $loadBalancer-&gt;node();
+$serverOneNode-&gt;address = $serverOne-&gt;addresses-&gt;private[0]-&gt;addr;
+$serverOneNode-&gt;port = 8080;
+$serverOneNode-&gt;condition = &#39;ENABLED&#39;;
+
+$serverTwoNode = $loadBalancer-&gt;node();
+$serverTwoNode-&gt;address = $serverTwo-&gt;addresses-&gt;private[0]-&gt;addr;
+$serverTwoNode-&gt;port = 8080;
+$serverTwoNode-&gt;condition = &#39;ENABLED&#39;;
+</pre></div>
+</div>
+<p>In the example above, each node runs a service that listens on port
+8080. Further, each node will start out as <tt class="docutils literal"><span class="pre">ENABLED</span></tt>, which means it
+will be ready to receive network traffic from the load balancer as soon
+as it is created.</p>
+</div>
+<div class="section" id="create-the-load-balancer-with-the-two-nodes">
+<h3>5. Create the load balancer with the two nodes.<a class="headerlink" href="#create-the-load-balancer-with-the-two-nodes" title="Permalink to this headline">¶</a></h3>
+<div class="code php highlight-python"><div class="highlight"><pre>$loadBalancer-&gt;addVirtualIp(&#39;PUBLIC&#39;);
+$loadBalancer-&gt;create(array(
+    &#39;name&#39; =&gt; &#39;My smart load balancer&#39;,
+    &#39;port&#39; =&gt; 80,
+    &#39;protocol&#39; =&gt; &#39;HTTP&#39;,
+    &#39;nodes&#39; =&gt; array($serverOneNode, $serverTwoNode)
+));
+</pre></div>
+</div>
+<p>In the example above, the load balancer will have a virtual IP address
+accessible from the public Internet. Also notice that the port the load
+balancer listens on (80) does not need to match the ports of its nodes
+(8080).</p>
+</div>
+</div>
+<div class="section" id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Permalink to this headline">¶</a></h2>
+<p>Once you have created a load balancer, there is a lot you can do with
+it. See the <a class="reference external" href="USERGUIDE.md">complete user guide for load balancers</a>.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

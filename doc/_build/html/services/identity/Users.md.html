@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Users &mdash; php-opencloud 1.12.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="php-opencloud 1.12.1 documentation" href="../../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> php-opencloud</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../autoscale/index.html">Auto Scale v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../autoscale/index.html#further-links">Further Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compute/index.html">Compute v2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compute/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../database/index.html">Databases v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../database/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../dns/index.html">DNS v1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#operations">Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dns/index.html#glossary">Glossary</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">php-opencloud</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Users</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../../_sources/services/identity/Users.md.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="users">
+<h1>Users<a class="headerlink" href="#users" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="intro">
+<h2>Intro<a class="headerlink" href="#intro" title="Permalink to this headline">¶</a></h2>
+<p>A user is a digital representation of a person, system, or service who
+consumes cloud services. Users have credentials and may be assigned
+tokens; based on these credentials and tokens, the authentication
+service validates that incoming requests are being made by the user who
+claims to be making the request, and that the user has the right to
+access the requested resources. Users may be directly assigned to a
+particular tenant and behave as if they are contained within that
+tenant.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>User objects are instantiated from the Identity service. For more
+details, see the <a class="reference external" href="Service.md">Service</a> docs.</p>
+</div>
+<div class="section" id="useful-object-properties-methods">
+<h2>Useful object properties/methods<a class="headerlink" href="#useful-object-properties-methods" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="65%" />
+<col width="9%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Description</th>
+<th class="head">Getter</th>
+<th class="head">Setter</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>The unique ID for this user</td>
+<td><tt class="docutils literal"><span class="pre">getId()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setId()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>username</td>
+<td>Username for this user</td>
+<td><tt class="docutils literal"><span class="pre">getUsername()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setUsername()</span></tt></td>
+</tr>
+<tr class="row-even"><td>email</td>
+<td>User&#8217;s email address</td>
+<td><tt class="docutils literal"><span class="pre">getEmail()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setEmail()</span></tt></td>
+</tr>
+<tr class="row-odd"><td>enabled</td>
+<td>Whether or not this user can consume API functionality</td>
+<td><tt class="docutils literal"><span class="pre">getEnabled()</span></tt> or <tt class="docutils literal"><span class="pre">isEnabled()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setEnabled()</span></tt></td>
+</tr>
+<tr class="row-even"><td>password</td>
+<td>Either a user-defined string, or an automatically generated one, that provides security when authenticating.</td>
+<td><tt class="docutils literal"><span class="pre">getPassword()</span></tt> only valid on creation</td>
+<td><tt class="docutils literal"><span class="pre">setPassword()</span></tt> to set local property only. To set password on API (retention), use <tt class="docutils literal"><span class="pre">updatePassword()</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td>defaultRegion</td>
+<td>Default region associates a user with a specific regional datacenter. If a default region has been assigned for this user and that user has <strong>NOT</strong> explicitly specified a region when creating a service object, the user will obtain the service from the default region.</td>
+<td><tt class="docutils literal"><span class="pre">getDefaultRegion()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setDefaultRegion()</span></tt></td>
+</tr>
+<tr class="row-even"><td>domainId</td>
+<td>Domain ID associates a user with a specific domain which was assigned when the user was created or updated. A domain establishes an administrative boundary for a customer and a container for a customer&#8217;s tenants (accounts) and users. Generally, a domainId is the same as the primary tenant id of your cloud account.</td>
+<td><tt class="docutils literal"><span class="pre">getDomainId()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">setDomainId()</span></tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="list-users">
+<h2>List users<a class="headerlink" href="#list-users" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$users = $service-&gt;getUsers();
+
+foreach ($users as $user) {
+   // ...
+}
+</pre></div>
+</div>
+<p>For more information about how to use iterators, see the
+<a class="reference external" href="../Iterators.md">documentation</a>.</p>
+</div>
+<div class="section" id="get-user">
+<h2>Get user<a class="headerlink" href="#get-user" title="Permalink to this headline">¶</a></h2>
+<p>There are various ways to get a specific user: by name, ID and email
+address.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use OpenCloud\Identity\Constants\User as UserConst;
+
+// Get user by name
+$user1 = $service-&gt;getUser(&#39;jamie&#39;);
+
+// Get user by ID
+$user2 = $service-&gt;getUser(123456, UserConst::MODE_ID);
+
+// Get user by email
+$user3 = $service-&gt;getUser(&#39;jamie.hannaford@rackspace.com&#39;, UserConst::MODE_EMAIL);
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-user">
+<h2>Create user<a class="headerlink" href="#create-user" title="Permalink to this headline">¶</a></h2>
+<p>There are a few things to remember when creating a user:</p>
+<ul class="simple">
+<li>This operation is available only to users who hold the
+<tt class="docutils literal"><span class="pre">identity:user-admin</span></tt> role. This admin can create a user who holds
+the <tt class="docutils literal"><span class="pre">identity:default</span></tt> user role.</li>
+<li>The created user <strong>will</strong> have access to APIs but <strong>will not</strong> have
+access to the Cloud Control Panel.</li>
+<li>Within an account, a maximum of 100 account users can be added.</li>
+<li>If you attempt to add a user who already exists, an HTTP error 409
+results.</li>
+</ul>
+<p>The <tt class="docutils literal"><span class="pre">username</span></tt> and <tt class="docutils literal"><span class="pre">email</span></tt> properties are required for creating a
+user. Providing a <tt class="docutils literal"><span class="pre">password</span></tt> is optional; if omitted, one will be
+automatically generated and provided in the response.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>use Guzzle\Http\Exception\ClientErrorResponseException;
+
+try {
+   // execute operation
+   $user = $service-&gt;createUser(array(
+      &#39;username&#39; =&gt; &#39;newUser&#39;,
+      &#39;email&#39;    =&gt; &#39;foo@bar.com&#39;
+   ));
+} catch (ClientErrorResponseException $e) {
+   // catch 4xx HTTP errors
+   echo $e-&gt;getResponse()-&gt;toString();
+}
+
+// show generated password
+echo $user-&gt;getPassword();
+</pre></div>
+</div>
+</div>
+<div class="section" id="update-user">
+<h2>Update user<a class="headerlink" href="#update-user" title="Permalink to this headline">¶</a></h2>
+<p>When updating a user, specify which attribute/property you want to
+update:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$user-&gt;update(array(
+   &#39;email&#39; =&gt; &#39;new_email@bar.com&#39;
+));
+</pre></div>
+</div>
+<div class="section" id="updating-a-user-password">
+<h3>Updating a user password<a class="headerlink" href="#updating-a-user-password" title="Permalink to this headline">¶</a></h3>
+<p>Updating a user password requires calling a distinct method:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$user-&gt;updatePassword(&#39;password123&#39;);
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delete-user">
+<h2>Delete user<a class="headerlink" href="#delete-user" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>$user-&gt;delete();
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-credentials">
+<h2>List credentials<a class="headerlink" href="#list-credentials" title="Permalink to this headline">¶</a></h2>
+<p>This operation allows you to see your non-password credential types for
+all authentication methods available.</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$creds = $user-&gt;getOtherCredentials();
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-user-api-key">
+<h2>Get user API key<a class="headerlink" href="#get-user-api-key" title="Permalink to this headline">¶</a></h2>
+<div class="code php highlight-python"><div class="highlight"><pre>echo $user-&gt;getApiKey();
+</pre></div>
+</div>
+</div>
+<div class="section" id="reset-user-api-key">
+<h2>Reset user API key<a class="headerlink" href="#reset-user-api-key" title="Permalink to this headline">¶</a></h2>
+<p>When resetting an API key, a new one will be automatically generated for
+you:</p>
+<div class="code php highlight-python"><div class="highlight"><pre>$user-&gt;resetApiKey();
+echo $user-&gt;getApiKey();
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Jamie Hannaford, Shaunak Kashyap.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.12.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
