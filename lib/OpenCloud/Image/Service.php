@@ -17,7 +17,6 @@
 
 namespace OpenCloud\Image;
 
-use OpenCloud\Common\Constants\Header;
 use OpenCloud\Common\Service\CatalogService;
 use OpenCloud\Image\Resource\Image;
 use OpenCloud\Image\Resource\Schema\Schema;
@@ -31,18 +30,6 @@ class Service extends CatalogService
 {
     const DEFAULT_TYPE = 'image';
     const DEFAULT_NAME = 'cloudImages';
-
-    const PATCH_CONTENT_TYPE = 'application/openstack-images-v2.1-json-patch';
-
-    /**
-     * Get the default headers to send for PATCH requests
-     *
-     * @return array
-     */
-    public function getPatchHeaders()
-    {
-        return array(Header::CONTENT_TYPE => self::PATCH_CONTENT_TYPE);
-    }
 
     /**
      * This operation returns images you created, shared images that you accepted, and standard images.
