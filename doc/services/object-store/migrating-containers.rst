@@ -37,13 +37,13 @@ Requirements
 
     use Guzzle\Plugin\Backoff\BackoffPlugin;
 
-    // set timeout in secs
-    $timeout = 10;
+    // maximum number of retries
+    $maxRetries = 10;
 
     // set HTTP error codes
     $httpErrors = array(500, 503, 408);
 
-    $backoffPlugin = BackoffPlugin::getExponentialBackoff($timeout, $httpErrors);
+    $backoffPlugin = BackoffPlugin::getExponentialBackoff($maxRetries, $httpErrors);
     $client->addSubscriber($backoffPlugin);
 
 
@@ -68,12 +68,12 @@ You can access all this functionality by executing:
 
 
 It's advisable to do this process in a Cloud Server in one of the two
-regions you're migrating to/from. This allows you to use ``privateURL``
+regions you're migrating to/from. This allows you to use ``internalURL``
 as the third argument in the ``objectStoreService`` methods like this:
 
 .. code-block:: php
 
-  $client->objectStoreService('cloudFiles', 'IAD', 'privateURL');
+  $client->objectStoreService('cloudFiles', 'IAD', 'internalURL');
 
 
 This will ensure that traffic between your server and your new IAD

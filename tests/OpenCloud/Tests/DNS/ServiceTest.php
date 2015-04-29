@@ -40,6 +40,24 @@ class ServiceTest extends DnsTestCase
         $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $this->service->domain());
     }
 
+    public function testDomainByName()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"domains":[{"name":"region2.example.net","id":2725352,"updated":"2011-06-23T20:21:06.000+0000","created":"2011-06-23T19:24:27.000+0000"}],"totalEntries":114}', 200));
+        $domain = $this->service->domainByName("region2.example.net");
+
+        $this->assertInstanceOf('OpenCloud\DNS\Resource\Domain', $domain);
+        $this->assertEquals("region2.example.net", $domain->getName());
+    }
+
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\DomainNotFoundException
+     */
+    public function testDomainByNameWhenDomainNotFound()
+    {
+        $this->addMockSubscriber($this->makeResponse('{"domains":[],"totalEntries":114}', 200));
+        $domain = $this->service->domainByName("region2.example.net");
+    }
+
     /**
      * @mockFile Domain_List
      */

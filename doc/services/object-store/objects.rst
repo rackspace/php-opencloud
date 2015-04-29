@@ -177,6 +177,42 @@ docs <http://docs.openstack.org/api/openstack-object-storage/1.0/content/list-ob
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-objects.php>`_
 
 
+List over 10,000 objects
+------------------------
+
+To retrieve more than 10,000 objects (the default limit), you'll need to use
+the built-in paging which uses a 'marker' parameter to fetch the next page of data.
+
+.. code-block:: php
+
+    $containerObjects = array();
+    $marker = '';
+
+    while ($marker !== null) {
+        $params = array(
+            'marker' => $marker,
+        );
+
+        $objects = $container->objectList($params);
+        $total = $objects->count();
+        $count = 0;
+
+        if ($total == 0) {
+            break;
+        }
+
+        foreach ($objects as $object) {
+            /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
+            $containerObjects[] = $object->getName();
+            $count++;
+
+            $marker = ($count == $total) ? $object->getName() : null;
+        }
+    }
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-objects-over-10000.php>`_
+
+
 Get object
 ----------
 
@@ -223,7 +259,7 @@ Get content of file
 .. code-block:: php
 
   /** @param $content Guzzle\Http\EntityBody */
-  $content = $object->getContainer();
+  $content = $object->getContent();
 
 
 Get type of file
@@ -324,6 +360,41 @@ Where ``container_2`` is the name of the container, and ``new_object_name`` is
 the name of the object inside the container that does not exist yet.
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/copy-object.php>`_
+
+
+Symlinking to this object from another location
+-----------------------------------------------
+
+To create a symlink to this file in another location you need to specify
+a string-based source
+
+.. code-block:: php
+
+  $object->createSymlinkFrom('/container_2/new_object_name');
+
+Where ``container_2`` is the name of the container, and ``new_object_name`` is
+the name of the object inside the container that either does not exist yet or
+is an empty file.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/symlink-object.php>`_
+
+
+Setting this object to symlink to another location
+--------------------------------------------------
+
+To set this file to symlink to another location you need to specify
+a string-based destination
+
+.. code-block:: php
+
+  $object->createSymlinkTo('/container_2/new_object_name');
+
+Where ``container_2`` is the name of the container, and ``new_object_name`` is
+the name of the object inside the container.
+
+The object must be an empty file.
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/symlink-object.php>`_
 
 
 Get object metadata

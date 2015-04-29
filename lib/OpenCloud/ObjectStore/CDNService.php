@@ -31,8 +31,12 @@ class CDNService extends AbstractService
     /**
      * List CDN-enabled containers.
      *
-     * @param array $filter
-     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     * @param array $filter Array of filter options such as:
+     *
+     * * `limit`: number of results to limit the list to. Optional.
+     * * `marker`: name of container after which to start the list. Optional.
+     * * `end_marker`: name of container before which to end the list. Optional.
+     * @return \OpenCloud\Common\Collection\PaginatedIterator Iterator to list of CDN-enabled containers
      */
     public function listContainers(array $filter = array())
     {
@@ -40,6 +44,12 @@ class CDNService extends AbstractService
         return $this->resourceList('CDNContainer', $this->getUrl(null, $filter), $this);
     }
 
+    /**
+     * Return an existing CDN-enabled container.
+     *
+     * @param \stdClass $data Data to initialize container.
+     * @return CDNContainer CDN-enabled Container
+     */
     public function cdnContainer($data)
     {
         $container = new CDNContainer($this, $data);

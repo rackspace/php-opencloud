@@ -30,6 +30,10 @@ Read the :doc:`getting-started-with-openstack` or
 :doc:`getting-started-with-rackspace` to help you get started with basic
 Compute operations.
 
+.. note::
+
+  If you are running PHP 5.3, please see our :doc:`using-php-5.3` guide.
+
 Services
 --------
 
