@@ -39,6 +39,7 @@ class Instance extends NovaResource
     public $created;
     public $updated;
     public $flavor;
+    public $backupRef;
 
     protected static $json_name = 'instance';
     protected static $url_resource = 'instances';
@@ -172,6 +173,49 @@ class Instance extends NovaResource
     }
 
     /**
+     * Returns a Collection of all backups for the instance
+     *
+     * @return OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function backupList()
+    {
+        return $this->getService()->resourceList('Backup', $this->getUrl('backups'), $this);
+    }
+
+    /**
+     * Creates a backup for the given instance
+     *
+     * @api
+     * @param array $params - an associate array of key/value pairs
+     *                      name is required
+     *                      description is optional
+     * @return Backup
+     */
+    public function createBackup($params = array())
+    {
+        if (!isset($params['instanceId'])) {
+            $params['instanceId'] = $this->id;
+        }
+
+        $backup = new Backup($this->getService(), $params);
+        $backup->create($params);
+        return $backup;
+    }
+
+    public function populate($info, $setObjects = true)
+    {
+        parent::populate($info, $setObjects);
+
+        if (is_object($info)) {
+            $info = (array) $info;
+        }
+
+        if (isset($info['restorePoint']['backupRef'])) {
+            $this->backupRef = $info['restorePoint']['backupRef'];
+        }
+    }
+
+    /**
      * Generates the JSON string for Create()
      *
      * @return \stdClass
@@ -190,13 +234,21 @@ class Instance extends NovaResource
             );
         }
 
-        return (object) array(
-            'instance' => (object) array(
+        $out = [
+            'instance' => [
                     'flavorRef' => $this->flavor->links[0]->href,
                     'name'      => $this->name,
                     'volume'    => $this->volume
-                )
-        );
+                ]
+        ];
+
+        if (isset($this->backupRef)) {
+            $out['instance']['restorePoint'] = [
+                'backupRef' => $this->backupRef
+            ];
+        }
+
+        return (object) $out;
     }
 
     /**

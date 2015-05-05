@@ -22,6 +22,7 @@ use OpenCloud\Common\Service\NovaService;
 use OpenCloud\Database\Resource\Instance;
 use OpenCloud\Database\Resource\Configuration;
 use OpenCloud\Database\Resource\Datastore;
+use OpenCloud\Database\Resource\Backup;
 
 /**
  * The Rackspace Database service
@@ -104,5 +105,30 @@ class Service extends NovaService
         $url->addPath(Datastore::resourceName())->setQuery($params);
 
         return $this->resourceList('Datastore', $url);
+    }
+
+    /**
+     * Returns a Backup
+     *
+     * @param string $id the ID of the backup to retrieve
+     * @return \OpenCloud\Database\Resource\Backup
+     */
+    public function backup($id = null)
+    {
+        return $this->resource('Backup', $id);
+    }
+
+    /**
+     * Returns a Collection of Backup objects
+     *
+     * @param array $params
+     * @return \OpenCloud\Common\Collection\PaginatedIterator
+     */
+    public function backupList($params = array())
+    {
+        $url = clone $this->getUrl();
+        $url->addPath(Backup::resourceName())->setQuery($params);
+
+        return $this->resourceList('Backup', $url);
     }
 }
