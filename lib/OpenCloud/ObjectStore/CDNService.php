@@ -54,18 +54,19 @@ class CDNService extends AbstractService
     {
         $container = new CDNContainer($this, $data);
 
-        $metadata = new ContainerMetadata();
-        $metadata->setArray(array(
-            'Streaming-Uri' => $data->cdn_streaming_uri,
-            'Ios-Uri' => $data->cdn_ios_uri,
-            'Ssl-Uri' => $data->cdn_ssl_uri,
-            'Enabled' => $data->cdn_enabled,
-            'Ttl' => $data->ttl,
-            'Log-Retention' => $data->log_retention,
-            'Uri' => $data->cdn_uri,
-        ));
-
-        $container->setMetadata($metadata);
+        if (is_object($data)) {
+            $metadata = new ContainerMetadata();
+            $metadata->setArray(array(
+                'Streaming-Uri' => $data->cdn_streaming_uri,
+                'Ios-Uri'       => $data->cdn_ios_uri,
+                'Ssl-Uri'       => $data->cdn_ssl_uri,
+                'Enabled'       => $data->cdn_enabled,
+                'Ttl'           => $data->ttl,
+                'Log-Retention' => $data->log_retention,
+                'Uri'           => $data->cdn_uri,
+            ));
+            $container->setMetadata($metadata);
+        }
 
         return $container;
     }
