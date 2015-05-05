@@ -71,6 +71,12 @@ Once a container has been CDN-enabled, you can retrieve it like so:
 
   $cdnContainer = $cdnService->cdnContainer('{containerName}');
 
+If you already have a container object and want to avoid instantiating a new service, you can also do:
+
+.. code-block:: php
+
+  $cdnContainer = $container->getCdn();
+
 
 Retrieve the SSL URL of a CDN container
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
