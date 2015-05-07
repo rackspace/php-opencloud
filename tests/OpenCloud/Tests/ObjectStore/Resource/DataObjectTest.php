@@ -72,7 +72,7 @@ class DataObjectTest extends ObjectStoreTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\NoNameError
+     * @expectedException \OpenCloud\Common\Exceptions\NoNameError
      */
     public function test_Copy_Fails()
     {
@@ -80,11 +80,37 @@ class DataObjectTest extends ObjectStoreTestCase
     }
 
     /**
-     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     * @expectedException \OpenCloud\Common\Exceptions\InvalidArgumentError
      */
     public function test_Temp_Url_Fails_With_Incorrect_Method()
     {
         $this->container->dataObject('foobar')->getTemporaryUrl(1000, 'DELETE');
+    }
+
+    public function test_Temp_Url_Inherits_Url_Type()
+    {
+        $service = $this->getClient()->objectStoreService(null, 'IAD', 'internalURL');
+        $object = $service->getContainer('foo')->dataObject('bar');
+
+        $this->addMockSubscriber(new Response(204, ['X-Account-Meta-Temp-URL-Key' => 'secret']));
+
+        $tempUrl = $object->getTemporaryUrl(60, 'GET');
+
+        // Check that internal URLs are used
+        $this->assertContains('snet-storage', $tempUrl);
+    }
+
+    public function test_temp_urls_can_be_forced_to_use_public_urls()
+    {
+        $service = $this->getClient()->objectStoreService(null, 'IAD', 'internalURL');
+        $object = $service->getContainer('foo')->dataObject('bar');
+
+        $this->addMockSubscriber(new Response(204, ['X-Account-Meta-Temp-URL-Key' => 'secret']));
+
+        $tempUrl = $object->getTemporaryUrl(60, 'GET', true);
+
+        // Check that internal URLs are NOT used
+        $this->assertNotContains('snet-storage', $tempUrl);
     }
 
     public function test_Purge()
