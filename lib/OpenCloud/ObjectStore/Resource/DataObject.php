@@ -451,14 +451,18 @@ class DataObject extends AbstractResource
      *
      * @link http://docs.rackspace.com/files/api/v1/cf-devguide/content/TempURL-d1a4450.html
      *
-     * @param $expires Expiration time in seconds
-     * @param $method  What method can use this URL? (`GET' or `PUT')
+     * @param int    $expires        Expiration time in seconds
+     * @param string $method         What method can use this URL? (`GET' or `PUT')
+     * @param bool   $forcePublicUrl If set to TRUE, a public URL will always be used. The default is to use whatever
+     *                               URL type the user has set for the main service.
+     *
      * @return string
+     *
      * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError
      * @throws \OpenCloud\Common\Exceptions\ObjectError
      *
      */
-    public function getTemporaryUrl($expires, $method)
+    public function getTemporaryUrl($expires, $method, $forcePublicUrl = false)
     {
         $method = strtoupper($method);
         $expiry = time() + (int) $expires;
@@ -477,7 +481,7 @@ class DataObject extends AbstractResource
         }
         // @codeCoverageIgnoreEnd
 
-        $url = $this->getUrl();
+        $url = ($forcePublicUrl === true) ? $this->getService()->getEndpoint()->getPublicUrl() : $this->getUrl();
         $urlPath = urldecode($url->getPath());
         $body = sprintf("%s\n%d\n%s", $method, $expiry, $urlPath);
         $hash = hash_hmac('sha1', $body, $secret);

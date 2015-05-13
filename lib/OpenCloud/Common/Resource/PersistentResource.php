@@ -319,7 +319,7 @@ abstract class PersistentResource extends BaseResource
      */
     protected function noUpdate()
     {
-        throw new UpdateError('his resource does not support the update operation');
+        throw new UpdateError('This resource does not support the update operation');
     }
 
     /**
