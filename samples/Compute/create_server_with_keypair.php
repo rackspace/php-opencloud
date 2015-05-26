@@ -40,7 +40,8 @@ try {
     $response = $server->create(array(
         'name'     => '{serverName}',
         'imageId'  => '{imageId}',
-        'flavorId' => '{flavorId}'
+        'flavorId' => '{flavorId}',
+        'keypair'  => '{keypairName}'
     ));
 } catch (BadResponseException $e) {
     echo $e->getResponse();
