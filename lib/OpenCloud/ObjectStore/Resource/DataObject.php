@@ -265,7 +265,7 @@ class DataObject extends AbstractResource
     }
 
     /**
-     * @param $contentType int
+     * @param $contentLength mixed
      * @return $this
      */
     public function setContentLength($contentLength)
@@ -276,7 +276,7 @@ class DataObject extends AbstractResource
     }
 
     /**
-     * @return int
+     * @return mixed
      */
     public function getContentLength()
     {
