@@ -570,11 +570,12 @@ class Container extends AbstractContainer
     /**
      * Upload the contents of a local directory to a remote container, effectively syncing them.
      *
-     * @param $path The local path to the directory.
+     * @param string $path      The local path to the directory.
+     * @param string $targetDir The path (or pseudo-directory) that all files will be nested in.
      */
-    public function uploadDirectory($path)
+    public function uploadDirectory($path, $targetDir = null)
     {
-        $sync = DirectorySync::factory($path, $this);
+        $sync = DirectorySync::factory($path, $this, $targetDir);
         $sync->execute();
     }
 
