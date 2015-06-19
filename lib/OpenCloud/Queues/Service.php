@@ -119,10 +119,10 @@ class Service extends CatalogService implements EventSubscriberInterface
      * Create a new Queue.
      *
      * @param string $name Name of the new queue
-     *
-     * @return Queue
      * 
      * @throws InvalidArgumentError
+     *
+     * @return Queue
      */
     public function createQueue($name)
     {
