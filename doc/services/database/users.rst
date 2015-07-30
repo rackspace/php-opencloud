@@ -65,3 +65,15 @@ Check if root user is enabled
 
   // true for yes, false for no
   $instance->isRootEnabled();
+
+
+Grant database access
+---------------------
+
+To grant access to one or more databases, you can run:
+
+.. code-block:: php
+
+    $user = $instance->user('{userName}');
+    $user->grantDbAccess(['{dbName1}', '{dbName2}']);
+
