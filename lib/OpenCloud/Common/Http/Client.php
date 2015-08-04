@@ -18,7 +18,7 @@
 namespace OpenCloud\Common\Http;
 
 use Guzzle\Http\Client as GuzzleClient;
-use Guzzle\Http\Curl\CurlVersion;
+use OpenCloud\Version;
 use OpenCloud\Common\Exceptions\UnsupportedVersionError;
 
 /**
@@ -27,7 +27,6 @@ use OpenCloud\Common\Exceptions\UnsupportedVersionError;
  */
 class Client extends GuzzleClient
 {
-    const VERSION = '1.9.0';
     const MINIMUM_PHP_VERSION = '5.3.0';
 
     public function __construct($baseUrl = '', $config = null)
@@ -46,9 +45,10 @@ class Client extends GuzzleClient
 
     public function getDefaultUserAgent()
     {
-        return 'OpenCloud/' . self::VERSION
-        . ' cURL/' . CurlVersion::getInstance()->get('version')
-        . ' PHP/' . PHP_VERSION;
+        return 'OpenCloud/' . Version::getVersion()
+          . ' Guzzle/' . Version::getGuzzleVersion()
+          . ' cURL/' . Version::getCurlVersion()
+          . ' PHP/' . PHP_VERSION;
     }
 
     public function getUserAgent()

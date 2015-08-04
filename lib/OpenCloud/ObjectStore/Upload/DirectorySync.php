@@ -31,32 +31,34 @@ use OpenCloud\ObjectStore\Resource\Container;
  */
 class DirectorySync
 {
-    /**
-     * @var string The path to the directory you're syncing.
-     */
+    /** @var string The path to the directory you're syncing. */
     private $basePath;
-    /**
-     * @var ResourceIterator A collection of remote files in Swift.
-     */
+
+    /** @var ResourceIterator A collection of remote files in Swift. */
     private $remoteFiles;
-    /**
-     * @var AbstractContainer The Container object you are syncing.
-     */
+
+    /** @var AbstractContainer The Container object you are syncing. */
     private $container;
+
+    /** @var string */
+    private $targetDir;
 
     /**
      * Basic factory method to instantiate a new DirectorySync object with all the appropriate properties.
      *
-     * @param           $path      The local path
+     * @param string    $path      The local path
      * @param Container $container The container you're syncing
+     * @param string    $targetDir The path (or pseudo-directory) that the files will be nested in
+     *
      * @return DirectorySync
      */
-    public static function factory($path, Container $container)
+    public static function factory($path, Container $container, $targetDir = null)
     {
         $transfer = new self();
         $transfer->setBasePath($path);
         $transfer->setContainer($container);
         $transfer->setRemoteFiles($container->objectList());
+        $transfer->setTargetDir($targetDir);
 
         return $transfer;
     }
@@ -91,6 +93,14 @@ class DirectorySync
     }
 
     /**
+     * @param string $dir The target path that all files will be nested in. By default, the files will not be nested.
+     */
+    public function setTargetDir($dir)
+    {
+        $this->targetDir = rtrim($dir, '/');
+    }
+
+    /**
      * Execute the sync process. This will collect all the remote files from the API and do a comparison. There are
      * four scenarios that need to be dealt with:
      *
@@ -112,7 +122,9 @@ class DirectorySync
 
         // Handle PUT requests (create/update files)
         foreach ($localFiles as $filename) {
-            $callback = $this->getCallback($filename);
+            $remoteFilename = $this->targetDir ? $this->targetDir . '/' . $filename : $filename;
+
+            $callback = $this->getCallback($remoteFilename);
             $filePath = rtrim($this->basePath, '/') . '/' . $filename;
 
             if (!is_readable($filePath)) {
@@ -133,7 +145,7 @@ class DirectorySync
             } else {
                 // upload new file
                 $url = clone $this->container->getUrl();
-                $url->addPath($filename);
+                $url->addPath($remoteFilename);
 
                 $requests[] = $this->container->getClient()->put($url, array(), $entityBody);
             }

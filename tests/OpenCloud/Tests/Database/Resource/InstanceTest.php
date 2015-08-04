@@ -31,10 +31,10 @@ class InstanceTest extends DatabaseTestCase
         $replacementValues = array(
             'configuration' => '005a8bb7-a8df-40ee-b0b7-fc144641abc2'
         );
-        
+
         $method = new \ReflectionMethod('OpenCloud\Database\Resource\Instance', 'updateJson');
         $method->setAccessible(true);
-        
+
         $expected = (object) array(
             'instance' => $replacementValues
         );
@@ -90,5 +90,19 @@ class InstanceTest extends DatabaseTestCase
     public function testUserList()
     {
         $this->assertInstanceOf(self::COLLECTION_CLASS, $this->instance->userList());
+    }
+
+    public function testBackupList()
+    {
+        $this->assertInstanceOf(self::COLLECTION_CLASS, $this->instance->backupList());
+    }
+
+    public function testCreateBackup()
+    {
+        $backup = $this->instance->createBackup(array(
+            'name' => 'test-backup',
+            'description' => 'test'
+        ));
+        $this->assertInstanceOf('OpenCloud\Database\Resource\Backup', $backup);
     }
 }

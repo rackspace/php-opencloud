@@ -152,4 +152,29 @@ class User extends PersistentResource
             'users' => array($user)
         );
     }
+
+    /**
+     * Grant access to a set of one or more databases to a user.
+     *
+     * @param []string $databases An array of one or more database names that this user will be granted access to. For
+     *                            example, ['foo', 'bar'] or ['baz'] are valid inputs.
+     *
+     * @return \Guzzle\Http\Message\Response
+     */
+    public function grantDbAccess(array $databases)
+    {
+        $json = [];
+
+        foreach ($databases as $database) {
+            $json[] = ['name' => $database];
+        }
+
+        $json = ['databases' => $json];
+
+        $url = $this->getUrl('databases');
+        $headers = self::getJsonHeader();
+        $body = json_encode($json);
+
+        return $this->getClient()->put($url, $headers, $body)->send();
+    }
 }

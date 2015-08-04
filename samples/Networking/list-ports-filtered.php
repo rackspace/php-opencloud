@@ -1,7 +1,6 @@
 <?php
-
-/*
- * Copyright 2014 Rackspace US, Inc.
+/**
+ * Copyright 2012-2014 Rackspace US, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +18,6 @@
 require dirname(__DIR__) . '/../vendor/autoload.php';
 
 use OpenCloud\Rackspace;
-use Guzzle\Http\Exception\BadResponseException;
 
 // 1. Instantiate a Rackspace client. You can replace {authUrl} with
 // Rackspace::US_IDENTITY_ENDPOINT or similar
@@ -28,28 +26,14 @@ $client = new Rackspace('{authUrl}', array(
     'apiKey'   => '{apiKey}',
 ));
 
-// 2. Create Compute service
-$computeService = $client->computeService(null, '{region}');
-$volumeService = $client->volumeService(null, '{region}');
+// 2. Obtain a Networking service object from the client.
+$networkingService = $client->networkingService(null, '{region}');
 
-// 3. Get empty server
-$server = $computeService->server();
-
-// 4. Select bootable volume
-$bootableVolume = $volumeService->volume('{volumeId}');
-
-// 5. Select a hardware flavor
-$flavor = $computeService->flavor('{flavorId}');
-
-// 6. Create the server. If you do not know what imageId or flavorId to use,
-// please run the list_flavors.php and list_images.php scripts.
-try {
-    $response = $server->create(array(
-        'name'     => '{serverName}',
-        'imageId'  => '{imageId}',
-        'flavorId' => '{flavorId}',
-        'volume'   => $bootableVolume
-    ));
-} catch (BadResponseException $e) {
-    echo $e->getResponse();
+// 3. List ACTIVE ports for given device ID
+$ports = $networkingService->listPorts([
+    'status' => 'ACTIVE',
+    'device_id' => '{deviceId}'
+]);
+foreach ($ports as $port) {
+    /** @var $port OpenCloud\Networking\Resource\Port **/
 }

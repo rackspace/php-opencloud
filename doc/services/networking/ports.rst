@@ -86,6 +86,21 @@ You can list all the ports to which you have access as shown in the following ex
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/list-ports.php>`_
 
+The port list query may be filtered by numerous optional parameters as per the `API documentation <http://developer.openstack.org/api-ref-networking-v2.html#listPorts>`_
+
+.. code-block:: php
+
+  $ports = $networkingService->listPorts([
+      'status' => 'ACTIVE',
+      'device_id' => '9ae135f4-b6e0-4dad-9e91-3c223e385824'
+  ]);
+
+  foreach ($ports as $port) {
+      /** @var $port OpenCloud\Networking\Resource\Port **/
+  }
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/Networking/list-ports-filtered.php>`_
+
 
 Get a port
 ----------
