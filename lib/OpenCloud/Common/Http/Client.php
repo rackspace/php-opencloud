@@ -47,7 +47,7 @@ class Client extends GuzzleClient
     {
         return 'OpenCloud/' . Version::getVersion()
           . ' Guzzle/' . Version::getGuzzleVersion()
-          . ' cURL/' . Version::getCurlVersion() 
+          . ' cURL/' . Version::getCurlVersion()
           . ' PHP/' . PHP_VERSION;
     }
 
