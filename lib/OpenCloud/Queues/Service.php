@@ -119,7 +119,7 @@ class Service extends CatalogService implements EventSubscriberInterface
      * Create a new Queue.
      *
      * @param string $name Name of the new queue
-     * 
+     *
      * @throws InvalidArgumentError
      *
      * @return Queue
