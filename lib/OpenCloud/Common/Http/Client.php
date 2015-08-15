@@ -19,7 +19,6 @@ namespace OpenCloud\Common\Http;
 
 use Guzzle\Http\Client as GuzzleClient;
 use OpenCloud\Version;
-use OpenCloud\Common\Exceptions\UnsupportedVersionError;
 
 /**
  * Base client object which handles HTTP transactions. Each service is based off of a Client which acts as a
@@ -27,22 +26,6 @@ use OpenCloud\Common\Exceptions\UnsupportedVersionError;
  */
 class Client extends GuzzleClient
 {
-    const MINIMUM_PHP_VERSION = '5.3.0';
-
-    public function __construct($baseUrl = '', $config = null)
-    {
-        // @codeCoverageIgnoreStart
-        if (PHP_VERSION < self::MINIMUM_PHP_VERSION) {
-            throw new UnsupportedVersionError(sprintf(
-                'You must have PHP version >= %s installed.',
-                self::MINIMUM_PHP_VERSION
-            ));
-        }
-        // @codeCoverageIgnoreEnd
-
-        parent::__construct($baseUrl, $config);
-    }
-
     public function getDefaultUserAgent()
     {
         return 'OpenCloud/' . Version::getVersion()
