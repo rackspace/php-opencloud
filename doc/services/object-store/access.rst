@@ -49,6 +49,17 @@ To allow PUT access for 1 hour:
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/create-object-temporary-url.php>`_
 
 
+Override TempURL file names
+---------------------------
+
+Override tempURL file names simply by adding the filename parameter to the url:
+
+.. code-block:: php
+
+    $tempUrl = $object->getTemporaryUrl(60, 'GET');    
+    $url = $tempUrl.'&filename='.$label;
+
+
 Hosting HTML sites on CDN
 =========================
 
