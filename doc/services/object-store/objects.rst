@@ -518,3 +518,13 @@ Bulk delete a set of paths:
   $service->bulkDelete($pathsToBeDeleted);
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/bulk-delete.php>`_
+
+Check an object exists
+----------------------
+
+To check whether an object exists:
+
+.. code-block:: php
+
+  /** @var bool $exists */
+  $exists = $container->objectExists('{objectName}');
