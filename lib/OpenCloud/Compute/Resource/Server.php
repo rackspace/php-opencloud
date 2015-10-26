@@ -697,9 +697,9 @@ class Server extends NovaResource implements HasPtrRecordsInterface
                 } else {
                     throw new Exceptions\InvalidParameterError(sprintf(
                         'When creating a server, the "networks" key must be an ' .
-                        'array of objects which implement either %s or %s. The ' .
-                        'variable you passed in was a [%s]',
-                        NetworkInterface::class, Port::class, gettype($network)
+                        'array of objects which implement either OpenCloud\Networking\Resource\NetworkInterface ' .
+                        'or OpenCloud\Networking\Resource\Port. The  variable you passed in was a [%s]',
+                        gettype($network)
                     ));
                 }
             }
