@@ -21,6 +21,7 @@ use OpenCloud\Common\Resource\NovaResource;
 use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 use OpenCloud\Image\Resource\ImageInterface;
 use OpenCloud\Networking\Resource\NetworkInterface;
+use OpenCloud\Networking\Resource\Port;
 use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
@@ -689,22 +690,18 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $server->networks = array();
 
             foreach ($this->networks as $network) {
-                if (!$network instanceof NetworkInterface) {
+                if ($network instanceof NetworkInterface) {
+                    $server->networks[] = (object) array('uuid' => $network->getId());
+                } elseif ($network instanceof Port) {
+                    $server->networks[] = (object) array('port' => $network->getId());
+                } else {
                     throw new Exceptions\InvalidParameterError(sprintf(
                         'When creating a server, the "networks" key must be an ' .
-                        'array of objects which implement OpenCloud\Networking\Resource\NetworkInterface;' .
-                        'variable passed in was a [%s]',
-                        gettype($network)
+                        'array of objects which implement either %s or %s. The ' .
+                        'variable you passed in was a [%s]',
+                        NetworkInterface::class, Port::class, gettype($network)
                     ));
                 }
-                if (!($networkId = $network->getId())) {
-                    $this->getLogger()->warning('When creating a server, the '
-                        . 'network objects passed in must have an ID'
-                    );
-                    continue;
-                }
-                // Stock networks array
-                $server->networks[] = (object) array('uuid' => $networkId);
             }
         }
 
