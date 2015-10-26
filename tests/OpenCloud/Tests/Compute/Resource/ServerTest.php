@@ -336,6 +336,20 @@ class ServerTest extends ComputeTestCase
         ));
     }
 
+    public function test_Create_With_Ports()
+    {
+        $neutronService = $this->client->networkingService(null, 'IAD');
+        $port = $neutronService->port();
+        $port->setId('foo');
+
+        $this->service->server()->create(array(
+            'name'     => 'port test',
+            'image'    => $this->service->imageList()->first(),
+            'flavor'   => $this->service->flavorList()->first(),
+            'networks' => [$port]
+        ));
+    }
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
      */
