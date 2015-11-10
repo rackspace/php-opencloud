@@ -13,7 +13,12 @@
     ],
     "autoload": {
         "psr-0": {
-            "OpenCloud": ["lib/", "tests/"]
+            "OpenCloud": ["lib/"]
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "OpenCloud": ["tests/"]
         }
     },
     "require": {
