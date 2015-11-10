@@ -99,6 +99,30 @@ class ServiceTest extends ObjectStoreTestCase
         $this->service->createContainer(str_repeat('a', Service::MAX_CONTAINER_NAME_LENGTH + 1));
     }
 
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Get_Bad_Container_Name_Empty()
+    {
+        $this->service->getContainer('');
+    }
+
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Get_Bad_Container_Name_Slashes()
+    {
+        $this->service->getContainer('foo/bar');
+    }
+
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidArgumentError
+     */
+    public function test_Get_Bad_Container_Name_Long()
+    {
+        $this->service->getContainer(str_repeat('a', Service::MAX_CONTAINER_NAME_LENGTH + 1));
+    }
+
     public function test_Bulk_Extract()
     {
         $response = $this->service->bulkExtract('fooBarContainer', 'CONTENT', UrlType::TAR);
