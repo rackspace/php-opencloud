@@ -184,8 +184,7 @@ class ServiceTest extends ObjectStoreTestCase
     {
         $responses = array_fill(0, 2, new Response(200));
 
-        foreach ($responses as $response)
-        {
+        foreach ($responses as $response) {
             $this->addMockSubscriber($response);
         }
 
