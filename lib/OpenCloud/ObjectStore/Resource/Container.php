@@ -236,6 +236,28 @@ class Container extends AbstractContainer
     }
 
     /**
+     * Delete an object from the API.
+     *
+     * @param string $name The name of object you want to delete
+     * @return True if object was delete with success. False if an error occurred
+     * @throws ObjectNotFoundException When the file you want to delete is not found
+     */
+    public function deleteObject($name)
+    {
+        try {
+            $response = $this->getClient()
+                    ->delete($this->getUrl($name))
+                    ->send();
+            return ($response->getStatusCode() == 204);
+        } catch (BadResponseException $e) {
+            if ($e->getResponse()->getStatusCode() == 404) {
+                throw ObjectNotFoundException::factory($name, $e);
+            }
+        }
+        return false;
+    }
+
+    /**
      * Creates a Collection of objects in the container
      *
      * @param array $params associative array of parameter values.

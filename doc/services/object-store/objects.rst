@@ -495,9 +495,20 @@ filenames inside the archive.
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/auto-extract-archive-files.php>`_
 
-
 Delete object
--------------
+---------------------------------
+
+.. code-block:: php
+
+  /** @var bool $deleted */
+  $deleted = $container->deleteObject('{objectName}');
+
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-object-without-download.php>`_
+
+
+Delete already downloaded object
+---------------------------------
 
 .. code-block:: php
 

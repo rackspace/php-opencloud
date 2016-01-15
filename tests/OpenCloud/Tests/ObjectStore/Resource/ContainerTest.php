@@ -118,6 +118,32 @@ class ContainerTest extends ObjectStoreTestCase
         $container->delete();
     }
 
+    public function test_Delete_Object()
+    {
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 204));
+        $response = $container->deleteObject("someObject");
+        $this->assertTrue($response);
+    }
+
+    public function test_Delete_Object_With_Failure()
+    {
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 500));
+        $response = $container->deleteObject("someObject");
+        $this->assertFalse($response);
+    }
+
+    /**
+     * @expectedException \OpenCloud\ObjectStore\Exception\ObjectNotFoundException
+     */
+    public function test_Delete_NonExisting_Object()
+    {
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 404));
+        $container->deleteObject("someObject");
+    }
+
     public function test_Object_List()
     {
         $container = $this->container;
