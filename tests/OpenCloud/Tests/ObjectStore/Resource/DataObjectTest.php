@@ -111,6 +111,9 @@ class DataObjectTest extends ObjectStoreTestCase
 
         // Check that internal URLs are NOT used
         $this->assertNotContains('snet-storage', $tempUrl);
+
+        // Check that the URL contains the required file path
+        $this->assertContains('/foo/bar', $tempUrl);
     }
 
     public function test_Purge()

@@ -481,7 +481,11 @@ class DataObject extends AbstractResource
         }
         // @codeCoverageIgnoreEnd
 
-        $url = ($forcePublicUrl === true) ? $this->getService()->getEndpoint()->getPublicUrl() : $this->getUrl();
+        $url = $this->getUrl();
+        if ($forcePublicUrl === true) {
+            $url->setHost($this->getService()->getEndpoint()->getPublicUrl()->getHost());
+        }
+
         $urlPath = urldecode($url->getPath());
         $body = sprintf("%s\n%d\n%s", $method, $expiry, $urlPath);
         $hash = hash_hmac('sha1', $body, $secret);
