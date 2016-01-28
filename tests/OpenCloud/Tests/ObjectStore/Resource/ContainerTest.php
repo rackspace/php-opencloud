@@ -122,20 +122,21 @@ class ContainerTest extends ObjectStoreTestCase
     {
         $container = $this->container;
         $this->addMockSubscriber($this->makeResponse('[]', 204));
-        $response = $container->deleteObject("someObject");
-        $this->assertTrue($response);
+        $container->deleteObject("someObject");
     }
 
+    /**
+     * @expectedException \Guzzle\Http\Exception\BadResponseException
+     */
     public function test_Delete_Object_With_Failure()
     {
         $container = $this->container;
         $this->addMockSubscriber($this->makeResponse('[]', 500));
-        $response = $container->deleteObject("someObject");
-        $this->assertFalse($response);
+        $container->deleteObject("someObject");
     }
 
     /**
-     * @expectedException \OpenCloud\ObjectStore\Exception\ObjectNotFoundException
+     * @expectedException \Guzzle\Http\Exception\BadResponseException
      */
     public function test_Delete_NonExisting_Object()
     {
