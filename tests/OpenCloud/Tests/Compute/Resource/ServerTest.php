@@ -336,6 +336,20 @@ class ServerTest extends ComputeTestCase
         ));
     }
 
+    public function test_Create_With_Ports()
+    {
+        $neutronService = $this->client->networkingService(null, 'IAD');
+        $port = $neutronService->port();
+        $port->setId('foo');
+
+        $this->service->server()->create(array(
+            'name'     => 'port test',
+            'image'    => $this->service->imageList()->first(),
+            'flavor'   => $this->service->flavorList()->first(),
+            'networks' => [$port]
+        ));
+    }
+
     /**
      * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
      */
@@ -346,6 +360,45 @@ class ServerTest extends ComputeTestCase
             'image'    => $this->service->imageList()->first(),
             'flavor'   => $this->service->flavorList()->first(),
             'networks' => array(
+                1234
+            )
+        ));
+    }
+
+    public function test_Create_With_Security_Group_Strings()
+    {
+        $new = new PublicServer($this->service);
+        $new->security_groups[] = 'foo';
+        $obj = $new->createJson();
+
+        $this->assertCount(1, $obj->server->security_groups);
+        $this->assertEquals((object) array('name' => 'foo'), $obj->server->security_groups[0]);
+    }
+
+    public function test_Create_With_Security_Group_Objects()
+    {
+        $neutronService = $this->client->networkingService(null, 'IAD');
+        $securityGroup = $neutronService->securityGroup();
+        $securityGroup->setName('foo');
+
+        $new = new PublicServer($this->service);
+        $new->security_groups[] = $securityGroup;
+        $obj = $new->createJson();
+
+        $this->assertCount(1, $obj->server->security_groups);
+        $this->assertEquals((object) array('name' => 'foo'), $obj->server->security_groups[0]);
+    }
+
+    /**
+     * @expectedException OpenCloud\Common\Exceptions\InvalidParameterError
+     */
+    public function test_Create_Fails_Without_Correct_Security_Groups()
+    {
+        $this->service->server()->create(array(
+            'name'     => 'personality test 1',
+            'image'    => $this->service->imageList()->first(),
+            'flavor'   => $this->service->flavorList()->first(),
+            'security_groups' => array(
                 1234
             )
         ));

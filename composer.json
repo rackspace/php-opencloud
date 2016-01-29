@@ -9,20 +9,16 @@
             "name": "Jamie Hannaford",
             "email": "jamie.hannaford@rackspace.com",
             "homepage" : "https://github.com/jamiehannaford"
-        },
-        {
-            "name": "Glen Campbell",
-            "email": "glen.campbell@rackspace.com"
-        },
-        {
-            "name": "Shaunak Kashyap",
-            "email": "shaunak.kashyap@rackspace.com",
-            "homepage": "https://github.com/ycombinator"
         }
     ],
     "autoload": {
         "psr-0": {
-            "OpenCloud": ["lib/", "tests/"]
+            "OpenCloud": ["lib/"]
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "OpenCloud": ["tests/"]
         }
     },
     "require": {

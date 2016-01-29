@@ -21,6 +21,8 @@ use OpenCloud\Common\Resource\NovaResource;
 use OpenCloud\DNS\Resource\HasPtrRecordsInterface;
 use OpenCloud\Image\Resource\ImageInterface;
 use OpenCloud\Networking\Resource\NetworkInterface;
+use OpenCloud\Networking\Resource\SecurityGroup;
+use OpenCloud\Networking\Resource\Port;
 use OpenCloud\Volume\Resource\Volume;
 use OpenCloud\Common\Exceptions;
 use OpenCloud\Common\Http\Message\Formatter;
@@ -102,6 +104,12 @@ class Server extends NovaResource implements HasPtrRecordsInterface
      * @var type
      */
     public $networks = array();
+
+    /**
+     * Security groups for this server. An array of either the names or SecurityGroup objects.
+     * @var (string|SecurityGroup)[]
+     */
+    public $security_groups = array();
 
     /**
      * @var string The server ID.
@@ -689,22 +697,39 @@ class Server extends NovaResource implements HasPtrRecordsInterface
             $server->networks = array();
 
             foreach ($this->networks as $network) {
-                if (!$network instanceof NetworkInterface) {
+                if ($network instanceof NetworkInterface) {
+                    $server->networks[] = (object) array('uuid' => $network->getId());
+                } elseif ($network instanceof Port) {
+                    $server->networks[] = (object) array('port' => $network->getId());
+                } else {
                     throw new Exceptions\InvalidParameterError(sprintf(
                         'When creating a server, the "networks" key must be an ' .
-                        'array of objects which implement OpenCloud\Networking\Resource\NetworkInterface;' .
-                        'variable passed in was a [%s]',
+                        'array of objects which implement either OpenCloud\Networking\Resource\NetworkInterface ' .
+                        'or OpenCloud\Networking\Resource\Port. The  variable you passed in was a [%s]',
                         gettype($network)
                     ));
                 }
-                if (!($networkId = $network->getId())) {
-                    $this->getLogger()->warning('When creating a server, the '
-                        . 'network objects passed in must have an ID'
-                    );
-                    continue;
+            }
+        }
+
+        // Security groups
+        if (is_array($this->security_groups) && count($this->security_groups)) {
+            $server->security_groups = array();
+
+            foreach ($this->security_groups as $security_group) {
+                if ($security_group instanceof SecurityGroup) {
+                    $securityGroupName = $security_group->name();
+                } elseif (is_string($security_group)) {
+                    $securityGroupName = $security_group;
+                } else {
+                    throw new Exceptions\InvalidParameterError(sprintf(
+                        'When creating a server, the "security_groups" key must be an ' .
+                        'array of strings or objects of type OpenCloud\Networking\Resource\SecurityGroup;' .
+                        'variable passed in was a [%s]',
+                        gettype($security_group)
+                    ));
                 }
-                // Stock networks array
-                $server->networks[] = (object) array('uuid' => $networkId);
+                $server->security_groups[] = (object) array('name' => $securityGroupName);
             }
         }
 

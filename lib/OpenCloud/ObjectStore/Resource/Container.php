@@ -236,6 +236,19 @@ class Container extends AbstractContainer
     }
 
     /**
+     * Delete an object from the API.
+     *
+     * @param string $name The name of object you want to delete
+     * @throws \Guzzle\Http\Exception\BadResponseException When an error occurred
+     */
+    public function deleteObject($name)
+    {
+        $this->getClient()
+            ->delete($this->getUrl($name))
+            ->send();
+    }
+
+    /**
      * Creates a Collection of objects in the container
      *
      * @param array $params associative array of parameter values.

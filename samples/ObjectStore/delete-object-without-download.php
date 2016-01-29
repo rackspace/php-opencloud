@@ -15,27 +15,22 @@
  * limitations under the License.
  */
 
-namespace OpenCloud\Common\Http;
+require dirname(__DIR__) . '/../vendor/autoload.php';
 
-use Guzzle\Http\Client as GuzzleClient;
-use OpenCloud\Version;
+use OpenCloud\Rackspace;
 
-/**
- * Base client object which handles HTTP transactions. Each service is based off of a Client which acts as a
- * centralized parent.
- */
-class Client extends GuzzleClient
-{
-    public function getDefaultUserAgent()
-    {
-        return 'OpenCloud/' . Version::getVersion()
-          . ' Guzzle/' . Version::getGuzzleVersion()
-          . ' cURL/' . Version::getCurlVersion()
-          . ' PHP/' . PHP_VERSION;
-    }
+// 1. Instantiate a Rackspace client. You can replace {authUrl} with
+// Rackspace::US_IDENTITY_ENDPOINT or similar
+$client = new Rackspace('{authUrl}', array(
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
+));
 
-    public function getUserAgent()
-    {
-        return $this->userAgent;
-    }
-}
+// 2. Obtain an Object Store service object from the client.
+$objectStoreService = $client->objectStoreService(null, '{region}');
+
+// 3. Get container.
+$container = $objectStoreService->getContainer('{containerName}');
+
+// 4. Delete object.
+$container->deleteObject('{objectName}');

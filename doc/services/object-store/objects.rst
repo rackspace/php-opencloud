@@ -495,9 +495,19 @@ filenames inside the archive.
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/auto-extract-archive-files.php>`_
 
-
 Delete object
--------------
+---------------------------------
+
+.. code-block:: php
+
+ $container->deleteObject('{objectName}');
+
+
+`Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-object-without-download.php>`_
+
+
+Delete already downloaded object
+---------------------------------
 
 .. code-block:: php
 
@@ -518,3 +528,13 @@ Bulk delete a set of paths:
   $service->bulkDelete($pathsToBeDeleted);
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/bulk-delete.php>`_
+
+Check an object exists
+----------------------
+
+To check whether an object exists:
+
+.. code-block:: php
+
+  /** @var bool $exists */
+  $exists = $container->objectExists('{objectName}');
