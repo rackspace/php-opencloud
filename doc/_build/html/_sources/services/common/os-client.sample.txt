@@ -1,9 +1,0 @@
-or if you're an OpenStack user:
-
-.. code-block:: php
-
-  $client = new OpenCloud\OpenStack('{keystoneUrl}', array(
-    'username' => '{username}',
-    'password' => '{apiKey}',
-    'tenantId' => '{tenantId}',
-  ));

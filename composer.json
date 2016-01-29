@@ -1,9 +1,7 @@
 {
     "name": "rackspace/php-opencloud",
-    "description": "PHP SDK for Rackspace/OpenStack APIs",
-    "keywords": ["rackspace", "openstack", "opencloud", "swift", "nova"],
-    "type": "library",
-    "license": "Apache-2.0",
+    "description": "PHP SDK for Rackspace APIs",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Jamie Hannaford",
@@ -12,27 +10,26 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "OpenCloud": ["lib/"]
+        "psr-4": {
+            "Rackspace\\": "src/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "OpenCloud": ["tests/"]
+        "psr-4": {
+            "Rackspace\\Test\\": "tests/unit/",
+            "Rackspace\\Integration\\": "tests/integration/"
         }
     },
     "require": {
-        "php" : ">=5.4",
-        "guzzle/guzzle" : "~3.8",
-        "psr/log": "~1.0",
-        "mikemccabe/json-patch-php": "~0.1"
+        "php" : ">=5.6",
+        "php-opencloud/openstack": "dev-master"
     },
     "require-dev" : {
-        "phpunit/phpunit": "4.3.*",
-        "phpspec/prophecy": "~1.4",
-        "satooshi/php-coveralls": "0.6.*@dev",
+        "phpunit/phpunit": "~4.5",
+        "sami/sami": "dev-master",
+        "psr/log": "~1.0",
+        "satooshi/php-coveralls": "~1.0",
         "jakub-onderka/php-parallel-lint": "0.*",
-        "fabpot/php-cs-fixer": "1.0.*@dev",
-        "apigen/apigen": "~4.0"
+        "fabpot/php-cs-fixer": "~1.0"
     }
 }
