@@ -243,7 +243,7 @@ class Container extends AbstractContainer
      */
     public function deleteObject($name)
     {
-        $response = $this->getClient()
+        $this->getClient()
             ->delete($this->getUrl($name))
             ->send();
     }

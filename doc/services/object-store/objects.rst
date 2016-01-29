@@ -500,8 +500,7 @@ Delete object
 
 .. code-block:: php
 
-  /** @var bool $deleted */
-  $deleted = $container->deleteObject('{objectName}');
+ $container->deleteObject('{objectName}');
 
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/delete-object-without-download.php>`_
