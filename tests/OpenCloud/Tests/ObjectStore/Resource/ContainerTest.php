@@ -118,6 +118,33 @@ class ContainerTest extends ObjectStoreTestCase
         $container->delete();
     }
 
+    public function test_Delete_Object()
+    {
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 204));
+        $container->deleteObject("someObject");
+    }
+
+    /**
+     * @expectedException \Guzzle\Http\Exception\BadResponseException
+     */
+    public function test_Delete_Object_With_Failure()
+    {
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 500));
+        $container->deleteObject("someObject");
+    }
+
+    /**
+     * @expectedException \Guzzle\Http\Exception\BadResponseException
+     */
+    public function test_Delete_NonExisting_Object()
+    {
+        $container = $this->container;
+        $this->addMockSubscriber($this->makeResponse('[]', 404));
+        $container->deleteObject("someObject");
+    }
+
     public function test_Object_List()
     {
         $container = $this->container;
