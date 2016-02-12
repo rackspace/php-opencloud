@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "created_at": "2014-02-26T02:58:46Z",
+  "id": "fc29a67c-ad76-49bc-a317-a5f38dcb44c0",
+  "input": {
+    "image_properties": {
+      "name": "My excellent custom image"
+    },
+    "import_from": "exports/my-excellent-image.vhd"
+  },
+  "message": "None",
+  "owner": "00000123",
+  "schema": "/v2/schemas/task",
+  "self": "/v2/tasks/fc29a67c-ad76-49bc-a317-a5f38dcb44c0",
+  "status": "pending",
+  "type": "import",
+  "updated_at": "2014-02-26T02:58:46Z"
+}
