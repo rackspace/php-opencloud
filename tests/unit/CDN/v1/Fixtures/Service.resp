@@ -1,0 +1,49 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "name": "http",
+  "id": "6592bb63-e320-4dba-931d-31727e394aa0",
+  "project_id": "11111",
+  "domains": [{
+    "domain": "https.scdn3.secure.raxcdn.com",
+    "protocol": "https",
+    "certificate": "shared",
+    "certificate_status": "deployed"
+  }],
+  "origins": [{
+    "origin": "origin.com",
+    "port": 443,
+    "ssl": true,
+    "rules": [{
+      "name": "Default Origin",
+      "request_url": "/*"
+    }],
+    "hostheadertype": "domain"
+  }],
+  "restrictions": [],
+  "caching": [{
+    "name": "default",
+    "ttl": 86400,
+    "rules": [{
+      "name": "default",
+      "request_url": "/*"
+    }]
+  }],
+  "flavor_id": "cdn",
+  "log_delivery": {
+    "enabled": false
+  },
+  "status": "deployed",
+  "errors": [],
+  "links": [{
+    "href": "https://global.cdn.api.rackspacecloud.com/v1.0/11111/services/6592bb63-e320-4dba-931d-31727e394aa0",
+    "rel": "self"
+  }, {
+    "href": "https://global.cdn.api.rackspacecloud.com/v1.0/11111/flavors/cdn",
+    "rel": "flavor"
+  }, {
+    "href": "https.scdn3.secure.raxcdn.com",
+    "rel": "access_url"
+  }]
+}

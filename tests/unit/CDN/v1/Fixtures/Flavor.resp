@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "cdn",
+  "providers": [
+    {
+      "provider": "akamai",
+      "links": [
+        {
+          "href": "http://www.akamai.com",
+          "rel": "provider_url"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "href": "https://global.cdn.api.rackspacecloud.com/v1.0/110011/flavors/cdn",
+      "rel": "self"
+    }
+  ]
+}
