@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "volumeAttachment":{
+    "device":"/dev/xvdb",
+    "serverId":"76ddf257-2771-4097-aab8-b07b52110376",
+    "id":"4ab50df6-7480-45df-8604-b1ee39fe857c",
+    "volumeId":"4ab50df6-7480-45df-8604-b1ee39fe857c"
+  }
+}

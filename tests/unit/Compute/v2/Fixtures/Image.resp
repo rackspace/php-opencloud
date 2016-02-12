@@ -1,0 +1,51 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "image": {
+    "status": "ACTIVE",
+    "updated": "2013-06-07T17:00:39Z",
+    "links": [
+      {
+        "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/images/e3d37ab2-8dc0-4000-b773-b15aad79ad0a",
+        "rel": "self"
+      },
+      {
+        "href": "https://dfw.servers.api.rackspacecloud.com/820712/images/e3d37ab2-8dc0-4000-b773-b15aad79ad0a",
+        "rel": "bookmark"
+      },
+      {
+        "href": "https://dfw.servers.api.rackspacecloud.com/images/e3d37ab2-8dc0-4000-b773-b15aad79ad0a",
+        "type": "application/vnd.openstack.image",
+        "rel": "alternate"
+      }
+    ],
+    "OS-DCF:diskConfig": "MANUAL",
+    "id": "e3d37ab2-8dc0-4000-b773-b15aad79ad0a",
+    "OS-EXT-IMG-SIZE:size": 5562828800,
+    "name": "voweb1-firstimage",
+    "created": "2013-06-07T16:38:49Z",
+    "minDisk": 40,
+    "server": {
+      "id": "f879f81a-5455-4e57-a0aa-3773e21c2259",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/servers/f879f81a-5455-4e57-a0aa-3773e21c2259",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/820712/servers/f879f81a-5455-4e57-a0aa-3773e21c2259",
+          "rel": "bookmark"
+        }
+      ]
+    },
+    "progress": 100,
+    "minRam": 1024,
+    "metadata": {
+      "image_type": "snapshot",
+      "instance_type_rxtx_factor": "3",
+      "auto_disk_config": "False",
+      "os_type": "windows"
+    }
+  }
+}

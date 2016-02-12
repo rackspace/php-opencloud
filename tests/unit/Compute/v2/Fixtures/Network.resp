@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "network": {
+    "cidr": "192.168.0.0/24",
+    "id": "f212726e-6321-4210-9bae-a13f5a33f83f",
+    "label": "superprivate_xml"
+  }
+}
