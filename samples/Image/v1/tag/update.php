@@ -1,0 +1,13 @@
+<?php
+
+require 'vendor/autoload.php';
+
+$openstack = new Rackspace\Rackspace([
+    'username' => '{username}',
+    'apiKey'   => '{apiKey}',
+]);
+
+$service = $rackspace->imageV1(['region' => '{region}']);
+
+$tag = $service->getTag('{id}');
+$tag->delete();
