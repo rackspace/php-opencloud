@@ -1,0 +1,44 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "instance": {
+    "created": "2014-02-13T21:47:13",
+    "datastore": {
+      "type": "mysql",
+      "version": "5.1"
+    },
+    "flavor": {
+      "id": "1",
+      "links": [
+        {
+          "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors/1",
+          "rel": "self"
+        },
+        {
+          "href": "https://ord.databases.api.rackspacecloud.com/flavors/1",
+          "rel": "bookmark"
+        }
+      ]
+    },
+    "hostname": "e09ad9a3f73309469cf1f43d11e79549caf9acf2.rackspaceclouddb.com",
+    "id": "d4603f69-ec7e-4e9b-803f-600b9205576f",
+    "links": [
+      {
+        "href": "https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances/d4603f69-ec7e-4e9b-803f-600b9205576f",
+        "rel": "self"
+      },
+      {
+        "href": "https://ord.databases.api.rackspacecloud.com/instances/d4603f69-ec7e-4e9b-803f-600b9205576f",
+        "rel": "bookmark"
+      }
+    ],
+    "name": "json_rack_instance",
+    "status": "ACTIVE",
+    "updated": "2014-02-13T21:47:15",
+    "volume": {
+      "size": 2,
+      "used": 0.16
+    }
+  }
+}

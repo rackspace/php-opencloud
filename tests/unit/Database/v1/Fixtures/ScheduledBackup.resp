@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "schedule": {
+    "action": "backup",
+    "created": "2014-10-30T12:30:00",
+    "day_of_month": null,
+    "day_of_week": 0,
+    "hour": 14,
+    "id": "2e351a71-dd28-4bcb-a7d6-d36a5b487173",
+    "instance_id": "44b277eb-39be-4921-be31-3d61b43651d7",
+    "last_scheduled": null,
+    "minute": 30,
+    "month": null,
+    "next_run": "2014-11-02T14:30:00",
+    "updated": "2014-10-30T12:30:00"
+  }
+}

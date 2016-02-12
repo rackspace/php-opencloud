@@ -1,0 +1,59 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "instance": {
+    "status": "ACTIVE",
+    "updated": "2014-10-21T19:54:55",
+    "name": "t1s1_ALT_GUEST",
+    "links": [
+      {
+        "href": " https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances /1131f914-571c-4cd1-a5e5-0c2235eaa66f",
+        "rel": "self"
+      },
+      {
+        "href": " https://ord.databases.api.rackspacecloud.com/instances /1131f914-571c-4cd1-a5e5-0c2235eaa66f",
+        "rel": "bookmark"
+      }
+    ],
+    "created": "2014-10-21T19:54:00",
+    "ip": [
+      "10.0.0.3"
+    ],
+    "id": "1131f914-571c-4cd1-a5e5-0c2235eaa66f",
+    "volume": {
+      "used": 0.06,
+      "size": 1
+    },
+    "flavor": {
+      "id": "9",
+      "links": [
+        {
+          "href": " https://ord.databases.api.rackspacecloud.com/v1.0/1234/flavors /9",
+          "rel": "self"
+        },
+        {
+          "href": " https://ord.databases.api.rackspacecloud.com/flavors /9",
+          "rel": "bookmark"
+        }
+      ]
+    },
+    "datastore": {
+      "version": "5.6",
+      "type": "mysql"
+    },
+    "replica_of": {
+      "id": "8215d522-d66a-479b-83c0-fbacc5dd05fc",
+      "links": [
+        {
+          "href": "https https://ord.databases.api.rackspacecloud.com/v1.0/1234/instances /8215d522-d66a-479b-83c0-fbacc5dd05fc",
+          "rel": "self"
+        },
+        {
+          "href": " https://ord.databases.api.rackspacecloud.com/instances /8215d522-d66a-479b-83c0-fbacc5dd05fc",
+          "rel": "bookmark"
+        }
+      ]
+    }
+  }
+}

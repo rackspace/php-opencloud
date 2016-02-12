@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "version": {
+    "datastore": "10000000-0000-0000-0000-000000000001",
+    "id": "b00000b0-00b0-0b00-00b0-000b000000bb",
+    "links": [
+      {
+        "href": "https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb",
+        "rel": "self"
+      },
+      {
+        "href": "https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb",
+        "rel": "bookmark"
+      }
+    ],
+    "name": "5.1"
+  }
+}

@@ -1,0 +1,50 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "datastore": {
+    "default_version": "7104c15f-ace0-479b-97ad-b368de32cb68",
+    "id": "a00000a0-00a0-0a00-00a0-000a000000aa",
+    "links": [
+      {
+        "href": "https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/a00000a0-00a0-0a00-00a0-000a000000aa",
+        "rel": "self"
+      },
+      {
+        "href": "https://api.staging.ord1.clouddb.rackspace.net/datastores/a00000a0-00a0-0a00-00a0-000a000000aa",
+        "rel": "bookmark"
+      }
+    ],
+    "name": "mysql",
+    "versions": [
+      {
+        "id": "b00000b0-00b0-0b00-00b0-000b000000bb",
+        "links": [
+          {
+            "href": "https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb",
+            "rel": "self"
+          },
+          {
+            "href": "https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/b00000b0-00b0-0b00-00b0-000b000000bb",
+            "rel": "bookmark"
+          }
+        ],
+        "name": "5.1"
+      },
+      {
+        "id": "c00000b0-00c0-0c00-00c0-000b000000cc",
+        "links": [
+          {
+            "href": "https://api.staging.ord1.clouddb.rackspace.net/v1.0/1234/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc",
+            "rel": "self"
+          },
+          {
+            "href": "https://api.staging.ord1.clouddb.rackspace.net/datastores/versions/c00000b0-00c0-0c00-00c0-000b000000cc",
+            "rel": "bookmark"
+          }
+        ],
+        "name": "5.6"
+      }
+    ]
+  }
+}

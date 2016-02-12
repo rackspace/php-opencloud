@@ -1,0 +1,30 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "backup":{
+    "status":"COMPLETED",
+    "updated":"2015-09-01T03:23:36Z",
+    "description":"My standalone instance backup1",
+    "datastore":{
+      "version":"5.6",
+      "type":"percona",
+      "version_id":"c9760c5b-5675-4482-b097-dffdf50c22ab"
+    },
+    "id":"61f12fef-edb1-4561-8122-e7c00ef26a82",
+    "size":0.18,
+    "is_automated":0,
+    "name":"test_instance-backup",
+    "parent_id":null,
+    "created":"2015-09-01T03:23:28Z",
+    "flavor_ram":1024,
+    "instance_id":"f4aaba46-fb5f-4316-988d-88da77759968",
+    "source":{
+      "type":"instance",
+      "id":"f4aaba46-fb5f-4316-988d-88da77759968"
+    },
+    "locationRef":"https://snet-storage101.dfw1.clouddrive.com/v1/MossoCloudFS_938359/z_CLOUDDB_BACKUPS/d9f56b04-e17d-41f0-ae92-30a3b47b8d29.xbstream.gz",
+    "type":"InnoBackupEx",
+    "volume_size":1
+  }
+}
