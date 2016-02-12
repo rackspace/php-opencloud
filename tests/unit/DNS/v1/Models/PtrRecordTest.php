@@ -1,0 +1,41 @@
+<?php
+
+namespace Rackspace\Test\DNS\v1\Models;
+
+use OpenStack\Test\TestCase;
+use Rackspace\DNS\v1\Api;
+use Rackspace\DNS\v1\Models\PtrRecord;
+
+class PtrRecordTest extends TestCase
+{
+    private $ptrRecord;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->rootFixturesDir = dirname(__DIR__);
+
+        $this->ptrRecord = new PtrRecord($this->client->reveal(), new Api());
+    }
+
+    public function test_it_creates()
+    {
+    }
+
+    public function test_it_updates()
+    {
+    }
+
+    public function test_it_lists()
+    {
+    }
+
+    public function test_it_deletes()
+    {
+    }
+
+    public function test_it_retrieves()
+    {
+    }
+}

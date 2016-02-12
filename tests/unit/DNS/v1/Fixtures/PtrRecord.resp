@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "name" : "example.com",
+  "id" : "PTR-000000",
+  "type" : "PTR",
+  "data" : "192.0.2.6",
+  "updated" : "2011-06-24T01:12:51.000+0000",
+  "ttl" : 56000,
+  "created" : "2011-06-24T01:12:51.000+0000"
+}
