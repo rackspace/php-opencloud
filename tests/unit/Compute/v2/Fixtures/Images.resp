@@ -1,0 +1,64 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "images": [
+    {
+        "id": "6455fff1-1f0e-46e3-a795-6c88738d7280",
+        "links": [
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/images/6455fff1-1f0e-46e3-a795-6c88738d7280",
+                "rel": "self"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/820712/images/6455fff1-1f0e-46e3-a795-6c88738d7280",
+                "rel": "bookmark"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/images/6455fff1-1f0e-46e3-a795-6c88738d7280",
+                "type": "application/vnd.openstack.image",
+                "rel": "alternate"
+            }
+        ],
+        "name": "CentOS 7 (PVHVM)"
+    },
+    {
+        "id": "fa26666f-b71b-492e-8bd9-d29eabc5b49f",
+        "links": [
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/images/fa26666f-b71b-492e-8bd9-d29eabc5b49f",
+                "rel": "self"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/820712/images/fa26666f-b71b-492e-8bd9-d29eabc5b49f",
+                "rel": "bookmark"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/images/fa26666f-b71b-492e-8bd9-d29eabc5b49f",
+                "type": "application/vnd.openstack.image",
+                "rel": "alternate"
+            }
+        ],
+        "name": "Ubuntu 15.04 (Vivid Vervet) (PVHVM)"
+    },
+    {
+        "id": "33f0f56f-a9d2-4ffc-843f-94b80860f2c1",
+        "links": [
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/images/33f0f56f-a9d2-4ffc-843f-94b80860f2c1",
+                "rel": "self"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/820712/images/33f0f56f-a9d2-4ffc-843f-94b80860f2c1",
+                "rel": "bookmark"
+            },
+            {
+                "href": "https://dfw.servers.api.rackspacecloud.com/images/33f0f56f-a9d2-4ffc-843f-94b80860f2c1",
+                "type": "application/vnd.openstack.image",
+                "rel": "alternate"
+            }
+        ],
+        "name": "Gentoo 15.2 (PVHVM)"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "servers": [
+    {
+      "id": "8f64d643-f48a-459c-a7af-717dfc7580ee",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/8f64d643-f48a-459c-a7af-717dfc7580ee",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/123456/servers/8f64d643-f48a-459c-a7af-717dfc7580ee",
+          "rel": "bookmark"
+        }
+      ],
+      "name": "wordpress.myveryown.com"
+    },
+    {
+      "id": "5bccf43e-35fa-4d65-9390-2b2d6b23ec89",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/5bccf43e-35fa-4d65-9390-2b2d6b23ec89",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/123456/servers/5bccf43e-35fa-4d65-9390-2b2d6b23ec89",
+          "rel": "bookmark"
+        }
+      ],
+      "name": "DB2"
+    },
+    {
+      "id": "d40dcb7f-2268-4fff-a592-b1944413f983",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/d40dcb7f-2268-4fff-a592-b1944413f983",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/123456/servers/d40dcb7f-2268-4fff-a592-b1944413f983",
+          "rel": "bookmark"
+        }
+      ],
+      "name": "Branwen"
+    }
+  ]
+}

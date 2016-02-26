@@ -18,9 +18,4 @@ class ServiceTest extends TestCase
 
         $this->service = new Service($this->client->reveal(), new Api());
     }
-
-    public function test_extends_openstack()
-    {
-        $this->assertInstanceOf(\OpenStack\ObjectStore\v1\Service::class, $this->service);
-    }
 }

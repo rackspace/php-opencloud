@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "addresses": {
+    "public": [
+      {
+        "version": 6,
+        "addr": "2001:4800:7817:0104:7e32:e3ee:ff04:930f"
+      },
+      {
+        "version": 4,
+        "addr": "23.253.107.140"
+      }
+    ],
+    "private": [
+      {
+        "version": 4,
+        "addr": "10.208.196.170"
+      }
+    ]
+  }
+}

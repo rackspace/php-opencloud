@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "metadata": {
+        "Label" : "Web",
+        "Version" : "2.1"
+    }
+}

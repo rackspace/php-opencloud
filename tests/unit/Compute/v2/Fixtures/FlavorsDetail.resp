@@ -1,0 +1,61 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "flavors": [
+      {
+      "OS-FLV-WITH-EXT-SPECS:extra_specs": {
+        "resize_policy_class": "performance_flavor",
+        "policy_class": "performance_flavor",
+        "class": "performance2",
+        "disk_io_index": "60",
+        "number_of_data_disks": "2"
+      },
+      "name": "60 GB Performance",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/flavors/performance2-60",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/820712/flavors/performance2-60",
+          "rel": "bookmark"
+        }
+      ],
+      "ram": 61440,
+      "vcpus": 16,
+      "swap": "",
+      "rxtx_factor": 5000,
+      "OS-FLV-EXT-DATA:ephemeral": 600,
+      "disk": 40,
+      "id": "performance2-60"
+    },
+      {
+      "OS-FLV-WITH-EXT-SPECS:extra_specs": {
+        "resize_policy_class": "performance_flavor",
+        "policy_class": "performance_flavor",
+        "class": "performance2",
+        "disk_io_index": "70",
+        "number_of_data_disks": "3"
+      },
+      "name": "90 GB Performance",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/flavors/performance2-90",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/820712/flavors/performance2-90",
+          "rel": "bookmark"
+        }
+      ],
+      "ram": 92160,
+      "vcpus": 24,
+      "swap": "",
+      "rxtx_factor": 7500,
+      "OS-FLV-EXT-DATA:ephemeral": 900,
+      "disk": 40,
+      "id": "performance2-90"
+    }
+  ]
+}

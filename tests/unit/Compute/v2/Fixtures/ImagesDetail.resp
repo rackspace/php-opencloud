@@ -1,0 +1,81 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+{
+  "images": [
+    {
+      "status": "ACTIVE",
+      "updated": "2015-07-09T16:12:57Z",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/images/28555e09-5639-43f9-b64b-9c98c78520ad",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/820712/images/28555e09-5639-43f9-b64b-9c98c78520ad",
+          "rel": "bookmark"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/images/28555e09-5639-43f9-b64b-9c98c78520ad",
+          "type": "application/vnd.openstack.image",
+          "rel": "alternate"
+        }
+      ],
+      "OS-DCF:diskConfig": "MANUAL",
+      "id": "28555e09-5639-43f9-b64b-9c98c78520ad",
+      "OS-EXT-IMG-SIZE:size": 198846343,
+      "name": "CoreOS (Alpha)",
+      "created": "2015-07-09T14:48:20Z",
+      "minDisk": 20,
+      "progress": 100,
+      "minRam": 512,
+      "metadata": {
+        "os_distro": "com.coreos",
+        "os_type": "linux"
+      }
+    },
+    {
+      "status": "ACTIVE",
+      "updated": "2015-07-09T10:23:14Z",
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/images/8b8c73b6-689d-45d2-a7a4-33aae5e011f1",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/820712/images/8b8c73b6-689d-45d2-a7a4-33aae5e011f1",
+          "rel": "bookmark"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/images/8b8c73b6-689d-45d2-a7a4-33aae5e011f1",
+          "type": "application/vnd.openstack.image",
+          "rel": "alternate"
+        }
+      ],
+      "OS-DCF:diskConfig": "AUTO",
+      "id": "8b8c73b6-689d-45d2-a7a4-33aae5e011f1",
+      "OS-EXT-IMG-SIZE:size": 1905244160,
+      "name": "Daily-wordpress.voiceoversbycat.com-1436437083",
+      "created": "2015-07-09T10:18:04Z",
+      "minDisk": 20,
+      "server": {
+        "id": "8f64d643-f48a-459c-a7af-717dfc7580ee",
+        "links": [
+          {
+            "href": "https://dfw.servers.api.rackspacecloud.com/v2/820712/servers/8f64d643-f48a-459c-a7af-717dfc7580ee",
+            "rel": "self"
+          },
+          {
+            "href": "https://dfw.servers.api.rackspacecloud.com/820712/servers/8f64d643-f48a-459c-a7af-717dfc7580ee",
+            "rel": "bookmark"
+          }
+        ]
+      },
+      "progress": 100,
+      "minRam": 512,
+      "metadata": {
+        "os_distro": "ubuntu",
+        "os_type": "linux"
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+   "networks":[
+      {
+         "cidr":"192.168.0.0/24",
+         "id":"1f84c238-b05a-4374-a0cb-aa6140032cd1",
+         "label":"new_network"
+      },
+      {
+         "id":"00000000-0000-0000-0000-000000000000",
+         "label":"public"
+      },
+      {
+         "id":"11111111-1111-1111-1111-111111111111",
+         "label":"private"
+      }
+   ]
+}

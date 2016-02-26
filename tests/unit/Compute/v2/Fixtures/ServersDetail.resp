@@ -1,0 +1,83 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "servers": [
+    {
+      "status": "ACTIVE",
+      "updated": "2014-05-28T18:49:33Z",
+      "hostId": "621cca5902d18b025468ae8e6bdcbbd5649a1ffe577716f267be4a93",
+      "addresses": {
+        "public": [
+          {
+            "version": 4,
+            "addr": "198.61.212.87"
+          },
+          {
+            "version": 6,
+            "addr": "2001:4800:780e:0510:7e32:e3ee:ff04:ddc8"
+          }
+        ],
+        "private": [
+          {
+            "version": 4,
+            "addr": "10.180.19.16"
+          }
+        ],
+        "SecureNet": [
+          {
+            "version": 4,
+            "addr": "192.168.3.2"
+          }
+        ]
+      },
+      "links": [
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/v2/123456/servers/5bccf43e-35fa-4d65-9390-2b2d6b23ec89",
+          "rel": "self"
+        },
+        {
+          "href": "https://dfw.servers.api.rackspacecloud.com/123456/servers/5bccf43e-35fa-4d65-9390-2b2d6b23ec89",
+          "rel": "bookmark"
+        }
+      ],
+      "key_name": null,
+      "image": {
+        "id": "f19067a2-7233-4666-b0f2-f420a4776ff0",
+        "links": [
+          {
+            "href": "https://dfw.servers.api.rackspacecloud.com/123456/images/f19067a2-7233-4666-b0f2-f420a4776ff0",
+            "rel": "bookmark"
+          }
+        ]
+      },
+      "RAX-PUBLIC-IP-ZONE-ID:publicIPZoneId": "d12f4c3ef88ff2ca471f6b1a57d108c15db4a3478af762da6ae022b7",
+      "OS-EXT-STS:task_state": null,
+      "OS-EXT-STS:vm_state": "active",
+      "RAX-SI:image_schedule": {
+          "retention": 3
+      },
+      "flavor": {
+        "id": "2",
+        "links": [
+          {
+            "href": "https://dfw.servers.api.rackspacecloud.com/123456/flavors/2",
+            "rel": "bookmark"
+          }
+        ]
+      },
+      "id": "5bccf43e-35fa-4d65-9390-2b2d6b23ec89",
+      "user_id": "346289",
+      "name": "DB2",
+      "created": "2013-07-23T15:44:56Z",
+      "tenant_id": "123456",
+      "OS-DCF:diskConfig": "AUTO",
+      "accessIPv4": "198.61.212.87",
+      "accessIPv6": "2001:4800:780e:510:7e32:e3ee:ff04:ddc8",
+      "progress": 100,
+      "OS-EXT-STS:power_state": 1,
+      "config_drive": "",
+      "metadata": {}
+    }
+  ]
+}

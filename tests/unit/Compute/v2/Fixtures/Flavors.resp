@@ -1,0 +1,105 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "flavors": [
+        {
+            "id": "2",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/453265/flavors/2",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/453265/flavors/2",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "512MB Standard Instance"
+        },
+        {
+            "id": "3",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/453265/flavors/3",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/453265/flavors/3",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "1GB Standard Instance"
+        },
+        {
+            "id": "4",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/453265/flavors/4",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/453265/flavors/4",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "2GB Standard Instance"
+        },
+        {
+            "id": "5",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/453265/flavors/5",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/453265/flavors/5",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "4GB Standard Instance"
+        },
+        {
+            "id": "6",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/453265/flavors/6",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/453265/flavors/6",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "8GB Standard Instance"
+        },
+        {
+            "id": "7",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/453265/flavors/7",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/453265/flavors/7",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "15GB Standard Instance"
+        },
+        {
+            "id": "8",
+            "links": [
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/v2/453265/flavors/8",
+                    "rel": "self"
+                },
+                {
+                    "href": "https://dfw.servers.api.rackspacecloud.com/453265/flavors/8",
+                    "rel": "bookmark"
+                }
+            ],
+            "name": "30GB Standard Instance"
+        }
+    ]
+}
