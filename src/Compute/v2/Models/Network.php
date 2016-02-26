@@ -38,7 +38,7 @@ class Network extends AbstractResource implements Creatable, Listable, Deletable
      */
     public function create(array $userOptions)
     {
-        $response = $this->execute($this->api->postNetwork(), $userOptions);
+        $response = $this->execute($this->api->postOsnetworksv2(), $userOptions);
         return $this->populateFromResponse($response);
     }
 

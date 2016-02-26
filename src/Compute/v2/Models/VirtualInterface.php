@@ -6,6 +6,7 @@ use OpenStack\Common\Resource\AbstractResource;
 use OpenStack\Common\Resource\Creatable;
 use OpenStack\Common\Resource\Deletable;
 use OpenStack\Common\Resource\Listable;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Represents a VirtualInterface resource in the Compute v2 service
@@ -29,6 +30,11 @@ class VirtualInterface extends AbstractResource implements Creatable, Listable, 
      */
     public $macAddress;
 
+    /**
+     * @var string
+     */
+    public $serverId;
+
     protected $aliases = [
         'ip_addresses' => 'ipAddresses',
         'mac_address'  => 'macAddress',
@@ -39,7 +45,7 @@ class VirtualInterface extends AbstractResource implements Creatable, Listable, 
      */
     public function create(array $userOptions)
     {
-        $response = $this->execute($this->api->postVirtualInterface(), $userOptions);
+        $response = $this->execute($this->api->postOsvirtualinterfacesv2(), $userOptions);
         return $this->populateFromResponse($response);
     }
 
@@ -48,6 +54,6 @@ class VirtualInterface extends AbstractResource implements Creatable, Listable, 
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteVirtualInterface());
+        // Use Rackspace\Compute\v2\Models\Server::deleteVirtualInterface() instead
     }
 }

@@ -97,20 +97,34 @@ class Params extends AbstractParams
     }
 
     /**
+     * Returns information about type parameter
+     *
+     * @return array
+     */
+    public function rebootTypeJson()
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'required' => true,
+            'location' => self::JSON,
+            'enum'     => ['HARD', 'SOFT'],
+        ];
+    }
+
+    /**
      * Returns information about blockDeviceMappingV2 parameter
      *
      * @return array
      */
-    public function blockDeviceMappingV2Json()
+    public function blockDeviceJson()
     {
         return [
-            'type'       => self::ARRAY_TYPE,
-            'location'   => self::JSON,
-            'sentAs'     => 'block_device_mapping_v2',
-            'itemSchema' => [
+            'type'     => self::ARRAY_TYPE,
+            'location' => self::JSON,
+            'sentAs'   => 'block_device_mapping_v2',
+            'items'    => [
                 'type'       => self::OBJECT_TYPE,
                 'location'   => self::JSON,
-                'sentAs'     => 'block_device_mapping_v2',
                 'properties' => [
                     'bootIndex'           => $this->bootIndexJson(),
                     'uuid'                => $this->uuidJson(),
@@ -131,9 +145,25 @@ class Params extends AbstractParams
     public function bootIndexJson()
     {
         return [
-            'type'     => self::STRING_TYPE,
+            'type'     => self::INT_TYPE,
             'location' => self::JSON,
             'sentAs'   => 'boot_index',
+        ];
+    }
+
+    /**
+     * Returns information about bootIndex parameter
+     *
+     * @return array
+     */
+    public function diskConfigJson()
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'location'    => self::JSON,
+            'sentAs'      => 'OS-DCF:diskConfig',
+            'enum'        => ['AUTO', 'MANUAL'],
+            'description' => 'The disk configuration value. The image auto_disk_config metadata key set will affect the value you can choose to set the server OS- DCF:diskConfig. If an image has auto_disk_config value of disabled, you cannot create a server from that image when specifying OS-DCF:diskConfig value of AUTO. Valid values are: AUTO:The server is built with a single partition which is the size of the target flavor disk. The file system is automatically adjusted to fit the entire partition. This keeps things simple and automated. AUTO is valid only for images and servers with a single partition that use the EXT3 file system. This is the default setting for applicable Rackspace base images. MANUAL:The server is built using the partition scheme and file system of the source image. If the target flavor disk is larger, the remaining disk space is left unpartitioned. This enables images to have non-EXT3 file systems, multiple partitions, and so on, and it enables you to manage the disk configuration.',
         ];
     }
 
@@ -175,6 +205,7 @@ class Params extends AbstractParams
         return [
             'type'     => self::STRING_TYPE,
             'location' => self::JSON,
+            'sentAs'   => 'flavorRef',
         ];
     }
 
@@ -188,6 +219,7 @@ class Params extends AbstractParams
         return [
             'type'     => self::STRING_TYPE,
             'location' => self::JSON,
+            'sentAs'   => 'imageRef',
         ];
     }
 
@@ -227,13 +259,14 @@ class Params extends AbstractParams
     public function networksJson()
     {
         return [
-            'type'       => self::ARRAY_TYPE,
-            'location'   => self::JSON,
-            'itemSchema' => [
+            'type'     => self::ARRAY_TYPE,
+            'location' => self::JSON,
+            'items'    => [
                 'type'       => self::OBJECT_TYPE,
                 'location'   => self::JSON,
                 'properties' => [
                     'uuid' => $this->uuidJson(),
+                    'port' => $this->portJson(),
                 ],
             ],
         ];
@@ -267,6 +300,19 @@ class Params extends AbstractParams
     }
 
     /**
+     * Returns information about port parameter
+     *
+     * @return array
+     */
+    public function portJson()
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::JSON,
+        ];
+    }
+
+    /**
      * Returns information about volumeSize parameter
      *
      * @return array
@@ -274,7 +320,7 @@ class Params extends AbstractParams
     public function volumeSizeJson()
     {
         return [
-            'type'     => self::STRING_TYPE,
+            'type'     => self::INT_TYPE,
             'location' => self::JSON,
             'sentAs'   => 'volume_size',
         ];
@@ -356,9 +402,9 @@ class Params extends AbstractParams
     public function personalityJson()
     {
         return [
-            'type'       => self::ARRAY_TYPE,
-            'location'   => self::JSON,
-            'itemSchema' => [
+            'type'     => self::ARRAY_TYPE,
+            'location' => self::JSON,
+            'items'    => [
                 'type'       => self::OBJECT_TYPE,
                 'location'   => self::JSON,
                 'properties' => [
@@ -628,7 +674,7 @@ class Params extends AbstractParams
     public function confirmResizeJson()
     {
         return [
-            'type'     => 'NULL',
+            'type'     => self::NULL_TYPE,
             'location' => self::JSON,
         ];
     }
@@ -643,6 +689,7 @@ class Params extends AbstractParams
         return [
             'type'     => self::STRING_TYPE,
             'location' => self::JSON,
+            'enum'     => ['none'],
         ];
     }
 
@@ -724,6 +771,7 @@ class Params extends AbstractParams
         return [
             'type'     => self::STRING_TYPE,
             'location' => self::JSON,
+            'sentAs'   => 'adminPass',
         ];
     }
 
@@ -777,7 +825,6 @@ class Params extends AbstractParams
     public function keyUrl()
     {
         return [
-            'type'     => self::STRING_TYPE,
             'location' => self::URL,
         ];
     }
@@ -833,6 +880,7 @@ class Params extends AbstractParams
             'type'     => self::STRING_TYPE,
             'location' => self::JSON,
             'sentAs'   => 'day_of_week',
+            'enum'     => ['MONDAY', 'TUESDAY', 'WEDNESDAY', ]
         ];
     }
 
@@ -963,5 +1011,29 @@ class Params extends AbstractParams
         ];
     }
 
+    /**
+     * Returns information about accessIPv4 parameter
+     *
+     * @return array
+     */
+    public function accessIPv4Json()
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::JSON,
+        ];
+    }
 
+    /**
+     * Returns information about accessIPv6 parameter
+     *
+     * @return array
+     */
+    public function accessIPv6Json()
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::JSON,
+        ];
+    }
 }

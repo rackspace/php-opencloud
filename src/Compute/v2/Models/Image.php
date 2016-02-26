@@ -7,6 +7,7 @@ use OpenStack\Common\Resource\Deletable;
 use OpenStack\Common\Resource\HasMetadata;
 use OpenStack\Common\Resource\Listable;
 use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -34,7 +35,7 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     /**
      * @var string
      */
-    public $oSDCFdiskConfig;
+    public $diskConfig;
 
     /**
      * @var string
@@ -44,7 +45,7 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     /**
      * @var integer
      */
-    public $oSEXTIMGSIZEsize;
+    public $size;
 
     /**
      * @var string
@@ -82,8 +83,8 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     public $metadata;
 
     protected $aliases = [
-        'OS-DCF:diskConfig'    => 'oSDCFdiskConfig',
-        'OS-EXT-IMG-SIZE:size' => 'oSEXTIMGSIZEsize',
+        'OS-DCF:diskConfig'    => 'diskConfig',
+        'OS-EXT-IMG-SIZE:size' => 'size',
     ];
 
     protected $resourceKey = 'image';
@@ -95,7 +96,7 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteImage());
+        $this->executeWithState($this->api->deleteImageId());
     }
 
     /**
@@ -103,7 +104,7 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
      */
     public function retrieve()
     {
-        $response = $this->executeWithState($this->api->getImage());
+        $response = $this->executeWithState($this->api->getImageId());
         return $this->populateFromResponse($response);
     }
 
@@ -112,6 +113,8 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
      */
     public function getMetadata()
     {
+        $response = $this->executeWithState($this->api->getMetadata('images'));
+        return $this->parseMetadata($response);
     }
 
     /**
@@ -119,6 +122,8 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
      */
     public function mergeMetadata(array $metadata)
     {
+        $response = $this->execute($this->api->postMetadata('images'), ['id' => $this->id, 'metadata' => $metadata]);
+        return $this->parseMetadata($response);
     }
 
     /**
@@ -126,6 +131,11 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
      */
     public function resetMetadata(array $metadata)
     {
+        foreach (array_diff_key($this->getMetadata(), $metadata) as $removedKey => $v) {
+            $this->execute($this->api->deleteMetadataKey('images'), ['id' => $this->id, 'key' => (string) $removedKey]);
+        }
+
+        return $this->mergeMetadata($metadata);
     }
 
     /**
@@ -133,5 +143,6 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
      */
     public function parseMetadata(ResponseInterface $response)
     {
+        return Utils::jsonDecode($response)['metadata'];
     }
 }

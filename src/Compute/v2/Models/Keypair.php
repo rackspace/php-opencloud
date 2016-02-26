@@ -42,7 +42,7 @@ class Keypair extends AbstractResource implements Creatable, Listable, Deletable
      */
     public function create(array $userOptions)
     {
-        $response = $this->execute($this->api->postKeypair(), $userOptions);
+        $response = $this->execute($this->api->postOsKeypairs(), $userOptions);
         return $this->populateFromResponse($response);
     }
 

@@ -6,7 +6,7 @@ use OpenStack\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {
-    private $params;
+    protected $params;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/limits',
+            'path'   => 'limits',
             'params' => [],
         ];
     }
@@ -36,7 +36,7 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/images',
+            'path'   => 'images',
             'params' => [
                 'changessince' => $this->params->changessinceJson(),
                 'limit'        => $this->params->limitJson(),
@@ -49,6 +49,18 @@ class Api extends AbstractApi
     }
 
     /**
+     * Returns information about GET /images HTTP operation
+     *
+     * @return array
+     */
+    public function getImagesDetail()
+    {
+        $op = $this->getImages();
+        $op['path'] .= '/detail';
+        return $op;
+    }
+
+    /**
      * Returns information about POST /servers HTTP operation
      *
      * @return array
@@ -57,22 +69,21 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/servers',
+            'path'    => 'servers',
             'jsonKey' => 'server',
             'params'  => [
-                'blockDeviceMappingV2' => $this->params->blockDeviceMappingV2Json(),
-                'bootIndex'            => $this->params->bootIndexJson(),
-                'deleteOnTermination'  => $this->params->deleteOnTerminationJson(),
-                'destinationType'      => $this->params->destinationTypeJson(),
-                'flavorRef'            => $this->params->flavorRefJson(),
-                'imageRef'             => $this->params->imageRefJson(),
-                'maxCount'             => $this->params->maxCountJson(),
-                'minCount'             => $this->params->minCountJson(),
-                'name'                 => $this->params->nameJson(),
-                'networks'             => $this->params->networksJson(),
-                'sourceType'           => $this->params->sourceTypeJson(),
-                'uuid'                 => $this->params->uuidJson(),
-                'volumeSize'           => $this->params->volumeSizeJson(),
+                'blockDevices' => $this->params->blockDeviceJson(),
+                'flavorId'     => $this->params->flavorRefJson(),
+                'imageId'      => $this->params->imageRefJson(),
+                'maxCount'     => $this->params->maxCountJson(),
+                'minCount'     => $this->params->minCountJson(),
+                'name'         => $this->params->nameJson(),
+                'networks'     => $this->params->networksJson(),
+                'volumeSize'   => $this->params->volumeSizeJson(),
+                'configDrive'  => $this->params->configDriveJson(),
+                'diskConfig'   => $this->params->diskConfigJson(),
+                'metadata'     => $this->params->metadataJson(),
+                'personality'  => $this->params->personalityJson(),
             ],
         ];
     }
@@ -86,13 +97,25 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/flavors',
+            'path'   => 'flavors',
             'params' => [
                 'limit'  => $this->params->limitJson(),
                 'marker' => $this->params->markerJson(),
                 'minRam' => $this->params->minRamJson(),
             ],
         ];
+    }
+
+    /**
+     * Returns information about GET /flavors/detail HTTP operation
+     *
+     * @return array
+     */
+    public function getFlavorsDetail()
+    {
+        $op = $this->getFlavors();
+        $op['path'] .= '/detail';
+        return $op;
     }
 
     /**
@@ -104,7 +127,7 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers',
+            'path'   => 'servers',
             'params' => [
                 'flavor' => $this->params->flavorJson(),
                 'host'   => $this->params->hostJson(),
@@ -118,6 +141,18 @@ class Api extends AbstractApi
     }
 
     /**
+     * Returns information about GET /servers/detail HTTP operation
+     *
+     * @return array
+     */
+    public function getServersDetail()
+    {
+        $op = $this->getServers();
+        $op['path'] .= '/detail';
+        return $op;
+    }
+
+    /**
      * Returns information about GET /extensions HTTP operation
      *
      * @return array
@@ -126,7 +161,7 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/extensions',
+            'path'   => 'extensions',
             'params' => [],
         ];
     }
@@ -140,7 +175,7 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/os-volumes',
+            'path'   => 'os-volumes',
             'params' => [],
         ];
     }
@@ -154,7 +189,7 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/os-volumes',
+            'path'    => 'os-volumes',
             'jsonKey' => 'volume',
             'params'  => [
                 'displayDescription' => $this->params->displayDescriptionJson(),
@@ -174,7 +209,7 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/os-keypairs',
+            'path'    => 'os-keypairs',
             'jsonKey' => 'keypair',
             'params'  => [
                 'name'      => $this->params->nameJson(),
@@ -192,29 +227,8 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/os-keypairs',
+            'path'   => 'os-keypairs',
             'params' => [],
-        ];
-    }
-
-    /**
-     * Returns information about GET /images/detail HTTP operation
-     *
-     * @return array
-     */
-    public function getDetail()
-    {
-        return [
-            'method' => 'GET',
-            'path'   => '/images/detail',
-            'params' => [
-                'changessince' => $this->params->changessinceJson(),
-                'limit'        => $this->params->limitJson(),
-                'marker'       => $this->params->markerJson(),
-                'name'         => $this->params->nameJson(),
-                'status'       => $this->params->statusJson(),
-                'type'         => $this->params->typeJson(),
-            ],
         ];
     }
 
@@ -227,7 +241,7 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/os-networksv2',
+            'path'   => 'os-networksv2',
             'params' => [],
         ];
     }
@@ -241,7 +255,7 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/os-networksv2',
+            'path'    => 'os-networksv2',
             'jsonKey' => 'network',
             'params'  => [
                 'cidr'  => $this->params->cidrJson(),
@@ -255,11 +269,11 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function deleteId()
+    public function deleteOsVolumesId()
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/os-volumes/{id}',
+            'path'   => 'os-volumes/{id}',
             'params' => [
                 'id' => $this->params->idUrl(),
             ],
@@ -271,11 +285,11 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getId()
+    public function getOsVolumesId()
     {
         return [
             'method' => 'GET',
-            'path'   => '/os-volumes/{id}',
+            'path'   => 'os-volumes/{id}',
             'params' => [
                 'id' => $this->params->idUrl(),
             ],
@@ -283,7 +297,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about GET /images/{image_id} HTTP operation
+     * Returns information about GET /images/{imageId} HTTP operation
      *
      * @return array
      */
@@ -291,15 +305,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/images/{image_id}',
+            'path'   => 'images/{id}',
             'params' => [
-                'imageId' => $this->params->imageIdUrl(),
+                'id' => $this->params->imageIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about DELETE /images/{image_id} HTTP operation
+     * Returns information about DELETE /images/{imageId} HTTP operation
      *
      * @return array
      */
@@ -307,9 +321,9 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/images/{image_id}',
+            'path'   => 'images/{id}',
             'params' => [
-                'imageId' => $this->params->imageIdUrl(),
+                'id' => $this->params->imageIdUrl(),
             ],
         ];
     }
@@ -319,11 +333,11 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getAlias()
+    public function getExtensionsAlias()
     {
         return [
             'method' => 'GET',
-            'path'   => '/extensions/{alias}',
+            'path'   => 'extensions/{alias}',
             'params' => [
                 'alias' => $this->params->aliasUrl(),
             ],
@@ -331,7 +345,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about PUT /servers/{server_id} HTTP operation
+     * Returns information about PUT /servers/{id} HTTP operation
      *
      * @return array
      */
@@ -339,17 +353,19 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'PUT',
-            'path'    => '/servers/{server_id}',
+            'path'    => 'servers/{id}',
             'jsonKey' => 'server',
             'params'  => [
-                'serverId' => $this->params->serverIdUrl(),
-                'name'     => $this->params->nameJson(),
+                'id'         => $this->params->idUrl(),
+                'name'       => $this->params->nameJson(),
+                'accessIPv4' => $this->params->accessIPv4Json(),
+                'accessIPv6' => $this->params->accessIPv6Json(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{server_id} HTTP operation
+     * Returns information about GET /servers/{id} HTTP operation
      *
      * @return array
      */
@@ -357,15 +373,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}',
+            'path'   => 'servers/{id}',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /flavors/{flavor_id} HTTP operation
+     * Returns information about GET /flavors/{flavorId} HTTP operation
      *
      * @return array
      */
@@ -373,15 +389,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/flavors/{flavor_id}',
+            'path'   => 'flavors/{id}',
             'params' => [
-                'flavorId' => $this->params->flavorIdUrl(),
+                'id' => $this->params->flavorIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about DELETE /servers/{server_id} HTTP operation
+     * Returns information about DELETE /servers/{id} HTTP operation
      *
      * @return array
      */
@@ -389,25 +405,25 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/servers/{server_id}',
+            'path'   => 'servers/{id}',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{server_id}/ips HTTP operation
+     * Returns information about GET /servers/{id}/ips HTTP operation
      *
      * @return array
      */
-    public function getIps()
+    public function getServersIps()
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/ips',
+            'path'   => 'servers/{id}/ips',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
@@ -421,27 +437,177 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/os-quota-sets/{tenant_id}',
+            'path'   => 'os-quota-sets/{id}',
             'params' => [
-                'tenantId' => $this->params->tenantIdUrl(),
+                'id' => $this->params->tenantIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about POST /servers/{server_id}/action HTTP operation
+     * Returns information about POST /servers/{id}/action HTTP operation
      *
      * @return array
      */
-    public function postAction()
+    public function changePassword()
     {
         return [
             'method'  => 'POST',
-            'path'    => '/servers/{server_id}/action',
+            'path'    => 'servers/{id}/action',
+            'jsonKey' => 'changePassword',
+            'params'  => [
+                'id'       => $this->params->idUrl(),
+                'password' => $this->params->adminPassJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function reboot()
+    {
+        return [
+            'method'  => 'POST',
+            'path'    => 'servers/{id}/action',
             'jsonKey' => 'reboot',
             'params'  => [
-                'serverId' => $this->params->serverIdUrl(),
-                'type'     => $this->params->typeJson(),
+                'id'   => $this->params->idUrl(),
+                'type' => $this->params->rebootTypeJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function rebuild()
+    {
+        return [
+            'method'  => 'POST',
+            'path'    => 'servers/{id}/action',
+            'jsonKey' => 'rebuild',
+            'params'  => [
+                'id'          => $this->params->idUrl(),
+                'name'        => $this->params->nameJson(),
+                'imageId'     => $this->params->imageRefJson(),
+                'accessIPv4'  => $this->params->accessIPv4Json(),
+                'accessIPv6'  => $this->params->accessIPv6Json(),
+                'password'    => $this->params->adminPassJson(),
+                'metadata'    => $this->params->metadataJson(),
+                'personality' => $this->params->personalityJson(),
+                'diskConfig'  => $this->params->diskConfigJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function resize()
+    {
+        return [
+            'method'  => 'POST',
+            'path'    => 'servers/{id}/action',
+            'jsonKey' => 'resize',
+            'params'  => [
+                'id'         => $this->params->idUrl(),
+                'flavorId'   => $this->params->flavorRefJson(),
+                'diskConfig' => $this->params->diskConfigJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function confirmResize()
+    {
+        return [
+            'method' => 'POST',
+            'path'   => 'servers/{id}/action',
+            'params' => [
+                'id'            => $this->params->idUrl(),
+                'confirmResize' => $this->params->confirmResizeJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function revertResize()
+    {
+        return [
+            'method' => 'POST',
+            'path'   => 'servers/{id}/action',
+            'params' => [
+                'id'           => $this->params->idUrl(),
+                'revertResize' => $this->params->revertResizeJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function createImage()
+    {
+        return [
+            'method'  => 'POST',
+            'path'    => 'servers/{id}/action',
+            'jsonKey' => 'createImage',
+            'params'  => [
+                'id'       => $this->params->idUrl(),
+                'name'     => $this->params->nameJson(),
+                'metadata' => $this->params->metadataJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function rescue($refProvided = false)
+    {
+        return [
+            'method'  => 'POST',
+            'path'    => 'servers/{id}/action',
+            'jsonKey' => $refProvided ? 'rescue' : '',
+            'params'  => [
+                'id'     => $this->params->idUrl(),
+                'rescue' => $refProvided ? $this->params->rescueImageRefJson() : $this->params->rescueJson(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about POST /servers/{id}/action HTTP operation
+     *
+     * @return array
+     */
+    public function unrescue()
+    {
+        return [
+            'method' => 'POST',
+            'path'   => 'servers/{id}/action',
+            'params' => [
+                'id'       => $this->params->idUrl(),
+                'unrescue' => $this->params->unrescueJson(),
             ],
         ];
     }
@@ -455,7 +621,7 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/os-keypairs/{keypair_name}',
+            'path'   => 'os-keypairs/{keypairName}',
             'params' => [
                 'keypairName' => $this->params->keypairNameUrl(),
             ],
@@ -463,116 +629,111 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about GET /images/{image_id}/metadata HTTP operation
+     * Returns information about a resource's metadata
      *
      * @return array
      */
-    public function getMetadata()
+    public function getMetadata($resource)
     {
         return [
             'method' => 'GET',
-            'path'   => '/images/{image_id}/metadata',
+            'path'   => $resource . '/{id}/metadata',
             'params' => [
-                'imageId' => $this->params->imageIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about POST /images/{image_id}/metadata HTTP operation
+     * Returns information about POST /images/{imageId}/metadata HTTP operation
      *
      * @return array
      */
-    public function postMetadata()
+    public function postMetadata($resource)
     {
         return [
-            'method'  => 'POST',
-            'path'    => '/images/{image_id}/metadata',
-            'jsonKey' => 'metadata',
-            'params'  => [
-                'imageId'  => $this->params->imageIdUrl(),
-                'category' => $this->params->categoryJson(),
-                'label'    => $this->params->labelJson(),
-                'owner'    => $this->params->ownerJson(),
+            'method' => 'POST',
+            'path'   => $resource . '/{id}/metadata',
+            'params' => [
+                'id'       => $this->params->idUrl(),
+                'metadata' => $this->params->metadataJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about PUT /servers/{server_id}/metadata HTTP operation
+     * Returns information about metadata
      *
      * @return array
      */
-    public function putMetadata()
+    public function putMetadata($resource)
     {
         return [
-            'method'  => 'PUT',
-            'path'    => '/servers/{server_id}/metadata',
-            'jsonKey' => 'metadata',
-            'params'  => [
-                'serverId' => $this->params->serverIdUrl(),
-                'label'    => $this->params->labelJson(),
-                'version'  => $this->params->versionJson(),
+            'method' => 'PUT',
+            'path'   => $resource . '/{id}/metadata',
+            'params' => [
+                'id'       => $this->params->idUrl(),
+                'metadata' => $this->params->metadataJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about DELETE /images/{image_id}/metadata/{key} HTTP
+     * Returns information about DELETE /images/{imageId}/metadata/{key} HTTP
      * operation
      *
      * @return array
      */
-    public function deleteKey()
+    public function deleteMetadataKey($resource)
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/images/{image_id}/metadata/{key}',
+            'path'   => $resource . '/{id}/metadata/{key}',
             'params' => [
-                'imageId' => $this->params->imageIdUrl(),
-                'key'     => $this->params->keyUrl(),
+                'id'  => $this->params->imageIdUrl(),
+                'key' => $this->params->keyUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about PUT /images/{image_id}/metadata/{key} HTTP operation
+     * Returns information about PUT /images/{imageId}/metadata/{key} HTTP operation
      *
      * @return array
      */
-    public function putKey()
+    public function putMetadataKey()
     {
         return [
             'method'  => 'PUT',
-            'path'    => '/images/{image_id}/metadata/{key}',
+            'path'    => $resource . '/{id}/metadata/{key}',
             'jsonKey' => 'meta',
             'params'  => [
-                'imageId' => $this->params->imageIdUrl(),
-                'key'     => $this->params->keyUrl(),
-                'label'   => $this->params->labelJson(),
+                'id'       => $this->params->imageIdUrl(),
+                'key'      => $this->params->keyUrl(),
+                'metadata' => $this->params->metadataJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /images/{image_id}/metadata/{key} HTTP operation
+     * Returns information about GET /images/{imageId}/metadata/{key} HTTP operation
      *
      * @return array
      */
-    public function getKey()
+    public function getImagesMetadataKey()
     {
         return [
             'method' => 'GET',
-            'path'   => '/images/{image_id}/metadata/{key}',
+            'path'   => 'images/{id}/metadata/{key}',
             'params' => [
-                'imageId' => $this->params->imageIdUrl(),
-                'key'     => $this->params->keyUrl(),
+                'id'  => $this->params->imageIdUrl(),
+                'key' => $this->params->keyUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /flavors/{flavor_id}/os-extra_specs HTTP operation
+     * Returns information about GET /flavors/{flavorId}/os-extra_specs HTTP operation
      *
      * @return array
      */
@@ -580,15 +741,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/flavors/{flavor_id}/os-extra_specs',
+            'path'   => 'flavors/{id}/os-extra_specs',
             'params' => [
-                'flavorId' => $this->params->flavorIdUrl(),
+                'id' => $this->params->flavorIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{server_id}/ip_associations HTTP
+     * Returns information about GET /servers/{id}/ip_associations HTTP
      * operation
      *
      * @return array
@@ -597,15 +758,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/ip_associations',
+            'path'   => 'servers/{id}/ip_associations',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{server_id}/ips/{network_label} HTTP
+     * Returns information about GET /servers/{id}/ips/{network_label} HTTP
      * operation
      *
      * @return array
@@ -614,16 +775,16 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/ips/{network_label}',
+            'path'   => 'servers/{id}/ips/{networkLabel}',
             'params' => [
-                'serverId'     => $this->params->serverIdUrl(),
+                'id'           => $this->params->idUrl(),
                 'networkLabel' => $this->params->networkLabelUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{server_id}/os-instance-actions HTTP
+     * Returns information about GET /servers/{id}/os-instance-actions HTTP
      * operation
      *
      * @return array
@@ -632,15 +793,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/os-instance-actions',
+            'path'   => 'servers/{id}/os-instance-actions',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{server_id}/os-volume_attachments HTTP
+     * Returns information about GET /servers/{id}/os-volume_attachments HTTP
      * operation
      *
      * @return array
@@ -649,15 +810,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/os-volume_attachments',
+            'path'   => 'servers/{id}/os-volume_attachments',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about PUT /servers/{server_id}/os-volume_attachments HTTP
+     * Returns information about PUT /servers/{id}/os-volume_attachments HTTP
      * operation
      *
      * @return array
@@ -666,10 +827,10 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'PUT',
-            'path'    => '/servers/{server_id}/os-volume_attachments',
+            'path'    => 'servers/{id}/os-volume_attachments',
             'jsonKey' => 'volumeAttachment',
             'params'  => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id'       => $this->params->idUrl(),
                 'device'   => $this->params->deviceJson(),
                 'volumeId' => $this->params->volumeIdJson(),
             ],
@@ -677,7 +838,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about POST /servers/{server_id}/rax-si-scheduled-image HTTP
+     * Returns information about POST /servers/{id}/rax-si-scheduled-image HTTP
      * operation
      *
      * @return array
@@ -686,10 +847,10 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/servers/{server_id}/rax-si-scheduled-image',
+            'path'    => 'servers/{id}/rax-si-image-schedule',
             'jsonKey' => 'image_schedule',
             'params'  => [
-                'serverId'  => $this->params->serverIdUrl(),
+                'id'        => $this->params->idUrl(),
                 'dayOfWeek' => $this->params->dayOfWeekJson(),
                 'retention' => $this->params->retentionJson(),
             ],
@@ -697,7 +858,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about GET /servers/{server_id}/rax-si-scheduled-image HTTP
+     * Returns information about GET /servers/{id}/rax-si-scheduled-image HTTP
      * operation
      *
      * @return array
@@ -706,15 +867,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/rax-si-scheduled-image',
+            'path'   => 'servers/{id}/rax-si-image-schedule',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about DELETE /servers/{server_id}/rax-si-scheduled-image
+     * Returns information about DELETE /servers/{id}/rax-si-scheduled-image
      * HTTP operation
      *
      * @return array
@@ -723,15 +884,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/servers/{server_id}/rax-si-scheduled-image',
+            'path'   => 'servers/{id}/rax-si-image-schedule',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{server_id}/os-virtual-interfacesv2 HTTP
+     * Returns information about GET /servers/{id}/os-virtual-interfacesv2 HTTP
      * operation
      *
      * @return array
@@ -740,15 +901,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/os-virtual-interfacesv2',
+            'path'   => 'servers/{id}/os-virtual-interfacesv2',
             'params' => [
-                'serverId' => $this->params->serverIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about POST /servers/{server_id}/os-virtual-interfacesv2 HTTP
+     * Returns information about POST /servers/{id}/os-virtual-interfacesv2 HTTP
      * operation
      *
      * @return array
@@ -757,35 +918,34 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/servers/{server_id}/os-virtual-interfacesv2',
+            'path'    => 'servers/{id}/os-virtual-interfacesv2',
             'jsonKey' => 'virtual_interface',
             'params'  => [
-                'serverId'  => $this->params->serverIdUrl(),
+                'id'        => $this->params->idUrl(),
                 'networkId' => $this->params->networkIdJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /flavors/{flavor_id}/os-extra_specs/{key_id} HTTP
+     * Returns information about GET /flavors/{flavorId}/os-extra_specs/{key_id} HTTP
      * operation
      *
      * @return array
      */
-    public function getKeyId()
+    public function getFlavorExtraSpecs()
     {
         return [
             'method' => 'GET',
-            'path'   => '/flavors/{flavor_id}/os-extra_specs/{key_id}',
+            'path'   => 'flavors/{id}/os-extra_specs',
             'params' => [
-                'flavorId' => $this->params->flavorIdUrl(),
-                'keyId'    => $this->params->keyIdUrl(),
+                'id' => $this->params->flavorIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about POST /servers/{serverID}/ip_associations/{IPAddressID}
+     * Returns information about POST /servers/{id}/ip_associations/{IPAddressID}
      * HTTP operation
      *
      * @return array
@@ -794,18 +954,18 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/servers/{serverID}/ip_associations/{IPAddressID}',
+            'path'    => 'servers/{serverId}/ip_associations/{ipAddressId}',
             'jsonKey' => 'key',
             'params'  => [
-                'serverID'    => $this->params->serverIDUrl(),
-                'iPAddressID' => $this->params->iPAddressIDUrl(),
+                'serverId'    => $this->params->idUrl(),
+                'ipAddressId' => $this->params->iPAddressIDUrl(),
                 'key'         => $this->params->keyJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /servers/{serverID}/ip_associations/{IPAddressID}
+     * Returns information about GET /servers/{id}/ip_associations/{IPAddressID}
      * HTTP operation
      *
      * @return array
@@ -814,17 +974,17 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{serverID}/ip_associations/{IPAddressID}',
+            'path'   => 'servers/{serverId}/ip_associations/{ipAddressId}',
             'params' => [
-                'serverID'    => $this->params->serverIDUrl(),
-                'iPAddressID' => $this->params->iPAddressIDUrl(),
+                'serverId'    => $this->params->idUrl(),
+                'ipAddressId' => $this->params->iPAddressIDUrl(),
             ],
         ];
     }
 
     /**
      * Returns information about DELETE
-     * /servers/{server_id}/ip_associations/{IPAddressID} HTTP operation
+     * /servers/{id}/ip_associations/{IPAddressID} HTTP operation
      *
      * @return array
      */
@@ -832,17 +992,17 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/servers/{server_id}/ip_associations/{IPAddressID}',
+            'path'   => 'servers/{serverId}/ip_associations/{ipAddressId}',
             'params' => [
-                'serverId'    => $this->params->serverIdUrl(),
-                'iPAddressID' => $this->params->iPAddressIDUrl(),
+                'serverId'    => $this->params->idUrl(),
+                'ipAddressId' => $this->params->iPAddressIDUrl(),
             ],
         ];
     }
 
     /**
      * Returns information about GET
-     * /servers/{server_id}/os-instance-actions/{request-id} HTTP operation
+     * /servers/{id}/os-instance-actions/{request-id} HTTP operation
      *
      * @return array
      */
@@ -850,9 +1010,9 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/os-instance-actions/{request-id}',
+            'path'   => 'servers/{serverId}/os-instance-actions/{requestId}',
             'params' => [
-                'serverId'  => $this->params->serverIdUrl(),
+                'serverId'  => $this->params->idUrl(),
                 'requestId' => $this->params->requestIdJson(),
             ],
         ];
@@ -860,7 +1020,7 @@ class Api extends AbstractApi
 
     /**
      * Returns information about DELETE
-     * /servers/{server_id}/os-volume_attachments/{attachment_id} HTTP operation
+     * /servers/{id}/os-volume_attachments/{attachment_id} HTTP operation
      *
      * @return array
      */
@@ -868,9 +1028,9 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/servers/{server_id}/os-volume_attachments/{attachment_id}',
+            'path'   => 'servers/{serverId}/os-volume_attachments/{attachmentId}',
             'params' => [
-                'serverId'     => $this->params->serverIdUrl(),
+                'serverId'     => $this->params->idUrl(),
                 'attachmentId' => $this->params->attachmentIdUrl(),
             ],
         ];
@@ -878,7 +1038,7 @@ class Api extends AbstractApi
 
     /**
      * Returns information about GET
-     * /servers/{server_id}/os-volume_attachments/{attachment_id} HTTP operation
+     * /servers/{id}/os-volume_attachments/{attachment_id} HTTP operation
      *
      * @return array
      */
@@ -886,9 +1046,9 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/servers/{server_id}/os-volume_attachments/{attachment_id}',
+            'path'   => 'servers/{serverId}/os-volume_attachments/{attachmentId}',
             'params' => [
-                'serverId'     => $this->params->serverIdUrl(),
+                'serverId'     => $this->params->idUrl(),
                 'attachmentId' => $this->params->attachmentIdUrl(),
             ],
         ];
@@ -896,7 +1056,7 @@ class Api extends AbstractApi
 
     /**
      * Returns information about DELETE
-     * /servers/{server_id}/os-virtual-interfacesv2/{interface_id} HTTP operation
+     * /servers/{id}/os-virtual-interfacesv2/{interface_id} HTTP operation
      *
      * @return array
      */
@@ -904,10 +1064,10 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/servers/{server_id}/os-virtual-interfacesv2/{interface_id}',
+            'path'   => 'servers/{serverId}/os-virtual-interfacesv2/{id}',
             'params' => [
-                'serverId'    => $this->params->serverIdUrl(),
-                'interfaceId' => $this->params->interfaceIdUrl(),
+                'serverId' => $this->params->idUrl(),
+                'id'       => $this->params->interfaceIdUrl(),
             ],
         ];
     }
