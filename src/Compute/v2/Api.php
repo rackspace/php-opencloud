@@ -219,6 +219,23 @@ class Api extends AbstractApi
     }
 
     /**
+     * Returns information about POST /os-keypairs HTTP operation
+     *
+     * @return array
+     */
+    public function deleteOskeypairs()
+    {
+        return [
+            'method'  => 'DELETE',
+            'path'    => 'os-keypairs/{name}',
+            'jsonKey' => 'keypair',
+            'params'  => [
+                'name' => $this->params->keypairNameUrl(),
+            ],
+        ];
+    }
+
+    /**
      * Returns information about GET /os-keypairs HTTP operation
      *
      * @return array
@@ -243,6 +260,38 @@ class Api extends AbstractApi
             'method' => 'GET',
             'path'   => 'os-networksv2',
             'params' => [],
+        ];
+    }
+
+    /**
+     * Returns information about GET /os-networksv2 HTTP operation
+     *
+     * @return array
+     */
+    public function getNetwork()
+    {
+        return [
+            'method' => 'GET',
+            'path'   => 'os-networksv2/{id}',
+            'params' => [
+                'id' => $this->params->idUrl(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about GET /os-networksv2 HTTP operation
+     *
+     * @return array
+     */
+    public function deleteOsnetworksv2()
+    {
+        return [
+            'method' => 'DELETE',
+            'path'   => 'os-networksv2/{id}',
+            'params' => [
+                'id' => $this->params->idUrl(),
+            ],
         ];
     }
 
@@ -810,9 +859,27 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => 'servers/{id}/os-volume_attachments',
+            'path'   => 'servers/{serverId}/os-volume_attachments',
             'params' => [
-                'id' => $this->params->idUrl(),
+                'serverId' => $this->params->serverIdUrl(),
+            ],
+        ];
+    }
+
+    /**
+     * Returns information about GET /servers/{id}/os-volume_attachments HTTP
+     * operation
+     *
+     * @return array
+     */
+    public function getOsvolumeAttachment()
+    {
+        return [
+            'method' => 'GET',
+            'path'   => 'servers/{serverId}/os-volume_attachments/{id}',
+            'params' => [
+                'serverId' => $this->params->serverIdUrl(),
+                'id'       => $this->params->idUrl(),
             ],
         ];
     }
@@ -823,10 +890,10 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function putOsvolumeAttachments()
+    public function postOsvolumeAttachments()
     {
         return [
-            'method'  => 'PUT',
+            'method'  => 'POST',
             'path'    => 'servers/{id}/os-volume_attachments',
             'jsonKey' => 'volumeAttachment',
             'params'  => [
@@ -901,9 +968,9 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => 'servers/{id}/os-virtual-interfacesv2',
+            'path'   => 'servers/{serverId}/os-virtual-interfacesv2',
             'params' => [
-                'id' => $this->params->idUrl(),
+                'serverId' => $this->params->idUrl(),
             ],
         ];
     }
@@ -918,10 +985,10 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => 'servers/{id}/os-virtual-interfacesv2',
+            'path'    => 'servers/{serverId}/os-virtual-interfacesv2',
             'jsonKey' => 'virtual_interface',
             'params'  => [
-                'id'        => $this->params->idUrl(),
+                'serverId'  => $this->params->idUrl(),
                 'networkId' => $this->params->networkIdJson(),
             ],
         ];

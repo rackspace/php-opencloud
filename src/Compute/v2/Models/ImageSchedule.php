@@ -4,6 +4,9 @@ namespace Rackspace\Compute\v2\Models;
 
 use OpenStack\Common\Resource\AbstractResource;
 
+/**
+ * Represents an backup schedule for a parent server.
+ */
 class ImageSchedule extends AbstractResource
 {
     const MONDAY = 'MONDAY';
@@ -21,6 +24,5 @@ class ImageSchedule extends AbstractResource
     public $dayOfWeek;
 
     protected $resourceKey = 'image_schedule';
-
     protected $aliases = ['day_of_week' => 'dayOfWeek'];
 }

@@ -6,7 +6,6 @@ use OpenStack\Common\Resource\AbstractResource;
 use OpenStack\Common\Resource\Creatable;
 use OpenStack\Common\Resource\Deletable;
 use OpenStack\Common\Resource\Listable;
-use Psr\Http\Message\ResponseInterface;
 
 /**
  * Represents a VirtualInterface resource in the Compute v2 service

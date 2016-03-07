@@ -88,7 +88,6 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     ];
 
     protected $resourceKey = 'image';
-
     protected $resourcesKey = 'images';
 
     /**

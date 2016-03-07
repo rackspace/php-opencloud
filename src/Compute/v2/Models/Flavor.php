@@ -71,7 +71,6 @@ class Flavor extends AbstractResource implements Listable, Retrievable
     ];
 
     protected $resourceKey = 'flavor';
-
     protected $resourcesKey = 'flavors';
 
     /**
@@ -83,9 +82,14 @@ class Flavor extends AbstractResource implements Listable, Retrievable
         return $this->populateFromResponse($response);
     }
 
+    /**
+     * Retrieves additional specification information for this flavor.
+     *
+     * @return array
+     */
     public function retrieveExtraSpecs()
     {
         $response = $this->executeWithState($this->api->getFlavorExtraSpecs());
-        return (array) Utils::jsonDecode($response)['extra_specs'];
+        return (array)Utils::jsonDecode($response)['extra_specs'];
     }
 }

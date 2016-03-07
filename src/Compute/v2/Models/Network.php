@@ -1,6 +1,7 @@
 <?php
 
 namespace Rackspace\Compute\v2\Models;
+
 use OpenStack\Common\Resource\AbstractResource;
 use OpenStack\Common\Resource\Creatable;
 use OpenStack\Common\Resource\Deletable;
@@ -30,7 +31,6 @@ class Network extends AbstractResource implements Creatable, Listable, Deletable
     public $label;
 
     protected $resourceKey = 'network';
-
     protected $resourcesKey = 'networks';
 
     /**
@@ -47,7 +47,7 @@ class Network extends AbstractResource implements Creatable, Listable, Deletable
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteNetwork());
+        $this->executeWithState($this->api->deleteOsnetworksv2());
     }
 
     /**

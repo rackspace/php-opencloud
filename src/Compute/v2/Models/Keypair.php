@@ -34,7 +34,6 @@ class Keypair extends AbstractResource implements Creatable, Listable, Deletable
     ];
 
     protected $resourceKey = 'keypair';
-
     protected $resourcesKey = 'keypairs';
 
     /**
@@ -51,6 +50,6 @@ class Keypair extends AbstractResource implements Creatable, Listable, Deletable
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteKeypair());
+        $this->executeWithState($this->api->deleteOskeypairs());
     }
 }
