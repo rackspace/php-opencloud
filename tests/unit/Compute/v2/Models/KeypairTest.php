@@ -2,8 +2,9 @@
 
 namespace Rackspace\Test\Compute\v2\Models;
 
-use OpenStack\Compute\v2\Api;
+use GuzzleHttp\Psr7\Response;
 use OpenStack\Test\TestCase;
+use Rackspace\Compute\v2\Api;
 use Rackspace\Compute\v2\Models\Keypair;
 
 class KeypairTest extends TestCase
@@ -17,17 +18,13 @@ class KeypairTest extends TestCase
         $this->rootFixturesDir = dirname(__DIR__);
 
         $this->keypair = new Keypair($this->client->reveal(), new Api());
-    }
-
-    public function test_it_creates()
-    {
-    }
-
-    public function test_it_lists()
-    {
+        $this->keypair->name = 'id';
     }
 
     public function test_it_deletes()
     {
+        $this->setupMock('DELETE', 'os-keypairs/id', null, [], new Response(202));
+
+        $this->keypair->delete();
     }
 }

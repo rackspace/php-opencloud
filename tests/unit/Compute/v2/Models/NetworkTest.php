@@ -2,7 +2,8 @@
 
 namespace Rackspace\Test\Compute\v2\Models;
 
-use OpenStack\Compute\v2\Api;
+use GuzzleHttp\Psr7\Response;
+use Rackspace\Compute\v2\Api;
 use OpenStack\Test\TestCase;
 use Rackspace\Compute\v2\Models\Network;
 
@@ -17,21 +18,20 @@ class NetworkTest extends TestCase
         $this->rootFixturesDir = dirname(__DIR__);
 
         $this->network = new Network($this->client->reveal(), new Api());
-    }
-
-    public function test_it_creates()
-    {
-    }
-
-    public function test_it_lists()
-    {
+        $this->network->id = 'id';
     }
 
     public function test_it_deletes()
     {
+        $this->setupMock('DELETE', 'os-networksv2/id', null, [], new Response(202));
+
+        $this->network->delete();
     }
 
     public function test_it_retrieves()
     {
+        $this->setupMock('GET', 'os-networksv2/id', null, [], new Response(200));
+
+        $this->network->retrieve();
     }
 }

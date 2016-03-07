@@ -19,15 +19,8 @@ class VirtualInterfaceTest extends TestCase
         $this->virtualInterface = new VirtualInterface($this->client->reveal(), new Api());
     }
 
-    public function test_it_creates()
+    public function test_class()
     {
-    }
-
-    public function test_it_lists()
-    {
-    }
-
-    public function test_it_deletes()
-    {
+        $this->assertInstanceOf(VirtualInterface::class, $this->virtualInterface);
     }
 }
