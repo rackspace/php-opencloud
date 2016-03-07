@@ -48,4 +48,15 @@ class Rackspace
         $defaults = ['catalogName' => 'cloudFilesCDN', 'catalogType' => 'rax:object-cdn'];
         return $this->builder->createService('ObjectStoreCDN', 1, array_merge($defaults, $options));
     }
+
+    /**
+     * @param array $options
+     *
+     * @return \Rackspace\Compute\v2\Service
+     */
+    public function computeV2(array $options = [])
+    {
+        $defaults = ['catalogName' => 'cloudServersOpenStack', 'catalogType' => 'compute'];
+        return $this->builder->createService('Compute', 2, array_merge($defaults, $options));
+    }
 }
