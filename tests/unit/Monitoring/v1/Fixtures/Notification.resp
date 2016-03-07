@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "ntAAAA",
+  "label": "my webhook #1",
+  "type": "webhook",
+  "details": {
+    "url": "https://systems.example.org/alert"
+  }
+}

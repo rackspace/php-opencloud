@@ -1,0 +1,30 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "resource": {
+    "attributes": {
+      "value": "I9S20uIp"
+    },
+    "creation_time": "2015-06-25T14:59:53",
+    "description": "",
+    "links": [
+      {
+        "href": "http://hostname/v1/1234/stacks/mystack/629a32d0-ac4f-4f63-b58d-f0d047b1ba4c/resources/random_key_name",
+        "rel": "self"
+      },
+      {
+        "href": "http://hostname/v1/1234/stacks/mystack/629a32d0-ac4f-4f63-b58d-f0d047b1ba4c",
+        "rel": "stack"
+      }
+    ],
+    "logical_resource_id": "random_key_name",
+    "physical_resource_id": "mystack-random_key_name-pmjmy5pks735",
+    "required_by": [],
+    "resource_name": "random_key_name",
+    "resource_status": "CREATE_COMPLETE",
+    "resource_status_reason": "state changed",
+    "resource_type": "OS::Heat::RandomString",
+    "updated_time": "2015-06-25T14:59:53"
+  }
+}

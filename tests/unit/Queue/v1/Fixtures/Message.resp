@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "href":"/v1/queues/fizbit/messages/50b68a50d6f5b8c8a7c62b01",
+  "ttl":800,
+  "age":32,
+  "body":{
+    "cmd":"EncodeVideo",
+    "jobid":58229
+  }
+}

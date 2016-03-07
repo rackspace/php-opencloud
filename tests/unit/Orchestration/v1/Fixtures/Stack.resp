@@ -1,0 +1,30 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "stack": {
+    "capabilities": [],
+    "creation_time": "2014-06-04T20:36:12Z",
+    "description": "sample stack",
+    "disable_rollback": true,
+    "id": "5333af0c-cc26-47ee-ac3d-8784cefafbd7",
+    "links": [
+      {
+        "href": "http://192.168.123.200:8004/v1/eb1c63a4f77141548385f113a28f0f52/stacks/simple_stack/5333af0c-cc26-47ee-ac3d-8784cefafbd7",
+        "rel": "self"
+      }
+    ],
+    "notification_topics": [],
+    "outputs": [],
+    "parameters": {
+      "OS::stack_id": "5333af0c-cc26-47ee-ac3d-8784cefafbd7",
+      "OS::stack_name": "simple_stack"
+    },
+    "stack_name": "simple_stack",
+    "stack_status": "CREATE_COMPLETE",
+    "stack_status_reason": "Stack CREATE completed successfully",
+    "template_description": "sample stack",
+    "timeout_mins": null,
+    "updated_time": null
+  }
+}

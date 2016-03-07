@@ -1,0 +1,10 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "cidr": "192.168.100.0/24",
+  "created": "2014-05-25T01:23:42Z",
+  "id": "07426958-1ebf-4c38-b032-d456820ca21a",
+  "name": "RC-CLOUD",
+  "updated": "2014-05-25T02:28:44Z"
+}

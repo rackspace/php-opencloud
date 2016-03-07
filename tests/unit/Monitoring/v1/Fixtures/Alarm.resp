@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "alAAAA",
+  "check_id": "chAAAA",
+  "entity_id": "enZZZZA",
+  "criteria": "if (metric[\"duration\"] >= 2) { return new AlarmStatus(OK); } return new AlarmStatus(CRITICAL);"
+}

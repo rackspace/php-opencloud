@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "d6d3aa7c-dfa5-4e61-96ee-1d54ac1075d2",
+  "name": "RCv3Test",
+  "node_counts": {
+    "cloud_servers": 3,
+    "external": 4,
+    "total": 7
+  },
+  "port": 80,
+  "status": "ACTIVE",
+  "status_detail": null,
+  "virtual_ip": "203.0.113.5"
+}

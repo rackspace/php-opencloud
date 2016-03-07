@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "certificateMapping": {
+    "id": 123,
+    "hostName": "rackspace.com"
+  }
+}

@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "mzAAAAA",
+  "label": "US South (Atlanta) - 5",
+  "country_code": "US",
+  "source_ips": [
+    "1.2.0.0/24"
+  ]
+}

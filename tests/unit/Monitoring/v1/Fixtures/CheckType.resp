@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": "remote.dns",
+  "category": "remote",
+  "type": "remote",
+  "fields": [
+    {
+      "name": "port",
+      "description": "Port number (default: 53)",
+      "optional": true
+    },
+    {
+      "name": "query",
+      "description": "DNS Query",
+      "optional": false
+    },
+    {
+      "name": "record_type",
+      "description": "DNS Record Type",
+      "optional": false
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "description": "Hello world HOT template that just defines a single server. Contains just base features to verify base HOT support.\n",
+  "heat_template_version": "2013-05-23",
+  "outputs": {
+    "foo": {
+      "description": "Show foo parameter value",
+      "value": {
+        "get_param": "foo"
+      }
+    }
+  },
+  "parameters": {
+    "foo": {
+      "default": "secret",
+      "description": "Name of an existing key pair to use for the server",
+      "hidden": true,
+      "type": "string"
+    }
+  },
+  "resources": {
+    "random_key_name": {
+      "properties": {
+        "length": 8
+      },
+      "type": "OS::Heat::RandomString"
+    }
+  }
+}

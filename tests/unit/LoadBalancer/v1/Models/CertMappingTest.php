@@ -1,0 +1,37 @@
+<?php
+
+namespace Rackspace\Test\LoadBalancer\v1\Models;
+
+use OpenStack\Test\TestCase;
+use Rackspace\LoadBalancer\v1\Api;
+use Rackspace\LoadBalancer\v1\Models\CertMapping;
+
+class CertMappingTest extends TestCase
+{
+    private $certMapping;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->rootFixturesDir = dirname(__DIR__);
+
+        $this->certMapping = new CertMapping($this->client->reveal(), new Api());
+    }
+
+    public function test_it_creates()
+    {
+    }
+
+    public function test_it_updates()
+    {
+    }
+
+    public function test_it_deletes()
+    {
+    }
+
+    public function test_it_retrieves()
+    {
+    }
+}

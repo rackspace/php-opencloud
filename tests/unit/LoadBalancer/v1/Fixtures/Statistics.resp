@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "connectTimeOut":10,
+  "connectError":20,
+  "connectFailure":30,
+  "dataTimedOut":40,
+  "keepAliveTimedOut":50,
+  "maxConn":60,
+  "currentConn":40,
+  "connectTimeOutSsl":10,
+  "connectErrorSsl":20,
+  "connectFailureSsl":30,
+  "dataTimedOutSsl":40,
+  "keepAliveTimedOutSsl":50,
+  "maxConnSsl":60,
+  "currentConnSsl":40
+}

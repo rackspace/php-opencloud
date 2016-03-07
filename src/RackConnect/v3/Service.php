@@ -1,10 +1,9 @@
 <?php
 
-namespace Rackspace\LoadBalancer\v1;
+namespace Rackspace\RackConnect\v3;
 
 use OpenStack\Common\Resource\AbstractResource;
 
 class Service extends AbstractResource
 {
-
 }

@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "href":"/v1/queues/036b184b28fcb548349af623079119c6a966cbc",
+  "name":"036b184b28fcb548349af623079119c6a966cbc"
+}

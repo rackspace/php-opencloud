@@ -1,0 +1,8 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": 1000,
+  "address": "206.10.10.210",
+  "type": "PUBLIC"
+}

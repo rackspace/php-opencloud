@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "label": "Notification Plan 1",
+  "critical_state": [
+    "ntAAAA"
+  ],
+  "warning_state": [
+    "ntCCCCC"
+  ],
+  "ok_state": [
+    "ntBBBB"
+  ]
+}

@@ -1,6 +1,9 @@
 <?php
 
 namespace Rackspace\Database\v1\Models;
+use OpenStack\Common\Resource\AbstractResource;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a DatastoreVersion resource in the Database v1 service
