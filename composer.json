@@ -20,6 +20,12 @@
             "Rackspace\\Integration\\": "tests/integration/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-opencloud/Sami"
+        }
+    ],
     "require": {
         "php" : ">=5.6",
         "php-opencloud/openstack": "dev-master"
