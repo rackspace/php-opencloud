@@ -2,7 +2,7 @@
 
 require 'vendor/autoload.php';
 
-$openstack = new Rackspace\Rackspace([
+$rackspace = new Rackspace\Rackspace([
     'username' => '{username}',
     'apiKey'   => '{apiKey}',
 ]);
