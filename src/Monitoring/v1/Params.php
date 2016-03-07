@@ -187,7 +187,7 @@ class Params extends AbstractParams
         return [
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
-            'itemSchema' => [
+            'items' => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
             ],
@@ -219,7 +219,7 @@ class Params extends AbstractParams
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
             'sentAs'     => 'notification_plans',
-            'itemSchema' => [
+            'items' => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
                 'sentAs'   => 'notification_plans',
@@ -348,7 +348,7 @@ class Params extends AbstractParams
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
             'sentAs'     => 'critical_state',
-            'itemSchema' => [
+            'items' => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
                 'sentAs'   => 'critical_state',
@@ -367,7 +367,7 @@ class Params extends AbstractParams
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
             'sentAs'     => 'ok_state',
-            'itemSchema' => [
+            'items' => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
                 'sentAs'   => 'ok_state',
@@ -386,7 +386,7 @@ class Params extends AbstractParams
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
             'sentAs'     => 'warning_state',
-            'itemSchema' => [
+            'items' => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
                 'sentAs'   => 'warning_state',
@@ -457,7 +457,7 @@ class Params extends AbstractParams
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
             'sentAs'     => 'monitoring_zones_poll',
-            'itemSchema' => [
+            'items' => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
                 'sentAs'   => 'monitoring_zones_poll',
@@ -569,7 +569,7 @@ class Params extends AbstractParams
         return [
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
-            'itemSchema' => [
+            'items' => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
             ],
@@ -633,7 +633,7 @@ class Params extends AbstractParams
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
             'sentAs'     => 'check_data',
-            'itemSchema' => [
+            'items' => [
                 'type'       => self::OBJECT_TYPE,
                 'location'   => self::JSON,
                 'sentAs'     => 'check_data',

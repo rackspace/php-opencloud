@@ -102,7 +102,7 @@ class Params extends AbstractParams
         return [
             'type'       => self::ARRAY_TYPE,
             'location'   => self::JSON,
-            'itemSchema' => [
+            'items' => [
                 'type'       => self::OBJECT_TYPE,
                 'location'   => self::JSON,
                 'properties' => [
