@@ -4,9 +4,13 @@
 build/
 docs/api/
 vendor/
+doc/_build
+doc/api-docs/build
+doc/api-docs/cache
 
 *.log
 *.phar
+*.pyc
 .DS_Store
 composer.lock
 composer.phar
