@@ -6,7 +6,7 @@ use OpenStack\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {
-    private $params;
+    protected $params;
 
     public function __construct()
     {

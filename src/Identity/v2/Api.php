@@ -4,7 +4,7 @@ namespace Rackspace\Identity\v2;
 
 class Api extends \OpenStack\Identity\v2\Api
 {
-    private $params;
+    protected $params;
 
     public function __construct()
     {

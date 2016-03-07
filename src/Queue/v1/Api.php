@@ -2,10 +2,11 @@
 
 namespace Rackspace\Queue\v1;
 
-class Api extends OpenStack\Common\Api\AbstractApi
-{
+use OpenStack\Common\Api\AbstractApi;
 
-    private $params;
+class Api extends AbstractApi
+{
+    protected $params;
 
     public function __construct()
     {
