@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\LoadBalancer\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a ErrorPage resource in the LoadBalancer v1 service
@@ -26,7 +26,7 @@ class ErrorPage extends AbstractResource implements Creatable, Deletable, Retrie
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postErrorPage(), $userOptions);
         return $this->populateFromResponse($response);
@@ -46,6 +46,6 @@ class ErrorPage extends AbstractResource implements Creatable, Deletable, Retrie
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getErrorPage());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

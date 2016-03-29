@@ -1,7 +1,6 @@
 {
     "name": "rackspace/php-opencloud",
     "description": "PHP SDK for Rackspace APIs",
-    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Jamie Hannaford",
@@ -28,7 +27,7 @@
     ],
     "require": {
         "php" : ">=5.6",
-        "php-opencloud/openstack": "dev-master"
+        "php-opencloud/openstack": "~2.0"
     },
     "require-dev" : {
         "phpunit/phpunit": "~4.5",

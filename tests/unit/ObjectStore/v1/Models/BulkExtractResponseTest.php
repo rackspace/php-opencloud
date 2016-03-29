@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\ObjectStore\v1;
 
 use GuzzleHttp\Psr7\Response;
-use OpenStack\ObjectStore\v1\Api;
-use OpenStack\Test\TestCase;
+use OpenCloud\ObjectStore\v1\Api;
+use OpenCloud\Test\TestCase;
 use Rackspace\ObjectStore\v1\Models\BulkExtractResponse;
 
 class BulkExtractResponseTest extends TestCase

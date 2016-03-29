@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a VolumeAttachment resource in the Compute v2 service
@@ -42,6 +42,6 @@ class VolumeAttachment extends AbstractResource implements Listable, Retrievable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getOsvolumeAttachment());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\CDN\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a Service resource in the CDN v1 service
@@ -85,7 +85,7 @@ class Service extends AbstractResource implements Creatable, Updateable, Listabl
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postService(), $userOptions);
         return $this->populateFromResponse($response);
@@ -97,7 +97,7 @@ class Service extends AbstractResource implements Creatable, Updateable, Listabl
     public function update()
     {
         $response = $this->executeWithState($this->api->putService());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -114,6 +114,6 @@ class Service extends AbstractResource implements Creatable, Updateable, Listabl
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getService());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

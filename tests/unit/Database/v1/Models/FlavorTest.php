@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\Database\v1\Models;
 
-use OpenStack\Compute\v2\Models\Flavor;
-use OpenStack\Test\TestCase;
+use Rackspace\Database\v1\Models\Flavor;
+use OpenCloud\Test\TestCase;
 use Rackspace\Database\v1\Api;
 
 class FlavorTest extends TestCase

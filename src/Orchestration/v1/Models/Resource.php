@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Orchestration\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a Resource resource in the Network v1 service
@@ -93,7 +93,7 @@ class Resource extends AbstractResource implements Creatable, Listable, Retrieva
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postResource(), $userOptions);
         return $this->populateFromResponse($response);
@@ -105,6 +105,6 @@ class Resource extends AbstractResource implements Creatable, Listable, Retrieva
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getResource());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

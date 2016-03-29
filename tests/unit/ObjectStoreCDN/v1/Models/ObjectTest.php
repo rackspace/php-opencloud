@@ -1,12 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\ObjectStoreCDN\Models;
 
 use GuzzleHttp\Psr7\Response;
+use OpenCloud\Test\TestCase;
 use Rackspace\ObjectStoreCDN\v1\Api;
 use Rackspace\ObjectStoreCDN\v1\Models\Object;
 
-class ObjectTest extends \OpenStack\Test\TestCase
+class ObjectTest extends TestCase
 {
     /** @var Object */
     private $object;

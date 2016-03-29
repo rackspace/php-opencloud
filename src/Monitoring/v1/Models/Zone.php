@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Monitoring\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a Zone resource in the Monitoring v1 service
@@ -44,6 +44,6 @@ class Zone extends AbstractResource implements Listable, Retrievable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getZone());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

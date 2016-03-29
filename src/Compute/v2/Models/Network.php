@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a Network resource in the Compute v2 service
@@ -36,7 +36,7 @@ class Network extends AbstractResource implements Creatable, Listable, Deletable
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postOsnetworksv2(), $userOptions);
         return $this->populateFromResponse($response);
@@ -56,6 +56,6 @@ class Network extends AbstractResource implements Creatable, Listable, Deletable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getNetwork());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

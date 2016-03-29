@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\AbstractResource;
 
 /**
  * Represents an backup schedule for a parent server.

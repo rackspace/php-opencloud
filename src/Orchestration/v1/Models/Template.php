@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Orchestration\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a Template resource in the Network v1 service
@@ -47,6 +47,6 @@ class Template extends AbstractResource implements Retrievable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getTemplate());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

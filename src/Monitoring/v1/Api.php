@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Monitoring\v1;
 
-use OpenStack\Common\Api\AbstractApi;
+use OpenCloud\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {

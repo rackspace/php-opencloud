@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\ObjectStore\v1;
 
-use OpenStack\ObjectStore\v1\Api;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
+use Rackspace\Identity\v2\Api;
 use Rackspace\ObjectStore\v1\Models\Account;
 
 class AccountTest extends TestCase

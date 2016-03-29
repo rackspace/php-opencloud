@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Orchestration\v1;
 
-use OpenStack\Common\Api\AbstractParams;
+use OpenCloud\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {
@@ -11,7 +11,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function tenantIdUrl()
+    public function tenantIdUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -25,7 +25,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function defaultJson()
+    public function defaultJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -38,7 +38,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function descriptionJson()
+    public function descriptionJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -51,7 +51,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function disableRollbackJson()
+    public function disableRollbackJson(): array
     {
         return [
             'type'     => self::BOOLEAN_TYPE,
@@ -65,7 +65,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function filesJson()
+    public function filesJson(): array
     {
         return [
             'type'        => self::OBJECT_TYPE,
@@ -81,7 +81,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function flavorJson()
+    public function flavorJson(): array
     {
         return [
             'type'       => self::OBJECT_TYPE,
@@ -97,7 +97,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function getParamJson()
+    public function getParamJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -111,7 +111,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function heatTemplateVersionJson()
+    public function heatTemplateVersionJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -125,7 +125,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function helloWorldJson()
+    public function helloWorldJson(): array
     {
         return [
             'type'       => self::OBJECT_TYPE,
@@ -143,7 +143,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function imageJson()
+    public function imageJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -156,7 +156,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function keyNameJson()
+    public function keyNameJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -170,7 +170,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function parametersJson()
+    public function parametersJson(): array
     {
         return [
             'type'        => self::OBJECT_TYPE,
@@ -188,7 +188,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function propertiesJson()
+    public function propertiesJson(): array
     {
         return [
             'type'       => self::OBJECT_TYPE,
@@ -207,7 +207,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function resourcesJson()
+    public function resourcesJson(): array
     {
         return [
             'type'       => self::OBJECT_TYPE,
@@ -223,7 +223,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function stackNameJson()
+    public function stackNameJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -237,7 +237,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function tagsJson()
+    public function tagsJson(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -252,7 +252,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function templateJson()
+    public function templateJson(): array
     {
         return [
             'type'        => self::OBJECT_TYPE,
@@ -273,7 +273,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function templateUrlJson()
+    public function templateUrlJson(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -289,7 +289,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function timeoutMinsJson()
+    public function timeoutMinsJson(): array
     {
         return [
             'type'     => self::INTEGER_TYPE,
@@ -303,7 +303,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function typeJson()
+    public function typeJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -316,7 +316,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function userDataJson()
+    public function userDataJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -330,7 +330,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function actionJson()
+    public function actionJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -343,7 +343,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function adoptStackDataJson()
+    public function adoptStackDataJson(): array
     {
         return [
             'type'        => self::OBJECT_TYPE,
@@ -367,7 +367,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function environmentJson()
+    public function environmentJson(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -382,7 +382,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function idJson()
+    public function idJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -395,7 +395,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function metadataJson()
+    public function metadataJson(): array
     {
         return [
             'type'       => self::OBJECT_TYPE,
@@ -409,7 +409,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function myServerJson()
+    public function myServerJson(): array
     {
         return [
             'type'       => self::OBJECT_TYPE,
@@ -432,7 +432,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function nameJson()
+    public function nameJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -445,7 +445,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function resourceDataJson()
+    public function resourceDataJson(): array
     {
         return [
             'type'       => self::OBJECT_TYPE,
@@ -460,7 +460,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function resourceIdJson()
+    public function resourceIdJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -474,7 +474,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function statusJson()
+    public function statusJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -487,7 +487,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function configJson()
+    public function configJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -500,7 +500,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function errorOutputJson()
+    public function errorOutputJson(): array
     {
         return [
             'type'     => self::BOOLEAN_TYPE,
@@ -514,7 +514,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function groupJson()
+    public function groupJson(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -529,7 +529,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function inputsJson()
+    public function inputsJson(): array
     {
         return [
             'type'        => self::ARRAY_TYPE,
@@ -554,7 +554,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function optionsJson()
+    public function optionsJson(): array
     {
         return [
             'type'        => 'NULL',
@@ -569,7 +569,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function outputsJson()
+    public function outputsJson(): array
     {
         return [
             'type'        => self::ARRAY_TYPE,
@@ -594,7 +594,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function stackNameUrl()
+    public function stackNameUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -608,7 +608,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function configIdJson()
+    public function configIdJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -622,7 +622,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function serverIdJson()
+    public function serverIdJson(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -638,7 +638,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function stackUserProjectIdJson()
+    public function stackUserProjectIdJson(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -654,7 +654,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function statusReasonJson()
+    public function statusReasonJson(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -670,7 +670,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function typeNameUrl()
+    public function typeNameUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -684,7 +684,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function configIdUrl()
+    public function configIdUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -698,7 +698,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function stackIdUrl()
+    public function stackIdUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -712,7 +712,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function deploymentIdUrl()
+    public function deploymentIdUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -726,7 +726,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function deployStatusCodeJson()
+    public function deployStatusCodeJson(): array
     {
         return [
             'type'     => self::INTEGER_TYPE,
@@ -740,7 +740,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function deployStderrJson()
+    public function deployStderrJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -754,7 +754,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function deployStdoutJson()
+    public function deployStdoutJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -768,7 +768,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function outputValuesJson()
+    public function outputValuesJson(): array
     {
         return [
             'type'        => self::OBJECT_TYPE,
@@ -790,7 +790,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function resultJson()
+    public function resultJson(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -803,7 +803,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function resumeJson()
+    public function resumeJson(): array
     {
         return [
             'type'     => 'NULL',
@@ -816,7 +816,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function checkJson()
+    public function checkJson(): array
     {
         return [
             'type'     => 'NULL',
@@ -829,7 +829,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function suspendJson()
+    public function suspendJson(): array
     {
         return [
             'type'     => 'NULL',
@@ -842,7 +842,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function cancelUpdateJson()
+    public function cancelUpdateJson(): array
     {
         return [
             'type'     => 'NULL',
@@ -856,7 +856,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function serverIdUrl()
+    public function serverIdUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -870,7 +870,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function snapshotIdUrl()
+    public function snapshotIdUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -884,7 +884,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function resourceNameUrl()
+    public function resourceNameUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -898,7 +898,7 @@ class Params extends AbstractParams
      *
      * @return array
      */
-    public function eventIdUrl()
+    public function eventIdUrl(): array
     {
         return [
             'type'     => self::STRING_TYPE,

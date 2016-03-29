@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\LoadBalancer\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a CertMapping resource in the LoadBalancer v1 service
@@ -32,7 +32,7 @@ class CertMapping extends AbstractResource implements Creatable, Updateable, Del
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postCertMapping(), $userOptions);
         return $this->populateFromResponse($response);
@@ -44,7 +44,7 @@ class CertMapping extends AbstractResource implements Creatable, Updateable, Del
     public function update()
     {
         $response = $this->executeWithState($this->api->putCertMapping());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -61,6 +61,6 @@ class CertMapping extends AbstractResource implements Creatable, Updateable, Del
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getCertMapping());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

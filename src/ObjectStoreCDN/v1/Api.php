@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStoreCDN\v1;
 
@@ -9,7 +9,7 @@ class Api extends \Rackspace\ObjectStore\v1\Api
         $this->params = new Params();
     }
 
-    public function putContainer()
+    public function putContainer(): array
     {
         $parent = parent::putContainer();
         $parent['params']['cdnEnabled'] = $this->params->cdnEnabled();
@@ -17,7 +17,7 @@ class Api extends \Rackspace\ObjectStore\v1\Api
         return $parent;
     }
 
-    public function postContainer()
+    public function postContainer(): array 
     {
         $parent = parent::postContainer();
         $parent['params']['cdnLogDelivery'] = $this->params->cdnLogDelivery();

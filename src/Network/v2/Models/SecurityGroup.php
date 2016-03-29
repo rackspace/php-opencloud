@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Network\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a SecurityGroup resource in the Network v2 service
@@ -31,7 +31,7 @@ class SecurityGroup extends AbstractResource implements Creatable, Listable, Del
     public $name;
 
     /**
-     * @var array
+     * @var []SecurityGroupRule
      */
     public $securityGroupRules;
 
@@ -45,16 +45,15 @@ class SecurityGroup extends AbstractResource implements Creatable, Listable, Del
         'tenant_id'            => 'tenantId',
     ];
 
-    protected $resourceKey = 'security_group';
-
+    protected $resourceKey  = 'security_group';
     protected $resourcesKey = 'security_groups';
 
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
-        $response = $this->execute($this->api->postSecurityGroup(), $userOptions);
+        $response = $this->execute($this->api->postSecuritygroups(), $userOptions);
         return $this->populateFromResponse($response);
     }
 
@@ -63,7 +62,7 @@ class SecurityGroup extends AbstractResource implements Creatable, Listable, Del
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteSecurityGroup());
+        $this->executeWithState($this->api->deleteSecurityGroupId());
     }
 
     /**
@@ -71,7 +70,7 @@ class SecurityGroup extends AbstractResource implements Creatable, Listable, Del
      */
     public function retrieve()
     {
-        $response = $this->executeWithState($this->api->getSecurityGroup());
-        return $this->populateFromResponse($response);
+        $response = $this->executeWithState($this->api->getSecurityGroupId());
+        $this->populateFromResponse($response);
     }
 }

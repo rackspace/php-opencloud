@@ -1,15 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStoreCDN\v1\Models;
 
 use function GuzzleHttp\Psr7\uri_for;
 
-use OpenStack\Common\Error\BadResponseError;
-use OpenStack\Common\HydratorStrategyTrait;
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\HasMetadata;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\HydratorStrategyTrait;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 use OpenStack\ObjectStore\v1\Models\MetadataTrait;
 use Psr\Http\Message\ResponseInterface;
 
@@ -52,7 +50,7 @@ class Container extends AbstractResource implements Listable, Retrievable
 
     protected $markerKey = 'name';
 
-    public function populateFromArray(array $array)
+    public function populateFromArray(array $array): self
     {
         parent::populateFromArray($array);
 
@@ -64,9 +62,11 @@ class Container extends AbstractResource implements Listable, Retrievable
         $this->set('cdn_ssl_uri', 'sslUri', $array, $fn);
         $this->set('cdn_streaming_uri', 'streamingUri', $array, $fn);
         $this->set('cdn_uri', 'cdnUri', $array, $fn);
+
+        return $this;
     }
 
-    public function populateFromResponse(ResponseInterface $response)
+    public function populateFromResponse(ResponseInterface $response): self
     {
         parent::populateFromResponse($response);
 
@@ -79,6 +79,8 @@ class Container extends AbstractResource implements Listable, Retrievable
         $this->cdnUri = uri_for($response->getHeaderLine('X-Cdn-Uri'));
         $this->cdnEnabled = strcasecmp($response->getHeaderLine('X-Cdn-Enabled'), 'true') === 0;
         $this->logRetention = strcasecmp($response->getHeaderLine('X-Log-Retention'), 'true') === 0;
+
+        return $this;
     }
 
     public function retrieve()

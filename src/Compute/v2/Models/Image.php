@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\HasMetadata;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Transport\Utils;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\HasMetadata;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -104,13 +104,13 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getImageId());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getMetadata()
+    public function getMetadata(): array
     {
         $response = $this->executeWithState($this->api->getMetadata('images'));
         return $this->parseMetadata($response);
@@ -119,7 +119,7 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     /**
      * {@inheritDoc}
      */
-    public function mergeMetadata(array $metadata)
+    public function mergeMetadata(array $metadata): array
     {
         $response = $this->execute($this->api->postMetadata('images'), ['id' => $this->id, 'metadata' => $metadata]);
         return $this->parseMetadata($response);
@@ -128,7 +128,7 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     /**
      * {@inheritDoc}
      */
-    public function resetMetadata(array $metadata)
+    public function resetMetadata(array $metadata): array
     {
         foreach (array_diff_key($this->getMetadata(), $metadata) as $removedKey => $v) {
             $this->execute($this->api->deleteMetadataKey('images'), ['id' => $this->id, 'key' => (string) $removedKey]);
@@ -140,7 +140,7 @@ class Image extends AbstractResource implements Listable, Deletable, Retrievable
     /**
      * {@inheritDoc}
      */
-    public function parseMetadata(ResponseInterface $response)
+    public function parseMetadata(ResponseInterface $response): array
     {
         return Utils::jsonDecode($response)['metadata'];
     }

@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\LoadBalancer\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a ThrottleConfig resource in the LoadBalancer v1 service
@@ -36,13 +36,12 @@ class ThrottleConfig extends AbstractResource implements Creatable, Updateable, 
     public $rateInterval;
 
     protected $resourceKey = 'connectionThrottle';
-
     protected $resourcesKey = 'connectionThrottles';
 
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postThrottleConfig(), $userOptions);
         return $this->populateFromResponse($response);
@@ -54,7 +53,7 @@ class ThrottleConfig extends AbstractResource implements Creatable, Updateable, 
     public function update()
     {
         $response = $this->executeWithState($this->api->putThrottleConfig());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -71,6 +70,6 @@ class ThrottleConfig extends AbstractResource implements Creatable, Updateable, 
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getThrottleConfig());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

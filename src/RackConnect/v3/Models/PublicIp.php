@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\RackConnect\v3\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a PublicIp resource in the RackConnect v3 service
@@ -59,7 +59,7 @@ class PublicIp extends AbstractResource implements Creatable, Listable, Deletabl
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postPublicIp(), $userOptions);
         return $this->populateFromResponse($response);
@@ -79,6 +79,6 @@ class PublicIp extends AbstractResource implements Creatable, Listable, Deletabl
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getPublicIp());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

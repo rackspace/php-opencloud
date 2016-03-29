@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Queue\v1;
 
-use OpenStack\Common\Api\AbstractParams;
+use OpenCloud\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {

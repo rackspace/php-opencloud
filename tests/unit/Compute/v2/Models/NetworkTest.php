@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\Compute\v2\Models;
 
 use GuzzleHttp\Psr7\Response;
 use Rackspace\Compute\v2\Api;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\Compute\v2\Models\Network;
 
 class NetworkTest extends TestCase

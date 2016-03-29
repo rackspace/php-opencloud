@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStore\v1\Models;
 
-use OpenStack\Common\Transport\Utils;
+use OpenCloud\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 class BulkDeleteResponse

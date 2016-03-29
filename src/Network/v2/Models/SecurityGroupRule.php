@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Network\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a SecurityGroupRule resource in the Network v2 service
@@ -46,12 +46,12 @@ class SecurityGroupRule extends AbstractResource implements Creatable, Listable,
     public $protocol;
 
     /**
-     * @var NULL
+     * @var string
      */
     public $remoteGroupId;
 
     /**
-     * @var NULL
+     * @var string
      */
     public $remoteIpPrefix;
 
@@ -81,10 +81,10 @@ class SecurityGroupRule extends AbstractResource implements Creatable, Listable,
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
-        $response = $this->execute($this->api->postSecurityGroupRule(), $userOptions);
-        return $this->populateFromResponse($response);
+        $response = $this->execute($this->api->postSecuritygrouprules(), $userOptions);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -92,7 +92,7 @@ class SecurityGroupRule extends AbstractResource implements Creatable, Listable,
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteSecurityGroupRule());
+        $this->executeWithState($this->api->deleteRulessecuritygroupsid());
     }
 
     /**
@@ -100,7 +100,7 @@ class SecurityGroupRule extends AbstractResource implements Creatable, Listable,
      */
     public function retrieve()
     {
-        $response = $this->executeWithState($this->api->getSecurityGroupRule());
-        return $this->populateFromResponse($response);
+        $response = $this->executeWithState($this->api->getRulessecuritygroupsid());
+        $this->populateFromResponse($response);
     }
 }

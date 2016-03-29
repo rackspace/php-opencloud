@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Image\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a Member resource in the Image v1 service
@@ -46,17 +46,17 @@ class Member extends AbstractResource implements Creatable, Updateable, Listable
      */
     public $updatedAt;
 
-    protected $aliases = array(
+    protected $aliases = [
         'created_at' => 'createdAt',
-        'image_id' => 'imageId',
-        'member_id' => 'memberId',
+        'image_id'   => 'imageId',
+        'member_id'  => 'memberId',
         'updated_at' => 'updatedAt',
-    );
+    ];
 
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postMember(), $userOptions);
         return $this->populateFromResponse($response);
@@ -68,7 +68,7 @@ class Member extends AbstractResource implements Creatable, Updateable, Listable
     public function update()
     {
         $response = $this->executeWithState($this->api->putMember());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -85,6 +85,6 @@ class Member extends AbstractResource implements Creatable, Updateable, Listable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getMember());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

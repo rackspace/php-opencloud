@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Identity\v2;
 
@@ -11,7 +11,7 @@ class Api extends \OpenStack\Identity\v2\Api
         $this->params = new Params();
     }
 
-    public function postToken()
+    public function postToken(): array 
     {
         return [
             'method' => 'POST',

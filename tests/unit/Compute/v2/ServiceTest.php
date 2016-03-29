@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\Compute\v2;
 
 use GuzzleHttp\Psr7\Response;
-use OpenStack\Compute\v2\Models\Image;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\Compute\v2\Api;
 use Rackspace\Compute\v2\Models\Flavor;
+use Rackspace\Compute\v2\Models\Image;
 use Rackspace\Compute\v2\Models\Keypair;
 use Rackspace\Compute\v2\Models\Network;
 use Rackspace\Compute\v2\Models\Server;

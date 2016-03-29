@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Network\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a Subnet resource in the Network v2 service
@@ -89,9 +89,9 @@ class Subnet extends AbstractResource implements Creatable, Updateable, Listable
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
-        $response = $this->execute($this->api->postSubnet(), $userOptions);
+        $response = $this->execute($this->api->postSubnets(), $userOptions);
         return $this->populateFromResponse($response);
     }
 
@@ -100,8 +100,8 @@ class Subnet extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function update()
     {
-        $response = $this->executeWithState($this->api->putSubnet());
-        return $this->populateFromResponse($response);
+        $response = $this->executeWithState($this->api->putSubnetId());
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -109,7 +109,7 @@ class Subnet extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteSubnet());
+        $this->executeWithState($this->api->deleteSubnetId());
     }
 
     /**
@@ -117,7 +117,7 @@ class Subnet extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function retrieve()
     {
-        $response = $this->executeWithState($this->api->getSubnet());
-        return $this->populateFromResponse($response);
+        $response = $this->executeWithState($this->api->getSubnetId());
+        $this->populateFromResponse($response);
     }
 }

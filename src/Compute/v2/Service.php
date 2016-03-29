@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Compute\v2;
 
-use OpenStack\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\AbstractResource;
 use Rackspace\Compute\v2\Models\Image;
 use Rackspace\Compute\v2\Models\Keypair;
 use Rackspace\Compute\v2\Models\Network;
@@ -21,7 +21,7 @@ class Service extends AbstractResource
      *
      * @return Server
      */
-    public function createServer(array $options)
+    public function createServer(array $options): Server
     {
         return $this->model(Server::class)->create($options);
     }
@@ -34,7 +34,7 @@ class Service extends AbstractResource
      *
      * @return \Generator
      */
-    public function listServers($detail = false, array $options = [])
+    public function listServers($detail = false, array $options = []): \Generator
     {
         $op = $detail ? $this->api->getServersDetail() : $this->api->getServers();
         return $this->model(Server::class)->enumerate($op, $options);
@@ -47,7 +47,7 @@ class Service extends AbstractResource
      *
      * @return Server
      */
-    public function getServer($id)
+    public function getServer($id): Server
     {
         return $this->model(Server::class, ['id' => $id]);
     }
@@ -59,7 +59,7 @@ class Service extends AbstractResource
      *
      * @return Keypair
      */
-    public function createKeypair(array $options)
+    public function createKeypair(array $options): Keypair
     {
         return $this->model(Keypair::class)->create($options);
     }
@@ -71,7 +71,7 @@ class Service extends AbstractResource
      *
      * @return \Generator
      */
-    public function listKeypairs(array $options = [])
+    public function listKeypairs(array $options = []): \Generator
     {
         return $this->model(Keypair::class)->enumerate($this->api->getOskeypairs(), $options);
     }
@@ -83,7 +83,7 @@ class Service extends AbstractResource
      *
      * @return Keypair
      */
-    public function getKeypair($name)
+    public function getKeypair($name): Keypair
     {
         return $this->model(Keypair::class, ['name' => $name]);
     }
@@ -96,7 +96,7 @@ class Service extends AbstractResource
      *
      * @return \Generator
      */
-    public function listFlavors($detail = false, array $options = [])
+    public function listFlavors($detail = false, array $options = []): \Generator
     {
         $op = $detail ? $this->api->getFlavorsDetail() : $this->api->getFlavors();
         return $this->model(Flavor::class)->enumerate($op, $options);
@@ -109,7 +109,7 @@ class Service extends AbstractResource
      *
      * @return Flavor
      */
-    public function getFlavor($id)
+    public function getFlavor($id): Flavor
     {
         return $this->model(Flavor::class, ['id' => $id]);
     }
@@ -122,7 +122,7 @@ class Service extends AbstractResource
      *
      * @return \Generator
      */
-    public function listImages($detail = false, array $options = [])
+    public function listImages($detail = false, array $options = []): \Generator
     {
         $op = $detail ? $this->api->getImagesDetail() : $this->api->getImages();
         return $this->model(Image::class)->enumerate($op, $options);
@@ -135,7 +135,7 @@ class Service extends AbstractResource
      *
      * @return Image
      */
-    public function getImage($id)
+    public function getImage($id): Image
     {
         return $this->model(Image::class, ['id' => $id]);
     }
@@ -165,7 +165,7 @@ class Service extends AbstractResource
      *
      * @return \Generator
      */
-    public function listNetworks(array $options = [])
+    public function listNetworks(array $options = []): \Generator
     {
         return $this->model(Network::class)->enumerate($this->api->getOsnetworksv2(), $options);
     }
@@ -177,7 +177,7 @@ class Service extends AbstractResource
      *
      * @return Network
      */
-    public function createNetwork(array $options)
+    public function createNetwork(array $options): Network
     {
         return $this->model(Network::class)->create($options);
     }
@@ -189,7 +189,7 @@ class Service extends AbstractResource
      *
      * @return Network
      */
-    public function getNetwork($id)
+    public function getNetwork($id): Network
     {
         return $this->model(Network::class, ['id' => $id]);
     }

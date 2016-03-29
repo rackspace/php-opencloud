@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\Compute\v2\Models;
 
 use GuzzleHttp\Psr7\Response;
 use Rackspace\Compute\v2\Api;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\Compute\v2\Models\Image;
 
 class ImageTest extends TestCase
@@ -57,7 +57,7 @@ class ImageTest extends TestCase
         $response = new Response(200, ['Content-Type' => 'application/json'], $body);
         $this->setupMock('GET', 'images/id/metadata', null, [], $response);
 
-        $this->setupMock('POST', 'images/id/metadata', ['metadata' => ['foo' => 10, 'baz' => 3]], [], new Response(200));
+        $this->setupMock('POST', 'images/id/metadata', ['metadata' => ['foo' => 10, 'baz' => 3]], [], 'Metadata');
         $this->setupMock('DELETE', 'images/id/metadata/bar', null, [], new Response(200));
 
         $this->image->resetMetadata(['foo' => 10, 'baz' => 3]);

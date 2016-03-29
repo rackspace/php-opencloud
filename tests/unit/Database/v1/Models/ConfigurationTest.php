@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\Database\v1\Models;
 
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\Database\v1\Api;
 use Rackspace\Database\v1\Models\Configuration;
 

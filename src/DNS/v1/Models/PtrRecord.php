@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\DNS\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a PtrRecord resource in the DNS v1 service
@@ -54,7 +54,7 @@ class PtrRecord extends AbstractResource implements Creatable, Updateable, Lista
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postPtrRecord(), $userOptions);
         return $this->populateFromResponse($response);
@@ -66,7 +66,7 @@ class PtrRecord extends AbstractResource implements Creatable, Updateable, Lista
     public function update()
     {
         $response = $this->executeWithState($this->api->putPtrRecord());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -83,6 +83,6 @@ class PtrRecord extends AbstractResource implements Creatable, Updateable, Lista
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getPtrRecord());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

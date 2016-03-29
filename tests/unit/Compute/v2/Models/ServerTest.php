@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\Compute\v2\Models;
 
 use GuzzleHttp\Psr7\Response;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\Compute\v2\Models\ImageSchedule;
 use Rackspace\Compute\v2\Models\Server;
 use Rackspace\Compute\v2\Api;
@@ -62,7 +62,7 @@ class ServerTest extends TestCase
     {
         $newMetadata = ['foo' => 'bar'];
 
-        $this->setupMock('POST', 'servers/id/metadata', ['metadata' => $newMetadata], [], new Response(200));
+        $this->setupMock('POST', 'servers/id/metadata', ['metadata' => $newMetadata], [], 'Metadata');
 
         $this->server->mergeMetadata($newMetadata);
     }
@@ -71,7 +71,7 @@ class ServerTest extends TestCase
     {
         $newMetadata = ['foo' => 'bar'];
 
-        $this->setupMock('PUT', 'servers/id/metadata', ['metadata' => $newMetadata], [], new Response(200));
+        $this->setupMock('PUT', 'servers/id/metadata', ['metadata' => $newMetadata], [], 'Metadata');
 
         $this->server->resetMetadata($newMetadata);
     }
@@ -89,7 +89,7 @@ class ServerTest extends TestCase
 
         $expectedJson = ['volumeAttachment' => $options];
 
-        $this->setupMock('PUT', 'servers/id/os-volume_attachments', $expectedJson, [], new Response(200));
+        $this->setupMock('POST', 'servers/id/os-volume_attachments', $expectedJson, [], new Response(200));
 
         $this->server->attachVolume($options);
     }

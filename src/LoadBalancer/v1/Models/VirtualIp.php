@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\LoadBalancer\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
 
 /**
  * Represents a VirtualIp resource in the LoadBalancer v1 service
@@ -32,7 +32,7 @@ class VirtualIp extends AbstractResource implements Creatable, Listable, Deletab
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postVirtualIp(), $userOptions);
         return $this->populateFromResponse($response);

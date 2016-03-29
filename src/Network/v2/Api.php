@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Network\v2;
 
-use OpenStack\Common\Api\AbstractApi;
+use OpenCloud\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {
@@ -14,7 +14,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about GET /v2.0/ports HTTP operation
+     * Returns information about GET ports HTTP operation
      *
      * @return array
      */
@@ -22,13 +22,13 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/ports',
+            'path'   => 'ports',
             'params' => [],
         ];
     }
 
     /**
-     * Returns information about POST /v2.0/ports HTTP operation
+     * Returns information about POST ports HTTP operation
      *
      * @return array
      */
@@ -36,7 +36,7 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/v2.0/ports',
+            'path'    => 'ports',
             'jsonKey' => 'port',
             'params'  => [
                 'adminStateUp' => $this->params->adminStateUpJson(),
@@ -48,7 +48,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about GET /v2.0/subnets HTTP operation
+     * Returns information about GET subnets HTTP operation
      *
      * @return array
      */
@@ -56,13 +56,13 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/subnets',
+            'path'   => 'subnets',
             'params' => [],
         ];
     }
 
     /**
-     * Returns information about POST /v2.0/subnets HTTP operation
+     * Returns information about POST subnets HTTP operation
      *
      * @return array
      */
@@ -70,7 +70,7 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/v2.0/subnets',
+            'path'    => 'subnets',
             'jsonKey' => 'subnet',
             'params'  => [
                 'allocationPools' => $this->params->allocationPoolsJson(),
@@ -90,7 +90,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about POST /v2.0/networks HTTP operation
+     * Returns information about POST networks HTTP operation
      *
      * @return array
      */
@@ -98,18 +98,17 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/v2.0/networks',
+            'path'    => 'networks',
             'jsonKey' => 'network',
             'params'  => [
-                'name'     => $this->params->nameJson(),
-                'shared'   => $this->params->sharedJson(),
-                'tenantId' => $this->params->tenantIdJson(),
+                'name'   => $this->params->nameJson(),
+                'shared' => $this->params->sharedJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /v2.0/networks HTTP operation
+     * Returns information about GET networks HTTP operation
      *
      * @return array
      */
@@ -117,13 +116,13 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/networks',
+            'path'   => 'networks',
             'params' => [],
         ];
     }
 
     /**
-     * Returns information about GET /v2.0/ip_addresses HTTP operation
+     * Returns information about GET ip_addresses HTTP operation
      *
      * @return array
      */
@@ -131,13 +130,13 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/ip_addresses',
+            'path'   => 'ip_addresses',
             'params' => [],
         ];
     }
 
     /**
-     * Returns information about POST /v2.0/ip_addresses HTTP operation
+     * Returns information about POST ip_addresses HTTP operation
      *
      * @return array
      */
@@ -145,19 +144,19 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/v2.0/ip_addresses',
+            'path'    => 'ip_addresses',
             'jsonKey' => 'ip_address',
             'params'  => [
-                'networkId' => $this->params->networkIdJson(),
-                'portIds'   => $this->params->portIdsJson(),
-                'tenantId'  => $this->params->tenantIdJson(),
-                'version'   => $this->params->versionJson(),
+                'id'       => $this->params->networkIdJson(),
+                'portIds'  => $this->params->portIdsJson(),
+                'tenantId' => $this->params->tenantIdJson(),
+                'version'  => $this->params->versionJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about POST /v2.0/security-groups HTTP operation
+     * Returns information about POST security-groups HTTP operation
      *
      * @return array
      */
@@ -165,7 +164,7 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'POST',
-            'path'    => '/v2.0/security-groups',
+            'path'    => 'security-groups',
             'jsonKey' => 'security_group',
             'params'  => [
                 'description' => $this->params->descriptionJson(),
@@ -175,7 +174,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about GET /v2.0/ports/{port_id} HTTP operation
+     * Returns information about GET ports/{id} HTTP operation
      *
      * @return array
      */
@@ -183,15 +182,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/ports/{port_id}',
+            'path'   => 'ports/{id}',
             'params' => [
-                'portId' => $this->params->portIdUrl(),
+                'id' => $this->params->portIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about PUT /v2.0/ports/{port_id} HTTP operation
+     * Returns information about PUT ports/{id} HTTP operation
      *
      * @return array
      */
@@ -199,10 +198,10 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'PUT',
-            'path'    => '/v2.0/ports/{port_id}',
+            'path'    => 'ports/{id}',
             'jsonKey' => 'port',
             'params'  => [
-                'portId'       => $this->params->portIdUrl(),
+                'id'           => $this->params->portIdUrl(),
                 'adminStateUp' => $this->params->adminStateUpJson(),
                 'deviceId'     => $this->params->deviceIdJson(),
                 'name'         => $this->params->nameJson(),
@@ -212,7 +211,7 @@ class Api extends AbstractApi
     }
 
     /**
-     * Returns information about DELETE /v2.0/ports/{port_id} HTTP operation
+     * Returns information about DELETE ports/{id} HTTP operation
      *
      * @return array
      */
@@ -220,15 +219,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/v2.0/ports/{port_id}',
+            'path'   => 'ports/{id}',
             'params' => [
-                'portId' => $this->params->portIdUrl(),
+                'id' => $this->params->portIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /v2.0/security-groups HTTP operation
+     * Returns information about GET security-groups HTTP operation
      *
      * @return array
      */
@@ -236,13 +235,13 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/security-groups',
+            'path'   => 'security-groups',
             'params' => [],
         ];
     }
 
     /**
-     * Returns information about DELETE /v2.0/subnets/{subnet_id} HTTP operation
+     * Returns information about DELETE subnets/{id} HTTP operation
      *
      * @return array
      */
@@ -250,15 +249,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/v2.0/subnets/{subnet_id}',
+            'path'   => 'subnets/{id}',
             'params' => [
-                'subnetId' => $this->params->subnetIdUrl(),
+                'id' => $this->params->subnetIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /v2.0/subnets/{subnet_id} HTTP operation
+     * Returns information about GET subnets/{id} HTTP operation
      *
      * @return array
      */
@@ -266,15 +265,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/subnets/{subnet_id}',
+            'path'   => 'subnets/{id}',
             'params' => [
-                'subnetId' => $this->params->subnetIdUrl(),
+                'id' => $this->params->subnetIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about PUT /v2.0/subnets/{subnet_id} HTTP operation
+     * Returns information about PUT subnets/{id} HTTP operation
      *
      * @return array
      */
@@ -282,17 +281,17 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'PUT',
-            'path'    => '/v2.0/subnets/{subnet_id}',
+            'path'    => 'subnets/{id}',
             'jsonKey' => 'subnet',
             'params'  => [
-                'subnetId' => $this->params->subnetIdUrl(),
-                'name'     => $this->params->nameJson(),
+                'id'   => $this->params->subnetIdUrl(),
+                'name' => $this->params->nameJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /v2.0/security-group-rules HTTP operation
+     * Returns information about GET security-group-rules HTTP operation
      *
      * @return array
      */
@@ -300,13 +299,13 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/security-group-rules',
+            'path'   => 'security-group-rules',
             'params' => [],
         ];
     }
 
     /**
-     * Returns information about POST /v2.0/security-group-rules HTTP operation
+     * Returns information about POST security-group-rules HTTP operation
      *
      * @return array
      */
@@ -314,13 +313,13 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'POST',
-            'path'   => '/v2.0/security-group-rules',
+            'path'   => 'security-group-rules',
             'params' => [],
         ];
     }
 
     /**
-     * Returns information about PUT /v2.0/networks/{network_id} HTTP operation
+     * Returns information about PUT networks/{id} HTTP operation
      *
      * @return array
      */
@@ -328,17 +327,17 @@ class Api extends AbstractApi
     {
         return [
             'method'  => 'PUT',
-            'path'    => '/v2.0/networks/{network_id}',
+            'path'    => 'networks/{id}',
             'jsonKey' => 'network',
             'params'  => [
-                'networkId' => $this->params->networkIdUrl(),
-                'name'      => $this->params->nameJson(),
+                'id'   => $this->params->networkIdUrl(),
+                'name' => $this->params->nameJson(),
             ],
         ];
     }
 
     /**
-     * Returns information about GET /v2.0/networks/{network_id} HTTP operation
+     * Returns information about GET networks/{id} HTTP operation
      *
      * @return array
      */
@@ -346,15 +345,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/networks/{network_id}',
+            'path'   => 'networks/{id}',
             'params' => [
-                'networkId' => $this->params->networkIdUrl(),
+                'id' => $this->params->networkIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about DELETE /v2.0/networks/{network_id} HTTP operation
+     * Returns information about DELETE networks/{id} HTTP operation
      *
      * @return array
      */
@@ -362,80 +361,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/v2.0/networks/{network_id}',
+            'path'   => 'networks/{id}',
             'params' => [
-                'networkId' => $this->params->networkIdUrl(),
+                'id' => $this->params->networkIdUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about DELETE /v2.0/ip_addresses/{ipAddressID} HTTP operation
-     *
-     * @return array
-     */
-    public function deleteIpAddressID()
-    {
-        return [
-            'method' => 'DELETE',
-            'path'   => '/v2.0/ip_addresses/{ipAddressID}',
-            'params' => [
-                'ipAddressID' => $this->params->ipAddressIDUrl(),
-            ],
-        ];
-    }
-
-    /**
-     * Returns information about PUT /v2.0/ip_addresses/{ipAddressID} HTTP operation
-     *
-     * @return array
-     */
-    public function putIpAddressID()
-    {
-        return [
-            'method' => 'PUT',
-            'path'   => '/v2.0/ip_addresses/{ipAddressID}',
-            'params' => [
-                'ipAddressID' => $this->params->ipAddressIDUrl(),
-            ],
-        ];
-    }
-
-    /**
-     * Returns information about GET /v2.0/ip_addresses/{ipAddressID} HTTP operation
-     *
-     * @return array
-     */
-    public function getIpAddressID()
-    {
-        return [
-            'method' => 'GET',
-            'path'   => '/v2.0/ip_addresses/{ipAddressID}',
-            'params' => [
-                'ipAddressID' => $this->params->ipAddressIDUrl(),
-            ],
-        ];
-    }
-
-    /**
-     * Returns information about GET /v2/servers/{serverID}/ip_associations HTTP
-     * operation
-     *
-     * @return array
-     */
-    public function getIpAssociations()
-    {
-        return [
-            'method' => 'GET',
-            'path'   => '/v2/servers/{serverID}/ip_associations',
-            'params' => [
-                'serverID' => $this->params->serverIDUrl(),
-            ],
-        ];
-    }
-
-    /**
-     * Returns information about GET /v2.0/security-groups/{security_group_id} HTTP
+     * Returns information about GET security-groups/{security_group_id} HTTP
      * operation
      *
      * @return array
@@ -444,15 +378,15 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/security-groups/{security_group_id}',
+            'path'   => 'security-groups/{id}',
             'params' => [
-                'securityGroupId' => $this->params->securityGroupIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
-     * Returns information about DELETE /v2.0/security-groups/{security_group_id} HTTP
+     * Returns information about DELETE security-groups/{security_group_id} HTTP
      * operation
      *
      * @return array
@@ -461,16 +395,16 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/v2.0/security-groups/{security_group_id}',
+            'path'   => 'security-groups/{id}',
             'params' => [
-                'securityGroupId' => $this->params->securityGroupIdUrl(),
+                'id' => $this->params->idUrl(),
             ],
         ];
     }
 
     /**
      * Returns information about DELETE
-     * /v2.0/security-group-rules/{rules-security-groups-id} HTTP operation
+     * security-group-rules/{rules-security-groups-id} HTTP operation
      *
      * @return array
      */
@@ -478,14 +412,16 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'DELETE',
-            'path'   => '/v2.0/security-group-rules/{rules-security-groups-id}',
-            'params' => [],
+            'path'   => 'security-group-rules/{id}',
+            'params' => [
+                'id' => $this->params->idUrl(),
+            ],
         ];
     }
 
     /**
      * Returns information about GET
-     * /v2.0/security-group-rules/{rules-security-groups-id} HTTP operation
+     * security-group-rules/{rules-security-groups-id} HTTP operation
      *
      * @return array
      */
@@ -493,8 +429,24 @@ class Api extends AbstractApi
     {
         return [
             'method' => 'GET',
-            'path'   => '/v2.0/security-group-rules/{rules-security-groups-id}',
-            'params' => [],
+            'path'   => 'security-group-rules/{id}',
+            'params' => [
+                'id' => $this->params->idUrl(),
+            ],
+        ];
+    }
+
+    public function postFloatingIps()
+    {
+        return [
+            'method' => 'POST',
+            'path'   => 'floatingips',
+            'params' => [
+                'floatingNetworkId' => $this->params->floatingNetworkIdJson(),
+                'fixedIpAddress'    => $this->params->fixedIpAddressJson(),
+                'floatingIpAddress' => $this->params->floatingIpAddressJson(),
+                'portId'            => $this->params->portIdJson(),
+            ],
         ];
     }
 }

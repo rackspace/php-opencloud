@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test;
 
-use OpenStack\Common\Service\Builder;
-use OpenStack\Test\TestCase;
+use OpenCloud\Common\Service\Builder;
+use OpenCloud\Test\TestCase;
 use Rackspace\Rackspace;
 
 class RackspaceTest extends TestCase
@@ -21,7 +21,8 @@ class RackspaceTest extends TestCase
     {
         $this->builder
             ->createService('ObjectStore', 1, ['catalogName' => 'cloudFiles', 'catalogType' => 'object-store'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->prophesize(\Rackspace\ObjectStore\v1\Service::class));
 
         $this->rackspace->objectStoreV1();
     }
@@ -30,7 +31,8 @@ class RackspaceTest extends TestCase
     {
         $this->builder
             ->createService('ObjectStoreCDN', 1, ['catalogName' => 'cloudFilesCDN', 'catalogType' => 'rax:object-cdn'])
-            ->shouldBeCalled();
+            ->shouldBeCalled()
+            ->willReturn($this->prophesize(\Rackspace\ObjectStoreCDN\v1\Service::class));
 
         $this->rackspace->objectStoreCDNV1();
     }

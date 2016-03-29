@@ -1,16 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\HasMetadata;
-use OpenStack\Common\Resource\HasWaiterTrait;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
-use OpenStack\Common\Transport\Utils;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\HasMetadata;
+use OpenCloud\Common\Resource\HasWaiterTrait;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
+use OpenCloud\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 use Rackspace\Database\v1\Models\ScheduledBackup;
 
@@ -138,7 +138,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
     /**
      * {@inheritDoc}
      */
-    public function populateFromArray(array $array)
+    public function populateFromArray(array $array): self
     {
         parent::populateFromArray($array);
 
@@ -148,12 +148,14 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
         if (isset($array['flavor'])) {
             $this->flavor = $this->model(Flavor::class, $array['flavor']);
         }
+
+        return $this;
     }
 
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postServers(), $userOptions);
         return $this->populateFromResponse($response);
@@ -165,7 +167,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
     public function update()
     {
         $response = $this->executeWithState($this->api->putServerId());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -182,13 +184,13 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getServerId());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getMetadata()
+    public function getMetadata(): array
     {
         $response = $this->executeWithState($this->api->getMetadata('servers'));
         return $this->parseMetadata($response);
@@ -197,7 +199,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
     /**
      * {@inheritDoc}
      */
-    public function mergeMetadata(array $metadata)
+    public function mergeMetadata(array $metadata): array
     {
         $this->metadata = array_merge($this->metadata, $metadata);
         $response = $this->executeWithState($this->api->postMetadata('servers'));
@@ -207,7 +209,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
     /**
      * {@inheritDoc}
      */
-    public function resetMetadata(array $metadata)
+    public function resetMetadata(array $metadata): array
     {
         $this->metadata = $metadata;
         $response = $this->executeWithState($this->api->putMetadata('servers'));
@@ -217,7 +219,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
     /**
      * {@inheritDoc}
      */
-    public function parseMetadata(ResponseInterface $response)
+    public function parseMetadata(ResponseInterface $response): array
     {
         return Utils::jsonDecode($response)['metadata'];
     }
@@ -247,7 +249,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
      *
      * @return \Generator
      */
-    public function listVolumeAttachments()
+    public function listVolumeAttachments(): \Generator
     {
         $op = $this->api->getOsvolumeAttachments();
         return $this->model(VolumeAttachment::class)->enumerate($op, ['serverId' => $this->id]);
@@ -260,7 +262,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
      *
      * @return VolumeAttachment
      */
-    public function getVolumeAttachment($attachmentId)
+    public function getVolumeAttachment($attachmentId): VolumeAttachment
     {
         return $this->model(VolumeAttachment::class, ['id' => $attachmentId, 'serverId' => $this->id]);
     }
@@ -357,7 +359,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
      *
      * @return array
      */
-    public function getIpAddresses($networkLabel = null)
+    public function getIpAddresses($networkLabel = null): array
     {
         $response = $networkLabel
             ? $this->execute($this->api->getNetworkLabel(), ['id' => $this->id, 'networkLabel' => $networkLabel])
@@ -379,9 +381,9 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
     /**
      * Get the currently configured backup schedule for this server
      *
-     * @return ScheduledBackup
+     * @return ImageSchedule
      */
-    public function getScheduledImages()
+    public function getScheduledImages(): ImageSchedule
     {
         $response = $this->execute($this->api->getRaxsischeduledimage(), ['id' => $this->id]);
         return $this->model(ImageSchedule::class)->populateFromResponse($response);
@@ -400,7 +402,7 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
      *
      * @return \Generator
      */
-    public function listVirtualInterfaces()
+    public function listVirtualInterfaces(): \Generator
     {
         $op = $this->api->getOsvirtualinterfacesv2();
         return $this->model(VirtualInterface::class)->enumerate($op, ['serverId' => $this->id]);
@@ -411,9 +413,9 @@ class Server extends AbstractResource implements Creatable, Updateable, Listable
      *
      * @param array $options {@see \Rackspace\Compute\v2\Api::postOsvirtualinterfacesv2}
      *
-     * @return mixed
+     * @return VirtualInterface
      */
-    public function createVirtualInterface(array $options)
+    public function createVirtualInterface(array $options): VirtualInterface
     {
         return $this->model(VirtualInterface::class)->create($options + ['serverId' => $this->id]);
     }

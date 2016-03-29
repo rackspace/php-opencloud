@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Orchestration\v1;
 
-use OpenStack\Common\Api\AbstractApi;
+use OpenCloud\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {
@@ -18,7 +18,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function get()
+    public function get(): array
     {
         return [
             'method' => 'GET',
@@ -32,7 +32,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postStacks()
+    public function postStacks(): array
     {
         return [
             'method' => 'POST',
@@ -67,7 +67,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getStacks()
+    public function getStacks(): array
     {
         return [
             'method' => 'GET',
@@ -82,7 +82,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postValidate()
+    public function postValidate(): array
     {
         return [
             'method'  => 'POST',
@@ -101,7 +101,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getServices()
+    public function getServices(): array
     {
         return [
             'method' => 'GET',
@@ -116,7 +116,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getBuildInfo()
+    public function getBuildInfo(): array
     {
         return [
             'method' => 'GET',
@@ -131,7 +131,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getResourceTypes()
+    public function getResourceTypes(): array
     {
         return [
             'method' => 'GET',
@@ -146,7 +146,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postPreview()
+    public function postPreview(): array
     {
         return [
             'method' => 'POST',
@@ -180,7 +180,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postSoftwareConfigs()
+    public function postSoftwareConfigs(): array
     {
         return [
             'method' => 'POST',
@@ -205,7 +205,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getTemplateVersions()
+    public function getTemplateVersions(): array
     {
         return [
             'method' => 'GET',
@@ -220,7 +220,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getStackName()
+    public function getStackName(): array
     {
         return [
             'method' => 'GET',
@@ -237,7 +237,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postSoftwareDeployments()
+    public function postSoftwareDeployments(): array
     {
         return [
             'method' => 'POST',
@@ -259,7 +259,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getSoftwareDeployments()
+    public function getSoftwareDeployments(): array
     {
         return [
             'method' => 'GET',
@@ -275,7 +275,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getTypeName()
+    public function getTypeName(): array
     {
         return [
             'method' => 'GET',
@@ -292,7 +292,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getEvents()
+    public function getEvents(): array
     {
         return [
             'method' => 'GET',
@@ -309,7 +309,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getConfigId()
+    public function getConfigId(): array
     {
         return [
             'method' => 'GET',
@@ -326,7 +326,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function deleteConfigId()
+    public function deleteConfigId(): array
     {
         return [
             'method' => 'DELETE',
@@ -343,7 +343,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getResources()
+    public function getResources(): array
     {
         return [
             'method' => 'GET',
@@ -360,7 +360,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function putStackId()
+    public function putStackId(): array
     {
         return [
             'method' => 'PUT',
@@ -396,7 +396,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function deleteStackId()
+    public function deleteStackId(): array
     {
         return [
             'method' => 'DELETE',
@@ -414,7 +414,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getStackId()
+    public function getStackId(): array
     {
         return [
             'method' => 'GET',
@@ -432,7 +432,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getTemplate()
+    public function getTemplate(): array
     {
         return [
             'method' => 'GET',
@@ -449,7 +449,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getDeploymentId()
+    public function getDeploymentId(): array
     {
         return [
             'method' => 'GET',
@@ -466,7 +466,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function deleteDeploymentId()
+    public function deleteDeploymentId(): array
     {
         return [
             'method' => 'DELETE',
@@ -483,7 +483,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function putDeploymentId()
+    public function putDeploymentId(): array
     {
         return [
             'method' => 'PUT',
@@ -508,7 +508,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postActions()
+    public function postActions(): array
     {
         return [
             'method'  => 'POST',
@@ -528,7 +528,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function deleteAbandon()
+    public function deleteAbandon(): array
     {
         return [
             'method' => 'DELETE',
@@ -546,7 +546,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postSnapshots()
+    public function postSnapshots(): array
     {
         return [
             'method'  => 'POST',
@@ -566,7 +566,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getSnapshots()
+    public function getSnapshots(): array
     {
         return [
             'method' => 'GET',
@@ -584,7 +584,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getServerId()
+    public function getServerId(): array
     {
         return [
             'method' => 'GET',
@@ -602,7 +602,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getSnapshotId()
+    public function getSnapshotId(): array
     {
         return [
             'method' => 'GET',
@@ -622,7 +622,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function deleteSnapshotId()
+    public function deleteSnapshotId(): array
     {
         return [
             'method' => 'DELETE',
@@ -642,7 +642,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getResourceName()
+    public function getResourceName(): array
     {
         return [
             'method' => 'GET',
@@ -662,7 +662,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postRestore()
+    public function postRestore(): array
     {
         return [
             'method' => 'POST',
@@ -682,7 +682,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function postSignal()
+    public function postSignal(): array
     {
         return [
             'method' => 'POST',
@@ -702,7 +702,7 @@ class Api extends AbstractApi
      *
      * @return array
      */
-    public function getEventId()
+    public function getEventId(): array
     {
         return [
             'method' => 'GET',

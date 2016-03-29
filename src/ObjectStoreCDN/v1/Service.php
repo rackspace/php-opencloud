@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStoreCDN\v1;
 
-use OpenStack\Common\Service\AbstractService;
+use OpenCloud\Common\Service\AbstractService;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
 
 class Service extends AbstractService
@@ -15,7 +15,7 @@ class Service extends AbstractService
      *
      * @return \Generator
      */
-    public function listContainers(array $options = [], callable $mapFn = null)
+    public function listContainers(array $options = [], callable $mapFn = null): \Generator
     {
         $options = array_merge($options, ['format' => 'json']);
         return $this->model(Container::class)->enumerate($this->api->getAccount(), $options, $mapFn);
@@ -29,7 +29,7 @@ class Service extends AbstractService
      *
      * @return Container
      */
-    public function getContainer($name = null)
+    public function getContainer($name = null): Container
     {
         return $this->model(Container::class, ['name' => $name]);
     }

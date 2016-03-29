@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Integration\ObjectStoreCDN;
 
-use OpenStack\Integration\TestCase;
+use OpenCloud\Integration\TestCase;
 use Rackspace\Integration\Utils;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
 use Rackspace\ObjectStoreCDN\v1\Models\Object;

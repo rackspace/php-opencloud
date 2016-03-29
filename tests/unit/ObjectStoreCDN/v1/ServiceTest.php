@@ -1,12 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\ObjectStoreCDN;
 
+use OpenCloud\Test\TestCase;
 use Rackspace\ObjectStoreCDN\v1\Api;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
 use Rackspace\ObjectStoreCDN\v1\Service;
 
-class ServiceTest extends \OpenStack\Test\TestCase
+class ServiceTest extends TestCase
 {
     /** @var Service */
     private $service;

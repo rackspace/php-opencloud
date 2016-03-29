@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Orchestration\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a Stack resource in the Network v1 service
@@ -110,7 +110,7 @@ class Stack extends AbstractResource implements Creatable, Updateable, Listable,
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postStack(), $userOptions);
         return $this->populateFromResponse($response);
@@ -122,7 +122,7 @@ class Stack extends AbstractResource implements Creatable, Updateable, Listable,
     public function update()
     {
         $response = $this->executeWithState($this->api->putStack());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -139,6 +139,6 @@ class Stack extends AbstractResource implements Creatable, Updateable, Listable,
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getStack());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

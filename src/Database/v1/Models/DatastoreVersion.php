@@ -1,18 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Database\v1\Models;
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a DatastoreVersion resource in the Database v1 service
  *
- * @property Rackspace\Database\v1\Api $api
+ * @property \Rackspace\Database\v1\Api $api
  */
 class DatastoreVersion extends AbstractResource implements Listable, Retrievable
 {
-
     /**
      * @var string
      */
@@ -43,8 +43,6 @@ class DatastoreVersion extends AbstractResource implements Listable, Retrievable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getDatastoreVersion());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
-
-
 }

@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
 
 /**
  * Represents a VirtualInterface resource in the Compute v2 service
@@ -42,7 +42,7 @@ class VirtualInterface extends AbstractResource implements Creatable, Listable, 
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postOsvirtualinterfacesv2(), $userOptions);
         return $this->populateFromResponse($response);

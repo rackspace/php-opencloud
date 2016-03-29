@@ -1,13 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\ObjectStoreCDN\Models;
 
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Psr7\Response;
+use OpenCloud\Test\TestCase;
 use Rackspace\ObjectStoreCDN\v1\Api;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
 use Rackspace\ObjectStoreCDN\v1\Models\Object;
 
-class ContainerTest extends \OpenStack\Test\TestCase
+class ContainerTest extends TestCase
 {
     /** @var Container */
     private $container;
@@ -76,7 +77,7 @@ class ContainerTest extends \OpenStack\Test\TestCase
 
     public function test_it_enables_cdn()
     {
-        $this->setupMock('POST', 'cdn_test1', null, ['X-CDN-Enabled' => 'True'], new Response(204));
+        $this->setupMock('PUT', 'cdn_test1', null, ['X-CDN-Enabled' => 'True'], new Response(204));
 
         $this->container->enableCdn();
     }

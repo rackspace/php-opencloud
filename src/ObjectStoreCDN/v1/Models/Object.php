@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStoreCDN\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Deletable;
 
 class Object extends AbstractResource implements Deletable
 {

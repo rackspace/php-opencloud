@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\CDN\v1\Models;
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
+
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
 
 /**
  * Represents a SslCertificate resource in the CDN v1 service
@@ -15,7 +16,7 @@ class SslCertificate extends AbstractResource implements Creatable, Deletable
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postSslCertificate(), $userOptions);
         return $this->populateFromResponse($response);

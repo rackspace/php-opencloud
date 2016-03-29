@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Queue\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
 
 /**
  * Represents a Queue resource in the Queue v1 service
@@ -27,7 +27,7 @@ class Queue extends AbstractResource implements Creatable, Listable, Deletable
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postQueue(), $userOptions);
         return $this->populateFromResponse($response);

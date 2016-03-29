@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\LoadBalancer\v1\Models;
 
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\LoadBalancer\v1\Api;
 use Rackspace\LoadBalancer\v1\Models\VirtualIp;
 

@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Database\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a Datastore resource in the Database v1 service
@@ -52,6 +52,6 @@ class Datastore extends AbstractResource implements Listable, Retrievable
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getDatastore());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

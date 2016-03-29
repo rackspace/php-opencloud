@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\ObjectStore\v1;
 
 use GuzzleHttp\Psr7\Response;
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\ObjectStore\v1\Api;
 use Rackspace\ObjectStore\v1\Models\Container;
 

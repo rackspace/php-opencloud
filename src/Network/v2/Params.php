@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Network\v2;
 
-use OpenStack\Common\Api\AbstractParams;
+use OpenCloud\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {
@@ -69,10 +69,10 @@ class Params extends AbstractParams
     public function allocationPoolsJson()
     {
         return [
-            'type'       => self::ARRAY_TYPE,
-            'location'   => self::JSON,
-            'sentAs'     => 'allocation_pools',
-            'items' => [
+            'type'     => self::ARRAY_TYPE,
+            'location' => self::JSON,
+            'sentAs'   => 'allocation_pools',
+            'items'    => [
                 'type'       => self::OBJECT_TYPE,
                 'location'   => self::JSON,
                 'sentAs'     => 'allocation_pools',
@@ -145,10 +145,10 @@ class Params extends AbstractParams
     public function hostRoutesJson()
     {
         return [
-            'type'       => self::ARRAY_TYPE,
-            'location'   => self::JSON,
-            'sentAs'     => 'host_routes',
-            'items' => [
+            'type'     => self::ARRAY_TYPE,
+            'location' => self::JSON,
+            'sentAs'   => 'host_routes',
+            'items'    => [
                 'type'       => self::OBJECT_TYPE,
                 'location'   => self::JSON,
                 'sentAs'     => 'host_routes',
@@ -235,10 +235,10 @@ class Params extends AbstractParams
     public function portIdsJson()
     {
         return [
-            'type'       => self::ARRAY_TYPE,
-            'location'   => self::JSON,
-            'sentAs'     => 'port_ids',
-            'items' => [
+            'type'     => self::ARRAY_TYPE,
+            'location' => self::JSON,
+            'sentAs'   => 'port_ids',
+            'items'    => [
                 'type'     => self::STRING_TYPE,
                 'location' => self::JSON,
                 'sentAs'   => 'port_ids',
@@ -351,6 +351,60 @@ class Params extends AbstractParams
             'type'     => self::STRING_TYPE,
             'location' => self::URL,
             'sentAs'   => 'security_group_id',
+        ];
+    }
+
+    /**
+     * Returns information about parameter
+     *
+     * @return array
+     */
+    public function idUrl()
+    {
+        return [
+            'type'     => self::STRING_TYPE,
+            'location' => self::URL,
+            'required' => true,
+        ];
+    }
+
+    public function floatingNetworkIdJson()
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'location'    => self::JSON,
+            'sentAs'      => 'floating_network_id',
+            'description' => 'The UUID of the network associated with the floating IP.',
+        ];
+    }
+
+    public function fixedIpAddressJson()
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'location'    => self::JSON,
+            'sentAs'      => 'fixed_ip_address',
+            'description' => 'The fixed IP address that is associated with the floating IP. To associate the floating IP with a fixed IP at creation time, you must specify the identifier of the internal port. If an internal port has multiple associated IP addresses, the service chooses the first IP address unless you explicitly define a fixed IP address in the fixed_ip_address parameter.',
+        ];
+    }
+
+    public function floatingIpAddressJson()
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'location'    => self::JSON,
+            'sentAs'      => 'floating_ip_address',
+            'description' => 'The floating IP address.',
+        ];
+    }
+
+    public function portIdJson()
+    {
+        return [
+            'type'        => self::STRING_TYPE,
+            'location'    => self::JSON,
+            'sentAs'      => 'port_id',
+            'description' => 'The UUID of the port.',
         ];
     }
 }

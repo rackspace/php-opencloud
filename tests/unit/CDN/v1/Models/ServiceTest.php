@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\CDN\v1\Models;
 
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\CDN\v1\Api;
 use Rackspace\CDN\v1\Models\Service;
 

@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Test\Monitoring\v1\Models;
 
-use OpenStack\Test\TestCase;
+use OpenCloud\Test\TestCase;
 use Rackspace\Monitoring\v1\Api;
 use Rackspace\Monitoring\v1\Models\Check;
 

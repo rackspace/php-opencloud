@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStore\v1;
 
@@ -9,7 +9,7 @@ class Api extends \OpenStack\ObjectStore\v1\Api
         $this->params = new Params();
     }
 
-    public function putAccount()
+    public function putAccount(): array
     {
         return [
             'method' => 'PUT',
@@ -22,7 +22,7 @@ class Api extends \OpenStack\ObjectStore\v1\Api
         ];
     }
 
-    public function deleteAccount()
+    public function deleteAccount(): array
     {
         return [
             'method' => 'DELETE',
@@ -33,7 +33,7 @@ class Api extends \OpenStack\ObjectStore\v1\Api
         ];
     }
 
-    public function postContainer()
+    public function postContainer(): array
     {
         $parent = parent::postContainer();
         $parent['params']['accessLogDelivery'] = $this->params->accessLogDelivery();

@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStoreCDN\v1;
 
 class Params extends \Rackspace\ObjectStore\v1\Params
 {
-    public function cdnEnabled()
+    public function cdnEnabled(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -14,7 +14,7 @@ class Params extends \Rackspace\ObjectStore\v1\Params
         ];
     }
 
-    public function cdnLogDelivery()
+    public function cdnLogDelivery(): array
     {
         return [
             'type'     => self::STRING_TYPE,
@@ -24,7 +24,7 @@ class Params extends \Rackspace\ObjectStore\v1\Params
         ];
     }
 
-    public function ttl()
+    public function ttl(): array
     {
         return [
             'type'     => self::INT_TYPE,

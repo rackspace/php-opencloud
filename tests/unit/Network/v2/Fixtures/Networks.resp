@@ -1,0 +1,36 @@
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+    "networks": [
+        {
+            "admin_state_up": true,
+            "id": "00000000-0000-0000-0000-000000000000",
+            "name": "public",
+            "shared": true,
+            "status": "ACTIVE",
+            "subnets": [],
+            "tenant_id": "rackspace"
+        },
+        {
+            "admin_state_up": true,
+            "id": "11111111-1111-1111-1111-111111111111",
+            "name": "private",
+            "shared": true,
+            "status": "ACTIVE",
+            "subnets": [],
+            "tenant_id": "rackspace"
+        },
+        {
+            "admin_state_up": true,
+            "id": "2993e407-5531-4ca8-9d2a-0d13b5cac904",
+            "name": "RackNet",
+            "shared": false,
+            "status": "ACTIVE",
+            "subnets": [
+                "017d8997-70ec-4448-91d9-a8097d6d60f3"
+            ],
+            "tenant_id": "123456"
+        }
+    ]
+}

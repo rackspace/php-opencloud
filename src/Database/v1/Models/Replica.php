@@ -1,11 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Database\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Creatable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Creatable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
 
 /**
  * Represents a Replica resource in the Database v1 service
@@ -80,7 +80,7 @@ class Replica extends AbstractResource implements Creatable, Listable, Retrievab
     /**
      * {@inheritDoc}
      */
-    public function create(array $userOptions)
+    public function create(array $userOptions): Creatable
     {
         $response = $this->execute($this->api->postReplica(), $userOptions);
         return $this->populateFromResponse($response);
@@ -92,6 +92,6 @@ class Replica extends AbstractResource implements Creatable, Listable, Retrievab
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getReplica());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

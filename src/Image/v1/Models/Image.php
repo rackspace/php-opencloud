@@ -1,12 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\Image\v1\Models;
 
-use OpenStack\Common\Resource\AbstractResource;
-use OpenStack\Common\Resource\Deletable;
-use OpenStack\Common\Resource\Listable;
-use OpenStack\Common\Resource\Retrievable;
-use OpenStack\Common\Resource\Updateable;
+use OpenCloud\Common\Resource\AbstractResource;
+use OpenCloud\Common\Resource\Deletable;
+use OpenCloud\Common\Resource\Listable;
+use OpenCloud\Common\Resource\Retrievable;
+use OpenCloud\Common\Resource\Updateable;
 
 /**
  * Represents a Image resource in the Image v1 service
@@ -252,7 +252,7 @@ class Image extends AbstractResource implements Updateable, Listable, Deletable,
     public function update()
     {
         $response = $this->executeWithState($this->api->putImage());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 
     /**
@@ -269,6 +269,6 @@ class Image extends AbstractResource implements Updateable, Listable, Deletable,
     public function retrieve()
     {
         $response = $this->executeWithState($this->api->getImage());
-        return $this->populateFromResponse($response);
+        $this->populateFromResponse($response);
     }
 }

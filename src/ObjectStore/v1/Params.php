@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Rackspace\ObjectStore\v1;
 
 class Params extends \OpenStack\ObjectStore\v1\Params
 {
-    public function extractArchive()
+    public function extractArchive(): array
     {
         return [
             'type'        => self::STRING_TYPE,
@@ -15,7 +15,7 @@ class Params extends \OpenStack\ObjectStore\v1\Params
         ];
     }
 
-    public function accessLogDelivery()
+    public function accessLogDelivery(): array
     {
         return [
             'type'     => self::STRING_TYPE,
