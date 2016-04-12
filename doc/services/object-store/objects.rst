@@ -525,7 +525,7 @@ Bulk delete a set of paths:
 
   $pathsToBeDeleted = array('/container_1/old_file', '/container_2/notes.txt', '/container_1/older_file.log');
 
-  $service->bulkDelete($pathsToBeDeleted);
+  $service->batchDelete($pathsToBeDeleted);
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/bulk-delete.php>`_
 
