@@ -31,7 +31,7 @@ $client = new Rackspace('{authUrl}', array(
 $objectStoreService = $client->objectStoreService(null, '{region}');
 
 // 3. Bulk delete objects and empty containers.
-$response = $objectStoreService->bulkDelete(array(
+$response = $objectStoreService->batchDelete(array(
     '{container1}/{objectName}',
     '{container2}/{objectName}',
     '{container3}'
