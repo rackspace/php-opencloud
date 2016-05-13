@@ -1,5 +1,5 @@
 {
-    "name": "rackspace/php-opencloud",
+    "name": "smoked/php-opencloud",
     "description": "PHP SDK for Rackspace/OpenStack APIs",
     "keywords": ["rackspace", "openstack", "opencloud", "swift", "nova"],
     "type": "library",
@@ -23,7 +23,7 @@
     },
     "require": {
         "php" : ">=5.4",
-        "guzzle/guzzle" : "~3.8",
+        "guzzle/guzzle" : "~3.7",
         "psr/log": "~1.0",
         "mikemccabe/json-patch-php": "~0.1"
     },
