@@ -23,7 +23,7 @@
     },
     "require": {
         "php" : ">=5.4",
-        "guzzle/guzzle" : "~3.8",
+        "guzzlehttp/guzzle" : "~3.8",
         "psr/log": "~1.0",
         "mikemccabe/json-patch-php": "~0.1"
     },
