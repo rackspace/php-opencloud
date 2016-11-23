@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Rackspace\Integration\ObjectStore;
+namespace Rackspace\Integration\ObjectStore\v1;
 
 use Rackspace\Integration\Utils;
 use Rackspace\Rackspace;
 
-class V1Test extends \OpenStack\Integration\ObjectStore\V1Test
+class CoreTest extends \OpenStack\Integration\ObjectStore\v1\CoreTest
 {
     private $service;
 

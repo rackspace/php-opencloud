@@ -2,7 +2,7 @@
 
 namespace Rackspace\Compute\v2;
 
-use OpenCloud\Common\Api\AbstractApi;
+use OpenStack\Common\Api\AbstractApi;
 
 class Api extends AbstractApi
 {

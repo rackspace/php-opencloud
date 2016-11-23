@@ -7,7 +7,7 @@ $rackspace = new Rackspace\Rackspace([
     'apiKey'   => '{apiKey}',
 ]);
 
-/** @var \Rackspace\ObjectStoreCDN\v1\Models\Object $object */
+/** @var \Rackspace\ObjectStoreCDN\v1\Models\RackspaceObject $object */
 $object = $rackspace->objectStoreCdnV1()
                     ->getContainer('{containerName}')
                     ->getObject('{objectName}');

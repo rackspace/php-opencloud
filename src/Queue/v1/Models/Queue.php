@@ -2,17 +2,17 @@
 
 namespace Rackspace\Queue\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
 
 /**
  * Represents a Queue resource in the Queue v1 service
  *
  * @property \Rackspace\Queue\v1\Api $api
  */
-class Queue extends AbstractResource implements Creatable, Listable, Deletable
+class Queue extends OperatorResource implements Creatable, Listable, Deletable
 {
     /**
      * @var string

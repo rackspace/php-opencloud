@@ -2,19 +2,19 @@
 
 namespace Rackspace\Orchestration\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Resource\Updateable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Updateable;
 
 /**
  * Represents a Stack resource in the Network v1 service
  *
  * @property \Rackspace\Network\v2\Api $api
  */
-class Stack extends AbstractResource implements Creatable, Updateable, Listable, Deletable, Retrievable
+class Stack extends OperatorResource implements Creatable, Updateable, Listable, Deletable, Retrievable
 {
     /**
      * @var array

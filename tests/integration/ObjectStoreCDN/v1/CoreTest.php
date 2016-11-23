@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Rackspace\Integration\ObjectStoreCDN;
+namespace Rackspace\Integration\ObjectStoreCDN\v1;
 
-use OpenCloud\Integration\TestCase;
+use OpenStack\Integration\TestCase;
 use Rackspace\Integration\Utils;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
-use Rackspace\ObjectStoreCDN\v1\Models\Object;
+use Rackspace\ObjectStoreCDN\v1\Models\RackspaceObject;
 use Rackspace\Rackspace;
 
-class V1Test extends TestCase
+class CoreTest extends TestCase
 {
     /** @var \Rackspace\ObjectStore\v1\Service */
     private $service;
@@ -99,9 +99,9 @@ class V1Test extends TestCase
         $container->createObject(['name' => $objectName]);
 
         $this->logStep('Get object from cache');
-        /** @var \Rackspace\ObjectStoreCDN\v1\Models\Object $object */
+        /** @var \Rackspace\ObjectStoreCDN\v1\Models\RackspaceObject $object */
         require_once $this->sampleFile($replacements, 'objects/get.php');
-        $this->assertInstanceOf(Object::class, $object);
+        $this->assertInstanceOf(RackspaceObject::class, $object);
 
         $this->logStep('Delete object from cache');
         require_once $this->sampleFile($replacements, 'objects/delete.php');

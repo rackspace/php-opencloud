@@ -2,19 +2,19 @@
 
 namespace Rackspace\DNS\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Resource\Updateable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Updateable;
 
 /**
  * Represents a PtrRecord resource in the DNS v1 service
  *
  * @property \Rackspace\DNS\v1\Api $api
  */
-class PtrRecord extends AbstractResource implements Creatable, Updateable, Listable, Deletable, Retrievable
+class PtrRecord extends OperatorResource implements Creatable, Updateable, Listable, Deletable, Retrievable
 {
     /**
      * @var string

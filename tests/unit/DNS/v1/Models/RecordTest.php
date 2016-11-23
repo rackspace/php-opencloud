@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\DNS\v1\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\DNS\v1\Api;
 use Rackspace\DNS\v1\Models\Record;
 

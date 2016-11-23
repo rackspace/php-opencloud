@@ -2,8 +2,8 @@
 
 namespace Rackspace\Monitoring\v1;
 
-use OpenCloud\Common\Resource\AbstractResource;
+use OpenStack\Common\Service\AbstractService;
 
-class Service extends AbstractResource
+class Service extends AbstractService
 {
 }

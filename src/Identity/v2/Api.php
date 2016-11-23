@@ -11,7 +11,7 @@ class Api extends \OpenStack\Identity\v2\Api
         $this->params = new Params();
     }
 
-    public function postToken(): array 
+    public function postToken(): array
     {
         return [
             'method' => 'POST',

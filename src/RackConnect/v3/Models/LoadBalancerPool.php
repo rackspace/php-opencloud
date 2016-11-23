@@ -2,16 +2,16 @@
 
 namespace Rackspace\RackConnect\v3\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a LoadBalancerPool resource in the RackConnect v3 service
  *
  * @property \Rackspace\RackConnect\v3\Api $api
  */
-class LoadBalancerPool extends AbstractResource implements Listable, Retrievable
+class LoadBalancerPool extends OperatorResource implements Listable, Retrievable
 {
     /**
      * @var string

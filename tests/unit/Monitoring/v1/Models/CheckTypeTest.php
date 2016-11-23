@@ -2,13 +2,12 @@
 
 namespace Rackspace\Test\Monitoring\v1\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Monitoring\v1\Api;
 use Rackspace\Monitoring\v1\Models\CheckType;
 
 class CheckTypeTest extends TestCase
 {
-
     private $checkType;
 
     public function setUp()

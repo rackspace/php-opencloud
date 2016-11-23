@@ -3,7 +3,7 @@
 namespace Rackspace\Test\Database\v1\Models;
 
 use Rackspace\Database\v1\Models\Flavor;
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Database\v1\Api;
 
 class FlavorTest extends TestCase

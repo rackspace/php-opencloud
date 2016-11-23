@@ -2,7 +2,7 @@
 
 namespace Rackspace\Integration;
 
-use OpenCloud\Integration\Runner as OpenStackRunner;
+use OpenStack\Integration\Runner as OpenStackRunner;
 
 class Runner extends OpenStackRunner
 {

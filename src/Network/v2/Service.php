@@ -2,7 +2,7 @@
 
 namespace Rackspace\Network\v2;
 
-use OpenCloud\Common\Resource\AbstractResource;
+use OpenStack\Common\Service\AbstractService;
 use Rackspace\Network\v2\Models\Network;
 use Rackspace\Network\v2\Models\Port;
 use Rackspace\Network\v2\Models\SecurityGroup;
@@ -11,7 +11,7 @@ use Rackspace\Network\v2\Models\Subnet;
 /**
  * @property \Rackspace\Network\v2\Api $api
  */
-class Service extends AbstractResource
+class Service extends AbstractService
 {
     private function network(array $info = []): Network
     {

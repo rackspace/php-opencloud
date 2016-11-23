@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\Database\v1\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Database\v1\Api;
 use Rackspace\Database\v1\Models\OnDemandBackup;
 

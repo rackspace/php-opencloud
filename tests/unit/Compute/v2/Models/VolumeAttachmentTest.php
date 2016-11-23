@@ -4,7 +4,7 @@ namespace Rackspace\Test\Compute\v2\Models;
 
 use GuzzleHttp\Psr7\Response;
 use Rackspace\Compute\v2\Api;
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Compute\v2\Models\VolumeAttachment;
 
 class VolumeAttachmentTest extends TestCase

@@ -2,8 +2,8 @@
 
 namespace Rackspace\Test\CDN\v1;
 
-use OpenCloud\Common\Service\AbstractService;
-use OpenCloud\Test\TestCase;
+use OpenStack\Common\Service\AbstractService;
+use OpenStack\Test\TestCase;
 use Rackspace\CDN\v1\Api;
 use Rackspace\CDN\v1\Service;
 

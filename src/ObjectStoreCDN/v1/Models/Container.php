@@ -4,17 +4,17 @@ namespace Rackspace\ObjectStoreCDN\v1\Models;
 
 use function GuzzleHttp\Psr7\uri_for;
 
-use OpenCloud\Common\HydratorStrategyTrait;
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\HydratorStrategyTrait;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 use OpenStack\ObjectStore\v1\Models\MetadataTrait;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * @property \Rackspace\ObjectStoreCDN\v1\Api $api
  */
-class Container extends AbstractResource implements Listable, Retrievable
+class Container extends OperatorResource implements Listable, Retrievable
 {
     use MetadataTrait, HydratorStrategyTrait;
 
@@ -54,7 +54,9 @@ class Container extends AbstractResource implements Listable, Retrievable
     {
         parent::populateFromArray($array);
 
-        $fn = function ($v) { return uri_for($v); };
+        $fn = function ($v) {
+            return uri_for($v);
+        };
 
         $this->set('cdn_enabled', 'cdnEnabled', $array);
         $this->set('log_retention', 'logRetention', $array);
@@ -91,7 +93,7 @@ class Container extends AbstractResource implements Listable, Retrievable
 
     public function getObject($name)
     {
-        return $this->model(Object::class, ['containerName' => $this->name, 'name' => $name]);
+        return $this->model(RackspaceObject::class, ['containerName' => $this->name, 'name' => $name]);
     }
 
     public function isCdnEnabled()

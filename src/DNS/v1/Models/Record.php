@@ -2,19 +2,19 @@
 
 namespace Rackspace\DNS\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Resource\Updateable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Updateable;
 
 /**
  * Represents a Record resource in the DNS v1 service
  *
  * @property \Rackspace\DNS\v1\Api $api
  */
-class Record extends AbstractResource implements Creatable, Updateable, Listable, Deletable, Retrievable
+class Record extends OperatorResource implements Creatable, Updateable, Listable, Deletable, Retrievable
 {
     /**
      * @var string
@@ -56,7 +56,7 @@ class Record extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function create(array $userOptions): Creatable
     {
-        $response = $this->execute($this->api->postRecord(), $userOptions);
+        $response = $this->execute($this->api->postRecords(), $userOptions);
         return $this->populateFromResponse($response);
     }
 
@@ -65,7 +65,7 @@ class Record extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function update()
     {
-        $response = $this->executeWithState($this->api->putRecord());
+        $response = $this->executeWithState($this->api->putRecords());
         $this->populateFromResponse($response);
     }
 
@@ -74,7 +74,7 @@ class Record extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteRecord());
+        $this->executeWithState($this->api->deleteRecords());
     }
 
     /**
@@ -82,7 +82,7 @@ class Record extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function retrieve()
     {
-        $response = $this->executeWithState($this->api->getRecord());
+        $response = $this->executeWithState($this->api->getRecords());
         $this->populateFromResponse($response);
     }
 }

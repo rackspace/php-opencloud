@@ -3,10 +3,10 @@
 namespace Rackspace\Test\ObjectStoreCDN\Models;
 
 use GuzzleHttp\Psr7\Response;
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\ObjectStoreCDN\v1\Api;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
-use Rackspace\ObjectStoreCDN\v1\Models\Object;
+use Rackspace\ObjectStoreCDN\v1\Models\RackspaceObject;
 
 class ContainerTest extends TestCase
 {
@@ -106,6 +106,6 @@ class ContainerTest extends TestCase
     public function test_it_retrieves_object()
     {
         $object = $this->container->getObject('foo');
-        $this->assertInstanceOf(Object::class, $object);
+        $this->assertInstanceOf(RackspaceObject::class, $object);
     }
 }

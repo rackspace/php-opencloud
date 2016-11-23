@@ -2,16 +2,16 @@
 
 namespace Rackspace\Monitoring\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Agent resource in the Monitoring v1 service
  *
  * @property \Rackspace\Monitoring\v1\Api $api
  */
-class Agent extends AbstractResource implements Listable, Retrievable
+class Agent extends OperatorResource implements Listable, Retrievable
 {
     /**
      * @var string

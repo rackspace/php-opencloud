@@ -2,16 +2,16 @@
 
 namespace Rackspace\CDN\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Flavor resource in the CDN v1 service
  *
  * @property \Rackspace\CDN\v1\Api $api
  */
-class Flavor extends AbstractResource implements Listable, Retrievable
+class Flavor extends OperatorResource implements Listable, Retrievable
 {
     /**
      * @var string

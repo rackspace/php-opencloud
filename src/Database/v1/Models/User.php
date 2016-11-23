@@ -2,18 +2,18 @@
 
 namespace Rackspace\Database\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Updateable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Updateable;
 
 /**
  * Represents a User resource in the Database v1 service
  *
  * @property \Rackspace\Database\v1\Api $api
  */
-class User extends AbstractResource implements Creatable, Updateable, Listable, Deletable
+class User extends OperatorResource implements Creatable, Updateable, Listable, Deletable
 {
     /**
      * @var array

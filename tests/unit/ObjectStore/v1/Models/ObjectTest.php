@@ -2,9 +2,9 @@
 
 namespace Rackspace\Test\ObjectStore\v1;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\ObjectStore\v1\Api;
-use Rackspace\ObjectStore\v1\Models\Object;
+use Rackspace\ObjectStore\v1\Models\RackspaceObject;
 
 class ObjectTest extends TestCase
 {
@@ -16,7 +16,7 @@ class ObjectTest extends TestCase
 
         $this->rootFixturesDir = dirname(__DIR__);
 
-        $this->object = new Object($this->client->reveal(), new Api());
+        $this->object = new RackspaceObject($this->client->reveal(), new Api());
     }
 
     public function test_extends_openstack()

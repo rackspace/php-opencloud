@@ -2,17 +2,17 @@
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
 
 /**
  * Represents a VirtualInterface resource in the Compute v2 service
  *
  * @property \Rackspace\Compute\v2\Api $api
  */
-class VirtualInterface extends AbstractResource implements Creatable, Listable, Deletable
+class VirtualInterface extends OperatorResource implements Creatable, Listable, Deletable
 {
     /**
      * @var string

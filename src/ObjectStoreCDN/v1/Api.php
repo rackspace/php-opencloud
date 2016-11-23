@@ -17,7 +17,7 @@ class Api extends \Rackspace\ObjectStore\v1\Api
         return $parent;
     }
 
-    public function postContainer(): array 
+    public function postContainer(): array
     {
         $parent = parent::postContainer();
         $parent['params']['cdnLogDelivery'] = $this->params->cdnLogDelivery();

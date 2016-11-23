@@ -2,7 +2,7 @@
 
 namespace Rackspace\Compute\v2;
 
-use OpenCloud\Common\Resource\AbstractResource;
+use OpenStack\Common\Service\AbstractService;
 use Rackspace\Compute\v2\Models\Image;
 use Rackspace\Compute\v2\Models\Keypair;
 use Rackspace\Compute\v2\Models\Network;
@@ -12,7 +12,7 @@ use Rackspace\Compute\v2\Models\Flavor;
 /**
  * @property \Rackspace\Compute\v2\Api $api
  */
-class Service extends AbstractResource
+class Service extends AbstractService
 {
     /**
      * Creates a server

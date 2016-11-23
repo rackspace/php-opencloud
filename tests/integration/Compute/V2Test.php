@@ -2,8 +2,8 @@
 
 namespace Rackspace\Integration\Compute;
 
-use OpenCloud\Integration\SampleManagerInterface;
-use OpenCloud\Integration\TestCase;
+use OpenStack\Integration\SampleManagerInterface;
+use Openstack\Integration\TestCase;
 use Psr\Log\LoggerInterface;
 use Rackspace\Compute\v2\Models\Flavor;
 use Rackspace\Compute\v2\Models\Image;

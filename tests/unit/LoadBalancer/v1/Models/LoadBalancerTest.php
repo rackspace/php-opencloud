@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\LoadBalancer\v1\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\LoadBalancer\v1\Api;
 use Rackspace\LoadBalancer\v1\Models\LoadBalancer;
 

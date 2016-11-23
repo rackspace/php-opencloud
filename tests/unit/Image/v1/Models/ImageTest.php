@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\Image\v1\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Image\v1\Api;
 use Rackspace\Image\v1\Models\Image;
 

@@ -2,7 +2,7 @@
 
 namespace Rackspace\Orchestration\v1;
 
-use OpenCloud\Common\Api\AbstractParams;
+use OpenStack\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {
@@ -906,6 +906,4 @@ class Params extends AbstractParams
             'sentAs'   => 'event_id',
         ];
     }
-
-
 }
