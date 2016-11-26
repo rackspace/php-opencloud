@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\Compute\v2\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Compute\v2\Api;
 use Rackspace\Compute\v2\Models\Flavor;
 

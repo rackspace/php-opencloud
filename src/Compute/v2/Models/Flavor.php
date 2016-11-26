@@ -2,17 +2,17 @@
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Transport\Utils;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Transport\Utils;
 
 /**
  * Represents a Flavor resource in the Compute v2 service
  *
  * @property \Rackspace\Compute\v2\Api $api
  */
-class Flavor extends AbstractResource implements Listable, Retrievable
+class Flavor extends OperatorResource implements Listable, Retrievable
 {
     /**
      * @var integer

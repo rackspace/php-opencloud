@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\Orchestration\v1;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Orchestration\v1\Api;
 use Rackspace\Orchestration\v1\Service;
 

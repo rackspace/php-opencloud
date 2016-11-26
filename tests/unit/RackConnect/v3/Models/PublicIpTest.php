@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\RackConnect\v3\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Network\v2\Api;
 use Rackspace\RackConnect\v3\Models\PublicIp;
 

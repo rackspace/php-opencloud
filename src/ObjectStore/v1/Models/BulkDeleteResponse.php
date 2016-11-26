@@ -2,7 +2,7 @@
 
 namespace Rackspace\ObjectStore\v1\Models;
 
-use OpenCloud\Common\Transport\Utils;
+use OpenStack\Common\Transport\Utils;
 use Psr\Http\Message\ResponseInterface;
 
 class BulkDeleteResponse

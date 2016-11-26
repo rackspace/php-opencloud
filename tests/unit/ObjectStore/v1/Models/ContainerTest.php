@@ -3,7 +3,7 @@
 namespace Rackspace\Test\ObjectStore\v1;
 
 use GuzzleHttp\Psr7\Response;
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\ObjectStore\v1\Api;
 use Rackspace\ObjectStore\v1\Models\Container;
 

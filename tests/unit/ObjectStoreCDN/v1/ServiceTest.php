@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\ObjectStoreCDN;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\ObjectStoreCDN\v1\Api;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
 use Rackspace\ObjectStoreCDN\v1\Service;

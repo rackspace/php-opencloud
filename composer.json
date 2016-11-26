@@ -16,7 +16,9 @@
     "autoload-dev": {
         "psr-4": {
             "Rackspace\\Test\\": "tests/unit/",
-            "Rackspace\\Integration\\": "tests/integration/"
+            "Rackspace\\Integration\\": "tests/integration/",
+            "OpenStack\\Test\\": "vendor/php-opencloud/openstack/tests/unit/",
+            "OpenStack\\Integration\\": "vendor/php-opencloud/openstack/tests/integration/"
         }
     },
     "repositories": [

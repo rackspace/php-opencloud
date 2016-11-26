@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\RackConnect\v3;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\RackConnect\v3\Api;
 use Rackspace\RackConnect\v3\Service;
 

@@ -2,7 +2,7 @@
 
 namespace Rackspace\ObjectStoreCDN\v1;
 
-use OpenCloud\Common\Service\AbstractService;
+use OpenStack\Common\Service\AbstractService;
 use Rackspace\ObjectStoreCDN\v1\Models\Container;
 
 class Service extends AbstractService

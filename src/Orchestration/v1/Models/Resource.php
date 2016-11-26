@@ -2,17 +2,17 @@
 
 namespace Rackspace\Orchestration\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Resource resource in the Network v1 service
  *
  * @property Rackspace\Network\v2\Api $api
  */
-class Resource extends AbstractResource implements Creatable, Listable, Retrievable
+class Resource extends OperatorResource implements Creatable, Listable, Retrievable
 {
     /**
      * @var object

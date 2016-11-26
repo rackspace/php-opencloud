@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\CDN\v1\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\CDN\v1\Api;
 use Rackspace\CDN\v1\Models\Service;
 

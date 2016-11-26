@@ -2,17 +2,17 @@
 
 namespace Rackspace\LoadBalancer\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a ErrorPage resource in the LoadBalancer v1 service
  *
  * @property \Rackspace\LoadBalancer\v1\Api $api
  */
-class ErrorPage extends AbstractResource implements Creatable, Deletable, Retrievable
+class ErrorPage extends OperatorResource implements Creatable, Deletable, Retrievable
 {
     /**
      * @var string

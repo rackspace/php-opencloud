@@ -2,16 +2,16 @@
 
 namespace Rackspace\Image\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\OperatorResource;
 
 /**
  * Represents a Tag resource in the Image v1 service
  *
  * @property \Rackspace\Image\v1\Api $api
  */
-class Tag extends AbstractResource implements Creatable, Deletable
+class Tag extends OperatorResource implements Creatable, Deletable
 {
     /**
      * {@inheritDoc}

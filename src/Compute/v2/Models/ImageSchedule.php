@@ -2,7 +2,7 @@
 
 namespace Rackspace\Compute\v2\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
+use OpenStack\Common\Resource\AbstractResource;
 
 /**
  * Represents an backup schedule for a parent server.

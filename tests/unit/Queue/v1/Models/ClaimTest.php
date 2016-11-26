@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\Queue\v1\Models;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Network\v2\Api;
 use Rackspace\Queue\v1\Models\Claim;
 

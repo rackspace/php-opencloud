@@ -2,17 +2,17 @@
 
 namespace Rackspace\Database\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Replica resource in the Database v1 service
  *
  * @property \Rackspace\Database\v1\Api $api
  */
-class Replica extends AbstractResource implements Creatable, Listable, Retrievable
+class Replica extends OperatorResource implements Creatable, Listable, Retrievable
 {
     /**
      * @var string

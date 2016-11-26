@@ -2,7 +2,7 @@
 
 namespace Rackspace\CDN\v1;
 
-use OpenCloud\Common\Api\AbstractParams;
+use OpenStack\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {

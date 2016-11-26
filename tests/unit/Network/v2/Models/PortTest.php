@@ -3,7 +3,7 @@
 namespace Rackspace\Test\Network\v2\Models;
 
 use GuzzleHttp\Psr7\Response;
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Network\v2\Api;
 use Rackspace\Network\v2\Models\Port;
 

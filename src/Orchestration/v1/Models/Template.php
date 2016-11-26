@@ -2,15 +2,15 @@
 
 namespace Rackspace\Orchestration\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Template resource in the Network v1 service
  *
  * @property \Rackspace\Network\v2\Api $api
  */
-class Template extends AbstractResource implements Retrievable
+class Template extends OperatorResource implements Retrievable
 {
     /**
      * @var string

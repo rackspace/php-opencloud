@@ -2,7 +2,7 @@
 
 namespace Rackspace\Queue\v1;
 
-use OpenCloud\Common\Api\AbstractParams;
+use OpenStack\Common\Api\AbstractParams;
 
 class Params extends AbstractParams
 {
@@ -205,6 +205,4 @@ class Params extends AbstractParams
             'location' => self::URL,
         ];
     }
-
-
 }

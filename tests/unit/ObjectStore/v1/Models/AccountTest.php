@@ -2,7 +2,7 @@
 
 namespace Rackspace\Test\ObjectStore\v1;
 
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\Identity\v2\Api;
 use Rackspace\ObjectStore\v1\Models\Account;
 

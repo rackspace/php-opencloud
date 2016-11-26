@@ -2,18 +2,18 @@
 
 namespace Rackspace\Image\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Resource\Updateable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Updateable;
 
 /**
  * Represents a Image resource in the Image v1 service
  *
  * @property \Rackspace\Image\v1\Api $api
  */
-class Image extends AbstractResource implements Updateable, Listable, Deletable, Retrievable
+class Image extends OperatorResource implements Updateable, Listable, Deletable, Retrievable
 {
     /**
      * @var string

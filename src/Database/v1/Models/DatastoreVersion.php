@@ -2,16 +2,17 @@
 
 namespace Rackspace\Database\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\AbstractResource;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a DatastoreVersion resource in the Database v1 service
  *
  * @property \Rackspace\Database\v1\Api $api
  */
-class DatastoreVersion extends AbstractResource implements Listable, Retrievable
+class DatastoreVersion extends OperatorResource implements Listable, Retrievable
 {
     /**
      * @var string

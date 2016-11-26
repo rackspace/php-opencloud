@@ -2,15 +2,15 @@
 
 namespace Rackspace\LoadBalancer\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
 
 /**
  * Represents a Statistics resource in the LoadBalancer v1 service
  *
  * @property \Rackspace\LoadBalancer\v1\Api $api
  */
-class Statistics extends AbstractResource implements Retrievable
+class Statistics extends OperatorResource implements Retrievable
 {
     /**
      * @var integer

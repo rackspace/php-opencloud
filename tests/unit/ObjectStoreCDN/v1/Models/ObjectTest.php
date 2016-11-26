@@ -3,9 +3,9 @@
 namespace Rackspace\Test\ObjectStoreCDN\Models;
 
 use GuzzleHttp\Psr7\Response;
-use OpenCloud\Test\TestCase;
+use OpenStack\Test\TestCase;
 use Rackspace\ObjectStoreCDN\v1\Api;
-use Rackspace\ObjectStoreCDN\v1\Models\Object;
+use Rackspace\ObjectStoreCDN\v1\Models\RackspaceObject;
 
 class ObjectTest extends TestCase
 {
@@ -18,7 +18,7 @@ class ObjectTest extends TestCase
 
         $this->rootFixturesDir = dirname(__DIR__);
 
-        $this->object = new Object($this->client->reveal(), new Api());
+        $this->object = new RackspaceObject($this->client->reveal(), new Api());
         $this->object->containerName = 'foo';
         $this->object->name = 'bar';
     }

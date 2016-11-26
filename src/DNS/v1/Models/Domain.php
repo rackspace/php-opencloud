@@ -2,19 +2,19 @@
 
 namespace Rackspace\DNS\v1\Models;
 
-use OpenCloud\Common\Resource\AbstractResource;
-use OpenCloud\Common\Resource\Creatable;
-use OpenCloud\Common\Resource\Deletable;
-use OpenCloud\Common\Resource\Listable;
-use OpenCloud\Common\Resource\Retrievable;
-use OpenCloud\Common\Resource\Updateable;
+use OpenStack\Common\Resource\Creatable;
+use OpenStack\Common\Resource\Deletable;
+use OpenStack\Common\Resource\Listable;
+use OpenStack\Common\Resource\OperatorResource;
+use OpenStack\Common\Resource\Retrievable;
+use OpenStack\Common\Resource\Updateable;
 
 /**
  * Represents a Domain resource in the DNS v1 service
  *
  * @property \Rackspace\DNS\v1\Api $api
  */
-class Domain extends AbstractResource implements Creatable, Updateable, Listable, Deletable, Retrievable
+class Domain extends OperatorResource implements Creatable, Updateable, Listable, Deletable, Retrievable
 {
     /**
      * @var string
@@ -71,7 +71,7 @@ class Domain extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function create(array $userOptions): Creatable
     {
-        $response = $this->execute($this->api->postDomain(), $userOptions);
+        $response = $this->execute($this->api->postDomains(), $userOptions);
         return $this->populateFromResponse($response);
     }
 
@@ -80,7 +80,7 @@ class Domain extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function update()
     {
-        $response = $this->executeWithState($this->api->putDomain());
+        $response = $this->executeWithState($this->api->putDomains());
         $this->populateFromResponse($response);
     }
 
@@ -89,7 +89,7 @@ class Domain extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function delete()
     {
-        $this->executeWithState($this->api->deleteDomain());
+        $this->executeWithState($this->api->deleteDomains());
     }
 
     /**
@@ -97,7 +97,7 @@ class Domain extends AbstractResource implements Creatable, Updateable, Listable
      */
     public function retrieve()
     {
-        $response = $this->executeWithState($this->api->getDomain());
+        $response = $this->executeWithState($this->api->getDomains());
         $this->populateFromResponse($response);
     }
 }
