@@ -45,6 +45,12 @@ class Rackspace extends OpenStack
     const US_IDENTITY_ENDPOINT = 'https://identity.api.rackspacecloud.com/v2.0/';
     const UK_IDENTITY_ENDPOINT = 'https://lon.identity.api.rackspacecloud.com/v2.0/';
 
+    public function __construct($url, array $secret, array $options)
+    {
+        parent::__construct($url, $secret, $options);
+        $this->fixCipher();
+    }
+
     /**
      * Generates Rackspace API key credentials
      * {@inheritDoc}
@@ -192,5 +198,17 @@ class Rackspace extends OpenStack
             'region'  => $region,
             'urlType' => $urltype
         ));
+    }
+
+    /**
+     * Fix cipher support in Debian Docker
+     *
+     * @return void
+     */
+    public function fixCipher()
+    {
+        $guzzle_config = array($this->getConfig());
+        $guzzle_config['curl.options'][CURLOPT_SSL_CIPHER_LIST] = 'ECDHE-RSA-AES256-GCM-SHA384';
+        $this->setConfig($guzzle_config);
     }
 }
