@@ -45,7 +45,7 @@ class Rackspace extends OpenStack
     const US_IDENTITY_ENDPOINT = 'https://identity.api.rackspacecloud.com/v2.0/';
     const UK_IDENTITY_ENDPOINT = 'https://lon.identity.api.rackspacecloud.com/v2.0/';
 
-    public function __construct($url, array $secret, array $options)
+    public function __construct($url, array $secret, array $options = array())
     {
         parent::__construct($url, $secret, $options);
         $this->fixCipher();
