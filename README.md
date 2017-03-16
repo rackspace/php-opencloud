@@ -1,8 +1,7 @@
 # php-opencloud
 
 > **OpenStack users are recommended to use https://github.com/php-opencloud/openstack, which
-> is the latest supported version of the SDK. This codebase which you are now looking at will
-> enter end-of-life soon. For Rackspace Cloud users, a v2 is actively being worked on.**
+> is the latest supported version of the SDK for OpenStack.
 
 [![Latest Stable Version](https://poser.pugx.org/rackspace/php-opencloud/v/stable.png)](https://packagist.org/packages/rackspace/php-opencloud) [![Travis CI](https://secure.travis-ci.org/rackspace/php-opencloud.png)](https://travis-ci.org/rackspace/php-opencloud) [![Total Downloads](https://poser.pugx.org/rackspace/php-opencloud/downloads.png)](https://packagist.org/packages/rackspace/php-opencloud)
 
