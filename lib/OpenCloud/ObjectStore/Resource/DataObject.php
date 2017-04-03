@@ -97,10 +97,8 @@ class DataObject extends AbstractResource
         parent::__construct($container->getService());
 
         // For pseudo-directories, we need to ensure the name is set
-        if (!empty($data->subdir)) {
-            $this->setName($data->subdir)->setDirectory(true);
-
-            return;
+        if (!empty($data->content_type) && $data->content_type == 'application/directory') {
+            $this->setDirectory(true);
         }
 
         $this->populate($data);
