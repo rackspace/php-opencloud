@@ -219,6 +219,8 @@ abstract class PersistentResource extends BaseResource
         foreach ($this->createKeys as $key) {
             if (null !== ($property = $this->getProperty($key))) {
                 $element->{$this->getAlias($key)} = $this->recursivelyAliasPropertyValue($property);
+            } elseif ($key == 'gatewayIp') {
+                $element->{$this->getAlias($key)} = null;
             }
         }
 
