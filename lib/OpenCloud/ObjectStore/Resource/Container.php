@@ -446,7 +446,7 @@ class Container extends AbstractContainer
         $entityBody = EntityBody::factory($data);
 
         $url = clone $this->getUrl();
-        $url->addPath($name);
+        $url->addPath(urlencode($name));
 
         // @todo for new major release: Return response rather than populated DataObject
 
