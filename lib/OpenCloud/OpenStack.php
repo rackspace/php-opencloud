@@ -425,7 +425,7 @@ class OpenStack extends Client
         return array(
             'token'      => $this->getToken(),
             'expiration' => $this->getExpiration(),
-            'tenant'     => $this->getTenant(),
+            'tenantObj'  => $this->getTenantObject(),
             'catalog'    => $this->getCatalog()
         );
     }
@@ -444,7 +444,12 @@ class OpenStack extends Client
         if (!empty($values['expiration'])) {
             $this->setExpiration($values['expiration']);
         }
-        if (!empty($values['tenant'])) {
+        if (!empty($values['tenantObj'])) {
+            $this->setTenantObject($values['tenantObj']);
+        }
+        else if (!empty($values['tenant']))
+        {
+            // Backwards compatibility with the previous credential format that only stored the tenant ID
             $this->setTenant($values['tenant']);
         }
         if (!empty($values['catalog'])) {

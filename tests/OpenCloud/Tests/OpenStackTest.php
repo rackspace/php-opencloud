@@ -134,10 +134,16 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 
     public function test_Import_Credentials()
     {
+        $tenant = new \OpenCloud\Identity\Resource\Tenant($this->client->identityService());
+        $tenant->setId(654321);
+        $tenant->setName('{name}');
+        $tenant->setDescription('{description}');
+        $tenant->setEnabled(true);
+
         $this->client->importCredentials(array(
             'token'      => '{token}',
             'expiration' => '{expiration}',
-            'tenant'     => '{tenant}',
+            'tenantObj'  => $tenant,
             'catalog'    => array(
                 (object)array(
                     'endpoints' => array(
@@ -155,7 +161,12 @@ class OpenStackTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('{token}', $this->client->getToken());
         $this->assertEquals('{expiration}', $this->client->getExpiration());
-        $this->assertEquals('{tenant}', $this->client->getTenant());
+
+        $importedTenant = $this->client->getTenantObject();
+        $this->assertEquals($tenant->getId(), $importedTenant->getId());
+        $this->assertEquals($tenant->getName(), $importedTenant->getName());
+        $this->assertEquals($tenant->getDescription(), $importedTenant->getDescription());
+        $this->assertEquals($tenant->getEnabled(), $importedTenant->getEnabled());
     }
 
     public function test_Import_Credentials_Numeric_Tenant()
