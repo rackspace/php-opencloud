@@ -102,7 +102,8 @@ class CertificateMapping extends PersistentResource
      *
      * @var array|object $values
      */
-    protected function setCertificateMapping($values) {
+    protected function setCertificateMapping($values)
+    {
         $this->populate($values);
     }
 }
