@@ -93,4 +93,17 @@ class CertificateMapping extends PersistentResource
 
         return $object;
     }
+
+    /**
+     * Sets properties from array || object of $values
+     *
+     * Used by LoadBalancer::certificateMappingList's paginated iterator
+     * to return CertificateMappings with a valid id and hostname
+     *
+     * @var array|object $values
+     */
+    protected function setCertificateMapping($values)
+    {
+        $this->populate($values);
+    }
 }
