@@ -19,7 +19,9 @@ namespace OpenCloud\ObjectStore\Resource;
 
 use Guzzle\Http\Message\Response;
 use OpenCloud\Common\Base;
+use OpenCloud\Common\Http\Client;
 use OpenCloud\Common\Service\ServiceInterface;
+use OpenCloud\ObjectStore\Service;
 
 /**
  * Abstract base class which implements shared functionality of ObjectStore
@@ -36,7 +38,7 @@ abstract class AbstractResource extends Base
     /** @var string The FQCN of the metadata object used for the container. */
     protected $metadataClass = 'OpenCloud\\Common\\Metadata';
 
-    /** @var \OpenCloud\Common\Service\ServiceInterface The service object. */
+    /** @var Service The service object. */
     protected $service;
 
     public function __construct(ServiceInterface $service)
@@ -230,7 +232,7 @@ abstract class AbstractResource extends Base
     /**
      * To delete or unset a particular metadata item.
      *
-     * @param $key Metadata key to unset
+     * @param string $key Metadata key to unset
      * @return Response HTTP response returned from API operation to unset metadata item.
      */
     public function unsetMetadataItem($key)
