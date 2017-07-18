@@ -453,9 +453,9 @@ class Container extends AbstractContainer
         $response = $this->getClient()->put($url, $headers, $entityBody)->send();
 
         return $this->dataObject()
+            ->setContent($entityBody)
             ->populateFromResponse($response)
-            ->setName($name)
-            ->setContent($entityBody);
+            ->setName($name);
     }
 
     /**
@@ -524,9 +524,9 @@ class Container extends AbstractContainer
             $dataObjects = array();
             foreach ($responses as $index => $response) {
                 $dataObjects[] = $this->dataObject()
+                               ->setContent($entities[$index])
                                ->populateFromResponse($response)
-                               ->setName($files[$index]['name'])
-                               ->setContent($entities[$index]);
+                               ->setName($files[$index]['name']);
             }
             return $dataObjects;
         }
