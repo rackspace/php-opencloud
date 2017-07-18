@@ -37,26 +37,20 @@ $objects = $container->objectList();
 
 // 5. Create a list of all objects in the container
 $containerObjects = array();
-$marker = '';
+$latestFilename = '';
+$batchCount = null;
 
-while ($marker !== null) {
+while ($batchCount !== 0) {
     $params = array(
-        'marker' => $marker,
+        'marker' => $latestFilename,
     );
 
     $objects = $container->objectList($params);
-    $total = $objects->count();
-    $count = 0;
-
-    if ($total == 0) {
-        break;
-    }
+    $batchCount = $objects->count();
 
     foreach ($objects as $object) {
-        /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
-        $containerObjects[] = $object->getName();
-        $count++;
-
-        $marker = ($count == $total) ? $object->getName() : null;
+        /** @var $object \OpenCloud\ObjectStore\Resource\DataObject **/
+        $latestFilename = $object->getName();
+        $containerObjects[] = $latestFilename;
     }
 }
