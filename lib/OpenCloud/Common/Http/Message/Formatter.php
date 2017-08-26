@@ -28,6 +28,9 @@ class Formatter
     {
         if (strpos($response->getHeader(Header::CONTENT_TYPE), Mime::JSON) !== false) {
             $string = (string) $response->getBody();
+            if ('' === $string) {
+                return null;
+            }
             $response = json_decode($string);
             self::checkJsonError($string);
 
