@@ -82,7 +82,6 @@ abstract class CatalogService extends AbstractService
         $this->name = $name ? : static::DEFAULT_NAME;
         $this->region = $region;
 
-        $this->region = $region;
         if ($this->regionless !== true && !$this->region) {
             throw new Exceptions\ServiceException(sprintf(
                 'The %s service must have a region set. You can either pass in a region string as an argument param, or'
