@@ -106,4 +106,23 @@ class CertificateMapping extends PersistentResource
     {
         $this->populate($values);
     }
+
+    /**
+     * Sets returned certificateMapping property to individual CertificateMapping fields
+     * @var array|object $data
+     */
+    protected function setCertificateMapping($data)
+    {
+       foreach($this->createKeys as $key) {
+           if(is_object($data)) {
+               if(isset($data->{$key})) {
+                   $this->setProperty($key, $data->{$key});
+               }
+           } else {
+               if (isset($data[$key])) {
+                   $this->setProperty($key, $data[$key]);
+               }
+           }
+       }
+    }
 }
