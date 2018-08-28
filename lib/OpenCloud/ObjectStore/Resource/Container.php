@@ -436,8 +436,8 @@ class Container extends AbstractContainer
     /**
      * Upload a single file to the API.
      *
-     * @param       $name    Name that the file will be saved as in your container.
-     * @param       $data    Either a string or stream representation of the file contents to be uploaded.
+     * @param       $name    name that the file will be saved as in your container.
+     * @param       $data    either a string or stream representation of the file contents to be uploaded.
      * @param array $headers Optional headers that will be sent with the request (useful for object metadata).
      * @return DataObject
      */
