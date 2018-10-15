@@ -41,7 +41,7 @@ class KeyPair extends PersistentObject
 
     public function setName($name)
     {
-        if (preg_match('#[^\w\d\s-_]#', $name) || strlen($name) > 255) {
+        if (preg_match('#[^\w\d\s\-_]#', $name) || strlen($name) > 255) {
             throw new InvalidArgumentError(sprintf(
                 'The key name may not exceed 255 characters. It can contain the'
                 . ' following characters: alphanumeric, spaces, dashes and'
