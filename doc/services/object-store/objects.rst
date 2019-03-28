@@ -185,30 +185,48 @@ the built-in paging which uses a 'marker' parameter to fetch the next page of da
 
 .. code-block:: php
 
-    $containerObjects = array();
-    $marker = '';
+        $objectsInContainer = array();
+        $marker             = '';
 
-    while ($marker !== null) {
-        $params = array(
-            'marker' => $marker,
-        );
+        /* At the end of the code this is available to compare with the web GUI number.
+         *  it is not functionally required.
+         */
+        $totalInContainer = 0;
 
-        $objects = $container->objectList($params);
-        $total = $objects->count();
-        $count = 0;
+        while (true)
+        {
+            /* The 'marker' entry in the array parameter of objectList
+             *  holds the name of an object
+             *  which lies just before where we want to start in the container,
+             *  and an empty string means start at the beginning.
+             */
+            $moreObjects = $container->objectList(array('marker' => $marker));
 
-        if ($total == 0) {
-            break;
+            /* We exit this loop if the container was exhausted by the previous
+             *  objectList() call, so the current one has nothing more for us.
+             * Which will also work immediately for a completely empty container.
+             */
+
+            /* Neither count() nor empty() seem to be a reliable test here. */
+            if ( ! isset($moreObjects[0]))
+            {
+                break;    /* The only way out of the loop. */
+            }
+
+            foreach ($moreObjects as $object)
+            {
+                /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
+
+                $objectsInContainer[] = $object;
+                $totalInContainer++;
+
+                /* If we wanted to save time, we could count the contents of the array
+                 *  and only do this assignment for the final entry.
+                 * However the counting itself takes time, and makes the code more complex.
+                 */
+                $marker = $object->getName();
+            }
         }
-
-        foreach ($objects as $object) {
-            /** @var $object OpenCloud\ObjectStore\Resource\DataObject **/
-            $containerObjects[] = $object->getName();
-            $count++;
-
-            $marker = ($count == $total) ? $object->getName() : null;
-        }
-    }
 
 `Get the executable PHP script for this example <https://raw.githubusercontent.com/rackspace/php-opencloud/master/samples/ObjectStore/list-objects-over-10000.php>`_
 
