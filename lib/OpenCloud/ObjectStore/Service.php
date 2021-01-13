@@ -164,7 +164,7 @@ class Service extends AbstractService
      * @throws \OpenCloud\Common\Exceptions\InvalidArgumentError if specifed `$archiveType` is invalid
      * @throws Exception\BulkOperationException if there are errors with the bulk extract
      */
-    public function bulkExtract($path = '', $archive, $archiveType = UrlType::TAR_GZ)
+    public function bulkExtract($path, $archive, $archiveType = UrlType::TAR_GZ)
     {
         $entity = EntityBody::factory($archive);
 
