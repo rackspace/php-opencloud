@@ -369,13 +369,13 @@ class DataObject extends AbstractResource
      * @param string $destination Path (`container/object') of new object
      * @return \Guzzle\Http\Message\Response
      */
-    public function copy($destination)
+    public function copy($destination, array $headers = array())
     {
+        $headers = array_merge($headers, array('Destination' => (string) $destination));
+
         return $this->getService()
             ->getClient()
-            ->createRequest('COPY', $this->getUrl(), array(
-                'Destination' => (string) $destination
-            ))
+            ->createRequest('COPY', $this->getUrl(), $headers)
             ->send();
     }
 
